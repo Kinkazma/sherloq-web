@@ -51,3 +51,5 @@ The changed lifecycle and workspace test files were also rerun independently in 
 ## Example images
 
 Examples illustrate how tools can be read, not a promise of identical output across every release. The batch process uses the shipped web engine, its model assets and its presentation routines directly. Computation preserves each input's dimensions. Preview scaling belongs to the gallery, not to detector preprocessing. Input, method, settings, engine version and output hashes identify each generated example. Browser screenshots and upstream desktop screenshots are labeled separately.
+
+The completed gallery contains 24 recorded examples and 38 rendered outputs. The previously timed-out D2PRL and complete-analysis runs now finish; all five automatic branches report done, with no recorded errors. The microscopy Forgeryscope run detects 16 panels, evaluates 23 pairs and accepts 5 geometric correspondences. Input/output hashes, decoded dimensions and local gallery links were checked. [Gallery checks](evidence/example-gallery-checks.json). These are illustrative runs, not a performance benchmark or a general accuracy study.

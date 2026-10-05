@@ -1,0 +1,459 @@
+{
+  "job": {
+    "id": "spiral-d2prl",
+    "input": "examples/spiral/edited.png",
+    "operation": "ai.clones.d2prl",
+    "params": {
+      "minimum": 8
+    },
+    "backend": "auto"
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "553502317e35b0ddde3a4b51e38f28e75f4915f2324dba0fd5a104b1a6d6570f",
+      "rawRgbSha256": "c2d0c6209494ef208db3deb4b80f56b0da6e4801d83ea3fc1d46f3e4913c49ed"
+    },
+    {
+      "file": "overlay.png",
+      "view": "probability-overlay",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "05e41689efcb9a08ddae29631546aabc607d11cc6fa87e74a5596b924cf44283",
+      "rawRgbSha256": "f3ff4f2bb998b06cd6a667179416ef3cea518537bf03ba2309992b14c289b237"
+    }
+  ],
+  "result": {
+    "id": "spiral-d2prl",
+    "imageId": "source",
+    "operation": "ai.clones.d2prl",
+    "status": "ok",
+    "data": {
+      "width": 1254,
+      "height": 1254,
+      "metadata": {
+        "boxes": [
+          [
+            0,
+            0,
+            1254,
+            1254
+          ]
+        ],
+        "zones": [
+          {
+            "id": "whole-image",
+            "bounds": [
+              0,
+              0,
+              1254,
+              1254
+            ],
+            "origin": [
+              0,
+              0
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 8,
+            "role_filter": 50,
+            "kind": "whole-image",
+            "decision": {
+              "overlap": 6.729226727983399e-20,
+              "threshold": 3.1074188361346344e-13,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 106110,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 769,
+                "reuses": 763,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 1069,
+                "networkBytes": 521570456,
+                "committedBytes": 521570456,
+                "cacheHits": 37,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 1069,
+                "reuses": 1066,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 8,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "53a7ac19c873520607b97bc605d4d9394e8f161d160d514093d0c284ae511a37",
+        "resultId": "d2prl-session-1:1",
+        "analysisId": "d2prl-session-1:1",
+        "revision": 1,
+        "sourceProvenance": {
+          "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              1254,
+              1254
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "arrayLayout": "segmented; readPlane/readMask windows or streamed NPZ export"
+    },
+    "semantics": "Union probability map and exact native union/target/source masks. Target/source are residual-sign roles, not class probabilities. Overlapping passes give one model vote.",
+    "layers": [
+      {
+        "id": "probability",
+        "kind": "scalar",
+        "surfaceId": "bf246a8d-9e5f-45eb-8a53-866bb953d8c5",
+        "width": 1254,
+        "height": 1254,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "target",
+        "kind": "scalar",
+        "semantics": "Binary residual-sign role, not a probability",
+        "surfaceId": "8779523f-a4dc-4e41-89b9-54a198119819",
+        "width": 1254,
+        "height": 1254,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "source",
+        "kind": "scalar",
+        "semantics": "Binary residual-sign role, not a probability",
+        "surfaceId": "eac0cc12-19b6-4df0-86c6-b09deb32cb9b",
+        "width": 1254,
+        "height": 1254,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "union",
+        "kind": "mask",
+        "surfaceId": "2181d1d8-aa7c-4579-8cf5-168646fd8a2e",
+        "width": 1254,
+        "height": 1254,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "analyzed",
+        "kind": "mask",
+        "surfaceId": "3014b8e6-3317-48f1-a00b-201009e39a06",
+        "width": 1254,
+        "height": 1254,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "candidates",
+        "kind": "mask",
+        "surfaceId": "7a9846fb-1060-417a-a64e-880aacf43b02",
+        "width": 1254,
+        "height": 1254,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "ai.clones.d2prl",
+      "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "params": {
+        "minimum": 8,
+        "exclusions": []
+      },
+      "regions": [
+        {
+          "id": "whole-image",
+          "kind": "whole-image",
+          "bounds": [
+            0,
+            0,
+            1254,
+            1254
+          ]
+        }
+      ],
+      "model": {
+        "bytes": 1173784,
+        "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+      },
+      "backend": "webgpu-convolutions-wasm",
+      "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+      "layout": "segmented"
+    },
+    "metrics": {
+      "totalMs": 440773.1700000167,
+      "inferences": 1,
+      "cache": {
+        "rawGrids": 0
+      },
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 7597495320,
+        "retainedBytes": 28379016,
+        "cacheBytes": 2408448,
+        "activeReservationBytes": 961651808,
+        "peakAccountedBytes": 2245439564,
+        "activeRecoveries": 0
+      },
+      "projection": {
+        "totalMs": 206.48500001430511,
+        "projectionMs": 91.24000000953674,
+        "compositionMs": 65.43999999761581,
+        "postprocessMs": 105.80000001192093,
+        "blocks": 8,
+        "metadataBytes": 73728,
+        "storage": {
+          "map": "memory",
+          "mask": "memory",
+          "target": "memory",
+          "source": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        "resultBytes": 23587740
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "bf246a8d-9e5f-45eb-8a53-866bb953d8c5",
+      "revision": 1,
+      "width": 1254,
+      "height": 1254,
+      "format": "float32",
+      "semantics": "Native union probability; source-coordinate projection.",
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "planeSurfaces": {
+      "map": {
+        "id": "bf246a8d-9e5f-45eb-8a53-866bb953d8c5",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "float32",
+        "semantics": "Native union probability; source-coordinate projection.",
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "target": {
+        "id": "8779523f-a4dc-4e41-89b9-54a198119819",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "float32",
+        "semantics": "Native target plane; semantics recorded in analysis metadata.",
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "source": {
+        "id": "eac0cc12-19b6-4df0-86c6-b09deb32cb9b",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "float32",
+        "semantics": "Native source plane; semantics recorded in analysis metadata.",
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      }
+    },
+    "maskSurfaces": {
+      "mask": {
+        "id": "2181d1d8-aa7c-4579-8cf5-168646fd8a2e",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native mask support in source coordinates.",
+        "sourceWidth": 1254,
+        "sourceHeight": 1254,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "analyzed": {
+        "id": "3014b8e6-3317-48f1-a00b-201009e39a06",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native analyzed support in source coordinates.",
+        "sourceWidth": 1254,
+        "sourceHeight": 1254,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "candidates": {
+        "id": "7a9846fb-1060-417a-a64e-880aacf43b02",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native candidates support in source coordinates.",
+        "sourceWidth": 1254,
+        "sourceHeight": 1254,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      }
+    }
+  },
+  "presentation": {
+    "overlay": "Yellow (230,170,30), opacity 0.7 times the saved 8-bit probability display / 255. Display only, no binary threshold or recomputation.",
+    "sourceDisplaySha256": "553502317e35b0ddde3a4b51e38f28e75f4915f2324dba0fd5a104b1a6d6570f"
+  }
+}

@@ -21,5 +21,15 @@ if(!pixels&&job.operation==='ela.energy'){const {renderEnergy}=await import('../
 if(!pixels)throw Error('No raster output: '+JSON.stringify(summary(r)));
 const output=png(pixels);await fs.writeFile(path.join(dir,'result.png'),output);
 const evidence={job,date:'2026-10-05',runtime:'Direct Node.js execution of the same web engine and its native WASM kernels; CPU single worker',engine:'0.35.0-export.2',sourceSha256:hash(source),sourceDimensions:[loaded.width,loaded.height],outputDimensions:[pixels.width,pixels.height],outputSha256:hash(output),rawRgbSha256:hash(pixels.data),elapsedMs:performance.now()-start,result:summary(r)};
+if(job.operation==='pixels.defects')evidence.candidates=Array.from(r.data.candidates);
+if(job.energyLayers&&job.operation==='ela.energy'){
+ evidence.outputs=[{file:'result.png',width:pixels.width,height:pixels.height,sha256:hash(output),rawRgbSha256:hash(pixels.data)}];
+ for(const [index,field] of ['energy_low_score','energy_high_score'].entries()){
+  const values=r.data[field],data=new Uint8Array(values.length*3);for(let i=0;i<values.length;i++)data[i*3]=Math.max(0,Math.min(255,Math.round(values[i]*255)));
+  const map={width:r.data.width,height:r.data.height,format:'rgb8',data},bytes=png(map),name='view-'+(index+1)+'.png';await fs.writeFile(path.join(dir,name),bytes);
+  evidence.outputs.push({file:name,field,width:map.width,height:map.height,sha256:hash(bytes),rawRgbSha256:hash(data)});
+ }
+ evidence.presentation={energyScores:'Red channel: round(score * 255), clamped to 0–255; same scale as automatic-client.js. Not a probability.'};
+}
 await fs.writeFile(path.join(dir,'result.json'),JSON.stringify(evidence,null,2)+'\n');console.log(JSON.stringify({id:job.id,status:r.status,elapsedMs:evidence.elapsedMs,output:dir}));
 }catch(e){await fs.writeFile(path.join(dir,'error.json'),JSON.stringify({job,error:{name:e.name,code:e.code,message:e.message,stack:e.stack}},null,2)+'\n');console.error(job.id,e);process.exitCode=1;}finally{await engine.dispose();}

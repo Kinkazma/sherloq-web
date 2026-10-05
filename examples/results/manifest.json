@@ -4,6 +4,50 @@
   "scope": "Illustrative direct-engine outputs; not accuracy certification. Preview reductions are display-only.",
   "examples": [
     {
+      "id": "microscopy-forgeryscope-auto",
+      "operation": "forgeryscope.auto.component",
+      "input": "examples/microscopy/input.png",
+      "inputSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        3226,
+        936
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": "mask",
+          "width": 3226,
+          "height": 936,
+          "sha256": "9f604402f6ed693df896fcbfb78bf07c14b87a7fb1d7d1710af3ad92ecdffeb2",
+          "rawRgbSha256": "3eb7c5ed793c7a795df1e6e30295954f38e0e7105537602d4cdd8bb8a94ac06c",
+          "preview": "preview.png",
+          "previewSha256": "c6fb3bf9a848193c1d427a3c81ed22bd56cf2035c885eeca800d68c40cc59181"
+        },
+        {
+          "file": "view-1.png",
+          "view": "candidates",
+          "width": 3226,
+          "height": 936,
+          "sha256": "a699413f48f2b9ed092b552e30ee3f056b3c16a7c493b75e899c7108370b7a54",
+          "rawRgbSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+          "preview": "preview-view-1.png",
+          "previewSha256": "17a747786ee709b7923835295c7b97b41c90acca616c9c771d8a16fea5d7ca85"
+        },
+        {
+          "file": "view-2.png",
+          "view": "geometric",
+          "width": 3226,
+          "height": 936,
+          "sha256": "9f604402f6ed693df896fcbfb78bf07c14b87a7fb1d7d1710af3ad92ecdffeb2",
+          "rawRgbSha256": "3eb7c5ed793c7a795df1e6e30295954f38e0e7105537602d4cdd8bb8a94ac06c",
+          "preview": "preview-view-2.png",
+          "previewSha256": "c6fb3bf9a848193c1d427a3c81ed22bd56cf2035c885eeca800d68c40cc59181"
+        }
+      ],
+      "recordSha256": "4d32737860389a1ceb8dbd0a02d6be350354cd7d48c20685ebc2fa76ad14a211"
+    },
+    {
       "id": "spiral-adaifl",
       "operation": "ai.localization.adaifl",
       "input": "examples/spiral/edited.png",
@@ -116,6 +160,64 @@
       "recordSha256": "66a0a54058dbee4278adce1f66b3587d6711d184f7b5166ae748f57aeb55abdc"
     },
     {
+      "id": "spiral-complete-automatic",
+      "operation": "analysis.complete",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "75cc13a97ebc4abc8a76de7d1b1f568ea91d47e11f547166efa9b67b40e0e6d2",
+          "rawRgbSha256": "ade6efb41c7575dd4f4b721c9993f3bf6d31c535168cbe942a0ae1fde9abf37b",
+          "preview": "result.png",
+          "previewSha256": "75cc13a97ebc4abc8a76de7d1b1f568ea91d47e11f547166efa9b67b40e0e6d2"
+        }
+      ],
+      "recordSha256": "3d35ec1f7e57afb29a0fe52fe447d8f136585ec4f24fac644ac7f60d4360600c"
+    },
+    {
+      "id": "spiral-d2prl",
+      "operation": "ai.clones.d2prl",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "553502317e35b0ddde3a4b51e38f28e75f4915f2324dba0fd5a104b1a6d6570f",
+          "rawRgbSha256": "c2d0c6209494ef208db3deb4b80f56b0da6e4801d83ea3fc1d46f3e4913c49ed",
+          "preview": "result.png",
+          "previewSha256": "553502317e35b0ddde3a4b51e38f28e75f4915f2324dba0fd5a104b1a6d6570f"
+        },
+        {
+          "file": "overlay.png",
+          "view": "probability-overlay",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "05e41689efcb9a08ddae29631546aabc607d11cc6fa87e74a5596b924cf44283",
+          "rawRgbSha256": "f3ff4f2bb998b06cd6a667179416ef3cea518537bf03ba2309992b14c289b237",
+          "preview": "overlay.png",
+          "previewSha256": "05e41689efcb9a08ddae29631546aabc607d11cc6fa87e74a5596b924cf44283"
+        }
+      ],
+      "recordSha256": "3f84c203fc3287c40629d96748ca15e6f95312f618bfcc9314dce4adc7ae98a8"
+    },
+    {
       "id": "spiral-ela-energy",
       "operation": "ela.energy",
       "input": "examples/spiral/edited.png",
@@ -137,6 +239,49 @@
         }
       ],
       "recordSha256": "b894ba4fc37aa1cc9a8756fa068558b510088a4c44f01caab53cd068979580f8"
+    },
+    {
+      "id": "spiral-ela-layers",
+      "operation": "ela.energy",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "f3ac74699cc284a84b4a1f609f7afedf7ea13f756d4aa50ce8f5fa5cdf2836ea",
+          "rawRgbSha256": "c4b6d4d617b3e9bb809aecaed2b15aed4b2da22027c630e9a37303095a6dd256",
+          "preview": "result.png",
+          "previewSha256": "f3ac74699cc284a84b4a1f609f7afedf7ea13f756d4aa50ce8f5fa5cdf2836ea"
+        },
+        {
+          "file": "view-1.png",
+          "field": "energy_low_score",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "a86c474705b6194efc56ef06b02d478f202452acbc107eef10a942bbff830edc",
+          "rawRgbSha256": "8b65ec4129437c9b9e3cfc176282f6a1c434139691f9790d6620f9f9966d411f",
+          "preview": "view-1.png",
+          "previewSha256": "a86c474705b6194efc56ef06b02d478f202452acbc107eef10a942bbff830edc"
+        },
+        {
+          "file": "view-2.png",
+          "field": "energy_high_score",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "e1dbddc4c0be11d0fbdb6f94528ae18b3899988e08f250fad685c6102703b7ec",
+          "rawRgbSha256": "1fd3bfb381c94a50eec290bd2616d2c6bc96cb3e7d5283324d7d0cb714303b1d",
+          "preview": "view-2.png",
+          "previewSha256": "e1dbddc4c0be11d0fbdb6f94528ae18b3899988e08f250fad685c6102703b7ec"
+        }
+      ],
+      "recordSha256": "8e60cd54c099a74c37b477aabff9a06f5ac9f325b8d54b22153737f12924e35f"
     },
     {
       "id": "spiral-focal",
@@ -258,6 +403,50 @@
       "recordSha256": "1015f2430858d038c29a39e3d1ac6adee399eb74eda4f3dcedf2999be6538070"
     },
     {
+      "id": "spiral-trufor",
+      "operation": "m2.trufor",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": "map",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "df4a650157dff1c2fe63e9df66c8f458fda8c48cfb69a13926edc17f5bd01296",
+          "rawRgbSha256": "d77faccacff97ceb7f64907891355e0531840dccac7537f5ea57d5177f1d2b80",
+          "preview": "result.png",
+          "previewSha256": "df4a650157dff1c2fe63e9df66c8f458fda8c48cfb69a13926edc17f5bd01296"
+        },
+        {
+          "file": "view-1.png",
+          "view": "confidence",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "5fe73c98e1bcd3ce60c99719af10f3d484fcf1a20a7455ce135eb8e87e7e0d3b",
+          "rawRgbSha256": "3ca35173c14a0bec124d4387e164bf72f2fe0a63d1b1a96b3920e5c4d2394d8f",
+          "preview": "view-1.png",
+          "previewSha256": "5fe73c98e1bcd3ce60c99719af10f3d484fcf1a20a7455ce135eb8e87e7e0d3b"
+        },
+        {
+          "file": "view-2.png",
+          "view": "noiseprint_pp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "82f2fc895d5de17e39466673cd86d56568324dafe8d7eb7b8212e14161352878",
+          "rawRgbSha256": "cebc89286aa43e3b109fae7366f7a6fa5ffaeb6d9467d2089785326541e22aa2",
+          "preview": "view-2.png",
+          "previewSha256": "82f2fc895d5de17e39466673cd86d56568324dafe8d7eb7b8212e14161352878"
+        }
+      ],
+      "recordSha256": "51285fae5904d7034b3739b3e0834918e2ce8ec7ee9c2e1616a8e2ab8803541c"
+    },
+    {
       "id": "spiral-zero",
       "operation": "jpeg.zero",
       "input": "examples/spiral/edited.png",
@@ -343,9 +532,18 @@
           "rawRgbSha256": "1e388e11b4882ff388bac16fe7f6b268bcfc05d4de7dcce5f12b23e5508762a0",
           "preview": "preview.png",
           "previewSha256": "fae224481c353e70de7568012be1e95987ef14e191aa0012b0b3e43909c64c9b"
+        },
+        {
+          "file": "details.png",
+          "width": 780,
+          "height": 1871,
+          "sha256": "75ccadfe3649e4fe98fc5cdf1f1ad535a53cffdafc69fca3d1c1f2716d0f3082",
+          "rawRgbSha256": "b14a4e12fdfe632f0ab3e986e14306f3b9552a95d78019bde04078bdc445d383",
+          "preview": "preview-details.png",
+          "previewSha256": "dd7e178311cb3f9ba2d7c30cdb413031284e41df5eb6eb82bf3e484fc928ce34"
         }
       ],
-      "recordSha256": "b2ab14a1445d72566bf46f81b1a1ffbabf7b23f316f0b33d186577f0631df07e"
+      "recordSha256": "b08b0d43e86914dfb4ce2e157fcad04ebbb976e13c24befa9ff7109752be3f6e"
     },
     {
       "id": "street-ela-energy",
@@ -394,6 +592,29 @@
       "recordSha256": "e7b33c6b5f67c4498079a4af4c5d97bcf6fcc5627107dbdb77367c66588a6870"
     },
     {
+      "id": "street-multiple-compression",
+      "operation": "jpeg.multiple",
+      "input": "examples/street/original.jpg",
+      "inputSha256": "9b97fa1e07b6c74c20a2151c0998a100b3eb04864a8b6e3349b354486853262d",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        4387,
+        3510
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 1618,
+          "height": 940,
+          "sha256": "5bccfbb00e52e0bad36beacdb11bbf10d6be9a4af25ee2bf613711e5e8530f62",
+          "rawRgbSha256": "46db43ce7b9c55f4f5bb3431a0eb0f085474ff9a19bd46d34dc2befa8333efff",
+          "preview": "preview.png",
+          "previewSha256": "330aa13eaaefef8682450e2c593eb47027530bc1b6109f50ab352517165b1d3e"
+        }
+      ],
+      "recordSha256": "6a5339da703cf6cb442e97223f74dd3feb486a6c34f78a253bda380d5bdcf012"
+    },
+    {
       "id": "street-noisesniffer",
       "operation": "noise.noisesniffer",
       "input": "examples/street/edited.png",
@@ -416,6 +637,29 @@
         }
       ],
       "recordSha256": "00f77273e60054b33424ac3181356b5a73b73a780cd49ddd914e3fbc97f86cf5"
+    },
+    {
+      "id": "street-recompression",
+      "operation": "jpeg.recompression",
+      "input": "examples/street/original.jpg",
+      "inputSha256": "9b97fa1e07b6c74c20a2151c0998a100b3eb04864a8b6e3349b354486853262d",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        4387,
+        3510
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 1618,
+          "height": 940,
+          "sha256": "dc1194b35ea6137bf0bb88cde97067254dc54153dda2e8963c233694cfd80a73",
+          "rawRgbSha256": "68ad091b9541a409cd93bb19181f16fe737b65f6c73ad6f22a105273eee3074c",
+          "preview": "preview.png",
+          "previewSha256": "ea036b30693e5ab822909b28578a02d7e6f21653436cd2162b7584b28223ee7d"
+        }
+      ],
+      "recordSha256": "3af59e8ec1c5fcc498c0a4d7e6884cf6cb7d4c03644dde462c6e1edc790b344f"
     },
     {
       "id": "street-sift-g2nn",

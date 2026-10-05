@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-05",
+  "engine": "0.35.0-export.2",
+  "examples": 24,
+  "renderedOutputs": 38,
+  "checks": [
+    "Every input file SHA-256 matches its run record",
+    "Every full-size PNG decodes and matches its recorded dimensions, encoded SHA-256 and RGB SHA-256",
+    "Every gallery link resolves locally",
+    "Every example file is below 100,000,000 bytes",
+    "All expandable sections are balanced"
+  ],
+  "automaticAnalysis": {
+    "states": {
+      "patchmatch": "done",
+      "sift": "done",
+      "forgeryscope": "done",
+      "d2prl": "done",
+      "ela": "done"
+    },
+    "errors": {},
+    "attempts": {
+      "patchmatch": 1,
+      "sift": 1,
+      "forgeryscope": 1,
+      "d2prl": 1,
+      "ela": 1
+    },
+    "completed": [
+      "patchmatch",
+      "sift",
+      "forgeryscope",
+      "d2prl",
+      "ela"
+    ],
+    "running": [],
+    "resumable": [],
+    "preflightExecutions": 0
+  },
+  "forgeryscope": {
+    "detectedPanels": 16,
+    "candidatePairs": 23,
+    "testedPairs": 23,
+    "acceptedPairs": 5
+  },
+  "scope": "Illustrative execution and output integrity. Does not establish universal detector accuracy or a cross-device benchmark."
+}

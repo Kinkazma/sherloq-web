@@ -1,0 +1,379 @@
+{
+  "job": {
+    "id": "spiral-ela-layers",
+    "input": "examples/spiral/edited.png",
+    "operation": "ela.energy",
+    "params": {},
+    "energyLayers": true
+  },
+  "date": "2026-10-05",
+  "runtime": "Direct Node.js execution of the same web engine and its native WASM kernels; CPU single worker",
+  "engine": "0.35.0-export.2",
+  "sourceSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputDimensions": [
+    1254,
+    1254
+  ],
+  "outputSha256": "f3ac74699cc284a84b4a1f609f7afedf7ea13f756d4aa50ce8f5fa5cdf2836ea",
+  "rawRgbSha256": "c4b6d4d617b3e9bb809aecaed2b15aed4b2da22027c630e9a37303095a6dd256",
+  "elapsedMs": 43328.221458,
+  "result": {
+    "id": "spiral-ela-layers",
+    "imageId": "source",
+    "operation": "ela.energy",
+    "status": "ok",
+    "data": {
+      "width": 1254,
+      "height": 1254,
+      "energy_planes": {
+        "type": "Float32Array",
+        "length": 4717548,
+        "sha256": "4d5eeed94884e9fe35b438b4da4e485ddb35306b3e85967ca1bc2861a97c595b"
+      },
+      "energy_low_score": {
+        "type": "Float32Array",
+        "length": 1572516,
+        "sha256": "e1f983c54fdfb7bdfd2fcfe4798d7e475504ba3bf59f087364a68faa40deac2b"
+      },
+      "energy_high_score": {
+        "type": "Float32Array",
+        "length": 1572516,
+        "sha256": "ec88fbddf53ecfd692fffdc901564580099142d14a81a847d4fa0f11431a8288"
+      },
+      "energy_scope": {
+        "type": "Int32Array",
+        "length": 1572516,
+        "sha256": "4ab77130a705e457493922e1255ff2410e2250b3b4a07a2aa94e671a70976dff"
+      },
+      "energy_summary": [
+        {
+          "id": 1,
+          "bbox": [
+            0,
+            0,
+            1254,
+            1254
+          ],
+          "probes": [
+            {
+              "q10": 1.40620165348053,
+              "q90": 7.853858680725099,
+              "central_mean": 4.622003555297852,
+              "central_variance": 1.5304452180862427,
+              "low_mean": 1.0785847902297974,
+              "low_variance": 0.04553002864122391,
+              "high_mean": 8.321941375732422,
+              "high_variance": 0.18518364429473877
+            },
+            {
+              "q10": 1.3419167184829712,
+              "q90": 7.082836627960205,
+              "central_mean": 4.277997970581055,
+              "central_variance": 1.1974153518676758,
+              "low_mean": 1.0459694862365723,
+              "low_variance": 0.04183458536863327,
+              "high_mean": 7.476196765899658,
+              "high_variance": 0.12639115750789642
+            },
+            {
+              "q10": 1.1928351259231569,
+              "q90": 6.120286331176759,
+              "central_mean": 3.8280773162841797,
+              "central_variance": 0.843165397644043,
+              "low_mean": 0.925527811050415,
+              "low_variance": 0.030166547745466232,
+              "high_mean": 6.442326068878174,
+              "high_variance": 0.08727806806564331
+            }
+          ]
+        }
+      ],
+      "energy_labels": {
+        "type": "Int32Array",
+        "length": 1572516,
+        "sha256": "65ce39f4bba7eb7abfa4cc2dda1b81a4f6dd2cd3a82a56a6cf10e848a7bbbcca"
+      },
+      "regions": [
+        {
+          "id": 1,
+          "kind": "low",
+          "energy_region": 1,
+          "components": 2,
+          "cells": 35,
+          "bbox": [
+            1018,
+            557,
+            236,
+            354
+          ],
+          "score": 5.061706066131592,
+          "strong_pixels": 18322,
+          "dominant_descriptor": "energy_low",
+          "sources": [
+            "Low ELA energy"
+          ]
+        }
+      ],
+      "regionColors": [
+        {
+          "id": 1,
+          "rgb": [
+            137,
+            73,
+            242
+          ]
+        }
+      ],
+      "metadata": {
+        "method": "ela_energy",
+        "version": 1,
+        "quality": 75,
+        "quality_origin": "fallback_no_usable_jpeg_tables",
+        "table_deviation": null,
+        "qualities": [
+          70,
+          75,
+          80
+        ],
+        "requested_block": 32,
+        "block": 32,
+        "image_shape": [
+          1254,
+          1254
+        ],
+        "valid_shape": [
+          1248,
+          1248
+        ],
+        "regions": [
+          {
+            "id": 1,
+            "kind": "low",
+            "energy_region": 1,
+            "components": 2,
+            "cells": 35,
+            "bbox": [
+              1018,
+              557,
+              236,
+              354
+            ],
+            "score": 5.061706066131592,
+            "strong_pixels": 18322,
+            "dominant_descriptor": "energy_low",
+            "sources": [
+              "Low ELA energy"
+            ]
+          }
+        ],
+        "energy": {
+          "enabled": true,
+          "kind": "descriptive_energy_contrast",
+          "probability": false,
+          "reference": "per_detected_panel_trimmed_mean",
+          "quantiles": [
+            0.01,
+            0.99
+          ],
+          "thresholds": [
+            5,
+            5
+          ],
+          "profile": "standard",
+          "automatic": null,
+          "panels": [
+            {
+              "id": 1,
+              "bbox": [
+                0,
+                0,
+                1254,
+                1254
+              ],
+              "probes": [
+                {
+                  "q10": 1.40620165348053,
+                  "q90": 7.853858680725099,
+                  "central_mean": 4.622003555297852,
+                  "central_variance": 1.5304452180862427,
+                  "low_mean": 1.0785847902297974,
+                  "low_variance": 0.04553002864122391,
+                  "high_mean": 8.321941375732422,
+                  "high_variance": 0.18518364429473877
+                },
+                {
+                  "q10": 1.3419167184829712,
+                  "q90": 7.082836627960205,
+                  "central_mean": 4.277997970581055,
+                  "central_variance": 1.1974153518676758,
+                  "low_mean": 1.0459694862365723,
+                  "low_variance": 0.04183458536863327,
+                  "high_mean": 7.476196765899658,
+                  "high_variance": 0.12639115750789642
+                },
+                {
+                  "q10": 1.1928351259231569,
+                  "q90": 6.120286331176759,
+                  "central_mean": 3.8280773162841797,
+                  "central_variance": 0.843165397644043,
+                  "low_mean": 0.925527811050415,
+                  "low_variance": 0.030166547745466232,
+                  "high_mean": 6.442326068878174,
+                  "high_variance": 0.08727806806564331
+                }
+              ]
+            }
+          ],
+          "window": 7,
+          "log_scale": 0.2,
+          "energy_floor": 0.25,
+          "quality_confirmation": "median",
+          "segmentation": "pixel_hysteresis_half_threshold",
+          "grouping": "reference_panel_and_energy_class",
+          "minimum_strong_pixels": 1024
+        }
+      }
+    },
+    "layers": [
+      {
+        "id": "energy-low",
+        "kind": "scalar",
+        "field": "data.energy_low_score",
+        "origin": [
+          0,
+          0
+        ],
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "id": "energy-high",
+        "kind": "scalar",
+        "field": "data.energy_high_score",
+        "origin": [
+          0,
+          0
+        ],
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "id": "energy-regions",
+        "kind": "labels",
+        "field": "data.energy_labels",
+        "origin": [
+          0,
+          0
+        ],
+        "width": 1254,
+        "height": 1254
+      }
+    ],
+    "semantics": "Descriptive low/high JPEG residual energy relative to each detected panel. Scores are not probabilities or attribution of editing. Exact pixel support may be disconnected. Legacy peer biomes, background and Ghost corroboration are separate operations.",
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "ela.energy",
+      "params": {
+        "quality": 0,
+        "block": 32,
+        "minimum": 3,
+        "profile": "standard",
+        "histogramLow": 10,
+        "histogramHigh": 990,
+        "shadow": 50,
+        "highlight": 50
+      },
+      "backend": "cpu",
+      "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "decode": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      },
+      "native": "core/ela_biomes.py energy path + ela_energy.py + ela_energy_auto.py; original-byte JPEG tables",
+      "kernelParity": "51 complete native original-byte energy paths exact through real API workers in Chrome/Firefox/WebKit; 84 preparation,624 mask,512 colour and scientific-profile corpora. Three useful JPEG workers at1MP, cache/NPZ/cancellation verified. Energy-only; no legacy peer biomes or complete analysis.",
+      "semantics": "Descriptive low/high JPEG residual energy relative to each detected panel. Scores are not probabilities or attribution of editing. Exact pixel support may be disconnected. Legacy peer biomes, background and Ghost corroboration are separate operations."
+    },
+    "metrics": {
+      "totalMs": 40062.045542,
+      "cache": {
+        "result": false,
+        "stages": {
+          "energy-planes/75": false,
+          "energy-plane/70": false,
+          "energy-plane/75": false,
+          "energy-plane/80": false,
+          "energy-scores/75/0.01/0.99": false,
+          "energy-panels": false
+        }
+      },
+      "kernel": "ela-energy-reference",
+      "workers": 1,
+      "energyRecompressions": 3,
+      "energyCodecMs": 3693.7210000000014,
+      "energyPrimitivesMs": 2031.3223739999994,
+      "energyPreparationMs": 30357.232999999997,
+      "energyProfileMs": 0,
+      "energySegmentationMs": 3901.7355830000015,
+      "energyPanelDetections": 1,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "policyAvailableBytes": 4186026363,
+        "retainedBytes": 8283163,
+        "cacheBytes": 100657770,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 294013437,
+        "activeRecoveries": 0,
+        "codecHeapCapacityBytes": 50331648,
+        "hdf5HeapCapacityBytes": 0,
+        "medianHeapCapacityBytes": 0,
+        "qualityHeapCapacityBytes": 0,
+        "resamplingHeapCapacityBytes": 0,
+        "cloningHeapCapacityBytes": 0
+      }
+    }
+  },
+  "outputs": [
+    {
+      "file": "result.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "f3ac74699cc284a84b4a1f609f7afedf7ea13f756d4aa50ce8f5fa5cdf2836ea",
+      "rawRgbSha256": "c4b6d4d617b3e9bb809aecaed2b15aed4b2da22027c630e9a37303095a6dd256"
+    },
+    {
+      "file": "view-1.png",
+      "field": "energy_low_score",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "a86c474705b6194efc56ef06b02d478f202452acbc107eef10a942bbff830edc",
+      "rawRgbSha256": "8b65ec4129437c9b9e3cfc176282f6a1c434139691f9790d6620f9f9966d411f"
+    },
+    {
+      "file": "view-2.png",
+      "field": "energy_high_score",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "e1dbddc4c0be11d0fbdb6f94528ae18b3899988e08f250fad685c6102703b7ec",
+      "rawRgbSha256": "1fd3bfb381c94a50eec290bd2616d2c6bc96cb3e7d5283324d7d0cb714303b1d"
+    }
+  ],
+  "presentation": {
+    "energyScores": "Red channel: round(score * 255), clamped to 0–255; same scale as automatic-client.js. Not a probability."
+  }
+}

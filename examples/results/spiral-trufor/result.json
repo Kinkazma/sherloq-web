@@ -1,0 +1,1089 @@
+{
+  "job": {
+    "id": "spiral-trufor",
+    "input": "examples/spiral/edited.png",
+    "operation": "m2.trufor",
+    "params": {},
+    "backend": "auto"
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": "map",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "df4a650157dff1c2fe63e9df66c8f458fda8c48cfb69a13926edc17f5bd01296",
+      "rawRgbSha256": "d77faccacff97ceb7f64907891355e0531840dccac7537f5ea57d5177f1d2b80"
+    },
+    {
+      "file": "view-1.png",
+      "view": "confidence",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "5fe73c98e1bcd3ce60c99719af10f3d484fcf1a20a7455ce135eb8e87e7e0d3b",
+      "rawRgbSha256": "3ca35173c14a0bec124d4387e164bf72f2fe0a63d1b1a96b3920e5c4d2394d8f"
+    },
+    {
+      "file": "view-2.png",
+      "view": "noiseprint_pp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "82f2fc895d5de17e39466673cd86d56568324dafe8d7eb7b8212e14161352878",
+      "rawRgbSha256": "cebc89286aa43e3b109fae7366f7a6fa5ffaeb6d9467d2089785326541e22aa2"
+    }
+  ],
+  "result": {
+    "id": "spiral-trufor",
+    "imageId": "source",
+    "operation": "m2.trufor",
+    "status": "ok",
+    "data": {
+      "width": 1254,
+      "height": 1254,
+      "segmented": true,
+      "score": 0.20843547582626343,
+      "metadata": {
+        "method": "trufor",
+        "rgbDivisor": 256,
+        "imgsize": [
+          1254,
+          1254
+        ],
+        "coordinateSpace": "source-pixels",
+        "attention": "global",
+        "threshold": null,
+        "storage": "lossless segmented float32",
+        "statisticsPooling": "complete image; float64 reduction accumulator"
+      },
+      "source": {
+        "dimensions": {
+          "id": "6948af62-6756-4d0f-a3e0-3f149502a57d",
+          "revision": 1,
+          "width": 1254,
+          "height": 1254,
+          "format": "rgb8",
+          "sourceWidth": 1254,
+          "sourceHeight": 1254,
+          "orientation": 1,
+          "coordinates": "full-resolution",
+          "storage": "memory"
+        },
+        "provenance": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            1254,
+            1254
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "metrics": {
+          "decodeMs": 1616.7649999856949,
+          "rowsPerChunk": 32,
+          "passes": 1,
+          "encodedReadCalls": 14,
+          "encodedReadBytes": 3565615,
+          "codecHeapCapacityBytes": 16777216,
+          "codecHeapMaximumBytes": 33554432,
+          "workingReservationBytes": 42063424,
+          "storage": "memory",
+          "temporaryBackend": null,
+          "temporaryFallback": null,
+          "temporaryBytes": 0,
+          "originalBlobBytes": 3565615,
+          "originalBlobResidency": "browser-managed; not measured as zero RAM"
+        }
+      },
+      "provenance": {
+        "originalSourceSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+        "sourceSurfaceIdentity": "6948af62-6756-4d0f-a3e0-3f149502a57d/1",
+        "checkpointSha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+        "provider": "webgpu",
+        "qualification": "segmented native graph; see dimension-specific proof"
+      },
+      "metrics": {
+        "cache": {
+          "result": false
+        },
+        "execution": {
+          "noiseprint": [
+            {
+              "rect": [
+                375,
+                0,
+                375,
+                375
+              ],
+              "milliseconds": 4565.185000002384,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 218103808,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                0,
+                0,
+                375,
+                375
+              ],
+              "milliseconds": 5048.295000016689,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 218103808,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                750,
+                0,
+                375,
+                375
+              ],
+              "milliseconds": 5540.579999983311,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 218103808,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                1125,
+                0,
+                129,
+                375
+              ],
+              "milliseconds": 5736.75,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 134217728,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                0,
+                375,
+                375,
+                375
+              ],
+              "milliseconds": 6237.004999995232,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 218103808,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                375,
+                375,
+                375,
+                375
+              ],
+              "milliseconds": 6765.264999985695,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 234881024,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                750,
+                375,
+                375,
+                375
+              ],
+              "milliseconds": 7294.930000007153,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 234881024,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                1125,
+                750,
+                129,
+                375
+              ],
+              "milliseconds": 2445.3450000286102,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 218103808,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                1125,
+                375,
+                129,
+                375
+              ],
+              "milliseconds": 7685.800000011921,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 150994944,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                0,
+                1125,
+                375,
+                129
+              ],
+              "milliseconds": 2328.5199999809265,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 218103808,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                375,
+                1125,
+                375,
+                129
+              ],
+              "milliseconds": 2312.235000014305,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 218103808,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                750,
+                1125,
+                375,
+                129
+              ],
+              "milliseconds": 2001.929999947548,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 218103808,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                1125,
+                1125,
+                129,
+                129
+              ],
+              "milliseconds": 1541.7599999904633,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 134217728,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                0,
+                750,
+                375,
+                375
+              ],
+              "milliseconds": 8805.460000038147,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 218103808,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                375,
+                750,
+                375,
+                375
+              ],
+              "milliseconds": 9332.574999988079,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 234881024,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            },
+            {
+              "rect": [
+                750,
+                750,
+                375,
+                375
+              ],
+              "milliseconds": 5267.564999997616,
+              "preflightExecutions": 0,
+              "memoryMaximumBytes": 234881024,
+              "provider": "webgpu",
+              "workers": 1,
+              "threads": 1,
+              "threadReconfigured": false,
+              "cpuGranted": 0,
+              "gpuGranted": 1,
+              "reusedInputBytes": 0,
+              "copiedOutputBytes": 0
+            }
+          ],
+          "encoder": {
+            "length": 140
+          },
+          "decoder": [
+            {
+              "name": "decode_head-project1",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 4862.8599999547005,
+              "maximumMemoryBytes": 100663296,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "decode_head-project2",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 13122.709999799728,
+              "maximumMemoryBytes": 100663296,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "decode_head-project3",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 870.8999997973442,
+              "maximumMemoryBytes": 100663296,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "decode_head-project4",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 11193.07999998331,
+              "maximumMemoryBytes": 100663296,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "decode_head-fuse",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 12740.150000214577,
+              "maximumMemoryBytes": 134217728,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "decode_head_conf-project1",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 15736.324999690056,
+              "maximumMemoryBytes": 100663296,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "decode_head_conf-project2",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 10634.055000066757,
+              "maximumMemoryBytes": 100663296,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "decode_head_conf-project3",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 10633.379999935627,
+              "maximumMemoryBytes": 100663296,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "decode_head_conf-project4",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 19610.164999961853,
+              "maximumMemoryBytes": 100663296,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "decode_head_conf-fuse",
+              "provider": "webgpu",
+              "calls": 79,
+              "milliseconds": 16773.339999973774,
+              "maximumMemoryBytes": 134217728,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "final-window",
+              "provider": "webgpu",
+              "calls": 5,
+              "milliseconds": 1223.5900000929832,
+              "maximumMemoryBytes": 117440512,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            },
+            {
+              "name": "image-score",
+              "provider": "webgpu",
+              "calls": 1,
+              "milliseconds": 1011.8599999547005,
+              "maximumMemoryBytes": 100663296,
+              "preflightExecutions": 0,
+              "reusedInputBytes": 0
+            }
+          ],
+          "storage": {
+            "backend": "opfs",
+            "reservedBytes": 0,
+            "peakReservedBytes": 29134336,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "physicalFiles": 0,
+            "maximumPhysicalFileBytes": 1073741824
+          }
+        },
+        "memory": {
+          "budgetBytes": 8518108180,
+          "policyAvailableBytes": 8492423288,
+          "retainedBytes": 23587740,
+          "cacheBytes": 0,
+          "activeReservationBytes": 2097152,
+          "peakAccountedBytes": 8517646185,
+          "activeRecoveries": 0
+        },
+        "preflightExecutions": 0
+      }
+    },
+    "provenance": {
+      "originalSourceSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "sourceSurfaceIdentity": "6948af62-6756-4d0f-a3e0-3f149502a57d/1",
+      "checkpointSha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+      "provider": "webgpu",
+      "qualification": "segmented native graph; see dimension-specific proof"
+    },
+    "metrics": {
+      "cache": {
+        "result": false
+      },
+      "execution": {
+        "noiseprint": [
+          {
+            "rect": [
+              375,
+              0,
+              375,
+              375
+            ],
+            "milliseconds": 4565.185000002384,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 218103808,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              0,
+              0,
+              375,
+              375
+            ],
+            "milliseconds": 5048.295000016689,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 218103808,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              750,
+              0,
+              375,
+              375
+            ],
+            "milliseconds": 5540.579999983311,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 218103808,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              1125,
+              0,
+              129,
+              375
+            ],
+            "milliseconds": 5736.75,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 134217728,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              0,
+              375,
+              375,
+              375
+            ],
+            "milliseconds": 6237.004999995232,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 218103808,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              375,
+              375,
+              375,
+              375
+            ],
+            "milliseconds": 6765.264999985695,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 234881024,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              750,
+              375,
+              375,
+              375
+            ],
+            "milliseconds": 7294.930000007153,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 234881024,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              1125,
+              750,
+              129,
+              375
+            ],
+            "milliseconds": 2445.3450000286102,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 218103808,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              1125,
+              375,
+              129,
+              375
+            ],
+            "milliseconds": 7685.800000011921,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 150994944,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              0,
+              1125,
+              375,
+              129
+            ],
+            "milliseconds": 2328.5199999809265,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 218103808,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              375,
+              1125,
+              375,
+              129
+            ],
+            "milliseconds": 2312.235000014305,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 218103808,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              750,
+              1125,
+              375,
+              129
+            ],
+            "milliseconds": 2001.929999947548,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 218103808,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              1125,
+              1125,
+              129,
+              129
+            ],
+            "milliseconds": 1541.7599999904633,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 134217728,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              0,
+              750,
+              375,
+              375
+            ],
+            "milliseconds": 8805.460000038147,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 218103808,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              375,
+              750,
+              375,
+              375
+            ],
+            "milliseconds": 9332.574999988079,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 234881024,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              750,
+              750,
+              375,
+              375
+            ],
+            "milliseconds": 5267.564999997616,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 234881024,
+            "provider": "webgpu",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 0,
+            "gpuGranted": 1,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          }
+        ],
+        "encoder": {
+          "length": 140
+        },
+        "decoder": [
+          {
+            "name": "decode_head-project1",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 4862.8599999547005,
+            "maximumMemoryBytes": 100663296,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "decode_head-project2",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 13122.709999799728,
+            "maximumMemoryBytes": 100663296,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "decode_head-project3",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 870.8999997973442,
+            "maximumMemoryBytes": 100663296,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "decode_head-project4",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 11193.07999998331,
+            "maximumMemoryBytes": 100663296,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "decode_head-fuse",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 12740.150000214577,
+            "maximumMemoryBytes": 134217728,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "decode_head_conf-project1",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 15736.324999690056,
+            "maximumMemoryBytes": 100663296,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "decode_head_conf-project2",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 10634.055000066757,
+            "maximumMemoryBytes": 100663296,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "decode_head_conf-project3",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 10633.379999935627,
+            "maximumMemoryBytes": 100663296,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "decode_head_conf-project4",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 19610.164999961853,
+            "maximumMemoryBytes": 100663296,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "decode_head_conf-fuse",
+            "provider": "webgpu",
+            "calls": 79,
+            "milliseconds": 16773.339999973774,
+            "maximumMemoryBytes": 134217728,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "final-window",
+            "provider": "webgpu",
+            "calls": 5,
+            "milliseconds": 1223.5900000929832,
+            "maximumMemoryBytes": 117440512,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          },
+          {
+            "name": "image-score",
+            "provider": "webgpu",
+            "calls": 1,
+            "milliseconds": 1011.8599999547005,
+            "maximumMemoryBytes": 100663296,
+            "preflightExecutions": 0,
+            "reusedInputBytes": 0
+          }
+        ],
+        "storage": {
+          "backend": "opfs",
+          "reservedBytes": 0,
+          "peakReservedBytes": 29134336,
+          "estimatedAvailableBytes": 10737418240,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": null,
+          "openFiles": 0,
+          "physicalFiles": 0,
+          "maximumPhysicalFileBytes": 1073741824
+        }
+      },
+      "memory": {
+        "budgetBytes": 8518108180,
+        "policyAvailableBytes": 8492423288,
+        "retainedBytes": 23587740,
+        "cacheBytes": 0,
+        "activeReservationBytes": 2097152,
+        "peakAccountedBytes": 8517646185,
+        "activeRecoveries": 0
+      },
+      "preflightExecutions": 0
+    },
+    "m2Result": {
+      "id": 1,
+      "method": "trufor",
+      "width": 1254,
+      "height": 1254,
+      "fields": {
+        "map": {
+          "type": "Float32Array",
+          "length": 1572516,
+          "byteLength": 6290064,
+          "storage": "memory"
+        },
+        "confidence": {
+          "type": "Float32Array",
+          "length": 1572516,
+          "byteLength": 6290064,
+          "storage": "memory"
+        },
+        "noiseprint_pp": {
+          "type": "Float32Array",
+          "length": 1572516,
+          "byteLength": 6290064,
+          "storage": "memory"
+        }
+      },
+      "metadataBytes": 31658,
+      "memory": {
+        "budgetBytes": 8518108180,
+        "policyAvailableBytes": 8492328314,
+        "retainedBytes": 23587740,
+        "cacheBytes": 0,
+        "activeReservationBytes": 2192126,
+        "peakAccountedBytes": 8517646185,
+        "activeRecoveries": 0,
+        "residentCodecBytes": 0
+      }
+    },
+    "views": [
+      {
+        "id": "m2-1-map",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "rgb8",
+        "m2Result": 1,
+        "view": "map"
+      },
+      {
+        "id": "m2-1-confidence",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "rgb8",
+        "m2Result": 1,
+        "view": "confidence"
+      },
+      {
+        "id": "m2-1-noiseprint_pp",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "rgb8",
+        "m2Result": 1,
+        "view": "noiseprint_pp"
+      }
+    ]
+  }
+}

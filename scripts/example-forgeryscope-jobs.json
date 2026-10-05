@@ -1,0 +1,11 @@
+[
+  {
+    "id": "microscopy-forgeryscope-auto",
+    "input": "examples/microscopy/input.png",
+    "operation": "forgeryscope.auto.component",
+    "params": {
+      "profile": "auto"
+    },
+    "backend": "auto"
+  }
+]

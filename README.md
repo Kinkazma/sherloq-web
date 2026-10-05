@@ -100,6 +100,17 @@ Colors distinguish groups of matched regions. These are geometric correspondence
 </details>
 
 <details>
+<summary>ELA extension — low and high energy layers</summary>
+
+| Spiral — low-energy score | Spiral — high-energy score |
+| --- | --- |
+| ![Spiral — low-energy score](examples/results/spiral-ela-layers/view-1.png) | ![Spiral — high-energy score](examples/results/spiral-ela-layers/view-2.png) |
+
+These are separate score layers, displayed with the application’s fixed red-channel scale. They also respond to scene structure and should be read alongside the territory overlay and edit reference.
+
+</details>
+
+<details>
 <summary>ELA extension — energy territories</summary>
 
 ![Spiral — ELA energy overlay](examples/results/spiral-ela-energy/result.png)
@@ -177,13 +188,35 @@ The response on the spiral is weak. A successful execution does not mean the too
 </details>
 
 <details>
+<summary>D2PRL — spiral clone localization</summary>
+
+| Spiral — probability overlay | Spiral — probability display |
+| --- | --- |
+| ![Spiral — probability overlay](examples/results/spiral-d2prl/overlay.png) | ![Spiral — probability display](examples/results/spiral-d2prl/result.png) |
+
+Yellow opacity follows the saved probability display, without a new detection threshold. Several repeated patches respond around the spiral; other known edits do not. The native model retains its 448-pixel analysis grid, 40 iterations and seed 22. This run uses the original 1254 × 1254 input and projects its output back to those coordinates.
+
+</details>
+
+<details>
+<summary>Complete automatic analysis — corroboration view</summary>
+
+![Spiral — automatic corroboration](examples/results/spiral-complete-automatic/result.png)
+
+Colors count distinct detector/search-context contributions: blue 1, cyan 2, green 3, yellow 4, orange 5 and red 6 or more. D2PRL contributes at most one vote per pixel; ELA never votes in this map. The accompanying record lists the completed branches and detected search regions.
+
+</details>
+
+<details>
 <summary>Restored tools — Illuminant Map and Dead/Hot Pixels</summary>
 
 | Street Photo — Illuminant Map | Street Photo — Dead/Hot Pixels |
 | --- | --- |
 | ![Street Photo — Illuminant Map](examples/results/street-illuminant/preview.png) | ![Street Photo — Dead/Hot Pixels](examples/results/street-dead-hot-pixels/preview.png) |
 
-Both use the original street photograph. The illuminant view is a local color estimate. The pixel tool reports 36 candidate pixels; at this preview size, those individual points are too small to judge. This is not a claim that the camera has 36 defective sensor pixels.
+Both use the original street photograph. The illuminant view is a local color estimate. The pixel tool reports 36 candidate pixels. The magnified windows below show six reported positions, with the original pixels beside their detector overlays. These are candidates, not a diagnosis of the camera sensor.
+
+![Street Photo — six pixel candidates at close range](examples/results/street-dead-hot-pixels/preview-details.png)
 
 </details>
 
@@ -199,6 +232,48 @@ These views do not clearly expose the marked edits at normal viewing size. They 
 ![Spiral — ZERO, no main grid found](examples/results/spiral-zero/result.png)
 
 ZERO did not identify a main JPEG grid on this spiral and returned no foreign/missing-grid regions.
+
+</details>
+
+<details>
+<summary>Multiple Compression — recompression curve and aligned JPEG analysis</summary>
+
+| Street Photo — recompression curve | Street Photo — aligned double-JPEG scores |
+| --- | --- |
+| ![Street Photo — recompression curve](examples/results/street-recompression/preview.png) | ![Street Photo — aligned double-JPEG scores](examples/results/street-multiple-compression/preview.png) |
+
+Both calculations use the original JPEG. The curve measures pixel differences after recompression at qualities 0–100. The separate aligned detector returns **inconclusive** here, with no frequency reaching its decision threshold. These plots show the unchanged engine values; they neither count past saves nor establish authenticity.
+
+</details>
+
+<details>
+<summary>TruFor — anomaly, confidence and Noiseprint++ views</summary>
+
+| Spiral — anomaly map | Spiral — confidence |
+| --- | --- |
+| ![Spiral — anomaly map](examples/results/spiral-trufor/result.png) | ![Spiral — confidence](examples/results/spiral-trufor/view-1.png) |
+
+
+![Spiral — Noiseprint++](examples/results/spiral-trufor/view-2.png)
+
+The anomaly map responds strongly to two regions on the right; the confidence and Noiseprint++ outputs are separate views. TruFor was already integrated upstream. These are new outputs from the browser adaptation, not a claim to have introduced the method.
+
+</details>
+
+<details>
+<summary>Forgeryscope Auto — microscopy figure, final mask and intermediate evidence</summary>
+
+**Input figure**
+
+![User-supplied microscopy figure](examples/microscopy/preview.png)
+
+![Forgeryscope Auto — final mask](examples/results/microscopy-forgeryscope-auto/preview.png)
+
+| Candidates without geometric support | Geometric matches |
+| --- | --- |
+| ![Candidates without geometric support](examples/results/microscopy-forgeryscope-auto/preview-view-1.png) | ![Geometric matches](examples/results/microscopy-forgeryscope-auto/preview-view-2.png) |
+
+The run detects 16 panels, tests 23 candidate pairs and accepts 5 microscopy correspondences under its geometric rules. The final mask and geometric map coincide here; the separate candidates-without-geometry field is empty. This is the same engine component used by the automatic workflow, run directly on the supplied figure. The example does not establish a new conclusion about the source publication. [Input provenance](examples/microscopy/provenance.json).
 
 </details>
 

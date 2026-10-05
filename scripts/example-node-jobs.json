@@ -40,5 +40,12 @@
     "input": "examples/street/original.jpg",
     "operation": "pixels.defects",
     "params": {}
+  },
+  {
+    "id": "spiral-ela-layers",
+    "input": "examples/spiral/edited.png",
+    "operation": "ela.energy",
+    "params": {},
+    "energyLayers": true
   }
 ]
