@@ -1,0 +1,6 @@
+{
+  "statisticsPolicy": "covariance-floor-v1",
+  "sourceSha256": "d3f5386ec00efb11cb27d1a7be1b78b6a35b1399341f95f76f9bd5bcd7250899",
+  "downloadBytes": 131507535,
+  "url": "./pyodide/"
+}
