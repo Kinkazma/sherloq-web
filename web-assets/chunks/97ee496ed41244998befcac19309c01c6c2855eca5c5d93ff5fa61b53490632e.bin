@@ -1,0 +1,19 @@
+import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';import {createSegmentedBytes} from './segmented-bytes.js';
+const MiB=1024**2;
+export function thumbnailResizePlan(embedded,width,height){
+ requireValue(embedded?.format==='rgb8'&&embedded.data instanceof Uint8Array&&[embedded.width,embedded.height,width,height].every(n=>Number.isInteger(n)&&n>=1&&n<=65500)&&embedded.data.length===embedded.width*embedded.height*3,'RGB thumbnail and target dimensions required.');
+ const outputBytes=width*height*3,heapMaximumBytes=Math.ceil((32*MiB+embedded.data.length*6+outputBytes+width*512+height*64)/(16*MiB))*16*MiB;
+ requireValue(Number.isSafeInteger(outputBytes)&&heapMaximumBytes<=2**31,'Native thumbnail resize exceeds the bounded WASM range.');
+ return {width,height,outputBytes,heapMaximumBytes,workingBytes:heapMaximumBytes+8*MiB+embedded.data.length*2+width*3*65};
+}
+// Keep the full native resized output in a bounded disposable heap. Source and
+// returned RGB/difference planes use segmented stores; no whole original copy.
+export async function segmentedThumbnailComparison(image,embedded,{budget,signal,onProgress,wasmBinary}={}){
+ const {width,height}=image.surface.descriptor,plan=thumbnailResizePlan(embedded,width,height);await controlCheckpoint(signal);const release=budget.reserve(plan.workingBytes);let resized,difference,m,input=0,complete=false;
+ try{const options={budget,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal};resized=await createSegmentedBytes(plan.outputBytes,options);difference=await createSegmentedBytes(plan.outputBytes,options);
+  const {default:create}=await import('../vendor/thumbnail-resize/thumbnail-resize.js');m=await create({wasmMemory:new WebAssembly.Memory({initial:256,maximum:plan.heapMaximumBytes/65536}),...(wasmBinary?{wasmBinary}:{})});checkAbort(signal);input=m._malloc(embedded.data.length);if(!input)throw new EngineError('MEMORY_LIMIT','Thumbnail source allocation failed.');m.HEAPU8.set(embedded.data,input);onProgress?.({phase:'thumbnail-resize',fraction:0});checkAbort(signal);
+  if(!m._thumbnail_resize(input,embedded.width,embedded.height,width,height))throw new EngineError(m._thumbnail_error()===2?'MEMORY_LIMIT':'COMPUTE_FAILED','Native Lanczos4 resize failed.');checkAbort(signal);requireValue(m._thumbnail_size()===plan.outputBytes,'Native thumbnail output shape mismatch.');const pointer=m._thumbnail_data();onProgress?.({phase:'thumbnail-resize',fraction:1});
+  for(let y=0;y<height;y+=32){await controlCheckpoint(signal);const rows=Math.min(32,height-y),part=await image.surface.readWindow({x:0,y,width,height:rows},{signal});try{const at=y*width*3,length=rows*width*3,bytes=m.HEAPU8.subarray(pointer+at,pointer+at+length);await resized.write(bytes,at);for(let i=0;i<length;i++)part.pixels.data[i]=Math.abs(part.pixels.data[i]-bytes[i]);await difference.write(part.pixels.data,at);}finally{part.release();}onProgress?.({phase:'thumbnail-compare',fraction:(y+rows)/height});}
+  await resized.flush();await difference.flush();checkAbort(signal);complete=true;let disposed=false;return {width,height,resized,difference,metrics:{kernel:'native-lanczos4-segmented-comparison',codecHeapCapacityBytes:m.HEAPU8.buffer.byteLength,codecHeapMaximumBytes:plan.heapMaximumBytes,workspaceBytes:plan.workingBytes,maxSourceWindowBytes:width*3*Math.min(32,height),resizedStorage:resized.storage,differenceStorage:difference.storage},async dispose(){if(disposed)return;disposed=true;const results=await Promise.allSettled([resized.dispose(),difference.dispose()]);const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;}};
+ }finally{if(m){m._thumbnail_close();if(input)m._free(input);}try{if(!complete)await Promise.allSettled([resized?.dispose(),difference?.dispose()]);}finally{release();}}
+}

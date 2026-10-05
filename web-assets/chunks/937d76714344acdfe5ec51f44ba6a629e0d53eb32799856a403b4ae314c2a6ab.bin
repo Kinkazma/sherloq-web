@@ -1,0 +1,13 @@
+{
+  "libjpeg": "3.0.3",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "sourceSha256": "d110dd363c2ce3bc63515331834e8999249a501ce27c6e846faac6748e80639f",
+  "linkedLibrarySha256": "0248633cf951dea335b69972e420c6d2b623a5e8e386cd8cf2f50006d47130de",
+  "memory": "imported, caller bounded16\u201364MiB; encoded bytes external",
+  "files": {
+    "jpeg-gray-stream.js": "fb8913c43a57e4bdc2f0209f8287e626ebda6725f72bbfe114f3fe848132fc1c",
+    "jpeg-gray-stream.wasm": "5d8b4ea8f76da7681dc8717b8072338f318fae10e7ef1875fd33af8951a15fd2",
+    "LICENSE.md": "e548c96c0c09397c94b5c5531836c02ff2c403f1f2b130cad8e3ec9439b5a7cc",
+    "README.ijg": "5c1f9094835d21f66ee0e9ce81c57264d2dd50801b19832d6723dc8cdbda080e"
+  }
+}

@@ -1,0 +1,364 @@
+{
+  "schema": 1,
+  "testedSourceCommit": "8142326ef1993692e9c743b03426ee85f3088683",
+  "version": "0.31.0-integration.26",
+  "scope": "Functional transport recovery and ownership qualification. These local development tests do not establish completion or timing of the 96 MP run. No probes, calibration, warmups or retained capacity estimates are added to runtime.",
+  "failureRecord": "docs/runtime-v2-worker-liveness-failure.json",
+  "storageBrowser": {
+    "browser": "154.0.8037.93",
+    "reports": [
+      {
+        "kind": "energy",
+        "mode": "null-command",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "energy",
+        "mode": "null-io-reply",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "energy",
+        "mode": "parent-messageerror",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "energy",
+        "mode": "malformed-result",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "energy",
+        "mode": "always-null",
+        "terminalFailures": 5,
+        "proof": {
+          "created": 5,
+          "terminated": 5,
+          "injected": 5,
+          "commands": {
+            "10": 1,
+            "30": 5,
+            "50": 1
+          }
+        }
+      },
+      {
+        "kind": "ghost",
+        "mode": "null-command",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "ghost",
+        "mode": "null-io-reply",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "ghost",
+        "mode": "parent-messageerror",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "ghost",
+        "mode": "malformed-result",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "ghost",
+        "mode": "always-null",
+        "terminalFailures": 5,
+        "proof": {
+          "created": 5,
+          "terminated": 5,
+          "injected": 5,
+          "commands": {
+            "10": 1,
+            "30": 5,
+            "50": 1
+          }
+        }
+      },
+      {
+        "kind": "gray",
+        "mode": "null-command",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "gray",
+        "mode": "null-io-reply",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "gray",
+        "mode": "parent-messageerror",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "gray",
+        "mode": "malformed-result",
+        "exactQualities": 3,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "10": 1,
+            "30": 2,
+            "50": 1
+          }
+        },
+        "transportRecoveries": 1
+      },
+      {
+        "kind": "gray",
+        "mode": "always-null",
+        "terminalFailures": 5,
+        "proof": {
+          "created": 5,
+          "terminated": 5,
+          "injected": 5,
+          "commands": {
+            "10": 1,
+            "30": 5,
+            "50": 1
+          }
+        }
+      },
+      {
+        "kind": "ocr",
+        "mode": "null-command",
+        "exact": true,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "0": 2,
+            "64": 1
+          }
+        },
+        "metadata": {
+          "engine": "Tesseract",
+          "nativeVersion": "5.1.0-288-g2a9c1",
+          "runtime": "tesseract.js-core 7.0.0",
+          "language": "eng",
+          "languageSha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+          "psm": 11,
+          "tileEdge": 1536,
+          "overlap": 128,
+          "backend": "simd-lstm",
+          "workers": 2,
+          "peakWorkerHeapBytes": 17301504,
+          "preflightExecutions": 0,
+          "taskExecutions": 3,
+          "retries": 1,
+          "totalMs": 111.93999999761581
+        }
+      },
+      {
+        "kind": "ocr",
+        "mode": "malformed-result",
+        "exact": true,
+        "proof": {
+          "created": 3,
+          "terminated": 3,
+          "injected": 1,
+          "commands": {
+            "0": 2,
+            "64": 1
+          }
+        }
+      },
+      {
+        "kind": "ocr",
+        "mode": "always-null",
+        "terminalFailures": 5,
+        "proof": {
+          "created": 6,
+          "terminated": 6,
+          "injected": 5,
+          "commands": {
+            "0": 5,
+            "64": 1
+          }
+        }
+      }
+    ],
+    "unobservedErrors": []
+  },
+  "relatedProofs": [
+    "docs/runtime-v2-worker-protocol-dense/proof.json",
+    "docs/runtime-v2-d2prl-worker-protocol-proof.json"
+  ],
+  "publicControl": {
+    "concurrentCapabilities": true,
+    "diagnosticCancellationLeavesCalculationAlive": true,
+    "cooperativeCloseAckAfterTransportFault": true
+  },
+  "policies": {
+    "globalWorkerCeiling": "unchanged",
+    "globalRAMBudget": "unchanged",
+    "transportTriggersAllocatorReclaim": false,
+    "consecutiveComparableFailures": 5,
+    "lifetimeRetryLimit": null
+  },
+  "rawLogs": {
+    "docs/runtime-v2-worker-liveness/public-worker-node.log": {
+      "bytes": 2296,
+      "sha256": "499f6d85ba261986f05c7885525babf4712059b7595f076769623ef9181e04c9"
+    },
+    "docs/runtime-v2-worker-liveness/browser-error-excerpts.log": {
+      "bytes": 1847,
+      "sha256": "2c071dd8fc37d08ae2eb5cb8b6d384ff214f66f20ab1b01e3e48e503017983b9"
+    },
+    "docs/runtime-v2-worker-liveness/public-control-node.log": {
+      "bytes": 2280,
+      "sha256": "4876d94f98c63b255a5b14f3e020961b9082739514214103b869388e40bc7e52"
+    },
+    "docs/runtime-v2-worker-liveness/storage-node.log": {
+      "bytes": 7120,
+      "sha256": "35c817ab38227192ad9d168bc55ec6f77f92b73c4b9e3eb686a6d728aa4e414a"
+    },
+    "docs/runtime-v2-worker-liveness/storage-chromium.log": {
+      "bytes": 3302,
+      "sha256": "3604ea2d1704dfd59ad60b3d5f1a522773dc50e7c28ba6d04117f7e2d603d571"
+    },
+    "docs/runtime-v2-worker-liveness/full-node.log": {
+      "bytes": 253569,
+      "sha256": "195432599b5795b66b4b989d9a067856ee22a1ec48ac99581e96953813939599"
+    }
+  },
+  "recordedAt": "2026-10-03T09:09:11.180893+00:00",
+  "assembledNode": {
+    "command": "node --experimental-test-module-mocks --test tests/*.test.mjs",
+    "tests": 1078,
+    "passed": 1076,
+    "failed": 0,
+    "skipped": 2,
+    "durationMs": 237984.314833,
+    "skips": [
+      "ok 736 - global native ROI maps, composites and their Fourier outputs preserve bits and existing tolerance # SKIP Generate local native integration oracle first.",
+      "ok 738 - streaming global EM preserves native validities, iterations and every binary64 weight # SKIP Generate local native EM oracle first."
+    ]
+  }
+}

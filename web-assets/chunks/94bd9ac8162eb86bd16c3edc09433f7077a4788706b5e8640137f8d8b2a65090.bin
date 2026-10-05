@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "id": "mgcfdn-st-gpu-split-v1",
+  "variant": "mgcfdn-st",
+  "sourceSha256": "d7b577b68f862a43d12959291e93ecd2143d0feb4723efeb56f2bd7f941cba6d",
+  "checkpointSha256": "95fa449ba33a4718b66ddcbe948ddc57abdfb34594c43bf47e49515bc63cec98",
+  "side": 256,
+  "kind": "softmax",
+  "assetBytes": 89895559,
+  "boundary": [
+    {
+      "name": "/network/visual_feature_extractor/Concat_4_output_0",
+      "dtype": "FLOAT",
+      "shape": [
+        1,
+        640,
+        40,
+        40
+      ]
+    },
+    {
+      "name": "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0",
+      "dtype": "INT64",
+      "shape": []
+    }
+  ],
+  "stages": [
+    {
+      "file": "gpu-split-encoder.onnx",
+      "bytes": 61042997,
+      "sha256": "d3739d6e9d540879f8fcf0f1483ffa2e5299e8c35e1d40c1916fa5ffa6d9d6ac",
+      "inputs": [
+        "rgb"
+      ],
+      "outputs": [
+        "/network/visual_feature_extractor/Concat_4_output_0",
+        "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+      ],
+      "nodes": 3734,
+      "backend": "webgpu"
+    },
+    {
+      "file": "gpu-split-head.onnx",
+      "bytes": 28852562,
+      "sha256": "ed18f1799651542fc0f950c26908d7e57fe2b027087df0ecea511fc91aaac784",
+      "inputs": [
+        "/network/visual_feature_extractor/Concat_4_output_0",
+        "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+      ],
+      "outputs": [
+        "logits",
+        "probability"
+      ],
+      "nodes": 426,
+      "backend": "wasm"
+    }
+  ]
+}
