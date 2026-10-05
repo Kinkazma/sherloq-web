@@ -1,0 +1,976 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-10-03T08:49:26.204199+00:00",
+  "sourceCommit": "3189fc1adc3eb3fbbfa775c3061f2d366414ec07",
+  "scope": "Functional worker-message fault and allocator-domain regression qualification; no 96MP launch or performance experiment.",
+  "commands": [
+    "node --test --test-timeout=15000 tests/dense-worker-message-protocol.test.mjs tests/worker-message-protocol.test.mjs tests/elastic-worker-pool.test.mjs tests/dense-field-parallel.test.mjs tests/dense-field-resource-rpc.test.mjs tests/dense-input-migration.test.mjs",
+    "node tests/dense-worker-protocol-browser.mjs",
+    "BROWSER=firefox node tests/dense-worker-protocol-browser.mjs",
+    "BROWSER=webkit node tests/dense-worker-protocol-browser.mjs",
+    "node tests/dense-parallel-browser.mjs"
+  ],
+  "node": {
+    "passed": 65,
+    "failed": 0,
+    "cancelled": 0
+  },
+  "browsers": {
+    "chromium": {
+      "reports": [
+        {
+          "fault": "none",
+          "tiles": 9,
+          "retries": 0,
+          "width": 3,
+          "domainReclaims": 0,
+          "exact": true
+        },
+        {
+          "fault": "null",
+          "tiles": 9,
+          "retries": 1,
+          "width": 3,
+          "domainReclaims": 0,
+          "exact": true
+        },
+        {
+          "fault": "allocation",
+          "tiles": 9,
+          "retries": 1,
+          "width": 3,
+          "domainReclaims": 1,
+          "exact": true
+        },
+        {
+          "worker": "sift-paged-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-paged-field-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-field-kernel-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-zernike-tile-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-sift-stream-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-texture-worker.js",
+          "nullRelayed": true
+        }
+      ]
+    },
+    "firefox": {
+      "reports": [
+        {
+          "fault": "none",
+          "tiles": 9,
+          "retries": 0,
+          "width": 3,
+          "domainReclaims": 0,
+          "exact": true
+        },
+        {
+          "fault": "null",
+          "tiles": 9,
+          "retries": 1,
+          "width": 3,
+          "domainReclaims": 0,
+          "exact": true
+        },
+        {
+          "fault": "allocation",
+          "tiles": 9,
+          "retries": 1,
+          "width": 3,
+          "domainReclaims": 1,
+          "exact": true
+        },
+        {
+          "worker": "sift-paged-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-paged-field-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-field-kernel-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-zernike-tile-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-sift-stream-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-texture-worker.js",
+          "nullRelayed": true
+        }
+      ]
+    },
+    "webkit": {
+      "reports": [
+        {
+          "fault": "none",
+          "tiles": 9,
+          "retries": 0,
+          "width": 3,
+          "domainReclaims": 0,
+          "exact": true
+        },
+        {
+          "fault": "null",
+          "tiles": 9,
+          "retries": 1,
+          "width": 3,
+          "domainReclaims": 0,
+          "exact": true
+        },
+        {
+          "fault": "allocation",
+          "tiles": 9,
+          "retries": 1,
+          "width": 3,
+          "domainReclaims": 1,
+          "exact": true
+        },
+        {
+          "worker": "sift-paged-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-paged-field-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-field-kernel-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-zernike-tile-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-sift-stream-worker.js",
+          "nullRelayed": true
+        },
+        {
+          "worker": "dense-texture-worker.js",
+          "nullRelayed": true
+        }
+      ]
+    }
+  },
+  "denseNativeRegression": {
+    "reports": [
+      {
+        "scenario": {
+          "dimensions": 12,
+          "reverseWindowPixels": 127
+        },
+        "storage": "memory",
+        "comparisons": "55789",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 820,
+          "cpuGrants": [
+            1,
+            4,
+            1,
+            3,
+            1,
+            4,
+            1,
+            3,
+            1,
+            4,
+            1,
+            3,
+            1,
+            4,
+            1,
+            3,
+            1,
+            4,
+            1,
+            3,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "cpuGrantChanges": 77,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 99,
+          "allocationRecoveries": 0,
+          "heapBytes": 33554432,
+          "reservedWorkspaceBytes": 178956840,
+          "kernels": [
+            {
+              "reads": 25186,
+              "writes": 911,
+              "readBytes": 94402109,
+              "writeBytes": 113264,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 12577,
+              "writes": 467,
+              "readBytes": 48119248,
+              "writeBytes": 24116,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 6296,
+              "writes": 247,
+              "readBytes": 24013796,
+              "writeBytes": 8864,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 2389,
+              "writes": 126,
+              "readBytes": 9133252,
+              "writeBytes": 4216,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "scenario": {
+          "dimensions": 12,
+          "symmetric": true
+        },
+        "storage": "memory",
+        "comparisons": "59309",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 667,
+          "cpuGrants": [
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            1,
+            3,
+            1,
+            4,
+            1
+          ],
+          "cpuGrantChanges": 11,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 11,
+          "allocationRecoveries": 0,
+          "heapBytes": 33554432,
+          "reservedWorkspaceBytes": 178956840,
+          "kernels": [
+            {
+              "reads": 16805,
+              "writes": 709,
+              "readBytes": 61018569,
+              "writeBytes": 135240,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 8285,
+              "writes": 297,
+              "readBytes": 30359816,
+              "writeBytes": 23540,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 4292,
+              "writes": 130,
+              "readBytes": 15424016,
+              "writeBytes": 8928,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 1698,
+              "writes": 8,
+              "readBytes": 6120468,
+              "writeBytes": 2920,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "scenario": {
+          "dimensions": 128,
+          "compare": true,
+          "axes": true
+        },
+        "storage": "memory",
+        "comparisons": "47230",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 665,
+          "cpuGrants": [
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            1,
+            3,
+            1,
+            4,
+            1
+          ],
+          "cpuGrantChanges": 11,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 11,
+          "allocationRecoveries": 0,
+          "heapBytes": 33554432,
+          "reservedWorkspaceBytes": 178956840,
+          "kernels": [
+            {
+              "reads": 29443,
+              "writes": 884,
+              "readBytes": 113126921,
+              "writeBytes": 147096,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 14213,
+              "writes": 399,
+              "readBytes": 55123244,
+              "writeBytes": 24304,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 7543,
+              "writes": 208,
+              "readBytes": 29121044,
+              "writeBytes": 9892,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 3095,
+              "writes": 77,
+              "readBytes": 11916268,
+              "writeBytes": 3564,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "scenario": {
+          "dimensions": 12,
+          "ties": true
+        },
+        "storage": "memory",
+        "comparisons": "54020",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 655,
+          "cpuGrants": [
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            1,
+            3,
+            1,
+            4,
+            1
+          ],
+          "cpuGrantChanges": 11,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 11,
+          "allocationRecoveries": 0,
+          "heapBytes": 33554432,
+          "reservedWorkspaceBytes": 178956840,
+          "kernels": [
+            {
+              "reads": 7539,
+              "writes": 16,
+              "readBytes": 23132149,
+              "writeBytes": 44128,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 2969,
+              "writes": 10,
+              "readBytes": 9205976,
+              "writeBytes": 16096,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 1809,
+              "writes": 8,
+              "readBytes": 5395536,
+              "writeBytes": 6800,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 743,
+              "writes": 2,
+              "readBytes": 2225384,
+              "writeBytes": 2896,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "scenario": {
+          "dimensions": 12,
+          "overflow": true
+        },
+        "storage": "memory",
+        "comparisons": "95583",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 663,
+          "cpuGrants": [
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            1,
+            3,
+            1,
+            4,
+            1
+          ],
+          "cpuGrantChanges": 11,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 11,
+          "allocationRecoveries": 0,
+          "heapBytes": 33554432,
+          "reservedWorkspaceBytes": 178956840,
+          "kernels": [
+            {
+              "reads": 52814,
+              "writes": 14,
+              "readBytes": 214942437,
+              "writeBytes": 35952,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 22750,
+              "writes": 8,
+              "readBytes": 92423656,
+              "writeBytes": 12632,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 2558,
+              "writes": 8,
+              "readBytes": 10174436,
+              "writeBytes": 6800,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 986,
+              "writes": 2,
+              "readBytes": 3914300,
+              "writeBytes": 2896,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "scenario": {
+          "dimensions": 12,
+          "temporary": true
+        },
+        "storage": "opfs",
+        "comparisons": "55789",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 900,
+          "cpuGrants": [
+            1,
+            2,
+            4,
+            1,
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            4,
+            1,
+            4,
+            1,
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            4,
+            1,
+            3,
+            1
+          ],
+          "cpuGrantChanges": 65,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 69,
+          "allocationRecoveries": 0,
+          "heapBytes": 33554432,
+          "reservedWorkspaceBytes": 178956840,
+          "kernels": [
+            {
+              "reads": 24836,
+              "writes": 951,
+              "readBytes": 93088317,
+              "writeBytes": 115160,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 12526,
+              "writes": 464,
+              "readBytes": 48219712,
+              "writeBytes": 24936,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 5858,
+              "writes": 269,
+              "readBytes": 22534160,
+              "writeBytes": 9436,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 2638,
+              "writes": 111,
+              "readBytes": 10226512,
+              "writeBytes": 3652,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "gpu": {
+          "preflightExecutions": 0,
+          "batches": 10,
+          "pairs": 2636,
+          "rejected": 2536,
+          "refinements": 100,
+          "uploadedBytes": 2699264,
+          "readbackBytes": 21088,
+          "bufferAllocations": 5,
+          "milliseconds": 15.2049999833107
+        }
+      },
+      {
+        "scenario": {
+          "dimensions": 128,
+          "gpu": true
+        },
+        "storage": "memory",
+        "comparisons": "55733",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 664,
+          "cpuGrants": [
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            1,
+            3,
+            1,
+            4,
+            1
+          ],
+          "cpuGrantChanges": 11,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 11,
+          "allocationRecoveries": 0,
+          "heapBytes": 33554432,
+          "reservedWorkspaceBytes": 178956840,
+          "kernels": [
+            {
+              "reads": 33668,
+              "writes": 823,
+              "readBytes": 130517117,
+              "writeBytes": 132276,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 16394,
+              "writes": 417,
+              "readBytes": 64335216,
+              "writeBytes": 24580,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 8529,
+              "writes": 196,
+              "readBytes": 33061200,
+              "writeBytes": 9548,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 3595,
+              "writes": 86,
+              "readBytes": 13910684,
+              "writeBytes": 3604,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "staging": "admitted",
+        "stagingPeak": 131248,
+        "stagingCalls": 4,
+        "distanceCalls": 4
+      },
+      {
+        "scenario": {
+          "dimensions": 12,
+          "staging": "admitted"
+        },
+        "storage": "memory",
+        "comparisons": "55789",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 668,
+          "cpuGrants": [
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            1,
+            3,
+            1,
+            4,
+            1
+          ],
+          "cpuGrantChanges": 11,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 11,
+          "allocationRecoveries": 0,
+          "heapBytes": 33554432,
+          "reservedWorkspaceBytes": 178956840,
+          "kernels": [
+            {
+              "reads": 27862,
+              "writes": 815,
+              "readBytes": 106704365,
+              "writeBytes": 123512,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 12554,
+              "writes": 396,
+              "readBytes": 48413396,
+              "writeBytes": 24252,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 6747,
+              "writes": 212,
+              "readBytes": 25712256,
+              "writeBytes": 9524,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 2958,
+              "writes": 79,
+              "readBytes": 11042616,
+              "writeBytes": 3364,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "staging": "declined",
+        "stagingPeak": 0,
+        "stagingCalls": 4,
+        "distanceCalls": 0
+      },
+      {
+        "scenario": {
+          "dimensions": 12,
+          "staging": "declined"
+        },
+        "storage": "memory",
+        "comparisons": "55789",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 673,
+          "cpuGrants": [
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            1,
+            3,
+            1,
+            4,
+            1
+          ],
+          "cpuGrantChanges": 11,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 11,
+          "allocationRecoveries": 0,
+          "heapBytes": 33554432,
+          "reservedWorkspaceBytes": 178956840,
+          "kernels": [
+            {
+              "reads": 27826,
+              "writes": 797,
+              "readBytes": 106417481,
+              "writeBytes": 123452,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 12505,
+              "writes": 414,
+              "readBytes": 48275980,
+              "writeBytes": 24304,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 6903,
+              "writes": 223,
+              "readBytes": 26287404,
+              "writeBytes": 9440,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 2911,
+              "writes": 83,
+              "readBytes": 10994800,
+              "writeBytes": 3484,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "scenario": {
+          "dimensions": 12,
+          "width": 257,
+          "height": 257,
+          "iterations": 1
+        },
+        "storage": "memory",
+        "comparisons": "683874",
+        "parallel": {
+          "coordinator": "control-and-storage-only",
+          "workers": 4,
+          "peakActiveKernels": 4,
+          "tasks": 1714,
+          "cpuGrants": [
+            3,
+            2,
+            4,
+            1,
+            3,
+            2,
+            4,
+            1,
+            2,
+            1
+          ],
+          "cpuGrantChanges": 10,
+          "wavefront": "ordered-row-segments",
+          "reverse": "parallel-proposals-ordered-commit",
+          "cacheReconfigurations": 11,
+          "allocationRecoveries": 0,
+          "heapBytes": 40239104,
+          "reservedWorkspaceBytes": 178951284,
+          "kernels": [
+            {
+              "reads": 474076,
+              "writes": 26078,
+              "readBytes": 1954135225,
+              "writeBytes": 1551536,
+              "heapBytes": 10616832,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 232970,
+              "writes": 13035,
+              "readBytes": 964522520,
+              "writeBytes": 401760,
+              "heapBytes": 10616832,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 130871,
+              "writes": 8029,
+              "readBytes": 549421624,
+              "writeBytes": 294560,
+              "heapBytes": 10616832,
+              "siftBoundRejections": 0
+            },
+            {
+              "reads": 83371,
+              "writes": 5371,
+              "readBytes": 341487616,
+              "writeBytes": 77352,
+              "heapBytes": 8388608,
+              "siftBoundRejections": 0
+            }
+          ]
+        }
+      },
+      {
+        "gpuStagingCleanup": "cancel",
+        "code": "CANCELLED"
+      },
+      {
+        "gpuStagingCleanup": "error",
+        "code": "GPU_FAILED"
+      }
+    ],
+    "cancelled": true
+  },
+  "assertions": [
+    "Null, messageerror and unexpected replies settle pending RPCs and terminate the faulty endpoint instead of retaining CPU leases.",
+    "Transport faults never invent an allocator domain or reclaim unrelated stores.",
+    "SIFT and elastic tile retries reprepare detached input only for the failed tile and consume completed peers exactly once.",
+    "Five comparable failures without useful progress are terminal, preserving the shared guard rather than downgrading the worker ceiling.",
+    "Real native SIFT outputs are bitwise identical across the injected message failure and actual ArrayBuffer RangeError; all three worker slots remain admitted.",
+    "Explicit native Wasm allocation errors retain their domain; ArrayBuffer errors retain their original evidence. Numerical memory-access-out-of-bounds is not reclassified as allocation refusal.",
+    "A local automatic GPU fallback remains available only for explicit GPU unavailability/device loss, with no transport-triggered global provider change.",
+    "Native dense 12/128-dimensional, tie, overflow, symmetric, changing grant/cache, GPU staging and cancellation regression assertions pass."
+  ],
+  "limits": [
+    "The dense field aborts its current partly-mutated native field on transport failure; the outer field recovery owns any exact fresh-field restart. This patch does not attempt to replay a native propagation fragment.",
+    "SIFT output acceptance is not replayed because append/ranking publication lacks an idempotent contract; only safe tile preparation/computation is retried locally.",
+    "Injected faults and development watchdogs are test-only. No runtime calibration, warmup, timeout or benchmark was added.",
+    "The first browser fault-fixture attempt lost its initial command during a dynamic import. The fixture now queues startup messages; that harness failure was not treated as engine evidence. All final commands reported exit 0."
+  ],
+  "rawLogs": {
+    "webkit.log": {
+      "bytes": 1085,
+      "sha256": "a074e95b10e6f0d23cd768c33f7a605c7549a0e0006134bb983b404aa118c169"
+    },
+    "firefox.log": {
+      "bytes": 1085,
+      "sha256": "a074e95b10e6f0d23cd768c33f7a605c7549a0e0006134bb983b404aa118c169"
+    },
+    "node.log": {
+      "bytes": 15018,
+      "sha256": "b3432747002ed7d4ae7df68fbbf96ee74e1c0e3d86a9c1ecb53d2e746b4c7c92"
+    },
+    "chromium.log": {
+      "bytes": 1164,
+      "sha256": "e1c29d3b072f0d9513970f8fb07bcb3e524f7bd2e717ddb5e771aa883ba22f9a"
+    },
+    "dense-parity.log": {
+      "bytes": 9636,
+      "sha256": "22d2719971918a9db39e5927278fa76f560cf1a66611eef7834bfad4b777b5f7"
+    }
+  }
+}
