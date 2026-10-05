@@ -1,0 +1,2662 @@
+{
+  "schema": 1,
+  "assets": {
+    "rgb-stem": {
+      "file": "rgb-stem.onnx",
+      "bytes": 1298131,
+      "sha256": "407ec9c2def50e7adf5d2e93e97da9de8e1b7f5d958e485dd94a8fa0936c762d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-transition1-0": {
+      "file": "rgb-transition1-0.onnx",
+      "bytes": 442933,
+      "sha256": "7005d3420b1f4c752e25c6c38f6947c4e97206f33aeaa9a5c53cc1b355604f5e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-transition1-1": {
+      "file": "rgb-transition1-1.onnx",
+      "bytes": 885509,
+      "sha256": "f1cd2bccc57b6caed9216b0037b4edd5d6ff3bff82336bc5a948b19e72a5b2eb",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-transition2-2": {
+      "file": "rgb-transition2-2.onnx",
+      "bytes": 664710,
+      "sha256": "1440aafa92724891cf0b76dc174ee9e85ed495157cdc53f86318d74f12016f94",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-transition3-3": {
+      "file": "rgb-transition3-3.onnx",
+      "bytes": 2656139,
+      "sha256": "449a5141f42e96fabfeaa5c62cae02572551855ea33c954463f63fbf858d7d5a",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage2-0-branch0": {
+      "file": "rgb-stage2-0-branch0.onnx",
+      "bytes": 668032,
+      "sha256": "57aadc573817551e72fe38ce6a1cf452fedc421822e5246b6c4b385fdf61a826",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage2-0-branch1": {
+      "file": "rgb-stage2-0-branch1.onnx",
+      "bytes": 2660225,
+      "sha256": "3f56c04513e0026a559cf57f8d5bd5d559b9531860767c55337d2c662850b896",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage2-0-fuse0-1": {
+      "file": "rgb-stage2-0-fuse0-1.onnx",
+      "bytes": 18942,
+      "sha256": "ebb919badfe895de148c5114f8eaeeafea8660f30104ba44aa099f1598b37e14",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage2-0-fuse1-0": {
+      "file": "rgb-stage2-0-fuse1-0.onnx",
+      "bytes": 166594,
+      "sha256": "fcce54deb604b346625fe1d614d9b05b325ddd2a8135a27179f2525a0383db6d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-0-branch0": {
+      "file": "rgb-stage3-0-branch0.onnx",
+      "bytes": 668032,
+      "sha256": "30abaefb872d55e480093932443e6b472a413b59c70169e08b1fe1336846ca7e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-0-branch1": {
+      "file": "rgb-stage3-0-branch1.onnx",
+      "bytes": 2660225,
+      "sha256": "0f165f8171b9bda626ad5b71fff61a8b4741c1eb8a76199162f57e4763f02ef8",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-0-branch2": {
+      "file": "rgb-stage3-0-branch2.onnx",
+      "bytes": 10625947,
+      "sha256": "66b5ebc923c4bc7a053a60e55f4b07f9a1dd2a02f1a78d648a9057d95f97dfc2",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-0-fuse0-1": {
+      "file": "rgb-stage3-0-fuse0-1.onnx",
+      "bytes": 18942,
+      "sha256": "e9ee91b06a3e0144672340a81d33e0be4db1962c3b0793c794153a92363834ed",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-0-fuse0-2": {
+      "file": "rgb-stage3-0-fuse0-2.onnx",
+      "bytes": 37376,
+      "sha256": "8b9c6957f392693af3ec8200f867ce967883f0228590280b2991ca1515497ce2",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-0-fuse1-0": {
+      "file": "rgb-stage3-0-fuse1-0.onnx",
+      "bytes": 166594,
+      "sha256": "592ce68a21b3eea9f0c19afa03f497c38278a7d2188317220ea798700366cc8a",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-0-fuse1-2": {
+      "file": "rgb-stage3-0-fuse1-2.onnx",
+      "bytes": 74432,
+      "sha256": "23d277953be9b0c7987ff4de7138c538955b53f8266c896faf8a1b8a7c1a5ad1",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-0-fuse2-0": {
+      "file": "rgb-stage3-0-fuse2-0.onnx",
+      "bytes": 416318,
+      "sha256": "e0b1e86f569ab24f391cfa1a6ee6c7f5cb9ff8507881a68583b678ca7e5c9036",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-0-fuse2-1": {
+      "file": "rgb-stage3-0-fuse2-1.onnx",
+      "bytes": 664645,
+      "sha256": "f9260f9cd779ff524efb1c3e506f3685e2c043d2008f2e2108fd344b929e4052",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-1-branch0": {
+      "file": "rgb-stage3-1-branch0.onnx",
+      "bytes": 668032,
+      "sha256": "d7b93d62f718ab281ad11006a065840ea71dcbe8508a26a1cef0fe3566e87bf4",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-1-branch1": {
+      "file": "rgb-stage3-1-branch1.onnx",
+      "bytes": 2660225,
+      "sha256": "18f5018257f24af94e69ca085c98faac77833961a07360cefd9c9ca9e7cabc37",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-1-branch2": {
+      "file": "rgb-stage3-1-branch2.onnx",
+      "bytes": 10625947,
+      "sha256": "809f120db30fa5cf846e0f5c50a38cbd60dbee97616a2fe88fbde4edc61b8c6e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-1-fuse0-1": {
+      "file": "rgb-stage3-1-fuse0-1.onnx",
+      "bytes": 18942,
+      "sha256": "a4b3e5cb21a9241e2dd9b19cbe5234aa42a7a6777ff78687024439fd4593cdb2",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-1-fuse0-2": {
+      "file": "rgb-stage3-1-fuse0-2.onnx",
+      "bytes": 37376,
+      "sha256": "ab86b2aff03ae044d99edab03f5855c6d683aa3cd38da34e6979d69354504902",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-1-fuse1-0": {
+      "file": "rgb-stage3-1-fuse1-0.onnx",
+      "bytes": 166594,
+      "sha256": "8cc7cbace11b1ecbf789bff44ae7d3162d00149abbe5729c72be99724f3ec6f6",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-1-fuse1-2": {
+      "file": "rgb-stage3-1-fuse1-2.onnx",
+      "bytes": 74432,
+      "sha256": "1440987f75dbd8480e4157e3b230b30a94a7ac4d98e04a69f340ddfee74da9b8",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-1-fuse2-0": {
+      "file": "rgb-stage3-1-fuse2-0.onnx",
+      "bytes": 416318,
+      "sha256": "c2b8714b9114fa9fcefd773478af3095239f59fb7270eed508592a052c980ab6",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-1-fuse2-1": {
+      "file": "rgb-stage3-1-fuse2-1.onnx",
+      "bytes": 664645,
+      "sha256": "fce7e4c02b8e08d19483beadc183255ec58235c38e85ee8fed38ec0194131e28",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-2-branch0": {
+      "file": "rgb-stage3-2-branch0.onnx",
+      "bytes": 668032,
+      "sha256": "dda47abb79942d5a0d0b9e579a47b327dd6d5cbfaf08779d44fe27d6d376a452",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-2-branch1": {
+      "file": "rgb-stage3-2-branch1.onnx",
+      "bytes": 2660225,
+      "sha256": "57ae4b55701602d93f6d6d6196f44c147147bab83fa5fe39ddbbe6bef37360e1",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-2-branch2": {
+      "file": "rgb-stage3-2-branch2.onnx",
+      "bytes": 10625947,
+      "sha256": "543cefea384eaef16bcd85814d157ccb0eea4261ecb03c65c235661a6eb07fb6",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-2-fuse0-1": {
+      "file": "rgb-stage3-2-fuse0-1.onnx",
+      "bytes": 18942,
+      "sha256": "f49921bcbd98e51deeccfdd528df4c432291354ccb3badce560c24d270637fb4",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-2-fuse0-2": {
+      "file": "rgb-stage3-2-fuse0-2.onnx",
+      "bytes": 37376,
+      "sha256": "dfd1c187e3ce2b619b5c963878f5dc41b72ab820ec7ab9c5f5be02f5cecf93d3",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-2-fuse1-0": {
+      "file": "rgb-stage3-2-fuse1-0.onnx",
+      "bytes": 166594,
+      "sha256": "625a853583abfee1eab11045797f660010a3a6ec0c1153ab049d3046cffaa014",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-2-fuse1-2": {
+      "file": "rgb-stage3-2-fuse1-2.onnx",
+      "bytes": 74432,
+      "sha256": "83ceb21f700e13b6626ff98bf55add7ae48a0063c463fd1b42a208bd9b2f73a8",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-2-fuse2-0": {
+      "file": "rgb-stage3-2-fuse2-0.onnx",
+      "bytes": 416318,
+      "sha256": "07bf13e89c2c33ceb3f14f5897b8143c16b8237c65ab50599c04ef631f2be0c6",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-2-fuse2-1": {
+      "file": "rgb-stage3-2-fuse2-1.onnx",
+      "bytes": 664645,
+      "sha256": "bae4e4c72f73a21a281134e9eca409c3d35b133d88da37c9d8ab0000a6080fee",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-3-branch0": {
+      "file": "rgb-stage3-3-branch0.onnx",
+      "bytes": 668032,
+      "sha256": "ea114f4b095322e15df4a8b65e0a67f74dc3eed037bc5925d8e3ba5155a0e58b",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-3-branch1": {
+      "file": "rgb-stage3-3-branch1.onnx",
+      "bytes": 2660225,
+      "sha256": "18d77d8c67edcfdd7d413c2ef057e5b71e5f6824545c3d31b2f161c3806ca800",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-3-branch2": {
+      "file": "rgb-stage3-3-branch2.onnx",
+      "bytes": 10625947,
+      "sha256": "ed38d68bb914fe4c5b5b7a2ddca7f493812aa13c14d152af67894f1e39f62bf2",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-3-fuse0-1": {
+      "file": "rgb-stage3-3-fuse0-1.onnx",
+      "bytes": 18942,
+      "sha256": "4976777a39a3d46fa2f314843cf8d975906aa8c9061f117fda41f3045a5efc3e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-3-fuse0-2": {
+      "file": "rgb-stage3-3-fuse0-2.onnx",
+      "bytes": 37376,
+      "sha256": "6941bc37506826eb43b09b55644a9d1c83dee7ac4ea9fb3c649a1b35954d4dc5",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-3-fuse1-0": {
+      "file": "rgb-stage3-3-fuse1-0.onnx",
+      "bytes": 166594,
+      "sha256": "e8d2e2e69234d7de5335cc8b07337934d31e704d6c5a1b3149428253324dae3b",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-3-fuse1-2": {
+      "file": "rgb-stage3-3-fuse1-2.onnx",
+      "bytes": 74432,
+      "sha256": "6f845c2959c1b8190d089f0497fdefca558c997aeb23f08c6c834165501dce8c",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-3-fuse2-0": {
+      "file": "rgb-stage3-3-fuse2-0.onnx",
+      "bytes": 416318,
+      "sha256": "ab573be7a1fb535d6ac2202c39ce79ad7f12e266fb33ac1a8cbc1fb864f80e09",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage3-3-fuse2-1": {
+      "file": "rgb-stage3-3-fuse2-1.onnx",
+      "bytes": 664645,
+      "sha256": "5e26a1e9ae2fb74b158d813bf7f88c3044e6d10151e2bd906302fd78c069cd66",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-branch0": {
+      "file": "rgb-stage4-0-branch0.onnx",
+      "bytes": 668032,
+      "sha256": "c8e195dcc93bf28c39d6d344606c22979181e77b694a140b2d19a33687a460b0",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-branch1": {
+      "file": "rgb-stage4-0-branch1.onnx",
+      "bytes": 2660225,
+      "sha256": "b80a2be147dfa7c19f8f729e3b83ee01d4150f1eea3b02648df24c8dcce1351d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-branch2": {
+      "file": "rgb-stage4-0-branch2.onnx",
+      "bytes": 10625947,
+      "sha256": "ec4ce904dbd0beb085141bada3cccecd5b3b4b9ad8dc42bdf50234068bf641a4",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-branch3": {
+      "file": "rgb-stage4-0-branch3.onnx",
+      "bytes": 42482603,
+      "sha256": "c9325e3a82616ada78d00ac8c02d3fa7967fc5f10839f34392b59b17d5b0ed3a",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse0-1": {
+      "file": "rgb-stage4-0-fuse0-1.onnx",
+      "bytes": 18942,
+      "sha256": "6217fe975116f87b5573d57a0578a02fe3de766703564c426c0fa5f92d02f255",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse0-2": {
+      "file": "rgb-stage4-0-fuse0-2.onnx",
+      "bytes": 37376,
+      "sha256": "20b531cd4cc4fbaf75b497d73433a93a4f69650e0fb16e8d51e2df3fe858c187",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse0-3": {
+      "file": "rgb-stage4-0-fuse0-3.onnx",
+      "bytes": 74240,
+      "sha256": "2a6254476940dd7f9aeae35e4db6ca10e14e8753c22c8cad8ad8b446aa15194a",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse1-0": {
+      "file": "rgb-stage4-0-fuse1-0.onnx",
+      "bytes": 166594,
+      "sha256": "1a18501ed74233b867e28f4c03109e59eb0335f6706ec2f5faef040c5767e267",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse1-2": {
+      "file": "rgb-stage4-0-fuse1-2.onnx",
+      "bytes": 74432,
+      "sha256": "e08dc71ef7a6d3fe2ee18fb1c374bf19305665da0a711f6e3057ec3a1f952820",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse1-3": {
+      "file": "rgb-stage4-0-fuse1-3.onnx",
+      "bytes": 148160,
+      "sha256": "91a023684c66759acdef844a9486a39363a5efca545eaea74cb3432a65c8e3e3",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse2-0": {
+      "file": "rgb-stage4-0-fuse2-0.onnx",
+      "bytes": 416318,
+      "sha256": "2e947551dc27de43d7c553b9665d0e722c4a13bf3f53048b8b07267599086bdb",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse2-1": {
+      "file": "rgb-stage4-0-fuse2-1.onnx",
+      "bytes": 664645,
+      "sha256": "babe86ec3f30ceb956d0d0c3bb1bc1331649f7d3f9fb2daf8b8c00305543c96f",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse2-3": {
+      "file": "rgb-stage4-0-fuse2-3.onnx",
+      "bytes": 296003,
+      "sha256": "4a6d6aaed805907493a5c87537c599877607de185e2933e068bc7cb0d79c8202",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse3-0": {
+      "file": "rgb-stage4-0-fuse3-0.onnx",
+      "bytes": 832311,
+      "sha256": "ca35de346e737e0bb3c74fc8c7ad68ccdc190c38af564b4e4ae5126de2441930",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse3-1": {
+      "file": "rgb-stage4-0-fuse3-1.onnx",
+      "bytes": 1661438,
+      "sha256": "e146369fe41b49077fe553326d947cffe51b360f8669448f163aa0471b41564c",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-0-fuse3-2": {
+      "file": "rgb-stage4-0-fuse3-2.onnx",
+      "bytes": 2656074,
+      "sha256": "092d609dbe6f0f89f9e85d6e74baa17eafa57992318951541b819d3d552c9ee1",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-branch0": {
+      "file": "rgb-stage4-1-branch0.onnx",
+      "bytes": 668032,
+      "sha256": "6cdd7e4130dcf3ed63b0e8946386d66f8e0bf09c6773107802080f955ce7d514",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-branch1": {
+      "file": "rgb-stage4-1-branch1.onnx",
+      "bytes": 2660225,
+      "sha256": "8db9776201af4e8db6c6c314039c871cc3f7be58938e0c80c93e7e5ef30656ab",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-branch2": {
+      "file": "rgb-stage4-1-branch2.onnx",
+      "bytes": 10625947,
+      "sha256": "1524b2163625e0dec2708d6b40bf3953d88a4d49febe0ece0148fffcd8bf3982",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-branch3": {
+      "file": "rgb-stage4-1-branch3.onnx",
+      "bytes": 42482603,
+      "sha256": "4ed3b57b8757bfa9f3e1aff0f9066790c026da4cabafbebc1949096ec6f9e3f0",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse0-1": {
+      "file": "rgb-stage4-1-fuse0-1.onnx",
+      "bytes": 18942,
+      "sha256": "feee98f729fcd6770b4ba73acf685c0ebbf00498645d9ba3afd10999bceb96b4",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse0-2": {
+      "file": "rgb-stage4-1-fuse0-2.onnx",
+      "bytes": 37376,
+      "sha256": "ce2914c62b3e342c73ec9a7b80cbfbe9bc2c5281c7bc98cee603ff4ca961859a",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse0-3": {
+      "file": "rgb-stage4-1-fuse0-3.onnx",
+      "bytes": 74240,
+      "sha256": "d995b52b38276def2f23ac5006cb407b5e93515b2ee80a757288ebd15f9eb6c0",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse1-0": {
+      "file": "rgb-stage4-1-fuse1-0.onnx",
+      "bytes": 166594,
+      "sha256": "6e3e385057211d2e7f3a94020e1b21c90457cff13bff9c4ea1863212e288087d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse1-2": {
+      "file": "rgb-stage4-1-fuse1-2.onnx",
+      "bytes": 74432,
+      "sha256": "c620d9f83c1f998b3fba2b726bca8e4896b807d99e59b6a15d9740a67981c47d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse1-3": {
+      "file": "rgb-stage4-1-fuse1-3.onnx",
+      "bytes": 148160,
+      "sha256": "09f521ce13198293b375c7821ebd2841e9d9056a07d9797ecae8b4979f9a638f",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse2-0": {
+      "file": "rgb-stage4-1-fuse2-0.onnx",
+      "bytes": 416318,
+      "sha256": "e2f9f006e41cb788ddc3f92fe10d5b262fce3c996e59ae02b0e0caa876b6223e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse2-1": {
+      "file": "rgb-stage4-1-fuse2-1.onnx",
+      "bytes": 664645,
+      "sha256": "51135e91602c6822b1e6efb38102c50368df80628025bd6efd80aaa200eb47f0",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse2-3": {
+      "file": "rgb-stage4-1-fuse2-3.onnx",
+      "bytes": 296003,
+      "sha256": "7d918c24b69ded9de6ebbca20e0b0768abde907763b2e19984e86a2681da82e4",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse3-0": {
+      "file": "rgb-stage4-1-fuse3-0.onnx",
+      "bytes": 832311,
+      "sha256": "412d5b843bfd30069e9b0c6de0557990ebf1ddd4dcdd463160d49453e6590795",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse3-1": {
+      "file": "rgb-stage4-1-fuse3-1.onnx",
+      "bytes": 1661438,
+      "sha256": "fcf0c7983a5d37be10950f2656339e72fb84ada037839ec36c32ced23a082e51",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-1-fuse3-2": {
+      "file": "rgb-stage4-1-fuse3-2.onnx",
+      "bytes": 2656074,
+      "sha256": "790e6115dd0e82e322df911c3f1dbad5513751d4b603c6cdb6c594ff4ee63648",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-branch0": {
+      "file": "rgb-stage4-2-branch0.onnx",
+      "bytes": 668032,
+      "sha256": "9021dd099be22053b1e85029bbb0cc327038c11540ab5d8f75abf027d4415f9a",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-branch1": {
+      "file": "rgb-stage4-2-branch1.onnx",
+      "bytes": 2660225,
+      "sha256": "06cc3f9751919d45bc519157891c6460cd53912b5f8fbeea96b838347df05447",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-branch2": {
+      "file": "rgb-stage4-2-branch2.onnx",
+      "bytes": 10625947,
+      "sha256": "b53ffdcba146130f2b6b3eb4de0220f4b2fdb0b7dbda5ee7281b6d592b04c5bf",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-branch3": {
+      "file": "rgb-stage4-2-branch3.onnx",
+      "bytes": 42482603,
+      "sha256": "f4b8e94833871405cb1be5fc9d12780f828047f724abc87d43d2a5aceba7989e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse0-1": {
+      "file": "rgb-stage4-2-fuse0-1.onnx",
+      "bytes": 18942,
+      "sha256": "b2bf40cd88e0108436d4a40a64be1e721473741bac85bc11d61be9db94fc8294",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse0-2": {
+      "file": "rgb-stage4-2-fuse0-2.onnx",
+      "bytes": 37376,
+      "sha256": "7a900f1149ad6b3d7d3f6e7cba7234957a291cff7c8f807c0668f1761e0c697c",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse0-3": {
+      "file": "rgb-stage4-2-fuse0-3.onnx",
+      "bytes": 74240,
+      "sha256": "b1011037140a0a6c5bc9427fd3b9c9d0faf800df6ccbaa1c3cad4f05ef0d6645",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse1-0": {
+      "file": "rgb-stage4-2-fuse1-0.onnx",
+      "bytes": 166594,
+      "sha256": "00a9a4664a8a80de0a0cafb3b5690f3cb531d01de874c06fb70e9beb5a77721f",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse1-2": {
+      "file": "rgb-stage4-2-fuse1-2.onnx",
+      "bytes": 74432,
+      "sha256": "71e0e9ae53927d699bb94331728e5ce55f327a3eb9ff80637d5d5ac469777ee8",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse1-3": {
+      "file": "rgb-stage4-2-fuse1-3.onnx",
+      "bytes": 148160,
+      "sha256": "7749bc801f7aeb31a88934ecf4ac1118a634672df27910773e36f42e8af3efe3",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse2-0": {
+      "file": "rgb-stage4-2-fuse2-0.onnx",
+      "bytes": 416318,
+      "sha256": "9ff582574093a25b36659df8a10559ee71d9c8cac2406985a3548acefd7c95b9",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse2-1": {
+      "file": "rgb-stage4-2-fuse2-1.onnx",
+      "bytes": 664645,
+      "sha256": "086f85bf55f7ba60f81ec27ab04a7f8641334d6b04737738ba82fdf42fa4d885",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse2-3": {
+      "file": "rgb-stage4-2-fuse2-3.onnx",
+      "bytes": 296003,
+      "sha256": "3900c364a9469c2020b8207c11ab33afb60471ea5a1c19f903c60d693bc7d5aa",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse3-0": {
+      "file": "rgb-stage4-2-fuse3-0.onnx",
+      "bytes": 832311,
+      "sha256": "272fdd3943f51593d4203668d4f5cc40ea7c916c60074eb73d8ba0398ee57d8c",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse3-1": {
+      "file": "rgb-stage4-2-fuse3-1.onnx",
+      "bytes": 1661438,
+      "sha256": "1b81fb6babc1d0f313e6d668a8b1d2040b05e212a238efbde3fe57d881872f21",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "rgb-stage4-2-fuse3-2": {
+      "file": "rgb-stage4-2-fuse3-2.onnx",
+      "bytes": 2656074,
+      "sha256": "3068e6f4873734669946ff231b97d022b8625acce34afe314a843b0532d7db2a",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stem": {
+      "file": "dct-stem.onnx",
+      "bytes": 55819,
+      "sha256": "6a90d41b47c308b657b88487a7a6ba8f43cdc9eef9d06d3a9536db021c06de41",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-layer": {
+      "file": "dct-layer.onnx",
+      "bytes": 4295238,
+      "sha256": "ba8fe4956b2d6141a9f2f93d1f8fca173a53ae9af4d4c0b604a7bce88120dbbd",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-transition2-1": {
+      "file": "dct-transition2-1.onnx",
+      "bytes": 664710,
+      "sha256": "9fb8f22883262109a485ed8d131b12071c5da91c581c1f1a80657d147f6dd860",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-transition3-2": {
+      "file": "dct-transition3-2.onnx",
+      "bytes": 2656139,
+      "sha256": "c253631627c6d03654920efd677d3e157200135888e76d951baa01a8b679c953",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-0-branch0": {
+      "file": "dct-stage3-0-branch0.onnx",
+      "bytes": 2660225,
+      "sha256": "aa94b0cea8fc79c3573d29e794b572202687b8ba1b6f658556ac1940d56a51f8",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-0-branch1": {
+      "file": "dct-stage3-0-branch1.onnx",
+      "bytes": 10625947,
+      "sha256": "24300d68dbae1220b2658e641a6c4bcce3f070ff41503349d31204323f4ce810",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-0-fuse0-1": {
+      "file": "dct-stage3-0-fuse0-1.onnx",
+      "bytes": 74432,
+      "sha256": "f133b0b4b9a25629376a287f9ffacd9555f02f0ccdbc88aaf9455ecb54a9f1d4",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-0-fuse1-0": {
+      "file": "dct-stage3-0-fuse1-0.onnx",
+      "bytes": 664645,
+      "sha256": "ba32721daa0e270c65b730f9e40235b5827adf3caafbae8cdb86d53a302794c7",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-1-branch0": {
+      "file": "dct-stage3-1-branch0.onnx",
+      "bytes": 2660225,
+      "sha256": "12d9f3ce54e8b48e227c9b32fd2e35c2aa2b5142c7d2ceb3e0e17425f7169780",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-1-branch1": {
+      "file": "dct-stage3-1-branch1.onnx",
+      "bytes": 10625947,
+      "sha256": "3b060243e60bc159f3ab914517d09ada139c2c06a2115420ff2ecc7ede2797c1",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-1-fuse0-1": {
+      "file": "dct-stage3-1-fuse0-1.onnx",
+      "bytes": 74432,
+      "sha256": "fb54e6b77a114d5cc98b97248e4581b07ac987cb1eaedc6187eb2f567df0a87e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-1-fuse1-0": {
+      "file": "dct-stage3-1-fuse1-0.onnx",
+      "bytes": 664645,
+      "sha256": "3e3a7f781ab3af13f73ff500eda2001da79131ae8f016dab499a475b0915023c",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-2-branch0": {
+      "file": "dct-stage3-2-branch0.onnx",
+      "bytes": 2660225,
+      "sha256": "53aa8b6606cbaa72bbffd562c7fc802ee5b2996721449b9d476405f0a5ec4caf",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-2-branch1": {
+      "file": "dct-stage3-2-branch1.onnx",
+      "bytes": 10625947,
+      "sha256": "6d4ff5792decd2dd0eff1c07d9b38aa35fa0ce7a2ef8b7c264633d60998a128d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-2-fuse0-1": {
+      "file": "dct-stage3-2-fuse0-1.onnx",
+      "bytes": 74432,
+      "sha256": "4eeefbb4d7ea64d78d0318e94548e4ebbcce28a1abba2fd76f08b1cdb2b75d1a",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage3-2-fuse1-0": {
+      "file": "dct-stage3-2-fuse1-0.onnx",
+      "bytes": 664645,
+      "sha256": "d1721bcacddabfc2eeee728be3f526cbcfffc8f6cc46d2f4e0661f9c619ec2c8",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-0-branch0": {
+      "file": "dct-stage4-0-branch0.onnx",
+      "bytes": 2660225,
+      "sha256": "b089667140e44795591ecde776a1ba710d86b269fcdcef0288c6719767653692",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-0-branch1": {
+      "file": "dct-stage4-0-branch1.onnx",
+      "bytes": 10625947,
+      "sha256": "478a6b77c307b2c22c9ca16a430956e1bdb2de545176cf3c40a4b7a98aa92cc3",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-0-branch2": {
+      "file": "dct-stage4-0-branch2.onnx",
+      "bytes": 42482603,
+      "sha256": "c9100044b3322d8147b9f4f86b5ba4b64e4a825936f72034c3c55d4bb6d38229",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-0-fuse0-1": {
+      "file": "dct-stage4-0-fuse0-1.onnx",
+      "bytes": 74432,
+      "sha256": "2ec2408e73801f4ded889fc10a75b8ce15b6d48b1e53eb8fe5f533ba531fd11c",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-0-fuse0-2": {
+      "file": "dct-stage4-0-fuse0-2.onnx",
+      "bytes": 148160,
+      "sha256": "fe128bcab3f0f84290c0ad00ce6433c675dcb5e56d6ab278ab0a427c81a54888",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-0-fuse1-0": {
+      "file": "dct-stage4-0-fuse1-0.onnx",
+      "bytes": 664645,
+      "sha256": "96c1582bf7cd726335165795e3ee50d948980761637a64fc25f83bb06c38232d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-0-fuse1-2": {
+      "file": "dct-stage4-0-fuse1-2.onnx",
+      "bytes": 296003,
+      "sha256": "3579d0eba53b752adb677456cff2d85de7aa7f813612868044e6c4b202e94916",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-0-fuse2-0": {
+      "file": "dct-stage4-0-fuse2-0.onnx",
+      "bytes": 1661438,
+      "sha256": "00b50491a0b2364f2c51278ac6da4b3b6da56536d418b177cad6f49479cda90e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-0-fuse2-1": {
+      "file": "dct-stage4-0-fuse2-1.onnx",
+      "bytes": 2656074,
+      "sha256": "f55461d3761d7219b811365b6a3e8d7239cf9d3a7753935a0930c750c6027772",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-1-branch0": {
+      "file": "dct-stage4-1-branch0.onnx",
+      "bytes": 2660225,
+      "sha256": "22f23c36412a08ffc783355af0d5fc74dd034938307cf4c6cff30ba59ead670d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-1-branch1": {
+      "file": "dct-stage4-1-branch1.onnx",
+      "bytes": 10625947,
+      "sha256": "b44cd2eb0313ee192f9c35f78b085fc556ba5c34ffbc51819d4efdb47bb38f4f",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-1-branch2": {
+      "file": "dct-stage4-1-branch2.onnx",
+      "bytes": 42482603,
+      "sha256": "354244e412b29f1e71dafa080f36ab5e6545a611cfcc5bcdcd86595ad3853f3e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-1-fuse0-1": {
+      "file": "dct-stage4-1-fuse0-1.onnx",
+      "bytes": 74432,
+      "sha256": "9065b54e72b4b8109431ea52e9eb3512f2a044089ef01a658a5c5c42ec02861e",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-1-fuse0-2": {
+      "file": "dct-stage4-1-fuse0-2.onnx",
+      "bytes": 148160,
+      "sha256": "06d912e38b86049d6d0b929d52f77f2b75d91f6d46fb084e3affd34d58dd8cfe",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-1-fuse1-0": {
+      "file": "dct-stage4-1-fuse1-0.onnx",
+      "bytes": 664645,
+      "sha256": "794667e8665fa69798c53a8fee82e5dafe5f9da9d76351e6d036a482d2b8e838",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-1-fuse1-2": {
+      "file": "dct-stage4-1-fuse1-2.onnx",
+      "bytes": 296003,
+      "sha256": "a41825e90d1ac4dbf390005b19f38125b56cee007d8bab12103c890027ccd183",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-1-fuse2-0": {
+      "file": "dct-stage4-1-fuse2-0.onnx",
+      "bytes": 1661438,
+      "sha256": "c6607fa108aa279104a55c08800319a5a131b884030eba59be779b81f30ad24f",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "dct-stage4-1-fuse2-1": {
+      "file": "dct-stage4-1-fuse2-1.onnx",
+      "bytes": 2656074,
+      "sha256": "b7cc6712867a48530b831f2ce8165621dcaf893b283bc5df2bd166e84c0d714f",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-transition-0": {
+      "file": "fusion-transition-0.onnx",
+      "bytes": 41937,
+      "sha256": "ad4d28c18c082b6fc0c311cd87793ca9172dbb4ff1c759b9fc3beb5052ff24bd",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-transition-1": {
+      "file": "fusion-transition-1.onnx",
+      "bytes": 332341,
+      "sha256": "b3948f2a848f3a9059303576560f48e7f2a45a5ce7617b30ad765b8baa72e4b4",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-transition-2": {
+      "file": "fusion-transition-2.onnx",
+      "bytes": 1327861,
+      "sha256": "d5ebf03ca486dde35aa44e7217450dd600b42d183cd76e4d3b1c2398bbe16b29",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-transition-3": {
+      "file": "fusion-transition-3.onnx",
+      "bytes": 5309563,
+      "sha256": "334e1c2980b0a352eb1b75a9d261c50ca5baba8becc6ee0b59c0679695dc7865",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-branch0": {
+      "file": "fusion-stage5-0-branch0.onnx",
+      "bytes": 169584,
+      "sha256": "93e0c45ecb2de70ba0a8d99a4b94abe4a37458f06e922a0b91048da62426a790",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-branch1": {
+      "file": "fusion-stage5-0-branch1.onnx",
+      "bytes": 668032,
+      "sha256": "959257f626c540590e9c40d418cde9b780aaf499c4b7019cf808542eed1d5dfe",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-branch2": {
+      "file": "fusion-stage5-0-branch2.onnx",
+      "bytes": 2660225,
+      "sha256": "ced6785ca5bde5994aa9240b923bae79da7fd2bf2ee2957087809b6e4ba5e22d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-branch3": {
+      "file": "fusion-stage5-0-branch3.onnx",
+      "bytes": 10625947,
+      "sha256": "313f67528355bafa58f2ed0999434a41e57ad6e004bb43476b633f6922269043",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse0-1": {
+      "file": "fusion-stage5-0-fuse0-1.onnx",
+      "bytes": 5017,
+      "sha256": "49a4a58d9c9a77c9cf47f72bb396dc22f2e29ce751cee8426a8bf80b0a0555c1",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse0-2": {
+      "file": "fusion-stage5-0-fuse0-2.onnx",
+      "bytes": 9625,
+      "sha256": "3b4bb6e21a703961578bc3f9e195ef52d3485953d78770f6d936d3b7ca1c8eba",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse0-3": {
+      "file": "fusion-stage5-0-fuse0-3.onnx",
+      "bytes": 18846,
+      "sha256": "b0b94cddf22e6c2e0beacfa9a4bea5b3482b2449d65c09b46388127618d79c04",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse1-0": {
+      "file": "fusion-stage5-0-fuse1-0.onnx",
+      "bytes": 41986,
+      "sha256": "73591586a69129e1c74cb297b582c730bb7565ce8f17155e6862500f6fe0896d",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse1-2": {
+      "file": "fusion-stage5-0-fuse1-2.onnx",
+      "bytes": 18942,
+      "sha256": "0a2b6977194f8cc1851ac16e1ef35e59748a52fbac7f710522ee30f791e92ab7",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse1-3": {
+      "file": "fusion-stage5-0-fuse1-3.onnx",
+      "bytes": 37376,
+      "sha256": "6cdee1f0752cf40653afbfeb031b9967194a3134ffee94b6126b8a31d75f9b6b",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse2-0": {
+      "file": "fusion-stage5-0-fuse2-0.onnx",
+      "bytes": 104793,
+      "sha256": "f569beea734689baa56b1788fc558c54ea655ab05a998c2071c2b5503f1ee275",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse2-1": {
+      "file": "fusion-stage5-0-fuse2-1.onnx",
+      "bytes": 166594,
+      "sha256": "72f6828421e2fd65d829709b185718f68f9235e87c35fc86e7fd3abe318419b9",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse2-3": {
+      "file": "fusion-stage5-0-fuse2-3.onnx",
+      "bytes": 74432,
+      "sha256": "d9a23afb5fabc0e9a62ada1f88a0b0b487fddd1339ba681e4d49e520db1718b5",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse3-0": {
+      "file": "fusion-stage5-0-fuse3-0.onnx",
+      "bytes": 209267,
+      "sha256": "ccffe1fa1c0227c346b6e7b63d14a0503fb2b18afee49f06d9bf07737feaead3",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse3-1": {
+      "file": "fusion-stage5-0-fuse3-1.onnx",
+      "bytes": 416318,
+      "sha256": "3ceefceec6e8a1481c529b12e32f2fe1dbba561cf21575562a58106052374a6f",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "fusion-stage5-0-fuse3-2": {
+      "file": "fusion-stage5-0-fuse3-2.onnx",
+      "bytes": 664645,
+      "sha256": "cc3e2e060c7f8c7eff107d616e6c2219641fc63dc5511d34510b9bfdf892ebc6",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "sample": {
+      "file": "sample.onnx",
+      "bytes": 272,
+      "sha256": "fecc4e91055c913a63ff780ef06fe9d2e35efd9874ca916d7474aaf63955bc40",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    },
+    "head": {
+      "file": "head.onnx",
+      "bytes": 523930,
+      "sha256": "cc00a0e10ab92f0836980f892a21d1b78bebcc1009d8d45b21ea80ffadb630bb",
+      "graphOptimizationLevel": "disabled",
+      "preferredLayout": "NCHW"
+    }
+  },
+  "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+  "rgbStem": {
+    "name": "rgb-stem",
+    "inputChannels": 3,
+    "channels": 256,
+    "radius": 19,
+    "stride": 4,
+    "activationChannels": 16
+  },
+  "rgbTransitions": [
+    [
+      {
+        "source": 0,
+        "operator": {
+          "name": "rgb-transition1-0",
+          "inputChannels": 256,
+          "channels": 48,
+          "radius": 1,
+          "stride": 1,
+          "activationChannels": 256
+        }
+      },
+      {
+        "source": 0,
+        "operator": {
+          "name": "rgb-transition1-1",
+          "inputChannels": 256,
+          "channels": 96,
+          "radius": 1,
+          "stride": 2,
+          "activationChannels": 256
+        }
+      }
+    ],
+    [
+      {
+        "source": 0,
+        "operator": null
+      },
+      {
+        "source": 1,
+        "operator": null
+      },
+      {
+        "source": 1,
+        "operator": {
+          "name": "rgb-transition2-2",
+          "inputChannels": 96,
+          "channels": 192,
+          "radius": 1,
+          "stride": 2,
+          "activationChannels": 96
+        }
+      }
+    ],
+    [
+      {
+        "source": 0,
+        "operator": null
+      },
+      {
+        "source": 1,
+        "operator": null
+      },
+      {
+        "source": 2,
+        "operator": null
+      },
+      {
+        "source": 2,
+        "operator": {
+          "name": "rgb-transition3-3",
+          "inputChannels": 192,
+          "channels": 384,
+          "radius": 1,
+          "stride": 2,
+          "activationChannels": 192
+        }
+      }
+    ]
+  ],
+  "rgbStages": [
+    [
+      {
+        "branches": [
+          {
+            "name": "rgb-stage2-0-branch0",
+            "inputChannels": 48,
+            "channels": 48,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 48
+          },
+          {
+            "name": "rgb-stage2-0-branch1",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "rgb-stage2-0-fuse0-1",
+              "inputChannels": 96,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 96
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage2-0-fuse1-0",
+              "inputChannels": 48,
+              "channels": 96,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 48
+            },
+            null
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "branches": [
+          {
+            "name": "rgb-stage3-0-branch0",
+            "inputChannels": 48,
+            "channels": 48,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 48
+          },
+          {
+            "name": "rgb-stage3-0-branch1",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "rgb-stage3-0-branch2",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "rgb-stage3-0-fuse0-1",
+              "inputChannels": 96,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage3-0-fuse0-2",
+              "inputChannels": 192,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage3-0-fuse1-0",
+              "inputChannels": 48,
+              "channels": 96,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 48
+            },
+            null,
+            {
+              "name": "rgb-stage3-0-fuse1-2",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage3-0-fuse2-0",
+              "inputChannels": 48,
+              "channels": 192,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage3-0-fuse2-1",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null
+          ]
+        ]
+      },
+      {
+        "branches": [
+          {
+            "name": "rgb-stage3-1-branch0",
+            "inputChannels": 48,
+            "channels": 48,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 48
+          },
+          {
+            "name": "rgb-stage3-1-branch1",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "rgb-stage3-1-branch2",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "rgb-stage3-1-fuse0-1",
+              "inputChannels": 96,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage3-1-fuse0-2",
+              "inputChannels": 192,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage3-1-fuse1-0",
+              "inputChannels": 48,
+              "channels": 96,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 48
+            },
+            null,
+            {
+              "name": "rgb-stage3-1-fuse1-2",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage3-1-fuse2-0",
+              "inputChannels": 48,
+              "channels": 192,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage3-1-fuse2-1",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null
+          ]
+        ]
+      },
+      {
+        "branches": [
+          {
+            "name": "rgb-stage3-2-branch0",
+            "inputChannels": 48,
+            "channels": 48,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 48
+          },
+          {
+            "name": "rgb-stage3-2-branch1",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "rgb-stage3-2-branch2",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "rgb-stage3-2-fuse0-1",
+              "inputChannels": 96,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage3-2-fuse0-2",
+              "inputChannels": 192,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage3-2-fuse1-0",
+              "inputChannels": 48,
+              "channels": 96,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 48
+            },
+            null,
+            {
+              "name": "rgb-stage3-2-fuse1-2",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage3-2-fuse2-0",
+              "inputChannels": 48,
+              "channels": 192,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage3-2-fuse2-1",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null
+          ]
+        ]
+      },
+      {
+        "branches": [
+          {
+            "name": "rgb-stage3-3-branch0",
+            "inputChannels": 48,
+            "channels": 48,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 48
+          },
+          {
+            "name": "rgb-stage3-3-branch1",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "rgb-stage3-3-branch2",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "rgb-stage3-3-fuse0-1",
+              "inputChannels": 96,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage3-3-fuse0-2",
+              "inputChannels": 192,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage3-3-fuse1-0",
+              "inputChannels": 48,
+              "channels": 96,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 48
+            },
+            null,
+            {
+              "name": "rgb-stage3-3-fuse1-2",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage3-3-fuse2-0",
+              "inputChannels": 48,
+              "channels": 192,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage3-3-fuse2-1",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "branches": [
+          {
+            "name": "rgb-stage4-0-branch0",
+            "inputChannels": 48,
+            "channels": 48,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 48
+          },
+          {
+            "name": "rgb-stage4-0-branch1",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "rgb-stage4-0-branch2",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          },
+          {
+            "name": "rgb-stage4-0-branch3",
+            "inputChannels": 384,
+            "channels": 384,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 384
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "rgb-stage4-0-fuse0-1",
+              "inputChannels": 96,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage4-0-fuse0-2",
+              "inputChannels": 192,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            },
+            {
+              "name": "rgb-stage4-0-fuse0-3",
+              "inputChannels": 384,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage4-0-fuse1-0",
+              "inputChannels": 48,
+              "channels": 96,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 48
+            },
+            null,
+            {
+              "name": "rgb-stage4-0-fuse1-2",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            },
+            {
+              "name": "rgb-stage4-0-fuse1-3",
+              "inputChannels": 384,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage4-0-fuse2-0",
+              "inputChannels": 48,
+              "channels": 192,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage4-0-fuse2-1",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null,
+            {
+              "name": "rgb-stage4-0-fuse2-3",
+              "inputChannels": 384,
+              "channels": 192,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage4-0-fuse3-0",
+              "inputChannels": 48,
+              "channels": 384,
+              "radius": 7,
+              "stride": 8,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage4-0-fuse3-1",
+              "inputChannels": 96,
+              "channels": 384,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage4-0-fuse3-2",
+              "inputChannels": 192,
+              "channels": 384,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 192
+            },
+            null
+          ]
+        ]
+      },
+      {
+        "branches": [
+          {
+            "name": "rgb-stage4-1-branch0",
+            "inputChannels": 48,
+            "channels": 48,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 48
+          },
+          {
+            "name": "rgb-stage4-1-branch1",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "rgb-stage4-1-branch2",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          },
+          {
+            "name": "rgb-stage4-1-branch3",
+            "inputChannels": 384,
+            "channels": 384,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 384
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "rgb-stage4-1-fuse0-1",
+              "inputChannels": 96,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage4-1-fuse0-2",
+              "inputChannels": 192,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            },
+            {
+              "name": "rgb-stage4-1-fuse0-3",
+              "inputChannels": 384,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage4-1-fuse1-0",
+              "inputChannels": 48,
+              "channels": 96,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 48
+            },
+            null,
+            {
+              "name": "rgb-stage4-1-fuse1-2",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            },
+            {
+              "name": "rgb-stage4-1-fuse1-3",
+              "inputChannels": 384,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage4-1-fuse2-0",
+              "inputChannels": 48,
+              "channels": 192,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage4-1-fuse2-1",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null,
+            {
+              "name": "rgb-stage4-1-fuse2-3",
+              "inputChannels": 384,
+              "channels": 192,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage4-1-fuse3-0",
+              "inputChannels": 48,
+              "channels": 384,
+              "radius": 7,
+              "stride": 8,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage4-1-fuse3-1",
+              "inputChannels": 96,
+              "channels": 384,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage4-1-fuse3-2",
+              "inputChannels": 192,
+              "channels": 384,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 192
+            },
+            null
+          ]
+        ]
+      },
+      {
+        "branches": [
+          {
+            "name": "rgb-stage4-2-branch0",
+            "inputChannels": 48,
+            "channels": 48,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 48
+          },
+          {
+            "name": "rgb-stage4-2-branch1",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "rgb-stage4-2-branch2",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          },
+          {
+            "name": "rgb-stage4-2-branch3",
+            "inputChannels": 384,
+            "channels": 384,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 384
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "rgb-stage4-2-fuse0-1",
+              "inputChannels": 96,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage4-2-fuse0-2",
+              "inputChannels": 192,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            },
+            {
+              "name": "rgb-stage4-2-fuse0-3",
+              "inputChannels": 384,
+              "channels": 48,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage4-2-fuse1-0",
+              "inputChannels": 48,
+              "channels": 96,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 48
+            },
+            null,
+            {
+              "name": "rgb-stage4-2-fuse1-2",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            },
+            {
+              "name": "rgb-stage4-2-fuse1-3",
+              "inputChannels": 384,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage4-2-fuse2-0",
+              "inputChannels": 48,
+              "channels": 192,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage4-2-fuse2-1",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null,
+            {
+              "name": "rgb-stage4-2-fuse2-3",
+              "inputChannels": 384,
+              "channels": 192,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "rgb-stage4-2-fuse3-0",
+              "inputChannels": 48,
+              "channels": 384,
+              "radius": 7,
+              "stride": 8,
+              "activationChannels": 48
+            },
+            {
+              "name": "rgb-stage4-2-fuse3-1",
+              "inputChannels": 96,
+              "channels": 384,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 96
+            },
+            {
+              "name": "rgb-stage4-2-fuse3-2",
+              "inputChannels": 192,
+              "channels": 384,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 192
+            },
+            null
+          ]
+        ]
+      }
+    ]
+  ],
+  "dctStem": {
+    "name": "dct-stem",
+    "inputChannels": 1,
+    "channels": 512,
+    "radius": 15,
+    "stride": 8,
+    "activationChannels": 64
+  },
+  "dctLayer": {
+    "name": "dct-layer",
+    "inputChannels": 512,
+    "channels": 96,
+    "radius": 8,
+    "stride": 1,
+    "activationChannels": 512
+  },
+  "dctTransitions": [
+    [
+      {
+        "source": 0,
+        "operator": null
+      },
+      {
+        "source": 0,
+        "operator": {
+          "name": "dct-transition2-1",
+          "inputChannels": 96,
+          "channels": 192,
+          "radius": 1,
+          "stride": 2,
+          "activationChannels": 96
+        }
+      }
+    ],
+    [
+      {
+        "source": 0,
+        "operator": null
+      },
+      {
+        "source": 1,
+        "operator": null
+      },
+      {
+        "source": 1,
+        "operator": {
+          "name": "dct-transition3-2",
+          "inputChannels": 192,
+          "channels": 384,
+          "radius": 1,
+          "stride": 2,
+          "activationChannels": 192
+        }
+      }
+    ]
+  ],
+  "dctStages": [
+    [
+      {
+        "branches": [
+          {
+            "name": "dct-stage3-0-branch0",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "dct-stage3-0-branch1",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "dct-stage3-0-fuse0-1",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "dct-stage3-0-fuse1-0",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null
+          ]
+        ]
+      },
+      {
+        "branches": [
+          {
+            "name": "dct-stage3-1-branch0",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "dct-stage3-1-branch1",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "dct-stage3-1-fuse0-1",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "dct-stage3-1-fuse1-0",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null
+          ]
+        ]
+      },
+      {
+        "branches": [
+          {
+            "name": "dct-stage3-2-branch0",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "dct-stage3-2-branch1",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "dct-stage3-2-fuse0-1",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            }
+          ],
+          [
+            {
+              "name": "dct-stage3-2-fuse1-0",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "branches": [
+          {
+            "name": "dct-stage4-0-branch0",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "dct-stage4-0-branch1",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          },
+          {
+            "name": "dct-stage4-0-branch2",
+            "inputChannels": 384,
+            "channels": 384,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 384
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "dct-stage4-0-fuse0-1",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            },
+            {
+              "name": "dct-stage4-0-fuse0-2",
+              "inputChannels": 384,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "dct-stage4-0-fuse1-0",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null,
+            {
+              "name": "dct-stage4-0-fuse1-2",
+              "inputChannels": 384,
+              "channels": 192,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "dct-stage4-0-fuse2-0",
+              "inputChannels": 96,
+              "channels": 384,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 96
+            },
+            {
+              "name": "dct-stage4-0-fuse2-1",
+              "inputChannels": 192,
+              "channels": 384,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 192
+            },
+            null
+          ]
+        ]
+      },
+      {
+        "branches": [
+          {
+            "name": "dct-stage4-1-branch0",
+            "inputChannels": 96,
+            "channels": 96,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "dct-stage4-1-branch1",
+            "inputChannels": 192,
+            "channels": 192,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 192
+          },
+          {
+            "name": "dct-stage4-1-branch2",
+            "inputChannels": 384,
+            "channels": 384,
+            "radius": 8,
+            "stride": 1,
+            "activationChannels": 384
+          }
+        ],
+        "fuse": [
+          [
+            null,
+            {
+              "name": "dct-stage4-1-fuse0-1",
+              "inputChannels": 192,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 192
+            },
+            {
+              "name": "dct-stage4-1-fuse0-2",
+              "inputChannels": 384,
+              "channels": 96,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "dct-stage4-1-fuse1-0",
+              "inputChannels": 96,
+              "channels": 192,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 96
+            },
+            null,
+            {
+              "name": "dct-stage4-1-fuse1-2",
+              "inputChannels": 384,
+              "channels": 192,
+              "radius": 0,
+              "stride": 1,
+              "activationChannels": 384
+            }
+          ],
+          [
+            {
+              "name": "dct-stage4-1-fuse2-0",
+              "inputChannels": 96,
+              "channels": 384,
+              "radius": 3,
+              "stride": 4,
+              "activationChannels": 96
+            },
+            {
+              "name": "dct-stage4-1-fuse2-1",
+              "inputChannels": 192,
+              "channels": 384,
+              "radius": 1,
+              "stride": 2,
+              "activationChannels": 192
+            },
+            null
+          ]
+        ]
+      }
+    ]
+  ],
+  "fusionTransition": [
+    {
+      "source": 0,
+      "operator": {
+        "name": "fusion-transition-0",
+        "inputChannels": 48,
+        "channels": 24,
+        "radius": 1,
+        "stride": 1,
+        "activationChannels": 48
+      }
+    },
+    {
+      "source": 1,
+      "operator": {
+        "name": "fusion-transition-1",
+        "inputChannels": 192,
+        "channels": 48,
+        "radius": 1,
+        "stride": 1,
+        "activationChannels": 192
+      }
+    },
+    {
+      "source": 2,
+      "operator": {
+        "name": "fusion-transition-2",
+        "inputChannels": 384,
+        "channels": 96,
+        "radius": 1,
+        "stride": 1,
+        "activationChannels": 384
+      }
+    },
+    {
+      "source": 3,
+      "operator": {
+        "name": "fusion-transition-3",
+        "inputChannels": 768,
+        "channels": 192,
+        "radius": 1,
+        "stride": 1,
+        "activationChannels": 768
+      }
+    }
+  ],
+  "fusionStage": [
+    {
+      "branches": [
+        {
+          "name": "fusion-stage5-0-branch0",
+          "inputChannels": 24,
+          "channels": 24,
+          "radius": 8,
+          "stride": 1,
+          "activationChannels": 24
+        },
+        {
+          "name": "fusion-stage5-0-branch1",
+          "inputChannels": 48,
+          "channels": 48,
+          "radius": 8,
+          "stride": 1,
+          "activationChannels": 48
+        },
+        {
+          "name": "fusion-stage5-0-branch2",
+          "inputChannels": 96,
+          "channels": 96,
+          "radius": 8,
+          "stride": 1,
+          "activationChannels": 96
+        },
+        {
+          "name": "fusion-stage5-0-branch3",
+          "inputChannels": 192,
+          "channels": 192,
+          "radius": 8,
+          "stride": 1,
+          "activationChannels": 192
+        }
+      ],
+      "fuse": [
+        [
+          null,
+          {
+            "name": "fusion-stage5-0-fuse0-1",
+            "inputChannels": 48,
+            "channels": 24,
+            "radius": 0,
+            "stride": 1,
+            "activationChannels": 48
+          },
+          {
+            "name": "fusion-stage5-0-fuse0-2",
+            "inputChannels": 96,
+            "channels": 24,
+            "radius": 0,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "fusion-stage5-0-fuse0-3",
+            "inputChannels": 192,
+            "channels": 24,
+            "radius": 0,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        [
+          {
+            "name": "fusion-stage5-0-fuse1-0",
+            "inputChannels": 24,
+            "channels": 48,
+            "radius": 1,
+            "stride": 2,
+            "activationChannels": 24
+          },
+          null,
+          {
+            "name": "fusion-stage5-0-fuse1-2",
+            "inputChannels": 96,
+            "channels": 48,
+            "radius": 0,
+            "stride": 1,
+            "activationChannels": 96
+          },
+          {
+            "name": "fusion-stage5-0-fuse1-3",
+            "inputChannels": 192,
+            "channels": 48,
+            "radius": 0,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        [
+          {
+            "name": "fusion-stage5-0-fuse2-0",
+            "inputChannels": 24,
+            "channels": 96,
+            "radius": 3,
+            "stride": 4,
+            "activationChannels": 24
+          },
+          {
+            "name": "fusion-stage5-0-fuse2-1",
+            "inputChannels": 48,
+            "channels": 96,
+            "radius": 1,
+            "stride": 2,
+            "activationChannels": 48
+          },
+          null,
+          {
+            "name": "fusion-stage5-0-fuse2-3",
+            "inputChannels": 192,
+            "channels": 96,
+            "radius": 0,
+            "stride": 1,
+            "activationChannels": 192
+          }
+        ],
+        [
+          {
+            "name": "fusion-stage5-0-fuse3-0",
+            "inputChannels": 24,
+            "channels": 192,
+            "radius": 7,
+            "stride": 8,
+            "activationChannels": 24
+          },
+          {
+            "name": "fusion-stage5-0-fuse3-1",
+            "inputChannels": 48,
+            "channels": 192,
+            "radius": 3,
+            "stride": 4,
+            "activationChannels": 48
+          },
+          {
+            "name": "fusion-stage5-0-fuse3-2",
+            "inputChannels": 96,
+            "channels": 192,
+            "radius": 1,
+            "stride": 2,
+            "activationChannels": 96
+          },
+          null
+        ]
+      ]
+    }
+  ],
+  "sample": "sample",
+  "head": {
+    "name": "head",
+    "inputChannels": 360,
+    "channels": 1,
+    "radius": 0,
+    "stride": 1,
+    "activationChannels": 360
+  },
+  "cases": [
+    {
+      "id": 0,
+      "metadata": {
+        "source_shape": [
+          64,
+          96
+        ],
+        "padded_shape": [
+          64,
+          96
+        ],
+        "orientation": 1
+      },
+      "files": {
+        "rgb": {
+          "file": "case0-rgb.f32",
+          "dims": [
+            1,
+            3,
+            64,
+            96
+          ]
+        },
+        "codes": {
+          "file": "case0-codes.f32",
+          "dims": [
+            1,
+            1,
+            64,
+            96
+          ]
+        },
+        "table": {
+          "file": "case0-table.f32",
+          "dims": [
+            1,
+            1,
+            8,
+            8
+          ]
+        },
+        "native_map": {
+          "file": "case0-native_map.f32",
+          "dims": [
+            1,
+            1,
+            16,
+            24
+          ]
+        },
+        "padded_map": {
+          "file": "case0-padded_map.f32",
+          "dims": [
+            1,
+            1,
+            64,
+            96
+          ]
+        }
+      }
+    },
+    {
+      "id": 1,
+      "metadata": {
+        "source_shape": [
+          97,
+          131
+        ],
+        "padded_shape": [
+          104,
+          136
+        ],
+        "orientation": 1
+      },
+      "files": {
+        "rgb": {
+          "file": "case1-rgb.f32",
+          "dims": [
+            1,
+            3,
+            104,
+            136
+          ]
+        },
+        "codes": {
+          "file": "case1-codes.f32",
+          "dims": [
+            1,
+            1,
+            104,
+            136
+          ]
+        },
+        "table": {
+          "file": "case1-table.f32",
+          "dims": [
+            1,
+            1,
+            8,
+            8
+          ]
+        },
+        "native_map": {
+          "file": "case1-native_map.f32",
+          "dims": [
+            1,
+            1,
+            26,
+            34
+          ]
+        },
+        "padded_map": {
+          "file": "case1-padded_map.f32",
+          "dims": [
+            1,
+            1,
+            104,
+            136
+          ]
+        }
+      }
+    }
+  ]
+}

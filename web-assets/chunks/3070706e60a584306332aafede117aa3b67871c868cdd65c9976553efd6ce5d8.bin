@@ -1,0 +1,204 @@
+{
+  "schema": "sherloq.media-100mp/1",
+  "browser": "154.0.8037.93",
+  "width": 10000,
+  "height": 10000,
+  "source": "deterministic compressible SDR gradient/xor; synthetic API test",
+  "cases": [
+    {
+      "format": "avif",
+      "bytes": 149792,
+      "sha256": "bae90602db215f0597f25f66d2c15b4b6095599eb31c36c474699c9cef874a6c",
+      "totalMs": 7566.3150000572205,
+      "provenance": {
+        "format": "avif",
+        "mime": "image/avif",
+        "width": 10000,
+        "height": 10000,
+        "chroma": "422",
+        "quality": 90,
+        "depth": 10,
+        "transfer": "PQ",
+        "primaries": "BT.2020",
+        "sdrWhiteNits": 203,
+        "gainMap": false,
+        "grid": {
+          "columns": 5,
+          "rows": 5
+        },
+        "encoder": "libavif-1.4.2/libaom-3.14.1",
+        "threads": 10,
+        "heapBytes": 703070208,
+        "coordinates": "full-resolution",
+        "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+      },
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "indexeddb",
+        "workingReservationBytes": 1073741824,
+        "codecHeapCapacityBytes": 703070208,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "policyAvailableBytes": 5368709120,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 1073741824,
+          "peakAccountedBytes": 1074701824,
+          "activeRecoveries": 0
+        }
+      },
+      "verification": {
+        "format": "avif",
+        "width": 10000,
+        "height": 10000,
+        "bytes": 149792,
+        "sha256": "bae90602db215f0597f25f66d2c15b4b6095599eb31c36c474699c9cef874a6c",
+        "meanAbsoluteError": 0.5270711066666667,
+        "maximumError": 51,
+        "psnr": 46.911267795090616,
+        "gridBoundaryMeanError": 2.4119027777777777,
+        "decoder": "libavif/dav1d (16-bit then inverse PQ/BT.2020)"
+      }
+    },
+    {
+      "format": "webp",
+      "bytes": 373894,
+      "sha256": "4a6a82a0b735d0066ec53c0ef819645f7b3aa84ba42e7698aaae34cf2258ad85",
+      "totalMs": 13181.930000007153,
+      "provenance": {
+        "format": "webp",
+        "mime": "image/webp",
+        "width": 10000,
+        "height": 10000,
+        "chroma": "420",
+        "quality": 90,
+        "lossless": false,
+        "depth": 8,
+        "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+        "coordinates": "full-resolution",
+        "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+      },
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "indexeddb",
+        "workingReservationBytes": 2214592512,
+        "codecHeapCapacityBytes": null,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "policyAvailableBytes": 4227858432,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 2214592512,
+          "peakAccountedBytes": 2215552512,
+          "activeRecoveries": 0
+        }
+      },
+      "verification": {
+        "format": "webp",
+        "width": 10000,
+        "height": 10000,
+        "bytes": 373894,
+        "sha256": "4a6a82a0b735d0066ec53c0ef819645f7b3aa84ba42e7698aaae34cf2258ad85",
+        "meanAbsoluteError": 0.45335211,
+        "maximumError": 44,
+        "psnr": 50.798882682581535,
+        "gridBoundaryMeanError": 2.287725,
+        "decoder": "Pillow native codec"
+      }
+    },
+    {
+      "format": "png",
+      "bytes": 333860,
+      "sha256": "9539474b54683757e2f123f274fcf0d335d9d385c1e6b87602bef583bc3f6182",
+      "totalMs": 5928.495000004768,
+      "provenance": {
+        "coordinates": "full-resolution",
+        "pixels": "exact surface bytes",
+        "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+        "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+        "compression": 6
+      },
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "indexeddb",
+        "outputCapacityBytes": 301205115,
+        "encodedWriteCalls": 2,
+        "maxSourceWindowBytes": 960000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "policyAvailableBytes": 6417022976,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 25427968,
+          "peakAccountedBytes": 27525120,
+          "activeRecoveries": 0
+        }
+      },
+      "verification": {
+        "format": "png",
+        "width": 10000,
+        "height": 10000,
+        "bytes": 333860,
+        "sha256": "9539474b54683757e2f123f274fcf0d335d9d385c1e6b87602bef583bc3f6182",
+        "meanAbsoluteError": 0.0,
+        "maximumError": 0,
+        "psnr": null,
+        "gridBoundaryMeanError": 0.0,
+        "decoder": "Pillow native codec"
+      }
+    },
+    {
+      "format": "heic",
+      "bytes": 1561346,
+      "sha256": "0f690b53c28c39c870e5b1923ae6f19ef56776a9144b00b99bdb018fda7aa40c",
+      "totalMs": 139768.30000001192,
+      "provenance": {
+        "format": "heic",
+        "mime": "image/heic",
+        "width": 10000,
+        "height": 10000,
+        "chroma": "422",
+        "quality": 90,
+        "depth": 8,
+        "grid": {
+          "columns": 5,
+          "rows": 5,
+          "cellWidth": 2048,
+          "cellHeight": 2048
+        },
+        "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+        "coordinates": "full-resolution",
+        "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+      },
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "indexeddb",
+        "workingReservationBytes": 738197504,
+        "codecHeapCapacityBytes": null,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "policyAvailableBytes": 5704253440,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 738197504,
+          "peakAccountedBytes": 740294656,
+          "activeRecoveries": 0
+        }
+      },
+      "verification": {
+        "format": "heic",
+        "width": 10000,
+        "height": 10000,
+        "bytes": 1561346,
+        "sha256": "0f690b53c28c39c870e5b1923ae6f19ef56776a9144b00b99bdb018fda7aa40c",
+        "meanAbsoluteError": 0.32950139,
+        "maximumError": 3,
+        "psnr": 52.94393943824437,
+        "gridBoundaryMeanError": 0.3292861111111111,
+        "decoder": "ImageMagick/libheif"
+      }
+    }
+  ]
+}

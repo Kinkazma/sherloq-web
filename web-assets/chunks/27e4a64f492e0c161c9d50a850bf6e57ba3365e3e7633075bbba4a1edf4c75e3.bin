@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "mgcfdn-tnt-native-order-v1",
+  "variant": "mgcfdn-tnt",
+  "side": 256,
+  "kind": "sigmoid",
+  "checkpointSha256": "c83f0d1a2840ebfdfafbf5c7ed842f8b5756c8975a6e6aff18cf73f95fbba56e",
+  "backbone": {
+    "file": "backbone.json",
+    "bytes": 113507,
+    "sha256": "6270c09edca590d59fe922dd740999ec7f4dde867ac507bc84cbf8b46cc99fa4"
+  },
+  "tail": {
+    "file": "tail.onnx",
+    "bytes": 28780560,
+    "sha256": "0972f12d0ce15c58d1dcd0aa992ca28b3ddb46afeacaf8c9d15dc5419ba5f55b"
+  }
+}

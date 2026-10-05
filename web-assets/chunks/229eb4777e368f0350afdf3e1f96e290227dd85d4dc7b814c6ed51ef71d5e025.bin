@@ -1,0 +1,4549 @@
+{
+  "schema": 1,
+  "status": "experimental-not-public",
+  "variant": "cmseg-generalization",
+  "input": "rgb",
+  "inputShape": [
+    1,
+    3,
+    512,
+    512
+  ],
+  "nodes": [
+    {
+      "op": "Conv",
+      "name": "features.0.0",
+      "input": [
+        "rgb",
+        "features.0.0.weight"
+      ],
+      "output": "value-0",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 2,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.0.1",
+      "input": [
+        "value-0",
+        "features.0.1.weight",
+        "features.0.1.bias",
+        "features.0.1.mean",
+        "features.0.1.variance"
+      ],
+      "output": "value-1",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.0.2",
+      "input": [
+        "value-1"
+      ],
+      "output": "value-2",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.1.conv.0",
+      "input": [
+        "value-2",
+        "features.1.conv.0.weight"
+      ],
+      "output": "value-3",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 32
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.1.conv.1",
+      "input": [
+        "value-3",
+        "features.1.conv.1.weight",
+        "features.1.conv.1.bias",
+        "features.1.conv.1.mean",
+        "features.1.conv.1.variance"
+      ],
+      "output": "value-4",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.1.conv.2",
+      "input": [
+        "value-4"
+      ],
+      "output": "value-5",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.1.conv.3",
+      "input": [
+        "value-5",
+        "features.1.conv.3.weight"
+      ],
+      "output": "value-6",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.1.conv.4",
+      "input": [
+        "value-6",
+        "features.1.conv.4.weight",
+        "features.1.conv.4.bias",
+        "features.1.conv.4.mean",
+        "features.1.conv.4.variance"
+      ],
+      "output": "value-7",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Conv",
+      "name": "features.2.conv.0",
+      "input": [
+        "value-7",
+        "features.2.conv.0.weight"
+      ],
+      "output": "value-8",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.2.conv.1",
+      "input": [
+        "value-8",
+        "features.2.conv.1.weight",
+        "features.2.conv.1.bias",
+        "features.2.conv.1.mean",
+        "features.2.conv.1.variance"
+      ],
+      "output": "value-9",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.2.conv.2",
+      "input": [
+        "value-9"
+      ],
+      "output": "value-10",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.2.conv.3",
+      "input": [
+        "value-10",
+        "features.2.conv.3.weight"
+      ],
+      "output": "value-11",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 2,
+        "groups": 96
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.2.conv.4",
+      "input": [
+        "value-11",
+        "features.2.conv.4.weight",
+        "features.2.conv.4.bias",
+        "features.2.conv.4.mean",
+        "features.2.conv.4.variance"
+      ],
+      "output": "value-12",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.2.conv.5",
+      "input": [
+        "value-12"
+      ],
+      "output": "value-13",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.2.conv.6",
+      "input": [
+        "value-13",
+        "features.2.conv.6.weight"
+      ],
+      "output": "value-14",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.2.conv.7",
+      "input": [
+        "value-14",
+        "features.2.conv.7.weight",
+        "features.2.conv.7.bias",
+        "features.2.conv.7.mean",
+        "features.2.conv.7.variance"
+      ],
+      "output": "value-15",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Conv",
+      "name": "features.3.conv.0",
+      "input": [
+        "value-15",
+        "features.3.conv.0.weight"
+      ],
+      "output": "value-16",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.3.conv.1",
+      "input": [
+        "value-16",
+        "features.3.conv.1.weight",
+        "features.3.conv.1.bias",
+        "features.3.conv.1.mean",
+        "features.3.conv.1.variance"
+      ],
+      "output": "value-17",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.3.conv.2",
+      "input": [
+        "value-17"
+      ],
+      "output": "value-18",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.3.conv.3",
+      "input": [
+        "value-18",
+        "features.3.conv.3.weight"
+      ],
+      "output": "value-19",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 144
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.3.conv.4",
+      "input": [
+        "value-19",
+        "features.3.conv.4.weight",
+        "features.3.conv.4.bias",
+        "features.3.conv.4.mean",
+        "features.3.conv.4.variance"
+      ],
+      "output": "value-20",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.3.conv.5",
+      "input": [
+        "value-20"
+      ],
+      "output": "value-21",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.3.conv.6",
+      "input": [
+        "value-21",
+        "features.3.conv.6.weight"
+      ],
+      "output": "value-22",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.3.conv.7",
+      "input": [
+        "value-22",
+        "features.3.conv.7.weight",
+        "features.3.conv.7.bias",
+        "features.3.conv.7.mean",
+        "features.3.conv.7.variance"
+      ],
+      "output": "value-23",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.3.residual",
+      "input": [
+        "value-15",
+        "value-23"
+      ],
+      "output": "value-24",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.4.conv.0",
+      "input": [
+        "value-24",
+        "features.4.conv.0.weight"
+      ],
+      "output": "value-25",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.4.conv.1",
+      "input": [
+        "value-25",
+        "features.4.conv.1.weight",
+        "features.4.conv.1.bias",
+        "features.4.conv.1.mean",
+        "features.4.conv.1.variance"
+      ],
+      "output": "value-26",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.4.conv.2",
+      "input": [
+        "value-26"
+      ],
+      "output": "value-27",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.4.conv.3",
+      "input": [
+        "value-27",
+        "features.4.conv.3.weight"
+      ],
+      "output": "value-28",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 2,
+        "groups": 144
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.4.conv.4",
+      "input": [
+        "value-28",
+        "features.4.conv.4.weight",
+        "features.4.conv.4.bias",
+        "features.4.conv.4.mean",
+        "features.4.conv.4.variance"
+      ],
+      "output": "value-29",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.4.conv.5",
+      "input": [
+        "value-29"
+      ],
+      "output": "value-30",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.4.conv.6",
+      "input": [
+        "value-30",
+        "features.4.conv.6.weight"
+      ],
+      "output": "value-31",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.4.conv.7",
+      "input": [
+        "value-31",
+        "features.4.conv.7.weight",
+        "features.4.conv.7.bias",
+        "features.4.conv.7.mean",
+        "features.4.conv.7.variance"
+      ],
+      "output": "value-32",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Conv",
+      "name": "features.5.conv.0",
+      "input": [
+        "value-32",
+        "features.5.conv.0.weight"
+      ],
+      "output": "value-33",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.5.conv.1",
+      "input": [
+        "value-33",
+        "features.5.conv.1.weight",
+        "features.5.conv.1.bias",
+        "features.5.conv.1.mean",
+        "features.5.conv.1.variance"
+      ],
+      "output": "value-34",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.5.conv.2",
+      "input": [
+        "value-34"
+      ],
+      "output": "value-35",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.5.conv.3",
+      "input": [
+        "value-35",
+        "features.5.conv.3.weight"
+      ],
+      "output": "value-36",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 192
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.5.conv.4",
+      "input": [
+        "value-36",
+        "features.5.conv.4.weight",
+        "features.5.conv.4.bias",
+        "features.5.conv.4.mean",
+        "features.5.conv.4.variance"
+      ],
+      "output": "value-37",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.5.conv.5",
+      "input": [
+        "value-37"
+      ],
+      "output": "value-38",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.5.conv.6",
+      "input": [
+        "value-38",
+        "features.5.conv.6.weight"
+      ],
+      "output": "value-39",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.5.conv.7",
+      "input": [
+        "value-39",
+        "features.5.conv.7.weight",
+        "features.5.conv.7.bias",
+        "features.5.conv.7.mean",
+        "features.5.conv.7.variance"
+      ],
+      "output": "value-40",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.5.residual",
+      "input": [
+        "value-32",
+        "value-40"
+      ],
+      "output": "value-41",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.6.conv.0",
+      "input": [
+        "value-41",
+        "features.6.conv.0.weight"
+      ],
+      "output": "value-42",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.6.conv.1",
+      "input": [
+        "value-42",
+        "features.6.conv.1.weight",
+        "features.6.conv.1.bias",
+        "features.6.conv.1.mean",
+        "features.6.conv.1.variance"
+      ],
+      "output": "value-43",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.6.conv.2",
+      "input": [
+        "value-43"
+      ],
+      "output": "value-44",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.6.conv.3",
+      "input": [
+        "value-44",
+        "features.6.conv.3.weight"
+      ],
+      "output": "value-45",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 192
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.6.conv.4",
+      "input": [
+        "value-45",
+        "features.6.conv.4.weight",
+        "features.6.conv.4.bias",
+        "features.6.conv.4.mean",
+        "features.6.conv.4.variance"
+      ],
+      "output": "value-46",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.6.conv.5",
+      "input": [
+        "value-46"
+      ],
+      "output": "value-47",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.6.conv.6",
+      "input": [
+        "value-47",
+        "features.6.conv.6.weight"
+      ],
+      "output": "value-48",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.6.conv.7",
+      "input": [
+        "value-48",
+        "features.6.conv.7.weight",
+        "features.6.conv.7.bias",
+        "features.6.conv.7.mean",
+        "features.6.conv.7.variance"
+      ],
+      "output": "value-49",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.6.residual",
+      "input": [
+        "value-41",
+        "value-49"
+      ],
+      "output": "value-50",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.7.conv.0",
+      "input": [
+        "value-50",
+        "features.7.conv.0.weight"
+      ],
+      "output": "value-51",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.7.conv.1",
+      "input": [
+        "value-51",
+        "features.7.conv.1.weight",
+        "features.7.conv.1.bias",
+        "features.7.conv.1.mean",
+        "features.7.conv.1.variance"
+      ],
+      "output": "value-52",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.7.conv.2",
+      "input": [
+        "value-52"
+      ],
+      "output": "value-53",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.7.conv.3",
+      "input": [
+        "value-53",
+        "features.7.conv.3.weight"
+      ],
+      "output": "value-54",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 2,
+        "groups": 192
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.7.conv.4",
+      "input": [
+        "value-54",
+        "features.7.conv.4.weight",
+        "features.7.conv.4.bias",
+        "features.7.conv.4.mean",
+        "features.7.conv.4.variance"
+      ],
+      "output": "value-55",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.7.conv.5",
+      "input": [
+        "value-55"
+      ],
+      "output": "value-56",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.7.conv.6",
+      "input": [
+        "value-56",
+        "features.7.conv.6.weight"
+      ],
+      "output": "value-57",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.7.conv.7",
+      "input": [
+        "value-57",
+        "features.7.conv.7.weight",
+        "features.7.conv.7.bias",
+        "features.7.conv.7.mean",
+        "features.7.conv.7.variance"
+      ],
+      "output": "value-58",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Conv",
+      "name": "features.8.conv.0",
+      "input": [
+        "value-58",
+        "features.8.conv.0.weight"
+      ],
+      "output": "value-59",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.8.conv.1",
+      "input": [
+        "value-59",
+        "features.8.conv.1.weight",
+        "features.8.conv.1.bias",
+        "features.8.conv.1.mean",
+        "features.8.conv.1.variance"
+      ],
+      "output": "value-60",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.8.conv.2",
+      "input": [
+        "value-60"
+      ],
+      "output": "value-61",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.8.conv.3",
+      "input": [
+        "value-61",
+        "features.8.conv.3.weight"
+      ],
+      "output": "value-62",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 384
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.8.conv.4",
+      "input": [
+        "value-62",
+        "features.8.conv.4.weight",
+        "features.8.conv.4.bias",
+        "features.8.conv.4.mean",
+        "features.8.conv.4.variance"
+      ],
+      "output": "value-63",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.8.conv.5",
+      "input": [
+        "value-63"
+      ],
+      "output": "value-64",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.8.conv.6",
+      "input": [
+        "value-64",
+        "features.8.conv.6.weight"
+      ],
+      "output": "value-65",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.8.conv.7",
+      "input": [
+        "value-65",
+        "features.8.conv.7.weight",
+        "features.8.conv.7.bias",
+        "features.8.conv.7.mean",
+        "features.8.conv.7.variance"
+      ],
+      "output": "value-66",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.8.residual",
+      "input": [
+        "value-58",
+        "value-66"
+      ],
+      "output": "value-67",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.9.conv.0",
+      "input": [
+        "value-67",
+        "features.9.conv.0.weight"
+      ],
+      "output": "value-68",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.9.conv.1",
+      "input": [
+        "value-68",
+        "features.9.conv.1.weight",
+        "features.9.conv.1.bias",
+        "features.9.conv.1.mean",
+        "features.9.conv.1.variance"
+      ],
+      "output": "value-69",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.9.conv.2",
+      "input": [
+        "value-69"
+      ],
+      "output": "value-70",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.9.conv.3",
+      "input": [
+        "value-70",
+        "features.9.conv.3.weight"
+      ],
+      "output": "value-71",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 384
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.9.conv.4",
+      "input": [
+        "value-71",
+        "features.9.conv.4.weight",
+        "features.9.conv.4.bias",
+        "features.9.conv.4.mean",
+        "features.9.conv.4.variance"
+      ],
+      "output": "value-72",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.9.conv.5",
+      "input": [
+        "value-72"
+      ],
+      "output": "value-73",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.9.conv.6",
+      "input": [
+        "value-73",
+        "features.9.conv.6.weight"
+      ],
+      "output": "value-74",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.9.conv.7",
+      "input": [
+        "value-74",
+        "features.9.conv.7.weight",
+        "features.9.conv.7.bias",
+        "features.9.conv.7.mean",
+        "features.9.conv.7.variance"
+      ],
+      "output": "value-75",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.9.residual",
+      "input": [
+        "value-67",
+        "value-75"
+      ],
+      "output": "value-76",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.10.conv.0",
+      "input": [
+        "value-76",
+        "features.10.conv.0.weight"
+      ],
+      "output": "value-77",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.10.conv.1",
+      "input": [
+        "value-77",
+        "features.10.conv.1.weight",
+        "features.10.conv.1.bias",
+        "features.10.conv.1.mean",
+        "features.10.conv.1.variance"
+      ],
+      "output": "value-78",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.10.conv.2",
+      "input": [
+        "value-78"
+      ],
+      "output": "value-79",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.10.conv.3",
+      "input": [
+        "value-79",
+        "features.10.conv.3.weight"
+      ],
+      "output": "value-80",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 384
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.10.conv.4",
+      "input": [
+        "value-80",
+        "features.10.conv.4.weight",
+        "features.10.conv.4.bias",
+        "features.10.conv.4.mean",
+        "features.10.conv.4.variance"
+      ],
+      "output": "value-81",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.10.conv.5",
+      "input": [
+        "value-81"
+      ],
+      "output": "value-82",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.10.conv.6",
+      "input": [
+        "value-82",
+        "features.10.conv.6.weight"
+      ],
+      "output": "value-83",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.10.conv.7",
+      "input": [
+        "value-83",
+        "features.10.conv.7.weight",
+        "features.10.conv.7.bias",
+        "features.10.conv.7.mean",
+        "features.10.conv.7.variance"
+      ],
+      "output": "value-84",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.10.residual",
+      "input": [
+        "value-76",
+        "value-84"
+      ],
+      "output": "value-85",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.11.conv.0",
+      "input": [
+        "value-85",
+        "features.11.conv.0.weight"
+      ],
+      "output": "value-86",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.11.conv.1",
+      "input": [
+        "value-86",
+        "features.11.conv.1.weight",
+        "features.11.conv.1.bias",
+        "features.11.conv.1.mean",
+        "features.11.conv.1.variance"
+      ],
+      "output": "value-87",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.11.conv.2",
+      "input": [
+        "value-87"
+      ],
+      "output": "value-88",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.11.conv.3",
+      "input": [
+        "value-88",
+        "features.11.conv.3.weight"
+      ],
+      "output": "value-89",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 384
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.11.conv.4",
+      "input": [
+        "value-89",
+        "features.11.conv.4.weight",
+        "features.11.conv.4.bias",
+        "features.11.conv.4.mean",
+        "features.11.conv.4.variance"
+      ],
+      "output": "value-90",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.11.conv.5",
+      "input": [
+        "value-90"
+      ],
+      "output": "value-91",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.11.conv.6",
+      "input": [
+        "value-91",
+        "features.11.conv.6.weight"
+      ],
+      "output": "value-92",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.11.conv.7",
+      "input": [
+        "value-92",
+        "features.11.conv.7.weight",
+        "features.11.conv.7.bias",
+        "features.11.conv.7.mean",
+        "features.11.conv.7.variance"
+      ],
+      "output": "value-93",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Conv",
+      "name": "features.12.conv.0",
+      "input": [
+        "value-93",
+        "features.12.conv.0.weight"
+      ],
+      "output": "value-94",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.12.conv.1",
+      "input": [
+        "value-94",
+        "features.12.conv.1.weight",
+        "features.12.conv.1.bias",
+        "features.12.conv.1.mean",
+        "features.12.conv.1.variance"
+      ],
+      "output": "value-95",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.12.conv.2",
+      "input": [
+        "value-95"
+      ],
+      "output": "value-96",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.12.conv.3",
+      "input": [
+        "value-96",
+        "features.12.conv.3.weight"
+      ],
+      "output": "value-97",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 576
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.12.conv.4",
+      "input": [
+        "value-97",
+        "features.12.conv.4.weight",
+        "features.12.conv.4.bias",
+        "features.12.conv.4.mean",
+        "features.12.conv.4.variance"
+      ],
+      "output": "value-98",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.12.conv.5",
+      "input": [
+        "value-98"
+      ],
+      "output": "value-99",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.12.conv.6",
+      "input": [
+        "value-99",
+        "features.12.conv.6.weight"
+      ],
+      "output": "value-100",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.12.conv.7",
+      "input": [
+        "value-100",
+        "features.12.conv.7.weight",
+        "features.12.conv.7.bias",
+        "features.12.conv.7.mean",
+        "features.12.conv.7.variance"
+      ],
+      "output": "value-101",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.12.residual",
+      "input": [
+        "value-93",
+        "value-101"
+      ],
+      "output": "value-102",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.13.conv.0",
+      "input": [
+        "value-102",
+        "features.13.conv.0.weight"
+      ],
+      "output": "value-103",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.13.conv.1",
+      "input": [
+        "value-103",
+        "features.13.conv.1.weight",
+        "features.13.conv.1.bias",
+        "features.13.conv.1.mean",
+        "features.13.conv.1.variance"
+      ],
+      "output": "value-104",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.13.conv.2",
+      "input": [
+        "value-104"
+      ],
+      "output": "value-105",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.13.conv.3",
+      "input": [
+        "value-105",
+        "features.13.conv.3.weight"
+      ],
+      "output": "value-106",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 576
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.13.conv.4",
+      "input": [
+        "value-106",
+        "features.13.conv.4.weight",
+        "features.13.conv.4.bias",
+        "features.13.conv.4.mean",
+        "features.13.conv.4.variance"
+      ],
+      "output": "value-107",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.13.conv.5",
+      "input": [
+        "value-107"
+      ],
+      "output": "value-108",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.13.conv.6",
+      "input": [
+        "value-108",
+        "features.13.conv.6.weight"
+      ],
+      "output": "value-109",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.13.conv.7",
+      "input": [
+        "value-109",
+        "features.13.conv.7.weight",
+        "features.13.conv.7.bias",
+        "features.13.conv.7.mean",
+        "features.13.conv.7.variance"
+      ],
+      "output": "value-110",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.13.residual",
+      "input": [
+        "value-102",
+        "value-110"
+      ],
+      "output": "value-111",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.14.conv.0",
+      "input": [
+        "value-111",
+        "features.14.conv.0.weight"
+      ],
+      "output": "value-112",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.14.conv.1",
+      "input": [
+        "value-112",
+        "features.14.conv.1.weight",
+        "features.14.conv.1.bias",
+        "features.14.conv.1.mean",
+        "features.14.conv.1.variance"
+      ],
+      "output": "value-113",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.14.conv.2",
+      "input": [
+        "value-113"
+      ],
+      "output": "value-114",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.14.conv.3",
+      "input": [
+        "value-114",
+        "features.14.conv.3.weight"
+      ],
+      "output": "value-115",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 2,
+        "groups": 576
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.14.conv.4",
+      "input": [
+        "value-115",
+        "features.14.conv.4.weight",
+        "features.14.conv.4.bias",
+        "features.14.conv.4.mean",
+        "features.14.conv.4.variance"
+      ],
+      "output": "value-116",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.14.conv.5",
+      "input": [
+        "value-116"
+      ],
+      "output": "value-117",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.14.conv.6",
+      "input": [
+        "value-117",
+        "features.14.conv.6.weight"
+      ],
+      "output": "value-118",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.14.conv.7",
+      "input": [
+        "value-118",
+        "features.14.conv.7.weight",
+        "features.14.conv.7.bias",
+        "features.14.conv.7.mean",
+        "features.14.conv.7.variance"
+      ],
+      "output": "value-119",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Conv",
+      "name": "features.15.conv.0",
+      "input": [
+        "value-119",
+        "features.15.conv.0.weight"
+      ],
+      "output": "value-120",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.15.conv.1",
+      "input": [
+        "value-120",
+        "features.15.conv.1.weight",
+        "features.15.conv.1.bias",
+        "features.15.conv.1.mean",
+        "features.15.conv.1.variance"
+      ],
+      "output": "value-121",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.15.conv.2",
+      "input": [
+        "value-121"
+      ],
+      "output": "value-122",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.15.conv.3",
+      "input": [
+        "value-122",
+        "features.15.conv.3.weight"
+      ],
+      "output": "value-123",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 960
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.15.conv.4",
+      "input": [
+        "value-123",
+        "features.15.conv.4.weight",
+        "features.15.conv.4.bias",
+        "features.15.conv.4.mean",
+        "features.15.conv.4.variance"
+      ],
+      "output": "value-124",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.15.conv.5",
+      "input": [
+        "value-124"
+      ],
+      "output": "value-125",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.15.conv.6",
+      "input": [
+        "value-125",
+        "features.15.conv.6.weight"
+      ],
+      "output": "value-126",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.15.conv.7",
+      "input": [
+        "value-126",
+        "features.15.conv.7.weight",
+        "features.15.conv.7.bias",
+        "features.15.conv.7.mean",
+        "features.15.conv.7.variance"
+      ],
+      "output": "value-127",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.15.residual",
+      "input": [
+        "value-119",
+        "value-127"
+      ],
+      "output": "value-128",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.16.conv.0",
+      "input": [
+        "value-128",
+        "features.16.conv.0.weight"
+      ],
+      "output": "value-129",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.16.conv.1",
+      "input": [
+        "value-129",
+        "features.16.conv.1.weight",
+        "features.16.conv.1.bias",
+        "features.16.conv.1.mean",
+        "features.16.conv.1.variance"
+      ],
+      "output": "value-130",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.16.conv.2",
+      "input": [
+        "value-130"
+      ],
+      "output": "value-131",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.16.conv.3",
+      "input": [
+        "value-131",
+        "features.16.conv.3.weight"
+      ],
+      "output": "value-132",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 960
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.16.conv.4",
+      "input": [
+        "value-132",
+        "features.16.conv.4.weight",
+        "features.16.conv.4.bias",
+        "features.16.conv.4.mean",
+        "features.16.conv.4.variance"
+      ],
+      "output": "value-133",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.16.conv.5",
+      "input": [
+        "value-133"
+      ],
+      "output": "value-134",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.16.conv.6",
+      "input": [
+        "value-134",
+        "features.16.conv.6.weight"
+      ],
+      "output": "value-135",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.16.conv.7",
+      "input": [
+        "value-135",
+        "features.16.conv.7.weight",
+        "features.16.conv.7.bias",
+        "features.16.conv.7.mean",
+        "features.16.conv.7.variance"
+      ],
+      "output": "value-136",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Add",
+      "name": "features.16.residual",
+      "input": [
+        "value-128",
+        "value-136"
+      ],
+      "output": "value-137",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.17.conv.0",
+      "input": [
+        "value-137",
+        "features.17.conv.0.weight"
+      ],
+      "output": "value-138",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.17.conv.1",
+      "input": [
+        "value-138",
+        "features.17.conv.1.weight",
+        "features.17.conv.1.bias",
+        "features.17.conv.1.mean",
+        "features.17.conv.1.variance"
+      ],
+      "output": "value-139",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.17.conv.2",
+      "input": [
+        "value-139"
+      ],
+      "output": "value-140",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.17.conv.3",
+      "input": [
+        "value-140",
+        "features.17.conv.3.weight"
+      ],
+      "output": "value-141",
+      "attrs": {
+        "kernel": 3,
+        "padding": 1,
+        "stride": 1,
+        "groups": 960
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.17.conv.4",
+      "input": [
+        "value-141",
+        "features.17.conv.4.weight",
+        "features.17.conv.4.bias",
+        "features.17.conv.4.mean",
+        "features.17.conv.4.variance"
+      ],
+      "output": "value-142",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.17.conv.5",
+      "input": [
+        "value-142"
+      ],
+      "output": "value-143",
+      "attrs": {}
+    },
+    {
+      "op": "Conv",
+      "name": "features.17.conv.6",
+      "input": [
+        "value-143",
+        "features.17.conv.6.weight"
+      ],
+      "output": "value-144",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.17.conv.7",
+      "input": [
+        "value-144",
+        "features.17.conv.7.weight",
+        "features.17.conv.7.bias",
+        "features.17.conv.7.mean",
+        "features.17.conv.7.variance"
+      ],
+      "output": "value-145",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Conv",
+      "name": "features.18.0",
+      "input": [
+        "value-145",
+        "features.18.0.weight"
+      ],
+      "output": "value-146",
+      "attrs": {
+        "kernel": 1,
+        "padding": 0,
+        "stride": 1,
+        "groups": 1
+      }
+    },
+    {
+      "op": "BatchNormalization",
+      "name": "features.18.1",
+      "input": [
+        "value-146",
+        "features.18.1.weight",
+        "features.18.1.bias",
+        "features.18.1.mean",
+        "features.18.1.variance"
+      ],
+      "output": "value-147",
+      "attrs": {
+        "training_mode": 0,
+        "epsilon": 1e-05
+      }
+    },
+    {
+      "op": "Clip6",
+      "name": "features.18.2",
+      "input": [
+        "value-147"
+      ],
+      "output": "value-148",
+      "attrs": {}
+    }
+  ],
+  "parameters": {
+    "features.0.0.weight": {
+      "file": "parameters/7f5f2573df34758f139fbb7b4c2f9b03313a251ba745a3d1768c675a6165a2b1.bin",
+      "bytes": 3456,
+      "sha256": "7f5f2573df34758f139fbb7b4c2f9b03313a251ba745a3d1768c675a6165a2b1",
+      "shape": [
+        32,
+        3,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.0.1.weight": {
+      "file": "parameters/e9a60caea182affce05ae2ee6f093ed9a40dd9ec9b129da62a8aa82f5ed84ab7.bin",
+      "bytes": 128,
+      "sha256": "e9a60caea182affce05ae2ee6f093ed9a40dd9ec9b129da62a8aa82f5ed84ab7",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.0.1.bias": {
+      "file": "parameters/135b605bacbcf395e200835fee9f8c9bc1d27d8120c99d44b1cb651ea0270c1e.bin",
+      "bytes": 128,
+      "sha256": "135b605bacbcf395e200835fee9f8c9bc1d27d8120c99d44b1cb651ea0270c1e",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.0.1.mean": {
+      "file": "parameters/808533aee39d47d19ea594c63106dd84ad306648c76e885cd9fa92dec0c1af80.bin",
+      "bytes": 128,
+      "sha256": "808533aee39d47d19ea594c63106dd84ad306648c76e885cd9fa92dec0c1af80",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.0.1.variance": {
+      "file": "parameters/17d3ad9668917c7046a41a651c7ecf4a3214d8f76c0b9293768d9eb4ae691a36.bin",
+      "bytes": 128,
+      "sha256": "17d3ad9668917c7046a41a651c7ecf4a3214d8f76c0b9293768d9eb4ae691a36",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.0.weight": {
+      "file": "parameters/ba1d77820e54929409b124ce7c81db7354dc3e06363f06edeb18df59c3b5f64a.bin",
+      "bytes": 1152,
+      "sha256": "ba1d77820e54929409b124ce7c81db7354dc3e06363f06edeb18df59c3b5f64a",
+      "shape": [
+        32,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.1.weight": {
+      "file": "parameters/a7fec95b2f244897cce0821af0c5e8b91ce0ce0eb06442c29872fcd5679ab69e.bin",
+      "bytes": 128,
+      "sha256": "a7fec95b2f244897cce0821af0c5e8b91ce0ce0eb06442c29872fcd5679ab69e",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.1.bias": {
+      "file": "parameters/adc4ed05def4e2b3c707fdb54ad24b6951daecefd6849d770f4df5285197ae11.bin",
+      "bytes": 128,
+      "sha256": "adc4ed05def4e2b3c707fdb54ad24b6951daecefd6849d770f4df5285197ae11",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.1.mean": {
+      "file": "parameters/bfd71a1d0c3a46006175c33814a8cce8ac5c2a07a1fc7bf81a90fac8f6e6cbf6.bin",
+      "bytes": 128,
+      "sha256": "bfd71a1d0c3a46006175c33814a8cce8ac5c2a07a1fc7bf81a90fac8f6e6cbf6",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.1.variance": {
+      "file": "parameters/baa636f7fc1fd9e33fbe5cadfd3eebadfcb19b09cd099dccc26a06920632fb1d.bin",
+      "bytes": 128,
+      "sha256": "baa636f7fc1fd9e33fbe5cadfd3eebadfcb19b09cd099dccc26a06920632fb1d",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.3.weight": {
+      "file": "parameters/8dd26ded20f0b1607d38f330ef714fe4a7084eb885955e37c860d35c1388eb4c.bin",
+      "bytes": 2048,
+      "sha256": "8dd26ded20f0b1607d38f330ef714fe4a7084eb885955e37c860d35c1388eb4c",
+      "shape": [
+        16,
+        32,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.4.weight": {
+      "file": "parameters/45936980b96d9139a2d4f503f613a475b3a705a5bb339be0a74cae89d4d4d7e9.bin",
+      "bytes": 64,
+      "sha256": "45936980b96d9139a2d4f503f613a475b3a705a5bb339be0a74cae89d4d4d7e9",
+      "shape": [
+        16
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.4.bias": {
+      "file": "parameters/e3e2549679872e34c19e09fa73419f77c9773bfe0b40788a8345988db981c7b2.bin",
+      "bytes": 64,
+      "sha256": "e3e2549679872e34c19e09fa73419f77c9773bfe0b40788a8345988db981c7b2",
+      "shape": [
+        16
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.4.mean": {
+      "file": "parameters/3ccbe67e7d276bd3e8038d4fadb5e9161c501fd0671940818c8f089aaaf4f923.bin",
+      "bytes": 64,
+      "sha256": "3ccbe67e7d276bd3e8038d4fadb5e9161c501fd0671940818c8f089aaaf4f923",
+      "shape": [
+        16
+      ],
+      "dtype": "float32"
+    },
+    "features.1.conv.4.variance": {
+      "file": "parameters/87941080be9728439c69d2c26fe188984a77e5f07f02d625d54db61e1340753f.bin",
+      "bytes": 64,
+      "sha256": "87941080be9728439c69d2c26fe188984a77e5f07f02d625d54db61e1340753f",
+      "shape": [
+        16
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.0.weight": {
+      "file": "parameters/6413eab3ee19b412cb42a3880c18eda67dbe7e52c8901620e13cb341e2088d27.bin",
+      "bytes": 6144,
+      "sha256": "6413eab3ee19b412cb42a3880c18eda67dbe7e52c8901620e13cb341e2088d27",
+      "shape": [
+        96,
+        16,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.1.weight": {
+      "file": "parameters/aa53d7ab3b66a254e7a8688d65b44cdbb78b6c577670ac25d2c4509ca9518261.bin",
+      "bytes": 384,
+      "sha256": "aa53d7ab3b66a254e7a8688d65b44cdbb78b6c577670ac25d2c4509ca9518261",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.1.bias": {
+      "file": "parameters/f6e9e3269c8228a8c4675cced6a8c75f91b98aef839ae46533ffd8031b1b698c.bin",
+      "bytes": 384,
+      "sha256": "f6e9e3269c8228a8c4675cced6a8c75f91b98aef839ae46533ffd8031b1b698c",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.1.mean": {
+      "file": "parameters/e685464c58bd0d798e06ce8504c4a9486a27d876181d77239c73582b1628450a.bin",
+      "bytes": 384,
+      "sha256": "e685464c58bd0d798e06ce8504c4a9486a27d876181d77239c73582b1628450a",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.1.variance": {
+      "file": "parameters/4305ea6fe7824368a84b405ada2d94eb42abc95645ef588aa9c6f3c6e6251027.bin",
+      "bytes": 384,
+      "sha256": "4305ea6fe7824368a84b405ada2d94eb42abc95645ef588aa9c6f3c6e6251027",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.3.weight": {
+      "file": "parameters/9dd11e951e43b2cb0dd802155c86266f39ccdb86fb2e9890605cf835ad90b5e2.bin",
+      "bytes": 3456,
+      "sha256": "9dd11e951e43b2cb0dd802155c86266f39ccdb86fb2e9890605cf835ad90b5e2",
+      "shape": [
+        96,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.4.weight": {
+      "file": "parameters/85a7dfb2b7bf5ea2e783068d1c5ed0c7615bdcf76dedcb28a2b9ec74786eaf31.bin",
+      "bytes": 384,
+      "sha256": "85a7dfb2b7bf5ea2e783068d1c5ed0c7615bdcf76dedcb28a2b9ec74786eaf31",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.4.bias": {
+      "file": "parameters/c35386253ccc90af9d50328779ba49865d4c3c8919a9060f1ee293a30d7c64ec.bin",
+      "bytes": 384,
+      "sha256": "c35386253ccc90af9d50328779ba49865d4c3c8919a9060f1ee293a30d7c64ec",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.4.mean": {
+      "file": "parameters/7224b30bedbf49f40b83bf88ef39de52cf6b4d74b4839f8a4c7cfc6d448ad3b4.bin",
+      "bytes": 384,
+      "sha256": "7224b30bedbf49f40b83bf88ef39de52cf6b4d74b4839f8a4c7cfc6d448ad3b4",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.4.variance": {
+      "file": "parameters/5e40eef84fee7a23d6e33f68eda18e6dbaae3a3682a64b463e02d242a6aae9f7.bin",
+      "bytes": 384,
+      "sha256": "5e40eef84fee7a23d6e33f68eda18e6dbaae3a3682a64b463e02d242a6aae9f7",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.6.weight": {
+      "file": "parameters/801bb914e77535badfa475f557eed07c54c0b59943ee7ed64b78a8cb3ead0866.bin",
+      "bytes": 9216,
+      "sha256": "801bb914e77535badfa475f557eed07c54c0b59943ee7ed64b78a8cb3ead0866",
+      "shape": [
+        24,
+        96,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.7.weight": {
+      "file": "parameters/952a8757acf06e037a7e19c7e9bfa7c2cec7e199f034b38e3eb740b95e7b51ed.bin",
+      "bytes": 96,
+      "sha256": "952a8757acf06e037a7e19c7e9bfa7c2cec7e199f034b38e3eb740b95e7b51ed",
+      "shape": [
+        24
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.7.bias": {
+      "file": "parameters/83a352e587e1bb8fd4c2e7ba3ef4ecff065d29fa02358da39dc2c8d1ae0f2f15.bin",
+      "bytes": 96,
+      "sha256": "83a352e587e1bb8fd4c2e7ba3ef4ecff065d29fa02358da39dc2c8d1ae0f2f15",
+      "shape": [
+        24
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.7.mean": {
+      "file": "parameters/77d72ad10a4d67c4c17b3705ef495baa9c2fce13138d4548dcba35c4bc46267f.bin",
+      "bytes": 96,
+      "sha256": "77d72ad10a4d67c4c17b3705ef495baa9c2fce13138d4548dcba35c4bc46267f",
+      "shape": [
+        24
+      ],
+      "dtype": "float32"
+    },
+    "features.2.conv.7.variance": {
+      "file": "parameters/91565692ef75d2e0a5856601f5458cc3f1692cec43345bdb4782ef0b119b86fb.bin",
+      "bytes": 96,
+      "sha256": "91565692ef75d2e0a5856601f5458cc3f1692cec43345bdb4782ef0b119b86fb",
+      "shape": [
+        24
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.0.weight": {
+      "file": "parameters/ac1566ffa7cfbdc3f771ec7a1c2fedb8367be830871a1ef0e773fc9e40d5e861.bin",
+      "bytes": 13824,
+      "sha256": "ac1566ffa7cfbdc3f771ec7a1c2fedb8367be830871a1ef0e773fc9e40d5e861",
+      "shape": [
+        144,
+        24,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.1.weight": {
+      "file": "parameters/240655bb2680982529b4a311d3a2c1b34057ecb23d29e2d0d905b4cfd8a8d943.bin",
+      "bytes": 576,
+      "sha256": "240655bb2680982529b4a311d3a2c1b34057ecb23d29e2d0d905b4cfd8a8d943",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.1.bias": {
+      "file": "parameters/175ee6d603f80edb6a527596ba2fbd7141036a3963d37010c57bd65e94c5eb35.bin",
+      "bytes": 576,
+      "sha256": "175ee6d603f80edb6a527596ba2fbd7141036a3963d37010c57bd65e94c5eb35",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.1.mean": {
+      "file": "parameters/5070b2745c5624a8d10f14ca26cce3b286396c1bae049b02edab2751a09ae0f3.bin",
+      "bytes": 576,
+      "sha256": "5070b2745c5624a8d10f14ca26cce3b286396c1bae049b02edab2751a09ae0f3",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.1.variance": {
+      "file": "parameters/2edcca86e090f2504b54b65159ddba6ac623e179df9bcbcf1d8634df050c9bc5.bin",
+      "bytes": 576,
+      "sha256": "2edcca86e090f2504b54b65159ddba6ac623e179df9bcbcf1d8634df050c9bc5",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.3.weight": {
+      "file": "parameters/ef733926438f6d574765d7c39b24a9183d4968a9fdbceb125e5abf2cc811d3dd.bin",
+      "bytes": 5184,
+      "sha256": "ef733926438f6d574765d7c39b24a9183d4968a9fdbceb125e5abf2cc811d3dd",
+      "shape": [
+        144,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.4.weight": {
+      "file": "parameters/899778886f4b9b9036a6755121a01e532904de38baa9c957e5d44a4f4057dd20.bin",
+      "bytes": 576,
+      "sha256": "899778886f4b9b9036a6755121a01e532904de38baa9c957e5d44a4f4057dd20",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.4.bias": {
+      "file": "parameters/b8bab6d3cb384bccebe761de669d01db56937db4512607ba72eb1e713491a023.bin",
+      "bytes": 576,
+      "sha256": "b8bab6d3cb384bccebe761de669d01db56937db4512607ba72eb1e713491a023",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.4.mean": {
+      "file": "parameters/7b0b48adec03a366943aaaec32866c6bec3022e9a9e7dab6c3b93829f24a5295.bin",
+      "bytes": 576,
+      "sha256": "7b0b48adec03a366943aaaec32866c6bec3022e9a9e7dab6c3b93829f24a5295",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.4.variance": {
+      "file": "parameters/cf34e360b872286f0c63bdd5d710b35053ba434fd3c42b535dbb30ef146f3e30.bin",
+      "bytes": 576,
+      "sha256": "cf34e360b872286f0c63bdd5d710b35053ba434fd3c42b535dbb30ef146f3e30",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.6.weight": {
+      "file": "parameters/75765f94126e5acd4b8d2aca1d0045275ef81b898b8079ec15693af187422b73.bin",
+      "bytes": 13824,
+      "sha256": "75765f94126e5acd4b8d2aca1d0045275ef81b898b8079ec15693af187422b73",
+      "shape": [
+        24,
+        144,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.7.weight": {
+      "file": "parameters/7026b722ee9b25b22d125f3cd7aafdad26ba3f89d2ea1d064d5acf2d988ae932.bin",
+      "bytes": 96,
+      "sha256": "7026b722ee9b25b22d125f3cd7aafdad26ba3f89d2ea1d064d5acf2d988ae932",
+      "shape": [
+        24
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.7.bias": {
+      "file": "parameters/5425ad262daaa974b5d877babc04dcbe95886c5a4a24923213a882415f8d1159.bin",
+      "bytes": 96,
+      "sha256": "5425ad262daaa974b5d877babc04dcbe95886c5a4a24923213a882415f8d1159",
+      "shape": [
+        24
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.7.mean": {
+      "file": "parameters/775fbd0cff981e0cce922e1944db83dd1a639652862ca4364fe43790d271bd6d.bin",
+      "bytes": 96,
+      "sha256": "775fbd0cff981e0cce922e1944db83dd1a639652862ca4364fe43790d271bd6d",
+      "shape": [
+        24
+      ],
+      "dtype": "float32"
+    },
+    "features.3.conv.7.variance": {
+      "file": "parameters/02aed10cabcd7b21a4ea4fea83d640acf565c54e091292a3265b4763870f6db6.bin",
+      "bytes": 96,
+      "sha256": "02aed10cabcd7b21a4ea4fea83d640acf565c54e091292a3265b4763870f6db6",
+      "shape": [
+        24
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.0.weight": {
+      "file": "parameters/e1733b55893a412713aeddd1b9e8adf70fefc3f539ef57062e487a4f18ed86a7.bin",
+      "bytes": 13824,
+      "sha256": "e1733b55893a412713aeddd1b9e8adf70fefc3f539ef57062e487a4f18ed86a7",
+      "shape": [
+        144,
+        24,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.1.weight": {
+      "file": "parameters/15833b910ac3d66d90358968c8a57a11d54c5609d9775c8ac4e94bf9c289fc84.bin",
+      "bytes": 576,
+      "sha256": "15833b910ac3d66d90358968c8a57a11d54c5609d9775c8ac4e94bf9c289fc84",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.1.bias": {
+      "file": "parameters/822653e18eef486447d803fcc58a014d1b4a9ebe542302296c673e42cb54ed6c.bin",
+      "bytes": 576,
+      "sha256": "822653e18eef486447d803fcc58a014d1b4a9ebe542302296c673e42cb54ed6c",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.1.mean": {
+      "file": "parameters/fdc92cc4da93b679810f6aad3b7cd502812dd901c052c320d2cb131597e8527b.bin",
+      "bytes": 576,
+      "sha256": "fdc92cc4da93b679810f6aad3b7cd502812dd901c052c320d2cb131597e8527b",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.1.variance": {
+      "file": "parameters/84b7807136f4a2956004cbad7446175f4a2e47bf77b4a7559928b0e0a1f2b5d3.bin",
+      "bytes": 576,
+      "sha256": "84b7807136f4a2956004cbad7446175f4a2e47bf77b4a7559928b0e0a1f2b5d3",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.3.weight": {
+      "file": "parameters/fba5c3591556843cbd8384cc1bab7e80dc41666ee7de3c15fdcb5f9e2c983bb6.bin",
+      "bytes": 5184,
+      "sha256": "fba5c3591556843cbd8384cc1bab7e80dc41666ee7de3c15fdcb5f9e2c983bb6",
+      "shape": [
+        144,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.4.weight": {
+      "file": "parameters/7c665f3ab5da53ae0cedb0bc62235f68cde528340a4afd6f60ce30744ae531ce.bin",
+      "bytes": 576,
+      "sha256": "7c665f3ab5da53ae0cedb0bc62235f68cde528340a4afd6f60ce30744ae531ce",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.4.bias": {
+      "file": "parameters/d337a84855a66f22e8593febd42e00acd3be32348b1ab0884a28fbaa40c79d5d.bin",
+      "bytes": 576,
+      "sha256": "d337a84855a66f22e8593febd42e00acd3be32348b1ab0884a28fbaa40c79d5d",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.4.mean": {
+      "file": "parameters/d328ffd87ee8c8d534c80b71b88ebe802aa66fa56c846f11c554d74131c0720a.bin",
+      "bytes": 576,
+      "sha256": "d328ffd87ee8c8d534c80b71b88ebe802aa66fa56c846f11c554d74131c0720a",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.4.variance": {
+      "file": "parameters/57e7e8c246612018fd0b7875e403ff40a6459e5351443c03fda7a74609df5105.bin",
+      "bytes": 576,
+      "sha256": "57e7e8c246612018fd0b7875e403ff40a6459e5351443c03fda7a74609df5105",
+      "shape": [
+        144
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.6.weight": {
+      "file": "parameters/9333f2ba5289e95745db8d64e6b119a89b40f75d9f94c9c21a48d65ef447a0bb.bin",
+      "bytes": 18432,
+      "sha256": "9333f2ba5289e95745db8d64e6b119a89b40f75d9f94c9c21a48d65ef447a0bb",
+      "shape": [
+        32,
+        144,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.7.weight": {
+      "file": "parameters/288cc2f0a8317f9a0c37fd11957a55693cd6d009745661d02735d3f0557a4783.bin",
+      "bytes": 128,
+      "sha256": "288cc2f0a8317f9a0c37fd11957a55693cd6d009745661d02735d3f0557a4783",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.7.bias": {
+      "file": "parameters/36822b2fd77b79ef9a856c7ea8839ab2022a9e1be31f707c05b0d769ca3b7fa5.bin",
+      "bytes": 128,
+      "sha256": "36822b2fd77b79ef9a856c7ea8839ab2022a9e1be31f707c05b0d769ca3b7fa5",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.7.mean": {
+      "file": "parameters/223b934d5165ecb36c7102ab54e74abb2f692e349ed0ddb796ed9c1eeca01050.bin",
+      "bytes": 128,
+      "sha256": "223b934d5165ecb36c7102ab54e74abb2f692e349ed0ddb796ed9c1eeca01050",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.4.conv.7.variance": {
+      "file": "parameters/11e4b2b9a81e3253c91e5094be4e85232bc52bd0518cf73c2e608808fc83a0d0.bin",
+      "bytes": 128,
+      "sha256": "11e4b2b9a81e3253c91e5094be4e85232bc52bd0518cf73c2e608808fc83a0d0",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.0.weight": {
+      "file": "parameters/42d762bf57317c47d41a2dae7f4340fd97b8c8ff7a0dd3ddf0de96a223d62190.bin",
+      "bytes": 24576,
+      "sha256": "42d762bf57317c47d41a2dae7f4340fd97b8c8ff7a0dd3ddf0de96a223d62190",
+      "shape": [
+        192,
+        32,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.1.weight": {
+      "file": "parameters/a488bacbbbe674785342c2112ddf8535fc150a269575083dd6266c33e74f4df3.bin",
+      "bytes": 768,
+      "sha256": "a488bacbbbe674785342c2112ddf8535fc150a269575083dd6266c33e74f4df3",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.1.bias": {
+      "file": "parameters/03b2dd2f9181adb1ee8bd794d3576cbc2261ba9f4140d2a19e5562ab9d3872aa.bin",
+      "bytes": 768,
+      "sha256": "03b2dd2f9181adb1ee8bd794d3576cbc2261ba9f4140d2a19e5562ab9d3872aa",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.1.mean": {
+      "file": "parameters/14a374a43bfd0eb318bbd14cea56e6fe7f5128e7886d4b6ac057ba2c7252494b.bin",
+      "bytes": 768,
+      "sha256": "14a374a43bfd0eb318bbd14cea56e6fe7f5128e7886d4b6ac057ba2c7252494b",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.1.variance": {
+      "file": "parameters/3252baed77ea8e9b15316bed1a0237bc3294be713d4c04f28b4b432a707f09a9.bin",
+      "bytes": 768,
+      "sha256": "3252baed77ea8e9b15316bed1a0237bc3294be713d4c04f28b4b432a707f09a9",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.3.weight": {
+      "file": "parameters/c2ab3369025287306316ebedce73126d0623e9b50d72c286450c3a809fc8484e.bin",
+      "bytes": 6912,
+      "sha256": "c2ab3369025287306316ebedce73126d0623e9b50d72c286450c3a809fc8484e",
+      "shape": [
+        192,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.4.weight": {
+      "file": "parameters/b8bae1c311923278a16ab9c23ecfc039f98a7129202e981c2cb5239d3fb089e1.bin",
+      "bytes": 768,
+      "sha256": "b8bae1c311923278a16ab9c23ecfc039f98a7129202e981c2cb5239d3fb089e1",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.4.bias": {
+      "file": "parameters/581ba03fbe81ff40c0a52c4403138cb4a924a31e4ea35daabba8f83f488d03a9.bin",
+      "bytes": 768,
+      "sha256": "581ba03fbe81ff40c0a52c4403138cb4a924a31e4ea35daabba8f83f488d03a9",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.4.mean": {
+      "file": "parameters/8840cd41ce67b33ae84d87f435ddc6ee10d1eba47302300412d137c557937434.bin",
+      "bytes": 768,
+      "sha256": "8840cd41ce67b33ae84d87f435ddc6ee10d1eba47302300412d137c557937434",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.4.variance": {
+      "file": "parameters/83281f4a7f582e29cd1cf22e81a90abfe6c7cb5fa0a190804c10e4016f012571.bin",
+      "bytes": 768,
+      "sha256": "83281f4a7f582e29cd1cf22e81a90abfe6c7cb5fa0a190804c10e4016f012571",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.6.weight": {
+      "file": "parameters/6c43d04edb19fa614f06fd08b203d8251b8ed5a385b63fba1c1cceb1215ebf2b.bin",
+      "bytes": 24576,
+      "sha256": "6c43d04edb19fa614f06fd08b203d8251b8ed5a385b63fba1c1cceb1215ebf2b",
+      "shape": [
+        32,
+        192,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.7.weight": {
+      "file": "parameters/07700a3c08fe72438652f67e65b7c3330a4ce4b8dfb11ceac632c3116e7cd4d3.bin",
+      "bytes": 128,
+      "sha256": "07700a3c08fe72438652f67e65b7c3330a4ce4b8dfb11ceac632c3116e7cd4d3",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.7.bias": {
+      "file": "parameters/41bf405592a1e3969d3165d8e23cda67cd03c21dca327d83860cf1b27f669555.bin",
+      "bytes": 128,
+      "sha256": "41bf405592a1e3969d3165d8e23cda67cd03c21dca327d83860cf1b27f669555",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.7.mean": {
+      "file": "parameters/3c8d7d05173ec5a4aee8bcbfa459395a6ad9e8cfd19838de57dd4c345242d0a1.bin",
+      "bytes": 128,
+      "sha256": "3c8d7d05173ec5a4aee8bcbfa459395a6ad9e8cfd19838de57dd4c345242d0a1",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.5.conv.7.variance": {
+      "file": "parameters/15d3cd3d7c1f316c4c6804301b9ee30047bb0666178a1399c80fe6e261ce12a2.bin",
+      "bytes": 128,
+      "sha256": "15d3cd3d7c1f316c4c6804301b9ee30047bb0666178a1399c80fe6e261ce12a2",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.0.weight": {
+      "file": "parameters/25108ff0db811914cfa39bd48966058c7db85ad2f89e3e94d79a5cd1f5b62b52.bin",
+      "bytes": 24576,
+      "sha256": "25108ff0db811914cfa39bd48966058c7db85ad2f89e3e94d79a5cd1f5b62b52",
+      "shape": [
+        192,
+        32,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.1.weight": {
+      "file": "parameters/52fa85c9e93f6f96142b60896e4edad79da82819e652c1c33c74a0eea1a63575.bin",
+      "bytes": 768,
+      "sha256": "52fa85c9e93f6f96142b60896e4edad79da82819e652c1c33c74a0eea1a63575",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.1.bias": {
+      "file": "parameters/3321f27d56df70ecdc9a8409a7f9670f4389950290cf39c5943189e4360c39df.bin",
+      "bytes": 768,
+      "sha256": "3321f27d56df70ecdc9a8409a7f9670f4389950290cf39c5943189e4360c39df",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.1.mean": {
+      "file": "parameters/a4bcbcc5fc92574b0fa63ab97ff5143f9e069f4ec309c794d96c0e0bc657f3ab.bin",
+      "bytes": 768,
+      "sha256": "a4bcbcc5fc92574b0fa63ab97ff5143f9e069f4ec309c794d96c0e0bc657f3ab",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.1.variance": {
+      "file": "parameters/d9b90e7445eff194f2d9c7643313b56ac963e882fece11e78b6b60cd1385d076.bin",
+      "bytes": 768,
+      "sha256": "d9b90e7445eff194f2d9c7643313b56ac963e882fece11e78b6b60cd1385d076",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.3.weight": {
+      "file": "parameters/cd252479713460355f4ae6c7a068bb976b5d5c0d133a43bbf4f48d0e3f709d5e.bin",
+      "bytes": 6912,
+      "sha256": "cd252479713460355f4ae6c7a068bb976b5d5c0d133a43bbf4f48d0e3f709d5e",
+      "shape": [
+        192,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.4.weight": {
+      "file": "parameters/06f1e873a7c27263b116eeb4312befcb200a9b1f6eea7f94d87ade00acca312e.bin",
+      "bytes": 768,
+      "sha256": "06f1e873a7c27263b116eeb4312befcb200a9b1f6eea7f94d87ade00acca312e",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.4.bias": {
+      "file": "parameters/4efbd19e3ebedbe88b5321952a0335abcd2c945b031594b8f4c2ae933123e118.bin",
+      "bytes": 768,
+      "sha256": "4efbd19e3ebedbe88b5321952a0335abcd2c945b031594b8f4c2ae933123e118",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.4.mean": {
+      "file": "parameters/9bc6c86de2e2c6c268595e8da1da176754aeb97d0937362735b8707021377dab.bin",
+      "bytes": 768,
+      "sha256": "9bc6c86de2e2c6c268595e8da1da176754aeb97d0937362735b8707021377dab",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.4.variance": {
+      "file": "parameters/0c3a6b60c841030ffbdb34007ba6abaf6df49a894652c2d6bd979340027b8fb1.bin",
+      "bytes": 768,
+      "sha256": "0c3a6b60c841030ffbdb34007ba6abaf6df49a894652c2d6bd979340027b8fb1",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.6.weight": {
+      "file": "parameters/d559d99c49e0e132fdceda936face11bf0e739b86d8d36a58ff6bfd6c028fd87.bin",
+      "bytes": 24576,
+      "sha256": "d559d99c49e0e132fdceda936face11bf0e739b86d8d36a58ff6bfd6c028fd87",
+      "shape": [
+        32,
+        192,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.7.weight": {
+      "file": "parameters/14dda56d49839a80d09323a2c2b932faaa0817d33dab920a44dd2dea3e7fc085.bin",
+      "bytes": 128,
+      "sha256": "14dda56d49839a80d09323a2c2b932faaa0817d33dab920a44dd2dea3e7fc085",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.7.bias": {
+      "file": "parameters/c51102e703eb49d43bc548957116d156e3a3e997dd923541fee85c34bcd6d61e.bin",
+      "bytes": 128,
+      "sha256": "c51102e703eb49d43bc548957116d156e3a3e997dd923541fee85c34bcd6d61e",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.7.mean": {
+      "file": "parameters/708bfb1dc31dc543025300ae4beac50c3dc5a3f3d541468a06ffef7c9c5880c6.bin",
+      "bytes": 128,
+      "sha256": "708bfb1dc31dc543025300ae4beac50c3dc5a3f3d541468a06ffef7c9c5880c6",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.6.conv.7.variance": {
+      "file": "parameters/64d9cda383d80c7c828cb13480ed1ebf459220531611323791beecf63342c224.bin",
+      "bytes": 128,
+      "sha256": "64d9cda383d80c7c828cb13480ed1ebf459220531611323791beecf63342c224",
+      "shape": [
+        32
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.0.weight": {
+      "file": "parameters/7f0e43d62584ff5c0c0a568f5a10684d66dce9cf66c5b7e237820bd93e2bb70d.bin",
+      "bytes": 24576,
+      "sha256": "7f0e43d62584ff5c0c0a568f5a10684d66dce9cf66c5b7e237820bd93e2bb70d",
+      "shape": [
+        192,
+        32,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.1.weight": {
+      "file": "parameters/770bbedf27db44ae0bf80e0d33e96453e69d8584d0402ef23e67ff4c274c78ae.bin",
+      "bytes": 768,
+      "sha256": "770bbedf27db44ae0bf80e0d33e96453e69d8584d0402ef23e67ff4c274c78ae",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.1.bias": {
+      "file": "parameters/6bb95f53274e13721efdea340f7dc7de7af92c3758edce59f945163976ecf9bc.bin",
+      "bytes": 768,
+      "sha256": "6bb95f53274e13721efdea340f7dc7de7af92c3758edce59f945163976ecf9bc",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.1.mean": {
+      "file": "parameters/c55bc24d3f1d9ba9b70574b713afe69196c9523f38eeaad833b441302cc503bf.bin",
+      "bytes": 768,
+      "sha256": "c55bc24d3f1d9ba9b70574b713afe69196c9523f38eeaad833b441302cc503bf",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.1.variance": {
+      "file": "parameters/c613923b541e4ff5192ce36a0723cfa66be95a5c01924565a3455a60e8fdd5eb.bin",
+      "bytes": 768,
+      "sha256": "c613923b541e4ff5192ce36a0723cfa66be95a5c01924565a3455a60e8fdd5eb",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.3.weight": {
+      "file": "parameters/b8fe56d01775d572b7b59cfd409d3b41ed9bacfca965773e55a360eca6343d0e.bin",
+      "bytes": 6912,
+      "sha256": "b8fe56d01775d572b7b59cfd409d3b41ed9bacfca965773e55a360eca6343d0e",
+      "shape": [
+        192,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.4.weight": {
+      "file": "parameters/72d1e434c7e089521099cd00db9e75eaa9ba9a191cb9e1fc10a905f6cec85aee.bin",
+      "bytes": 768,
+      "sha256": "72d1e434c7e089521099cd00db9e75eaa9ba9a191cb9e1fc10a905f6cec85aee",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.4.bias": {
+      "file": "parameters/d519e5ecffeeb90ab559b163f18c2f22daaa45b80377cecef4ecfaeba80a540c.bin",
+      "bytes": 768,
+      "sha256": "d519e5ecffeeb90ab559b163f18c2f22daaa45b80377cecef4ecfaeba80a540c",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.4.mean": {
+      "file": "parameters/277cd55fbe52ca2e000294a2ac2000225f22b21421774e7bf295d016f9f7e821.bin",
+      "bytes": 768,
+      "sha256": "277cd55fbe52ca2e000294a2ac2000225f22b21421774e7bf295d016f9f7e821",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.4.variance": {
+      "file": "parameters/a6583542bd5aa65ea3f0d02c19a698faae4deb26becac1d07abb5ef663fe0253.bin",
+      "bytes": 768,
+      "sha256": "a6583542bd5aa65ea3f0d02c19a698faae4deb26becac1d07abb5ef663fe0253",
+      "shape": [
+        192
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.6.weight": {
+      "file": "parameters/35db3790ade3b8183787d7101369f876788499f8412de0395375c9285aad2511.bin",
+      "bytes": 49152,
+      "sha256": "35db3790ade3b8183787d7101369f876788499f8412de0395375c9285aad2511",
+      "shape": [
+        64,
+        192,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.7.weight": {
+      "file": "parameters/3be0183ca29e71f5d07a766edafc7f19f3d5c5b8dbd6d9b7c6612106249110ac.bin",
+      "bytes": 256,
+      "sha256": "3be0183ca29e71f5d07a766edafc7f19f3d5c5b8dbd6d9b7c6612106249110ac",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.7.bias": {
+      "file": "parameters/f17aaffacafb803dae054416816f24a284ad7589c1f7d6e5654fc0c7e838a5a8.bin",
+      "bytes": 256,
+      "sha256": "f17aaffacafb803dae054416816f24a284ad7589c1f7d6e5654fc0c7e838a5a8",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.7.mean": {
+      "file": "parameters/701b514a207c7cea878a7ddfeb7436cc0555987e952ab500c64dc591afb2d7be.bin",
+      "bytes": 256,
+      "sha256": "701b514a207c7cea878a7ddfeb7436cc0555987e952ab500c64dc591afb2d7be",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.7.conv.7.variance": {
+      "file": "parameters/66cc819d4e323dec07a7e70675babba76bfda7376891eeb90ba7cfe5eb5c731e.bin",
+      "bytes": 256,
+      "sha256": "66cc819d4e323dec07a7e70675babba76bfda7376891eeb90ba7cfe5eb5c731e",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.0.weight": {
+      "file": "parameters/28eb07df281a1415f52e6ad39b3a1940349c40147a4f1cfb1cd0fe3985b6b74f.bin",
+      "bytes": 98304,
+      "sha256": "28eb07df281a1415f52e6ad39b3a1940349c40147a4f1cfb1cd0fe3985b6b74f",
+      "shape": [
+        384,
+        64,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.1.weight": {
+      "file": "parameters/9f542da67f4dc397a7a04d8f2f79643977fa841d924b8154d5af2523ee22633b.bin",
+      "bytes": 1536,
+      "sha256": "9f542da67f4dc397a7a04d8f2f79643977fa841d924b8154d5af2523ee22633b",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.1.bias": {
+      "file": "parameters/c3eb7ae30370965381f5d1c804b2e51557675fcfd10762a32f4ed8c741badbfc.bin",
+      "bytes": 1536,
+      "sha256": "c3eb7ae30370965381f5d1c804b2e51557675fcfd10762a32f4ed8c741badbfc",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.1.mean": {
+      "file": "parameters/e9a465e589ee4d17d32374a438f164231a24de203517251b159249ba9eaf1f33.bin",
+      "bytes": 1536,
+      "sha256": "e9a465e589ee4d17d32374a438f164231a24de203517251b159249ba9eaf1f33",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.1.variance": {
+      "file": "parameters/16da2262c9c3189c4fbc3e71a44b5ba3b3fcc71e12a3c3bb2b08aeb2a8802168.bin",
+      "bytes": 1536,
+      "sha256": "16da2262c9c3189c4fbc3e71a44b5ba3b3fcc71e12a3c3bb2b08aeb2a8802168",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.3.weight": {
+      "file": "parameters/8c06e05c18da503bf91907d832cb9be2399e643d3b2cb0bb0be74398ed9c7202.bin",
+      "bytes": 13824,
+      "sha256": "8c06e05c18da503bf91907d832cb9be2399e643d3b2cb0bb0be74398ed9c7202",
+      "shape": [
+        384,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.4.weight": {
+      "file": "parameters/f3a89dfafac5f626ff5a405ff7245d11a3536c18568a9b90aa29fe4e7b2f6e6e.bin",
+      "bytes": 1536,
+      "sha256": "f3a89dfafac5f626ff5a405ff7245d11a3536c18568a9b90aa29fe4e7b2f6e6e",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.4.bias": {
+      "file": "parameters/53a60c97e8f82a48ab0732437d3de5f57d55aebefad79d4c571016aa60ffeddb.bin",
+      "bytes": 1536,
+      "sha256": "53a60c97e8f82a48ab0732437d3de5f57d55aebefad79d4c571016aa60ffeddb",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.4.mean": {
+      "file": "parameters/66d0993013028e2bceaa646f8bd2706091bf0927825f3903b4421cb0e4fccf00.bin",
+      "bytes": 1536,
+      "sha256": "66d0993013028e2bceaa646f8bd2706091bf0927825f3903b4421cb0e4fccf00",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.4.variance": {
+      "file": "parameters/0cc25fa4a46446844c710bdb766422475c79f8724f4d9374e0a13e30c0c9aceb.bin",
+      "bytes": 1536,
+      "sha256": "0cc25fa4a46446844c710bdb766422475c79f8724f4d9374e0a13e30c0c9aceb",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.6.weight": {
+      "file": "parameters/4f9b66375aa27ed709880bf44f80b596159598ea8b333e1c26523c1e5de17794.bin",
+      "bytes": 98304,
+      "sha256": "4f9b66375aa27ed709880bf44f80b596159598ea8b333e1c26523c1e5de17794",
+      "shape": [
+        64,
+        384,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.7.weight": {
+      "file": "parameters/4cfaa59bf5d99ed3b98971735815af12f81ffe51f486d2776c7c55b4f984147c.bin",
+      "bytes": 256,
+      "sha256": "4cfaa59bf5d99ed3b98971735815af12f81ffe51f486d2776c7c55b4f984147c",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.7.bias": {
+      "file": "parameters/552a890ced4db709fb385327d6af3a2853a1f78e58d545d0d4a2cc809af8e39e.bin",
+      "bytes": 256,
+      "sha256": "552a890ced4db709fb385327d6af3a2853a1f78e58d545d0d4a2cc809af8e39e",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.7.mean": {
+      "file": "parameters/bd6efa3e5cc11376f9cfb91153415ea50b4b83dbb58b530fcb53cd7895a5c58e.bin",
+      "bytes": 256,
+      "sha256": "bd6efa3e5cc11376f9cfb91153415ea50b4b83dbb58b530fcb53cd7895a5c58e",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.8.conv.7.variance": {
+      "file": "parameters/be1f25336c6a3bd8e34844ee5d067345ed8c2fd684886a01881d2ea2d0aae8e2.bin",
+      "bytes": 256,
+      "sha256": "be1f25336c6a3bd8e34844ee5d067345ed8c2fd684886a01881d2ea2d0aae8e2",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.0.weight": {
+      "file": "parameters/e7f0c32738cb267bf6a8ec72ec58d0e113991e196b10b8147e18d983f3e1fab2.bin",
+      "bytes": 98304,
+      "sha256": "e7f0c32738cb267bf6a8ec72ec58d0e113991e196b10b8147e18d983f3e1fab2",
+      "shape": [
+        384,
+        64,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.1.weight": {
+      "file": "parameters/1436ae3da51b17bf71aecff28bc77cdfe4d6d7b4de091bd84a3afd9370ea941b.bin",
+      "bytes": 1536,
+      "sha256": "1436ae3da51b17bf71aecff28bc77cdfe4d6d7b4de091bd84a3afd9370ea941b",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.1.bias": {
+      "file": "parameters/ac3158b4fe5ce3fedd9ef977dd368a478143118e4362c7b26d096afa8a5b5999.bin",
+      "bytes": 1536,
+      "sha256": "ac3158b4fe5ce3fedd9ef977dd368a478143118e4362c7b26d096afa8a5b5999",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.1.mean": {
+      "file": "parameters/b8585d6a09a8a12c8c07b8c0a74d297828e67cc2e8b7d16893eff367d4283ba1.bin",
+      "bytes": 1536,
+      "sha256": "b8585d6a09a8a12c8c07b8c0a74d297828e67cc2e8b7d16893eff367d4283ba1",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.1.variance": {
+      "file": "parameters/04d758087a18a4d969fca4dc37eb347a767b2042667f95bcbc69d60ecb185d04.bin",
+      "bytes": 1536,
+      "sha256": "04d758087a18a4d969fca4dc37eb347a767b2042667f95bcbc69d60ecb185d04",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.3.weight": {
+      "file": "parameters/408dd73e0bc43af4c4bb3c80957341acd295be73c0f01c965d3a84b0d40b523b.bin",
+      "bytes": 13824,
+      "sha256": "408dd73e0bc43af4c4bb3c80957341acd295be73c0f01c965d3a84b0d40b523b",
+      "shape": [
+        384,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.4.weight": {
+      "file": "parameters/48192d02d506dd71eb41b98d5c3c711caee7f92f8972ceb968b4a6878bf35c54.bin",
+      "bytes": 1536,
+      "sha256": "48192d02d506dd71eb41b98d5c3c711caee7f92f8972ceb968b4a6878bf35c54",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.4.bias": {
+      "file": "parameters/7679ae9bb6980d0341e31dc11292f75d35d91a3d3f3e0a25c505d396cbd52b2b.bin",
+      "bytes": 1536,
+      "sha256": "7679ae9bb6980d0341e31dc11292f75d35d91a3d3f3e0a25c505d396cbd52b2b",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.4.mean": {
+      "file": "parameters/2a0a26f712a18c7959570e8eae728b8ac0cb64ccff9057afd1ff34358ec6bd81.bin",
+      "bytes": 1536,
+      "sha256": "2a0a26f712a18c7959570e8eae728b8ac0cb64ccff9057afd1ff34358ec6bd81",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.4.variance": {
+      "file": "parameters/3f3f504347a7a0ea47c783cb96ae2ed6ac9f1555cd3b2d80fc1c0363a4d20338.bin",
+      "bytes": 1536,
+      "sha256": "3f3f504347a7a0ea47c783cb96ae2ed6ac9f1555cd3b2d80fc1c0363a4d20338",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.6.weight": {
+      "file": "parameters/3c6372db1867f9000946899f67ee819c2877e20a069bc274b6f5bd95d5e30bcb.bin",
+      "bytes": 98304,
+      "sha256": "3c6372db1867f9000946899f67ee819c2877e20a069bc274b6f5bd95d5e30bcb",
+      "shape": [
+        64,
+        384,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.7.weight": {
+      "file": "parameters/dd2f97736b942d1670db788c42b52f7a3eedc1343d693ec8dc43b0cfb326b3f9.bin",
+      "bytes": 256,
+      "sha256": "dd2f97736b942d1670db788c42b52f7a3eedc1343d693ec8dc43b0cfb326b3f9",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.7.bias": {
+      "file": "parameters/2ba991876737e2e659d4fc050863d06caf6d335d756a8a312523a3540e4473b7.bin",
+      "bytes": 256,
+      "sha256": "2ba991876737e2e659d4fc050863d06caf6d335d756a8a312523a3540e4473b7",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.7.mean": {
+      "file": "parameters/29e91e0bb0358621d64acbbb637bfd3088218a46a41a8a040a522a71d229dad4.bin",
+      "bytes": 256,
+      "sha256": "29e91e0bb0358621d64acbbb637bfd3088218a46a41a8a040a522a71d229dad4",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.9.conv.7.variance": {
+      "file": "parameters/a8b256e6022e274de8a6c2695759f1cf79ca976dbebd94f83cd67f28f6726e69.bin",
+      "bytes": 256,
+      "sha256": "a8b256e6022e274de8a6c2695759f1cf79ca976dbebd94f83cd67f28f6726e69",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.0.weight": {
+      "file": "parameters/82ac50499dbb8f4a212a37ad7f4fdabd9dcf5b4191c65249b14ba7c0726ca07e.bin",
+      "bytes": 98304,
+      "sha256": "82ac50499dbb8f4a212a37ad7f4fdabd9dcf5b4191c65249b14ba7c0726ca07e",
+      "shape": [
+        384,
+        64,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.1.weight": {
+      "file": "parameters/4b7764e0af6a476f906073be6ed4e3df947a8fe606b42bc02553f4fe5782b57f.bin",
+      "bytes": 1536,
+      "sha256": "4b7764e0af6a476f906073be6ed4e3df947a8fe606b42bc02553f4fe5782b57f",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.1.bias": {
+      "file": "parameters/8656df994ea6e496d628348ab71f4a1e6046d5aaea69df698b1102499dec83a2.bin",
+      "bytes": 1536,
+      "sha256": "8656df994ea6e496d628348ab71f4a1e6046d5aaea69df698b1102499dec83a2",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.1.mean": {
+      "file": "parameters/3591695660a84204dbd073d2c33040991e67dba9053f8ec2ff852c7198c79522.bin",
+      "bytes": 1536,
+      "sha256": "3591695660a84204dbd073d2c33040991e67dba9053f8ec2ff852c7198c79522",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.1.variance": {
+      "file": "parameters/7d3d0de567d7bb5c3f15a4b183313a6dd8653ead5ea5e693756d1ce85b30d398.bin",
+      "bytes": 1536,
+      "sha256": "7d3d0de567d7bb5c3f15a4b183313a6dd8653ead5ea5e693756d1ce85b30d398",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.3.weight": {
+      "file": "parameters/0bdeae1b16cd72133452f75c4ab30bfe28850a1b255e020ea1b21c3ebeb5cd3d.bin",
+      "bytes": 13824,
+      "sha256": "0bdeae1b16cd72133452f75c4ab30bfe28850a1b255e020ea1b21c3ebeb5cd3d",
+      "shape": [
+        384,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.4.weight": {
+      "file": "parameters/bb26c30c657b1152f44098fabdaf75a1c21d400d20bf39939e7cdebd918ae76c.bin",
+      "bytes": 1536,
+      "sha256": "bb26c30c657b1152f44098fabdaf75a1c21d400d20bf39939e7cdebd918ae76c",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.4.bias": {
+      "file": "parameters/286beb3e2cc4536e9c99384a987d9ad9a4481cbe2622563ad67285e29e5ae9f7.bin",
+      "bytes": 1536,
+      "sha256": "286beb3e2cc4536e9c99384a987d9ad9a4481cbe2622563ad67285e29e5ae9f7",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.4.mean": {
+      "file": "parameters/76661b731bc2c1fd86c3235e14010eb24e2150144ab6f2b02284d7319cf849d1.bin",
+      "bytes": 1536,
+      "sha256": "76661b731bc2c1fd86c3235e14010eb24e2150144ab6f2b02284d7319cf849d1",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.4.variance": {
+      "file": "parameters/a5f8c33e9b7fca563db36b6d9dfa9b61b67d10795de4ab0fd33f38c6b356d3c7.bin",
+      "bytes": 1536,
+      "sha256": "a5f8c33e9b7fca563db36b6d9dfa9b61b67d10795de4ab0fd33f38c6b356d3c7",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.6.weight": {
+      "file": "parameters/e472e5761ed718b09c1caca6110b6bb9dfa8b022564d74abb792b8007470ba59.bin",
+      "bytes": 98304,
+      "sha256": "e472e5761ed718b09c1caca6110b6bb9dfa8b022564d74abb792b8007470ba59",
+      "shape": [
+        64,
+        384,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.7.weight": {
+      "file": "parameters/a1a589ba4e8ee20220686c34cdbd7a1eb082ca5a62a20be4592e8d7f56ad83c7.bin",
+      "bytes": 256,
+      "sha256": "a1a589ba4e8ee20220686c34cdbd7a1eb082ca5a62a20be4592e8d7f56ad83c7",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.7.bias": {
+      "file": "parameters/ae87315e082d613a1b89525fbb816622c0305abc08e09b7387543f21770828df.bin",
+      "bytes": 256,
+      "sha256": "ae87315e082d613a1b89525fbb816622c0305abc08e09b7387543f21770828df",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.7.mean": {
+      "file": "parameters/39fcb75ce8c38845c05d0e7fde4e0a0f0e84ad042336ce4e56606abf566a5dcb.bin",
+      "bytes": 256,
+      "sha256": "39fcb75ce8c38845c05d0e7fde4e0a0f0e84ad042336ce4e56606abf566a5dcb",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.10.conv.7.variance": {
+      "file": "parameters/ae268704f8bf766c863d24ffdc6a1e1591b2232b5a35b31da2cbdbb7e0824367.bin",
+      "bytes": 256,
+      "sha256": "ae268704f8bf766c863d24ffdc6a1e1591b2232b5a35b31da2cbdbb7e0824367",
+      "shape": [
+        64
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.0.weight": {
+      "file": "parameters/40715230a279a7687fb2092645bb32de4ae23abe0d2598b55fee51a4044f6e3f.bin",
+      "bytes": 98304,
+      "sha256": "40715230a279a7687fb2092645bb32de4ae23abe0d2598b55fee51a4044f6e3f",
+      "shape": [
+        384,
+        64,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.1.weight": {
+      "file": "parameters/42c3061387bbbbfc1c87b3cc8328737401817ab42e6f835feffacc180a633a47.bin",
+      "bytes": 1536,
+      "sha256": "42c3061387bbbbfc1c87b3cc8328737401817ab42e6f835feffacc180a633a47",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.1.bias": {
+      "file": "parameters/a02fad9a8e822f62cfbd9ed387c8d1f8865c67c91d4cef223b7d782ffce1b40b.bin",
+      "bytes": 1536,
+      "sha256": "a02fad9a8e822f62cfbd9ed387c8d1f8865c67c91d4cef223b7d782ffce1b40b",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.1.mean": {
+      "file": "parameters/73736e3491f5725ac9c90f1abe2d59f775e25df205900011c92cc72117b449fe.bin",
+      "bytes": 1536,
+      "sha256": "73736e3491f5725ac9c90f1abe2d59f775e25df205900011c92cc72117b449fe",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.1.variance": {
+      "file": "parameters/f71d8b6aba7d23e5c7be98505e8236e58cdcd7a5a0871d647c7845674210b07b.bin",
+      "bytes": 1536,
+      "sha256": "f71d8b6aba7d23e5c7be98505e8236e58cdcd7a5a0871d647c7845674210b07b",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.3.weight": {
+      "file": "parameters/5b80c97abd2506200dadb9e56403a97d4680013a419fb138dfb1e1dc4d076abf.bin",
+      "bytes": 13824,
+      "sha256": "5b80c97abd2506200dadb9e56403a97d4680013a419fb138dfb1e1dc4d076abf",
+      "shape": [
+        384,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.4.weight": {
+      "file": "parameters/3e1ed215b8553cceb812329fa555af07331cf794165671f9771490ab4353d280.bin",
+      "bytes": 1536,
+      "sha256": "3e1ed215b8553cceb812329fa555af07331cf794165671f9771490ab4353d280",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.4.bias": {
+      "file": "parameters/75f6d4b9fa04aea48e79f6d7bf6a01712f0393fa10ee8e2aa700b9c7a9455ca0.bin",
+      "bytes": 1536,
+      "sha256": "75f6d4b9fa04aea48e79f6d7bf6a01712f0393fa10ee8e2aa700b9c7a9455ca0",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.4.mean": {
+      "file": "parameters/98a9f27ca97970c2fd385482fc0cba1a4ebf6dde77a0d91dc016c007cd032025.bin",
+      "bytes": 1536,
+      "sha256": "98a9f27ca97970c2fd385482fc0cba1a4ebf6dde77a0d91dc016c007cd032025",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.4.variance": {
+      "file": "parameters/8612e31dbacc25b5243016553497ee57578277ac243aa6eec4f8c74bd7ae6fa2.bin",
+      "bytes": 1536,
+      "sha256": "8612e31dbacc25b5243016553497ee57578277ac243aa6eec4f8c74bd7ae6fa2",
+      "shape": [
+        384
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.6.weight": {
+      "file": "parameters/5575189a0f1c00143086df7021215d8575341285f376b466c4e4fca9add1f0dc.bin",
+      "bytes": 147456,
+      "sha256": "5575189a0f1c00143086df7021215d8575341285f376b466c4e4fca9add1f0dc",
+      "shape": [
+        96,
+        384,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.7.weight": {
+      "file": "parameters/a755312d8be89bd720afada5d351b9d7c3635b87d97381367ddbb32ef65ed067.bin",
+      "bytes": 384,
+      "sha256": "a755312d8be89bd720afada5d351b9d7c3635b87d97381367ddbb32ef65ed067",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.7.bias": {
+      "file": "parameters/62d6a5ab1e6019c9c0c99e9031af230ba37d30a5d98c855e3ac1521dadac4754.bin",
+      "bytes": 384,
+      "sha256": "62d6a5ab1e6019c9c0c99e9031af230ba37d30a5d98c855e3ac1521dadac4754",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.7.mean": {
+      "file": "parameters/37f65f11f770b2d9d01cb0be672261d60eacb4329e8af78496496bca1f662f72.bin",
+      "bytes": 384,
+      "sha256": "37f65f11f770b2d9d01cb0be672261d60eacb4329e8af78496496bca1f662f72",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.11.conv.7.variance": {
+      "file": "parameters/c4cc44b441610297d38d8e407f9477e33ebc473e5ef045ef0a0c341c90eed376.bin",
+      "bytes": 384,
+      "sha256": "c4cc44b441610297d38d8e407f9477e33ebc473e5ef045ef0a0c341c90eed376",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.0.weight": {
+      "file": "parameters/872f877839f572b32872611bffb2c5a655fcedcfd3b149fc09f92a0af6fe598d.bin",
+      "bytes": 221184,
+      "sha256": "872f877839f572b32872611bffb2c5a655fcedcfd3b149fc09f92a0af6fe598d",
+      "shape": [
+        576,
+        96,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.1.weight": {
+      "file": "parameters/b643ed4038555a3ea9ef13d5070aabeafcae204133efb31890b713ff77882996.bin",
+      "bytes": 2304,
+      "sha256": "b643ed4038555a3ea9ef13d5070aabeafcae204133efb31890b713ff77882996",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.1.bias": {
+      "file": "parameters/1340f8bcb9fc6e39e1f092115e222e3126d92f527678ea6688ac1724085fd845.bin",
+      "bytes": 2304,
+      "sha256": "1340f8bcb9fc6e39e1f092115e222e3126d92f527678ea6688ac1724085fd845",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.1.mean": {
+      "file": "parameters/81aa3a8c1fffdb58b9db8ebbe617cb175e966a6e2d6590b48dec5e27e327942a.bin",
+      "bytes": 2304,
+      "sha256": "81aa3a8c1fffdb58b9db8ebbe617cb175e966a6e2d6590b48dec5e27e327942a",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.1.variance": {
+      "file": "parameters/ddd061bd0b0ce5f99ab493ae0e0be6b4ca94a6dbe97018a4959faae2b90711a8.bin",
+      "bytes": 2304,
+      "sha256": "ddd061bd0b0ce5f99ab493ae0e0be6b4ca94a6dbe97018a4959faae2b90711a8",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.3.weight": {
+      "file": "parameters/2caee62c93805bc703066e106fa386fa0abfa2eef8a9d2ca5a513a4adf4cad4d.bin",
+      "bytes": 20736,
+      "sha256": "2caee62c93805bc703066e106fa386fa0abfa2eef8a9d2ca5a513a4adf4cad4d",
+      "shape": [
+        576,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.4.weight": {
+      "file": "parameters/69814592ef7d0b0fcc83d9b5932a4c96fbb1d33bca4fbd928af9b986116ad0a7.bin",
+      "bytes": 2304,
+      "sha256": "69814592ef7d0b0fcc83d9b5932a4c96fbb1d33bca4fbd928af9b986116ad0a7",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.4.bias": {
+      "file": "parameters/13cde675a6497b28bf265f96c4f90ee109dba12995d754de1c861ebb38fd7eb0.bin",
+      "bytes": 2304,
+      "sha256": "13cde675a6497b28bf265f96c4f90ee109dba12995d754de1c861ebb38fd7eb0",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.4.mean": {
+      "file": "parameters/5a891465ad6b0628d4c03e40d61a8678e0e96184a1939f6db1fa2b097dfd4bc6.bin",
+      "bytes": 2304,
+      "sha256": "5a891465ad6b0628d4c03e40d61a8678e0e96184a1939f6db1fa2b097dfd4bc6",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.4.variance": {
+      "file": "parameters/d41fd58f892b0d50cb4f07b0af0f80b57d48ce98838710a53ac38062236583be.bin",
+      "bytes": 2304,
+      "sha256": "d41fd58f892b0d50cb4f07b0af0f80b57d48ce98838710a53ac38062236583be",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.6.weight": {
+      "file": "parameters/8ba1c90847392fabf259484fbf301158aedf054173b7d2eee9a5f1a529920b1e.bin",
+      "bytes": 221184,
+      "sha256": "8ba1c90847392fabf259484fbf301158aedf054173b7d2eee9a5f1a529920b1e",
+      "shape": [
+        96,
+        576,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.7.weight": {
+      "file": "parameters/24dc545f841a83da42e1dae605ed9813eb93b7a3b72cc9e0e393cebc72a9fa7c.bin",
+      "bytes": 384,
+      "sha256": "24dc545f841a83da42e1dae605ed9813eb93b7a3b72cc9e0e393cebc72a9fa7c",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.7.bias": {
+      "file": "parameters/ac453073e58bada0a81c3bebfba91a9f968de2b071ebd6b43bf0e2cad25fd64f.bin",
+      "bytes": 384,
+      "sha256": "ac453073e58bada0a81c3bebfba91a9f968de2b071ebd6b43bf0e2cad25fd64f",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.7.mean": {
+      "file": "parameters/22fd5adbd58082384c00d0c653ddd206c7d71a8a908905901e9e07c652580f2b.bin",
+      "bytes": 384,
+      "sha256": "22fd5adbd58082384c00d0c653ddd206c7d71a8a908905901e9e07c652580f2b",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.12.conv.7.variance": {
+      "file": "parameters/38c05eff814fd10cd947c90b2785604069bf768c91c4b1e6c754ed3603c9eb8f.bin",
+      "bytes": 384,
+      "sha256": "38c05eff814fd10cd947c90b2785604069bf768c91c4b1e6c754ed3603c9eb8f",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.0.weight": {
+      "file": "parameters/fec8355995b6437e681cb31b3cde6c2d6ebc0d7f93c49107c5c7dcb1c9b489f6.bin",
+      "bytes": 221184,
+      "sha256": "fec8355995b6437e681cb31b3cde6c2d6ebc0d7f93c49107c5c7dcb1c9b489f6",
+      "shape": [
+        576,
+        96,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.1.weight": {
+      "file": "parameters/fcc9dd1a99780156dabfc7e89cfea2c3a913020f10ddb9b0bf1473995b140ddd.bin",
+      "bytes": 2304,
+      "sha256": "fcc9dd1a99780156dabfc7e89cfea2c3a913020f10ddb9b0bf1473995b140ddd",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.1.bias": {
+      "file": "parameters/022aedfeccd315af720ee9839431946f8345886b2eed681a4cb9fbb912dcfb30.bin",
+      "bytes": 2304,
+      "sha256": "022aedfeccd315af720ee9839431946f8345886b2eed681a4cb9fbb912dcfb30",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.1.mean": {
+      "file": "parameters/96cce40d9883f9420140d8ad26a88ed862d5c47a9a045701c0a995d67ea3ff89.bin",
+      "bytes": 2304,
+      "sha256": "96cce40d9883f9420140d8ad26a88ed862d5c47a9a045701c0a995d67ea3ff89",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.1.variance": {
+      "file": "parameters/f460f3c143482ef68becf855896697857a5cfd73a7e058b0146fbcc6c821cd52.bin",
+      "bytes": 2304,
+      "sha256": "f460f3c143482ef68becf855896697857a5cfd73a7e058b0146fbcc6c821cd52",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.3.weight": {
+      "file": "parameters/b6bd6977b6a6360846df421fd49d8ab170b2052dc3e2d1a67dd5e57343a26aac.bin",
+      "bytes": 20736,
+      "sha256": "b6bd6977b6a6360846df421fd49d8ab170b2052dc3e2d1a67dd5e57343a26aac",
+      "shape": [
+        576,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.4.weight": {
+      "file": "parameters/b860948685d75cc8b1470a5e702290b50ce41dee5e94db300f997a60df930240.bin",
+      "bytes": 2304,
+      "sha256": "b860948685d75cc8b1470a5e702290b50ce41dee5e94db300f997a60df930240",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.4.bias": {
+      "file": "parameters/f8f82b766d1a636907d55eeae27b598f4eb96cf73931f4ad8d1ed1c59aea97cb.bin",
+      "bytes": 2304,
+      "sha256": "f8f82b766d1a636907d55eeae27b598f4eb96cf73931f4ad8d1ed1c59aea97cb",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.4.mean": {
+      "file": "parameters/f3e46b1ebce73b0797103f98da831e862f54c7fea52d80ef88de85cccb62df32.bin",
+      "bytes": 2304,
+      "sha256": "f3e46b1ebce73b0797103f98da831e862f54c7fea52d80ef88de85cccb62df32",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.4.variance": {
+      "file": "parameters/674c464d9d08f346e267cec478409cd84c0dd436942cb2767b1cf62f44775d69.bin",
+      "bytes": 2304,
+      "sha256": "674c464d9d08f346e267cec478409cd84c0dd436942cb2767b1cf62f44775d69",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.6.weight": {
+      "file": "parameters/193abda073864406e6967140f9711f3a0f5d0378c31773d3fc9b94ccbefacf7c.bin",
+      "bytes": 221184,
+      "sha256": "193abda073864406e6967140f9711f3a0f5d0378c31773d3fc9b94ccbefacf7c",
+      "shape": [
+        96,
+        576,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.7.weight": {
+      "file": "parameters/bcbf78cbfe7d41f9a378d8a00ad3881487cdd9fe4e07edcae0e5a302cce8f5fb.bin",
+      "bytes": 384,
+      "sha256": "bcbf78cbfe7d41f9a378d8a00ad3881487cdd9fe4e07edcae0e5a302cce8f5fb",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.7.bias": {
+      "file": "parameters/592b3de0821ce38e091c802d87d9b1311bf15850cf55ad4059950bca4581e0e6.bin",
+      "bytes": 384,
+      "sha256": "592b3de0821ce38e091c802d87d9b1311bf15850cf55ad4059950bca4581e0e6",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.7.mean": {
+      "file": "parameters/03dc08cc106e09b3ea0f74ac19ce13617c6e448c0dc9f1b5dcf7c8bc2d1af303.bin",
+      "bytes": 384,
+      "sha256": "03dc08cc106e09b3ea0f74ac19ce13617c6e448c0dc9f1b5dcf7c8bc2d1af303",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.13.conv.7.variance": {
+      "file": "parameters/6e0805c29ee0e2c9da58c3405c3f3f17b7f221db37cee11b7baf822e2a55675a.bin",
+      "bytes": 384,
+      "sha256": "6e0805c29ee0e2c9da58c3405c3f3f17b7f221db37cee11b7baf822e2a55675a",
+      "shape": [
+        96
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.0.weight": {
+      "file": "parameters/86d16ac0232863d36dda4993c56bbfd2b3d86da28d488c38c8ac8c751f8b3c36.bin",
+      "bytes": 221184,
+      "sha256": "86d16ac0232863d36dda4993c56bbfd2b3d86da28d488c38c8ac8c751f8b3c36",
+      "shape": [
+        576,
+        96,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.1.weight": {
+      "file": "parameters/3507c131c6686771a3619d4295323159f2ed2bc12ea2fda03fca60c16b05e2af.bin",
+      "bytes": 2304,
+      "sha256": "3507c131c6686771a3619d4295323159f2ed2bc12ea2fda03fca60c16b05e2af",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.1.bias": {
+      "file": "parameters/0b3da94e413103afb05bc61a876122928aff3a0f7c439af651e555dc3afb2430.bin",
+      "bytes": 2304,
+      "sha256": "0b3da94e413103afb05bc61a876122928aff3a0f7c439af651e555dc3afb2430",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.1.mean": {
+      "file": "parameters/baf3e80e66370fdf3466ddafbfbf2c3f521a2298bc7f8ff06b69fae274ae6ae8.bin",
+      "bytes": 2304,
+      "sha256": "baf3e80e66370fdf3466ddafbfbf2c3f521a2298bc7f8ff06b69fae274ae6ae8",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.1.variance": {
+      "file": "parameters/664f5173cb508dd26011f1da397f89340698d6f89125a41b00bf8b18b9953947.bin",
+      "bytes": 2304,
+      "sha256": "664f5173cb508dd26011f1da397f89340698d6f89125a41b00bf8b18b9953947",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.3.weight": {
+      "file": "parameters/a45e3fe8738de86947c5d017bfababd29f7dc4d5469c15bc07770a486fecbf81.bin",
+      "bytes": 20736,
+      "sha256": "a45e3fe8738de86947c5d017bfababd29f7dc4d5469c15bc07770a486fecbf81",
+      "shape": [
+        576,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.4.weight": {
+      "file": "parameters/c032f74f44beb496091a8704dbfe231b090f876221bd3e2f0d82089c3239af76.bin",
+      "bytes": 2304,
+      "sha256": "c032f74f44beb496091a8704dbfe231b090f876221bd3e2f0d82089c3239af76",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.4.bias": {
+      "file": "parameters/f4162e61769d22b025d6e6fcc332a3f581cbae63dd002c3a58e19592dcf08cfb.bin",
+      "bytes": 2304,
+      "sha256": "f4162e61769d22b025d6e6fcc332a3f581cbae63dd002c3a58e19592dcf08cfb",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.4.mean": {
+      "file": "parameters/6b18e101bcbff7e77a388d0a707f3ac6160b30e78f66862adef2e9500502c498.bin",
+      "bytes": 2304,
+      "sha256": "6b18e101bcbff7e77a388d0a707f3ac6160b30e78f66862adef2e9500502c498",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.4.variance": {
+      "file": "parameters/565238e014bfb9743035419074fc0151e0840bcf8cc16a141f8b566edc300335.bin",
+      "bytes": 2304,
+      "sha256": "565238e014bfb9743035419074fc0151e0840bcf8cc16a141f8b566edc300335",
+      "shape": [
+        576
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.6.weight": {
+      "file": "parameters/60d6dd49e994b0f5a9d68029f88f6510268fa8c9162a850efa691b816933fa5d.bin",
+      "bytes": 368640,
+      "sha256": "60d6dd49e994b0f5a9d68029f88f6510268fa8c9162a850efa691b816933fa5d",
+      "shape": [
+        160,
+        576,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.7.weight": {
+      "file": "parameters/428682c410c763aae9b68bc0cfeec8567e2f55f10a635cbd444efbd4b73520f0.bin",
+      "bytes": 640,
+      "sha256": "428682c410c763aae9b68bc0cfeec8567e2f55f10a635cbd444efbd4b73520f0",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.7.bias": {
+      "file": "parameters/b2c2582dc65f35aab1c1449b0b2cf4a782b51f78cdc9eecee7adddeae7ac93df.bin",
+      "bytes": 640,
+      "sha256": "b2c2582dc65f35aab1c1449b0b2cf4a782b51f78cdc9eecee7adddeae7ac93df",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.7.mean": {
+      "file": "parameters/8ec38a2eeba44f15e5374e5545042e77e9ead8cc24ef4b8d38c594250ddc1341.bin",
+      "bytes": 640,
+      "sha256": "8ec38a2eeba44f15e5374e5545042e77e9ead8cc24ef4b8d38c594250ddc1341",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.14.conv.7.variance": {
+      "file": "parameters/d41c840206e79fc93a5d52dc1f0c58cbd454d0b2c3e3ac59457dce45c8da0df8.bin",
+      "bytes": 640,
+      "sha256": "d41c840206e79fc93a5d52dc1f0c58cbd454d0b2c3e3ac59457dce45c8da0df8",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.0.weight": {
+      "file": "parameters/a044f2657b59c8262d8bff4afee4ad5e53298945ef98da97ff0f2b69f7a93944.bin",
+      "bytes": 614400,
+      "sha256": "a044f2657b59c8262d8bff4afee4ad5e53298945ef98da97ff0f2b69f7a93944",
+      "shape": [
+        960,
+        160,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.1.weight": {
+      "file": "parameters/d87f9b26ecbcd1f5c9b0c85228ebb267b411f2772d1dbc6755a7571c6b868d5f.bin",
+      "bytes": 3840,
+      "sha256": "d87f9b26ecbcd1f5c9b0c85228ebb267b411f2772d1dbc6755a7571c6b868d5f",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.1.bias": {
+      "file": "parameters/bfea3376b6c13bce5751f03e45f38d08686960d3e400a95173cade45f7b71a27.bin",
+      "bytes": 3840,
+      "sha256": "bfea3376b6c13bce5751f03e45f38d08686960d3e400a95173cade45f7b71a27",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.1.mean": {
+      "file": "parameters/a88fae2115484ea82d9df0d90f00f981ac0c788c7804e988b731a8f336014a2a.bin",
+      "bytes": 3840,
+      "sha256": "a88fae2115484ea82d9df0d90f00f981ac0c788c7804e988b731a8f336014a2a",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.1.variance": {
+      "file": "parameters/df00ec570f36627af82f7e94b996931fd3a6e1661004a5b08c70d2ab32a97a95.bin",
+      "bytes": 3840,
+      "sha256": "df00ec570f36627af82f7e94b996931fd3a6e1661004a5b08c70d2ab32a97a95",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.3.weight": {
+      "file": "parameters/8ec874b8e3e0cac7196e79ead3dbfafd57ee8ccc2f31fe5d62903157b607ce05.bin",
+      "bytes": 34560,
+      "sha256": "8ec874b8e3e0cac7196e79ead3dbfafd57ee8ccc2f31fe5d62903157b607ce05",
+      "shape": [
+        960,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.4.weight": {
+      "file": "parameters/53ec631c2dcba5de0f2240f52cb2d2a9ee9a29bf4ab36cb21ef4ed9d74e9a2b9.bin",
+      "bytes": 3840,
+      "sha256": "53ec631c2dcba5de0f2240f52cb2d2a9ee9a29bf4ab36cb21ef4ed9d74e9a2b9",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.4.bias": {
+      "file": "parameters/4b6aaec40fe251cb8db86db07608ac9be87b8d801143506fd8df5113a4076740.bin",
+      "bytes": 3840,
+      "sha256": "4b6aaec40fe251cb8db86db07608ac9be87b8d801143506fd8df5113a4076740",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.4.mean": {
+      "file": "parameters/56fd4c1f57da23b5dc200260368611fca8c9f5bbd8081fe0fd053455a6d273bb.bin",
+      "bytes": 3840,
+      "sha256": "56fd4c1f57da23b5dc200260368611fca8c9f5bbd8081fe0fd053455a6d273bb",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.4.variance": {
+      "file": "parameters/ea8da6db9ee212dc5b4516d8303d55aef516f1dc5f52fe3ac8cdade24cfa0fde.bin",
+      "bytes": 3840,
+      "sha256": "ea8da6db9ee212dc5b4516d8303d55aef516f1dc5f52fe3ac8cdade24cfa0fde",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.6.weight": {
+      "file": "parameters/b1a285c0ff7381108a0ac99b92fafa3ac350d6b719a0486e259a342530ccc113.bin",
+      "bytes": 614400,
+      "sha256": "b1a285c0ff7381108a0ac99b92fafa3ac350d6b719a0486e259a342530ccc113",
+      "shape": [
+        160,
+        960,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.7.weight": {
+      "file": "parameters/39d7bc7840b0f2ab1cc78f732ce16ab80242e8505610fbe58bc684a00698531f.bin",
+      "bytes": 640,
+      "sha256": "39d7bc7840b0f2ab1cc78f732ce16ab80242e8505610fbe58bc684a00698531f",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.7.bias": {
+      "file": "parameters/daae073a4d0870d5b89a093af26675e5d3714af7da9ca389d59472f1337d82b6.bin",
+      "bytes": 640,
+      "sha256": "daae073a4d0870d5b89a093af26675e5d3714af7da9ca389d59472f1337d82b6",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.7.mean": {
+      "file": "parameters/7e0cc430cf3ba5955b1293d448d3e8110f1fc302f3157490ec6844e533f4c6cc.bin",
+      "bytes": 640,
+      "sha256": "7e0cc430cf3ba5955b1293d448d3e8110f1fc302f3157490ec6844e533f4c6cc",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.15.conv.7.variance": {
+      "file": "parameters/857f6c4463132ded3b871311e36f80e6a2dc8cd1290ffdcf073b5a6036ce9b02.bin",
+      "bytes": 640,
+      "sha256": "857f6c4463132ded3b871311e36f80e6a2dc8cd1290ffdcf073b5a6036ce9b02",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.0.weight": {
+      "file": "parameters/2c68daaa69a62270d18590c2a0168a974c9e2c2ab3a33e2cc4edbdab5f8111be.bin",
+      "bytes": 614400,
+      "sha256": "2c68daaa69a62270d18590c2a0168a974c9e2c2ab3a33e2cc4edbdab5f8111be",
+      "shape": [
+        960,
+        160,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.1.weight": {
+      "file": "parameters/310adee9a5c5774abc900865047b7b706366308e48695a2ebd2d8e924330db44.bin",
+      "bytes": 3840,
+      "sha256": "310adee9a5c5774abc900865047b7b706366308e48695a2ebd2d8e924330db44",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.1.bias": {
+      "file": "parameters/de995f6e28f471cff443e21d19b6acc7c41ae32f5031f37b4138f779d8b6abfa.bin",
+      "bytes": 3840,
+      "sha256": "de995f6e28f471cff443e21d19b6acc7c41ae32f5031f37b4138f779d8b6abfa",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.1.mean": {
+      "file": "parameters/b63c10f60da56388249bede1fa77c52ad6a0aec9a756607f647ec08728887acd.bin",
+      "bytes": 3840,
+      "sha256": "b63c10f60da56388249bede1fa77c52ad6a0aec9a756607f647ec08728887acd",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.1.variance": {
+      "file": "parameters/db281688c5b60516f365b104fabd8b33d9377aadbdc2477dba8b9ab8cac24aa9.bin",
+      "bytes": 3840,
+      "sha256": "db281688c5b60516f365b104fabd8b33d9377aadbdc2477dba8b9ab8cac24aa9",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.3.weight": {
+      "file": "parameters/915363692e5c021f6945f19ba5d1d70abbcbac694808040f138fda7fd09d6230.bin",
+      "bytes": 34560,
+      "sha256": "915363692e5c021f6945f19ba5d1d70abbcbac694808040f138fda7fd09d6230",
+      "shape": [
+        960,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.4.weight": {
+      "file": "parameters/a330632f1f4e2748fa947d0667ed3b92d9f6b39c39e43ff53de0403fd68d6a07.bin",
+      "bytes": 3840,
+      "sha256": "a330632f1f4e2748fa947d0667ed3b92d9f6b39c39e43ff53de0403fd68d6a07",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.4.bias": {
+      "file": "parameters/458eb66817ca76042b0b65005084d35a02bf4c416ea63fc3b5ea58df3c667f88.bin",
+      "bytes": 3840,
+      "sha256": "458eb66817ca76042b0b65005084d35a02bf4c416ea63fc3b5ea58df3c667f88",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.4.mean": {
+      "file": "parameters/2a618e6af92499fa2f65283f0a8ae9932a7a6b2011f436cd51018e1a7c49adef.bin",
+      "bytes": 3840,
+      "sha256": "2a618e6af92499fa2f65283f0a8ae9932a7a6b2011f436cd51018e1a7c49adef",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.4.variance": {
+      "file": "parameters/2cf8042dfc54805957400fa8fac58da9696b855e94f5a0d40da448ad4ca472bc.bin",
+      "bytes": 3840,
+      "sha256": "2cf8042dfc54805957400fa8fac58da9696b855e94f5a0d40da448ad4ca472bc",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.6.weight": {
+      "file": "parameters/983821d5c73959e0a4320359661b6002489259d12f1c700edb691f9c32d55714.bin",
+      "bytes": 614400,
+      "sha256": "983821d5c73959e0a4320359661b6002489259d12f1c700edb691f9c32d55714",
+      "shape": [
+        160,
+        960,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.7.weight": {
+      "file": "parameters/56931aaa6de4f84ae66e854a726ceec28eff81f3baa7377199c1fb6412dd6afc.bin",
+      "bytes": 640,
+      "sha256": "56931aaa6de4f84ae66e854a726ceec28eff81f3baa7377199c1fb6412dd6afc",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.7.bias": {
+      "file": "parameters/ca0ad1883987523f4ec27f4fc7cc5417a96927f604546f4c243b184168eaa725.bin",
+      "bytes": 640,
+      "sha256": "ca0ad1883987523f4ec27f4fc7cc5417a96927f604546f4c243b184168eaa725",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.7.mean": {
+      "file": "parameters/cc71bf4b630e4d6da9b346cf7b0f4fe843b37105d9a6bc919b586d49c48ec3ab.bin",
+      "bytes": 640,
+      "sha256": "cc71bf4b630e4d6da9b346cf7b0f4fe843b37105d9a6bc919b586d49c48ec3ab",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.16.conv.7.variance": {
+      "file": "parameters/1842afebfe192acde50b276505327fce182a40c001dff49a0210bb2a0048731f.bin",
+      "bytes": 640,
+      "sha256": "1842afebfe192acde50b276505327fce182a40c001dff49a0210bb2a0048731f",
+      "shape": [
+        160
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.0.weight": {
+      "file": "parameters/c001f1c893d5004ab85bdc1a72428e59424f58ac1fdf77fc170eab4d6ffcc4b4.bin",
+      "bytes": 614400,
+      "sha256": "c001f1c893d5004ab85bdc1a72428e59424f58ac1fdf77fc170eab4d6ffcc4b4",
+      "shape": [
+        960,
+        160,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.1.weight": {
+      "file": "parameters/538d63f64924434ccea993fb760dd22747b59b6107b0ac43928d4a34059f3e3a.bin",
+      "bytes": 3840,
+      "sha256": "538d63f64924434ccea993fb760dd22747b59b6107b0ac43928d4a34059f3e3a",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.1.bias": {
+      "file": "parameters/b4bf8667d89c7bce339ea82edf5a02a5d1d412c2a8f0615892cbc3561e45366a.bin",
+      "bytes": 3840,
+      "sha256": "b4bf8667d89c7bce339ea82edf5a02a5d1d412c2a8f0615892cbc3561e45366a",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.1.mean": {
+      "file": "parameters/43cd8c5c1bb310fbde75cac26376d175a5526fbc95f379f47cba384ab62a1f2f.bin",
+      "bytes": 3840,
+      "sha256": "43cd8c5c1bb310fbde75cac26376d175a5526fbc95f379f47cba384ab62a1f2f",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.1.variance": {
+      "file": "parameters/e6b38acd65dbf7256de680a318dfd82e0b0c130281056f78ec47c6122bc75c7c.bin",
+      "bytes": 3840,
+      "sha256": "e6b38acd65dbf7256de680a318dfd82e0b0c130281056f78ec47c6122bc75c7c",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.3.weight": {
+      "file": "parameters/51429d126a81be5e5da9f53abb255a647169db9a4530dd874b0b8e80f5eb5a4f.bin",
+      "bytes": 34560,
+      "sha256": "51429d126a81be5e5da9f53abb255a647169db9a4530dd874b0b8e80f5eb5a4f",
+      "shape": [
+        960,
+        1,
+        3,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.4.weight": {
+      "file": "parameters/932f2a1aade3ab4f3f3d99de34d6a3abb2b5fcc714cbea70713a9617ccc98183.bin",
+      "bytes": 3840,
+      "sha256": "932f2a1aade3ab4f3f3d99de34d6a3abb2b5fcc714cbea70713a9617ccc98183",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.4.bias": {
+      "file": "parameters/d9cd1ab8d63e3f95ba16ee5b5cdb34e45bffe1a38bdc5a15d92c3a28e5d6bd2e.bin",
+      "bytes": 3840,
+      "sha256": "d9cd1ab8d63e3f95ba16ee5b5cdb34e45bffe1a38bdc5a15d92c3a28e5d6bd2e",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.4.mean": {
+      "file": "parameters/4bc8ae3db76b65223ebbbe97a414e5ed4b306f5b86e282cb6338bb4f5e5aa6f8.bin",
+      "bytes": 3840,
+      "sha256": "4bc8ae3db76b65223ebbbe97a414e5ed4b306f5b86e282cb6338bb4f5e5aa6f8",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.4.variance": {
+      "file": "parameters/9b83d6b7a50b1c3a54389072ebde3d1882addc5f6658ceaa5485149281c6c4fa.bin",
+      "bytes": 3840,
+      "sha256": "9b83d6b7a50b1c3a54389072ebde3d1882addc5f6658ceaa5485149281c6c4fa",
+      "shape": [
+        960
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.6.weight": {
+      "file": "parameters/f2f3631f9686b20ee3c4a71f68467774725f68ce4d513ae8c0b22c426be34959.bin",
+      "bytes": 1228800,
+      "sha256": "f2f3631f9686b20ee3c4a71f68467774725f68ce4d513ae8c0b22c426be34959",
+      "shape": [
+        320,
+        960,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.7.weight": {
+      "file": "parameters/82159bc101b5506df97aa79c00387a9da60a6be33d6e3eceac084c830fc031e6.bin",
+      "bytes": 1280,
+      "sha256": "82159bc101b5506df97aa79c00387a9da60a6be33d6e3eceac084c830fc031e6",
+      "shape": [
+        320
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.7.bias": {
+      "file": "parameters/2cbc0bf2845e3df3a03c996d31c5dfb743be3c2ef4ca8b7449c2d1b869441666.bin",
+      "bytes": 1280,
+      "sha256": "2cbc0bf2845e3df3a03c996d31c5dfb743be3c2ef4ca8b7449c2d1b869441666",
+      "shape": [
+        320
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.7.mean": {
+      "file": "parameters/a51d8618ef55e784ecfc1b22af706adbf08f16e980bb96a5ac0a247719d718f8.bin",
+      "bytes": 1280,
+      "sha256": "a51d8618ef55e784ecfc1b22af706adbf08f16e980bb96a5ac0a247719d718f8",
+      "shape": [
+        320
+      ],
+      "dtype": "float32"
+    },
+    "features.17.conv.7.variance": {
+      "file": "parameters/b20aa9b0a959ace555df630b95abe01a28a72558511d2b1c06664e93b1ca1163.bin",
+      "bytes": 1280,
+      "sha256": "b20aa9b0a959ace555df630b95abe01a28a72558511d2b1c06664e93b1ca1163",
+      "shape": [
+        320
+      ],
+      "dtype": "float32"
+    },
+    "features.18.0.weight": {
+      "file": "parameters/8a14e65afaa3743665c0c87d82a788b87daaf975e6c59dc526e2657a5420f6d1.bin",
+      "bytes": 1638400,
+      "sha256": "8a14e65afaa3743665c0c87d82a788b87daaf975e6c59dc526e2657a5420f6d1",
+      "shape": [
+        1280,
+        320,
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    "features.18.1.weight": {
+      "file": "parameters/f7ba987ffb5630270686af4486a39a56f1b39229232edfc8f8a23ce2085bac4d.bin",
+      "bytes": 5120,
+      "sha256": "f7ba987ffb5630270686af4486a39a56f1b39229232edfc8f8a23ce2085bac4d",
+      "shape": [
+        1280
+      ],
+      "dtype": "float32"
+    },
+    "features.18.1.bias": {
+      "file": "parameters/187ed92a7cd21ff94b52f4b0a7f186ab6d89294bf1ca9fc0a1d78889cef67b28.bin",
+      "bytes": 5120,
+      "sha256": "187ed92a7cd21ff94b52f4b0a7f186ab6d89294bf1ca9fc0a1d78889cef67b28",
+      "shape": [
+        1280
+      ],
+      "dtype": "float32"
+    },
+    "features.18.1.mean": {
+      "file": "parameters/999dcd14361162dcf2ca8e617db8daf13b6d637b80790ef5b6c7ba3ed05ff5da.bin",
+      "bytes": 5120,
+      "sha256": "999dcd14361162dcf2ca8e617db8daf13b6d637b80790ef5b6c7ba3ed05ff5da",
+      "shape": [
+        1280
+      ],
+      "dtype": "float32"
+    },
+    "features.18.1.variance": {
+      "file": "parameters/2ca74aec46fd83456040d9f5adfe5e3fcc903ca87efb457ecc9d8c268623c14e.bin",
+      "bytes": 5120,
+      "sha256": "2ca74aec46fd83456040d9f5adfe5e3fcc903ca87efb457ecc9d8c268623c14e",
+      "shape": [
+        1280
+      ],
+      "dtype": "float32"
+    }
+  },
+  "outputs": {
+    "bypass": "value-7",
+    "x2": "value-24",
+    "x3": "value-50",
+    "x4": "value-111",
+    "x5": "value-148"
+  },
+  "weights": {
+    "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/generalization.pth": "a3351ae664fca9780c3ca56db708fe3fdc74878c07327dfdd6ed75f14537454b"
+  }
+}

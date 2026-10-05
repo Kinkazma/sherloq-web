@@ -1,0 +1,549 @@
+{
+  "schema": "sherloq.public-media-qualification/1",
+  "date": "2026-10-05",
+  "scope": "Synthetic API/codec/renderer checks only; no manual application image workflow; no running 96 MP analysis was modified.",
+  "browsers": [
+    {
+      "browser": "154.0.8037.93",
+      "isolated": true,
+      "cases": [
+        {
+          "format": "avif",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 1,
+          "bytes": 1980,
+          "meanAbsoluteError": 2.735462322668226,
+          "maximumError": 42
+        },
+        {
+          "format": "avif",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 4,
+          "bytes": 1980,
+          "meanAbsoluteError": 2.730207052277172,
+          "maximumError": 44
+        },
+        {
+          "format": "avif",
+          "chroma": "444",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 4,
+          "bytes": 2098,
+          "meanAbsoluteError": 2.634919994892576,
+          "maximumError": 42
+        },
+        {
+          "format": "avif",
+          "chroma": "420",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 4,
+          "bytes": 1848,
+          "meanAbsoluteError": 2.900102820507651,
+          "maximumError": 43
+        },
+        {
+          "format": "webp",
+          "chroma": "420",
+          "quality": 90,
+          "lossless": false,
+          "depth": 8,
+          "bytes": 2658,
+          "meanAbsoluteError": 4.590559330121033,
+          "maximumError": 57
+        },
+        {
+          "format": "webp",
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "bytes": 176,
+          "meanAbsoluteError": 0,
+          "maximumError": 0
+        },
+        {
+          "format": "heic",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 8,
+          "bytes": 18988,
+          "meanAbsoluteError": 0.41825769641741095,
+          "maximumError": 3
+        },
+        {
+          "format": "heic",
+          "chroma": "444",
+          "quality": 90,
+          "depth": 8,
+          "bytes": 16883,
+          "meanAbsoluteError": 0.3431718446536696,
+          "maximumError": 3
+        }
+      ]
+    },
+    {
+      "browser": "155.0",
+      "isolated": true,
+      "cases": [
+        {
+          "format": "avif",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 1,
+          "bytes": 1980,
+          "meanAbsoluteError": 2.735462322668226,
+          "maximumError": 42
+        },
+        {
+          "format": "avif",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 4,
+          "bytes": 1980,
+          "meanAbsoluteError": 2.730207052277172,
+          "maximumError": 44
+        },
+        {
+          "format": "avif",
+          "chroma": "444",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 4,
+          "bytes": 2098,
+          "meanAbsoluteError": 2.634919994892576,
+          "maximumError": 42
+        },
+        {
+          "format": "avif",
+          "chroma": "420",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 4,
+          "bytes": 1848,
+          "meanAbsoluteError": 2.900102820507651,
+          "maximumError": 43
+        },
+        {
+          "format": "webp",
+          "chroma": "420",
+          "quality": 90,
+          "lossless": false,
+          "depth": 8,
+          "bytes": 2658,
+          "meanAbsoluteError": 4.590559330121033,
+          "maximumError": 57
+        },
+        {
+          "format": "webp",
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "bytes": 176,
+          "meanAbsoluteError": 0,
+          "maximumError": 0
+        },
+        {
+          "format": "heic",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 8,
+          "bytes": 18988,
+          "meanAbsoluteError": 0.41825769641741095,
+          "maximumError": 3
+        },
+        {
+          "format": "heic",
+          "chroma": "444",
+          "quality": 90,
+          "depth": 8,
+          "bytes": 16883,
+          "meanAbsoluteError": 0.3431718446536696,
+          "maximumError": 3
+        }
+      ]
+    },
+    {
+      "browser": "26.6",
+      "isolated": true,
+      "cases": [
+        {
+          "format": "avif",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 1,
+          "bytes": 1980,
+          "meanAbsoluteError": 2.735462322668226,
+          "maximumError": 42
+        },
+        {
+          "format": "avif",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 4,
+          "bytes": 1980,
+          "meanAbsoluteError": 2.730207052277172,
+          "maximumError": 44
+        },
+        {
+          "format": "avif",
+          "chroma": "444",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 4,
+          "bytes": 2098,
+          "meanAbsoluteError": 2.634919994892576,
+          "maximumError": 42
+        },
+        {
+          "format": "avif",
+          "chroma": "420",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 4,
+          "bytes": 1848,
+          "meanAbsoluteError": 2.900102820507651,
+          "maximumError": 43
+        },
+        {
+          "format": "webp",
+          "chroma": "420",
+          "quality": 90,
+          "lossless": false,
+          "depth": 8,
+          "bytes": 2658,
+          "meanAbsoluteError": 4.590559330121033,
+          "maximumError": 57
+        },
+        {
+          "format": "webp",
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "bytes": 176,
+          "meanAbsoluteError": 0,
+          "maximumError": 0
+        },
+        {
+          "format": "heic",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 8,
+          "bytes": 18988,
+          "meanAbsoluteError": 0.41825769641741095,
+          "maximumError": 3
+        },
+        {
+          "format": "heic",
+          "chroma": "444",
+          "quality": 90,
+          "depth": 8,
+          "bytes": 16883,
+          "meanAbsoluteError": 0.3431718446536696,
+          "maximumError": 3
+        }
+      ]
+    },
+    {
+      "browser": "154.0.8037.93",
+      "isolated": false,
+      "cases": [
+        {
+          "format": "avif",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 1,
+          "bytes": 1980,
+          "meanAbsoluteError": 2.735462322668226,
+          "maximumError": 42
+        },
+        {
+          "format": "avif",
+          "chroma": "422",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 1,
+          "bytes": 1980,
+          "meanAbsoluteError": 2.735462322668226,
+          "maximumError": 42
+        },
+        {
+          "format": "avif",
+          "chroma": "444",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 1,
+          "bytes": 2100,
+          "meanAbsoluteError": 2.6449601150514437,
+          "maximumError": 42
+        },
+        {
+          "format": "avif",
+          "chroma": "420",
+          "quality": 90,
+          "depth": 10,
+          "transfer": "PQ",
+          "gainMap": false,
+          "threads": 1,
+          "bytes": 1848,
+          "meanAbsoluteError": 2.89889988777108,
+          "maximumError": 42
+        },
+        {
+          "format": "webp",
+          "chroma": "420",
+          "quality": 90,
+          "lossless": false,
+          "depth": 8,
+          "bytes": 2658,
+          "meanAbsoluteError": 4.590559330121033,
+          "maximumError": 57
+        },
+        {
+          "format": "webp",
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "bytes": 176,
+          "meanAbsoluteError": 0,
+          "maximumError": 0
+        },
+        {
+          "format": "heic",
+          "expectedError": "ISOLATION_REQUIRED"
+        },
+        {
+          "format": "heic",
+          "expectedError": "ISOLATION_REQUIRED"
+        }
+      ]
+    }
+  ],
+  "integration": {
+    "browser": "154.0.8037.93",
+    "imports": [
+      {
+        "name": "reference.ppm",
+        "detectedFormat": "pnm",
+        "width": 257,
+        "height": 193,
+        "layout": "paged-rgb"
+      },
+      {
+        "name": "reference.jp2",
+        "detectedFormat": "jp2",
+        "width": 257,
+        "height": 193,
+        "layout": "paged-rgb"
+      },
+      {
+        "name": "reference.bmp",
+        "detectedFormat": "bmp",
+        "width": 257,
+        "height": 193,
+        "layout": "paged-rgb"
+      },
+      {
+        "name": "reference.gif",
+        "detectedFormat": "gif",
+        "width": 257,
+        "height": 193,
+        "layout": "paged-rgb"
+      },
+      {
+        "name": "reference.jpg",
+        "detectedFormat": "jpeg",
+        "width": 257,
+        "height": 193,
+        "layout": "segmented-scanlines"
+      },
+      {
+        "name": "reference.tif",
+        "detectedFormat": "tiff",
+        "width": 257,
+        "height": 193,
+        "layout": "segmented-strips-tiles"
+      },
+      {
+        "name": "reference.psd",
+        "detectedFormat": "psd",
+        "width": 257,
+        "height": 193,
+        "layout": "paged-rgb"
+      },
+      {
+        "name": "reference.jxl",
+        "detectedFormat": "jxl",
+        "width": 257,
+        "height": 193,
+        "layout": "paged-rgb"
+      },
+      {
+        "name": "fixture.avif",
+        "detectedFormat": "avif",
+        "width": 257,
+        "height": 193,
+        "layout": "paged-rgb"
+      },
+      {
+        "name": "fixture.heic",
+        "detectedFormat": "heic",
+        "width": 257,
+        "height": 193,
+        "layout": "paged-rgb"
+      },
+      {
+        "name": "fixture.webp",
+        "detectedFormat": "webp",
+        "width": 257,
+        "height": 193,
+        "layout": "paged-rgb"
+      }
+    ],
+    "largeImports": [
+      {
+        "format": "avif",
+        "width": 10000,
+        "height": 10000,
+        "maximumSampleError": 2
+      },
+      {
+        "format": "heic",
+        "width": 10000,
+        "height": 10000,
+        "maximumSampleError": 1
+      }
+    ],
+    "adaptive": {
+      "width": 1224,
+      "height": 816,
+      "reduction": "linear-sRGB exact area"
+    },
+    "exportDialog": true,
+    "loupe": {
+      "samples": [
+        {
+          "dx": 0,
+          "actual": [
+            128,
+            127,
+            91
+          ],
+          "expected": [
+            128,
+            128,
+            91
+          ]
+        },
+        {
+          "dx": 30,
+          "actual": [
+            132,
+            127,
+            91
+          ],
+          "expected": [
+            133,
+            128,
+            91
+          ]
+        },
+        {
+          "dx": 55,
+          "actual": [
+            137,
+            127,
+            91
+          ],
+          "expected": [
+            138,
+            128,
+            91
+          ]
+        },
+        {
+          "dx": 70,
+          "actual": [
+            166,
+            127,
+            91
+          ],
+          "expected": [
+            167,
+            128,
+            91
+          ]
+        },
+        {
+          "dx": 78,
+          "actual": [
+            178,
+            127,
+            91
+          ],
+          "expected": [
+            178,
+            128,
+            91
+          ]
+        }
+      ],
+      "wheel": true,
+      "dispose": true
+    },
+    "reservations": true,
+    "composedExport": true
+  },
+  "tests": {
+    "engine": {
+      "passed": 27,
+      "scope": "20 existing export/header/source lifecycle tests plus 7 media contracts"
+    },
+    "interface": {
+      "passed": 111
+    }
+  }
+}
