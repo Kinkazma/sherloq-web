@@ -1,0 +1,17 @@
+export interface Pixels { width:number; height:number; format:'rgb8'; data:Uint8Array; }
+export interface ElaParams { quality:number; scale:number; contrast:number; linear:boolean; grayscale:boolean; }
+export interface Progress { id:string; phase:string; fraction:number; }
+export interface Hooks { signal?:AbortSignal; onProgress?:(event:Progress)=>void; }
+export interface Input { id:string; bytes:Uint8Array; mime?:string; pixels?:Pixels; provenance?:Record<string,unknown>; }
+export interface Task { id:string; imageId:string; operation:'ela.classic'; params?:Partial<ElaParams>; backend?:'cpu'|'auto'; regions?:never[]; }
+export interface Result { id:string; imageId:string; operation:'ela.classic'; status:'ok'; pixels:Pixels; layers:unknown[]; provenance:Record<string,unknown>; metrics:Record<string,unknown>; }
+export class EngineError extends Error { code:string; }
+export const DEFAULT_ELA_PARAMS:Readonly<ElaParams>;
+export const DEFAULT_ENERGY_PROFILE:Readonly<{id:'standard';name:'Conservateur';percentiles:number[];deviations:number[];adaptive:false;available:false}>;
+export function createEngine(options?:{memoryBudgetBytes?:number;cpuKernel?:'auto'|'single'|'reference';computeProfile?:'aggressive'|'maximum';resourceHints?:{deviceMemoryGiB?:number;heapLimitBytes?:number;hardwareConcurrency?:number}}):{
+ capabilities():Record<string,unknown>;load(input:Input,hooks?:Hooks):Promise<Record<string,unknown>>;
+ run(task:Task,hooks?:Hooks):Promise<Result>;imagePixels(id:string):Pixels;original(id:string):Uint8Array;unload(id:string):void;dispose():void;
+};
+
+export function resolveComputeProfile(id?:'aggressive'|'maximum',hints?:Record<string,number>):Record<string,unknown>;
+export const COMPUTE_PROFILES:Readonly<Record<string,unknown>>;

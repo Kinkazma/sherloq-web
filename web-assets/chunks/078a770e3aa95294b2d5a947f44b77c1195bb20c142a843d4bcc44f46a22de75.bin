@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-10-03T08:48:21.895823+00:00",
+  "run": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-memory-domains-96mp-20261003T075756Z",
+  "engineCommit": "2998c1ef47427991cb9c4ebef55ac5283ad2c739",
+  "lastUsefulEventAt": "2026-10-03T08:04:53.699Z",
+  "observedStalledAt": "2026-10-03T08:32:49Z",
+  "stateBeforeInspection": "Running processes with stale progress; no terminal calculation error or archive; CPU sampled at zero for the run descendants.",
+  "scheduler": {
+    "admitted": 100617,
+    "completed": 100597,
+    "peakCpu": 10,
+    "peakGpu": 1,
+    "peakQueued": 39,
+    "waitMs": 8357703.414999753,
+    "cpuLeaseMs": 21513453.894998968,
+    "gpuLeaseMs": 258521.73499965668,
+    "elasticAdmissions": 841,
+    "memoryReclaims": 0,
+    "preflightExecutions": 0,
+    "capacity": {
+      "cpu": 10,
+      "gpu": 1
+    },
+    "active": {
+      "cpu": 10,
+      "gpu": 0
+    },
+    "running": 20,
+    "queued": 22,
+    "waiting": {
+      "cpu": 22,
+      "gpu": 0,
+      "memory": 0
+    },
+    "timingMeaning": "Admitted execution time; not an OS CPU-utilization measurement"
+  },
+  "activeLabels": {
+    "ocr": {
+      "admitted": 73,
+      "completed": 64,
+      "activeJobs": 9,
+      "activeCpu": 9,
+      "activeGpu": 0,
+      "peakCpu": 9,
+      "cpuLeaseMs": 17161467.339999944,
+      "gpuLeaseMs": 0
+    },
+    "ghost-stream-pool": {
+      "admitted": 11725,
+      "completed": 11724,
+      "activeJobs": 1,
+      "activeCpu": 1,
+      "activeGpu": 0,
+      "peakCpu": 9,
+      "cpuLeaseMs": 2037399.6949993372,
+      "gpuLeaseMs": 0
+    },
+    "sift-gradients/buffers": {
+      "admitted": 5525,
+      "completed": 5515,
+      "activeJobs": 10,
+      "activeCpu": 0,
+      "activeGpu": 0,
+      "peakCpu": 0,
+      "cpuLeaseMs": 0,
+      "gpuLeaseMs": 0
+    }
+  },
+  "workerErrors": {
+    "count": 10,
+    "locations": [
+      "text-ocr-worker.js:6 reading kind on null",
+      "ghost-stream-worker.js:6 reading ioReply on null"
+    ]
+  },
+  "findings": [
+    "Nine OCR initialization requests and one Ghost request retained all ten CPU leases. Twenty-two later requests waited for CPU; memory admission was not their pending resource.",
+    "Async worker onmessage handlers accessed null before their try/catch, so no RPC error was returned. The rejected callback did not settle the parent request and its scheduled CPU lease.",
+    "OCR lexical inspection found module/api/admitted undefined; Ghost waiting IO maps were empty. This does not establish a TSV admission deadlock or active descriptor migration deadlock.",
+    "SIFT reported a real ArrayBuffer refusal; a later worker reclassified it as MEMORY_LIMIT, losing its allocator-domain evidence. The first targeted recovery retired 3410657280 bytes of L2 backing.",
+    "Unreadable transport is not by itself proof of OOM. Chromium deserialization can return null; exact allocator cause of these ten null messages is not measured."
+  ],
+  "inspectionIncident": {
+    "at": "2026-10-03T08:38:42Z",
+    "cause": "An inspector cleanup expression attempted dynamic import in an inspector evaluation context; ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING terminated Node170.",
+    "responsibility": "Diagnostic tooling error during this repair, after the stalled state and two snapshots were obtained. Do not misreport this terminal Node exit as a fresh engine calculation failure.",
+    "outcome": "Supervisor recorded failure; run-owned Chrome processes were subsequently absent. No complete or partial scientific archive was produced."
+  },
+  "evidence": [
+    {
+      "file": "docs/runtime-v2-worker-liveness/job.json",
+      "bytes": 372,
+      "sha256": "5003bdc055c410820b595c558087008090ed8cc24b247ff7881aa36cff353ced"
+    },
+    {
+      "file": "docs/runtime-v2-worker-liveness/live-capabilities-inspector.json",
+      "bytes": 86821,
+      "sha256": "36c948f112f7ecf8321aa07544218ef2abb0acf0964406f57bc473824ae57367"
+    },
+    {
+      "file": "docs/runtime-v2-worker-liveness/live-worker-scopes-inspector.json",
+      "bytes": 12464,
+      "sha256": "827fc5167591292db76d5b9fa9d85b8207e408d8263a64599e26f4c4b6b143d3"
+    },
+    {
+      "file": "docs/runtime-v2-worker-liveness/status.json",
+      "bytes": 4404,
+      "sha256": "16561b09c344fe500a6f0d08c230a6a4cf8568b6d39093b312be96ae3d8c200f"
+    },
+    {
+      "file": "docs/runtime-v2-worker-liveness/browser-error-excerpts.log",
+      "bytes": 1847,
+      "sha256": "2c071dd8fc37d08ae2eb5cb8b6d384ff214f66f20ab1b01e3e48e503017983b9"
+    }
+  ],
+  "upstreamMechanism": {
+    "source": "https://raw.githubusercontent.com/chromium/chromium/154.0.8037.93/third_party/blink/renderer/bindings/core/v8/serialization/v8_script_value_deserializer.cc",
+    "finding": "Deserialize returns v8::Null when the ReadHeader or ReadValue operation fails; this explains a possible unreadable envelope, not the exact cause in this run."
+  }
+}

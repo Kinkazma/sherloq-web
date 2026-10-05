@@ -1,0 +1,1766 @@
+{
+  "schema": 1,
+  "checkpointSha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+  "assets": {
+    "s1-rgb-patch": {
+      "file": "../trufor-segments/s1-rgb-patch.onnx",
+      "bytes": 41535,
+      "sha256": "c64db3bb2dba9162f60f033e4d6a1cc0c5cfcd7fc82f16f3498395ab2bb2404a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b0-kv": {
+      "file": "../trufor-segments/s1-rgb-b0-kv.onnx",
+      "bytes": 1089173,
+      "sha256": "bb4a58ff4361f28522f347f2ecd57eb89b68eb5479f48e42644c59e5ccc36e15",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b0-query": {
+      "file": "../trufor-segments/s1-rgb-b0-query.onnx",
+      "bytes": 39918,
+      "sha256": "9ec02ae2dc5b05cdc89255798c13dd4b3ea6b01a9734cff6be3791b35c8a993d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b0-mlp": {
+      "file": "../trufor-segments/s1-rgb-b0-mlp.onnx",
+      "bytes": 150651,
+      "sha256": "ef87530476e2425b2e3615a080ffa49d86a1fc29fa6c06031aafe1293652eebc",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b1-kv": {
+      "file": "../trufor-segments/s1-rgb-b1-kv.onnx",
+      "bytes": 1089173,
+      "sha256": "a6924b548bb74be985a0b7e426483418552f00a9cad498cdeabedecf74746fd2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b1-query": {
+      "file": "../trufor-segments/s1-rgb-b1-query.onnx",
+      "bytes": 39918,
+      "sha256": "d768728f1867c45afb001c7bb7f7110f6e079b0f57a87724a93770cbaeac6da7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b1-mlp": {
+      "file": "../trufor-segments/s1-rgb-b1-mlp.onnx",
+      "bytes": 150651,
+      "sha256": "ada094a0b7bf74193483501a65127bd4443e329f4b79928d70884555c4c41eb0",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b2-kv": {
+      "file": "../trufor-segments/s1-rgb-b2-kv.onnx",
+      "bytes": 1089173,
+      "sha256": "dc7b0b88b12b7c11a634a66b741fab5b8203eebddeb60886dd50e7b82fdf5dbe",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b2-query": {
+      "file": "../trufor-segments/s1-rgb-b2-query.onnx",
+      "bytes": 39918,
+      "sha256": "0aa8d5c4b2f7f0bb694f9d7abe800981523e7122d8bafca3a2b21158d4e21cf7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b2-mlp": {
+      "file": "../trufor-segments/s1-rgb-b2-mlp.onnx",
+      "bytes": 150651,
+      "sha256": "c76f94dd079d09dc498de9f447de71a282b68371075ad75ccc1403350985a948",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-norm": {
+      "file": "../trufor-segments/s1-rgb-norm.onnx",
+      "bytes": 1787,
+      "sha256": "628c9d57720992db8f25bd821a80b10a4db8feec28c111d98515f28a228815e4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-patch": {
+      "file": "../trufor-segments/s1-npp-patch.onnx",
+      "bytes": 41535,
+      "sha256": "e9243dddf5358053a7e9a27e5994fb6e10b0584bc31c52509f7d7c92435558fd",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b0-kv": {
+      "file": "../trufor-segments/s1-npp-b0-kv.onnx",
+      "bytes": 1089173,
+      "sha256": "9ba87a713ab0d51ca1c141cbc9ed137d0c759d060bc304eb206c4ced54d5f649",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b0-query": {
+      "file": "../trufor-segments/s1-npp-b0-query.onnx",
+      "bytes": 39918,
+      "sha256": "50dc9661687cde1d46e9719bf05c4490fe2b2977a30ec96d06bec9dc76131f13",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b0-mlp": {
+      "file": "../trufor-segments/s1-npp-b0-mlp.onnx",
+      "bytes": 150651,
+      "sha256": "f4f9d6b8cd18ee1ce9651993dc36ec5b6ddedcd7d1079cd571f2c96275f759b0",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b1-kv": {
+      "file": "../trufor-segments/s1-npp-b1-kv.onnx",
+      "bytes": 1089173,
+      "sha256": "3878efe8e89046f1f3fc856abb56f702fef38404e469442c84e61e1afaf92325",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b1-query": {
+      "file": "../trufor-segments/s1-npp-b1-query.onnx",
+      "bytes": 39918,
+      "sha256": "0ff0e1c18e6fdf3b8558b63ecc3fd6479f617b630753c0ad7ebeafb3ecd06a27",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b1-mlp": {
+      "file": "../trufor-segments/s1-npp-b1-mlp.onnx",
+      "bytes": 150651,
+      "sha256": "c2bce58404c814d73e561d5c43763cc51174d1dee9f42d00a0db6b57fbff1563",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b2-kv": {
+      "file": "../trufor-segments/s1-npp-b2-kv.onnx",
+      "bytes": 1089173,
+      "sha256": "3c40db1f046da99fb550516e13a68aaeb9a6e29268b94e9cfdfc0654100ff050",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b2-query": {
+      "file": "../trufor-segments/s1-npp-b2-query.onnx",
+      "bytes": 39918,
+      "sha256": "39bacb3ac387868b9ccb49a573364341d999fb2823946ffd04528ed840d00a52",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b2-mlp": {
+      "file": "../trufor-segments/s1-npp-b2-mlp.onnx",
+      "bytes": 150651,
+      "sha256": "42e0f9b98d4cb4733903614bd8d0314a5dd53b37bd39755394dd9e4839f4d767",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-norm": {
+      "file": "../trufor-segments/s1-npp-norm.onnx",
+      "bytes": 1787,
+      "sha256": "8e277ecee219b91febe04fa8f6582b00b48ffe6c75e6c0ebd61496a009ba7716",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rectify-weights": {
+      "file": "../trufor-segments/s1-rectify-weights.onnx",
+      "bytes": 395691,
+      "sha256": "6ed5614adab16752dee1025a0a20f4541420103877f6457516dd896b5a55f730",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rectify": {
+      "file": "../trufor-segments/s1-rectify.onnx",
+      "bytes": 38528,
+      "sha256": "a7b3c4b77350d2408f26ac0ff1edc37cace031dad16ef780bf1471217e4fb0c7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-cross1-context": {
+      "file": "../trufor-segments/s1-cross1-context.onnx",
+      "bytes": 75878,
+      "sha256": "a5d8bda1badf5ee702b812ca185631f215281ef16997dde60265074c58925821",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-cross1-apply": {
+      "file": "../trufor-segments/s1-cross1-apply.onnx",
+      "bytes": 80610,
+      "sha256": "05dfc41dd863be0b959f71eae78abd4c7cc7e3a75ec2d35d5d55b49d62a50046",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-cross2-context": {
+      "file": "../trufor-segments/s1-cross2-context.onnx",
+      "bytes": 75878,
+      "sha256": "ae883a538a0eb33c946c6c71386ef5811246908f9fa3e015eb80bc2c662c6504",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-cross2-apply": {
+      "file": "../trufor-segments/s1-cross2-apply.onnx",
+      "bytes": 80610,
+      "sha256": "0a327d5a6168106490ccbbc242a91b315a6a99c8783b2fe3c502b0e3ceb8d310",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-channel": {
+      "file": "../trufor-segments/s1-channel.onnx",
+      "bytes": 89713,
+      "sha256": "472f664b8253222bd970fe47a347d7dc269f6e4483c224ad2987ccb9e1744f71",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-patch": {
+      "file": "../trufor-segments/s2-rgb-patch.onnx",
+      "bytes": 299588,
+      "sha256": "9d7e7a5aa898633dced75f2672740f2a19c496025cfb582fcc9ca0f14fceb514",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b0-kv": {
+      "file": "../trufor-segments/s2-rgb-b0-kv.onnx",
+      "bytes": 1189278,
+      "sha256": "fbb5beadf1cd2708e39671cb2ef1ffd18318810a8445d29f6f0a6455a834f77b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b0-query": {
+      "file": "../trufor-segments/s2-rgb-b0-query.onnx",
+      "bytes": 139256,
+      "sha256": "36ed1dc0fbb819f8a9103fc445bf8eb201563143a09f368a07a4a586ec088733",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b0-mlp": {
+      "file": "../trufor-segments/s2-rgb-b0-mlp.onnx",
+      "bytes": 555908,
+      "sha256": "7fb48f5d5ffac0e0f5e535014f7f0739987750859604d652c4c2573281a4bb9d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b1-kv": {
+      "file": "../trufor-segments/s2-rgb-b1-kv.onnx",
+      "bytes": 1189278,
+      "sha256": "398087097fd1abd594985ebaa8200b065f205ba4453406a857da959cf9797e63",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b1-query": {
+      "file": "../trufor-segments/s2-rgb-b1-query.onnx",
+      "bytes": 139256,
+      "sha256": "f32e525e7523005168f065143c1b76eb4a040499bc446fbd19d902279206dfbf",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b1-mlp": {
+      "file": "../trufor-segments/s2-rgb-b1-mlp.onnx",
+      "bytes": 555908,
+      "sha256": "c0eee445b360912c0ec236edb36a262a6eadb232a1520ba60361575181058723",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b2-kv": {
+      "file": "../trufor-segments/s2-rgb-b2-kv.onnx",
+      "bytes": 1189278,
+      "sha256": "3b03fe3a767dada7ce3a254bdb7b540eedfad643eda465f3aa9ca3ff7b63e622",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b2-query": {
+      "file": "../trufor-segments/s2-rgb-b2-query.onnx",
+      "bytes": 139256,
+      "sha256": "ee32aa74d0823d73b11f2cf58ba0acd9dcc616b069865003d3da6e0c7bfcf1c0",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b2-mlp": {
+      "file": "../trufor-segments/s2-rgb-b2-mlp.onnx",
+      "bytes": 555908,
+      "sha256": "8f8100c7387a3e7410d68f596aedbd227b0c5dd3c7414916ab466c583e6c13f7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b3-kv": {
+      "file": "../trufor-segments/s2-rgb-b3-kv.onnx",
+      "bytes": 1189278,
+      "sha256": "8e0bdc5ad0c834d7e9fea0c595660f5b241695c38120ca8ff1733489e1b76f25",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b3-query": {
+      "file": "../trufor-segments/s2-rgb-b3-query.onnx",
+      "bytes": 139256,
+      "sha256": "862d5099812fb06ada3827d0ab28e4d991d103e091ebd97e7c38d5f64b8184f9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b3-mlp": {
+      "file": "../trufor-segments/s2-rgb-b3-mlp.onnx",
+      "bytes": 555908,
+      "sha256": "456ca3b9737bbd0c3592a41938cb12a75ded83b2077d88d6b1a937a13ebf9e44",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-norm": {
+      "file": "../trufor-segments/s2-rgb-norm.onnx",
+      "bytes": 2303,
+      "sha256": "5caa6940e24bf24ac078a29c6d4e6c9fc1bd1473f2dd98547645bbb77fea24ab",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-patch": {
+      "file": "../trufor-segments/s2-npp-patch.onnx",
+      "bytes": 299588,
+      "sha256": "053129806761a85b07223dce39ede266c2628afc25e563d0084da23a59389336",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b0-kv": {
+      "file": "../trufor-segments/s2-npp-b0-kv.onnx",
+      "bytes": 1189278,
+      "sha256": "361c9f9648666fc681d2a52cd9f2dc77dc3c27ba47ad08be97b86242ab1389a7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b0-query": {
+      "file": "../trufor-segments/s2-npp-b0-query.onnx",
+      "bytes": 139256,
+      "sha256": "36bc61a39ec87a39f5007e2932fdb5e55237786257ca54ae35de89d4c6d71aa6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b0-mlp": {
+      "file": "../trufor-segments/s2-npp-b0-mlp.onnx",
+      "bytes": 555908,
+      "sha256": "3ae9dd87cebe82dc12466c4fee5d2e1050f3de968aacc1f0a42d36f6762b1d73",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b1-kv": {
+      "file": "../trufor-segments/s2-npp-b1-kv.onnx",
+      "bytes": 1189278,
+      "sha256": "29d136e46ac6d34085bef2a32546b4b63184fbd6937252c44d2373791ba3bd44",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b1-query": {
+      "file": "../trufor-segments/s2-npp-b1-query.onnx",
+      "bytes": 139256,
+      "sha256": "8c4657ff3a58fbcf719900c34b091b8cd7e46b4434c7f05963116e99bbf9e7cd",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b1-mlp": {
+      "file": "../trufor-segments/s2-npp-b1-mlp.onnx",
+      "bytes": 555908,
+      "sha256": "5e4d3f118c2af18a97814f45f8103d34eb24fdc8d77e53a463a2939d8ea98cf8",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b2-kv": {
+      "file": "../trufor-segments/s2-npp-b2-kv.onnx",
+      "bytes": 1189278,
+      "sha256": "db905c6bbeb29bdb20f74b2b1b48cab3a803786dc157778ad789dbb4a7e8be92",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b2-query": {
+      "file": "../trufor-segments/s2-npp-b2-query.onnx",
+      "bytes": 139256,
+      "sha256": "6cb6d211cd49712aa33333faac012847544ee55b6e246eb84c3f0e794491c3c9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b2-mlp": {
+      "file": "../trufor-segments/s2-npp-b2-mlp.onnx",
+      "bytes": 555908,
+      "sha256": "6e627e2ed99caecc7e4635e38892ef50315f6c70b0598f20133e54177a5e065a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b3-kv": {
+      "file": "../trufor-segments/s2-npp-b3-kv.onnx",
+      "bytes": 1189278,
+      "sha256": "19f7ef0bb5d6889ab91085d8873160df6da439f3485136ac69e530f822efcdf1",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b3-query": {
+      "file": "../trufor-segments/s2-npp-b3-query.onnx",
+      "bytes": 139256,
+      "sha256": "59aac4f7ca7395ecfa797652b52c0d9f3ccda63c43120dafa175018a74cc202f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b3-mlp": {
+      "file": "../trufor-segments/s2-npp-b3-mlp.onnx",
+      "bytes": 555908,
+      "sha256": "a7a09f98eac212a7e44657ef064ee23d897c8c4c6f4f3f3ade594523ba7ae740",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-norm": {
+      "file": "../trufor-segments/s2-npp-norm.onnx",
+      "bytes": 2303,
+      "sha256": "36175399f400123669bf2a200967830c018acd8574b8fab08c6f4299c8796d5e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rectify-weights": {
+      "file": "../trufor-segments/s2-rectify-weights.onnx",
+      "bytes": 1576876,
+      "sha256": "dd4e9e75cbaf58bb4fe473ebf4136b32bcbaeacc8045df8751e715914fd89d38",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rectify": {
+      "file": "../trufor-segments/s2-rectify.onnx",
+      "bytes": 137608,
+      "sha256": "a18967268b1b71af33e8330ccde103eb7e0e9a7967f5437c9bb98a05cf5b5348",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-cross1-context": {
+      "file": "../trufor-segments/s2-cross1-context.onnx",
+      "bytes": 272909,
+      "sha256": "cc8832295f91ead062ec2165f4bab76c0046b1bea3be86d0d3193e9b099990e5",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-cross1-apply": {
+      "file": "../trufor-segments/s2-cross1-apply.onnx",
+      "bytes": 278505,
+      "sha256": "68a7f594f2156002ea2a3f86428f223816369a0ba14c14604814bd253bc3b898",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-cross2-context": {
+      "file": "../trufor-segments/s2-cross2-context.onnx",
+      "bytes": 272909,
+      "sha256": "03b4fff7737f6287a6ed31cb56dcbd072c6f610eee595b442e7e353b550d69ec",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-cross2-apply": {
+      "file": "../trufor-segments/s2-cross2-apply.onnx",
+      "bytes": 278505,
+      "sha256": "bdef10244c43387003c8b072ef5a5bc5c0ef2e18a83e883ff9533da907b46f86",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-channel": {
+      "file": "../trufor-segments/s2-channel.onnx",
+      "bytes": 340613,
+      "sha256": "8db204b47240539e2f415733c477a0911d75703e151f250decf8f79940640462",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-patch": {
+      "file": "../trufor-segments/s3-rgb-patch.onnx",
+      "bytes": 1481542,
+      "sha256": "8c96598db0e55673268a4ec74e448d636d626c06f5c8036bec8d006e9b468233",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b0-kv": {
+      "file": "../trufor-segments/s3-rgb-b0-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "747f971ee23ecec2dd42601445326d99cdb1750ef7f0a7c0c2b3204aeb3993bc",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b0-query": {
+      "file": "../trufor-segments/s3-rgb-b0-query.onnx",
+      "bytes": 830456,
+      "sha256": "844a71594248274d41e52f5b7d972d55d76f68bb434dd095888aa0a04ec39825",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b0-mlp": {
+      "file": "../trufor-segments/s3-rgb-b0-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "c9b66889b5a8a6e9b567b397d39ae319358df2837ac4f74445f2f0f0192202da",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b1-kv": {
+      "file": "../trufor-segments/s3-rgb-b1-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "5500f8457b6cccf699fd581da5acc23a5692b4ab2d60cf82d85e2e320df2725d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b1-query": {
+      "file": "../trufor-segments/s3-rgb-b1-query.onnx",
+      "bytes": 830456,
+      "sha256": "ade5adc6c151382913e693a1f3d6822a858f6e151198a8347b6625b093eab4e2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b1-mlp": {
+      "file": "../trufor-segments/s3-rgb-b1-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "37e8199e06b4b3bbd0daabf96f23b5ca9786bc265f584b4e8f984336936a8db4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b2-kv": {
+      "file": "../trufor-segments/s3-rgb-b2-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "fe6039ee6b52f6c22c1c6aed9886a645538b773decbef6ee1956cc2c61dfffaa",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b2-query": {
+      "file": "../trufor-segments/s3-rgb-b2-query.onnx",
+      "bytes": 830456,
+      "sha256": "c97a9c7171bd6da44fed38bb165732dd3683a9357262a1a89926803a54891f9d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b2-mlp": {
+      "file": "../trufor-segments/s3-rgb-b2-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "53c86237c67e5b38a2149e70101f01a393de039a7f036ee9fa5ef901421de9aa",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b3-kv": {
+      "file": "../trufor-segments/s3-rgb-b3-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "89edcb34a4012f618ad9459cf71a5ea3afd30117d1c7eb0e75f2ae3f69e5ab74",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b3-query": {
+      "file": "../trufor-segments/s3-rgb-b3-query.onnx",
+      "bytes": 830456,
+      "sha256": "9c8fba695d6b7f833462274081025d181ab866e151a384e5e4cec3ced03bdd08",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b3-mlp": {
+      "file": "../trufor-segments/s3-rgb-b3-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "663a0e3419e5cda7175f00e12f4ab5a84ad2e9c9aca16000611f3f6151a367bf",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b4-kv": {
+      "file": "../trufor-segments/s3-rgb-b4-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "ec2445c7e24da09a980397a64b7d0a67197badea20faf152379983b0daf80386",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b4-query": {
+      "file": "../trufor-segments/s3-rgb-b4-query.onnx",
+      "bytes": 830456,
+      "sha256": "a52e0196311873ecfe27517622782d50d2125d284d70a79dd551be12c6d07160",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b4-mlp": {
+      "file": "../trufor-segments/s3-rgb-b4-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "7286978769a030a4ff5412cbe3c8b9b9a8764e9a28682afd4eab548911677818",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b5-kv": {
+      "file": "../trufor-segments/s3-rgb-b5-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "ca2aeeaedff68a58dbe84272ffd26d20501f9e4bb96066dec64f4370610ecffd",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b5-query": {
+      "file": "../trufor-segments/s3-rgb-b5-query.onnx",
+      "bytes": 830456,
+      "sha256": "33260fd731a1aa8a2f2d48a0a51ed0872f6049129523824b5a1898c4a1e1b710",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b5-mlp": {
+      "file": "../trufor-segments/s3-rgb-b5-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "3c71c5f139178b1d0ed1ab0763dbcf16b1bad37b09ca119bfebbee0ed58bacea",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-norm": {
+      "file": "../trufor-segments/s3-rgb-norm.onnx",
+      "bytes": 3839,
+      "sha256": "2d2ff6a46c72d92204b66f44c50bd448e496e00c73f2b6d99d217e4c5d61368e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-patch": {
+      "file": "../trufor-segments/s3-npp-patch.onnx",
+      "bytes": 1481542,
+      "sha256": "3aa97366930d0c59917b9db280190f2d9f67c92b2dce4ce1d7442f1be47b6dd2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b0-kv": {
+      "file": "../trufor-segments/s3-npp-b0-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "f99aaf9415ca45010fb964f9217fa8aa0f4db354d0bdd4fc6c3b3b78ec7ac8f7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b0-query": {
+      "file": "../trufor-segments/s3-npp-b0-query.onnx",
+      "bytes": 830456,
+      "sha256": "cf1e1344f33891dd6da2bb8314d0fc2d6c9e2ea3273bb41bf3a26e51574a0735",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b0-mlp": {
+      "file": "../trufor-segments/s3-npp-b0-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "64ff07cfcce2f2dde754e1c498e892456a45e7b20f1d46a8515eff784a8eaab0",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b1-kv": {
+      "file": "../trufor-segments/s3-npp-b1-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "6499cbe96f3668c4038c7d21fb2afa9b3bcbcb51d925c7342d6d39c61aca4fcf",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b1-query": {
+      "file": "../trufor-segments/s3-npp-b1-query.onnx",
+      "bytes": 830456,
+      "sha256": "da92d28ee39f9d9d645472d72460eb3ce63ce72a98c05c5e918b638a856cbb1e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b1-mlp": {
+      "file": "../trufor-segments/s3-npp-b1-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "5ffcba02bb390da9abff73ad039d73ad5c35ce54f5ee249de1ba727090973211",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b2-kv": {
+      "file": "../trufor-segments/s3-npp-b2-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "23e003eef12955cc2a9671976036bcd9eaaccbfa98b82e579e95c25cb12aaeb4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b2-query": {
+      "file": "../trufor-segments/s3-npp-b2-query.onnx",
+      "bytes": 830456,
+      "sha256": "eaa624123737a685b138c11c03a853b1135261089d2fe771aa2821c042e9b41f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b2-mlp": {
+      "file": "../trufor-segments/s3-npp-b2-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "2a6a58dda49102880a87e501cc3e74047750caceada7090d028e1d7f83ba7d94",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b3-kv": {
+      "file": "../trufor-segments/s3-npp-b3-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "d448a184fb502426700f1c4b0c65f0f54ba476de86620ed3876aac10766f9d85",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b3-query": {
+      "file": "../trufor-segments/s3-npp-b3-query.onnx",
+      "bytes": 830456,
+      "sha256": "b0966d7103b4d737a97f10fefe030097479e4e3f8183c26217f0b81feaa2958e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b3-mlp": {
+      "file": "../trufor-segments/s3-npp-b3-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "91fb03ecdc56b9e59e317d954c9b25e68a58954068bd27bd9c20b5e63178ddde",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b4-kv": {
+      "file": "../trufor-segments/s3-npp-b4-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "2e195ea690751fdc8184b32e4edc019898a319aa3cc3d0369849603f14efb0e4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b4-query": {
+      "file": "../trufor-segments/s3-npp-b4-query.onnx",
+      "bytes": 830456,
+      "sha256": "22c345721d220bebf113dc48c110b0c0ff0af7bde21c102ccbfeff9c56cae1af",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b4-mlp": {
+      "file": "../trufor-segments/s3-npp-b4-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "a61588b4549c7cf91550f7aa8c3b738bef995850bdb6dab93629f9b39b7ec206",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b5-kv": {
+      "file": "../trufor-segments/s3-npp-b5-kv.onnx",
+      "bytes": 2472607,
+      "sha256": "c8d89ed66c638edf10b61bec2f6f888e3af93e55f06fdcbfa68b76d5c0b4b933",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b5-query": {
+      "file": "../trufor-segments/s3-npp-b5-query.onnx",
+      "bytes": 830456,
+      "sha256": "1f4ef9ea3ea4a1acc3da65dc118fd9d535f200c1a27b8d8dab37f485dadb28ac",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b5-mlp": {
+      "file": "../trufor-segments/s3-npp-b5-mlp.onnx",
+      "bytes": 3344517,
+      "sha256": "e7d80fef62343ff8faba2875ad8e839bd11be6600076ee0081bde99d1b75b878",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-norm": {
+      "file": "../trufor-segments/s3-npp-norm.onnx",
+      "bytes": 3839,
+      "sha256": "a7746d2481b94b41ceece368a46c8283c5c75085d83c74c052f4c5d712d709c8",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rectify-weights": {
+      "file": "../trufor-segments/s3-rectify-weights.onnx",
+      "bytes": 9839025,
+      "sha256": "30350c420d791e6d32bf7f612325af14da710dc3be68aefb2106f92c0133eaef",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rectify": {
+      "file": "../trufor-segments/s3-rectify.onnx",
+      "bytes": 828040,
+      "sha256": "9f4c93e36345fb2be67f4939adea6dfd504b35f01b7f3e6cd3f9930a5b6be9ed",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-cross1-context": {
+      "file": "../trufor-segments/s3-cross1-context.onnx",
+      "bytes": 1650793,
+      "sha256": "638442abd5368734de6267f398dbf6bcd85ac3a0907a4050abfc92158cb2a05c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-cross1-apply": {
+      "file": "../trufor-segments/s3-cross1-apply.onnx",
+      "bytes": 1658596,
+      "sha256": "bb353e55fcf91fb1b6943e37d61c145202926ce17134c46d74eed1de3790d856",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-cross2-context": {
+      "file": "../trufor-segments/s3-cross2-context.onnx",
+      "bytes": 1650793,
+      "sha256": "12adc85c5e6f9f192116335bec8bf7f9aba4a8b2eefe99653080f58a10e4848c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-cross2-apply": {
+      "file": "../trufor-segments/s3-cross2-apply.onnx",
+      "bytes": 1658596,
+      "sha256": "0a41d4276cdec4125e7d410a35929adcc8d1e3dd1cec781e42708e7fbe71cae7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-channel": {
+      "file": "../trufor-segments/s3-channel.onnx",
+      "bytes": 2076293,
+      "sha256": "38f38ffe265ab7c275adc486bad1642a007900ecea51b7095cae5766ee8ed908",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-patch": {
+      "file": "../trufor-segments/s4-rgb-patch.onnx",
+      "bytes": 5907529,
+      "sha256": "a9fa8ece816c12d9bb6315b1c67a2cb501cf49a533700cedfd92608b5f2f0a45",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b0-kv": {
+      "file": "../trufor-segments/s4-rgb-b0-kv.onnx",
+      "bytes": 2108672,
+      "sha256": "e03101fa92440bfec4f78343ebf6e742a6df40523fb400b29435fc5cff6554c4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b0-query": {
+      "file": "../trufor-segments/s4-rgb-b0-query.onnx",
+      "bytes": 2111481,
+      "sha256": "20100a4bd385703e1b5d7d1892d6da5fb0979d7f914c88d2507831ab7302670e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b0-mlp": {
+      "file": "../trufor-segments/s4-rgb-b0-mlp.onnx",
+      "bytes": 8492425,
+      "sha256": "7884a4d86775be12f54afd821bbb6c43b22831b5635dfa1bf2854a743a5fdb44",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b1-kv": {
+      "file": "../trufor-segments/s4-rgb-b1-kv.onnx",
+      "bytes": 2108672,
+      "sha256": "ff9a1d27ac815270ec74ec6b06d892565f0cdc7d3ee43f48e26fcf87efd02ce3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b1-query": {
+      "file": "../trufor-segments/s4-rgb-b1-query.onnx",
+      "bytes": 2111481,
+      "sha256": "6236ba8274dd55201d9f5b9d400fa5eb00ae08fa3c534c670a2683cac88c6d97",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b1-mlp": {
+      "file": "../trufor-segments/s4-rgb-b1-mlp.onnx",
+      "bytes": 8492425,
+      "sha256": "2aa0f1327cde0da83b60948386abf4862c9c3d4948fc1d43397c23ea1157824b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b2-kv": {
+      "file": "../trufor-segments/s4-rgb-b2-kv.onnx",
+      "bytes": 2108672,
+      "sha256": "24ee1cfce7b12e0bd401fcd5600b136dead7a8d5405348e18a7eb94bab4542f2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b2-query": {
+      "file": "../trufor-segments/s4-rgb-b2-query.onnx",
+      "bytes": 2111481,
+      "sha256": "59b2022234fd10fff67360c4dee50d829d5cf438417f29f8dd1a7e48a6e0b6db",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b2-mlp": {
+      "file": "../trufor-segments/s4-rgb-b2-mlp.onnx",
+      "bytes": 8492425,
+      "sha256": "ec469e7f545fc41e8ed6080209e66a7e6b3aa98c081c4d8ae59b8eb7ea9dad77",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-norm": {
+      "file": "../trufor-segments/s4-rgb-norm.onnx",
+      "bytes": 5375,
+      "sha256": "847bed9a20ba6984a51725169422e81910e4c3dc2130c94d70dfbabd9586bc48",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-patch": {
+      "file": "../trufor-segments/s4-npp-patch.onnx",
+      "bytes": 5907529,
+      "sha256": "346cccf546011aa685f8dbdea3fe992771a4cbcce81c9c0ff3bfeb7e9388202e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-b0-kv": {
+      "file": "../trufor-segments/s4-npp-b0-kv.onnx",
+      "bytes": 2108672,
+      "sha256": "cde6773b4958aa580ac664a8c75d7fc3e291eac85f078cc74552ba6d6abdefb6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-b0-query": {
+      "file": "../trufor-segments/s4-npp-b0-query.onnx",
+      "bytes": 2111481,
+      "sha256": "8ec43e4daff1071e2d270f656e23ca737ce5c85dd58189c737f3c2334fdd03a6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-b0-mlp": {
+      "file": "../trufor-segments/s4-npp-b0-mlp.onnx",
+      "bytes": 8492425,
+      "sha256": "628abec4cb0cd3dedc3a2b16ef6f2ccea78ccaeb6ccc6c02a826fcfffbfc111c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-b1-kv": {
+      "file": "../trufor-segments/s4-npp-b1-kv.onnx",
+      "bytes": 2108672,
+      "sha256": "20d2b0c5fc2e6433de55d09beae33c210b8fbb74e7e1d91f8c5b55cf3b37e545",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-b1-query": {
+      "file": "../trufor-segments/s4-npp-b1-query.onnx",
+      "bytes": 2111481,
+      "sha256": "bea1ab54ea7753fd84cf68cc69e676b7fd9b3a240f6c6b7ee61479841efc507c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-b1-mlp": {
+      "file": "../trufor-segments/s4-npp-b1-mlp.onnx",
+      "bytes": 8492425,
+      "sha256": "5412262b911078e4b97b1dcfd0ca7ba0889e4f7ca05961b8c5203de456116e57",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-b2-kv": {
+      "file": "../trufor-segments/s4-npp-b2-kv.onnx",
+      "bytes": 2108672,
+      "sha256": "eb3694a166886a51ffe3b143aa39af6b68be2a474844867c245a969496eb10c3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-b2-query": {
+      "file": "../trufor-segments/s4-npp-b2-query.onnx",
+      "bytes": 2111481,
+      "sha256": "768544c9896b3fe5f89badb1092041e794391d46aa0cc9f8292a7b9edd80398e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-b2-mlp": {
+      "file": "../trufor-segments/s4-npp-b2-mlp.onnx",
+      "bytes": 8492425,
+      "sha256": "c15a3eb0d79c2f3636ba8b457fd50cf8b1c2869131353c9700a3d4d968b95e23",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-npp-norm": {
+      "file": "../trufor-segments/s4-npp-norm.onnx",
+      "bytes": 5375,
+      "sha256": "df3426641df891e098e2b62d2c64bfd5de3007c461c39f612aa664fafee5540d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rectify-weights": {
+      "file": "../trufor-segments/s4-rectify-weights.onnx",
+      "bytes": 25179057,
+      "sha256": "49f8a3fa49c023a03354eed51bb7e05af47c45a8ea44408cf2a0c111b2294c96",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rectify": {
+      "file": "../trufor-segments/s4-rectify.onnx",
+      "bytes": 2108299,
+      "sha256": "994fdbd1e83ba8410927c4118a1bcbc05ff204ebbaba42201e2d0a8bb039b95e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-cross1-context": {
+      "file": "../trufor-segments/s4-cross1-context.onnx",
+      "bytes": 4208238,
+      "sha256": "ed151c77e128b636d6843bb9af8f168776663e64593830408502249a956eabd4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-cross1-apply": {
+      "file": "../trufor-segments/s4-cross1-apply.onnx",
+      "bytes": 4218345,
+      "sha256": "4cd4780a3cebf26ce83e84aa76f6f6232068765ff470faedcfb7102742a2b1cd",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-cross2-context": {
+      "file": "../trufor-segments/s4-cross2-context.onnx",
+      "bytes": 4208238,
+      "sha256": "c9d6e80e6c811da5d128101a0d27ec59232cd0f16a46e27822d3e4634f6632fb",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-cross2-apply": {
+      "file": "../trufor-segments/s4-cross2-apply.onnx",
+      "bytes": 4218345,
+      "sha256": "4af78182b1676d7c53fb18e7ccf8747feb89da557c4f4a56ccf2beec26a50378",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-channel": {
+      "file": "../trufor-segments/s4-channel.onnx",
+      "bytes": 5286540,
+      "sha256": "30559ded3f98a6cda2feed6af9ff0f063ba3b0e104b454a7708ed6f72351148a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head-project1": {
+      "file": "../trufor-segments/decode_head-project1.onnx",
+      "bytes": 135960,
+      "sha256": "d0b1ff42bf3d84ac6077896b34e603a3d5a4b848e6adda6d7c7c21bbeebc9e8e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head-project2": {
+      "file": "../trufor-segments/decode_head-project2.onnx",
+      "bytes": 268194,
+      "sha256": "3dcd49d342aa7576434a1bdf1442a5dc44977b67584a630a43b1f1f95de9cca9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head-project3": {
+      "file": "../trufor-segments/decode_head-project3.onnx",
+      "bytes": 661410,
+      "sha256": "202c872e831e7c219822f1faa1de0efff1404b81ea9350004574faacbfa4e5b1",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head-project4": {
+      "file": "../trufor-segments/decode_head-project4.onnx",
+      "bytes": 1054626,
+      "sha256": "2e2cfb2532d8657631aa587c5af5a765a6a22526a530fb1f77c61c408f550ac4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head-fuse": {
+      "file": "../trufor-segments/decode_head-fuse.onnx",
+      "bytes": 4209906,
+      "sha256": "5023e72950e9c1b24a406bfcf12d33340b4db7ecdce49c1b697a9b39424f541d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head_conf-project1": {
+      "file": "../trufor-segments/decode_head_conf-project1.onnx",
+      "bytes": 135960,
+      "sha256": "9dd6bc4ee07cdf18cdb4ee505f45ace7d364c47416ba2a6ede607d226a7d1823",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head_conf-project2": {
+      "file": "../trufor-segments/decode_head_conf-project2.onnx",
+      "bytes": 268194,
+      "sha256": "fc7f02129f337fe36ca55138e13e9644ae70be3ce0724db2086955061ef71da9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head_conf-project3": {
+      "file": "../trufor-segments/decode_head_conf-project3.onnx",
+      "bytes": 661410,
+      "sha256": "4dcb60e1637e546d9a0dd10d3598155825e65c7bd42b35899d6038fdf2d5ab8c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head_conf-project4": {
+      "file": "../trufor-segments/decode_head_conf-project4.onnx",
+      "bytes": 1054626,
+      "sha256": "4395661552c2c3256c9b591cb8f4e2c6fabe9b6c9a53c72fa68570e341bba5df",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decode_head_conf-fuse": {
+      "file": "../trufor-segments/decode_head_conf-fuse.onnx",
+      "bytes": 4207854,
+      "sha256": "387c55878b79a2efc22744052a4df7801abf6f40336619348fe6840846226726",
+      "graphOptimizationLevel": "disabled"
+    },
+    "final-window": {
+      "file": "../trufor-segments/final-window.onnx",
+      "bytes": 3452,
+      "sha256": "28d78280348e156ea514b8bd057606a167605f8152ea600d4b547ea3fde8c10d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "image-score": {
+      "file": "../trufor-segments/image-score.onnx",
+      "bytes": 5778,
+      "sha256": "09f5d734ca238c2b7707e5b434ff7741b839bc29d49afc7eeb2cc80c11b58ecb",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b0-query-split-value": {
+      "file": "s1-rgb-b0-query-split-value.onnx",
+      "bytes": 49522,
+      "sha256": "852e2611d4d2bba19678b6a9bf7f89335046cbf10ce11dfcee88f21f34bbb937",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b1-query-split-value": {
+      "file": "s1-rgb-b1-query-split-value.onnx",
+      "bytes": 49522,
+      "sha256": "6110b9ef5a849613f6d86218638022a71870634bdb87ff433d5161bf3a01dcd2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b2-query-split-value": {
+      "file": "s1-rgb-b2-query-split-value.onnx",
+      "bytes": 49522,
+      "sha256": "719cae8b21f3f357c8188253c022c203425f5212f40790ec341f495aedfd1631",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b0-query-split-value": {
+      "file": "s1-npp-b0-query-split-value.onnx",
+      "bytes": 49522,
+      "sha256": "c710290dfecd126583704e18ba4900f09c602b688820fd224056b576c1d5e466",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b1-query-split-value": {
+      "file": "s1-npp-b1-query-split-value.onnx",
+      "bytes": 49522,
+      "sha256": "590900d00b98d997d5997755b9f5ee31adbc3bde4927d3530e1b7cb1582be8d6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-npp-b2-query-split-value": {
+      "file": "s1-npp-b2-query-split-value.onnx",
+      "bytes": 49522,
+      "sha256": "9078d3213ad08d7c44711b30388dc26a565afee8d9123fcde277051af53cc288",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b0-query-split-value": {
+      "file": "s2-rgb-b0-query-split-value.onnx",
+      "bytes": 148860,
+      "sha256": "f150dbc5c34aaf12a7ec20cb13cd190f7e514f6747f8b8f8f168b972eeb19130",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b1-query-split-value": {
+      "file": "s2-rgb-b1-query-split-value.onnx",
+      "bytes": 148860,
+      "sha256": "d3e06fc17f3f38660f5d442721c021f6565e4f6a6c0404cfef08a6e83e20e1a6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b2-query-split-value": {
+      "file": "s2-rgb-b2-query-split-value.onnx",
+      "bytes": 148860,
+      "sha256": "7550a97c272ae6eab4b55ce5d26267dc46bfda8962ae183003924d7df6bdab48",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b3-query-split-value": {
+      "file": "s2-rgb-b3-query-split-value.onnx",
+      "bytes": 148860,
+      "sha256": "d855b642f64eecc62b50e68aad7f9e921a34d77a8b5aa1f7799a0ea8e12ae292",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b0-query-split-value": {
+      "file": "s2-npp-b0-query-split-value.onnx",
+      "bytes": 148860,
+      "sha256": "355a441db35041dadaad43b15fbf71e4c2b803542c8f0491dbc7ba3f4383813f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b1-query-split-value": {
+      "file": "s2-npp-b1-query-split-value.onnx",
+      "bytes": 148860,
+      "sha256": "87fda5d2a6d60d639cbfb9c5371e48ee42ceca27377356eaf27b33108c091dba",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b2-query-split-value": {
+      "file": "s2-npp-b2-query-split-value.onnx",
+      "bytes": 148860,
+      "sha256": "9fedad72b518657b8dc4b917d85d7ee8ec66e48996fa9b56c3eda5a100e12f48",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-npp-b3-query-split-value": {
+      "file": "s2-npp-b3-query-split-value.onnx",
+      "bytes": 148860,
+      "sha256": "bab92b5cc35ac2d98cbf4642e520445198fda98216f0e759cab5608c54a34e37",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b0-query-split-value": {
+      "file": "s3-rgb-b0-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "d39f356ef34371c9e024166016d3f715d8969a33b0b830a187677f190030c54a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b1-query-split-value": {
+      "file": "s3-rgb-b1-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "34307cd1548a87d1959d0fd47d1fee395bc6fe69f84d12942eb545a822258f80",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b2-query-split-value": {
+      "file": "s3-rgb-b2-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "1550888f094e0d4e4ba8f04a73b16027617e663e2fe77c4b43c6e5ce0e82e561",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b3-query-split-value": {
+      "file": "s3-rgb-b3-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "a411eef86f17b13ee684b6bedd9f00a2f0d39d3324d709ae6c889cf9f18e2a2b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b4-query-split-value": {
+      "file": "s3-rgb-b4-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "829d41c4e2d9b6ba815dc7c890397f3dfdfdfccc42cd15769526989f294fa9cb",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b5-query-split-value": {
+      "file": "s3-rgb-b5-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "b2b7be0632f3ff36827336173724f524443fd37d6181a82435b951b72f238129",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b0-query-split-value": {
+      "file": "s3-npp-b0-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "abd4fb687dbe5192bcf43c933427383af949af657b06d41d22c9e26b8ba23d9c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b1-query-split-value": {
+      "file": "s3-npp-b1-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "ab8faf9159cc928cb58c24e0bcc2634002ff64db007a61ae83393a042a35ec37",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b2-query-split-value": {
+      "file": "s3-npp-b2-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "55c9e20a997bd7acb69169e68035686e9315a610a5984c3e00d3d23013d656fa",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b3-query-split-value": {
+      "file": "s3-npp-b3-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "e61cdd8e0c43ee7018c53cdc88394b6af2772bf8cfa8323a1d107c93691e0c81",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b4-query-split-value": {
+      "file": "s3-npp-b4-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "e7dc4bec15b227a452dbe768a7ab41ef771040a06b4f2f9bcff442010d1d5a17",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-npp-b5-query-split-value": {
+      "file": "s3-npp-b5-query-split-value.onnx",
+      "bytes": 840062,
+      "sha256": "14274f7e38781e935033e8ae9e00e69308245d8e78400237fc45d098e9175235",
+      "graphOptimizationLevel": "disabled"
+    }
+  },
+  "stages": [
+    {
+      "channels": 64,
+      "stride": 4,
+      "radius": 3,
+      "streams": [
+        {
+          "patch": "s1-rgb-patch",
+          "blocks": [
+            {
+              "sr": 8,
+              "heads": 1,
+              "kv": "s1-rgb-b0-kv",
+              "query": "s1-rgb-b0-query",
+              "mlp": "s1-rgb-b0-mlp",
+              "querySplitValue": {
+                "name": "s1-rgb-b0-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 8,
+              "heads": 1,
+              "kv": "s1-rgb-b1-kv",
+              "query": "s1-rgb-b1-query",
+              "mlp": "s1-rgb-b1-mlp",
+              "querySplitValue": {
+                "name": "s1-rgb-b1-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 8,
+              "heads": 1,
+              "kv": "s1-rgb-b2-kv",
+              "query": "s1-rgb-b2-query",
+              "mlp": "s1-rgb-b2-mlp",
+              "querySplitValue": {
+                "name": "s1-rgb-b2-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            }
+          ],
+          "norm": "s1-rgb-norm"
+        },
+        {
+          "patch": "s1-npp-patch",
+          "blocks": [
+            {
+              "sr": 8,
+              "heads": 1,
+              "kv": "s1-npp-b0-kv",
+              "query": "s1-npp-b0-query",
+              "mlp": "s1-npp-b0-mlp",
+              "querySplitValue": {
+                "name": "s1-npp-b0-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 8,
+              "heads": 1,
+              "kv": "s1-npp-b1-kv",
+              "query": "s1-npp-b1-query",
+              "mlp": "s1-npp-b1-mlp",
+              "querySplitValue": {
+                "name": "s1-npp-b1-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 8,
+              "heads": 1,
+              "kv": "s1-npp-b2-kv",
+              "query": "s1-npp-b2-query",
+              "mlp": "s1-npp-b2-mlp",
+              "querySplitValue": {
+                "name": "s1-npp-b2-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            }
+          ],
+          "norm": "s1-npp-norm"
+        }
+      ],
+      "rectifyWeights": "s1-rectify-weights",
+      "rectify": "s1-rectify",
+      "fusionHeads": 1,
+      "fusionScale": 0.125,
+      "fusion": [
+        {
+          "context": "s1-cross1-context",
+          "apply": "s1-cross1-apply"
+        },
+        {
+          "context": "s1-cross2-context",
+          "apply": "s1-cross2-apply"
+        }
+      ],
+      "channel": "s1-channel"
+    },
+    {
+      "channels": 128,
+      "stride": 2,
+      "radius": 1,
+      "streams": [
+        {
+          "patch": "s2-rgb-patch",
+          "blocks": [
+            {
+              "sr": 4,
+              "heads": 2,
+              "kv": "s2-rgb-b0-kv",
+              "query": "s2-rgb-b0-query",
+              "mlp": "s2-rgb-b0-mlp",
+              "querySplitValue": {
+                "name": "s2-rgb-b0-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "kv": "s2-rgb-b1-kv",
+              "query": "s2-rgb-b1-query",
+              "mlp": "s2-rgb-b1-mlp",
+              "querySplitValue": {
+                "name": "s2-rgb-b1-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "kv": "s2-rgb-b2-kv",
+              "query": "s2-rgb-b2-query",
+              "mlp": "s2-rgb-b2-mlp",
+              "querySplitValue": {
+                "name": "s2-rgb-b2-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "kv": "s2-rgb-b3-kv",
+              "query": "s2-rgb-b3-query",
+              "mlp": "s2-rgb-b3-mlp",
+              "querySplitValue": {
+                "name": "s2-rgb-b3-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            }
+          ],
+          "norm": "s2-rgb-norm"
+        },
+        {
+          "patch": "s2-npp-patch",
+          "blocks": [
+            {
+              "sr": 4,
+              "heads": 2,
+              "kv": "s2-npp-b0-kv",
+              "query": "s2-npp-b0-query",
+              "mlp": "s2-npp-b0-mlp",
+              "querySplitValue": {
+                "name": "s2-npp-b0-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "kv": "s2-npp-b1-kv",
+              "query": "s2-npp-b1-query",
+              "mlp": "s2-npp-b1-mlp",
+              "querySplitValue": {
+                "name": "s2-npp-b1-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "kv": "s2-npp-b2-kv",
+              "query": "s2-npp-b2-query",
+              "mlp": "s2-npp-b2-mlp",
+              "querySplitValue": {
+                "name": "s2-npp-b2-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "kv": "s2-npp-b3-kv",
+              "query": "s2-npp-b3-query",
+              "mlp": "s2-npp-b3-mlp",
+              "querySplitValue": {
+                "name": "s2-npp-b3-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            }
+          ],
+          "norm": "s2-npp-norm"
+        }
+      ],
+      "rectifyWeights": "s2-rectify-weights",
+      "rectify": "s2-rectify",
+      "fusionHeads": 2,
+      "fusionScale": 0.125,
+      "fusion": [
+        {
+          "context": "s2-cross1-context",
+          "apply": "s2-cross1-apply"
+        },
+        {
+          "context": "s2-cross2-context",
+          "apply": "s2-cross2-apply"
+        }
+      ],
+      "channel": "s2-channel"
+    },
+    {
+      "channels": 320,
+      "stride": 2,
+      "radius": 1,
+      "streams": [
+        {
+          "patch": "s3-rgb-patch",
+          "blocks": [
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-rgb-b0-kv",
+              "query": "s3-rgb-b0-query",
+              "mlp": "s3-rgb-b0-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b0-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-rgb-b1-kv",
+              "query": "s3-rgb-b1-query",
+              "mlp": "s3-rgb-b1-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b1-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-rgb-b2-kv",
+              "query": "s3-rgb-b2-query",
+              "mlp": "s3-rgb-b2-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b2-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-rgb-b3-kv",
+              "query": "s3-rgb-b3-query",
+              "mlp": "s3-rgb-b3-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b3-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-rgb-b4-kv",
+              "query": "s3-rgb-b4-query",
+              "mlp": "s3-rgb-b4-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b4-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-rgb-b5-kv",
+              "query": "s3-rgb-b5-query",
+              "mlp": "s3-rgb-b5-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b5-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            }
+          ],
+          "norm": "s3-rgb-norm"
+        },
+        {
+          "patch": "s3-npp-patch",
+          "blocks": [
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-npp-b0-kv",
+              "query": "s3-npp-b0-query",
+              "mlp": "s3-npp-b0-mlp",
+              "querySplitValue": {
+                "name": "s3-npp-b0-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-npp-b1-kv",
+              "query": "s3-npp-b1-query",
+              "mlp": "s3-npp-b1-mlp",
+              "querySplitValue": {
+                "name": "s3-npp-b1-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-npp-b2-kv",
+              "query": "s3-npp-b2-query",
+              "mlp": "s3-npp-b2-mlp",
+              "querySplitValue": {
+                "name": "s3-npp-b2-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-npp-b3-kv",
+              "query": "s3-npp-b3-query",
+              "mlp": "s3-npp-b3-mlp",
+              "querySplitValue": {
+                "name": "s3-npp-b3-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-npp-b4-kv",
+              "query": "s3-npp-b4-query",
+              "mlp": "s3-npp-b4-mlp",
+              "querySplitValue": {
+                "name": "s3-npp-b4-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "kv": "s3-npp-b5-kv",
+              "query": "s3-npp-b5-query",
+              "mlp": "s3-npp-b5-mlp",
+              "querySplitValue": {
+                "name": "s3-npp-b5-query-split-value",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              }
+            }
+          ],
+          "norm": "s3-npp-norm"
+        }
+      ],
+      "rectifyWeights": "s3-rectify-weights",
+      "rectify": "s3-rectify",
+      "fusionHeads": 5,
+      "fusionScale": 0.125,
+      "fusion": [
+        {
+          "context": "s3-cross1-context",
+          "apply": "s3-cross1-apply"
+        },
+        {
+          "context": "s3-cross2-context",
+          "apply": "s3-cross2-apply"
+        }
+      ],
+      "channel": "s3-channel"
+    },
+    {
+      "channels": 512,
+      "stride": 2,
+      "radius": 1,
+      "streams": [
+        {
+          "patch": "s4-rgb-patch",
+          "blocks": [
+            {
+              "sr": 1,
+              "heads": 8,
+              "kv": "s4-rgb-b0-kv",
+              "query": "s4-rgb-b0-query",
+              "mlp": "s4-rgb-b0-mlp"
+            },
+            {
+              "sr": 1,
+              "heads": 8,
+              "kv": "s4-rgb-b1-kv",
+              "query": "s4-rgb-b1-query",
+              "mlp": "s4-rgb-b1-mlp"
+            },
+            {
+              "sr": 1,
+              "heads": 8,
+              "kv": "s4-rgb-b2-kv",
+              "query": "s4-rgb-b2-query",
+              "mlp": "s4-rgb-b2-mlp"
+            }
+          ],
+          "norm": "s4-rgb-norm"
+        },
+        {
+          "patch": "s4-npp-patch",
+          "blocks": [
+            {
+              "sr": 1,
+              "heads": 8,
+              "kv": "s4-npp-b0-kv",
+              "query": "s4-npp-b0-query",
+              "mlp": "s4-npp-b0-mlp"
+            },
+            {
+              "sr": 1,
+              "heads": 8,
+              "kv": "s4-npp-b1-kv",
+              "query": "s4-npp-b1-query",
+              "mlp": "s4-npp-b1-mlp"
+            },
+            {
+              "sr": 1,
+              "heads": 8,
+              "kv": "s4-npp-b2-kv",
+              "query": "s4-npp-b2-query",
+              "mlp": "s4-npp-b2-mlp"
+            }
+          ],
+          "norm": "s4-npp-norm"
+        }
+      ],
+      "rectifyWeights": "s4-rectify-weights",
+      "rectify": "s4-rectify",
+      "fusionHeads": 8,
+      "fusionScale": 0.125,
+      "fusion": [
+        {
+          "context": "s4-cross1-context",
+          "apply": "s4-cross1-apply"
+        },
+        {
+          "context": "s4-cross2-context",
+          "apply": "s4-cross2-apply"
+        }
+      ],
+      "channel": "s4-channel"
+    }
+  ],
+  "heads": [
+    {
+      "projects": [
+        "decode_head-project1",
+        "decode_head-project2",
+        "decode_head-project3",
+        "decode_head-project4"
+      ],
+      "channels": 2,
+      "fuse": "decode_head-fuse"
+    },
+    {
+      "projects": [
+        "decode_head_conf-project1",
+        "decode_head_conf-project2",
+        "decode_head_conf-project3",
+        "decode_head_conf-project4"
+      ],
+      "channels": 1,
+      "fuse": "decode_head_conf-fuse"
+    }
+  ],
+  "final": "final-window",
+  "score": "image-score",
+  "cases": [
+    {
+      "id": 0,
+      "width": 97,
+      "height": 65,
+      "files": {
+        "rgb": {
+          "file": "../trufor-segments/case0-rgb.f32",
+          "dims": [
+            1,
+            3,
+            65,
+            97
+          ]
+        },
+        "npp": {
+          "file": "../trufor-segments/case0-npp.f32",
+          "dims": [
+            1,
+            3,
+            65,
+            97
+          ]
+        },
+        "map": {
+          "file": "../trufor-segments/case0-map.f32",
+          "dims": [
+            1,
+            1,
+            65,
+            97
+          ]
+        },
+        "confidence": {
+          "file": "../trufor-segments/case0-confidence.f32",
+          "dims": [
+            1,
+            1,
+            65,
+            97
+          ]
+        },
+        "score": {
+          "file": "../trufor-segments/case0-score.f32",
+          "dims": [
+            1,
+            1
+          ]
+        },
+        "feature1": {
+          "file": "../trufor-segments/case0-feature1.f32",
+          "dims": [
+            1,
+            64,
+            17,
+            25
+          ]
+        },
+        "feature2": {
+          "file": "../trufor-segments/case0-feature2.f32",
+          "dims": [
+            1,
+            128,
+            9,
+            13
+          ]
+        },
+        "feature3": {
+          "file": "../trufor-segments/case0-feature3.f32",
+          "dims": [
+            1,
+            320,
+            5,
+            7
+          ]
+        },
+        "feature4": {
+          "file": "../trufor-segments/case0-feature4.f32",
+          "dims": [
+            1,
+            512,
+            3,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "id": 1,
+      "width": 160,
+      "height": 128,
+      "files": {
+        "rgb": {
+          "file": "../trufor-segments/case1-rgb.f32",
+          "dims": [
+            1,
+            3,
+            128,
+            160
+          ]
+        },
+        "npp": {
+          "file": "../trufor-segments/case1-npp.f32",
+          "dims": [
+            1,
+            3,
+            128,
+            160
+          ]
+        },
+        "map": {
+          "file": "../trufor-segments/case1-map.f32",
+          "dims": [
+            1,
+            1,
+            128,
+            160
+          ]
+        },
+        "confidence": {
+          "file": "../trufor-segments/case1-confidence.f32",
+          "dims": [
+            1,
+            1,
+            128,
+            160
+          ]
+        },
+        "score": {
+          "file": "../trufor-segments/case1-score.f32",
+          "dims": [
+            1,
+            1
+          ]
+        },
+        "feature1": {
+          "file": "../trufor-segments/case1-feature1.f32",
+          "dims": [
+            1,
+            64,
+            32,
+            40
+          ]
+        },
+        "feature2": {
+          "file": "../trufor-segments/case1-feature2.f32",
+          "dims": [
+            1,
+            128,
+            16,
+            20
+          ]
+        },
+        "feature3": {
+          "file": "../trufor-segments/case1-feature3.f32",
+          "dims": [
+            1,
+            320,
+            8,
+            10
+          ]
+        },
+        "feature4": {
+          "file": "../trufor-segments/case1-feature4.f32",
+          "dims": [
+            1,
+            512,
+            4,
+            5
+          ]
+        }
+      }
+    }
+  ],
+  "scope": "native encoder operators; global attention/reductions required by runtime",
+  "splitValueScope": "Optional GPU P@V split reduction after unchanged full-key softmax; learned weights unchanged."
+}

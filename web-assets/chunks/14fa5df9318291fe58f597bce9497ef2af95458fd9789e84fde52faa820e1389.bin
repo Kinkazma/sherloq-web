@@ -1,0 +1,99 @@
+export interface Pixels { width:number; height:number; format:'rgb8'; data:Uint8Array; }
+export interface Surface {id:string;revision:number;width:number;height:number;format:'rgb8';coordinates:'full-resolution';}
+export interface MaskSurface extends Omit<Surface,'format'> {format:'mask8';range:readonly [number,number];semantics:string;}
+export interface FlagSurface extends Omit<MaskSurface,'format'> {format:'rgb-flags8';channelOrder:'RGB';}
+export interface Table {id:string;revision:number;format:'uint32-table';rowCount:number;columns:readonly string[];order:'y,x,BGR';coordinates:'full-resolution';}
+export interface TableWindow {tableId:string;revision:number;offset?:number;length?:number;}
+export interface TablePage {tableId:string;revision:number;offset:number;length:number;totalRows:number;columns:readonly string[];data:Uint32Array;done:boolean;imageId:string;metrics:Record<string,unknown>;}
+export interface TableCsvPage extends Omit<TablePage,'columns'|'data'> {nextOffset:number;mime:'text/csv';bytes:Uint8Array;}
+export interface PixelWindow {surfaceId:string;revision:number;rect:{x:number;y:number;width:number;height:number};}
+export interface ElaParams { quality:number; scale:number; contrast:number; linear:boolean; grayscale:boolean; }
+export interface OperationParams {
+ 'ela.energy':{quality:number;block:16|32|64|96;minimum:number;profile:'standard'|'manual'|'sensitive'|'conservative';histogramLow:number;histogramHigh:number;shadow:number;highlight:number};
+ 'subimages.detect':Record<string,never>;
+ 'tampering.copyMove.akaze':{response:number;matching:number;distance:number;minimum:number;showPoints:boolean;hideLines:boolean;maskImageId:string|null};
+ 'tampering.copyMove.orb':{response:number;matching:number;distance:number;minimum:number;showPoints:boolean;hideLines:boolean;maskImageId:string|null};
+ 'tampering.resampling.fourier':{rect:[number,number,number,number]|null;window:'hanning'|'radial';upsample:boolean;center:boolean;highpass:'simple'|'radial';gamma:number;rescale:boolean};
+ 'various.median':{modelId:string;variance:number;threshold:number;showScore:boolean;speckle:boolean};
+ 'noise.noisesniffer':{blockSize:3|5|7|8;cellSize:number;samplesPerBin:number;lowFrequencyFraction:number;lowNoiseFraction:number;view:'regions'|'mask'|'distribution'};
+ 'noise.prnu':{databaseId:string|null};
+ 'ela.classic':ElaParams;
+ 'comparison.image':{referenceImageId:string|null;view:'normal'|'difference'|'ssim'|'butter';metrics:boolean;equalized:boolean;grayscale:boolean};
+ 'tampering.contrast':{block:32|64|128|256;mode:0|1|2};
+ 'various.stereogram':{mode:0|1|2|3};
+ 'jpeg.zero':{missing:boolean;view:0|1|2|3|4};
+ 'jpeg.ghosts':{low:number;high:number;step:number;x:number;y:number;grayscale:boolean;includeOriginal:boolean};
+ 'jpeg.multiple':Record<string,never>;
+ 'jpeg.quality':{modelId:string|null};
+ 'file.digest':{imageHashes:boolean};
+ 'file.hex':{offset:number;length:number};
+ 'metadata.structure':Record<string,never>;
+ 'metadata.location':Record<string,never>;
+ 'metadata.thumbnail':Record<string,never>;
+ 'inspection.magnifier':{mode:'equalize'|'contrast';percent:number;channel:boolean;bounds:[number,number,number,number]|null};
+ 'various.illuminant':{block:32|64|128|256;method:0|1|2;linear:boolean;exclude:boolean;mode:0|1|2};
+ 'colors.plots':{scale:number|null;x:number;y:number;z:number;colored:boolean;alpha:number;kind:'2d'|'3d'|'classic'};
+ 'colors.pca':{component:number;mode:'distance'|'project'|'crossprod';invert:boolean;equalize:boolean};
+ 'colors.space':{space:'rgb'|'cmyk'|'gray'|'hsv'|'hls'|'ycrcb'|'xyz'|'lab'|'luv';channel:number};
+ 'noise.separation':{mode:number;radius:number;sigma:number;grayscale:boolean;denoised:boolean;levels:number};
+ 'noise.blocking':{block:number};
+ 'detail.frequency':{split:number;smooth:number;threshold:number;filter:number};
+ 'detail.wavelets':{wavelet:string;threshold:number;level:number|null;mode:'soft'|'hard'|'garrote'|'greater'|'less'};
+ 'detail.gradient':{intensity:number;mode:number;invert:boolean;equalize:boolean};
+ 'inspection.adjust':{brightness:number;saturation:number;hue:number;gamma:number;shadows:number;highlights:number;sweep:number;width:number;sharpen:number;threshold:number;equalize:number;invert:boolean};
+ 'detail.echo':{radius:number;contrast:number;grayscale:boolean};
+ 'inspection.histogram':{channel:number;start:number;end:number};
+ 'colors.stats':{mode:'min'|'avg'|'max';inclusive:boolean};
+ 'noise.planes':{channel:number;bit:number;filter:number};
+ 'noise.minmax':{channel:number;minimum:number;maximum:number;filter:number};
+ 'pixels.defects':{radius:number;threshold:number;spread:number;kind:number;mode:number};
+}
+export interface Progress { id:string; phase:string; fraction:number; }
+export interface Hooks { signal?:AbortSignal; onProgress?:(event:Progress)=>void; }
+export interface Input { id:string; bytes:Uint8Array; mime?:string; pixels?:Pixels; provenance?:Record<string,unknown>; }
+export type Task = { [K in keyof OperationParams]:{id:string;imageId:string;operation:K;params?:Partial<OperationParams[K]>;backend?:'cpu'|'auto'|(K extends 'detail.frequency'?'webgpu':never);regions?:never[]} }[keyof OperationParams];
+export interface Mask {width:number;height:number;format:'mask8';data:Uint8Array;range:number[];semantics:string;}
+export interface Flags extends Omit<Mask,'format'> {format:'rgb-flags8';channelOrder:'RGB';}
+export interface Result { id:string; imageId:string; operation:keyof OperationParams; status:'ok'; layout?:'surface';surface?:Surface;maskSurfaces?:Record<string,MaskSurface>;flagSurfaces?:Record<string,FlagSurface>;tables?:Record<string,Table>;pixels?:Pixels; masks?:Record<string,Mask>; data?:Record<string,unknown>; layers:unknown[]; provenance:Record<string,unknown>; metrics:Record<string,unknown>; }
+export class EngineError extends Error { code:string; }
+export const DEFAULT_ELA_PARAMS:Readonly<ElaParams>;
+export const DEFAULT_ENERGY_PROFILE:Readonly<{id:'standard';name:'Conservateur';percentiles:readonly number[];deviations:readonly number[];adaptive:false;available:true}>;
+export function createEngine(options?:{memoryBudgetBytes?:number;cpuKernel?:'auto'|'single'|'reference';computeProfile?:'aggressive'|'maximum';resourceHints?:{deviceMemoryGiB?:number;heapLimitBytes?:number;hardwareConcurrency?:number}}):{
+ capabilities():Record<string,unknown>;load(input:Input,hooks?:Hooks):Promise<Record<string,unknown>>;
+ loadBlob(input:{id:string;blob:Blob},hooks?:Hooks):Promise<Record<string,unknown>&{surface:Surface}>;
+ readPixels(request:PixelWindow,hooks?:Hooks):Promise<{surfaceId:string;revision:number;origin:[number,number];pixels:Pixels;imageId:string;metrics:Record<string,unknown>}>;
+ readMask(request:PixelWindow,hooks?:Hooks):Promise<{surfaceId:string;revision:number;origin:[number,number];mask:Mask;imageId:string;metrics:Record<string,unknown>}>;
+ readFlags(request:PixelWindow,hooks?:Hooks):Promise<{surfaceId:string;revision:number;origin:[number,number];flags:Flags;imageId:string;metrics:Record<string,unknown>}>;
+ readTable(request:TableWindow,hooks?:Hooks):Promise<TablePage>;
+ readTableCsv(request:TableWindow,hooks?:Hooks):Promise<TableCsvPage>;
+ releaseTable(id:string):Promise<void>;
+ releaseSurface(id:string):Promise<void>;
+ originalBlob(id:string):Blob;
+ readOriginal(id:string,range?:{offset?:number;length?:number},hooks?:Hooks):Promise<{offset:number;bytes:Uint8Array;totalBytes:number}>;
+ loadPrnuDatabase(input:{id:string;bytes:Uint8Array},hooks?:Hooks):Promise<Record<string,unknown>>;
+ loadMedianModel(input:{id:string;blob:Blob},hooks?:Hooks):Promise<Record<string,unknown>>;
+ loadQualityModel(input:{id:string;blob:Blob},hooks?:Hooks):Promise<Record<string,unknown>>;
+ buildPrnuDatabase(input:{id:string;queryImageId:string;singleCamera?:string;files:(File|{name:string;blob:Blob})[]},hooks?:Hooks):Promise<Record<string,unknown>>;
+ exportPrnuDatabase(id:string):{mime:'application/x-hdf5';bytes:Uint8Array};
+ exportResult(result:Result,options?:{format?:'json'|'csv'|'npz';maxBytes?:number}):{mime:string;bytes:Uint8Array};
+ run(task:Task,hooks?:Hooks):Promise<Result>;imagePixels(id:string):Pixels;original(id:string):Uint8Array;unload(id:string):void|Promise<void>;dispose():void|Promise<void>;
+};
+export function exportAnalysis(result:Result,options?:{format?:'json'|'csv'|'npz';maxBytes?:number}):{mime:string;bytes:Uint8Array};
+export function resolveComputeProfile(id?:'aggressive'|'maximum',hints?:Record<string,number>):Record<string,unknown>;
+export const COMPUTE_PROFILES:Readonly<Record<string,unknown>>;
+export interface AnalysisRegion {id:string;bounds:[number,number,number,number];}
+export interface AnalysisScopeRequest {imageId:string;width:number;height:number;generation:number;signal:AbortSignal;onProgress:(progress:unknown)=>void;}
+export interface CompleteAnalysisRequest extends AnalysisScopeRequest {mode:'automatic'|'whole-image';restartAllBranches:true;regions:AnalysisRegion[];exclusions:[number,number,number,number][];}
+export function createAnalysisScopeController(options:{imageId:string;width:number;height:number;detectSubimages:(request:AnalysisScopeRequest)=>Promise<AnalysisRegion[]>;analyze:(request:CompleteAnalysisRequest)=>Promise<unknown>;onEvent?:(event:Record<string,unknown>)=>void}):{
+ getState():Record<string,unknown>;start():Promise<Record<string,unknown>>;useAutomaticRegions():Promise<Record<string,unknown>>;useWholeImage():Promise<Record<string,unknown>>;replaceExclusions(rectangles:[number,number,number,number][]):Promise<Record<string,unknown>>;cancel():Record<string,unknown>;dispose():void;
+};
+export interface ElaEnergyValues {histogramLow:number;histogramHigh:number;shadow:number;highlight:number;}
+export interface ElaEnergyState {revision:number;profileId:string;adaptive:boolean;estimatePending:boolean;values:ElaEnergyValues;quantiles:[number,number];thresholds:[number,number];analysisAvailable:true;}
+export interface ElaEnergyEstimateToken {revision:number;profileId:string;}
+export function createElaEnergyControls():{
+ snapshot():ElaEnergyState;beginManualEdit():ElaEnergyState;edit(patch:Partial<ElaEnergyValues>):ElaEnergyState;
+ selectProfile(id:'standard'|'manual'|'conservative'|'sensitive'):ElaEnergyState&{estimateRequest:ElaEnergyEstimateToken|null};
+ applySnapshot(profile:{id:string;values:ElaEnergyValues}):ElaEnergyState;
+ acceptAutomatic(answer:ElaEnergyEstimateToken&{values:ElaEnergyValues}):boolean;
+ accepts(answer:{revision:number}):boolean;
+};

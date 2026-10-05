@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "scope": "First runtime-v2 96 MP attempt: failure evidence, not a completed analysis",
+  "status": {
+    "state": "failed",
+    "pid": 99417,
+    "startedAt": "2026-10-02T22:38:20.100Z",
+    "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-96mp-20261002T214042Z",
+    "budgetPolicy": "maximum profile from browser RAM hint",
+    "computeProfile": "maximum",
+    "dimensions": [
+      12000,
+      8000
+    ],
+    "timeoutHours": 24,
+    "phase": "stopped",
+    "updatedAt": "2026-10-02T22:42:53.109Z",
+    "wallMs": 273009,
+    "engineCommit": "0bdf8b5686f7433ad8f22936382211d6d635d537",
+    "port": 63262,
+    "browser": "154.0.8037.93",
+    "environment": {
+      "crossOriginIsolated": true,
+      "sharedArrayBuffer": true,
+      "hardwareConcurrency": 10,
+      "deviceMemoryGiB": 32,
+      "webgpuExposed": true,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36"
+    },
+    "lastProgress": {
+      "id": "complete96",
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "failed",
+          "sift": "running",
+          "forgeryscope": "done",
+          "d2prl": "running",
+          "ela": "running"
+        },
+        "errors": {
+          "patchmatch": {
+            "code": "MEMORY_ALLOCATION",
+            "message": "A segmented RAM allocation failed."
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 1,
+          "ela": 1
+        },
+        "completed": [
+          "forgeryscope"
+        ],
+        "running": [
+          "sift",
+          "d2prl",
+          "ela"
+        ],
+        "preflightExecutions": 0
+      },
+      "elapsedMs": 267841.72499999404
+    },
+    "deliveredBytes": 0,
+    "budgetBytes": 27487371264,
+    "executionCapacity": {
+      "cpu": 10,
+      "gpu": 1
+    },
+    "error": {
+      "message": "page.evaluate: EngineError: Task cancelled; reload image before the next run.\n    at AbortSignal.abort (http://127.0.0.1:63262/src/worker-client.js:40:17)\n    at Object.progress [as onProgress] (http://127.0.0.1:63262/tests/m5-complete-96mp-browser.js:10:411)\n    at worker.onmessage (http://127.0.0.1:63262/src/worker-client.js:51:766)",
+      "stack": "page.evaluate: EngineError: Task cancelled; reload image before the next run.\n    at AbortSignal.abort (http://127.0.0.1:63262/src/worker-client.js:40:17)\n    at Object.progress [as onProgress] (http://127.0.0.1:63262/tests/m5-complete-96mp-browser.js:10:411)\n    at worker.onmessage (http://127.0.0.1:63262/src/worker-client.js:51:766)\n    at /Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-96mp-20261002T214042Z/run.mjs:66:25"
+    },
+    "finishedAt": "2026-10-02T22:42:52.285Z",
+    "cleanupErrors": [],
+    "stoppedAt": "2026-10-02T22:42:53.109Z"
+  },
+  "job": {
+    "supervisorPid": 99416,
+    "runnerPid": 99417,
+    "caffeinatePid": 99418,
+    "startedAt": "2026-10-02T22:38:19.788955+00:00",
+    "timeoutSeconds": 86400,
+    "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-96mp-20261002T214042Z",
+    "exitCode": 1,
+    "timedOut": false,
+    "stoppedAt": "2026-10-02T22:42:53.127371+00:00"
+  },
+  "lastPatchmatchProgress": {
+    "at": "2026-10-02T22:42:39.846Z",
+    "id": "complete96",
+    "phase": "stored-zernike-descriptors",
+    "completed": 84414464,
+    "total": 96000000,
+    "execution": {
+      "created": 10,
+      "reclaimed": 0,
+      "peakWorkers": 10,
+      "peakComputing": 10,
+      "computing": 9,
+      "completed": 5165,
+      "computeMs": 700268.8999997973,
+      "preparationMs": 105308.69500041008,
+      "storageMs": 3629.464999526739,
+      "heapBytes": 33554432,
+      "residentWorkers": 10,
+      "residentAllowanceBytes": 524901280,
+      "maximum": 10,
+      "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+    },
+    "group": "patchmatch",
+    "attempt": 1,
+    "elapsedMs": 258133.7799999714
+  },
+  "cause": {
+    "code": "MEMORY_ALLOCATION",
+    "location": "Segmented RAM write during Zernike descriptor preparation",
+    "finalCancellationIsSecondary": true,
+    "underlyingAllocatorReason": "Not available in the original error; do not infer a specific browser or physical-RAM limit"
+  },
+  "logs": {
+    "console.log": "99df775f5df517dea67d99c4ca2d08744d84361b8bacbd323f86b8ac31107d6a",
+    "progress.jsonl": "6e8f913786adc75d5291ace9b7534bae7a18c0892c68f5985b450eed65d41a13",
+    "incomplete.json": "92f822c349172182a56ad76ef437b7222bc72d2c07cec856e699c7a75da9ff3c"
+  },
+  "runDirectory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-96mp-20261002T214042Z",
+  "constraintsRetained": [
+    "No allocation probe or canary",
+    "No lower resolution or fewer hypotheses",
+    "Recover already computed useful bytes locally before retrying a provider",
+    "No permanent global worker or RAM cap based on one allocation failure"
+  ]
+}
