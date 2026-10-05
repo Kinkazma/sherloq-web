@@ -1,0 +1,515 @@
+{
+  "result": {
+    "type": "object",
+    "value": [
+      {
+        "targetId": "C0D54D5809F0F7B08981A89529AD98D5",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "1529D3A35EF45F12812C578F47E217C3",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "22A82387D9794D629FA451D66EA1577A",
+        "url": "http://127.0.0.1:57313/src/ghost-stream-worker.js",
+        "values": [
+          {
+            "name": "m",
+            "type": "object",
+            "description": "Object"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "value": 12000,
+            "description": "12000"
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "value": 8000,
+            "description": "8000"
+          },
+          {
+            "name": "cols",
+            "type": "number",
+            "value": 750,
+            "description": "750"
+          },
+          {
+            "name": "ioSerial",
+            "type": "number",
+            "value": 4,
+            "description": "4"
+          },
+          {
+            "name": "waiting",
+            "type": "object",
+            "subtype": "map",
+            "description": "Map(0)"
+          }
+        ]
+      },
+      {
+        "targetId": "3BCC2F512C3A1861EB5A42301B02E931",
+        "url": "http://127.0.0.1:57313/src/ghost-stream-worker.js",
+        "values": [
+          {
+            "name": "m",
+            "type": "object",
+            "description": "Object"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "value": 12000,
+            "description": "12000"
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "value": 8000,
+            "description": "8000"
+          },
+          {
+            "name": "cols",
+            "type": "number",
+            "value": 750,
+            "description": "750"
+          },
+          {
+            "name": "ioSerial",
+            "type": "number",
+            "value": 4,
+            "description": "4"
+          },
+          {
+            "name": "waiting",
+            "type": "object",
+            "subtype": "map",
+            "description": "Map(0)"
+          }
+        ]
+      },
+      {
+        "targetId": "DA83B475F66525AF1C04D573612F673A",
+        "url": "http://127.0.0.1:57313/src/ghost-stream-worker.js",
+        "values": [
+          {
+            "name": "m",
+            "type": "object",
+            "description": "Object"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "value": 12000,
+            "description": "12000"
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "value": 8000,
+            "description": "8000"
+          },
+          {
+            "name": "cols",
+            "type": "number",
+            "value": 750,
+            "description": "750"
+          },
+          {
+            "name": "ioSerial",
+            "type": "number",
+            "value": 4,
+            "description": "4"
+          },
+          {
+            "name": "waiting",
+            "type": "object",
+            "subtype": "map",
+            "description": "Map(0)"
+          }
+        ]
+      },
+      {
+        "targetId": "6261B683317FEFBDB7A9E9F71322C032",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "79640949043312D1F39CBE4C2FCEEF7B",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "1CB25A79E1DD18524574445E2990DEE2",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "C647DE059E4DA8E662E7EADC1DCEEB9B",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "7072AA5DB8D5E05DE1A7B11B1214C5DE",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "9598433C0A38E4B49C7BF57706D4563D",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "4D7B9FF6DD0F07C5327340FD4BE251BA",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "427F5C2379E7FF04675EFD777321DC09",
+        "url": "http://127.0.0.1:57313/src/text-ocr-worker.js",
+        "values": [
+          {
+            "name": "module",
+            "type": "undefined"
+          },
+          {
+            "name": "api",
+            "type": "undefined"
+          },
+          {
+            "name": "admitted",
+            "type": "undefined"
+          }
+        ]
+      },
+      {
+        "targetId": "F1B126BB34A920CF7AC6BA3CFE7B8D04",
+        "url": "http://127.0.0.1:57313/src/ghost-stream-worker.js",
+        "values": [
+          {
+            "name": "m",
+            "type": "object",
+            "description": "Object"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "value": 12000,
+            "description": "12000"
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "value": 8000,
+            "description": "8000"
+          },
+          {
+            "name": "cols",
+            "type": "number",
+            "value": 750,
+            "description": "750"
+          },
+          {
+            "name": "ioSerial",
+            "type": "number",
+            "value": 402,
+            "description": "402"
+          },
+          {
+            "name": "waiting",
+            "type": "object",
+            "subtype": "map",
+            "description": "Map(0)"
+          }
+        ]
+      },
+      {
+        "targetId": "7E96122673976A71278E02AEFE003DB2",
+        "url": "http://127.0.0.1:57313/src/ghost-stream-worker.js",
+        "values": [
+          {
+            "name": "m",
+            "type": "object",
+            "description": "Object"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "value": 12000,
+            "description": "12000"
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "value": 8000,
+            "description": "8000"
+          },
+          {
+            "name": "cols",
+            "type": "number",
+            "value": 750,
+            "description": "750"
+          },
+          {
+            "name": "ioSerial",
+            "type": "number",
+            "value": 406,
+            "description": "406"
+          },
+          {
+            "name": "waiting",
+            "type": "object",
+            "subtype": "map",
+            "description": "Map(0)"
+          }
+        ]
+      },
+      {
+        "targetId": "8980867A4C49499C518ECA4FE0B4B583",
+        "url": "http://127.0.0.1:57313/src/ghost-stream-worker.js",
+        "values": [
+          {
+            "name": "m",
+            "type": "object",
+            "description": "Object"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "value": 12000,
+            "description": "12000"
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "value": 8000,
+            "description": "8000"
+          },
+          {
+            "name": "cols",
+            "type": "number",
+            "value": 750,
+            "description": "750"
+          },
+          {
+            "name": "ioSerial",
+            "type": "number",
+            "value": 410,
+            "description": "410"
+          },
+          {
+            "name": "waiting",
+            "type": "object",
+            "subtype": "map",
+            "description": "Map(0)"
+          }
+        ]
+      },
+      {
+        "targetId": "EC2C0506599CE283DA90FFDA563EA0AB",
+        "url": "http://127.0.0.1:57313/src/ghost-stream-worker.js",
+        "values": [
+          {
+            "name": "m",
+            "type": "object",
+            "description": "Object"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "value": 12000,
+            "description": "12000"
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "value": 8000,
+            "description": "8000"
+          },
+          {
+            "name": "cols",
+            "type": "number",
+            "value": 750,
+            "description": "750"
+          },
+          {
+            "name": "ioSerial",
+            "type": "number",
+            "value": 414,
+            "description": "414"
+          },
+          {
+            "name": "waiting",
+            "type": "object",
+            "subtype": "map",
+            "description": "Map(0)"
+          }
+        ]
+      },
+      {
+        "targetId": "D669A46752286513CA46618FBE8BC904",
+        "url": "http://127.0.0.1:57313/src/ghost-stream-worker.js",
+        "values": [
+          {
+            "name": "m",
+            "type": "object",
+            "description": "Object"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "value": 12000,
+            "description": "12000"
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "value": 8000,
+            "description": "8000"
+          },
+          {
+            "name": "cols",
+            "type": "number",
+            "value": 750,
+            "description": "750"
+          },
+          {
+            "name": "ioSerial",
+            "type": "number",
+            "value": 416,
+            "description": "416"
+          },
+          {
+            "name": "waiting",
+            "type": "object",
+            "subtype": "map",
+            "description": "Map(0)"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,274 @@
+TAP version 13
+# Subtest: ArrayBuffer refusal retires the optional backing before idle Wasm credit and waits for ownership ACK
+ok 1 - ArrayBuffer refusal retires the optional backing before idle Wasm credit and waits for ownership ACK
+  ---
+  duration_ms: 5.466042
+  type: 'test'
+  ...
+# Subtest: cold owners of the same backing domain precede unrelated accounting reclamation
+ok 2 - cold owners of the same backing domain precede unrelated accounting reclamation
+  ---
+  duration_ms: 0.254916
+  type: 'test'
+  ...
+# Subtest: logical MEMORY_LIMIT keeps ordinary admission reclamation and preserves optional cache
+ok 3 - logical MEMORY_LIMIT keeps ordinary admission reclamation and preserves optional cache
+  ---
+  duration_ms: 0.170416
+  type: 'test'
+  ...
+# Subtest: allocation kind is explicit and GPU or Wasm faults are never tagged as ArrayBuffer pressure
+ok 4 - allocation kind is explicit and GPU or Wasm faults are never tagged as ArrayBuffer pressure
+  ---
+  duration_ms: 0.487209
+  type: 'test'
+  ...
+# Subtest: cancellation during ownership retirement never publishes premature backing credit or retries useful allocation
+ok 5 - cancellation during ownership retirement never publishes premature backing credit or retries useful allocation
+  ---
+  duration_ms: 0.519708
+  type: 'test'
+  ...
+# Subtest: serialized allocation reclaims report their own domain and ownership result
+ok 6 - serialized allocation reclaims report their own domain and ownership result
+  ---
+  duration_ms: 0.222125
+  type: 'test'
+  ...
+# Subtest: recovery tokens are concurrent, reentrant, idempotent, and leave the policy budget unchanged
+ok 7 - recovery tokens are concurrent, reentrant, idempotent, and leave the policy budget unchanged
+  ---
+  duration_ms: 3.485708
+  type: 'test'
+  ...
+# Subtest: a cancelled asynchronous reclaim releases its recovery token in finally
+ok 8 - a cancelled asynchronous reclaim releases its recovery token in finally
+  ---
+  duration_ms: 0.533292
+  type: 'test'
+  ...
+# Subtest: shared pages remain readable while concurrent recovery protects reclaimed RAM for a useful retry
+ok 9 - shared pages remain readable while concurrent recovery protects reclaimed RAM for a useful retry
+  ---
+  duration_ms: 29.4315
+  type: 'test'
+  ...
+# Subtest: new optional cache metadata is deferred during recovery and a later reader can connect
+ok 10 - new optional cache metadata is deferred during recovery and a later reader can connect
+  ---
+  duration_ms: 0.7455
+  type: 'test'
+  ...
+# Subtest: immutable broker groups useful page reads, preserves seams, and releases pins
+ok 11 - immutable broker groups useful page reads, preserves seams, and releases pins
+  ---
+  duration_ms: 36.63975
+  type: 'test'
+  ...
+# Subtest: mutable broker serializes the owned backing and flushes before publication
+ok 12 - mutable broker serializes the owned backing and flushes before publication
+  ---
+  duration_ms: 3.739917
+  type: 'test'
+  ...
+# Subtest: shared mutable publication includes sparse zero banks and borrows one reservation
+ok 13 - shared mutable publication includes sparse zero banks and borrows one reservation
+  ---
+  duration_ms: 0.343167
+  type: 'test'
+  ...
+# Subtest: shared cache reuses actual pages across clients and waits for retirement acknowledgements
+ok 14 - shared cache reuses actual pages across clients and waits for retirement acknowledgements
+  ---
+  duration_ms: 2.146459
+  type: 'test'
+  ...
+# Subtest: released competing RAM expands useful shared pages and nested workers acknowledge retirement
+ok 15 - released competing RAM expands useful shared pages and nested workers acknowledge retirement
+  ---
+  duration_ms: 12.593375
+  type: 'test'
+  ...
+# Subtest: cold result reclamation preserves useful bytes and excludes active read pins
+ok 16 - cold result reclamation preserves useful bytes and excludes active read pins
+  ---
+  duration_ms: 1.912792
+  type: 'test'
+  ...
+# Subtest: forcing the portable immutable broker still pins its source
+ok 17 - forcing the portable immutable broker still pins its source
+  ---
+  duration_ms: 0.4575
+  type: 'test'
+  ...
+# Subtest: adopted worker SAB outputs migrate after publication without a duplicate reservation or recomputation
+ok 18 - adopted worker SAB outputs migrate after publication without a duplicate reservation or recomputation
+  ---
+  duration_ms: 1.85075
+  type: 'test'
+  ...
+# Subtest: segmented I/O and migrations forward the operation-owned staging allocator
+ok 19 - segmented I/O and migrations forward the operation-owned staging allocator
+  ---
+  duration_ms: 3.383833
+  type: 'test'
+  ...
+# Subtest: completed bootstrap writer becomes an immutable pin without disconnecting its reader
+ok 20 - completed bootstrap writer becomes an immutable pin without disconnecting its reader
+  ---
+  duration_ms: 4.32275
+  type: 'test'
+  ...
+# Subtest: broker read staging is admitted before a competing heap fills the budget
+ok 21 - broker read staging is admitted before a competing heap fills the budget
+  ---
+  duration_ms: 0.492375
+  type: 'test'
+  ...
+# Subtest: small and empty broker planes reserve only their possible windows
+ok 22 - small and empty broker planes reserve only their possible windows
+  ---
+  duration_ms: 0.503541
+  type: 'test'
+  ...
+# Subtest: optional shared cache metadata failures preserve direct transport and later useful admission
+ok 23 - optional shared cache metadata failures preserve direct transport and later useful admission
+  ---
+  duration_ms: 0.324791
+  type: 'test'
+  ...
+# Subtest: failed cache growth waits for external memory release and never feeds its own notifications
+ok 24 - failed cache growth waits for external memory release and never feeds its own notifications
+  ---
+  duration_ms: 15.806458
+  type: 'test'
+  ...
+# Subtest: allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+ok 25 - allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+  ---
+  duration_ms: 1.584208
+  type: 'test'
+  ...
+# Subtest: normalization and wire errors preserve original stack, nested cause and details
+ok 26 - normalization and wire errors preserve original stack, nested cause and details
+  ---
+  duration_ms: 0.970375
+  type: 'test'
+  ...
+# Subtest: five failures with small memory jitter form one obstruction
+ok 27 - five failures with small memory jitter form one obstruction
+  ---
+  duration_ms: 0.388125
+  type: 'test'
+  ...
+# Subtest: distinct recoveries have no lifetime limit and committed progress resets the streak
+ok 28 - distinct recoveries have no lifetime limit and committed progress resets the streak
+  ---
+  duration_ms: 1.031458
+  type: 'test'
+  ...
+# Subtest: replayed checkpoints and attempt numbers cannot reset the high-water mark
+ok 29 - replayed checkpoints and attempt numbers cannot reset the high-water mark
+  ---
+  duration_ms: 0.177208
+  type: 'test'
+  ...
+# Subtest: different useful operations and substantially different capacity start a new streak
+ok 30 - different useful operations and substantially different capacity start a new streak
+  ---
+  duration_ms: 0.220875
+  type: 'test'
+  ...
+# Subtest: recovery pressure protects reclaim through the successful useful retry and is released once
+ok 31 - recovery pressure protects reclaim through the successful useful retry and is released once
+  ---
+  duration_ms: 0.229375
+  type: 'test'
+  ...
+# Subtest: terminal unrelated errors and cancellation release recovery pressure without another operation
+ok 32 - terminal unrelated errors and cancellation release recovery pressure without another operation
+  ---
+  duration_ms: 0.471833
+  type: 'test'
+  ...
+# Subtest: five stable failures yield between retries and stop without an outer restart
+ok 33 - five stable failures yield between retries and stop without an outer restart
+  ---
+  duration_ms: 4.696083
+  type: 'test'
+  ...
+# Subtest: generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+ok 34 - generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+  ---
+  duration_ms: 0.449958
+  type: 'test'
+  ...
+# Subtest: public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+ok 35 - public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+  ---
+  duration_ms: 0.285875
+  type: 'test'
+  ...
+# Subtest: a successful owned result survives a cancellation race for caller cleanup
+ok 36 - a successful owned result survives a cancellation race for caller cleanup
+  ---
+  duration_ms: 0.168959
+  type: 'test'
+  ...
+# Subtest: allocator failures in reclaim share the suspended operation guard and keep pressure held
+ok 37 - allocator failures in reclaim share the suspended operation guard and keep pressure held
+  ---
+  duration_ms: 0.447625
+  type: 'test'
+  ...
+# Subtest: storage failures during reclaim remain terminal without replaying useful work
+ok 38 - storage failures during reclaim remain terminal without replaying useful work
+  ---
+  duration_ms: 0.141125
+  type: 'test'
+  ...
+# Subtest: alternating startup and compute phases cannot hide the same stalled operation
+ok 39 - alternating startup and compute phases cannot hide the same stalled operation
+  ---
+  duration_ms: 0.165584
+  type: 'test'
+  ...
+# Subtest: retired SAB references disappear while publication envelopes and live clients remain owned
+ok 40 - retired SAB references disappear while publication envelopes and live clients remain owned
+  ---
+  duration_ms: 106.346125
+  type: 'test'
+  ...
+# Subtest: a cancelled retirement keeps backing until pending reads ACK and excludes newly connected readers
+ok 41 - a cancelled retirement keeps backing until pending reads ACK and excludes newly connected readers
+  ---
+  duration_ms: 28.758125
+  type: 'test'
+  ...
+# Subtest: a useful ArrayBuffer retry drains the actual optional L2 before unrelated idle Wasm credits
+ok 42 - a useful ArrayBuffer retry drains the actual optional L2 before unrelated idle Wasm credits
+  ---
+  duration_ms: 5.282125
+  type: 'test'
+  ...
+# Subtest: disposing a relay waits for an already active child retirement before releasing its parent ACK
+ok 43 - disposing a relay waits for an already active child retirement before releasing its parent ACK
+  ---
+  duration_ms: 31.961583
+  type: 'test'
+  ...
+# Subtest: an owner retirement arriving during relay disposal also waits for the earlier child read
+ok 44 - an owner retirement arriving during relay disposal also waits for the earlier child read
+  ---
+  duration_ms: 32.452792
+  type: 'test'
+  ...
+1..44
+# tests 44
+# suites 0
+# pass 44
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 301.460458
