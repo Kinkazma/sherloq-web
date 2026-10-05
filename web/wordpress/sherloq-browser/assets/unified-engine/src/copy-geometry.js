@@ -67,12 +67,15 @@ export async function createGeometryKernel({signal,reserveMemory,heapBytes=256*1
       return execute(pa,pb,(ap,bp)=>{const value=module._copy_overlap(ap,bp,pa.length/2);if(value===-3)throw wasmAllocationFailure(module,'OpenCV convex intersection allocation failed.');if(value<0)throw new EngineError('GEOMETRY_FAILED','OpenCV convex intersection failed.');return value;});
     },
     renderer(image,points,pairs,colors){
-      requireValue(image?.format==='rgb8'&&image.data instanceof Uint8Array&&image.data.length===image.width*image.height*3&&points instanceof Float64Array&&pairs instanceof Float64Array&&colors instanceof Uint8Array,'Invalid sparse render input.');
+      requireValue(image?.format==='rgb8'&&image.data instanceof Uint8Array&&image.data.length===image.width*image.height*3&&(points instanceof Float32Array||points instanceof Float64Array)&&points.length%7===0&&pairs instanceof Float64Array&&pairs.length%4===0&&colors instanceof Uint8Array,'Invalid sparse render input.');
       reserveMemory(image.data.byteLength+4096);
       const pointers=[];let closed=false;
       const put=a=>{const p=module._malloc(Math.max(8,a.byteLength));if(!p)throw wasmAllocationFailure(module,'Sparse renderer allocation failed.',Math.max(8,a.byteLength));pointers.push(p);module.HEAPU8.set(new Uint8Array(a.buffer,a.byteOffset,a.byteLength),p);return p;};
       const dispose=()=>{if(!closed){closed=true;for(const p of pointers)module._free(p);}};
-      try{const ip=put(image.data),kp=put(points),mp=put(pairs),cp=put(colors);
+      // The native drawing ABI reads doubles. Widen compact dense coordinates
+      // directly in its admitted heap; never duplicate the scientific JS cache.
+      const putPoints=()=>{const bytes=Math.max(8,points.length*8),p=module._malloc(bytes);if(!p)throw wasmAllocationFailure(module,'Sparse point allocation failed.',bytes);pointers.push(p);module.HEAPF64.set(points,p/8);return p;};
+      try{const ip=put(image.data),kp=putPoints(),mp=put(pairs),cp=put(colors);
         return {
           group(rows,base,flags){checkAbort(signal);let rp=0,bp=0;try{rp=module._malloc(Math.max(8,rows.byteLength));bp=module._malloc(8);if(!rp||!bp)throw wasmAllocationFailure(module,'Sparse group allocation failed.',undefined);module.HEAPU8.set(new Uint8Array(rows.buffer,rows.byteOffset,rows.byteLength),rp);module.HEAPU8.set(base,bp);if(!module._copy_draw_group(ip,image.width,image.height,kp,mp,rp,rows.length,cp,bp,flags))throw new EngineError('RENDER_FAILED','Native sparse drawing failed.');}finally{if(rp)module._free(rp);if(bp)module._free(bp);}},
           polygon(polygon){const coords=Int32Array.from(polygon.flat(),Math.trunc);let p=0;try{p=module._malloc(Math.max(8,coords.byteLength));if(!p)throw wasmAllocationFailure(module,'Sparse polygon allocation failed.',Math.max(8,coords.byteLength));module.HEAPU8.set(new Uint8Array(coords.buffer),p);if(!module._copy_draw_polygon(ip,image.width,image.height,p,polygon.length))throw new EngineError('RENDER_FAILED','Native polygon drawing failed.');}finally{if(p)module._free(p);}},

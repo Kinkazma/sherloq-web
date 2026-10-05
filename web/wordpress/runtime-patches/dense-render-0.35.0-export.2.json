@@ -1,0 +1,134 @@
+{
+  "engineCommit": "638d0f7aeebb6fc680fcd99b8af0e3977fb40284",
+  "engineVersion": "0.35.0-export.2",
+  "files": {
+    "src/copy-geometry.js": "37097baa5a49ca3530de74a9092240ae76049100433bc22b3aa011eb9119fb5e",
+    "src/sparse-copy-view.js": "15b0f31af5a945f9a6e4fac3e82552bbfd01e94662ad92810527767e74f9a680",
+    "src/index.js": "2fd1f0c4114881e1a86b299e66f829241414a0dc4a61beb2c8ff9e1483ca376e",
+    "package.json": "02d75f6b273d4d4fb31cb7e00f38f3678930399c99b1bfe54528c1bfa43ffdd0",
+    "package-lock.json": "c75e216f63f7f97d0d9c1173772bae422e2e9ae90a0c80bb904f7e2c4c1298ab"
+  },
+  "proof": {
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+    "engine": "0.35.0-export.2",
+    "width": 1254,
+    "height": 1254,
+    "params": {
+      "profile": "PatchMatch Zernike",
+      "patch": 8,
+      "iterations": 8,
+      "texture": 2,
+      "flip": false,
+      "auto": true,
+      "limit": 6000,
+      "radius": 600,
+      "minimum": 5,
+      "threshold": 0.3,
+      "tolerance": 50,
+      "model": "Similarity",
+      "geometricThreshold": 3,
+      "geometricMinimum": 6,
+      "compact": true,
+      "regions": [],
+      "guides": [],
+      "compare": false,
+      "excluded": []
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "status": "ok",
+    "surface": {
+      "id": "98f5aec9-0b0a-426f-b017-760efeb1b364",
+      "revision": 1,
+      "width": 1254,
+      "height": 1254,
+      "format": "rgb8",
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "visible": [
+      [
+        0,
+        2056
+      ],
+      [
+        1,
+        742
+      ],
+      [
+        2,
+        249
+      ],
+      [
+        3,
+        190
+      ],
+      [
+        4,
+        28
+      ],
+      [
+        5,
+        804
+      ],
+      [
+        6,
+        26
+      ],
+      [
+        7,
+        18
+      ],
+      [
+        8,
+        403
+      ],
+      [
+        9,
+        126
+      ],
+      [
+        10,
+        198
+      ],
+      [
+        11,
+        1155
+      ]
+    ],
+    "pointType": "Float32Array",
+    "changedBytes": 97229,
+    "calculationMs": 17446.310000002384,
+    "redrawMs": 89.48500001430511,
+    "reused": true,
+    "phases": [
+      "eligibility-complete",
+      "source-descriptors-complete",
+      "field-complete",
+      "coherence-complete",
+      "complete",
+      "dense-geometry",
+      "complete"
+    ],
+    "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+    "inputName": "edited.png",
+    "pageErrors": []
+  },
+  "schema": "sherloq.runtime-source-increment/1",
+  "baseCommit": "70473081aab0767f9ea10613001e444847e2d9db",
+  "baseIncrement": {
+    "receipt": "runtime-patches/exports-0.35.0.json",
+    "sha256": "0dddd76b629207b8050e3b80a3338dac6ddbb2215951780a60a87740fd2b7acb"
+  }
+}

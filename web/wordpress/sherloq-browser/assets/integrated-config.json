@@ -1,11 +1,11 @@
 {
   "schema": "sherloq.wordpress-integrated-runtime/1",
-  "engineCommit": "70473081aab0767f9ea10613001e444847e2d9db",
-  "engineVersion": "0.35.0-export.1",
+  "engineCommit": "638d0f7aeebb6fc680fcd99b8af0e3977fb40284",
+  "engineVersion": "0.35.0-export.2",
   "runtimeReceiptSha256": "e19fbc4e3d3bc24c91661a3980ebaab3796593c1aba2a2cb9baf57afb34b66d6",
   "assetBase": "./unified-assets/",
   "memoryExtensionId": null,
   "englishSha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
-  "qualification": "Previous analysis and sampled-display qualification retained. Lossless export pixels, TIFF tags and linked pixel dimensions verified in Chrome 154, Firefox 155 and WebKit 26.6; independent native decoders confirm exact pixels. New lossless/TIFF recipes have not been retested at 100 MP.",
-  "runtimeSourceIncrementSha256": "0dddd76b629207b8050e3b80a3338dac6ddbb2215951780a60a87740fd2b7acb"
+  "qualification": "Previous analysis and sampled-display qualification retained. Lossless export pixels, TIFF tags and linked pixel dimensions verified in Chrome 154, Firefox 155 and WebKit 26.6; independent native decoders confirm exact pixels. New lossless/TIFF recipes have not been retested at 100 MP. Dense rendering correction: exact reported 1254x1254 spiral fixture completes through the public worker API in Chrome 154; 23 targeted tests pass. No new 96 MP qualification.",
+  "runtimeSourceIncrementSha256": "9c9db9ef6a6eff77d992c2fbaf7623ac8a19301c43dcdfd669c4d28eb47cb1d6"
 }

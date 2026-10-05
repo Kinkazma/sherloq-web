@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SHERLOQ Browser Lab
  * Description: Local browser image analysis, with an isolated bilingual workspace.
- * Version: 0.14.0
+ * Version: 0.14.1
  * Requires at least: 6.3
  * Requires PHP: 7.4
  * License: GPL-3.0-or-later
@@ -14,7 +14,7 @@ function sherloq_browser_asset_url() {
     $url = plugins_url('assets/app.html', __FILE__);
     $fonts = defined('GAELDAUCHY_V4_ADOBE_FONTS_URL') ? GAELDAUCHY_V4_ADOBE_FONTS_URL : '';
     $fonts = apply_filters('sherloq_browser_adobe_fonts_url', $fonts);
-    $args = array('v' => '0.14.0');
+    $args = array('v' => '0.14.1');
     if (is_string($fonts) && preg_match('~^https://use\.typekit\.net/[a-z0-9]+\.css$~D', $fonts)) { $args['fonts'] = $fonts; }
     return add_query_arg($args, $url);
 }
@@ -25,7 +25,7 @@ function sherloq_browser_render($attributes = array()) {
     return '<iframe class="sherloq-browser-frame" title="SHERLOQ Browser Lab" src="' . esc_url($url) . '" style="display:block;width:100%;height:' . esc_attr($height) . 'px;border:0;border-radius:12px" loading="lazy" allow="fullscreen"></iframe>';
 }
 add_action('init', function () {
-    wp_register_script('sherloq-browser-editor', plugins_url('assets/editor.js', __FILE__), array('wp-blocks','wp-element','wp-block-editor','wp-components'), '0.14.0', true);
+    wp_register_script('sherloq-browser-editor', plugins_url('assets/editor.js', __FILE__), array('wp-blocks','wp-element','wp-block-editor','wp-components'), '0.14.1', true);
     wp_add_inline_script('sherloq-browser-editor', 'window.sherloqBrowserAssetURL=' . wp_json_encode(sherloq_browser_asset_url()) . ';', 'before');
     register_block_type('sherloq/browser', array(
         'api_version' => 3,

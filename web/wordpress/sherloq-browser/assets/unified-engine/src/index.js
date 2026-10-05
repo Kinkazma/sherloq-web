@@ -115,7 +115,7 @@ import {exportAnalysis,jsonExportBound} from './exports.js';
 export {exportAnalysis};
 export {pipeRasterExport} from './raster-export-stream.js';
 export {EngineError,DEFAULT_ELA_PARAMS,DEFAULT_ENERGY_PROFILE};
-const VERSION='0.35.0-export.1',RUNTIME_RESERVE=32*1024**2;
+const VERSION='0.35.0-export.2',RUNTIME_RESERVE=32*1024**2;
 const copyPixels=p=>({...p,data:p.data.slice()});
 const sha=async data=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',data)),x=>x.toString(16).padStart(2,'0')).join('');
 export function createEngine({memoryBudgetBytes,codec=imageCodec,cpuKernel='auto',computeProfile='aggressive',resourceHints,onTemporarySession}={}) {

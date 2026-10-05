@@ -1,0 +1,117 @@
+{
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "engine": "0.35.0-export.2",
+  "width": 1254,
+  "height": 1254,
+  "params": {
+    "profile": "PatchMatch Zernike",
+    "patch": 8,
+    "iterations": 8,
+    "texture": 2,
+    "flip": false,
+    "auto": true,
+    "limit": 6000,
+    "radius": 600,
+    "minimum": 5,
+    "threshold": 0.3,
+    "tolerance": 50,
+    "model": "Similarity",
+    "geometricThreshold": 3,
+    "geometricMinimum": 6,
+    "compact": true,
+    "regions": [],
+    "guides": [],
+    "compare": false,
+    "excluded": []
+  },
+  "view": {
+    "low": 0,
+    "high": 100000,
+    "minimum": 4,
+    "circles": false,
+    "lines": false,
+    "points": false,
+    "areas": true,
+    "textExclusions": false
+  },
+  "status": "ok",
+  "surface": {
+    "id": "98f5aec9-0b0a-426f-b017-760efeb1b364",
+    "revision": 1,
+    "width": 1254,
+    "height": 1254,
+    "format": "rgb8",
+    "sourceWidth": 1254,
+    "sourceHeight": 1254,
+    "orientation": 1,
+    "coordinates": "full-resolution",
+    "storage": "memory"
+  },
+  "visible": [
+    [
+      0,
+      2056
+    ],
+    [
+      1,
+      742
+    ],
+    [
+      2,
+      249
+    ],
+    [
+      3,
+      190
+    ],
+    [
+      4,
+      28
+    ],
+    [
+      5,
+      804
+    ],
+    [
+      6,
+      26
+    ],
+    [
+      7,
+      18
+    ],
+    [
+      8,
+      403
+    ],
+    [
+      9,
+      126
+    ],
+    [
+      10,
+      198
+    ],
+    [
+      11,
+      1155
+    ]
+  ],
+  "pointType": "Float32Array",
+  "changedBytes": 97229,
+  "calculationMs": 17446.310000002384,
+  "redrawMs": 89.48500001430511,
+  "reused": true,
+  "phases": [
+    "eligibility-complete",
+    "source-descriptors-complete",
+    "field-complete",
+    "coherence-complete",
+    "complete",
+    "dense-geometry",
+    "complete"
+  ],
+  "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "inputName": "edited.png",
+  "pageErrors": []
+}

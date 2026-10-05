@@ -108,7 +108,8 @@ def stage_engine_source(output, repository, commit):
             archive.extractall(destination, filter='data')
     finally:
         temporary.unlink(missing_ok=True)
-    put(output / 'public/web/engine-source-identity.json', encode({'commit': commit, 'snapshot': 'engine-source', 'runtime': '0.35.0-export.1'}))
+    version = json.loads(subprocess.check_output(['git', '-C', str(repository), 'show', commit + ':package.json'], text=True))['version']
+    put(output / 'public/web/engine-source-identity.json', encode({'commit': commit, 'snapshot': 'engine-source', 'runtime': version}))
 
 
 def finalize(output, origin, *, offline=False, local_test=False):

@@ -8,8 +8,9 @@ export function sparseCopyViewParams(input={}){
 }
 export async function renderSparseCopy(image,result,input={}, {signal,reserveMemory}={}){
  const p=sparseCopyViewParams(input);requireValue(typeof reserveMemory==='function','Sparse presentation requires shared admission.');
- reserveMemory(result.pairs.length/4*112+4096);const kernel=await createGeometryKernel({signal,reserveMemory,heapBytes:Math.ceil(Math.max(256*1024**2,image.data.byteLength*2+result.points.byteLength+result.pairs.byteLength*5+result.colors.byteLength+32*1024**2)/65536)*65536}),renderer=kernel.renderer(image,result.points,result.pairs,result.colors),visible=[],legend=[],selectedGroups=[];
+ reserveMemory(result.pairs.length/4*112+4096);const kernel=await createGeometryKernel({signal,reserveMemory,heapBytes:Math.ceil(Math.max(256*1024**2,image.data.byteLength*2+result.points.length*8+result.pairs.byteLength*5+result.colors.byteLength+32*1024**2)/65536)*65536}),visible=[],legend=[],selectedGroups=[];let renderer;
  try{
+  renderer=kernel.renderer(image,result.points,result.pairs,result.colors);
   const chosen=new Set(p.chosen),hidden=new Set(p.hidden),flags=(p.circles?1:0)|(p.lines?2:0)|(p.points?4:0)|(p.areas?8:0);
   for(let index=0;index<result.groups.length;index++){
    await controlCheckpoint(signal);const group=result.groups[index],rows=group.filter(row=>result.pairs[row*4+3]>=p.low&&result.pairs[row*4+3]<=p.high);if(rows.length<p.minimum)continue;
@@ -22,5 +23,5 @@ export async function renderSparseCopy(image,result,input={}, {signal,reserveMem
   }
   if(p.textExclusions)for(const poly of result.preprocessing?.text_exclusions??[]){checkAbort(signal);renderer.polygon(poly);}
   checkAbort(signal);return {pixels:{format:'rgb8',width:image.width,height:image.height,data:renderer.pixels()},visible,legend,selectedGroups,style:p};
- }finally{renderer.dispose();kernel.dispose();}
+ }finally{try{renderer?.dispose();}finally{kernel.dispose();}}
 }
