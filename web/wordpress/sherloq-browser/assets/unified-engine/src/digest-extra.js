@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {requireValue,EngineError,controlCheckpoint,checkAbort} from './errors.js';
 

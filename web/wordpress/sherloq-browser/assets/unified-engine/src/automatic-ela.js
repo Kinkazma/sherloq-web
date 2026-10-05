@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {externalMaskContours} from './external-mask-contours.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';import {createCloneEntryGeometry} from './clone-entry-geometry.js';import {createSegmentedBytes} from './segmented-bytes.js';import {segmentElaCells} from './ela-cell-tools.js';import {segmentSegmentedEnergy} from './energy-segment-stream.js';import {energyColor} from './energy-segment.js';import {roundEven,ELA_SOURCE} from './clone-relations.js';import {createSHA256} from '../vendor/hash-wasm/hashes.js';
 const MiB=1024**2;

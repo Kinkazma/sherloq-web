@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,serializeEngineError,normalizeResourceError} from './errors.js';
 // Rust allocation traps can escape wasm-bindgen's async promise boundary.
 self.addEventListener('error',event=>{event.preventDefault();const memory=/alloc::rust_oom|handle_alloc_error/.test(event.error?.stack??'');self.postMessage({failure:serializeEngineError(new EngineError(memory?'MEMORY_ALLOCATION':'C2PA_RUNTIME',memory?'C2PA native allocator refused memory.':'C2PA worker failed; no validation result produced.',{cause:event.error,details:memory?{allocationKind:'wasm'}:undefined}))});});

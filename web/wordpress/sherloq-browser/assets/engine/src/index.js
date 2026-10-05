@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,checkpoint} from './errors.js';
 import {DEFAULT_ELA_PARAMS,DEFAULT_ENERGY_PROFILE,validateParams,validatePixels,elaBase,elaRender} from './ela.js';
 import {jpegCodec,JPEG_OPTIONS} from './jpeg.js';

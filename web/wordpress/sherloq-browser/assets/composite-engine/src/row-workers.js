@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError} from './errors.js';
 // One owned input window per worker/batch. The caller admits all input/output
 // leases and heaps and validates operation-specific output shapes and statistics.

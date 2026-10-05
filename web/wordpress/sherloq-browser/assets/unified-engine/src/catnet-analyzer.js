@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createCatnetSegmentedAnalyzer,renderCatnetSegmented} from './catnet-segmented-analyzer.js';
 import {Budget} from './cache.js';import {resolveComputeProfile} from './profiles.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';import {CatnetPreparation} from './catnet-preparation.js';

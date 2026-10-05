@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort} from './errors.js';
 import {automaticPointSnapshot} from './automatic-point-snapshot.js';
 import {automaticAiSnapshot} from './automatic-ai-snapshot.js';

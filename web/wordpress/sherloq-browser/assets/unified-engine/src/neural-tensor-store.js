@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {elaCellPipeline} from './ela-cell-pipeline.js';
 import {energyReferenceHeader} from './energy-pipeline.js';
 import {segmentedElaCellPlane} from './ela-cell-stream.js';

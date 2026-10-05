@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkpoint,checkAbort,requireValue} from './errors.js';
 import {parameters} from './pixel-utils.js';
 export const wavelets=Object.freeze([...Array.from({length:20},(_,i)=>'db'+(i+1)),...Array.from({length:19},(_,i)=>'sym'+(i+2)),...Array.from({length:5},(_,i)=>'coif'+(i+1)),...['1.1','1.3','1.5','2.2','2.4','2.6','2.8','3.1','3.3','3.5','3.7','3.9','4.4','5.5','6.8'].map(x=>'bior'+x)]);

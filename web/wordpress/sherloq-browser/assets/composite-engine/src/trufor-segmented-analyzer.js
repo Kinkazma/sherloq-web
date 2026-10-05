@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {NeuralGraphPool} from './neural-graph-pool.js';import {createTemporarySession} from './temporary-storage.js';import {createNeuralTensor} from './neural-tensor-store.js';
 import {noiseprintPlusSurface} from './noiseprint-plus-surface.js';import {truforRgbSource,truforNoiseSource} from './trufor-source-tensors.js';
 import {truforSegmentedBackbone} from './trufor-segmented-backbone.js';import {truforSegmentedDecode} from './trufor-segmented-decoder.js';

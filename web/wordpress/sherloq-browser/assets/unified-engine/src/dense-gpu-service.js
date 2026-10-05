@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createDenseDistanceGPU} from './dense-distance-gpu.js';
 import {checkAbort} from './errors.js';
 import {Budget} from './cache.js';

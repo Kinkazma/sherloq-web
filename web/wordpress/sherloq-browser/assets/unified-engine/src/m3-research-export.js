@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {streamScientificNpz} from './scientific-npz-stream.js';import {requireValue} from './errors.js';
 export function streamM3ResearchNpz(analysis,provenance,request,hooks){
  const d=analysis.data;requireValue(d,'Research result released.');const arrays=[],shape=d.metadata.native_shape,add=(key,value,shape,int64=false)=>{

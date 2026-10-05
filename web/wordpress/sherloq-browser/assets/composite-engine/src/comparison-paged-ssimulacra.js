@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,controlCheckpoint,requireValue} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 export function pagedSsimulacraPlan(width,height){const workspace=32*1024**2+width*Math.min(64,height)*4*20+width*8*40;requireValue(Number.isSafeInteger(width)&&Number.isSafeInteger(height)&&width>0&&height>0&&width*height<=0x7fffffff,'Invalid SSIMULACRA dimensions.');if(workspace>480*1024**2)throw new EngineError('MEMORY_LIMIT','SSIMULACRA complete row stencils exceed module capacity.');return {workspace};}

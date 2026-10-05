@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {prepareResearchRows} from './m3-research-rows.js';
 import {FOCAL_MODEL} from './focal-assets.js';export {FOCAL_MODEL};
 import {EngineError,requireValue,checkAbort} from './errors.js';import {verifyM3Bytes,fetchM3Asset} from './m3-asset.js';

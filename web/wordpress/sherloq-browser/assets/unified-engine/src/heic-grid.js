@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue} from './errors.js';
 // ISO/IEC 23008-12 image grid. Each hvc1 cell is encoded independently so the
 // x265 workspace can be reused, while the primary image retains its exact size.

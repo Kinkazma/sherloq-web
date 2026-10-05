@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 // The caller admits every fixed heap and live transfer before construction.
 // One job per worker per batch; these workers never start internal pools.

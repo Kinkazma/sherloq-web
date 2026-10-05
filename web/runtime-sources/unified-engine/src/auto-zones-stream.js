@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createBytePager} from './byte-pager.js';

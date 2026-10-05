@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters,gray,equalizeHistogramLut} from './pixel-utils.js';import {requireValue,checkpoint} from './errors.js';
 export function magnifierParams(input={}){const p=parameters(input,{mode:'equalize',percent:20,channel:false,bounds:null},{percent:[0,100]},{mode:['equalize','contrast']},['channel']);requireValue(p.bounds===null||(Array.isArray(p.bounds)&&p.bounds.length===4&&p.bounds.every(Number.isSafeInteger)&&p.bounds[2]>=p.bounds[0]&&p.bounds[3]>=p.bounds[1]),'Bounds must be ordered integer half-open coordinates.');return p;}
 export function magnifierRegion(image,p){const bounds=(p.bounds??[0,0,image.width,image.height]).map((v,i)=>Math.max(0,Math.min(i%2?image.height:image.width,v)));return{bounds,width:bounds[2]-bounds[0],height:bounds[3]-bounds[1]};}

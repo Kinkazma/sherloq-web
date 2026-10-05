@@ -45,6 +45,38 @@ self.addEventListener('message',event=>{
   activationCheck??=activateWhenReady().finally(()=>{activationCheck=null;});event.waitUntil(activationCheck);
  }
 });
+const pendingDownloads=new Map(),clientSessions=new Map();
+const sessionFor=client=>client&&(clientSessions.get(client.id)||new URL(client.url).searchParams.get('sherloqSession'));
+self.addEventListener('message',event=>{if(event.data?.type==='dependency-session'&&event.source?.url?.startsWith(scope.href)&&/^[a-f0-9-]{36}$/.test(event.data.session)){clientSessions.set(event.source.id,event.data.session);event.ports[0]?.postMessage({ready:true});}});
+self.addEventListener('message',event=>{
+ if(event.data?.type!=='dependency-retry'||!event.source?.url?.startsWith(scope.href))return;
+ const session=sessionFor(event.source);
+ const id=session+'|'+event.data.key;
+ const waiters=pendingDownloads.get(id);pendingDownloads.delete(id);for(const resume of waiters||[])resume();
+});
+async function recoverChunk(event,path,load,hash){
+ const key=event.request.url,client=await self.clients.get(event.clientId);
+ const session=sessionFor(client);
+ for(;;){let cause;
+  for(let attempt=1;attempt<=3;attempt++)try{
+   const bytes=await load(hash,entry=>void notifyDependency(event,{...entry,file:path}));
+   void notifyDependency(event,{level:'info',kind:'dependency.ready',key,file:path});return bytes;
+  }catch(error){cause=error;await notifyDependency(event,{level:'warning',kind:'dependency.transport-error',attempt,file:path,error:{name:error.name,code:error.code,message:error.message,details:error.details,cause:error.cause?.message}});if(attempt<3)await new Promise(r=>setTimeout(r,250*attempt));}
+  if(!session)throw cause;
+  // Keep the original module import or file stream pending: retrying a failed
+  // ES module import after rejection would otherwise reuse its cached failure.
+  await new Promise(resolve=>{
+   const id=session+'|'+key,list=pendingDownloads.get(id)||[];list.push(resolve);pendingDownloads.set(id,list);
+   void notifyDependency(event,{level:'error',kind:'dependency.wait',key,file:path,error:{name:cause.name,code:cause.code,message:cause.message,details:cause.details,cause:cause.cause?.message}});
+  });
+ }
+}
+async function notifyDependency(event,entry){
+ try{const client=await self.clients.get(event.clientId);if(!client)return;const session=sessionFor(client);if(!session)return;
+ const message={type:'dependency-diagnostic',session,event:{...entry,source:'service-worker',manifest:manifestHash}};
+ if(client.type==='window')client.postMessage(message);else for(const window of await self.clients.matchAll({type:'window'}))if(sessionFor(window)===session)window.postMessage(message);
+ }catch{}
+}
 self.addEventListener('fetch',event=>{
  const u=new URL(event.request.url);if(u.origin!==scope.origin||!u.pathname.startsWith(scope.pathname)||!['GET','HEAD'].includes(event.request.method))return;
  const path=u.pathname.slice(scope.pathname.length);
@@ -62,7 +94,7 @@ self.addEventListener('fetch',event=>{
  event.respondWith((async()=>{
   const {manifest,localFiles,load}=await ready,file=manifest.files[path];
   if(localFiles.has(path))return localResponse(event.request);
-  if(file)return dependencyResponse(file,manifest,load,event.request);
+  if(file)return dependencyResponse(file,manifest,h=>recoverChunk(event,path,load,h),event.request);
   if(manifest.slots.some(s=>path.startsWith(s+'/')))return new Response('Dependency absent from the locked delivery',{status:404});
   return localResponse(event.request);
  })());

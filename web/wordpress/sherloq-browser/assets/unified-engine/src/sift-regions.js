@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {roundEven} from './pixel-utils.js';
 import {remapReflectedSiftPoints} from './sift-g2nn.js';

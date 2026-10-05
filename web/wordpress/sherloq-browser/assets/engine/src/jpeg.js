@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import createJpegModule from '../vendor/libjpeg/jpeg.js';
 import {EngineError,requireValue,checkAbort,checkpoint} from './errors.js';
 export const JPEG_OPTIONS=Object.freeze({qualityDefault:75,dct:'ISLOW',subsampling:'4:2:0',baseline:true,progressive:false,optimize:false,smoothing:0});

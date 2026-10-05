@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {waveletStreamMath} from './wavelet-stream-math.js';
 self.onmessage=async({data})=>{try{const math=await waveletStreamMath();let result;
  if(data.op==='down')result=math.down(data.values,data.width,data.height,data.wavelet,data.axis);

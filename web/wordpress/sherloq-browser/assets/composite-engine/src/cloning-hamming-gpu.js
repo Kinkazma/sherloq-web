@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,requireValue} from './errors.js';
 const shader=`
 struct Params {count:u32,words:u32,start:u32,rows:u32};

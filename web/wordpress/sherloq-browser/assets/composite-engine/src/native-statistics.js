@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {COMPOSITE_STATISTICS_POLICY} from './composite-policy.js';
 import {EngineError,checkAbort,requireValue} from './errors.js';
 /** Native NumPy/SciPy/OpenCV code in a dedicated, truly memory-bounded worker. */

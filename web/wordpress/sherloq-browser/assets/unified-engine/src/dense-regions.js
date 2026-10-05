@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkAbort,normalizeResourceError,resourceAllocationKind} from './errors.js';
 import {denseDescriptorShape} from './dense-math.js';

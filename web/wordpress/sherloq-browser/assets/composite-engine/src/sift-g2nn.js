@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {boundedG2nn} from './sift-g2nn-bounded.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 

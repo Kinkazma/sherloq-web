@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createGrayStreamKernel} from './jpeg-gray-stream-kernel.js';
 let serial=0;const waiting=new Map();
 function io(kind,payload,transfer=[]){const id=++serial;return new Promise((resolve,reject)=>{waiting.set(id,{resolve,reject});self.postMessage({io:kind,id,...payload},transfer);});}

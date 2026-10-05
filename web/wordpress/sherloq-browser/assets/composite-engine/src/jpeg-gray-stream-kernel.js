@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 export function createGrayStreamKernel({writeEncoded,readEncoded}){
  let m,pointer,width,height;
  async function native(name,types=[],args=[]){const ok=await m.ccall(name,'number',types,args,{async:true});if(m.ioFailure)throw m.ioFailure;if(!ok)throw Object.assign(Error('Global grayscale JPEG kernel failed'),{code:m._gray_stream_error()===2?'MEMORY_LIMIT':'COMPUTE_FAILED'});}

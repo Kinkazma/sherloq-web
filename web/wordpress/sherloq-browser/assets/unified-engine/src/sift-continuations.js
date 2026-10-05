@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,normalizeResourceError} from './errors.js';
 export const SIFT_CONTINUATION_HALO=128,SIFT_CONTINUATION_CORE=256;
 // Canonical windows retain all neighbours needed by the already-qualified

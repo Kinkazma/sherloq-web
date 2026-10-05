@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {executeExiftool} from './exiftool-runtime.js';
 self.onmessage=async({data:{blob,mode}})=>{try{
  const [pack,wasm]=await Promise.all(['libraries.pack','zeroperl.wasm'].map(async name=>{const r=await fetch(new URL('../vendor/exiftool/'+name,import.meta.url));if(!r.ok)throw Error('Local ExifTool asset unavailable.');return new Uint8Array(await r.arrayBuffer());}));

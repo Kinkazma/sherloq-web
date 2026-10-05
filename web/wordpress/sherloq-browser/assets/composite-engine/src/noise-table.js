@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 export function createNoiseTable(plane,{budget,block,columns=['block_row','block_col','noise'],valueType=Float64Array,coordinates='db8-detail-blocks'}={}){
  const {width,height,store}=plane,descriptor=Object.freeze({id:crypto.randomUUID(),revision:1,format:'float64-table',rowCount:width*height,columns,order:'row,column',coordinates,block,gridWidth:width,gridHeight:height,storage:store.storage});let disposed=false;

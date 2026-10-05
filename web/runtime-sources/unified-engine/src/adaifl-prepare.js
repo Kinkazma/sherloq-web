@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Pillow RGB8 bilinear resampling, 22-bit coefficients and per-pass rounding.
 // Adapted from PIL/Pillow Resample.c; full notice in vendor/adaifl/Pillow-LICENSE.
 export function pillowCoefficients(input,output){

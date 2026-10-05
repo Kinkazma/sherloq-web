@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createNeuralTensor} from './neural-tensor-store.js';
 import {createRgbSurface} from './rgb-surface.js';
 import {requireValue,EngineError,checkAbort,controlCheckpoint} from './errors.js';

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,controlCheckpoint} from './errors.js';
 import {stereoPagedFlow,stereoPagedFlowBytes} from './stereo-paged-flow.js';
 import {createStereoStream} from './stereo-stream-kernel.js';

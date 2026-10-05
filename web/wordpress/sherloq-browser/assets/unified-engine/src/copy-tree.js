@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 // The native cKDTree query is intentionally unsorted. A geometric candidate

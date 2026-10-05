@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 /** Public Forgeryscope decision stages. These functions do not run neural networks.
  * Reference: native forgeryscope_auto/adapter and public matcher/{geometry,lane}.
  * Coordinates are original-image pixels; panel order remains the detector order.

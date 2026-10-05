@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {sharedSegmentedReader} from './shared-segmented-reader.js';
 import {createRebindableByteReader} from './rebindable-byte-reader.js';
 

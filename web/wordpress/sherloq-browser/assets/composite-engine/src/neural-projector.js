@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import{EngineError}from'./errors.js';import{createNeuralSpatialRows}from'./neural-spatial-rows.js';import{segmentedNeuralProjection}from'./segmented-neural-projection.js';
 export function createNeuralProjector({budget,contiguous,postprocess,family,side,kind}){
  let image,spatial;

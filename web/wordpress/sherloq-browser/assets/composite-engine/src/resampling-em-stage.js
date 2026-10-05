@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {createResamplingEmMath} from './resampling-em-math.js';
 // One complete global fit; only the transfer neighborhoods and matrix rows are

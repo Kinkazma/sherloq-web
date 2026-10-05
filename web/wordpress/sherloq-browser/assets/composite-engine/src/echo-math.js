@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,checkpoint,requireValue} from './errors.js';
 export const ECHO_HEAP_BYTES=64*1024**2;
 let pending,ready;

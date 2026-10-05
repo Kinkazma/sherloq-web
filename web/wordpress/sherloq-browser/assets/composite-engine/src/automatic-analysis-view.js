@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue} from './errors.js';
 import {CLONE_SOURCES,ELA_SOURCE} from './clone-relations.js';
 import {automaticViewSelection} from './automatic-visible-entries.js';

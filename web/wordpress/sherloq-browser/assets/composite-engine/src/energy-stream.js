@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {energyGrayPixel} from './energy-primitives.js';
 import {requireValue,checkAbort,controlCheckpoint,EngineError} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';

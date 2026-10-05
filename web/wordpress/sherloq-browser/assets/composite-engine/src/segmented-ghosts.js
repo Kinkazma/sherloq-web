@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';import {parallelGhostPlanes,ghostPoolShape} from './ghost-stream-pool.js';
 import {createRgbRecompression} from './jpeg-rgb-stream.js';import {numpySum} from './numpy-sum.js';import {requireValue,controlCheckpoint,checkAbort} from './errors.js';
 export function segmentedGhostShape(image,p,{normalizedOnly=false}={}){const {width,height}=image.surface.descriptor;requireValue(width>=16&&height>=16,'JPEG Ghost Maps requires at least16×16 pixels.');const cols=Math.floor(width/16),rows=Math.floor(height/16),qualities=Array.from({length:Math.floor((p.high-p.low)/p.step)+1},(_,i)=>p.low+i*p.step),samples=cols*rows*qualities.length;return {width,height,cols,rows,qualities,samples,admissionBytes:samples*(normalizedOnly?8:35)+cols*rows*8+1024**2};}

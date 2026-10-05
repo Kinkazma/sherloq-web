@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {numpySum} from './numpy-sum.js';
 let m,pointer,width,height,cols,ioSerial=0;const waiting=new Map();
 function io(kind,payload,transfer=[]){const id=++ioSerial;return new Promise((resolve,reject)=>{waiting.set(id,{resolve,reject});self.postMessage({io:kind,id,...payload},transfer);});}

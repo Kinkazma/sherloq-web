@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {INFERNO,SAFIRE_COLORS} from './research-palettes.js';import {requireValue,controlCheckpoint} from './errors.js';
 const even=x=>{const n=Math.floor(x),r=x-n;return r<.5?n:r>.5?n+1:n%2?n+1:n;};
 export async function renderResearch(image,result,{mode='overlay'}={}, {signal,reserveMemory,origin=[0,0],sourceSize=[image.width,image.height],includeLegend=true}={}){

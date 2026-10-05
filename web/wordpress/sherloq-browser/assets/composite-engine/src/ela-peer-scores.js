@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,EngineError,checkAbort,controlCheckpoint} from './errors.js';
 const f=Math.fround,scaleFloor=[16,.25,.25,.25,8,.25],profileFloor=[.08,.08,.08,.06,.06];
 function median(values,float32=false){values.sort((a,b)=>a-b);const k=values.length>>1;return values.length%2?values[k]:float32?f(f(values[k-1]+values[k])*.5):(values[k-1]+values[k])*.5;}

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {samplePixels,sampleSurface,displayGeometry} from './display-sampling.js';
 import {Budget} from './cache.js';
 import {jpegCodec} from './jpeg.js';

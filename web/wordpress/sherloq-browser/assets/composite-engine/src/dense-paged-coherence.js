@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 export async function runPagedDenseCoherence({width,height,targets,distancesSquared},{budget,storage='auto',temporarySession,getTemporarySession,threshold=.3,errorThreshold=3,radius=6,minimum=6,pageBytes=4096,cachePages,signal,onProgress}={}){

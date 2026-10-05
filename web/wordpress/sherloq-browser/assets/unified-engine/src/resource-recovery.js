@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,requireValue,normalizeResourceError,isRecoverableResourceError,isRecoverableTransportError,isRecoverableNetworkError,controlCheckpoint,serializeEngineError,resourceAllocationKind,resourceRecoveryKind,resourceRecoveryBytes,isFixedAdmissionError} from './errors.js';
 
 const MiB=1024**2,MEMORY_KEYS=['budgetBytes','retainedBytes','activeReservationBytes','cacheBytes','availableBytes','requestedBytes','workspaceBytes'];

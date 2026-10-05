@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,controlCheckpoint} from './errors.js';import {rgbRecompressionPlan} from './jpeg-rgb-stream.js';import {rolledRgbSurface} from './rolled-rgb-surface.js';import {createSegmentedBytes} from './segmented-bytes.js';
 export function ghostPoolShape(image){const plan=rgbRecompressionPlan(image.surface),cells=Math.floor(plan.width/16)*Math.floor(plan.height/16);return {...plan,cells,workerBytes:plan.workingBytes+2*plan.rowBytes*plan.rows+cells*8+256*1024};}
 export async function parallelGhostPlanes(image,qualities,count,{budget,signal,phaseX,phaseY,onPlane,onProgress}={}){

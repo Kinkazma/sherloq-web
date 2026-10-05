@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {SparseGlueEngine} from './sparse-glue.js';
 import {LearnedFeatureEngine} from './learned-feature.js';

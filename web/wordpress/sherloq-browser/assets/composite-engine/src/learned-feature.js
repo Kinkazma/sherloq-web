@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {extractXfeatPaged} from './xfeat-paged.js';
 import {XFEAT_PAGED_MODEL} from './xfeat-paged-assets.js';
 import {prepareAlikedRows} from './aliked-rows.js';

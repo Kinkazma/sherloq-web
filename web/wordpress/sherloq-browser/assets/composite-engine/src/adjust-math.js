@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,checkpoint} from './errors.js';
 export const ADJUST_HEAP_BYTES=64*1024**2;let ready,pending;
 export async function initAdjustWasm({wasmBinary}={}){const {default:create}=await import('../vendor/adjust/adjust.js');pending=create(wasmBinary?{wasmBinary}:{});ready=await pending;return ready;}

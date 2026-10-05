@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters,channelValue,rows,reflect101,rgbPixels,binaryMask} from './pixel-utils.js';
 export const planesParams=(p={})=>parameters(p,{channel:0,bit:0,filter:0},{channel:[0,4],bit:[0,7],filter:[0,2]});
 export const BIT_PLANE_SEMANTICS='Unfiltered bit plane; filter changes display only.';

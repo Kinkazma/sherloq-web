@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError} from './errors.js';
 import {wasmAllocationFailure} from './allocation.js';
 // -4 is the native bad_alloc/StsNoMem boundary, not a generic extraction error.

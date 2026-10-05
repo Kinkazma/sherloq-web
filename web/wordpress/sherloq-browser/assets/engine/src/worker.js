@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createEngine} from './index.js';
 let engine;
 self.onmessage=async ({data:{sequence,method,args,options}})=>{

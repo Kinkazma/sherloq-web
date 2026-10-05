@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters} from './pixel-utils.js';import {requireValue} from './errors.js';import {resamplingFourierParams} from './resampling-fourier.js';
 export function resamplingAnalysisParams(input={}){
  const p=parameters(input,{stage:'probability',size:3,regions:null,fourierRegions:[],fourier:{}});requireValue(['probability','fourier'].includes(p.stage)&&[3,5].includes(p.size),'Invalid resampling stage or interpolation neighborhood.');

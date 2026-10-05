@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort} from './errors.js';
 // Exact circular phase on oriented full-resolution rows, with no full RGB roll.
 export function rolledRgbSurface(surface,x,y,budget){

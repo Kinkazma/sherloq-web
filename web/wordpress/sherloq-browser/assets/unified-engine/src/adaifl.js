@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {deserializeWorkerError} from './errors.js';
 import {prepareResearchRows} from './m3-research-rows.js';
 import {ADAIFL_MODEL} from './adaifl-assets.js';export {ADAIFL_MODEL};

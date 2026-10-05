@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {deserializeWorkerError,serializeEngineError,resourceAllocationKind} from './errors.js';
 import {scheduledWorkerCall,cancelScheduledWorkerCalls} from './scheduled-worker-call.js';
 import {m3ImageShape} from './m3-image-shape.js';

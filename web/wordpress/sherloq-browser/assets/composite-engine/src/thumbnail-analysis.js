@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort} from './errors.js';import {inspectExiftool} from './exiftool.js';import {imageCodec} from './codecs.js';import {segmentedThumbnailComparison} from './thumbnail-stream.js';import {createRgbSurface} from './rgb-surface.js';
 const semantics='Exact ExifTool ThumbnailImage bytes, native Lanczos4 resize to the full original dimensions and absolute RGB difference; a comparison clue, not an authenticity verdict.';
 async function decodeThumbnail(bytes,{budget,signal}={}){

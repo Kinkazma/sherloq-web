@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';import {createSegmentedBytes} from './segmented-bytes.js';
 const MIB=1024**2,BINS=1<<24;
 export function pagedHistogramPlan(budget,{resident,cachePages,pageBytes=16384,blockPixels=262144}={}){const room=budget.limit-budget.retained-budget.active;resident??=room>=168*MIB;requireValue(typeof resident==='boolean'&&Number.isSafeInteger(pageBytes)&&pageBytes>=512&&(BINS*4)%pageBytes===0&&Number.isSafeInteger(blockPixels)&&blockPixels>0&&blockPixels<=262144,'Invalid histogram storage plan.');cachePages??=Math.max(1,Math.min(1024,Math.floor((room-36*MIB)/(2*(pageBytes+32)))));requireValue(Number.isSafeInteger(cachePages)&&cachePages>0,'Invalid histogram cache.');return {resident,cachePages,pageBytes,blockPixels,workspace:24*MIB+(resident?BINS*8:2*cachePages*(pageBytes+32))};}

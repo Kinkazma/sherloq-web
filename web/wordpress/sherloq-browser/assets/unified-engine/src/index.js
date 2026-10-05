@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {readDisplayFrame} from './display-sampling.js';
 import {rasterPresentation} from './raster-presentation.js';
 import {inspectExtendedImage,loadExtendedImage} from './media-image-source.js';

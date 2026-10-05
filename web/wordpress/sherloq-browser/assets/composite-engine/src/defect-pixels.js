@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters,rows,rgbPixels} from './pixel-utils.js';
 export const defectParams=(p={})=>parameters(p,{radius:1,threshold:32,spread:32,kind:0,mode:0},{radius:[1,2],threshold:[1,255],spread:[0,255],kind:[0,2],mode:[0,2]});
 // Caller excludes the global image border and supplies the complete halo.

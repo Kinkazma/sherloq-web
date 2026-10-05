@@ -1,0 +1,23 @@
+{
+  "scope": "Desktop Chrome and WebKit on real local WordPress with an exact-byte local resource mirror; synthetic data and injected failures. Not physical iPhone or GitHub network validation.",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "154.0.8037.98",
+      "nativeRetry": true,
+      "sourcePreserved": true,
+      "staticImportRetry": true,
+      "completeSessionEvents": 68,
+      "errors": []
+    },
+    {
+      "browser": "WebKit",
+      "version": "26.6",
+      "nativeRetry": true,
+      "sourcePreserved": true,
+      "staticImportRetry": true,
+      "completeSessionEvents": 68,
+      "errors": []
+    }
+  ]
+}

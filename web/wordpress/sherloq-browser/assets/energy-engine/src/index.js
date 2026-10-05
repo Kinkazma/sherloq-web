@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {segmentedDefects} from './segmented-defects.js';
 import {segmentedMinmax} from './segmented-minmax.js';
 import {segmentedBitPlanes} from './segmented-planes.js';

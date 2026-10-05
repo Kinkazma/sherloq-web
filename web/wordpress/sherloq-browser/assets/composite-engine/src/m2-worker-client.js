@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort} from './errors.js';
 /** Lazy result windows. Configuration contains URLs/data, never callbacks. */
 export async function createM2WorkerClient(config,{workerFactory=url=>new Worker(url,{type:'module'})}={}){

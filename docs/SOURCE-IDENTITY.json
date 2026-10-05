@@ -1,24 +1,18 @@
 {
-  "ui_commit": "abd61d23df1d487fa81efe490bd40e76ec826764",
+  "ui_commit": "869f90507f8c26454668dcd6cd4323b3da659ece",
   "engine_commit": "638d0f7aeebb6fc680fcd99b8af0e3977fb40284",
-  "manifest_sha256": "2b97f4bbfc7156c01117a2e127d2c75fad404e71e1658912609097af6dd7918b",
+  "manifest_sha256": "ba9eb67e86101d0ad38083e01610e77fcb471b9ff75582b896031b599fb0785c",
   "documentation_adaptations": [
     {
-      "path": "web/wordpress/DISTRIBUTION.md",
-      "supplied_sha256": "84d3d9a0cfbd2a9bd3d97c3e4049e9f066ee90bf2dff93880dd634349b3ff7d1",
-      "publication_sha256": "15418aed25aea49efbbdd92f52b510cf9223d9f7b2e00317095e57ed74c0c2c0",
-      "reason": "Current public documentation; runtime code and bytes unchanged."
-    },
-    {
       "path": "web/wordpress/sherloq-browser/README.md",
-      "supplied_sha256": "863101591e5e8d8b3b3f350186ca302d70d62342c90ab45304967bfbe2ba9c1e",
-      "publication_sha256": "96ab40d85c6da485892fabac5aee51c63d1e334791e8c2b2638bdc98e5160baa",
-      "reason": "Current public documentation; runtime code and bytes unchanged."
+      "reason": "Preserved existing public introduction."
     }
   ],
   "upstream": "https://github.com/GuidoBartoli/sherloq",
   "macos_derivative": "https://github.com/Kinkazma/sherloq",
-  "ui_version": "0.14.3",
+  "ui_version": "0.14.5",
   "engine_version": "0.35.0-export.2",
-  "resource_commit": "5b517b6972a72872d810e044fe7a85e1fc100b76"
+  "resource_commit": null,
+  "resource_origin_policy": "Pin deployment to the immutable resource publication commit; manifest template has no deployment origin.",
+  "transport_adapter": "web/wordpress/runtime-delivery.py"
 }

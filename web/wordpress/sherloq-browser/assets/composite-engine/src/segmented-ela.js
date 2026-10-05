@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createRgbRecompression,rgbRecompressionPlan} from './jpeg-rgb-stream.js';import {createSegmentedBytes} from './segmented-bytes.js';import {createRgbSurface} from './rgb-surface.js';import {toneTable,fusedCpu} from './ela-lut.js';import {checkAbort} from './errors.js';
 export async function segmentedEla(image,params,{budget,signal,onProgress,table,saveTable}={}){
  const descriptor=image.surface.descriptor,plan=rgbRecompressionPlan(image.surface);let output,surface,planning,tableRelease;

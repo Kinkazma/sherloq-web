@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createDenseMath,canonicalDenseSift,denseGray,denseDescriptorShape} from './dense-math.js';
 import {createDenseRegions} from './dense-regions.js';
 import {alignDenseSupports} from './dense-links.js';

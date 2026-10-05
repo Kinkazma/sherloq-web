@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort} from './errors.js';
 export class AkazePagedPool{
  constructor(owner,options){Object.assign(this,options);this.owner=owner;this.records=[];this.metrics={executions:0,retries:0,workers:0,peakWorkerHeapBytes:0,preflightExecutions:0,failures:[]};}

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {separationRows} from './separation-math.js';import {gray} from './pixel-utils.js';
 // The job owns its input window. Residual creation happens before transferring
 // output back, so original source/cache buffers never need to be detached.

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {exiftoolParams} from './exiftool.js';
 import {c2paParams} from './c2pa-report.js';
 import {cvPixels} from './opencv.js';

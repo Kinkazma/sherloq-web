@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort} from './errors.js';
 import {TRUFOR_PALETTE} from './trufor-palette.js';
 import {energyQuantile} from './energy-prepare.js';

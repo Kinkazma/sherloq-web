@@ -7,7 +7,7 @@ import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
 const {chromium}=createRequire(new URL('../../web-engine-clone-panel-api/package.json',import.meta.url))('playwright');
 import assert from 'node:assert/strict';
-const delivery=path.resolve(process.env.DELIVERY||'.build/github-wordpress-0.14.3'),receipt=JSON.parse(await fs.readFile(path.join(delivery,'private/receipt.json'))),archive=path.join(delivery,'private',receipt.installer),unpacked=await fs.mkdtemp(path.join(delivery,'zip-verification-'));
+const delivery=path.resolve(process.env.DELIVERY||'.build/github-wordpress-0.14.5'),receipt=JSON.parse(await fs.readFile(path.join(delivery,'private/receipt.json'))),archive=path.join(delivery,'private',receipt.installer),unpacked=await fs.mkdtemp(path.join(delivery,'zip-verification-'));
 assert.equal(createHash('sha256').update(await fs.readFile(archive)).digest('hex'),receipt.sha256);
 execFileSync('python3',['-c','import zipfile,sys; z=zipfile.ZipFile(sys.argv[1]); assert z.testzip() is None; z.extractall(sys.argv[2])',archive,unpacked]);
 const root=path.join(unpacked,'sherloq-browser');
@@ -22,7 +22,7 @@ header('Cross-Origin-Opener-Policy: same-origin');
 header('Cross-Origin-Embedder-Policy: require-corp');
 ?><!doctype html><iframe src="assets/<?php echo isset($_GET['legacy']) ? 'app.html' : 'app.php'; ?>#lang=auto"></iframe>`);
 await fs.writeFile(path.join(root,'assets/isolation-probe.js'),"self.postMessage({isolated:crossOriginIsolated,shared:typeof SharedArrayBuffer==='function'})");
-const container='sherloq-private-0143-check';
+const container='sherloq-private-0145-check';
 execFileSync('docker',['run','-d','--rm','--name',container,'-p','127.0.0.1::8080','--mount',`type=bind,src=${root},dst=/fixture,readonly`,'--entrypoint','php','wordpress:php8.3-apache','-S','0.0.0.0:8080','-t','/fixture','/fixture/router.php']);
 const mapping=execFileSync('docker',['port',container,'8080/tcp'],{encoding:'utf8'}).trim(),origin='http://'+mapping;
 let browser;
@@ -57,7 +57,7 @@ try{
    return {version:(await engine.capabilities()).version,exactPixels:true,webpBytes:webp.byteLength,denseFloat32Rendered:true,uiVersion:document.querySelector('#app-version').textContent};
   }finally{await engine.dispose();}
  });
- assert.equal(proof.version,'0.35.0-export.2');assert.equal(proof.uiVersion,'0.14.3');assert.equal(startupRemote,0);assert.ok(remote.length>0);assert.ok(remote.every(r=>r.status===200));assert.deepEqual(errors,[]);
+ assert.equal(proof.version,'0.35.0-export.2');assert.equal(proof.uiVersion,'0.14.5');assert.equal(startupRemote,0);assert.ok(remote.length>0);assert.ok(remote.every(r=>r.status===200));assert.deepEqual(errors,[]);
  // A ready window (potentially computing) must block replacement. A second
  // bootstrapping window continues automatically once the ready window closes.
  const probePage=await context.newPage();await probePage.goto(origin+'/assets/bootstrap-probe.html');

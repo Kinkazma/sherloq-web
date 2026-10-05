@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {validatePixels} from './ela.js';
 import {parameters,gray,roundEven} from './pixel-utils.js';

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 // Scientific stores already use oriented, full-resolution image coordinates.
 // Window data is owned by the caller; no writable view of cached stores escapes.

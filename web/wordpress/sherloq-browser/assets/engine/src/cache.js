@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError} from './errors.js';
 export class Budget {
  constructor(limit) {this.limit=limit;this.retained=0;this.active=0;this.cacheBytes=0;this.peak=0;this.cache=new Map();}

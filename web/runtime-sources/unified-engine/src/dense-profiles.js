@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue} from './errors.js';
 
 export const DENSE_PROFILES = Object.freeze([

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {m3ImageShape} from './m3-image-shape.js';
 import {checkAbort} from './errors.js';
 // Materialization is admitted by the existing oriented surface reader. It does

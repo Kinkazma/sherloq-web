@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {numpyBufferedSum as numpySum} from './numpy-sum.js';
 import {EngineError,requireValue,checkpoint} from './errors.js';
 import {cvPrnuResidual} from './opencv.js';

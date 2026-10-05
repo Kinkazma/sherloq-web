@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 const messages={[-1]:'Invalid EM state or region.',[-2]:'The region is degenerate for this interpolation model.',[-3]:'The region has no valid interpolation weights.',[-4]:'The region is singular for this model. Select a more varied region.',[-5]:'The interpolation model returned non-finite coefficients.',[-6]:'EM workspace allocation failed.'};
 export async function createResamplingEmMath(){

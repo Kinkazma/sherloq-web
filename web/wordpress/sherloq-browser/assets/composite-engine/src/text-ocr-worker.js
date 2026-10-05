@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {boundWasmMemory} from './wasm-memory-limit.js';
 import {parseTextBoxes} from './text-regions.js';
 let module,api,memory,admitted;

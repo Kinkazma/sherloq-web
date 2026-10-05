@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {frequencyStreamMath} from './frequency-stream-math.js';
 self.onmessage=async({data})=>{try{const math=await frequencyStreamMath();let values;
  if(data.op==='axis')values=math.axis(data.values,data.length,data.lines,data.globalCount,data.mode);

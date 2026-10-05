@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Generated numerical corrections, not model weights or performance calibration.
 // Raw SHA256 aff6010f016381a1b499181f218ad90b8da34c77a3169f2e477efa56d52172d3
 // Regenerate using scripts/generate-ela-energy-log-domain.py.

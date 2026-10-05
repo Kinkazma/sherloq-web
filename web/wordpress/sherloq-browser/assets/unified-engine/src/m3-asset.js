@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort} from './errors.js';
 export async function verifyM3Bytes(data,identity,signal){
  checkAbort(signal);if(!(data instanceof Uint8Array)||data.length!==identity.bytes)throw new EngineError('ASSET_INTEGRITY','Learned asset size mismatch.');

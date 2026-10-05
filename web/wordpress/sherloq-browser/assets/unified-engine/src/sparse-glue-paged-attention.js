@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {closeGpuErrorScopes} from './gpu-error-scope.js';
 import {copyTypedArray,allocateWasmMemory,wasmAllocationFailure} from './allocation.js';
 import createAttention from '../vendor/sparse-glue-paged/attention.js';

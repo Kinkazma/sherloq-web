@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 /** Full DnCNN with unchanged weights, native FMA convolution and BN ordering. */
 export function runNoiseprintPlusProgram(module,program,weights,input,{onProgress,onTensor,globalHeight=input.dims[2],offsetY=0,globalWidth=input.dims[3],offsetX=0}={}){

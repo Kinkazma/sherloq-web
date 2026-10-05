@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import{EngineError,requireValue,checkAbort,controlCheckpoint}from'./errors.js';
 export const NEURAL_SPATIAL_HEAP_BYTES=64*1024**2;
 // onRows consumes a temporary owned Float32Array before its reservation ends.

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Port of NumPy 1.26.4 aquicksort_/aheapsort_, by Charles R. Harris.
 // Upstream source and BSD-3-Clause license: vendor/numpy-sort/.
 // Preserve the native reference's unstable tie order; JS stable sort differs.

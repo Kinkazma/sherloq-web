@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {byteView} from './memory-range.js';
 import {EngineError,normalizeResourceError} from './errors.js';
 // Same ordered float32 FMAs as the qualified native row/symmetric-column filter.

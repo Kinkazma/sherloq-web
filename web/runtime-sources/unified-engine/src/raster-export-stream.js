@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort} from './errors.js';
 // Caller owns the destination choice. Await every write before requesting another
 // page; no Blob concatenation or complete encoded byte array is created here.

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,requireValue} from './errors.js';
 import {exiftoolReport} from './exiftool-report.js';
 export function exiftoolParams(p={}){requireValue(p&&typeof p==='object'&&!Array.isArray(p)&&Object.keys(p).every(k=>k==='mode'),'Unknown ExifTool parameter.');const mode=p.mode??'dump';requireValue(['dump','location','headers','thumbnail'].includes(mode),'Invalid ExifTool mode.');return {mode};}

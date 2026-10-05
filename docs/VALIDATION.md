@@ -53,3 +53,26 @@ The changed lifecycle and workspace test files were also rerun independently in 
 Examples illustrate how tools can be read, not a promise of identical output across every release. The batch process uses the shipped web engine, its model assets and its presentation routines directly. Computation preserves each input's dimensions. Preview scaling belongs to the gallery, not to detector preprocessing. Input, method, settings, engine version and output hashes identify each generated example. Browser screenshots and upstream desktop screenshots are labeled separately.
 
 The completed gallery contains 24 recorded examples and 38 rendered outputs. The previously timed-out D2PRL and complete-analysis runs now finish; all five automatic branches report done, with no recorded errors. The microscopy Forgeryscope run detects 16 panels, evaluates 23 pairs and accepts 5 geometric correspondences. Input/output hashes, decoded dimensions and local gallery links were checked. [Gallery checks](evidence/example-gallery-checks.json). These are illustrative runs, not a performance benchmark or a general accuracy study.
+
+
+## 0.14.5 dependency recovery and diagnostics
+
+164 Node checks pass, including HTTP/body/integrity failures, byte-range resume,
+compressed-response restart, aborting a pending retry, complete session retention,
+redaction and idempotent delivery adaptation. In the actual local WordPress,
+Chrome 154 and desktop WebKit 26.6 reject a wrong native module, wait for an
+explicit retry and then compute successfully with the loaded image retained.
+A deliberately unavailable remote JavaScript module also resumes its original
+import. The session records the 503 and the later 200 response. No unhandled
+JavaScript error was recorded. [Recovery evidence](evidence/0145-recovery-proof.json).
+
+Gutenberg and the real page preview load, with clean JavaScript consoles; the
+preview retains cross-origin isolation and shared memory. Apache policy headers
+are no longer duplicated when PHP serves the application document.
+[WordPress evidence](evidence/0145-wordpress-proof.json).
+
+All 90 WebAssembly files below 300 KiB are now packaged locally, while remaining
+lazy-loaded. All 191 WASM hashes are unchanged. Only JavaScript transport and
+session instrumentation are adapted. [Packaging evidence](evidence/0145-packaging-proof.json).
+These checks do not establish the original iPhone network cause or compatibility
+on a physical iPhone; desktop WebKit uses a local mirror for controlled failures.

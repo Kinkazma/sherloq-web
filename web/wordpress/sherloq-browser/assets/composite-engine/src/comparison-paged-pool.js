@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort} from './errors.js';
 import {removeTerminatedTemporarySession} from './opfs-storage.js';
 // Independent global metrics share an admission budget; every worker retains

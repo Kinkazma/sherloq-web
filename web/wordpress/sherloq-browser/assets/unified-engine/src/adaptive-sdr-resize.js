@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,createCooperator,checkAbort} from './errors.js';
 // Public proxy SDR reconstruction: Lanczos3 in linear light. Auto uses exact
 // area coverage for large reductions. Only the current band and its rows live.

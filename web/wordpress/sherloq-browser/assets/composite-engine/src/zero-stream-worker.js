@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createZeroStreamKernel} from './zero-stream.js';
 import {Budget} from './cache.js';
 let native;

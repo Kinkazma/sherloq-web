@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters,channelValue,rows,rgbPixels,binaryMask,normalizeU8} from './pixel-utils.js';
 export const minmaxParams=(p={})=>parameters(p,{channel:0,minimum:1,maximum:0,filter:0},{channel:[0,4],minimum:[0,4],maximum:[0,4],filter:[0,5]});
 export const MINMAX_PALETTE=[[255,0,0],[0,255,0],[0,0,255],[255,255,255],[0,0,0]];

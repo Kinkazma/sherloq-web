@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';
 import {stereoParams} from './stereogram.js';
 import {gray,roundEven} from './pixel-utils.js';

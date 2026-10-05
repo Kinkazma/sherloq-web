@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 let ready,pending;
 export const pcaStreamHeapBytes=()=>ready?.HEAPU8.byteLength??0;

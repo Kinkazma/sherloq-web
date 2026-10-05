@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createEnergyRows,energyStreamBytes} from './energy-stream.js';import {Budget} from './cache.js';
 let m,pointer,width,height,filter,y,ioSerial=0;const waiting=new Map();
 function io(kind,payload,transfer=[]){const id=++ioSerial;return new Promise((resolve,reject)=>{waiting.set(id,{resolve,reject});self.postMessage({io:kind,id,...payload},transfer);});}

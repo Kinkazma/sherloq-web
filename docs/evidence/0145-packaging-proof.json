@@ -1,0 +1,8 @@
+{
+  "uiVersion": "0.14.5",
+  "sourceCommit": "869f90507f8c26454668dcd6cd4323b3da659ece",
+  "bundledSmallWasm": 90,
+  "bundledSmallWasmBytes": 4650080,
+  "allWasmUnchanged": 191,
+  "adaptedJavascriptFiles": 1304
+}

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {serializeEngineError} from './errors.js';
 import {M3_ORT_ASSETS} from './m3-ort-assets.js';import {fetchM3Asset} from './m3-asset.js';import {prepareAdaifl} from './adaifl-prepare.js';
 let ort,provider,device,factoryUrl,image,tokens,producer;const features=[],owners=[],saved=new Set();

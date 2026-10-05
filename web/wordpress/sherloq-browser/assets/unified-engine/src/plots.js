@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters} from './pixel-utils.js';import {requireValue,checkpoint} from './errors.js';import {cvPlot} from './opencv.js';
 export function plotsParams(p={}){const r=parameters(p,{scale:null,x:3,y:4,z:5,colored:false,alpha:1,kind:'2d',layout:'legacy'},{x:[0,5],y:[0,5],z:[0,5]},{kind:['2d','3d','classic'],layout:['legacy','values']},['colored']);requireValue(r.scale===null||(Number.isInteger(r.scale)&&r.scale>=0&&r.scale<=30),'Invalid sampling scale.');requireValue(Number.isFinite(r.alpha)&&r.alpha>=0&&r.alpha<=1,'Alpha must be between zero and one.');return r;}
 export async function plotData(image,p,hooks={}){

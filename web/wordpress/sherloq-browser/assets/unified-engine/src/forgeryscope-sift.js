@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {copyTypedArray} from './allocation.js';
 import {PagedSiftFeatureEngine} from './sift-paged.js';
 import {createTemporarySession} from './temporary-storage.js';

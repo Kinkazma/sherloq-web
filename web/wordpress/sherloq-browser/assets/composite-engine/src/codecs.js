@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {validateTiffHeader} from './tiff-stream.js';
 import {validatePngHeader} from './png-stream.js';
 import {decodeMappedTiff,mappedTiffPlan} from './tiff-mapped.js';

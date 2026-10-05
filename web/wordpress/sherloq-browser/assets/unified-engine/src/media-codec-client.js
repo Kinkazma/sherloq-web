@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,serializeEngineError,deserializeEngineError} from './errors.js';
 // A useful codec job owns one worker. Wait for already-started storage replies
 // before returning, so cancellation cannot race their destination's disposal.

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {checkAbort,controlCheckpoint} from './errors.js';
 // Two exact membership bits per pixel. The caller already reserves16MiB for
 // its byte-page cache. Extra packed capacity is admitted only from spare RAM;

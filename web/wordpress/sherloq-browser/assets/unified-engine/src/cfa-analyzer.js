@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {Budget} from './cache.js';import {resolveComputeProfile} from './profiles.js';import {NeuralGraphPool} from './neural-graph-pool.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';import {cfaPostprocess} from './cfa-postprocess.js';import {renderResearch} from './research-render.js';import {cfaNpz} from './npz.js';
 const hash=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(x=>x.toString(16).padStart(2,'0')).join('');

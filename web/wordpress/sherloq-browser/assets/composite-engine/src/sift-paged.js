@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {SIFT_PAGED_WASM} from './sift-paged-assets.js';
 import {fetchM3Asset} from './m3-asset.js';
 import {createSegmentedBytes} from './segmented-bytes.js';

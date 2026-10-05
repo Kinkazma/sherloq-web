@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createNeuralTensor} from './neural-tensor-store.js';
 import {executionSummary} from './neural-execution-summary.js';
 import {requireValue,checkAbort} from './errors.js';

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {frequencyStreamMath,frequencyStreamHeapBytes} from './frequency-stream-math.js';
 import {createComplexPlane} from './segmented-complex-plane.js';

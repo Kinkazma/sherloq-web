@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 /** Bound provenance by operator count, not by the number of image windows. */
 export function executionSummary(){
  const records=new Map();

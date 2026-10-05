@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 // Destructive sort of paired keys/IDs, preserving NumPy's unstable ordering.
 // Both stores are caller-owned; no global index or key array is reconstructed.

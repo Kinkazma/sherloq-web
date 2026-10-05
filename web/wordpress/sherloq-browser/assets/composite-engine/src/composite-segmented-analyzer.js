@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {COMPOSITE_STATISTICS_POLICY,COMPOSITE_STATISTICS_REVISION,compositePolicyMetadata} from './composite-policy.js';
 import {createTemporarySession} from './temporary-storage.js';
 import {compositeSourceGray,noiseprintSurface} from './composite-source-noise.js';

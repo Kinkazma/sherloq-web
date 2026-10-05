@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Exact numerical preparation; full ELA-energy API qualification is separate.
 import {detectPanels} from './auto-zones.js';
 import {gray} from './pixel-utils.js';

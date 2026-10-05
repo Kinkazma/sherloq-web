@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {rolledRgbSurface} from './rolled-rgb-surface.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';import {createSegmentedBytes} from './segmented-bytes.js';
 const MiB=1024**2,IO=256*1024;

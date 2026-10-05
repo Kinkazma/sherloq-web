@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {normalizeResourceError,resourceAllocationKind} from './errors.js';
 // Decisions use only resource hints and timings of completed requested work.
 // No synthetic input, repeated task, warm-up or candidate sweep is executed.

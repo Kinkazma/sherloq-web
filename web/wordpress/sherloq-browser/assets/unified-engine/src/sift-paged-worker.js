@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {copyTypedArray} from './allocation.js';
 import {EngineError,serializeEngineError} from './errors.js';
 import {siftReplyWithInput} from './sift-input-transport.js';

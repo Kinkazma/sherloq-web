@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {NativeStatistics} from './native-statistics.js';
 import {createNumericBank} from './numeric-bank.js';
 import {checkAbort} from './errors.js';

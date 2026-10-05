@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {pagedNoisesnifferSelection} from './noisesniffer-paged-selection.js';
 import {numpyArgsort} from './numpy-argsort.js';
 import {numpySum} from './numpy-sum.js';

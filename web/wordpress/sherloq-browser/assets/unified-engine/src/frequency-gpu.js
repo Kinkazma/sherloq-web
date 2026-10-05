@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {createFrequencyGpu} from './frequency-gpu-kernel.js';
 import {cvFrequencyMask} from './opencv.js';

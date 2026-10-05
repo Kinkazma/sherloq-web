@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Exact full-resolution window reads over un-oriented RGB8 or mask8 storage.
 // Presentation tiles are consumers; these coordinates never rescale analysis.
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';

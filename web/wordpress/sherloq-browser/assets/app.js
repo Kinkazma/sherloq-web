@@ -1,3 +1,5 @@
+import {reportWithSession} from './session-log.js';
+import {diagnostic} from './runtime-context.js';
 import {rasterOptions,exportPresentationRaster} from './raster-export-client.js';
 import {exportDefaults,linkedExportSize} from './media-settings.js';
 import {validateLoupeEffects} from './loupe-effects-settings.js';
@@ -67,7 +69,7 @@ let resultMeta=null,params={...defaults},engineCapabilities=null;
 const browserCapabilities={secureContext:isSecureContext,worker:typeof Worker!=='undefined',wasm:typeof WebAssembly!=='undefined',webgpuAPI:!!navigator.gpu,cpuThreadsHint:navigator.hardwareConcurrency||null};
 const canvas=$('canvas'),ctx=canvas.getContext('2d'),view=$('viewport');
 const t=key=>strings[lang][key]||key;
-function status(message){$('status').textContent=localizeStatus(message,lang);host.changed?.();}
+function status(message){diagnostic({level:'info',kind:'operation.status',operation:activeAnalysis,message});$('status').textContent=localizeStatus(message,lang);host.changed?.();}
 function localGet(key){if(host.managed)return null;try{return JSON.parse(localStorage.getItem('sherloq.'+key));}catch{return null;}}
 function localSet(key,value){if(host.managed)return true;try{localStorage.setItem('sherloq.'+key,JSON.stringify(value));return true;}catch{return false;}}
 function translate(){const previous=$('status').textContent;for(const key of Object.keys(strings.fr)){if(previous===strings.fr[key]||previous===strings.en[key]){$('status').textContent=t(key);break;}}document.documentElement.lang=lang;$('language').value=lang;document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));renderCapabilities();renderRegions();renderToolTree();renderProfiles();energyUI?.translate();syncAnalysisControls();individualUI?.translate?.();translateTaskActions();updateChrome();draw();}
@@ -228,7 +230,7 @@ async function exportImage(settingsOverride){
   const options=rasterOptions(settings.resize?{...settings,...linkedExportSize(settings,target)}:settings,source?.display?.chroma??engineCapabilities?.sourceChroma);let output;
   const progress=event=>{if(rev===revision){$('progress').value=event.fraction??0;status(t('exporting')+' · '+(event.phase??''));}};
   try{
-   if(individualMode()&&target.display?.id&&!target.display.pixels&&!target.display.m2Result){output=await(await ensureIndividualClient()).export(options.format,target.display,options);}
+   if(individualMode()&&target.display?.id&&!target.display.pixels&&!target.display.m2Result&&!target.display.cloneView){output=await(await ensureIndividualClient()).export(options.format,target.display,options);}
    else if(!individualMode()&&!automaticMode()&&!compositeMode()){
     const sink=await createExportSink({memoryBudgetBytes:uiRGBBudget,signal:controller.signal,mime:'image/'+options.format});
     try{const answer=await request('export-raster',{display:target.display,options},chunk=>sink.write(chunk));output={...await sink.finish(),descriptor:answer.descriptor};}catch(error){await sink.abort();throw error;}
@@ -243,7 +245,7 @@ async function exportImage(settingsOverride){
  };
  return settingsOverride?execute(settingsOverride):host.requestExport?host.requestExport(execute):execute({...exportDefaults});
 }
-$('export-png').onclick=()=>exportImage();$('export-report').onclick=()=>{if(resultMeta)exportJSON({...resultMeta,...(errorJournal.length?{diagnosticHistory:errorJournal.snapshot()}:{})},automaticMode()?'SHERLOQ-automatic-report.json':compositeMode()?'SHERLOQ-composite-report.json':individualMode()?'SHERLOQ-'+activeAnalysis+'-report.json':'sherloq-ela-report.json');};$('save-session').onclick=()=>exportJSON(serialize(),'sherloq-session.json');$('load-session').onchange=e=>restore(e.target.files[0]);
+$('export-png').onclick=()=>exportImage();$('export-report').onclick=async()=>{if(resultMeta)exportJSON(await reportWithSession({...resultMeta,...(errorJournal.length?{diagnosticHistory:errorJournal.snapshot()}:{})}),automaticMode()?'SHERLOQ-automatic-report.json':compositeMode()?'SHERLOQ-composite-report.json':individualMode()?'SHERLOQ-'+activeAnalysis+'-report.json':'sherloq-ela-report.json');};$('save-session').onclick=()=>exportJSON(serialize(),'sherloq-session.json');$('load-session').onchange=e=>restore(e.target.files[0]);
 
 function renderCapabilities(){const m=engineCapabilities?.memory?.budgetBytes;const workers=engineCapabilities?.resourceProfile?.maxWorkers;$('capabilities').textContent=t('memory')+': '+(m?Math.round(m/1024**2)+' MiB':'—')+' · '+t('workerBudget')+': '+(workers||browserCapabilities.cpuThreadsHint||'—')+' · '+t('displayMemory')+' '+Math.round(tileCache.limit/1024**2)+' MiB / RGB '+Math.round(uiRGBBudget/1024**2)+' MiB'+(storageEstimate?.quota?' · '+t('storageQuota')+' '+Math.round(storageEstimate.quota/1024**2)+' MiB':'')+' · WebGPU '+(browserCapabilities.webgpuAPI?'API ✓ / engine —':'API — / CPU ✓');}
 $('compute-profile').onchange=()=>{stop();engineCapabilities=null;invalidate();renderCapabilities();status(t('computeChanged'));};

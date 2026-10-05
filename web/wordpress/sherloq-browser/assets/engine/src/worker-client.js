@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {resolveComputeProfile} from './profiles.js';
 import {EngineError,checkAbort} from './errors.js';
 // Exactly one worker, one internal codec thread. Abort terminates even synchronous

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';
 import {WaveletStripPool} from './wavelet-strip-pool.js';
 import {noisesnifferStreamMath,noisesnifferStreamHeapBytes} from './noisesniffer-stream-math.js';

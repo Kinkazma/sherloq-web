@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters,gray,rows} from './pixel-utils.js';
 import {checkAbort,requireValue} from './errors.js';
 export const recompressionParams=(p={})=>parameters(p,{});

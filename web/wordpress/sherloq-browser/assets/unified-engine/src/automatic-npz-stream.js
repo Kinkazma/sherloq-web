@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort} from './errors.js';
 import {streamScientificNpz} from './scientific-npz-stream.js';
 

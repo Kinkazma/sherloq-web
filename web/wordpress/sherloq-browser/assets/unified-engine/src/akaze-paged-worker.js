@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {wasmAllocationFailure,copyTypedArray} from './allocation.js';
 import {serializeEngineError} from './errors.js';
 import createFast from '../vendor/akaze-paged/akaze-paged.js';

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {createGeometryKernel,biomeSides,distinctCentres} from './copy-geometry.js';
 export function sparseCopyViewParams(input={}){

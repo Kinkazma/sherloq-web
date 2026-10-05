@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Compare acceleration over the same one-second horizon, using only completed
 // requested work. Scores are estimates of saved wall milliseconds per byte,
 // never measurements of physical CPU/GPU occupancy.

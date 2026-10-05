@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkpoint,checkAbort} from './errors.js';
 let ready,pending;
 export async function initZeroWasm({wasmBinary}={}){const {default:create}=await import('../vendor/zero/zero.js');pending=create(wasmBinary?{wasmBinary}:{});ready=await pending;return ready;}

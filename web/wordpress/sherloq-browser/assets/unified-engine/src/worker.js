@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createEngine} from './index.js';
 import {EngineError,serializeEngineError} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';

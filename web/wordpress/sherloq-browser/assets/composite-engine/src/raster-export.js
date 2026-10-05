@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {streamM3ResearchNpz} from './m3-research-export.js';
 import {streamNeuralNpz} from './neural-npz-stream.js';
 import {streamEnergyNpz} from './energy-npz-stream.js';

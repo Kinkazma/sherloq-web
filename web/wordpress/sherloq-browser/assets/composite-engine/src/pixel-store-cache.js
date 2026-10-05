@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createSegmentedBytes} from './segmented-bytes.js';
 // One private temporary cache per pixel family, outside the synchronous RAM LRU.
 // Published results always have their own storage; source disposal owns caches.

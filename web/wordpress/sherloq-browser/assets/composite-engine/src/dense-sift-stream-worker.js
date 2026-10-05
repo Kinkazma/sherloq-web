@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createDenseSiftStreamMath} from './dense-sift-stream-math.js';
 import {denseGray} from './dense-math.js';
 let pending;

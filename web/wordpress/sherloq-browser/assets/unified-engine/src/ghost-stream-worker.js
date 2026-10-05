@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {Budget} from './cache.js';
 import {createElaCellRows} from './ela-cell-stream.js';
 import {wasmAllocationFailure,allocateTypedArray,allocateWasmMemory,copyTypedArray} from './allocation.js';

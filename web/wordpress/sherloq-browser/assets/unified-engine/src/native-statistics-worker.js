@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,serializeEngineError,normalizeResourceError,resourceAllocationKind} from './errors.js';
 import {copyTypedArray} from './allocation.js';
 let python,execute;

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Private, bounded RAM chunks only. No asynchronous temporary-store lifecycle
 // is hidden in the synchronous LRU. The owner admits and pins the entire value.
 const CHUNK=4*1024**2;

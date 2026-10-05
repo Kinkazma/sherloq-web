@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {checkpoint,requireValue} from './errors.js';
 import {numpySum} from './numpy-sum.js';
 

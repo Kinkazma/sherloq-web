@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,normalizeResourceError} from './errors.js';
 
 export function workerMessageFailure(label,event='message',reason='unreadable-data'){

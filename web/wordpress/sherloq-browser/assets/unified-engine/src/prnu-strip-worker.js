@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {serializeEngineError} from './errors.js';
 import {prnuStreamMath} from './prnu-stream-math.js';
 self.onmessage=async({data})=>{try{const math=await prnuStreamMath();let values;

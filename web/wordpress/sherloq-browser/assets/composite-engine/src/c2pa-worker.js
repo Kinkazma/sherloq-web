@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Rust allocation traps can escape wasm-bindgen's async promise boundary.
 self.addEventListener('error',event=>{event.preventDefault();const memory=/alloc::rust_oom|handle_alloc_error/.test(event.error?.stack??'');self.postMessage({failure:{code:memory?'MEMORY_LIMIT':'C2PA_RUNTIME',message:memory?'C2PA source or manifest exceeded its admitted memory.':'C2PA worker failed; no validation result produced.'}});});
 import init,{WasmReader} from '../vendor/c2pa/c2pa.js';

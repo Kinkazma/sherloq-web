@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort} from './errors.js';
 import {createBlobSource} from './blob-source.js';import {createTemporarySession} from './temporary-storage.js';import {createSegmentedBytes} from './segmented-bytes.js';import {createRgbSurface} from './rgb-surface.js';import {inspectJpegBlob,decodeJpegRows,JPEG_ID,jpegCodec} from './jpeg.js';
 export function contiguousSurface(pixels,budget){const store={byteLength:pixels.data.byteLength,storage:'memory',readInto(target,offset){target.set(pixels.data.subarray(offset,offset+target.length));return target;}};return createRgbSurface(store,{width:pixels.width,height:pixels.height,budget,ownsStore:false});}

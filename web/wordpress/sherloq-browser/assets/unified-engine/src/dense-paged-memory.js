@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 const MiB=1024**2;
 // dense-paged.wasm is built with MAXIMUM_MEMORY=1 GiB. Leave 24 MiB for

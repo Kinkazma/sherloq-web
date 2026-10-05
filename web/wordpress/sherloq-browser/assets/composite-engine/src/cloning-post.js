@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createCloningGroupGrid} from './cloning-group-grid.js';
 import {EngineError,checkAbort,controlCheckpoint} from './errors.js';
 import {roundEven} from './pixel-utils.js';

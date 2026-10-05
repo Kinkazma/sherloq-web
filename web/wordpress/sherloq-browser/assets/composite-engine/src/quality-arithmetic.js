@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 let ready,pending;
 export const QUALITY_HEAP_LIMIT=128*1024;

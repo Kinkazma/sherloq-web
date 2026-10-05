@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,controlCheckpoint} from './errors.js';import {WaveletStripPool} from './wavelet-strip-pool.js';import {createSsimBand} from './comparison-ssim-band.js';import {createFloatPlane} from './segmented-float-plane.js';import {pcaStreamMath} from './pca-stream-math.js';
 const MIB=1024**2;
 export function pagedSsimPlan(width,height,budget,blockPixels=65536){const room=budget.limit-budget.retained-budget.active,rows=Math.min(height,Math.max(1,Math.floor(blockPixels/width)),Math.floor((room-32*MIB)/(width*128))-Math.min(height,10));if(rows<1)throw new EngineError('MEMORY_LIMIT','One SSIM row with its native halo must fit.');const pixels=Math.min(height,rows+10)*width;return {rows,pixels,workspace:24*MIB+pixels*128};}

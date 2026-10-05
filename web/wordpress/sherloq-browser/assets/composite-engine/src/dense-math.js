@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError, requireValue, checkAbort} from './errors.js';
 const f = Math.fround;
 export const DENSE_HEAP_LIMIT = 2 ** 31;

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 export async function createDenseSiftStreamMath(){
  const {default:create}=await import('../vendor/dense-sift-stream/dense-sift-stream.js'),m=await create();

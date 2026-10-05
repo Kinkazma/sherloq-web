@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {runWithResourceRecovery} from './resource-recovery.js';
 import {serializeEngineError} from './errors.js';
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';

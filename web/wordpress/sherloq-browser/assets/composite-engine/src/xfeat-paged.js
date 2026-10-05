@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import createPost from '../vendor/xfeat-paged/post.js';
 import {XFEAT_PAGED_POST,XFEAT_PAGED_MODEL} from './xfeat-paged-assets.js';
 import {SPARSE_EXTRACT_WASM} from './sparse-extract-assets.js';

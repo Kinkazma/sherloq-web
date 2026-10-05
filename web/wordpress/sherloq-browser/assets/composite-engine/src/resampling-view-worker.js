@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {resamplingFourierView} from './resampling-fourier.js';
 self.onmessage=async({data})=>{try{
  const result={data:{magnitude:data.values,minimumMagnitude:data.low,maximumMagnitude:data.high,geometry:{outputSide:data.width}}};

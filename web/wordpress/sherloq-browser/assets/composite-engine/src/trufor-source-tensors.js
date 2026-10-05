@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort} from './errors.js';
 /** Read-only native RGB preprocessing, materializing only requested rows. */
 export function truforRgbSource(surface,{budget}={}){

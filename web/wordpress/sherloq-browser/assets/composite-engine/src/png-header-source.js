@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {imageHeader,readTiff} from './image-headers.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 // Offsets in standalone eXIf data are TIFF-relative; the public header contract

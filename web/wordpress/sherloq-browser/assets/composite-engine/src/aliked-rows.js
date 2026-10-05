@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import createPrepare from '../vendor/learned-prepare/prepare.js';
 import {LEARNED_PREPARE_WASM} from './learned-prepare-assets.js';
 import {fetchM3Asset} from './m3-asset.js';

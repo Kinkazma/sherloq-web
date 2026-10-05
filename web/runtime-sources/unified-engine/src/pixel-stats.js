@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters,rows,rgbPixels} from './pixel-utils.js';
 export const statsParams=(p={})=>parameters(p,{mode:'min',inclusive:false},{},{mode:['min','avg','max']},['inclusive']);
 export async function pixelStats(image,p,hooks={}){

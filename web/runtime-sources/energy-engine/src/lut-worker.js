@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {fusedCpu} from './ela-lut.js';
 let table;
 self.onmessage=async({data})=>{

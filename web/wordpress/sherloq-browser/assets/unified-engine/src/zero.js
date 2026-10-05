@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {nativeModuleFailure,wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkpoint,checkAbort} from './errors.js';
 let ready,pending;

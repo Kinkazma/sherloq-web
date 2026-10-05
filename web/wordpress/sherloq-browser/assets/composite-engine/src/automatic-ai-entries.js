@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {streamedD2prlRegions} from './d2prl-regions-stream.js';
 import {requireValue,checkAbort} from './errors.js';import {createCloneEntryGeometry} from './clone-entry-geometry.js';
 export async function forgeryscopeEntries(result,{budget,low=10,high=Infinity,maximumOverlap=.8,signal,wasmBinary}={}){

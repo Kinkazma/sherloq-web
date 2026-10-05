@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {TypedPages} from './m3-typed-pages.js';
 import {copyTreeRanks} from './copy-tree.js';
 import {compactCopyPoints} from './copy-spatial.js';

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
 import {localExtrema,MINMAX_PALETTE} from './minmax.js';
 import {normalizeU8} from './pixel-utils.js';

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 let ready,pending;
 export const RESAMPLING_INITIAL_HEAP=32*1024**2,RESAMPLING_HEAP_LIMIT=512*1024**2;

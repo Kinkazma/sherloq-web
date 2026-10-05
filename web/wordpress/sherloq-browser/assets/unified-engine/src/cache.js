@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,requireValue} from './errors.js';
 import {ResourceRegistry} from './resource-registry.js';
 import {createReservationTransaction} from './reservation-transaction.js';

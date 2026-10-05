@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,normalizeResourceError,serializeEngineError,resourceAllocationKind,isResumableResourceError,isRecoverableTransportError,isRecoverableNetworkError,isFixedAdmissionError,resourceRecoveryBytes} from './errors.js';
 import {ResourceRecoveryController,runWithResourceRecovery,recoverResourceFailure} from './resource-recovery.js';
 import {annotateRelations,CLONE_SOURCES} from './clone-relations.js';

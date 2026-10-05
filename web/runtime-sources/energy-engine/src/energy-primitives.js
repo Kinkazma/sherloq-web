@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Reference primitive study only. No callable ELA-energy operation is enabled.
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 const f=Math.fround,BLUE=f(.114),GREEN=f(.587),RED=f(.299);

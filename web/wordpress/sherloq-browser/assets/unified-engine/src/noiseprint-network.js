@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,requireValue} from './errors.js';
 /** Every output pixel uses the original 17-layer receptive field. Memory
  * subdivision retains the native 34-pixel halo and source-image boundaries. */

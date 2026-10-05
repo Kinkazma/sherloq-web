@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Immutable encoded source; bounded reads and incremental hashes, no Canvas.
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {readBlobBytes} from './allocation.js';

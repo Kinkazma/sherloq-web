@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 import {automaticD2prlRequest} from './automatic-ai-regions.js';
 import {d2prlEntries} from './automatic-ai-entries.js';

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 /** GPU spatial/pointwise convolutions with the native float32 FMA reduction.
  * SLEEF activations, pooling, small GEMV and decisions stay on the CPU. */

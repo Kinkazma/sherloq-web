@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 let ready,pending;export const plotsStreamHeapBytes=()=>ready?.HEAPU8.byteLength??0;
 export async function plotsStreamMath(){pending??=import('../vendor/plots-stream/plots-stream.js').then(({default:create})=>create());try{ready=await pending;}catch(e){pending=null;throw e;}const m=ready;

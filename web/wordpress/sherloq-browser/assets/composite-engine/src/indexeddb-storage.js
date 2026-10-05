@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Local asynchronous alternative when a dedicated worker cannot open OPFS.
 // IndexedDB may be memory-backed in private browser contexts; this is not mmap.
 import {EngineError,requireValue,checkAbort} from './errors.js';

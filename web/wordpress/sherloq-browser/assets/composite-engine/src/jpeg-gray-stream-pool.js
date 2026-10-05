@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createGrayStreamKernel} from './jpeg-gray-stream-kernel.js';
 import {EngineError,checkAbort,controlCheckpoint} from './errors.js';import {rgbRecompressionPlan} from './jpeg-rgb-stream.js';import {createSegmentedBytes} from './segmented-bytes.js';
 export function grayPoolShape(image){const plan=rgbRecompressionPlan(image.surface);return {...plan,encodedCapacityBytes:Math.ceil(plan.width/8)*8*Math.ceil(plan.height/8)*8*2+2048,workerBytes:plan.workingBytes+2*plan.rowBytes*plan.rows+256*1024};}

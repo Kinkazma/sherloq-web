@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {deserializeWorkerError} from './errors.js';
 import {ElasticQualityWorkers} from './elastic-quality-workers.js';
 import {scheduledWorkerCall,cancelScheduledWorkerCalls} from './scheduled-worker-call.js';

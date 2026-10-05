@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {scientificZipPlan,scientificZipLocal,scientificZipCentral,scientificZipEnd} from './scientific-zip.js';
 import {jsonExportBound} from './exports.js';
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';

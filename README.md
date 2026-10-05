@@ -28,7 +28,7 @@ Much of the implementation was produced with AI assistants. My role has been to 
 | Local resource library | Ordinary files in their original formats, folder reconnection and standard TAR import/export |
 | Results | Tool-specific views and exports; changing display controls can reuse a completed result where supported |
 
-The interface source is **0.14.3**, from `abd61d23df1d487fa81efe490bd40e76ec826764`. The engine snapshot is **0.35.0-export.2**, from `638d0f7aeebb6fc680fcd99b8af0e3977fb40284`. The runtime lock also retains earlier engine slots used by specific tools; a single version number does not replace that inventory.
+The interface source is **0.14.5**, from `869f90507f8c26454668dcd6cd4323b3da659ece`. The engine snapshot is **0.35.0-export.2**, from `638d0f7aeebb6fc680fcd99b8af0e3977fb40284`. The runtime lock also retains earlier engine slots used by specific tools; a single version number does not replace that inventory.
 
 ## Additional and restored tools
 

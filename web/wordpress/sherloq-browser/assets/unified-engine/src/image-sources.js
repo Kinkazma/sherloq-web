@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {samplePixels} from './display-sampling.js';
 import {isCameraRaw} from './media-format.js';
 import {loadExtendedImage} from './media-image-source.js';

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {magnifierRegion,magnifierLuts} from './magnifier.js';
 import {gray} from './pixel-utils.js';
 import {createSegmentedBytes} from './segmented-bytes.js';

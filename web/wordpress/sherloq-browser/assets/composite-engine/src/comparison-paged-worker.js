@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {Budget} from './cache.js';
 import {EngineError} from './errors.js';
 import {createTemporarySession} from './opfs-storage.js';

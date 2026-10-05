@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {requireValue,controlCheckpoint} from './errors.js';
 // Region transfers preserve the row-major global layout. Callers reserve strip

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {copyTypedArray} from './allocation.js';
 import {requireValue,EngineError} from './errors.js';
 import {runCfaResidentProgram} from './cfa-gpu-program.js';

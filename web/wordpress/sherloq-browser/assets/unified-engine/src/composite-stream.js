@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {NativeStatistics} from './native-statistics.js';
 import {checkAbort,EngineError,requireValue} from './errors.js';
 const MiB=1024**2,tensor=(data,dims=[data.length])=>({data,dims});

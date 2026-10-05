@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {allocateTypedArray,registerArrayViews} from './allocation.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {requireValue,EngineError,checkAbort,controlCheckpoint} from './errors.js';

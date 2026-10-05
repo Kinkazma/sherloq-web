@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue} from './errors.js';
 // Row segments form the exact x+2y wavefront, including the second-order
 // upper-right dependency. A row is published only after its writes are flushed.

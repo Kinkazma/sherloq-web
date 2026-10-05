@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {XFEAT_PAGED_MODEL} from './xfeat-paged-assets.js';
 import {createSparseSurface} from './m3-sparse-surface.js';
 import {rgbRowSource} from './rgb-row-source.js';

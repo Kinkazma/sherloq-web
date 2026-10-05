@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {prepareResearchRows} from './m3-research-rows.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';import {verifyM3Bytes,fetchM3Asset} from './m3-asset.js';
 export const SAFIRE_MODEL=Object.freeze({weightSha256:'65bdf6880380162d57f77d71b3fd367c3f16aebca316f942a821da16e9225b12',graphs:{encoder:{file:'safire-encoder-bounded.onnx',bytes:376537472,sha256:'37689702b9bdb5214795afa285c9be647394c4f7d176a0de790fb930662d7fd3'},decoder:{file:'safire-decoder.onnx',bytes:16503379,sha256:'ba7414738be54de7b05bfe89d873eb0a35f517ca9bf384d7b26ab2679fa51b58'}}});

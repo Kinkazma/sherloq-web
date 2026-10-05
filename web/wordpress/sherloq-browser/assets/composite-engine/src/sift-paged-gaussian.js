@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Same ordered float32 FMAs as the qualified native row/symmetric-column filter.
 // One support window; global octave bases and candidate dependencies stay outside.
 const code=`struct Shape { width:u32,height:u32,length:u32,pad:u32 };

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';
 import {denseDescriptorHeapBound,denseDescriptorShape,denseResidentHeapBound} from './dense-math.js';

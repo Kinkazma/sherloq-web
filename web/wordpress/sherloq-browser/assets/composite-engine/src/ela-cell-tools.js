@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Cell-only stages from native ela_biomes.py / ela_ghosts.py. Energy stays separate.
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 export const ELA_PROFILE_NAMES=Object.freeze(['luminance','chroma_red','chroma_blue','grain_1px','grain_2px']);

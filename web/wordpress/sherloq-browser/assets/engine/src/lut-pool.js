@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {fusedCpu} from './ela-lut.js';
 import {EngineError,checkAbort} from './errors.js';
 // B integration patch: scheduling only; the validated RGB LUT kernel is unchanged.

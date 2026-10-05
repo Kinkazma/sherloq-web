@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {registerArrayViews} from './allocation.js';
 import {EngineError,checkAbort,requireValue,deserializeEngineError,resourceAllocationKind} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';

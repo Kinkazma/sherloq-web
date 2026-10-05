@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Lazy initialization of the runtime used by an actual requested model job.
 // Loading this module executes no synthetic inference, warm-up or calibration.
 export async function d2prlRuntime() {

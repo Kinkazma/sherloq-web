@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {denseSumFloat32} from './dense-math.js';
 import {requireValue,createCooperator} from './errors.js';
 export const DENSE_DETAIL_POLICY=Object.freeze({minimum_ncc:.8,minimum_samples:6,maximum_samples:32,patch_width:9,alignment_radius:1,alignment_step:.5,highpass_sigma:1.2});

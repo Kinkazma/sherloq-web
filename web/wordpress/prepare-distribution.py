@@ -14,6 +14,10 @@ import shutil
 import subprocess
 import tarfile
 import zipfile
+import importlib.util
+_spec = importlib.util.spec_from_file_location("runtime_delivery", Path(__file__).with_name("runtime-delivery.py"))
+_delivery = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_delivery)
 from build import locked_files, delivery_bytes
 
 CHUNK = 100_000_000
@@ -48,6 +52,9 @@ def pack(output, source_revision=None):
     def source_bytes(source):
         name = source.relative_to(ROOT).as_posix()
         return subprocess.check_output(['git', 'show', source_revision + ':' + prefix + name], cwd=ROOT) if source_revision else source.read_bytes()
+    version = re.search(r'Version:\s*([\d.]+)', source_bytes(ROOT / 'sherloq-browser/sherloq-browser.php').decode())[1]
+    def runtime_data(relative):
+        return files['assets/' + relative].read_bytes()
     resource = output / 'public' / 'web-assets'
     slots = [str(Path(r['destination']).relative_to('sherloq-browser/assets')) for r in lock['runtimes']]
     manifest = {'schema': 'sherloq.dependencies/1', 'remoteBase': None, 'slots': slots, 'files': {}, 'chunks': {}, 'localFiles': []}
@@ -57,9 +64,16 @@ def pack(output, source_revision=None):
             if tracked is None or source.relative_to(ROOT).as_posix() in tracked:
                 put(output / 'public/web/wordpress/sherloq-browser' / name, source_bytes(source))
             continue
+        original = source.read_bytes() if source.suffix in ['.js', '.mjs'] else None
+        adapted = _delivery.adapted_runtime(relative, original, runtime_data, version) if original is not None else None
         chunks = []
-        with source.open('rb') as stream:
+        hasher = hashlib.sha256()
+        size = 0
+        stream = source.open('rb') if adapted is None else __import__('io').BytesIO(adapted)
+        with stream:
             while data := stream.read(CHUNK):
+                size += len(data)
+                hasher.update(data)
                 sha = digest(data)
                 target = resource / 'chunks' / (sha + '.bin')
                 if not target.exists():
@@ -68,20 +82,30 @@ def pack(output, source_revision=None):
                     raise ValueError('Existing chunk is corrupt: ' + sha)
                 manifest['chunks'][sha] = len(data)
                 chunks.append(sha)
-        file_hash = next(r['files'][str(source.relative_to(ROOT / r['destination']))] for r in lock['runtimes'] if source.is_relative_to(ROOT / r['destination']))
-        manifest['files'][relative] = {'sha256': file_hash, 'size': source.stat().st_size, 'type': mime(relative), 'chunks': chunks}
+        manifest['files'][relative] = {'sha256': hasher.hexdigest(), 'size': size, 'type': mime(relative), 'chunks': chunks}
         parts = Path(relative).parts
-        if parts[0].endswith('engine') and len(parts) > 2 and parts[1] in ['src', 'vendor'] and source.suffix in ['.js', '.mjs', '.json'] and source.stat().st_size <= 128 * 1024:
+        small_source = source.suffix in ['.js', '.mjs', '.json'] and size <= 128 * 1024
+        small_wasm = source.suffix == '.wasm' and size < 300 * 1024
+        if small_wasm or (small_source and parts[0].endswith('engine') and len(parts) > 2 and parts[1] in ['src', 'vendor']):
             manifest['localFiles'].append(relative)
-            put(output / 'public/web/wordpress/sherloq-browser' / name, source.read_bytes())
+            put(output / 'public/web/wordpress/sherloq-browser' / name, adapted if adapted is not None else source.read_bytes())
         # Readable runtime source and notices accompany the exact executable
         # resources. They are not fetched at startup simply because published.
         if source.suffix.lower() in {'.js', '.mjs', '.c', '.cc', '.cpp', '.h', '.hpp', '.py', '.sh', '.md', '.wgsl'} or any(x in source.name.lower() for x in ['license', 'notice', 'copyright']):
-            put(output / 'public/web/runtime-sources' / relative, source.read_bytes())
+            put(output / 'public/web/runtime-sources' / relative, adapted if adapted is not None else source.read_bytes())
     put(output / 'manifest-template.json', encode(manifest))
     put(resource / 'manifest-template.json', encode(manifest))
-    put(output / 'public/web/wordpress/runtime-lock.json', encode(lock))
-    for name in ['build.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
+    # Published resources are the executable delivery, after transport adaptation.
+    # Keep the original reviewed engine identity separately for reproducibility.
+    put(output / 'public/web/wordpress/runtime-source-lock.json', encode(lock))
+    delivered = json.loads(json.dumps(lock))
+    delivered['deliveryAdapter'] = {'script': 'runtime-delivery.py', 'uiVersion': version,
+                                  'sourceLock': 'runtime-source-lock.json'}
+    for runtime in delivered['runtimes']:
+        slot = str(Path(runtime['destination']).relative_to('sherloq-browser/assets'))
+        runtime['files'] = {name: manifest['files'][slot + '/' + name]['sha256'] for name in runtime['files']}
+    put(output / 'public/web/wordpress/runtime-lock.json', encode(delivered))
+    for name in ['build.py', 'runtime-delivery.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         put(output / 'public/web/wordpress' / name, source_bytes(ROOT / name))
     for folder in ['tests', 'scripts', 'runtime-patches']:
         for source in (ROOT / folder).rglob('*'):
@@ -112,7 +136,7 @@ def stage_engine_source(output, repository, commit):
     put(output / 'public/web/engine-source-identity.json', encode({'commit': commit, 'snapshot': 'engine-source', 'runtime': version}))
 
 
-def finalize(output, origin, *, offline=False, local_test=False):
+def finalize(output, origin, *, offline=False, local_test=False, private_overlay=None):
     if not offline:
         github = re.fullmatch(r'https://raw\.githubusercontent\.com/[^/]+/[^/]+/[a-f0-9]{40}/(?:[\w.-]+/)*', origin or '')
         local = local_test and re.fullmatch(r'http://(?:127\.0\.0\.1|localhost):\d+/(?:[\w.-]+/)*', origin or '')
@@ -144,6 +168,15 @@ def finalize(output, origin, *, offline=False, local_test=False):
     put(plugin / 'assets/dependency-sw.js', worker.encode())
     put(plugin / ('assets/dependency-manifest-' + identity + '.json'), encode(manifest))
     put(plugin / 'assets/dependency-config.json', encode({'schema': 'sherloq.dependency-config/1', 'enabled': True, 'workerType': 'classic', 'workerVersion': version, 'manifest': identity}))
+    if private_overlay:
+        for source in Path(private_overlay).rglob('*'):
+            if source.is_file() and '.git' not in source.parts and source.suffix in ['.php', '.js']:
+                name = source.relative_to(private_overlay).as_posix()
+                put(plugin / name, (delivery_bytes(name, source, version) or source.read_bytes()).replace(b'__SHERLOQ_VERSION__', version.encode()))
+        with (plugin / 'sherloq-browser.php').open('a') as f:
+            f.write("\nrequire_once __DIR__ . '/private/report.php';\n")
+        app = plugin / 'assets/app.html'
+        app.write_text(app.read_text().replace('</body>', '<script type="module" src="private-report.js?v=' + version + '"></script></body>'))
     names = sorted(p for p in plugin.rglob('*') if p.is_file() and not (p.name.startswith('dependency-manifest-') and p.name != 'dependency-manifest-' + identity + '.json'))
     size = sum(p.stat().st_size for p in names)
     if size > 20_000_000:
@@ -160,6 +193,7 @@ def finalize(output, origin, *, offline=False, local_test=False):
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--private-overlay', type=Path, help='Private site integration; included only in the private installer')
     p.add_argument('--finalize', action='store_true', help='Use already packed resources')
     p.add_argument('--origin', help='Immutable GitHub raw URL ending with /web-assets/')
     p.add_argument('--offline', action='store_true', help='Private candidate; requires importing resources before analysis')
@@ -173,4 +207,4 @@ if __name__ == '__main__':
     if a.engine_source:
         stage_engine_source(a.output, a.engine_source, a.engine_commit)
     if a.origin or a.offline or a.finalize:
-        print(json.dumps(finalize(a.output, a.origin, offline=a.offline, local_test=a.local_test), indent=2))
+        print(json.dumps(finalize(a.output, a.origin, offline=a.offline, local_test=a.local_test, private_overlay=a.private_overlay), indent=2))

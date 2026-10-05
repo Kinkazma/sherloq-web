@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createPixelStoreCache} from './pixel-store-cache.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {separationHalo,separationWorkspace,separationHeapBytes,SEPARATION_HEAP_BYTES} from './separation-math.js';

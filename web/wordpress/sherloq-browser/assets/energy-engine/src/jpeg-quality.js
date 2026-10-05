@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters,gray,roundEven,rows} from './pixel-utils.js';import {jpegHeader} from './image-headers.js';import {checkAbort,requireValue} from './errors.js';
 import {normalizeQualityCurve} from './quality-arithmetic.js';
 export function qualityParams(input={}){const p=parameters(input,{modelId:null});requireValue(p.modelId===null||typeof p.modelId==='string'&&p.modelId.length>0&&p.modelId.length<=128&&!p.modelId.includes('\0'),'Invalid JPEG-quality model id.');return p;}

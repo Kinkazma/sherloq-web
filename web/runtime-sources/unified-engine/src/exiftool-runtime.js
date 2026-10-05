@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {ZeroPerl,MemoryFileSystem} from '../vendor/exiftool/zeroperl.js';
 import {EngineError,requireValue} from './errors.js';
 export const EXIFTOOL_OUTPUT_LIMIT=8*1024**2;

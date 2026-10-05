@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters,rows} from './pixel-utils.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {resamplingFft2,resamplingPyrUp,resamplingHeapBound,resamplingHeapBytes} from './resampling-math.js';

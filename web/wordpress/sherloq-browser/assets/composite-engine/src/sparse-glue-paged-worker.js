@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {M3_ORT_ASSETS} from './m3-ort-assets.js';
 import {fetchM3Asset} from './m3-asset.js';
 import {PagedGlueAttention,glueCSR} from './sparse-glue-paged-attention.js';

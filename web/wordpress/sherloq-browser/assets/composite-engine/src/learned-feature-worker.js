@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {M3_ORT_ASSETS} from './m3-ort-assets.js';
 import {SPARSE_EXTRACT_WASM} from './sparse-extract-assets.js';
 import {boundWasmMemory} from './wasm-memory-limit.js';

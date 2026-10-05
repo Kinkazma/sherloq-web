@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {wasmAllocationFailure,nativeModuleFailure,copyTypedArray} from './allocation.js';
 import {EngineError,checkAbort,checkpoint,requireValue} from './errors.js';
 export const GRADIENT_HEAP_BYTES=64*1024**2;

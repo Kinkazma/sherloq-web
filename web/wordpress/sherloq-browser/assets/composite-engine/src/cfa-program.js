@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,EngineError} from './errors.js';
 const count=dims=>dims.reduce((a,b)=>a*b,1),shapeOf=a=>Array.isArray(a)?[a.length,...shapeOf(a[0])]:[];
 /** Executes the exported native graph with explicit float32 operator ordering.

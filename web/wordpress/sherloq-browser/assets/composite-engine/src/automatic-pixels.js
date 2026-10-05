@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {createSHA256} from '../vendor/hash-wasm/hashes.js';
 

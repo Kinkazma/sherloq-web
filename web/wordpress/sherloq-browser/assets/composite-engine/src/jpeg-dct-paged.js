@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import createModule from '../vendor/jpeg-dct-paged/jpeg-dct-paged.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 

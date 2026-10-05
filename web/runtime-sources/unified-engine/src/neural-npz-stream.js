@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import{requireValue}from'./errors.js';import{streamScientificNpz}from'./scientific-npz-stream.js';
 export function streamNeuralNpz(analysis,provenance,request,hooks){
  requireValue(analysis?.stores&&analysis.metadata&&['ai.clones.d2prl','ai.clones.segmentation'].includes(provenance?.operation),'Live neural scientific result required');

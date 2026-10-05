@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {fusedCpu} from './ela-lut.js';
 import {EngineError,checkAbort} from './errors.js';
 const OVERHEAD=4*1024**2;

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {byteRange,byteLength as rangeLength,byteView} from './memory-range.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {EngineError,requireValue,checkAbort,serializeEngineError,deserializeEngineError} from './errors.js';

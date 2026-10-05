@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {deserializeEngineError,EngineError,checkAbort,requireValue} from './errors.js';import {c2paParams,summarizeC2pa} from './c2pa-report.js';
 export {c2paParams};
 const sha=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join('');

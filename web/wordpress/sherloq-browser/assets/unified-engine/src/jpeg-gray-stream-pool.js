@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {byteLength,byteSubrange} from './memory-range.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {runWithWorkerTransportRecovery,QualityTransportQueue} from './worker-transport-recovery.js';

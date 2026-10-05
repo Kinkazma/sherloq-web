@@ -45,7 +45,7 @@ const hidden=new Set(['modelId','referenceImageId','databaseId','maskImageId','b
 const extra={
  'file.similarity':{},'m2.trufor':{},'m2.catnet':{},'m2.cfa':{variant:'Original',block:32,tile:512},
  'tampering.copyMove.sparse':{algorithm:'PatchMatch Zernike',limit:6000,radius:600,minimum:5,threshold:.3,tolerance:50,model:'Similarity',geometricThreshold:3,geometricMinimum:6,compare:false,reflections:false,autoRadius:true,compact:true,independent:true,patch:8,iterations:8,texture:2},
- 'ai.sources.safire':{side:16,groups:3,kind:'kmeans',eps:.2,minimum:1,binary:false},'ai.localization.focal':{},'ai.localization.adaifl':{},'ai.clones.d2prl':{minimum:8}
+ 'ai.sources.safire':{side:16,groups:3,kind:'kmeans',eps:.2,minimum:1,binary:false},'ai.localization.focal':{},'ai.localization.adaifl':{},'ai.clones.d2prl':{minimum:500}
 };
 for(const [id,params] of Object.entries(extra))defaults[id]={params,exports:['json']};
 // Keep the native automatic wavelet level; validate() canonicalizes the zero threshold.

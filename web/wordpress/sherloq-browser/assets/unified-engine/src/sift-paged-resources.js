@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,requireValue,deserializeEngineError,serializeEngineError} from './errors.js';
 import {ResourceRecoveryController,recoverResourceFailure} from './resource-recovery.js';
 

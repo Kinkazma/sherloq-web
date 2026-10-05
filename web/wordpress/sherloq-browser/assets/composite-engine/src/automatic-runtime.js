@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {createAutomaticAnalyzer} from './automatic-analyzer.js';
 import {automaticSelection} from './automatic-analysis-plan.js';

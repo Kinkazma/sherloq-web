@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {checkAbort} from './errors.js';
 import {identifyPrnu} from './prnu.js';
 import {segmentedPrnuResidual} from './segmented-prnu.js';

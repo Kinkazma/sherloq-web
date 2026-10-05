@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {copyTypedArray} from './allocation.js';
 import create from '../vendor/jpeg-gray/jpeg-gray.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';

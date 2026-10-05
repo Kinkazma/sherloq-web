@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {nativeModuleFailure,copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {EngineError,checkpoint,checkAbort,requireValue} from './errors.js';
 import {parameters} from './pixel-utils.js';

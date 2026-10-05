@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {denseAllocationError} from './dense-memory-error.js';
 // Emscripten malloc grows the imported linear memory through memory.grow().
 // Charge its actual capacity before growth: resizing caches can leave allocator

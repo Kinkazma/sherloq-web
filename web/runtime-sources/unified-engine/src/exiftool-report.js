@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue} from './errors.js';
 const ignored=['SourceFile','ExifTool:ExifTool','File:FileName','File:Directory','File:FileSize','File:FileModifyDate','File:FileInodeChangeDate','File:FileAccessDate','File:FileType','File:FilePermissions','File:FileTypeExtension','File:MIMEType'];
 const virtualTags=['SourceFile','File:FileName','File:Directory','File:FileModifyDate','File:FileInodeChangeDate','File:FileAccessDate','File:FilePermissions'];

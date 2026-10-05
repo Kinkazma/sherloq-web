@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {serializeEngineError} from './errors.js';
 import {echoDerivatives,echoRender} from './echo-math.js';
 self.onmessage=async({data})=>{

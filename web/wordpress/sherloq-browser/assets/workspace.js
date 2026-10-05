@@ -1,3 +1,4 @@
+import {diagnostic} from './runtime-context.js';
 import {browserLanguage} from './language.js';
 import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js';
 import {mountMediaControls} from './media-controls.js';
@@ -116,6 +117,7 @@ function createEntry(id){
  return record;
 }
 async function openTool(id){
+ diagnostic({level:'info',kind:'tool.open',operation:id});
  if(!known.has(id))return;
  if(state.documents.has(id)){selectDocument(id);return;}
  if(!currentFile){pickImage();return;}
@@ -127,6 +129,7 @@ async function openTool(id){
 }
 function remember(record){if(record.controller)savedTools[record.id]=record.controller.settings();}
 async function closeDocument(id,{force=false}={}){
+ diagnostic({level:'info',kind:'tool.close',operation:id});
  const record=state.documents.get(id);if(!record)return;
  if(!force&&record.controller?.busy&&!confirm(text('busyClose')))return;
  remember(record);state.close(id);record.element.remove();

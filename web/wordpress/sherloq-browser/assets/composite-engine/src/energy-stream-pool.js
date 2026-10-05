@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,controlCheckpoint} from './errors.js';import {rgbRecompressionPlan} from './jpeg-rgb-stream.js';import {energyStreamBytes} from './energy-stream.js';import {createSegmentedBytes} from './segmented-bytes.js';
 export function energyPoolShape(image){const plan=rgbRecompressionPlan(image.surface);return {...plan,workerBytes:plan.workingBytes+2*plan.rowBytes*plan.rows+energyStreamBytes(plan.width,plan.height)+plan.width*32*4+256*1024};}
 export async function parallelEnergyPlanes(image,qualities,count,{budget,signal,onPlane,onProgress}={}){

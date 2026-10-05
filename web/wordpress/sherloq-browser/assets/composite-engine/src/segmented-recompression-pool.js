@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,controlCheckpoint} from './errors.js';
 export const STREAM_WORKER_HEAP=32*1024**2;
 export function streamPoolShape(surface){const {width,height,sourceWidth=width}=surface.descriptor,rowBytes=width*3,rows=Math.min(height,Math.max(1,Math.floor(1024**2/rowBytes)));return {width,height,rows,workerBytes:STREAM_WORKER_HEAP+2*rows*rowBytes+1024**2,windowBytes:rows*rowBytes+sourceWidth*3+65536};}

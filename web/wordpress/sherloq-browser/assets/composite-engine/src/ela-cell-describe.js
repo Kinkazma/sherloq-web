@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,EngineError,checkAbort,controlCheckpoint} from './errors.js';
 
 const HEAP_BYTES=64*1024**2;

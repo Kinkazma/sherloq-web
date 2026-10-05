@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters} from './pixel-utils.js';import {cvFrequencyBase,cvFrequencyMask,cvFrequencyView,cvPixels} from './opencv.js';
 export const frequencyParams=(p={})=>parameters(p,{split:15,smooth:25,threshold:0,filter:0},{split:[0,100],smooth:[0,100],threshold:[0,100],filter:[0,15]});
 export async function frequencyData(image,p,hooks,{memo,frequencyGpu,backend='cpu'}={}){

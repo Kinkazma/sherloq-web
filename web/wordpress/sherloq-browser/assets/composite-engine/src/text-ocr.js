@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {gray} from './pixel-utils.js';
 import {textTiles,supportedTextBoxes,deduplicateTextBoxes,textPolygons} from './text-regions.js';

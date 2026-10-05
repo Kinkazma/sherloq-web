@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Lossless shared-budget storage for qualified segmented image adapters.
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 export async function createSegmentedBytes(byteLength,{budget,chunkBytes=4*1024**2,storage='auto',temporarySession,getTemporarySession,signal}={}){

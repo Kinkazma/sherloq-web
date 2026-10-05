@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Native global traversal with bounded caches and externally stored planes.
 // Input stores are borrowed; returned planes are owned until dispose(). No
 // image resizing, tile-local candidates, or numerical approximation is used.

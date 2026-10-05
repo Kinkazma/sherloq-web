@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';
 import {gray} from './pixel-utils.js';
 import {createFloatPlane} from './segmented-float-plane.js';

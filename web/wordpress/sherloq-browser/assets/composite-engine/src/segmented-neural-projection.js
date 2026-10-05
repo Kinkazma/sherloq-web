@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import{EngineError,requireValue,checkAbort,controlCheckpoint}from'./errors.js';
 import{createSegmentedBytes}from'./segmented-bytes.js';import{segmentationProbabilities}from'../experiments/segmentation/probabilities.js';
 const BLOCK=1048576;

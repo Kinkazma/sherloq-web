@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requestStorageDevice,storageDeviceLimits} from './gpu-limits.js';
 import {closeGpuErrorScopes} from './gpu-error-scope.js';
 import {copyTypedArray} from './allocation.js';

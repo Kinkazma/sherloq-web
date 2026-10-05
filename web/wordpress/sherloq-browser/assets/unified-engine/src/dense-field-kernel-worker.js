@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {allocateBuffer} from './allocation.js';
 import {wasmRange,byteView,closeMemoryRanges} from './memory-range.js';
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';

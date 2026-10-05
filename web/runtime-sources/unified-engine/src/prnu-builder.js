@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkpoint,checkAbort} from './errors.js';
 import {PRNU_SCHEMA,prnuAdmission} from './prnu.js';
 import {cvPrnuResidual} from './opencv.js';

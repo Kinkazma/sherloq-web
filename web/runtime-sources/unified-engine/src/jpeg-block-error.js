@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {jpegCodec} from './jpeg.js';import {checkpoint} from './errors.js';import {numpySum} from './numpy-sum.js';
 export async function jpegBlockError(image,quality,hooks={},codec=jpegCodec){
  // libjpeg clamps native quality 0 to the same table as 1; retain the requested label.

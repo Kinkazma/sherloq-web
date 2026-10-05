@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,checkAbort,controlCheckpoint,requireValue} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 // Same global pyramid and in-place update order as OpenCV. Only matrix storage

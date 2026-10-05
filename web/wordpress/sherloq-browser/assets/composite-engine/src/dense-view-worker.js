@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createDenseRegions} from './dense-regions.js';
 let math,renderer;
 self.onmessage=async({data:p})=>{try{let result;

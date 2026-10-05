@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import create from '../vendor/jpeg-gray/jpeg-gray.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 export async function decodeJpegGrayRows(source,header,store,{budget,signal,chunkBytes=4*1024**2,onProgress}={}){

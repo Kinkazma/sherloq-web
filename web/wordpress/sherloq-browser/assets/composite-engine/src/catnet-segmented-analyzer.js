@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {catnetCompanionSource} from './catnet-companion-source.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';
 import {createTemporarySession} from './temporary-storage.js';

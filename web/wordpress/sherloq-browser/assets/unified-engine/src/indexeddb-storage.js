@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {byteRange,byteLength as rangeLength,byteView} from './memory-range.js';
 // Local asynchronous alternative when a dedicated worker cannot open OPFS.
 // IndexedDB may be memory-backed in private browser contexts; this is not mmap.

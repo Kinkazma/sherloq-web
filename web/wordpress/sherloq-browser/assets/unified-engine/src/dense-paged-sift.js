@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {allocateOwnedTypedArray} from './allocation.js';
 import {EngineError,requireValue,checkAbort,isResumableResourceError,normalizeResourceError} from './errors.js';
 import {denseDescriptorShape} from './dense-math.js';

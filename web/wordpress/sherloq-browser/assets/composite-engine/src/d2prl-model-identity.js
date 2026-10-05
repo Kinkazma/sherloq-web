@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Qualified conversion identity. A caller may choose a mirror URL, not replace
 // the model/graph while claiming the same scientific qualification.
 export const D2PRL_MODEL_IDENTITY = Object.freeze({

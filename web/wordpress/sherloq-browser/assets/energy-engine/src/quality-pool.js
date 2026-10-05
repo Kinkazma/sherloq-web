@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {jpegCodec} from './jpeg.js';
 import {jpegBlockError} from './jpeg-block-error.js';
 import {describeEnergy} from './energy-primitives.js';

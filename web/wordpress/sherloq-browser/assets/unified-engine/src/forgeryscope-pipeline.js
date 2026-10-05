@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {forgeryscopeMaskField} from './forgeryscope-segmented-result.js';
 import {checkAbort,checkpoint,requireValue} from './errors.js';
 import {selectForgeryscopePanels,planForgeryscopeComparisons,classifyForgeryscopeMatch,laneOverlapGroups,bestLaneMatches,writeLaneUnion,FORGERYSCOPE_PROFILES,FORGERYSCOPE_THRESHOLDS} from './forgeryscope-decisions.js';

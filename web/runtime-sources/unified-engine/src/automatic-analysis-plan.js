@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Native automatic_clones.parameters and widget submission rules. This module
 // only plans real detector work; it neither detects panels nor fabricates results.
 import {requireValue} from './errors.js';

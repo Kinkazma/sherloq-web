@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 // NumPy NPY 1.0 in a stored ZIP; shapes/types retained, no pickle payloads.
 // Specification: https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError, checkAbort, requireValue} from './errors.js';
 import {BACKING_KINDS} from './resource-registry.js';
 

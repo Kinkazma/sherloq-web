@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Port of core/ela.py and core/utility.py; codec is a separate reference boundary.
 import { requireValue, checkpoint, checkAbort } from './errors.js';
 export const DEFAULT_ELA_PARAMS = Object.freeze({quality:75,scale:50,contrast:20,linear:false,grayscale:false});

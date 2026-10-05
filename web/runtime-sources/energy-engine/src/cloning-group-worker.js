@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {cloningGroupRows} from './cloning-post.js';
 let input;
 self.onmessage=async({data})=>{try{

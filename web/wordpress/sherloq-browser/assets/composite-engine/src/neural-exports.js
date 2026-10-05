@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {streamNeuralNpz} from './neural-npz-stream.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 // Uses the same owned export descriptor/page lifecycle as M5 raster exports.

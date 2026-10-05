@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {yoloLetterboxShape} from './forgeryscope-yolo.js';
 const MiB=1024**2;

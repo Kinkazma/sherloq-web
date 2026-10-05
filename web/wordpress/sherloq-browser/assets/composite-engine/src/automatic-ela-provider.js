@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {elaCellParams} from './ela-cell-pipeline.js';
 import {energyParams as validateEnergy} from './energy-pipeline.js';

@@ -1,0 +1,11 @@
+{
+  "gutenberg": true,
+  "isolation": {
+    "page": true,
+    "shared": true
+  },
+  "preview": true,
+  "passed": true,
+  "errors": [],
+  "consoleErrors": []
+}

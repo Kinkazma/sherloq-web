@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {checkAbort,controlCheckpoint} from './errors.js';
 
 // The owner pins the complete private RAM value. Traversal always copies into

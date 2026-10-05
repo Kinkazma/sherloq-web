@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';
 import {prnuPaddedLength} from './prnu.js';
 import {prnuStreamMath,prnuStreamHeapBytes} from './prnu-stream-math.js';

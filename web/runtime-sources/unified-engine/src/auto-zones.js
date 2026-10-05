@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // Native core/auto_zones.py panel detector. Integer RGB input; BGR palette order.
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {parameters} from './pixel-utils.js';

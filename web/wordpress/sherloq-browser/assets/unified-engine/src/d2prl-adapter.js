@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createNeuralInput} from './neural-input.js';
 import {createNeuralProjector} from './neural-projector.js';
 import {publishNeuralResult} from './publish-neural-result.js';

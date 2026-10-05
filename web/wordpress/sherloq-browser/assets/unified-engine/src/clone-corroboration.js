@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {CLONE_SOURCES,AI_SOURCES,polygon,roundEven} from './clone-relations.js';

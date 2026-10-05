@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters,roundEven} from './pixel-utils.js';
 import {checkpoint} from './errors.js';
 import {VIRIDIS} from './viridis.js';

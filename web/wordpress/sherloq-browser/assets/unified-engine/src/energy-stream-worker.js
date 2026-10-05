@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {allocateWasmMemory,copyTypedArray} from './allocation.js';
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';
 import {EngineError,serializeEngineError,deserializeEngineError} from './errors.js';

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {renderPagedDenseCopy} from './dense-paged-view.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {createDenseRegions} from './dense-regions.js';

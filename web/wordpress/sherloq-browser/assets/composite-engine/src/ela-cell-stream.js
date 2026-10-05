@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,EngineError,checkAbort,controlCheckpoint,createCooperator} from './errors.js';
 import {createRgbRecompression} from './jpeg-rgb-stream.js';
 const HEAP_BYTES=64*1024**2;

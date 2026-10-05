@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {checkAbort,controlCheckpoint} from './errors.js';
 import {numpySum} from './numpy-sum.js';
 // Sparse selected blocks use original RGB byte pages. The logical surface's

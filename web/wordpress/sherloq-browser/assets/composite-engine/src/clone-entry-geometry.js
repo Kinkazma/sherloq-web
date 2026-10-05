@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {roundEven,CLONE_SOURCES,polygonRing} from './clone-relations.js';
 import {createSHA256} from '../vendor/hash-wasm/hashes.js';

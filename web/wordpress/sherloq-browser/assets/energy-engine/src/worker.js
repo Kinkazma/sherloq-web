@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {createEngine} from './index.js';
 let engine,currentController,stopping=false,shutdown;
 function closeForCancellation(){if(shutdown)return shutdown;shutdown=(async()=>{try{self.postMessage({shutdownPhase:'closing-storage'});await engine?.dispose();self.postMessage({storageClosed:true});}catch(error){self.postMessage({storageClosed:false,shutdownError:{code:error.code??'INTERNAL'}});}})();return shutdown;}

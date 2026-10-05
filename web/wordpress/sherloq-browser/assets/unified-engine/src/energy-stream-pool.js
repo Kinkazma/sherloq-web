@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {Budget} from './cache.js';
 import {createReusableRgbWindow} from './reusable-rgb-window.js';
 import {allocateTypedArray} from './allocation.js';

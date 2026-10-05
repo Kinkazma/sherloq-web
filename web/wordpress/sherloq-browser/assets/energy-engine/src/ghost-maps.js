@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {parameters} from './pixel-utils.js';import {jpegBlockError} from './jpeg-block-error.js';import {checkpoint,requireValue} from './errors.js';import {GHOST_PALETTES} from './ghost-palettes.js';
 export function ghostParams(p={}){const v=parameters(p,{low:50,high:90,step:5,x:0,y:0,grayscale:true,includeOriginal:false},{low:[0,100],high:[0,100],step:[1,20],x:[0,7],y:[0,7]}, {},['grayscale','includeOriginal']);requireValue(v.low<=v.high,'Lower JPEG quality must not exceed upper quality.');return v;}
 async function roll(image,x,y,hooks){if(x===0&&y===0)return image;const data=new Uint8Array(image.data.length);for(let row=0;row<image.height;row++){if(row%64===0)await checkpoint(hooks.signal);for(let col=0;col<image.width;col++){const src=(((row-y+image.height)%image.height)*image.width+(col-x+image.width)%image.width)*3;data.set(image.data.subarray(src,src+3),(row*image.width+col)*3);}}return {...image,data};}

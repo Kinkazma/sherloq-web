@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {plotsParams} from './plots.js';import {plotsStreamMath,plotsStreamHeapBytes} from './plots-stream-math.js';
 import {WaveletStripPool} from './wavelet-strip-pool.js';import {createSegmentedBytes} from './segmented-bytes.js';import {createRgbSurface} from './rgb-surface.js';

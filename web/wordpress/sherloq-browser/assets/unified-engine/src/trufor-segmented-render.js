@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {neuralQuantiles} from './neural-quantiles.js';import {TRUFOR_PALETTE} from './trufor-palette.js';
 export async function renderTruforSegmented(result,view,rect,{budget,signal,onProgress}={}){

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,normalizeResourceError,resourceAllocationKind} from './errors.js';
 import {browserMemoryObservation} from './browser-memory.js';
 

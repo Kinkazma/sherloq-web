@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {byteRange,byteLength as rangeLength,byteView} from './memory-range.js';
 // Job-scoped origin-private storage. Requires a dedicated worker for sync I/O.
 // No user-visible file picker, persistence request, remote endpoint or native mmap.

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue} from './errors.js';
 
 // Restrict a defined, unshared wasm32 memory without changing instructions.

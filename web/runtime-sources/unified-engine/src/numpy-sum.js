@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 // NumPy 1.26 contiguous float64 pairwise reduction, preserving its eight lanes.
 export function numpySum(a,start=0,n=a.length){
  if(n<8){let sum=-0;for(let i=0;i<n;i++)sum+=a[start+i];return sum;}

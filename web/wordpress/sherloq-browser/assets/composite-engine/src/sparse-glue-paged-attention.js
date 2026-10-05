@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import createAttention from '../vendor/sparse-glue-paged/attention.js';
 import {SPARSE_GLUE_PAGED_WASM} from './sparse-glue-paged-assets.js';
 import {fetchM3Asset} from './m3-asset.js';

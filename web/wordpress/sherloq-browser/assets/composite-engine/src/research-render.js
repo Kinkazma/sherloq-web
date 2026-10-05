@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {INFERNO} from './research-palette.js';
 import {requireValue,checkpoint} from './errors.js';
 const colors=[[210,90,220],[255,190,70],[50,190,255],[110,220,90]],even=x=>{const lo=Math.floor(x),d=x-lo;return d===.5?lo+(lo%2):Math.round(x);};

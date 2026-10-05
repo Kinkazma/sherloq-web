@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError} from './errors.js';
 import {wasmAllocationFailure,allocateWasmMemory} from './allocation.js';
 import {wasmRange,closeMemoryRanges} from './memory-range.js';

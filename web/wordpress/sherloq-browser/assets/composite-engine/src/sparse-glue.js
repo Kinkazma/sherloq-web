@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {SPARSE_GLUE_PAGED_MODELS} from './sparse-glue-paged-assets.js';
 import {TypedPages,finishCorrespondences} from './m3-typed-pages.js';
 import {sparseGlueCandidates,selectSparseGlue} from './sparse-glue-candidates.js';

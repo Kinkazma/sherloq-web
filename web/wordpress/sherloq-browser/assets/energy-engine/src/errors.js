@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 export class EngineError extends Error {
   constructor(code, message) { super(message); this.name = 'EngineError'; this.code = code; }
 }

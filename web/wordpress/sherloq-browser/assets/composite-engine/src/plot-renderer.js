@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.14.5";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {PLOT_COLUMNS,plotStyle,plotCamera,plotMatrix,projectPlot,plotGrid} from './plot-camera.js';
 const VERTEX=`#version 300 es

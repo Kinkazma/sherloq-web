@@ -6,6 +6,7 @@ creates a new trusted baseline from whatever happens to be staged or live.
 """
 from pathlib import Path, PurePosixPath
 import argparse
+import importlib.util
 import hashlib
 import json
 import re
@@ -95,6 +96,14 @@ def main():
     version = re.search(r'Version:\s*([\d.]+)', (plugin/'sherloq-browser.php').read_text()).group(1)
     prepared = {name: value for name, source in files.items()
                 if (value := delivery_bytes(name, source, version)) is not None}
+    spec = importlib.util.spec_from_file_location('runtime_delivery', root / 'runtime-delivery.py')
+    adapter = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(adapter)
+    slots = [relative(r['destination']).relative_to('sherloq-browser').as_posix() + '/' for r in lock['runtimes']]
+    for name, source in files.items():
+        if source.suffix in ['.js', '.mjs'] and any(name.startswith(slot) for slot in slots):
+            prepared[name] = adapter.adapted_runtime(name.removeprefix('assets/'), source.read_bytes(),
+                lambda p: files['assets/' + p].read_bytes(), version)
     manifest = {name: hashlib.sha256(prepared[name]).hexdigest() if name in prepared else sha(source)
                 for name, source in files.items()}
     if args.install:
