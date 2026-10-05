@@ -143,7 +143,7 @@ def finalize(output, origin, *, offline=False, local_test=False):
                        for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'dependency-sw.js'])
     put(plugin / 'assets/dependency-sw.js', worker.encode())
     put(plugin / ('assets/dependency-manifest-' + identity + '.json'), encode(manifest))
-    put(plugin / 'assets/dependency-config.json', encode({'schema': 'sherloq.dependency-config/1', 'enabled': True, 'workerType': 'classic', 'manifest': identity}))
+    put(plugin / 'assets/dependency-config.json', encode({'schema': 'sherloq.dependency-config/1', 'enabled': True, 'workerType': 'classic', 'workerVersion': version, 'manifest': identity}))
     names = sorted(p for p in plugin.rglob('*') if p.is_file() and not (p.name.startswith('dependency-manifest-') and p.name != 'dependency-manifest-' + identity + '.json'))
     size = sum(p.stat().st_size for p in names)
     if size > 20_000_000:

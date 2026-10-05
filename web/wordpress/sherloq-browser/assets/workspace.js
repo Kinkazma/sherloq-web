@@ -1,3 +1,4 @@
+import {browserLanguage} from './language.js';
 import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js';
 import {mountMediaControls} from './media-controls.js';
 import {bindDocumentResize} from './document-resize.js';
@@ -211,6 +212,7 @@ window.addEventListener('blur',clearComparison);document.addEventListener('visib
 
 function applyMedia(){document.documentElement.style.setProperty('--ui-font',media.font==='montserrat'?'"Montserrat", Arial, sans-serif':'"iowan-old-style-bt", "Iowan Old Style", Georgia, serif');mediaUI.sync();for(const record of entries())record.controller?.setLoupe?.(media.loupe);}
 function applyPreferences(){document.documentElement.dataset.theme=theme;applyMedia();$('compute-profile').value=computeProfile;$('navigation-mode').value=navigationMode;$('highlight-tools').checked=highlight;$('workspace-app').classList.toggle('highlight-new-features',highlight);for(const record of entries()){record.controller?.setTheme(theme);record.controller?.setHighlight?.(highlight);record.controller?.setNavigation(navigationMode);record.controller?.setComputeProfile(computeProfile);}}
+state.setLanguage(browserLanguage(document.defaultView?.navigator??globalThis.navigator));
 try{const saved=JSON.parse(localStorage.getItem('sherloq.workspace.preferences'));if(saved){media=validateMediaPreferences(saved);state.restore(saved,[...known]);theme=['light','dark'].includes(saved.theme)?saved.theme:theme;computeProfile=['maximum','aggressive'].includes(saved.computeProfile)?saved.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(saved.navigationMode)?saved.navigationMode:navigationMode;highlight=saved.highlight===true;}}catch{}
 const query=new URLSearchParams(location.hash.slice(1));if(['fr','en'].includes(query.get('lang')))state.setLanguage(query.get('lang'));
 try{const home=new URL(query.get('home')||'../../../../',location.href);if(home.origin===location.origin)$('home').href=home.href;}catch{}

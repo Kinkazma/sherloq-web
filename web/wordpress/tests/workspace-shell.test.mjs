@@ -41,7 +41,7 @@ test('New-algorithm highlighting reaches existing and newly opened panel documen
 });
 
 test('shipped menu wires L, all open panels, fonts and the export chooser',async()=>{
- const h=setup(),$=id=>h.document.getElementById(id);assert.ok($('global-loupe'));assert.ok($('interface-font'));assert.ok($('image-export-dialog'));assert.equal($('app-version').textContent,'0.14.1');
+ const h=setup(),$=id=>h.document.getElementById(id);assert.ok($('global-loupe'));assert.ok($('interface-font'));assert.ok($('image-export-dialog'));assert.equal($('app-version').textContent,'0.14.2');
  await h.workspace.openImage(new Blob(['transport']));await h.workspace.openTool('ela.classic');
  const event=new h.document.defaultView.Event('keydown',{bubbles:true,cancelable:true});event.key='l';event.code='KeyQ';h.document.dispatchEvent(event);
  assert.equal($('global-loupe').checked,true);for(const c of h.controllers.values())assert.equal(c.loupe.enabled,true);

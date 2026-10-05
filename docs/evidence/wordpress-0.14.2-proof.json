@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-05T19:27:52.918Z",
+  "installer": "sherloq-browser-0.14.2-github.zip",
+  "zipSha256": "7962a853962f6f092754676c221cb769cd2d9e23577b70c78a2058e09259c9c7",
+  "origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/5b517b6972a72872d810e044fe7a85e1fc100b76/web-assets/",
+  "browser": "154.0.8037.93",
+  "startupRemoteRequests": 0,
+  "remoteRequests": 8,
+  "checks": {
+    "version": "0.35.0-export.2",
+    "exactPixels": true,
+    "webpBytes": 658,
+    "denseFloat32Rendered": true,
+    "uiVersion": "0.14.2"
+  },
+  "language": [
+    "fr-FR \u2192 fr",
+    "en-US \u2192 en"
+  ],
+  "legacyBlocked": [
+    "net::ERR_BLOCKED_BY_RESPONSE"
+  ],
+  "isolation": {
+    "page": true,
+    "worker": {
+      "isolated": true,
+      "shared": true
+    }
+  },
+  "pageErrors": [],
+  "scope": "Extracted private ZIP served by PHP with no static COEP headers, inside isolated iframe; fresh Chrome profiles; dependencies downloaded from actual pinned GitHub origin. Synthetic pixels and native dense drawing. Not a deployment test of the live WordPress host."
+}

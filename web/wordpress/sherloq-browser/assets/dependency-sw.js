@@ -16,6 +16,17 @@ const ready=(async()=>{
 self.addEventListener('install',event=>event.waitUntil(ready));
 self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));
 self.addEventListener('message',event=>{if(event.data?.type==='dependency-identity')event.waitUntil(ready.then(()=>event.ports[0]?.postMessage({manifest:manifestHash})));});
+// Hosts may ignore .htaccess for static assets. Workers must still receive
+// the same embedder policy as the PHP-served application document.
+async function localResponse(request){
+ const response=await fetch(request);
+ if(!response.ok||response.type==='opaque')return response;
+ const headers=new Headers(response.headers);
+ headers.set('Cross-Origin-Embedder-Policy','require-corp');
+ headers.set('Cross-Origin-Opener-Policy','same-origin');
+ headers.set('Cross-Origin-Resource-Policy','same-origin');
+ return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
+}
 self.addEventListener('fetch',event=>{
  const u=new URL(event.request.url);if(u.origin!==scope.origin||!u.pathname.startsWith(scope.pathname)||!['GET','HEAD'].includes(event.request.method))return;
  const path=u.pathname.slice(scope.pathname.length);
@@ -32,9 +43,9 @@ self.addEventListener('fetch',event=>{
  }
  event.respondWith((async()=>{
   const {manifest,localFiles,load}=await ready,file=manifest.files[path];
-  if(localFiles.has(path))return fetch(event.request);
+  if(localFiles.has(path))return localResponse(event.request);
   if(file)return dependencyResponse(file,manifest,load,event.request);
   if(manifest.slots.some(s=>path.startsWith(s+'/')))return new Response('Dependency absent from the locked delivery',{status:404});
-  return fetch(event.request);
+  return localResponse(event.request);
  })());
 });
