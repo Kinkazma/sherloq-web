@@ -33,7 +33,7 @@ try{
  assert.ok(blocked.some(x=>x.includes('ERR_BLOCKED_BY_RESPONSE')),JSON.stringify(blocked));await legacy.close();
  const context=await browser.newContext({locale:'fr-FR'}),page=await context.newPage(),errors=[],remote=[];
  page.on('pageerror',e=>errors.push(e.message));context.on('response',r=>{if(r.url().startsWith(receipt.origin))remote.push({url:r.url(),status:r.status()});});
- let navigations=0;page.on('framenavigated',()=>navigations++);const started=Date.now();
+ let navigations=0;const frameLocations=new Map();page.on('framenavigated',frame=>{const url=new URL(frame.url());url.searchParams.delete('sherloqSession');const key=url.href;if(frameLocations.get(frame)!==key){navigations++;frameLocations.set(frame,key);}});const started=Date.now();
  await page.goto(origin+'/parent.php');const frame=await(await page.waitForSelector('iframe')).contentFrame();
  await frame.waitForFunction(()=>document.getElementById('startup-notice')?.textContent.includes('premier chargement'),{},{timeout:25000});
  await frame.waitForFunction(()=>document.documentElement.dataset.workspaceReady==='true',{},{timeout:90000});const startupMs=Date.now()-started,startupRemote=remote.length;

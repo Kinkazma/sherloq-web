@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-05T23:57:10.987Z",
+  "origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/99a16ce0debbfba20d76029df7c12a941f446bc0/web-assets/",
+  "browser": "154.0.8037.98",
+  "startupRemoteRequests": 0,
+  "remoteRequests": 8,
+  "checks": {
+    "version": "0.35.0-export.2",
+    "exactPixels": true,
+    "webpBytes": 658,
+    "denseFloat32Rendered": true,
+    "uiVersion": "0.14.5"
+  },
+  "startup": {
+    "delayedManifestMs": 32000,
+    "elapsedMs": 50709,
+    "navigations": 2,
+    "lateInstallWithoutReload": true,
+    "transientConfigFailureRecovered": true,
+    "activeWindowPreserved": true,
+    "updateResumedAfterClose": true
+  },
+  "language": [
+    "fr-FR \u2192 fr",
+    "en-US \u2192 en"
+  ],
+  "legacyBlocked": [
+    "net::ERR_BLOCKED_BY_RESPONSE"
+  ],
+  "isolation": {
+    "page": true,
+    "worker": {
+      "isolated": true,
+      "shared": true
+    }
+  },
+  "pageErrors": [],
+  "scope": "Extracted private ZIP served by PHP with no static COEP headers, inside isolated iframe; fresh Chrome profiles; dependencies downloaded from actual pinned GitHub origin. Synthetic pixels and native dense drawing. Not a deployment test of the live WordPress host."
+}

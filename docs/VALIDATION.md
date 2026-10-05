@@ -76,3 +76,12 @@ lazy-loaded. All 191 WASM hashes are unchanged. Only JavaScript transport and
 session instrumentation are adapted. [Packaging evidence](evidence/0145-packaging-proof.json).
 These checks do not establish the original iPhone network cause or compatibility
 on a physical iPhone; desktop WebKit uses a local mirror for controlled failures.
+
+The finalized delivery also passed a fresh Chrome run against the actual pinned
+GitHub origin: eight remote requests succeeded, the synthetic lossless WebP
+export and dense Float32 rendering completed, and window/worker isolation stayed
+active. Startup required zero remote resource requests. A 32-second delayed
+manifest and transient configuration error recovered without document reload;
+an existing analysis window blocked the worker update until it closed.
+[Published-origin check](evidence/0145-published-browser-proof.json),
+[HTTP identities](evidence/0145-github-http-proof.json).
