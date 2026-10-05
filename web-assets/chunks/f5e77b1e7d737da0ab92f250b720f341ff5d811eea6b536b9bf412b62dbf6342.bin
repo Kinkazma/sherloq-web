@@ -1,0 +1,286 @@
+TAP version 13
+# Subtest: ArrayBuffer refusal retires the optional backing before idle Wasm credit and waits for ownership ACK
+ok 1 - ArrayBuffer refusal retires the optional backing before idle Wasm credit and waits for ownership ACK
+  ---
+  duration_ms: 5.580334
+  type: 'test'
+  ...
+# Subtest: cold owners of the same backing domain precede unrelated accounting reclamation
+ok 2 - cold owners of the same backing domain precede unrelated accounting reclamation
+  ---
+  duration_ms: 0.207375
+  type: 'test'
+  ...
+# Subtest: logical MEMORY_LIMIT keeps ordinary admission reclamation and preserves optional cache
+ok 3 - logical MEMORY_LIMIT keeps ordinary admission reclamation and preserves optional cache
+  ---
+  duration_ms: 0.16175
+  type: 'test'
+  ...
+# Subtest: allocation kind is explicit and GPU or Wasm faults are never tagged as ArrayBuffer pressure
+ok 4 - allocation kind is explicit and GPU or Wasm faults are never tagged as ArrayBuffer pressure
+  ---
+  duration_ms: 0.464167
+  type: 'test'
+  ...
+# Subtest: cancellation during ownership retirement never publishes premature backing credit or retries useful allocation
+ok 5 - cancellation during ownership retirement never publishes premature backing credit or retries useful allocation
+  ---
+  duration_ms: 0.491417
+  type: 'test'
+  ...
+# Subtest: serialized allocation reclaims report their own domain and ownership result
+ok 6 - serialized allocation reclaims report their own domain and ownership result
+  ---
+  duration_ms: 0.215
+  type: 'test'
+  ...
+# Subtest: memory retry resumes after a peer releases its workspace while the long group still runs
+ok 7 - memory retry resumes after a peer releases its workspace while the long group still runs
+  ---
+  duration_ms: 31.277209
+  type: 'test'
+  ...
+# Subtest: persistent memory failure waits for peers and stops after five comparable failures even when alone
+ok 8 - persistent memory failure waits for peers and stops after five comparable failures even when alone
+  ---
+  duration_ms: 266.555167
+  type: 'test'
+  ...
+# Subtest: real allocation failure waits for a peer and retains already completed scientific results
+ok 9 - real allocation failure waits for a peer and retains already completed scientific results
+  ---
+  duration_ms: 29.168208
+  type: 'test'
+  ...
+# Subtest: persistent allocator refusal stops after bounded peer-settlement retries and preserves its cause
+ok 10 - persistent allocator refusal stops after bounded peer-settlement retries and preserves its cause
+  ---
+  duration_ms: 258.659042
+  type: 'test'
+  ...
+# Subtest: useful parallel admission retries only failed groups; independent view caches retain owned frames
+ok 11 - useful parallel admission retries only failed groups; independent view caches retain owned frames
+  ---
+  duration_ms: 33.38825
+  type: 'test'
+  ...
+# Subtest: cancel retains completed groups and disposes late provider results; partial inspection remains available
+ok 12 - cancel retains completed groups and disposes late provider results; partial inspection remains available
+  ---
+  duration_ms: 3.468458
+  type: 'test'
+  ...
+# Subtest: disabled selections invoke no providers; missing engines stay explicit failures
+ok 13 - disabled selections invoke no providers; missing engines stay explicit failures
+  ---
+  duration_ms: 0.939541
+  type: 'test'
+  ...
+# Subtest: disposing during an asynchronous entry preparation disposes its late owner
+ok 14 - disposing during an asynchronous entry preparation disposes its late owner
+  ---
+  duration_ms: 0.597458
+  type: 'test'
+  ...
+# Subtest: real selected ELA composition stays alive through cached frames and session disposal
+ok 15 - real selected ELA composition stays alive through cached frames and session disposal
+  ---
+  duration_ms: 200.774833
+  type: 'test'
+  ...
+# Subtest: scientific snapshot holds raw and prepared owners and excludes concurrent refilters
+ok 16 - scientific snapshot holds raw and prepared owners and excludes concurrent refilters
+  ---
+  duration_ms: 1.617458
+  type: 'test'
+  ...
+# Subtest: disposal cancels the snapshot consumer and waits for all of its owners
+ok 17 - disposal cancels the snapshot consumer and waits for all of its owners
+  ---
+  duration_ms: 1.941834
+  type: 'test'
+  ...
+# Subtest: completed raw planes release RAM under pressure without rerunning their provider or losing export ownership
+ok 18 - completed raw planes release RAM under pressure without rerunning their provider or losing export ownership
+  ---
+  duration_ms: 2.319834
+  type: 'test'
+  ...
+# Subtest: a lone raw allocator failure resumes at full configured capacity and preserves its output
+ok 19 - a lone raw allocator failure resumes at full configured capacity and preserves its output
+  ---
+  duration_ms: 28.928083
+  type: 'test'
+  ...
+# Subtest: more than five successive incidents with committed high-water progress can finish without a lifetime cap
+ok 20 - more than five successive incidents with committed high-water progress can finish without a lifetime cap
+  ---
+  duration_ms: 217.636125
+  type: 'test'
+  ...
+# Subtest: replayed provider progress does not evade the five-failure guard and keeps original diagnostics
+ok 21 - replayed provider progress does not evade the five-failure guard and keeps original diagnostics
+  ---
+  duration_ms: 260.105209
+  type: 'test'
+  ...
+# Subtest: an exhausted inner recovery loop is terminal to the session instead of five fresh provider starts
+ok 22 - an exhausted inner recovery loop is terminal to the session instead of five fresh provider starts
+  ---
+  duration_ms: 1.049667
+  type: 'test'
+  ...
+# Subtest: recovery does not lower admission of other useful providers or replay their completed results
+ok 23 - recovery does not lower admission of other useful providers or replay their completed results
+  ---
+  duration_ms: 28.762791
+  type: 'test'
+  ...
+# Subtest: cancelling a recovery delay releases pressure and never launches the next attempt
+ok 24 - cancelling a recovery delay releases pressure and never launches the next attempt
+  ---
+  duration_ms: 0.905292
+  type: 'test'
+  ...
+# Subtest: entry preparation retries preserve scientific raw and the previous display owner until successful replacement
+ok 25 - entry preparation retries preserve scientific raw and the previous display owner until successful replacement
+  ---
+  duration_ms: 28.356833
+  type: 'test'
+  ...
+# Subtest: a reclaimer allocation failure stays within the same five-failure guard without replaying the provider
+ok 26 - a reclaimer allocation failure stays within the same five-failure guard without replaying the provider
+  ---
+  duration_ms: 233.648042
+  type: 'test'
+  ...
+# Subtest: unrelated provider defects are terminal immediately with their original stack preserved
+ok 27 - unrelated provider defects are terminal immediately with their original stack preserved
+  ---
+  duration_ms: 1.473458
+  type: 'test'
+  ...
+# Subtest: recovery tokens are concurrent, reentrant, idempotent, and leave the policy budget unchanged
+ok 28 - recovery tokens are concurrent, reentrant, idempotent, and leave the policy budget unchanged
+  ---
+  duration_ms: 3.598333
+  type: 'test'
+  ...
+# Subtest: a cancelled asynchronous reclaim releases its recovery token in finally
+ok 29 - a cancelled asynchronous reclaim releases its recovery token in finally
+  ---
+  duration_ms: 0.572333
+  type: 'test'
+  ...
+# Subtest: shared pages remain readable while concurrent recovery protects reclaimed RAM for a useful retry
+ok 30 - shared pages remain readable while concurrent recovery protects reclaimed RAM for a useful retry
+  ---
+  duration_ms: 29.934
+  type: 'test'
+  ...
+# Subtest: new optional cache metadata is deferred during recovery and a later reader can connect
+ok 31 - new optional cache metadata is deferred during recovery and a later reader can connect
+  ---
+  duration_ms: 0.785875
+  type: 'test'
+  ...
+# Subtest: allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+ok 32 - allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+  ---
+  duration_ms: 1.792292
+  type: 'test'
+  ...
+# Subtest: normalization and wire errors preserve original stack, nested cause and details
+ok 33 - normalization and wire errors preserve original stack, nested cause and details
+  ---
+  duration_ms: 1.012458
+  type: 'test'
+  ...
+# Subtest: five failures with small memory jitter form one obstruction
+ok 34 - five failures with small memory jitter form one obstruction
+  ---
+  duration_ms: 0.39725
+  type: 'test'
+  ...
+# Subtest: distinct recoveries have no lifetime limit and committed progress resets the streak
+ok 35 - distinct recoveries have no lifetime limit and committed progress resets the streak
+  ---
+  duration_ms: 1.033416
+  type: 'test'
+  ...
+# Subtest: replayed checkpoints and attempt numbers cannot reset the high-water mark
+ok 36 - replayed checkpoints and attempt numbers cannot reset the high-water mark
+  ---
+  duration_ms: 0.162583
+  type: 'test'
+  ...
+# Subtest: different useful operations and substantially different capacity start a new streak
+ok 37 - different useful operations and substantially different capacity start a new streak
+  ---
+  duration_ms: 0.21275
+  type: 'test'
+  ...
+# Subtest: recovery pressure protects reclaim through the successful useful retry and is released once
+ok 38 - recovery pressure protects reclaim through the successful useful retry and is released once
+  ---
+  duration_ms: 0.228083
+  type: 'test'
+  ...
+# Subtest: terminal unrelated errors and cancellation release recovery pressure without another operation
+ok 39 - terminal unrelated errors and cancellation release recovery pressure without another operation
+  ---
+  duration_ms: 0.490792
+  type: 'test'
+  ...
+# Subtest: five stable failures yield between retries and stop without an outer restart
+ok 40 - five stable failures yield between retries and stop without an outer restart
+  ---
+  duration_ms: 4.475375
+  type: 'test'
+  ...
+# Subtest: generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+ok 41 - generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+  ---
+  duration_ms: 0.453208
+  type: 'test'
+  ...
+# Subtest: public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+ok 42 - public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+  ---
+  duration_ms: 0.251584
+  type: 'test'
+  ...
+# Subtest: a successful owned result survives a cancellation race for caller cleanup
+ok 43 - a successful owned result survives a cancellation race for caller cleanup
+  ---
+  duration_ms: 0.091583
+  type: 'test'
+  ...
+# Subtest: allocator failures in reclaim share the suspended operation guard and keep pressure held
+ok 44 - allocator failures in reclaim share the suspended operation guard and keep pressure held
+  ---
+  duration_ms: 0.394542
+  type: 'test'
+  ...
+# Subtest: storage failures during reclaim remain terminal without replaying useful work
+ok 45 - storage failures during reclaim remain terminal without replaying useful work
+  ---
+  duration_ms: 0.127666
+  type: 'test'
+  ...
+# Subtest: alternating startup and compute phases cannot hide the same stalled operation
+ok 46 - alternating startup and compute phases cannot hide the same stalled operation
+  ---
+  duration_ms: 0.158583
+  type: 'test'
+  ...
+1..46
+# tests 46
+# suites 0
+# pass 46
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1734.430041

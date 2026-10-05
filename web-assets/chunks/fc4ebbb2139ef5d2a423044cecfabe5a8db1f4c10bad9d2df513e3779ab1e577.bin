@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-10-03T06:51:47.707236+00:00",
+  "kind": "structural diagnostic, no runtime modification or new run",
+  "engineCommit": "e1222a1f99172cc4361402ea9564d745a6aced08",
+  "version": "0.31.0-integration.24",
+  "failedRun": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-owned-readback-96mp-20261003T052054Z",
+  "startedAt": "2026-10-03T05:32:49.669Z",
+  "stoppedAt": "2026-10-03T05:50:01.865Z",
+  "wallMs": 1032196,
+  "archiveBytes": 0,
+  "failure": {
+    "code": "MEMORY_ALLOCATION",
+    "name": "EngineError",
+    "message": "Array buffer allocation failed",
+    "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at recover.bytes (http://127.0.0.1:61528/experiments/d2prl/feature-math.js:72:153)\n    at attempt (http://127.0.0.1:61528/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:61528/src/resource-recovery.js:81:44)\n    at async operation (http://127.0.0.1:61528/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:61528/experiments/d2prl/feature-math.js:72:20)\n    at async attempt (http://127.0.0.1:61528/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:61528/src/resource-recovery.js:81:38)\n    at async operation (http://127.0.0.1:61528/experiments/d2prl/recovery.js:14:16)",
+    "details": {
+      "requestedBytes": 102760448,
+      "recovery": {
+        "operation": "feature:copy:affine",
+        "phase": "feature:copy:affine",
+        "consecutiveFailures": 5,
+        "totalFailures": 8,
+        "loopDetected": true,
+        "memory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 6811004528,
+          "activeReservationBytes": 9239287565,
+          "cacheBytes": 0,
+          "requestedBytes": 102760448,
+          "availableBytes": 11437079171
+        }
+      }
+    },
+    "cause": {
+      "code": "COMPUTE_FAILED",
+      "name": "RangeError",
+      "message": "Array buffer allocation failed",
+      "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at recover.bytes (http://127.0.0.1:61528/experiments/d2prl/feature-math.js:72:153)\n    at attempt (http://127.0.0.1:61528/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:61528/src/resource-recovery.js:81:44)\n    at async operation (http://127.0.0.1:61528/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:61528/experiments/d2prl/feature-math.js:72:20)\n    at async attempt (http://127.0.0.1:61528/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:61528/src/resource-recovery.js:81:38)\n    at async operation (http://127.0.0.1:61528/experiments/d2prl/recovery.js:14:16)"
+    }
+  },
+  "recoverySummary": {
+    "observedRecoveryEvents": 7,
+    "observedReclamationEvents": 7,
+    "observedWaitEvents": 1,
+    "failureAttempts": 8,
+    "terminalConsecutiveFailures": 5,
+    "firstRecoveryElapsedMs": 1025644.0699999928,
+    "terminalElapsedMs": 1026118.6899999976,
+    "targetedArrayBufferBytes": 0,
+    "otherAccountedBytes": 1078774116,
+    "waitExitReason": "not recorded by throttled progress logger; must not infer exact triggering event"
+  },
+  "findings": [
+    {
+      "id": "unified-budget-is-not-allocator-capacity",
+      "confidence": "confirmed design defect; exact allocator exhaustion mechanism at failure is not directly measured",
+      "evidence": [
+        "src/profiles.js derives 25.5996 GiB from device RAM hint.",
+        "src/cache.js aggregates reservations, materialized backing and allocator domains.",
+        "11,437,079,171 logical bytes were available while a 102,760,448-byte ArrayBuffer allocation failed."
+      ],
+      "consequence": "More workers and logical headroom do not enlarge the renderer ArrayBuffer address pool."
+    },
+    {
+      "id": "repeated-output-materialization",
+      "confidence": "confirmed",
+      "evidence": [
+        "feature-math.js:72 exports the already computed native result through HEAPF32.slice.",
+        "neural-math, DLF, preparation, UNet Concat, descriptor buffers and CPU convolution also materialize ordinary JS outputs."
+      ],
+      "consequence": "Removing one copy moves failure to a later copy while the domain remains exhausted."
+    },
+    {
+      "id": "active-descriptor-pins",
+      "confidence": "confirmed",
+      "evidence": [
+        "segmented-bytes.js refuses cold migration while pinned.",
+        "dense-shared-field.js and DensePagedFieldPool pin immutable input banks for the whole field.",
+        "All 27 typed reclaimers visited at the terminal stage return zero targeted bytes.",
+        "Shared read cache metrics are zero throughout this run."
+      ],
+      "consequence": "The reclaim policy cannot move the large active data that dominates the allocator domain."
+    },
+    {
+      "id": "instantaneous-lease-is-not-operation-liveness",
+      "confidence": "confirmed code defect; exact wait wakeup not observable in existing trace",
+      "evidence": [
+        "DensePagedFieldPool releases then reacquires CPU leases across an await.",
+        "ElasticWorkerPool preparation leases do not declare resourceOwner.",
+        "waitForResourceOpportunity considers only currently tagged admitted leases.",
+        "PM and SIFT still publish useful progress around the terminal failure."
+      ],
+      "consequence": "A transient admission gap can prematurely end waiting despite independent useful work."
+    },
+    {
+      "id": "incomplete-global-validation-and-recovery-evidence",
+      "confidence": "confirmed",
+      "evidence": [
+        "Focused parity and injected local failures validate exact local operations, not whole-graph residence under concurrent 96 MP pressure.",
+        "The complete96 progress callback throws on the first failed detector; runner cleanup closes Chromium and deletes its temporary profile.",
+        "No process memory dump or per-domain backing inventory is recorded."
+      ],
+      "consequence": "No completed archive exists; successful peer work is not resumable from the cleaned profile, and the precise physical allocation cause remains uncertain."
+    }
+  ],
+  "recommendedArchitecture": [
+    "Keep aggregate CPU/RAM capacity; add allocator-domain ledgers and backing identity/lifetime accounting. Distinguish committed bytes, future reservations, aliases, retired references awaiting collection, Wasm virtual reservations and GPU mapping.",
+    "Allocate D2 intermediate outputs in bounded, reusable owned Wasm arenas across all helpers, graph joins, descriptor banks and CPU convolution. Preserve exact arithmetic. Keep arenas stable while views live, prevent cloning a whole arena across worker ports, and retire results at last consumer.",
+    "Propagate real allocation failures as in-session domain pressure to all subsequent useful admissions. Prefer useful OPFS-backed blocks when that domain cannot admit more; do not persist a calibration or shrink unrelated CPU/GPU quotas.",
+    "Publish dense inputs through revocable block handles. Migrate sealed blocks transactionally at quiescent task barriers, with reader acknowledgements across every sharing field, keeping target/distance/RNG state.",
+    "Use durable operation tickets with explicit ready/queued/compute/IO/recovery/dependency/completed states. Detect no-progress cycles after scheduler stabilization, not a gap between leases. Preserve five similar actual failed attempts without useful progress.",
+    "Retain committed stage ownership and record every recovery decision, domain pressure, retirement and wakeup. Separate detector failure from immediate destruction of all peer results. Validate adversarial domain pressure in development before another complete cold run."
+  ],
+  "validationPlan": [
+    "Exact native output comparison for all affected helpers, affine at128x448x448, branched UNet and Concat, GPU/Wasm chains, CPU convolution.",
+    "Multiple live arena outputs remain valid through further allocations, release, cancellation and engine disposal; bounded port transport and no retained backing after last owner.",
+    "Deterministic injected allocator-domain limits exercise global admission, worker lease gaps, repeated refusals, peer progress and reader-ACK migration, with unchanged scientific outputs.",
+    "Complete cold96 MP run includes all compute, transfers, spilling, recovery, export and readback; no production canary or pre-calibration. Completion is the acceptance criterion."
+  ],
+  "browserSources": [
+    {
+      "url": "https://raw.githubusercontent.com/chromium/chromium/154.0.8037.93/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h",
+      "sha256": "422a46eed4bea3772e54deb61dc4b2d447a178924c8d40a200dcf8cf5a34e57f",
+      "fact": "The configurable pool maximum derives from kPoolMaxSize: 8 GiB for specified configurations including PartitionAlloc pointer compression, otherwise 16 GiB on 64-bit platforms."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/chromium/chromium/154.0.8037.93/base/allocator/partition_allocator/src/partition_alloc/partition_address_space.h",
+      "sha256": "da9a95bb875bbd0b7bcd03ca94640e2096f412af03f62051c81fab6d325cef08",
+      "fact": "The ArrayBuffer-compatible configurable pool uses that maximum, with a 1 GiB minimum."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/chromium/chromium/154.0.8037.93/gin/v8_initializer.cc",
+      "sha256": "415d3413cceefba29209f21b5adbd62cc4a74c272ad828b48c8dfc7cedcfdd1a",
+      "fact": "Startup reserves the maximum configurable pool or halves it on reservation failure."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/chromium/chromium/154.0.8037.93/third_party/blink/renderer/platform/wtf/allocator/partitions.cc",
+      "sha256": "509fd8af69dc796bab2b70ccd3f741c0c02b192ccf18ed155f1a3b9f2af6e21f",
+      "fact": "Blink places its ArrayBuffer partition inside the configurable pool when the V8 sandbox is enabled."
+    }
+  ],
+  "limits": [
+    "PartitionAlloc constants establish an independent address-space constraint, not the exact configured pool size or instantaneous occupancy in this run.",
+    "No retrospective evidence distinguishes allocator fragmentation, delayed collection or OS pressure with certainty.",
+    "A RAM reservation release does not prove physical backing reclamation."
+  ],
+  "evidence": [
+    {
+      "file": "status.json",
+      "bytes": 5078,
+      "sha256": "0d8de90c0e1cf51a429e4f5c432c05d5b9248f0434157f731df4c99dc97f33b2"
+    },
+    {
+      "file": "job.json",
+      "bytes": 378,
+      "sha256": "7464c4df051e9b504b6d8d14ce198a082e32448cf996a30526c875d9bd5c98ed"
+    },
+    {
+      "file": "progress.jsonl",
+      "bytes": 8546219,
+      "sha256": "a02d5390a17e6e1716c1f2d767afe86e46ff7bd84e300659af2d9f1481b3900e"
+    },
+    {
+      "file": "incomplete.json",
+      "bytes": 5099,
+      "sha256": "4bddd001b578974152f642b77efa60c69a2734b5b793bf1d3248df7b704138f9"
+    },
+    {
+      "file": "binding.json",
+      "bytes": 1664,
+      "sha256": "7920d10b6a15ab9962bca53a67f0f711374c7269139c4f6560b04f7ebc5f3897"
+    }
+  ]
+}

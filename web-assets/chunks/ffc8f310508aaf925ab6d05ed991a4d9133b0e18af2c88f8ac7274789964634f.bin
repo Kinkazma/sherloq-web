@@ -1,0 +1,31 @@
+{
+  "opencv": "4.11.0",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "originalRadialSha256": "bc21df4203a2db0b23236dae4efa79b72c3ea4d459408adb6c8c06db15d31695",
+  "capturedRadialSha256": "32318ffb3378153168a7474554da26b106e9f0b00f3ae7e170e1c41074cb16e9",
+  "changes": "Four projection pixel reads become sample requests; input parameter becomes dimension-only shape. Native projection loops/counts preserved; fixed 180-angle Darwin libm tanf table and explicit IEEE FMA in two floating reductions match the native ARM reference.",
+  "sources": {
+    "digest-stream.cpp": "f5ec33ca18359843aa307a00eba240d958997120b716da805923636df99a12b7",
+    "digest-extra.cpp": "437d19a8ce58b810392168a8d9dd3a50f61e100f9c9337bbf7c8ba186b754315",
+    "sqrt-tables.h": "3cbe1540c9be85786deef277471aa923b25b287dc7187740bd7207c00c357e03",
+    "radial-tables.h": "efd195b078487c4311ba605861b1abfaecc7a26a224539d7cfe396e5859b5fe0",
+    "average_hash.cpp": "34c9b1a93a70217a803abb51e18737bad8e369669486f7a76b13b77c430874ee",
+    "block_mean_hash.cpp": "c43e5438b9376ee902885dfef57558cb5157818d8d249ea2f7b0e18e0f3188a3",
+    "phash.cpp": "79785f2a18e8ef57be9cc6740a5d4051cce502c9db5f3a1dafb9c6d66327dc26",
+    "img_hash_base.cpp": "8541ebbee5fb273fc01b9edbf25724db4ac32b5f638b7167c46818ae540969b5",
+    "resize.cpp": "a98a932f750a80856a190529adec9439da21b5ef2b2d73fd47635430a979553d",
+    "fixedpoint.inl.hpp": "daf6e02b7a4fba0e81393f32d62cffee43362fb0a40efac2c835005090d944fa"
+  },
+  "objects": {
+    "moments.o": "ba26eb0f91bbc71f0f323b4c8f65aad798aece25903476875f7c0ffd835bf641",
+    "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+    "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+  },
+  "files": {
+    "CAROTENE-LICENSE.txt": "ac84db19d9860ba0c22d3070d95f0c5a2c32cbb1e9e52ae0b44cc90135cc558e",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "digest-stream.js": "04c070be3c0dbf01b0af91c58ffd9d1aef8f60cc01d4db030489d69d29907550",
+    "digest-stream.wasm": "2a673faaf2efaf53737104bba264145261af6d63d9dfef2c1d3247e4a17c96fa"
+  }
+}
