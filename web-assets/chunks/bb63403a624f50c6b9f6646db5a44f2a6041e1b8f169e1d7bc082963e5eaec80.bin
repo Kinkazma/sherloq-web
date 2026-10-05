@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "version": "0.31.0-integration.24",
+  "scope": "Owned GPU readback and event-driven allocation recovery. Development regressions are not full 96 MP completion evidence.",
+  "priorFailure": "runtime-v2-gpu-readback-failure.json",
+  "policy": {
+    "lifetimeRecoveryLimit": null,
+    "consecutiveComparableFailures": 5,
+    "unchangedGlobalCpuAndRamPolicy": true,
+    "productionProbes": 0
+  },
+  "corrections": [
+    "Preserve and own the already mapped convolution output instead of duplicating it.",
+    "Return actual allocated segmented bank bytes; await optional JPEG ownership retirement.",
+    "Wait only on actual backing retirement or independent committed work while an explicitly admitted independent CPU/GPU producer is active.",
+    "Exclude waiting owners and dense field memory RPC from proof of runnable work; preserve CPU quotas and cancellation."
+  ],
+  "gpu": "runtime-v2-d2prl-gpu-owned-output-proof.json",
+  "validationState": "passed assembled development regression suite; full 96 MP outcome recorded separately",
+  "limitations": [
+    "A backing release notification records retirement of references, not forced garbage collection.",
+    "No recovery can reconstruct RAM lost with a killed browser process.",
+    "Full 96 MP outcome is recorded separately by the autonomous runner."
+  ],
+  "testedSource": {
+    "baseCommit": "bcdb1d5d8db53339e760c9cb28ab8bbfb2d3039a",
+    "workingVersion": "0.31.0-integration.24",
+    "runtimeSourceDigestSha256": "ed206755914cdce4bf37e151f8a005b726de9b5a3163c7d7c9c19417c3b3525d",
+    "digestRecipe": "SHA256 of sorted tracked src/native/vendor/experiments paths, NUL, SHA256(file), newline",
+    "recordedAt": "2026-10-03T05:27:40.072508+00:00"
+  },
+  "coreTargeted": {
+    "pass": 61,
+    "fail": 0,
+    "log": "runtime-v2-resource-opportunity/core-targeted.log"
+  },
+  "assembledTargeted": {
+    "pass": 25,
+    "fail": 0,
+    "command": "node --test tests/resource-opportunity.test.mjs tests/dense-field-resource-rpc.test.mjs tests/dense-field-parallel.test.mjs tests/segmented-backing-bytes.test.mjs"
+  },
+  "additionalOwnership": {
+    "pass": 2,
+    "fail": 0,
+    "command": "node --experimental-test-module-mocks --test tests/d2prl-owned.test.mjs tests/dense-field-lifecycle-recovery.test.mjs"
+  },
+  "chromiumDense": {
+    "reports": 15,
+    "cancellationVerified": true,
+    "command": "node tests/dense-parallel-browser.mjs",
+    "scope": "Native parallel fields and resource RPC; before the D2-only owner forwarding follow-up."
+  },
+  "finalNodeSuite": {
+    "command": "npm test",
+    "nodeVersion": "22.22.2",
+    "tests": 973,
+    "pass": 969,
+    "fail": 0,
+    "skipped": 4,
+    "duration_ms": 249442.05175,
+    "skipReasons": [
+      "Run with --experimental-test-module-mocks for isolated ownership protocol tests",
+      "Run with --experimental-test-module-mocks for isolated ownership protocol tests",
+      "Generate local native integration oracle first.",
+      "Generate local native EM oracle first."
+    ]
+  },
+  "logs": [
+    {
+      "file": "runtime-v2-resource-opportunity/assembled-targeted.log",
+      "bytes": 5744,
+      "sha256": "4d4945472452bc7f62ea01fcce0c06eb32c66f35f54cabc39e09ea0e51592cae"
+    },
+    {
+      "file": "runtime-v2-resource-opportunity/core-targeted.log",
+      "bytes": 14903,
+      "sha256": "ad20ad86b118b47a0b222f244e91fcb16ec2b3c7ad3978c346fb89a0b461e343"
+    },
+    {
+      "file": "runtime-v2-resource-opportunity/dense-chromium.log",
+      "bytes": 9437,
+      "sha256": "2ef0f6ac6073166705a1c1389789619a094455ace232a4778ef406a6fef12eb9"
+    },
+    {
+      "file": "runtime-v2-resource-opportunity/full-node.log",
+      "bytes": 228803,
+      "sha256": "c107cc509c99f26d9dcac0d1d786e437941c91c905d7e084f36bfef1b1ec9259"
+    },
+    {
+      "file": "runtime-v2-resource-opportunity/ownership-final.log",
+      "bytes": 999,
+      "sha256": "09329aaf8f316919f787cd905e9ca8cb8259a234acc13dbb1cbc9108d5883f45"
+    }
+  ]
+}
