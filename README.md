@@ -2,8 +2,6 @@
 
 ## [▶ Try SHERLOQ online](https://gaeldauchy.com/sherloq/)
 
-**Open the web workspace on [gaeldauchy.com/sherloq](https://gaeldauchy.com/sherloq/).**
-
 **SHERLOQ is the work of [Guido Bartoli and the original contributors](https://github.com/GuidoBartoli/sherloq).** I refer to the original project for its introduction, history, research references and upstream development.
 
 ## Why this is a separate repository
