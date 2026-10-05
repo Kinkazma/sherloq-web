@@ -1,0 +1,624 @@
+{
+  "job": {
+    "id": "spiral-sift-g2nn",
+    "input": "examples/spiral/edited.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "SIFT + G2NN + RANSAC"
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    }
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "a7d69e6849674bc5475ba4b2718462ccfa5b1c55874b22f56cb77e265d79e0c5",
+      "rawRgbSha256": "1c48b0807d95dfdaf438ab2618c70eebd8df76a7aca3a2aa2e229ce376bc7095"
+    }
+  ],
+  "result": {
+    "id": "spiral-sift-g2nn",
+    "imageId": "source",
+    "operation": "tampering.copyMove.sparse",
+    "status": "ok",
+    "data": {
+      "status": "ok",
+      "points": {
+        "type": "Float64Array",
+        "length": 42000
+      },
+      "pairs": {
+        "type": "Float64Array",
+        "length": 1348
+      },
+      "pair_search_regions": {
+        "type": "Int32Array",
+        "length": 337
+      },
+      "groups": [
+        {
+          "type": "Uint32Array",
+          "length": 32
+        },
+        {
+          "type": "Uint32Array",
+          "length": 37
+        },
+        {
+          "type": "Uint32Array",
+          "length": 26
+        }
+      ],
+      "models": [
+        {
+          "source_point_indices": [
+            228,
+            364,
+            1118,
+            1101,
+            1150,
+            1213,
+            1541,
+            1632,
+            1671,
+            1700,
+            1826,
+            1890,
+            2161,
+            2245,
+            2827,
+            2923,
+            2920,
+            3005,
+            3070,
+            3210,
+            3147,
+            3675,
+            3708,
+            3809,
+            3993,
+            4217,
+            4336,
+            4599,
+            4778,
+            5030,
+            5085,
+            5252
+          ],
+          "destination_point_indices": [
+            233,
+            362,
+            1093,
+            1114,
+            1148,
+            1255,
+            1605,
+            1570,
+            1649,
+            1754,
+            1842,
+            1908,
+            2202,
+            2239,
+            2937,
+            2904,
+            2921,
+            2948,
+            3012,
+            3142,
+            3152,
+            3753,
+            3799,
+            3748,
+            4092,
+            4117,
+            4404,
+            4647,
+            4769,
+            4910,
+            5117,
+            5240
+          ],
+          "parent_biome": 17,
+          "model": "Affine",
+          "matrix": [
+            [
+              0.9997674671124099,
+              0.00003723176887454388,
+              19.008833897586282
+            ],
+            [
+              -0.00016633054744562585,
+              1.0005733120817617,
+              -204.36487093467863
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 32,
+          "distinct_centres": [
+            32,
+            32
+          ],
+          "median_error_px": 0.022137854420874462,
+          "maximum_error_px": 0.11525115867609216
+        },
+        {
+          "source_point_indices": [
+            1215,
+            1289,
+            1935,
+            1968,
+            2037,
+            2127,
+            2278,
+            2541,
+            2557,
+            2628,
+            2715,
+            2782,
+            2944,
+            3011,
+            3021,
+            3101,
+            3449,
+            3374,
+            3452,
+            3535,
+            3538,
+            3591,
+            3709,
+            4003,
+            4274,
+            4310,
+            4366,
+            4435,
+            4479,
+            4667,
+            4696,
+            4962,
+            5289,
+            5264,
+            5451,
+            5783,
+            5912
+          ],
+          "destination_point_indices": [
+            1298,
+            1275,
+            1869,
+            1952,
+            2032,
+            2117,
+            2296,
+            2456,
+            2737,
+            2725,
+            2671,
+            2787,
+            3099,
+            3010,
+            3072,
+            3336,
+            3318,
+            3398,
+            3527,
+            3662,
+            3665,
+            3734,
+            3688,
+            3929,
+            4529,
+            4295,
+            4473,
+            4436,
+            4508,
+            4644,
+            4827,
+            5112,
+            5223,
+            5277,
+            5633,
+            5679,
+            5986
+          ],
+          "parent_biome": 40,
+          "model": "Affine",
+          "matrix": [
+            [
+              0.9975370067945993,
+              0.0011124664456981393,
+              -81.29136830235709
+            ],
+            [
+              -0.0018266666119812827,
+              1.0003438627166652,
+              50.214028218885105
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 37,
+          "distinct_centres": [
+            37,
+            37
+          ],
+          "median_error_px": 0.036363415866967896,
+          "maximum_error_px": 0.3969948213904748
+        },
+        {
+          "source_point_indices": [
+            236,
+            243,
+            419,
+            578,
+            657,
+            696,
+            811,
+            1154,
+            1970,
+            2118,
+            2166,
+            2485,
+            2553,
+            2674,
+            3256,
+            3269,
+            3462,
+            3577,
+            3588,
+            3885,
+            3974,
+            4027,
+            4081,
+            4178,
+            4907,
+            5770
+          ],
+          "destination_point_indices": [
+            272,
+            378,
+            1087,
+            857,
+            1116,
+            3359,
+            879,
+            2719,
+            2252,
+            2902,
+            2843,
+            2603,
+            2572,
+            2898,
+            3681,
+            3473,
+            5018,
+            3890,
+            3855,
+            3803,
+            4105,
+            4128,
+            4515,
+            4233,
+            4990,
+            5777
+          ],
+          "parent_biome": 110,
+          "model": "Affine",
+          "matrix": [
+            [
+              0.9989914807989043,
+              0.010998996684788109,
+              -27.55299648323384
+            ],
+            [
+              0.0009698618114294281,
+              0.9948543420291729,
+              133.49907061535782
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 26,
+          "distinct_centres": [
+            26,
+            26
+          ],
+          "median_error_px": 0.05972999487412007,
+          "maximum_error_px": 0.6847078006671845
+        }
+      ],
+      "total_features": 12001,
+      "candidate_comparisons": 17184912,
+      "colors": {
+        "type": "Uint8Array",
+        "length": 1011
+      },
+      "bases": [
+        [
+          242,
+          61,
+          162
+        ],
+        [
+          109,
+          242,
+          61
+        ],
+        [
+          65,
+          61,
+          242
+        ]
+      ],
+      "biome_partitions": [],
+      "params": {
+        "algorithm": "SIFT + G2NN + RANSAC",
+        "limit": 6000,
+        "radius": 600,
+        "minimum": 5,
+        "threshold": 0.7,
+        "tolerance": 50,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 24,
+        "regions": [],
+        "excluded": [],
+        "compare": false,
+        "reflections": false,
+        "autoRadius": false,
+        "compact": false,
+        "guides": [],
+        "independent": true
+      },
+      "regions": [],
+      "compare": false,
+      "backend": "cpu",
+      "feature_policy": "independent_roi_v2",
+      "distance_policy": {
+        "radii": [
+          600
+        ],
+        "comparison_radius": 600,
+        "gap": [
+          0,
+          0
+        ],
+        "compact_guides": []
+      },
+      "preprocessing": null,
+      "self_match_filter": null,
+      "rejected_biomes": [],
+      "metadata": {
+        "extraction": {
+          "family": "SIFT-G2NN",
+          "opencv": "4.11.0",
+          "featurePolicy": "independent_roi_v2",
+          "reflectedPixels": false,
+          "workers": 1,
+          "peakWorkerHeapBytes": 402063360,
+          "executions": 1,
+          "retries": 0,
+          "recovery": [],
+          "preflightExecutions": 0,
+          "inputLayout": "source-rows-gray",
+          "qualification": "native arithmetic differences unresolved"
+        },
+        "matching": {
+          "gpuBatches": 0,
+          "gpuFailure": null,
+          "integerDescriptorDistance": true,
+          "spatialArithmetic": "native-float64"
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-comparisons-documented",
+        "method": "sparse"
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "6e6aa24e-dac9-4074-bb00-8e193b0715c4",
+      "revision": 1,
+      "width": 1254,
+      "height": 1254,
+      "format": "rgb8",
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "style": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "chosen": [],
+      "hidden": [],
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "legend": [
+      [
+        0,
+        32,
+        32
+      ],
+      [
+        1,
+        37,
+        37
+      ],
+      [
+        2,
+        26,
+        26
+      ]
+    ],
+    "visible": [
+      [
+        0,
+        32
+      ],
+      [
+        1,
+        37
+      ],
+      [
+        2,
+        26
+      ]
+    ],
+    "selectedGroups": [
+      {
+        "index": 0,
+        "rows": {
+          "type": "Uint32Array",
+          "length": 32
+        }
+      },
+      {
+        "index": 1,
+        "rows": {
+          "type": "Uint32Array",
+          "length": 37
+        }
+      },
+      {
+        "index": 2,
+        "rows": {
+          "type": "Uint32Array",
+          "length": 26
+        }
+      }
+    ],
+    "layers": [
+      {
+        "id": "tampering.copyMove.sparse",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ],
+        "surfaceId": "6e6aa24e-dac9-4074-bb00-8e193b0715c4",
+        "width": 1254,
+        "height": 1254
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "tampering.copyMove.sparse",
+      "params": {
+        "algorithm": "SIFT + G2NN + RANSAC",
+        "limit": 6000,
+        "radius": 600,
+        "minimum": 5,
+        "threshold": 0.7,
+        "tolerance": 50,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 24,
+        "regions": [],
+        "excluded": [],
+        "compare": false,
+        "reflections": false,
+        "autoRadius": false,
+        "compact": false,
+        "guides": [],
+        "independent": true
+      },
+      "backend": "cpu",
+      "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "core/cloning2.py",
+      "kernelParity": "Native method, measured floating arithmetic differences; see M3 delivery proofs.",
+      "coordinates": "original-pixel-centres"
+    },
+    "metrics": {
+      "totalMs": 10466.274999976158,
+      "cache": {
+        "stages": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "result": false,
+        "proposals": false
+      },
+      "backend": "cpu",
+      "preflightExecutions": 0,
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 8536896733,
+        "retainedBytes": 13584132,
+        "cacheBytes": 3435548,
+        "activeReservationBytes": 36018179,
+        "peakAccountedBytes": 623157184,
+        "activeRecoveries": 0
+      }
+    }
+  }
+}

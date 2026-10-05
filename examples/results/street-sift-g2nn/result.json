@@ -1,0 +1,386 @@
+{
+  "job": {
+    "id": "street-sift-g2nn",
+    "input": "examples/street/edited.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "SIFT + G2NN + RANSAC"
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    }
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+  "sourceDimensions": [
+    4387,
+    3510
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 4387,
+      "height": 3510,
+      "sha256": "d203f40d0d0cf82d720461a34d5f7202672fb832ee2181593622f14224c433dd",
+      "rawRgbSha256": "720f2c27c802d3c467e65931218f02417683ca21d7b084dacfbe782cedfd83d1"
+    }
+  ],
+  "result": {
+    "id": "street-sift-g2nn",
+    "imageId": "source",
+    "operation": "tampering.copyMove.sparse",
+    "status": "ok",
+    "data": {
+      "status": "ok",
+      "points": {
+        "type": "Float64Array",
+        "length": 42000
+      },
+      "pairs": {
+        "type": "Float64Array",
+        "length": 3548
+      },
+      "pair_search_regions": {
+        "type": "Int32Array",
+        "length": 887
+      },
+      "groups": [],
+      "models": [],
+      "total_features": 12000,
+      "candidate_comparisons": 6750516,
+      "colors": {
+        "type": "Uint8Array",
+        "length": 2661
+      },
+      "bases": [],
+      "biome_partitions": [],
+      "params": {
+        "algorithm": "SIFT + G2NN + RANSAC",
+        "limit": 6000,
+        "radius": 600,
+        "minimum": 5,
+        "threshold": 0.7,
+        "tolerance": 50,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 24,
+        "regions": [],
+        "excluded": [],
+        "compare": false,
+        "reflections": false,
+        "autoRadius": false,
+        "compact": false,
+        "guides": [],
+        "independent": true
+      },
+      "regions": [],
+      "compare": false,
+      "backend": "cpu",
+      "feature_policy": "independent_roi_v2",
+      "distance_policy": {
+        "radii": [
+          600
+        ],
+        "comparison_radius": 600,
+        "gap": [
+          0,
+          0
+        ],
+        "compact_guides": []
+      },
+      "preprocessing": null,
+      "self_match_filter": null,
+      "rejected_biomes": [],
+      "metadata": {
+        "extraction": {
+          "provider": "cpu",
+          "family": "SIFT-G2NN",
+          "opencv": "4.11.0",
+          "inputLayout": "global-octave-bases",
+          "featurePolicy": "independent_roi_v2",
+          "reflectedPixels": false,
+          "preflightExecutions": 0,
+          "jobs": [
+            {
+              "sourceRows": 3510,
+              "sourceReads": 55,
+              "globalCandidates": 121974,
+              "continuationSeeds": 54,
+              "continuationWindows": 135,
+              "octaveBases": [
+                {
+                  "width": 8774,
+                  "height": 7020,
+                  "bytes": 246373920,
+                  "storage": "memory"
+                },
+                {
+                  "width": 4387,
+                  "height": 3510,
+                  "bytes": 61593480,
+                  "storage": "memory"
+                },
+                {
+                  "width": 2193,
+                  "height": 1755,
+                  "bytes": 15394860,
+                  "storage": "memory"
+                },
+                {
+                  "width": 1096,
+                  "height": 877,
+                  "bytes": 3844768,
+                  "storage": "memory"
+                },
+                {
+                  "width": 548,
+                  "height": 438,
+                  "bytes": 960096,
+                  "storage": "memory"
+                },
+                {
+                  "width": 274,
+                  "height": 219,
+                  "bytes": 240024,
+                  "storage": "memory"
+                },
+                {
+                  "width": 137,
+                  "height": 109,
+                  "bytes": 59732,
+                  "storage": "memory"
+                },
+                {
+                  "width": 68,
+                  "height": 54,
+                  "bytes": 14688,
+                  "storage": "memory"
+                },
+                {
+                  "width": 34,
+                  "height": 27,
+                  "bytes": 3672,
+                  "storage": "memory"
+                },
+                {
+                  "width": 17,
+                  "height": 13,
+                  "bytes": 884,
+                  "storage": "memory"
+                },
+                {
+                  "width": 8,
+                  "height": 6,
+                  "bytes": 192,
+                  "storage": "memory"
+                },
+                {
+                  "width": 4,
+                  "height": 3,
+                  "bytes": 48,
+                  "storage": "memory"
+                }
+              ],
+              "preflightExecutions": 0,
+              "grayScale": 1,
+              "coreSize": 1024,
+              "supportHalo": 128,
+              "workers": 2,
+              "peakHeapBytes": 83689472,
+              "executions": 361,
+              "pyramidBuilds": 297,
+              "pyramidCacheHits": 0,
+              "retries": 0,
+              "stages": [
+                {
+                  "executions": 297,
+                  "retries": 0,
+                  "peakHeapBytes": 83689472,
+                  "workers": 2,
+                  "pyramidBuilds": 234,
+                  "pyramidCacheHits": 0,
+                  "failures": [],
+                  "gaussianProvider": "cpu"
+                },
+                {
+                  "executions": 1,
+                  "retries": 0,
+                  "peakHeapBytes": 33554432,
+                  "workers": 1,
+                  "pyramidBuilds": 0,
+                  "pyramidCacheHits": 0,
+                  "failures": [],
+                  "gaussianProvider": "cpu"
+                },
+                {
+                  "executions": 63,
+                  "retries": 0,
+                  "peakHeapBytes": 83689472,
+                  "workers": 2,
+                  "pyramidBuilds": 63,
+                  "pyramidCacheHits": 0,
+                  "failures": [],
+                  "gaussianProvider": "cpu"
+                }
+              ]
+            }
+          ],
+          "workers": 2,
+          "peakWorkerHeapBytes": 83689472,
+          "executions": 361,
+          "continuationSeeds": 54,
+          "continuationWindows": 135,
+          "pyramidBuilds": 297,
+          "pyramidCacheHits": 0,
+          "retries": 0,
+          "qualification": "qualified native arithmetic with global paged dependencies"
+        },
+        "matching": {
+          "gpuBatches": 0,
+          "gpuFailure": null,
+          "integerDescriptorDistance": true,
+          "spatialArithmetic": "native-float64"
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-comparisons-documented",
+        "method": "sparse"
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "c334f504-baeb-4941-8a42-eada966aa627",
+      "revision": 1,
+      "width": 4387,
+      "height": 3510,
+      "format": "rgb8",
+      "sourceWidth": 4387,
+      "sourceHeight": 3510,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "style": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "chosen": [],
+      "hidden": [],
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "legend": [],
+    "visible": [],
+    "selectedGroups": [],
+    "layers": [
+      {
+        "id": "tampering.copyMove.sparse",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ],
+        "surfaceId": "c334f504-baeb-4941-8a42-eada966aa627",
+        "width": 4387,
+        "height": 3510
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "tampering.copyMove.sparse",
+      "params": {
+        "algorithm": "SIFT + G2NN + RANSAC",
+        "limit": 6000,
+        "radius": 600,
+        "minimum": 5,
+        "threshold": 0.7,
+        "tolerance": 50,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 24,
+        "regions": [],
+        "excluded": [],
+        "compare": false,
+        "reflections": false,
+        "autoRadius": false,
+        "compact": false,
+        "guides": [],
+        "independent": true
+      },
+      "backend": "cpu",
+      "originalSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          4387,
+          3510
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "core/cloning2.py",
+      "kernelParity": "Native method, measured floating arithmetic differences; see M3 delivery proofs.",
+      "coordinates": "original-pixel-centres"
+    },
+    "metrics": {
+      "totalMs": 92066.81499999762,
+      "cache": {
+        "stages": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "result": false,
+        "proposals": false
+      },
+      "backend": "cpu",
+      "preflightExecutions": 0,
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 8453889531,
+        "retainedBytes": 96539256,
+        "cacheBytes": 3473478,
+        "activeReservationBytes": 36032327,
+        "peakAccountedBytes": 1634450260,
+        "activeRecoveries": 0
+      }
+    }
+  }
+}

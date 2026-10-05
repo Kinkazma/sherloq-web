@@ -1,0 +1,475 @@
+{
+  "job": {
+    "id": "spiral-noisesniffer",
+    "input": "examples/spiral/edited.png",
+    "operation": "noise.noisesniffer",
+    "params": {}
+  },
+  "date": "2026-10-05",
+  "runtime": "Direct Node.js execution of the same web engine and its native WASM kernels; CPU single worker",
+  "engine": "0.35.0-export.2",
+  "sourceSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputDimensions": [
+    1254,
+    1254
+  ],
+  "outputSha256": "1a5634994f5f9e66b12ffac5420f63e37b93ddcf8cda9113a40426a87e3819e5",
+  "rawRgbSha256": "aba74cb4e10f1c53f09e51f6625c0b9a081c28e35584cfb6ea4c71593e6b2339",
+  "elapsedMs": 4861.711042,
+  "result": {
+    "id": "spiral-noisesniffer",
+    "imageId": "source",
+    "operation": "noise.noisesniffer",
+    "status": "ok",
+    "data": {
+      "width": 1254,
+      "height": 1254,
+      "selected": {
+        "type": "Uint32Array",
+        "length": 470106,
+        "sha256": "96ddfcf0e1fa846450c4df1b15b4c30c1e068324af824f4c5f24b80f51a6a401"
+      },
+      "low_noise": {
+        "type": "Uint32Array",
+        "length": 234936,
+        "sha256": "e2a0d7871fbe589e3116358a16272b13e81df56285aa18c815adf78546fb6a94"
+      },
+      "gridWidth": 13,
+      "gridHeight": 13,
+      "all_blocks": {
+        "type": "Float64Array",
+        "length": 169,
+        "sha256": "5885cbc8eeb8df9c661289baafe467e797b12f1fee58b128693fe2278fdbdb3b"
+      },
+      "low_noise_blocks": {
+        "type": "Float64Array",
+        "length": 169,
+        "sha256": "d554eea2ef5996ae4b499fb09c68962bc5cc4a3f94e3ab80cb6b24d3174d7556"
+      },
+      "mask": {
+        "type": "Uint8Array",
+        "length": 1572516,
+        "sha256": "9820abb9bee4a79e8058eb2dec4fa62c049388a55975cea5c1722232d38e8143"
+      },
+      "distribution": {
+        "type": "Uint8Array",
+        "length": 4717548,
+        "sha256": "60b46032a64cbd2f61dc39efa6256466411f8556a48d52e39aa68f129052be57"
+      },
+      "numerics": {
+        "nearGrowthBoundaries": 0,
+        "significanceGuard": 1e-9
+      },
+      "metadata": {
+        "method": "IPOL Noisesniffer",
+        "parameters": [
+          3,
+          100,
+          20000,
+          0.1,
+          0.5
+        ],
+        "valid_blocks": 1567384,
+        "selected_blocks": 470106,
+        "low_noise_blocks": 234936,
+        "regions": [
+          {
+            "cells": [
+              [
+                0,
+                10
+              ],
+              [
+                0,
+                11
+              ],
+              [
+                0,
+                12
+              ]
+            ],
+            "log10_nfa": -69.21542035229217,
+            "selected_blocks": 13781,
+            "all_blocks": 19867
+          },
+          {
+            "cells": [
+              [
+                1,
+                10
+              ],
+              [
+                0,
+                10
+              ],
+              [
+                1,
+                11
+              ],
+              [
+                0,
+                11
+              ],
+              [
+                0,
+                12
+              ]
+            ],
+            "log10_nfa": -60.3878460002018,
+            "selected_blocks": 22420,
+            "all_blocks": 35112
+          },
+          {
+            "cells": [
+              [
+                2,
+                11
+              ],
+              [
+                1,
+                11
+              ],
+              [
+                0,
+                11
+              ],
+              [
+                0,
+                12
+              ],
+              [
+                0,
+                10
+              ]
+            ],
+            "log10_nfa": -54.542141085054844,
+            "selected_blocks": 21389,
+            "all_blocks": 33676
+          },
+          {
+            "cells": [
+              [
+                5,
+                11
+              ],
+              [
+                6,
+                11
+              ],
+              [
+                7,
+                11
+              ],
+              [
+                6,
+                12
+              ],
+              [
+                6,
+                10
+              ],
+              [
+                8,
+                11
+              ],
+              [
+                7,
+                12
+              ],
+              [
+                8,
+                10
+              ]
+            ],
+            "log10_nfa": -1184.6842673604106,
+            "selected_blocks": 64185,
+            "all_blocks": 72310
+          },
+          {
+            "cells": [
+              [
+                7,
+                10
+              ],
+              [
+                8,
+                10
+              ],
+              [
+                6,
+                10
+              ],
+              [
+                7,
+                11
+              ],
+              [
+                8,
+                11
+              ],
+              [
+                6,
+                11
+              ],
+              [
+                7,
+                12
+              ],
+              [
+                5,
+                11
+              ],
+              [
+                6,
+                12
+              ]
+            ],
+            "log10_nfa": -1145.4873103473071,
+            "selected_blocks": 65677,
+            "all_blocks": 74945
+          },
+          {
+            "cells": [
+              [
+                8,
+                0
+              ],
+              [
+                9,
+                0
+              ],
+              [
+                10,
+                0
+              ],
+              [
+                11,
+                0
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                12,
+                0
+              ],
+              [
+                11,
+                1
+              ],
+              [
+                12,
+                1
+              ],
+              [
+                12,
+                2
+              ]
+            ],
+            "log10_nfa": -44.00750608275659,
+            "selected_blocks": 25352,
+            "all_blocks": 41322
+          },
+          {
+            "cells": [
+              [
+                8,
+                2
+              ],
+              [
+                9,
+                2
+              ]
+            ],
+            "log10_nfa": -72.38773960762474,
+            "selected_blocks": 12824,
+            "all_blocks": 18156
+          },
+          {
+            "cells": [
+              [
+                9,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                9,
+                2
+              ],
+              [
+                9,
+                0
+              ],
+              [
+                11,
+                1
+              ],
+              [
+                10,
+                0
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                12,
+                1
+              ],
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                2
+              ],
+              [
+                12,
+                0
+              ]
+            ],
+            "log10_nfa": -109.45331268584872,
+            "selected_blocks": 38211,
+            "all_blocks": 59471
+          },
+          {
+            "cells": [
+              [
+                11,
+                2
+              ],
+              [
+                12,
+                2
+              ],
+              [
+                11,
+                1
+              ],
+              [
+                12,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ],
+              [
+                10,
+                0
+              ],
+              [
+                9,
+                0
+              ]
+            ],
+            "log10_nfa": -46.69747168655051,
+            "selected_blocks": 25660,
+            "all_blocks": 41673
+          }
+        ],
+        "inconclusive": false
+      }
+    },
+    "semantics": "Corrected IPOL Noisesniffer local noise consistency evidence. Red marks statistically significant regions, not a manipulation probability or an authenticity verdict. Empty selections are explicitly inconclusive; near-boundary numerical cases are rejected.",
+    "layers": [
+      {
+        "id": "noisesniffer-view",
+        "kind": "rgb",
+        "field": "pixels",
+        "coordinates": "source",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ]
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "noise.noisesniffer",
+      "params": {
+        "blockSize": 3,
+        "cellSize": 100,
+        "samplesPerBin": 20000,
+        "lowFrequencyFraction": 0.1,
+        "lowNoiseFraction": 0.5,
+        "view": "regions"
+      },
+      "backend": "cpu",
+      "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "decode": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      },
+      "native": "core/noisesniffer.py + corrected IPOL 2024/462",
+      "kernelParity": "36 native statistics, 120 analyses/360 views and 24 regional cases exact; 1 MP statistic/output hashes and real worker partitions qualified in Chrome/Firefox/WebKit; corpus log10 NFA error <=1e-10 with identical decisions",
+      "semantics": "Corrected IPOL Noisesniffer local noise consistency evidence. Red marks statistically significant regions, not a manipulation probability or an authenticity verdict. Empty selections are explicitly inconclusive; near-boundary numerical cases are rejected."
+    },
+    "metrics": {
+      "totalMs": 4673.869458,
+      "cache": {
+        "result": false,
+        "stages": {
+          "statistics/3": false
+        },
+        "analysis": false,
+        "view": false
+      },
+      "kernel": "cpu-pinned-noisesniffer-fma",
+      "workers": 1,
+      "stages": {
+        "statisticsMs": 2129.3192090000002,
+        "selectionRegionsMs": 2531.4226670000003
+      },
+      "viewMs": 8.978291999999783,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "policyAvailableBytes": 4214853645,
+        "retainedBytes": 8283163,
+        "cacheBytes": 71830488,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 674851557,
+        "activeRecoveries": 0,
+        "codecHeapCapacityBytes": 78512128,
+        "hdf5HeapCapacityBytes": 0,
+        "medianHeapCapacityBytes": 0,
+        "qualityHeapCapacityBytes": 0,
+        "resamplingHeapCapacityBytes": 0,
+        "cloningHeapCapacityBytes": 0
+      }
+    }
+  }
+}

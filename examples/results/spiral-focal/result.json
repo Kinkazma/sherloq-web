@@ -1,0 +1,331 @@
+{
+  "job": {
+    "id": "spiral-focal",
+    "input": "examples/spiral/edited.png",
+    "operation": "ai.localization.focal",
+    "params": {}
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "03fa702440cafe752e949bfb9fed0b6e84078f6445cc5e917d7aa7ecc4cf1671",
+      "rawRgbSha256": "ab634e131fb10581ce9a05e7a1c73d57ea9b3e9ed869cd36a192c4a961079ed3"
+    }
+  ],
+  "result": {
+    "id": "spiral-focal",
+    "imageId": "source",
+    "operation": "ai.localization.focal",
+    "status": "ok",
+    "data": {
+      "map": {
+        "type": "Float32Array",
+        "length": 4096
+      },
+      "features": {
+        "type": "Float32Array",
+        "length": 1179648
+      },
+      "metadata": {
+        "image_shape": [
+          1254,
+          1254
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "native_shape": [
+          64,
+          64
+        ],
+        "seed": 123,
+        "clusters": 2,
+        "smallest_region_is_candidate": true,
+        "unused_checkpoint_heads": [
+          "fc.weight",
+          "fc.bias"
+        ],
+        "provider": "wasm",
+        "runs": [
+          {
+            "stage": "embedding",
+            "provider": "wasm",
+            "heapBytes": 83623936,
+            "threads": 2
+          },
+          {
+            "stage": "block-00",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-01",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-02",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-03",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-04",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-05",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-06",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-07",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-08",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-09",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-10",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-11",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-12",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-13",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-14",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-15",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-16",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-17",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-18",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-19",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-20",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-21",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-22",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "block-23",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "neck",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "hrnet",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "fusion",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          },
+          {
+            "stage": "cluster",
+            "provider": "wasm",
+            "heapBytes": 349569024,
+            "threads": 2
+          }
+        ],
+        "failures": [],
+        "attempts": 1,
+        "maximumHeapBytes": 536870912,
+        "gpuEstimatedBytes": 0,
+        "workerAdmittedBytes": 1072559616,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "result_reused": false,
+        "method": "focal"
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "a0a646a4-7209-44dd-8dea-77166bc5e3bc",
+      "revision": 1,
+      "width": 1254,
+      "height": 1254,
+      "format": "rgb8",
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "derived"
+    },
+    "style": {
+      "mode": "overlay"
+    },
+    "legend": null,
+    "layers": [
+      {
+        "id": "ai.localization.focal",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ],
+        "surfaceId": "a0a646a4-7209-44dd-8dea-77166bc5e3bc",
+        "width": 1254,
+        "height": 1254
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "ai.localization.focal",
+      "params": {},
+      "backend": "wasm",
+      "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "core/focal.py",
+      "kernelParity": "Native method, measured floating arithmetic differences; see M3 delivery proofs.",
+      "coordinates": [
+        64,
+        64
+      ]
+    },
+    "metrics": {
+      "totalMs": 53702.780000030994,
+      "cache": {
+        "result": false,
+        "proposals": false
+      },
+      "backend": "wasm",
+      "preflightExecutions": 0,
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 8533256052,
+        "retainedBytes": 13621388,
+        "cacheBytes": 4751360,
+        "activeReservationBytes": 38305792,
+        "peakAccountedBytes": 1137066264,
+        "activeRecoveries": 0
+      }
+    }
+  }
+}

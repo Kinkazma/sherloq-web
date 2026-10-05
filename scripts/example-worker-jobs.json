@@ -1,0 +1,126 @@
+[
+  {
+    "id": "spiral-patchmatch",
+    "input": "examples/spiral/edited.png",
+    "operation": "tampering.copyMove.dense",
+    "params": {
+      "profile": "PatchMatch Zernike"
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    }
+  },
+  {
+    "id": "spiral-sift-g2nn",
+    "input": "examples/spiral/edited.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "SIFT + G2NN + RANSAC"
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    }
+  },
+  {
+    "id": "street-sift-g2nn",
+    "input": "examples/street/edited.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "SIFT + G2NN + RANSAC"
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    }
+  },
+  {
+    "id": "street-noisesniffer",
+    "input": "examples/street/edited.png",
+    "operation": "noise.noisesniffer",
+    "params": {}
+  },
+  {
+    "id": "spiral-adaptive-cfa",
+    "input": "examples/spiral/edited.png",
+    "operation": "m2.cfa",
+    "params": {
+      "variant": "Original",
+      "block": 32,
+      "tile": 512
+    }
+  },
+  {
+    "id": "spiral-catnet",
+    "input": "examples/spiral/edited.png",
+    "operation": "m2.catnet",
+    "params": {}
+  },
+  {
+    "id": "spiral-focal",
+    "input": "examples/spiral/edited.png",
+    "operation": "ai.localization.focal",
+    "params": {}
+  },
+  {
+    "id": "spiral-adaifl",
+    "input": "examples/spiral/edited.png",
+    "operation": "ai.localization.adaifl",
+    "params": {}
+  },
+  {
+    "id": "spiral-safire",
+    "input": "examples/spiral/edited.png",
+    "operation": "ai.sources.safire",
+    "params": {
+      "side": 16,
+      "groups": 3,
+      "kind": "kmeans",
+      "eps": 0.2,
+      "minimum": 1,
+      "binary": false
+    }
+  },
+  {
+    "id": "spiral-d2prl",
+    "input": "examples/spiral/edited.png",
+    "operation": "ai.clones.d2prl",
+    "params": {
+      "minimum": 8
+    }
+  },
+  {
+    "id": "spiral-complete-automatic",
+    "input": "examples/spiral/edited.png",
+    "operation": "analysis.complete",
+    "params": {
+      "maxConcurrent": 1
+    },
+    "view": {}
+  },
+  {
+    "id": "street-catnet",
+    "input": "examples/street/edited.png",
+    "operation": "m2.catnet",
+    "params": {}
+  }
+]

@@ -1,0 +1,468 @@
+{
+  "date": "2026-10-05",
+  "engine": "0.35.0-export.2",
+  "scope": "Illustrative direct-engine outputs; not accuracy certification. Preview reductions are display-only.",
+  "examples": [
+    {
+      "id": "spiral-adaifl",
+      "operation": "ai.localization.adaifl",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "b8c8d9161d9bf3425f357129aca6714c5cec99089c4acab771bb00ef676b0220",
+          "rawRgbSha256": "37017bc12d458c12b73a0d408622cdeeb5fb8d87e77b8a34aaa4f57bbb9cb1f5",
+          "preview": "result.png",
+          "previewSha256": "b8c8d9161d9bf3425f357129aca6714c5cec99089c4acab771bb00ef676b0220"
+        }
+      ],
+      "recordSha256": "e2841e0c1d1d014a46eb7651bdd3e6546d56695adf65c2dcb0ca5c2880021170"
+    },
+    {
+      "id": "spiral-adaptive-cfa",
+      "operation": "m2.cfa",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "e357b5d15f1f9d6e083d154c63df02bfb33938fd09f9ceb8c2c409e4fcf96dfe",
+          "rawRgbSha256": "ec2267f05667200eb4b7f3649864236d9b157822c8436210e68567da9e3b0059",
+          "preview": "result.png",
+          "previewSha256": "e357b5d15f1f9d6e083d154c63df02bfb33938fd09f9ceb8c2c409e4fcf96dfe"
+        },
+        {
+          "file": "view-1.png",
+          "view": 1,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "c17e00cbfd1d9c87d0a41d2d8ae50f76426f58b863cf0c6656b892e341f365ac",
+          "rawRgbSha256": "9f27bff7622abef16a29d79a6334eb95b964a3b0b84f21ab55ec434f501ef1ec",
+          "preview": "view-1.png",
+          "previewSha256": "c17e00cbfd1d9c87d0a41d2d8ae50f76426f58b863cf0c6656b892e341f365ac"
+        },
+        {
+          "file": "view-2.png",
+          "view": 2,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "95008eecd1f67535a9752a38d4cd0cd7256c1bd191fe9fd12d7d4b92b280ba5f",
+          "rawRgbSha256": "901e2bd76306243e46139a8b215ba10f14a6ab295daa749a76b22e2e0b5f02d1",
+          "preview": "view-2.png",
+          "previewSha256": "95008eecd1f67535a9752a38d4cd0cd7256c1bd191fe9fd12d7d4b92b280ba5f"
+        }
+      ],
+      "recordSha256": "1c1ae3f086687b8001d7a5107bb2cb52fea2a0b8e6481a5bea208eb9be1833c2"
+    },
+    {
+      "id": "spiral-catnet",
+      "operation": "m2.catnet",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "f953cade94ee81a0fe36b23036456d7a721c4fdf449f671ca60c9a6cc85ef9c2",
+          "rawRgbSha256": "022e1ba2e3830841dc17ed6f734421cf4bd0dcb816efc0c20cdd6ce3d16f8987",
+          "preview": "result.png",
+          "previewSha256": "f953cade94ee81a0fe36b23036456d7a721c4fdf449f671ca60c9a6cc85ef9c2"
+        },
+        {
+          "file": "view-1.png",
+          "view": 1,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "92ac203c67a1e91fa6edc0f88632fca4c06ed813d771d2e1f782aae3a33aabd6",
+          "rawRgbSha256": "e49decbb32489d60087608e2a65168e2bece906065a736444a1ffae59fd99e85",
+          "preview": "view-1.png",
+          "previewSha256": "92ac203c67a1e91fa6edc0f88632fca4c06ed813d771d2e1f782aae3a33aabd6"
+        },
+        {
+          "file": "view-2.png",
+          "view": 2,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "92ac203c67a1e91fa6edc0f88632fca4c06ed813d771d2e1f782aae3a33aabd6",
+          "rawRgbSha256": "e49decbb32489d60087608e2a65168e2bece906065a736444a1ffae59fd99e85",
+          "preview": "view-2.png",
+          "previewSha256": "92ac203c67a1e91fa6edc0f88632fca4c06ed813d771d2e1f782aae3a33aabd6"
+        }
+      ],
+      "recordSha256": "66a0a54058dbee4278adce1f66b3587d6711d184f7b5166ae748f57aeb55abdc"
+    },
+    {
+      "id": "spiral-ela-energy",
+      "operation": "ela.energy",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "f3ac74699cc284a84b4a1f609f7afedf7ea13f756d4aa50ce8f5fa5cdf2836ea",
+          "rawRgbSha256": "c4b6d4d617b3e9bb809aecaed2b15aed4b2da22027c630e9a37303095a6dd256",
+          "preview": "result.png",
+          "previewSha256": "f3ac74699cc284a84b4a1f609f7afedf7ea13f756d4aa50ce8f5fa5cdf2836ea"
+        }
+      ],
+      "recordSha256": "b894ba4fc37aa1cc9a8756fa068558b510088a4c44f01caab53cd068979580f8"
+    },
+    {
+      "id": "spiral-focal",
+      "operation": "ai.localization.focal",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "03fa702440cafe752e949bfb9fed0b6e84078f6445cc5e917d7aa7ecc4cf1671",
+          "rawRgbSha256": "ab634e131fb10581ce9a05e7a1c73d57ea9b3e9ed869cd36a192c4a961079ed3",
+          "preview": "result.png",
+          "previewSha256": "03fa702440cafe752e949bfb9fed0b6e84078f6445cc5e917d7aa7ecc4cf1671"
+        }
+      ],
+      "recordSha256": "6215bdd0318e15c734beda3d337a63508b62922344761ed01270eaf173135b5c"
+    },
+    {
+      "id": "spiral-noisesniffer",
+      "operation": "noise.noisesniffer",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "1a5634994f5f9e66b12ffac5420f63e37b93ddcf8cda9113a40426a87e3819e5",
+          "rawRgbSha256": "aba74cb4e10f1c53f09e51f6625c0b9a081c28e35584cfb6ea4c71593e6b2339",
+          "preview": "result.png",
+          "previewSha256": "1a5634994f5f9e66b12ffac5420f63e37b93ddcf8cda9113a40426a87e3819e5"
+        }
+      ],
+      "recordSha256": "d902783a6311c2969b1f41183f9061be67c5c304a3adc68adc7f769be3c508f8"
+    },
+    {
+      "id": "spiral-patchmatch",
+      "operation": "tampering.copyMove.dense",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "09d502ec16fc54ccec6f2d16d01a7802a8ecdf961122d4c151aaf974e287d121",
+          "rawRgbSha256": "2e59cf6fc05731087379e73aac9f9bb02ad92274c7c47592afc86f149a92591b",
+          "preview": "result.png",
+          "previewSha256": "09d502ec16fc54ccec6f2d16d01a7802a8ecdf961122d4c151aaf974e287d121"
+        }
+      ],
+      "recordSha256": "86b4b64eba8f479e0b2e710dccadc915a86295df32c75bb721d4a6a357058995"
+    },
+    {
+      "id": "spiral-safire",
+      "operation": "ai.sources.safire",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "619130f5f6019e4b0adba0fba4715cd2414d95936f312530c9f65e938dcdc69e",
+          "rawRgbSha256": "41973dd647d07a35c37d0f8f608313c4dcb2da363965ba8561ed471c91ac9c23",
+          "preview": "result.png",
+          "previewSha256": "619130f5f6019e4b0adba0fba4715cd2414d95936f312530c9f65e938dcdc69e"
+        }
+      ],
+      "recordSha256": "6e3e6224b3107794b5d53a1a8876d4e845cb8e9368fcceb83510c441386b4c1f"
+    },
+    {
+      "id": "spiral-sift-g2nn",
+      "operation": "tampering.copyMove.sparse",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 1254,
+          "height": 1254,
+          "sha256": "a7d69e6849674bc5475ba4b2718462ccfa5b1c55874b22f56cb77e265d79e0c5",
+          "rawRgbSha256": "1c48b0807d95dfdaf438ab2618c70eebd8df76a7aca3a2aa2e229ce376bc7095",
+          "preview": "result.png",
+          "previewSha256": "a7d69e6849674bc5475ba4b2718462ccfa5b1c55874b22f56cb77e265d79e0c5"
+        }
+      ],
+      "recordSha256": "1015f2430858d038c29a39e3d1ac6adee399eb74eda4f3dcedf2999be6538070"
+    },
+    {
+      "id": "spiral-zero",
+      "operation": "jpeg.zero",
+      "input": "examples/spiral/edited.png",
+      "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "e35196409a8dc730a66e52aac3640604b291b968a728209b3baf263c904d002c",
+          "rawRgbSha256": "79e72f722ff295fba196afebe6709e8d17eb665d53c2b16e56dea44647559671",
+          "preview": "result.png",
+          "previewSha256": "e35196409a8dc730a66e52aac3640604b291b968a728209b3baf263c904d002c"
+        }
+      ],
+      "recordSha256": "4c3b36712940ad2fe738f9a61fc0f19381414923b9246319bc447a73d819c0d3"
+    },
+    {
+      "id": "street-catnet",
+      "operation": "m2.catnet",
+      "input": "examples/street/edited.png",
+      "inputSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        4387,
+        3510
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 4387,
+          "height": 3510,
+          "sha256": "d4dc6a383efaa16d80eeaa50b4e31cd3570777a37e932d0661c542bbdca9dd33",
+          "rawRgbSha256": "b8da3ec5a9ea77dd62e9f7bc0bb56843e7791fe478ec91331911cec16baec531",
+          "preview": "preview.png",
+          "previewSha256": "9e7af8c65a6767a5491bcbf58c697f1386964e4e5c2dcae5a050767e3df5a8b0"
+        },
+        {
+          "file": "view-1.png",
+          "view": 1,
+          "width": 4387,
+          "height": 3510,
+          "sha256": "532984d76fce6cf120735f922c666eb7e1b9c36b522f8433c564649772320058",
+          "rawRgbSha256": "e44f2b27bc277c6ae93327c72f791f9063080dba7eec99568249376958dd2dd5",
+          "preview": "preview-view-1.png",
+          "previewSha256": "0fc9d18c50166dacbe1d8db22fe165beb2ee13717672517881a4fb6ba70a7b4c"
+        },
+        {
+          "file": "view-2.png",
+          "view": 2,
+          "width": 4387,
+          "height": 3510,
+          "sha256": "532984d76fce6cf120735f922c666eb7e1b9c36b522f8433c564649772320058",
+          "rawRgbSha256": "e44f2b27bc277c6ae93327c72f791f9063080dba7eec99568249376958dd2dd5",
+          "preview": "preview-view-2.png",
+          "previewSha256": "0fc9d18c50166dacbe1d8db22fe165beb2ee13717672517881a4fb6ba70a7b4c"
+        }
+      ],
+      "recordSha256": "ce1b6600147974f9622f5c17395cabd8820f96d705c7aac6fbc251e0c1297b57"
+    },
+    {
+      "id": "street-dead-hot-pixels",
+      "operation": "pixels.defects",
+      "input": "examples/street/original.jpg",
+      "inputSha256": "9b97fa1e07b6c74c20a2151c0998a100b3eb04864a8b6e3349b354486853262d",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        4387,
+        3510
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 4387,
+          "height": 3510,
+          "sha256": "adaaac72fdaf5a78855b3de17b07e369783cd5fc63861c9cffec3d03615496e1",
+          "rawRgbSha256": "1e388e11b4882ff388bac16fe7f6b268bcfc05d4de7dcce5f12b23e5508762a0",
+          "preview": "preview.png",
+          "previewSha256": "fae224481c353e70de7568012be1e95987ef14e191aa0012b0b3e43909c64c9b"
+        }
+      ],
+      "recordSha256": "b2ab14a1445d72566bf46f81b1a1ffbabf7b23f316f0b33d186577f0631df07e"
+    },
+    {
+      "id": "street-ela-energy",
+      "operation": "ela.energy",
+      "input": "examples/street/edited.png",
+      "inputSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        4387,
+        3510
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 4387,
+          "height": 3510,
+          "sha256": "4b05f1d41ec9edae2a87577d91e28dd33ca5665b304cdb9d0b75e2a7c023de79",
+          "rawRgbSha256": "720f2c27c802d3c467e65931218f02417683ca21d7b084dacfbe782cedfd83d1",
+          "preview": "preview.png",
+          "previewSha256": "43cdf26bf74312ea91e98201de42976052769d5d70f0afcd1d7ee679a81ec7df"
+        }
+      ],
+      "recordSha256": "ce4d471b6bc514a5f098e4b09abaed1f2593795153c226a153bb538a8368aec6"
+    },
+    {
+      "id": "street-illuminant",
+      "operation": "various.illuminant",
+      "input": "examples/street/original.jpg",
+      "inputSha256": "9b97fa1e07b6c74c20a2151c0998a100b3eb04864a8b6e3349b354486853262d",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        4387,
+        3510
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 4387,
+          "height": 3510,
+          "sha256": "2d0caa3028537ea70dc78fa9534d52e6088ae72d287c949200b26f6567318834",
+          "rawRgbSha256": "a798365e8097f0b28299e72e865928145553ee7e19153a0ac4fd38f30f0f7f58",
+          "preview": "preview.png",
+          "previewSha256": "ef686558f30ba99f43861c040f3ba896b4f794728d4f4a72d143921ac086b19c"
+        }
+      ],
+      "recordSha256": "e7b33c6b5f67c4498079a4af4c5d97bcf6fcc5627107dbdb77367c66588a6870"
+    },
+    {
+      "id": "street-noisesniffer",
+      "operation": "noise.noisesniffer",
+      "input": "examples/street/edited.png",
+      "inputSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        4387,
+        3510
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 4387,
+          "height": 3510,
+          "sha256": "6d227ceb022439c1ef318c09029e9ec421f622417174ed58df53d56a50b0ee3d",
+          "rawRgbSha256": "df5d7a03afbdf57204b148b0c24423b2471c5f4726442a1605e41653080f18bc",
+          "preview": "preview.png",
+          "previewSha256": "98e9c1acc2c141d3005c08ded7b8c6ec76e965a7f63aaad470cab6c05ce77c01"
+        }
+      ],
+      "recordSha256": "00f77273e60054b33424ac3181356b5a73b73a780cd49ddd914e3fbc97f86cf5"
+    },
+    {
+      "id": "street-sift-g2nn",
+      "operation": "tampering.copyMove.sparse",
+      "input": "examples/street/edited.png",
+      "inputSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        4387,
+        3510
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "view": 0,
+          "width": 4387,
+          "height": 3510,
+          "sha256": "d203f40d0d0cf82d720461a34d5f7202672fb832ee2181593622f14224c433dd",
+          "rawRgbSha256": "720f2c27c802d3c467e65931218f02417683ca21d7b084dacfbe782cedfd83d1",
+          "preview": "preview.png",
+          "previewSha256": "cd02f43c2100c97230cca9a4379a9a63ba0f7b2391ba18a049ca11a840d33cbc"
+        }
+      ],
+      "recordSha256": "63ea01f298ae0dd5b80223e0b217c67a3644cfcb5ef78ceb5868304ea1318675"
+    },
+    {
+      "id": "street-zero",
+      "operation": "jpeg.zero",
+      "input": "examples/street/edited.png",
+      "inputSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        4387,
+        3510
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "width": 4387,
+          "height": 3510,
+          "sha256": "9ee792c0a5d80e6a7de49a1c177fa210445b9688c11a0fca7b0f2f440de2c182",
+          "rawRgbSha256": "5c23ab20d0c8921f7c4413356dd37b968afd18f79aef18833fb636d7f868a7ce",
+          "preview": "preview.png",
+          "previewSha256": "baf58d1669edb734d075ef275fe04481a2177c7671d6583beae95ddf02959b7a"
+        }
+      ],
+      "recordSha256": "7944ef47038a24f9e20f9421d9c3b207508b97553ab7cc277273c09467dcda09"
+    }
+  ]
+}

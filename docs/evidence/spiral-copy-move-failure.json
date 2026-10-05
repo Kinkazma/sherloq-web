@@ -1,0 +1,57 @@
+{
+  "schema": "sherloq.errors/1",
+  "errors": [
+    {
+      "time": "2026-10-05T18:54:32.605Z",
+      "context": {
+        "operation": "tampering.copyMove.dense",
+        "algorithm": "PatchMatch Zernike",
+        "parameters": {
+          "profile": "PatchMatch Zernike",
+          "patch": 8,
+          "iterations": 8,
+          "texture": 2,
+          "flip": false,
+          "auto": true,
+          "limit": 6000,
+          "radius": 600,
+          "minimum": 5,
+          "threshold": 0.3,
+          "tolerance": 50,
+          "model": "Similarity",
+          "geometricThreshold": 3,
+          "geometricMinimum": 6,
+          "compact": true,
+          "regions": [],
+          "guides": [],
+          "compare": false,
+          "excluded": []
+        },
+        "view": {
+          "low": 0,
+          "high": 100000,
+          "minimum": 4,
+          "circles": false,
+          "lines": false,
+          "points": false,
+          "areas": true,
+          "textExclusions": false
+        },
+        "backend": "auto",
+        "width": 1254,
+        "height": 1254,
+        "progress": {
+          "phase": "dense-geometry",
+          "completed": 1,
+          "total": 1
+        }
+      },
+      "error": {
+        "name": "EngineError",
+        "code": "INVALID_INPUT",
+        "message": "Invalid sparse render input.",
+        "stack": "EngineError: Invalid sparse render input.\n    at requireValue (http://127.0.0.1:62595/unified-engine/src/errors.js:61:60)\n    at Object.renderer (http://127.0.0.1:62595/unified-engine/src/copy-geometry.js:70:7)\n    at renderSparseCopy (http://127.0.0.1:62595/unified-engine/src/sparse-copy-view.js:11:294)\n    at async createSparseSurface (http://127.0.0.1:62595/unified-engine/src/m3-sparse-surface.js:11:27)\n    at async Object.run (http://127.0.0.1:62595/unified-engine/src/dense-adapter.js:36:18)\n    at async Object.run (http://127.0.0.1:62595/unified-engine/src/index.js:520:91)\n    at async installWorkerMessageProtocol.label (http://127.0.0.1:62595/unified-engine/src/worker.js:21:16)"
+      }
+    }
+  ]
+}

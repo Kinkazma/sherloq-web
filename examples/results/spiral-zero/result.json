@@ -1,0 +1,228 @@
+{
+  "job": {
+    "id": "spiral-zero",
+    "input": "examples/spiral/edited.png",
+    "operation": "jpeg.zero",
+    "params": {}
+  },
+  "date": "2026-10-05",
+  "runtime": "Direct Node.js execution of the same web engine and its native WASM kernels; CPU single worker",
+  "engine": "0.35.0-export.2",
+  "sourceSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputDimensions": [
+    1254,
+    1254
+  ],
+  "outputSha256": "e35196409a8dc730a66e52aac3640604b291b968a728209b3baf263c904d002c",
+  "rawRgbSha256": "79e72f722ff295fba196afebe6709e8d17eb665d53c2b16e56dea44647559671",
+  "elapsedMs": 2937.356667,
+  "result": {
+    "id": "spiral-zero",
+    "imageId": "source",
+    "operation": "jpeg.zero",
+    "status": "ok",
+    "masks": {
+      "mask_f": {
+        "width": 1254,
+        "height": 1254,
+        "format": "mask8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 1572516,
+          "sha256": "e51677238a1412bcb886684099fdac41236159a5edf6378c68e5cc06b50233d4"
+        },
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Foreign-grid detected vote pixels; evidence, not an authenticity verdict"
+      },
+      "mask_f_reg": {
+        "width": 1254,
+        "height": 1254,
+        "format": "mask8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 1572516,
+          "sha256": "e51677238a1412bcb886684099fdac41236159a5edf6378c68e5cc06b50233d4"
+        },
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Foreign-grid regularized regions; evidence, not an authenticity verdict"
+      },
+      "mask_m": {
+        "width": 1254,
+        "height": 1254,
+        "format": "mask8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 1572516,
+          "sha256": "e51677238a1412bcb886684099fdac41236159a5edf6378c68e5cc06b50233d4"
+        },
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Missing-grid detected vote pixels; evidence, not an authenticity verdict"
+      },
+      "mask_m_reg": {
+        "width": 1254,
+        "height": 1254,
+        "format": "mask8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 1572516,
+          "sha256": "e51677238a1412bcb886684099fdac41236159a5edf6378c68e5cc06b50233d4"
+        },
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Missing-grid regularized regions; evidence, not an authenticity verdict"
+      }
+    },
+    "data": {
+      "luminance": {
+        "type": "Float64Array",
+        "length": 1572516,
+        "sha256": "bb35739e52624d972c9d6d23e51d38bb9457b548b72c049b07a272bde8ac8419"
+      },
+      "luminance_jpeg": {
+        "type": "Float64Array",
+        "length": 1572516,
+        "sha256": "1ab787beaf3161dd769b6b415cfc27132d8f80c2f195ed69110a5a6b9b5a5a00"
+      },
+      "votes": {
+        "type": "Int32Array",
+        "length": 1572516,
+        "sha256": "d9c2ac5dec144e0c619fd2234dadb88f56f46e55726ad94c0306358760fa068e"
+      },
+      "votes_jpeg": {
+        "type": "Int32Array",
+        "length": 1572516,
+        "sha256": "3fea08d484ffa9fdb4281412682b2f3be9feaf2cf40c532734a8e71a2e9dff91"
+      },
+      "mask_f": {
+        "type": "Int32Array",
+        "length": 1572516,
+        "sha256": "f99dba20e89e3134f7505687935f1e8857790de8b7bc8960d31de6a9c6b5c876"
+      },
+      "mask_f_reg": {
+        "type": "Int32Array",
+        "length": 1572516,
+        "sha256": "f99dba20e89e3134f7505687935f1e8857790de8b7bc8960d31de6a9c6b5c876"
+      },
+      "mask_m": {
+        "type": "Int32Array",
+        "length": 1572516,
+        "sha256": "f99dba20e89e3134f7505687935f1e8857790de8b7bc8960d31de6a9c6b5c876"
+      },
+      "mask_m_reg": {
+        "type": "Int32Array",
+        "length": 1572516,
+        "sha256": "f99dba20e89e3134f7505687935f1e8857790de8b7bc8960d31de6a9c6b5c876"
+      },
+      "grid_log10_nfa": {
+        "type": "Float64Array",
+        "length": 64,
+        "sha256": "aaa4c2987c531df005588168fc8d5155127e5b88a776e27a7bd501e6f46f2af8"
+      },
+      "metadata": {
+        "method": "ZERO IPOL 2021/390",
+        "main_grid": -1,
+        "foreign_regions": [],
+        "missing_regions": [],
+        "jpeg99_used": true,
+        "missing_grid_analyzed": false,
+        "reference": false
+      },
+      "width": 1254,
+      "height": 1254,
+      "regionBounds": "inclusive xyxy",
+      "palette": {
+        "type": "Uint8Array",
+        "length": 192,
+        "sha256": "484d585bd77b5121f2c6087c5c7d06e8f05c42f402f033748366fae5acf345dd"
+      }
+    },
+    "semantics": "ZERO local JPEG grid votes, global significance and different/missing-grid regions. Red denotes a foreign grid, blue a missing grid. These are processing clues, not authenticity verdicts; grid log10 NFA is not a manipulation probability.",
+    "layers": [
+      {
+        "id": "zero-view",
+        "kind": "rgb",
+        "field": "pixels",
+        "coordinates": "source",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ]
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "jpeg.zero",
+      "params": {
+        "missing": true,
+        "view": 0
+      },
+      "backend": "cpu",
+      "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "decode": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      },
+      "native": "zero.py + ZERO 2021 C",
+      "kernelParity": "152 native analyses/760 views and 1 MP masks/votes/regions exact; log10 NFA maximum observed error 1.27e-11 with unchanged decisions; full RGB8 luminance domain exact",
+      "semantics": "ZERO local JPEG grid votes, global significance and different/missing-grid regions. Red denotes a foreign grid, blue a missing grid. These are processing clues, not authenticity verdicts; grid log10 NFA is not a manipulation probability."
+    },
+    "metrics": {
+      "totalMs": 2639.408959,
+      "cache": {
+        "result": false,
+        "analysis": false,
+        "view": false
+      },
+      "kernel": "zero-separated-threshold-filter",
+      "workers": 1,
+      "thresholdFallbacks": 49912,
+      "viewMs": 87.67087500000025,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "policyAvailableBytes": 4217487413,
+        "retainedBytes": 8283163,
+        "cacheBytes": 69196720,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 377315099,
+        "activeRecoveries": 0,
+        "codecHeapCapacityBytes": 161415168,
+        "hdf5HeapCapacityBytes": 0,
+        "medianHeapCapacityBytes": 0,
+        "qualityHeapCapacityBytes": 0,
+        "resamplingHeapCapacityBytes": 0,
+        "cloningHeapCapacityBytes": 0
+      }
+    }
+  }
+}

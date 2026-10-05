@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' https://use.typekit.net https://p.typekit.net; font-src 'self' https://use.typekit.net; img-src 'self' blob: data:; connect-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"><title>SHERLOQ</title><link rel="stylesheet" href="app.css"><link rel="stylesheet" href="workspace-shell.css"><script type="module" src="fonts.js"></script></head>
-<body><div id="workspace-app">
+<body><div id="startup-notice" role="status" aria-live="polite">Chargement de SHERLOQ… / Loading SHERLOQ…</div>
+<div id="workspace-app" inert>
 <header class="app-toolbar">
- <strong class="brand">SHERLOQ <small>Browser · <span id="app-version">0.14.2</span></small></strong>
+ <strong class="brand">SHERLOQ <small>Browser · <span id="app-version">0.14.3</span></small></strong>
  <details id="file-menu" class="app-menu"><summary data-label="file"></summary><div>
   <button id="open-file-menu" data-label="open"></button><button id="quick-export-image" data-label="quickExport" disabled></button><button id="export-image" data-label="exportImage" disabled></button><button id="export-report" data-label="exportReport" disabled></button><hr>
   <button id="save-session" data-label="saveSession" disabled></button><button id="restore-session" data-label="restoreSession"></button>

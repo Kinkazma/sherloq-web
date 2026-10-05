@@ -21,10 +21,10 @@ npm test
 python3 build.py --frozen
 ```
 
-Reconstruction verifies all 5,237 ordinary files (6,856,237,451 bytes). The 4,224 unique pieces occupy 6,607,933,466 bytes. Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
+Reconstruction verifies all 5,237 ordinary files (6,856,237,948 bytes). The 4,225 unique pieces occupy 6,607,936,750 bytes. Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
 
 The manifest template deliberately has no remote origin. A deployment origin identifies `web-assets/` at a full 40-character Git commit SHA; the source includes the finalization and browser-check scripts. The scientific runtime resources are immutable. A GitHub branch URL or a Release download is not an interchangeable origin.
 
-The WordPress workspace is inserted with the SHERLOQ Browser Lab block or the shortcode `[sherloq_browser language="fr" height="920"]`. Use HTTPS or localhost. Browser support for workers, storage, isolation and GPU operations must be verified in the hosting environment.
+The WordPress workspace is inserted with the SHERLOQ Browser Lab block or the shortcode `[sherloq_browser language="auto" height="920"]`. Use HTTPS or localhost. Browser support for workers, storage, isolation and GPU operations must be verified in the hosting environment.
 
 The engine's internal README and qualification reports are development history tied to their individual versions. Use `engine-source-identity.json`, `runtime-lock.json` and the distribution evidence to identify this snapshot; historical headings do not supersede those identities.

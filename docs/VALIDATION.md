@@ -2,7 +2,7 @@
 
 ## Resource integrity
 
-Publication preparation independently checked SHA-256 and size for every one of the 4,224 pieces and streamed reconstruction hashes for all 5,237 original resources. All passed. Every file in the supplied public tree is at most 100,000,000 bytes.
+For the initial delivery, publication preparation independently checked SHA-256 and size for every one of the 4,224 pieces and streamed reconstruction hashes for all 5,237 original resources. All passed. The five replacement runtime resources in the Copy-Move correction were subsequently checked against their supplied hashes. The current manifest uses 4,225 unique pieces for the same 5,237 reconstructed files; historical pieces remain available at their immutable commit. Every file in the supplied public tree is at most 100,000,000 bytes.
 
 ## Independent interface checks
 
@@ -29,3 +29,25 @@ These checks do not establish accuracy across all algorithms, compatibility with
 5. Compare scientific arrays and masks after each optimization; faster display alone does not establish faster inference or better accuracy.
 
 Two concurrent downloads and 128 MiB of admitted payload bound transport scheduling. They do not bound total browser memory. Cached resources may be evicted; an independently saved ordinary-file library avoids relying exclusively on browser cache persistence.
+
+## Corrected interface failure
+
+On 2026-10-05, the frozen 0.14.0 interface and 0.35.0-export.1 engine were exercised in the actual local web workspace on `examples/spiral/edited.png` (1254 × 1254). ELA, PCA Projection and Luminance Gradient completed; their successful execution was recorded during publication checks.
+
+Copy-Move Forgery 2 with the default PatchMatch Zernike profile reached `dense-geometry` and then failed with `INVALID_INPUT: Invalid sparse render input.` The captured [diagnostic](evidence/spiral-copy-move-failure.json) records settings, progress and the stack through `copy-geometry.js`, `sparse-copy-view.js`, `m3-sparse-surface.js` and `dense-adapter.js`. That failure belongs to engine 0.35.0-export.1. It was corrected in 0.35.0-export.2: dense point coordinates remain Float32 in the cache and are widened directly into the native renderer’s double-precision heap. The original diagnostic remains as a development record. [Correction](../web/engine-source/docs/dense-render-correction.md) and [successful worker reproduction](../web/engine-source/docs/dense-render-browser-proof.json) were supplied with the fix; 23 focused engine tests and the interface test checks accompany it.
+
+## Public GitHub delivery
+
+The first complete resource commit was checked over anonymous HTTPS: the manifest, a 100,000,000-byte piece and a smaller piece returned exact bytes and SHA-256 values, with CORS allowing browser access. [HTTP evidence](evidence/public-origin-http.json). The complete library was verified locally before publication; this was not a second download of all 6.6 GB.
+
+An isolated lean bootstrap configured with that immutable GitHub origin completed ELA on the 1254 × 1254 edited spiral in the actual web workspace, with no console errors. It contained no local WASM files. [UI evidence](evidence/public-origin-ui.json). This is distinct from deployment on a particular WordPress site.
+
+## WordPress startup correction
+
+The supplied 0.14.3 record reports 148 passing Node tests and a real PHP-frame check against the public GitHub resources, including a forced 32-second manifest delay, automatic recovery from a temporary 503 response, and preservation of an already mounted window during a worker update. These are the delivery author’s checks, distinct from the initial 142-test publication run. [Evidence](evidence/wordpress-0.14.3-proof.json).
+
+The changed lifecycle and workspace test files were also rerun independently in the publication checkout: **15/15 passed**. [Targeted publication result](evidence/publication-startup-targeted-tests.json).
+
+## Example images
+
+Examples illustrate how tools can be read, not a promise of identical output across every release. The batch process uses the shipped web engine, its model assets and its presentation routines directly. Computation preserves each input's dimensions. Preview scaling belongs to the gallery, not to detector preprocessing. Input, method, settings, engine version and output hashes identify each generated example. Browser screenshots and upstream desktop screenshots are labeled separately.

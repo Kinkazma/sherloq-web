@@ -1,0 +1,454 @@
+{
+  "job": {
+    "id": "street-zero",
+    "input": "examples/street/edited.png",
+    "operation": "jpeg.zero",
+    "params": {}
+  },
+  "date": "2026-10-05",
+  "runtime": "Direct Node.js execution of the same web engine and its native WASM kernels; CPU single worker",
+  "engine": "0.35.0-export.2",
+  "sourceSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+  "sourceDimensions": [
+    4387,
+    3510
+  ],
+  "outputDimensions": [
+    4387,
+    3510
+  ],
+  "outputSha256": "9ee792c0a5d80e6a7de49a1c177fa210445b9688c11a0fca7b0f2f440de2c182",
+  "rawRgbSha256": "5c23ab20d0c8921f7c4413356dd37b968afd18f79aef18833fb636d7f868a7ce",
+  "elapsedMs": 35359.505833999996,
+  "result": {
+    "id": "street-zero",
+    "imageId": "source",
+    "operation": "jpeg.zero",
+    "status": "ok",
+    "masks": {
+      "mask_f": {
+        "width": 4387,
+        "height": 3510,
+        "format": "mask8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 15398370,
+          "sha256": "c15009a2dde844f96a19f44f03c6d2a56d29de8a69f663056550ec87080ad7d2"
+        },
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Foreign-grid detected vote pixels; evidence, not an authenticity verdict"
+      },
+      "mask_f_reg": {
+        "width": 4387,
+        "height": 3510,
+        "format": "mask8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 15398370,
+          "sha256": "4d676842d4bf2343e9b3dfc924c5c0c597350ebbd344c2378e63c2fd89f74d67"
+        },
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Foreign-grid regularized regions; evidence, not an authenticity verdict"
+      },
+      "mask_m": {
+        "width": 4387,
+        "height": 3510,
+        "format": "mask8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 15398370,
+          "sha256": "cda6954acfb9962e36e61d80348cb4d2b609a36f6dce4cccde09b099d2e16875"
+        },
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Missing-grid detected vote pixels; evidence, not an authenticity verdict"
+      },
+      "mask_m_reg": {
+        "width": 4387,
+        "height": 3510,
+        "format": "mask8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 15398370,
+          "sha256": "ce57ecb7a966c28875a09795b8aa10a6c26fc5669842a16526d2a2a4ccac38bf"
+        },
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Missing-grid regularized regions; evidence, not an authenticity verdict"
+      }
+    },
+    "data": {
+      "luminance": {
+        "type": "Float64Array",
+        "length": 15398370,
+        "sha256": "4e9a6b366289797ab48b70ce207107c608b1ae64c7a57eefff7c7d7fc0e5f8ab"
+      },
+      "luminance_jpeg": {
+        "type": "Float64Array",
+        "length": 15398370,
+        "sha256": "71a2d16fcb413ad18bfd1026e65c437c7dc228ccac95cb3c6f3fe57286720742"
+      },
+      "votes": {
+        "type": "Int32Array",
+        "length": 15398370,
+        "sha256": "b107f77dd97984a73d0cb0f6698a826bff60336d64d49c5e49f520ffbb50d2af"
+      },
+      "votes_jpeg": {
+        "type": "Int32Array",
+        "length": 15398370,
+        "sha256": "fa592661da1975fe1851033a5fec3153bcaba17946090314d47a64fb80e09a2e"
+      },
+      "mask_f": {
+        "type": "Int32Array",
+        "length": 15398370,
+        "sha256": "e2106009a5e442d8e1e688bad99bef558a7e34ffb32349ff2138595390a3cb65"
+      },
+      "mask_f_reg": {
+        "type": "Int32Array",
+        "length": 15398370,
+        "sha256": "0deb4c0ce8e35326bad51b0c99e6a1faf98262468a9b31a6c74bb3a3bda7b745"
+      },
+      "mask_m": {
+        "type": "Int32Array",
+        "length": 15398370,
+        "sha256": "68e62be293db464b6301b61351ec135339baccb7676c8bba6cb99c3b932c7461"
+      },
+      "mask_m_reg": {
+        "type": "Int32Array",
+        "length": 15398370,
+        "sha256": "0d8e9d120c90817e38123af97952fe754a2087c70d49c88cbd124d17686cda0b"
+      },
+      "grid_log10_nfa": {
+        "type": "Float64Array",
+        "length": 64,
+        "sha256": "b4d8016d8b14221fbae468e657df9d727f10901df3c4d116b4ee2b21c59b184a"
+      },
+      "metadata": {
+        "method": "ZERO IPOL 2021/390",
+        "main_grid": 0,
+        "foreign_regions": [
+          {
+            "x0": 3648,
+            "y0": 3014,
+            "x1": 3708,
+            "y1": 3135,
+            "grid": 48,
+            "log10_nfa": -2.5558498943241688
+          }
+        ],
+        "missing_regions": [
+          {
+            "x0": 7,
+            "y0": 7,
+            "x1": 3951,
+            "y1": 1455,
+            "grid": 0,
+            "log10_nfa": -1326.406049212233
+          },
+          {
+            "x0": 7,
+            "y0": 512,
+            "x1": 631,
+            "y1": 1421,
+            "grid": 0,
+            "log10_nfa": -49.56782415660315
+          },
+          {
+            "x0": 7,
+            "y0": 1624,
+            "x1": 375,
+            "y1": 2428,
+            "grid": 0,
+            "log10_nfa": -51.400512788614805
+          },
+          {
+            "x0": 7,
+            "y0": 2368,
+            "x1": 583,
+            "y1": 3500,
+            "grid": 0,
+            "log10_nfa": -58.62934686706281
+          },
+          {
+            "x0": 138,
+            "y0": 1504,
+            "x1": 958,
+            "y1": 2108,
+            "grid": 0,
+            "log10_nfa": -43.48513119982298
+          },
+          {
+            "x0": 384,
+            "y0": 2052,
+            "x1": 607,
+            "y1": 2284,
+            "grid": 0,
+            "log10_nfa": -0.24537969051166542
+          },
+          {
+            "x0": 474,
+            "y0": 2632,
+            "x1": 1210,
+            "y1": 3186,
+            "grid": 0,
+            "log10_nfa": -3.3455897672688977
+          },
+          {
+            "x0": 512,
+            "y0": 652,
+            "x1": 1029,
+            "y1": 1215,
+            "grid": 0,
+            "log10_nfa": -66.30529982188835
+          },
+          {
+            "x0": 619,
+            "y0": 1968,
+            "x1": 1391,
+            "y1": 2599,
+            "grid": 0,
+            "log10_nfa": -36.39955545949113
+          },
+          {
+            "x0": 889,
+            "y0": 243,
+            "x1": 1064,
+            "y1": 487,
+            "grid": 0,
+            "log10_nfa": -3.2943730455140674
+          },
+          {
+            "x0": 945,
+            "y0": 758,
+            "x1": 1192,
+            "y1": 1052,
+            "grid": 0,
+            "log10_nfa": -6.444082468371086
+          },
+          {
+            "x0": 1001,
+            "y0": 1866,
+            "x1": 1319,
+            "y1": 2150,
+            "grid": 0,
+            "log10_nfa": -0.3698240573837914
+          },
+          {
+            "x0": 1001,
+            "y0": 2352,
+            "x1": 1786,
+            "y1": 3185,
+            "grid": 0,
+            "log10_nfa": -30.548624155787415
+          },
+          {
+            "x0": 1088,
+            "y0": 1017,
+            "x1": 1454,
+            "y1": 1218,
+            "grid": 0,
+            "log10_nfa": -4.176541947481073
+          },
+          {
+            "x0": 1624,
+            "y0": 2577,
+            "x1": 2431,
+            "y1": 3311,
+            "grid": 0,
+            "log10_nfa": -59.92559402553823
+          },
+          {
+            "x0": 1650,
+            "y0": 2159,
+            "x1": 2078,
+            "y1": 2671,
+            "grid": 0,
+            "log10_nfa": -24.646598264521053
+          },
+          {
+            "x0": 2144,
+            "y0": 1978,
+            "x1": 2410,
+            "y1": 2309,
+            "grid": 0,
+            "log10_nfa": -8.128526468449977
+          },
+          {
+            "x0": 2152,
+            "y0": 1944,
+            "x1": 2768,
+            "y1": 2774,
+            "grid": 0,
+            "log10_nfa": -62.96343140619297
+          },
+          {
+            "x0": 2168,
+            "y0": 2704,
+            "x1": 3028,
+            "y1": 3502,
+            "grid": 0,
+            "log10_nfa": -49.65613933051176
+          },
+          {
+            "x0": 2296,
+            "y0": 888,
+            "x1": 2870,
+            "y1": 1296,
+            "grid": 0,
+            "log10_nfa": -32.26245047282916
+          },
+          {
+            "x0": 2568,
+            "y0": 1492,
+            "x1": 4151,
+            "y1": 3031,
+            "grid": 0,
+            "log10_nfa": -179.6771148080345
+          },
+          {
+            "x0": 2968,
+            "y0": 1799,
+            "x1": 3335,
+            "y1": 2098,
+            "grid": 0,
+            "log10_nfa": -12.812121554606588
+          },
+          {
+            "x0": 3160,
+            "y0": 1962,
+            "x1": 3447,
+            "y1": 2255,
+            "grid": 0,
+            "log10_nfa": -16.963488361421724
+          },
+          {
+            "x0": 3435,
+            "y0": 2251,
+            "x1": 4379,
+            "y1": 3502,
+            "grid": 0,
+            "log10_nfa": -220.9170695641884
+          },
+          {
+            "x0": 3472,
+            "y0": 719,
+            "x1": 4379,
+            "y1": 1989,
+            "grid": 0,
+            "log10_nfa": -139.23326481946378
+          },
+          {
+            "x0": 3705,
+            "y0": 520,
+            "x1": 4015,
+            "y1": 751,
+            "grid": 0,
+            "log10_nfa": -0.5041941692542906
+          },
+          {
+            "x0": 3792,
+            "y0": 7,
+            "x1": 4375,
+            "y1": 783,
+            "grid": 0,
+            "log10_nfa": -75.67457642145885
+          }
+        ],
+        "jpeg99_used": true,
+        "missing_grid_analyzed": true,
+        "reference": false
+      },
+      "width": 4387,
+      "height": 3510,
+      "regionBounds": "inclusive xyxy",
+      "palette": {
+        "type": "Uint8Array",
+        "length": 192,
+        "sha256": "484d585bd77b5121f2c6087c5c7d06e8f05c42f402f033748366fae5acf345dd"
+      }
+    },
+    "semantics": "ZERO local JPEG grid votes, global significance and different/missing-grid regions. Red denotes a foreign grid, blue a missing grid. These are processing clues, not authenticity verdicts; grid log10 NFA is not a manipulation probability.",
+    "layers": [
+      {
+        "id": "zero-view",
+        "kind": "rgb",
+        "field": "pixels",
+        "coordinates": "source",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ]
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "jpeg.zero",
+      "params": {
+        "missing": true,
+        "view": 0
+      },
+      "backend": "cpu",
+      "originalSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+      "decode": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          4387,
+          3510
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      },
+      "native": "zero.py + ZERO 2021 C",
+      "kernelParity": "152 native analyses/760 views and 1 MP masks/votes/regions exact; log10 NFA maximum observed error 1.27e-11 with unchanged decisions; full RGB8 luminance domain exact",
+      "semantics": "ZERO local JPEG grid votes, global significance and different/missing-grid regions. Red denotes a foreign grid, blue a missing grid. These are processing clues, not authenticity verdicts; grid log10 NFA is not a manipulation probability."
+    },
+    "metrics": {
+      "totalMs": 33008.017959,
+      "cache": {
+        "result": false,
+        "analysis": false,
+        "view": false
+      },
+      "kernel": "zero-separated-threshold-filter",
+      "workers": 1,
+      "thresholdFallbacks": 2394333,
+      "viewMs": 783.1620420000036,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "policyAvailableBytes": 3548540241,
+        "retainedBytes": 68882085,
+        "cacheBytes": 677544970,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 3174660133,
+        "activeRecoveries": 0,
+        "codecHeapCapacityBytes": 1212940288,
+        "hdf5HeapCapacityBytes": 0,
+        "medianHeapCapacityBytes": 0,
+        "qualityHeapCapacityBytes": 0,
+        "resamplingHeapCapacityBytes": 0,
+        "cloningHeapCapacityBytes": 0
+      }
+    }
+  }
+}

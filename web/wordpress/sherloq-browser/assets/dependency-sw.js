@@ -27,6 +27,24 @@ async function localResponse(request){
  headers.set('Cross-Origin-Resource-Policy','same-origin');
  return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
 }
+let activationCheck;
+async function activateWhenReady(){
+ const clients=(await self.clients.matchAll({type:'window',includeUncontrolled:true})).filter(client=>client.url.startsWith(scope.href));
+ if(!clients.length)return;
+ const safe=await Promise.all(clients.map(client=>new Promise(resolve=>{
+  const channel=new MessageChannel();let done=false;
+  const finish=value=>{if(done)return;done=true;clearTimeout(timer);channel.port1.close();resolve(value);};
+  const timer=setTimeout(()=>finish(false),1000);
+  channel.port1.onmessage=event=>finish(event.data?.ready===true);
+  try{client.postMessage({type:'dependency-bootstrap-ready'},[channel.port2]);}catch{finish(false);}
+ })));
+ if(safe.every(Boolean))await self.skipWaiting();
+}
+self.addEventListener('message',event=>{
+ if(event.data?.type==='dependency-activate-when-ready'&&event.source?.url?.startsWith(scope.href)){
+  activationCheck??=activateWhenReady().finally(()=>{activationCheck=null;});event.waitUntil(activationCheck);
+ }
+});
 self.addEventListener('fetch',event=>{
  const u=new URL(event.request.url);if(u.origin!==scope.origin||!u.pathname.startsWith(scope.pathname)||!['GET','HEAD'].includes(event.request.method))return;
  const path=u.pathname.slice(scope.pathname.length);

@@ -1,0 +1,646 @@
+{
+  "job": {
+    "id": "spiral-adaptive-cfa",
+    "input": "examples/spiral/edited.png",
+    "operation": "m2.cfa",
+    "params": {
+      "variant": "Original",
+      "block": 32,
+      "tile": 512
+    }
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "e357b5d15f1f9d6e083d154c63df02bfb33938fd09f9ceb8c2c409e4fcf96dfe",
+      "rawRgbSha256": "ec2267f05667200eb4b7f3649864236d9b157822c8436210e68567da9e3b0059"
+    },
+    {
+      "file": "view-1.png",
+      "view": 1,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "c17e00cbfd1d9c87d0a41d2d8ae50f76426f58b863cf0c6656b892e341f365ac",
+      "rawRgbSha256": "9f27bff7622abef16a29d79a6334eb95b964a3b0b84f21ab55ec434f501ef1ec"
+    },
+    {
+      "file": "view-2.png",
+      "view": 2,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "95008eecd1f67535a9752a38d4cd0cd7256c1bd191fe9fd12d7d4b92b280ba5f",
+      "rawRgbSha256": "901e2bd76306243e46139a8b215ba10f14a6ab295daa749a76b22e2e0b5f02d1"
+    }
+  ],
+  "result": {
+    "id": "spiral-adaptive-cfa",
+    "imageId": "source",
+    "operation": "m2.cfa",
+    "status": "ok",
+    "data": {
+      "width": 1254,
+      "height": 1254,
+      "gridShape": [
+        38,
+        38
+      ],
+      "metadata": {
+        "method": "adaptive_cfa",
+        "variant": "Original",
+        "best_grid": 0,
+        "block": 32,
+        "origin": [
+          4,
+          4
+        ],
+        "valid_shape": [
+          1216,
+          1216
+        ],
+        "image_shape": [
+          1254,
+          1254
+        ],
+        "tile": 512,
+        "actual_tiles": [
+          [
+            32,
+            32,
+            6,
+            6
+          ],
+          [
+            16,
+            32,
+            16,
+            6
+          ],
+          [
+            0,
+            32,
+            16,
+            6
+          ],
+          [
+            32,
+            16,
+            6,
+            16
+          ],
+          [
+            32,
+            0,
+            6,
+            16
+          ],
+          [
+            0,
+            0,
+            16,
+            16
+          ],
+          [
+            0,
+            16,
+            16,
+            16
+          ],
+          [
+            16,
+            0,
+            16,
+            16
+          ],
+          [
+            16,
+            16,
+            16,
+            16
+          ]
+        ]
+      },
+      "source": {
+        "dimensions": {
+          "id": "cfc44a2e-f794-4609-8fab-edb94c498337",
+          "revision": 1,
+          "width": 1254,
+          "height": 1254,
+          "format": "rgb8",
+          "sourceWidth": 1254,
+          "sourceHeight": 1254,
+          "orientation": 1,
+          "coordinates": "full-resolution",
+          "storage": "memory"
+        },
+        "provenance": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            1254,
+            1254
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "metrics": {
+          "decodeMs": 47.639999985694885,
+          "rowsPerChunk": 32,
+          "passes": 1,
+          "encodedReadCalls": 14,
+          "encodedReadBytes": 3565615,
+          "codecHeapCapacityBytes": 16777216,
+          "codecHeapMaximumBytes": 33554432,
+          "workingReservationBytes": 42063424,
+          "storage": "memory",
+          "temporaryBackend": null,
+          "temporaryFallback": null,
+          "temporaryBytes": 0,
+          "originalBlobBytes": 3565615,
+          "originalBlobResidency": "browser-managed; not measured as zero RAM"
+        }
+      },
+      "provenance": {
+        "sourceRGBSha256": null,
+        "sourceSurfaceIdentity": "cfc44a2e-f794-4609-8fab-edb94c498337/1",
+        "originalSourceSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+        "modelSha256": "3b25351d355e07730faa91595e0ba460bd61f7eb206be2af1d78eb9471b44e30",
+        "programSha256": "bf2af91f5a8179386ce9aff4cd5e6c21acb24ec027aeca0df6d7b86b2b24f7c4",
+        "checkpointSha256": "992dade71b8682a617f63e5a92e46292cd34e391f8b46dd050ce4c0f86e7745d",
+        "provider": "wasm",
+        "qualification": "public-output-corpus; native CPU reference and hybrid GPU convolution"
+      },
+      "metrics": {
+        "tiles": [
+          {
+            "rect": [
+              32,
+              32,
+              6,
+              6
+            ],
+            "milliseconds": 2315.0699999928474,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 167772160,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 1,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              16,
+              32,
+              16,
+              6
+            ],
+            "milliseconds": 5346.229999959469,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 285212672,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 1,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              0,
+              32,
+              16,
+              6
+            ],
+            "milliseconds": 5385.930000007153,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 285212672,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 1,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              32,
+              16,
+              6,
+              16
+            ],
+            "milliseconds": 5535.810000002384,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 285212672,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 1,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              32,
+              0,
+              6,
+              16
+            ],
+            "milliseconds": 5626.135000050068,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 285212672,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 1,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              0,
+              0,
+              16,
+              16
+            ],
+            "milliseconds": 12322.09500002861,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 587202560,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 1,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              0,
+              16,
+              16,
+              16
+            ],
+            "milliseconds": 12981.189999997616,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 587202560,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 1,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              16,
+              0,
+              16,
+              16
+            ],
+            "milliseconds": 13653.375,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 587202560,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 1,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "rect": [
+              16,
+              16,
+              16,
+              16
+            ],
+            "milliseconds": 13665.959999978542,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 587202560,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 1,
+            "threadReconfigured": false,
+            "cpuGranted": 1,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          }
+        ],
+        "preflightExecutions": 0,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 8518108180,
+          "policyAvailableBytes": 4815526064,
+          "retainedBytes": 3702167660,
+          "cacheBytes": 130932,
+          "activeReservationBytes": 283524,
+          "peakAccountedBytes": 3739407520,
+          "activeRecoveries": 0
+        }
+      }
+    },
+    "provenance": {
+      "sourceRGBSha256": null,
+      "sourceSurfaceIdentity": "cfc44a2e-f794-4609-8fab-edb94c498337/1",
+      "originalSourceSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "modelSha256": "3b25351d355e07730faa91595e0ba460bd61f7eb206be2af1d78eb9471b44e30",
+      "programSha256": "bf2af91f5a8179386ce9aff4cd5e6c21acb24ec027aeca0df6d7b86b2b24f7c4",
+      "checkpointSha256": "992dade71b8682a617f63e5a92e46292cd34e391f8b46dd050ce4c0f86e7745d",
+      "provider": "wasm",
+      "qualification": "public-output-corpus; native CPU reference and hybrid GPU convolution"
+    },
+    "metrics": {
+      "tiles": [
+        {
+          "rect": [
+            32,
+            32,
+            6,
+            6
+          ],
+          "milliseconds": 2315.0699999928474,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 167772160,
+          "provider": "wasm",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 0,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        },
+        {
+          "rect": [
+            16,
+            32,
+            16,
+            6
+          ],
+          "milliseconds": 5346.229999959469,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 285212672,
+          "provider": "wasm",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 0,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        },
+        {
+          "rect": [
+            0,
+            32,
+            16,
+            6
+          ],
+          "milliseconds": 5385.930000007153,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 285212672,
+          "provider": "wasm",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 0,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        },
+        {
+          "rect": [
+            32,
+            16,
+            6,
+            16
+          ],
+          "milliseconds": 5535.810000002384,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 285212672,
+          "provider": "wasm",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 0,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        },
+        {
+          "rect": [
+            32,
+            0,
+            6,
+            16
+          ],
+          "milliseconds": 5626.135000050068,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 285212672,
+          "provider": "wasm",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 0,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        },
+        {
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "milliseconds": 12322.09500002861,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 587202560,
+          "provider": "wasm",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 0,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        },
+        {
+          "rect": [
+            0,
+            16,
+            16,
+            16
+          ],
+          "milliseconds": 12981.189999997616,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 587202560,
+          "provider": "wasm",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 0,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        },
+        {
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "milliseconds": 13653.375,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 587202560,
+          "provider": "wasm",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 0,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        },
+        {
+          "rect": [
+            16,
+            16,
+            16,
+            16
+          ],
+          "milliseconds": 13665.959999978542,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 587202560,
+          "provider": "wasm",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 0,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        }
+      ],
+      "preflightExecutions": 0,
+      "cache": {
+        "result": false
+      },
+      "memory": {
+        "budgetBytes": 8518108180,
+        "policyAvailableBytes": 4815526064,
+        "retainedBytes": 3702167660,
+        "cacheBytes": 130932,
+        "activeReservationBytes": 283524,
+        "peakAccountedBytes": 3739407520,
+        "activeRecoveries": 0
+      }
+    },
+    "m2Result": {
+      "id": 1,
+      "method": "cfa",
+      "width": 1254,
+      "height": 1254,
+      "fields": {
+        "probabilities": {
+          "type": "Float32Array",
+          "length": 23104,
+          "byteLength": 92416
+        },
+        "grids": {
+          "type": "Float32Array",
+          "length": 5776,
+          "byteLength": 23104
+        },
+        "local_grid": {
+          "type": "Uint8Array",
+          "length": 1444,
+          "byteLength": 1444
+        },
+        "suspicion": {
+          "type": "Float32Array",
+          "length": 1444,
+          "byteLength": 5776
+        }
+      },
+      "metadataBytes": 4369,
+      "memory": {
+        "budgetBytes": 8518108180,
+        "policyAvailableBytes": 4815665549,
+        "retainedBytes": 3702167660,
+        "cacheBytes": 130932,
+        "activeReservationBytes": 144039,
+        "peakAccountedBytes": 3739407520,
+        "activeRecoveries": 0,
+        "residentCodecBytes": 0
+      }
+    },
+    "views": [
+      {
+        "id": "m2-1-0",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "rgb8",
+        "m2Result": 1,
+        "view": 0
+      },
+      {
+        "id": "m2-1-1",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "rgb8",
+        "m2Result": 1,
+        "view": 1
+      },
+      {
+        "id": "m2-1-2",
+        "revision": 1,
+        "width": 1254,
+        "height": 1254,
+        "format": "rgb8",
+        "m2Result": 1,
+        "view": 2
+      }
+    ]
+  }
+}

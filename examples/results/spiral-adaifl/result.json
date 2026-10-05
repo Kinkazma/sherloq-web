@@ -1,0 +1,238 @@
+{
+  "job": {
+    "id": "spiral-adaifl",
+    "input": "examples/spiral/edited.png",
+    "operation": "ai.localization.adaifl",
+    "params": {}
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "b8c8d9161d9bf3425f357129aca6714c5cec99089c4acab771bb00ef676b0220",
+      "rawRgbSha256": "37017bc12d458c12b73a0d408622cdeeb5fb8d87e77b8a34aaa4f57bbb9cb1f5"
+    }
+  ],
+  "result": {
+    "id": "spiral-adaifl",
+    "imageId": "source",
+    "operation": "ai.localization.adaifl",
+    "status": "ok",
+    "data": {
+      "map": {
+        "type": "Float32Array",
+        "length": 4096
+      },
+      "mask": {
+        "type": "Uint8Array",
+        "length": 4096
+      },
+      "metadata": {
+        "image_shape": [
+          1254,
+          1254
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "native_shape": [
+          64,
+          64
+        ],
+        "seed": 1701,
+        "threshold": 0.5,
+        "dynamic_regions": true,
+        "dynamic_experts": true,
+        "provider": "wasm",
+        "runs": [
+          {
+            "stage": "embedding",
+            "provider": "wasm",
+            "heapBytes": 94109696,
+            "threads": 2
+          },
+          {
+            "stage": "block-00",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-01",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-02",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-03",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-04",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-05",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-06",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-07",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-08",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-09",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-10",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "block-11",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          },
+          {
+            "stage": "decoder",
+            "provider": "wasm",
+            "heapBytes": 369033216,
+            "threads": 2
+          }
+        ],
+        "failures": [],
+        "attempts": 1,
+        "maximumHeapBytes": 536870912,
+        "gpuEstimatedBytes": 0,
+        "workerAdmittedBytes": 942203046,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "result_reused": false,
+        "method": "adaifl"
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "8e25fd52-3c68-48dc-86e0-f77e38e670ec",
+      "revision": 1,
+      "width": 1254,
+      "height": 1254,
+      "format": "rgb8",
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "derived"
+    },
+    "style": {
+      "mode": "overlay"
+    },
+    "legend": null,
+    "layers": [
+      {
+        "id": "ai.localization.adaifl",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ],
+        "surfaceId": "8e25fd52-3c68-48dc-86e0-f77e38e670ec",
+        "width": 1254,
+        "height": 1254
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "ai.localization.adaifl",
+      "params": {},
+      "backend": "wasm",
+      "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "core/adaifl.py",
+      "kernelParity": "Native method, measured floating arithmetic differences; see M3 delivery proofs.",
+      "coordinates": [
+        64,
+        64
+      ]
+    },
+    "metrics": {
+      "totalMs": 21701.12999999523,
+      "cache": {
+        "result": false,
+        "proposals": false
+      },
+      "backend": "wasm",
+      "preflightExecutions": 0,
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 8547404614,
+        "retainedBytes": 8901818,
+        "cacheBytes": 36864,
+        "activeReservationBytes": 33591296,
+        "peakAccountedBytes": 997280702,
+        "activeRecoveries": 0
+      }
+    }
+  }
+}

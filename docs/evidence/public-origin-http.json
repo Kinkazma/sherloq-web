@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-05",
+  "commit": "940ed5829035da0f041315a70afac452ecb07c01",
+  "origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/940ed5829035da0f041315a70afac452ecb07c01/web-assets/",
+  "scope": "Anonymous HTTPS readback of manifest plus one 100 MB and one smaller binary piece; all 4224 pieces verified locally before Git transport. Not a redownload of every resource.",
+  "checks": [
+    {
+      "path": "manifest-template.json",
+      "status": 200,
+      "bytes": 1809089,
+      "sha256": "c041c079d6e1dfc99ab64ad31ba03da2787156c8499630e1981e115f78cbdf6b",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8",
+      "matches": true
+    },
+    {
+      "path": "chunks/0f5462e0c047a36261657cb48ed7645c6a3bb50fa2e385da33e7f985889c1180.bin",
+      "status": 200,
+      "bytes": 100000000,
+      "sha256": "0f5462e0c047a36261657cb48ed7645c6a3bb50fa2e385da33e7f985889c1180",
+      "cors": "*",
+      "contentType": "application/octet-stream",
+      "matches": true
+    },
+    {
+      "path": "chunks/003271f3978e27d54ff1a6d61cd6d2c3f0d7db48580a984ab3baa63fd159c0a9.bin",
+      "status": 200,
+      "bytes": 294912,
+      "sha256": "003271f3978e27d54ff1a6d61cd6d2c3f0d7db48580a984ab3baa63fd159c0a9",
+      "cors": "*",
+      "contentType": "application/octet-stream",
+      "matches": true
+    }
+  ]
+}

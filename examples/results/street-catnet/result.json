@@ -1,0 +1,268 @@
+{
+  "job": {
+    "id": "street-catnet",
+    "input": "examples/street/edited.png",
+    "operation": "m2.catnet",
+    "params": {}
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+  "sourceDimensions": [
+    4387,
+    3510
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 4387,
+      "height": 3510,
+      "sha256": "d4dc6a383efaa16d80eeaa50b4e31cd3570777a37e932d0661c542bbdca9dd33",
+      "rawRgbSha256": "b8da3ec5a9ea77dd62e9f7bc0bb56843e7791fe478ec91331911cec16baec531"
+    },
+    {
+      "file": "view-1.png",
+      "view": 1,
+      "width": 4387,
+      "height": 3510,
+      "sha256": "532984d76fce6cf120735f922c666eb7e1b9c36b522f8433c564649772320058",
+      "rawRgbSha256": "e44f2b27bc277c6ae93327c72f791f9063080dba7eec99568249376958dd2dd5"
+    },
+    {
+      "file": "view-2.png",
+      "view": 2,
+      "width": 4387,
+      "height": 3510,
+      "sha256": "532984d76fce6cf120735f922c666eb7e1b9c36b522f8433c564649772320058",
+      "rawRgbSha256": "e44f2b27bc277c6ae93327c72f791f9063080dba7eec99568249376958dd2dd5"
+    }
+  ],
+  "result": {
+    "id": "street-catnet",
+    "imageId": "source",
+    "operation": "m2.catnet",
+    "status": "ok",
+    "data": {
+      "width": 4387,
+      "height": 3510,
+      "segmented": true,
+      "nativeShape": [
+        878,
+        1098
+      ],
+      "metadata": {
+        "method": "catnet",
+        "source_shape": [
+          3510,
+          4387
+        ],
+        "padded_shape": [
+          3512,
+          4392
+        ],
+        "orientation": 1,
+        "jpeg_source": "companion_q100_444",
+        "jpeg_sha256": "216e344850bfef59f4e599e3b24f20d8d86e491356decbe21bfd6532bd899ba8",
+        "companion": {
+          "quality": 100,
+          "sampling": "444",
+          "encodedBytes": 14143843,
+          "encodedCapacityBytes": 370258432,
+          "encodedStorage": "memory",
+          "rgbStorage": "memory",
+          "codecHeapMaximumBytes": 16777216
+        },
+        "memory_bounded": true,
+        "compact_dct": true,
+        "segmented": true,
+        "coordinateSpace": "source-pixels",
+        "interbranchResize": "global half-pixel bilinear"
+      },
+      "source": {
+        "dimensions": {
+          "id": "03e4ae9e-7e75-457b-938c-15e0db47dc84",
+          "revision": 1,
+          "width": 4387,
+          "height": 3510,
+          "format": "rgb8",
+          "sourceWidth": 4387,
+          "sourceHeight": 3510,
+          "orientation": 1,
+          "coordinates": "full-resolution",
+          "storage": "memory"
+        },
+        "provenance": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            4387,
+            3510
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "metrics": {
+          "decodeMs": 505.25,
+          "rowsPerChunk": 32,
+          "passes": 1,
+          "encodedReadCalls": 87,
+          "encodedReadBytes": 22686975,
+          "codecHeapCapacityBytes": 16777216,
+          "codecHeapMaximumBytes": 33554432,
+          "workingReservationBytes": 42364192,
+          "storage": "memory",
+          "temporaryBackend": null,
+          "temporaryFallback": null,
+          "temporaryBytes": 0,
+          "originalBlobBytes": 22686975,
+          "originalBlobResidency": "browser-managed; not measured as zero RAM"
+        }
+      },
+      "provenance": {
+        "originalSourceSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+        "sourceSurfaceIdentity": "03e4ae9e-7e75-457b-938c-15e0db47dc84/1",
+        "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+        "provider": "wasm",
+        "qualification": "native segmented HRNet; see dimension-specific proof"
+      },
+      "metrics": {
+        "cache": {
+          "result": false
+        },
+        "execution": {
+          "network": {
+            "length": 149
+          },
+          "storage": {
+            "backend": "opfs",
+            "reservedBytes": 0,
+            "peakReservedBytes": 987181056,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "physicalFiles": 0,
+            "maximumPhysicalFileBytes": 1073741824
+          }
+        },
+        "memory": {
+          "budgetBytes": 8476630618,
+          "policyAvailableBytes": 8362888700,
+          "retainedBytes": 111644766,
+          "cacheBytes": 0,
+          "activeReservationBytes": 2097152,
+          "peakAccountedBytes": 8476093284,
+          "activeRecoveries": 0
+        },
+        "preflightExecutions": 0
+      }
+    },
+    "provenance": {
+      "originalSourceSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+      "sourceSurfaceIdentity": "03e4ae9e-7e75-457b-938c-15e0db47dc84/1",
+      "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+      "provider": "wasm",
+      "qualification": "native segmented HRNet; see dimension-specific proof"
+    },
+    "metrics": {
+      "cache": {
+        "result": false
+      },
+      "execution": {
+        "network": {
+          "length": 149
+        },
+        "storage": {
+          "backend": "opfs",
+          "reservedBytes": 0,
+          "peakReservedBytes": 987181056,
+          "estimatedAvailableBytes": 10737418240,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": null,
+          "openFiles": 0,
+          "physicalFiles": 0,
+          "maximumPhysicalFileBytes": 1073741824
+        }
+      },
+      "memory": {
+        "budgetBytes": 8476630618,
+        "policyAvailableBytes": 8362888700,
+        "retainedBytes": 111644766,
+        "cacheBytes": 0,
+        "activeReservationBytes": 2097152,
+        "peakAccountedBytes": 8476093284,
+        "activeRecoveries": 0
+      },
+      "preflightExecutions": 0
+    },
+    "m2Result": {
+      "id": 1,
+      "method": "catnet",
+      "width": 4387,
+      "height": 3510,
+      "fields": {
+        "map": {
+          "type": "Float32Array",
+          "length": 15398370,
+          "byteLength": 61593480,
+          "storage": "memory"
+        },
+        "native_map": {
+          "type": "Float32Array",
+          "length": 964044,
+          "byteLength": 3856176,
+          "storage": "memory"
+        }
+      },
+      "metadataBytes": 27586,
+      "memory": {
+        "budgetBytes": 8476630618,
+        "policyAvailableBytes": 8362805942,
+        "retainedBytes": 111644766,
+        "cacheBytes": 0,
+        "activeReservationBytes": 2179910,
+        "peakAccountedBytes": 8476093284,
+        "activeRecoveries": 0,
+        "residentCodecBytes": 0
+      }
+    },
+    "views": [
+      {
+        "id": "m2-1-0",
+        "revision": 1,
+        "width": 4387,
+        "height": 3510,
+        "format": "rgb8",
+        "m2Result": 1,
+        "view": 0
+      },
+      {
+        "id": "m2-1-1",
+        "revision": 1,
+        "width": 4387,
+        "height": 3510,
+        "format": "rgb8",
+        "m2Result": 1,
+        "view": 1
+      },
+      {
+        "id": "m2-1-2",
+        "revision": 1,
+        "width": 4387,
+        "height": 3510,
+        "format": "rgb8",
+        "m2Result": 1,
+        "view": 2
+      }
+    ]
+  }
+}

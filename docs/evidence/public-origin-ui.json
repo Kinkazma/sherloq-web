@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-05",
+  "environment": "Codex in-app Chromium browser; fresh localhost origin 127.0.0.1:52775; private finalized bootstrap",
+  "origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/940ed5829035da0f041315a70afac452ecb07c01/web-assets/",
+  "manifest": "d0c0138413796ae85c544b4feefadb86965799b2db1bf6da0145825cae24c99f",
+  "dependencyLoaderEnabled": true,
+  "localWasmFiles": 0,
+  "input": "examples/spiral/edited.png",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "tool": "ELA classic",
+  "settings": {
+    "quality": 75,
+    "gain": 50,
+    "contrast": 20,
+    "linear": false,
+    "grayscale": false
+  },
+  "visibleResult": "Analysis complete",
+  "consoleErrors": [],
+  "scope": "Actual UI calculation using the lean bootstrap configured with immutable public GitHub resources. Not a WordPress-host installation test, cross-browser qualification, or network timing benchmark."
+}

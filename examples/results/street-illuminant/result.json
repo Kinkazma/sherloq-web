@@ -1,0 +1,132 @@
+{
+  "job": {
+    "id": "street-illuminant",
+    "input": "examples/street/original.jpg",
+    "operation": "various.illuminant",
+    "params": {}
+  },
+  "date": "2026-10-05",
+  "runtime": "Direct Node.js execution of the same web engine and its native WASM kernels; CPU single worker",
+  "engine": "0.35.0-export.2",
+  "sourceSha256": "9b97fa1e07b6c74c20a2151c0998a100b3eb04864a8b6e3349b354486853262d",
+  "sourceDimensions": [
+    4387,
+    3510
+  ],
+  "outputDimensions": [
+    4387,
+    3510
+  ],
+  "outputSha256": "2d0caa3028537ea70dc78fa9534d52e6088ae72d287c949200b26f6567318834",
+  "rawRgbSha256": "a798365e8097f0b28299e72e865928145553ee7e19153a0ac4fd38f30f0f7f58",
+  "elapsedMs": 1391.981292,
+  "result": {
+    "id": "street-illuminant",
+    "imageId": "source",
+    "operation": "various.illuminant",
+    "status": "ok",
+    "data": {
+      "rows": 28,
+      "cols": 35,
+      "block": 128,
+      "rgb": {
+        "type": "Float64Array",
+        "length": 2940,
+        "sha256": "bea70b0ff0595b878b001195dd8655e3f01bd61e18708874062fc3a8fe214e66"
+      },
+      "counts": {
+        "type": "Uint32Array",
+        "length": 980,
+        "sha256": "488f9983344fc2abdc981b3c342f40e9da630ce85bbc67523e640a85fec05ee6"
+      },
+      "areas": {
+        "type": "Uint32Array",
+        "length": 980,
+        "sha256": "6ec62f2d864b0dd5233b6798702e3d9c4bebacec34c2487c2c92684e777e974d"
+      },
+      "valid": {
+        "type": "Uint8Array",
+        "length": 980,
+        "sha256": "77c4d305047e56acc28d6d0273123f7c228965d0b7d1248fef6001c8a374761e"
+      },
+      "globalRGB": {
+        "type": "Float64Array",
+        "length": 3,
+        "sha256": "944d6d3beb9982c8280f0195a84102151343658e14133555666711e873e2c6aa"
+      },
+      "angles": {
+        "type": "Float64Array",
+        "length": 980,
+        "sha256": "0d67b4afd15e6b1f9c9eb6a3df8ce1ccc6b8f620799f3c723009469b0bcebeb9"
+      }
+    },
+    "semantics": "Local Minkowski illuminant colour estimates; surface colours also influence the result. Invalid cells remain explicit. No light direction or authenticity verdict.",
+    "layers": [
+      {
+        "id": "various.illuminant",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ]
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "various.illuminant",
+      "params": {
+        "block": 128,
+        "method": 1,
+        "linear": true,
+        "exclude": true,
+        "mode": 0
+      },
+      "backend": "cpu",
+      "originalSha256": "9b97fa1e07b6c74c20a2151c0998a100b3eb04864a8b6e3349b354486853262d",
+      "decode": {
+        "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+        "chroma": "444",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          4387,
+          3510
+        ],
+        "icc": "present, not applied (native policy)",
+        "depth": 8,
+        "alpha": "absent",
+        "interpolation": "none"
+      },
+      "native": "illuminant.py",
+      "kernelParity": "1440 native renders and validity/counts exact; unit RGB/angles absolute error <=1e-12",
+      "semantics": "Local Minkowski illuminant colour estimates; surface colours also influence the result. Invalid cells remain explicit. No light direction or authenticity verdict."
+    },
+    "metrics": {
+      "totalMs": 1159.979875,
+      "cache": {
+        "result": false
+      },
+      "kernel": "cpu-reference",
+      "workers": 1,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "policyAvailableBytes": 4192358830,
+        "retainedBytes": 56371902,
+        "cacheBytes": 46236564,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 586218298,
+        "activeRecoveries": 0,
+        "codecHeapCapacityBytes": 67895296,
+        "hdf5HeapCapacityBytes": 0,
+        "medianHeapCapacityBytes": 0,
+        "qualityHeapCapacityBytes": 0,
+        "resamplingHeapCapacityBytes": 0,
+        "cloningHeapCapacityBytes": 0
+      }
+    }
+  }
+}

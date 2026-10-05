@@ -1,0 +1,146 @@
+{
+  "job": {
+    "id": "street-noisesniffer",
+    "input": "examples/street/edited.png",
+    "operation": "noise.noisesniffer",
+    "params": {}
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+  "sourceDimensions": [
+    4387,
+    3510
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 4387,
+      "height": 3510,
+      "sha256": "6d227ceb022439c1ef318c09029e9ec421f622417174ed58df53d56a50b0ee3d",
+      "rawRgbSha256": "df5d7a03afbdf57204b148b0c24423b2471c5f4726442a1605e41653080f18bc"
+    }
+  ],
+  "result": {
+    "id": "street-noisesniffer",
+    "imageId": "source",
+    "operation": "noise.noisesniffer",
+    "status": "ok",
+    "layout": "surface",
+    "surface": {
+      "id": "7da44182-ece6-4298-b558-d04919c964a3",
+      "revision": 1,
+      "width": 4387,
+      "height": 3510,
+      "format": "rgb8",
+      "sourceWidth": 4387,
+      "sourceHeight": 3510,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "data": {
+      "width": 4387,
+      "height": 3510,
+      "gridWidth": 44,
+      "gridHeight": 36,
+      "numerics": {
+        "nearGrowthBoundaries": 0,
+        "significanceGuard": 1e-9
+      },
+      "metadata": {
+        "method": "IPOL Noisesniffer",
+        "parameters": [
+          3,
+          100,
+          20000,
+          0.1,
+          0.5
+        ],
+        "valid_blocks": 14945954,
+        "selected_blocks": 4478000,
+        "low_noise_blocks": 2239000,
+        "regions": {
+          "length": 107
+        },
+        "inconclusive": false
+      }
+    },
+    "layers": [
+      {
+        "id": "noise.noisesniffer",
+        "kind": "rgb",
+        "surfaceId": "7da44182-ece6-4298-b558-d04919c964a3",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ]
+      }
+    ],
+    "semantics": "Corrected IPOL Noisesniffer with global means, native unstable global sorting and ordered region growth. Significant regions are noise-consistency evidence, not a manipulation probability. Empty selections are inconclusive.",
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "noise.noisesniffer",
+      "params": {
+        "blockSize": 3,
+        "cellSize": 100,
+        "samplesPerBin": 20000,
+        "lowFrequencyFraction": 0.1,
+        "lowNoiseFraction": 0.5,
+        "view": "regions"
+      },
+      "backend": "cpu",
+      "originalSha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          4387,
+          3510
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "core/noisesniffer.py + corrected IPOL 2024/462",
+      "kernelParity": "Native global statistics, NumPy unstable sorting and ordered region growth; exact qualified outputs",
+      "layout": "segmented"
+    },
+    "metrics": {
+      "workers": 2,
+      "completedStripJobs": 502,
+      "preflightExecutions": 0,
+      "policy": "elastic useful strips, shared CPU admission",
+      "stripRows": 7,
+      "statisticsCached": false,
+      "analysisCached": false,
+      "temporaryBackend": null,
+      "temporaryFallback": null,
+      "totalMs": 70789.65000003576,
+      "cache": {
+        "result": false
+      },
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 7490228164,
+        "retainedBytes": 1097609276,
+        "cacheBytes": 0,
+        "activeReservationBytes": 2097152,
+        "peakAccountedBytes": 1339520784,
+        "activeRecoveries": 0
+      }
+    }
+  }
+}

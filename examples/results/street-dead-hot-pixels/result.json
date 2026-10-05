@@ -1,0 +1,141 @@
+{
+  "job": {
+    "id": "street-dead-hot-pixels",
+    "input": "examples/street/original.jpg",
+    "operation": "pixels.defects",
+    "params": {}
+  },
+  "date": "2026-10-05",
+  "runtime": "Direct Node.js execution of the same web engine and its native WASM kernels; CPU single worker",
+  "engine": "0.35.0-export.2",
+  "sourceSha256": "9b97fa1e07b6c74c20a2151c0998a100b3eb04864a8b6e3349b354486853262d",
+  "sourceDimensions": [
+    4387,
+    3510
+  ],
+  "outputDimensions": [
+    4387,
+    3510
+  ],
+  "outputSha256": "adaaac72fdaf5a78855b3de17b07e369783cd5fc63861c9cffec3d03615496e1",
+  "rawRgbSha256": "1e388e11b4882ff388bac16fe7f6b268bcfc05d4de7dcce5f12b23e5508762a0",
+  "elapsedMs": 2351.05475,
+  "result": {
+    "id": "street-dead-hot-pixels",
+    "imageId": "source",
+    "operation": "pixels.defects",
+    "status": "ok",
+    "masks": {
+      "candidates": {
+        "width": 4387,
+        "height": 3510,
+        "format": "mask8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 15398370,
+          "sha256": "5aefb857f0f5179ddf6aa1d35758ca35987ba3ff0ce86548ed47e39e76cb1a77"
+        },
+        "range": [
+          0,
+          3
+        ],
+        "semantics": "Bit 1=hot, bit 2=dead; 3=both across RGB channels; border excluded."
+      }
+    },
+    "data": {
+      "flags": {
+        "width": 4387,
+        "height": 3510,
+        "format": "rgb-flags8",
+        "data": {
+          "type": "Uint8Array",
+          "length": 46195110,
+          "sha256": "86afee03b5b62155b4934d525e77858d33305d1a8232d681cf99b4c61e9efb7a"
+        },
+        "channelOrder": "RGB"
+      },
+      "count": 36,
+      "candidateColumns": [
+        "x",
+        "y",
+        "rgbChannelIndex",
+        "flag",
+        "originalValue",
+        "replacementValue"
+      ],
+      "candidates": {
+        "type": "Uint32Array",
+        "length": 264,
+        "sha256": "e54489e3f4586a56a29336ee3b144b0442c3eb2faeccb33e1924ee059d276e41"
+      }
+    },
+    "semantics": "Isolated pixel candidates, not a diagnosis of sensor defects. Correction replaces candidate channels only; original stays unchanged.",
+    "layers": [
+      {
+        "id": "pixels.defects",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ]
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "pixels.defects",
+      "params": {
+        "radius": 1,
+        "threshold": 32,
+        "spread": 32,
+        "kind": 0,
+        "mode": 0
+      },
+      "backend": "cpu",
+      "originalSha256": "9b97fa1e07b6c74c20a2151c0998a100b3eb04864a8b6e3349b354486853262d",
+      "decode": {
+        "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+        "chroma": "444",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          4387,
+          3510
+        ],
+        "icc": "present, not applied (native policy)",
+        "depth": 8,
+        "alpha": "absent",
+        "interpolation": "none"
+      },
+      "native": "defect_pixels.py",
+      "kernelParity": "bit-exact pixels/masks on synthetic native fixtures; see fixtures/pixel-reference.json",
+      "semantics": "Isolated pixel candidates, not a diagnosis of sensor defects. Correction replaces candidate channels only; original stays unchanged."
+    },
+    "metrics": {
+      "totalMs": 647.291416,
+      "cache": {
+        "result": false
+      },
+      "kernel": "cpu-reference",
+      "workers": 1,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "policyAvailableBytes": 4130803264,
+        "retainedBytes": 56371902,
+        "cacheBytes": 107792130,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 2895973798,
+        "activeRecoveries": 0,
+        "codecHeapCapacityBytes": 67895296,
+        "hdf5HeapCapacityBytes": 0,
+        "medianHeapCapacityBytes": 0,
+        "qualityHeapCapacityBytes": 0,
+        "resamplingHeapCapacityBytes": 0,
+        "cloningHeapCapacityBytes": 0
+      }
+    }
+  }
+}

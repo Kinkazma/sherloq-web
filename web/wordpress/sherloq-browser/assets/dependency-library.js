@@ -12,7 +12,7 @@ export async function readDependencyManifest(config){
  return validateManifest(JSON.parse(new TextDecoder().decode(b)));
 }
 export function mountDependencyControls(document,config){
- if(!config.enabled)return;
+ if(!config.enabled||document.getElementById('dependency-settings'))return;
  const fr=()=>document.documentElement.lang!=='en',t=(a,b)=>fr()?a:b;
  const entry=document.createElement('button');entry.id='dependency-settings';entry.type='button';
  document.querySelector('#settings-menu > div').append(entry);

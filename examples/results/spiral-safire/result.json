@@ -1,0 +1,236 @@
+{
+  "job": {
+    "id": "spiral-safire",
+    "input": "examples/spiral/edited.png",
+    "operation": "ai.sources.safire",
+    "params": {
+      "side": 16,
+      "groups": 3,
+      "kind": "kmeans",
+      "eps": 0.2,
+      "minimum": 1,
+      "binary": false
+    }
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "619130f5f6019e4b0adba0fba4715cd2414d95936f312530c9f65e938dcdc69e",
+      "rawRgbSha256": "41973dd647d07a35c37d0f8f608313c4dcb2da363965ba8561ed471c91ac9c23"
+    }
+  ],
+  "result": {
+    "id": "spiral-safire",
+    "imageId": "source",
+    "operation": "ai.sources.safire",
+    "status": "ok",
+    "data": {
+      "map": {
+        "type": "Float32Array",
+        "length": 1048576
+      },
+      "source_probabilities": {
+        "type": "Float32Array",
+        "length": 3145728
+      },
+      "source_labels": {
+        "type": "Uint8Array",
+        "length": 1048576
+      },
+      "prompt_features": {
+        "type": "Float32Array",
+        "length": 65536
+      },
+      "prompt_confidence": {
+        "type": "Float32Array",
+        "length": 256
+      },
+      "prompt_clusters": {
+        "type": "Int32Array",
+        "length": 256
+      },
+      "points": {
+        "type": "Float32Array",
+        "length": 512
+      },
+      "metadata": {
+        "image_shape": [
+          1254,
+          1254
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "sources": 3,
+        "chosen_prompt_ids": [
+          106,
+          203,
+          244
+        ],
+        "valid_prompts": 256,
+        "total_prompts": 256,
+        "binary": false,
+        "cluster": "kmeans",
+        "seed": 1701,
+        "points_per_batch": 16,
+        "proposals_reused": false,
+        "coordinates": "analysis-1024-pixel-centres",
+        "clusteringIterations": 4,
+        "postHeapBytes": 20185088,
+        "inference": {
+          "provider": "wasm",
+          "actualHeapBytes": 1568604160,
+          "maximumHeapBytes": 1610612736,
+          "promptBatch": 16,
+          "prepareHeapBytes": 0,
+          "postHeapBytes": 16777216,
+          "threads": 2,
+          "preflightExecutions": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 0,
+          "attempts": 1
+        },
+        "counts": {
+          "proposals": 1,
+          "compositions": 1
+        },
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "method": "safire",
+        "native_shape": [
+          1024,
+          1024
+        ]
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "45487eca-2c7a-4c62-a5d7-5e53dffb6a98",
+      "revision": 1,
+      "width": 1254,
+      "height": 1254,
+      "format": "rgb8",
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "derived"
+    },
+    "style": {
+      "mode": "overlay"
+    },
+    "legend": [
+      {
+        "source": 0,
+        "color": [
+          162,
+          61,
+          242
+        ],
+        "fraction": 0.08906269073486328
+      },
+      {
+        "source": 1,
+        "color": [
+          61,
+          242,
+          109
+        ],
+        "fraction": 0.050286293029785156
+      },
+      {
+        "source": 2,
+        "color": [
+          242,
+          61,
+          65
+        ],
+        "fraction": 0.8606510162353516
+      }
+    ],
+    "layers": [
+      {
+        "id": "ai.sources.safire",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ],
+        "surfaceId": "45487eca-2c7a-4c62-a5d7-5e53dffb6a98",
+        "width": 1254,
+        "height": 1254
+      }
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "ai.sources.safire",
+      "params": {
+        "side": 16,
+        "groups": 3,
+        "kind": "kmeans",
+        "eps": 0.2,
+        "minimum": 1,
+        "binary": false
+      },
+      "backend": "wasm",
+      "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "core/safire.py",
+      "kernelParity": "Native method, measured floating arithmetic differences; see M3 delivery proofs.",
+      "coordinates": [
+        1024,
+        1024
+      ]
+    },
+    "metrics": {
+      "totalMs": 39420.839999973774,
+      "cache": {
+        "result": false,
+        "proposals": false
+      },
+      "backend": "wasm",
+      "preflightExecutions": 0,
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 8443933408,
+        "retainedBytes": 26970400,
+        "cacheBytes": 67380224,
+        "activeReservationBytes": 51650560,
+        "peakAccountedBytes": 2847037118,
+        "activeRecoveries": 0
+      }
+    }
+  }
+}

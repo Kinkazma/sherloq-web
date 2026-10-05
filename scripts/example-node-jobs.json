@@ -1,0 +1,44 @@
+[
+  {
+    "id": "spiral-zero",
+    "input": "examples/spiral/edited.png",
+    "operation": "jpeg.zero",
+    "params": {}
+  },
+  {
+    "id": "spiral-noisesniffer",
+    "input": "examples/spiral/edited.png",
+    "operation": "noise.noisesniffer",
+    "params": {}
+  },
+  {
+    "id": "spiral-ela-energy",
+    "input": "examples/spiral/edited.png",
+    "operation": "ela.energy",
+    "params": {}
+  },
+  {
+    "id": "street-zero",
+    "input": "examples/street/edited.png",
+    "operation": "jpeg.zero",
+    "params": {}
+  },
+  {
+    "id": "street-ela-energy",
+    "input": "examples/street/edited.png",
+    "operation": "ela.energy",
+    "params": {}
+  },
+  {
+    "id": "street-illuminant",
+    "input": "examples/street/original.jpg",
+    "operation": "various.illuminant",
+    "params": {}
+  },
+  {
+    "id": "street-dead-hot-pixels",
+    "input": "examples/street/original.jpg",
+    "operation": "pixels.defects",
+    "params": {}
+  }
+]

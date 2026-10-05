@@ -2,3 +2,6 @@
 **/node_modules/
 **/__pycache__/
 **/.build/
+
+scripts/results/
+scripts/*-status.json

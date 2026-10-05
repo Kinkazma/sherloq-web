@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-05",
+  "uiVersion": "0.14.3",
+  "sourceCommit": "abd61d23df1d487fa81efe490bd40e76ec826764",
+  "command": "node --test web/wordpress/tests/dependency-lifecycle.test.mjs web/wordpress/tests/workspace-shell.test.mjs",
+  "tests": 15,
+  "passed": 15,
+  "failed": 0,
+  "scope": "Independent publication-stage rerun of the changed startup lifecycle and workspace tests after installing locked development dependencies."
+}

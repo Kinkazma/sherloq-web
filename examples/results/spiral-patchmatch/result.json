@@ -1,0 +1,1068 @@
+{
+  "job": {
+    "id": "spiral-patchmatch",
+    "input": "examples/spiral/edited.png",
+    "operation": "tampering.copyMove.dense",
+    "params": {
+      "profile": "PatchMatch Zernike"
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    }
+  },
+  "engine": "0.35.0-export.2",
+  "runtime": "Direct shipped computational clients and workers in headless Chromium; no application UI",
+  "inputSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "outputs": [
+    {
+      "file": "result.png",
+      "view": 0,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "09d502ec16fc54ccec6f2d16d01a7802a8ecdf961122d4c151aaf974e287d121",
+      "rawRgbSha256": "2e59cf6fc05731087379e73aac9f9bb02ad92274c7c47592afc86f149a92591b"
+    }
+  ],
+  "result": {
+    "id": "spiral-patchmatch",
+    "imageId": "source",
+    "operation": "tampering.copyMove.dense",
+    "status": "ok",
+    "layout": "surface",
+    "data": {
+      "status": "ok",
+      "points": {
+        "type": "Float32Array",
+        "length": 82467
+      },
+      "pairs": {
+        "type": "Float64Array",
+        "length": 24000
+      },
+      "groups": [
+        {
+          "type": "Uint32Array",
+          "length": 2056
+        },
+        {
+          "type": "Uint32Array",
+          "length": 742
+        },
+        {
+          "type": "Uint32Array",
+          "length": 249
+        },
+        {
+          "type": "Uint32Array",
+          "length": 190
+        },
+        {
+          "type": "Uint32Array",
+          "length": 28
+        },
+        {
+          "type": "Uint32Array",
+          "length": 804
+        },
+        {
+          "type": "Uint32Array",
+          "length": 26
+        },
+        {
+          "type": "Uint32Array",
+          "length": 18
+        },
+        {
+          "type": "Uint32Array",
+          "length": 403
+        },
+        {
+          "type": "Uint32Array",
+          "length": 126
+        },
+        {
+          "type": "Uint32Array",
+          "length": 198
+        },
+        {
+          "type": "Uint32Array",
+          "length": 1155
+        }
+      ],
+      "models": [
+        {
+          "source_point_indices": {
+            "length": 2056
+          },
+          "destination_point_indices": {
+            "length": 2056
+          },
+          "parent_biome": 0,
+          "model": "Similarity",
+          "matrix": [
+            [
+              0.9991766814884528,
+              -0.00012424315696029113,
+              -18.80559817944427
+            ],
+            [
+              0.00012424315696029113,
+              0.9991766814884528,
+              204.40491486778595
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 2056,
+          "distinct_centres": [
+            1988,
+            1976
+          ],
+          "median_error_px": 0.03490285781904992,
+          "maximum_error_px": 2.037097291408126
+        },
+        {
+          "source_point_indices": {
+            "length": 742
+          },
+          "destination_point_indices": {
+            "length": 742
+          },
+          "parent_biome": 1,
+          "model": "Similarity",
+          "matrix": [
+            [
+              0.9998994089505088,
+              -0.000019279851442760108,
+              -101.96087376701531
+            ],
+            [
+              0.000019279851442760108,
+              0.9998994089505088,
+              80.00859863825465
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 742,
+          "distinct_centres": [
+            741,
+            742
+          ],
+          "median_error_px": 0.0028420567684589197,
+          "maximum_error_px": 1.4102228622046047
+        },
+        {
+          "source_point_indices": {
+            "length": 249
+          },
+          "destination_point_indices": {
+            "length": 249
+          },
+          "parent_biome": 2,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              114
+            ],
+            [
+              0,
+              1,
+              47
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 249,
+          "distinct_centres": [
+            249,
+            249
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0
+        },
+        {
+          "source_point_indices": {
+            "length": 190
+          },
+          "destination_point_indices": {
+            "length": 190
+          },
+          "parent_biome": 2,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              86
+            ],
+            [
+              0,
+              1,
+              39
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 190,
+          "distinct_centres": [
+            190,
+            190
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0
+        },
+        {
+          "source_point_indices": [
+            9756,
+            9757,
+            9769,
+            9770,
+            9771,
+            9772,
+            9773,
+            9774,
+            9787,
+            9788,
+            9789,
+            9790,
+            9791,
+            9792,
+            9793,
+            9794,
+            9795,
+            9796,
+            9808,
+            9809,
+            9810,
+            9814,
+            9815,
+            9828,
+            9829,
+            9849,
+            9850,
+            9874
+          ],
+          "destination_point_indices": [
+            10342,
+            10343,
+            10348,
+            10349,
+            10350,
+            10351,
+            10352,
+            10353,
+            10368,
+            10369,
+            10370,
+            10371,
+            10372,
+            10373,
+            10374,
+            10375,
+            10376,
+            10377,
+            10397,
+            10398,
+            10399,
+            10400,
+            10401,
+            10422,
+            10423,
+            10446,
+            10447,
+            10471
+          ],
+          "parent_biome": 2,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              157
+            ],
+            [
+              0,
+              1,
+              49
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 28,
+          "distinct_centres": [
+            28,
+            28
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0
+        },
+        {
+          "source_point_indices": {
+            "length": 804
+          },
+          "destination_point_indices": {
+            "length": 804
+          },
+          "parent_biome": 3,
+          "model": "Similarity",
+          "matrix": [
+            [
+              0.9994224272414154,
+              -0.00012387809441864744,
+              -27.617554830059877
+            ],
+            [
+              0.00012387809441864744,
+              0.9994224272414154,
+              133.9345289142895
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 804,
+          "distinct_centres": [
+            798,
+            795
+          ],
+          "median_error_px": 0.011716931289854899,
+          "maximum_error_px": 1.9765055840408308
+        },
+        {
+          "source_point_indices": [
+            11627,
+            11628,
+            11629,
+            11630,
+            11631,
+            11634,
+            11635,
+            11636,
+            11637,
+            11638,
+            11639,
+            11640,
+            11641,
+            11642,
+            11643,
+            11644,
+            11645,
+            11646,
+            11647,
+            11648,
+            11649,
+            11650,
+            11651,
+            11652,
+            11653,
+            11654
+          ],
+          "destination_point_indices": [
+            11255,
+            11256,
+            11257,
+            11258,
+            11259,
+            11318,
+            11319,
+            11320,
+            11321,
+            11323,
+            11324,
+            11326,
+            11327,
+            11384,
+            11385,
+            11386,
+            11387,
+            11389,
+            11446,
+            11447,
+            11448,
+            11505,
+            11507,
+            11508,
+            11547,
+            11557
+          ],
+          "parent_biome": 4,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              -28
+            ],
+            [
+              0,
+              1,
+              -12
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 26,
+          "distinct_centres": [
+            26,
+            26
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0
+        },
+        {
+          "source_point_indices": [
+            9536,
+            9537,
+            9539,
+            9542,
+            9543,
+            9546,
+            9550,
+            9535,
+            9538,
+            9540,
+            9541,
+            9544,
+            9545,
+            9547,
+            9548,
+            9549,
+            9551,
+            9552
+          ],
+          "destination_point_indices": [
+            9554,
+            9555,
+            9557,
+            9563,
+            9564,
+            9574,
+            9588,
+            9553,
+            9556,
+            9561,
+            9562,
+            9572,
+            9573,
+            9575,
+            9586,
+            9587,
+            9589,
+            9604
+          ],
+          "parent_biome": 5,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              96
+            ],
+            [
+              0,
+              1,
+              13
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 18,
+          "distinct_centres": [
+            18,
+            18
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0
+        },
+        {
+          "source_point_indices": {
+            "length": 403
+          },
+          "destination_point_indices": {
+            "length": 403
+          },
+          "parent_biome": 6,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              163
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 403,
+          "distinct_centres": [
+            403,
+            403
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0
+        },
+        {
+          "source_point_indices": {
+            "length": 126
+          },
+          "destination_point_indices": {
+            "length": 126
+          },
+          "parent_biome": 7,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              80
+            ],
+            [
+              0,
+              1,
+              233
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 126,
+          "distinct_centres": [
+            126,
+            126
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0
+        },
+        {
+          "source_point_indices": {
+            "length": 198
+          },
+          "destination_point_indices": {
+            "length": 198
+          },
+          "parent_biome": 8,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              -13
+            ],
+            [
+              0,
+              1,
+              204
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 198,
+          "distinct_centres": [
+            198,
+            198
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0
+        },
+        {
+          "source_point_indices": {
+            "length": 1155
+          },
+          "destination_point_indices": {
+            "length": 1155
+          },
+          "parent_biome": 9,
+          "model": "Similarity",
+          "matrix": [
+            [
+              0.9998389091650135,
+              -0.0004802806651104405,
+              -42.709334795644004
+            ],
+            [
+              0.0004802806651104405,
+              0.9998389091650135,
+              63.5374080449029
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 1155,
+          "distinct_centres": [
+            1149,
+            1139
+          ],
+          "median_error_px": 0.022661735837316045,
+          "maximum_error_px": 2.849721119071985
+        }
+      ],
+      "colors": {
+        "type": "Uint8Array",
+        "length": 18000
+      },
+      "bases": [
+        [
+          242,
+          61,
+          162
+        ],
+        [
+          109,
+          242,
+          61
+        ],
+        [
+          65,
+          61,
+          242
+        ],
+        [
+          242,
+          118,
+          61
+        ],
+        [
+          61,
+          242,
+          171
+        ],
+        [
+          224,
+          61,
+          242
+        ],
+        [
+          208,
+          242,
+          61
+        ],
+        [
+          61,
+          155,
+          242
+        ],
+        [
+          242,
+          61,
+          102
+        ],
+        [
+          61,
+          242,
+          73
+        ],
+        [
+          126,
+          61,
+          242
+        ],
+        [
+          242,
+          179,
+          61
+        ]
+      ],
+      "pair_search_regions": {
+        "type": "Int32Array",
+        "length": 6000
+      },
+      "pair_algorithms": {
+        "type": "Uint8Array",
+        "length": 6000
+      },
+      "group_algorithms": [
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike",
+        "PatchMatch Zernike"
+      ],
+      "group_variants": [
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal"
+      ],
+      "group_frames": [
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal",
+        "normal"
+      ],
+      "total_features": 11781,
+      "candidate_comparisons": "223808033",
+      "dense_count": 1571978,
+      "dense_consistent_count": 9688,
+      "params": {
+        "profile": "PatchMatch Zernike",
+        "patch": 8,
+        "iterations": 8,
+        "flip": false,
+        "texture": 2,
+        "radius": 600,
+        "minimum": 5,
+        "auto": false,
+        "compact": false,
+        "regions": [],
+        "excluded": [],
+        "guides": [],
+        "compare": false,
+        "threshold": 0.3,
+        "limit": 6000,
+        "model": "Similarity",
+        "tolerance": 50,
+        "geometricThreshold": 3,
+        "geometricMinimum": 6
+      },
+      "geometry": {
+        "model": "Similarity",
+        "tolerance": 50,
+        "threshold": 3,
+        "minimum": 6
+      },
+      "regions": [],
+      "compare": false,
+      "extension_bins": [],
+      "mirror_policy": null,
+      "semantics": "Native dense hypotheses with independent search provenance, M3 regional fits and supplementary transformation/detail checks. No authenticity verdict.",
+      "dense_fields": [
+        {
+          "width": 1254,
+          "height": 1254,
+          "shift": 0,
+          "pass": {
+            "id": 0,
+            "algorithm": "PatchMatch Zernike",
+            "method": 0,
+            "patch": 8,
+            "targetPatch": 8,
+            "quarterTurn": false,
+            "reflection": false,
+            "stage": "base",
+            "descriptorFrame": "normal",
+            "requireTransform": false,
+            "requireReflection": false,
+            "requireDetail": false
+          },
+          "context": {
+            "id": "global:0",
+            "pairSearchRegion": 0,
+            "compare": false,
+            "regions": [],
+            "origin": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "metadata": {
+        "method": "dense",
+        "profile": "PatchMatch Zernike",
+        "fieldStorage": "worker-owned; full fields in NPZ",
+        "result_reused": false
+      }
+    },
+    "surface": {
+      "id": "ac839a32-4c71-4936-90f6-149f06a697e5",
+      "revision": 1,
+      "width": 1254,
+      "height": 1254,
+      "format": "rgb8",
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "style": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "chosen": [],
+      "hidden": [],
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "visible": [
+      [
+        0,
+        2056
+      ],
+      [
+        1,
+        742
+      ],
+      [
+        2,
+        249
+      ],
+      [
+        3,
+        190
+      ],
+      [
+        4,
+        28
+      ],
+      [
+        5,
+        804
+      ],
+      [
+        6,
+        26
+      ],
+      [
+        7,
+        18
+      ],
+      [
+        8,
+        403
+      ],
+      [
+        9,
+        126
+      ],
+      [
+        10,
+        198
+      ],
+      [
+        11,
+        1155
+      ]
+    ],
+    "legend": [
+      [
+        0,
+        2056,
+        2056
+      ],
+      [
+        1,
+        742,
+        742
+      ],
+      [
+        2,
+        249,
+        249
+      ],
+      [
+        3,
+        190,
+        190
+      ],
+      [
+        4,
+        28,
+        28
+      ],
+      [
+        5,
+        804,
+        804
+      ],
+      [
+        6,
+        26,
+        26
+      ],
+      [
+        7,
+        18,
+        18
+      ],
+      [
+        8,
+        403,
+        403
+      ],
+      [
+        9,
+        126,
+        126
+      ],
+      [
+        10,
+        198,
+        198
+      ],
+      [
+        11,
+        1155,
+        1155
+      ]
+    ],
+    "provenance": {
+      "engine": "0.35.0-export.2",
+      "operation": "tampering.copyMove.dense",
+      "params": {
+        "profile": "PatchMatch Zernike",
+        "patch": 8,
+        "iterations": 8,
+        "flip": false,
+        "texture": 2,
+        "radius": 600,
+        "minimum": 5,
+        "auto": false,
+        "compact": false,
+        "regions": [],
+        "excluded": [],
+        "guides": [],
+        "compare": false,
+        "threshold": 0.3,
+        "limit": 6000,
+        "model": "Similarity",
+        "tolerance": 50,
+        "geometricThreshold": 3,
+        "geometricMinimum": 6
+      },
+      "backendRequested": "cpu",
+      "backend": "see field metrics",
+      "originalSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "core/cloning2.py",
+      "coordinates": "original-pixel-centres"
+    },
+    "metrics": {
+      "workers": 1,
+      "completedJobs": 1,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "scheduling": {
+        "count": 1,
+        "maximum": 1,
+        "ceiling": 1,
+        "resourceReduced": false,
+        "policy": "immediate-useful-work",
+        "priorUsefulSamples": 0,
+        "reason": "Aggressive capacity-based start"
+      },
+      "outputBytes": 22015224,
+      "workerReservationBytes": 1037939792,
+      "compactDescriptorJobs": 0,
+      "residentZernikeJobs": 0,
+      "checkpoint": true,
+      "cache": {
+        "field": false,
+        "refilter": false,
+        "result": false
+      },
+      "generation": 0,
+      "execution": "resident-from-surface",
+      "residentAdmission": {
+        "fits": true,
+        "peakBytes": 1064672564,
+        "reason": null
+      },
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 8514734962,
+        "retainedBytes": 9435096,
+        "cacheBytes": 0,
+        "activeReservationBytes": 65764534,
+        "peakAccountedBytes": 1102944544,
+        "activeRecoveries": 0
+      },
+      "totalMs": 18492.04500001669
+    }
+  }
+}

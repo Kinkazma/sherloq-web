@@ -1,7 +1,7 @@
 {
-  "ui_commit": "6fb6e874ef7a1c36af22f2dc3ca2383085d9e249",
-  "engine_commit": "70473081aab0767f9ea10613001e444847e2d9db",
-  "manifest_sha256": "c041c079d6e1dfc99ab64ad31ba03da2787156c8499630e1981e115f78cbdf6b",
+  "ui_commit": "abd61d23df1d487fa81efe490bd40e76ec826764",
+  "engine_commit": "638d0f7aeebb6fc680fcd99b8af0e3977fb40284",
+  "manifest_sha256": "2b97f4bbfc7156c01117a2e127d2c75fad404e71e1658912609097af6dd7918b",
   "documentation_adaptations": [
     {
       "path": "web/wordpress/DISTRIBUTION.md",
@@ -12,10 +12,13 @@
     {
       "path": "web/wordpress/sherloq-browser/README.md",
       "supplied_sha256": "863101591e5e8d8b3b3f350186ca302d70d62342c90ab45304967bfbe2ba9c1e",
-      "publication_sha256": "e2552c3c710243d3b5bdf85933c766ccde786dcc8a0fbe1e82378078acd33132",
+      "publication_sha256": "96ab40d85c6da485892fabac5aee51c63d1e334791e8c2b2638bdc98e5160baa",
       "reason": "Current public documentation; runtime code and bytes unchanged."
     }
   ],
   "upstream": "https://github.com/GuidoBartoli/sherloq",
-  "macos_derivative": "https://github.com/Kinkazma/sherloq"
+  "macos_derivative": "https://github.com/Kinkazma/sherloq",
+  "ui_version": "0.14.3",
+  "engine_version": "0.35.0-export.2",
+  "resource_commit": "5b517b6972a72872d810e044fe7a85e1fc100b76"
 }
