@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "package": "tesseract.js-core",
+  "version": "7.0.0",
+  "upstream": "https://github.com/naptha/tesseract.js-core",
+  "adaptation": "Append ESM default export; WASM memory maximum bounded per run before instantiation; no inference math changes.",
+  "files": {
+    "tesseract-core-lstm.mjs": {
+      "bytes": 89292,
+      "sha256": "68d04646e4d257b0ede28ab0e7776d73371fe2ac299c16d96de374a96c60ab50"
+    },
+    "tesseract-core-lstm.wasm": {
+      "bytes": 2855361,
+      "sha256": "66b17df6e20c5329a17ffa9c202a47eaa3e32500b253d4c7f38e7f2bc01457c3"
+    },
+    "tesseract-core-simd-lstm.mjs": {
+      "bytes": 89302,
+      "sha256": "14a3a42d2b62f33fb44472a10f365e124fd37450cf30bd2c5f244c69dac38575"
+    },
+    "tesseract-core-simd-lstm.wasm": {
+      "bytes": 2857601,
+      "sha256": "34e8d50cac216427d86bf397d610fdd9f49492539bbcdfbfccc4eda20c810bea"
+    }
+  }
+}

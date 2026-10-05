@@ -1,0 +1,32 @@
+[
+  {
+    "browser": "chrome",
+    "version": "154.0.8037.93",
+    "publicWorkerReadDisplay": true,
+    "exactOriginalPreserved": true,
+    "elaWorkerReadDisplay": true,
+    "elaRecalculations": 2,
+    "allSampledPixelsCompared": true,
+    "loupeRemote": true
+  },
+  {
+    "browser": "firefox",
+    "version": "155.0",
+    "publicWorkerReadDisplay": true,
+    "exactOriginalPreserved": true,
+    "elaWorkerReadDisplay": true,
+    "elaRecalculations": 2,
+    "allSampledPixelsCompared": true,
+    "loupeRemote": null
+  },
+  {
+    "browser": "webkit",
+    "version": "26.6",
+    "publicWorkerReadDisplay": true,
+    "exactOriginalPreserved": true,
+    "elaWorkerReadDisplay": true,
+    "elaRecalculations": 2,
+    "allSampledPixelsCompared": true,
+    "loupeRemote": null
+  }
+]
