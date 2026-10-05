@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: D2PRL admits its large workspace only when the shared CPU lane is available
+ok 1 - D2PRL admits its large workspace only when the shared CPU lane is available
+  ---
+  duration_ms: 5.022666
+  type: 'test'
+  ...
+# Subtest: D2PRL cancellation before admission creates no worker and preserves source ownership
+ok 2 - D2PRL cancellation before admission creates no worker and preserves source ownership
+  ---
+  duration_ms: 1.611791
+  type: 'test'
+  ...
+# Subtest: mapped GPU output survives engine disposal without a copied backing and releases idempotently
+ok 3 - mapped GPU output survives engine disposal without a copied backing and releases idempotently
+  ---
+  duration_ms: 4.743083
+  type: 'test'
+  ...
+# Subtest: one owned GPU output feeds another convolution and device lifetime covers every outstanding result
+ok 4 - one owned GPU output feeds another convolution and device lifetime covers every outstanding result
+  ---
+  duration_ms: 0.875667
+  type: 'test'
+  ...
+# Subtest: mapping and range recovery preserve the completed dispatch and release its transient resources before reclaim
+ok 5 - mapping and range recovery preserve the completed dispatch and release its transient resources before reclaim
+  ---
+  duration_ms: 5.6455
+  type: 'test'
+  ...
+# Subtest: cancellation after mapping frees unpublished output and does not keep a device lease
+ok 6 - cancellation after mapping frees unpublished output and does not keep a device lease
+  ---
+  duration_ms: 1.229208
+  type: 'test'
+  ...
+# Subtest: D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+ok 7 - D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+  ---
+  duration_ms: 36.878333
+  type: 'test'
+  ...
+# Subtest: five failures without progress stop locally while more separated incidents remain recoverable
+ok 8 - five failures without progress stop locally while more separated incidents remain recoverable
+  ---
+  duration_ms: 17.328417
+  type: 'test'
+  ...
+# Subtest: feature copy recovery retains completed native work and releases all ownership
+ok 9 - feature copy recovery retains completed native work and releases all ownership
+  ---
+  duration_ms: 6.298833
+  type: 'test'
+  ...
+# Subtest: cancelled local recovery immediately releases pressure and does not retry
+ok 10 - cancelled local recovery immediately releases pressure and does not retry
+  ---
+  duration_ms: 0.452917
+  type: 'test'
+  ...
+# Subtest: two evaluator lanes refusing every useful tile stop without leaking work or pressure
+ok 11 - two evaluator lanes refusing every useful tile stop without leaking work or pressure
+  ---
+  duration_ms: 8.980667
+  type: 'test'
+  ...
+# Subtest: concurrent useful tiles do not combine independent first refusals into a loop
+ok 12 - concurrent useful tiles do not combine independent first refusals into a loop
+  ---
+  duration_ms: 1.828458
+  type: 'test'
+  ...
+# Subtest: guarded stages retain dynamic getters and original method ownership
+ok 13 - guarded stages retain dynamic getters and original method ownership
+  ---
+  duration_ms: 0.316
+  type: 'test'
+  ...
+# Subtest: a refused optional evaluator preserves the ready pool and grows again after external release
+ok 14 - a refused optional evaluator preserves the ready pool and grows again after external release
+  ---
+  duration_ms: 1.566209
+  type: 'test'
+  ...
+# Subtest: parameter digest recovery retains already fetched useful model bytes
+ok 15 - parameter digest recovery retains already fetched useful model bytes
+  ---
+  duration_ms: 25.737917
+  type: 'test'
+  ...
+# Subtest: cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+ok 16 - cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+  ---
+  duration_ms: 0.959875
+  type: 'test'
+  ...
+# Subtest: D2 waits for independent work without retrying or treating GPU retirement as ArrayBuffer backing
+ok 17 - D2 waits for independent work without retrying or treating GPU retirement as ArrayBuffer backing
+  ---
+  duration_ms: 8.124667
+  type: 'test'
+  ...
+# Subtest: scheduled D2 worker calls carry one owner and cannot be mistaken for an independent producer
+ok 18 - scheduled D2 worker calls carry one owner and cannot be mistaken for an independent producer
+  ---
+  duration_ms: 0.529459
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 200.70475

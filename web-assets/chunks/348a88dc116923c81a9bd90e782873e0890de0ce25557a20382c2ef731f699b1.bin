@@ -1,0 +1,1483 @@
+{
+  "chrome": {
+    "date": "2026-10-05T14:03:23.611Z",
+    "browser": "154.0.8037.93",
+    "results": [
+      {
+        "fixture": "photograph",
+        "format": "webp",
+        "width": 1600,
+        "height": 2200,
+        "bytes": 437272,
+        "encodeMs": 1886,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "webp",
+          "mime": "image/webp",
+          "width": 1600,
+          "height": 2200,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "photograph",
+        "format": "png",
+        "width": 1600,
+        "height": 2200,
+        "bytes": 4337838,
+        "encodeMs": 946,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "coordinates": "full-resolution",
+          "lossless": true,
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 6
+        }
+      },
+      {
+        "fixture": "photograph",
+        "format": "avif",
+        "width": 1600,
+        "height": 2200,
+        "bytes": 11928372,
+        "encodeMs": 1401,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "avif",
+          "mime": "image/avif",
+          "width": 1600,
+          "height": 2200,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "primaries": "BT.709",
+          "matrix": "identity",
+          "gainMap": false,
+          "grid": {
+            "columns": 1,
+            "rows": 2
+          },
+          "encoder": "libavif-1.4.2/libaom-3.14.1",
+          "threads": 10,
+          "heapBytes": 220200960,
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "photograph",
+        "format": "tiff",
+        "width": 1600,
+        "height": 2200,
+        "bytes": 4924580,
+        "encodeMs": 289,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "tiff",
+          "mime": "image/tiff",
+          "width": 1600,
+          "height": 2200,
+          "chroma": "444",
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "compression": "Deflate",
+          "compressionLevel": 6,
+          "encoder": "magick-wasm-0.0.44/libtiff",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "photograph",
+        "format": "heic",
+        "width": 1600,
+        "height": 2200,
+        "bytes": 14737913,
+        "encodeMs": 13612,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "heic",
+          "mime": "image/heic",
+          "width": 1600,
+          "height": 2200,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "grid": {
+            "columns": 1,
+            "rows": 2,
+            "cellWidth": 1600,
+            "cellHeight": 2048
+          },
+          "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "gradient",
+        "format": "webp",
+        "width": 1024,
+        "height": 768,
+        "bytes": 1598,
+        "encodeMs": 362,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "webp",
+          "mime": "image/webp",
+          "width": 1024,
+          "height": 768,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "gradient",
+        "format": "png",
+        "width": 1024,
+        "height": 768,
+        "bytes": 5679,
+        "encodeMs": 180,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "coordinates": "full-resolution",
+          "lossless": true,
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 6
+        }
+      },
+      {
+        "fixture": "gradient",
+        "format": "avif",
+        "width": 1024,
+        "height": 768,
+        "bytes": 5224,
+        "encodeMs": 188,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "avif",
+          "mime": "image/avif",
+          "width": 1024,
+          "height": 768,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "primaries": "BT.709",
+          "matrix": "identity",
+          "gainMap": false,
+          "grid": null,
+          "encoder": "libavif-1.4.2/libaom-3.14.1",
+          "threads": 10,
+          "heapBytes": 83689472,
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "gradient",
+        "format": "tiff",
+        "width": 1024,
+        "height": 768,
+        "bytes": 28030,
+        "encodeMs": 121,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "tiff",
+          "mime": "image/tiff",
+          "width": 1024,
+          "height": 768,
+          "chroma": "444",
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "compression": "Deflate",
+          "compressionLevel": 6,
+          "encoder": "magick-wasm-0.0.44/libtiff",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "gradient",
+        "format": "heic",
+        "width": 1024,
+        "height": 768,
+        "bytes": 76549,
+        "encodeMs": 1316,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "heic",
+          "mime": "image/heic",
+          "width": 1024,
+          "height": 768,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "graphics",
+        "format": "webp",
+        "width": 1024,
+        "height": 768,
+        "bytes": 850,
+        "encodeMs": 145,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "webp",
+          "mime": "image/webp",
+          "width": 1024,
+          "height": 768,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "graphics",
+        "format": "png",
+        "width": 1024,
+        "height": 768,
+        "bytes": 5861,
+        "encodeMs": 177,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "coordinates": "full-resolution",
+          "lossless": true,
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 6
+        }
+      },
+      {
+        "fixture": "graphics",
+        "format": "avif",
+        "width": 1024,
+        "height": 768,
+        "bytes": 15038,
+        "encodeMs": 204,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "avif",
+          "mime": "image/avif",
+          "width": 1024,
+          "height": 768,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "primaries": "BT.709",
+          "matrix": "identity",
+          "gainMap": false,
+          "grid": null,
+          "encoder": "libavif-1.4.2/libaom-3.14.1",
+          "threads": 10,
+          "heapBytes": 83689472,
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "graphics",
+        "format": "tiff",
+        "width": 1024,
+        "height": 768,
+        "bytes": 22584,
+        "encodeMs": 121,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "tiff",
+          "mime": "image/tiff",
+          "width": 1024,
+          "height": 768,
+          "chroma": "444",
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "compression": "Deflate",
+          "compressionLevel": 6,
+          "encoder": "magick-wasm-0.0.44/libtiff",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "graphics",
+        "format": "heic",
+        "width": 1024,
+        "height": 768,
+        "bytes": 319131,
+        "encodeMs": 1352,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "heic",
+          "mime": "image/heic",
+          "width": 1024,
+          "height": 768,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "webp",
+        "width": 257,
+        "height": 193,
+        "bytes": 149496,
+        "encodeMs": 579,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "webp",
+          "mime": "image/webp",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "png",
+        "width": 257,
+        "height": 193,
+        "bytes": 149133,
+        "encodeMs": 32,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "coordinates": "full-resolution",
+          "lossless": true,
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 6
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "avif",
+        "width": 257,
+        "height": 193,
+        "bytes": 212297,
+        "encodeMs": 157,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "avif",
+          "mime": "image/avif",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "primaries": "BT.709",
+          "matrix": "identity",
+          "gainMap": false,
+          "grid": null,
+          "encoder": "libavif-1.4.2/libaom-3.14.1",
+          "threads": 10,
+          "heapBytes": 40304640,
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "tiff",
+        "width": 257,
+        "height": 193,
+        "bytes": 149842,
+        "encodeMs": 106,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "tiff",
+          "mime": "image/tiff",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "compression": "Deflate",
+          "compressionLevel": 6,
+          "encoder": "magick-wasm-0.0.44/libtiff",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "heic",
+        "width": 257,
+        "height": 193,
+        "bytes": 205553,
+        "encodeMs": 206,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "heic",
+          "mime": "image/heic",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "format": "webp",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "png",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "avif",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "tiff",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "heic",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "fixture": "grid",
+        "format": "webp",
+        "width": 2051,
+        "height": 67,
+        "bytes": 894,
+        "encodeMs": 220,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "webp",
+          "mime": "image/webp",
+          "width": 2051,
+          "height": 67,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "grid",
+        "format": "png",
+        "width": 2051,
+        "height": 67,
+        "bytes": 959,
+        "encodeMs": 14,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "coordinates": "full-resolution",
+          "lossless": true,
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 6
+        }
+      },
+      {
+        "fixture": "grid",
+        "format": "avif",
+        "width": 2051,
+        "height": 67,
+        "bytes": 2020,
+        "encodeMs": 184,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "avif",
+          "mime": "image/avif",
+          "width": 2051,
+          "height": 67,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "primaries": "BT.709",
+          "matrix": "identity",
+          "gainMap": false,
+          "grid": {
+            "columns": 2,
+            "rows": 1
+          },
+          "encoder": "libavif-1.4.2/libaom-3.14.1",
+          "threads": 10,
+          "heapBytes": 48365568,
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "grid",
+        "format": "tiff",
+        "width": 2051,
+        "height": 67,
+        "bytes": 6720,
+        "encodeMs": 107,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "tiff",
+          "mime": "image/tiff",
+          "width": 2051,
+          "height": 67,
+          "chroma": "444",
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "compression": "Deflate",
+          "compressionLevel": 6,
+          "encoder": "magick-wasm-0.0.44/libtiff",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "grid",
+        "format": "heic",
+        "width": 2051,
+        "height": 67,
+        "bytes": 29760,
+        "encodeMs": 774,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "heic",
+          "mime": "image/heic",
+          "width": 2051,
+          "height": 67,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "grid": {
+            "columns": 2,
+            "rows": 1,
+            "cellWidth": 2048,
+            "cellHeight": 128
+          },
+          "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      }
+    ]
+  },
+  "firefox": {
+    "date": "2026-10-05T13:54:40.315Z",
+    "browser": "155.0",
+    "results": [
+      {
+        "fixture": "noise",
+        "format": "webp",
+        "width": 257,
+        "height": 193,
+        "bytes": 149496,
+        "encodeMs": 787,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "webp",
+          "mime": "image/webp",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "png",
+        "width": 257,
+        "height": 193,
+        "bytes": 149133,
+        "encodeMs": 54,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "coordinates": "full-resolution",
+          "lossless": true,
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 6
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "avif",
+        "width": 257,
+        "height": 193,
+        "bytes": 212297,
+        "encodeMs": 160,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "avif",
+          "mime": "image/avif",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "primaries": "BT.709",
+          "matrix": "identity",
+          "gainMap": false,
+          "grid": null,
+          "encoder": "libavif-1.4.2/libaom-3.14.1",
+          "threads": 10,
+          "heapBytes": 40304640,
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "tiff",
+        "width": 257,
+        "height": 193,
+        "bytes": 149842,
+        "encodeMs": 143,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "tiff",
+          "mime": "image/tiff",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "compression": "Deflate",
+          "compressionLevel": 6,
+          "encoder": "magick-wasm-0.0.44/libtiff",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "heic",
+        "width": 257,
+        "height": 193,
+        "bytes": 205553,
+        "encodeMs": 225,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "heic",
+          "mime": "image/heic",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "format": "webp",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "png",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "avif",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "tiff",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "heic",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      }
+    ]
+  },
+  "webkit": {
+    "date": "2026-10-05T13:58:31.740Z",
+    "browser": "26.6",
+    "results": [
+      {
+        "fixture": "noise",
+        "format": "webp",
+        "width": 257,
+        "height": 193,
+        "bytes": 149496,
+        "encodeMs": 686,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "webp",
+          "mime": "image/webp",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "png",
+        "width": 257,
+        "height": 193,
+        "bytes": 149133,
+        "encodeMs": 23,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "coordinates": "full-resolution",
+          "lossless": true,
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 6
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "avif",
+        "width": 257,
+        "height": 193,
+        "bytes": 212297,
+        "encodeMs": 134,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "avif",
+          "mime": "image/avif",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "primaries": "BT.709",
+          "matrix": "identity",
+          "gainMap": false,
+          "grid": null,
+          "encoder": "libavif-1.4.2/libaom-3.14.1",
+          "threads": 8,
+          "heapBytes": 33554432,
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "tiff",
+        "width": 257,
+        "height": 193,
+        "bytes": 149842,
+        "encodeMs": 98,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "tiff",
+          "mime": "image/tiff",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "lossless": true,
+          "depth": 8,
+          "transfer": "sRGB",
+          "compression": "Deflate",
+          "compressionLevel": 6,
+          "encoder": "magick-wasm-0.0.44/libtiff",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "fixture": "noise",
+        "format": "heic",
+        "width": 257,
+        "height": 193,
+        "bytes": 205553,
+        "encodeMs": 197,
+        "differentSamples": 0,
+        "maximumError": 0,
+        "encoding": {
+          "originalSha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "format": "heic",
+          "mime": "image/heic",
+          "width": 257,
+          "height": 193,
+          "chroma": "444",
+          "quality": 100,
+          "lossless": true,
+          "depth": 8,
+          "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+          "coordinates": "full-resolution",
+          "metadata": "No original EXIF, alpha, ICC or authenticity assertions are copied."
+        }
+      },
+      {
+        "format": "webp",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "png",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "avif",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "tiff",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      },
+      {
+        "format": "heic",
+        "resize": [
+          129,
+          97
+        ],
+        "algorithm": "lanczos3 in linear sRGB"
+      }
+    ]
+  },
+  "native": {
+    "width": 257,
+    "height": 193,
+    "rgbSha256": "558cdf51354a0ee806ea84168c096ecc7ea2bf281ed5d0187344ed5c770941ec",
+    "tiff": {
+      "bitsPerSample": [
+        8,
+        8,
+        8
+      ],
+      "samplesPerPixel": 3,
+      "compression": "Deflate",
+      "predictor": 2
+    },
+    "cases": [
+      {
+        "browser": "chrome",
+        "format": "webp",
+        "bytes": 149496,
+        "sha256": "42335bd199e7e5e612aa698e38590c5065a6d11b59ade245d67f7496de7c847b",
+        "decodedPixelsEqual": true,
+        "decoder": "Pillow native codec"
+      },
+      {
+        "browser": "chrome",
+        "format": "png",
+        "bytes": 149133,
+        "sha256": "0b687c5e5194c03e6e76fe99785feb1fd1e9649d9fe91beed21bae5c5c6599c9",
+        "decodedPixelsEqual": true,
+        "decoder": "Pillow native codec"
+      },
+      {
+        "browser": "chrome",
+        "format": "avif",
+        "bytes": 212297,
+        "sha256": "935d8c529528b2a606839405be2fa305121dea293081cc58a8b43af2431df24d",
+        "decodedPixelsEqual": true,
+        "decoder": "Native ImageMagick/libheif"
+      },
+      {
+        "browser": "chrome",
+        "format": "tiff",
+        "bytes": 149842,
+        "sha256": "c9b6c7428ae56daaf4f9dedb712d89850700330319ce27665b64e294a8190873",
+        "decodedPixelsEqual": true,
+        "decoder": "Pillow native codec"
+      },
+      {
+        "browser": "chrome",
+        "format": "heic",
+        "bytes": 205553,
+        "sha256": "070e035849fd6608d94da265a572986a69ea729bc7ce8d5f9e9ac219b802d20b",
+        "decodedPixelsEqual": true,
+        "decoder": "Native ImageMagick/libheif"
+      },
+      {
+        "browser": "firefox",
+        "format": "webp",
+        "bytes": 149496,
+        "sha256": "42335bd199e7e5e612aa698e38590c5065a6d11b59ade245d67f7496de7c847b",
+        "decodedPixelsEqual": true,
+        "decoder": "Pillow native codec"
+      },
+      {
+        "browser": "firefox",
+        "format": "png",
+        "bytes": 149133,
+        "sha256": "0b687c5e5194c03e6e76fe99785feb1fd1e9649d9fe91beed21bae5c5c6599c9",
+        "decodedPixelsEqual": true,
+        "decoder": "Pillow native codec"
+      },
+      {
+        "browser": "firefox",
+        "format": "avif",
+        "bytes": 212297,
+        "sha256": "935d8c529528b2a606839405be2fa305121dea293081cc58a8b43af2431df24d",
+        "decodedPixelsEqual": true,
+        "decoder": "Native ImageMagick/libheif"
+      },
+      {
+        "browser": "firefox",
+        "format": "tiff",
+        "bytes": 149842,
+        "sha256": "c9b6c7428ae56daaf4f9dedb712d89850700330319ce27665b64e294a8190873",
+        "decodedPixelsEqual": true,
+        "decoder": "Pillow native codec"
+      },
+      {
+        "browser": "firefox",
+        "format": "heic",
+        "bytes": 205553,
+        "sha256": "070e035849fd6608d94da265a572986a69ea729bc7ce8d5f9e9ac219b802d20b",
+        "decodedPixelsEqual": true,
+        "decoder": "Native ImageMagick/libheif"
+      },
+      {
+        "browser": "webkit",
+        "format": "webp",
+        "bytes": 149496,
+        "sha256": "42335bd199e7e5e612aa698e38590c5065a6d11b59ade245d67f7496de7c847b",
+        "decodedPixelsEqual": true,
+        "decoder": "Pillow native codec"
+      },
+      {
+        "browser": "webkit",
+        "format": "png",
+        "bytes": 149133,
+        "sha256": "0b687c5e5194c03e6e76fe99785feb1fd1e9649d9fe91beed21bae5c5c6599c9",
+        "decodedPixelsEqual": true,
+        "decoder": "Pillow native codec"
+      },
+      {
+        "browser": "webkit",
+        "format": "avif",
+        "bytes": 212297,
+        "sha256": "935d8c529528b2a606839405be2fa305121dea293081cc58a8b43af2431df24d",
+        "decodedPixelsEqual": true,
+        "decoder": "Native ImageMagick/libheif"
+      },
+      {
+        "browser": "webkit",
+        "format": "tiff",
+        "bytes": 149842,
+        "sha256": "c9b6c7428ae56daaf4f9dedb712d89850700330319ce27665b64e294a8190873",
+        "decodedPixelsEqual": true,
+        "decoder": "Pillow native codec"
+      },
+      {
+        "browser": "webkit",
+        "format": "heic",
+        "bytes": 205553,
+        "sha256": "070e035849fd6608d94da265a572986a69ea729bc7ce8d5f9e9ac219b802d20b",
+        "decodedPixelsEqual": true,
+        "decoder": "Native ImageMagick/libheif"
+      }
+    ]
+  },
+  "codecRegression": {
+    "isolated": true,
+    "cases": [
+      {
+        "format": "avif",
+        "mime": "image/avif",
+        "width": 257,
+        "height": 193,
+        "chroma": "444",
+        "quality": 100,
+        "lossless": true,
+        "depth": 8,
+        "transfer": "sRGB",
+        "primaries": "BT.709",
+        "matrix": "identity",
+        "gainMap": false,
+        "grid": null,
+        "encoder": "libavif-1.4.2/libaom-3.14.1",
+        "threads": 1,
+        "heapBytes": 33554432,
+        "bytes": 1369,
+        "decoded": {
+          "decoder": "ImageMagick-7.1.2-32/magick-wasm-0.0.44",
+          "format": "avif",
+          "chroma": "444",
+          "sourceSize": [
+            257,
+            193
+          ],
+          "orientation": 1,
+          "orientationApplied": true,
+          "analysisDepth": 8,
+          "icc": "absent; native RGB conversion",
+          "frames": "first image only",
+          "alpha": "absent",
+          "cicp": "1/13/0/1"
+        },
+        "meanAbsoluteError": 0,
+        "maximumError": 0,
+        "totalMs": 269.5499999523163
+      },
+      {
+        "format": "avif",
+        "mime": "image/avif",
+        "width": 257,
+        "height": 193,
+        "chroma": "422",
+        "quality": 90,
+        "lossless": false,
+        "depth": 10,
+        "transfer": "PQ",
+        "primaries": "BT.2020",
+        "sdrWhiteNits": 203,
+        "gainMap": false,
+        "grid": null,
+        "encoder": "libavif-1.4.2/libaom-3.14.1",
+        "threads": 1,
+        "heapBytes": 33554432,
+        "bytes": 1980,
+        "decoded": {
+          "decoder": "ImageMagick-7.1.2-32/magick-wasm-0.0.44",
+          "format": "avif",
+          "chroma": "422",
+          "sourceSize": [
+            257,
+            193
+          ],
+          "orientation": 1,
+          "orientationApplied": true,
+          "analysisDepth": 8,
+          "icc": "absent; native RGB conversion",
+          "frames": "first image only",
+          "alpha": "absent",
+          "cicp": "9/16/9/1"
+        },
+        "meanAbsoluteError": 2.735462322668226,
+        "maximumError": 42,
+        "totalMs": 261.7199999690056
+      },
+      {
+        "format": "avif",
+        "mime": "image/avif",
+        "width": 257,
+        "height": 193,
+        "chroma": "422",
+        "quality": 90,
+        "lossless": false,
+        "depth": 10,
+        "transfer": "PQ",
+        "primaries": "BT.2020",
+        "sdrWhiteNits": 203,
+        "gainMap": false,
+        "grid": null,
+        "encoder": "libavif-1.4.2/libaom-3.14.1",
+        "threads": 4,
+        "heapBytes": 33554432,
+        "bytes": 1980,
+        "decoded": {
+          "decoder": "ImageMagick-7.1.2-32/magick-wasm-0.0.44",
+          "format": "avif",
+          "chroma": "422",
+          "sourceSize": [
+            257,
+            193
+          ],
+          "orientation": 1,
+          "orientationApplied": true,
+          "analysisDepth": 8,
+          "icc": "absent; native RGB conversion",
+          "frames": "first image only",
+          "alpha": "absent",
+          "cicp": "9/16/9/1"
+        },
+        "meanAbsoluteError": 2.730207052277172,
+        "maximumError": 44,
+        "totalMs": 260.07499998807907
+      },
+      {
+        "format": "avif",
+        "mime": "image/avif",
+        "width": 257,
+        "height": 193,
+        "chroma": "444",
+        "quality": 90,
+        "lossless": false,
+        "depth": 10,
+        "transfer": "PQ",
+        "primaries": "BT.2020",
+        "sdrWhiteNits": 203,
+        "gainMap": false,
+        "grid": null,
+        "encoder": "libavif-1.4.2/libaom-3.14.1",
+        "threads": 4,
+        "heapBytes": 33554432,
+        "bytes": 2098,
+        "decoded": {
+          "decoder": "ImageMagick-7.1.2-32/magick-wasm-0.0.44",
+          "format": "avif",
+          "chroma": "444",
+          "sourceSize": [
+            257,
+            193
+          ],
+          "orientation": 1,
+          "orientationApplied": true,
+          "analysisDepth": 8,
+          "icc": "absent; native RGB conversion",
+          "frames": "first image only",
+          "alpha": "absent",
+          "cicp": "9/16/9/1"
+        },
+        "meanAbsoluteError": 2.634919994892576,
+        "maximumError": 42,
+        "totalMs": 257.2600000500679
+      },
+      {
+        "format": "avif",
+        "mime": "image/avif",
+        "width": 257,
+        "height": 193,
+        "chroma": "420",
+        "quality": 90,
+        "lossless": false,
+        "depth": 10,
+        "transfer": "PQ",
+        "primaries": "BT.2020",
+        "sdrWhiteNits": 203,
+        "gainMap": false,
+        "grid": null,
+        "encoder": "libavif-1.4.2/libaom-3.14.1",
+        "threads": 4,
+        "heapBytes": 33554432,
+        "bytes": 1848,
+        "decoded": {
+          "decoder": "ImageMagick-7.1.2-32/magick-wasm-0.0.44",
+          "format": "avif",
+          "chroma": "420",
+          "sourceSize": [
+            257,
+            193
+          ],
+          "orientation": 1,
+          "orientationApplied": true,
+          "analysisDepth": 8,
+          "icc": "absent; native RGB conversion",
+          "frames": "first image only",
+          "alpha": "absent",
+          "cicp": "9/16/9/1"
+        },
+        "meanAbsoluteError": 2.900102820507651,
+        "maximumError": 43,
+        "totalMs": 240.45000004768372
+      },
+      {
+        "format": "webp",
+        "mime": "image/webp",
+        "width": 257,
+        "height": 193,
+        "chroma": "420",
+        "quality": 90,
+        "lossless": false,
+        "depth": 8,
+        "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+        "bytes": 3272,
+        "decoded": {
+          "decoder": "ImageMagick-7.1.2-32/magick-wasm-0.0.44",
+          "format": "webp",
+          "chroma": "420",
+          "sourceSize": [
+            257,
+            193
+          ],
+          "orientation": 1,
+          "orientationApplied": true,
+          "analysisDepth": 8,
+          "icc": "converted to sRGB",
+          "frames": "first image only",
+          "alpha": "absent",
+          "cicp": null
+        },
+        "meanAbsoluteError": 4.590559330121033,
+        "maximumError": 57,
+        "totalMs": 212.6050000190735
+      },
+      {
+        "format": "webp",
+        "mime": "image/webp",
+        "width": 257,
+        "height": 193,
+        "chroma": "444",
+        "quality": 100,
+        "lossless": true,
+        "depth": 8,
+        "encoder": "magick-wasm-0.0.44/libwebp-1.6.0",
+        "bytes": 790,
+        "decoded": {
+          "decoder": "ImageMagick-7.1.2-32/magick-wasm-0.0.44",
+          "format": "webp",
+          "chroma": "444",
+          "sourceSize": [
+            257,
+            193
+          ],
+          "orientation": 1,
+          "orientationApplied": true,
+          "analysisDepth": 8,
+          "icc": "converted to sRGB",
+          "frames": "first image only",
+          "alpha": "absent",
+          "cicp": null
+        },
+        "meanAbsoluteError": 0,
+        "maximumError": 0,
+        "totalMs": 249.70000004768372
+      },
+      {
+        "format": "heic",
+        "mime": "image/heic",
+        "width": 257,
+        "height": 193,
+        "chroma": "422",
+        "quality": 90,
+        "lossless": false,
+        "depth": 8,
+        "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+        "bytes": 18988,
+        "decoded": {
+          "decoder": "ImageMagick-7.1.2-32/magick-wasm-0.0.44",
+          "format": "heic",
+          "chroma": "422",
+          "sourceSize": [
+            257,
+            193
+          ],
+          "orientation": 1,
+          "orientationApplied": true,
+          "analysisDepth": 8,
+          "icc": "absent; native RGB conversion",
+          "frames": "first image only",
+          "alpha": "present, RGB channels retained without alpha",
+          "cicp": null
+        },
+        "meanAbsoluteError": 0.41825769641741095,
+        "maximumError": 3,
+        "totalMs": 357.02000004053116
+      },
+      {
+        "format": "heic",
+        "mime": "image/heic",
+        "width": 257,
+        "height": 193,
+        "chroma": "444",
+        "quality": 90,
+        "lossless": false,
+        "depth": 8,
+        "encoder": "icodec-0.6.0/libheif-1.19.1/x265-4.0",
+        "bytes": 16883,
+        "decoded": {
+          "decoder": "ImageMagick-7.1.2-32/magick-wasm-0.0.44",
+          "format": "heic",
+          "chroma": "444",
+          "sourceSize": [
+            257,
+            193
+          ],
+          "orientation": 1,
+          "orientationApplied": true,
+          "analysisDepth": 8,
+          "icc": "absent; native RGB conversion",
+          "frames": "first image only",
+          "alpha": "present, RGB channels retained without alpha",
+          "cicp": null
+        },
+        "meanAbsoluteError": 0.3431718446536696,
+        "maximumError": 3,
+        "totalMs": 370.97000002861023
+      }
+    ],
+    "browser": "154.0.8037.93"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "scope": "Dense preparation checkpoint, acknowledged reusable tile buffers and useful field drain",
+  "sourceCommit": "ce052f4eda91a2f57bafe5947e028da2339511d4",
+  "command": "node --experimental-test-module-mocks --test tests/dense-preparation-drain.test.mjs tests/dense-checkpoint-ownership.test.mjs tests/elastic-worker-pool.test.mjs tests/dense-page-heap.test.mjs tests/dense-preparation-window-budget.test.mjs tests/dense-eligibility-checkpoint.test.mjs tests/dense-worker-message-protocol.test.mjs tests/dense-input-migration.test.mjs",
+  "result": {
+    "tests": 74,
+    "pass": 74,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "log": {
+    "path": ".build/dense-tile-recovery-20261003/targeted-node.log",
+    "sha256": "51cf8c7e0e17dceecba8b48587e842d1c9611517b5b61574ea0cdd795d9e5f84"
+  },
+  "evidence": [
+    {
+      "test": "tests/dense-eligibility-checkpoint.test.mjs",
+      "realNative": true,
+      "assertions": [
+        "Five injected allocation refusals stop after the first committed texture tile.",
+        "Resume keeps the same mask owner and computes only the two missing tiles.",
+        "The 300 by 24 mask equals the full resident native mask byte for byte.",
+        "Changed recipe is rejected; repeated disposal returns the budget to zero."
+      ]
+    },
+    {
+      "test": "tests/dense-preparation-drain.test.mjs",
+      "realNative": true,
+      "assertions": [
+        "A texture storage read failure occurs while a native PatchMatch field is active.",
+        "The active field finishes and publishes before the terminal error is returned.",
+        "Explicit resume reuses that completed field with identical target bytes and comparison count.",
+        "Only the two uncommitted texture tiles run on resume; final shared budget is zero."
+      ],
+      "fixtureBoundary": "Field pool admission and descriptor generation are controlled fixture components; texture worker, mask kernel, paged native field arithmetic and stores are production code."
+    },
+    {
+      "test": "tests/dense-checkpoint-ownership.test.mjs",
+      "realNative": false,
+      "assertions": [
+        "Preparation retries after the first active field completes, before a second active field finishes.",
+        "Completed fields and coherence products retain their owners across explicit resumes.",
+        "Ordinary recovery has no all-fields barrier."
+      ]
+    },
+    {
+      "test": "tests/elastic-worker-pool.test.mjs",
+      "realNative": false,
+      "assertions": [
+        "Eight tiles allocate exactly two reusable typed-array backings; real structuredClone transfers detach and return them.",
+        "Publication retry retains the exact result and does not repeat preparation or computation.",
+        "Returned buffers remain pinned through publication and become reclaimable after consumption.",
+        "Recovery metadata preserves resources, recoveryStage, reclamation and tile identity."
+      ]
+    },
+    {
+      "test": "tests/dense-preparation-window-budget.test.mjs",
+      "realNative": true,
+      "assertions": [
+        "Zernike, compact SIFT and texture complete at their exact planned test budgets.",
+        "Texture reserves its output buffer, scratch and commit bitmap explicitly."
+      ]
+    },
+    {
+      "test": "tests/dense-page-heap.test.mjs",
+      "realNative": false,
+      "assertions": [
+        "Wasm allocation names, nested causes, requested/current byte counts and domain survive both worker message boundaries."
+      ]
+    }
+  ],
+  "limits": [
+    "No browser or 96-megapixel run was performed for this lot.",
+    "Terminal preparation drains already required active fields; it does not persist an unfinished native frontier to storage.",
+    "A field that itself fails outside its existing local recovery may restart that hypothesis from its original RNG seed.",
+    "Reusable work buffers cover the texture path here; other preparation pathways keep their existing implementation.",
+    "The new experimental dense GPU admission metadata is not a new GPU arithmetic qualification."
+  ],
+  "testsSha256": {
+    "tests/dense-preparation-drain.test.mjs": "fda583af0b51666b1eaa9ad43e05fdffb1d87f7a5150497fcfaad82e716b41e2",
+    "tests/dense-checkpoint-ownership.test.mjs": "91605120579a80f7a38ebffc3ba6af22d002687fe0cb91a474596252b295f5b5",
+    "tests/elastic-worker-pool.test.mjs": "ed651f90b72bd4c192e78d7a72ec87c81df803580e55df36a55c2a811c5731f9",
+    "tests/dense-page-heap.test.mjs": "1663f9844d25669f7c5e0ca9b5bf5684215ce02faa40cfc94e3b231b3f964b68",
+    "tests/dense-preparation-window-budget.test.mjs": "fa342461f7d37a8f3a5aecdbd0f0bac1a9ee6d9696d180c64384dc09ea45f537",
+    "tests/dense-eligibility-checkpoint.test.mjs": "1de1b29f163d07fb6e24fd4837855437a2741f35320fa1f11a5ada533f93414c",
+    "tests/dense-worker-message-protocol.test.mjs": "cd389449ed51e9b974e7942adde0bf62f8d8aa836ecd193c0d1b024cb47b2577",
+    "tests/dense-input-migration.test.mjs": "0592b4bf8506a6a5014aa7ef7e3e9ebf24cd6fa43d947fd4c056a30696830883"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "opencv": "4.11.0",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "sourceSha256": "18ffc2e03fe3dfd94d45828a5d7e89c4e01061cb12183ba90d70bfd8fd780740",
+  "libraries": {
+    "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+  },
+  "method": "Native hull/moments/rounded overlap, 8-connected region masks, external contours and full-image fillPoly/complete-cell selection",
+  "files": {
+    "clone-entries.js": {
+      "bytes": 28876,
+      "sha256": "4b293632aef3e912d2ae3b259903c88f820de143cf46108e0d0081fd988df5d8"
+    },
+    "clone-entries.wasm": {
+      "bytes": 1058556,
+      "sha256": "8b9c9b3f43bff7f295538d17495e1d9c16c673e963fc3f1c0fbfde284a523dc5"
+    }
+  }
+}

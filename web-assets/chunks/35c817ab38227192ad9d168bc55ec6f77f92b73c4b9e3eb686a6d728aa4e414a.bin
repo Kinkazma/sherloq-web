@@ -1,0 +1,196 @@
+TAP version 13
+# Subtest: qualities grow from one to four workers after real competing CPU and RAM are returned
+ok 1 - qualities grow from one to four workers after real competing CPU and RAM are returned
+  ---
+  duration_ms: 3.24325
+  type: 'test'
+  ...
+# Subtest: bounded heaps persist between low-memory batches and are released only after termination
+ok 2 - bounded heaps persist between low-memory batches and are released only after termination
+  ---
+  duration_ms: 0.827333
+  type: 'test'
+  ...
+# Subtest: running useful streams are not retired to satisfy memory pressure
+ok 3 - running useful streams are not retired to satisfy memory pressure
+  ---
+  duration_ms: 0.343958
+  type: 'test'
+  ...
+# Subtest: more workers can be admitted by spilling cold data without re-running any stream
+ok 4 - more workers can be admitted by spilling cold data without re-running any stream
+  ---
+  duration_ms: 0.172208
+  type: 'test'
+  ...
+# Subtest: a first quality waits for admitted competing memory without occupying a CPU
+ok 5 - a first quality waits for admitted competing memory without occupying a CPU
+  ---
+  duration_ms: 3.248625
+  type: 'test'
+  ...
+# Subtest: cancelled memory admission never constructs a late quality worker
+ok 6 - cancelled memory admission never constructs a late quality worker
+  ---
+  duration_ms: 3.293458
+  type: 'test'
+  ...
+# Subtest: quality retries retain successful companions and stop the same failed quality at five refusals
+ok 7 - quality retries retain successful companions and stop the same failed quality at five refusals
+  ---
+  duration_ms: 9.882208
+  type: 'test'
+  ...
+# Subtest: separate qualities can each recover without a lifetime retry ceiling
+ok 8 - separate qualities can each recover without a lifetime retry ceiling
+  ---
+  duration_ms: 10.637166
+  type: 'test'
+  ...
+# Subtest: transport cleanup completes before retry and cancellation creates no replacement
+ok 9 - transport cleanup completes before retry and cancellation creates no replacement
+  ---
+  duration_ms: 0.75625
+  type: 'test'
+  ...
+# Subtest: transport-only local boundary leaves real allocation faults to their domain recovery owner
+ok 10 - transport-only local boundary leaves real allocation faults to their domain recovery owner
+  ---
+  duration_ms: 0.122459
+  type: 'test'
+  ...
+# Subtest: pool clear prevents late dispatch to a terminated worker, next generation is reusable
+ok 11 - pool clear prevents late dispatch to a terminated worker, next generation is reusable
+  ---
+  duration_ms: 3.800291
+  type: 'test'
+  ...
+# Subtest: different worker pools cannot multiply the shared CPU quota
+ok 12 - different worker pools cannot multiply the shared CPU quota
+  ---
+  duration_ms: 3.361292
+  type: 'test'
+  ...
+# Subtest: production quality and LUT pools honor one quota and clearing a queued pool preserves its input
+ok 13 - production quality and LUT pools honor one quota and clearing a queued pool preserves its input
+  ---
+  duration_ms: 5.765916
+  type: 'test'
+  ...
+# Subtest: bounded rows and windows preserve native OCR support and exact PGM grayscale bytes
+ok 14 - bounded rows and windows preserve native OCR support and exact PGM grayscale bytes
+  ---
+  duration_ms: 7.92425
+  type: 'test'
+  ...
+# Subtest: invalid windows, visitor failures and cancellation release every borrowed source strip
+ok 15 - invalid windows, visitor failures and cancellation release every borrowed source strip
+  ---
+  duration_ms: 0.60575
+  type: 'test'
+  ...
+# Subtest: Tesseract TSV rules, flat support and trimming equal native
+ok 16 - Tesseract TSV rules, flat support and trimming equal native
+  ---
+  duration_ms: 5.434084
+  type: 'test'
+  ...
+# Subtest: OCR tiled coverage retains full resolution and exact right/bottom edge
+ok 17 - OCR tiled coverage retains full resolution and exact right/bottom edge
+  ---
+  duration_ms: 0.140959
+  type: 'test'
+  ...
+# Subtest: OCR duplicates use inclusive smaller-area overlap, confidence then coordinate order
+ok 18 - OCR duplicates use inclusive smaller-area overlap, confidence then coordinate order
+  ---
+  duration_ms: 0.212084
+  type: 'test'
+  ...
+# Subtest: OCR filters honor shared admission and cancellation
+ok 19 - OCR filters honor shared admission and cancellation
+  ---
+  duration_ms: 0.430459
+  type: 'test'
+  ...
+# Subtest: null fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+ok 20 - null fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+  ---
+  duration_ms: 5.514459
+  type: 'test'
+  ...
+# Subtest: messageerror fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+ok 21 - messageerror fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+  ---
+  duration_ms: 1.680291
+  type: 'test'
+  ...
+# Subtest: unexpected asynchronous handler rejection is delivered instead of orphaning its caller
+ok 22 - unexpected asynchronous handler rejection is delivered instead of orphaning its caller
+  ---
+  duration_ms: 1.197875
+  type: 'test'
+  ...
+# Subtest: opaque transport retry preserves its cause, skips all memory reclaim and stops at five refusals
+ok 23 - opaque transport retry preserves its cause, skips all memory reclaim and stops at five refusals
+  ---
+  duration_ms: 7.450666
+  type: 'test'
+  ...
+# Subtest: unrelated policy-memory changes cannot reset an opaque transport obstruction
+ok 24 - unrelated policy-memory changes cannot reset an opaque transport obstruction
+  ---
+  duration_ms: 4.930292
+  type: 'test'
+  ...
+# Subtest: ghost publishes a completely closed companion before another close fails
+ok 25 - ghost publishes a completely closed companion before another close fails
+  ---
+  duration_ms: 11.522667
+  type: 'test'
+  ...
+# Subtest: gray publishes a completely closed companion before another close fails
+ok 26 - gray publishes a completely closed companion before another close fails
+  ---
+  duration_ms: 4.481667
+  type: 'test'
+  ...
+# Subtest: OCR rejects malformed success envelopes as transport without publishing undefined
+ok 27 - OCR rejects malformed success envelopes as transport without publishing undefined
+  ---
+  duration_ms: 0.508042
+  type: 'test'
+  ...
+# Subtest: OCR aborts and drains companion input before releasing the batch or recreating a worker
+ok 28 - OCR aborts and drains companion input before releasing the batch or recreating a worker
+  ---
+  duration_ms: 49.1945
+  type: 'test'
+  ...
+# Subtest: energy keeps its failed worker envelope until pending I/O drains
+ok 29 - energy keeps its failed worker envelope until pending I/O drains
+  ---
+  duration_ms: 8.986792
+  type: 'test'
+  ...
+# Subtest: ghost keeps its failed worker envelope until pending I/O drains
+ok 30 - ghost keeps its failed worker envelope until pending I/O drains
+  ---
+  duration_ms: 8.693584
+  type: 'test'
+  ...
+# Subtest: gray keeps its failed worker envelope until pending I/O drains
+ok 31 - gray keeps its failed worker envelope until pending I/O drains
+  ---
+  duration_ms: 6.680917
+  type: 'test'
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 192.907167
