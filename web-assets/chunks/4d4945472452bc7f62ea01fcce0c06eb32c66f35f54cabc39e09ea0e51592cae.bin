@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: partial free memory adds every fitting kernel and accounts for retained idle heaps
+ok 1 - partial free memory adds every fitting kernel and accounts for retained idle heaps
+  ---
+  duration_ms: 3.918416
+  type: 'test'
+  ...
+# Subtest: a bootstrap progress exception rejects the field and terminates its kernel
+ok 2 - a bootstrap progress exception rejects the field and terminates its kernel
+  ---
+  duration_ms: 0.383375
+  type: 'test'
+  ...
+# Subtest: a refused extra kernel preserves the ready field without repeated allocation attempts
+ok 3 - a refused extra kernel preserves the ready field without repeated allocation attempts
+  ---
+  duration_ms: 1.237416
+  type: 'test'
+  ...
+# Subtest: real recovered memory permits full width again without changing the budget limit
+ok 4 - real recovered memory permits full width again without changing the budget limit
+  ---
+  duration_ms: 0.974416
+  type: 'test'
+  ...
+# Subtest: a later release reopens a previously refused expansion
+ok 5 - a later release reopens a previously refused expansion
+  ---
+  duration_ms: 1.045
+  type: 'test'
+  ...
+# Subtest: a failed bootstrap retries locally only after concrete memory recovery
+ok 6 - a failed bootstrap retries locally only after concrete memory recovery
+  ---
+  duration_ms: 1.562292
+  type: 'test'
+  ...
+# Subtest: allocation failures during a useful task remain fatal and retain their evidence
+ok 7 - allocation failures during a useful task remain fatal and retain their evidence
+  ---
+  duration_ms: 0.376333
+  type: 'test'
+  ...
+# Subtest: returning uncreated reservations does not itself retry a refused allocation
+ok 8 - returning uncreated reservations does not itself retry a refused allocation
+  ---
+  duration_ms: 0.753666
+  type: 'test'
+  ...
+# Subtest: dense output migration windows fit before a kernel fills the remaining workspace
+ok 9 - dense output migration windows fit before a kernel fills the remaining workspace
+  ---
+  duration_ms: 5.766042
+  type: 'test'
+  ...
+# Subtest: a field receives a partial memory grant and yields only its GPU coordinator CPU
+ok 10 - a field receives a partial memory grant and yields only its GPU coordinator CPU
+  ---
+  duration_ms: 9.834666
+  type: 'test'
+  ...
+# Subtest: unused kernel workspace is returned and a later useful grant can grow it again
+ok 11 - unused kernel workspace is returned and a later useful grant can grow it again
+  ---
+  duration_ms: 1.711167
+  type: 'test'
+  ...
+# Subtest: memory RPC hides blocked field activity without surrendering its CPU quota
+ok 12 - memory RPC hides blocked field activity without surrendering its CPU quota
+  ---
+  duration_ms: 3.220625
+  type: 'test'
+  ...
+# Subtest: an allocation waits for real independent backing retirement, not reservation churn or phase replay
+ok 13 - an allocation waits for real independent backing retirement, not reservation churn or phase replay
+  ---
+  duration_ms: 7.559875
+  type: 'test'
+  ...
+# Subtest: a typed reclaim result and its retirement notification are counted once
+ok 14 - a typed reclaim result and its retirement notification are counted once
+  ---
+  duration_ms: 0.719459
+  type: 'test'
+  ...
+# Subtest: legacy typed owners publish only missing retirement notifications
+ok 15 - legacy typed owners publish only missing retirement notifications
+  ---
+  duration_ms: 0.094583
+  type: 'test'
+  ...
+# Subtest: waiting cancellation releases pressure and subscriptions without replaying the operation
+ok 16 - waiting cancellation releases pressure and subscriptions without replaying the operation
+  ---
+  duration_ms: 0.683583
+  type: 'test'
+  ...
+# Subtest: blocked, own, and merely queued leases cannot keep recovery waiting
+ok 17 - blocked, own, and merely queued leases cannot keep recovery waiting
+  ---
+  duration_ms: 1.267625
+  type: 'test'
+  ...
+# Subtest: peer quiescence resumes the bounded guard and two waiting owners cannot deadlock
+ok 18 - peer quiescence resumes the bounded guard and two waiting owners cannot deadlock
+  ---
+  duration_ms: 0.63025
+  type: 'test'
+  ...
+# Subtest: invalid producer ownership is rejected before execution admission
+ok 19 - invalid producer ownership is rejected before execution admission
+  ---
+  duration_ms: 0.548125
+  type: 'test'
+  ...
+# Subtest: lazy 576 MB cold store reports only materialized bank bytes after a committed spill
+ok 20 - lazy 576 MB cold store reports only materialized bank bytes after a committed spill
+  ---
+  duration_ms: 5.015375
+  type: 'test'
+  ...
+# Subtest: backing capacity counts exact final banks, excludes holes, and disposal waits for pins
+ok 21 - backing capacity counts exact final banks, excludes holes, and disposal waits for pins
+  ---
+  duration_ms: 0.341292
+  type: 'test'
+  ...
+# Subtest: an aborted spill never publishes the still-owned RAM as freed backing
+ok 22 - an aborted spill never publishes the still-owned RAM as freed backing
+  ---
+  duration_ms: 1.118958
+  type: 'test'
+  ...
+# Subtest: JPEG allocation reclamation retires actual encoded banks before unrelated Wasm credit
+ok 23 - JPEG allocation reclamation retires actual encoded banks before unrelated Wasm credit
+  ---
+  duration_ms: 0.594334
+  type: 'test'
+  ...
+# Subtest: JPEG allocation reclaim waits for the retired encoded store transport ACK
+ok 24 - JPEG allocation reclaim waits for the retired encoded store transport ACK
+  ---
+  duration_ms: 1.108459
+  type: 'test'
+  ...
+# Subtest: typed JPEG reclaim preserves the quality actively decoded by the native codec
+ok 25 - typed JPEG reclaim preserves the quality actively decoded by the native codec
+  ---
+  duration_ms: 38.805125
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 139.802541

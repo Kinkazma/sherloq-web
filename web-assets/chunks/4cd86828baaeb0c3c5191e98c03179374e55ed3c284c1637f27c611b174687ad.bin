@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "source": "565f14a84e763dde187cbd02c8e7aea0cb3e30a2bd827608cdf21c24873b2faa",
+  "referenceExp": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+  "files": {
+    "SLEEF-PINNED.json": {
+      "bytes": 893,
+      "sha256": "6fb8b8fd323de870baf1e9673636b76541aa3cd6125358619a936015a9c81224"
+    },
+    "prepare.wasm": {
+      "bytes": 31999,
+      "sha256": "372306f544095293c4717f187b4d3b595b2a0cbba46472ce4b1a8a6a22ec4d09"
+    },
+    "PYTORCH-LICENSE.txt": {
+      "bytes": 3464,
+      "sha256": "a8a2c6b67cf8a597ffaa5c82380a6bd1b82629c0417e00673d8013d662eb500a"
+    },
+    "prepare.js": {
+      "bytes": 12663,
+      "sha256": "097c38c7d069e2eb61ec87ab76671178d3345765043819c9d8e9972b84ee5f65"
+    },
+    "SLEEF-LICENSE.txt": {
+      "bytes": 1338,
+      "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+    }
+  }
+}

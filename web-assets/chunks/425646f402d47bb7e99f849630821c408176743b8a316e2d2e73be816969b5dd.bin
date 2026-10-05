@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "version": "0.31.0-integration.20",
+  "testedCommit": "d629d10083a06fba7862369460c31283d161021e",
+  "runtimeSourceIdenticalToCompleteSmallRun": true,
+  "node": {
+    "command": "npm test",
+    "tests": 866,
+    "passed": 863,
+    "failed": 0,
+    "skipped": 3,
+    "durationMs": 244574.496208,
+    "logSha256": "9cf707e2ee145df0609c8172f4108521989605126a6765e9c9b07e1d5044732e",
+    "logFile": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/runtime-v2-release-node-tests-final.log",
+    "skipReasons": [
+      "D2PRL ownership requires experimental module mocks; passed separately below",
+      "Global native ROI integration oracle not locally generated",
+      "Streaming EM native oracle not locally generated"
+    ]
+  },
+  "additionalOwnership": {
+    "command": "node --experimental-test-module-mocks --test tests/d2prl-owned.test.mjs",
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "logSha256": "20d6dd460b655d0c4bbfd6b5e026a2eb4f120114ebc185159bcee191f26ac0ad"
+  },
+  "completeSmallProof": "runtime-v2-complete-small-proof.json",
+  "browserKernelAndResourceProof": "execution-runtime-v2-proof.json",
+  "qualification96mp": "Not completed by this record; tracked separately by the autonomous runner."
+}

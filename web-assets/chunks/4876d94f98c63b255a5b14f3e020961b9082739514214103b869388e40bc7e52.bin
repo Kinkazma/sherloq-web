@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: public worker preserves allocation and recovery diagnostics without destroying the session
+ok 1 - public worker preserves allocation and recovery diagnostics without destroying the session
+  ---
+  duration_ms: 3.798958
+  type: 'test'
+  ...
+# Subtest: capabilities stays readable during a live public operation; unreadable responses settle pending work
+ok 2 - capabilities stays readable during a live public operation; unreadable responses settle pending work
+  ---
+  duration_ms: 2.510042
+  type: 'test'
+  ...
+# Subtest: public null preserves the cooperative storage-close acknowledgement
+ok 3 - public null preserves the cooperative storage-close acknowledgement
+  ---
+  duration_ms: 2.973041
+  type: 'test'
+  ...
+# Subtest: public messageerror preserves the cooperative storage-close acknowledgement
+ok 4 - public messageerror preserves the cooperative storage-close acknowledgement
+  ---
+  duration_ms: 0.626959
+  type: 'test'
+  ...
+# Subtest: null fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+ok 5 - null fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+  ---
+  duration_ms: 5.320166
+  type: 'test'
+  ...
+# Subtest: messageerror fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+ok 6 - messageerror fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+  ---
+  duration_ms: 1.063833
+  type: 'test'
+  ...
+# Subtest: unexpected asynchronous handler rejection is delivered instead of orphaning its caller
+ok 7 - unexpected asynchronous handler rejection is delivered instead of orphaning its caller
+  ---
+  duration_ms: 1.032083
+  type: 'test'
+  ...
+# Subtest: opaque transport retry preserves its cause, skips all memory reclaim and stops at five refusals
+ok 8 - opaque transport retry preserves its cause, skips all memory reclaim and stops at five refusals
+  ---
+  duration_ms: 6.584042
+  type: 'test'
+  ...
+# Subtest: unrelated policy-memory changes cannot reset an opaque transport obstruction
+ok 9 - unrelated policy-memory changes cannot reset an opaque transport obstruction
+  ---
+  duration_ms: 6.125875
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 109.371834

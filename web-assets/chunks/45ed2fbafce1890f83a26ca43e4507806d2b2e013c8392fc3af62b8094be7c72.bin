@@ -1,0 +1,22 @@
+{
+  "scipy": "1.17.1",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "leafsize": 16,
+  "balanced": true,
+  "compact": true,
+  "sources": {
+    "native/ela-peers.cpp": "1f2e2690fa1a0881566eab5b9d64da61e49e19fffd5380f7f60d85a0cbebc6dc",
+    "native/scipy-compat/numpy/npy_common.h": "92c142e1fb0d61822d00d1a9ce73755dd967f4cb7a79aa7c5d9b919382fa2b02",
+    "vendor/scipy-spatial/SOURCES.json": "9bd5e393143926948e36bc14ea212f168bcb2ecc54044b280124cec407378c31"
+  },
+  "files": {
+    "peers.js": {
+      "bytes": 13370,
+      "sha256": "4d4ed2704862b85b0cd6fe68b1d5182105bd72565b5847cffaabf94ae01858fc"
+    },
+    "peers.wasm": {
+      "bytes": 84281,
+      "sha256": "a366d1b0e14efeead2bf932d37660b94d8be62edd4d2ecbda1926aba4761e38d"
+    }
+  }
+}

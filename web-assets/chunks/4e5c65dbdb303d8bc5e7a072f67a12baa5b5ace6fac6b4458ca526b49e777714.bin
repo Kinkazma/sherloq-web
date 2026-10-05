@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten 4.0.15",
+  "optimizations": 3,
+  "arithmetic": "-O3 -ffp-contract=off; explicit musl std::fma for native float64 normalization",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/gradient.cpp": {
+      "bytes": 4611,
+      "sha256": "7ddcd0ae0ed77840b97b1fe06acd6d40ff695467305ffb1b62499ff8f2bb23d2"
+    },
+    "scripts/build-gradient.sh": {
+      "bytes": 1737,
+      "sha256": "3033cac35fc2a2e2ed3cd538c5293ef93b16a35c899bea2f02bc21d0dc915b57"
+    },
+    "vendor/gradient/gradient.js": {
+      "bytes": 10645,
+      "sha256": "e8a7e69fb6e5266e81210eb859cfe5814e73a6a9df9229d5453d5e863663f0fb"
+    },
+    "vendor/gradient/gradient.wasm": {
+      "bytes": 17094,
+      "sha256": "517b7bda132f15931d704d4021c4a75e84a7ac1d23f3f84c4ed156b66f92802c"
+    },
+    "vendor/quality/musl-fma.c": {
+      "bytes": 3764,
+      "sha256": "1e0c6bacd92cbbadb32d1f83defd52cd863fd766b7938efabafcef9f067d5860"
+    }
+  }
+}

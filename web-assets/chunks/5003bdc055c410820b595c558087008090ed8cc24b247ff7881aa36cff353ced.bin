@@ -1,0 +1,11 @@
+{
+  "supervisorPid": 168,
+  "runnerPid": 170,
+  "caffeinatePid": 171,
+  "startedAt": "2026-10-03T07:57:56.700569+00:00",
+  "timeoutSeconds": 86400,
+  "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-memory-domains-96mp-20261003T075756Z",
+  "exitCode": 1,
+  "timedOut": false,
+  "stoppedAt": "2026-10-03T08:38:42.107097+00:00"
+}

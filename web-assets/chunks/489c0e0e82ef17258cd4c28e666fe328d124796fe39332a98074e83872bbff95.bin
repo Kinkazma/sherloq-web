@@ -1,0 +1,242 @@
+{
+  "schema": 1,
+  "version": "0.31.0-integration.22",
+  "scope": "Repeated local recovery after useful allocation refusal, retaining completed computation. Development fault injection tests do not establish full 96 MP completion or speed.",
+  "priorFailure": "runtime-v2-d2prl-allocation-failure.json",
+  "policy": {
+    "lifetimeRecoveryLimit": null,
+    "consecutiveComparableFailures": 5,
+    "memorySimilarity": {
+      "relativeTolerance": 0.1,
+      "absoluteToleranceBytes": 1048576
+    },
+    "progress": "Committed checkpoint high-water; replay, timestamps and phase labels alone do not reset a stalled operation.",
+    "independentConcurrentOperations": true,
+    "unchangedGlobalCpuAndRamPolicy": true,
+    "productionProbes": 0
+  },
+  "testedSource": {
+    "baseCommit": "ecd6f6c3a5e5d52484178df4a645260030e06fc8",
+    "workingVersion": "0.31.0-integration.22",
+    "runtimeSourceDigestSha256": "50d0459da370d5f451dde199cce1affc880ef4b5beea1881a66da02c642eca38",
+    "digestRecipe": "SHA256 of sorted tracked src/native/vendor/experiments paths, NUL, SHA256(file), newline",
+    "recordedAt": "2026-10-03T04:06:08.263796+00:00"
+  },
+  "d2prlFinalChromium": {
+    "browser": "chromium",
+    "result": {
+      "reference": {
+        "hashes": [
+          "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+          "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+          "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+          "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+          "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+          "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+          "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+          "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+        ],
+        "evaluations": 18,
+        "stats": {
+          "peakWorkers": 2,
+          "tiles": 144,
+          "descriptorUploads": 4,
+          "optionalWorkerRefusals": 0,
+          "activeWorkers": 2,
+          "tileSize": 32
+        }
+      },
+      "recovered": {
+        "hashes": [
+          "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+          "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+          "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+          "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+          "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+          "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+          "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+          "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+        ],
+        "evaluations": 18,
+        "stats": {
+          "peakWorkers": 2,
+          "tiles": 144,
+          "descriptorUploads": 4,
+          "optionalWorkerRefusals": 0,
+          "activeWorkers": 2,
+          "tileSize": 32
+        },
+        "recoveries": [
+          {
+            "operation": "evaluator:tile",
+            "error": "MEMORY_ALLOCATION",
+            "cause": "RangeError",
+            "completedOperations": 16
+          },
+          {
+            "operation": "evaluator:tile",
+            "error": "MEMORY_ALLOCATION",
+            "cause": "RangeError",
+            "completedOperations": 16
+          }
+        ]
+      },
+      "convolution": {
+        "reference": {
+          "sha256": "12f927544cd9c3eb7b3b8fb7d1f011c8c33d8997bc0183a43652e89ca9fa9d9a",
+          "tiles": 16,
+          "workers": 2,
+          "recoveries": 0
+        },
+        "recovered": {
+          "sha256": "12f927544cd9c3eb7b3b8fb7d1f011c8c33d8997bc0183a43652e89ca9fa9d9a",
+          "tiles": 16,
+          "workers": 2,
+          "recoveries": 2
+        }
+      },
+      "exactRng": true,
+      "budgetFinal": 0
+    }
+  },
+  "d2prlCrossBrowser": "runtime-v2-d2prl-recovery-proof.json",
+  "denseCoverage": {
+    "browsers": [
+      "Chromium",
+      "Firefox",
+      "WebKit"
+    ],
+    "zernike": {
+      "referenceSubmissions": 6,
+      "recoveredSubmissions": 8,
+      "workerRefusals": 2,
+      "exactBytes": true
+    },
+    "sift": {
+      "referenceSubmissions": 57,
+      "recoveredSubmissions": 59,
+      "workerRefusals": 2,
+      "exactBytes": true
+    },
+    "texture": {
+      "referenceSubmissions": 4,
+      "recoveredSubmissions": 6,
+      "workerRefusals": 2,
+      "exactBytes": true
+    },
+    "budgetFinal": 0,
+    "elevenHypotheses": "Chromium isolated and non-isolated, including 80 MiB temporary storage"
+  },
+  "denseFieldOwnership": {
+    "computeAttempts": [
+      1,
+      3,
+      2
+    ],
+    "descriptorPreparations": 1,
+    "storageAttemptsOnCompletedField": 2,
+    "fieldRecomputationsForStorageFailure": 0,
+    "recoveryEvents": 4,
+    "budgetFinal": 0,
+    "scope": "Owned lifecycle protocol doubles; native arithmetic covered separately."
+  },
+  "coverageLimits": [
+    "Resource-specific recovery at safe operation boundaries; arbitrary programming errors and destroyed browser processes are not resumable from lost RAM.",
+    "Cross-browser native dense logs preceded some helper-only refinements; final Node suite and final Chromium D2PRL run cover the assembled source.",
+    "The full learned-model 96 MP analysis will be a separate cold autonomous run, with its final result initially unknown."
+  ],
+  "finalNodeSuite": {
+    "command": "npm test",
+    "tests": 937,
+    "pass": 933,
+    "fail": 0,
+    "skipped": 4,
+    "duration_ms": 244621.855709,
+    "skipReasons": [
+      "Run with --experimental-test-module-mocks for isolated ownership protocol tests",
+      "Run with --experimental-test-module-mocks for isolated ownership protocol tests",
+      "Generate local native integration oracle first.",
+      "Generate local native EM oracle first."
+    ],
+    "rowPreparationOraclePassed": true
+  },
+  "additionalOwnership": {
+    "command": "node --experimental-test-module-mocks --test tests/d2prl-owned.test.mjs tests/dense-field-lifecycle-recovery.test.mjs",
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0
+  },
+  "logs": [
+    {
+      "file": "runtime-v2-repeat-recovery/d2prl-chromium-final.log",
+      "bytes": 1957,
+      "sha256": "48ec3d596422e14ad286cf4711e86a5211f4a065cdaab84143289751ce12dbdd"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/dense-field-ownership.log",
+      "bytes": 591,
+      "sha256": "93f0bda99644c44f52686837b570c3a49b72c8a0be954a27f89042d8b692eef9"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/elastic-recovery-dense-runtime.log",
+      "bytes": 1228,
+      "sha256": "c22de9f6611edcdfd1d9a219564ea66228a5343f1130123ef64c35462f50506d"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/elastic-recovery-native-chromium-final.log",
+      "bytes": 1436,
+      "sha256": "b7f401ae1d7772c94dbbbc43a89d16951da6c96a4f6e546033b33422ff8732b8"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/elastic-recovery-native-firefox.log",
+      "bytes": 1435,
+      "sha256": "e3b9f368c9c0022ddeb6ece4d1d3ef644875267f890b7f9c7cc4bec580945f9e"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/elastic-recovery-native-webkit.log",
+      "bytes": 1454,
+      "sha256": "cc1f18a188736308f4658884b31ee10b30b84f86ce9652bae22f8ca993308c2b"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/elastic-recovery-node-final.log",
+      "bytes": 7709,
+      "sha256": "bf2ad19e450cc0f54a6ad2fe23b2ff882ebedc4a0cef34278642d128f5b1b7a1"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/elastic-recovery-zernike-chromium.log",
+      "bytes": 1262,
+      "sha256": "d51cef49d496a7465bce14e8be49f4fb612534f902c0e907c8a1a29bf9edd765"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/elastic-recovery-zernike-firefox.log",
+      "bytes": 1261,
+      "sha256": "6c8640e6de74ed412307d67e01fa41964f391c59aaac6e243d7cb2896daed735"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/elastic-recovery-zernike-webkit.log",
+      "bytes": 1275,
+      "sha256": "49a631f38a1718ed6554d2d983cedd531ce8af8514d2e2d4b3c51c7ed95c75fa"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/full-node.log",
+      "bytes": 219926,
+      "sha256": "1379845628098f1c4b7b6b79effba29b9eb64b79d6b8e53fe5af7d4accb3db6b"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/ownership-final.log",
+      "bytes": 999,
+      "sha256": "8fdb5ac32787416d6347e1c018b64ebb64a729db09f012cca200f8e7343de6eb"
+    },
+    {
+      "file": "runtime-v2-repeat-recovery/policy-node.log",
+      "bytes": 10029,
+      "sha256": "d629f6eee35617ae7192a3e5841c9cf5dde326b916f26616c45993ef30d94480"
+    }
+  ],
+  "subsequentFull96mpRun": {
+    "passed": false,
+    "failureRecord": "runtime-v2-backing-recovery-failure.json",
+    "lastD2prlEvaluation": 56,
+    "terminalCause": "Five similar ArrayBuffer allocation failures in propagateOffsets; recovery coverage is not sufficient proof of backing reclamation."
+  }
+}
