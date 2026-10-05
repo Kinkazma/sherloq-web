@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "version": "0.31.0-integration.23",
+  "scope": "Backing ownership and allocation-domain recovery; exact D2PRL candidate reuse. Development regressions are not a full 96 MP completion or throughput proof.",
+  "priorFailure": "runtime-v2-backing-recovery-failure.json",
+  "policy": {
+    "lifetimeRecoveryLimit": null,
+    "consecutiveComparableFailures": 5,
+    "unchangedGlobalCpuAndRamPolicy": true,
+    "productionProbes": 0
+  },
+  "corrections": [
+    "A real allocation failure targets owners of the indicated backing domain before unrelated memory credits. Logical budget admission keeps ordinary reclamation.",
+    "Optional shared read cache bank references are removed from parent, relay and received publication envelopes; new readers cannot acquire retiring banks. Credit remains until reader ACKs.",
+    "D2PRL uses one candidate pair with lazy capacity growth during useful work; generation and wrapping share an unpublished retry boundary.",
+    "Reclamation diagnostics are distinct from recovery attempts and useful progress."
+  ],
+  "sharedCacheLiveness": {
+    "retiredBytes": 4210688,
+    "bankWeakRefsCleared": 8,
+    "statisticsWeakRefsCleared": 4,
+    "retainedEnvelopes": 4,
+    "budgetFinalBytes": 0,
+    "interpretation": "WeakRefs cover references, including aliases of the same wrapper. This is not a count of independent physical allocations. Forced GC is confined to the isolated development test."
+  },
+  "crossBrowserDense": {
+    "browsers": [
+      "Chromium",
+      "Firefox",
+      "WebKit"
+    ],
+    "reportsEach": 15,
+    "cancellationVerified": true,
+    "scope": "Native dense parity fixtures; precedes the final disposal/retirement ordering fix checked separately."
+  },
+  "d2prl": "runtime-v2-d2prl-candidate-memory-proof.json",
+  "limitations": [
+    "Dropping all ownership references makes backing eligible for collection; the production runtime cannot force synchronous browser garbage collection.",
+    "Five similar stalled failures remain terminal. Destroyed processes cannot recover lost RAM.",
+    "The next full 96 MP result is initially unknown."
+  ],
+  "validationState": "passed development regression suite; full 96 MP outcome remains separate",
+  "testedSource": {
+    "baseCommit": "5262955316ad15b759f01a053c31f091c13a95bd",
+    "workingVersion": "0.31.0-integration.23",
+    "runtimeSourceDigestSha256": "dc472d85155f5d99b36d074ead236f230e808ec3bed339a7975e19cc25cf5a22",
+    "digestRecipe": "SHA256 of sorted tracked src/native/vendor/experiments paths, NUL, SHA256(file), newline",
+    "recordedAt": "2026-10-03T04:43:04.203613+00:00"
+  },
+  "retirementOrdering": {
+    "targetedTestsPassed": 44,
+    "forwardRace": "An active child retirement must finish before relay disposal drops that child.",
+    "inverseRace": "A retirement arriving after disposal starts must await earlier retirements even if its local bank list is empty.",
+    "beforeLogs": "The two *-before.log files intentionally demonstrate the unfixed failures.",
+    "finalLogs": [
+      "runtime-v2-backing-recovery/cache-relay-dispose-final.log",
+      "runtime-v2-backing-recovery/cache-relay-dispose-inverse-final.log"
+    ]
+  },
+  "additionalOwnership": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "command": "node --experimental-test-module-mocks --test tests/d2prl-owned.test.mjs tests/dense-field-lifecycle-recovery.test.mjs"
+  },
+  "finalNodeSuite": {
+    "command": "npm test",
+    "nodeVersion": "22.22.2",
+    "tests": 952,
+    "pass": 948,
+    "fail": 0,
+    "skipped": 4,
+    "duration_ms": 251194.059583,
+    "skipReasons": [
+      "Run with --experimental-test-module-mocks for isolated ownership protocol tests",
+      "Run with --experimental-test-module-mocks for isolated ownership protocol tests",
+      "Generate local native integration oracle first.",
+      "Generate local native EM oracle first."
+    ]
+  },
+  "logs": [
+    {
+      "file": "runtime-v2-backing-recovery/allocation-domain-node.log",
+      "bytes": 11549,
+      "sha256": "f5e77b1e7d737da0ab92f250b720f341ff5d811eea6b536b9bf412b62dbf6342"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/cache-liveness-dense-chromium.log",
+      "bytes": 9438,
+      "sha256": "dbf3fd40c14cf39669ca316fd75e87b064ea2a3361d98375e9ab8a7740b2bc35"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/cache-liveness-dense-firefox.log",
+      "bytes": 9341,
+      "sha256": "d99e674bad8fe4b3ad63222dfddaec414990fd8b00923d93649b477aa59d5618"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/cache-liveness-dense-webkit.log",
+      "bytes": 9365,
+      "sha256": "f0c1b81f8f2b1c2a87716b3f2d915240ff400bbc2a1ff5a51e9e594c94d3b980"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/cache-liveness-gc.log",
+      "bytes": 117,
+      "sha256": "b0adf4f648fad6a19aa28d5477e8ed0ef7b849b31eb695d05162d4beaac7988e"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/cache-liveness-node-final-v2.log",
+      "bytes": 10205,
+      "sha256": "b9ed3443a5b15daa7e09e4be3d74ce31d0f0abd238817d38e9c8a76c53af38d1"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/cache-relay-dispose-before.log",
+      "bytes": 1029,
+      "sha256": "4fa5f15840accadca33b0ec396e6a688d263c6470cb0cdfae66fd9e4daabdc36"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/cache-relay-dispose-final.log",
+      "bytes": 10468,
+      "sha256": "01783ecb7d2a9b38031bb62f10daf4cda61bbfe562c53fee964bddbd72da46e8"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/cache-relay-dispose-inverse-before.log",
+      "bytes": 1024,
+      "sha256": "2e56ec3755022a0206435912339ed23e585d4ddf0a1b0301bcabeee7e3db50a0"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/cache-relay-dispose-inverse-final.log",
+      "bytes": 10717,
+      "sha256": "7dc937e5d85ff25d73f3c29319dc309ef51449dd18a8ba7c7bd15e5e89c4d265"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/full-node.log",
+      "bytes": 223762,
+      "sha256": "fbc9bc787b7d207beedbfa5fc614b0874412af3073328ea80539b70ba1358d5b"
+    },
+    {
+      "file": "runtime-v2-backing-recovery/ownership-final.log",
+      "bytes": 999,
+      "sha256": "f7fb5f3239889f11266d3d63021081df68670b759da26f3d1df3da0483e5d85a"
+    }
+  ],
+  "subsequentFull96mpRun": {
+    "passed": false,
+    "failureRecord": "runtime-v2-gpu-readback-failure.json",
+    "d2prlPatchMatchCompleted": 198,
+    "terminalOperation": "convolution:readback-copy",
+    "requestedBytes": 51380224
+  }
+}

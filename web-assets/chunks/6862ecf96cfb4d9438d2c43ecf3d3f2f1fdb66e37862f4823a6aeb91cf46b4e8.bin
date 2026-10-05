@@ -1,0 +1,12 @@
+{
+  "program": {
+    "file": "native.program.json",
+    "bytes": 18388,
+    "sha256": "7a49427a56f4e393fba6da2d6a30e8eae39df839428b78417ebc923455f73d8d"
+  },
+  "weights": {
+    "file": "native.weights.f32",
+    "bytes": 2228996,
+    "sha256": "fce01057bcd826dfaf962db12b8c900d71df14a6fe55baafe3284389da9196c1"
+  }
+}

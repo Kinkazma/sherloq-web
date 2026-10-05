@@ -1,0 +1,40 @@
+{
+  "id": "cmseg-generalization-native512-backbone-v2",
+  "side": 512,
+  "backbone": {
+    "file": "backbone.json",
+    "bytes": 123659,
+    "sha256": "229eb4777e368f0350afdf3e1f96e290227dd85d4dc7b814c6ed51ef71d5e025"
+  },
+  "graphs": [
+    {
+      "id": "bypass",
+      "file": "bypass.onnx",
+      "bytes": 75101,
+      "sha256": "e6cbe35af0afa1a401b0fa6fb156ad72274f294e56a944d0232da191a2169d35"
+    },
+    {
+      "id": "decoder",
+      "file": "decoder-native-mean-bn.onnx",
+      "bytes": 11935456,
+      "sha256": "123f113286258c98b732605f854d8f08e2fa6253e2cb9bccc0491a181587dea6"
+    }
+  ],
+  "correlation": [
+    {
+      "name": "corr24",
+      "topk": 24,
+      "alpha": 5.115073204040527
+    },
+    {
+      "name": "corr32",
+      "topk": 32,
+      "alpha": 5.133166313171387
+    },
+    {
+      "name": "corr96",
+      "topk": 96,
+      "alpha": 5.1324782371521
+    }
+  ]
+}

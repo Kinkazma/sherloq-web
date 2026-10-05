@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "id": "cmseg-addnoise-native512-bounded-v1",
+  "variant": "cmseg-addnoise",
+  "side": 512,
+  "kind": "sigmoid",
+  "weights": {
+    "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/addnoise.pth": "0f549f213e67712791e2778f4df005532dabd563a9fea3bafc851d4d449fb1ba"
+  },
+  "graphs": [
+    {
+      "id": "encoder",
+      "file": "encoder-native-mean-bn.onnx",
+      "bytes": 9308459,
+      "sha256": "f207d80af93d9541af6e50baff5ef70d9e1a4ae9b24916d790f3fc78a91ac461"
+    },
+    {
+      "id": "decoder",
+      "file": "decoder-native-mean-bn.onnx",
+      "bytes": 11935456,
+      "sha256": "64120818740235c22fa1ed17d2e38626168fb9db75442353ae6a7dbbbfdd1902"
+    }
+  ],
+  "correlation": [
+    {
+      "name": "corr24",
+      "topk": 24,
+      "alpha": 5.177468776702881
+    },
+    {
+      "name": "corr32",
+      "topk": 32,
+      "alpha": 5.210790634155273
+    },
+    {
+      "name": "corr96",
+      "topk": 96,
+      "alpha": 5.214969158172607
+    }
+  ]
+}

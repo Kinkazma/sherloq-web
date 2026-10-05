@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "mgcfdn-vig-native-order-v1",
+  "variant": "mgcfdn-vig",
+  "side": 256,
+  "kind": "sigmoid",
+  "checkpointSha256": "63996d687b29e49f5c78f8f055395bb196ce37e31f1918817c2f197a88f1e7e6",
+  "backbone": {
+    "file": "backbone.json",
+    "bytes": 186358,
+    "sha256": "22c5cf4f797722b5cde861e3f2857f7ceb4f165bd5952fd7ae8d36aa678a2418"
+  },
+  "tail": {
+    "file": "tail.onnx",
+    "bytes": 28780877,
+    "sha256": "606b6d93a54142cf469fccd023b2200dfe755b190e5527c58c25aa61b847f57f"
+  }
+}
