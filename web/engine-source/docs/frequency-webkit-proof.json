@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "images": 4368,
+  "backends": {
+    "cpu": 1050,
+    "webgpu": 42
+  },
+  "cases": [
+    "random-odd",
+    "ties",
+    "black",
+    "white",
+    "flat",
+    "row",
+    "column",
+    "two",
+    "defects",
+    "texture",
+    "frequency-257x261",
+    "frequency-625x625",
+    "frequency-1024x1024"
+  ],
+  "qualification": {
+    "source": "offline-synthetic-corpus",
+    "initMs": 2,
+    "preflightExecutions": 0,
+    "scope": "Exact mask and final-view corpus on documented development adapters. Other adapters remain unverified; no runtime parity claim."
+  },
+  "cancellation": "Worker termination and reload verified",
+  "browser": "26.6"
+}

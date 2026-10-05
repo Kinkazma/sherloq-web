@@ -1,0 +1,283 @@
+{
+  "provider": "wasm",
+  "scope": "adaptive microscopy graph composition on native synthetic features; no SIFT extraction/geometry",
+  "checkpointSha256": "5b52b8d9982d43532dc042606b346bb9594c9f5a4bd6f64362c63866287b4ac0",
+  "graphs": [
+    {
+      "id": "initial",
+      "file": "initial.onnx",
+      "sha256": "d5bad5570575256f14d319fb22d0239921c03e0dc490299d13817d3a2f8c4b11",
+      "bytes": 180836
+    },
+    {
+      "id": "layer-0",
+      "file": "layer-0.onnx",
+      "sha256": "ea31e5dd4930ceec4e39fe2a05d8b20aca770d74b2aa1bee39c113425c745875",
+      "bytes": 5317069
+    },
+    {
+      "id": "assignment-0",
+      "file": "assignment-0.onnx",
+      "sha256": "593bcb4df3685cb8300771a34530d2d1db5fc56fba9b5aa2d473cca5c7db8329",
+      "bytes": 304731
+    },
+    {
+      "id": "layer-1",
+      "file": "layer-1.onnx",
+      "sha256": "4211606975952c558acf6a12cb09273dbf63c02e2e89b3f95806c9769f7e0cc5",
+      "bytes": 5317069
+    },
+    {
+      "id": "assignment-1",
+      "file": "assignment-1.onnx",
+      "sha256": "27c2e8283c31aa54921a6bd19999eb5ad474568ac02ca87e17611fe81303f138",
+      "bytes": 304731
+    },
+    {
+      "id": "layer-2",
+      "file": "layer-2.onnx",
+      "sha256": "4b9221a122d8868db1ba213f610c4c42e66a7898cf3dcdbd5e2e572c1f8c04cd",
+      "bytes": 5317069
+    },
+    {
+      "id": "assignment-2",
+      "file": "assignment-2.onnx",
+      "sha256": "0aef8167e2e8cf79a2e4303d9748b6cbb776c64d5cc83db269e5fa3f60f48345",
+      "bytes": 304731
+    },
+    {
+      "id": "layer-3",
+      "file": "layer-3.onnx",
+      "sha256": "67fcf7a8fcfad10b95be5a77c7d3f8aa806855334ff7267083f8009226b884e9",
+      "bytes": 5317069
+    },
+    {
+      "id": "assignment-3",
+      "file": "assignment-3.onnx",
+      "sha256": "3811ce82a817b5ac7f1f32c52dc9033ea6cfe30b89e4accf9df32a8039cda8d0",
+      "bytes": 304731
+    },
+    {
+      "id": "layer-4",
+      "file": "layer-4.onnx",
+      "sha256": "cdb997f059836ead9b80a03759b1f23a7c845648d02032ba5fca286161084ec4",
+      "bytes": 5317069
+    },
+    {
+      "id": "assignment-4",
+      "file": "assignment-4.onnx",
+      "sha256": "d99d4fa75d6de8ad69dbe8509b44e42e6ee2c357c966f3465b6c4998ca187374",
+      "bytes": 304731
+    },
+    {
+      "id": "layer-5",
+      "file": "layer-5.onnx",
+      "sha256": "a92758e6aee41ae8e18137095c04134d8d0fba0bd3b9992c19755222b58ed659",
+      "bytes": 5317069
+    },
+    {
+      "id": "assignment-5",
+      "file": "assignment-5.onnx",
+      "sha256": "12fac3a82b96085684a97f2f708e54f5f72d2a0f0536bad80b7046c72f096a60",
+      "bytes": 304731
+    },
+    {
+      "id": "layer-6",
+      "file": "layer-6.onnx",
+      "sha256": "4b7525bb586ab7b56c5778689c0328f6c2b1c7fcad264a3cc9255fb1b99f866b",
+      "bytes": 5317069
+    },
+    {
+      "id": "assignment-6",
+      "file": "assignment-6.onnx",
+      "sha256": "6afdee4c26c66850f434542c65a865264316f3ebb2aa32412ea3e6b93fd8129c",
+      "bytes": 304731
+    },
+    {
+      "id": "layer-7",
+      "file": "layer-7.onnx",
+      "sha256": "ac925cc32dc8d28248d068c7a6079514c669fd70ac02ee14135f52494540e11e",
+      "bytes": 5317069
+    },
+    {
+      "id": "assignment-7",
+      "file": "assignment-7.onnx",
+      "sha256": "c0c973a9d90757fd298477f3c530d38a78c75fd4ce9364e2c7eb6669c47f7ef7",
+      "bytes": 304731
+    },
+    {
+      "id": "layer-8",
+      "file": "layer-8.onnx",
+      "sha256": "0913632cc3d2ccdbeef4601994685b6397841b107f6b5a9c13e09f5705e4d3a3",
+      "bytes": 5296197
+    },
+    {
+      "id": "assignment-8",
+      "file": "assignment-8.onnx",
+      "sha256": "393c5a84cb40b381e1fc2003db984c354ac9887326930a702919eb48204048ef",
+      "bytes": 304731
+    }
+  ],
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "nativeTorch": "2.8.0",
+  "records": [
+    {
+      "case": 0,
+      "kind": "mixed",
+      "nativeStop": 4,
+      "stop": 4,
+      "decisionDifferences": 0,
+      "scoreError": 0.000008285045623779297,
+      "matchCount": 15,
+      "steps": [
+        {
+          "stage": "lightglue-layer",
+          "completed": 0,
+          "total": 9,
+          "points0": 32,
+          "points1": 40
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 1,
+          "total": 9,
+          "points0": 32,
+          "points1": 40
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 2,
+          "total": 9,
+          "points0": 27,
+          "points1": 35
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 3,
+          "total": 9,
+          "points0": 21,
+          "points1": 26
+        },
+        {
+          "stage": "lightglue-complete",
+          "completed": 4,
+          "total": 4,
+          "points0": 21,
+          "points1": 26
+        }
+      ]
+    },
+    {
+      "case": 1,
+      "kind": "identical",
+      "nativeStop": 4,
+      "stop": 4,
+      "decisionDifferences": 0,
+      "scoreError": 0.00003528594970703125,
+      "matchCount": 46,
+      "steps": [
+        {
+          "stage": "lightglue-layer",
+          "completed": 0,
+          "total": 9,
+          "points0": 47,
+          "points1": 47
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 1,
+          "total": 9,
+          "points0": 47,
+          "points1": 47
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 2,
+          "total": 9,
+          "points0": 47,
+          "points1": 47
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 3,
+          "total": 9,
+          "points0": 47,
+          "points1": 47
+        },
+        {
+          "stage": "lightglue-complete",
+          "completed": 4,
+          "total": 4,
+          "points0": 47,
+          "points1": 47
+        }
+      ]
+    },
+    {
+      "case": 2,
+      "kind": "unrelated",
+      "nativeStop": 6,
+      "stop": 6,
+      "decisionDifferences": 0,
+      "scoreError": 0.000016495585441589355,
+      "matchCount": 6,
+      "steps": [
+        {
+          "stage": "lightglue-layer",
+          "completed": 0,
+          "total": 9,
+          "points0": 53,
+          "points1": 61
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 1,
+          "total": 9,
+          "points0": 53,
+          "points1": 61
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 2,
+          "total": 9,
+          "points0": 53,
+          "points1": 61
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 3,
+          "total": 9,
+          "points0": 52,
+          "points1": 61
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 4,
+          "total": 9,
+          "points0": 43,
+          "points1": 60
+        },
+        {
+          "stage": "lightglue-layer",
+          "completed": 5,
+          "total": 9,
+          "points0": 42,
+          "points1": 60
+        },
+        {
+          "stage": "lightglue-complete",
+          "completed": 6,
+          "total": 6,
+          "points0": 42,
+          "points1": 60
+        }
+      ]
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM",
+  "passed": true
+}

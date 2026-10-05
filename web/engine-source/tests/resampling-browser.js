@@ -1,0 +1,20 @@
+import {createWorkerEngine} from '../src/worker-client.js';
+import {ensure,compareFourier,verifyResamplingKernels} from './resampling-reference.js';
+const sha=async data=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',data)),x=>x.toString(16).padStart(2,'0')).join('');
+const read=async file=>{const response=await fetch(new URL('../fixtures/'+file,import.meta.url));ensure(response.ok,'Fixture response');return new Uint8Array(await response.arrayBuffer());};
+export async function resamplingBrowserTest(){
+ const reference=JSON.parse(new TextDecoder().decode(await read('resampling/reference.json'))),compressed=await read('resampling/reference.bin.gz');ensure(await sha(compressed)===reference.payload.compressedSha256,'Compressed fixture identity');
+ const payload=new Uint8Array(await new Response(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());ensure(await sha(payload)===reference.payload.sha256,'Fixture payload identity');
+ const kernels=await verifyResamplingKernels(reference,payload),engine=createWorkerEngine({memoryBudgetBytes:768*1024**2,cpuKernel:'single'}),task={id:'fourier',imageId:'image',operation:'tampering.resampling.fourier'},images=[];let input;
+ try{
+  for(const image of reference.images){const bytes=await read(image.file);ensure(await sha(bytes)===image.originalSha256,'Original identity');input={id:'image',blob:new Blob([bytes])};const source=await engine.loadBlob(input),cases=[];
+   for(const item of image.cases){const progress=[],before=performance.now(),result=await engine.run({...task,params:item.params},{onProgress:e=>progress.push(e.fraction)});ensure(progress.every((v,i)=>!i||v>=progress[i-1]),'Monotonic useful progress');ensure(result.data.grayNormalization.minimum===image.minimum&&result.data.grayNormalization.maximum===image.maximum,'Whole-source normalization');ensure(result.layers[0].coordinateSpace==='frequency-grid','Output coordinate space');cases.push({params:item.params,...compareFourier(result,item,payload,image.file),rpcMs:performance.now()-before,metrics:result.metrics});}
+   const original=image.cases[0],cached=await engine.run({...task,params:original.params});ensure(cached.metrics.cache.result,'Analysis cache');cached.data.values.fill(9);cached.pixels.data.fill(9);compareFourier(await engine.run({...task,params:original.params}),original,payload,'Owned output');const presentation=await engine.run({...task,params:{...original.params,gamma:2.5}});ensure(presentation.metrics.cache.result,'Gamma change reuses analysis');
+   const json=JSON.parse(new TextDecoder().decode((await engine.exportResult(presentation)).bytes));ensure(json.provenance.originalSha256===image.originalSha256&&json.provenance.params.gamma===2.5,'Export provenance');
+   images.push({file:image.file,width:source.width,height:source.height,cases});await engine.unload('image');
+  }
+  const cleaned=(await engine.capabilities()).memory;ensure(!cleaned.retainedBytes&&!cleaned.cacheBytes&&!cleaned.activeReservationBytes,'Cleanup');await engine.loadBlob(input);
+  const controller=new AbortController();let cancelled;try{await engine.run(task,{signal:controller.signal,onProgress:e=>{if(e.fraction>0&&e.fraction<1)controller.abort();}});}catch(e){cancelled=e;}ensure(cancelled?.code==='CANCELLED'&&cancelled.imagesCleared,'Hard cancel during useful work');ensure(!(await engine.capabilities()).memory.retainedBytes,'Cancelled worker cleared images');await engine.loadBlob(input);const resumed=await engine.run({...task,params:reference.images.at(-1).cases[0].params});compareFourier(resumed,reference.images.at(-1).cases[0],payload,'Reload recovery');
+  return {schema:1,status:'passed',nativeSourceSha256:reference.nativeSourceSha256,referencePayloadSha256:reference.payload.sha256,kernels,images,cancellation:'Useful preparation cancelled; fresh worker reloaded original and reproduced result',cleanup:cleaned,limitations:'Fourier only; probability EM, GPU, multi-worker FFT and WordPress integration unqualified. Timings are functional checks, not isolated benchmarks.'};
+ }finally{await engine.dispose();}
+}

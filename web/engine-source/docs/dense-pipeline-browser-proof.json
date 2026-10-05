@@ -1,0 +1,470 @@
+{
+  "status": "native-correspondences-qualified",
+  "geometryCommit": "4046116",
+  "cases": [
+    {
+      "modelsEqual": true,
+      "basesEqual": true,
+      "kind": "translation",
+      "profile": "PatchMatch Zernike",
+      "groups": 1,
+      "nativeGroups": 1,
+      "groupEqual": true,
+      "fields": {
+        "points": {
+          "count": 0,
+          "max": 0
+        },
+        "pairs": {
+          "count": 0,
+          "max": 0
+        },
+        "pair_search_regions": {
+          "count": 0,
+          "max": 0
+        },
+        "colors": {
+          "count": 0,
+          "max": 0
+        }
+      },
+      "denseCount": [
+        4584,
+        4584
+      ],
+      "consistentCount": [
+        241,
+        241
+      ],
+      "metrics": {
+        "workers": 1,
+        "completedJobs": 1,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "scheduling": {
+          "count": 1,
+          "maximum": 1,
+          "ceiling": 1,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "outputBytes": 64232,
+        "workerReservationBytes": 86620528,
+        "compactDescriptorJobs": 0,
+        "residentZernikeJobs": 0,
+        "cache": {
+          "field": false,
+          "refilter": false
+        },
+        "generation": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 161603,
+          "peakAccountedBytes": 277462268
+        }
+      }
+    },
+    {
+      "modelsEqual": true,
+      "basesEqual": true,
+      "kind": "translation",
+      "profile": "PatchMatch SIFT",
+      "groups": 1,
+      "nativeGroups": 1,
+      "groupEqual": true,
+      "fields": {
+        "points": {
+          "count": 0,
+          "max": 0
+        },
+        "pairs": {
+          "count": 0,
+          "max": 0
+        },
+        "pair_search_regions": {
+          "count": 0,
+          "max": 0
+        },
+        "colors": {
+          "count": 0,
+          "max": 0
+        }
+      },
+      "denseCount": [
+        470,
+        470
+      ],
+      "consistentCount": [
+        65,
+        65
+      ],
+      "metrics": {
+        "workers": 1,
+        "completedJobs": 1,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "scheduling": {
+          "count": 1,
+          "maximum": 1,
+          "ceiling": 1,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "outputBytes": 43400,
+        "workerReservationBytes": 96110496,
+        "compactDescriptorJobs": 0,
+        "residentZernikeJobs": 0,
+        "cache": {
+          "field": false,
+          "refilter": false
+        },
+        "generation": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 76883,
+          "peakAccountedBytes": 277462268
+        }
+      }
+    },
+    {
+      "modelsEqual": true,
+      "basesEqual": true,
+      "kind": "translation",
+      "profile": "PatchMatch Zernike + PatchMatch SIFT",
+      "groups": 2,
+      "nativeGroups": 2,
+      "groupEqual": true,
+      "fields": {
+        "points": {
+          "count": 0,
+          "max": 0
+        },
+        "pairs": {
+          "count": 0,
+          "max": 0
+        },
+        "pair_search_regions": {
+          "count": 0,
+          "max": 0
+        },
+        "colors": {
+          "count": 0,
+          "max": 0
+        }
+      },
+      "denseCount": [
+        5054,
+        5054
+      ],
+      "consistentCount": [
+        306,
+        306
+      ],
+      "metrics": {
+        "workers": 2,
+        "completedJobs": 2,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "scheduling": {
+          "count": 2,
+          "maximum": 2,
+          "ceiling": 2,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "outputBytes": 107632,
+        "workerReservationBytes": 192220992,
+        "compactDescriptorJobs": 0,
+        "residentZernikeJobs": 0,
+        "cache": {
+          "field": false,
+          "refilter": false
+        },
+        "generation": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 234390,
+          "peakAccountedBytes": 277557448
+        }
+      }
+    },
+    {
+      "modelsEqual": true,
+      "basesEqual": true,
+      "kind": "translation",
+      "profile": "Extended: PatchMatch Zernike + PatchMatch SIFT",
+      "groups": 2,
+      "nativeGroups": 2,
+      "groupEqual": true,
+      "fields": {
+        "points": {
+          "count": 0,
+          "max": 0
+        },
+        "pairs": {
+          "count": 0,
+          "max": 0
+        },
+        "pair_search_regions": {
+          "count": 0,
+          "max": 0
+        },
+        "colors": {
+          "count": 0,
+          "max": 0
+        }
+      },
+      "denseCount": [
+        5448,
+        5448
+      ],
+      "consistentCount": [
+        321,
+        321
+      ],
+      "metrics": {
+        "workers": 2,
+        "completedJobs": 4,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "scheduling": {
+          "count": 2,
+          "maximum": 2,
+          "ceiling": 2,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "outputBytes": 185528,
+        "workerReservationBytes": 192220992,
+        "compactDescriptorJobs": 0,
+        "residentZernikeJobs": 0,
+        "cache": {
+          "field": false,
+          "refilter": false
+        },
+        "generation": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 329123,
+          "peakAccountedBytes": 328128588
+        }
+      }
+    },
+    {
+      "modelsEqual": true,
+      "basesEqual": true,
+      "kind": "translation",
+      "profile": "PatchMatch Zernike + PatchMatch SIFT + Mirror",
+      "groups": 2,
+      "nativeGroups": 2,
+      "groupEqual": true,
+      "fields": {
+        "points": {
+          "count": 0,
+          "max": 0
+        },
+        "pairs": {
+          "count": 0,
+          "max": 0
+        },
+        "pair_search_regions": {
+          "count": 0,
+          "max": 0
+        },
+        "colors": {
+          "count": 0,
+          "max": 0
+        }
+      },
+      "denseCount": [
+        9639,
+        9639
+      ],
+      "consistentCount": [
+        306,
+        306
+      ],
+      "metrics": {
+        "workers": 2,
+        "completedJobs": 4,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "scheduling": {
+          "count": 2,
+          "maximum": 2,
+          "ceiling": 2,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "outputBytes": 215264,
+        "workerReservationBytes": 204918592,
+        "compactDescriptorJobs": 0,
+        "residentZernikeJobs": 0,
+        "cache": {
+          "field": false,
+          "refilter": false
+        },
+        "generation": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 353414,
+          "peakAccountedBytes": 328146744
+        }
+      }
+    },
+    {
+      "modelsEqual": true,
+      "basesEqual": true,
+      "kind": "translation",
+      "profile": "Extended: PatchMatch Zernike + PatchMatch SIFT + Mirror",
+      "groups": 2,
+      "nativeGroups": 2,
+      "groupEqual": true,
+      "fields": {
+        "points": {
+          "count": 0,
+          "max": 0
+        },
+        "pairs": {
+          "count": 0,
+          "max": 0
+        },
+        "pair_search_regions": {
+          "count": 0,
+          "max": 0
+        },
+        "colors": {
+          "count": 0,
+          "max": 0
+        }
+      },
+      "denseCount": [
+        10033,
+        10033
+      ],
+      "consistentCount": [
+        321,
+        321
+      ],
+      "metrics": {
+        "workers": 2,
+        "completedJobs": 7,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "scheduling": {
+          "count": 2,
+          "maximum": 2,
+          "ceiling": 2,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "outputBytes": 327656,
+        "workerReservationBytes": 204918592,
+        "compactDescriptorJobs": 0,
+        "residentZernikeJobs": 0,
+        "cache": {
+          "field": false,
+          "refilter": false
+        },
+        "generation": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 488339,
+          "peakAccountedBytes": 328275516
+        }
+      }
+    },
+    {
+      "modelsEqual": true,
+      "basesEqual": true,
+      "kind": "reflection",
+      "profile": "Extended: PatchMatch Zernike + PatchMatch SIFT + Mirror",
+      "groups": 2,
+      "nativeGroups": 2,
+      "groupEqual": true,
+      "fields": {
+        "points": {
+          "count": 0,
+          "max": 0
+        },
+        "pairs": {
+          "count": 0,
+          "max": 0
+        },
+        "pair_search_regions": {
+          "count": 0,
+          "max": 0
+        },
+        "colors": {
+          "count": 0,
+          "max": 0
+        }
+      },
+      "denseCount": [
+        9540,
+        9540
+      ],
+      "consistentCount": [
+        239,
+        239
+      ],
+      "metrics": {
+        "workers": 2,
+        "completedJobs": 7,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "scheduling": {
+          "count": 2,
+          "maximum": 2,
+          "ceiling": 2,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "outputBytes": 327656,
+        "workerReservationBytes": 204918592,
+        "compactDescriptorJobs": 0,
+        "residentZernikeJobs": 0,
+        "cache": {
+          "field": false,
+          "refilter": false
+        },
+        "generation": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 458573,
+          "peakAccountedBytes": 328763855
+        }
+      }
+    }
+  ],
+  "peakAccountedBytes": 328763855,
+  "remainingBytes": 0
+}

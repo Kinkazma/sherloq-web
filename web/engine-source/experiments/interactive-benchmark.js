@@ -1,0 +1,17 @@
+import {createWorkerEngine} from '../src/worker-client.js';
+const hash=async a=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',a)),x=>x.toString(16).padStart(2,'0')).join('');
+async function verify(result,expected){if(expected.pixels&&await hash(result.pixels.data)!==expected.pixels)throw new Error('Native display parity '+result.operation);for(const key of ['noise','values','positions','colors'])if(expected[key]&&await hash(result.data[key])!==expected[key])throw new Error('Native data parity '+result.operation+' '+key);if(expected.model)for(let i=0;i<3;i++)if(await hash(result.data[['mean','eigenvectors','eigenvalues'][i]])!==expected.model[i])throw new Error('Native PCA model');}
+function display(pixels){if(!pixels)return null;const start=performance.now(),canvas=document.createElement('canvas');canvas.width=pixels.width;canvas.height=pixels.height;const rgba=new Uint8ClampedArray(pixels.width*pixels.height*4);for(let i=0,j=0;i<pixels.data.length;i+=3,j+=4){rgba[j]=pixels.data[i];rgba[j+1]=pixels.data[i+1];rgba[j+2]=pixels.data[i+2];rgba[j+3]=255;}canvas.getContext('2d').putImageData(new ImageData(rgba,pixels.width,pixels.height),0,0);const ms=performance.now()-start;canvas.width=canvas.height=1;return ms;}
+export async function interactiveBenchmark(){
+ const ref=await(await fetch(new URL('../fixtures/interactive-benchmark-reference.json',import.meta.url))).json(),bytes=new Uint8Array(await(await fetch(new URL('../fixtures/'+ref.file,import.meta.url))).arrayBuffer()),results=[];
+ for(let i=0;i<ref.cases.length;i+=2){const a=ref.cases[i],b=ref.cases[i+1],engine=createWorkerEngine({computeProfile:'maximum'});try{
+  let t=performance.now();await engine.load({id:'i',bytes});const loadMs=performance.now()-t;
+  t=performance.now();const cold=await engine.run({id:'first',imageId:'i',operation:a.operation,params:a.params});const coldMs=performance.now()-t;await verify(cold,a.expected);const displayMs=display(cold.pixels);
+  const samples=[];let warm;
+  for(let j=0;j<3;j++){t=performance.now();warm=await engine.run({id:'changed',imageId:'i',operation:b.operation,params:b.params});samples.push(performance.now()-t);await verify(warm,b.expected);}
+  if(!warm.metrics.cache.analysis)throw new Error('Expected cached analysis');const changedDisplayMs=display(warm.pixels);const memory=warm.metrics.memory;engine.dispose();
+  const direct=createWorkerEngine({computeProfile:'maximum'});let uncachedMs,uncached;try{await direct.load({id:'i',bytes});t=performance.now();uncached=await direct.run({id:'uncached',imageId:'i',operation:b.operation,params:b.params});uncachedMs=performance.now()-t;await verify(uncached,b.expected);}finally{direct.dispose();}
+  results.push({operation:a.operation,initialParams:a.params,changedParams:b.params,loadMs,coldMs,changedCachedSamplesMs:samples,changedCachedMedianMs:[...samples].sort((a,b)=>a-b)[1],changedUncachedMs:uncachedMs,displayMs,changedDisplayMs,coldEngineMs:cold.metrics.totalMs,changedEngineMs:warm.metrics.totalMs,memory,nativeExact:true});
+ }finally{engine.dispose();}}
+ return {schema:1,fixture:ref.file,dimensions:[ref.width,ref.height],results,limits:['One synthetic 1 MP JPEG; three cached parameter-change samples, one cold/uncached sample','RPC includes transport; load and raster canvas conversion/upload measured separately','No graph rendering, compositor paint, WordPress or physical-device measurement','Native outputs, point arrays, noise maps and PCA model hashes verified; no scientific parameter substitution']};
+}

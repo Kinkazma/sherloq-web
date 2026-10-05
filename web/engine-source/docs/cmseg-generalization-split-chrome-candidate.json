@@ -1,0 +1,296 @@
+{
+  "schema": 1,
+  "status": "passed-split-corpus",
+  "scope": "Real native512 CMSeg encoder/decoder ONNX CPU with bounded global SIMD-WASM correlation; all pair comparisons retained, no approximate neighbour pruning or resize. No common API, source projection, cancellation or UI qualification yet.",
+  "variant": "generalization",
+  "weights": {
+    "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/generalization.pth": "a3351ae664fca9780c3ca56db708fe3fdc74878c07327dfdd6ed75f14537454b"
+  },
+  "graphs": {
+    "encoder": {
+      "file": "encoder.onnx",
+      "bytes": 9157659,
+      "sha256": "ccfda1cea24430a7a7f72b3281032df93664e6d1bfec627d7b40794dd4e665fe"
+    },
+    "decoder": {
+      "file": "decoder.onnx",
+      "bytes": 11855291,
+      "sha256": "efd672aee6f44c13189289722284280f94aec4a3d3fd9516f969f00c92f6f579"
+    }
+  },
+  "records": [
+    {
+      "name": "structured-copy",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.0003139972686767578,
+          "different": 663196,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.0000152587890625,
+          "different": 384070,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000010132789611816406,
+          "different": 128014,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000008106231689453125,
+          "different": 96243,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000016927719116210938,
+          "different": 191494,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 2811.10000000149,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 7.457856554538012e-11,
+            "different": 389140,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 261.29999999701977,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 6.639311322942376e-11,
+            "different": 129074,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 92.5,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 1.546140993013978e-10,
+            "different": 96870,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 0.0000020926818251609802,
+        "different": 262068,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0005970001220703125,
+        "different": 260897,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 0,
+        "nativeForeground": 0
+      },
+      "heapBytes": 531103744,
+      "milliseconds": 4056.89999999851
+    },
+    {
+      "name": "constant",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.024469375610351562,
+          "different": 755166,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000012099742889404297,
+          "different": 393087,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00002536177635192871,
+          "different": 131009,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000036716461181640625,
+          "different": 98104,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.0004923343658447266,
+          "different": 181378,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 3016.7000000029802,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 8.790266292635351e-10,
+            "different": 393216,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 269.5,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 8.333245204994455e-11,
+            "different": 130865,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 78.89999999850988,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 8.076312951743603e-10,
+            "different": 97603,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 0.00008892430923879147,
+        "different": 262144,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.03875541687011719,
+        "different": 262136,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 0,
+        "nativeForeground": 0
+      },
+      "heapBytes": 531103744,
+      "milliseconds": 4194.4000000059605
+    },
+    {
+      "name": "paired-spots",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.018483877182006836,
+          "different": 708656,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00002300739288330078,
+          "different": 392138,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00004976987838745117,
+          "different": 130856,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000038623809814453125,
+          "different": 97829,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.0004019737243652344,
+          "different": 149168,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 2793.1999999955297,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 3.412878868402913e-10,
+            "different": 393110,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 260.5,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 3.805325832217932e-9,
+            "different": 130563,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 79.80000000447035,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 2.473825588822365e-9,
+            "different": 97778,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 0.0000400301069021225,
+        "different": 262143,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.032817840576171875,
+        "different": 262127,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 0,
+        "nativeForeground": 0
+      },
+      "heapBytes": 531103744,
+      "milliseconds": 3910.89999999851
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1340720514
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-cmseg-split.mjs": "4a5452253d3e9d06788cd63b01b15c710ff354606a8ef9c97613fe869581fe8e",
+    "experiments/segmentation/cmseg-correlation.cpp": "b8b359097cc47e0159a1322c56ed952b26c3050d20a0ba4fa82c8554172fe6aa",
+    "experiments/segmentation/cmseg-correlation.js": "904e07fc56ec471c14edc5f5d4dee75b85bdfbcdc68f494a6076157335c1fae9",
+    "experiments/segmentation/cmseg-correlation-worker.js": "0978dc61da8198b6c664050567bd255ef34eb3f9c1898eab4c7daf42e8211122",
+    "scripts/export-cmseg-split.py": "5232241ebdfb1eaa6607acd9359cc9cdf712e998e3e5321ed3556f909e678095"
+  }
+}

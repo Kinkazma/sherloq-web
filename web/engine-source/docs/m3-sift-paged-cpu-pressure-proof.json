@@ -1,0 +1,151 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "cpu",
+  "reference": "previous qualified non-paged WASM",
+  "records": [
+    {
+      "name": "SIFT-G2NN/global",
+      "count": 100,
+      "referenceCount": 100,
+      "total": 200,
+      "referenceTotal": 200,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 10026.29999999702,
+      "metadata": {
+        "provider": "cpu",
+        "family": "SIFT-G2NN",
+        "opencv": "4.11.0",
+        "inputLayout": "global-octave-bases",
+        "featurePolicy": "independent_roi_v2",
+        "reflectedPixels": false,
+        "preflightExecutions": 0,
+        "jobs": [
+          {
+            "sourceRows": 176,
+            "sourceReads": 3,
+            "globalCandidates": 18946,
+            "continuationSeeds": 0,
+            "continuationWindows": 0,
+            "octaveBases": [
+              {
+                "width": 1792,
+                "height": 1408,
+                "bytes": 10092544,
+                "storage": "memory"
+              },
+              {
+                "width": 896,
+                "height": 704,
+                "bytes": 2523136,
+                "storage": "memory"
+              },
+              {
+                "width": 448,
+                "height": 352,
+                "bytes": 630784,
+                "storage": "memory"
+              },
+              {
+                "width": 224,
+                "height": 176,
+                "bytes": 157696,
+                "storage": "memory"
+              },
+              {
+                "width": 112,
+                "height": 88,
+                "bytes": 39424,
+                "storage": "memory"
+              },
+              {
+                "width": 56,
+                "height": 44,
+                "bytes": 9856,
+                "storage": "memory"
+              },
+              {
+                "width": 28,
+                "height": 22,
+                "bytes": 2464,
+                "storage": "memory"
+              },
+              {
+                "width": 14,
+                "height": 11,
+                "bytes": 616,
+                "storage": "memory"
+              },
+              {
+                "width": 7,
+                "height": 5,
+                "bytes": 140,
+                "storage": "memory"
+              }
+            ],
+            "preflightExecutions": 0,
+            "grayScale": 4,
+            "coreSize": 1024,
+            "supportHalo": 128,
+            "workers": 2,
+            "peakHeapBytes": 69730304,
+            "executions": 24,
+            "retries": 1,
+            "stages": [
+              {
+                "executions": 18,
+                "retries": 1,
+                "peakHeapBytes": 69730304,
+                "workers": 2,
+                "failures": [
+                  {
+                    "provider": "cpu",
+                    "code": "MEMORY_LIMIT",
+                    "message": "Development injection after useful octave window"
+                  }
+                ],
+                "gaussianProvider": "cpu",
+                "concurrencyReductions": 1
+              },
+              {
+                "executions": 1,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 5,
+                "retries": 0,
+                "peakHeapBytes": 69730304,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              }
+            ]
+          }
+        ],
+        "workers": 2,
+        "peakWorkerHeapBytes": 69730304,
+        "executions": 24,
+        "retries": 1,
+        "qualification": "qualified native arithmetic with global paged dependencies"
+      }
+    }
+  ],
+  "cancelled": true,
+  "peakAccountedBytes": 1209462362,
+  "remainingActiveBytes": 0
+}

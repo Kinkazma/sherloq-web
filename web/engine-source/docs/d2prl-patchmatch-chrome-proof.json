@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Complete PatchMatch loop on synthetic descriptors; no learned feature extraction, heads or masks",
+  "cases": 7,
+  "records": [
+    {
+      "name": "2-40-flat",
+      "side": 2,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 185.2000000011176
+    },
+    {
+      "name": "3-40-noise",
+      "side": 3,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 200
+    },
+    {
+      "name": "7-40-steps",
+      "side": 7,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 343.40000000037253
+    },
+    {
+      "name": "17-40-noise",
+      "side": 17,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 1386.5999999996275
+    },
+    {
+      "name": "32-40-signed",
+      "side": 32,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 5346.699999999255
+    },
+    {
+      "name": "33-2-noise",
+      "side": 33,
+      "iterations": 2,
+      "evaluations": 8,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 211.30000000074506
+    },
+    {
+      "name": "65-1-noise",
+      "side": 65,
+      "iterations": 1,
+      "evaluations": 3,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 389.7000000011176
+    }
+  ],
+  "lifecycle": {
+    "cancelled": true,
+    "busy": true,
+    "refused": true,
+    "retry": true,
+    "allReservationsReleased": true
+  },
+  "peakAccountedBytes": 21176088,
+  "browser": "154.0.8037.58",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "696035917385acf5eae7faaeafc88dcc26c34950ba695eb6ef439a3cc0c008d5",
+    "referenceExpSha256": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+    "files": {
+      "evaluator.js": {
+        "bytes": 7725,
+        "sha256": "383c8540ef5388c500a8d9b51e7f0cb9e72d0c8d31b9f5ccd63d472567d8fd56"
+      },
+      "evaluator.wasm": {
+        "bytes": 16029,
+        "sha256": "72e2ce40f994c443d494f00392425c361eac10f66caddde35c63c7b15f7d959c"
+      }
+    }
+  },
+  "referenceSha256": "d0afed190833508ad19d54a937956d98b4c0f0d5a6dd951fe820ac804a6a53ee",
+  "sources": {
+    "patchmatch.js": "5bfd83937554b9ebadf7c70fe9f4efccb91bdecbc44735a23b56c14af0d96ca9",
+    "candidates.js": "607a3c68018dcdaeefda75d17c19e2c518840a20758a36e26f0a1981361ad189",
+    "random.js": "a36a0fc45f61e0081df4af49caadcf04757007ef3fb53ae81838412a36470b37",
+    "evaluator.js": "0e5805142147334e3a065f6bc00b35ece6c189e53baf006dc84b928742812b94"
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-progress-recovery-96mp-20261003T144004Z",
+  "job": {
+    "supervisorPid": 63637,
+    "runnerPid": 63638,
+    "caffeinatePid": 63639,
+    "startedAt": "2026-10-03T14:40:04.668187+00:00",
+    "timeoutSeconds": 86400,
+    "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-progress-recovery-96mp-20261003T144004Z",
+    "exitCode": 1,
+    "timedOut": false,
+    "stoppedAt": "2026-10-03T15:30:55.272053+00:00",
+    "orphanBrowserPids": []
+  },
+  "resultExists": false,
+  "passed": false,
+  "error": {
+    "message": "page.evaluate: Error: d2prl: MEMORY_ALLOCATION: Neural projection allocation failed after admission\n    at Object.progress [as onProgress] (http://127.0.0.1:60648/tests/m5-complete-96mp-browser.js:17:184)\n    at installWorkerMessageProtocol.label (http://127.0.0.1:60648/src/worker-client.js:70:443)\n    at Worker.message (http://127.0.0.1:60648/src/worker-message-protocol.js:16:183)",
+    "stack": "page.evaluate: Error: d2prl: MEMORY_ALLOCATION: Neural projection allocation failed after admission\n    at Object.progress [as onProgress] (http://127.0.0.1:60648/tests/m5-complete-96mp-browser.js:17:184)\n    at installWorkerMessageProtocol.label (http://127.0.0.1:60648/src/worker-client.js:70:443)\n    at Worker.message (http://127.0.0.1:60648/src/worker-message-protocol.js:16:183)\n    at /Users/gaeldauchy/SHERLOQ/web-engine-integration/scripts/complete96-runner.mjs:74:25"
+  },
+  "automaticState": {
+    "states": {
+      "patchmatch": "failed",
+      "sift": "done",
+      "forgeryscope": "done",
+      "d2prl": "failed",
+      "ela": "done"
+    },
+    "errors": {
+      "d2prl": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Neural projection allocation failed after admission",
+        "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+        "details": {
+          "recovery": {
+            "operation": "d2prl",
+            "phase": "zone-complete",
+            "consecutiveFailures": 5,
+            "totalFailures": 5,
+            "loopDetected": true,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 387634160,
+              "activeReservationBytes": 11556063959,
+              "cacheBytes": 9417594,
+              "availableBytes": 15534255551
+            }
+          }
+        }
+      },
+      "patchmatch": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Uint32Array (<anonymous>)\n    at installWorkerMessageProtocol.label (http://127.0.0.1:60648/src/dense-sift-stream-worker.js:8:91)\n    at message (http://127.0.0.1:60648/src/worker-message-protocol.js:16:183)",
+        "details": {
+          "recovery": {
+            "operation": "sift-transpose/tile/48",
+            "phase": "compute",
+            "consecutiveFailures": 5,
+            "totalFailures": 6,
+            "loopDetected": true,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 6235006576,
+              "activeReservationBytes": 7635046858,
+              "cacheBytes": 0,
+              "availableBytes": 13617317830
+            }
+          }
+        },
+        "cause": {
+          "code": "NUMERIC_RANGE",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Uint32Array (<anonymous>)\n    at installWorkerMessageProtocol.label (http://127.0.0.1:60648/src/dense-sift-stream-worker.js:8:91)\n    at message (http://127.0.0.1:60648/src/worker-message-protocol.js:16:183)"
+        }
+      }
+    },
+    "attempts": {
+      "patchmatch": 1,
+      "sift": 1,
+      "forgeryscope": 1,
+      "d2prl": 5,
+      "ela": 3
+    },
+    "completed": [
+      "forgeryscope",
+      "sift",
+      "ela"
+    ],
+    "running": [],
+    "resumable": [
+      "patchmatch",
+      "d2prl"
+    ],
+    "preflightExecutions": 0
+  },
+  "detectorErrors": {
+    "d2prl": {
+      "code": "MEMORY_ALLOCATION",
+      "name": "EngineError",
+      "message": "Neural projection allocation failed after admission",
+      "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+      "details": {
+        "recovery": {
+          "operation": "d2prl",
+          "phase": "zone-complete",
+          "consecutiveFailures": 5,
+          "totalFailures": 5,
+          "loopDetected": true,
+          "memory": {
+            "budgetBytes": 27487371264,
+            "retainedBytes": 387634160,
+            "activeReservationBytes": 11556063959,
+            "cacheBytes": 9417594,
+            "availableBytes": 15534255551
+          }
+        }
+      }
+    },
+    "patchmatch": {
+      "code": "MEMORY_ALLOCATION",
+      "name": "EngineError",
+      "message": "Array buffer allocation failed",
+      "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Uint32Array (<anonymous>)\n    at installWorkerMessageProtocol.label (http://127.0.0.1:60648/src/dense-sift-stream-worker.js:8:91)\n    at message (http://127.0.0.1:60648/src/worker-message-protocol.js:16:183)",
+      "details": {
+        "recovery": {
+          "operation": "sift-transpose/tile/48",
+          "phase": "compute",
+          "consecutiveFailures": 5,
+          "totalFailures": 6,
+          "loopDetected": true,
+          "memory": {
+            "budgetBytes": 27487371264,
+            "retainedBytes": 6235006576,
+            "activeReservationBytes": 7635046858,
+            "cacheBytes": 0,
+            "availableBytes": 13617317830
+          }
+        }
+      },
+      "cause": {
+        "code": "NUMERIC_RANGE",
+        "name": "RangeError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Uint32Array (<anonymous>)\n    at installWorkerMessageProtocol.label (http://127.0.0.1:60648/src/dense-sift-stream-worker.js:8:91)\n    at message (http://127.0.0.1:60648/src/worker-message-protocol.js:16:183)"
+      }
+    }
+  },
+  "sourceHashes": {
+    "job.json": "bd23a6c16b35d18fd1b96667b2786385f169e32d4da60c747b84330d28d062ba",
+    "status.json": "21d670b9667ad217a2f06ecc894388b35df4e04f273f38fb9b46603838edddd1",
+    "incomplete.json": "fb872892aef559b8c9dbb50afcaca852018b1a5eca9069fe2510f3bba000f9ff"
+  },
+  "processCheck": "supervisor, runner, caffeinate and recorded browser PIDs absent at resumed audit; no restart"
+}

@@ -1,0 +1,73 @@
+{
+  "records": [
+    {
+      "id": 0,
+      "dimensions": [
+        128,
+        96
+      ],
+      "features": {
+        "maxError": 1.7881393432617188e-7,
+        "meanError": 7.090171514518089e-9,
+        "different": 1327467,
+        "count": 1572864
+      },
+      "scores": {
+        "maxError": 0.000002771615982055664,
+        "meanError": 2.999478984449311e-7,
+        "different": 11041,
+        "count": 12288
+      }
+    },
+    {
+      "id": 1,
+      "dimensions": [
+        128,
+        160
+      ],
+      "features": {
+        "maxError": 2.980232238769531e-7,
+        "meanError": 7.84034723647424e-9,
+        "different": 2246246,
+        "count": 2621440
+      },
+      "scores": {
+        "maxError": 0.000003248453140258789,
+        "meanError": 3.142421532745048e-7,
+        "different": 18834,
+        "count": 20480
+      }
+    },
+    {
+      "id": 2,
+      "dimensions": [
+        129,
+        97
+      ],
+      "features": {
+        "maxError": 2.384185791015625e-7,
+        "meanError": 8.364500795026671e-9,
+        "different": 1379528,
+        "count": 1601664
+      },
+      "scores": {
+        "maxError": 0.0000029206275939941406,
+        "meanError": 3.200104711837051e-7,
+        "different": 11298,
+        "count": 12513
+      }
+    }
+  ],
+  "totalMs": 7714.5999999940395,
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3173016350
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "off-the-record Playwright context",
+  "executionNote": "CPU/WASM"
+}

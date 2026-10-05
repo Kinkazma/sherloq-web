@@ -1,0 +1,320 @@
+{
+  "passed": true,
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "copiedFrom": [
+    16,
+    32,
+    1500,
+    1200
+  ],
+  "copiedTo": [
+    8501,
+    6203,
+    1500,
+    1200
+  ],
+  "sourceSha256": "c3f282d1d7089619bf023a303fc128bad09b0ba80ccc47828891b9f45896dc1d",
+  "analysisMs": 207128,
+  "views": [
+    {
+      "mode": 0,
+      "sha256": "a098526f9bb53b5dd28d03dcd082d3518bfb7b6c4dee98427a9eb1189dec24e2",
+      "cache": {
+        "analysis": false,
+        "result": false
+      }
+    },
+    {
+      "mode": 1,
+      "sha256": "4fff65df5ccdbdb84f88b93e3bcdb4cdbd946c500f290b57f838221b307e69a4",
+      "cache": {
+        "analysis": true,
+        "result": false
+      }
+    },
+    {
+      "mode": 3,
+      "sha256": "b1bb87108f0188ba778ed2882ee9b030c92ce1aed270e91436cee21ffdbb109f",
+      "cache": {
+        "analysis": true,
+        "result": false
+      }
+    }
+  ],
+  "regions": {
+    "foreign": [
+      {
+        "x0": 8493,
+        "y0": 6192,
+        "x1": 10007,
+        "y1": 7418,
+        "grid": 29,
+        "log10_nfa": -28291.01169220552
+      }
+    ],
+    "missing": [
+      {
+        "x0": 936,
+        "y0": 4584,
+        "x1": 1255,
+        "y1": 4807,
+        "grid": 0,
+        "log10_nfa": -4.0747259135127365
+      },
+      {
+        "x0": 3920,
+        "y0": 966,
+        "x1": 4232,
+        "y1": 1250,
+        "grid": 0,
+        "log10_nfa": -8.917027197261582
+      },
+      {
+        "x0": 5757,
+        "y0": 6538,
+        "x1": 5944,
+        "y1": 6663,
+        "grid": 0,
+        "log10_nfa": -0.11840090584405161
+      },
+      {
+        "x0": 6267,
+        "y0": 5368,
+        "x1": 6587,
+        "y1": 5567,
+        "grid": 0,
+        "log10_nfa": -0.8820758759724789
+      },
+      {
+        "x0": 9112,
+        "y0": 5953,
+        "x1": 9337,
+        "y1": 6199,
+        "grid": 0,
+        "log10_nfa": -2.6902039988732085
+      },
+      {
+        "x0": 10816,
+        "y0": 6000,
+        "x1": 10999,
+        "y1": 6287,
+        "grid": 0,
+        "log10_nfa": -0.36082640718416314
+      }
+    ]
+  },
+  "metrics": {
+    "kernel": "zero-global-segmented",
+    "workers": 1,
+    "original": {
+      "workers": 1,
+      "scheduling": {
+        "count": 1,
+        "maximum": 4,
+        "ceiling": 4,
+        "resourceReduced": true,
+        "policy": "immediate-useful-work",
+        "priorUsefulSamples": 0,
+        "reason": "Aggressive capacity-based start",
+        "preflightExecutions": 0,
+        "retry": null,
+        "completedBandsPreserved": 0
+      },
+      "kernel": "zero-native-overlapping-bands",
+      "rowsPerChunk": 64,
+      "haloRows": 7,
+      "heapCapacityBytes": 20185088,
+      "heapMaximumBytes": 33554432,
+      "thresholdFallbacks": 659716,
+      "luminanceStorage": "memory",
+      "voteStorage": "memory",
+      "retainedPlaneBytes": 192000000
+    },
+    "jpeg99": {
+      "workers": 1,
+      "scheduling": {
+        "count": 1,
+        "maximum": 4,
+        "ceiling": 4,
+        "resourceReduced": true,
+        "policy": "immediate-useful-work",
+        "priorUsefulSamples": 1,
+        "reason": "Aggressive capacity-based start",
+        "preflightExecutions": 0,
+        "retry": null,
+        "completedBandsPreserved": 0
+      },
+      "kernel": "zero-native-overlapping-bands",
+      "rowsPerChunk": 64,
+      "haloRows": 7,
+      "heapCapacityBytes": 20185088,
+      "heapMaximumBytes": 33554432,
+      "thresholdFallbacks": 649444,
+      "luminanceStorage": "temporary",
+      "voteStorage": "temporary",
+      "retainedPlaneBytes": 192000000,
+      "jpeg99": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-scanlines",
+        "sampling": "444",
+        "recompressedCache": false,
+        "recompressions": 1,
+        "sourcePasses": 2,
+        "encodedBytes": 242134930,
+        "encodedCapacityBytes": 576002048,
+        "encodedStorage": "temporary",
+        "cacheEntries": 1,
+        "rowsPerChunk": 32,
+        "maxSourceWindowBytes": 1152000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216
+      }
+    },
+    "foreign": {
+      "components": 579713,
+      "visited": 10148551,
+      "rowsPerClosingChunk": 64,
+      "closingHaloRows": 9,
+      "heapMaximumBytes": 16777216,
+      "heapCapacityBytes": 16777216,
+      "maskStorage": "temporary",
+      "regularizedStorage": "temporary"
+    },
+    "missing": {
+      "components": 52084,
+      "visited": 7407902,
+      "rowsPerClosingChunk": 64,
+      "closingHaloRows": 9,
+      "heapMaximumBytes": 16777216,
+      "heapCapacityBytes": 16777216,
+      "maskStorage": "temporary",
+      "regularizedStorage": "temporary"
+    },
+    "cache": {
+      "analysis": false,
+      "result": false
+    },
+    "temporaryBackend": "opfs",
+    "totalMs": 207127.19999998808,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 192000000,
+      "cacheBytes": 0,
+      "activeReservationBytes": 1792,
+      "peakAccountedBytes": 266841568
+    }
+  },
+  "exportMs": 59617.29999999702,
+  "archive": {
+    "id": "c191553a-0b29-4158-b086-5c32f6c2f603",
+    "revision": 1,
+    "mime": "application/zip",
+    "format": "npz",
+    "width": 12000,
+    "height": 8000,
+    "byteLength": 3840009430,
+    "sha256": "b69ca2be2f373d0bcb95d73ea658afba222c7c7ecc3f2ca407889278732f0860",
+    "imageId": "source",
+    "sourceSurfaceId": "c4b15340-14c3-480d-9df1-340450e70adf",
+    "sourceSurfaceRevision": 1,
+    "provenance": {
+      "originalSha256": "c3f282d1d7089619bf023a303fc128bad09b0ba80ccc47828891b9f45896dc1d",
+      "operation": "jpeg.zero",
+      "coordinates": "full-resolution",
+      "arrays": "Native float64 luminance/NFA and int32 votes/masks; no pickle"
+    },
+    "metrics": {
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "arrays": 11,
+      "zip64": false,
+      "assemblyMs": 28387.5,
+      "hashMs": 31212.80000001192,
+      "maximumScalarChunk": 65536,
+      "outputCapacityBytes": 3840009430,
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 192000000,
+        "cacheBytes": 0,
+        "activeReservationBytes": 1792,
+        "peakAccountedBytes": 266841568
+      }
+    },
+    "verified": [
+      {
+        "name": "luminance",
+        "bytes": 768000000,
+        "sha256": "1fac1b3d18485e773f0261034fb6e644ade2cc6a4e5327d654d51ad29de4eef8",
+        "exact": true
+      },
+      {
+        "name": "luminance_jpeg",
+        "bytes": 768000000,
+        "sha256": "d4d61bb354e3b2fe4a67084924a082bd65241767e9598f4270dde51ed44860f3",
+        "exact": true
+      },
+      {
+        "name": "votes",
+        "bytes": 384000000,
+        "sha256": "66d7b8cbdc2f12a5a7364793cffd36a0e655550498c36c5235af78c218423e91",
+        "exact": true
+      },
+      {
+        "name": "votes_jpeg",
+        "bytes": 384000000,
+        "sha256": "c806150df6e45c49927c41312d3174942a991e6a1198c70bf2d6fef7ea841194",
+        "exact": true
+      },
+      {
+        "name": "mask_f",
+        "bytes": 384000000,
+        "sha256": "7501585b254c698d0d210403ea97edaeb175a52ba9d57db3a17376eb3b529dfc",
+        "exact": true
+      },
+      {
+        "name": "mask_f_reg",
+        "bytes": 384000000,
+        "sha256": "5b2de1ad88c1aef600e5a19d26249c0bd123c18382cbcb86f60564346e2b587c",
+        "exact": true
+      },
+      {
+        "name": "mask_m",
+        "bytes": 384000000,
+        "sha256": "30aefa08545130934b4eccfe6d735ee442f30b64cee1b19dfeb0ca7ac96f5a3c",
+        "exact": true
+      },
+      {
+        "name": "mask_m_reg",
+        "bytes": 384000000,
+        "sha256": "bceb2f4aa58e55fb50696404a6e875d0183aaaee2277fe8b289da728e071b0ac",
+        "exact": true
+      },
+      {
+        "name": "grid_log10_nfa",
+        "bytes": 512,
+        "sha256": "d9095fcb6caeb5374ad4b50765255d6a6aa93aab07fa1f13b095ac9e210e4b4e",
+        "exact": false
+      }
+    ],
+    "nfaMax": 1.6178702821889601e-09
+  },
+  "totalMs": 344091.89999999106,
+  "finalMemory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 266841568,
+    "knownHeapCapacityBytes": 0
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile, removed after qualification",
+  "regionParity": {
+    "allBoundsAndGridIdsExact": true,
+    "maximumLog10NfaError": 3.637978807091713e-12
+  }
+}

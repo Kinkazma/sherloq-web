@@ -1,0 +1,1070 @@
+{
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "analyzeMs": 1589837.900000006,
+  "totalMs": 1593985.299999997,
+  "fields": {
+    "map": {
+      "length": 96000000,
+      "finite": true,
+      "min": 0.003138696774840355,
+      "max": 0.9169881939888,
+      "maxError": null,
+      "meanError": null,
+      "thresholdChanges": null
+    },
+    "native_map": {
+      "length": 6000000,
+      "finite": true,
+      "min": 0.0031205967534333467,
+      "max": 0.9173903465270996,
+      "maxError": null,
+      "meanError": null,
+      "thresholdChanges": null
+    }
+  },
+  "views": [
+    {
+      "view": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 0,
+      "rect": {
+        "x": 11947,
+        "y": 7959,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        11947,
+        7959
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 11947,
+        "y": 7959,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        11947,
+        7959
+      ],
+      "bytes": 6519
+    }
+  ],
+  "export": {
+    "bytes": 408004456,
+    "descriptor": 408004456,
+    "first": [
+      80,
+      75,
+      3,
+      4
+    ],
+    "last": [
+      80,
+      75,
+      5,
+      6
+    ]
+  },
+  "source": {
+    "dimensions": {
+      "id": "5b06f3e4-2880-4d96-a104-33a5d941aa1b",
+      "revision": 1,
+      "width": 12000,
+      "height": 8000,
+      "format": "rgb8",
+      "sourceWidth": 12000,
+      "sourceHeight": 8000,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "provenance": {
+      "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+      "format": "png",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        12000,
+        8000
+      ],
+      "sourceDepth": 8,
+      "analysisDepth": 8,
+      "interlace": 0,
+      "icc": "absent",
+      "alpha": "absent",
+      "interpolation": "none",
+      "frames": "static PNG"
+    },
+    "metrics": {
+      "decodeMs": 2610.9000000059605,
+      "rowsPerChunk": 32,
+      "passes": 1,
+      "encodedReadCalls": 1101,
+      "encodedReadBytes": 288470012,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 33554432,
+      "workingReservationBytes": 43095040,
+      "storage": "memory",
+      "temporaryBackend": null,
+      "temporaryFallback": null,
+      "temporaryBytes": 0,
+      "originalBlobBytes": 288470012,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM"
+    }
+  },
+  "metadata": {
+    "method": "catnet",
+    "source_shape": [
+      8000,
+      12000
+    ],
+    "padded_shape": [
+      8000,
+      12000
+    ],
+    "orientation": 1,
+    "jpeg_source": "companion_q100_444",
+    "jpeg_sha256": "1df2df70d4bc1c6097641c98ae2853409488545c3fb924b745591628964511b1",
+    "companion": {
+      "quality": 100,
+      "sampling": "444",
+      "encodedBytes": 275642960,
+      "encodedCapacityBytes": 2304065536,
+      "encodedStorage": "temporary",
+      "rgbStorage": "temporary",
+      "codecHeapMaximumBytes": 16777216
+    },
+    "memory_bounded": true,
+    "compact_dct": true,
+    "segmented": true,
+    "coordinateSpace": "source-pixels",
+    "interbranchResize": "global half-pixel bilinear"
+  },
+  "provenance": {
+    "originalSourceSha256": "4fc4fad9889f963e66f8a50fe5fee33bf6bb753b0c6679125e322225fcda1a39",
+    "sourceSurfaceIdentity": "5b06f3e4-2880-4d96-a104-33a5d941aa1b/1",
+    "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+    "provider": "webgpu",
+    "qualification": "native segmented HRNet; see dimension-specific proof"
+  },
+  "storage": {
+    "backend": "opfs",
+    "reservedBytes": 384000000,
+    "peakReservedBytes": 8544000000,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 10737418240,
+    "openFiles": 2
+  },
+  "events": [
+    {
+      "phase": "decode",
+      "fraction": 0.004,
+      "elapsedMs": 26441.70000000298
+    },
+    {
+      "phase": "catnet-companion-encode",
+      "completed": 5152,
+      "total": 8000,
+      "elapsedMs": 36451.59999999404
+    },
+    {
+      "phase": "catnet-original-coefficients",
+      "completed": 128,
+      "total": 8000,
+      "elapsedMs": 47138.70000000298
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stem",
+      "completed": 392,
+      "total": 2000,
+      "elapsedMs": 57218.59999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stem",
+      "completed": 931,
+      "total": 2000,
+      "elapsedMs": 67297.79999999702
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stem",
+      "completed": 1477,
+      "total": 2000,
+      "elapsedMs": 77355.59999999404
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-transition1-0",
+      "elapsedMs": 87487.29999999702
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-transition1-0",
+      "elapsedMs": 97507.79999999702
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-transition1-0",
+      "completed": 1344,
+      "total": 2000,
+      "elapsedMs": 107526.5
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-transition1-1",
+      "elapsedMs": 117530.20000000298
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-transition1-1",
+      "completed": 867,
+      "total": 1000,
+      "elapsedMs": 127547.09999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage2-0-branch0",
+      "completed": 1938,
+      "total": 2000,
+      "elapsedMs": 137612.70000000298
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 147683.09999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-0-branch0",
+      "completed": 152,
+      "total": 2000,
+      "elapsedMs": 157747.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-0-branch1",
+      "completed": 532,
+      "total": 1000,
+      "elapsedMs": 167868.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-0-fuse0-1",
+      "completed": 38,
+      "total": 1000,
+      "elapsedMs": 177882.59999999404
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 187967.20000000298
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 198030.20000000298
+    },
+    {
+      "phase": "catnet-high-resolution-fusion",
+      "model": "rgb-stage3-0-branch0",
+      "completed": 1,
+      "total": 1,
+      "elapsedMs": 209075
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-1-branch0",
+      "completed": 1254,
+      "total": 2000,
+      "elapsedMs": 219143.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-1-branch1",
+      "completed": 380,
+      "total": 1000,
+      "elapsedMs": 229522.40000000596
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-1-branch2",
+      "completed": 152,
+      "total": 500,
+      "elapsedMs": 239871.40000000596
+    },
+    {
+      "phase": "model-load",
+      "model": "sample",
+      "elapsedMs": 250066.70000000298
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-1-fuse1-0",
+      "completed": 285,
+      "total": 1000,
+      "elapsedMs": 260069.79999999702
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-1-fuse2-0",
+      "completed": 90,
+      "total": 500,
+      "elapsedMs": 270087.799999997
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-2-branch0",
+      "elapsedMs": 280167.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-2-branch1",
+      "elapsedMs": 290196
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-2-branch2",
+      "elapsedMs": 300198.40000000596
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 310250.90000000596
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-2-fuse1-2",
+      "elapsedMs": 320961.09999999404
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-2-fuse2-0",
+      "elapsedMs": 331446.5
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-3-branch0",
+      "elapsedMs": 341480
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-3-branch0",
+      "completed": 1444,
+      "total": 2000,
+      "elapsedMs": 351695.59999999404
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-3-branch2",
+      "elapsedMs": 361971.90000000596
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 372019.40000000596
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-3-fuse1-2",
+      "elapsedMs": 382282.59999999404
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-transition3-3",
+      "elapsedMs": 392594.40000000596
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-branch1",
+      "completed": 38,
+      "total": 1000,
+      "elapsedMs": 402720.299999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-branch2",
+      "completed": 152,
+      "total": 500,
+      "elapsedMs": 412884.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-branch3",
+      "completed": 76,
+      "total": 250,
+      "elapsedMs": 423236.09999999404
+    },
+    {
+      "phase": "model-load",
+      "model": "sample",
+      "elapsedMs": 433249.59999999404
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 443322
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-0-fuse1-2",
+      "elapsedMs": 455553
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-fuse2-0",
+      "completed": 243,
+      "total": 500,
+      "elapsedMs": 465566.200000003
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 476160.700000003
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-0-fuse3-1",
+      "elapsedMs": 486680.90000000596
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-1-branch0",
+      "elapsedMs": 496698.59999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-branch0",
+      "completed": 570,
+      "total": 2000,
+      "elapsedMs": 507286.90000000596
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-branch0",
+      "completed": 1330,
+      "total": 2000,
+      "elapsedMs": 517476.700000003
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-branch1",
+      "completed": 76,
+      "total": 1000,
+      "elapsedMs": 528014.099999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-branch1",
+      "completed": 608,
+      "total": 1000,
+      "elapsedMs": 538066.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-branch2",
+      "completed": 114,
+      "total": 500,
+      "elapsedMs": 548235.099999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-branch3",
+      "completed": 76,
+      "total": 250,
+      "elapsedMs": 558349.099999994
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-1-fuse0-1",
+      "elapsedMs": 568388.400000006
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 578476.099999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-fuse1-0",
+      "completed": 380,
+      "total": 1000,
+      "elapsedMs": 588508.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-1-fuse1-3",
+      "elapsedMs": 598651.200000003
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-fuse2-1",
+      "completed": 418,
+      "total": 500,
+      "elapsedMs": 608666.400000006
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-fuse3-0",
+      "completed": 200,
+      "total": 250,
+      "elapsedMs": 618686
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-1-fuse3-2",
+      "elapsedMs": 629134.900000006
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-branch0",
+      "completed": 456,
+      "total": 2000,
+      "elapsedMs": 639158.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-2-branch1",
+      "elapsedMs": 653254.900000006
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-branch1",
+      "completed": 760,
+      "total": 1000,
+      "elapsedMs": 663360.200000003
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-branch2",
+      "completed": 380,
+      "total": 500,
+      "elapsedMs": 673430.599999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-branch3",
+      "completed": 114,
+      "total": 250,
+      "elapsedMs": 683484.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 693487.299999997
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 704191.5
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 714327.400000006
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-fuse1-0",
+      "completed": 418,
+      "total": 1000,
+      "elapsedMs": 724337.400000006
+    },
+    {
+      "phase": "model-load",
+      "model": "sample",
+      "elapsedMs": 735224.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 745268.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-2-fuse2-1",
+      "elapsedMs": 755992.200000003
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-2-fuse3-0",
+      "elapsedMs": 766537.299999997
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-2-fuse3-1",
+      "elapsedMs": 777112.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-2-fuse3-2",
+      "elapsedMs": 787176.5
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stem",
+      "elapsedMs": 799264.5
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stem",
+      "elapsedMs": 810268.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 123,
+      "total": 1000,
+      "elapsedMs": 820278.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 294,
+      "total": 1000,
+      "elapsedMs": 830371
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 453,
+      "total": 1000,
+      "elapsedMs": 840412
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 598,
+      "total": 1000,
+      "elapsedMs": 850435.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 741,
+      "total": 1000,
+      "elapsedMs": 860447.099999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 886,
+      "total": 1000,
+      "elapsedMs": 870477
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 999,
+      "total": 1000,
+      "elapsedMs": 880561.5
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-layer",
+      "elapsedMs": 892631.5
+    },
+    {
+      "phase": "inference",
+      "model": "dct-layer",
+      "elapsedMs": 902736.099999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-layer",
+      "completed": 189,
+      "total": 1000,
+      "elapsedMs": 912940.5
+    },
+    {
+      "phase": "inference",
+      "model": "dct-layer",
+      "elapsedMs": 923133.200000003
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-layer",
+      "completed": 511,
+      "total": 1000,
+      "elapsedMs": 933312.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-layer",
+      "completed": 658,
+      "total": 1000,
+      "elapsedMs": 943363.099999994
+    },
+    {
+      "phase": "inference",
+      "model": "dct-layer",
+      "elapsedMs": 953484.900000006
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-layer",
+      "completed": 994,
+      "total": 1000,
+      "elapsedMs": 963541.099999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-0-branch0",
+      "completed": 76,
+      "total": 1000,
+      "elapsedMs": 973710.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage3-0-branch1",
+      "elapsedMs": 985707
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-0-branch1",
+      "completed": 418,
+      "total": 500,
+      "elapsedMs": 995799.900000006
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage3-0-fuse1-0",
+      "elapsedMs": 1008494.5
+    },
+    {
+      "phase": "catnet-high-resolution-fusion",
+      "model": "dct-stage3-0-branch0",
+      "completed": 1,
+      "total": 1,
+      "elapsedMs": 1019782.700000003
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage3-1-branch0",
+      "elapsedMs": 1029794.299999997
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage3-1-branch1",
+      "elapsedMs": 1040178.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-1-branch1",
+      "completed": 266,
+      "total": 500,
+      "elapsedMs": 1050222.900000006
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 1060270.5
+    },
+    {
+      "phase": "catnet-high-resolution-fusion",
+      "model": "dct-stage3-1-branch0",
+      "completed": 1,
+      "total": 1,
+      "elapsedMs": 1070691.299999997
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage3-2-branch0",
+      "elapsedMs": 1084439.599999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-2-branch1",
+      "completed": 38,
+      "total": 500,
+      "elapsedMs": 1094548.5
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage3-2-fuse0-1",
+      "elapsedMs": 1105427.799999997
+    },
+    {
+      "phase": "model-load",
+      "model": "sample",
+      "elapsedMs": 1116324.400000006
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage3-2-fuse1-0",
+      "elapsedMs": 1127113
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-2-fuse1-0",
+      "completed": 500,
+      "total": 500,
+      "elapsedMs": 1137116.400000006
+    },
+    {
+      "phase": "inference",
+      "model": "dct-transition3-2",
+      "elapsedMs": 1149367.900000006
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage4-0-branch0",
+      "completed": 380,
+      "total": 1000,
+      "elapsedMs": 1159743.299999997
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-0-branch1",
+      "elapsedMs": 1173602.599999994
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage4-0-branch2",
+      "elapsedMs": 1184610.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-0-branch2",
+      "elapsedMs": 1195827.900000006
+    },
+    {
+      "phase": "model-load",
+      "model": "sample",
+      "elapsedMs": 1205973.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 1216090
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-0-fuse1-0",
+      "elapsedMs": 1228000.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-0-fuse1-2",
+      "elapsedMs": 1238008.700000003
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage4-0-fuse2-0",
+      "completed": 18,
+      "total": 250,
+      "elapsedMs": 1248029
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-0-fuse2-1",
+      "elapsedMs": 1258247.400000006
+    },
+    {
+      "phase": "catnet-high-resolution-fusion",
+      "model": "dct-stage4-0-branch0",
+      "completed": 1,
+      "total": 1,
+      "elapsedMs": 1268358.299999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage4-1-branch0",
+      "completed": 228,
+      "total": 1000,
+      "elapsedMs": 1278415.900000006
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-1-branch1",
+      "elapsedMs": 1290043.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-1-branch2",
+      "elapsedMs": 1306718.5
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 1318269.200000003
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-1-fuse0-2",
+      "elapsedMs": 1329477.5
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-1-fuse1-0",
+      "elapsedMs": 1340754.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-1-fuse1-2",
+      "elapsedMs": 1352675.400000006
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage4-1-fuse2-0",
+      "elapsedMs": 1362868.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-1-fuse2-1",
+      "elapsedMs": 1373555.200000003
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "fusion-transition-0",
+      "completed": 1140,
+      "total": 2000,
+      "elapsedMs": 1383563.299999997
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-transition-1",
+      "elapsedMs": 1394467.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-transition-2",
+      "elapsedMs": 1405589.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-branch0",
+      "elapsedMs": 1415875.900000006
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "fusion-stage5-0-branch1",
+      "completed": 154,
+      "total": 1000,
+      "elapsedMs": 1425985.200000003
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "fusion-stage5-0-branch2",
+      "completed": 462,
+      "total": 500,
+      "elapsedMs": 1436011.299999997
+    },
+    {
+      "phase": "model-load",
+      "model": "sample",
+      "elapsedMs": 1446102.900000006
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 1456126.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 1466127.099999994
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-fuse1-2",
+      "elapsedMs": 1476875.5
+    },
+    {
+      "phase": "model-load",
+      "model": "fusion-stage5-0-fuse2-0",
+      "elapsedMs": 1487709.5
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-fuse2-1",
+      "elapsedMs": 1498271.299999997
+    },
+    {
+      "phase": "model-load",
+      "model": "fusion-stage5-0-fuse3-0",
+      "elapsedMs": 1508954.099999994
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-fuse3-2",
+      "elapsedMs": 1520815.099999994
+    },
+    {
+      "phase": "model-load",
+      "model": "head",
+      "elapsedMs": 1531734.5
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 1541737.200000003
+    },
+    {
+      "phase": "inference",
+      "model": "head",
+      "elapsedMs": 1551759.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "head",
+      "elapsedMs": 1561765.900000006
+    },
+    {
+      "phase": "inference",
+      "model": "head",
+      "elapsedMs": 1571766
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3214268257,
+    "residentCodecBytes": 0
+  },
+  "cancelled": null,
+  "remainingTemporary": null,
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "temporary on-disk profile owned by M2",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

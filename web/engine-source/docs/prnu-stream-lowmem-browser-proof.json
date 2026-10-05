@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1600,
+    1100
+  ],
+  "budgetBytes": 134217728,
+  "public": {
+    "workers": 1,
+    "completedStripJobs": 144,
+    "preflightExecutions": 0,
+    "policy": "immediate-useful-work",
+    "residualCached": false,
+    "totalMs": 16803,
+    "temporaryBackend": "opfs",
+    "cache": {
+      "residual": false
+    },
+    "memory": {
+      "budgetBytes": 134217728,
+      "retainedBytes": 5364671,
+      "cacheBytes": 0,
+      "activeReservationBytes": 36110336,
+      "peakAccountedBytes": 106538589
+    }
+  },
+  "cached": {
+    "workers": 1,
+    "completedStripJobs": 0,
+    "preflightExecutions": 0,
+    "policy": "immediate-useful-work",
+    "residualCached": true,
+    "totalMs": 37.5,
+    "temporaryBackend": "opfs",
+    "cache": {
+      "residual": true
+    },
+    "memory": {
+      "budgetBytes": 134217728,
+      "retainedBytes": 5364671,
+      "cacheBytes": 0,
+      "activeReservationBytes": 36110336,
+      "peakAccountedBytes": 106538589
+    }
+  },
+  "scores": [
+    [
+      "camera_beta",
+      -0.014160083604236486
+    ],
+    [
+      "camera_alpha",
+      -0.015689198941289142
+    ]
+  ],
+  "storageArtifactsRemaining": 0
+}

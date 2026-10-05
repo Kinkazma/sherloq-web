@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "nativeVotesAndGlobalNfa": true,
+  "original": {
+    "workers": 3,
+    "scheduling": {
+      "count": 3,
+      "maximum": 3,
+      "ceiling": 3,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "retry": null,
+      "completedBandsPreserved": 0
+    },
+    "heapCapacityBytes": 16777216,
+    "totalWorkerHeapMaximumBytes": 50331648,
+    "kernel": "zero-native-overlapping-bands",
+    "rowsPerChunk": 64,
+    "haloRows": 7,
+    "heapMaximumBytes": 16777216,
+    "thresholdFallbacks": 25657,
+    "luminanceStorage": "temporary",
+    "voteStorage": "temporary",
+    "retainedPlaneBytes": 2097152
+  },
+  "jpeg99": {
+    "workers": 3,
+    "scheduling": {
+      "count": 3,
+      "maximum": 3,
+      "ceiling": 3,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 1,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "retry": null,
+      "completedBandsPreserved": 0
+    },
+    "heapCapacityBytes": 16777216,
+    "totalWorkerHeapMaximumBytes": 50331648,
+    "kernel": "zero-native-overlapping-bands",
+    "rowsPerChunk": 64,
+    "haloRows": 7,
+    "heapMaximumBytes": 16777216,
+    "thresholdFallbacks": 28542,
+    "luminanceStorage": "temporary",
+    "voteStorage": "temporary",
+    "retainedPlaneBytes": 2097152,
+    "jpeg99": {
+      "workers": 1,
+      "kernel": "global-rgb-jpeg-scanlines",
+      "sampling": "444",
+      "recompressedCache": false,
+      "recompressions": 1,
+      "sourcePasses": 2,
+      "encodedBytes": 2465611,
+      "encodedCapacityBytes": 6293504,
+      "encodedStorage": "memory",
+      "cacheEntries": 1,
+      "rowsPerChunk": 32,
+      "maxSourceWindowBytes": 98304,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 16777216
+    }
+  },
+  "retry": {
+    "workers": 1,
+    "scheduling": {
+      "count": 3,
+      "maximum": 3,
+      "ceiling": 3,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "retry": {
+        "code": "MEMORY_LIMIT",
+        "failedWorkers": 3,
+        "completedBandsPreserved": 3
+      },
+      "completedBandsPreserved": 3
+    },
+    "kernel": "zero-native-overlapping-bands",
+    "rowsPerChunk": 64,
+    "haloRows": 7,
+    "heapCapacityBytes": 16777216,
+    "heapMaximumBytes": 16777216,
+    "thresholdFallbacks": 25657,
+    "luminanceStorage": "temporary",
+    "voteStorage": "temporary",
+    "retainedPlaneBytes": 2097152
+  },
+  "cancellationRemovesPlanes": true,
+  "adaptiveRecoveryCeiling": 1,
+  "memory": {
+    "budgetBytes": 134217728,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 105338880
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

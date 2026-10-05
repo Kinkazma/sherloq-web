@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "mgcfdn-effnet",
+  "backend": "webgpu",
+  "large": false,
+  "rich": false,
+  "extracted": true,
+  "scope": "Actual paged common-worker NPZ read with NumPy allow_pickle=False; ZIP CRC, owned export SHA, names/dtypes/shapes, canonical source identity, all native array values and browser window hashes.",
+  "bytes": 1432975,
+  "sha256": "162104085d74fbbd0d7a361b840c4b6d944259b71b057e904105f558c42c8021",
+  "numpy": "1.26.4",
+  "records": [
+    {
+      "array": "map",
+      "dtype": "float32",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 3.427267074584961e-06,
+      "meanAbs": 8.722417411648916e-08,
+      "nonzero": 96576,
+      "different": 95464,
+      "sha256": "3c359a8a1b78a7dc4517c6da8948bf75ecb3bf99a959966a11c814834a2c0312",
+      "accepted": true
+    },
+    {
+      "array": "mask",
+      "dtype": "uint8",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "nonzero": 7241,
+      "different": 0,
+      "sha256": "cfb3c9ce957f6890016cb9b1c6d3fe9d2a3c0b586a41d7962d948c9c0bfdc051",
+      "accepted": true
+    },
+    {
+      "array": "analyzed",
+      "dtype": "uint8",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "nonzero": 96576,
+      "different": 0,
+      "sha256": "8f975e7c8a983040f919189e7c3e3a393939a7a7ffcc0eb30d6eab2cd0105ed9",
+      "accepted": true
+    },
+    {
+      "array": "candidates",
+      "dtype": "uint8",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "nonzero": 0,
+      "different": 0,
+      "sha256": "8e9114ef0f50c81b3fcb56f73ae8a773163ed868938db02c0214bfdc05d27582",
+      "accepted": true
+    }
+  ],
+  "kernelParity": "Continuous probabilities differ; the paired-spots native corpus has one threshold-crossing mask pixel. Explicit CPU remains available. See MGCF-ORT-GPU.md."
+}

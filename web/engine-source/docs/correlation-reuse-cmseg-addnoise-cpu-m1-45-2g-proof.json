@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "cmseg-addnoise",
+  "pressure": false,
+  "budgetMiB": 2048,
+  "backend": "cpu",
+  "scope": "Repeated actual CPU or hybrid GPU inference through the production component, never an analysis/raw-grid cache. Same pinned positive RGB, preparation, model and declared budget. The same original addnoise ONNX encoder and decoder retain their sessions. The hybrid changes only the largest global dot stage to resident-input ordered GPU FMA, retaining addnoise normalization and all CPU Gaussian/softmax/TopK plus both smaller correlations. Continuous and binary native differences are checked independently. Fresh browser per condition, OS/driver caches not flushed. HTTP parameter and ONNX model requests/bytes counted by the local fixture server. Optional final run follows an actual6MiB idle-budget pressure and re-admission.",
+  "records": [
+    {
+      "run": 0,
+      "kind": "cold",
+      "milliseconds": 5008.0999999940395,
+      "sha256": "c7f0f1bef618b261af230b4ef15c95c8b2b6ed24513629485eae0c9e5604e633",
+      "parameterRequests": 0,
+      "parameterBytes": 0,
+      "modelRequests": 2,
+      "modelBytes": 21243915,
+      "timings": {
+        "modelLoadMs": 395.29999999701977,
+        "inferenceMs": 4575.70000000298,
+        "outputCopyMs": 18.30000001192093,
+        "correlationMs": 3766.2000000029802,
+        "correlationGpuMs": 0,
+        "backboneMs": 0,
+        "backboneSetupMs": 0,
+        "parameterLoadMs": 0,
+        "gpuWriteBytes": 0,
+        "gpuReadBytes": 0
+      },
+      "workers": 10,
+      "probability": {
+        "maxAbs": 0.00006312131881713867,
+        "meanAbs": 1.0426402126515056e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 245,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 605586354,
+        "peakAccountedBytes": 1356227506
+      }
+    },
+    {
+      "run": 1,
+      "kind": "warm",
+      "milliseconds": 4472.29999999702,
+      "sha256": "c7f0f1bef618b261af230b4ef15c95c8b2b6ed24513629485eae0c9e5604e633",
+      "parameterRequests": 0,
+      "parameterBytes": 0,
+      "modelRequests": 0,
+      "modelBytes": 0,
+      "timings": {
+        "modelLoadMs": 0,
+        "inferenceMs": 4442,
+        "outputCopyMs": 16.799999997019768,
+        "correlationMs": 3735.7999999970198,
+        "correlationGpuMs": 0,
+        "backboneMs": 0,
+        "backboneSetupMs": 0,
+        "parameterLoadMs": 0,
+        "gpuWriteBytes": 0,
+        "gpuReadBytes": 0
+      },
+      "workers": 10,
+      "probability": {
+        "maxAbs": 0.00006312131881713867,
+        "meanAbs": 1.0426402126515056e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 245,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 605586354,
+        "peakAccountedBytes": 1356227506
+      }
+    },
+    {
+      "run": 2,
+      "kind": "warm",
+      "milliseconds": 4513.600000008941,
+      "sha256": "c7f0f1bef618b261af230b4ef15c95c8b2b6ed24513629485eae0c9e5604e633",
+      "parameterRequests": 0,
+      "parameterBytes": 0,
+      "modelRequests": 0,
+      "modelBytes": 0,
+      "timings": {
+        "modelLoadMs": 0,
+        "inferenceMs": 4483.399999991059,
+        "outputCopyMs": 17.100000008940697,
+        "correlationMs": 3778,
+        "correlationGpuMs": 0,
+        "backboneMs": 0,
+        "backboneSetupMs": 0,
+        "parameterLoadMs": 0,
+        "gpuWriteBytes": 0,
+        "gpuReadBytes": 0
+      },
+      "workers": 10,
+      "probability": {
+        "maxAbs": 0.00006312131881713867,
+        "meanAbs": 1.0426402126515056e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 245,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 605586354,
+        "peakAccountedBytes": 1356227506
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1356227506
+  },
+  "browser": "154.0.8037.58",
+  "label": "m1-45-2g",
+  "extractedRuntime": false,
+  "sources": {
+    "experiments/segmentation/cmseg-correlation-gpu.js": "1792b114939830970fbab8494a0b333b8c3d0b7c121f208cebc96d4a30e412ef",
+    "experiments/segmentation/cmseg-correlation-gpu-worker.js": "245270f340794489637bae42b7356a73ca717621c6d58cbecc4a935319f74c12",
+    "experiments/segmentation/cmseg-dot-gpu.js": "13b9f9eaa2aa1488f14c36fd3ef8cdaa22ca1962c0235a13cfa0bce29381cf33",
+    "vendor/segmentation/cmseg-addnoise-correlation-gpu/post.js": "308ac75e9eeec1ab800c7f76138a2db61f02867dc980c75d711326faf981c699",
+    "vendor/segmentation/cmseg-addnoise-correlation-gpu/post.wasm": "9222ecfdd1939757845c9fb919bb800769b2602f82c47b139467fca4e4e34913",
+    "experiments/segmentation/session-cache.js": "1bd46f7aa0c2b8a1f228c53bd87f30ab52dd3e485680852ea59d80a16a63000c",
+    "experiments/segmentation/parameter-cache.js": "902e2516cf530605050156b01f7039d223d92257ef874540ae3113c98295324e",
+    "experiments/segmentation/cmseg-inference.js": "3f0b2e1c6c24891d679f6d1d16c3241dd25bafdcc114ff750df33d0e56f8e221",
+    "experiments/segmentation/cmseg-correlation.js": "efd9ac635242650138d5a5ccc048a92d1204ac154b71166c2d47de4000b76293",
+    "experiments/segmentation/inference.js": "f371ded70891ffb48fea958e95006318af765cc17d330d941c070864ece0155a",
+    "experiments/segmentation/models.js": "8024d4127379fab8dd32949ca89a0d55b3a6e0ae4934c7ba742751c2d5cda01f"
+  },
+  "recipeSha256": "9eb65caa3e2a6d6d509f5ab70e728492033e45e95f77e5ef56bc80e84f4f8866"
+}

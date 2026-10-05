@@ -1,0 +1,123 @@
+[
+  {
+    "method": "sparse",
+    "shapes": {
+      "points": [
+        1000,
+        7
+      ],
+      "pairs": [
+        543,
+        4
+      ],
+      "colors_bgr": [
+        543,
+        3
+      ],
+      "pair_search_regions": [
+        543
+      ],
+      "metadata_json": [],
+      "browser_provenance_json": []
+    },
+    "dtypes": {
+      "points": "float64",
+      "pairs": "float64",
+      "colors_bgr": "uint8",
+      "pair_search_regions": "int64",
+      "metadata_json": "<U138951",
+      "browser_provenance_json": "<U697"
+    },
+    "pickle": false
+  },
+  {
+    "method": "safire",
+    "shapes": {
+      "map": [
+        1024,
+        1024
+      ],
+      "source_probabilities": [
+        3,
+        1024,
+        1024
+      ],
+      "source_labels": [
+        1024,
+        1024
+      ],
+      "prompt_features": [
+        16,
+        256
+      ],
+      "prompt_confidence": [
+        16
+      ],
+      "prompt_clusters": [
+        16
+      ],
+      "points": [
+        16,
+        2
+      ],
+      "metadata_json": [],
+      "browser_provenance_json": []
+    },
+    "dtypes": {
+      "map": "float32",
+      "source_probabilities": "float32",
+      "source_labels": "uint8",
+      "prompt_features": "float32",
+      "prompt_confidence": "float32",
+      "prompt_clusters": "int64",
+      "points": "float32",
+      "metadata_json": "<U752",
+      "browser_provenance_json": "<U400"
+    },
+    "pickle": false
+  },
+  {
+    "method": "focal",
+    "shapes": {
+      "map": [
+        64,
+        64
+      ],
+      "features": [
+        4096,
+        288
+      ],
+      "metadata_json": [],
+      "browser_provenance_json": []
+    },
+    "dtypes": {
+      "map": "float32",
+      "features": "float32",
+      "metadata_json": "<U2625",
+      "browser_provenance_json": "<U380"
+    },
+    "pickle": false
+  },
+  {
+    "method": "adaifl",
+    "shapes": {
+      "map": [
+        64,
+        64
+      ],
+      "mask": [
+        64,
+        64
+      ],
+      "metadata_json": [],
+      "browser_provenance_json": []
+    },
+    "dtypes": {
+      "map": "float32",
+      "mask": "uint8",
+      "metadata_json": "<U1479",
+      "browser_provenance_json": "<U382"
+    },
+    "pickle": false
+  }
+]

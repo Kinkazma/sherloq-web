@@ -1,0 +1,27 @@
+import {createWorkerEngine} from '../src/worker-client.js';
+const median=a=>a.slice().sort((a,b)=>a-b)[Math.floor(a.length/2)],assert=(ok,message)=>{if(!ok)throw new Error(message);};
+const sha=async a=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',a)),x=>x.toString(16).padStart(2,'0')).join('');
+function present(pixels){const t=performance.now(),canvas=document.createElement('canvas');canvas.width=pixels.width;canvas.height=pixels.height;const rgba=new Uint8ClampedArray(pixels.width*pixels.height*4);for(let i=0,j=0;i<pixels.data.length;i+=3,j+=4){rgba[j]=pixels.data[i];rgba[j+1]=pixels.data[i+1];rgba[j+2]=pixels.data[i+2];rgba[j+3]=255;}canvas.getContext('2d').putImageData(new ImageData(rgba,pixels.width,pixels.height),0,0);document.body.appendChild(canvas);canvas.getBoundingClientRect();canvas.remove();return performance.now()-t;}
+export async function medianBenchmark({samples=3}={}){
+ const reference=await(await fetch('/fixtures/median/large-reference.json')).json(),image=await(await fetch('/fixtures/median/'+reference.file)).blob(),model=await(await fetch('/__local_median_model__')).blob();
+ assert(await sha(await image.arrayBuffer())===reference.jpegSha256,'Synthetic JPEG identity');
+ const report={schema:1,width:reference.width,height:reference.height,source:reference.file,sourceSha256:reference.jpegSha256,modelSha256:reference.modelSha256,modelBundled:false,scope:'Alternating single and aggressive useful feature workers; identical JPEG, checkpoint and analysis. New engine for each cold sample; no probes or discarded warm-up. Model load, decode/load RPC, calculation RPC, cache view, presentation and accounted memory separated. Physical RSS and GPU not measured.',samples:[],maxProbabilityError:0};
+ for(let sample=0;sample<samples;sample++)for(const cpuKernel of sample%2?['auto','single']:['single','auto']){
+  const engine=createWorkerEngine({computeProfile:'maximum',memoryBudgetBytes:2*1024**3,cpuKernel});
+  try{
+   let t=performance.now();const loaded=await engine.loadMedianModel({id:'model',blob:model});const modelLoadMs=performance.now()-t;assert(loaded.sha256===reference.modelSha256,'Checkpoint identity');
+   t=performance.now();await engine.loadBlob({id:'image',blob:image});const loadMs=performance.now()-t;
+   t=performance.now();const result=await engine.run({id:'median',imageId:'image',operation:'various.median',params:{modelId:'model',...reference.renders[0].params}}),rpcMs=performance.now()-t;
+   const presentationMs=present(result.pixels),views=[];
+   assert(await sha(result.pixels.data)===reference.renders[0].rgbSha256,'Native large RGB');assert(await sha(result.masks.valid.data)===reference.renders[0].validSha256,'Native valid mask');assert(await sha(result.masks.decisions.data)===reference.renders[0].decisionSha256,'Native decisions');
+   for(let i=0;i<reference.margins.length;i++){assert(result.data.margins[i]===reference.margins[i],'Native margin');assert(result.data.variances[i]===reference.variances[i],'Native variance');const error=Math.abs(result.data.probabilities[i]-reference.probabilities[i]);report.maxProbabilityError=Math.max(report.maxProbabilityError,error);assert(error<=1e-7,'Declared probability bound');}
+   for(const expected of reference.renders.slice(1)){t=performance.now();const view=await engine.run({id:'view',imageId:'image',operation:'various.median',params:{modelId:'model',...expected.params}}),viewRpcMs=performance.now()-t;assert(view.metrics.cache.analysis,'Analysis retained for view');assert(await sha(view.pixels.data)===expected.rgbSha256,'Cached native view');assert(await sha(view.masks.decisions.data)===expected.decisionSha256,'Cached native decision');views.push({params:expected.params,rpcMs:viewRpcMs});}
+   // Warm module / useful input: unload the image, then request it again. No
+   // analysis cache survives; this measures a real second task, not calibration.
+   await engine.unload('image');t=performance.now();await engine.loadBlob({id:'image',blob:image});const warmLoadMs=performance.now()-t;t=performance.now();const warm=await engine.run({id:'warm',imageId:'image',operation:'various.median',params:{modelId:'model'}});const warmRpcMs=performance.now()-t;assert(await sha(warm.pixels.data)===reference.renders[0].rgbSha256&&!warm.metrics.cache.analysis,'Warm useful analysis');
+   await engine.unload('image');await engine.unload('model');const cleanup=(await engine.capabilities()).memory;assert(cleanup.retainedBytes===0&&cleanup.cacheBytes===0&&cleanup.activeReservationBytes===0,'Benchmark cleanup');
+   const row={sample,cpuKernel,modelLoadMs,loadMs,rpcMs,presentationMs,pipelineMs:modelLoadMs+loadMs+rpcMs+presentationMs,warmLoadMs,warmRpcMs,views,metrics:result.metrics,warmMetrics:warm.metrics,cleanup};report.samples.push(row);console.log('Median benchmark',JSON.stringify({sample,cpuKernel,rpcMs,warmRpcMs,workers:result.metrics.workers}));
+  }finally{await engine.dispose();}
+ }
+ report.summary=['single','auto'].map(cpuKernel=>{const rows=report.samples.filter(x=>x.cpuKernel===cpuKernel);return {cpuKernel,medianColdRpcMs:median(rows.map(x=>x.rpcMs)),medianWarmRpcMs:median(rows.map(x=>x.warmRpcMs)),medianPipelineMs:median(rows.map(x=>x.pipelineMs)),medianModelLoadMs:median(rows.map(x=>x.modelLoadMs)),medianDecodeLoadMs:median(rows.map(x=>x.loadMs)),medianPresentationMs:median(rows.map(x=>x.presentationMs)),peakAccountedBytes:Math.max(...rows.map(x=>x.cleanup.peakAccountedBytes)),workers:rows.map(x=>x.metrics.workers)};});return report;
+}

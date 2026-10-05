@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Five independent seeded native linear fixtures including channel32 bias order and a biasless reduction; actual GPU submission cancellation, pre-abort, memory/geometry refusal, exact retry and release. No expected activation enters computation.",
+  "records": [
+    {
+      "rows": 4096,
+      "ci": 40,
+      "co": 40,
+      "hasBias": true,
+      "milliseconds": 210,
+      "sha256": "5549e1f00035dbac7bce271200961e27c8b2a990faa9a3a74306ce638b18e1dd",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 14,
+        "peakAccountedBytes": 1709256,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 1317424,
+        "gpuReadBytes": 655360
+      }
+    },
+    {
+      "rows": 4096,
+      "ci": 160,
+      "co": 40,
+      "hasBias": true,
+      "milliseconds": 30.5,
+      "sha256": "aa48df41c673480e98bf018a48f61b74dbe1905816ad7c322ecefb46448de725",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 14,
+        "peakAccountedBytes": 3690696,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 5268784,
+        "gpuReadBytes": 655360
+      }
+    },
+    {
+      "rows": 256,
+      "ci": 640,
+      "co": 640,
+      "hasBias": true,
+      "milliseconds": 9.899999991059303,
+      "sha256": "e4f49a964d8b5471c0b7316030ef27d2d0daca0011d6d37bce52436d44bb497d",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 7,
+        "peakAccountedBytes": 3607112,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 2296392,
+        "gpuReadBytes": 655360
+      }
+    },
+    {
+      "rows": 257,
+      "ci": 640,
+      "co": 1280,
+      "hasBias": false,
+      "milliseconds": 22.100000008940697,
+      "sha256": "bf0f788b3edbcde2ab11de53d6c3dd71eced9ac556464b7c2e884ef7f9fabe61",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 7,
+        "peakAccountedBytes": 6571592,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 3939912,
+        "gpuReadBytes": 1315840
+      }
+    },
+    {
+      "rows": 257,
+      "ci": 2560,
+      "co": 640,
+      "hasBias": true,
+      "milliseconds": 27.200000002980232,
+      "sha256": "37a34785a74c9e4a1121529e3c8a6712746e018c53e751208c7d93e402ad10ad",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 7,
+        "peakAccountedBytes": 10503752,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 9187912,
+        "gpuReadBytes": 657920
+      }
+    }
+  ],
+  "checks": {
+    "cancelAfterSubmit": true,
+    "preAbort": true,
+    "geometry": true,
+    "memory": true,
+    "retry": true
+  },
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 28740096
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-tnt-gpu-lifecycle.mjs": "70dbd138b102be6063b6ffd62ff0f686eadbf469ea9d815c014302a352684cb6",
+    "tests/tnt-gpu-browser.js": "55e4324981031db4d628d9e31f712ce507a0aaa9250bb978a96f484c10b30d69",
+    "experiments/segmentation/tnt-linear-gpu.js": "4650f6f15672f8d4a9a8e1ed8bec30f51c9ed1c10b2277f8e7336f6df6b11dd9",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "sourceSize": [
+    12000,
+    8000
+  ],
+  "points": 6000,
+  "pairs": 4277,
+  "groups": 3,
+  "visible": [
+    [
+      0,
+      1437
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "legend": [
+    [
+      0,
+      1437,
+      1437
+    ],
+    [
+      1,
+      4,
+      4
+    ],
+    [
+      2,
+      4,
+      4
+    ]
+  ],
+  "comparedBytes": 288000000,
+  "differentBytes": 0,
+  "maximumError": 0,
+  "seconds": 2.5667271614074707,
+  "scope": "Native drawing of exported browser point/pair/model data; not a second96MP native neural inference."
+}

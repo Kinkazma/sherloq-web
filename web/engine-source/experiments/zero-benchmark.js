@@ -1,0 +1,15 @@
+import {createWorkerEngine} from '../src/worker-client.js';
+const read=async name=>new Uint8Array(await(await fetch('/fixtures/'+name)).arrayBuffer());
+const hash=async a=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',a)),x=>x.toString(16).padStart(2,'0')).join('');
+const median=a=>a.toSorted((x,y)=>x-y)[Math.floor(a.length/2)];
+async function raster(p){const t=performance.now(),canvas=document.createElement('canvas');canvas.width=p.width;canvas.height=p.height;document.body.append(canvas);const ctx=canvas.getContext('2d'),d=ctx.createImageData(p.width,p.height);for(let i=0;i<p.width*p.height;i++){d.data.set(p.data.subarray(i*3,i*3+3),i*4);d.data[i*4+3]=255;}ctx.putImageData(d,0,0);await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));canvas.remove();return performance.now()-t;}
+export async function zeroBenchmark(){
+ const report={schema:1,scope:'Isolated sequential measurements. Original-order and optimized serial comparison at 256²; shared-budget worker comparison at 1024². Full image size preserved, raster display includes two animation frames; no WordPress overhead.',small:[],large:[]},small=await read('bench-zero-256.jpg'),large=await read('bench-1024.jpg'),native=JSON.parse(new TextDecoder().decode(await read('zero-large-reference.json')));let firstHash;
+ for(const cpuKernel of ['reference','single']){const engine=createWorkerEngine({cpuKernel}),start=performance.now();try{await engine.load({id:'i',bytes:small});const t=performance.now(),r=await engine.run({id:'z',imageId:'i',operation:'jpeg.zero',params:{missing:false}}),rpcMs=performance.now()-t,h=await hash(r.data.votes);if(firstHash&&firstHash!==h)throw new Error('ZERO reference/optimized mismatch');firstHash=h;report.small.push({cpuKernel,rpcMs,pipelineMs:performance.now()-start,metrics:r.metrics});console.log('ZERO small',cpuKernel,rpcMs);}finally{engine.dispose();}}
+ for(const cpuKernel of ['single','auto']){const engine=createWorkerEngine({cpuKernel,computeProfile:'maximum'}),row={cpuKernel,samples:[]};try{for(let i=0;i<3;i++){
+  const begin=performance.now();await engine.load({id:'i',bytes:large});const loadMs=performance.now()-begin,t=performance.now(),r=await engine.run({id:'z',imageId:'i',operation:'jpeg.zero'}),rpcMs=performance.now()-t,renderMs=await raster(r.pixels),pipelineMs=performance.now()-begin;
+  for(const [k,e] of Object.entries(native.arrays))if(k!=='grid_log10_nfa'&&await hash(r.data[k])!==e.sha256)throw new Error('ZERO benchmark native parity '+k);
+  const v=performance.now(),view=await engine.run({id:'v',imageId:'i',operation:'jpeg.zero',params:{view:1}}),viewMs=performance.now()-v;if(!view.metrics.cache.analysis)throw new Error('ZERO view cache failed');row.samples.push({loadMs,rpcMs,renderMs,pipelineMs,viewMs,metrics:r.metrics});console.log('ZERO large',cpuKernel,i,JSON.stringify({rpcMs,pipelineMs,viewMs,workers:r.metrics.workers}));await engine.unload('i');
+ }row.medianRpcMs=median(row.samples.map(s=>s.rpcMs));report.large.push(row);}finally{engine.dispose();}}
+ return report;
+}

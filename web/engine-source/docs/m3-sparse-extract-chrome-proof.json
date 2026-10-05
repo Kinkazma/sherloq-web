@@ -1,0 +1,296 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "name": "ORB/global",
+      "count": 83,
+      "nativeCount": 83,
+      "total": 83,
+      "nativeTotal": 83,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "membersEqual": true,
+      "metadata": {
+        "family": "ORB",
+        "opencv": "4.11.0",
+        "featurePolicy": "global",
+        "reflectedPixels": false,
+        "workers": 1,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 1,
+        "retries": 0,
+        "preflightExecutions": 0,
+        "inputLayout": "source-rows-gray",
+        "qualification": "CM2 integration under verification"
+      }
+    },
+    {
+      "name": "ORB/masked",
+      "count": 77,
+      "nativeCount": 77,
+      "total": 77,
+      "nativeTotal": 77,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "membersEqual": true,
+      "metadata": {
+        "family": "ORB",
+        "opencv": "4.11.0",
+        "featurePolicy": "global",
+        "reflectedPixels": false,
+        "workers": 1,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 1,
+        "retries": 0,
+        "preflightExecutions": 0,
+        "inputLayout": "source-rows-gray",
+        "qualification": "CM2 integration under verification"
+      }
+    },
+    {
+      "name": "AKAZE/global",
+      "count": 41,
+      "nativeCount": 41,
+      "total": 41,
+      "nativeTotal": 41,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "membersEqual": true,
+      "metadata": {
+        "family": "AKAZE",
+        "opencv": "4.11.0",
+        "featurePolicy": "global",
+        "reflectedPixels": false,
+        "workers": 1,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 1,
+        "retries": 0,
+        "preflightExecutions": 0,
+        "inputLayout": "source-rows-gray",
+        "qualification": "CM2 integration under verification"
+      }
+    },
+    {
+      "name": "AKAZE/masked",
+      "count": 13,
+      "nativeCount": 13,
+      "total": 13,
+      "nativeTotal": 13,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "membersEqual": true,
+      "metadata": {
+        "family": "AKAZE",
+        "opencv": "4.11.0",
+        "featurePolicy": "global",
+        "reflectedPixels": false,
+        "workers": 1,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 1,
+        "retries": 0,
+        "preflightExecutions": 0,
+        "inputLayout": "source-rows-gray",
+        "qualification": "CM2 integration under verification"
+      }
+    },
+    {
+      "name": "SIFT/masked",
+      "count": 38,
+      "nativeCount": 38,
+      "total": 38,
+      "nativeTotal": 38,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0.000030517578125,
+      "descriptorDifferences": 0,
+      "membersEqual": true,
+      "metadata": {
+        "family": "SIFT",
+        "opencv": "4.11.0",
+        "featurePolicy": "global",
+        "reflectedPixels": false,
+        "workers": 1,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 1,
+        "retries": 0,
+        "preflightExecutions": 0,
+        "inputLayout": "source-rows-gray",
+        "qualification": "native arithmetic differences unresolved"
+      }
+    },
+    {
+      "name": "SIFT-G2NN/global",
+      "count": 100,
+      "nativeCount": 100,
+      "total": 200,
+      "nativeTotal": 200,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0.000030517578125,
+      "descriptorDifferences": 0,
+      "membersEqual": true,
+      "metadata": {
+        "family": "SIFT-G2NN",
+        "opencv": "4.11.0",
+        "featurePolicy": "independent_roi_v2",
+        "reflectedPixels": false,
+        "workers": 1,
+        "peakWorkerHeapBytes": 173670400,
+        "executions": 1,
+        "retries": 0,
+        "preflightExecutions": 0,
+        "inputLayout": "source-rows-gray",
+        "qualification": "native arithmetic differences unresolved"
+      }
+    },
+    {
+      "name": "SIFT-G2NN/masked",
+      "count": 200,
+      "nativeCount": 200,
+      "total": 384,
+      "nativeTotal": 384,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        8,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0.00003814697265625,
+      "descriptorDifferences": 0,
+      "membersEqual": true,
+      "metadata": {
+        "family": "SIFT-G2NN",
+        "opencv": "4.11.0",
+        "featurePolicy": "independent_roi_v2",
+        "reflectedPixels": false,
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 2,
+        "retries": 0,
+        "preflightExecutions": 0,
+        "inputLayout": "source-rows-gray",
+        "qualification": "native arithmetic differences unresolved"
+      }
+    },
+    {
+      "name": "BRISK/masked",
+      "count": 100,
+      "nativeCount": 100,
+      "total": 1047,
+      "nativeTotal": 1047,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        11,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0.0000152587890625,
+      "descriptorDifferences": 0,
+      "membersEqual": true,
+      "metadata": {
+        "family": "BRISK",
+        "opencv": "4.11.0",
+        "featurePolicy": "global",
+        "reflectedPixels": false,
+        "workers": 1,
+        "peakWorkerHeapBytes": 57802752,
+        "executions": 2,
+        "retries": 1,
+        "preflightExecutions": 0,
+        "inputLayout": "source-rows-gray",
+        "qualification": "native arithmetic differences unresolved"
+      }
+    },
+    {
+      "name": "SIFT-G2NN/reflected",
+      "count": 200,
+      "nativeCount": 200,
+      "total": 384,
+      "nativeTotal": 384,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0.000030517578125,
+      "descriptorDifferences": 0,
+      "membersEqual": true,
+      "metadata": {
+        "family": "SIFT-G2NN",
+        "opencv": "4.11.0",
+        "featurePolicy": "independent_roi_v2",
+        "reflectedPixels": true,
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 2,
+        "retries": 0,
+        "preflightExecutions": 0,
+        "inputLayout": "source-rows-gray",
+        "qualification": "native arithmetic differences unresolved"
+      }
+    }
+  ],
+  "cancelled": true,
+  "peakAccountedBytes": 253041000,
+  "remainingActiveBytes": 0
+}

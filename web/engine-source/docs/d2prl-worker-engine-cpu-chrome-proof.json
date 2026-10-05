@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Common real module-worker API, lazy verified model manifest and parameters, whole original-file inference at3GiB shared budget, owned result arrays, refilter, cooperative cancellation preserving raw caches, exports, source preservation and unload. No WordPress integration claim.",
+  "records": [
+    {
+      "name": "actual-worker-model",
+      "exact": true,
+      "oneInference": true
+    },
+    {
+      "name": "owned-raw-grids",
+      "exactOwnedCopy": true,
+      "noInference": true,
+      "noParameterRead": true
+    },
+    {
+      "name": "owned-results-and-refilter",
+      "exact": true,
+      "noInference": true
+    },
+    {
+      "name": "cooperative-filter-cancel",
+      "entered": true,
+      "cancelled": true,
+      "preserved": true,
+      "exact": true,
+      "noInference": true,
+      "noNewParameters": true
+    },
+    {
+      "name": "useful-inference-cancel",
+      "entered": true,
+      "cancelled": true,
+      "preserved": true,
+      "exact": true,
+      "noInference": true
+    }
+  ],
+  "modelRequired": true,
+  "lazyLoad": true,
+  "actualExports": true,
+  "originalPreserved": true,
+  "released": true,
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3220575215,
+    "knownHeapCapacityBytes": 33554432
+  },
+  "parameterRequestsAfterInference": 1107,
+  "npzBytes": 3051503,
+  "backend": "cpu",
+  "browser": "154.0.8037.58",
+  "package": {
+    "schema": 1,
+    "file": "model.json",
+    "bytes": 1173784,
+    "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+    "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+    "assets": 1062,
+    "assetBytes": 541513527,
+    "scope": "Private model parameters and configuration only; no native expected images/activations, no distribution permission inferred."
+  },
+  "sources": {
+    "src/index.js": "b9827f0ab6ba9eec1cf2fe2e2daae98fdc86b0be62619c9ea1a3147803fe564d",
+    "src/worker.js": "5f39ecc8347ee0453d0af2a9dc871828d4a346c97701d6181f5bffce984b3641",
+    "src/worker-client.js": "6179f23e801067bf46bb66304a5832ce3325fd36928d1094e2e1a39ca8ed39da",
+    "src/d2prl-adapter.js": "ed48a2fbfcbdf0708747986c1e7239be8b94280cb401f8564ca6acf08d87f25d",
+    "src/d2prl-runtime.js": "18ddade279448fefd88cafc254995354efc86b98067d4eb244907ea06385909b",
+    "src/d2prl-model-identity.js": "28fb30ba30bb9bfe4c405b8ee548b1acf1f939fa40dbd9870c0f5b67b8d8fb70",
+    "src/exports.js": "5ca6f95324b6ac50272d0ed5f9fdc2052ffcc09aac9e22ba4b5ff51cfb0ae526",
+    "src/npz.js": "316466d02c18a3e2346ba0b76436196661802aaa7b46c361c655ecc71eeb6102"
+  },
+  "extractedRuntime": false,
+  "runtimePinSha256": "032df3b4319c9dc22aadad627252cf174fae05d5f1f29cb6128a3073253ac54b"
+}

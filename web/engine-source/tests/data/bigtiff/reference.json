@@ -1,0 +1,157 @@
+{
+  "sourceSha256": "bd2fabd62887b0cb9986a955cf7693d448659a7f3b69d900fc88681d25c6b41b",
+  "cases": [
+    {
+      "file": "rgb8-le.tiff",
+      "width": 53,
+      "height": 37,
+      "rgbSha256": "7d3dabb3a7f885d8661f339fea796299432f93bf5980f9c5feb1dfc3ae7fc65c",
+      "graySha256": "b8c8d502a6eb9a89448ad63c2475cae9f8e8a6153eec6d7614f931be365e29eb",
+      "metadata": {
+        "source_bits": 8,
+        "alpha": false,
+        "icc": false,
+        "orientation": 1,
+        "frames": 1,
+        "format": "TIFF",
+        "source_size": [
+          53,
+          37
+        ],
+        "analysis_shape": [
+          37,
+          53,
+          3
+        ],
+        "analysis_dtype": "uint8",
+        "icc_applied": false,
+        "alpha_retained": false
+      }
+    },
+    {
+      "file": "gray16-be.tiff",
+      "width": 53,
+      "height": 37,
+      "rgbSha256": "ad613c4f276b7d6e9c85eaa9bb8f12c0abb4c08477b3b12f291a2d20bd53dcdb",
+      "graySha256": "09ffd492cb985cead06d248ed63f15114c3eb006e6a49daa086f9058f0ba823d",
+      "metadata": {
+        "source_bits": null,
+        "alpha": false,
+        "icc": false,
+        "orientation": 1,
+        "frames": 1,
+        "analysis_shape": [
+          37,
+          53,
+          3
+        ],
+        "analysis_dtype": "uint8",
+        "icc_applied": false,
+        "alpha_retained": false
+      }
+    },
+    {
+      "file": "tiled-rgb8.tiff",
+      "width": 53,
+      "height": 37,
+      "rgbSha256": "7d3dabb3a7f885d8661f339fea796299432f93bf5980f9c5feb1dfc3ae7fc65c",
+      "graySha256": "b8c8d502a6eb9a89448ad63c2475cae9f8e8a6153eec6d7614f931be365e29eb",
+      "metadata": {
+        "source_bits": 8,
+        "alpha": false,
+        "icc": false,
+        "orientation": 1,
+        "frames": 1,
+        "format": "TIFF",
+        "source_size": [
+          53,
+          37
+        ],
+        "analysis_shape": [
+          37,
+          53,
+          3
+        ],
+        "analysis_dtype": "uint8",
+        "icc_applied": false,
+        "alpha_retained": false
+      }
+    },
+    {
+      "file": "tiled-rgb16-be.tiff",
+      "width": 53,
+      "height": 37,
+      "rgbSha256": "7d3dabb3a7f885d8661f339fea796299432f93bf5980f9c5feb1dfc3ae7fc65c",
+      "graySha256": "b8c8d502a6eb9a89448ad63c2475cae9f8e8a6153eec6d7614f931be365e29eb",
+      "metadata": {
+        "source_bits": null,
+        "alpha": false,
+        "icc": false,
+        "orientation": 1,
+        "frames": 1,
+        "analysis_shape": [
+          37,
+          53,
+          3
+        ],
+        "analysis_dtype": "uint8",
+        "icc_applied": false,
+        "alpha_retained": false
+      }
+    },
+    {
+      "file": "tiled-palette.tiff",
+      "width": 53,
+      "height": 37,
+      "rgbSha256": "b773d1932186aa015e658af703424f2a21f4d6b447013c7351199d0d9b187239",
+      "graySha256": "952c6bfb8e6637fadb56d50b7a9fba293f8a3bbb631a8c32f35b0ae66ee8041e",
+      "metadata": {
+        "source_bits": 8,
+        "alpha": false,
+        "icc": false,
+        "orientation": 1,
+        "frames": 1,
+        "format": "TIFF",
+        "source_size": [
+          53,
+          37
+        ],
+        "analysis_shape": [
+          37,
+          53,
+          3
+        ],
+        "analysis_dtype": "uint8",
+        "icc_applied": false,
+        "alpha_retained": false
+      }
+    },
+    {
+      "file": "multipage.tiff",
+      "width": 53,
+      "height": 37,
+      "rgbSha256": "7d3dabb3a7f885d8661f339fea796299432f93bf5980f9c5feb1dfc3ae7fc65c",
+      "graySha256": "b8c8d502a6eb9a89448ad63c2475cae9f8e8a6153eec6d7614f931be365e29eb",
+      "metadata": {
+        "source_bits": 8,
+        "alpha": false,
+        "icc": false,
+        "orientation": 1,
+        "frames": 2,
+        "format": "TIFF",
+        "source_size": [
+          53,
+          37
+        ],
+        "analysis_shape": [
+          37,
+          53,
+          3
+        ],
+        "analysis_dtype": "uint8",
+        "icc_applied": false,
+        "alpha_retained": false
+      }
+    }
+  ]
+}

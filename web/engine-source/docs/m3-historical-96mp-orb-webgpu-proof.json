@@ -1,0 +1,103 @@
+{
+  "browser": "154.0.8037.58",
+  "algorithm": "ORB",
+  "backend": "webgpu",
+  "source": {
+    "file": "m3-96mp-noise-copy.jpg",
+    "width": 12000,
+    "height": 8000,
+    "description": "Public deterministic full-resolution RGB noise (seed130014); entire6000x8000 left half copied at dx6000 before JPEG90 encoding.",
+    "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+    "bytes": 80426021
+  },
+  "params": {
+    "response": 100,
+    "matching": 20,
+    "distance": 40,
+    "minimum": 5
+  },
+  "stats": {
+    "total": 501,
+    "filtered": 500,
+    "matches": 214,
+    "clusters": 153,
+    "regions": 2
+  },
+  "metrics": {
+    "totalMs": 23300,
+    "cache": {
+      "result": false,
+      "stages": {
+        "gray": false,
+        "detected": false,
+        "selected/100": false,
+        "matches/100/20/webgpu": false,
+        "geometry/100/20/webgpu/40": false,
+        "count/100/20/webgpu/40/5": false
+      },
+      "analysis": false,
+      "view": false
+    },
+    "kernel": "copy-move-orb-reference",
+    "workers": 1,
+    "cloningPreparationMs": 230.3999999910593,
+    "cloningDetectionMs": 22047.39999999106,
+    "cloningSelectionMs": 2.9000000059604645,
+    "cloningMatchingMs": 428.79999999701977,
+    "cloningClusteringMs": 12.799999997019768,
+    "cloningCountMs": 188.6000000089407,
+    "hammingBackend": "webgpu",
+    "cloningGeometryStrategy": "direct",
+    "backend": "hybrid",
+    "cloningGroupWorkers": 1,
+    "cloningGroupCandidateRows": 22791,
+    "cloningGroupAllPairRows": 22791,
+    "viewMs": 387.09999999403954,
+    "memory": {
+      "budgetBytes": 6442450944,
+      "retainedBytes": 576000000,
+      "cacheBytes": 96151782,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 4775058526
+    },
+    "resultStorage": "memory"
+  },
+  "loadMs": 60570.60000000894,
+  "totalMs": 125892.79999999702,
+  "exports": [
+    {
+      "format": "json",
+      "bytes": 56013
+    },
+    {
+      "format": "png",
+      "bytes": 146438802,
+      "sha256": "15580cc957fe5bbf5495a995f0bfcc9eac027c805a96f6a0fdc64f3af132b809",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 289197244,
+        "encodedWriteCalls": 559,
+        "maxSourceWindowBytes": 1152000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 865197244,
+          "cacheBytes": 96151782,
+          "activeReservationBytes": 1402142720,
+          "peakAccountedBytes": 4966052794
+        }
+      }
+    }
+  ],
+  "output": "historical-orb",
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 4966052794,
+    "knownHeapCapacityBytes": 1376714752
+  }
+}

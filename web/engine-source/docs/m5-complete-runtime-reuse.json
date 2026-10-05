@@ -1,0 +1,134 @@
+{
+  "status": "opfs-runtime-path-unchanged",
+  "scope": "Static dependency and exact source-delta review for reuse of frozen OPFS runs. This is not a completed five-group or >=94MP proof. IndexedDB has a separately executed browser regression.",
+  "frozenEngineCommit": "b364e4ccb54e7f1daae87c8bcb19b9a908ba73bd",
+  "candidateEngineCommit": "a48d5dcf9f5adc9a8d4720a272c86333c5eb6dec",
+  "frozenRuntimeManifestSha256": "57f7e5fa7d7e7d97aa02999da806c7a82e16e983c470e89a33510c2f8c8d2f4a",
+  "candidateRuntimeManifestSha256": "eed357241a4bd7d6cbbdcb92e59eda6c7575b7289fb97ee1b2be2cae58a826ef",
+  "unchangedRuntimeFiles": 1006,
+  "changedRuntimeFiles": [
+    {
+      "file": "src/automatic-ela-provider.js",
+      "beforeSha256": "caab9c34df63c88cf3f3005c59508b2d2731e41c6fe6c2e202926ccadc386a58",
+      "afterSha256": "ddffb0f449bf061e230f6ffc7559412da901eef44b163beb2fd0596bcb7a2b83"
+    }
+  ],
+  "added": [],
+  "removed": [],
+  "exactDelta": "createTemporarySession(options) -> createTemporarySession({...options,budget}) in the automatic ELA session factory",
+  "opfsEvidence": {
+    "file": "src/opfs-storage.js",
+    "signature": "createTemporarySession({signal,maximumBytes=Infinity,id:requestedId}={})",
+    "unchanged": true,
+    "budgetArgumentConsumed": false
+  },
+  "indexeddbRegression": "automatic-ela-provider-indexeddb-chrome-proof.json",
+  "testRecipeVariants": "The b364e4c frozen default96MP and c6b6954 frozen small-positive retain their own recipe hashes and scopes.",
+  "followupReview": {
+    "candidateEngineCommit": "4dc5fa4d3b98f47f6ead4d20e7888d77eb68bd2f",
+    "runtimeManifestSha256": "77d19d9229e648a8dba242c1e40c135a83f7c5560a7582fa249c234518ce7028",
+    "unchangedRuntimeFiles": 994,
+    "changed": [
+      "CONTRACT.md",
+      "native/composite-banked-runtime.py",
+      "native/composite-stream-runtime.py",
+      "src/automatic-ela-provider.js",
+      "src/cloning-math.js",
+      "src/m3-source.js",
+      "src/sparse-extract-assets.js",
+      "src/sparse-extract.js",
+      "vendor/cloning/PINNED.json",
+      "vendor/cloning/cloning.wasm",
+      "vendor/sparse-extract/PINNED.json",
+      "vendor/sparse-extract/sparse-extract.js",
+      "vendor/sparse-extract/sparse-extract.wasm"
+    ],
+    "added": [
+      "src/m3-image-shape.js"
+    ],
+    "removed": [],
+    "classification": {
+      "CONTRACT.md": "Documentation only; elongated-source constraints added.",
+      "native/composite-*-runtime.py": "M2 float64 BLAS change; Composite is not called by the five automatic groups. Owner e3ee548 full-source/stream/statistics proofs cover it separately.",
+      "src/automatic-ela-provider.js": "Same OPFS argument-only review above. Real IndexedDB separately qualified.",
+      "M3 shape guards and rebuilt wrappers": "da40cce only replaces 16384 axis guards with positive dimensions and int32 pixel-index bounds. Both original 12000x8000 and 2008x1444 and their smaller extraction regions satisfy old and new guards. No detector body, storage plan, budget or descriptor sampling changes. The 96MP global SIFT branch uses unchanged paged kernels (largest*180 exceeds 512MiB).",
+      "M3 identities": "Updated hashes/sizes for the rebuilt guard-only wrappers."
+    },
+    "targetedIntegrationValidation": "15 Node M3 shape/source/API tests and Python AST checks passed; runtime closure passed. Reuse the owner elongated96MP and 11 native comparisons with their scopes.",
+    "limitation": "Frozen runs still identify their actual executed commits. This review is not a fresh combined run on the candidate and does not establish completion of either running recipe."
+  },
+  "adaptiveFollowupReview": {
+    "candidateEngineCommit": "4a49c5bf82c03561a8585807a802da42c599c0b5",
+    "runtimeManifestSha256": "ec8419f7d7dbb95b0376f05935cb74169ff615073e382bc00d6fa1a43847946a",
+    "M2": "d50afa5 TruFor query-value reductions do not participate in analysis.complete; separately qualified by M2 full source and 96MP bank-shape recipes, with 13 targeted integration tests.",
+    "M4": "fd799db retires optional external SIFT bounds based only on observed useful reads. Same preparation, descriptors, native matching decisions, shared-budget admission ceilings, fields, coordinate frames and archive layout. It adds no larger allocation; bound-store retirement moves earlier after the completed field.",
+    "integrationValidation": "Actual Chrome slow-bound fallback after 504 reads: reflected 3-to-5 scale, quarter turn, fields/coherence and 61355 comparisons exactly native. Final owned budget zero.",
+    "commonPositiveProof": "Frozen c6b6954 small-positive five-group recipe and independent 910-field archive verification passed before this follow-up. It does not execute the new adaptive-retirement policy.",
+    "largeRunPolicy": "Preserve the ongoing b364e4c original96MP cohabitation run. Its original bounds remain live at least as long as in the adaptive candidate. Do not silently relabel its executed commit.",
+    "remainingQualification": "M4 completed its96MP shared-adapter recipe on fd799db (normal Zernike plus SIFT, patch3, one forward/reverse iteration); proof delivered in1c667f0. The frozen M5 b364e4c run must still finish all11 default Extended passes with8 iterations and the full shared archive. The owner result does not qualify that incomplete composition.",
+    "ownerLargeQualification": {
+      "commit": "1c667f0abdbf112eca7cd8b96abc2faf3ef6db41",
+      "proof": "dense-sift-96mp-proof.json",
+      "sourceDimensions": [
+        12000,
+        8000
+      ],
+      "budgetBytes": 1610612736,
+      "peakAccountedBytes": 1336575492,
+      "archiveBytes": 2687035830,
+      "archiveSha256": "7a341f9d8734a25be863c51ed4c7f38abb5233a04ae05c5530b8f96b57945e8f",
+      "scope": "Two full global fields, views/refilter, forced ZIP64 full archive after source disposal, independent reader; the adaptive bounds retirement actually triggered. Not all Extended passes at96MP, not archive>4GiB, not a second native96MP matcher oracle. Logical matcher reads are not measured physical disk traffic.",
+      "supplementalDetailProof": "dense-detail-96mp-proof.json"
+    }
+  },
+  "declarationOnlyFollowup": {
+    "file": "src/index.d.ts",
+    "runtimeManifestSha256": "c3332c46a4ea666442991d0632d1ed3314d514bf31b6bb0cdd2076821a7d5273",
+    "scope": "Expose existing TruFor segments configuration, segmented source/result overload, numeric window views and awaitable cleanup. No executable JavaScript, WASM, model or scientific parameter changes.",
+    "validation": "Ambient TypeScript declaration syntax parsed by esbuild; signatures checked against trufor-analyzer.js, trufor-segmented-analyzer.js and trufor-segmented-render.js. No semantic TypeScript compilation claimed."
+  },
+  "compositeStabilityFollowup": {
+    "ownerCommits": [
+      "cd78aff101e22340757b24aaf8532866ac463a16",
+      "bbac5373d2dad2908829aab455ccca14e9596bea"
+    ],
+    "integrationVersion": "0.31.0-integration.16",
+    "policy": "covariance-floor-v1",
+    "scope": "Composite contiguous/stream/banked statistics, its caches and its NPZ metadata only. The automatic PM/SIFT/Forge/D2/ELA providers do not call Composite or NativeStatistics. Shared npz.js only adds Composite-specific export fields; other writers are unchanged and targeted byte-equality tests pass. index.js version changes capability provenance only. The live complete96MP run stays frozen at b364e4c; this is neither a restart nor a completed large composition qualification.",
+    "packageSourceSha256": "d3f5386ec00efb11cb27d1a7be1b78b6a35b1399341f95f76f9bd5bcd7250899",
+    "targetedIntegrationProof": "m5-composite-floor-contract-wasm-proof.json",
+    "ownerLargeProof": "composite-source-stability-96mp-webgpu-proof.json",
+    "ownerLargeProofLimit": "No independent native96MP oracle or UI qualification; full OPFS inventory at final release is covered by the separate512px recipe."
+  },
+  "denseCacheFollowup": {
+    "candidateEngineCommit": "9f527fdf9854474b23903d07a2b30774a2ef2e30",
+    "policy": "reuse-after-initialization",
+    "changes": "Adaptive descriptor caches, large sorted initialization batch, cache resizing after batch release, and actual imported WASM heap growth charged through the shared budget before allocation.",
+    "scientificValidation": "Native-exact full Zernike and SIFT fields/coherence/masks and comparison counts on targeted Chrome recipes, including reflected scale/quarter-turn SIFT after real cache migration. No candidate, traversal, iteration or resolution change.",
+    "accountingValidation": "Nine targeted Node tests and real Chrome MEMORY_LIMIT admission under peer pressure; zero final owned budget.",
+    "proof": "m5-dense-cache-browser-proof.json",
+    "largeQualification": "Both96MP two-field recipes completed with independent full ZIP64 verification and all ten scientific planes exactly equal to acquired M4 hashes. First candidate f9af08c:5554.413s; phase-reuse9f527fd:5158.510s; acquired baseline:5350.001s. Phase observed3.58% shorter under shared host load, not isolated performance guarantee. Phase peak1336575492B/1.5GiB, final owned zero.",
+    "cohabitationLimit": "The b364e4c five-group96MP run does not execute new cache allocation or imported-heap accounting. Its eventual completion cannot qualify candidate96MP latency or five-group96MP memory cohabitation. The current-runtime five-group positive2.9MP recipe passes separately, with first attempts, all eleven native passes, complete archive and zero final ownership.",
+    "bundlePolicy": "The separately frozen ab67512 Composite bundle is unchanged.",
+    "frozenRuntimeFilesSha256": "b15b578945e8261a803d8133dcaff21a6a36301b8402f29423b6b1d02fe7eacb",
+    "runtimeManifestSha256": "703d1bebcbf20c9db7d1a515fe11b54c54cff30e8a85acb29989c4af4d64d469",
+    "largeProof": "m5-dense-cache-phase-96mp-proof.json",
+    "combinedCurrentRuntimeQualification": {
+      "commit": "2f89712f69a42fd0aad158d876c58375f84efcfa",
+      "proof": "m5-complete-small-positive-cache-proof.json",
+      "independentReader": "m5-complete-small-positive-cache-archive-proof.json",
+      "dimensions": [
+        2008,
+        1444
+      ],
+      "wholeJourneyMs": 1201292.900000006,
+      "priorWholeJourneyMs": 2059973,
+      "allScientificArraysExact": 908,
+      "denseArraysExact": 604,
+      "defaultDensePasses": 11,
+      "peakAccountedBytes": 6410824549,
+      "budgetBytes": 6442450944,
+      "limitation": "Shared-host functional timings; no isolated speedup guarantee or96MP extrapolation."
+    }
+  }
+}

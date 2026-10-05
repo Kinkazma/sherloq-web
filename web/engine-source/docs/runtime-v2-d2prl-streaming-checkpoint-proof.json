@@ -1,0 +1,646 @@
+{
+  "schema": 1,
+  "kind": "development-qualification",
+  "capturedAtUtc": "2026-10-03T11:58:18.389696+00:00",
+  "featureCommits": [
+    "5132cf18ed508e9bef87e78375886c89b74a8533",
+    "16a21e41b58dbadd4ee9fa1d089150fc9fbea3dd",
+    "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+    "605b5cc1c43e5a69ef82442a052b1ab94828f246",
+    "7a4750dbb4ddf09b0e0a52e995f7be58e777eda6",
+    "f23e4a77eb799dbe37aebe17ebd19d6d155caf0e",
+    "38322764be38dcecc0559ef76b9317c10efb274c",
+    "9880111c16eff1d77e9aa16528a1c9dfd34119e6",
+    "d376dae0b6579fc93f37a48fa9cc588946a4ab55",
+    "f6b6e5139534629acb137457841ae86b67ee8396",
+    "89dec68cfe3c733c3c1b24f676622a1002c74f62",
+    "975f252e5bdfea0c966c31371db642a65216d570"
+  ],
+  "nativeBrowserSourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+  "finalSourceCommit": "975f252e5bdfea0c966c31371db642a65216d570",
+  "scope": [
+    "Stream model parameters directly into fixed reusable Wasm banks and incrementally verify SHA256 before publication.",
+    "Retain exact validated descriptor, PatchMatch, UNet, head and zone checkpoints on recoverable terminal failures; resume is explicit.",
+    "Stream the role ONNX uint8 extent into Wasm and pass that subview to the pinned bounded ORT worker, forwarding child backing ownership without a second global reservation.",
+    "Use policy credit for MEMORY_LIMIT and discard cancelled queued checkpoints without clearing a later queued resume.",
+    "Admit deterministic combined memory peaks atomically and transfer each lifetime by split; capture only the credits actually returned by failed dynamic CPU attempts. Reuse existing arena banks without requesting a fictitious second output allocation."
+  ],
+  "nodeSuites": [
+    {
+      "log": "docs/qualification/d2prl-streaming-checkpoints/d2prl-parameters-checkpoints-final-node.log",
+      "tests": 61,
+      "pass": 61,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "log": "docs/qualification/d2prl-streaming-checkpoints/d2prl-policy-reclaim-node.log",
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "log": "docs/qualification/d2prl-streaming-checkpoints/d2prl-checkpoint-cancel-node.log",
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "log": "docs/qualification/d2prl-streaming-checkpoints/d2prl-atomic-admission-node.log",
+      "tests": 51,
+      "pass": 51,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "log": "docs/qualification/d2prl-streaming-checkpoints/d2prl-output-admission-node.log",
+      "tests": 35,
+      "pass": 35,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "log": "docs/qualification/d2prl-streaming-checkpoints/d2prl-scoped-admission-node.log",
+      "tests": 41,
+      "pass": 41,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "log": "docs/qualification/d2prl-streaming-checkpoints/d2prl-liveness-diagnostics-node.log",
+      "tests": 24,
+      "pass": 24,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "log": "docs/qualification/d2prl-streaming-checkpoints/d2prl-initialization-liveness-node.log",
+      "tests": 20,
+      "pass": 20,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    }
+  ],
+  "nodeCountsNote": "The eight Node suite logs overlap. Their individual counts are reported exactly; do not sum them as distinct tests. Later source changes have dedicated followup logs.",
+  "browserResults": {
+    "chromium": {
+      "parameter72MiB": {
+        "bytes": 75497472,
+        "sha256": "8586552fcc7dea54cff555f55004dced32c42e5c4fc2a215ade835588faa1340",
+        "offset": 0,
+        "stats": {
+          "entries": 1,
+          "reads": 1,
+          "networkBytes": 75497472,
+          "committedBytes": 75497472,
+          "cacheHits": 0,
+          "hashInstances": 1,
+          "peakNetworkChunkBytes": 2097152,
+          "banks": 1,
+          "residentBytes": 75497472,
+          "liveTensors": 1,
+          "allocations": 1,
+          "reuses": 0,
+          "peakBytes": 75497472
+        },
+        "allBytesExact": true,
+        "finalBytes": 0
+      },
+      "nativePatchMatch": {
+        "side": 16,
+        "iterations": 4,
+        "workers": 2,
+        "injectedFailure": "Five allocation refusals before evaluation eight, after seven validated evaluations; explicit resume after terminal guard.",
+        "hashes": [
+          "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+          "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+          "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+          "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+          "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+          "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+          "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+          "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+        ],
+        "exactRng624WordsAndCursor": true,
+        "exactTrace": true,
+        "evaluations": 18,
+        "tiles": 144,
+        "descriptorUploads": 4,
+        "validatedTilesReplayed": 0,
+        "finalBudgetBytes": 0
+      },
+      "nativeBranchedGraph": {
+        "side": 448,
+        "operators": [
+          "Conv",
+          "Relu",
+          "Mul",
+          "Add",
+          "Concat",
+          "Conv",
+          "Sigmoid"
+        ],
+        "injectedFailure": "Five allocation refusals before node four, after four validated nodes; explicit resume after terminal guard.",
+        "sha256": "89bb41c2057a3bcd901437f0af1bf9c9d60236c9f7796d459bfe96def094b922",
+        "committedNodeIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "outputArena": {
+          "banks": 1,
+          "residentBytes": 16777216,
+          "liveTensors": 2,
+          "allocations": 8,
+          "reuses": 7,
+          "peakBytes": 16777216
+        },
+        "finalBudgetBytes": 0
+      },
+      "nativeRoles": [
+        {
+          "owned": false,
+          "hashes": [
+            "9a6ecb44a5ecbc89d91461b9b9e0044d7d85b2046ba1eda35d73fe09401ee5e2",
+            "638bf685e7281ee1ed924fc403690d3834c7cc5e8ca4b2cf87abb487016e9ab6"
+          ],
+          "heapBytes": 170524672,
+          "finalModelBackings": 0
+        },
+        {
+          "owned": true,
+          "hashes": [
+            "9a6ecb44a5ecbc89d91461b9b9e0044d7d85b2046ba1eda35d73fe09401ee5e2",
+            "638bf685e7281ee1ed924fc403690d3834c7cc5e8ca4b2cf87abb487016e9ab6"
+          ],
+          "heapBytes": 170524672,
+          "stats": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 19943135,
+            "committedBytes": 19943135,
+            "cacheHits": 0,
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 2097152,
+            "banks": 1,
+            "residentBytes": 19988480,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 19988480
+          },
+          "finalModelBackings": 0
+        },
+        {
+          "owned": "bounded-worker",
+          "hashes": [
+            "9a6ecb44a5ecbc89d91461b9b9e0044d7d85b2046ba1eda35d73fe09401ee5e2",
+            "638bf685e7281ee1ed924fc403690d3834c7cc5e8ca4b2cf87abb487016e9ab6"
+          ],
+          "heapBytes": 170524672,
+          "stats": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 19943135,
+            "committedBytes": 19943135,
+            "cacheHits": 0,
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 1651734,
+            "banks": 1,
+            "residentBytes": 19988480,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 19988480,
+            "observedHeapBytes": 170524672
+          },
+          "ledgerBytes": 87883776,
+          "finalModelBackings": 0,
+          "finalBytes": 0
+        }
+      ]
+    },
+    "firefox": {
+      "parameter72MiB": {
+        "bytes": 75497472,
+        "sha256": "8586552fcc7dea54cff555f55004dced32c42e5c4fc2a215ade835588faa1340",
+        "offset": 0,
+        "stats": {
+          "entries": 1,
+          "reads": 1,
+          "networkBytes": 75497472,
+          "committedBytes": 75497472,
+          "cacheHits": 0,
+          "hashInstances": 1,
+          "peakNetworkChunkBytes": 65536,
+          "banks": 1,
+          "residentBytes": 75497472,
+          "liveTensors": 1,
+          "allocations": 1,
+          "reuses": 0,
+          "peakBytes": 75497472
+        },
+        "allBytesExact": true,
+        "finalBytes": 0
+      },
+      "nativePatchMatch": {
+        "side": 16,
+        "iterations": 4,
+        "workers": 2,
+        "injectedFailure": "Five allocation refusals before evaluation eight, after seven validated evaluations; explicit resume after terminal guard.",
+        "hashes": [
+          "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+          "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+          "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+          "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+          "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+          "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+          "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+          "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+        ],
+        "exactRng624WordsAndCursor": true,
+        "exactTrace": true,
+        "evaluations": 18,
+        "tiles": 144,
+        "descriptorUploads": 4,
+        "validatedTilesReplayed": 0,
+        "finalBudgetBytes": 0
+      },
+      "nativeBranchedGraph": {
+        "side": 448,
+        "operators": [
+          "Conv",
+          "Relu",
+          "Mul",
+          "Add",
+          "Concat",
+          "Conv",
+          "Sigmoid"
+        ],
+        "injectedFailure": "Five allocation refusals before node four, after four validated nodes; explicit resume after terminal guard.",
+        "sha256": "89bb41c2057a3bcd901437f0af1bf9c9d60236c9f7796d459bfe96def094b922",
+        "committedNodeIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "outputArena": {
+          "banks": 1,
+          "residentBytes": 16777216,
+          "liveTensors": 2,
+          "allocations": 8,
+          "reuses": 7,
+          "peakBytes": 16777216
+        },
+        "finalBudgetBytes": 0
+      },
+      "nativeRoles": [
+        {
+          "owned": false,
+          "hashes": [
+            "9a6ecb44a5ecbc89d91461b9b9e0044d7d85b2046ba1eda35d73fe09401ee5e2",
+            "638bf685e7281ee1ed924fc403690d3834c7cc5e8ca4b2cf87abb487016e9ab6"
+          ],
+          "heapBytes": 170524672,
+          "finalModelBackings": 0
+        },
+        {
+          "owned": true,
+          "hashes": [
+            "9a6ecb44a5ecbc89d91461b9b9e0044d7d85b2046ba1eda35d73fe09401ee5e2",
+            "638bf685e7281ee1ed924fc403690d3834c7cc5e8ca4b2cf87abb487016e9ab6"
+          ],
+          "heapBytes": 170524672,
+          "stats": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 19943135,
+            "committedBytes": 19943135,
+            "cacheHits": 0,
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 65536,
+            "banks": 1,
+            "residentBytes": 19988480,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 19988480
+          },
+          "finalModelBackings": 0
+        },
+        {
+          "owned": "bounded-worker",
+          "hashes": [
+            "9a6ecb44a5ecbc89d91461b9b9e0044d7d85b2046ba1eda35d73fe09401ee5e2",
+            "638bf685e7281ee1ed924fc403690d3834c7cc5e8ca4b2cf87abb487016e9ab6"
+          ],
+          "heapBytes": 170524672,
+          "stats": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 19943135,
+            "committedBytes": 19943135,
+            "cacheHits": 0,
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 65536,
+            "banks": 1,
+            "residentBytes": 19988480,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 19988480,
+            "observedHeapBytes": 170524672
+          },
+          "ledgerBytes": 87883776,
+          "finalModelBackings": 0,
+          "finalBytes": 0
+        }
+      ]
+    },
+    "webkit": {
+      "parameter72MiB": {
+        "bytes": 75497472,
+        "sha256": "8586552fcc7dea54cff555f55004dced32c42e5c4fc2a215ade835588faa1340",
+        "offset": 0,
+        "stats": {
+          "entries": 1,
+          "reads": 1,
+          "networkBytes": 75497472,
+          "committedBytes": 75497472,
+          "cacheHits": 0,
+          "hashInstances": 1,
+          "peakNetworkChunkBytes": 20561452,
+          "banks": 1,
+          "residentBytes": 75497472,
+          "liveTensors": 1,
+          "allocations": 1,
+          "reuses": 0,
+          "peakBytes": 75497472
+        },
+        "allBytesExact": true,
+        "finalBytes": 0
+      },
+      "nativePatchMatch": {
+        "side": 16,
+        "iterations": 4,
+        "workers": 2,
+        "injectedFailure": "Five allocation refusals before evaluation eight, after seven validated evaluations; explicit resume after terminal guard.",
+        "hashes": [
+          "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+          "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+          "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+          "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+          "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+          "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+          "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+          "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+        ],
+        "exactRng624WordsAndCursor": true,
+        "exactTrace": true,
+        "evaluations": 18,
+        "tiles": 144,
+        "descriptorUploads": 4,
+        "validatedTilesReplayed": 0,
+        "finalBudgetBytes": 0
+      },
+      "nativeBranchedGraph": {
+        "side": 448,
+        "operators": [
+          "Conv",
+          "Relu",
+          "Mul",
+          "Add",
+          "Concat",
+          "Conv",
+          "Sigmoid"
+        ],
+        "injectedFailure": "Five allocation refusals before node four, after four validated nodes; explicit resume after terminal guard.",
+        "sha256": "89bb41c2057a3bcd901437f0af1bf9c9d60236c9f7796d459bfe96def094b922",
+        "committedNodeIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "outputArena": {
+          "banks": 1,
+          "residentBytes": 16777216,
+          "liveTensors": 2,
+          "allocations": 8,
+          "reuses": 7,
+          "peakBytes": 16777216
+        },
+        "finalBudgetBytes": 0
+      },
+      "nativeRoles": [
+        {
+          "owned": false,
+          "hashes": [
+            "9a6ecb44a5ecbc89d91461b9b9e0044d7d85b2046ba1eda35d73fe09401ee5e2",
+            "638bf685e7281ee1ed924fc403690d3834c7cc5e8ca4b2cf87abb487016e9ab6"
+          ],
+          "heapBytes": 170524672,
+          "finalModelBackings": 0
+        },
+        {
+          "owned": true,
+          "hashes": [
+            "9a6ecb44a5ecbc89d91461b9b9e0044d7d85b2046ba1eda35d73fe09401ee5e2",
+            "638bf685e7281ee1ed924fc403690d3834c7cc5e8ca4b2cf87abb487016e9ab6"
+          ],
+          "heapBytes": 170524672,
+          "stats": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 19943135,
+            "committedBytes": 19943135,
+            "cacheHits": 0,
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 19943135,
+            "banks": 1,
+            "residentBytes": 19988480,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 19988480
+          },
+          "finalModelBackings": 0
+        },
+        {
+          "owned": "bounded-worker",
+          "hashes": [
+            "9a6ecb44a5ecbc89d91461b9b9e0044d7d85b2046ba1eda35d73fe09401ee5e2",
+            "638bf685e7281ee1ed924fc403690d3834c7cc5e8ca4b2cf87abb487016e9ab6"
+          ],
+          "heapBytes": 170524672,
+          "stats": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 19943135,
+            "committedBytes": 19943135,
+            "cacheHits": 0,
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 19943135,
+            "banks": 1,
+            "residentBytes": 19988480,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 19988480,
+            "observedHeapBytes": 170524672
+          },
+          "ledgerBytes": 87883776,
+          "finalModelBackings": 0,
+          "finalBytes": 0
+        }
+      ]
+    }
+  },
+  "rawLogs": [
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-parameter-checkpoint-chromium.log",
+      "sha256": "3419712b74b82830d72e9718e0a93c04a26bb8511e82121c514e50f889d6a2b7",
+      "command": "BROWSER=chromium node tests/d2prl-parameter-checkpoint-browser.mjs",
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-role-model-chromium.log",
+      "sha256": "794a26ffe4ac0c79c93299e3b1ca203225b7d0f989165e60e718f24208b07a68",
+      "command": "BROWSER=chromium node tests/d2prl-role-model-browser.mjs",
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-parameter-checkpoint-firefox.log",
+      "sha256": "267eacc3642283bba4edef6b4f7c3dc0494faadd18573d4f3212aba602cff662",
+      "command": "BROWSER=firefox node tests/d2prl-parameter-checkpoint-browser.mjs",
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-role-model-firefox.log",
+      "sha256": "4ac02141c2d231c7db5b6a2c22854838b08b90394a99fc4fb8ea0d69b7b9deb4",
+      "command": "BROWSER=firefox node tests/d2prl-role-model-browser.mjs",
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-parameter-checkpoint-webkit.log",
+      "sha256": "2c9731b34d508f6dc87047dc905b50fb67e9cc6ce2e57e1505813b4e6d6f70dc",
+      "command": "BROWSER=webkit node tests/d2prl-parameter-checkpoint-browser.mjs",
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-role-model-webkit.log",
+      "sha256": "1d8b6b376dad84e3f6d1e1715e9905465138d9264aeb3f3d44ee973437a3b495",
+      "command": "BROWSER=webkit node tests/d2prl-role-model-browser.mjs",
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-parameters-checkpoints-final-node.log",
+      "sha256": "4fb10d965eaf8cbfd61dc2b60a51634041a13ab7ec5f59aeb58c393ae4dbbaac",
+      "command": "node --experimental-test-module-mocks --test tests/d2prl-checkpoint.test.mjs tests/d2prl-parameter-store.test.mjs tests/d2prl-recovery.test.mjs tests/wasm-tensor-arena.test.mjs tests/d2prl-cache.test.mjs tests/neural-input-session.test.mjs tests/d2prl-role-model.test.mjs tests/d2prl-worker-protocol.test.mjs tests/d2prl-owned.test.mjs",
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-policy-reclaim-node.log",
+      "sha256": "83efe49d236a1becfde60c7f8fa90e2673519b2c1e306c4f7c7fda98ec8905d7",
+      "command": "node --test tests/d2prl-recovery.test.mjs",
+      "sourceCommit": "605b5cc1c43e5a69ef82442a052b1ab94828f246",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-checkpoint-cancel-node.log",
+      "sha256": "862c41d87c116f2d35f02011fc91366cf444100575b5a857eeed6b641ce7c5b6",
+      "command": "node --test tests/d2prl-checkpoint.test.mjs",
+      "sourceCommit": "7a4750dbb4ddf09b0e0a52e995f7be58e777eda6",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-atomic-admission-node.log",
+      "sha256": "65723e16a79efaf4203a8cac0fd21ec8af084e2f1dbab0f723d099660783200c",
+      "command": "node --test tests/d2prl-gpu-owned-output.test.mjs tests/d2prl-recovery.test.mjs tests/d2prl-checkpoint.test.mjs tests/d2prl-role-model.test.mjs tests/d2prl-worker-protocol.test.mjs",
+      "sourceCommit": "f23e4a77eb799dbe37aebe17ebd19d6d155caf0e",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-output-admission-node.log",
+      "sha256": "dad1e2c2dff5e20e39a74e1fd35e828ebebb26115d7ff127ece3b8c28b430d30",
+      "command": "node --test tests/d2prl-worker-protocol.test.mjs tests/d2prl-resource-wait.test.mjs tests/d2prl-cache.test.mjs tests/d2prl-checkpoint.test.mjs",
+      "sourceCommit": "38322764be38dcecc0559ef76b9317c10efb274c",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-scoped-admission-node.log",
+      "sha256": "ccaf56a7809ff86d8c39adf1589dc75249dab304a48ccd64b614c63a2c67d06d",
+      "command": "node --test tests/d2prl-worker-protocol.test.mjs tests/d2prl-recovery.test.mjs tests/d2prl-gpu-owned-output.test.mjs",
+      "sourceCommit": "d376dae0b6579fc93f37a48fa9cc588946a4ab55",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-liveness-diagnostics-node.log",
+      "sha256": "b99511bbd0e6d7a4bc0657f5592d4b8dd953047142ae14eeb70ff8a54d5ff92e",
+      "command": "node --test tests/d2prl-gpu-owned-output.test.mjs tests/d2prl-recovery.test.mjs",
+      "sourceCommit": "89dec68cfe3c733c3c1b24f676622a1002c74f62",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-initialization-liveness-node.log",
+      "sha256": "a33c45a917305115069b9a7649107f450b8868c09a62431d142e2009329e97d3",
+      "command": "node --experimental-test-module-mocks --test tests/d2prl-resource-activity.test.mjs tests/d2prl-parameter-store.test.mjs tests/d2prl-owned.test.mjs",
+      "sourceCommit": "975f252e5bdfea0c966c31371db642a65216d570",
+      "exitCode": 0
+    }
+  ],
+  "coverageNotes": [
+    "The parameter fixture is a generated 72 MiB asset; the browser checks every byte, one streamed GET, one useful Wasm bank and final budget zero. This is a development fixture, never a runtime capacity probe.",
+    "The native PatchMatch fixture compares eight complete output hashes, all 624 RNG state words and cursor, evaluation order, tile count and descriptor-upload count. Failure is injected before the eighth evaluation, so this does not claim that every possible worker crash avoids descriptor upload.",
+    "The native seven-node branched graph uses real CPU convolution workers and native neural arithmetic on 448 by 448 tensors. It is not a complete learned 892-node UNet qualification.",
+    "Descriptor and union checkpoint tests use control-flow doubles to assert stage/load preservation; they are not new learned-model numerical oracles.",
+    "Role qualification uses the private pinned ONNX model through three paths: previous ordinary-buffer loader, streamed owned loader, and the production bounded-worker wrapper. Output bits match in all three browsers. The private model is not committed with these proofs.",
+    "The child ledger figure at inference start precedes later ORT heap growth; observedHeapBytes records the final 170524672-byte heap. The owned 19943135-byte ONNX view occupies a 19988480-byte Wasm bank and does not transfer or clone the whole bank.",
+    "Each browser-native qualification ended with zero budget ownership. FinalModelBackings is also zero for the roles model. This proves the tracked ownership lifecycle, not immediate physical collection by the browser.",
+    "The 256 KiB copy/hash windows bound application copies, not browser response chunks. Observed transport backing peaks are retained in each log; WebKit delivered a full 19943135-byte role-model chunk. These received bytes are admitted and released, never deliberately concatenated into a second full model buffer.",
+    "A normal successful model request uses a single streamed 200 response. Closed Range requests of up to 4 MiB occur only after actual interruption and resume from the last committed byte; ignored Range 200 remains supported. The 9 MiB resumed Range case is covered by Node tests.",
+    "An opaque ORT execution/allocation failure can require retiring its worker, reloading its role model and repeating that roles stage. Prior validated D2 stages remain checkpointed; this proof does not claim resumability inside ONNX Runtime.",
+    "Explicit resume is same-session and identity-qualified; this is not a persisted cookie/profile/checkpoint format. Cancellation, changed input identity and dispose discard the retained checkpoint.",
+    "No 96 MP run, capacity canary, calibration, warmup, precision change, threshold change or global RAM/CPU cap is part of this qualification.",
+    "These logs establish correctness and ownership, not a speedup. The final browser capture overlapped the beginning of a separate small public integration run, so neither timing should be presented as an idle-machine benchmark.",
+    "The browser logs identify the exact source before the later admission-only followups. Those followups alter accounting and cleanup, not shader/native arithmetic, and have dedicated Node logs; the complete integrated runtime is qualified separately by the root task.",
+    "Atomic GPU tests cover both convolution paths at peak minus one byte (refusal before buffer creation or dispatch) and exact peak (success, output and pipeline ownership split correctly). Feature/neural/preparation tests refuse before native malloc when the combined input-plus-growth peak cannot fit.",
+    "Dynamic CPU admission test creates a real policy refusal after a peer reserves memory. The reported retry peak includes the old worker heap and borrowed inputs actually returned by cleanup; it excludes the Wasm arena bank that remains resident. Releasing the peer allows the next useful run.",
+    "A second CPU convolution succeeds at exactly the remaining input/copy credit with the same existing output bank and worker, proving no additional full-output reservation is required for reuse.",
+    "Source, zone projection, postprocess, spatial and role output reservations are transferred from their admitted combined peaks. No lifetime credit is made available until that owner releases it.",
+    "The 24-test liveness followup checks public recovery graph/recoveryStage forwarding and pending mapAsync visibility as IO after GPU lease release. On cancellation, the mapped buffer remains owned until the pending map settles, then all tickets, pressure and budget are released. No numerical code changed and no additional browser was launched for this followup.",
+    "The 20-test initialization followup checks autonomous runtime/model/SHA initialization tickets, including the production model factory with a deferred failing native factory. Parameter fetch and reader.read already declared IO; delayed success/cancellation tests now verify their tickets remain until actual settlement, exact parameter bytes and final operation/budget zero. The full inference is never marked independently productive. Role loading remains covered by its admitted parent worker lease. No numerical code changed or browser qualification was repeated."
+  ],
+  "requiredIntegratedCoreCommits": [
+    "ae72b1b00bbc72284511fb8d31afa41281eb2786",
+    "9e095e3caa888c4263c7453f52981f19383a81c7"
+  ]
+}

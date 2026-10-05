@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "status": "diagnostic-only",
+  "scope": "TNT actual full network followed by isolated downstream subgraphs on exact native tensors; oracle inputs locate a defect only, never qualify the model.",
+  "sourceModelSha256": "cfd67861cef605e84ce7db5fa79cf9e194db79c6cdd25f195dcb402103a969f3",
+  "case": "structured-copy",
+  "records": [
+    {
+      "input": "actual-rgb",
+      "probability": {
+        "different": 65309,
+        "maxAbs": 0.000008791685104370117,
+        "finite": true
+      },
+      "logits": {
+        "different": 65388,
+        "maxAbs": 0.000038623809814453125,
+        "finite": true
+      },
+      "maskChanges": 2,
+      "examples": [
+        {
+          "x": 51,
+          "y": 112,
+          "native": 0.4999997615814209,
+          "browser": 0.5000038146972656,
+          "nativeLogit": -9.615721410227707e-7,
+          "browserLogit": 0.000015147030353546143
+        },
+        {
+          "x": 9,
+          "y": 210,
+          "native": 0.499999463558197,
+          "browser": 0.5000011920928955,
+          "nativeLogit": -0.000002105862449752749,
+          "browserLogit": 0.000004757195711135864
+        }
+      ],
+      "stages": {
+        "features": {
+          "different": 162785,
+          "maxAbs": 0.000095367431640625,
+          "finite": true
+        },
+        "consistency": {
+          "different": 112665,
+          "maxAbs": 0.000045299530029296875,
+          "finite": true
+        },
+        "lowLogits": {
+          "different": 256,
+          "maxAbs": 0.000038623809814453125,
+          "finite": true
+        }
+      }
+    },
+    {
+      "input": "diagnostic-native-features",
+      "probability": {
+        "different": 64016,
+        "maxAbs": 0.0000027418136596679688,
+        "finite": true
+      },
+      "logits": {
+        "different": 64819,
+        "maxAbs": 0.00001233816146850586,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "examples": [],
+      "stages": {}
+    },
+    {
+      "input": "diagnostic-native-consistency",
+      "probability": {
+        "different": 58197,
+        "maxAbs": 6.556510925292969e-7,
+        "finite": true
+      },
+      "logits": {
+        "different": 62282,
+        "maxAbs": 0.0000034570693969726562,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "examples": [],
+      "stages": {}
+    },
+    {
+      "input": "diagnostic-native-lowLogits",
+      "probability": {
+        "different": 37783,
+        "maxAbs": 5.960464477539062e-7,
+        "finite": true
+      },
+      "logits": {
+        "different": 32908,
+        "maxAbs": 0.000003337860107421875,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "examples": [],
+      "stages": {}
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/export-segmentation-stage-diagnostics.py": "15f04db7d25228998d7c71581d6ee7108919c04d6c85b3c90223d8e4cf5bc0cc",
+    "scripts/study-segmentation-stage-diagnostics.mjs": "4cc8d191535b853ae56c7571f4d5c601121100e9afd9dd922f0a15ef6aa92967"
+  }
+}

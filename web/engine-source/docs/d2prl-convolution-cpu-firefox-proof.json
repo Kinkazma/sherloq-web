@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Four complete native convolution tensors through bounded SIMD worker pool; bias ranges, grouped/strided layers, useful-compute cancellation, retry and resource reduction. Not full model inference.",
+  "records": [
+    {
+      "name": "448-cnn-0",
+      "exact": true,
+      "workers": 8,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "union-12",
+      "exact": true,
+      "workers": 1,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "encoder_stages.2.0.conv2",
+      "exact": true,
+      "workers": 8,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "encoder_stages.4.2.conv2",
+      "exact": true,
+      "workers": 8,
+      "heapBytes": 16777216
+    }
+  ],
+  "lifecycle": {
+    "initialReleased": true,
+    "busy": true,
+    "entered": true,
+    "cancelled": true,
+    "cancellationReleased": true,
+    "retryExact": true,
+    "retryReleased": true,
+    "refused": true,
+    "refusalReleased": true,
+    "reducedWorkers": true,
+    "reducedExact": true,
+    "idleHeapsReclaimed": true,
+    "rawCachePreserved": true,
+    "pressureRetryExact": true,
+    "inputPreserved": true,
+    "released": true
+  },
+  "peakAccountedBytes": 2271275008,
+  "browser": "155.0",
+  "sources": {
+    "convolution-cpu.js": "b0487cc4600c00b2cf1bcd3550480b73fcb0df6d923de48afa8447938c220598",
+    "convolution-cpu-worker.js": "b996618dd6c3c13dbee3d35327abe26ac48314f645051b925036c29ace682944"
+  },
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "memoryMaximumBytes": 268435456,
+    "threads": 1,
+    "sources": {
+      "convolution-cpu.cpp": "6a2f8107272e7363a3b6ffb1c4934f4b83e4653dac0c0c8c611ba2cab7bf51fe",
+      "fma-simd.h": "fee2445e13b8321920d0672ebc568eb6c3a04a12ae7b702cc5fda928b36e31b2"
+    },
+    "files": {
+      "convolution.js": {
+        "bytes": 7491,
+        "sha256": "46b5404857b9f855e2dd1743040b3a6575ef5384e038941ba9baf7c61ad8c8a2"
+      },
+      "convolution.wasm": {
+        "bytes": 12677,
+        "sha256": "ad15173f57becc35c489be555c566a3120dd94ada11cfc39d12b2e0bb2ec9eab"
+      }
+    }
+  }
+}

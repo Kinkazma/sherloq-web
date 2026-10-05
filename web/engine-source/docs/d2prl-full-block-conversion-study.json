@@ -1,0 +1,1490 @@
+{
+  "schema": 1,
+  "scope": "One generated RGB source and split local-weight ONNX graphs. Native448-grid postprocess applied to actual captured browser tensors. No complete browser detector, image-resize/zone-union qualification or tolerance exception.",
+  "source": {
+    "file": "source-rgb.bin",
+    "shape": [
+      389,
+      521,
+      3
+    ],
+    "dtype": "uint8",
+    "bytes": 608007,
+    "sha256": "1238856164fe1cde39f48ca43729fc0d5c2058eaab31502712a5762cc6ed41fd"
+  },
+  "nativeInput": {
+    "file": "rgb448.bin",
+    "shape": [
+      1,
+      3,
+      448,
+      448
+    ],
+    "dtype": "float32",
+    "bytes": 2408448,
+    "sha256": "36c31b88a5645e5c6cd6e95160c7aa80d22b94581a5858a2073e5daeaa746037"
+  },
+  "nativeWrapperVerification": {
+    "descriptorHalfExact": [
+      true,
+      true
+    ],
+    "headsExact": [
+      true,
+      true,
+      true
+    ]
+  },
+  "reports": [
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs for head comparison; not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "dlf",
+      "constantFolding": false,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "239633566a6d41975c1d141deae787ea3dfe8eabd20c9dedaf9385196c6bbfd9",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "error7_zm",
+          "elements": 200704,
+          "maxAbs": 2.5,
+          "meanAbs": 0.17572032827503828,
+          "different": 139624,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "error7_cnn",
+          "elements": 200704,
+          "maxAbs": 2.5,
+          "meanAbs": 0.17967173517966756,
+          "different": 139792,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "error9_zm",
+          "elements": 200704,
+          "maxAbs": 4,
+          "meanAbs": 0.2857167602193599,
+          "different": 141141,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "error9_cnn",
+          "elements": 200704,
+          "maxAbs": 4.5,
+          "meanAbs": 0.2961892753231282,
+          "different": 141737,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "error11_zm",
+          "elements": 200704,
+          "maxAbs": 6.75,
+          "meanAbs": 0.48367205444647343,
+          "different": 138841,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "error11_cnn",
+          "elements": 200704,
+          "maxAbs": 6,
+          "meanAbs": 0.5002520619606485,
+          "different": 139416,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "score7_zm",
+          "elements": 200704,
+          "maxAbs": 2,
+          "meanAbs": 0.026836808391951253,
+          "different": 48413,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "score7_cnn",
+          "elements": 200704,
+          "maxAbs": 2,
+          "meanAbs": 0.024708789295448008,
+          "different": 49103,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "score9_zm",
+          "elements": 200704,
+          "maxAbs": 2,
+          "meanAbs": 0.01383964711003129,
+          "different": 41052,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "score9_cnn",
+          "elements": 200704,
+          "maxAbs": 2,
+          "meanAbs": 0.012505833797836296,
+          "different": 41283,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "score11_zm",
+          "elements": 200704,
+          "maxAbs": 1.9999998807907104,
+          "meanAbs": 0.010686903464078086,
+          "different": 36481,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "score11_cnn",
+          "elements": 200704,
+          "maxAbs": 1.9999998807907104,
+          "meanAbs": 0.009926232984182616,
+          "different": 36906,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": null,
+          "thresholdChanged": 0
+        }
+      ],
+      "functionalSessionAndInputsMs": 303.7999999988824,
+      "functionalRunMs": 151.30000000074506,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "error7_zm": {
+          "file": "dlf-unfolded-wasm-error7_zm.bin",
+          "bytes": 802816,
+          "sha256": "0dca53bcc117d410aa0dc7f1add10205c39892a7d106ea16981c86eb8b2abdaf"
+        },
+        "error7_cnn": {
+          "file": "dlf-unfolded-wasm-error7_cnn.bin",
+          "bytes": 802816,
+          "sha256": "8ac38e5e53e0850945635e672dee4aeae7914a9ced9cd00aba7deee3c287e17c"
+        },
+        "error9_zm": {
+          "file": "dlf-unfolded-wasm-error9_zm.bin",
+          "bytes": 802816,
+          "sha256": "ca4f6d7872760bab142335c419be918b759960803367fa4ad98f3e1402a52055"
+        },
+        "error9_cnn": {
+          "file": "dlf-unfolded-wasm-error9_cnn.bin",
+          "bytes": 802816,
+          "sha256": "b58c99b586f98944c5f490da4d95b1ad9ad9bf1a08564bf6cb4eecf023d4795f"
+        },
+        "error11_zm": {
+          "file": "dlf-unfolded-wasm-error11_zm.bin",
+          "bytes": 802816,
+          "sha256": "3b4a1c37a8b1e5ced996e7145a76a1f86c6d5632baafc0c35a292e8fabc6fd84"
+        },
+        "error11_cnn": {
+          "file": "dlf-unfolded-wasm-error11_cnn.bin",
+          "bytes": 802816,
+          "sha256": "241d4398b6439cb80eb38d1bb45a150df3281df718d20b6e81f1d9e7023af962"
+        },
+        "score7_zm": {
+          "file": "dlf-unfolded-wasm-score7_zm.bin",
+          "bytes": 802816,
+          "sha256": "42e3930eccd255ac4dddf4e3219f09e161250bf45fdf0849f7ea5055b501004f"
+        },
+        "score7_cnn": {
+          "file": "dlf-unfolded-wasm-score7_cnn.bin",
+          "bytes": 802816,
+          "sha256": "d036c7b4311262e97f7171829c09bf74df22e404b6a4158e1aecebf578b4422a"
+        },
+        "score9_zm": {
+          "file": "dlf-unfolded-wasm-score9_zm.bin",
+          "bytes": 802816,
+          "sha256": "7355370d16a1713a46988a415c44b3c7f0308fa475183347085a538d42d5662a"
+        },
+        "score9_cnn": {
+          "file": "dlf-unfolded-wasm-score9_cnn.bin",
+          "bytes": 802816,
+          "sha256": "97a22963104ee2ab7e55f7979fbbbdd56ac1fe2ed863577bd785ddce8e9e31a9"
+        },
+        "score11_zm": {
+          "file": "dlf-unfolded-wasm-score11_zm.bin",
+          "bytes": 802816,
+          "sha256": "42ad79e1b1fcd1841c5e93e210cc058d70779477fa0f815afc425623d1085f4b"
+        },
+        "score11_cnn": {
+          "file": "dlf-unfolded-wasm-score11_cnn.bin",
+          "bytes": 802816,
+          "sha256": "66602b6e495a5724058bba93477775aa0d2e3b1093d6e609bbe0686c62a55c58"
+        }
+      },
+      "studyFile": "dlf-unfolded-wasm-proof.json",
+      "status": "experimental-rejected"
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs and, for heads-exact-dlf, native DLF scores. Not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "features",
+      "constantFolding": false,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "2a338b4e85e46b7524a274aa3e6f4a12386cbc2c510dfc6351f01017443c2d3e",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "zm",
+          "elements": 7225344,
+          "maxAbs": 3.4332275390625e-05,
+          "meanAbs": 5.006941810914484e-07,
+          "different": 6424602,
+          "nonfinite": 0,
+          "changedHalf": 4062,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "cnn",
+          "elements": 19267584,
+          "maxAbs": 5.340576171875e-05,
+          "meanAbs": 2.068424865838244e-06,
+          "different": 18331544,
+          "nonfinite": 0,
+          "changedHalf": 85548,
+          "threshold": null,
+          "thresholdChanged": 0
+        }
+      ],
+      "functionalSessionAndInputsMs": 193.7000000011176,
+      "functionalRunMs": 30537.5,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "zm": {
+          "file": "features-unfolded-resize-wasm-zm.bin",
+          "bytes": 28901376,
+          "sha256": "5a43cf1d1a89c97b48ea10e44a6129bb0d55ca534f243a8603eeb1b5b581967e"
+        },
+        "cnn": {
+          "file": "features-unfolded-resize-wasm-cnn.bin",
+          "bytes": 77070336,
+          "sha256": "9ea34ba4068fb804466ae405d5295814040c15cd2eaf045bdd1f08371eaede26"
+        }
+      },
+      "studyFile": "features-unfolded-resize-wasm-proof.json",
+      "status": "needs-final-decision-qualification"
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs for head comparison; not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "features",
+      "constantFolding": false,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "c9321db804a569792d195846a445a0b023e0f79cf3d97d0f179f726f373cfa23",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "zm",
+          "elements": 7225344,
+          "maxAbs": 0.0001583099365234375,
+          "meanAbs": 1.827581380336264e-06,
+          "different": 6780994,
+          "nonfinite": 0,
+          "changedHalf": 30094,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "cnn",
+          "elements": 19267584,
+          "maxAbs": 0.0004532337188720703,
+          "meanAbs": 6.0593686542650145e-06,
+          "different": 18679571,
+          "nonfinite": 0,
+          "changedHalf": 214607,
+          "threshold": null,
+          "thresholdChanged": 0
+        }
+      ],
+      "functionalSessionAndInputsMs": 187.90000000037253,
+      "functionalRunMs": 30316,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "zm": {
+          "file": "features-unfolded-wasm-zm.bin",
+          "bytes": 28901376,
+          "sha256": "190d8638efe8867e205f8e5fff2597d3edde207f3d594a516a41b141cacfc1eb"
+        },
+        "cnn": {
+          "file": "features-unfolded-wasm-cnn.bin",
+          "bytes": 77070336,
+          "sha256": "7297a379136057299e17945d466256b9cb9542697bbcecd519b6e79e827b69ac"
+        }
+      },
+      "studyFile": "features-unfolded-wasm-proof.json",
+      "status": "experimental-rejected"
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs for head comparison; not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "features",
+      "constantFolding": false,
+      "requestedProvider": "webgpu",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "c9321db804a569792d195846a445a0b023e0f79cf3d97d0f179f726f373cfa23",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "zm",
+          "elements": 7225344,
+          "maxAbs": 0.00016021728515625,
+          "meanAbs": 1.9145526921892566e-06,
+          "different": 6892837,
+          "nonfinite": 0,
+          "changedHalf": 32084,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "cnn",
+          "elements": 19267584,
+          "maxAbs": 0.0004546642303466797,
+          "meanAbs": 6.512119665051198e-06,
+          "different": 18792512,
+          "nonfinite": 0,
+          "changedHalf": 230219,
+          "threshold": null,
+          "thresholdChanged": 0
+        }
+      ],
+      "functionalSessionAndInputsMs": 403.6000000014901,
+      "functionalRunMs": 742.8999999985099,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "zm": {
+          "file": "features-unfolded-webgpu-zm.bin",
+          "bytes": 28901376,
+          "sha256": "5fd9bbb65046130dde31c29421807a05fff5ee7cc6b47ba32eb90641f3233b27"
+        },
+        "cnn": {
+          "file": "features-unfolded-webgpu-cnn.bin",
+          "bytes": 77070336,
+          "sha256": "54f5afaed396d91daeac659aab47ee7372fea13b77849dc447266d0a80904362"
+        }
+      },
+      "studyFile": "features-unfolded-webgpu-proof.json",
+      "status": "experimental-rejected"
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs for head comparison; not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "features",
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "9f10291c482fa92d633670567f6778d2683112ef4370c6a8b57c81a8c942a6ca",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "zm",
+          "elements": 7225344,
+          "maxAbs": 0.0001583099365234375,
+          "meanAbs": 1.827581380336264e-06,
+          "different": 6780994,
+          "nonfinite": 0,
+          "changedHalf": 30094,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "cnn",
+          "elements": 19267584,
+          "maxAbs": 0.00045228004455566406,
+          "meanAbs": 6.066662298369591e-06,
+          "different": 18682588,
+          "nonfinite": 0,
+          "changedHalf": 214794,
+          "threshold": null,
+          "thresholdChanged": 0
+        }
+      ],
+      "functionalSessionAndInputsMs": 194.30000000074506,
+      "functionalRunMs": 30564.900000000373,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "zm": {
+          "file": "features-wasm-zm.bin",
+          "bytes": 28901376,
+          "sha256": "190d8638efe8867e205f8e5fff2597d3edde207f3d594a516a41b141cacfc1eb"
+        },
+        "cnn": {
+          "file": "features-wasm-cnn.bin",
+          "bytes": 77070336,
+          "sha256": "3d049f956ee7c4574e22a0f79b1b308072f79de912c5bdf97b03dceee05694f1"
+        }
+      },
+      "studyFile": "features-wasm-proof.json",
+      "status": "experimental-rejected"
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs for head comparison; not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "features",
+      "requestedProvider": "webgpu",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "9f10291c482fa92d633670567f6778d2683112ef4370c6a8b57c81a8c942a6ca",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "zm",
+          "elements": 7225344,
+          "maxAbs": 0.00016021728515625,
+          "meanAbs": 1.9145526921892566e-06,
+          "different": 6892837,
+          "nonfinite": 0,
+          "changedHalf": 32084,
+          "threshold": null,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "cnn",
+          "elements": 19267584,
+          "maxAbs": 0.00045311450958251953,
+          "meanAbs": 6.782543085091684e-06,
+          "different": 18833034,
+          "nonfinite": 0,
+          "changedHalf": 239733,
+          "threshold": null,
+          "thresholdChanged": 0
+        }
+      ],
+      "functionalSessionAndInputsMs": 434.2000000011176,
+      "functionalRunMs": 696.0999999996275,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "zm": {
+          "file": "features-webgpu-zm.bin",
+          "bytes": 28901376,
+          "sha256": "5fd9bbb65046130dde31c29421807a05fff5ee7cc6b47ba32eb90641f3233b27"
+        },
+        "cnn": {
+          "file": "features-webgpu-cnn.bin",
+          "bytes": 77070336,
+          "sha256": "0448540c3e7f91adee4d4ed51f38db5753fb16bede1caac64e3eba43aaf02e41"
+        }
+      },
+      "studyFile": "features-webgpu-proof.json",
+      "status": "experimental-rejected"
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs and, for heads-exact-dlf, native DLF scores. Not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "heads-exact-dlf",
+      "constantFolding": false,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "8b3fda2f416b55cf49baf64f4055b2f6f382861ba56ad192c9c46df578761f4d",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "union",
+          "elements": 200704,
+          "maxAbs": 0.0008513927459716797,
+          "meanAbs": 2.946517128191471e-07,
+          "different": 80306,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0.5,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "target",
+          "elements": 200704,
+          "maxAbs": 4.172325134277344e-07,
+          "meanAbs": 2.872941561746506e-08,
+          "different": 66364,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "source",
+          "elements": 200704,
+          "maxAbs": 4.76837158203125e-07,
+          "meanAbs": 2.324341782083621e-08,
+          "different": 53993,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 0
+        }
+      ],
+      "functionalSessionAndInputsMs": 1007.1000000014901,
+      "functionalRunMs": 13053,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "union": {
+          "file": "heads-exact-dlf-unfolded-resize-batchnorm-mean-wasm-union.bin",
+          "bytes": 802816,
+          "sha256": "e17e91e9cb1b2c00383d1c90fd90d2645845f32304fef3244f860732caed7330"
+        },
+        "target": {
+          "file": "heads-exact-dlf-unfolded-resize-batchnorm-mean-wasm-target.bin",
+          "bytes": 802816,
+          "sha256": "3ce5e566e5ce4d2b2bc597b55d25b8363aaf3fe4f75ae195d1f6192b49d9aaf0"
+        },
+        "source": {
+          "file": "heads-exact-dlf-unfolded-resize-batchnorm-mean-wasm-source.bin",
+          "bytes": 802816,
+          "sha256": "5535ee30ce9e981c43eeffc09c1a7f24a407ce37fa7b988f6388b5d73ba50eb5"
+        }
+      },
+      "studyFile": "heads-exact-dlf-unfolded-resize-batchnorm-mean-wasm-proof.json",
+      "status": "experimental-rejected",
+      "nativeGridPostprocess": [
+        {
+          "minimum": 0,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 17,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 500,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 5000,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs and, for heads-exact-dlf, native DLF scores. Not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "heads-exact-dlf",
+      "constantFolding": false,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "3cf7382a6fe3eb194df5f80605e6fe032e9622b2014fd2fdd273b299799b8946",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "union",
+          "elements": 200704,
+          "maxAbs": 0.0010037422180175781,
+          "meanAbs": 3.0976900687653213e-07,
+          "different": 80314,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0.5,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "target",
+          "elements": 200704,
+          "maxAbs": 4.172325134277344e-07,
+          "meanAbs": 2.872941561746506e-08,
+          "different": 66364,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "source",
+          "elements": 200704,
+          "maxAbs": 4.76837158203125e-07,
+          "meanAbs": 2.324341782083621e-08,
+          "different": 53993,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 0
+        }
+      ],
+      "functionalSessionAndInputsMs": 1189.1000000014901,
+      "functionalRunMs": 13452.199999999255,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "union": {
+          "file": "heads-exact-dlf-unfolded-resize-batchnorm-wasm-union.bin",
+          "bytes": 802816,
+          "sha256": "ce520731a27ceb91f4d536c804a38354901efdb258eda75534adfc055f546e30"
+        },
+        "target": {
+          "file": "heads-exact-dlf-unfolded-resize-batchnorm-wasm-target.bin",
+          "bytes": 802816,
+          "sha256": "3ce5e566e5ce4d2b2bc597b55d25b8363aaf3fe4f75ae195d1f6192b49d9aaf0"
+        },
+        "source": {
+          "file": "heads-exact-dlf-unfolded-resize-batchnorm-wasm-source.bin",
+          "bytes": 802816,
+          "sha256": "5535ee30ce9e981c43eeffc09c1a7f24a407ce37fa7b988f6388b5d73ba50eb5"
+        }
+      },
+      "studyFile": "heads-exact-dlf-unfolded-resize-batchnorm-wasm-proof.json",
+      "status": "experimental-rejected",
+      "nativeGridPostprocess": [
+        {
+          "minimum": 0,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 17,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 500,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 5000,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs and, for heads-exact-dlf, native DLF scores. Not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "heads-exact-dlf",
+      "constantFolding": false,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "6981402781276214d77b476f0225f1a16508c2dff300b65a15fa9fe1aa8400db",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "union",
+          "elements": 200704,
+          "maxAbs": 0.0008636415004730225,
+          "meanAbs": 2.780625674841599e-07,
+          "different": 80311,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0.5,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "target",
+          "elements": 200704,
+          "maxAbs": 4.172325134277344e-07,
+          "meanAbs": 2.8362425224741504e-08,
+          "different": 66150,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "source",
+          "elements": 200704,
+          "maxAbs": 5.364418029785156e-07,
+          "meanAbs": 2.3170064288970768e-08,
+          "different": 54268,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "trace_union_head",
+          "elements": 200704,
+          "maxAbs": 4.038214683532715e-05,
+          "meanAbs": 1.9315315267722606e-07,
+          "different": 106014,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 3523
+        },
+        {
+          "name": "trace_unet",
+          "elements": 200704,
+          "maxAbs": 0.001048445701599121,
+          "meanAbs": 3.601325344497255e-07,
+          "different": 21042,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 16898
+        }
+      ],
+      "functionalSessionAndInputsMs": 666.3000000007451,
+      "functionalRunMs": 13370.5,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "union": {
+          "file": "heads-exact-dlf-unfolded-resize-union-trace-wasm-union.bin",
+          "bytes": 802816,
+          "sha256": "d28307b9914ee29a51a45d2392e1bc9be25c6264793698302f0c59811f71da5d"
+        },
+        "target": {
+          "file": "heads-exact-dlf-unfolded-resize-union-trace-wasm-target.bin",
+          "bytes": 802816,
+          "sha256": "e92fbb90c3b17e02e16e5de3e120a8cc74d6aa79d24cddd5e7622c46f9253f9b"
+        },
+        "source": {
+          "file": "heads-exact-dlf-unfolded-resize-union-trace-wasm-source.bin",
+          "bytes": 802816,
+          "sha256": "e2d7b5fef16bd235534ebba3fd613e2a42ad907fe80e38283fa46a1c47ddc48e"
+        },
+        "trace_union_head": {
+          "file": "heads-exact-dlf-unfolded-resize-union-trace-wasm-trace_union_head.bin",
+          "bytes": 802816,
+          "sha256": "f2eed05474d1ac8e304c0af757bc9c546c72b222f89bc49f957774b237d2e5ee"
+        },
+        "trace_unet": {
+          "file": "heads-exact-dlf-unfolded-resize-union-trace-wasm-trace_unet.bin",
+          "bytes": 802816,
+          "sha256": "be33a3279d255f77959420f58db937d658414019c93e7b1da9cfa03d39b1a078"
+        }
+      },
+      "studyFile": "heads-exact-dlf-unfolded-resize-union-trace-wasm-proof.json",
+      "status": "experimental-rejected",
+      "nativeGridPostprocess": [
+        {
+          "minimum": 0,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 17,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 500,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 5000,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs and, for heads-exact-dlf, native DLF scores. Not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "heads-exact-dlf",
+      "constantFolding": false,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "abce06d120e54d7156db6423439a1a467b3408a3203da7634df99b3b77e5c247",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "union",
+          "elements": 200704,
+          "maxAbs": 0.0008636415004730225,
+          "meanAbs": 2.780625674841599e-07,
+          "different": 80311,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0.5,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "target",
+          "elements": 200704,
+          "maxAbs": 4.172325134277344e-07,
+          "meanAbs": 2.8362425224741504e-08,
+          "different": 66150,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "source",
+          "elements": 200704,
+          "maxAbs": 5.364418029785156e-07,
+          "meanAbs": 2.3170064288970768e-08,
+          "different": 54268,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 0
+        }
+      ],
+      "functionalSessionAndInputsMs": 833.1999999992549,
+      "functionalRunMs": 13519.5,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "union": {
+          "file": "heads-exact-dlf-unfolded-resize-wasm-union.bin",
+          "bytes": 802816,
+          "sha256": "d28307b9914ee29a51a45d2392e1bc9be25c6264793698302f0c59811f71da5d"
+        },
+        "target": {
+          "file": "heads-exact-dlf-unfolded-resize-wasm-target.bin",
+          "bytes": 802816,
+          "sha256": "e92fbb90c3b17e02e16e5de3e120a8cc74d6aa79d24cddd5e7622c46f9253f9b"
+        },
+        "source": {
+          "file": "heads-exact-dlf-unfolded-resize-wasm-source.bin",
+          "bytes": 802816,
+          "sha256": "e2d7b5fef16bd235534ebba3fd613e2a42ad907fe80e38283fa46a1c47ddc48e"
+        }
+      },
+      "studyFile": "heads-exact-dlf-unfolded-resize-wasm-proof.json",
+      "status": "experimental-rejected",
+      "nativeGridPostprocess": [
+        {
+          "minimum": 0,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 17,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 500,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        },
+        {
+          "minimum": 5000,
+          "differentPixels": {
+            "union": 0,
+            "target": 0,
+            "source": 0
+          }
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs and, for heads-exact-dlf, native DLF scores. Not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "heads-exact-dlf",
+      "constantFolding": false,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "4fcffca26b3f5a1746130f711ee68fd0b9fc1789f87664bdc31ef892976b9fe2",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "union",
+          "elements": 200704,
+          "maxAbs": 0.0008636415004730225,
+          "meanAbs": 2.780625674841599e-07,
+          "different": 80311,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0.5,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "target",
+          "elements": 200704,
+          "maxAbs": 0.00018259882926940918,
+          "meanAbs": 2.6815116366285983e-06,
+          "different": 76031,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5
+        },
+        {
+          "name": "source",
+          "elements": 200704,
+          "maxAbs": 0.00022590160369873047,
+          "meanAbs": 2.276927930046329e-06,
+          "different": 62688,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5
+        }
+      ],
+      "functionalSessionAndInputsMs": 836.5,
+      "functionalRunMs": 13124.299999998882,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "union": {
+          "file": "heads-exact-dlf-unfolded-wasm-union.bin",
+          "bytes": 802816,
+          "sha256": "d28307b9914ee29a51a45d2392e1bc9be25c6264793698302f0c59811f71da5d"
+        },
+        "target": {
+          "file": "heads-exact-dlf-unfolded-wasm-target.bin",
+          "bytes": 802816,
+          "sha256": "2dc6fef81760e7f0a193b0bb3a5f25645cdc5f393fd66884992a18a1111eb11b"
+        },
+        "source": {
+          "file": "heads-exact-dlf-unfolded-wasm-source.bin",
+          "bytes": 802816,
+          "sha256": "6b1cb7ff3a6c1130672e8ce10aaf7ea46b15a13edaf6b2c1bb26605be3df0592"
+        }
+      },
+      "studyFile": "heads-exact-dlf-unfolded-wasm-proof.json",
+      "status": "experimental-rejected",
+      "nativeGridPostprocess": [
+        {
+          "minimum": 0,
+          "differentPixels": {
+            "union": 0,
+            "target": 10,
+            "source": 10
+          }
+        },
+        {
+          "minimum": 17,
+          "differentPixels": {
+            "union": 0,
+            "target": 12,
+            "source": 12
+          }
+        },
+        {
+          "minimum": 500,
+          "differentPixels": {
+            "union": 0,
+            "target": 11,
+            "source": 11
+          }
+        },
+        {
+          "minimum": 5000,
+          "differentPixels": {
+            "union": 0,
+            "target": 10,
+            "source": 10
+          }
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs and, for heads-exact-dlf, native DLF scores. Not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "heads-exact-dlf",
+      "constantFolding": false,
+      "requestedProvider": "webgpu",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "4fcffca26b3f5a1746130f711ee68fd0b9fc1789f87664bdc31ef892976b9fe2",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "union",
+          "elements": 200704,
+          "maxAbs": 0.000987410545349121,
+          "meanAbs": 1.064877985408776e-06,
+          "different": 75039,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0.5,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "target",
+          "elements": 200704,
+          "maxAbs": 0.00018268823623657227,
+          "meanAbs": 2.687379176733179e-06,
+          "different": 76077,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5
+        },
+        {
+          "name": "source",
+          "elements": 200704,
+          "maxAbs": 0.00022590160369873047,
+          "meanAbs": 2.279695615229406e-06,
+          "different": 62682,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5
+        }
+      ],
+      "functionalSessionAndInputsMs": 1778.300000000745,
+      "functionalRunMs": 1480.300000000745,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "union": {
+          "file": "heads-exact-dlf-unfolded-webgpu-union.bin",
+          "bytes": 802816,
+          "sha256": "459cb1b45de80e064581338eeed917530d3f1e33919604357d9413e6438d4ecd"
+        },
+        "target": {
+          "file": "heads-exact-dlf-unfolded-webgpu-target.bin",
+          "bytes": 802816,
+          "sha256": "d81cfefada81ce5d1061aeaeb30e4fcd492770af84630126df16c628e6f018f2"
+        },
+        "source": {
+          "file": "heads-exact-dlf-unfolded-webgpu-source.bin",
+          "bytes": 802816,
+          "sha256": "d4505c13ae53fc54a1b3a61a992bf859784fba6f3a2f7e16ce38e7c16863b1cd"
+        }
+      },
+      "studyFile": "heads-exact-dlf-unfolded-webgpu-proof.json",
+      "status": "experimental-rejected",
+      "nativeGridPostprocess": [
+        {
+          "minimum": 0,
+          "differentPixels": {
+            "union": 0,
+            "target": 10,
+            "source": 10
+          }
+        },
+        {
+          "minimum": 17,
+          "differentPixels": {
+            "union": 0,
+            "target": 12,
+            "source": 12
+          }
+        },
+        {
+          "minimum": 500,
+          "differentPixels": {
+            "union": 0,
+            "target": 11,
+            "source": 11
+          }
+        },
+        {
+          "minimum": 5000,
+          "differentPixels": {
+            "union": 0,
+            "target": 10,
+            "source": 10
+          }
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs for head comparison; not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "heads",
+      "constantFolding": false,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "c00d96bba24c1935789b6b362d6e0ff88cf5ee02b610f5ee65bdb7b1bf0193bc",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "union",
+          "elements": 200704,
+          "maxAbs": 0.9999999403953552,
+          "meanAbs": 0.007352087470736501,
+          "different": 89196,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0.5,
+          "thresholdChanged": 1461
+        },
+        {
+          "name": "target",
+          "elements": 200704,
+          "maxAbs": 0.23545092344284058,
+          "meanAbs": 0.0022930955320236758,
+          "different": 81427,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5596
+        },
+        {
+          "name": "source",
+          "elements": 200704,
+          "maxAbs": 0.20223009586334229,
+          "meanAbs": 0.0019647371019735666,
+          "different": 68370,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5919
+        }
+      ],
+      "functionalSessionAndInputsMs": 440.69999999925494,
+      "functionalRunMs": 12867.5,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "union": {
+          "file": "heads-unfolded-wasm-union.bin",
+          "bytes": 802816,
+          "sha256": "49897776b5a057025ce5f96143b1b7d962a566113614ef17305adfe0f27632ca"
+        },
+        "target": {
+          "file": "heads-unfolded-wasm-target.bin",
+          "bytes": 802816,
+          "sha256": "1d8eb63d9c4a8aa032e44f5372ed0e27a058d75e50b3168b15f1bbe39c1f5982"
+        },
+        "source": {
+          "file": "heads-unfolded-wasm-source.bin",
+          "bytes": 802816,
+          "sha256": "480f94e225598bd16a24e0ec939b258ee2e5669b15a1b7fa8b86160fb1656588"
+        }
+      },
+      "studyFile": "heads-unfolded-wasm-proof.json",
+      "status": "experimental-rejected",
+      "nativeGridPostprocess": [
+        {
+          "minimum": 0,
+          "differentPixels": {
+            "union": 1461,
+            "target": 6753,
+            "source": 6790
+          }
+        },
+        {
+          "minimum": 17,
+          "differentPixels": {
+            "union": 1491,
+            "target": 6607,
+            "source": 6646
+          }
+        },
+        {
+          "minimum": 500,
+          "differentPixels": {
+            "union": 1563,
+            "target": 6732,
+            "source": 6545
+          }
+        },
+        {
+          "minimum": 5000,
+          "differentPixels": {
+            "union": 1446,
+            "target": 6431,
+            "source": 6171
+          }
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs for head comparison; not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "heads",
+      "constantFolding": false,
+      "requestedProvider": "webgpu",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "c00d96bba24c1935789b6b362d6e0ff88cf5ee02b610f5ee65bdb7b1bf0193bc",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "union",
+          "elements": 200704,
+          "maxAbs": 0.000987410545349121,
+          "meanAbs": 9.620789291171728e-07,
+          "different": 74799,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0.5,
+          "thresholdChanged": 0
+        },
+        {
+          "name": "target",
+          "elements": 200704,
+          "maxAbs": 0.00018268823623657227,
+          "meanAbs": 2.687379176733179e-06,
+          "different": 76077,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5
+        },
+        {
+          "name": "source",
+          "elements": 200704,
+          "maxAbs": 0.00022590160369873047,
+          "meanAbs": 2.279695615229406e-06,
+          "different": 62682,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5
+        }
+      ],
+      "functionalSessionAndInputsMs": 957.5,
+      "functionalRunMs": 1171.5,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "union": {
+          "file": "heads-unfolded-webgpu-union.bin",
+          "bytes": 802816,
+          "sha256": "a095e56a6cdbf09b1971dee694e88911dd4c4af388abdb032b7d21cb4bd74b11"
+        },
+        "target": {
+          "file": "heads-unfolded-webgpu-target.bin",
+          "bytes": 802816,
+          "sha256": "d81cfefada81ce5d1061aeaeb30e4fcd492770af84630126df16c628e6f018f2"
+        },
+        "source": {
+          "file": "heads-unfolded-webgpu-source.bin",
+          "bytes": 802816,
+          "sha256": "d4505c13ae53fc54a1b3a61a992bf859784fba6f3a2f7e16ce38e7c16863b1cd"
+        }
+      },
+      "studyFile": "heads-unfolded-webgpu-proof.json",
+      "status": "experimental-rejected",
+      "nativeGridPostprocess": [
+        {
+          "minimum": 0,
+          "differentPixels": {
+            "union": 0,
+            "target": 10,
+            "source": 10
+          }
+        },
+        {
+          "minimum": 17,
+          "differentPixels": {
+            "union": 0,
+            "target": 12,
+            "source": 12
+          }
+        },
+        {
+          "minimum": 500,
+          "differentPixels": {
+            "union": 0,
+            "target": 11,
+            "source": 11
+          }
+        },
+        {
+          "minimum": 5000,
+          "differentPixels": {
+            "union": 0,
+            "target": 10,
+            "source": 10
+          }
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "One generated source. Split graph uses native PatchMatch outputs for head comparison; not complete browser detection. Requested GPU provider does not establish node placement. Functional timings only.",
+      "stage": "heads",
+      "constantFolding": true,
+      "requestedProvider": "wasm",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "modelSha256": "7d098f35a63f0090e012a3874fe518b0004c728ba217d27b7580a08c342afd42",
+      "graphOptimizationLevel": "disabled",
+      "rows": [
+        {
+          "name": "union",
+          "elements": 200704,
+          "maxAbs": 0.9999999701976776,
+          "meanAbs": 0.0073521384518925575,
+          "different": 89208,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0.5,
+          "thresholdChanged": 1461
+        },
+        {
+          "name": "target",
+          "elements": 200704,
+          "maxAbs": 0.23545092344284058,
+          "meanAbs": 0.0022930957513418266,
+          "different": 81430,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5596
+        },
+        {
+          "name": "source",
+          "elements": 200704,
+          "maxAbs": 0.20223009586334229,
+          "meanAbs": 0.0019647372124493314,
+          "different": 68358,
+          "nonfinite": 0,
+          "changedHalf": null,
+          "threshold": 0,
+          "thresholdChanged": 5919
+        }
+      ],
+      "functionalSessionAndInputsMs": 526,
+      "functionalRunMs": 13738.400000000373,
+      "browser": "154.0.8037.58",
+      "outputs": {
+        "union": {
+          "file": "heads-wasm-union.bin",
+          "bytes": 802816,
+          "sha256": "627fd82a9e35dff2dd1ce8599be99456959764d739d01851446512a2ff44fbc8"
+        },
+        "target": {
+          "file": "heads-wasm-target.bin",
+          "bytes": 802816,
+          "sha256": "37ae8c1a9862207ce939e9598f7d08bee9061418f10b58795d208731ea1ddcf4"
+        },
+        "source": {
+          "file": "heads-wasm-source.bin",
+          "bytes": 802816,
+          "sha256": "b1632fbde1c184ca99f1453d39fbf6304182668c5246f43fe53c73670aedc290"
+        }
+      },
+      "studyFile": "heads-wasm-proof.json",
+      "status": "experimental-rejected",
+      "nativeGridPostprocess": [
+        {
+          "minimum": 0,
+          "differentPixels": {
+            "union": 1461,
+            "target": 6753,
+            "source": 6790
+          }
+        },
+        {
+          "minimum": 17,
+          "differentPixels": {
+            "union": 1491,
+            "target": 6607,
+            "source": 6646
+          }
+        },
+        {
+          "minimum": 500,
+          "differentPixels": {
+            "union": 1563,
+            "target": 6732,
+            "source": 6545
+          }
+        },
+        {
+          "minimum": 5000,
+          "differentPixels": {
+            "union": 1446,
+            "target": 6431,
+            "source": 6171
+          }
+        }
+      ]
+    }
+  ]
+}

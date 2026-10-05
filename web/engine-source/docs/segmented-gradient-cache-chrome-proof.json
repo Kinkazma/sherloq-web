@@ -1,0 +1,201 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Common worker on public96MP JPEG under1GiB; one derivative pass reused across three views, three complete native gradient checksums, owned results/windows, JSON, release/unload, cached cancellation/storage closure and uncached retry. Functional timings, not isolated benchmarks.",
+  "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+  "nativeSources": {
+    "source/gui/sherloq_app/core/gradient.py": "b57df161ae36d42926f03bf370cea66f22faa5f4a622ccee23b9f2abcb7b31c7",
+    "source/gui/sherloq_app/core/gradient_bounded.py": "43326df174628b05c796bd50df6345df75a19e7af4f39389ca70a849a98511ac",
+    "source/gui/sherloq_app/core/utility.py": "4c70b30cfb1f8bebcdae85fa95f39a77d267081bc9509d67b661c9e9600a5fbc"
+  },
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "loadMs": 2190.2000000029802,
+  "loadMetrics": {
+    "decodeMs": 1782.5,
+    "rowsPerChunk": 116,
+    "encodedWorkingBytes": 86050184,
+    "coefficientAllowanceBytes": 0,
+    "workingReservationBytes": 127956616,
+    "codecHeapCapacityBytes": 103546880,
+    "storage": "memory",
+    "temporaryBackend": null,
+    "temporaryFallback": null,
+    "temporaryBytes": 0,
+    "originalBlobBytes": 86050184,
+    "originalBlobResidency": "browser-managed; not measured as zero RAM",
+    "preparationMs": 2145.5,
+    "memory": {
+      "budgetBytes": 1073741824,
+      "retainedBytes": 288000000,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 417005192
+    }
+  },
+  "cases": [
+    {
+      "params": {
+        "intensity": 0,
+        "mode": 2,
+        "invert": false,
+        "equalize": false
+      },
+      "fullSha256": "cf90e913f6c6686fe46b70ed64e1ceb77bf6e3046af72c6fa51957a5b7951d27",
+      "windows": 4,
+      "exportBytes": 1882,
+      "rpcMs": 1104.7999999970198,
+      "metrics": {
+        "totalMs": 1104.2000000029802,
+        "derivativesMs": 479.29999999701977,
+        "lengthsMs": 0,
+        "renderMs": 602.5,
+        "toneMs": 0,
+        "blocks": 381,
+        "sourceReads": 381,
+        "analysisCacheHit": false,
+        "derivativeCacheStored": true,
+        "derivativeCacheBytes": 384001776,
+        "rowsPerBlock": 21,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "arithmeticHeapCapacityBytes": 67108864,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false,
+          "analysis": false,
+          "view": false
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 288000000,
+          "cacheBytes": 384001776,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 849127056
+        }
+      }
+    },
+    {
+      "params": {
+        "intensity": 33,
+        "mode": 3,
+        "invert": true,
+        "equalize": false
+      },
+      "fullSha256": "5f768f1ec977b1e0ca7926bea36b5dc5221fec5c5bf51a9c8a1331e4e0a73b8b",
+      "windows": 4,
+      "exportBytes": 1904,
+      "rpcMs": 1232.2999999970198,
+      "metrics": {
+        "totalMs": 1232.0999999940395,
+        "derivativesMs": 0,
+        "lengthsMs": 159.80000000447035,
+        "renderMs": 560.7999999970198,
+        "toneMs": 491.6000000014901,
+        "blocks": 0,
+        "sourceReads": 0,
+        "analysisCacheHit": true,
+        "derivativeCacheStored": true,
+        "derivativeCacheBytes": 384001776,
+        "rowsPerBlock": 21,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "arithmeticHeapCapacityBytes": 67108864,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false,
+          "analysis": true,
+          "view": false
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 288000000,
+          "cacheBytes": 384001776,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 849127056
+        }
+      }
+    },
+    {
+      "params": {
+        "intensity": 95,
+        "mode": 3,
+        "invert": true,
+        "equalize": true
+      },
+      "fullSha256": "369a1539e425f54394001df1f74eee85412617e71c57339cb9362851640b6a78",
+      "windows": 4,
+      "exportBytes": 1890,
+      "rpcMs": 1218.8999999985099,
+      "metrics": {
+        "totalMs": 1218.8999999985099,
+        "derivativesMs": 0,
+        "lengthsMs": 156.5,
+        "renderMs": 553.6000000014901,
+        "toneMs": 489.8999999985099,
+        "blocks": 0,
+        "sourceReads": 0,
+        "analysisCacheHit": true,
+        "derivativeCacheStored": true,
+        "derivativeCacheBytes": 384001776,
+        "rowsPerBlock": 21,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "arithmeticHeapCapacityBytes": 67108864,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false,
+          "analysis": true,
+          "view": false
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 288000000,
+          "cacheBytes": 384001776,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 849127056
+        }
+      }
+    }
+  ],
+  "cancellation": "storage-closed-before-worker-termination",
+  "cancellationMs": 8.299999997019768,
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 849127056,
+    "knownHeapCapacityBytes": 170655744
+  },
+  "storageArtifactsRemaining": 0,
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 849127056,
+    "finalWorkerPeakAccountedBytes": 849127056
+  },
+  "browser": "154.0.8037.58",
+  "extractedRuntime": false,
+  "engineSources": {
+    "src/segmented-gradient.js": "7c1e77e163141cc1f5dba0490b8423c6045a9d6dbc189301194bd5dcb66ba6ae",
+    "src/gradient-cache.js": "03489af9f1363ba657e80910d175be82cab1e912faa543e8271a68351980920a",
+    "src/ram-byte-cache.js": "508e290e236487acc607b31105e5b25f5a24914dbd649c12c52850fe7b7f8749",
+    "src/gradient-math.js": "d5a3164a47d0968ce3340f5a97d61e183e133aa9f8e9bc8782348ec625421899",
+    "vendor/gradient/gradient.wasm": "517b7bda132f15931d704d4021c4a75e84a7ac1d23f3f84c4ed156b66f92802c",
+    "src/index.js": "075e72e00fc45e2d59c0a47e7047273deaa9c00d6ee8e7ae2c4026d43b53938c"
+  },
+  "recipeSources": {
+    "scripts/proof-memory.mjs": "8961fbe1092bdcc16c3991e04e9e60118ba28e232ec7a5bac86596fe1942654c",
+    "scripts/generate-large-gradient.py": "5b1063d928fb353c5bdab5e507104593c4907428a809157468a6107312c64dd8",
+    "scripts/study-segmented-gradient-cache.mjs": "0bfbc8ca6bd4fc30ca2e28241d8d4ba185ab91e149cc79c9b7ce1c04950a8eee",
+    "tests/segmented-gradient-cache-browser.js": "3a0316dd24b87ec65abb27f16aa2db84114f2ff11fee6aa6bb956e32b07c347c"
+  }
+}

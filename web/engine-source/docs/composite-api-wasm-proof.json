@@ -1,0 +1,15 @@
+{
+  "provider": "wasm",
+  "cacheIsolated": true,
+  "retainsNoise": true,
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 753109284
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

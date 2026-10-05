@@ -1,0 +1,30 @@
+{
+  "provider": "webgpu",
+  "scope": "blot profile only; native depth/width disabled",
+  "modelSha256": "9b0c29d8ece319c55b8754f94ec5f73198d765d4bb672e841fbaecb4831fb7d4",
+  "checkpointSha256": "e9ddeb9e87b96555a6db4a4fbfb5b99b31c36371bf4171765dce8f1f9ef95022",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "nativeTorch": "2.8.0",
+  "records": [
+    {
+      "case": 0,
+      "scoreError": 1.7881393432617188e-07,
+      "matchDifferences": 0,
+      "matchCount": 16,
+      "ms": 663.9000000022352
+    },
+    {
+      "case": 1,
+      "scoreError": 1.7881393432617188e-07,
+      "matchDifferences": 0,
+      "matchCount": 25,
+      "ms": 161.10000000149012
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "passed": true,
+  "executionNote": "WebGPU requested; ORT reports nodes assigned to CPU fallback. This is a mixed-provider execution, not a GPU-only claim."
+}

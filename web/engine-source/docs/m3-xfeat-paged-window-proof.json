@@ -1,0 +1,265 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "backend": "cpu",
+      "index": 0,
+      "points": 1000,
+      "expectedPoints": 1000,
+      "coordinateDifferences": 0,
+      "scoreMaximum": 2.4586915969848633e-7,
+      "scoreMean": 1.8305145204067188e-8,
+      "descriptorMaximum": 7.636845111846924e-7,
+      "descriptorMean": 8.05199403952491e-8,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "wasm",
+        "execution": "global-normalization-paged-backbone-global-selection",
+        "executions": 6,
+        "retries": 0,
+        "failures": [],
+        "maximumActualHeapBytes": 39190528,
+        "preflightExecutions": 0,
+        "halo": 256,
+        "coreSize": 512,
+        "workers": 2,
+        "workerAdmittedBytes": 977272832,
+        "preparation": {
+          "width": 1312,
+          "height": 768,
+          "mean": 127.53336334228516,
+          "inverseStd": 0.0351768359541893,
+          "reads": 768,
+          "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+        },
+        "storage": {
+          "gray": "memory",
+          "heat": "memory",
+          "dense": "memory",
+          "bytes": 12091392
+        },
+        "globalCandidates": 28289,
+        "postHeapBytes": 16777216,
+        "maskHeapBytes": 33554432
+      }
+    },
+    {
+      "backend": "cpu",
+      "index": 1,
+      "points": 346,
+      "expectedPoints": 346,
+      "coordinateDifferences": 0,
+      "scoreMaximum": 3.4458935260772705e-8,
+      "scoreMean": 4.59398916852526e-9,
+      "descriptorMaximum": 0.0000010132789611816406,
+      "descriptorMean": 8.878625251320502e-8,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "wasm",
+        "execution": "global-normalization-paged-backbone-global-selection",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "maximumActualHeapBytes": 20185088,
+        "preflightExecutions": 0,
+        "halo": 256,
+        "coreSize": 512,
+        "workers": 1,
+        "workerAdmittedBytes": 268730368,
+        "preparation": {
+          "width": 128,
+          "height": 96,
+          "mean": 127.01543426513672,
+          "inverseStd": 0.023393873125314713,
+          "reads": 96,
+          "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+        },
+        "storage": {
+          "gray": "memory",
+          "heat": "memory",
+          "dense": "memory",
+          "bytes": 147456
+        },
+        "globalCandidates": 348,
+        "postHeapBytes": 16777216,
+        "maskHeapBytes": 33554432
+      }
+    },
+    {
+      "backend": "cpu",
+      "index": 2,
+      "points": 359,
+      "expectedPoints": 359,
+      "coordinateDifferences": 0,
+      "scoreMaximum": 1.043081283569336e-7,
+      "scoreMean": 7.278470758317574e-9,
+      "descriptorMaximum": 5.066394805908203e-7,
+      "descriptorMean": 6.807964157877485e-8,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "wasm",
+        "execution": "global-normalization-paged-backbone-global-selection",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "maximumActualHeapBytes": 20185088,
+        "preflightExecutions": 0,
+        "halo": 256,
+        "coreSize": 512,
+        "workers": 1,
+        "workerAdmittedBytes": 268730368,
+        "preparation": {
+          "width": 96,
+          "height": 128,
+          "mean": 126.6103286743164,
+          "inverseStd": 0.03513143211603165,
+          "reads": 128,
+          "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+        },
+        "storage": {
+          "gray": "memory",
+          "heat": "memory",
+          "dense": "memory",
+          "bytes": 147456
+        },
+        "globalCandidates": 359,
+        "postHeapBytes": 16777216,
+        "maskHeapBytes": 33554432
+      }
+    },
+    {
+      "backend": "webgpu",
+      "index": 0,
+      "points": 1000,
+      "expectedPoints": 1000,
+      "coordinateDifferences": 0,
+      "scoreMaximum": 2.3096799850463867e-7,
+      "scoreMean": 2.046581357717511e-8,
+      "descriptorMaximum": 0.0000010654330253601074,
+      "descriptorMean": 9.706250625017545e-8,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "webgpu",
+        "execution": "global-normalization-paged-backbone-global-selection",
+        "executions": 6,
+        "retries": 0,
+        "failures": [],
+        "maximumActualHeapBytes": 29097984,
+        "preflightExecutions": 0,
+        "halo": 256,
+        "coreSize": 512,
+        "workers": 2,
+        "workerAdmittedBytes": 1312817152,
+        "preparation": {
+          "width": 1312,
+          "height": 768,
+          "mean": 127.53336334228516,
+          "inverseStd": 0.0351768359541893,
+          "reads": 768,
+          "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+        },
+        "storage": {
+          "gray": "memory",
+          "heat": "memory",
+          "dense": "memory",
+          "bytes": 12091392
+        },
+        "globalCandidates": 28289,
+        "postHeapBytes": 16777216,
+        "maskHeapBytes": 33554432
+      }
+    },
+    {
+      "backend": "webgpu",
+      "index": 1,
+      "points": 346,
+      "expectedPoints": 346,
+      "coordinateDifferences": 0,
+      "scoreMaximum": 4.842877388000488e-8,
+      "scoreMean": 5.462351578120897e-9,
+      "descriptorMaximum": 0.000001475214958190918,
+      "descriptorMean": 1.2500388672281346e-7,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "webgpu",
+        "execution": "global-normalization-paged-backbone-global-selection",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "maximumActualHeapBytes": 20185088,
+        "preflightExecutions": 0,
+        "halo": 256,
+        "coreSize": 512,
+        "workers": 1,
+        "workerAdmittedBytes": 340557824,
+        "preparation": {
+          "width": 128,
+          "height": 96,
+          "mean": 127.01543426513672,
+          "inverseStd": 0.023393873125314713,
+          "reads": 96,
+          "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+        },
+        "storage": {
+          "gray": "memory",
+          "heat": "memory",
+          "dense": "memory",
+          "bytes": 147456
+        },
+        "globalCandidates": 348,
+        "postHeapBytes": 16777216,
+        "maskHeapBytes": 33554432
+      }
+    },
+    {
+      "backend": "webgpu",
+      "index": 2,
+      "points": 359,
+      "expectedPoints": 359,
+      "coordinateDifferences": 0,
+      "scoreMaximum": 8.102506399154663e-8,
+      "scoreMean": 7.293792830619298e-9,
+      "descriptorMaximum": 4.470348358154297e-7,
+      "descriptorMean": 7.550476640821356e-8,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "webgpu",
+        "execution": "global-normalization-paged-backbone-global-selection",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "maximumActualHeapBytes": 20185088,
+        "preflightExecutions": 0,
+        "halo": 256,
+        "coreSize": 512,
+        "workers": 1,
+        "workerAdmittedBytes": 340557824,
+        "preparation": {
+          "width": 96,
+          "height": 128,
+          "mean": 126.6103286743164,
+          "inverseStd": 0.03513143211603165,
+          "reads": 128,
+          "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+        },
+        "storage": {
+          "gray": "memory",
+          "heat": "memory",
+          "dense": "memory",
+          "bytes": 147456
+        },
+        "globalCandidates": 359,
+        "postHeapBytes": 16777216,
+        "maskHeapBytes": 33554432
+      }
+    }
+  ],
+  "peakAccountedBytes": 1428839680,
+  "finalMemory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1428839680
+  }
+}

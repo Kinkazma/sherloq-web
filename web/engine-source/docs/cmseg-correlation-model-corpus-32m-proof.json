@@ -1,0 +1,227 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Same production CMSeg backbone, checkpoint, native512 preparation, global correlations and decoder. GPU replaces ordered non-Winograd convolutions and streams complete dot-product rows for the128x128 global correlation; both smaller correlations and all Gaussian/softmax/TopK remain CPU. Native final probabilities and masks compared. Fresh helpers, serial runs in one browser context with identical1GiB budgets; OS/driver caches not flushed. Component timings exclude source decoding, projection/export/UI; those have separate API recipes.",
+  "records": [
+    {
+      "name": "structured-copy",
+      "backend": "webgpu",
+      "preparationMs": 32.70000000298023,
+      "preparationExact": true,
+      "milliseconds": 8736.40000000596,
+      "sha256": "a50181f36a8695cfb76f648bf6ce4926034448cfd4b73138ff053e0eaad00cc1",
+      "gpu": {
+        "devices": 2,
+        "allocations": 3857,
+        "peakAccountedBytes": 54532552,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": [],
+        "simultaneousDeviceMaximum": 1
+      },
+      "workers": 9,
+      "timings": {
+        "modelLoadMs": 957.8999999910593,
+        "inferenceMs": 7739.000000029802,
+        "outputCopyMs": 11.799999982118607,
+        "correlationMs": 5962.29999999702,
+        "correlationGpuMs": 5144.199999988079,
+        "backboneMs": 1096.7000000178814,
+        "backboneSetupMs": 9.200000002980232,
+        "parameterLoadMs": 613.6999999880791,
+        "gpuWriteBytes": 920522488,
+        "gpuReadBytes": 2248966144
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 588221060,
+        "peakAccountedBytes": 1068469636
+      },
+      "probability": {
+        "maxAbs": 8.437782526016235e-7,
+        "meanAbs": 3.297384821437932e-8,
+        "different": 262011,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 0,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1068469636
+      }
+    },
+    {
+      "name": "constant",
+      "backend": "webgpu",
+      "preparationMs": 29,
+      "preparationExact": true,
+      "milliseconds": 12996.5,
+      "sha256": "b7a19bccb3f48a497798f3cecb2de6b4955fea27fd6f40a9110f3285e813c094",
+      "gpu": {
+        "devices": 2,
+        "allocations": 3857,
+        "peakAccountedBytes": 54532552,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": [],
+        "simultaneousDeviceMaximum": 1
+      },
+      "workers": 9,
+      "timings": {
+        "modelLoadMs": 947.099999949336,
+        "inferenceMs": 12008.100000068545,
+        "outputCopyMs": 11.299999997019768,
+        "correlationMs": 10017.300000011921,
+        "correlationGpuMs": 9195.90000000596,
+        "backboneMs": 1319.5000000447035,
+        "backboneSetupMs": 9.600000008940697,
+        "parameterLoadMs": 578.599999949336,
+        "gpuWriteBytes": 920522488,
+        "gpuReadBytes": 2248966144
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 588221060,
+        "peakAccountedBytes": 1068469636
+      },
+      "probability": {
+        "maxAbs": 1.7415732145309448e-7,
+        "meanAbs": 3.257542476216291e-8,
+        "different": 262119,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 0,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1068469636
+      }
+    },
+    {
+      "name": "paired-spots",
+      "backend": "webgpu",
+      "preparationMs": 34.3999999910593,
+      "preparationExact": true,
+      "milliseconds": 8898.29999999702,
+      "sha256": "852aebdbc064529ea4bb2f9bb7a14e6fec6079e080376fb9953501b215552c18",
+      "gpu": {
+        "devices": 2,
+        "allocations": 3857,
+        "peakAccountedBytes": 54532552,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": [],
+        "simultaneousDeviceMaximum": 1
+      },
+      "workers": 9,
+      "timings": {
+        "modelLoadMs": 876.799999922514,
+        "inferenceMs": 7984.200000062585,
+        "outputCopyMs": 11.599999994039536,
+        "correlationMs": 6546.5,
+        "correlationGpuMs": 5308.5,
+        "backboneMs": 761.6000000685453,
+        "backboneSetupMs": 6.200000002980232,
+        "parameterLoadMs": 533.6999999284744,
+        "gpuWriteBytes": 920522488,
+        "gpuReadBytes": 2248966144
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 588221060,
+        "peakAccountedBytes": 1068469636
+      },
+      "probability": {
+        "maxAbs": 1.7695128917694092e-7,
+        "meanAbs": 3.274808897061471e-8,
+        "different": 262097,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 0,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1068469636
+      }
+    },
+    {
+      "name": "blobs-copy",
+      "backend": "webgpu",
+      "preparationMs": 21.700000002980232,
+      "preparationExact": true,
+      "milliseconds": 13080,
+      "sha256": "13e4925c4a2d22c43b5799de9643f116bcd9e652e1a61f156b69cf8db840b8f2",
+      "gpu": {
+        "devices": 2,
+        "allocations": 3857,
+        "peakAccountedBytes": 54532552,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": [],
+        "simultaneousDeviceMaximum": 1
+      },
+      "workers": 9,
+      "timings": {
+        "modelLoadMs": 925.9999999254942,
+        "inferenceMs": 12115.300000071526,
+        "outputCopyMs": 11.400000005960464,
+        "correlationMs": 10164.40000000596,
+        "correlationGpuMs": 9373.10000000894,
+        "backboneMs": 1274.0000000745058,
+        "backboneSetupMs": 5.9000000059604645,
+        "parameterLoadMs": 584.3999999314547,
+        "gpuWriteBytes": 920522488,
+        "gpuReadBytes": 2248966144
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 588221060,
+        "peakAccountedBytes": 1068469636
+      },
+      "probability": {
+        "maxAbs": 0.000016391277313232422,
+        "meanAbs": 6.403389791890049e-8,
+        "different": 261871,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 2611,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1068469636
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "experiments/segmentation/cmseg-correlation-gpu.js": "ecbaa27f15dfa65bb116ec61b17526fb6cdde68549246ec5f6be71fc3b80d413",
+    "experiments/segmentation/cmseg-correlation-gpu-worker.js": "245270f340794489637bae42b7356a73ca717621c6d58cbecc4a935319f74c12",
+    "vendor/segmentation/cmseg-correlation-gpu/post.js": "308ac75e9eeec1ab800c7f76138a2db61f02867dc980c75d711326faf981c699",
+    "vendor/segmentation/cmseg-correlation-gpu/post.wasm": "8ad628ecb2bc6bb288a382f0ff9eb446abfcddf957db1926f677cead57f3bfe0",
+    "scripts/study-cmseg-correlation-model.mjs": "f584c7c4a9b37e50f20a4988d1cb1a36039796c9622018f44fa138a77a4110d8",
+    "experiments/segmentation/cmseg-backbone.js": "9d7a8a5f8de1074bd5a444f6af4b0bb79c1f1d5250e683574e3be2400ee9605e",
+    "experiments/segmentation/cmseg-inference.js": "7ecf56a3a09ac4ed197dbc4cb8b158dbe7d437b78d92d32f1ecf499d1fad3440",
+    "experiments/segmentation/cmseg-inference-worker.js": "eb08d60c167279125fcf54deb3bc22de03788b7af2a6f1d1e9f0c5330fbe490f",
+    "experiments/segmentation/cmseg-correlation.js": "efd9ac635242650138d5a5ccc048a92d1204ac154b71166c2d47de4000b76293",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "experiments/segmentation/prepare.js": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "vendor/segmentation/CMSEG-EXACT-PINNED.json": "59e25760d8ad649f6eec2ef6d283b7c10bfa4b0911a0e2a179c2c88ee380cd9f"
+  }
+}

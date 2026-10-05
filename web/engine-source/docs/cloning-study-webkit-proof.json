@@ -1,0 +1,3248 @@
+{
+  "status": "exact on declared synthetic prototype corpus; no product activation",
+  "matchingKernel": "direct-popcnt with pinned native equal-distance order",
+  "binarySha256": "4cdc305bfadacb10209b351e57913d64dcd2c9c69c824193045fa6b7559bee3c",
+  "nativeSourceSha256": "161d3b3589383740fafd97cd9871f531c7ee2313db55ac5620a8c9770637db27",
+  "detectorCases": 64,
+  "selectionCases": 256,
+  "matchingCases": 104,
+  "normCases": 10000,
+  "stdCases": 80,
+  "boundaryCases": 90,
+  "pipelineCases": 190,
+  "heapFallbacks": 0,
+  "heapCapacityBytes": 33554432,
+  "stats": [
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "flat",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "tiny",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 1,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 38,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 300,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 110,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 301,
+      "filtered": 182,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 83,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 108,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 83,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 84,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 108,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "noise-193-127",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 84,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 2,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 1,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 23,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 265,
+      "matches": 2,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 294,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 2,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 2,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 2,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 2,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 2,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 2,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 265,
+      "filtered": 210,
+      "matches": 2,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 57,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 108,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 57,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 66,
+      "filtered": 54,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 66,
+      "filtered": 65,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-193-127",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 66,
+      "filtered": 54,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 16,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 1,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 48,
+      "matches": 4,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 451,
+      "matches": 22,
+      "clusters": 4,
+      "regions": 1
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 10,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 334,
+      "clusters": 4,
+      "regions": 1
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 16,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 16,
+      "clusters": 8,
+      "regions": 1
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 16,
+      "clusters": 16,
+      "regions": 1
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 16,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 16,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 16,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 451,
+      "filtered": 277,
+      "matches": 16,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 71,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 109,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 71,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 64,
+      "matches": 14,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 109,
+      "matches": 22,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "clone-512-384",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 64,
+      "matches": 14,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 262,
+      "clusters": 115,
+      "regions": 6
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 19,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 477,
+      "matches": 2202,
+      "clusters": 1532,
+      "regions": 7
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 6834,
+      "clusters": 5893,
+      "regions": 9
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 474,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 24,
+      "clusters": 17,
+      "regions": 5
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 262,
+      "clusters": 262,
+      "regions": 8
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 262,
+      "clusters": 5,
+      "regions": 6
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 262,
+      "clusters": 115,
+      "regions": 6
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 262,
+      "clusters": 115,
+      "regions": 6
+    },
+    {
+      "image": "shapes",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 477,
+      "filtered": 255,
+      "matches": 262,
+      "clusters": 115,
+      "regions": 6
+    },
+    {
+      "image": "shapes",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 50,
+      "matches": 46,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "shapes",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 109,
+      "matches": 460,
+      "clusters": 263,
+      "regions": 9
+    },
+    {
+      "image": "shapes",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 50,
+      "matches": 46,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "shapes",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 63,
+      "filtered": 26,
+      "matches": 24,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "shapes",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 63,
+      "filtered": 63,
+      "matches": 358,
+      "clusters": 29,
+      "regions": 3
+    },
+    {
+      "image": "shapes",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 63,
+      "filtered": 26,
+      "matches": 24,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 1,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 28,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 500,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 124,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 500,
+      "filtered": 178,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 87,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 108,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 87,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 78,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 109,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-noise",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 78,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 30,
+      "clusters": 3,
+      "regions": 1
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 84,
+      "matches": 16,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 491,
+      "matches": 40,
+      "clusters": 6,
+      "regions": 1
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 18,
+      "clusters": 1,
+      "regions": 1
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 328,
+      "clusters": 3,
+      "regions": 1
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 30,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 30,
+      "clusters": 23,
+      "regions": 1
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 30,
+      "clusters": 30,
+      "regions": 1
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 30,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 30,
+      "clusters": 3,
+      "regions": 1
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 30,
+      "clusters": 3,
+      "regions": 1
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 492,
+      "filtered": 289,
+      "matches": 30,
+      "clusters": 3,
+      "regions": 1
+    },
+    {
+      "image": "large-clone",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 81,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 109,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 81,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 74,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 109,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-clone",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 74,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 32,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 1,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 85,
+      "matches": 16,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 490,
+      "matches": 38,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 16,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 346,
+      "clusters": 4,
+      "regions": 1
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 32,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 32,
+      "clusters": 26,
+      "regions": 7
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 32,
+      "clusters": 32,
+      "regions": 7
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 32,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 32,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 32,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 490,
+      "filtered": 288,
+      "matches": 32,
+      "clusters": 2,
+      "regions": 1
+    },
+    {
+      "image": "large-rotated",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 81,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 109,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 81,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 74,
+      "matches": 6,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 109,
+      "filtered": 109,
+      "matches": 6,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-rotated",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 109,
+      "filtered": 74,
+      "matches": 6,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 1122,
+      "clusters": 244,
+      "regions": 3
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 68,
+      "matches": 92,
+      "clusters": 1,
+      "regions": 1
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 300,
+      "matches": 1694,
+      "clusters": 333,
+      "regions": 3
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 24,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 3328,
+      "clusters": 1010,
+      "regions": 6
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 1242,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 324,
+      "clusters": 311,
+      "regions": 7
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 1122,
+      "clusters": 1122,
+      "regions": 5
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 1122,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 1122,
+      "clusters": 244,
+      "regions": 3
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 1122,
+      "clusters": 244,
+      "regions": 3
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 301,
+      "filtered": 232,
+      "matches": 1122,
+      "clusters": 244,
+      "regions": 3
+    },
+    {
+      "image": "large-checker",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    },
+    {
+      "image": "large-checker",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true
+      },
+      "total": 0,
+      "filtered": 0,
+      "matches": 0,
+      "clusters": 0,
+      "regions": 0
+    }
+  ],
+  "browser": "26.6"
+}

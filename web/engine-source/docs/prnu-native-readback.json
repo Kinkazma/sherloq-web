@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "nativeH5py": "3.16.0",
+  "exports": [
+    {
+      "file": "prnu-browser-export.h5",
+      "bytes": 53327,
+      "sha256": "9297c1a2e728958f1d1b830b8a4b9aad4c63c7600ca0b5728369a6d7825bcfc9",
+      "scores": [
+        [
+          "camera_alpha",
+          0.9622878607570788
+        ],
+        [
+          "camera_beta",
+          0.01072198512064686
+        ]
+      ],
+      "float64BitsExact": true,
+      "metadataExact": true
+    },
+    {
+      "file": "prnu-browser-built.h5",
+      "bytes": 53327,
+      "sha256": "9297c1a2e728958f1d1b830b8a4b9aad4c63c7600ca0b5728369a6d7825bcfc9",
+      "scores": [
+        [
+          "camera_alpha",
+          0.9622878607570788
+        ],
+        [
+          "camera_beta",
+          0.01072198512064686
+        ]
+      ],
+      "float64BitsExact": true,
+      "metadataExact": true
+    }
+  ]
+}

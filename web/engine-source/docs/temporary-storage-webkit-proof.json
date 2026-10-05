@@ -1,0 +1,144 @@
+{
+  "schema": 2,
+  "status": "passed",
+  "runs": [
+    {
+      "requestedBackend": "auto",
+      "normal": {
+        "status": "passed",
+        "backend": "indexeddb",
+        "fallback": {
+          "from": "opfs",
+          "code": "STORAGE_IO",
+          "message": "Temporary browser storage failed (UnknownError)."
+        },
+        "capability": {
+          "available": true,
+          "opfs": {
+            "available": true,
+            "requiresDedicatedWorker": true,
+            "quotaBytes": 1048576000,
+            "usageBytes": 270187366,
+            "estimateIsReservation": false
+          },
+          "indexeddb": true,
+          "estimateIsReservation": false
+        },
+        "bytes": 67108977,
+        "chunkBytes": 1048593,
+        "writeMs": 214,
+        "readMs": 114,
+        "peakRamAccountedBytes": 8388608,
+        "storage": {
+          "reservedBytes": 67108977,
+          "peakReservedBytes": 67108977,
+          "estimatedAvailableBytes": 778388634,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": 100663296,
+          "openFiles": 0,
+          "arrays": 1,
+          "pageBytes": 1048576,
+          "backend": "indexeddb",
+          "readCacheEnabled": true,
+          "readCachePages": 2,
+          "reads": {
+            "transactions": 75,
+            "cacheHits": 65,
+            "requestedBytes": 67109480
+          }
+        },
+        "sessionId": "job-f000f53e-14d8-4f35-a90f-349e67194b52",
+        "quotaAdmission": true,
+        "impreciseUsageAdmission": true,
+        "concurrentAdmission": true,
+        "overlappingPageWrites": true,
+        "idempotentCleanup": true,
+        "disposeDuringCreate": true,
+        "randomSeams": 4,
+        "cancellation": true,
+        "cacheChecks": {
+          "reuse": true,
+          "overlappingWriteInvalidation": true,
+          "failedWriteInvalidation": true,
+          "sharedBudgetEviction": true
+        }
+      },
+      "verifiedAbsent": true,
+      "terminated": {
+        "status": "passed",
+        "sessionId": "job-482cdad1-1231-46b3-8aa4-d9e495636df2",
+        "backend": "indexeddb",
+        "verifiedAbsent": true,
+        "cleanup": "owned job only"
+      }
+    },
+    {
+      "requestedBackend": "indexeddb",
+      "normal": {
+        "status": "passed",
+        "backend": "indexeddb",
+        "fallback": null,
+        "capability": {
+          "available": true,
+          "opfs": {
+            "available": true,
+            "requiresDedicatedWorker": true,
+            "quotaBytes": 1048576000,
+            "usageBytes": 410704218,
+            "estimateIsReservation": false
+          },
+          "indexeddb": true,
+          "estimateIsReservation": false
+        },
+        "bytes": 67108977,
+        "chunkBytes": 1048593,
+        "writeMs": 211,
+        "readMs": 103,
+        "peakRamAccountedBytes": 8388608,
+        "storage": {
+          "reservedBytes": 67108977,
+          "peakReservedBytes": 67108977,
+          "estimatedAvailableBytes": 637871782,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": 100663296,
+          "openFiles": 0,
+          "arrays": 1,
+          "pageBytes": 1048576,
+          "backend": "indexeddb",
+          "readCacheEnabled": true,
+          "readCachePages": 2,
+          "reads": {
+            "transactions": 75,
+            "cacheHits": 65,
+            "requestedBytes": 67109480
+          }
+        },
+        "sessionId": "job-9a1eec9e-102a-41fa-8627-df9480a7c262",
+        "quotaAdmission": true,
+        "impreciseUsageAdmission": true,
+        "concurrentAdmission": true,
+        "overlappingPageWrites": true,
+        "idempotentCleanup": true,
+        "disposeDuringCreate": true,
+        "randomSeams": 4,
+        "cancellation": true,
+        "cacheChecks": {
+          "reuse": true,
+          "overlappingWriteInvalidation": true,
+          "failedWriteInvalidation": true,
+          "sharedBudgetEviction": true
+        }
+      },
+      "verifiedAbsent": true,
+      "terminated": {
+        "status": "passed",
+        "sessionId": "job-40c7bf27-e7e2-483e-aae5-6576e2203d4d",
+        "backend": "indexeddb",
+        "verifiedAbsent": true,
+        "cleanup": "owned job only"
+      }
+    }
+  ],
+  "scope": "Real dedicated-worker OPFS or IndexedDB; bounded 64 MiB segmented array, exact sequential/random byte checks, explicit quota rejection, cancellation and terminated-worker cleanup. IndexedDB backing medium is browser-managed. Not an image-engine adapter or isolated performance benchmark.",
+  "browser": "26.6"
+}

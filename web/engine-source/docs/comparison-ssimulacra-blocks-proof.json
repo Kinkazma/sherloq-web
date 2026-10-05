@@ -1,0 +1,35 @@
+[
+  {
+    "arithmetic": "native",
+    "values": [
+      0.14817154
+    ],
+    "native": [
+      0.14817154
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 39124992,
+      "workers": 1,
+      "paged": true,
+      "reads": 3711,
+      "writes": 1364,
+      "readBytes": 346633472,
+      "writeBytes": 127074304,
+      "temporaryPeakBytes": 50331648,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 20623,
+    "memory": {
+      "budgetBytes": 67108864,
+      "retainedBytes": 6291456,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 48416355
+    }
+  }
+]

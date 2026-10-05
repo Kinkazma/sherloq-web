@@ -1,0 +1,330 @@
+{
+  "librarySha256": "dd87e97f79d08ada63af2c856f9563589110680ad55c7890e98ea42782cdd5df",
+  "results": [
+    {
+      "stem": "m0-p3",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 1.1920928955078125e-7,
+          "changed": 2939
+        },
+        {
+          "name": "b",
+          "max": 1.1920928955078125e-7,
+          "changed": 3134
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 47171
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 34044
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 45155
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    },
+    {
+      "stem": "m0-p8",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 1.1920928955078125e-7,
+          "changed": 3283
+        },
+        {
+          "name": "b",
+          "max": 1.1920928955078125e-7,
+          "changed": 3154
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 49826
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 35723
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 47281
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    },
+    {
+      "stem": "m1-p3",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 0,
+          "changed": 0
+        },
+        {
+          "name": "b",
+          "max": 0,
+          "changed": 0
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 30677
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 25242
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 26764
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    },
+    {
+      "stem": "m1-p4",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 0,
+          "changed": 0
+        },
+        {
+          "name": "b",
+          "max": 0,
+          "changed": 0
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 24681
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 20776
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 22336
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    },
+    {
+      "stem": "m1-p8",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 0,
+          "changed": 0
+        },
+        {
+          "name": "b",
+          "max": 0,
+          "changed": 0
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 7365
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 5692
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 5439
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    }
+  ]
+}

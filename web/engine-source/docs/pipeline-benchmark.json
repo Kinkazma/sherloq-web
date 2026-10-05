@@ -1,0 +1,791 @@
+{
+  "schema": 1,
+  "scope": "Actual persistent module worker + JPEG decode/recompression + ELA + output transfer; excludes UI painting",
+  "runs": [
+    {
+      "side": 512,
+      "cpuKernel": "reference",
+      "iteration": 0,
+      "loadRpcMs": 28.100000023841858,
+      "load": {
+        "preparationMs": 13.300000011920929,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40482269
+        }
+      },
+      "rpcMs": 22.69999998807907,
+      "engine": {
+        "codecMs": 11.099999964237213,
+        "kernelMs": 10.699999988079071,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "totalMs": 22.100000023841858,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 4718592,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 47135903,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "9898b72412ea4cae3760f6ea8be754ac82ba7da8392f295b6e4ee913858e3958"
+    },
+    {
+      "side": 512,
+      "cpuKernel": "reference",
+      "iteration": 1,
+      "loadRpcMs": 28.100000023841858,
+      "load": {
+        "preparationMs": 13.300000011920929,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40482269
+        }
+      },
+      "rpcMs": 0.30000001192092896,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 0,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": true
+        },
+        "totalMs": 0.19999998807907104,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 4718592,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 51854495,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "9898b72412ea4cae3760f6ea8be754ac82ba7da8392f295b6e4ee913858e3958"
+    },
+    {
+      "side": 512,
+      "cpuKernel": "reference",
+      "iteration": 2,
+      "loadRpcMs": 28.100000023841858,
+      "load": {
+        "preparationMs": 13.300000011920929,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40482269
+        }
+      },
+      "rpcMs": 4.800000011920929,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 4.199999988079071,
+        "cache": {
+          "recompressed": false,
+          "base": true,
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "totalMs": 4.300000011920929,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 5505024,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 51854495,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "bee30320b7efcbe0666dac4f5f66724b249418266efe8c74d09ac781f38c3fe0"
+    },
+    {
+      "side": 512,
+      "cpuKernel": "single",
+      "iteration": 0,
+      "loadRpcMs": 26.19999998807907,
+      "load": {
+        "preparationMs": 14.400000035762787,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40482269
+        }
+      },
+      "rpcMs": 18.200000047683716,
+      "engine": {
+        "codecMs": 10.800000011920929,
+        "kernelMs": 6.699999988079071,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": false,
+          "table": false
+        },
+        "workers": 1,
+        "kernel": "cpu-lookup",
+        "totalMs": 17.80000001192093,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 1638400,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 47135903,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "9898b72412ea4cae3760f6ea8be754ac82ba7da8392f295b6e4ee913858e3958"
+    },
+    {
+      "side": 512,
+      "cpuKernel": "single",
+      "iteration": 1,
+      "loadRpcMs": 26.19999998807907,
+      "load": {
+        "preparationMs": 14.400000035762787,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40482269
+        }
+      },
+      "rpcMs": 0.3999999761581421,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 0,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": true
+        },
+        "totalMs": 0.09999996423721313,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 1638400,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 48774303,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "9898b72412ea4cae3760f6ea8be754ac82ba7da8392f295b6e4ee913858e3958"
+    },
+    {
+      "side": 512,
+      "cpuKernel": "single",
+      "iteration": 2,
+      "loadRpcMs": 26.19999998807907,
+      "load": {
+        "preparationMs": 14.400000035762787,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40482269
+        }
+      },
+      "rpcMs": 2.900000035762787,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 2,
+        "cache": {
+          "recompressed": true,
+          "base": false,
+          "result": false,
+          "table": false
+        },
+        "workers": 1,
+        "kernel": "cpu-lookup",
+        "totalMs": 2.5,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 2490368,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 48774303,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "bee30320b7efcbe0666dac4f5f66724b249418266efe8c74d09ac781f38c3fe0"
+    },
+    {
+      "side": 512,
+      "cpuKernel": "auto",
+      "iteration": 0,
+      "loadRpcMs": 24.700000047683716,
+      "load": {
+        "preparationMs": 12.100000023841858,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40482269
+        }
+      },
+      "rpcMs": 18,
+      "engine": {
+        "codecMs": 11,
+        "kernelMs": 6.300000011920929,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": false,
+          "table": false
+        },
+        "workers": 1,
+        "kernel": "cpu-lookup",
+        "totalMs": 17.5,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 1638400,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 47135903,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "9898b72412ea4cae3760f6ea8be754ac82ba7da8392f295b6e4ee913858e3958"
+    },
+    {
+      "side": 512,
+      "cpuKernel": "auto",
+      "iteration": 1,
+      "loadRpcMs": 24.700000047683716,
+      "load": {
+        "preparationMs": 12.100000023841858,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40482269
+        }
+      },
+      "rpcMs": 0.30000001192092896,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 0,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": true
+        },
+        "totalMs": 0.09999996423721313,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 1638400,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 48774303,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "9898b72412ea4cae3760f6ea8be754ac82ba7da8392f295b6e4ee913858e3958"
+    },
+    {
+      "side": 512,
+      "cpuKernel": "auto",
+      "iteration": 2,
+      "loadRpcMs": 24.700000047683716,
+      "load": {
+        "preparationMs": 12.100000023841858,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40482269
+        }
+      },
+      "rpcMs": 1.800000011920929,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 1.699999988079071,
+        "cache": {
+          "recompressed": true,
+          "base": false,
+          "result": false,
+          "table": false
+        },
+        "workers": 1,
+        "kernel": "cpu-lookup",
+        "totalMs": 1.800000011920929,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 998559,
+          "cacheBytes": 2490368,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 48774303,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "bee30320b7efcbe0666dac4f5f66724b249418266efe8c74d09ac781f38c3fe0"
+    },
+    {
+      "side": 1024,
+      "cpuKernel": "reference",
+      "iteration": 0,
+      "loadRpcMs": 34.19999998807907,
+      "load": {
+        "preparationMs": 24.30000001192093,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "rpcMs": 55.09999996423721,
+      "engine": {
+        "codecMs": 28.69999998807907,
+        "kernelMs": 25.5,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "totalMs": 54.69999998807907,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 18874368,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 87878437,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "c2f2806a24c671afbbe78c8caae18a173a2217026dce424ce91b763c373b8ad7"
+    },
+    {
+      "side": 1024,
+      "cpuKernel": "reference",
+      "iteration": 1,
+      "loadRpcMs": 34.19999998807907,
+      "load": {
+        "preparationMs": 24.30000001192093,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "rpcMs": 0.3999999761581421,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 0,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": true
+        },
+        "totalMs": 0.30000001192092896,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 18874368,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 106752805,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "c2f2806a24c671afbbe78c8caae18a173a2217026dce424ce91b763c373b8ad7"
+    },
+    {
+      "side": 1024,
+      "cpuKernel": "reference",
+      "iteration": 2,
+      "loadRpcMs": 34.19999998807907,
+      "load": {
+        "preparationMs": 24.30000001192093,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "rpcMs": 13.899999976158142,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 13.399999976158142,
+        "cache": {
+          "recompressed": false,
+          "base": true,
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "totalMs": 13.799999952316284,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 22020096,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 106752805,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "941f97bac5ed9932365e3d6e87819f7c229b25ba78e8148a633e22c786800c0b"
+    },
+    {
+      "side": 1024,
+      "cpuKernel": "single",
+      "iteration": 0,
+      "loadRpcMs": 34.59999996423721,
+      "load": {
+        "preparationMs": 22.80000001192093,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "rpcMs": 39,
+      "engine": {
+        "codecMs": 28.19999998807907,
+        "kernelMs": 9.699999988079071,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": false,
+          "table": false
+        },
+        "workers": 1,
+        "kernel": "cpu-lookup",
+        "totalMs": 38.39999997615814,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 6356992,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 87878437,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "c2f2806a24c671afbbe78c8caae18a173a2217026dce424ce91b763c373b8ad7"
+    },
+    {
+      "side": 1024,
+      "cpuKernel": "single",
+      "iteration": 1,
+      "loadRpcMs": 34.59999996423721,
+      "load": {
+        "preparationMs": 22.80000001192093,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "rpcMs": 0.6000000238418579,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 0,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": true
+        },
+        "totalMs": 0.3999999761581421,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 6356992,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 94235429,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "c2f2806a24c671afbbe78c8caae18a173a2217026dce424ce91b763c373b8ad7"
+    },
+    {
+      "side": 1024,
+      "cpuKernel": "single",
+      "iteration": 2,
+      "loadRpcMs": 34.59999996423721,
+      "load": {
+        "preparationMs": 22.80000001192093,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "rpcMs": 5.199999988079071,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 4.599999964237213,
+        "cache": {
+          "recompressed": true,
+          "base": false,
+          "result": false,
+          "table": false
+        },
+        "workers": 1,
+        "kernel": "cpu-lookup",
+        "totalMs": 5,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 9568256,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 94235429,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "941f97bac5ed9932365e3d6e87819f7c229b25ba78e8148a633e22c786800c0b"
+    },
+    {
+      "side": 1024,
+      "cpuKernel": "auto",
+      "iteration": 0,
+      "loadRpcMs": 35.19999998807907,
+      "load": {
+        "preparationMs": 23.600000023841858,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "rpcMs": 244.60000002384186,
+      "engine": {
+        "codecMs": 27.5,
+        "kernelMs": 216.0999999642372,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": false,
+          "table": false
+        },
+        "workers": 4,
+        "calibration": {
+          "pixels": 1048576,
+          "selectedWorkers": 4,
+          "measurements": [
+            {
+              "workers": 1,
+              "medianMs": 4.599999964237213,
+              "samplesMs": [
+                7.700000047683716,
+                4.599999964237213,
+                4.199999988079071
+              ]
+            },
+            {
+              "workers": 2,
+              "medianMs": 3.599999964237213,
+              "samplesMs": [
+                3.600000023841858,
+                3.5,
+                3.599999964237213
+              ]
+            },
+            {
+              "workers": 4,
+              "medianMs": 2.899999976158142,
+              "samplesMs": [
+                4,
+                2.600000023841858,
+                2.899999976158142
+              ]
+            },
+            {
+              "workers": 8,
+              "medianMs": 3.300000011920929,
+              "samplesMs": [
+                3.399999976158142,
+                2.899999976158142,
+                3.300000011920929
+              ]
+            },
+            {
+              "workers": 10,
+              "medianMs": 3.100000023841858,
+              "samplesMs": [
+                3.100000023841858,
+                2.699999988079071,
+                3.800000011920929
+              ]
+            }
+          ],
+          "totalMs": 209.20000004768372,
+          "rule": "At least 5% median benefit including table broadcast and transfers; evaluate all admitted core-count candidates; single thread per worker"
+        },
+        "calibrationMs": 209.20000004768372,
+        "kernel": "cpu-lookup",
+        "totalMs": 244.10000002384186,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 20769573,
+          "cacheBytes": 6356992,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 129821477,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "c2f2806a24c671afbbe78c8caae18a173a2217026dce424ce91b763c373b8ad7"
+    },
+    {
+      "side": 1024,
+      "cpuKernel": "auto",
+      "iteration": 1,
+      "loadRpcMs": 35.19999998807907,
+      "load": {
+        "preparationMs": 23.600000023841858,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "rpcMs": 0.699999988079071,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 0,
+        "cache": {
+          "recompressed": false,
+          "base": false,
+          "result": true
+        },
+        "totalMs": 0.3999999761581421,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 20769573,
+          "cacheBytes": 6356992,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 129821477,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "c2f2806a24c671afbbe78c8caae18a173a2217026dce424ce91b763c373b8ad7"
+    },
+    {
+      "side": 1024,
+      "cpuKernel": "auto",
+      "iteration": 2,
+      "loadRpcMs": 35.19999998807907,
+      "load": {
+        "preparationMs": 23.600000023841858,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "rpcMs": 6,
+      "engine": {
+        "codecMs": 0,
+        "kernelMs": 5.399999976158142,
+        "cache": {
+          "recompressed": true,
+          "base": false,
+          "result": false,
+          "table": false
+        },
+        "workers": 4,
+        "calibration": {
+          "pixels": 1048576,
+          "selectedWorkers": 4,
+          "measurements": [
+            {
+              "workers": 1,
+              "medianMs": 4.599999964237213,
+              "samplesMs": [
+                7.700000047683716,
+                4.599999964237213,
+                4.199999988079071
+              ]
+            },
+            {
+              "workers": 2,
+              "medianMs": 3.599999964237213,
+              "samplesMs": [
+                3.600000023841858,
+                3.5,
+                3.599999964237213
+              ]
+            },
+            {
+              "workers": 4,
+              "medianMs": 2.899999976158142,
+              "samplesMs": [
+                4,
+                2.600000023841858,
+                2.899999976158142
+              ]
+            },
+            {
+              "workers": 8,
+              "medianMs": 3.300000011920929,
+              "samplesMs": [
+                3.399999976158142,
+                2.899999976158142,
+                3.300000011920929
+              ]
+            },
+            {
+              "workers": 10,
+              "medianMs": 3.100000023841858,
+              "samplesMs": [
+                3.100000023841858,
+                2.699999988079071,
+                3.800000011920929
+              ]
+            }
+          ],
+          "totalMs": 209.20000004768372,
+          "rule": "At least 5% median benefit including table broadcast and transfers; evaluate all admitted core-count candidates; single thread per worker"
+        },
+        "calibrationMs": 0,
+        "kernel": "cpu-lookup",
+        "totalMs": 5.800000011920929,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 20769573,
+          "cacheBytes": 9568256,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 129821477,
+          "codecHeapCapacityBytes": 16777216
+        }
+      },
+      "resultSha256": "941f97bac5ed9932365e3d6e87819f7c229b25ba78e8148a633e22c786800c0b"
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

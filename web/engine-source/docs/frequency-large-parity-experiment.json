@@ -1,0 +1,332 @@
+{
+  "schema": 1,
+  "base": [
+    {
+      "fixture": "frequency-257x261",
+      "exact": true
+    },
+    {
+      "fixture": "frequency-625x625",
+      "exact": true
+    },
+    {
+      "fixture": "frequency-1024x1024",
+      "exact": true
+    }
+  ],
+  "views": [
+    {
+      "fixture": "frequency-257x261",
+      "params": {
+        "split": 0,
+        "smooth": 0,
+        "threshold": 0,
+        "filter": 0
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 30.15225000000001,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 402462,
+        "cacheBytes": 2596236,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 81848760,
+        "codecHeapCapacityBytes": 33554432
+      }
+    },
+    {
+      "fixture": "frequency-257x261",
+      "params": {
+        "split": 15,
+        "smooth": 25,
+        "threshold": 0,
+        "filter": 0
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 56.717708000000016,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 402462,
+        "cacheBytes": 4025918,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 88347462,
+        "codecHeapCapacityBytes": 33554432
+      }
+    },
+    {
+      "fixture": "frequency-257x261",
+      "params": {
+        "split": 50,
+        "smooth": 100,
+        "threshold": 37,
+        "filter": 0
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 430.87412500000005,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 402462,
+        "cacheBytes": 5455600,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 89778288,
+        "codecHeapCapacityBytes": 33554432
+      }
+    },
+    {
+      "fixture": "frequency-257x261",
+      "params": {
+        "split": 100,
+        "smooth": 0,
+        "threshold": 100,
+        "filter": 15
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 48.58383399999991,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 402462,
+        "cacheBytes": 6885226,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 89778288,
+        "codecHeapCapacityBytes": 33554432
+      }
+    },
+    {
+      "fixture": "frequency-625x625",
+      "params": {
+        "split": 0,
+        "smooth": 0,
+        "threshold": 0,
+        "filter": 0
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 113.94395799999995,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 2343750,
+        "cacheBytes": 14069274,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 152265764,
+        "codecHeapCapacityBytes": 33554432
+      }
+    },
+    {
+      "fixture": "frequency-625x625",
+      "params": {
+        "split": 15,
+        "smooth": 25,
+        "threshold": 0,
+        "filter": 0
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 515.1690839999999,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 2343750,
+        "cacheBytes": 21888394,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 168967108,
+        "codecHeapCapacityBytes": 33554432
+      }
+    },
+    {
+      "fixture": "frequency-625x625",
+      "params": {
+        "split": 50,
+        "smooth": 100,
+        "threshold": 37,
+        "filter": 0
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 5118.083542,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 2343750,
+        "cacheBytes": 29707514,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 176788876,
+        "codecHeapCapacityBytes": 33554432
+      }
+    },
+    {
+      "fixture": "frequency-625x625",
+      "params": {
+        "split": 100,
+        "smooth": 0,
+        "threshold": 100,
+        "filter": 15
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 214.53954200000044,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 2343750,
+        "cacheBytes": 37526578,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 176788876,
+        "codecHeapCapacityBytes": 33554432
+      }
+    },
+    {
+      "fixture": "frequency-1024x1024",
+      "params": {
+        "split": 0,
+        "smooth": 0,
+        "threshold": 0,
+        "filter": 0
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 239.6896250000009,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 6291456,
+        "cacheBytes": 37755510,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 295699082,
+        "codecHeapCapacityBytes": 83689472
+      }
+    },
+    {
+      "fixture": "frequency-1024x1024",
+      "params": {
+        "split": 15,
+        "smooth": 25,
+        "threshold": 0,
+        "filter": 0
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 2028.2434999999996,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 6291456,
+        "cacheBytes": 58733650,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 333455426,
+        "codecHeapCapacityBytes": 83689472
+      }
+    },
+    {
+      "fixture": "frequency-1024x1024",
+      "params": {
+        "split": 50,
+        "smooth": 100,
+        "threshold": 37,
+        "filter": 0
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 22410.753666999997,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 6291456,
+        "cacheBytes": 79711790,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 354437910,
+        "codecHeapCapacityBytes": 83689472
+      }
+    },
+    {
+      "fixture": "frequency-1024x1024",
+      "params": {
+        "split": 100,
+        "smooth": 0,
+        "threshold": 100,
+        "filter": 15
+      },
+      "nativeRepeated": true,
+      "images": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "zeroExact": true,
+      "durationMs": 594.9399169999997,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 6291456,
+        "cacheBytes": 100689874,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 358633446,
+        "codecHeapCapacityBytes": 83689472
+      }
+    }
+  ],
+  "mismatches": []
+}

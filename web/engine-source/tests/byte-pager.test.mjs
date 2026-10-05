@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {Budget} from '../src/cache.js';import {createSegmentedBytes} from '../src/segmented-bytes.js';import {createBytePager} from '../src/byte-pager.js';
+test('mutable byte pages flush eviction, preserve prepared windows, and have synchronous hits',async()=>{
+ const budget=new Budget(4096),store=await createSegmentedBytes(140,{budget,chunkBytes:13});const pager=createBytePager(store,{budget,pageBytes:16,maxPages:2,mutable:true});
+ await pager.prepare(0,20);pager.set32(12,0xfedcba98);pager.set8(17,213);assert.equal(pager.prepare(12,6),undefined);assert.equal(pager.get32(12),0xfedcba98);await pager.prepare(32,32);assert.throws(()=>pager.get8(17),{code:'INVALID_INPUT'});pager.span(48,16,{write:true}).fill(45);await pager.prepare(0,20);assert.equal(pager.get8(17),213);assert.equal(pager.get32(12),0xfedcba98);assert.throws(()=>pager.prepare(0,33),{code:'MEMORY_LIMIT'});await pager.flush();const data=new Uint8Array(140);await store.readInto(data);assert.equal(data[63],45);pager.dispose();pager.dispose();await store.dispose();assert.equal(budget.total(),0);
+});
+test('page I/O errors, abort, and refusal release the bounded cache',async()=>{
+ const budget=new Budget(1024),controller=new AbortController(),store={byteLength:128,readInto:async()=>{throw new Error('read failed');}};const pager=createBytePager(store,{budget,signal:controller.signal,pageBytes:16,maxPages:2});await assert.rejects(pager.prepare(0,1),/read failed/);controller.abort();assert.throws(()=>pager.prepare(0,1),{code:'CANCELLED'});pager.dispose();assert.equal(budget.total(),0);assert.throws(()=>createBytePager(store,{budget:new Budget(1)}),{code:'MEMORY_LIMIT'});
+});

@@ -1,0 +1,821 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "cpu",
+  "reference": "previous qualified non-paged WASM",
+  "records": [
+    {
+      "name": "SIFT/masked",
+      "count": 38,
+      "referenceCount": 38,
+      "total": 38,
+      "referenceTotal": 38,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 959.1999999880791,
+      "metadata": {
+        "family": "SIFT",
+        "opencv": "4.11.0",
+        "inputLayout": "global-octave-bases",
+        "featurePolicy": "global",
+        "reflectedPixels": false,
+        "preflightExecutions": 0,
+        "jobs": [
+          {
+            "sourceRows": 176,
+            "sourceReads": 3,
+            "globalCandidates": 116,
+            "continuationSeeds": 0,
+            "continuationWindows": 0,
+            "octaveBases": [
+              {
+                "width": 448,
+                "height": 352,
+                "bytes": 630784,
+                "storage": "memory"
+              },
+              {
+                "width": 224,
+                "height": 176,
+                "bytes": 157696,
+                "storage": "memory"
+              },
+              {
+                "width": 112,
+                "height": 88,
+                "bytes": 39424,
+                "storage": "memory"
+              },
+              {
+                "width": 56,
+                "height": 44,
+                "bytes": 9856,
+                "storage": "memory"
+              },
+              {
+                "width": 28,
+                "height": 22,
+                "bytes": 2464,
+                "storage": "memory"
+              },
+              {
+                "width": 14,
+                "height": 11,
+                "bytes": 616,
+                "storage": "memory"
+              },
+              {
+                "width": 7,
+                "height": 5,
+                "bytes": 140,
+                "storage": "memory"
+              }
+            ],
+            "preflightExecutions": 0,
+            "grayScale": 1,
+            "coreSize": 1024,
+            "supportHalo": 128,
+            "workers": 2,
+            "peakHeapBytes": 33554432,
+            "executions": 11,
+            "retries": 0,
+            "stages": [
+              {
+                "executions": 8,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 1,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 2,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              }
+            ]
+          }
+        ],
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 11,
+        "retries": 0,
+        "qualification": "qualified native arithmetic with global paged dependencies"
+      }
+    },
+    {
+      "name": "SIFT-G2NN/global",
+      "count": 100,
+      "referenceCount": 100,
+      "total": 200,
+      "referenceTotal": 200,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 9064.79999999702,
+      "metadata": {
+        "family": "SIFT-G2NN",
+        "opencv": "4.11.0",
+        "inputLayout": "global-octave-bases",
+        "featurePolicy": "independent_roi_v2",
+        "reflectedPixels": false,
+        "preflightExecutions": 0,
+        "jobs": [
+          {
+            "sourceRows": 176,
+            "sourceReads": 3,
+            "globalCandidates": 18946,
+            "continuationSeeds": 0,
+            "continuationWindows": 0,
+            "octaveBases": [
+              {
+                "width": 1792,
+                "height": 1408,
+                "bytes": 10092544,
+                "storage": "memory"
+              },
+              {
+                "width": 896,
+                "height": 704,
+                "bytes": 2523136,
+                "storage": "memory"
+              },
+              {
+                "width": 448,
+                "height": 352,
+                "bytes": 630784,
+                "storage": "memory"
+              },
+              {
+                "width": 224,
+                "height": 176,
+                "bytes": 157696,
+                "storage": "memory"
+              },
+              {
+                "width": 112,
+                "height": 88,
+                "bytes": 39424,
+                "storage": "memory"
+              },
+              {
+                "width": 56,
+                "height": 44,
+                "bytes": 9856,
+                "storage": "memory"
+              },
+              {
+                "width": 28,
+                "height": 22,
+                "bytes": 2464,
+                "storage": "memory"
+              },
+              {
+                "width": 14,
+                "height": 11,
+                "bytes": 616,
+                "storage": "memory"
+              },
+              {
+                "width": 7,
+                "height": 5,
+                "bytes": 140,
+                "storage": "memory"
+              }
+            ],
+            "preflightExecutions": 0,
+            "grayScale": 4,
+            "coreSize": 1024,
+            "supportHalo": 128,
+            "workers": 2,
+            "peakHeapBytes": 69730304,
+            "executions": 23,
+            "retries": 0,
+            "stages": [
+              {
+                "executions": 17,
+                "retries": 0,
+                "peakHeapBytes": 69730304,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 1,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 5,
+                "retries": 0,
+                "peakHeapBytes": 69730304,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              }
+            ]
+          }
+        ],
+        "workers": 2,
+        "peakWorkerHeapBytes": 69730304,
+        "executions": 23,
+        "retries": 0,
+        "qualification": "qualified native arithmetic with global paged dependencies"
+      }
+    },
+    {
+      "name": "SIFT-G2NN/masked",
+      "count": 200,
+      "referenceCount": 200,
+      "total": 384,
+      "referenceTotal": 384,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 3574.2000000029802,
+      "metadata": {
+        "family": "SIFT-G2NN",
+        "opencv": "4.11.0",
+        "inputLayout": "global-octave-bases",
+        "featurePolicy": "independent_roi_v2",
+        "reflectedPixels": false,
+        "preflightExecutions": 0,
+        "jobs": [
+          {
+            "sourceRows": 76,
+            "sourceReads": 2,
+            "globalCandidates": 3172,
+            "continuationSeeds": 0,
+            "continuationWindows": 0,
+            "octaveBases": [
+              {
+                "width": 728,
+                "height": 608,
+                "bytes": 1770496,
+                "storage": "memory"
+              },
+              {
+                "width": 364,
+                "height": 304,
+                "bytes": 442624,
+                "storage": "memory"
+              },
+              {
+                "width": 182,
+                "height": 152,
+                "bytes": 110656,
+                "storage": "memory"
+              },
+              {
+                "width": 91,
+                "height": 76,
+                "bytes": 27664,
+                "storage": "memory"
+              },
+              {
+                "width": 45,
+                "height": 38,
+                "bytes": 6840,
+                "storage": "memory"
+              },
+              {
+                "width": 22,
+                "height": 19,
+                "bytes": 1672,
+                "storage": "memory"
+              },
+              {
+                "width": 11,
+                "height": 9,
+                "bytes": 396,
+                "storage": "memory"
+              },
+              {
+                "width": 5,
+                "height": 4,
+                "bytes": 80,
+                "storage": "memory"
+              }
+            ],
+            "preflightExecutions": 0,
+            "grayScale": 4,
+            "coreSize": 1024,
+            "supportHalo": 128,
+            "workers": 2,
+            "peakHeapBytes": 33554432,
+            "executions": 13,
+            "retries": 0,
+            "stages": [
+              {
+                "executions": 10,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 1,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 2,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              }
+            ]
+          },
+          {
+            "sourceRows": 81,
+            "sourceReads": 2,
+            "globalCandidates": 3412,
+            "continuationSeeds": 0,
+            "continuationWindows": 0,
+            "octaveBases": [
+              {
+                "width": 728,
+                "height": 648,
+                "bytes": 1886976,
+                "storage": "memory"
+              },
+              {
+                "width": 364,
+                "height": 324,
+                "bytes": 471744,
+                "storage": "memory"
+              },
+              {
+                "width": 182,
+                "height": 162,
+                "bytes": 117936,
+                "storage": "memory"
+              },
+              {
+                "width": 91,
+                "height": 81,
+                "bytes": 29484,
+                "storage": "memory"
+              },
+              {
+                "width": 45,
+                "height": 40,
+                "bytes": 7200,
+                "storage": "memory"
+              },
+              {
+                "width": 22,
+                "height": 20,
+                "bytes": 1760,
+                "storage": "memory"
+              },
+              {
+                "width": 11,
+                "height": 10,
+                "bytes": 440,
+                "storage": "memory"
+              },
+              {
+                "width": 5,
+                "height": 5,
+                "bytes": 100,
+                "storage": "memory"
+              }
+            ],
+            "preflightExecutions": 0,
+            "grayScale": 4,
+            "coreSize": 1024,
+            "supportHalo": 128,
+            "workers": 2,
+            "peakHeapBytes": 33554432,
+            "executions": 13,
+            "retries": 0,
+            "stages": [
+              {
+                "executions": 10,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 1,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 2,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              }
+            ]
+          }
+        ],
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 26,
+        "retries": 0,
+        "qualification": "qualified native arithmetic with global paged dependencies"
+      }
+    },
+    {
+      "name": "SIFT-G2NN/reflected",
+      "count": 200,
+      "referenceCount": 200,
+      "total": 384,
+      "referenceTotal": 384,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 3696.4000000059605,
+      "metadata": {
+        "family": "SIFT-G2NN",
+        "opencv": "4.11.0",
+        "inputLayout": "global-octave-bases",
+        "featurePolicy": "independent_roi_v2",
+        "reflectedPixels": true,
+        "preflightExecutions": 0,
+        "jobs": [
+          {
+            "sourceRows": 76,
+            "sourceReads": 2,
+            "globalCandidates": 3205,
+            "continuationSeeds": 0,
+            "continuationWindows": 0,
+            "octaveBases": [
+              {
+                "width": 728,
+                "height": 608,
+                "bytes": 1770496,
+                "storage": "memory"
+              },
+              {
+                "width": 364,
+                "height": 304,
+                "bytes": 442624,
+                "storage": "memory"
+              },
+              {
+                "width": 182,
+                "height": 152,
+                "bytes": 110656,
+                "storage": "memory"
+              },
+              {
+                "width": 91,
+                "height": 76,
+                "bytes": 27664,
+                "storage": "memory"
+              },
+              {
+                "width": 45,
+                "height": 38,
+                "bytes": 6840,
+                "storage": "memory"
+              },
+              {
+                "width": 22,
+                "height": 19,
+                "bytes": 1672,
+                "storage": "memory"
+              },
+              {
+                "width": 11,
+                "height": 9,
+                "bytes": 396,
+                "storage": "memory"
+              },
+              {
+                "width": 5,
+                "height": 4,
+                "bytes": 80,
+                "storage": "memory"
+              }
+            ],
+            "preflightExecutions": 0,
+            "grayScale": 4,
+            "coreSize": 1024,
+            "supportHalo": 128,
+            "workers": 2,
+            "peakHeapBytes": 33554432,
+            "executions": 13,
+            "retries": 0,
+            "stages": [
+              {
+                "executions": 10,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 1,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 2,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              }
+            ]
+          },
+          {
+            "sourceRows": 81,
+            "sourceReads": 2,
+            "globalCandidates": 3447,
+            "continuationSeeds": 0,
+            "continuationWindows": 0,
+            "octaveBases": [
+              {
+                "width": 728,
+                "height": 648,
+                "bytes": 1886976,
+                "storage": "memory"
+              },
+              {
+                "width": 364,
+                "height": 324,
+                "bytes": 471744,
+                "storage": "memory"
+              },
+              {
+                "width": 182,
+                "height": 162,
+                "bytes": 117936,
+                "storage": "memory"
+              },
+              {
+                "width": 91,
+                "height": 81,
+                "bytes": 29484,
+                "storage": "memory"
+              },
+              {
+                "width": 45,
+                "height": 40,
+                "bytes": 7200,
+                "storage": "memory"
+              },
+              {
+                "width": 22,
+                "height": 20,
+                "bytes": 1760,
+                "storage": "memory"
+              },
+              {
+                "width": 11,
+                "height": 10,
+                "bytes": 440,
+                "storage": "memory"
+              },
+              {
+                "width": 5,
+                "height": 5,
+                "bytes": 100,
+                "storage": "memory"
+              }
+            ],
+            "preflightExecutions": 0,
+            "grayScale": 4,
+            "coreSize": 1024,
+            "supportHalo": 128,
+            "workers": 2,
+            "peakHeapBytes": 33554432,
+            "executions": 13,
+            "retries": 0,
+            "stages": [
+              {
+                "executions": 10,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 1,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 2,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              }
+            ]
+          }
+        ],
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 26,
+        "retries": 0,
+        "qualification": "qualified native arithmetic with global paged dependencies"
+      }
+    },
+    {
+      "name": "SIFT-LightGlue/global",
+      "count": 100,
+      "referenceCount": 100,
+      "total": 139,
+      "referenceTotal": 139,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 802.6000000089407,
+      "metadata": {
+        "family": "SIFT-LightGlue",
+        "opencv": "4.11.0",
+        "inputLayout": "global-octave-bases",
+        "featurePolicy": "global",
+        "reflectedPixels": false,
+        "preflightExecutions": 0,
+        "jobs": [
+          {
+            "sourceRows": 176,
+            "sourceReads": 3,
+            "globalCandidates": 199,
+            "continuationSeeds": 0,
+            "continuationWindows": 0,
+            "octaveBases": [
+              {
+                "width": 448,
+                "height": 352,
+                "bytes": 630784,
+                "storage": "memory"
+              },
+              {
+                "width": 224,
+                "height": 176,
+                "bytes": 157696,
+                "storage": "memory"
+              },
+              {
+                "width": 112,
+                "height": 88,
+                "bytes": 39424,
+                "storage": "memory"
+              },
+              {
+                "width": 56,
+                "height": 44,
+                "bytes": 9856,
+                "storage": "memory"
+              },
+              {
+                "width": 28,
+                "height": 22,
+                "bytes": 2464,
+                "storage": "memory"
+              },
+              {
+                "width": 14,
+                "height": 11,
+                "bytes": 616,
+                "storage": "memory"
+              },
+              {
+                "width": 7,
+                "height": 5,
+                "bytes": 140,
+                "storage": "memory"
+              }
+            ],
+            "preflightExecutions": 0,
+            "grayScale": 1,
+            "coreSize": 1024,
+            "supportHalo": 128,
+            "workers": 2,
+            "peakHeapBytes": 33554432,
+            "executions": 11,
+            "retries": 0,
+            "stages": [
+              {
+                "executions": 8,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 1,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 2,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              }
+            ]
+          }
+        ],
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 11,
+        "retries": 0,
+        "qualification": "qualified native arithmetic with global paged dependencies"
+      }
+    }
+  ],
+  "cancelled": true,
+  "peakAccountedBytes": 1210310626,
+  "remainingActiveBytes": 0
+}

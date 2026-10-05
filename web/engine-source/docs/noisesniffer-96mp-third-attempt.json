@@ -1,0 +1,17 @@
+{
+  "status": "stopped-development-run",
+  "reason": "Sparse byte flag updates caused repeated64KiB page rewrites; exact2bit membership implemented and tested before rerun.",
+  "lastProgress": {
+    "phase": "noisesniffer-select",
+    "completed": 215,
+    "total": 9441,
+    "elapsedMs": 1444844.400000006,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 95469360,
+      "peakAccountedBytes": 265406992
+    }
+  }
+}

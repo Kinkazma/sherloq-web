@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {chromium} from 'playwright';
+const root=fileURLToPath(new URL('../',import.meta.url)),baselineRef=process.env.BASELINE_REF??'c5ceaec',output=path.join(root,'.build/dense-detail-cooperation'),files=['dense-detail.js','dense-paged-detail.js'];
+const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim(),baselineCommit=git('rev-parse',baselineRef),candidateCommit=git('rev-parse','HEAD');
+const before=new Map(files.map(name=>[name,execFileSync('git',['show',baselineCommit+':src/'+name],{cwd:root,encoding:'utf8'}).replaceAll("from './","from '/src/")]));
+for(const file of ['src/dense-regions.js','src/dense-math.js','vendor/dense-regions/dense-regions.js','vendor/dense-regions/dense-regions.wasm'])assert.equal(git('rev-parse',baselineCommit+':'+file),git('hash-object',file),'A/B native arithmetic dependency changed: '+file);
+await fs.mkdir(output,{recursive:true});
+const server=createServer(async(req,res)=>{try{res.setHeader('Cross-Origin-Opener-Policy','same-origin');res.setHeader('Cross-Origin-Embedder-Policy','require-corp');const url=new URL(req.url,'http://localhost');if(url.pathname==='/'){res.setHeader('Content-Type','text/html');res.end('<!doctype html><title>Dense detail native cooperation A/B</title>');return;}if(url.pathname.startsWith('/__baseline/')){const text=before.get(url.pathname.split('/').at(-1));if(!text)throw Error('Missing baseline');res.setHeader('Content-Type','text/javascript');res.end(text);return;}const file=path.resolve(root,'.'+decodeURIComponent(url.pathname));if(!file.startsWith(root))throw Error('Outside root');res.setHeader('Content-Type',file.endsWith('.wasm')?'application/wasm':file.endsWith('.js')?'text/javascript':'application/octet-stream');res.end(await fs.readFile(file));}catch(error){res.writeHead(404).end(error.message);}});
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;
+try{
+ browser=await chromium.launch({headless:true,channel:'chrome'});const page=await browser.newPage();page.on('pageerror',error=>console.error(error));await page.goto(`http://127.0.0.1:${server.address().port}/`);
+ const run=job=>page.evaluate(job=>new Promise((resolve,reject)=>{const worker=new Worker('/tests/check-dense-detail-cooperation-worker.js',{type:'module'}),channel=new MessageChannel();worker.onerror=event=>{worker.terminate();channel.port1.close();reject(Error(event.message));};worker.onmessage=({data})=>{if(data.started){if(job.delivery==='port')setTimeout(()=>channel.port1.postMessage({cancel:true}),1);return;}worker.terminate();channel.port1.close();if(data.error)reject(Error(JSON.stringify(data.error)));else resolve(data.result);};worker.postMessage({...job,port:channel.port2},[channel.port2]);}),job);
+ const parity=[];for(const variant of ['before','after']){console.log('Native detail '+variant+' started');const result=await run({variant,mode:'parity'});parity.push(result);console.log(JSON.stringify({variant,models:result.modelCount,accepted:result.acceptedModelNames,readWindow:result.readWindowFinal,totalMilliseconds:result.totalMilliseconds,scoreMilliseconds:result.scoreMilliseconds,groupMilliseconds:result.groupMilliseconds}));}
+ const withoutTime=value=>Object.fromEntries(Object.entries(value).filter(([key])=>!['variant','totalMilliseconds','scoreMilliseconds','groupMilliseconds'].includes(key)));assert.deepEqual(withoutTime(parity[1]),withoutTime(parity[0]),'A/B scores, float bits, groups, reads or accounting differ');
+ const cancellation=[];for(const variant of ['before','after'])for(const path of ['paged','contiguous'])for(const delivery of ['port','timer']){const result=await run({variant,mode:'cancel',path,delivery});cancellation.push(result);console.log(JSON.stringify(result));}
+ const proof={status:'passed',browser:await browser.version(),baselineCommit,candidateCommit,sourceHashes:Object.fromEntries(await Promise.all(files.map(async file=>[file,createHash('sha256').update(await fs.readFile(path.join(root,'src',file))).digest('hex')]))),scope:'Development A/B of identical useful native detail work; no production capacity probe, no 96 MP run, no whole-engine speed claim.',parity,cancellation,ratios:{total:parity[0].totalMilliseconds/parity[1].totalMilliseconds,pagedGroups:parity[0].groupMilliseconds/parity[1].groupMilliseconds}};
+ await fs.writeFile(path.join(output,'proof.json'),JSON.stringify(proof,null,2)+'\n');console.log(JSON.stringify({status:proof.status,browser:proof.browser,ratios:proof.ratios,proof:path.join(output,'proof.json')}));
+}finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}

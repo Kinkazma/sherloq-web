@@ -1,0 +1,172 @@
+[
+  {
+    "browser": "chromium",
+    "isolated": true,
+    "backend": "opfs",
+    "forceBroker": false,
+    "workers": 2,
+    "transports": [
+      [
+        "opfs-readonly",
+        "opfs-readonly"
+      ],
+      [
+        "opfs-readonly",
+        "opfs-readonly"
+      ]
+    ],
+    "coldSpill": true,
+    "adoptedOutputSpill": false,
+    "accountedBytes": 0,
+    "storageArtifactsRemaining": 0
+  },
+  {
+    "browser": "chromium",
+    "isolated": true,
+    "backend": "opfs",
+    "forceBroker": true,
+    "workers": 2,
+    "transports": [
+      [
+        "broker",
+        "broker"
+      ],
+      [
+        "broker",
+        "broker"
+      ]
+    ],
+    "coldSpill": true,
+    "adoptedOutputSpill": false,
+    "accountedBytes": 0,
+    "storageArtifactsRemaining": 0
+  },
+  {
+    "browser": "chromium",
+    "isolated": false,
+    "backend": "opfs",
+    "forceBroker": true,
+    "workers": 2,
+    "transports": [
+      [
+        "broker",
+        "broker"
+      ],
+      [
+        "broker",
+        "broker"
+      ]
+    ],
+    "coldSpill": true,
+    "adoptedOutputSpill": false,
+    "accountedBytes": 0,
+    "storageArtifactsRemaining": 0
+  },
+  {
+    "browser": "chromium",
+    "isolated": true,
+    "backend": "indexeddb",
+    "forceBroker": true,
+    "workers": 2,
+    "transports": [
+      [
+        "broker",
+        "broker"
+      ],
+      [
+        "broker",
+        "broker"
+      ]
+    ],
+    "coldSpill": true,
+    "adoptedOutputSpill": false,
+    "accountedBytes": 0,
+    "storageArtifactsRemaining": 0
+  },
+  {
+    "browser": "chromium",
+    "isolated": true,
+    "backend": "opfs",
+    "forceBroker": false,
+    "workers": 2,
+    "transports": [
+      [
+        "opfs-readonly",
+        "opfs-readonly"
+      ],
+      [
+        "opfs-readonly",
+        "opfs-readonly"
+      ]
+    ],
+    "coldSpill": true,
+    "adoptedOutputSpill": true,
+    "accountedBytes": 0,
+    "storageArtifactsRemaining": 0
+  },
+  {
+    "browser": "chromium",
+    "isolated": true,
+    "backend": "opfs",
+    "forceBroker": false,
+    "workers": 2,
+    "gpu": [
+      {
+        "preflightExecutions": 0,
+        "batches": 34,
+        "pairs": 7851,
+        "rejected": 5805,
+        "refinements": 2046,
+        "uploadedBytes": 753696,
+        "readbackBytes": 62808,
+        "bufferAllocations": 5,
+        "milliseconds": 30.405000150203705,
+        "deviceLimits": {
+          "maxStorageBufferBindingSize": 134217728,
+          "maxBufferSize": 268435456,
+          "maxComputeWorkgroupsPerDimension": 65535
+        },
+        "residentBufferBytes": 32272,
+        "sharedExecutorsCreated": 1,
+        "sharedBatches": 12,
+        "sharedUsers": 2
+      },
+      {
+        "preflightExecutions": 0,
+        "batches": 29,
+        "pairs": 6845,
+        "rejected": 5000,
+        "refinements": 1845,
+        "uploadedBytes": 657120,
+        "readbackBytes": 54760,
+        "bufferAllocations": 5,
+        "milliseconds": 26.170000195503235,
+        "deviceLimits": {
+          "maxStorageBufferBindingSize": 134217728,
+          "maxBufferSize": 268435456,
+          "maxComputeWorkgroupsPerDimension": 65535
+        },
+        "residentBufferBytes": 32272,
+        "sharedExecutorsCreated": 1,
+        "sharedBatches": 10,
+        "sharedUsers": 2
+      }
+    ],
+    "transports": [
+      [
+        "opfs-readonly",
+        "opfs-readonly",
+        "opfs-readonly"
+      ],
+      [
+        "opfs-readonly",
+        "opfs-readonly",
+        "opfs-readonly"
+      ]
+    ],
+    "coldSpill": true,
+    "adoptedOutputSpill": false,
+    "accountedBytes": 0,
+    "storageArtifactsRemaining": 0
+  }
+]

@@ -1,0 +1,223 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "webgpu",
+  "labels": {
+    "values": 4096,
+    "differences": 0
+  },
+  "features": {
+    "values": 1179648,
+    "differences": 1057220,
+    "maximum": 0.0000017285346984863281
+  },
+  "metadata": {
+    "image_shape": [
+      176,
+      448
+    ],
+    "analysis_shape": [
+      1024,
+      1024
+    ],
+    "native_shape": [
+      64,
+      64
+    ],
+    "seed": 123,
+    "clusters": 2,
+    "smallest_region_is_candidate": true,
+    "unused_checkpoint_heads": [
+      "fc.weight",
+      "fc.bias"
+    ],
+    "provider": "webgpu",
+    "runs": [
+      {
+        "stage": "embedding",
+        "provider": "webgpu",
+        "heapBytes": 84082688,
+        "threads": 1
+      },
+      {
+        "stage": "block-00",
+        "provider": "webgpu",
+        "heapBytes": 169607168,
+        "threads": 1
+      },
+      {
+        "stage": "block-01",
+        "provider": "webgpu",
+        "heapBytes": 169607168,
+        "threads": 1
+      },
+      {
+        "stage": "block-02",
+        "provider": "webgpu",
+        "heapBytes": 169607168,
+        "threads": 1
+      },
+      {
+        "stage": "block-03",
+        "provider": "webgpu",
+        "heapBytes": 169607168,
+        "threads": 1
+      },
+      {
+        "stage": "block-04",
+        "provider": "webgpu",
+        "heapBytes": 169607168,
+        "threads": 1
+      },
+      {
+        "stage": "block-05",
+        "provider": "webgpu",
+        "heapBytes": 169607168,
+        "threads": 1
+      },
+      {
+        "stage": "block-06",
+        "provider": "webgpu",
+        "heapBytes": 169607168,
+        "threads": 1
+      },
+      {
+        "stage": "block-07",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-08",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-09",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-10",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-11",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-12",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-13",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-14",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-15",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-16",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-17",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-18",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-19",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-20",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-21",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-22",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "block-23",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "neck",
+        "provider": "webgpu",
+        "heapBytes": 203554816,
+        "threads": 1
+      },
+      {
+        "stage": "hrnet",
+        "provider": "webgpu",
+        "heapBytes": 293208064,
+        "threads": 1
+      },
+      {
+        "stage": "fusion",
+        "provider": "wasm",
+        "heapBytes": 293208064,
+        "threads": 1
+      },
+      {
+        "stage": "cluster",
+        "provider": "wasm",
+        "heapBytes": 165543936,
+        "threads": 1
+      }
+    ],
+    "failures": [],
+    "attempts": 1,
+    "maximumHeapBytes": 1073741824,
+    "gpuEstimatedBytes": 805306368,
+    "workerAdmittedBytes": 2423860736,
+    "preflightExecutions": 0,
+    "qualification": "native-floating-arithmetic-differences-measured",
+    "result_reused": false
+  },
+  "cacheReused": true,
+  "cancelled": true,
+  "peakAccountedBytes": 2433363456,
+  "activeBytes": 0
+}

@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "SHERLOQ — mémoire système locale",
+  "version": "1.0.0",
+  "description": "Fournit à SHERLOQ local un instantané de mémoire système, sans accès aux pages ni stockage.",
+  "permissions": ["system.memory"],
+  "background": {"service_worker": "service-worker.js", "type": "module"},
+  "externally_connectable": {"matches": ["http://localhost/*", "http://127.0.0.1/*"]}
+}

@@ -1,0 +1,95 @@
+{
+  "version": "0.31.0-integration.30",
+  "passed": true,
+  "scope": "Qualified recovery paths, metadata observations and scientific regression; no 96 MP success claimed. No physical CPU/GPU saturation claim.",
+  "finalCodeCommit": "bdc51431c9db18c887989fc4c510212272052eef",
+  "fullSuite": {
+    "tests": 1372,
+    "passed": 1372,
+    "failed": 0,
+    "skipped": 0
+  },
+  "additionalRecoverySuite": {
+    "tests": 59,
+    "passed": 59,
+    "newRegressionCases": 1,
+    "reason": "Final change retargets the pressure token when the failing allocator changes domain."
+  },
+  "browsers": [
+    "Chromium 154.0.8037.93",
+    "Firefox (Playwright installed)",
+    "WebKit (Playwright installed)"
+  ],
+  "extension": {
+    "installedIntoUserProfile": false,
+    "validatedInDisposableChrome": true,
+    "productionPreflightExecutions": 0
+  },
+  "completeBrowserRun": {
+    "engineCommit": "31cb055194db038afc641c37f56a5f196b0c2f47",
+    "dimensions": [
+      2008,
+      1444
+    ],
+    "browser": "154.0.8037.93",
+    "states": {
+      "states": {
+        "patchmatch": "done",
+        "sift": "done",
+        "forgeryscope": "done",
+        "d2prl": "done",
+        "ela": "done"
+      },
+      "errors": {},
+      "attempts": {
+        "patchmatch": 1,
+        "sift": 1,
+        "forgeryscope": 1,
+        "d2prl": 1,
+        "ela": 1
+      },
+      "completed": [
+        "forgeryscope",
+        "sift",
+        "ela",
+        "patchmatch",
+        "d2prl"
+      ],
+      "running": [],
+      "resumable": [],
+      "preflightExecutions": 0
+    },
+    "times": {
+      "modelConfigurationMs": 191.73500001430511,
+      "loadMs": 48.060000002384186,
+      "analysisMs": 313407.7650000453,
+      "exportMs": 21279.189999997616,
+      "readbackMs": 28496.930000007153
+    },
+    "totalMs": 364110.64999997616,
+    "archiveBytes": 638339898,
+    "archiveSha256": "96c53b7d10ca45715a92035b33ed43b80fd4325a488d9be2a944befc2b6eeac4",
+    "verifiedScientificArrays": 746,
+    "scientificallyEqual": true,
+    "finalMemory": {
+      "budgetBytes": 27487371264,
+      "policyAvailableBytes": 27487371264,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 27486569984,
+      "activeRecoveries": 0,
+      "knownHeapCapacityBytes": 16777216
+    },
+    "storageCleanup": true
+  },
+  "frozenRuntime": {
+    "sha256": "5807fe347e9191f8b62a38833145bccf03ca9433be4f0b124ff5279507855ae9",
+    "files": 1193
+  },
+  "notes": [
+    "Complete scientific recipe used the immutable core snapshot 31cb055. The final distinct-domain failure-path correction is separately exercised by the targeted suite; this successful scientific run did not trigger recovery.",
+    "The six-minute small-image duration is functional evidence, not a 96 MP projection or an isolated speedup measurement.",
+    "The previous 96 MP process was stopped with user authorization; logs preserved. Scheduled monitoring remains paused."
+  ]
+}

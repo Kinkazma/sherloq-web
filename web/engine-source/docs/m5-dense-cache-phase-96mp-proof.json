@@ -1,0 +1,2536 @@
+{
+  "result": {
+    "budgetBytes": 1610612736,
+    "coverage": {
+      "largeSource": "Two-pass global Zernike + compact SIFT memory adapters",
+      "sharedVariants": "Mirror, scale and quarter-turn use the same paged stores, descriptor preparation, native field, coherence, views and export adapters; exact variant behavior is qualified by dense-sift-bounds-proof.json and dense-paged-supplemental-proof.json.",
+      "notClaimed": "Full eleven-pass automatic journey or a new native96MP oracle"
+    },
+    "source": {
+      "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+      "shape": {
+        "id": "68f5d426-72d2-4984-94f1-eb960745481f",
+        "revision": 1,
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "sourceWidth": 12000,
+        "sourceHeight": 8000,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "decode": {
+        "decodeMs": 1839.7999999970198,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 80426021,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 122332453,
+        "codecHeapCapacityBytes": 96731136,
+        "storage": "memory",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "temporaryBytes": 0,
+        "originalBlobBytes": 80426021,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      }
+    },
+    "analysis": {
+      "ms": 4608385.899999991,
+      "params": {
+        "profile": "PatchMatch Zernike + PatchMatch SIFT",
+        "patch": 3,
+        "iterations": 1,
+        "limit": 6000,
+        "radius": 12000,
+        "minimum": 5,
+        "threshold": 0.3,
+        "texture": 2,
+        "tolerance": 50,
+        "model": "Similarity"
+      },
+      "groups": 60,
+      "pairs": 12000,
+      "denseCount": 188115390,
+      "consistentCount": 88768983,
+      "models": [
+        {
+          "parent_biome": 2,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 11,
+          "distinct_centres": [
+            11,
+            11
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 6,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 20,
+          "distinct_centres": [
+            20,
+            20
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 9,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 30,
+          "distinct_centres": [
+            30,
+            30
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 15,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 39,
+          "distinct_centres": [
+            39,
+            39
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 18,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 49,
+          "distinct_centres": [
+            49,
+            49
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 22,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 59,
+          "distinct_centres": [
+            59,
+            59
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 24,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 20,
+          "distinct_centres": [
+            20,
+            20
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 26,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 44,
+          "distinct_centres": [
+            44,
+            44
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 28,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 67,
+          "distinct_centres": [
+            67,
+            67
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 32,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 77,
+          "distinct_centres": [
+            77,
+            77
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 36,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 82,
+          "distinct_centres": [
+            82,
+            82
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 39,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 88,
+          "distinct_centres": [
+            88,
+            88
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 42,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 6,
+          "distinct_centres": [
+            6,
+            6
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 43,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000.000000000001
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 97,
+          "distinct_centres": [
+            97,
+            97
+          ],
+          "median_error_px": 9.094947017729282e-13,
+          "maximum_error_px": 9.094947017729282e-13,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 45,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 106,
+          "distinct_centres": [
+            106,
+            106
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 50,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 115,
+          "distinct_centres": [
+            115,
+            115
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 56,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 126,
+          "distinct_centres": [
+            126,
+            126
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 62,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 135,
+          "distinct_centres": [
+            135,
+            135
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 64,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 44,
+          "distinct_centres": [
+            44,
+            44
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 65,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 144,
+          "distinct_centres": [
+            144,
+            144
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 68,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 89,
+          "distinct_centres": [
+            89,
+            89
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 70,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 153,
+          "distinct_centres": [
+            153,
+            153
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 74,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 164,
+          "distinct_centres": [
+            164,
+            164
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 80,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 173,
+          "distinct_centres": [
+            173,
+            173
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 82,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              4.9578996584770996e-17,
+              6000
+            ],
+            [
+              -4.9578996584770996e-17,
+              1,
+              2.7586465004255674e-13
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 182,
+          "distinct_centres": [
+            182,
+            182
+          ],
+          "median_error_px": 4.547473508864641e-13,
+          "maximum_error_px": 9.094947017729282e-13,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 85,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000.000000000001
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 191,
+          "distinct_centres": [
+            191,
+            191
+          ],
+          "median_error_px": 9.094947017729282e-13,
+          "maximum_error_px": 9.094947017729282e-13,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 89,
+          "model": "Similarity",
+          "matrix": [
+            [
+              0.9999999999999999,
+              -2.6034875040101804e-17,
+              6000
+            ],
+            [
+              2.6034875040101804e-17,
+              0.9999999999999999,
+              2.430228835477111e-13
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 198,
+          "distinct_centres": [
+            198,
+            198
+          ],
+          "median_error_px": 2.033691978340166e-12,
+          "maximum_error_px": 2.5724394843074972e-12,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 90,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 197,
+          "distinct_centres": [
+            197,
+            197
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 91,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 198,
+          "distinct_centres": [
+            198,
+            198
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 92,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 198,
+          "distinct_centres": [
+            198,
+            198
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 93,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 201,
+          "distinct_centres": [
+            201,
+            201
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 94,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 196,
+          "distinct_centres": [
+            196,
+            196
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 95,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 194,
+          "distinct_centres": [
+            194,
+            194
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 110,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 158,
+          "distinct_centres": [
+            158,
+            158
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 112,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 155,
+          "distinct_centres": [
+            155,
+            155
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 123,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 142,
+          "distinct_centres": [
+            142,
+            142
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 125,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 137,
+          "distinct_centres": [
+            137,
+            137
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 133,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 128,
+          "distinct_centres": [
+            128,
+            128
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 141,
+          "model": "Similarity",
+          "matrix": [
+            [
+              0.9999999999999999,
+              -2.5650767804973347e-17,
+              6000
+            ],
+            [
+              2.5650767804973347e-17,
+              0.9999999999999999,
+              1.450828921648662e-13
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 121,
+          "distinct_centres": [
+            121,
+            121
+          ],
+          "median_error_px": 1.8331451766013172e-12,
+          "maximum_error_px": 2.033691978340166e-12,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 152,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 115,
+          "distinct_centres": [
+            115,
+            115
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 153,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 113,
+          "distinct_centres": [
+            113,
+            113
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 172,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 104,
+          "distinct_centres": [
+            104,
+            104
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 175,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 100,
+          "distinct_centres": [
+            100,
+            100
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 195,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 90,
+          "distinct_centres": [
+            90,
+            90
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 197,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              1.3841907136269894e-17,
+              6000
+            ],
+            [
+              -1.3841907136269894e-17,
+              1,
+              7.579694760627263e-14
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 12,
+          "distinct_centres": [
+            12,
+            12
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 209,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 82,
+          "distinct_centres": [
+            82,
+            82
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 217,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 77,
+          "distinct_centres": [
+            77,
+            77
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 218,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 77,
+          "distinct_centres": [
+            77,
+            77
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 236,
+          "model": "Similarity",
+          "matrix": [
+            [
+              0.9999999999999999,
+              -2.0837535556989753e-17,
+              6000
+            ],
+            [
+              2.0837535556989753e-17,
+              0.9999999999999999,
+              1.1775961030018296e-13
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 63,
+          "distinct_centres": [
+            63,
+            63
+          ],
+          "median_error_px": 1.8189894035458565e-12,
+          "maximum_error_px": 1.8749713606747085e-12,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 258,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              2.020608850528242e-17,
+              6000
+            ],
+            [
+              -2.020608850528242e-17,
+              1,
+              1.1408727120758426e-13
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 54,
+          "distinct_centres": [
+            54,
+            54
+          ],
+          "median_error_px": 2.2737367544323206e-13,
+          "maximum_error_px": 4.547473508864641e-13,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 265,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 8,
+          "distinct_centres": [
+            8,
+            8
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 270,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 46,
+          "distinct_centres": [
+            46,
+            46
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 278,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 41,
+          "distinct_centres": [
+            41,
+            41
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 293,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000.000000000001
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 9,
+          "distinct_centres": [
+            9,
+            9
+          ],
+          "median_error_px": 9.094947017729282e-13,
+          "maximum_error_px": 9.094947017729282e-13,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 298,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 26,
+          "distinct_centres": [
+            26,
+            26
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 314,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 16,
+          "distinct_centres": [
+            16,
+            16
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 328,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 7,
+          "distinct_centres": [
+            7,
+            7
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch Zernike"
+        },
+        {
+          "parent_biome": 1686,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 9,
+          "distinct_centres": [
+            9,
+            9
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch SIFT"
+        },
+        {
+          "parent_biome": 3437,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 10,
+          "distinct_centres": [
+            10,
+            10
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch SIFT"
+        },
+        {
+          "parent_biome": 5193,
+          "model": "Similarity",
+          "matrix": [
+            [
+              1,
+              0,
+              6000
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 10,
+          "distinct_centres": [
+            10,
+            10
+          ],
+          "median_error_px": 0,
+          "maximum_error_px": 0,
+          "algorithm": "PatchMatch SIFT"
+        }
+      ],
+      "metrics": {
+        "preflightExecutions": 0,
+        "completedJobs": 2,
+        "stored": true,
+        "cache": {
+          "field": false,
+          "refilter": false
+        },
+        "generation": 0,
+        "memory": {
+          "budgetBytes": 1610612736,
+          "retainedBytes": 288048000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 4374048,
+          "peakAccountedBytes": 1336575492
+        }
+      },
+      "fields": [
+        {
+          "width": 12000,
+          "height": 8000,
+          "metrics": {
+            "workspaceBytes": 696108312,
+            "initialBatchPixels": 4194304,
+            "batchBytes": 310378496,
+            "residentPool": true,
+            "residentPoolBytes": 24750008,
+            "residentSiftBoundsBytes": 0,
+            "pagedSiftBounds": false,
+            "cacheBytes": 654581088,
+            "pageBytes": 4096,
+            "cachePages": 66758,
+            "initialCachePages": 4096,
+            "initialCacheBytes": 40239744,
+            "cachePolicy": "reuse-after-initialization",
+            "reads": 203227328,
+            "writes": 1637274,
+            "readBytes": 942579087360,
+            "writeBytes": 6706274304,
+            "heapBytes": 668401664,
+            "plannedWorkspaceBytes": 696108312,
+            "siftBoundRejections": 0
+          },
+          "comparisons": "2277504449"
+        },
+        {
+          "width": 11991,
+          "height": 7991,
+          "metrics": {
+            "workspaceBytes": 1048575492,
+            "initialBatchPixels": 1045506,
+            "batchBytes": 568779824,
+            "residentPool": true,
+            "residentPoolBytes": 24703632,
+            "residentSiftBoundsBytes": 383280324,
+            "pagedSiftBounds": false,
+            "cacheBytes": 405460416,
+            "pageBytes": 4096,
+            "cachePages": 30216,
+            "initialCachePages": 4096,
+            "initialCacheBytes": 55034496,
+            "cachePolicy": "reuse-after-initialization",
+            "reads": 254253320,
+            "writes": 616916,
+            "readBytes": 1309643264821,
+            "writeBytes": 2526870680,
+            "heapBytes": 1021378560,
+            "siftBoundsReadTiming": {
+              "boundSamples": 32,
+              "descriptorSamples": 1592356,
+              "boundReadMeanMs": 0.14999999850988388,
+              "descriptorReadMeanMs": 0.0020693864930316857
+            },
+            "siftBoundsFallback": {
+              "reason": "slow-bound-reads",
+              "boundReadMeanMs": 0.14999999850988388,
+              "descriptorReadMeanMs": 0.0020693864930316857,
+              "boundSamples": 32,
+              "descriptorSamples": 1592356
+            },
+            "plannedWorkspaceBytes": 1048575492,
+            "siftBoundRejections": 1259812278
+          },
+          "comparisons": "2295699212"
+        }
+      ]
+    },
+    "view": {
+      "ms": 5685.600000008941,
+      "visible": [
+        [
+          0,
+          11
+        ],
+        [
+          1,
+          20
+        ],
+        [
+          2,
+          30
+        ],
+        [
+          3,
+          39
+        ],
+        [
+          4,
+          49
+        ],
+        [
+          5,
+          59
+        ],
+        [
+          6,
+          20
+        ],
+        [
+          7,
+          44
+        ],
+        [
+          8,
+          67
+        ],
+        [
+          9,
+          77
+        ],
+        [
+          10,
+          82
+        ],
+        [
+          11,
+          88
+        ],
+        [
+          12,
+          6
+        ],
+        [
+          13,
+          97
+        ],
+        [
+          14,
+          106
+        ],
+        [
+          15,
+          115
+        ],
+        [
+          16,
+          126
+        ],
+        [
+          17,
+          135
+        ],
+        [
+          18,
+          44
+        ],
+        [
+          19,
+          144
+        ],
+        [
+          20,
+          89
+        ],
+        [
+          21,
+          153
+        ],
+        [
+          22,
+          164
+        ],
+        [
+          23,
+          173
+        ],
+        [
+          24,
+          182
+        ],
+        [
+          25,
+          191
+        ],
+        [
+          26,
+          198
+        ],
+        [
+          27,
+          197
+        ],
+        [
+          28,
+          198
+        ],
+        [
+          29,
+          198
+        ],
+        [
+          30,
+          201
+        ],
+        [
+          31,
+          196
+        ],
+        [
+          32,
+          194
+        ],
+        [
+          33,
+          158
+        ],
+        [
+          34,
+          155
+        ],
+        [
+          35,
+          142
+        ],
+        [
+          36,
+          137
+        ],
+        [
+          37,
+          128
+        ],
+        [
+          38,
+          121
+        ],
+        [
+          39,
+          115
+        ],
+        [
+          40,
+          113
+        ],
+        [
+          41,
+          104
+        ],
+        [
+          42,
+          100
+        ],
+        [
+          43,
+          90
+        ],
+        [
+          44,
+          12
+        ],
+        [
+          45,
+          82
+        ],
+        [
+          46,
+          77
+        ],
+        [
+          47,
+          77
+        ],
+        [
+          48,
+          63
+        ],
+        [
+          49,
+          54
+        ],
+        [
+          50,
+          8
+        ],
+        [
+          51,
+          46
+        ],
+        [
+          52,
+          41
+        ],
+        [
+          53,
+          9
+        ],
+        [
+          54,
+          26
+        ],
+        [
+          55,
+          16
+        ],
+        [
+          56,
+          7
+        ],
+        [
+          57,
+          9
+        ],
+        [
+          58,
+          10
+        ],
+        [
+          59,
+          10
+        ]
+      ],
+      "metrics": {
+        "workspaceBytes": 457102671,
+        "overlayBytes": 89732943,
+        "heapBytes": 388956160,
+        "framebufferBytes": 288000000,
+        "storage": "memory"
+      }
+    },
+    "refilter": {
+      "ms": 429347.299999997,
+      "groups": 55,
+      "pairs": 12000,
+      "cache": {
+        "field": true,
+        "refilter": true
+      }
+    },
+    "changedView": {
+      "visible": [
+        [
+          0,
+          10
+        ],
+        [
+          1,
+          20
+        ],
+        [
+          2,
+          30
+        ],
+        [
+          3,
+          39
+        ],
+        [
+          4,
+          49
+        ],
+        [
+          5,
+          59
+        ],
+        [
+          6,
+          67
+        ],
+        [
+          7,
+          77
+        ],
+        [
+          8,
+          88
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          10,
+          97
+        ],
+        [
+          11,
+          106
+        ],
+        [
+          12,
+          115
+        ],
+        [
+          13,
+          126
+        ],
+        [
+          14,
+          135
+        ],
+        [
+          15,
+          144
+        ],
+        [
+          16,
+          153
+        ],
+        [
+          17,
+          163
+        ],
+        [
+          18,
+          172
+        ],
+        [
+          19,
+          182
+        ],
+        [
+          20,
+          190
+        ],
+        [
+          21,
+          197
+        ],
+        [
+          22,
+          198
+        ],
+        [
+          23,
+          197
+        ],
+        [
+          24,
+          197
+        ],
+        [
+          25,
+          199
+        ],
+        [
+          26,
+          197
+        ],
+        [
+          27,
+          200
+        ],
+        [
+          28,
+          196
+        ],
+        [
+          29,
+          186
+        ],
+        [
+          30,
+          175
+        ],
+        [
+          31,
+          166
+        ],
+        [
+          32,
+          158
+        ],
+        [
+          33,
+          148
+        ],
+        [
+          34,
+          137
+        ],
+        [
+          35,
+          128
+        ],
+        [
+          36,
+          121
+        ],
+        [
+          37,
+          113
+        ],
+        [
+          38,
+          101
+        ],
+        [
+          39,
+          91
+        ],
+        [
+          40,
+          12
+        ],
+        [
+          41,
+          82
+        ],
+        [
+          42,
+          78
+        ],
+        [
+          43,
+          64
+        ],
+        [
+          44,
+          54
+        ],
+        [
+          45,
+          8
+        ],
+        [
+          46,
+          47
+        ],
+        [
+          47,
+          43
+        ],
+        [
+          48,
+          9
+        ],
+        [
+          49,
+          27
+        ],
+        [
+          50,
+          16
+        ],
+        [
+          51,
+          7
+        ],
+        [
+          52,
+          8
+        ],
+        [
+          53,
+          10
+        ],
+        [
+          54,
+          7
+        ]
+      ],
+      "metrics": {
+        "workspaceBytes": 367366080,
+        "overlayBytes": 0,
+        "heapBytes": 305070080,
+        "framebufferBytes": 288000000,
+        "storage": "memory"
+      }
+    },
+    "export": {
+      "ms": 33598.20000000298,
+      "byteLength": 2687035878,
+      "sha256": "bacbc88ab2b35303cae280f019415baa750446db0d9ac335d293be0c9315d87f",
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "arrays": 74,
+        "zip64": true,
+        "assemblyMs": 15450.09999999404,
+        "hashMs": 18139.09999999404,
+        "maximumScalarChunk": 65536,
+        "outputCapacityBytes": 2687035878
+      }
+    },
+    "storage": {
+      "reservedBytes": 2685481134,
+      "peakReservedBytes": 21093551907,
+      "estimatedAvailableBytes": 10737418240,
+      "estimateIsAdmissionLimit": false,
+      "logicalLimitBytes": null,
+      "openFiles": 10,
+      "physicalFiles": 10,
+      "maximumPhysicalFileBytes": 1073741824
+    },
+    "memory": {
+      "budgetBytes": 1610612736,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 1336575492
+    },
+    "elapsedMs": 5158509.799999997,
+    "baseline96MpFieldsExact": true,
+    "independentReader": {
+      "numpy": "1.26.4",
+      "zip64": true,
+      "allEntriesCrcChecked": true,
+      "afterSourceAndEngineRelease": true,
+      "knownDistantCopyPairs": 12000,
+      "fields": [
+        {
+          "pass": {
+            "id": 0,
+            "algorithm": "PatchMatch Zernike",
+            "method": 0,
+            "patch": 3,
+            "targetPatch": 3,
+            "quarterTurn": false,
+            "reflection": false,
+            "stage": "base",
+            "descriptorFrame": "normal",
+            "requireTransform": false,
+            "requireReflection": false,
+            "requireDetail": false
+          },
+          "shape": [
+            8000,
+            12000
+          ],
+          "arrays": {
+            "targets": {
+              "sha256": "27dd895775939aaa7cd231564302f78d792739c074fe770f3a522217f6ea531a",
+              "dtype": "<i4",
+              "elements": 96000000
+            },
+            "distances_squared": {
+              "sha256": "44b773672673b3850f6431faf2603360c2aa0e0a8b3482d10f2addad2de03305",
+              "dtype": "<f4",
+              "elements": 96000000
+            },
+            "allowed": {
+              "sha256": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+              "dtype": "|u1",
+              "elements": 96000000
+            },
+            "selected": {
+              "sha256": "581c1bd18e537fbae8494777f3d228f56235b0d712a76408b0a97427a2c65c8a",
+              "dtype": "|u1",
+              "elements": 96000000
+            },
+            "errors": {
+              "sha256": "cad54d049822657c52c1053bab7903c71dfbc4b4c7a39975701100d259e6ab70",
+              "dtype": "<f4",
+              "elements": 96000000
+            }
+          },
+          "matchedTargets": 96000000,
+          "exactDistantCopyTargets": 85739989,
+          "thresholdCount": 95991566,
+          "allowedCount": 96000000,
+          "selectedCount": 85579947
+        },
+        {
+          "pass": {
+            "id": 1,
+            "algorithm": "PatchMatch SIFT",
+            "method": 1,
+            "patch": 3,
+            "targetPatch": 3,
+            "quarterTurn": false,
+            "reflection": false,
+            "stage": "base",
+            "descriptorFrame": "normal",
+            "requireTransform": false,
+            "requireReflection": false,
+            "requireDetail": false
+          },
+          "shape": [
+            7991,
+            11991
+          ],
+          "arrays": {
+            "targets": {
+              "sha256": "d6fed2213bd9e94ac11de308ce78c4a4ccb987959322e323bb200ea5058de8fa",
+              "dtype": "<i4",
+              "elements": 95820081
+            },
+            "distances_squared": {
+              "sha256": "da07f3e9408db1026a2ed0424a67cbcd0b1ce5b507970d88ac52c288a724ab8a",
+              "dtype": "<f4",
+              "elements": 95820081
+            },
+            "allowed": {
+              "sha256": "a3ad749bc893388fb0f36938c63181869b52f670c6ad07d031fcda1056f99df5",
+              "dtype": "|u1",
+              "elements": 95820081
+            },
+            "selected": {
+              "sha256": "d8d32ab324b763dd5f162e677c1b94f077067213936c427d5037ecda06d466a3",
+              "dtype": "|u1",
+              "elements": 95820081
+            },
+            "errors": {
+              "sha256": "f12bebea41c8654398dbc532786e5b9e3fa8d2bd8999ccce844ea5a4065674e7",
+              "dtype": "<f4",
+              "elements": 95820081
+            }
+          },
+          "matchedTargets": 95820081,
+          "exactDistantCopyTargets": 92145662,
+          "thresholdCount": 92093404,
+          "allowedCount": 95820081,
+          "selectedCount": 91930144
+        }
+      ],
+      "native96MpBitExactClaim": false
+    }
+  },
+  "binding": {
+    "variant": "phase",
+    "engineCommit": "9f527fdf9854474b23903d07a2b30774a2ef2e30",
+    "runtime": {
+      "sha256": "b15b578945e8261a803d8133dcaff21a6a36301b8402f29423b6b1d02fe7eacb",
+      "files": 1015
+    },
+    "recipeSha256": "89d4fa175c149dcd608564ec3478102013edcb6587b36a0f8e30ae4292d865f0"
+  },
+  "browser": "154.0.8037.93"
+}

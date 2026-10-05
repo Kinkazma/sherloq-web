@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.37",
+  "runtimeFiles": 387,
+  "runtimeManifestSha256": "dea349b27266ccd732a52f4183384892110b97dee555c54eaec128ebeae31236",
+  "scope": "All copied runtime bytes and candidate component/96MP execution sources match exactly. Baseline copies retain parameter caching and differ only in session lifetime. Actual2GiB warm/6MiB pressure runs and1GiB useful-work reclamation, identical probability SHA/native masks. Fresh copied auto-GPU and explicit-CPU API, JPEG zones, cache-only views, complete NPZ/telemetry, cancellation and reload. Largest-cache VIG96MP all plane SHA equal M1.36; distinct unchanged TNT/CMSeg96MP arithmetic/output paths are reused explicitly. No WordPress or universal-device claim.",
+  "variants": [
+    {
+      "variant": "mgcfdn-vig",
+      "probabilitySha256": "a050434b5773fbf9f8f5faee40c6fb2cb6654e57c0b2d9caa18646bfe5260a55",
+      "foreground": 7256,
+      "warmModelRequestsAvoided": 1,
+      "warmModelBytesAvoided": 28780877,
+      "modelWorkerCapacity": 623213543,
+      "baselinePeak": 972715985,
+      "candidatePeak": 1183749073,
+      "workers": 0
+    },
+    {
+      "variant": "mgcfdn-tnt",
+      "probabilitySha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+      "foreground": 8009,
+      "warmModelRequestsAvoided": 1,
+      "warmModelBytesAvoided": 28780560,
+      "modelWorkerCapacity": 623212592,
+      "baselinePeak": 889713244,
+      "candidatePeak": 1088214620,
+      "workers": 0
+    },
+    {
+      "variant": "cmseg-generalization",
+      "probabilitySha256": "13e4925c4a2d22c43b5799de9643f116bcd9e652e1a61f156b69cf8db840b8f2",
+      "foreground": 2611,
+      "warmModelRequestsAvoided": 2,
+      "warmModelBytesAvoided": 12010557,
+      "modelWorkerCapacity": 572905238,
+      "baselinePeak": 1346857604,
+      "candidatePeak": 1346857604,
+      "workers": 10
+    }
+  ],
+  "constrained": {
+    "budgetMiB": 1024,
+    "peakAccountedBytes": 1039169489,
+    "parameterRequestsWarm": 0,
+    "sessionPressureEvictionsPerWarmInference": 1
+  },
+  "large": {
+    "width": 12000,
+    "height": 8000,
+    "foreground": 3848796,
+    "arrays": 4,
+    "exportBytes": 672015296,
+    "exportSha256": "9bb3be8bc6af2de17d96bee0312d17bce9075a14f76062d930b43125adfd438b",
+    "peakAccountedBytes": 2713889617,
+    "sessionCache": {
+      "enabled": true,
+      "creations": 1,
+      "reuses": 2,
+      "pressureEvictions": 0
+    },
+    "allPlaneHashesEqualToM1_36": true
+  },
+  "copied": {
+    "automaticGpu": true,
+    "explicitCpu": true,
+    "cancelled": true,
+    "retry": true
+  }
+}

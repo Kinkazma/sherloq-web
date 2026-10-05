@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1027,
+    1021
+  ],
+  "nativePanels": 2,
+  "nativePanelDetection": true,
+  "panelMetrics": {
+    "sampleStep": 1,
+    "paletteColors": 1,
+    "proposals": 2,
+    "panelWorkspaceBytes": 1813077,
+    "maskStorage": "temporary"
+  },
+  "nativeScoresScopeAndSummaries": true,
+  "allPlanesInOpfs": true,
+  "metrics": {
+    "preparationWorkingBytes": 3490939,
+    "panels": 2,
+    "sourcePanels": 2,
+    "lowStorage": "temporary",
+    "highStorage": "temporary",
+    "scopeStorage": "temporary"
+  },
+  "nativeRegions": 4,
+  "nativeLabelsAndRegions": true,
+  "segmentationMetrics": {
+    "segmentationWorkingBytes": 9459700,
+    "labelStorage": "temporary"
+  },
+  "profileEstimate": {
+    "quantiles": [
+      0.01,
+      0.969
+    ],
+    "thresholds": [
+      2,
+      2
+    ],
+    "method": "quantile_tail_knees_v1",
+    "status": "estimated",
+    "sample_count": 124875,
+    "tail_prominence": [
+      0.6300305754934099,
+      0.22163972815465433
+    ]
+  },
+  "scoreDeviations": [
+    4,
+    1.5
+  ],
+  "profileCancellationReleasesBuffers": true,
+  "cancellationRemovesScratch": true,
+  "memory": {
+    "budgetBytes": 12582912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 10446836
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

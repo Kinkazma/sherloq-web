@@ -1,0 +1,409 @@
+{
+  "browser": "154.0.8037.58",
+  "referenceOpenCV": "4.11.0",
+  "records": [
+    {
+      "case": "wide-ORB",
+      "route": "historical WASM",
+      "width": 24000,
+      "height": 64,
+      "count": 110,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 32
+    },
+    {
+      "case": "wide-AKAZE",
+      "route": "historical WASM",
+      "width": 24000,
+      "height": 64,
+      "count": 1381,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 440
+    },
+    {
+      "case": "wide-AKAZE-masked",
+      "route": "historical WASM",
+      "width": 24000,
+      "height": 64,
+      "count": 1045,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 440
+    },
+    {
+      "case": "wide-BRISK",
+      "route": "historical WASM",
+      "width": 24000,
+      "height": 64,
+      "count": 78655,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0.000030517578125,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0.0000011052877112524955,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        8270,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 24956
+    },
+    {
+      "case": "wide-CM2-ORB",
+      "route": "CM2 worker",
+      "width": 24000,
+      "height": 64,
+      "count": 22,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 6
+    },
+    {
+      "case": "tall-ORB",
+      "route": "historical WASM",
+      "width": 64,
+      "height": 24000,
+      "count": 110,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 32
+    },
+    {
+      "case": "tall-AKAZE",
+      "route": "historical WASM",
+      "width": 64,
+      "height": 24000,
+      "count": 1381,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 440
+    },
+    {
+      "case": "tall-AKAZE-masked",
+      "route": "historical WASM",
+      "width": 64,
+      "height": 24000,
+      "count": 1045,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 440
+    },
+    {
+      "case": "tall-AKAZE-masked",
+      "route": "global paged AKAZE",
+      "width": 64,
+      "height": 24000,
+      "count": 1045,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 440
+    },
+    {
+      "case": "tall-BRISK",
+      "route": "historical WASM",
+      "width": 64,
+      "height": 24000,
+      "count": 78635,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0.000030517578125,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0.0000010850858503499368,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        8176,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 24951
+    },
+    {
+      "case": "tall-CM2-ORB",
+      "route": "CM2 worker",
+      "width": 64,
+      "height": 24000,
+      "count": 22,
+      "pointFieldMax": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldMean": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "descriptorDifferences": 0,
+      "farAxisPoints": 6
+    }
+  ],
+  "finalMemory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 823727783
+  }
+}

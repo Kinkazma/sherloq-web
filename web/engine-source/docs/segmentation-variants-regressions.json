@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.2",
+  "tests": 8,
+  "failed": 0,
+  "scope": "Family admission, exact preparation, native decision rules and bounded zone projection. Public allowlist rejects the unqualified ST/EffNet/TNT/VIG candidates.",
+  "logSha256": "67306d8afa643e3672700bfc080878742d4440086951b9e4e0da341ec246a193"
+}

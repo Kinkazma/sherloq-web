@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real public worker API with immutable Blob, exact full96MP global histogram, bounded pixel windows, source bytes, stale handles, cancellation/storage cleanup and reload. Functional timings, not isolated benchmark.",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "loaded": {
+    "id": "large",
+    "width": 12000,
+    "height": 8000,
+    "format": "rgb8",
+    "surface": {
+      "id": "cc46ec4b-51b3-46fc-9e68-1896865666ed",
+      "revision": 1,
+      "width": 12000,
+      "height": 8000,
+      "format": "rgb8",
+      "sourceWidth": 12000,
+      "sourceHeight": 8000,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "temporary"
+    },
+    "sha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        12000,
+        8000
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "operationConstraints": {
+      "file.digest": {
+        "imageHashes": false
+      }
+    },
+    "availableOperations": [
+      "inspection.histogram",
+      "colors.stats",
+      "noise.planes",
+      "noise.minmax",
+      "file.hex",
+      "file.digest"
+    ],
+    "metrics": {
+      "decodeMs": 1827,
+      "rowsPerChunk": 116,
+      "encodedWorkingBytes": 86050184,
+      "coefficientAllowanceBytes": 0,
+      "workingReservationBytes": 127956616,
+      "codecHeapCapacityBytes": 103546880,
+      "storage": "temporary",
+      "temporaryBackend": "indexeddb",
+      "temporaryFallback": {
+        "from": "opfs",
+        "code": "STORAGE_IO",
+        "message": "Temporary browser storage failed (UnknownError)."
+      },
+      "temporaryBytes": 288000000,
+      "originalBlobBytes": 86050184,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM",
+      "preparationMs": 2349,
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 130053768
+      }
+    }
+  },
+  "loadMs": 2351,
+  "histogramMs": 768,
+  "histogram": {
+    "uniqueColors": 1637956,
+    "uniqueRatio": 1.71,
+    "metrics": {
+      "totalMs": 767,
+      "workers": 1,
+      "cache": {
+        "result": false,
+        "analysis": false
+      },
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 1757148,
+        "activeReservationBytes": 103583672,
+        "peakAccountedBytes": 130053768
+      }
+    }
+  },
+  "windows": [
+    {
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 17,
+        "height": 19,
+        "sha256": "a47e674c655c3f8e76f478bde7181dce757292cff355643810a146b04b62fae5"
+      },
+      "bytes": 969
+    },
+    {
+      "rect": {
+        "x": 11969,
+        "y": 7977,
+        "width": 31,
+        "height": 23,
+        "sha256": "5d09fdb1f99edbb6bcb41597da72ed56cdadbe8b43c9ade73a5d77098d2b7e9b"
+      },
+      "bytes": 2139
+    },
+    {
+      "rect": {
+        "x": 5993,
+        "y": 3991,
+        "width": 67,
+        "height": 71,
+        "sha256": "98a7a9d88a0a03e59c5751e002168882ded697e0466c6b202c38dd6b8828e1a4"
+      },
+      "bytes": 14271
+    },
+    {
+      "rect": {
+        "x": 13,
+        "y": 57,
+        "width": 257,
+        "height": 63,
+        "sha256": "ce9ceca7bafe86460d6f6e3db526109034cfa2d00f904993a83a2df7f9b1d0c7"
+      },
+      "bytes": 48573
+    }
+  ],
+  "cancellation": "storage-closed-before-worker-termination",
+  "cancellationMs": 28,
+  "storageArtifactsRemaining": 0,
+  "cancellationPhases": [
+    "abort-received",
+    "closing-storage"
+  ],
+  "cleanup": "Owned temporary session removed before source reload; actual cancellation mode recorded",
+  "csvBytes": 8158,
+  "browser": "26.6"
+}

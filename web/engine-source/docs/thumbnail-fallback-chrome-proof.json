@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "nativeRejection": true,
+  "contiguousContractPreserved": true,
+  "memory": {
+    "budgetBytes": 805306368,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 676205839,
+    "knownHeapCapacityBytes": 16777216
+  },
+  "browser": "154.0.8037.58"
+}

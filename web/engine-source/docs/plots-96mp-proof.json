@@ -1,0 +1,213 @@
+{
+  "result": {
+    "family": "Plots",
+    "budgetBytes": 268435456,
+    "cases": [
+      {
+        "scale": 1,
+        "count": 24000000,
+        "sha256": "23c2e845e8528e3ea28051b207996f1a8fe2bf9829a5c5e3252c84df8dbb15e4",
+        "metrics": {
+          "workers": 8,
+          "completedStripJobs": 2400,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "valuesCached": false,
+          "samplingScale": 1,
+          "sourcePixels": 96000000,
+          "storedValueBytes": 576000000
+        },
+        "refilterCached": true,
+        "export": {
+          "byteLength": 576001366,
+          "sha256": "eefcf7945b02948cdec0d79512801fc4b2ef22f780f6b1f83b0c00b8d70da0fc"
+        },
+        "ms": 28107.89999999106,
+        "independentReader": {
+          "numpy": "1.26.4",
+          "allValuesNativeExact": true,
+          "crcChecked": true,
+          "svgPoints": 24000000,
+          "pngShape": [
+            480,
+            640,
+            3
+          ],
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "scale": 2,
+        "count": 6000000,
+        "sha256": "60681a2a5a78188abc162f9d25f740bb1f9233454532acfdbd9f750e3ddb0b28",
+        "metrics": {
+          "workers": 8,
+          "completedStripJobs": 496,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "valuesCached": false,
+          "samplingScale": 2,
+          "sourcePixels": 96000000,
+          "storedValueBytes": 144000000
+        },
+        "refilterCached": true,
+        "export": {
+          "byteLength": 144001366,
+          "sha256": "3901151ed9a8822bb171b98e285f2220ddf4269a911d699ac59939859da91c14"
+        },
+        "ms": 11600.300000011921,
+        "independentReader": {
+          "numpy": "1.26.4",
+          "allValuesNativeExact": true,
+          "crcChecked": true,
+          "svgPoints": 6000000,
+          "pngShape": [
+            480,
+            640,
+            3
+          ],
+          "afterSourceRelease": true
+        }
+      }
+    ],
+    "source": {
+      "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+      "shape": {
+        "id": "15c41309-cc2b-4040-920d-f27c2c8b44f1",
+        "revision": 1,
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "sourceWidth": 12000,
+        "sourceHeight": 8000,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "temporary"
+      },
+      "metrics": {
+        "decodeMs": 27844.29999999702,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 80426021,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 122332453,
+        "codecHeapCapacityBytes": 96731136,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 80426021,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      }
+    },
+    "rendering": [
+      {
+        "scale": 1,
+        "svgBytes": 3516773943,
+        "svgCircles": 24000000,
+        "pngBytes": 240438,
+        "metrics": {
+          "style": {
+            "x": 3,
+            "y": 4,
+            "z": 5,
+            "kind": "2d",
+            "colored": true,
+            "alpha": 1,
+            "size": 1,
+            "grid": true
+          },
+          "camera": {
+            "limits": [
+              0,
+              1,
+              0,
+              1
+            ],
+            "center": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "distance": 3.5,
+            "elevation": 30,
+            "azimuth": 65
+          },
+          "width": 640,
+          "height": 480,
+          "uploads": 1,
+          "uploadedBytes": 2880000000,
+          "draws": 6,
+          "points": 24000000,
+          "gpuDataBytes": 1572864,
+          "storage": "paged"
+        },
+        "memory": {
+          "budgetBytes": 33554432,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 18776064
+        },
+        "ms": 762488
+      },
+      {
+        "scale": 2,
+        "svgBytes": 879363171,
+        "svgCircles": 6000000,
+        "pngBytes": 108898,
+        "metrics": {
+          "style": {
+            "x": 3,
+            "y": 4,
+            "z": 5,
+            "kind": "2d",
+            "colored": true,
+            "alpha": 1,
+            "size": 1,
+            "grid": true
+          },
+          "camera": {
+            "limits": [
+              0,
+              1,
+              0,
+              1
+            ],
+            "center": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "distance": 3.5,
+            "elevation": 30,
+            "azimuth": 65
+          },
+          "width": 640,
+          "height": 480,
+          "uploads": 1,
+          "uploadedBytes": 720000000,
+          "draws": 6,
+          "points": 6000000,
+          "gpuDataBytes": 1572864,
+          "storage": "paged"
+        },
+        "memory": {
+          "budgetBytes": 33554432,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 18776064
+        },
+        "ms": 23730.09999999404
+      }
+    ],
+    "elapsedMs": 974298,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 185190080
+    }
+  }
+}

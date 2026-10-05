@@ -1,0 +1,41 @@
+{
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "width": 512,
+  "height": 512,
+  "budgetBytes": 134217728,
+  "originalWorkspaceBytes": 1435223444,
+  "heapBytes": 50331648,
+  "metrics": {
+    "workers": 1,
+    "completedJobs": 1,
+    "preflightExecutions": 0,
+    "policy": "immediate-useful-work",
+    "scheduling": {
+      "count": 1,
+      "maximum": 1,
+      "ceiling": 1,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start"
+    },
+    "outputBytes": 2323240,
+    "workerReservationBytes": 101121708,
+    "compactDescriptorJobs": 1
+  },
+  "sha256": {
+    "targets": "95a446039cccd7a2547d8f198d5411423d668aff8cfb3d9fba66001892d0678a",
+    "distancesSquared": "769a9ad8c5e45aa8ce55da7e5de546d8388b98b8cce36f82a60ccbfa69859958",
+    "allowed": "9aafb81841416a426b642f1edcf4c33610ad1652a7f3b0d8eb29000a3a2518fa"
+  },
+  "comparisons": "7153858",
+  "phases": [
+    "source-descriptors-complete",
+    "target-descriptors-complete",
+    "canonical-frame-complete",
+    "field-complete",
+    "complete"
+  ],
+  "cancelled": true,
+  "milliseconds": 3172.60000000149
+}

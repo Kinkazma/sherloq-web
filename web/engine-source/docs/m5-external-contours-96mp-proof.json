@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "contour-only generated mask; not full ELA inference",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "totalMs": 3728.595875,
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 192105540
+  },
+  "reference": "Analytic rectangles and nested island; 161 small native OpenCV topology cases validated separately."
+}

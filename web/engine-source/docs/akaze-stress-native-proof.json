@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "status": "native-match-budget-refusal",
+  "originalSha256": "474ab21c7b60adaca1e6f30da3a2c5a21fdde5d1148dc54480c3fd17a59fd93e",
+  "nativeSourceSha256": "161d3b3589383740fafd97cd9871f531c7ee2313db55ac5620a8c9770637db27",
+  "numpy": "1.26.4",
+  "opencv": "4.11.0",
+  "params": {
+    "response": 90,
+    "matching": 20,
+    "distance": 15,
+    "minimum": 5,
+    "showPoints": false,
+    "hideLines": false
+  },
+  "total": 20934,
+  "filtered": 11864,
+  "error": "Matching exceeds the 256 MiB result budget. Reduce Matching or Response.",
+  "scope": "Only the default all-image configuration. Other dense parameter settings and a complete successful dense pipeline remain unqualified."
+}

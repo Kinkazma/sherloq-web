@@ -1,0 +1,171 @@
+{
+  "schema": 1,
+  "status": "core-parity-passed",
+  "rows": [
+    {
+      "name": "native-snapshot",
+      "scores": [
+        {
+          "camera": "camera_alpha",
+          "score": 0.9622878607570788,
+          "rank": 1,
+          "scoreText": "0.96229",
+          "gapText": "0.95157"
+        },
+        {
+          "camera": "camera_beta",
+          "score": 0.01072198512064686,
+          "rank": 2,
+          "scoreText": "0.01072",
+          "gapText": ""
+        }
+      ],
+      "legacy": false,
+      "trainingMembershipVerified": true
+    },
+    {
+      "name": "legacy",
+      "scores": [
+        {
+          "camera": "synthetic_camera",
+          "score": 0,
+          "rank": 1,
+          "scoreText": "0.00000",
+          "gapText": ""
+        }
+      ],
+      "legacy": true,
+      "trainingMembershipVerified": false
+    },
+    {
+      "name": "incomplete",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "name": "unknown-schema",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "name": "empty",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "name": "float32",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "name": "vector",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "name": "nonfinite",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "name": "query-in-training",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "name": "missing-fingerprint",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "name": "legacy-untracked",
+      "scores": [
+        {
+          "camera": "synthetic_camera",
+          "score": 0,
+          "rank": 1,
+          "scoreText": "0.00000",
+          "gapText": ""
+        }
+      ],
+      "legacy": true,
+      "trainingMembershipVerified": false
+    },
+    {
+      "name": "complete-without-manifest",
+      "scores": [
+        {
+          "camera": "synthetic_camera",
+          "score": 0,
+          "rank": 1,
+          "scoreText": "0.00000",
+          "gapText": ""
+        }
+      ],
+      "legacy": false,
+      "trainingMembershipVerified": false
+    },
+    {
+      "name": "same-score-order",
+      "scores": [
+        {
+          "camera": "alpha",
+          "score": 0,
+          "rank": 1,
+          "scoreText": "0.00000",
+          "gapText": "0.00000"
+        },
+        {
+          "camera": "zeta",
+          "score": 0,
+          "rank": 2,
+          "scoreText": "0.00000",
+          "gapText": ""
+        },
+        {
+          "camera": "é",
+          "score": 0,
+          "rank": 3,
+          "scoreText": "0.00000",
+          "gapText": ""
+        },
+        {
+          "camera": "",
+          "score": 0,
+          "rank": 4,
+          "scoreText": "0.00000",
+          "gapText": ""
+        },
+        {
+          "camera": "🔬",
+          "score": 0,
+          "rank": 5,
+          "scoreText": "0.00000",
+          "gapText": ""
+        }
+      ],
+      "legacy": false,
+      "trainingMembershipVerified": false
+    },
+    {
+      "name": "negative-score",
+      "scores": [
+        {
+          "camera": "synthetic_camera",
+          "score": -1,
+          "rank": 1,
+          "scoreText": "-1.00000",
+          "gapText": ""
+        }
+      ],
+      "legacy": false,
+      "trainingMembershipVerified": false
+    }
+  ],
+  "fingerprints": [
+    {
+      "camera": "camera_alpha",
+      "maximumError": 0,
+      "differing": 0
+    },
+    {
+      "camera": "camera_beta",
+      "maximumError": 0,
+      "differing": 0
+    }
+  ],
+  "exportBytes": 53327,
+  "builtBytes": 53327
+}

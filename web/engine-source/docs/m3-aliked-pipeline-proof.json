@@ -1,0 +1,64 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "kind": "aliked-n16",
+      "backend": "cpu",
+      "points": 144,
+      "pairs": 77,
+      "expectedPairs": 77,
+      "pairsEqual": true,
+      "groups": 6,
+      "expectedGroups": 6,
+      "groupsEqual": true,
+      "ownersEqual": true,
+      "pairMaximum": 0.00006103515437416718,
+      "renderDifferences": 0
+    },
+    {
+      "kind": "aliked-n16rot",
+      "backend": "cpu",
+      "points": 799,
+      "pairs": 505,
+      "expectedPairs": 505,
+      "pairsEqual": true,
+      "groups": 6,
+      "expectedGroups": 6,
+      "groupsEqual": true,
+      "ownersEqual": true,
+      "pairMaximum": 0.00006103515619315658,
+      "renderDifferences": 0
+    },
+    {
+      "kind": "aliked-n16",
+      "backend": "webgpu",
+      "points": 144,
+      "pairs": 77,
+      "expectedPairs": 77,
+      "pairsEqual": true,
+      "groups": 6,
+      "expectedGroups": 6,
+      "groupsEqual": true,
+      "ownersEqual": true,
+      "pairMaximum": 0.00006103515437416718,
+      "renderDifferences": 0
+    },
+    {
+      "kind": "aliked-n16rot",
+      "backend": "webgpu",
+      "points": 799,
+      "pairs": 505,
+      "expectedPairs": 505,
+      "pairsEqual": true,
+      "groups": 6,
+      "expectedGroups": 6,
+      "groupsEqual": true,
+      "ownersEqual": true,
+      "pairMaximum": 0.00006103515562472239,
+      "renderDifferences": 0
+    }
+  ],
+  "decisionsMatch": true,
+  "peakAccountedBytes": 964728207,
+  "activeBytes": 0
+}

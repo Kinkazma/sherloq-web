@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "sourceSha256": "f4fa0091e17cb292414b2bb451e3720c24f4d5227d918ff3730fea4de48f3d36",
+  "cases": 152,
+  "maxScoreError": 1.1368683772161603e-13,
+  "thresholdFallbacks": 9364,
+  "exactArrays": [
+    "luminance",
+    "luminance_jpeg",
+    "votes",
+    "votes_jpeg",
+    "mask_f",
+    "mask_f_reg",
+    "mask_m",
+    "mask_m_reg"
+  ],
+  "limits": [
+    "Synthetic native corpus; timing omitted because this is a correctness run"
+  ]
+}

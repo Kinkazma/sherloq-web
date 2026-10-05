@@ -1,0 +1,161 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "Torch2.8 LayerNorm Welford candidate: four actual and two synthetic inputs, output/mean/rstd; no full-network qualification.",
+  "records": [
+    {
+      "name": "visual_feature_extractor.proj_norm1",
+      "output": "output",
+      "elements": 163840,
+      "different": 2635,
+      "maxAbs": 0.0000019073486328125,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.proj_norm1",
+      "output": "mean",
+      "elements": 256,
+      "different": 4,
+      "maxAbs": 2.9802322387695312e-8,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.proj_norm1",
+      "output": "rstd",
+      "elements": 256,
+      "different": 3,
+      "maxAbs": 1.1920928955078125e-7,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.0.inner_norm1",
+      "output": "output",
+      "elements": 163840,
+      "different": 7785,
+      "maxAbs": 9.5367431640625e-7,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.0.inner_norm1",
+      "output": "mean",
+      "elements": 4096,
+      "different": 238,
+      "maxAbs": 5.960464477539063e-8,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.0.inner_norm1",
+      "output": "rstd",
+      "elements": 4096,
+      "different": 60,
+      "maxAbs": 2.384185791015625e-7,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.5.outer_norm1",
+      "output": "output",
+      "elements": 164480,
+      "different": 1883,
+      "maxAbs": 2.384185791015625e-7,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.5.outer_norm1",
+      "output": "mean",
+      "elements": 257,
+      "different": 25,
+      "maxAbs": 7.450580596923828e-9,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.5.outer_norm1",
+      "output": "rstd",
+      "elements": 257,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.norm",
+      "output": "output",
+      "elements": 164480,
+      "different": 1329,
+      "maxAbs": 1.7881393432617188e-7,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.norm",
+      "output": "mean",
+      "elements": 257,
+      "different": 44,
+      "maxAbs": 7.450580596923828e-9,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.norm",
+      "output": "rstd",
+      "elements": 257,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-40",
+      "output": "output",
+      "elements": 160,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-40",
+      "output": "mean",
+      "elements": 4,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-40",
+      "output": "rstd",
+      "elements": 4,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-640",
+      "output": "output",
+      "elements": 2560,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-640",
+      "output": "mean",
+      "elements": 4,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-640",
+      "output": "rstd",
+      "elements": 4,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    }
+  ],
+  "ort": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/rewrite-segmentation-mean.py": "e7a6ffd0f339cea56a5a68e882f40259fd0972867cee029bd64e1d74ce83e2e4",
+    "scripts/study-segmentation-outer-mean.mjs": "61fc07ee299c913a1c7f856584422b74e6ce7d6a880af6d5b8a6013408532c22",
+    "scripts/rewrite-tnt-layernorm.py": "02e6a04fa0519cad5680b54692ed9a81a79a7fe9620960c29167f2dc602cc387"
+  }
+}

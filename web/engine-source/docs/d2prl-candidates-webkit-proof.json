@@ -1,0 +1,752 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native candidate transformations, not complete PatchMatch/model/final detections",
+  "cases": 21,
+  "operations": 147,
+  "results": [
+    {
+      "name": "2-noise",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "2-noise",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "2-noise",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "2-noise",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "2-noise",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "2-noise",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "2-noise",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "2-boundaries",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "2-boundaries",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "2-boundaries",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "2-boundaries",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "2-boundaries",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "2-boundaries",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "2-boundaries",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "2-tiny",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "2-tiny",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "2-tiny",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "2-tiny",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "2-tiny",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "2-tiny",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "2-tiny",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "3-noise",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "3-noise",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "3-noise",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "3-noise",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "3-noise",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "3-noise",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "3-noise",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "3-boundaries",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "3-boundaries",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "3-boundaries",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "3-boundaries",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "3-boundaries",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "3-boundaries",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "3-boundaries",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "3-tiny",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "3-tiny",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "3-tiny",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "3-tiny",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "3-tiny",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "3-tiny",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "3-tiny",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "17-noise",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "17-noise",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "17-noise",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "17-noise",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "17-noise",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "17-noise",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "17-noise",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "17-boundaries",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "17-boundaries",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "17-boundaries",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "17-boundaries",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "17-boundaries",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "17-boundaries",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "17-boundaries",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "17-tiny",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "17-tiny",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "17-tiny",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "17-tiny",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "17-tiny",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "17-tiny",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "17-tiny",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "32-noise",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "32-noise",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "32-noise",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "32-noise",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "32-noise",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "32-noise",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "32-noise",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "32-boundaries",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "32-boundaries",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "32-boundaries",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "32-boundaries",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "32-boundaries",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "32-boundaries",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "32-boundaries",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "32-tiny",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "32-tiny",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "32-tiny",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "32-tiny",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "32-tiny",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "32-tiny",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "32-tiny",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "65-noise",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "65-noise",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "65-noise",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "65-noise",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "65-noise",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "65-noise",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "65-noise",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "65-boundaries",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "65-boundaries",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "65-boundaries",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "65-boundaries",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "65-boundaries",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "65-boundaries",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "65-boundaries",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "65-tiny",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "65-tiny",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "65-tiny",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "65-tiny",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "65-tiny",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "65-tiny",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "65-tiny",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "127-noise",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "127-noise",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "127-noise",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "127-noise",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "127-noise",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "127-noise",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "127-noise",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "127-boundaries",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "127-boundaries",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "127-boundaries",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "127-boundaries",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "127-boundaries",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "127-boundaries",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "127-boundaries",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "127-tiny",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "127-tiny",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "127-tiny",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "127-tiny",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "127-tiny",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "127-tiny",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "127-tiny",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "448-noise",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "448-noise",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "448-noise",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "448-noise",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "448-noise",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "448-noise",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "448-noise",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "448-boundaries",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "448-boundaries",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "448-boundaries",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "448-boundaries",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "448-boundaries",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "448-boundaries",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "448-boundaries",
+      "operation": "initial",
+      "passed": true
+    },
+    {
+      "name": "448-tiny",
+      "operation": "bounds",
+      "passed": true
+    },
+    {
+      "name": "448-tiny",
+      "operation": "random",
+      "passed": true
+    },
+    {
+      "name": "448-tiny",
+      "operation": "wrap",
+      "passed": true
+    },
+    {
+      "name": "448-tiny",
+      "operation": "propagate",
+      "passed": true
+    },
+    {
+      "name": "448-tiny",
+      "operation": "propagateWrap",
+      "passed": true
+    },
+    {
+      "name": "448-tiny",
+      "operation": "nonlocal",
+      "passed": true
+    },
+    {
+      "name": "448-tiny",
+      "operation": "initial",
+      "passed": true
+    }
+  ],
+  "lifecycle": {
+    "cancelled": true,
+    "refused": true,
+    "inputPreserved": true
+  },
+  "fixtureSha256": "70384871c6e5df714754d6fba11d6c29edd820ac3298ede43e3eb193f1bb95c0",
+  "browser": "26.6",
+  "sourceSha256": "607a3c68018dcdaeefda75d17c19e2c518840a20758a36e26f0a1981361ad189"
+}

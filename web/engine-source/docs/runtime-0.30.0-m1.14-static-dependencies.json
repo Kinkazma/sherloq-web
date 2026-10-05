@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "version": "0.30.0-m1.14",
+  "status": "passed",
+  "scope": "Local literal ESM imports and literal new URL file dependencies. Computed paths need actual extracted-runtime execution; this scan alone does not establish closure.",
+  "manifestSha256": "3740b5826bb4b4031a41808222ad44e459fdc774cee4324303f8f03a2e3c36e6",
+  "runtimeFiles": 298,
+  "missing": []
+}

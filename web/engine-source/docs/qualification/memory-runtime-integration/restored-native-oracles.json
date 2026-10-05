@@ -1,0 +1,5202 @@
+{
+  "scope": "Existing native development references recovered read-only from the M4 worktree. No regeneration and no changed tolerance. The EM native source hash matches the accepted baseline in docs/native-inventory.json and existing resampling proofs, not the separately evolving native checkout.",
+  "oracles": [
+    {
+      "name": "resampling-em",
+      "source": "/Users/gaeldauchy/SHERLOQ/web-engine-m4/.build/resampling-em",
+      "files": [
+        {
+          "file": "0-3-fourier-0.f64",
+          "bytes": 3200,
+          "sha256": "b51e41d09e12f3028c74d4728fb6f6726dd065ce911a93337b405320d44f1a19"
+        },
+        {
+          "file": "0-3-fourier-0.rgb",
+          "bytes": 1200,
+          "sha256": "5386b836babc98fa75814d6105bec73bd80c97ee8e781190e1c9325342037c75"
+        },
+        {
+          "file": "0-3-fourier-1.f64",
+          "bytes": 800,
+          "sha256": "59b452937056ff078f8cd218ba275c011ff9bbfd6a61705e0e409a32804c4d1b"
+        },
+        {
+          "file": "0-3-fourier-1.rgb",
+          "bytes": 300,
+          "sha256": "1a6ee784527815251c6f1bd1360e353da8625f4bea6643b2b98126c4c158091a"
+        },
+        {
+          "file": "0-3-fourier-2.f64",
+          "bytes": 128,
+          "sha256": "b25c05018a5cfe6ae0859268380b7da1cc8436ca9281e68a7f0ad53bd0300763"
+        },
+        {
+          "file": "0-3-fourier-2.rgb",
+          "bytes": 48,
+          "sha256": "1718d37ce8e1ed3a2d10f993224b89f6802911bedf633a55ba560bc77de486a1"
+        },
+        {
+          "file": "0-3.f64",
+          "bytes": 1200,
+          "sha256": "a3a76209a6d6b463a2ab0ff5ead4fde2398cacf0f143cb1e1e35858090a28ca0"
+        },
+        {
+          "file": "0-3.rgb",
+          "bytes": 450,
+          "sha256": "e018e4181adc2c48b4796affebfe0c7feb25ec7aa2d181868d0a9461caff4136"
+        },
+        {
+          "file": "0-5-fourier-0.f64",
+          "bytes": 2048,
+          "sha256": "20d952023111b83e7dd75c1e7bc87b79a9a6b56912af901f6fafc5a0d3d3188c"
+        },
+        {
+          "file": "0-5-fourier-0.rgb",
+          "bytes": 768,
+          "sha256": "b9cac11b3d78f2abebc5d2b0eeb245b8e7cff26cec4e1f71e1d8c265c73211da"
+        },
+        {
+          "file": "0-5-fourier-1.f64",
+          "bytes": 512,
+          "sha256": "21178b87a4b80ca27a570e20ad7f0080f6410946f77cd4ea2dbab2e0cef99526"
+        },
+        {
+          "file": "0-5-fourier-1.rgb",
+          "bytes": 192,
+          "sha256": "0e1db9da5c90ce73ee658873b7b422b84f054b6fcc882d468f3c3e91b84b6f5b"
+        },
+        {
+          "file": "0-5-fourier-2.f64",
+          "bytes": 128,
+          "sha256": "03c699c935d3d1b575391dcea614184650da3635d529f126dc6d153cf5dbd504"
+        },
+        {
+          "file": "0-5-fourier-2.rgb",
+          "bytes": 48,
+          "sha256": "30c139946de97f1991c609468bad64577f013bd82f65161095a3520f52751795"
+        },
+        {
+          "file": "0-5.f64",
+          "bytes": 832,
+          "sha256": "b51b5c59e4f1d0cbbaaec4a444d8c8b8e06fd1a35b313bcfb95dc88ba945fc22"
+        },
+        {
+          "file": "0-5.rgb",
+          "bytes": 312,
+          "sha256": "96f9eccc14cae14c2224ccace0f7b4ddde0fc134fc143b15b68d44c66cb20842"
+        },
+        {
+          "file": "0.f64",
+          "bytes": 1632,
+          "sha256": "ebf2806bee776c24e9503cba72459dfe739d8f561da07c795123af758df8a1af"
+        },
+        {
+          "file": "1-3-fourier-0.f64",
+          "bytes": 28800,
+          "sha256": "da9f86835cf0c678b2e3cce63d779af9bc726a4e6d9a122ec6d781fa353fd940"
+        },
+        {
+          "file": "1-3-fourier-0.rgb",
+          "bytes": 10800,
+          "sha256": "1eeef5301b1f0b2782fb143d80e49c35324852a4e380841e06a177de7ddd37d9"
+        },
+        {
+          "file": "1-3-fourier-1.f64",
+          "bytes": 7200,
+          "sha256": "1009b8a156c3c95712b4a2d27ad2fa66854cf3190f31757924fec6f5cb014004"
+        },
+        {
+          "file": "1-3-fourier-1.rgb",
+          "bytes": 2700,
+          "sha256": "e305f015e56f36687f22c3deef329e59dbc6c3e2cecdfb76f1d36e283a7baa97"
+        },
+        {
+          "file": "1-3-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "51f16888a7a861ab5756e55aeed2b884769a3d9e9ffb72ef51c86870e9660ee3"
+        },
+        {
+          "file": "1-3-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "d79844f0f25856816476d46dcaec16adc4e32c7fef6ac0278cc5f47b0cd24fb8"
+        },
+        {
+          "file": "1-3.f64",
+          "bytes": 7200,
+          "sha256": "284d300cd3fbbf7a01c6e692c7f2cf6c9b93599b2c6609c50131e66e7f138d65"
+        },
+        {
+          "file": "1-3.rgb",
+          "bytes": 2700,
+          "sha256": "b68f577e0094c4fb070e09d8646c2ecdf60b5d771317531ffa2eb674172f651b"
+        },
+        {
+          "file": "1-5-fourier-0.f64",
+          "bytes": 25088,
+          "sha256": "ff1eb7f36017068caa33c18de9cdc5f73104d6313e809aefcbeecb3afbd2f83e"
+        },
+        {
+          "file": "1-5-fourier-0.rgb",
+          "bytes": 9408,
+          "sha256": "122a32a3523ec2179eecc9a334489fa050cafe711e13359e354e28d5b2766942"
+        },
+        {
+          "file": "1-5-fourier-1.f64",
+          "bytes": 6272,
+          "sha256": "6adf0b9605fc178edc1ebcd10f9aae2da2089fcacc3571c9e4b9226e3c02f84f"
+        },
+        {
+          "file": "1-5-fourier-1.rgb",
+          "bytes": 2352,
+          "sha256": "7d86a2e757143d545902e6f56ec78cdc750e370a9389a3192ea559e1bcf84b8e"
+        },
+        {
+          "file": "1-5-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "b3a98614b20073d7dd7b63071b8fa65a0ca8c02506b183978847a277cc630811"
+        },
+        {
+          "file": "1-5-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "6d0d14bf20d299c0fcafe229575881378dec598e40dc3d5692ba13f422bbf376"
+        },
+        {
+          "file": "1-5.f64",
+          "bytes": 6272,
+          "sha256": "6dbe4a27f692e5079af21bf1fedd7730451ee7bcf5586abb3583ce4b39206589"
+        },
+        {
+          "file": "1-5.rgb",
+          "bytes": 2352,
+          "sha256": "863efee189f51ec0729c38d1d0a73433f7efb5922ce86610db73d8e68cd352f2"
+        },
+        {
+          "file": "1.f64",
+          "bytes": 8192,
+          "sha256": "ae8a7f65b45edb343d583201a80ef1813ac70d00a27b6e90e7c62ca895720a45"
+        },
+        {
+          "file": "10-3-fourier-0.f64",
+          "bytes": 123008,
+          "sha256": "0df119bde3ec77c5a1ebc96fafc99ebe3346430ca95bd6432c3a92c67d6b4c01"
+        },
+        {
+          "file": "10-3-fourier-0.rgb",
+          "bytes": 46128,
+          "sha256": "020befce2789617538e2c4a6af1df8afae2f1051c9dcdb58925643fa68fb8532"
+        },
+        {
+          "file": "10-3-fourier-1.f64",
+          "bytes": 30752,
+          "sha256": "42a161301278e0111fcbbc1d9b68aa4441c661733540a51730bca1e42db233e9"
+        },
+        {
+          "file": "10-3-fourier-1.rgb",
+          "bytes": 11532,
+          "sha256": "9b4675a1ac54916d0ace381cd22be76a6244b1849722ecbcd5037cae7edc5e2a"
+        },
+        {
+          "file": "10-3-fourier-2.f64",
+          "bytes": 7200,
+          "sha256": "41e96dbfe0611726e5e397a174fba27175cc3f58c06712786c6c61d6292e8f48"
+        },
+        {
+          "file": "10-3-fourier-2.rgb",
+          "bytes": 2700,
+          "sha256": "bd3dcc3cd9466e86f4a2f2e43e6ac22b8cabe128efaea6c5f0f824424b1edd00"
+        },
+        {
+          "file": "10-3.f64",
+          "bytes": 32240,
+          "sha256": "ba9af46b36a9f022974e6068a95179110e90f29e7876541774f7107203f9f5f2"
+        },
+        {
+          "file": "10-3.rgb",
+          "bytes": 12090,
+          "sha256": "e92fccc5ece383db34e47bd885b4bb96e200f44b47fdde61a1b5d57a0fcf8598"
+        },
+        {
+          "file": "10-5-fourier-0.f64",
+          "bytes": 115200,
+          "sha256": "17cb1de53f4de0f00f012097fa067aed9d469dc73d6291632925f86840acef37"
+        },
+        {
+          "file": "10-5-fourier-0.rgb",
+          "bytes": 43200,
+          "sha256": "9dd8bbb767acd0ebb791c4eec2d1712998e6c615ce8e5f0a79285219f1a51bc1"
+        },
+        {
+          "file": "10-5-fourier-1.f64",
+          "bytes": 28800,
+          "sha256": "77d36d156a3d3d268f0f4844455f26ce2144585e7fd2247043009cab7714c85f"
+        },
+        {
+          "file": "10-5-fourier-1.rgb",
+          "bytes": 10800,
+          "sha256": "385317fdcba5ac09a574a43ae8309c00753340efc6201a966cac4854f0b32f2b"
+        },
+        {
+          "file": "10-5-fourier-2.f64",
+          "bytes": 7200,
+          "sha256": "9d4b13a60f84e889f7b4e5f963ed7818f1fdd037123f6c19d0f830887f7a13df"
+        },
+        {
+          "file": "10-5-fourier-2.rgb",
+          "bytes": 2700,
+          "sha256": "d462b0ea07dffa9d8dc08c6f5ef0068e2d1201fb587a6df887a88d2813d29a2c"
+        },
+        {
+          "file": "10-5.f64",
+          "bytes": 30240,
+          "sha256": "4623c6885ce59eb83d85f50da65037fa0b7b49db3a19b603aebcad059584e3bf"
+        },
+        {
+          "file": "10-5.rgb",
+          "bytes": 11340,
+          "sha256": "fbcb98fc896e741d5232c62791999da01917bf71323aa96f82d42c88ca480ad6"
+        },
+        {
+          "file": "10.f64",
+          "bytes": 34304,
+          "sha256": "dd83d645c6edf44b05211cf93de44d72c5e18a4ff47c0c4f6c8dd7f0c28a4cfa"
+        },
+        {
+          "file": "11-3-fourier-0.f64",
+          "bytes": 508032,
+          "sha256": "e53bfc94aff4b81bc83d32a8842870b4a05dde32edb18970e807c09d9b7f8ccf"
+        },
+        {
+          "file": "11-3-fourier-0.rgb",
+          "bytes": 190512,
+          "sha256": "1b3aa8aaa384c30c7a3e5ad50b210b5deb2e21293abb3af48c8f0ce3a666e411"
+        },
+        {
+          "file": "11-3-fourier-1.f64",
+          "bytes": 127008,
+          "sha256": "48ba4d475989608bafe042826b91389a5fe84fbf53f1890068f8d02b67584e6f"
+        },
+        {
+          "file": "11-3-fourier-1.rgb",
+          "bytes": 47628,
+          "sha256": "75b2e74ac05bcf4ecd841b72310107a2d02c4f1af6f25cd8d56f9956825c5ba6"
+        },
+        {
+          "file": "11-3-fourier-2.f64",
+          "bytes": 30752,
+          "sha256": "02b0e138691b3d99e10b7847e7ff35d84a6b29f208cdf799fa898ff11ba0e58b"
+        },
+        {
+          "file": "11-3-fourier-2.rgb",
+          "bytes": 11532,
+          "sha256": "c1cc693f8da8f21f8734172228c6876a06e225ef7e535fb415ef4958b03acad0"
+        },
+        {
+          "file": "11-3.f64",
+          "bytes": 130032,
+          "sha256": "8a7934ba78bf17a90cfb3f666d469349644e4f3a065baf0a0e14a5d37bad3fdd"
+        },
+        {
+          "file": "11-3.rgb",
+          "bytes": 48762,
+          "sha256": "c92c9ab84b70bb275d45f51818f0a386e159ca4cc14a96478724b53fbc6949f0"
+        },
+        {
+          "file": "11-5-fourier-0.f64",
+          "bytes": 492032,
+          "sha256": "be69ba8baf26f04b07ffc27170057d1f51f4bb272b91d444fc22c621a7d39972"
+        },
+        {
+          "file": "11-5-fourier-0.rgb",
+          "bytes": 184512,
+          "sha256": "e249028482c2c6e2b2f0277d6c0e7610189557102d8579166b3f6f02052bf5bf"
+        },
+        {
+          "file": "11-5-fourier-1.f64",
+          "bytes": 123008,
+          "sha256": "71b2a42753dd7333ddff11e4fe50dcaa4224dadf4337ce4ff3ddb7538345527f"
+        },
+        {
+          "file": "11-5-fourier-1.rgb",
+          "bytes": 46128,
+          "sha256": "097276824d42ff19381b27a47c0c93f6e6a1209cfb688785d28d643201df0c77"
+        },
+        {
+          "file": "11-5-fourier-2.f64",
+          "bytes": 30752,
+          "sha256": "e9fdab4819a6cd2fc9a7daaf72497a6fbb539ebb25072dc417c0537df22f6382"
+        },
+        {
+          "file": "11-5-fourier-2.rgb",
+          "bytes": 11532,
+          "sha256": "f2b4c5610ea11a5f7b63b2e49387ae4d47f32e0164d7065d03095a92df9b96e1"
+        },
+        {
+          "file": "11-5.f64",
+          "bytes": 125984,
+          "sha256": "cf1f2039bb8c0f7ea142fa9505e6d86862481ed8246f1df1ed3de7af77330b96"
+        },
+        {
+          "file": "11-5.rgb",
+          "bytes": 47244,
+          "sha256": "c4861544b6a4e8685807cf3164a62ae45364700805044ab26c95ef83c67d49ac"
+        },
+        {
+          "file": "11.f64",
+          "bytes": 134144,
+          "sha256": "df4b5d362d303f76865035515ca0b7ab257d888ef5f3ae9592b84a467828ff3c"
+        },
+        {
+          "file": "12-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "d59ea6907a0d80446132bed4889f45272811c1935ae799e9435332cb7122d745"
+        },
+        {
+          "file": "12-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "ebfd40230719d1af9819619dd9c8dee18e20745508a2ddd0270e7df2256d207e"
+        },
+        {
+          "file": "12-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "f16a56e9457f8ce04d7ea7b34c2aa7636a853a7f8ada309c68dee86ac6bc0591"
+        },
+        {
+          "file": "12-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "a7750a220eb80d38ce82d46fd1eca559c005387c37dccc81ae9bf5ac1b4321d0"
+        },
+        {
+          "file": "12-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "12-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "12-3.f64",
+          "bytes": 432,
+          "sha256": "a7b3044878064a4f51456068908a0b3369febf7827c1df8635a325bbe86dac32"
+        },
+        {
+          "file": "12-3.rgb",
+          "bytes": 162,
+          "sha256": "19052caa5cef8f7020317b50195e8048893f59f056fb525c9d04fc5d3a3612b5"
+        },
+        {
+          "file": "12.f64",
+          "bytes": 704,
+          "sha256": "7db767f12023df89b3c7b8bc9b2d1b9413d28ce1f6be1d7254857428b4cb2dd7"
+        },
+        {
+          "file": "13-3-fourier-0.f64",
+          "bytes": 6272,
+          "sha256": "560f0b778a11d89bbe242a3eb60709df8bc8cf12cf1a8e0b3103ee6081fccb95"
+        },
+        {
+          "file": "13-3-fourier-0.rgb",
+          "bytes": 2352,
+          "sha256": "ab95fb387b4bc993e920e134e5cddd0259ae85c157c124e2bd2db272945f8d4b"
+        },
+        {
+          "file": "13-3-fourier-1.f64",
+          "bytes": 1568,
+          "sha256": "eb1bbef16f05196b64ab5ea3fd69bb12f069aa6c76e7a9ffc1af5ea2cfb2693d"
+        },
+        {
+          "file": "13-3-fourier-1.rgb",
+          "bytes": 588,
+          "sha256": "2f43c1b4d4b6b7d7afbea935398ac6e8183f8b60ee48f29815ce9766ba3deb0f"
+        },
+        {
+          "file": "13-3-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "c04ff31fabf9b4c80671fe57e90bdb97df091f7118a76aa76db4fb7bc131b63a"
+        },
+        {
+          "file": "13-3-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "0c06167df3e494c8b7e40da95d4fa6dfde03bb89d260ae12cd848508c8c6f65a"
+        },
+        {
+          "file": "13-3.f64",
+          "bytes": 1904,
+          "sha256": "214452fa10807d47b3d99881eee3e348c37c25ea8a169672277157b5bb9dda3e"
+        },
+        {
+          "file": "13-3.rgb",
+          "bytes": 714,
+          "sha256": "a5d8ad5f9aece175d1e0b938e141ba07b0282fcc9229f5b8d78204f37967a6d2"
+        },
+        {
+          "file": "13-5-fourier-0.f64",
+          "bytes": 4608,
+          "sha256": "ce713436a56ec896192c7877141b9805aaefb02b8776296614aa230a26eb1b15"
+        },
+        {
+          "file": "13-5-fourier-0.rgb",
+          "bytes": 1728,
+          "sha256": "c03e0ba5500a57ca081dab49c9d4e4aecca50232c58be89549f9d9ce6f1e3f02"
+        },
+        {
+          "file": "13-5-fourier-1.f64",
+          "bytes": 1152,
+          "sha256": "51be5330c8597196f15104f6ee362313dd4bdba6988860206f1e5b8ae1e80252"
+        },
+        {
+          "file": "13-5-fourier-1.rgb",
+          "bytes": 432,
+          "sha256": "8d6a5ce9bdb1ef5404af1e811c7fe9fa6279ca7d18aed139424fc049823cd0de"
+        },
+        {
+          "file": "13-5-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "b7591b59d6c452f5321e35d02761cb503ccb4976587426dbc3414b08c73cd589"
+        },
+        {
+          "file": "13-5-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "331c96b25a6269b12e30df2e4b058cd5fd45d4637052fb648c669b7575f520be"
+        },
+        {
+          "file": "13-5.f64",
+          "bytes": 1440,
+          "sha256": "b91d68f1e821a70538ce83c852f29e2b093c467f75f0f0b43032aa6291fc9f30"
+        },
+        {
+          "file": "13-5.rgb",
+          "bytes": 540,
+          "sha256": "029b2707a093722106e7269b71624a0910a23d90e1620b0000770a4666a3a969"
+        },
+        {
+          "file": "13.f64",
+          "bytes": 2432,
+          "sha256": "ee721404ed95da90110c28c8a3de9baeabff2ccc6c54abd3d1048d84787a23f3"
+        },
+        {
+          "file": "14-3-fourier-0.f64",
+          "bytes": 28800,
+          "sha256": "1a71fd0ee685a5753387f35762fbae2a02d83a4f096911d333647921519c5abd"
+        },
+        {
+          "file": "14-3-fourier-0.rgb",
+          "bytes": 10800,
+          "sha256": "3e29ba6204614101b668842d965e06bcf4291cec6cbef3f9ca40526a5a32348a"
+        },
+        {
+          "file": "14-3-fourier-1.f64",
+          "bytes": 7200,
+          "sha256": "ec016ca3b0fdb53ebd102a34df0e70f47e25726e87acf795298b05c06b1d673b"
+        },
+        {
+          "file": "14-3-fourier-1.rgb",
+          "bytes": 2700,
+          "sha256": "8afd5b100f8b7730a11d3c635f405d88adb916b815ec8fee297832be99ea5a04"
+        },
+        {
+          "file": "14-3-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "d4b8a26fcde34aea1731bd3ebbd7d459f0ddd083f98371351d93be23ba97217c"
+        },
+        {
+          "file": "14-3-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "accbfb0df1c793caa1182e29a0afba06b42a5cc441c031efcb57fa6274df9674"
+        },
+        {
+          "file": "14-3.f64",
+          "bytes": 8432,
+          "sha256": "9e44426421a04f49ba1baa5509a48f226732e244ef098b18822b7f9caec36530"
+        },
+        {
+          "file": "14-3.rgb",
+          "bytes": 3162,
+          "sha256": "640c1a7bc31d9fe4a90c4d6fdf6bc451658c190bc726b1a5e32ec56f8f568c90"
+        },
+        {
+          "file": "14-5-fourier-0.f64",
+          "bytes": 25088,
+          "sha256": "05e95b3c8a347e6d984c26fe1b184a87dc6eda00b8ebaa2c9168de4308f65a71"
+        },
+        {
+          "file": "14-5-fourier-0.rgb",
+          "bytes": 9408,
+          "sha256": "2564e297e4d4962f1f0e5580dfe90aaab067927d6267e76f329ddc070fb0def8"
+        },
+        {
+          "file": "14-5-fourier-1.f64",
+          "bytes": 6272,
+          "sha256": "4efa8c1d028a0593f2f7444dce7a3319f921875e5c4c3f5f409c37506ff28b90"
+        },
+        {
+          "file": "14-5-fourier-1.rgb",
+          "bytes": 2352,
+          "sha256": "3c31d9e17564deb08575e0b2537498fce62aaba05b734a1d8d915050f8320fcc"
+        },
+        {
+          "file": "14-5-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "b49abca40e05e286c2a5328ab5ea1fe82637c06653868b7713d9ac893c386bfc"
+        },
+        {
+          "file": "14-5-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "157bb50701239b3bc52f4c4214c50640e35c6283effd08c724b6c59fdc1c93a3"
+        },
+        {
+          "file": "14-5.f64",
+          "bytes": 7424,
+          "sha256": "e0b4cb0389e69123b18b64e71b8c2206d74255e91198e35080c44682a94fd123"
+        },
+        {
+          "file": "14-5.rgb",
+          "bytes": 2784,
+          "sha256": "53354d00161d417c511d5c9b38e03fb6e0e148f216a8344a10ca02530931d0ae"
+        },
+        {
+          "file": "14.f64",
+          "bytes": 9504,
+          "sha256": "e179e5f3043c62a8983e2318469a62dd5670d935e7d3e4ca500d512374bacc02"
+        },
+        {
+          "file": "15-3-fourier-0.f64",
+          "bytes": 123008,
+          "sha256": "754d54127ba41f480a1a65e1bb85a98044395ce48fe057f16f8f3a3b6b9b4787"
+        },
+        {
+          "file": "15-3-fourier-0.rgb",
+          "bytes": 46128,
+          "sha256": "7dc244c9a9259a2e0fdb2ce9144285f9cabf2efee331fa5db07515d72da8013d"
+        },
+        {
+          "file": "15-3-fourier-1.f64",
+          "bytes": 30752,
+          "sha256": "978ef4f6c54b1f2302d78088f4a3c949b3d553bdf1f65ec52693cfef9617738c"
+        },
+        {
+          "file": "15-3-fourier-1.rgb",
+          "bytes": 11532,
+          "sha256": "be21270ba59255dc3032481857b5877a9c72fd8edc79f6ed5ac666379120441d"
+        },
+        {
+          "file": "15-3-fourier-2.f64",
+          "bytes": 7200,
+          "sha256": "28dce22d5e8deeb0cf6a39ceda65cefae73f484fc06508436e67866cb147cfbd"
+        },
+        {
+          "file": "15-3-fourier-2.rgb",
+          "bytes": 2700,
+          "sha256": "01783f6b6e9b378076e61c9cefa8c60a72e7b5357af5b85d9daeb845bb3bf73e"
+        },
+        {
+          "file": "15-3.f64",
+          "bytes": 32240,
+          "sha256": "ef5b10fa7865c167439ea42333e5f707478496f033c43135cbca45f45012e21d"
+        },
+        {
+          "file": "15-3.rgb",
+          "bytes": 12090,
+          "sha256": "f34edfc7e0204ae358f486edd44615a1b3d406e06913e0688557ac9b90ce082b"
+        },
+        {
+          "file": "15-5-fourier-0.f64",
+          "bytes": 115200,
+          "sha256": "5de6f5f49de88576daeb80dd38028309d568ee450ea05f4f282d0b828644a24a"
+        },
+        {
+          "file": "15-5-fourier-0.rgb",
+          "bytes": 43200,
+          "sha256": "f779441abd7e451e1d006c356d205536abe6bf690a48eb5d8dde857a7ce11e16"
+        },
+        {
+          "file": "15-5-fourier-1.f64",
+          "bytes": 28800,
+          "sha256": "03a5569edc3c99f9e63ef0bc6495d6ce6424384dcfebf05f7c636532e63c0960"
+        },
+        {
+          "file": "15-5-fourier-1.rgb",
+          "bytes": 10800,
+          "sha256": "8fe64235e522e77704a47c090bd661750e341bc3e34bea96990e963ae0172578"
+        },
+        {
+          "file": "15-5-fourier-2.f64",
+          "bytes": 7200,
+          "sha256": "aea1dd544011f1dfb12d1dfa941a3eff890adb5edfd22495543063e7e2d06e16"
+        },
+        {
+          "file": "15-5-fourier-2.rgb",
+          "bytes": 2700,
+          "sha256": "dc9c049fb884852d9381af2e9453ea73a0059658e544d0807d4ac0e9c870aac0"
+        },
+        {
+          "file": "15-5.f64",
+          "bytes": 30240,
+          "sha256": "e3feda512c265e12343f98840ac2e4cef0ec3c576a371432c4fbf153946ab5df"
+        },
+        {
+          "file": "15-5.rgb",
+          "bytes": 11340,
+          "sha256": "6e03d603d4eb8153a3bfe3da3c5434645adbeb574ccf50d530b02f0596d60332"
+        },
+        {
+          "file": "15.f64",
+          "bytes": 34304,
+          "sha256": "6657dca30b61f77ba3f24cdb4b469e2060723144b90151eb4a6fbf52633bb080"
+        },
+        {
+          "file": "16-3-fourier-0.f64",
+          "bytes": 508032,
+          "sha256": "34d799f4acc4f56b2ceb418c80c125a27478a32a2532061d290197a419ff9b82"
+        },
+        {
+          "file": "16-3-fourier-0.rgb",
+          "bytes": 190512,
+          "sha256": "402eb33068e5fd3805676e642adf1f6c1913a22a42abf38b110699d91923dbb1"
+        },
+        {
+          "file": "16-3-fourier-1.f64",
+          "bytes": 127008,
+          "sha256": "2102f95fc56d8fd2bbd20d70a7b410855890a054573aff4700a825380280991d"
+        },
+        {
+          "file": "16-3-fourier-1.rgb",
+          "bytes": 47628,
+          "sha256": "69c938652d17bb377057424937220552d2c7a92a862fba69a7b44b62960aae35"
+        },
+        {
+          "file": "16-3-fourier-2.f64",
+          "bytes": 30752,
+          "sha256": "f66936328249d8bf9b7bc5637a105221b743446fab2f9ed046e030423a8271cf"
+        },
+        {
+          "file": "16-3-fourier-2.rgb",
+          "bytes": 11532,
+          "sha256": "1b69ca643b6cb3eb019bfd8a97e1eba6a223ac221a131f847aba0aa75431a68c"
+        },
+        {
+          "file": "16-3.f64",
+          "bytes": 130032,
+          "sha256": "cfbe15761517c4c7bc17e7d879ebbff38f001069f70caf7011a996dee1c2e572"
+        },
+        {
+          "file": "16-3.rgb",
+          "bytes": 48762,
+          "sha256": "22a1f39a24766f12383b0526d1a260b206886b31aa9ccbd001fea737cd93ee8f"
+        },
+        {
+          "file": "16-5-fourier-0.f64",
+          "bytes": 492032,
+          "sha256": "92ed4058933771c075a65c53068da217810de1c718caf02019787c8dfa3d3171"
+        },
+        {
+          "file": "16-5-fourier-0.rgb",
+          "bytes": 184512,
+          "sha256": "bfda7b67e9a6a29be286d2ba0247b3545ad4187c7a46e2e7aba4064b3ff6c18e"
+        },
+        {
+          "file": "16-5-fourier-1.f64",
+          "bytes": 123008,
+          "sha256": "b06e0972ef70294e5ebec94e9cdcb9d733cd9fce5f8eee65a25242090370a3d2"
+        },
+        {
+          "file": "16-5-fourier-1.rgb",
+          "bytes": 46128,
+          "sha256": "68ffbe5d8e812ecced2693fe58f3613d2be907042c31f2214467532d19aad0e0"
+        },
+        {
+          "file": "16-5-fourier-2.f64",
+          "bytes": 30752,
+          "sha256": "abcc36e6cc7422065a45976b13aea4961126e304e832a58ad1ec65d9a63ad93c"
+        },
+        {
+          "file": "16-5-fourier-2.rgb",
+          "bytes": 11532,
+          "sha256": "5863de55c8da03e4166774fe8e0c8a2276d44f4f5ab2d88686aaf9ae603bd72d"
+        },
+        {
+          "file": "16-5.f64",
+          "bytes": 125984,
+          "sha256": "7191e8f2255ef941430e4944a9022bbdc37d7a31151a742f6bbcb39886cec758"
+        },
+        {
+          "file": "16-5.rgb",
+          "bytes": 47244,
+          "sha256": "1c7b84693d954ef17040d24f05a99a73a2ed4ff7c2f361d0ecab1ae277675736"
+        },
+        {
+          "file": "16.f64",
+          "bytes": 134144,
+          "sha256": "62a5bd930f93a7a969dc374e080e12558443cb59600702eed9c22ede14a05033"
+        },
+        {
+          "file": "17-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "d9395cc29a444bf68fdea89075494371a859ea0155991d02ea77dcd80bb0b1e9"
+        },
+        {
+          "file": "17-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "1fe2373734955e60c172999142934b52e69ba7ab9039b3c18ea54082ba32afcd"
+        },
+        {
+          "file": "17-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "1d6d7772a0176eb3d3bff81eb1a7ad16f3a3a6c754c8cb717e4381e9b2c8cb9c"
+        },
+        {
+          "file": "17-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "db027661d84df3c0c37967fc43c1b0e75a1900d1cb2ff12931dc12e32f0d7e8f"
+        },
+        {
+          "file": "17-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "17-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "17-3.f64",
+          "bytes": 432,
+          "sha256": "177eb55d4c7c50f55f32c8950e94f663bd2b93aaff1894e662816a02849a60be"
+        },
+        {
+          "file": "17-3.rgb",
+          "bytes": 162,
+          "sha256": "2b801435aa4b0d7fc24ccc0b2ce2d92d270eff36fcd483b031047181ebce83d2"
+        },
+        {
+          "file": "17.f64",
+          "bytes": 704,
+          "sha256": "79b67226f6b69cc4c716ed61deb8908d4f3cf45cfb067e5572fe518c8ccc31c1"
+        },
+        {
+          "file": "18-3-fourier-0.f64",
+          "bytes": 6272,
+          "sha256": "b5216d1a45c6bd433f63964ff92009458561fbdaf1f8d5dc16a25a8e57ce7952"
+        },
+        {
+          "file": "18-3-fourier-0.rgb",
+          "bytes": 2352,
+          "sha256": "990f7844d6571bc2710dc207c354e316c36facd46bc4332a46af300cc0226a28"
+        },
+        {
+          "file": "18-3-fourier-1.f64",
+          "bytes": 1568,
+          "sha256": "df7eb59f24af231b82cccfc258f842719ebb04d7e818e607aaf809c128b0f49c"
+        },
+        {
+          "file": "18-3-fourier-1.rgb",
+          "bytes": 588,
+          "sha256": "e018a56e8f4398028ebb7ea3fe664998bb0861e3460298979c9773223569bb05"
+        },
+        {
+          "file": "18-3-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "e0bf00e8e87e567f69035a5b89171000d5c7f04bd8598c831f7cea820fbaf822"
+        },
+        {
+          "file": "18-3-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "995e5dea4a2be356bee41344b527ba38f7c5efde5af02310ff0dd62ced05c7d8"
+        },
+        {
+          "file": "18-3.f64",
+          "bytes": 1904,
+          "sha256": "f6d1a0efa2c0cd08cceef15cd2f17963626a9a59a1a4d4bc5133232bb46b750b"
+        },
+        {
+          "file": "18-3.rgb",
+          "bytes": 714,
+          "sha256": "5bb2e0aa599285aa1ffc0e0fa0aeb51ee616765a708f5f699a372f7c3c7119aa"
+        },
+        {
+          "file": "18-5-fourier-0.f64",
+          "bytes": 4608,
+          "sha256": "584cab70ea2442536ba25b1e366372a18a016e0a6f7e4a512f3bdf8e458c4b50"
+        },
+        {
+          "file": "18-5-fourier-0.rgb",
+          "bytes": 1728,
+          "sha256": "9a4ce430241d3c7e2c3b265853db0e61a59335f48294b3cf1cfbc4008318bd07"
+        },
+        {
+          "file": "18-5-fourier-1.f64",
+          "bytes": 1152,
+          "sha256": "ceecefa1604cf523abd7c6624b5543cd20d83633fd52224a9ae2201c9d0a72b3"
+        },
+        {
+          "file": "18-5-fourier-1.rgb",
+          "bytes": 432,
+          "sha256": "236f49ed87e21ed97c2bb751edf04466d48a3d99f586fb7c6b7ff05435eb04ae"
+        },
+        {
+          "file": "18-5-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "2a92098f32dcd778fc813e65fc086d97c6195f47479f464d01cbf33e17360ff3"
+        },
+        {
+          "file": "18-5-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "de9cf5d146b3a6fc0d1d097dfa7e2a7de9132d0b333507998fd39a82c46b5e0f"
+        },
+        {
+          "file": "18-5.f64",
+          "bytes": 1440,
+          "sha256": "0549171c99960b679967e607dce1c48966cc42007a2be0d7dcce8356d199f920"
+        },
+        {
+          "file": "18-5.rgb",
+          "bytes": 540,
+          "sha256": "5aac221495652e70284ba70fbae5eda5702828289869ac6157832499ab56cf57"
+        },
+        {
+          "file": "18.f64",
+          "bytes": 2432,
+          "sha256": "d6a10882080234d07ca75611d59c697ad3614d0d0837c6a530e3cae70847bcd9"
+        },
+        {
+          "file": "19-3-fourier-0.f64",
+          "bytes": 28800,
+          "sha256": "7b21e180cb3ed34e8effad8ff3f17a2df47d2445e08455016dcd95de49b38216"
+        },
+        {
+          "file": "19-3-fourier-0.rgb",
+          "bytes": 10800,
+          "sha256": "dcc3ba55a3c0db16e04e314886a6810b457c4d4ad01dad2aa9b150a17fabc98c"
+        },
+        {
+          "file": "19-3-fourier-1.f64",
+          "bytes": 7200,
+          "sha256": "d2986413a3d12cd46e9426f478299026de1c25251af1bffd0fc984d9bc848d50"
+        },
+        {
+          "file": "19-3-fourier-1.rgb",
+          "bytes": 2700,
+          "sha256": "eca5ff9ee653c9217160985e7cbece998fa81487caac56354aae31d3dbdfeed9"
+        },
+        {
+          "file": "19-3-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "97711c7e52c3f06a500d6b61d73ce84395bef41cb90ec5f578c9b058814d9870"
+        },
+        {
+          "file": "19-3-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "54adfc99b4d3daee7934dd973367fd69467b972940580e6aaa3f34d2d4b287ab"
+        },
+        {
+          "file": "19-3.f64",
+          "bytes": 8432,
+          "sha256": "54f63852b44ed03c9143b3a7e7ae1fe826f6a1a8b9ffffa7d3f6b7c3416dbad3"
+        },
+        {
+          "file": "19-3.rgb",
+          "bytes": 3162,
+          "sha256": "c944386a9db6f3b1b9b48027659b8b8cc904a9cca8ce740fb25860ea270ee68f"
+        },
+        {
+          "file": "19-5-fourier-0.f64",
+          "bytes": 25088,
+          "sha256": "084be7f2c7ce7b6c91105ec4b621499ada95ada42ec0ec96dc2aead421195d43"
+        },
+        {
+          "file": "19-5-fourier-0.rgb",
+          "bytes": 9408,
+          "sha256": "0945940ee06e262b994be93502c2a696c9977bc166e4dda85a82692974324fe2"
+        },
+        {
+          "file": "19-5-fourier-1.f64",
+          "bytes": 6272,
+          "sha256": "fddbb9ccc955febbb5c19ffffc339f323712bc44cb2d058b26396d53c81e0480"
+        },
+        {
+          "file": "19-5-fourier-1.rgb",
+          "bytes": 2352,
+          "sha256": "7ee49440205fd566a1fc165289b1599d8f15f85f2065151ca9b21823d86b027f"
+        },
+        {
+          "file": "19-5-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "2a5add77a66fb73fbc5c07e1308543d1822ba3fdbf0054217a25f7299b3135b9"
+        },
+        {
+          "file": "19-5-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "7563624766dc3f5469685e44a829d4af97d311983beb1cab422a076bda1f5a92"
+        },
+        {
+          "file": "19-5.f64",
+          "bytes": 7424,
+          "sha256": "30f523e7f86c340895bc9939cc0faf0fcb85897eeff6629b7f3b13deee0aba82"
+        },
+        {
+          "file": "19-5.rgb",
+          "bytes": 2784,
+          "sha256": "ba77bd4c7e9417d1384c8a4b289b8cfe29af3370e6f27e025db5cc6de9be7e2d"
+        },
+        {
+          "file": "19.f64",
+          "bytes": 9504,
+          "sha256": "7d64fcae37fc9b9b9a6e9c74d2bce512a6e27f87409beba1738455a8505c5b35"
+        },
+        {
+          "file": "2.f64",
+          "bytes": 8192,
+          "sha256": "02fd1cb5fd83d81a92b4bc92ce1d64866e665c3042f3244deb295f65d0981cfb"
+        },
+        {
+          "file": "20-3-fourier-0.f64",
+          "bytes": 123008,
+          "sha256": "cf11927fa6a7f50fcfc35f252a18a6a7d598514f6746bfd2966c70a4e0f05234"
+        },
+        {
+          "file": "20-3-fourier-0.rgb",
+          "bytes": 46128,
+          "sha256": "b58f1149b1438b628f8c9e2b3546e464dfdf3c64d5c672a98ba3ad4bd6f60645"
+        },
+        {
+          "file": "20-3-fourier-1.f64",
+          "bytes": 30752,
+          "sha256": "167605df6da4159ae306baa49b29b8f4558d705f916f93bc5b1d2b8d6828b8ab"
+        },
+        {
+          "file": "20-3-fourier-1.rgb",
+          "bytes": 11532,
+          "sha256": "13334898534bed248cd988b7309018dafb852e5f9d34876f902676ad69dd84c6"
+        },
+        {
+          "file": "20-3-fourier-2.f64",
+          "bytes": 7200,
+          "sha256": "9230dea317110cae28a22a9a97bf5dccb7c90eaa02223be5434c7ac2f89bca77"
+        },
+        {
+          "file": "20-3-fourier-2.rgb",
+          "bytes": 2700,
+          "sha256": "b822bdcdf62ec605eebb21d5eba66e6e76bf6adee7b374c71fb0766bba7947c0"
+        },
+        {
+          "file": "20-3.f64",
+          "bytes": 32240,
+          "sha256": "ec4a1e1b80215692b8d1ec52a4296e44180216620492dda6e272ef4e9add572b"
+        },
+        {
+          "file": "20-3.rgb",
+          "bytes": 12090,
+          "sha256": "e7e05978306de20817e648f9d67babca6a804ea0ff7d3addee57effb1dd4c095"
+        },
+        {
+          "file": "20-5-fourier-0.f64",
+          "bytes": 115200,
+          "sha256": "604b29392c85856b7a33cd6706652ee09a5d8ae836b1cd11f20af3076813f315"
+        },
+        {
+          "file": "20-5-fourier-0.rgb",
+          "bytes": 43200,
+          "sha256": "941ff7d588053347d92fc74960db1b4947c66879cd79af4fccf2521bafef2680"
+        },
+        {
+          "file": "20-5-fourier-1.f64",
+          "bytes": 28800,
+          "sha256": "e2c437ec67aca1beffa5938f2cd82e74266442727e28747d072844f4920b45e3"
+        },
+        {
+          "file": "20-5-fourier-1.rgb",
+          "bytes": 10800,
+          "sha256": "dbc57416026e5794e5675d97876574d47bc598e5538eabeb21d08e56249e3343"
+        },
+        {
+          "file": "20-5-fourier-2.f64",
+          "bytes": 7200,
+          "sha256": "d25739825240adcc19527aff357071d7da2b4cda085219b285f3d3edcabb58c6"
+        },
+        {
+          "file": "20-5-fourier-2.rgb",
+          "bytes": 2700,
+          "sha256": "e0cefe3d7c75c1e6574bfe310ec81b88dc98736294e122a827a8ecb31fc91641"
+        },
+        {
+          "file": "20-5.f64",
+          "bytes": 30240,
+          "sha256": "0aaa44c2aab7d0597414f561d05c3bd8766a4c259028eededc87689464143c33"
+        },
+        {
+          "file": "20-5.rgb",
+          "bytes": 11340,
+          "sha256": "52ce7f9fbbf3550cb86690c9b8179c3eb0cf0c54e5c011910dab9b30f87b2013"
+        },
+        {
+          "file": "20.f64",
+          "bytes": 34304,
+          "sha256": "092eb4c16da37378b6cf8ae37736c9ce2bc608875469371c6b5e0cc9b5ea3635"
+        },
+        {
+          "file": "21-3-fourier-0.f64",
+          "bytes": 508032,
+          "sha256": "c5edbda815df0ad26152b70cc5a42b317da628dfda27b7d15c22c03b81ed9a67"
+        },
+        {
+          "file": "21-3-fourier-0.rgb",
+          "bytes": 190512,
+          "sha256": "02164becf860524a47482b071f006a62052bf89131474c22acbcb08f9a20c530"
+        },
+        {
+          "file": "21-3-fourier-1.f64",
+          "bytes": 127008,
+          "sha256": "6a3a5077a897d1fd6dca3f169eb57de6766691dcd6b64e0d39b8d41f66a22e2b"
+        },
+        {
+          "file": "21-3-fourier-1.rgb",
+          "bytes": 47628,
+          "sha256": "c6870bec7d05d724cb57d0648795040c95160873eaa2cee0f48fac67b1fae067"
+        },
+        {
+          "file": "21-3-fourier-2.f64",
+          "bytes": 30752,
+          "sha256": "3618dfba0356cdf9482b6031d9742b6a3db838eb865bde700327bea65aa9b815"
+        },
+        {
+          "file": "21-3-fourier-2.rgb",
+          "bytes": 11532,
+          "sha256": "79e65834f4eab2c1d145d59e8da8c343fbfd53ad34e538b9f0e0b36e2b391e96"
+        },
+        {
+          "file": "21-3.f64",
+          "bytes": 130032,
+          "sha256": "d80f4cb5df5f052d87b0e42a1a3b54c20bfe90ae1d3cc2ac3619abb596c7078c"
+        },
+        {
+          "file": "21-3.rgb",
+          "bytes": 48762,
+          "sha256": "ee67ca74bb24316c016374f3677dba728e71b28143d44fa1728ea7a22b2f622c"
+        },
+        {
+          "file": "21-5-fourier-0.f64",
+          "bytes": 492032,
+          "sha256": "ce7eb370b7e1a9503b3ada55248d217c8c48472bb9bf185c620aa2b996f54e73"
+        },
+        {
+          "file": "21-5-fourier-0.rgb",
+          "bytes": 184512,
+          "sha256": "167405e38b24df5546fab2527896d36e73cbd11d58cbd53c0db5ddf9a6101d50"
+        },
+        {
+          "file": "21-5-fourier-1.f64",
+          "bytes": 123008,
+          "sha256": "4b9c01050f27e4b89cf1f8e5127a727791a98661bc9a20a6ef8a97f173a87148"
+        },
+        {
+          "file": "21-5-fourier-1.rgb",
+          "bytes": 46128,
+          "sha256": "7e3e981d7bdf5ed74ab6da456e6e66dbac920c2872969e9201635a89b6923030"
+        },
+        {
+          "file": "21-5-fourier-2.f64",
+          "bytes": 30752,
+          "sha256": "224de47f760a0fb549d5aeddcec563861742eff1a997ccd9597b46ad4b309b6f"
+        },
+        {
+          "file": "21-5-fourier-2.rgb",
+          "bytes": 11532,
+          "sha256": "a2c933e4f351d646bad761a51b95dc48aa72db9f7613986f0f5f38d35b59150d"
+        },
+        {
+          "file": "21-5.f64",
+          "bytes": 125984,
+          "sha256": "59c8eafca4b346aab582bdc6212f431f288d113f28960a7146c1b0fcb75335f5"
+        },
+        {
+          "file": "21-5.rgb",
+          "bytes": 47244,
+          "sha256": "f1ea2c9c37db417573f31a1760def6288698deb05734952d4efc36526083098b"
+        },
+        {
+          "file": "21.f64",
+          "bytes": 134144,
+          "sha256": "c58d74100dbf0dda4e89c764134a82c04a9763432760aba829a076d3e597c33c"
+        },
+        {
+          "file": "22-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "90f43cfcbb406c3e22dad85a0e43cd0555e097b2acadb111011ddd113e46801e"
+        },
+        {
+          "file": "22-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "3713103d2524f13e44124f77fbb9e61b38899fdfd9529a97f0f1e49b597cdc0f"
+        },
+        {
+          "file": "22-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "c3f0b1d1aaa5a10bc5cd3d4b9d31dc3731f0798148614484f9e741522550f7b0"
+        },
+        {
+          "file": "22-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "4ff3da6ab13c5ba1e799cd5c851c87bd19eb504092f6b2fcb8fedc758965b3a2"
+        },
+        {
+          "file": "22-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "22-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "22-3.f64",
+          "bytes": 432,
+          "sha256": "5a03db830f18374cb09023585bed5ec53c0b892c47a616783d8868980c217fbc"
+        },
+        {
+          "file": "22-3.rgb",
+          "bytes": 162,
+          "sha256": "7a5469bada15bef8d78023b294f994521126af4379c4f132cd6863e5d69ef27f"
+        },
+        {
+          "file": "22.f64",
+          "bytes": 704,
+          "sha256": "0d2c3998089a4037280ed3d41b55f8b06901ed1d384a28e8daa25779f21d177f"
+        },
+        {
+          "file": "23-3-fourier-0.f64",
+          "bytes": 6272,
+          "sha256": "d70eeb1c3e8a362d0a9aa14da17cf87480840864ad74a64c3f15df265cb55f7d"
+        },
+        {
+          "file": "23-3-fourier-0.rgb",
+          "bytes": 2352,
+          "sha256": "cc06f62b1915c41fa399b2353f3ec6fab6d78565ad2d2bed341e746ea6d74830"
+        },
+        {
+          "file": "23-3-fourier-1.f64",
+          "bytes": 1568,
+          "sha256": "297dc842c7338f2f5613e5a39247eb67bdf0a23310ba3253c3e49a488c2f6739"
+        },
+        {
+          "file": "23-3-fourier-1.rgb",
+          "bytes": 588,
+          "sha256": "d28337b75d810452a37f86f82199eef49571b0b667671828fa247c7da728c7f4"
+        },
+        {
+          "file": "23-3-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "662518bcfa7cb7ce21e31f6e1ada078b083f9a78761a8250c3f79afd35b61c98"
+        },
+        {
+          "file": "23-3-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "ae17d022550647c5b7c50a4617ddb6c940f56e12a11b5c170924e86ecc0e4dec"
+        },
+        {
+          "file": "23-3.f64",
+          "bytes": 1904,
+          "sha256": "c147280efeddef198fedd5f81f1455414a8a546cc1f96d54731d46b61e4c60cb"
+        },
+        {
+          "file": "23-3.rgb",
+          "bytes": 714,
+          "sha256": "328d6a7b9120132ed728cb2dd136f32ab052c04cc2288e3879aa6c1f3458611a"
+        },
+        {
+          "file": "23-5-fourier-0.f64",
+          "bytes": 4608,
+          "sha256": "a5929cce9d096b425986261d3593f1920ccf315affc98752d7fdc0af56fdc0fe"
+        },
+        {
+          "file": "23-5-fourier-0.rgb",
+          "bytes": 1728,
+          "sha256": "af2e542b4303486779a750473fc6a31ebd618f682522a748a646151730ca59d9"
+        },
+        {
+          "file": "23-5-fourier-1.f64",
+          "bytes": 1152,
+          "sha256": "b84f39dbe0e06e74f2ddbd8fe751e07858fc64c176d4a217cac18fcbdf8cee43"
+        },
+        {
+          "file": "23-5-fourier-1.rgb",
+          "bytes": 432,
+          "sha256": "5a1204812a50938c434cfd0aa4cb497ebf34ac4f4d59e3072a4d605b527367e0"
+        },
+        {
+          "file": "23-5-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "9dfeda91c47335e45c8473ceffed77bcd7e1fea37c8f277b86678150d56f862b"
+        },
+        {
+          "file": "23-5-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "cd75e5f2f8a6094f0b0701af870e7b2699182e0d78f0ccf481861761f67de864"
+        },
+        {
+          "file": "23-5.f64",
+          "bytes": 1440,
+          "sha256": "266c9af37eae22acd404de81a6d0a2e6b4493ad8d840c7f0c809767fe4165563"
+        },
+        {
+          "file": "23-5.rgb",
+          "bytes": 540,
+          "sha256": "b737a609651d7f92d41c2d846448ec4c335470c9d662edfd8f3fa61328e0529c"
+        },
+        {
+          "file": "23.f64",
+          "bytes": 2432,
+          "sha256": "68e6ec21f9119dfe9266e53ea820460dea8e4a398d6eec0f0255de3057e2323b"
+        },
+        {
+          "file": "24-3-fourier-0.f64",
+          "bytes": 28800,
+          "sha256": "9c61b9a66088dba14fb81eec8e79a3114f4f768f5baebf15915d30f5f5a648ac"
+        },
+        {
+          "file": "24-3-fourier-0.rgb",
+          "bytes": 10800,
+          "sha256": "da87c9e1b7247cc1e2dcaf2e8b93737cf66b4e09907273baa9fb7cdd41325470"
+        },
+        {
+          "file": "24-3-fourier-1.f64",
+          "bytes": 7200,
+          "sha256": "4e65a6ec6b48b1279dce8c61add253208527949912950ae39a337c3a7b2a0522"
+        },
+        {
+          "file": "24-3-fourier-1.rgb",
+          "bytes": 2700,
+          "sha256": "02399b5eb38643d751cfe85d691dbae765b855ca0e880e3dedd2cab596af4705"
+        },
+        {
+          "file": "24-3-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "6d937cb372872d1d4daccd7bd03dfa26eef062d5e3c8896f5299c4807fecb162"
+        },
+        {
+          "file": "24-3-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "d1a5c21783810e8717fca99e8fbc616d5f755f1cd4324b0fa32f4c14fdd54713"
+        },
+        {
+          "file": "24-3.f64",
+          "bytes": 8432,
+          "sha256": "a0aa932932a2173057f62b2ba8d848456d183af636181168bb7596bac88f514b"
+        },
+        {
+          "file": "24-3.rgb",
+          "bytes": 3162,
+          "sha256": "75d5b02631d4252b5dedc998fcd3819e84cf560905efdadf8373dae5e1e89d0e"
+        },
+        {
+          "file": "24-5-fourier-0.f64",
+          "bytes": 25088,
+          "sha256": "6b8bdc6084b055f2586ae1299d9dc23d41e35adb82d81a7fe1838ac633d8417a"
+        },
+        {
+          "file": "24-5-fourier-0.rgb",
+          "bytes": 9408,
+          "sha256": "274ae0abbb162037dfc08ffbb2fc6747c7536eab39bbb26f75d5075090e22043"
+        },
+        {
+          "file": "24-5-fourier-1.f64",
+          "bytes": 6272,
+          "sha256": "6f7365f4e539da630e2943b42fc9be1415cc5077f7674e55ec4249e9b5240125"
+        },
+        {
+          "file": "24-5-fourier-1.rgb",
+          "bytes": 2352,
+          "sha256": "3f7f6477a73b18c3c3791e886a42f95fcb56e65079fc77b1e83d42c89b88137d"
+        },
+        {
+          "file": "24-5-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "031c11c0f640c9c059e536e1067b751c23f95c87867db39611112178fd6f7f2d"
+        },
+        {
+          "file": "24-5-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "73242351b2d539440a67ce1edbfe125f51e480985066c3c84ea0676ef2934d9b"
+        },
+        {
+          "file": "24-5.f64",
+          "bytes": 7424,
+          "sha256": "ec498d917fe24ddeccdc36dd3b0306191f26b11f1c1b339e2482c062c5e8fbba"
+        },
+        {
+          "file": "24-5.rgb",
+          "bytes": 2784,
+          "sha256": "30591e0f520f4cc439878db365e1b941237e5a2338eff6bfff8b20679eaa5570"
+        },
+        {
+          "file": "24.f64",
+          "bytes": 9504,
+          "sha256": "b413c3380d2f98faba2cdfea2ad13416db63e6637da11361de07e436ea1d12f1"
+        },
+        {
+          "file": "25-3-fourier-0.f64",
+          "bytes": 123008,
+          "sha256": "fcdfe91f7dccea3925326aa23a7cf28fd54476d7e6d676d4b83a73a468ab2af5"
+        },
+        {
+          "file": "25-3-fourier-0.rgb",
+          "bytes": 46128,
+          "sha256": "861ef56294d1f9954bc6361d091aefc64ea667b8f78844eb485c2ebc29f12bc8"
+        },
+        {
+          "file": "25-3-fourier-1.f64",
+          "bytes": 30752,
+          "sha256": "9d9a740d164e3724f153896656507a6140bf567d7af20bdceddb7f1e26e0f7cc"
+        },
+        {
+          "file": "25-3-fourier-1.rgb",
+          "bytes": 11532,
+          "sha256": "f1c2e7218a3310b4ba25c7fa566746e5a5f15f3012f238cbecabe64b40be2a0c"
+        },
+        {
+          "file": "25-3-fourier-2.f64",
+          "bytes": 7200,
+          "sha256": "cc8d94a08ec94689510e650a1a2a418a071f892d8caf852ebfae9b8d071bb8eb"
+        },
+        {
+          "file": "25-3-fourier-2.rgb",
+          "bytes": 2700,
+          "sha256": "be372cc3b6c168740eabaa00b7a0c59e0a2a2dc7d0cb4090acee39bec85c2baf"
+        },
+        {
+          "file": "25-3.f64",
+          "bytes": 32240,
+          "sha256": "ecaf1d90e636d65e09b2b0070eaec3c14c0bfe4b396700588412d477709ef724"
+        },
+        {
+          "file": "25-3.rgb",
+          "bytes": 12090,
+          "sha256": "604085ac3136c6a8a2e16658366fe4e6f1e2f9966ab2f391c21413ec9ffb95d1"
+        },
+        {
+          "file": "25-5-fourier-0.f64",
+          "bytes": 115200,
+          "sha256": "9382ff0da630b44815bbc2ca6d0e828f02729cd6cbd4ea5dbab655dbd2ca0dfb"
+        },
+        {
+          "file": "25-5-fourier-0.rgb",
+          "bytes": 43200,
+          "sha256": "2f6167a4677d38b1fadc66b3fcf438c2ae75c86f35fe40cecbd20016e128206f"
+        },
+        {
+          "file": "25-5-fourier-1.f64",
+          "bytes": 28800,
+          "sha256": "6d584530f3ed516ec958b1271fd005e326785a37529f3b25285a380aed15a95b"
+        },
+        {
+          "file": "25-5-fourier-1.rgb",
+          "bytes": 10800,
+          "sha256": "ccf9e9e6ef58be226cc3c6cd245d861287edca6d75227a42b85e64377acebf9e"
+        },
+        {
+          "file": "25-5-fourier-2.f64",
+          "bytes": 7200,
+          "sha256": "3ad7fd5898e90346b823d8b00f3ee1bf9cbb3430392933d6dc6bd547e2dd7d00"
+        },
+        {
+          "file": "25-5-fourier-2.rgb",
+          "bytes": 2700,
+          "sha256": "7dc70aa96a1200450c88ecbf15c5ad6484f1a5e91e1592063286c3df3c1f273f"
+        },
+        {
+          "file": "25-5.f64",
+          "bytes": 30240,
+          "sha256": "61d1131de8e721793c53e9ed5bd51f52c7da9acfee5bca11111884acf33ccc3c"
+        },
+        {
+          "file": "25-5.rgb",
+          "bytes": 11340,
+          "sha256": "68da1a016f7d722553ae0c1402c40db6d51002b95d8ae32939032d4ccdbcc2be"
+        },
+        {
+          "file": "25.f64",
+          "bytes": 34304,
+          "sha256": "5db8d9c31618a65b4bf5d10e31060eef8d67689ad5a5d7f81ed909107f74fc6d"
+        },
+        {
+          "file": "26-3-fourier-0.f64",
+          "bytes": 508032,
+          "sha256": "13e2333f256e1bf275e2d3b681ba4ceb1970b5c395b180847dc02f40bb0f4156"
+        },
+        {
+          "file": "26-3-fourier-0.rgb",
+          "bytes": 190512,
+          "sha256": "8126ad6378ff72f00c05769a1b1f17b9b5e36a0ce7f627d27896d57d7a81d92f"
+        },
+        {
+          "file": "26-3-fourier-1.f64",
+          "bytes": 127008,
+          "sha256": "bed1b0b1c5cb7a08b5a8313523297be17c0c6c6d96278ce3f24c172a332ad869"
+        },
+        {
+          "file": "26-3-fourier-1.rgb",
+          "bytes": 47628,
+          "sha256": "63090337557aa28f96c5cb9184e01b75dfb1192544db77bc4e20c46d6736c191"
+        },
+        {
+          "file": "26-3-fourier-2.f64",
+          "bytes": 30752,
+          "sha256": "529fbfc8166cb7ee43a25ab3f5bf1987ff369a8c89a44947360439e5120611e9"
+        },
+        {
+          "file": "26-3-fourier-2.rgb",
+          "bytes": 11532,
+          "sha256": "b5c930ddd949fa1a38d839a8c59931371fdcf8e3438063eaa7a49c0359cf3c8f"
+        },
+        {
+          "file": "26-3.f64",
+          "bytes": 130032,
+          "sha256": "173ee81ae52d83374d457ed9ed1b3ff8e4d3551aa48d900ac420a407ed3e6323"
+        },
+        {
+          "file": "26-3.rgb",
+          "bytes": 48762,
+          "sha256": "a7fae43935860a8593c29ee1f6441821d9dba5ad8674cdb82a2433e8a355933d"
+        },
+        {
+          "file": "26-5-fourier-0.f64",
+          "bytes": 492032,
+          "sha256": "1a46df0c4e08cdfd1be96dc31bf63f37d3fe16f5133cf8ce1d51227c4f7e586a"
+        },
+        {
+          "file": "26-5-fourier-0.rgb",
+          "bytes": 184512,
+          "sha256": "1237784634d7117a00c09847fb3dc27969d82c885b7f9a7a297a2a9e96db0e82"
+        },
+        {
+          "file": "26-5-fourier-1.f64",
+          "bytes": 123008,
+          "sha256": "3f633a4f30d8325c838f570bf28d16fdbaab6d3e539c3d2edf0850975e5df7f7"
+        },
+        {
+          "file": "26-5-fourier-1.rgb",
+          "bytes": 46128,
+          "sha256": "3f4c49c8586e4fe68cb684af3d861eec581a524f5675ed82df1546b8012ebaae"
+        },
+        {
+          "file": "26-5-fourier-2.f64",
+          "bytes": 30752,
+          "sha256": "d315c0d0ca36624d6733f2c436289d528af92fcc2b40c3c944cd0c661a0833b1"
+        },
+        {
+          "file": "26-5-fourier-2.rgb",
+          "bytes": 11532,
+          "sha256": "92010b1013e3dab95edcd0449815c3055fed6441250167431bb2e644cd448303"
+        },
+        {
+          "file": "26-5.f64",
+          "bytes": 125984,
+          "sha256": "33bf2246f3aa3e0907b238e21ba98318663695ee9c103248663cb9d83f2e77b1"
+        },
+        {
+          "file": "26-5.rgb",
+          "bytes": 47244,
+          "sha256": "feb20aeb417b171d67f085ba747c8d0e90d7faaa9486f5e33cfba97419d4a768"
+        },
+        {
+          "file": "26.f64",
+          "bytes": 134144,
+          "sha256": "dffbbac7e1586eb824ee72a63ad00ce1e620db8c2929e908d4c4b9692713be3e"
+        },
+        {
+          "file": "27.f64",
+          "bytes": 21888,
+          "sha256": "f3be874f4d17b0fa5f47d6999d233dfeded66e28a5b0fe4cf3b74b629fdbdec0"
+        },
+        {
+          "file": "28-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "f8feee65282e37ac2b6fa34d119a008fdb518c4a240e9018ea6307b7077fe2e9"
+        },
+        {
+          "file": "28-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "a33e0cd68a34552ea595183f31fec1592a1dfbe656ee6aff864f55765a43414d"
+        },
+        {
+          "file": "28-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "6d64001947caeaa889437f66cb66fda4ab1adeed8076f990b3ea1bdac110d592"
+        },
+        {
+          "file": "28-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "6fe840a7db2a4bb5924cfcf8c8545d41010dba22de243ec2bd1ed97b384b956c"
+        },
+        {
+          "file": "28-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "3ecfd945f9a5850655daf436e7024ac7b8f96bf50072ac713e88ebceb1726c50"
+        },
+        {
+          "file": "28-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "7d138b93fc4f9ab0c80f685e9971503e72f9caef2229398f04583d3dfd105d96"
+        },
+        {
+          "file": "28-3.f64",
+          "bytes": 20240,
+          "sha256": "7e655d87021104ae664eb0eb78efed3acbd8bf662ff3135b77edbdb0754d8501"
+        },
+        {
+          "file": "28-3.rgb",
+          "bytes": 7590,
+          "sha256": "727804900b4ebcc845920579efc54ef07754650b3c6d22b1ef7e276c094c3073"
+        },
+        {
+          "file": "28-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "529f455ee2dabc3583efa46b12e2187aa1f02ce350550ad0663e1ba3b633b501"
+        },
+        {
+          "file": "28-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "b845e404708c99a355802b15f14845ac4fa955fdf2734f384e6867bfc0e1328f"
+        },
+        {
+          "file": "28-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "acf2d87087fda579530e1b016df72d98391d5d5daedf42930670125cce896def"
+        },
+        {
+          "file": "28-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "1f71b4c71c2fe4eee72e6e94322532780b576562f15c9ff7662390e0f64c6e42"
+        },
+        {
+          "file": "28-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "e39be3c731ce33fbae7a0eb75a729c182a63bbad8267c74359c6a0e5ef7aa799"
+        },
+        {
+          "file": "28-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "6c6826d1de33d47c51b433e0596e5d204e01adbc7eea3d4479b33aba2e663d13"
+        },
+        {
+          "file": "28-5.f64",
+          "bytes": 18656,
+          "sha256": "f3e421d5f8aef101db4e4c8ed56f4934c75f9e82e46854dd35798c1c8d38def4"
+        },
+        {
+          "file": "28-5.rgb",
+          "bytes": 6996,
+          "sha256": "ec91edbeba4fd0e22ac73e6d4ddc1c939b8b38a749f41692ac28bd7f33fbadbe"
+        },
+        {
+          "file": "28.f64",
+          "bytes": 21888,
+          "sha256": "04d278532e82f5d65339e79664c64d8df959e7aa2fcfe07a4aaf87325dc8c46d"
+        },
+        {
+          "file": "29-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "d0f25c5ac116c5acf148757dd17a0162a01bb922acecd13945dbce70c7fc234a"
+        },
+        {
+          "file": "29-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "09c2415acc99abdf94020dabc7602006faa86287f0ad4bfde1486dddb4a6d217"
+        },
+        {
+          "file": "29-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "dc72c0d83a222999bce23386c81cb212375b62f0a36ac66ca4655cef8e147cd2"
+        },
+        {
+          "file": "29-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "6ea92cda0bf5c2533706ca55cf752466793d7883e98eba993b2b4b375bc79f97"
+        },
+        {
+          "file": "29-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "45b369ee1b5e28948e7fd51c35a02822d0584bb978d21b2c82e17f1e89c6527a"
+        },
+        {
+          "file": "29-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "5873c0c94efff98c0fad28e90a1ca4af9e584e63fe17687cba838ec694794da5"
+        },
+        {
+          "file": "29-3.f64",
+          "bytes": 20240,
+          "sha256": "b028a03fe4f7fe13d6beea0654837fe6b08cf1a1beba3669d1a41fbdc5494612"
+        },
+        {
+          "file": "29-3.rgb",
+          "bytes": 7590,
+          "sha256": "b08045c7659b6ab1fe08daafdef48da068fee18cc371665f69e378565e3033b5"
+        },
+        {
+          "file": "29-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "ba21bce51703b4bd9b57cb10e03f2432f921451ff37fe503d904f51c845134bc"
+        },
+        {
+          "file": "29-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "72e04785854002479bc45bd1e44eb8403e4f6aa790d4623d63333f27f90c273e"
+        },
+        {
+          "file": "29-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "f12d178c49d52b86c76ec8514ec97f4188a375cb7a0162fa6bf58b9b696c57ba"
+        },
+        {
+          "file": "29-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "a23a28fda6b26044e4e5463d9398f9c796154d585c937f1145bf8a14042bf5ec"
+        },
+        {
+          "file": "29-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "b05768184b8026f1dcb67b342e70e2d94014089ccd02a249a590be6aed9a6293"
+        },
+        {
+          "file": "29-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "897094d77c53ff8ec35d84737b8acfc4d2296f03270d4f6a049c1b190a542ce1"
+        },
+        {
+          "file": "29-5.f64",
+          "bytes": 18656,
+          "sha256": "0ba5f34c28dee5f82db078311bf20a43dc2e671e020d69d064a4814d9943b52b"
+        },
+        {
+          "file": "29-5.rgb",
+          "bytes": 6996,
+          "sha256": "604365cd3f1df905fae45f282b8f4ec40ec991fe0980086ce84544d1796dcd58"
+        },
+        {
+          "file": "29.f64",
+          "bytes": 21888,
+          "sha256": "685b5d084b4e6cca708ff9b06c022dff3b6d4add4b353ff9efe38966db60dea7"
+        },
+        {
+          "file": "3.f64",
+          "bytes": 8192,
+          "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+        },
+        {
+          "file": "30-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "d3d2004f408b8a1aaa4fac9ca4f1d3ed21abf07ea6f7afcec8aa13ac935c846e"
+        },
+        {
+          "file": "30-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "e5f75a726f74c9b3b641efd580bd31ab3abf65cf875e1e8deb59cef24c2e1854"
+        },
+        {
+          "file": "30-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "9e61004c59912331aec89a760712670b6712618ff03d379a0df330afcb14fb5a"
+        },
+        {
+          "file": "30-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "100a2b15c22e71a435560116fb5514363330cf2da275d66b06334005d61f8142"
+        },
+        {
+          "file": "30-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "a179392d8f76f4ac2cd81d2ed76168ff3c3517f41724dee0ffd68a5eb8685f46"
+        },
+        {
+          "file": "30-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "95ed23648a97edfc3f2d4294b39ef81dfe4ceb81e31f70d818b5ee16661f7650"
+        },
+        {
+          "file": "30-3.f64",
+          "bytes": 20240,
+          "sha256": "bbcb3f1ec8548ea92258df1032067d153be336ca0c620d5a67b92d7ece86b6d0"
+        },
+        {
+          "file": "30-3.rgb",
+          "bytes": 7590,
+          "sha256": "7b39b5de542f19cb8685a5a241f8987c56372f2029cd98670e6da83141f477a3"
+        },
+        {
+          "file": "30-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "09d89ea1b0380b227c39f77669684874fe44c468ad19a768893d938965543183"
+        },
+        {
+          "file": "30-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "e5da6c91aa58f7b5895ca089b3b305fd4a8de7a2f76196af99be5e854dab2e60"
+        },
+        {
+          "file": "30-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "4369ac26f3b0c0a55e286768033d0408f9687e09aa20d532634d1ca60ed5e2cb"
+        },
+        {
+          "file": "30-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "a3c31ff54c2ccc995c11425b43706d216499e9e99a63565c6edd0f33b14a801f"
+        },
+        {
+          "file": "30-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "7d8faed2dfd9146ebff49c99e90c068f5a77d4e0fe6c8e9620fbcc1144b1775c"
+        },
+        {
+          "file": "30-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "fca07eddbb9e8d0e68e7636236a01873f35eb120138d429b20addc722a1d04b8"
+        },
+        {
+          "file": "30-5.f64",
+          "bytes": 18656,
+          "sha256": "4cc9f6e930cfb81c27a779a9b86d28a66dd0cc805d39b5af903e6e31f5754a6d"
+        },
+        {
+          "file": "30-5.rgb",
+          "bytes": 6996,
+          "sha256": "1ec6261f5e580dcea18fb2d785524aabc34687827ec0886b9ae185ef8b0dfd28"
+        },
+        {
+          "file": "30.f64",
+          "bytes": 21888,
+          "sha256": "b823371aa7d0f83197bfd2deb141c15a70140ffa833e303bdd79492462043770"
+        },
+        {
+          "file": "31-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "3095004e8abd676b5e47205e690dbf89aee4af24b0f0ce7af4a2d1bd5ecc1df9"
+        },
+        {
+          "file": "31-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "df4690ad578efef1c306712cfdc321cbd332fa2c356f0c304222ed56a30c0178"
+        },
+        {
+          "file": "31-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "1008d382e2d0341cd9f4844b4d650bceaae28366ac246f36f6b9c20861e585dc"
+        },
+        {
+          "file": "31-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "00a712a724719aea9a2d7452be7d5072dd4325454ae22bbc692b647ba11c3d2c"
+        },
+        {
+          "file": "31-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "77ab9a0e80f132c4f8b60f7d965b6601b0ca3705510f575d8758f438f439fd63"
+        },
+        {
+          "file": "31-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "b6bb6a646cc4e3c7c4f4b9d4582ac449440ea0df87a9be621e7e7fab57e39c54"
+        },
+        {
+          "file": "31-3.f64",
+          "bytes": 20240,
+          "sha256": "0bb27616ea49ea4d21dedfc94fc0dc83907d230a43dadd1c23ded09a6795a040"
+        },
+        {
+          "file": "31-3.rgb",
+          "bytes": 7590,
+          "sha256": "ddd2058aee2605480bdcca3938c25661f6e94a8accaaa34a4be54ff94809b543"
+        },
+        {
+          "file": "31-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "49625b2191221a3f96a57d2b300987cea0a2008c098bd2227e12bde60f1a553a"
+        },
+        {
+          "file": "31-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "447c7a868a3aa3ef8c74ad837e1d9e729f67ca982df63811b4b2bd5024e029cd"
+        },
+        {
+          "file": "31-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "94d42d126325f0e9da6a862570ffa298470f5aa199c75ef811856bdecc43277e"
+        },
+        {
+          "file": "31-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "bd594462102608c88f756cfa18edfb8018a2baf2bdfc2fa945c0a46557dc07b1"
+        },
+        {
+          "file": "31-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "ef17b6d0abda90ceb950d7ff7db6675190f4523e293f4b4c4c95d1edee6de36a"
+        },
+        {
+          "file": "31-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "48d0738a466d09aeaf17ee8cc7b21e23d21d5a866c270e169ae0468a4c2f809a"
+        },
+        {
+          "file": "31-5.f64",
+          "bytes": 18656,
+          "sha256": "cde574e69ac86847bc1bfa4b92bde11e9af6fcbd176f895a018990863acfd29e"
+        },
+        {
+          "file": "31-5.rgb",
+          "bytes": 6996,
+          "sha256": "6a24630ca7f52b3962eace0e6f569e41d4ffb38249744bf96277c93b290b87d9"
+        },
+        {
+          "file": "31.f64",
+          "bytes": 21888,
+          "sha256": "723c536b8bd399257db1739e0ef543f31aab13d01d32f73d433f465f634d5e81"
+        },
+        {
+          "file": "32-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "ff9f5234c46010aef27cae91840b23a06e27620c1800c35ac3bb0629d741f79a"
+        },
+        {
+          "file": "32-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "8da1f30b1b6685d5e7067f2cc2357bbb2e0291702f21550ba374b0a7d3ba987e"
+        },
+        {
+          "file": "32-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "9f50ceadb84b38f3b9153a6c3361305a278c07d9ba3b720159cffa6de4cf549a"
+        },
+        {
+          "file": "32-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "598afce74bcd94d79b7bca25e59ecfd9af9040764a09fc3442a895eafce0e43e"
+        },
+        {
+          "file": "32-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "667fabd5588b70e4e3707cacc1fc1f011ecbc1db3f8ea913b41e170a274c50cc"
+        },
+        {
+          "file": "32-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "4e629741d728db0d8179d93f7e6b49af90d9bc539601d0b3b96aa9fd47e22131"
+        },
+        {
+          "file": "32-3.f64",
+          "bytes": 20240,
+          "sha256": "e65bfded8b5a3dee53167850d87c1e2cd32262886334d59a52a3bcee803ecd1b"
+        },
+        {
+          "file": "32-3.rgb",
+          "bytes": 7590,
+          "sha256": "b40faec5f893ac15714c50d7a620cbc5406163a22ca44f41a74a82a823898910"
+        },
+        {
+          "file": "32-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "7156c21e634cd26132cc3d25a35a9b98bac76a7462ba5c5965f6b99c9673f9dc"
+        },
+        {
+          "file": "32-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "805fe9d95cc9e3d0438775265c33d0b3805f1095fe27211b16c365f7d8186141"
+        },
+        {
+          "file": "32-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "583d97b142d91217918b0277e96850e2a7094e185400e4c0c696a3a236d10f06"
+        },
+        {
+          "file": "32-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "6c1750cc6572673be1315be7332d92f9b991f76f5132e27df06c447f29f1c807"
+        },
+        {
+          "file": "32-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "2e401caf5e0d653b0b4b28180afa4853bc98a49a5638b06744a42069e121d004"
+        },
+        {
+          "file": "32-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "76c0dd0e69053d77939e539437e5dae6144c88c3a09c77c8f80b6e5f58d53c35"
+        },
+        {
+          "file": "32-5.f64",
+          "bytes": 18656,
+          "sha256": "c7e3eda2331872a858264ebbe669ab6a954331040d95f0350ef776f38225f079"
+        },
+        {
+          "file": "32-5.rgb",
+          "bytes": 6996,
+          "sha256": "2ffb7535d8ec62a9a8a6c8f58e25b2bcc99f0eef94b341f9e55ded1c928152dc"
+        },
+        {
+          "file": "32.f64",
+          "bytes": 21888,
+          "sha256": "77c254e6c777e1cb5371a20c570b3ab1de66574df4405371172b82f114907e67"
+        },
+        {
+          "file": "33-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "d51159e02e314d63b1f42ec2b990a394e7b373bee38148dd62a37b4e49a62c3f"
+        },
+        {
+          "file": "33-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "794cf6fd9be3164b826e390f93d78434275554f213e0515c502a74d906666a4f"
+        },
+        {
+          "file": "33-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "f1b220d3e778a077d54b86ef2db51de35db10e48700d3a36fa0180c97c585058"
+        },
+        {
+          "file": "33-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "deff2ac5b4e26366501d615cc9547fa22a332bca613b324ffc3d4792af64391f"
+        },
+        {
+          "file": "33-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "2c9b900c433907e755ccbb48842c4dea2421600eb2bdea1f76bcadeddf868b4a"
+        },
+        {
+          "file": "33-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "0cea3907a4af32c1170feea0e51caae4ac0daeec7e383b6a6f06b918aaf662cd"
+        },
+        {
+          "file": "33-3.f64",
+          "bytes": 20240,
+          "sha256": "38aff69d84a16bdf108eb17863ee7f04470f0749d8c7df043b7ef94f3e26bbd7"
+        },
+        {
+          "file": "33-3.rgb",
+          "bytes": 7590,
+          "sha256": "cd0cfaea0a8cc1bd417ac787bb06716750d149ef15458898a948b38a1ac43466"
+        },
+        {
+          "file": "33-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "10ac9c6b7abf234357ca1d5f7b317c534ddc156767db4541ea722e25e8bd4c28"
+        },
+        {
+          "file": "33-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "2a74aea359978c06e4f3a5c5628eda90dc245583035673732c22061470f3839c"
+        },
+        {
+          "file": "33-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "77794504c647b3a7cf1b7a5eac747f3ec2d44f36e677172f7e183aa7b1c8f962"
+        },
+        {
+          "file": "33-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "a69a28ad7bfdd2a8a3fa15d41f42edb18a59e001c8f87796f7a1cdd1acfe6a67"
+        },
+        {
+          "file": "33-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "ca750f7e29e80f6006c4dc6d1b86f21e559fb2505bd15a9b7f856917261ac253"
+        },
+        {
+          "file": "33-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "b467760d82d7863acc2cc576a2addbd00f4e46ef6bbd7d65d07e677b98cfe876"
+        },
+        {
+          "file": "33-5.f64",
+          "bytes": 18656,
+          "sha256": "0333b2015d75b2dfeeb9203d38f08f2762cca2067f33f4c201aec2b4e9a0e201"
+        },
+        {
+          "file": "33-5.rgb",
+          "bytes": 6996,
+          "sha256": "72a4221f9110a3e48ede5cfd1650756ed3b51047af3a39d5b50c75dec72b3df3"
+        },
+        {
+          "file": "33.f64",
+          "bytes": 21888,
+          "sha256": "4740470cddd8730824c282c0f0b2185d1931fc06e581221683e82c23863e0dbc"
+        },
+        {
+          "file": "34-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "70bf9ccf8a577b2b9639fcb521b62f734f27ce20957a90f950fdcee13a49aebc"
+        },
+        {
+          "file": "34-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "805bb2443144bfb78e925c0e0bf7778e39621a85c7d8c3b701442acbe08dfc40"
+        },
+        {
+          "file": "34-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "2b060f76a01eae4eeee3ade8fff1630fbe23c271a8dd0a0de35c26ebf6d7aa02"
+        },
+        {
+          "file": "34-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "4f392f06ef1c8708841ca63f2e653cb8ce9369ffa215d003bbd02d8e47c47590"
+        },
+        {
+          "file": "34-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "dbaecc0139f590a1deb463464eaf46520e977e81ac83edece6421749e0bd1b11"
+        },
+        {
+          "file": "34-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "86a91510bd81f489816daf08a777a8061415ae5c91ba39fc8ed75039e8ea7876"
+        },
+        {
+          "file": "34-3.f64",
+          "bytes": 20240,
+          "sha256": "8ddbe950c47a9337806fc7ec0f83a5483b7120f75cec8290e77a1395aa834c6f"
+        },
+        {
+          "file": "34-3.rgb",
+          "bytes": 7590,
+          "sha256": "72455d32c8c94cedb1bb47b8722b09cdcb0503dbcea138d8d824c1de3366f997"
+        },
+        {
+          "file": "34-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "d2c2a7ae04d97dabb1433ba283f779ffe02bfd3c1ecb9bae74e344406a286cc4"
+        },
+        {
+          "file": "34-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "bb62cbb417c71604646293c30a8e408d99c75ac5903c3154bb3e06319e588015"
+        },
+        {
+          "file": "34-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "1b738fe9e0aa412aecd621b28e13814ca7278b252fe22a01f822fda39bc05750"
+        },
+        {
+          "file": "34-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "4a6e3011e2a39e89ed6b636228375dc55a755eeba962095149b8bc4d10661aec"
+        },
+        {
+          "file": "34-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "aba42fc16a2001ce75f4df0ce8443c8dc5c527e595d49616e8d235df027fd845"
+        },
+        {
+          "file": "34-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "66e9c60daaa49e44b69bb78a1a14e6f4767270d0b18e4a9981c4d471753aee8e"
+        },
+        {
+          "file": "34-5.f64",
+          "bytes": 18656,
+          "sha256": "3099d229105c3a871f5feda56f96f531d9719f37b04df25c7d3525ecec6c3795"
+        },
+        {
+          "file": "34-5.rgb",
+          "bytes": 6996,
+          "sha256": "3736107a52b4c8966f963993406395a05fb2fecf4f322cd02670b8ab8c51a7e6"
+        },
+        {
+          "file": "34.f64",
+          "bytes": 21888,
+          "sha256": "658346de278927c10a7ee559246e72bd9b4dbc0562bb262c79e590d4e8fd39f0"
+        },
+        {
+          "file": "35-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "c3c81d265641abf93013ee8d4abf60d47aa51d9a10cdc31e9488854d066195ff"
+        },
+        {
+          "file": "35-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "fe8b8f22b08ef9a74fa6a41352bc76188958d8ba9a18751ddac7236ed76924f9"
+        },
+        {
+          "file": "35-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "cbb5abb1ac05d1cf5b4d3d427073e05c33c15484489138123762c58852d4c5e8"
+        },
+        {
+          "file": "35-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "bf81dfbc1aed3e9940906db9aebec9d967b5211ee47912d096b3333ade86500c"
+        },
+        {
+          "file": "35-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "7f11fba15de1d5a29891f43026254f94a6fd793a9e5ff19b1b1468c6d5a1b7fd"
+        },
+        {
+          "file": "35-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "f31499b39380dbd542e66363a68938c4a407930bdd4a2d1f400d609c6b8af284"
+        },
+        {
+          "file": "35-3.f64",
+          "bytes": 20240,
+          "sha256": "198e4d9faa09775851e2c61fc5c2beeb3ba3dd7184169e4a7d243d90a7db8f96"
+        },
+        {
+          "file": "35-3.rgb",
+          "bytes": 7590,
+          "sha256": "57dc692ce9a2b3073dbcf3ec9cd8c418cfc3a017074c752c01f6f9501db5cf5a"
+        },
+        {
+          "file": "35-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "b8de93490d7a05604b4b66a70510a8bf379dd07e26ff52ca779891eb23ad74ba"
+        },
+        {
+          "file": "35-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "65f323f2a58329f2a498d455fdff81122f01630e9d5f8e9a03a5fea2c7997e36"
+        },
+        {
+          "file": "35-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "1b246d1412f7fe7f95b2edddb30e0b04fab257977ab7598de76c4e313aac4582"
+        },
+        {
+          "file": "35-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "2aebbc5a9233c393148ac685572ebdb12143372031026a654a59236aa5d4f08e"
+        },
+        {
+          "file": "35-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "e648de2c51eec13a3cb6d4a9c4005e72950aa2193583b75d8d00ce0cb8310eab"
+        },
+        {
+          "file": "35-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "4de0a2bf1151e1354eaf87865d0e640991fe7cebcf3e50e6c08a8496ddc239f0"
+        },
+        {
+          "file": "35-5.f64",
+          "bytes": 18656,
+          "sha256": "50541e6f0035174e22cb5c874678e16df38f1d404af4f99e07b84663d9dda17d"
+        },
+        {
+          "file": "35-5.rgb",
+          "bytes": 6996,
+          "sha256": "b31a559fab69344ea07f5103cf53312e0ded55b45a6f58be3a5f8c30748f0350"
+        },
+        {
+          "file": "35.f64",
+          "bytes": 21888,
+          "sha256": "9553f82162e18fe8d52433ed80d7f337ef49b58cce9ad81bf20b0ac63e5b05e4"
+        },
+        {
+          "file": "36-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "f1b90176cd625c5fa461893f5c3c5db250c96cb34cf2c5b643e4d2f30cd246f1"
+        },
+        {
+          "file": "36-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "f7ad0c3200bf65c5d15fe964307dff18d70444d082c0c78d7248dabcabcedb4b"
+        },
+        {
+          "file": "36-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "bd73cb1c8d541f27d9faf8565899182bf5da374a6fcb4031982dd37a385f2c36"
+        },
+        {
+          "file": "36-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "211a8b772d2a2827ee79afcd2257cd2fbad7cc592d8ee715d8a3e552de495f09"
+        },
+        {
+          "file": "36-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "447a7adb070350f021445f4db5a082148cd0e910bd9efb9dad42fd05635e01da"
+        },
+        {
+          "file": "36-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "d11efac3dadfa62ee1e48ea8d8cada8f68ce956c628a0a8675db38514801ef3c"
+        },
+        {
+          "file": "36-3.f64",
+          "bytes": 20240,
+          "sha256": "cdef38d6dabe74059f7efd4241d2886ba39730496b8bdfa98290683cc5b6c584"
+        },
+        {
+          "file": "36-3.rgb",
+          "bytes": 7590,
+          "sha256": "926873591680f6140c329b6c5dc106c1e9dd47492fe2e4cf00e093fcb45b59c3"
+        },
+        {
+          "file": "36-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "2b8e9b311c82a318e04ab7d0187ede280f540ecff1411def018e2f427ba8ac18"
+        },
+        {
+          "file": "36-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "d8c8643e9c1726aa49ba8bef78d12a9a191a2cbc7cec418802747c970cd5095a"
+        },
+        {
+          "file": "36-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "b567af3b2d7d4077631cd5a3e0cd8824631f8f342eccd55925c68e73636c89de"
+        },
+        {
+          "file": "36-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "5d843ecbc74293a82382657661eae1a812f920146f242eca03386887fb5c21f9"
+        },
+        {
+          "file": "36-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "a3957a5eac145a460f44a3302e6e1c9e22c39e879aa3dd87efaad57b74f91886"
+        },
+        {
+          "file": "36-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "a09b372a5aed92a77911402b746860a3f12897b0a7a14e2ec4c6041631ee97ae"
+        },
+        {
+          "file": "36-5.f64",
+          "bytes": 18656,
+          "sha256": "8b6346249c88479327c507cd81238c51ad3d678bf4559a13d7c31aa0a866ae84"
+        },
+        {
+          "file": "36-5.rgb",
+          "bytes": 6996,
+          "sha256": "234809c90fd27c47ca6f5559b1c844cb2965d50bfcd97412bdea19af8cf6eda8"
+        },
+        {
+          "file": "36.f64",
+          "bytes": 21888,
+          "sha256": "8c04e60e7c53af71b83d3ee436398c410ae3d0267d798515ece14f59174eeeb8"
+        },
+        {
+          "file": "37-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "831a0afd00eeed7b993cfb1e2ea7b15098761d2b723290c974cf60b3bf553e9d"
+        },
+        {
+          "file": "37-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "08ea8630c323009ea13a7496c6daf266ef4a81a69cf3e8df88d964e8a45f110f"
+        },
+        {
+          "file": "37-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "4af2c38bd7f539d5a6199d002d2f3ab5f333068fdc56e4ac98c24c1242bfe413"
+        },
+        {
+          "file": "37-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "d935b125600ce22ab70fb04c7b5165ddfa943ba5f54e0bc236e2704c5b516af1"
+        },
+        {
+          "file": "37-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "4a6467dd2dae74ee84f7bb264b490aa35507b3f2461efec2777963375e1c1fd2"
+        },
+        {
+          "file": "37-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "8a269506cc3691bbfcdc3b3c2594109fbbd3a75f237f107f0c64e0c427c9cb60"
+        },
+        {
+          "file": "37-3.f64",
+          "bytes": 20240,
+          "sha256": "96af757daec163dc52d785df801c2ad1e0764094e31abb4555b1ea5fd7680a4d"
+        },
+        {
+          "file": "37-3.rgb",
+          "bytes": 7590,
+          "sha256": "ad1b9695fb2d90197f90f3bac8416dd40eccf6fd4ec364d0d6b5fa24d632d68d"
+        },
+        {
+          "file": "37-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "d9904f0c88d51562e2e88ab7adcdcb7237928bb2142f5ceebc800f0cbc6fe3d5"
+        },
+        {
+          "file": "37-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "f1a20c684b0fd311b22642e72bda82e006952b61786a32254fb45816bd5719c4"
+        },
+        {
+          "file": "37-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "a268ced0fa9b06d9b2d7585d99deb479de6df9004de87fd4bf167153bf547e73"
+        },
+        {
+          "file": "37-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "89a2e9309be4ce80731d30a7ec8c7435d6f0e9ccf28de46a071d4c069dcdc248"
+        },
+        {
+          "file": "37-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "d9f0ec3322e2f8c107651e034f9c535be4baa16c7097eb21c1e7725093fa8412"
+        },
+        {
+          "file": "37-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "38a9d4d34911edd8be3e61b13af7211ec2cb49432b3f9cdafa58874d39052532"
+        },
+        {
+          "file": "37-5.f64",
+          "bytes": 18656,
+          "sha256": "8e753bb758c8b61d8eb914ac70649f18a191597aca179948d935a0c9147df92c"
+        },
+        {
+          "file": "37-5.rgb",
+          "bytes": 6996,
+          "sha256": "f0bc963636c1d6adb0f0fad79ced13038a8253092727a1bbdd9410c3424b22d1"
+        },
+        {
+          "file": "37.f64",
+          "bytes": 21888,
+          "sha256": "a2c3979fed6e4f42f4efd87bf87bcd29b06e6ab597d900c1d7264e64f04bdfae"
+        },
+        {
+          "file": "38-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "6d1bbd0ef92585668d44058220eb6e46ec95d16ee933753ddf637130283fb88b"
+        },
+        {
+          "file": "38-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "a40f79630f5395cdf60a73612e4a23b4ebf21934a27ba81bb78a013fac8f4061"
+        },
+        {
+          "file": "38-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "775c512c6fd6e44698d8f2d7478a8d9a41125b6231a5780822ace84a14316e71"
+        },
+        {
+          "file": "38-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "894500aaae2c589a3c22ea139567de8299a2279b28ed56e84d402c3050f24eff"
+        },
+        {
+          "file": "38-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "3d5f0ab7befcf8e7ba9c33c45bbaed385050c2cda485e6dc7c70ba756ee92593"
+        },
+        {
+          "file": "38-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "d5af303c61b2d29735552dabb00282dd260c9d04f1e653cb0c400bb92a1f0b22"
+        },
+        {
+          "file": "38-3.f64",
+          "bytes": 20240,
+          "sha256": "eeb4974972319a49acceb74aab20db5b867b6b081fa7e194613da12367607395"
+        },
+        {
+          "file": "38-3.rgb",
+          "bytes": 7590,
+          "sha256": "47c3b3ec88fd40c9de9811afdc618c03ffa93d9c6ad6b3cf89d88dceeadd2b85"
+        },
+        {
+          "file": "38-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "242c6144aa059ce01d76c9a150b1e881b6b4b75f2f657b965ece34ee0756a3a2"
+        },
+        {
+          "file": "38-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "453ab15aaaabd5edc3969b4dc6334c5942fed56fe37b2fe586a96f4a1f36d091"
+        },
+        {
+          "file": "38-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "a5ae8e754f7ba9ec04d51ebf7d235229f4a25e240975bd3968d0c1dc2ef42994"
+        },
+        {
+          "file": "38-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "b5bfd97ea1047554623a028ca0970d52efbfe273b89421cb41895cebc2e53d3d"
+        },
+        {
+          "file": "38-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "e223d3075491b56e86bb426b4e1841daff5520bbdd99fed7fcd8fcd4b361a8d9"
+        },
+        {
+          "file": "38-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "cd47a6304d27c1d3c5724e26792e2f06a0556083b3ee6372a99fdb9954bee803"
+        },
+        {
+          "file": "38-5.f64",
+          "bytes": 18656,
+          "sha256": "f823d122647f2f93eb702f35e5c3e273afac8262cf6f4c0aa35464b20d750264"
+        },
+        {
+          "file": "38-5.rgb",
+          "bytes": 6996,
+          "sha256": "2bce458b0b8d2fa3d37f4386889ca827555ab3dd91071929358493cd5c8e885f"
+        },
+        {
+          "file": "38.f64",
+          "bytes": 21888,
+          "sha256": "b933accf94eeaf1aefcc1e7f160e12b00a05c5be54465a46d10ff3530be1ed87"
+        },
+        {
+          "file": "39-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "d19f65defee372290a1fb6fc954996058abd6b41a1f35664e832c377e02491e0"
+        },
+        {
+          "file": "39-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "5761bffc02e2fdaceb7de9d582408c0e9181143b5e7a46bbb73a46427cc53532"
+        },
+        {
+          "file": "39-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "f8976c97128c79dc3762d14b0ffd1d101da8330c37745b449a03c7839b33f8a8"
+        },
+        {
+          "file": "39-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "b625cf19e7dc32033b2edcdb94bfcf01bbfe178a1f1baf250b145fd1bb73eab4"
+        },
+        {
+          "file": "39-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "acb0d2f3091e0dcbdaeeb5bab71d456b379a7a5ed6242f27ffd9b670ac6d280c"
+        },
+        {
+          "file": "39-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "59a1cbca9c15f39af3bdca7264c5aa51ffb1c2f52876d4a2aed324f14b28d618"
+        },
+        {
+          "file": "39-3.f64",
+          "bytes": 20240,
+          "sha256": "19926af89743f60f5d9459183c8ef01c1ab3c14f71817e1dcfcd70f22946fb17"
+        },
+        {
+          "file": "39-3.rgb",
+          "bytes": 7590,
+          "sha256": "9d40d80f588f72a52c2ed00c9e9df7fa8c24e4fc3f61ac8dc11bbddcb06b4248"
+        },
+        {
+          "file": "39-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "333333d75d2b14b6f5ada886a82a844f8016626a9f642c03111d78d88cd85f8c"
+        },
+        {
+          "file": "39-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "0c79505f3ea95d376f49ff69a997f1803b7a66b949e4bbf8d8f8c80d82e46efb"
+        },
+        {
+          "file": "39-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "e9cedcfa995856db67e97d06acf29055ee0f552dbb891760f9f89ab71a1786dd"
+        },
+        {
+          "file": "39-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "19c25586aeae91b1de4efbe03e6968e3fce93e94a15724133c7ee53be66a2426"
+        },
+        {
+          "file": "39-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "4992730a85a6491cf3dfe5b72a63c1890c2948aa5dd07e1847e89f3fecf295bc"
+        },
+        {
+          "file": "39-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "04767be08c870ff720be407afaf2dd1a9286c363bf32ec40b1541cc74100790f"
+        },
+        {
+          "file": "39-5.f64",
+          "bytes": 18656,
+          "sha256": "ed51bf4d9182fec210f33d28ac10d22e48c6f83044bbaa7fa5bd844126251d8f"
+        },
+        {
+          "file": "39-5.rgb",
+          "bytes": 6996,
+          "sha256": "1845a2a7fa4827dd32c5f9d074c8cfb1199bf275771e63fe33a8da0ad551f1de"
+        },
+        {
+          "file": "39.f64",
+          "bytes": 21888,
+          "sha256": "7a5aed6a65444001c26478fde962d66adb9959797c6318afab3f35b2c07d3b23"
+        },
+        {
+          "file": "4.f64",
+          "bytes": 8192,
+          "sha256": "94a55694d1a38b334417b64ffca12b7d526883f43fdfeb0e3859344a2f2acf89"
+        },
+        {
+          "file": "40-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "75c3344fd33beb1046e8e15806dc2f79adc7e818ed70ae98367a4f0c428260a9"
+        },
+        {
+          "file": "40-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "3d4e4464565432f93517ef4adb4672e0ed1a0acdea94df34773dc966e64aa23c"
+        },
+        {
+          "file": "40-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "f96258e31b34c56a40f69d591eacee8bf7e366a063f2a0f08efaf0156b77dcb4"
+        },
+        {
+          "file": "40-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "75186504182be77d7c9267fba1c97acfb955959bffb76f21a895eb8c1a2eb196"
+        },
+        {
+          "file": "40-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "22df80f5e44c1206066e65129f1c560741c5cf961c34ffe73c26c778ccc18128"
+        },
+        {
+          "file": "40-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "d750cb4b00e3b637e6932074cde7940a6438faafb1030ab64c92e8ec73488067"
+        },
+        {
+          "file": "40-3.f64",
+          "bytes": 20240,
+          "sha256": "c40433fdc2fa24563f80e43ac33b73392d15ad215adf0bbb69f217e161880a38"
+        },
+        {
+          "file": "40-3.rgb",
+          "bytes": 7590,
+          "sha256": "89bd461cc6015486cdc3cbfd28176ef4e5d211be65d241de2b1086a7d738dc4a"
+        },
+        {
+          "file": "40-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "6092d766cf491372cb2864ed2675cb0f1f74847f117e7daf247cb9384574ff28"
+        },
+        {
+          "file": "40-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "83fadc71cec768118bd98a8f010c4917fbe81b36eda68686aaebb61332f3d371"
+        },
+        {
+          "file": "40-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "db6b71c0af3e0254353898339d548cbba0c74fefb1ee8256edfd9e5635096fb3"
+        },
+        {
+          "file": "40-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "fce49f5d9943087dc0a5dae4d19193c2d8ae0251f7112b7db400276b80de07fc"
+        },
+        {
+          "file": "40-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "570701de3315c8c1501f5300f92b66a3e2890cc18f75a00398846aacbd8b3bb1"
+        },
+        {
+          "file": "40-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "8da88239bce67fb19a9f68c829503acbc624351faf0ade4529f6b67f2a7eb2cc"
+        },
+        {
+          "file": "40-5.f64",
+          "bytes": 18656,
+          "sha256": "1ca59af8e6a7eae6c8f41ab638bbab4458d3a230cb422b924f5f6c378ecf66a2"
+        },
+        {
+          "file": "40-5.rgb",
+          "bytes": 6996,
+          "sha256": "e118a66461c51b008c8359b8af40acf18c040c585c74330ed8e83d6aa78cee83"
+        },
+        {
+          "file": "40.f64",
+          "bytes": 21888,
+          "sha256": "bd2a34a281d57e75cf825814f7467b763baf185cd6630b152baf38f814a4faee"
+        },
+        {
+          "file": "41-3-fourier-0.f64",
+          "bytes": 67712,
+          "sha256": "3b2e56fcf9b8f8ce84cef60ac41e11d1e33742b1cacdea60e47ae5a8dc620ba2"
+        },
+        {
+          "file": "41-3-fourier-0.rgb",
+          "bytes": 25392,
+          "sha256": "2059fbf89964abaadc2e3544c248660cf7fe8335d5756a5539d76ba9c38407c4"
+        },
+        {
+          "file": "41-3-fourier-1.f64",
+          "bytes": 16928,
+          "sha256": "9076213a835e637a04e2da1523b47d3c186cd1232e3fbae5a23edd8c61dd673f"
+        },
+        {
+          "file": "41-3-fourier-1.rgb",
+          "bytes": 6348,
+          "sha256": "16ad013bbf4430455f12732878e98dfd85c1b7ef1e75ac551942c62a7b6976e0"
+        },
+        {
+          "file": "41-3-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "d085d5dc4be7debbd5df986b0a80ec4bd1fb385f4a09a0101278fa2533a081d3"
+        },
+        {
+          "file": "41-3-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "d8f4189aa2a0933c98ba2f04d3ef0b5e3193f65dba99ee8c16ed83c8c5ec47a9"
+        },
+        {
+          "file": "41-3.f64",
+          "bytes": 22816,
+          "sha256": "913e6c725d0c1e99463731670448f5e13b66753d282585f857e797e37dbbed8f"
+        },
+        {
+          "file": "41-3.rgb",
+          "bytes": 8556,
+          "sha256": "ed416d1fef6a7bb8e422594d4d66911f6a2a4b251a4f23a3ee249d70af1edbfe"
+        },
+        {
+          "file": "41-5-fourier-0.f64",
+          "bytes": 61952,
+          "sha256": "f1308fb8ccf1731b5af633c5a54160ac2f3ec9df99341ccc1f054097d083c4d4"
+        },
+        {
+          "file": "41-5-fourier-0.rgb",
+          "bytes": 23232,
+          "sha256": "ac5757c94eb08e17328eb28bac8503b557ad48ddae8dc61eb63d5ab1047faae1"
+        },
+        {
+          "file": "41-5-fourier-1.f64",
+          "bytes": 15488,
+          "sha256": "f8ee89211e64de45e2c773eec4160ca5960458a3ef0983eaec60211bd243abb0"
+        },
+        {
+          "file": "41-5-fourier-1.rgb",
+          "bytes": 5808,
+          "sha256": "5624d47715a552750359edda3eb3cd7ed7aecbd2ccb89b1acc61a75c3b6cf155"
+        },
+        {
+          "file": "41-5-fourier-2.f64",
+          "bytes": 3872,
+          "sha256": "0a1164bbf8c054a8610e12eb61502ea4ccc12c615fa774d3242f50425a177382"
+        },
+        {
+          "file": "41-5-fourier-2.rgb",
+          "bytes": 1452,
+          "sha256": "50b5b2e64cf62f78617f1acdd03ce79491ae262e64a884344fe530a7e8ebb723"
+        },
+        {
+          "file": "41-5.f64",
+          "bytes": 21120,
+          "sha256": "5d72b0ee79eca8221197eb08a765e742e086deed52a047f80aa3077647bec1d5"
+        },
+        {
+          "file": "41-5.rgb",
+          "bytes": 7920,
+          "sha256": "d70f1d8764e45f9c800c001fa8f9f8dade051efd0022818ddcdba31d8f4652d4"
+        },
+        {
+          "file": "41.f64",
+          "bytes": 24576,
+          "sha256": "29259a61d022fee755e80a8a5bd3ee0aeb24f7672d9d3cdef94e8bfe4cac2e2a"
+        },
+        {
+          "file": "42-3-fourier-0.f64",
+          "bytes": 6272,
+          "sha256": "9a895eea48daaffc736aa5cd07cf1410c6bcfb288eaaecfaff13e05044a9c07b"
+        },
+        {
+          "file": "42-3-fourier-0.rgb",
+          "bytes": 2352,
+          "sha256": "748e9df18ac1c0c90eb355c55a735022b84cda619c2249f49fd122ab166b4aa8"
+        },
+        {
+          "file": "42-3-fourier-1.f64",
+          "bytes": 1568,
+          "sha256": "915671043b23d8b72c2ce3ba470b0379e8e86fd9190365a40ce16b52fe58386f"
+        },
+        {
+          "file": "42-3-fourier-1.rgb",
+          "bytes": 588,
+          "sha256": "facf4d37ba1b182296aa791aa6110ebd58a256c297ff41f36c905428ba3405cb"
+        },
+        {
+          "file": "42-3-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "b27266dbecaea5c964557495744dab0aee1737de2fadd4a0eea4a4d11fecf1a4"
+        },
+        {
+          "file": "42-3-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "adc7827d54b8deaaf10d4cd4b1a90bec7f75f90318f63b339188c3e9203dfe89"
+        },
+        {
+          "file": "42-3.f64",
+          "bytes": 3480,
+          "sha256": "50cdada562930214a086a1c7f0349c152619306b7367cdf877f010fdb42417e7"
+        },
+        {
+          "file": "42-3.rgb",
+          "bytes": 1305,
+          "sha256": "8e1269542972f7dc65f89a0953744065d7eefe2d18098d188c22f57fdf13eddd"
+        },
+        {
+          "file": "42-5-fourier-0.f64",
+          "bytes": 4608,
+          "sha256": "6be46a8e6192031b504ac918d491e309c4a7f1739c931308676613b124f38121"
+        },
+        {
+          "file": "42-5-fourier-0.rgb",
+          "bytes": 1728,
+          "sha256": "504ca7e627a5e75fd5c4cf218af181fff98eff138a81a4325a6d28f254ea43bc"
+        },
+        {
+          "file": "42-5-fourier-1.f64",
+          "bytes": 1152,
+          "sha256": "db25eeb5f39ccd238eeb4288b6ab53832d1b9e8bd3b7e02f84ba94c9a681ded4"
+        },
+        {
+          "file": "42-5-fourier-1.rgb",
+          "bytes": 432,
+          "sha256": "246733a2c08124934139e5bce415a42d25c2ec3be7a020631f13f1951ccdfa4d"
+        },
+        {
+          "file": "42-5-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "c8c8a1d1f4c96ee3c0b56e190da8d32e372dbe9d3b7f7969f6871960fbf65ec3"
+        },
+        {
+          "file": "42-5-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "cf104fd9dc61fcbeff5a9600dc5a43bde0dbffd49474bf00dfd992b6742a13c7"
+        },
+        {
+          "file": "42-5.f64",
+          "bytes": 2808,
+          "sha256": "1d7e75609ef442e08f5e30c68dee679184e3fad1f771997f592be456c7c4903f"
+        },
+        {
+          "file": "42-5.rgb",
+          "bytes": 1053,
+          "sha256": "7aa2ced09c8f0de28c5cf8a013bd2393726d59c48aa1e12aa2f44995be602eda"
+        },
+        {
+          "file": "42.f64",
+          "bytes": 4216,
+          "sha256": "d85cb99ec27a616c973a7788dd7eb58d64b71ac20d395edb92ad3f8cec682d17"
+        },
+        {
+          "file": "43-3-fourier-0.f64",
+          "bytes": 32768,
+          "sha256": "6f64abc809c11142888e2c01ab0e6fc47c8847ef2ca725d66633a418c2f8e939"
+        },
+        {
+          "file": "43-3-fourier-0.rgb",
+          "bytes": 12288,
+          "sha256": "134f8eb9d88efad46e99d8abeff26788b9bb743190010ebbf06807cb162d8be3"
+        },
+        {
+          "file": "43-3-fourier-1.f64",
+          "bytes": 8192,
+          "sha256": "8da3b65fdf7623e04969fa5abc4dd8afdbc5eddb0ab30a061207c4733965d020"
+        },
+        {
+          "file": "43-3-fourier-1.rgb",
+          "bytes": 3072,
+          "sha256": "29ccee509f3f1b8900fa6ca806e068acacc012354cc13199e291974ca1e8a8e1"
+        },
+        {
+          "file": "43-3-fourier-2.f64",
+          "bytes": 2048,
+          "sha256": "5d4b4f175f955f8f83947867528eee01740ac310f17052f65f2f93e908dfbdf3"
+        },
+        {
+          "file": "43-3-fourier-2.rgb",
+          "bytes": 768,
+          "sha256": "c35aa2018d15975d842676da58b47e90274aa118997c80275567e6a82deeabab"
+        },
+        {
+          "file": "43-3.f64",
+          "bytes": 17160,
+          "sha256": "1655d5ce7b04766c4061d13f70eb20683de1b7bd2a6a7995a1fab69d019999be"
+        },
+        {
+          "file": "43-3.rgb",
+          "bytes": 6435,
+          "sha256": "24b95bbe75e8448b2990bc24d4f1ee396aade2e90780dfe1ad2603ebba6ac02e"
+        },
+        {
+          "file": "43-5-fourier-0.f64",
+          "bytes": 28800,
+          "sha256": "e39acfc4a5a811c6ba6e880d2a0a6028e11f014ff675a98298578b63081b5a99"
+        },
+        {
+          "file": "43-5-fourier-0.rgb",
+          "bytes": 10800,
+          "sha256": "8690c0bc430b4d1b2595f1fd24b056698fb944741beae3b1de04d64cef33925d"
+        },
+        {
+          "file": "43-5-fourier-1.f64",
+          "bytes": 7200,
+          "sha256": "7cfe432cb5a518fbf41118c4c253edced1bfc597053378d9c5d0fcf34b086c68"
+        },
+        {
+          "file": "43-5-fourier-1.rgb",
+          "bytes": 2700,
+          "sha256": "638dd16a85aa8894abbfdaa435ce064efb47b29bf431f88779da6701048e0d8f"
+        },
+        {
+          "file": "43-5-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "e0eb35e56c429f60a4848be77e83fc2fa87d92b8f99750e09f7f0e77e370e77d"
+        },
+        {
+          "file": "43-5-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "51b2a9428aebcb5e7443aa4cab960764d79f14c1ad36ef9d6de3ff767641a6d9"
+        },
+        {
+          "file": "43-5.f64",
+          "bytes": 15624,
+          "sha256": "14da3b1a946b3ea9ff45c7d01b0fda39c09e2160cd5c4c958367308b732bbbb2"
+        },
+        {
+          "file": "43-5.rgb",
+          "bytes": 5859,
+          "sha256": "2fa3da9b849b17e0657950d3cf1a6f664e399b8e23f122a701cfe242559acdeb"
+        },
+        {
+          "file": "43.f64",
+          "bytes": 18760,
+          "sha256": "fdf55e62f5147e17283b21fbce4ed92b24c9ccbea757a90e84dbfd97bf894b91"
+        },
+        {
+          "file": "44.f64",
+          "bytes": 3128,
+          "sha256": "fe0f2c317b7dbaa60890c3467501974169d4e69e03d16855347e6506c81f7534"
+        },
+        {
+          "file": "45.f64",
+          "bytes": 72,
+          "sha256": "41515a6f377eb17b8b2e7c48e0bbf12d703deff0768b7a7a05aafbf062b9967c"
+        },
+        {
+          "file": "46.f64",
+          "bytes": 128,
+          "sha256": "3913751c3af4dc5d9a0a914ffa482214ba4f481ed7c45cd9f8218f5bcf51cf27"
+        },
+        {
+          "file": "47-3-fourier-0.f64",
+          "bytes": 128,
+          "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+        },
+        {
+          "file": "47-3-fourier-0.rgb",
+          "bytes": 48,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1"
+        },
+        {
+          "file": "47-3-fourier-1.f64",
+          "bytes": 32,
+          "sha256": "b937312a0f99d4751b33a98273a8f593eb7e7fb15b81bac946e24650c2891ccb"
+        },
+        {
+          "file": "47-3-fourier-1.rgb",
+          "bytes": 12,
+          "sha256": "725784964018eaf3c015bf54ac74e2e5680fa08bb7ce85b64d01b726ecfa6efb"
+        },
+        {
+          "file": "47-3.f64",
+          "bytes": 72,
+          "sha256": "42a747497002545de0348fbc6dc2951f5124617ea27eb3650ed81ba2eeae7318"
+        },
+        {
+          "file": "47-3.rgb",
+          "bytes": 27,
+          "sha256": "83c50fbbc5bdfbd3bd4026bdb697f825446278c33118a7f939fb6992247422b4"
+        },
+        {
+          "file": "47.f64",
+          "bytes": 200,
+          "sha256": "953a5aa88384d2a39bb3300a7a5671d2757594170adf5d702fcbb56a9260119d"
+        },
+        {
+          "file": "48-3-fourier-0.f64",
+          "bytes": 128,
+          "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+        },
+        {
+          "file": "48-3-fourier-0.rgb",
+          "bytes": 48,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1"
+        },
+        {
+          "file": "48-3-fourier-1.f64",
+          "bytes": 32,
+          "sha256": "6f0806b644892d4145abed008ced5a5827e2e56de348abfe042f8a88bbb5ac82"
+        },
+        {
+          "file": "48-3-fourier-1.rgb",
+          "bytes": 12,
+          "sha256": "fe2547ae2774b1912b70d853e022218d58754413924a04f7b34ce81c1f0961e2"
+        },
+        {
+          "file": "48-3.f64",
+          "bytes": 168,
+          "sha256": "b2af584e36b5a03c14d09af52b3814c2324c45298d8eceba4dc308c3abfab58e"
+        },
+        {
+          "file": "48-3.rgb",
+          "bytes": 63,
+          "sha256": "7d9652f4c9f26516174410fcb1df731d8ae4b1594d5be1cacf9702aa90b9d6aa"
+        },
+        {
+          "file": "48.f64",
+          "bytes": 360,
+          "sha256": "3a82fdd31349229ff665ed6dbd144ea57853ff4552c7557f4cf4f7963cf25463"
+        },
+        {
+          "file": "49-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "000bbabe957651d6662e6d40b35ab5ea42255d40b3f8da95c5a5d3c656d9c453"
+        },
+        {
+          "file": "49-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "353583295ca01161a266f794a2f9f656acff7f829e21d31cdabeb22d8fa57b2b"
+        },
+        {
+          "file": "49-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "d163d9cd8ecece985ed52a18678d569a3df8dc157d8a0b485ef416431c54f9a6"
+        },
+        {
+          "file": "49-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "a6e9aaff7c7b303096fede9f3df5fae18f32bfb2f95e86c265654bee8d4b43ac"
+        },
+        {
+          "file": "49-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "49-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "49-3.f64",
+          "bytes": 192,
+          "sha256": "f10fcbaa542d7aed817a4ee840e01f7b7f25d980e713b4e653170faed51412bc"
+        },
+        {
+          "file": "49-3.rgb",
+          "bytes": 72,
+          "sha256": "8cb551a6b613a5f484a1c3ca160773284dfbbf280e02a1381e5b53c3c45d522d"
+        },
+        {
+          "file": "49.f64",
+          "bytes": 384,
+          "sha256": "97c91c7d469d5195200859399457d9f893fadb1cba1ad8458874f05033198d91"
+        },
+        {
+          "file": "5.f64",
+          "bytes": 8192,
+          "sha256": "a2a568ca31a05007de6acba599606c4856421569b9764fe63296c2d48e62d38b"
+        },
+        {
+          "file": "50-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "beb68186d549a3055eff5b067e1c0c8449ffaea5e4168ec34c50644da057cc7d"
+        },
+        {
+          "file": "50-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "462cd5f5a6ae3c6ba66796dec4f83151e267108fb1880bf77d3a53382ccbfdd7"
+        },
+        {
+          "file": "50-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "21757f02c63177cf720c1ba8c6e72d97aff1d0715ff6a6efafe1d47a3c73beb6"
+        },
+        {
+          "file": "50-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "c95f6e3130ca3dce81e50d0f82b3651925b0515d4b5dafb598f2c97261c73fce"
+        },
+        {
+          "file": "50-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "50-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "50-3.f64",
+          "bytes": 200,
+          "sha256": "59c680076d67dd789b742a26fb00d61eb2f7ecf395e16cd2500c0a50e4cec567"
+        },
+        {
+          "file": "50-3.rgb",
+          "bytes": 75,
+          "sha256": "ac05e07dc51440e94add24142f49076f717047202d9ef09e1528d6c443520b77"
+        },
+        {
+          "file": "50.f64",
+          "bytes": 392,
+          "sha256": "cd3be30498e38c090df6b4eeb75b3393cf0dfcd9a701d9f9244635d43decc836"
+        },
+        {
+          "file": "51-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "9a5c3aa7a8f66360f1bca4cf91c6d7eaa2f3dbd44e7238f9b0d939753b23b24f"
+        },
+        {
+          "file": "51-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "1f4dfb33b52baed448da962ef94f601bc4ce87f6f7d653488191e2d69288131b"
+        },
+        {
+          "file": "51-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "a0931ba6aac129307e7558c41d04d046a92102d9b2ae4531864aa0b8a3e40a3e"
+        },
+        {
+          "file": "51-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "2c6c216ff8c08f960bbe437d0e7e199ea777f9e8c8acbd783e2d8e5aecf5548f"
+        },
+        {
+          "file": "51-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "51-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "51-3.f64",
+          "bytes": 288,
+          "sha256": "5f4d3c47d4d4db46cfd8695c055b5263f20c168aa52687e77c9cf05c3a5f5583"
+        },
+        {
+          "file": "51-3.rgb",
+          "bytes": 108,
+          "sha256": "9261d511bd699a852f22540cf341b3d152b30b763ed699b117a7506b866b1177"
+        },
+        {
+          "file": "51.f64",
+          "bytes": 512,
+          "sha256": "5efdef97f941b3c209b75ef45efa5d579fb5fff8545a39a68c9e1bad5c8ec002"
+        },
+        {
+          "file": "52-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "278ba795d7890fc1b5b7a5147956f6e73db3f173a45fdb791b3ce1f748ab2d49"
+        },
+        {
+          "file": "52-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "0233e844eff261380a3b5dfb8c3a1954ab5a6555bfa846272f309ff55ad9405d"
+        },
+        {
+          "file": "52-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "060e4fa4c6812af67910b7bfffbf505a4b1107d6725754a85a9737e7edcfd2d3"
+        },
+        {
+          "file": "52-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "f87fed3f55d4447469511966ccd8d8134104dc0846ee5b5813e538c1cf8f8b2a"
+        },
+        {
+          "file": "52-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "52-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "52-3.f64",
+          "bytes": 392,
+          "sha256": "f65347b7bee3dc9611be63f5fa728a2fc622562b73d5b6d1f38b3778e4ebd3b4"
+        },
+        {
+          "file": "52-3.rgb",
+          "bytes": 147,
+          "sha256": "bdec794406cc1f599b167ab5d47469d9bb0770f8fa3269c79750d5e36ceb8d63"
+        },
+        {
+          "file": "52.f64",
+          "bytes": 648,
+          "sha256": "858e67a211d245f3d6b357f2e6f6867cba67700c2f6eb7a4aa049f8d15654686"
+        },
+        {
+          "file": "53-3.f64",
+          "bytes": 80,
+          "sha256": "457ed6d07c7bfc7b8e28724d4f2bec0fe0a08564740d998207badbdee3f39021"
+        },
+        {
+          "file": "53-3.rgb",
+          "bytes": 30,
+          "sha256": "b672e04f396dabf1ac6354a7a0f36653feefaeb5b6c442c01fa52ac4a1de7231"
+        },
+        {
+          "file": "53.f64",
+          "bytes": 288,
+          "sha256": "c8379364acd915f5d9805aa926a61f93b0710a6a056f4ba04393993ddadda533"
+        },
+        {
+          "file": "54.f64",
+          "bytes": 224,
+          "sha256": "fbe3c6066add187248444782654bd72034e3d0f5527922df552c27571da40c38"
+        },
+        {
+          "file": "55.f64",
+          "bytes": 72,
+          "sha256": "fd642bb963de727754d3f78df4dd36dbb2616a6b0c88af44b675fa9f585751a8"
+        },
+        {
+          "file": "56.f64",
+          "bytes": 128,
+          "sha256": "c897cb5b36b5643e96af612fb24cb324cbe7c988ab7dd11732ffea915902100a"
+        },
+        {
+          "file": "57.f64",
+          "bytes": 200,
+          "sha256": "6ee11f6c1026eae94d34aaf028df7058e70245f5c6d114f1ed560bf075c9bfd7"
+        },
+        {
+          "file": "58-3-fourier-0.f64",
+          "bytes": 128,
+          "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+        },
+        {
+          "file": "58-3-fourier-0.rgb",
+          "bytes": 48,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1"
+        },
+        {
+          "file": "58-3-fourier-1.f64",
+          "bytes": 32,
+          "sha256": "b17ce6dc1b70e0b2765a92c959961cd7414990976992c796384b4ce3c5785325"
+        },
+        {
+          "file": "58-3-fourier-1.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "58-3.f64",
+          "bytes": 168,
+          "sha256": "f1dae887fcfc5032a2515ee1a7016708ca34b55c28a3817ec9059ec8c3b5260a"
+        },
+        {
+          "file": "58-3.rgb",
+          "bytes": 63,
+          "sha256": "0e99fd87f6b1a91510fc1f42ddd83fc1d8d6567ad17148b8ae0773f01e933550"
+        },
+        {
+          "file": "58.f64",
+          "bytes": 360,
+          "sha256": "6da8e2afb516a300a9031a3828817d8a9b40f10f6d37ff498335eb1841b375df"
+        },
+        {
+          "file": "59-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "0dc6edf97486e07fead858b05bf60c59b35555c9e979740a6d6cb1d315abaa44"
+        },
+        {
+          "file": "59-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "24ebe231bd25c970e7815b14f00a3d473e4fa3d73b9fb5f46f27e9427c9be203"
+        },
+        {
+          "file": "59-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "820250111feff89e216ecf9683552527c19d19fb9424c30ad1d304095cfac643"
+        },
+        {
+          "file": "59-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "23282104db2cf18886e7dcb31024ad8bc894236804d9393363ca8bc8a2dfc200"
+        },
+        {
+          "file": "59-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "59-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "59-3.f64",
+          "bytes": 192,
+          "sha256": "bef1c05bdf4d610d8f07ea467d14602c563964d9b073adca535b6bfa7675f0d0"
+        },
+        {
+          "file": "59-3.rgb",
+          "bytes": 72,
+          "sha256": "2018be22b7f58db1c9ccb735fa058a7595078095562faa8a2dcdab87ae0a22cb"
+        },
+        {
+          "file": "59.f64",
+          "bytes": 384,
+          "sha256": "1de6e717f726b4544896630ecd47f98bedc954f65086b796d4bad85c4745761b"
+        },
+        {
+          "file": "6.f64",
+          "bytes": 8192,
+          "sha256": "2e2342fdb065df69f57cbfe43a53f571584db8dc50a28b5d8dabbe231db14ce8"
+        },
+        {
+          "file": "60-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "4270df86393c9dc6e33cd952b2ce46d6985fd516be54f5b3b5919d9ec2f2790e"
+        },
+        {
+          "file": "60-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "abf6b15f2e030b96ca8bee24a77a32154e776a77330d4a344e154cb2f39e8c5b"
+        },
+        {
+          "file": "60-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "f85ece25c0bdfa039439dfdf82ab2f3c95a5c8c50c2932f167bfdd6771d039fc"
+        },
+        {
+          "file": "60-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "8dbcb497dba70d859fdc733928ae4734501ef30cb22c0d4d3ff2964019f8cdea"
+        },
+        {
+          "file": "60-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "60-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "60-3.f64",
+          "bytes": 200,
+          "sha256": "1a72a462930e92bc7024feb3b36dd8245c760ea952ce0bae17ac662c70392831"
+        },
+        {
+          "file": "60-3.rgb",
+          "bytes": 75,
+          "sha256": "3317ac9eef568cae1094d15b2339425f03151d551c11ba23de4348f4be9191fb"
+        },
+        {
+          "file": "60.f64",
+          "bytes": 392,
+          "sha256": "3f4382bf32bb8b5a0dabf5b5f8a9a15c67f11e1d1f896c09daaecb6edbcd46a1"
+        },
+        {
+          "file": "61-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "e5a13bf6c083f09396e3dc16c5446d8f65688e665a3b99a2355a13a00c305d2c"
+        },
+        {
+          "file": "61-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "4d4b498174b3a744bd4f19c00b66aafe3b9f94d74b6998689b37de5fa03c329d"
+        },
+        {
+          "file": "61-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "1f31c81911cc9a874853e8869486de6bfa59de0de4c61c143074a9aa1302b79c"
+        },
+        {
+          "file": "61-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "8c8a453463c8efd926eff033b71fecfdb7c5cc921e7d24fa2609b5985a191ec6"
+        },
+        {
+          "file": "61-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "61-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "61-3.f64",
+          "bytes": 288,
+          "sha256": "73229462748446cc80acae0619327496fde664496a475f1c946820f209c5c004"
+        },
+        {
+          "file": "61-3.rgb",
+          "bytes": 108,
+          "sha256": "6c6d57e7665a9ceadc98ad0a9d2e48da7a980656bbc03d8a2257bc7d49acceb9"
+        },
+        {
+          "file": "61.f64",
+          "bytes": 512,
+          "sha256": "c9dd11826dad8280748524769f5344eebffa5cbb097cdec5ffbde71f94728379"
+        },
+        {
+          "file": "62-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "2f8506ec75bd2d065f236d6aef5ba5f5bf91ee102e8586980d60d2128acd8dce"
+        },
+        {
+          "file": "62-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "12cd7baa71dab6b5f751fdd09b83acbb7806f76561ae1840a99dad1fe2b33fe6"
+        },
+        {
+          "file": "62-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "cbd2598cc8e76c859918aaec30caa9d5909364ebae0a8b817f986f88a1cb73cb"
+        },
+        {
+          "file": "62-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "7cd8fa96c2be9e8eee932af0da32ff5a903a6d0cc0bdf468aa1e1f8dce9f03d9"
+        },
+        {
+          "file": "62-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "62-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "62-3.f64",
+          "bytes": 392,
+          "sha256": "4b1d3a922c5db3cdfdc28d3ea5d4fd63a8e85be9f6b96b904b5d31aa387cb573"
+        },
+        {
+          "file": "62-3.rgb",
+          "bytes": 147,
+          "sha256": "b0c9b054ac712010e1fb9a7e9f6c0f76dd82fff6fb1e456278876fee28321c82"
+        },
+        {
+          "file": "62.f64",
+          "bytes": 648,
+          "sha256": "caf3364ae1f6ac2d2dbbc29eaf526794098d5b044d1f2bfd351c6d5fa3ae0723"
+        },
+        {
+          "file": "63.f64",
+          "bytes": 288,
+          "sha256": "26dfb19225faa2b6e7f59815fac3d4d43ecc4112efcc2c3373dee7309cd693c2"
+        },
+        {
+          "file": "64-3-fourier-0.f64",
+          "bytes": 128,
+          "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+        },
+        {
+          "file": "64-3-fourier-0.rgb",
+          "bytes": 48,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1"
+        },
+        {
+          "file": "64-3-fourier-1.f64",
+          "bytes": 32,
+          "sha256": "91917a666cf9607ef0e02d1d9e540342b930ca7cb07cb01420b9d8569545e958"
+        },
+        {
+          "file": "64-3-fourier-1.rgb",
+          "bytes": 12,
+          "sha256": "eafcd695cb31ecbb0f021be5cc971b371155ff53d494ca90ecb9f048757edab6"
+        },
+        {
+          "file": "64-3.f64",
+          "bytes": 80,
+          "sha256": "139cca1997f2b1c9c3dc94a8f1413c7c9f3b670e6f7833ffb421526246f3f009"
+        },
+        {
+          "file": "64-3.rgb",
+          "bytes": 30,
+          "sha256": "629cd376ef7f172481d9f8f26a7c12c3e6e4631b0422f9a7d6fa212589bae80b"
+        },
+        {
+          "file": "64.f64",
+          "bytes": 224,
+          "sha256": "d57b7aad9b0feb0d6961d1f3f0f1e97db5d979f6b7c85ac17d6de73211ff9e51"
+        },
+        {
+          "file": "65.f64",
+          "bytes": 72,
+          "sha256": "a1f45a17e02d4023e975d1997b2e6c50b40aa0cb5c15e9c5c1eda3656565af62"
+        },
+        {
+          "file": "66.f64",
+          "bytes": 128,
+          "sha256": "4f938cd3654d077f85d48ebd138df9fa25a2d90f36022edc664af88699cdbdc5"
+        },
+        {
+          "file": "67.f64",
+          "bytes": 200,
+          "sha256": "2206063e754d4f7ad6987ee4ce8c696980b8c0f146ccf395719ba1f4bc030d9e"
+        },
+        {
+          "file": "68-3-fourier-0.f64",
+          "bytes": 128,
+          "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+        },
+        {
+          "file": "68-3-fourier-0.rgb",
+          "bytes": 48,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1"
+        },
+        {
+          "file": "68-3-fourier-1.f64",
+          "bytes": 32,
+          "sha256": "91917a666cf9607ef0e02d1d9e540342b930ca7cb07cb01420b9d8569545e958"
+        },
+        {
+          "file": "68-3-fourier-1.rgb",
+          "bytes": 12,
+          "sha256": "eafcd695cb31ecbb0f021be5cc971b371155ff53d494ca90ecb9f048757edab6"
+        },
+        {
+          "file": "68-3.f64",
+          "bytes": 168,
+          "sha256": "5ffb6d38459ca5f20945216cc14c444dae5da2d76c76cf8dfc7305602e95da4f"
+        },
+        {
+          "file": "68-3.rgb",
+          "bytes": 63,
+          "sha256": "fc3efb3380e5c1ebdc3fed666278fdb2ded8e393bf2abfa9a9d1d071e807afe6"
+        },
+        {
+          "file": "68.f64",
+          "bytes": 360,
+          "sha256": "29d04c90db1df02af3b1c0ef8ce206754537f755b18769d82c37c41a77da4786"
+        },
+        {
+          "file": "69-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "a2d4624b7ecf3fd31c5c3c000c64458f122b1b468a5b0fb07075f7e47071cd32"
+        },
+        {
+          "file": "69-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "abf6b15f2e030b96ca8bee24a77a32154e776a77330d4a344e154cb2f39e8c5b"
+        },
+        {
+          "file": "69-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "7172bab190549165e5fbf45de5e4243beb21515cdcbdb577a6a918dd047a05e1"
+        },
+        {
+          "file": "69-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "bdb0fb52dd5b173527f562db23d873be76f43b22b35aaceb9717c7cb29276942"
+        },
+        {
+          "file": "69-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "69-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "69-3.f64",
+          "bytes": 192,
+          "sha256": "7aa3e39972d83f39eb529e13a50172c61bcd023bc18ebcfe261d6e629b3e932c"
+        },
+        {
+          "file": "69-3.rgb",
+          "bytes": 72,
+          "sha256": "83fe7dadbdeadf3395fe50cbaa9edada5ddd62b45a341beba64ce87a7cb504bf"
+        },
+        {
+          "file": "69.f64",
+          "bytes": 384,
+          "sha256": "30fca4cfa6fc2ca81349e72e84c96e982e22e0072f7b016a69109250c1d05e89"
+        },
+        {
+          "file": "7-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "beb33cda61fbd7711c4f1e8b701646950b4565b973f487dcc1de8e2a774d8b35"
+        },
+        {
+          "file": "7-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "f219b2cc084e3b67e313385d9817a76680f6e837a414a66bb4a59d5cac8931f7"
+        },
+        {
+          "file": "7-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "9ee45c801aebebe55ab902e60adcfa83b754ffb266686acc3b3f3e3652278e0d"
+        },
+        {
+          "file": "7-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "c5d48fc4e2b977161d44266b7b3c4ebe46963b41d34c357d618600029c4c64df"
+        },
+        {
+          "file": "7-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "7-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "7-3.f64",
+          "bytes": 432,
+          "sha256": "bf50a6260fb4b2ffcb7a92e883a3a4c59be5d53d4e393c65f8248e99d62aa248"
+        },
+        {
+          "file": "7-3.rgb",
+          "bytes": 162,
+          "sha256": "7721b883226f1290620c2be73a97f7ca42a122f713f3ebb746397a3b6b1e3dcc"
+        },
+        {
+          "file": "7-5.f64",
+          "bytes": 21120,
+          "sha256": "5d72b0ee79eca8221197eb08a765e742e086deed52a047f80aa3077647bec1d5"
+        },
+        {
+          "file": "7-5.rgb",
+          "bytes": 7920,
+          "sha256": "d70f1d8764e45f9c800c001fa8f9f8dade051efd0022818ddcdba31d8f4652d4"
+        },
+        {
+          "file": "7.f64",
+          "bytes": 704,
+          "sha256": "d6a6df73c72c02d949d9741a69f574ef13720989cf991b96e1557731a831f6e6"
+        },
+        {
+          "file": "70-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "3980a898c06c1616651cc05f78eab5a68cd14760f09d6af07fe20c0a964b37fc"
+        },
+        {
+          "file": "70-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "d93de80d3982223bd499dcc2b2448133cdd2de6cd986d41a717d7016710fe74f"
+        },
+        {
+          "file": "70-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "8f91ef96349c1adfef2a153cde70b92016801961ae3ed8731f90c72f47d627a7"
+        },
+        {
+          "file": "70-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "66057c279a3b184d31d0a2127351cc95c333035fa35f0019e9147b911624e535"
+        },
+        {
+          "file": "70-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "70-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "70-3.f64",
+          "bytes": 200,
+          "sha256": "c8ad6aa633c19ba57b8db1da67564426ddff6493f0af6a5cf8c75985c9a4f248"
+        },
+        {
+          "file": "70-3.rgb",
+          "bytes": 75,
+          "sha256": "95436ccd16edbedb9ff0aca1586fc3eba472f568a4c88d7cdf012c9cb650927e"
+        },
+        {
+          "file": "70.f64",
+          "bytes": 392,
+          "sha256": "5cf6eaa2a2822072853f0544671a5a1433fcf81e412aaf0c4d5817b1295e4cff"
+        },
+        {
+          "file": "71-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "305ed366ccc941ba1144f936dcd22a44efa41eba0716489f50be7e469cf9dafb"
+        },
+        {
+          "file": "71-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "dfd3fa2ec4d2862a0403b1551fadba18c320a3086d0648f76cd089e91fed2559"
+        },
+        {
+          "file": "71-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "89d0bd6107d6f1f73a24d1031d7b433d66a3fae73dee2c503195ab12c71e098b"
+        },
+        {
+          "file": "71-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "4e306d39313bd1c95b9ecbc32b39273de37b8a297ac9f9638660f820631a6545"
+        },
+        {
+          "file": "71-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "71-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "71-3.f64",
+          "bytes": 288,
+          "sha256": "dee7f3860f0dcfc82b160ed8cb2b22c2228290c6200f7e92792f8f3f94cbd220"
+        },
+        {
+          "file": "71-3.rgb",
+          "bytes": 108,
+          "sha256": "b647e5750de3f8aeae0b670a8e8bb61d50146b8229d6615ccd34b410755026e6"
+        },
+        {
+          "file": "71.f64",
+          "bytes": 512,
+          "sha256": "150c254cee6ba19e8122bdc680aadd9047adf70759ff7de1836bb3207aaa2c31"
+        },
+        {
+          "file": "72-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "4cf9816ed1062189ff0c8d427fba5e912cc68fc9af76cf7f08fd255977de3b33"
+        },
+        {
+          "file": "72-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "1fe2373734955e60c172999142934b52e69ba7ab9039b3c18ea54082ba32afcd"
+        },
+        {
+          "file": "72-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "6386197d0294d05bcb839414856693f125190d540383287855404d6991355470"
+        },
+        {
+          "file": "72-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "e78d6d9dbaab9d6aa9c32cf1a8b4674b57fc13050e17d946a30d520f416bfadf"
+        },
+        {
+          "file": "72-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925"
+        },
+        {
+          "file": "72-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+        },
+        {
+          "file": "72-3.f64",
+          "bytes": 392,
+          "sha256": "3883c36de04b94859ef899b14074ca4524c30316ed807dd79d8dc1378bce09ec"
+        },
+        {
+          "file": "72-3.rgb",
+          "bytes": 147,
+          "sha256": "d772a9e88044b149347362faa7948d3cc83f3171d8bcceecef192079cdf8adfa"
+        },
+        {
+          "file": "72.f64",
+          "bytes": 648,
+          "sha256": "fb9596e117c5107c4b566f4a037a3a09d7b22c0c82afd221b45e66df4ef5ffb1"
+        },
+        {
+          "file": "73-3.f64",
+          "bytes": 80,
+          "sha256": "9b0ebc27793372e22633e95c7a539a1aa153c498a998af15bcfe8c23e6690617"
+        },
+        {
+          "file": "73-3.rgb",
+          "bytes": 30,
+          "sha256": "f1f8022c8f8547b5e3f918e20ae6753cd588106135beea189bbfbdd7a2b3549f"
+        },
+        {
+          "file": "73.f64",
+          "bytes": 288,
+          "sha256": "9feff9d13cf2e0e505917e7d36be984adb81bd85cf940245707973b62561658e"
+        },
+        {
+          "file": "74-3-fourier-0.f64",
+          "bytes": 128,
+          "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+        },
+        {
+          "file": "74-3-fourier-0.rgb",
+          "bytes": 48,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1"
+        },
+        {
+          "file": "74-3-fourier-1.f64",
+          "bytes": 32,
+          "sha256": "80e4f3daaf84a6fe9bbe27e76640800d843a45bd42def656fd1bb57544457886"
+        },
+        {
+          "file": "74-3-fourier-1.rgb",
+          "bytes": 12,
+          "sha256": "f4cbaefd99db377491dc34fe50732395786bd13f0ea06b7f0d81b4fd54dfbcda"
+        },
+        {
+          "file": "74-3.f64",
+          "bytes": 80,
+          "sha256": "ad43b7c7c7d4444258a2e4679f01612f7839535dde80dc17a4ef7605f0ad2948"
+        },
+        {
+          "file": "74-3.rgb",
+          "bytes": 30,
+          "sha256": "d781391adaac002ab91ffbb83503674e944aa91404dd5558ff4d4afbe1a6801a"
+        },
+        {
+          "file": "74.f64",
+          "bytes": 224,
+          "sha256": "df8755900cd7b60fa326605801d8b565d11be2ebc18f7d246b936c93da8c1510"
+        },
+        {
+          "file": "75.f64",
+          "bytes": 72,
+          "sha256": "d5d7be6755aa8641df877578e58921874f8e439e72de8b21003bb08b9aec9f00"
+        },
+        {
+          "file": "76.f64",
+          "bytes": 128,
+          "sha256": "c016ecf113ec273cd1dd087e329ab6388eeb0378c4df916c8f8fff7acc3ce69c"
+        },
+        {
+          "file": "77.f64",
+          "bytes": 200,
+          "sha256": "86d019592aa0a2603ddf0109eda82d57c7ff653ad4a1a0b8573be4af379dcf3a"
+        },
+        {
+          "file": "78-3-fourier-0.f64",
+          "bytes": 128,
+          "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+        },
+        {
+          "file": "78-3-fourier-0.rgb",
+          "bytes": 48,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1"
+        },
+        {
+          "file": "78-3-fourier-1.f64",
+          "bytes": 32,
+          "sha256": "91917a666cf9607ef0e02d1d9e540342b930ca7cb07cb01420b9d8569545e958"
+        },
+        {
+          "file": "78-3-fourier-1.rgb",
+          "bytes": 12,
+          "sha256": "eafcd695cb31ecbb0f021be5cc971b371155ff53d494ca90ecb9f048757edab6"
+        },
+        {
+          "file": "78-3.f64",
+          "bytes": 168,
+          "sha256": "363d557105fdf67b08347bcb8e4b0f223b54a68a48cad3cef9b3e2b16cb6a569"
+        },
+        {
+          "file": "78-3.rgb",
+          "bytes": 63,
+          "sha256": "e484e7b729a0bd28e1f90719c0460366a5c5acb2387d1c6a9a2fe22c58a7b7d3"
+        },
+        {
+          "file": "78.f64",
+          "bytes": 360,
+          "sha256": "233f8833663892c1fbe036cc2f4f442e140ff17551e88d524fddb5c8fc5d5050"
+        },
+        {
+          "file": "79-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "a9ad16930777ec0214cfb1e8ae42c328d938bf17f9782a06c3a754a6d5e86102"
+        },
+        {
+          "file": "79-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "1ca4b79b4bc759dde72a0f0396321f587f9c847dfcab1a49c68fc788ab09d33e"
+        },
+        {
+          "file": "79-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "f864323d69f0168bcb00ff15621dd98cdddfcb717a866011fc32de726afcd1a3"
+        },
+        {
+          "file": "79-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "470146f8f0e9a33811c51738551da9ed3ee041d895f810d130c015220ee9aec6"
+        },
+        {
+          "file": "79-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "79-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "79-3.f64",
+          "bytes": 192,
+          "sha256": "a2ebd660e6d5a75626d8dbd9b00877cfc400b6084fab47611ca376c2d123c5d1"
+        },
+        {
+          "file": "79-3.rgb",
+          "bytes": 72,
+          "sha256": "3d884f81c214a0503d03345578916d9c9a7f3ac0384a15dca2a84d4c02e71dbc"
+        },
+        {
+          "file": "79.f64",
+          "bytes": 384,
+          "sha256": "3401fee80316912258cf2158c85e6b8d299e0ce869bbede08c77c50d68d84cd7"
+        },
+        {
+          "file": "8-3-fourier-0.f64",
+          "bytes": 6272,
+          "sha256": "f79defdc48007169a91c32bc8d5d0c1879e101975340dd6481113559656cf464"
+        },
+        {
+          "file": "8-3-fourier-0.rgb",
+          "bytes": 2352,
+          "sha256": "68c4b6336890e35435c2ab2d1a3f9fd16d0a189216f7e274c3978f5922272204"
+        },
+        {
+          "file": "8-3-fourier-1.f64",
+          "bytes": 1568,
+          "sha256": "f8c34cffd14bbca0424cd677d6b4b25cdac0cb62c08e7f2336b31c4cbeb1fdb3"
+        },
+        {
+          "file": "8-3-fourier-1.rgb",
+          "bytes": 588,
+          "sha256": "a9c5f249ff05761d2e86a98cb6ce3258b426db5502b20b0ccb34b16fc9483d40"
+        },
+        {
+          "file": "8-3-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "05a199aa95428f772d23dea2c0b131a1f6948497bfe4290d8c9581357c1d70ae"
+        },
+        {
+          "file": "8-3-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "09424699691521476022055720b3ffbcef234bfd99132391e64692d1c299b1b9"
+        },
+        {
+          "file": "8-3.f64",
+          "bytes": 1904,
+          "sha256": "350d1db613278d93fa4dd09b2d4ca048cf199eaaa49c20667d8ef38758851666"
+        },
+        {
+          "file": "8-3.rgb",
+          "bytes": 714,
+          "sha256": "f32b41c01b292c9d8c3d25b7f839fb95c78d5ba22a0569f97dfaa0fc1f9310e7"
+        },
+        {
+          "file": "8-5-fourier-0.f64",
+          "bytes": 4608,
+          "sha256": "59574e460b39a34f6866d440508218521bec5f85fdde06b135dc51928ca40ea3"
+        },
+        {
+          "file": "8-5-fourier-0.rgb",
+          "bytes": 1728,
+          "sha256": "0e272ade7b90431fe618106027d5350177e7aea0cf4b535dc7eb0ef27acf3ea3"
+        },
+        {
+          "file": "8-5-fourier-1.f64",
+          "bytes": 1152,
+          "sha256": "dfd37f557050ce1a4dcae638507dad7735f5620a63839e3a86b928cefabf03e7"
+        },
+        {
+          "file": "8-5-fourier-1.rgb",
+          "bytes": 432,
+          "sha256": "9a3d00654c5c652836e0ba2b5b250cbf2744c93fe95cd4a4a7870210d3b2f35b"
+        },
+        {
+          "file": "8-5-fourier-2.f64",
+          "bytes": 288,
+          "sha256": "fbf90499601edfd9d77afb8937ad1e3cce6aa61401f4410f17e2b018882c78fa"
+        },
+        {
+          "file": "8-5-fourier-2.rgb",
+          "bytes": 108,
+          "sha256": "ced1c0d9fe087942897e401966c443a499fbae3f10edd46be7f0198f4de4d78d"
+        },
+        {
+          "file": "8-5.f64",
+          "bytes": 1440,
+          "sha256": "184aa9aaa263a3748d3bbf0174d1657a66cf1e879eaaff4de38f544ba1426d75"
+        },
+        {
+          "file": "8-5.rgb",
+          "bytes": 540,
+          "sha256": "15ae75431b6cd5f8d7409e3a211ed3397f11d2ada8b91ed9e304c0708416665b"
+        },
+        {
+          "file": "8.f64",
+          "bytes": 2432,
+          "sha256": "a3c090b1a0bf8852946c115dbb6b721ccfa261751b599e1a69d5b63641491896"
+        },
+        {
+          "file": "80-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "bcb2f557821ea6023cfa1d81e9b2e6ce03af25ee1218f70d735d971a0d02c008"
+        },
+        {
+          "file": "80-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "24ebe231bd25c970e7815b14f00a3d473e4fa3d73b9fb5f46f27e9427c9be203"
+        },
+        {
+          "file": "80-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "739c228e673df2e94c08bedab3d0e4d56589a1f72bac98845c20a431d3d68c28"
+        },
+        {
+          "file": "80-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "e0f2cff7c008fbbd70c5291e2976771a9c95f3c23852e216ede14076519a6c5e"
+        },
+        {
+          "file": "80-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "80-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "80-3.f64",
+          "bytes": 200,
+          "sha256": "43bdbf9bccc744777827cad6cb681840dbc74113f83e59e2f81283af0fab60d2"
+        },
+        {
+          "file": "80-3.rgb",
+          "bytes": 75,
+          "sha256": "c11e0bdc7d79655f160f214af9261126891c2741e0e59321d550d1115fcbf417"
+        },
+        {
+          "file": "80.f64",
+          "bytes": 392,
+          "sha256": "c979ca6d386718d2ec57c5b38e99bcde27966aaaada57316d0a9aaeaaab0b684"
+        },
+        {
+          "file": "81-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "60990fcc2d0b8c41fa0851bebbbe87e3c482faedf17e2af06705c64c0510a8bf"
+        },
+        {
+          "file": "81-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "5e8d78e9e72b67aa26c6450b902f6decdf9032138ea634e3a3563bc2581397d3"
+        },
+        {
+          "file": "81-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "9205cd184f157a0a8360515ac36720be039b043a0ebd40802a9e36157694d4ed"
+        },
+        {
+          "file": "81-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "ef47a8996e26bdfe55b992ff7cce7f7467a95cfc1f0aef291b6832d517232cdb"
+        },
+        {
+          "file": "81-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "81-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "81-3.f64",
+          "bytes": 288,
+          "sha256": "44a8bd86d559b290585ef323add2acd2baf1ff3d4d0d6b68af67aa3d369626db"
+        },
+        {
+          "file": "81-3.rgb",
+          "bytes": 108,
+          "sha256": "42700c5ba665bd6e60a87fa521ba83928c01414043135443d020c47fce42e405"
+        },
+        {
+          "file": "81.f64",
+          "bytes": 512,
+          "sha256": "f9d61787f97a1a12b657869217496e53bd225daaf7b9daedd434b93eb0420f41"
+        },
+        {
+          "file": "82-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "e53ca87e98bd444e40ccb244dedc219e7a607f6fd1e5309e72d0f0dcfaac5a4b"
+        },
+        {
+          "file": "82-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "c319fc1137c9ec39d584a7abc1538621e0922aebe3e50858bbb526cc48ac156d"
+        },
+        {
+          "file": "82-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "845ca230700eb3cb59a309c88ccca698c786a912226e083df8d1260ecc74865b"
+        },
+        {
+          "file": "82-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "32b8bc034499fd5b0c6f9f844957e3838b745b0224c624325ccad25071b78e6b"
+        },
+        {
+          "file": "82-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "82-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "82-3.f64",
+          "bytes": 392,
+          "sha256": "ad4eb6d772dcec02e239bfa328877bc09e118e0747c8734268899ff04c9a1edd"
+        },
+        {
+          "file": "82-3.rgb",
+          "bytes": 147,
+          "sha256": "40ae03afb266088af6c7343470d2ed2570d0ce3d5f1c7b55f25679a15c675a3e"
+        },
+        {
+          "file": "82.f64",
+          "bytes": 648,
+          "sha256": "414c9d0d6f8a0563fa315778eb94d06fc1d70cd5c2a9c7b5be1d82106c7b7014"
+        },
+        {
+          "file": "83.f64",
+          "bytes": 288,
+          "sha256": "3a72639c6d0deef92487dd07e16a1d7c73885f458860d3a6164d152b652b3e5d"
+        },
+        {
+          "file": "84-3-fourier-0.f64",
+          "bytes": 128,
+          "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+        },
+        {
+          "file": "84-3-fourier-0.rgb",
+          "bytes": 48,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1"
+        },
+        {
+          "file": "84-3-fourier-1.f64",
+          "bytes": 32,
+          "sha256": "a79c4dca3ed39393d408db1a468f34fa555122e759dbe2f4542c36b94e80a018"
+        },
+        {
+          "file": "84-3-fourier-1.rgb",
+          "bytes": 12,
+          "sha256": "36f8f76740be7fcc12ea80afb950a1392ff356899a521a1332f3b09000cd0d96"
+        },
+        {
+          "file": "84-3.f64",
+          "bytes": 80,
+          "sha256": "2b788c95477ed9c91157c5b14001631e3a5b62320c6317fef0a869a82bbb5d32"
+        },
+        {
+          "file": "84-3.rgb",
+          "bytes": 30,
+          "sha256": "04b08f656797a206b691b9eb4425d49a9a85a6cef330d65a245c434a8cb2f6ad"
+        },
+        {
+          "file": "84.f64",
+          "bytes": 224,
+          "sha256": "5094d3244ea487b6ff7e089836918a3da0c0dcbd84ffe2ff00c971214a9f9b2c"
+        },
+        {
+          "file": "85.f64",
+          "bytes": 72,
+          "sha256": "8286429798073319ac3c668a17497a55dae2066246d183b9592002d1f9c250f4"
+        },
+        {
+          "file": "86.f64",
+          "bytes": 128,
+          "sha256": "5c53f5044d9a1180b3503d98cc7199cb748d10c3e3bac0a111405dc4b2afc9b6"
+        },
+        {
+          "file": "87.f64",
+          "bytes": 200,
+          "sha256": "efbef8c0eb2464bc2c631f3f835b0a28c14e14fc16e7cbd95970fa441479608a"
+        },
+        {
+          "file": "88-3-fourier-0.f64",
+          "bytes": 128,
+          "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+        },
+        {
+          "file": "88-3-fourier-0.rgb",
+          "bytes": 48,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1"
+        },
+        {
+          "file": "88-3-fourier-1.f64",
+          "bytes": 32,
+          "sha256": "91917a666cf9607ef0e02d1d9e540342b930ca7cb07cb01420b9d8569545e958"
+        },
+        {
+          "file": "88-3-fourier-1.rgb",
+          "bytes": 12,
+          "sha256": "eafcd695cb31ecbb0f021be5cc971b371155ff53d494ca90ecb9f048757edab6"
+        },
+        {
+          "file": "88-3.f64",
+          "bytes": 168,
+          "sha256": "0def93d38013fbc1f3c2b4b8dcffba218e5381204986d38f80427ef83d046b07"
+        },
+        {
+          "file": "88-3.rgb",
+          "bytes": 63,
+          "sha256": "65eeeede31caaea1e0c10b54ab6e37aaec8cf63acd77b4b010d1f68aeef74a53"
+        },
+        {
+          "file": "88.f64",
+          "bytes": 360,
+          "sha256": "b2b8b4be4acab4305f350b3b82b3fcaeebecb533f32793c11a87dc40c1a6d7eb"
+        },
+        {
+          "file": "89-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "5877f233622a0cb2ffc215cc1824ccd67f84c8626bd8f27c68a27e62eea94177"
+        },
+        {
+          "file": "89-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "9d8664effb844f5e8ca0507539bc00444c8f6f5ad1bb9b919917ce95fe1adef9"
+        },
+        {
+          "file": "89-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "b7fefa99d1d38f2996d42078735044bf709c69bf80a019b926ac3bf4e7b2e03b"
+        },
+        {
+          "file": "89-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "074dca7b48a4ac6ed0e972f37ee31339daae64ba627091c1f8713642af3581f0"
+        },
+        {
+          "file": "89-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "89-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "89-3.f64",
+          "bytes": 192,
+          "sha256": "10f8820bb7b20f6274faaa704334a812c291c6d2c3f31ab48065fa35d6b97d30"
+        },
+        {
+          "file": "89-3.rgb",
+          "bytes": 72,
+          "sha256": "1c20bcd80d441cd8827410034663ee6e4c3959fdb8f9caa59c42480bd9b23687"
+        },
+        {
+          "file": "89.f64",
+          "bytes": 384,
+          "sha256": "8d39bdf615ea317711c9ab61cc756b154c587069a31a468c673fc48de277abee"
+        },
+        {
+          "file": "9-3-fourier-0.f64",
+          "bytes": 28800,
+          "sha256": "9ef9aa1d78085281d7afa7314bdba443c35048683cc8e787d913d878de5fc801"
+        },
+        {
+          "file": "9-3-fourier-0.rgb",
+          "bytes": 10800,
+          "sha256": "2e1ab6ad569cf6f48eef46637389fad381f31e0b0224e5e0b5a3378f6971ab08"
+        },
+        {
+          "file": "9-3-fourier-1.f64",
+          "bytes": 7200,
+          "sha256": "e7c369d937e8828a2dee8e09f3c0fde103ca22ee3ae418639fa26e0c8765c115"
+        },
+        {
+          "file": "9-3-fourier-1.rgb",
+          "bytes": 2700,
+          "sha256": "4b26974b72705a9081f1b0d77e1dc2943ce4dd84eca5f0ba5534329662718f18"
+        },
+        {
+          "file": "9-3-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "104253c35fd540b261fddc0c6a210a5c539fc38ab06a90a7df609c22d905cc71"
+        },
+        {
+          "file": "9-3-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "6b976c922f4e9173644d4e2a57b314c8584e7cc04570f6b9c6caecdaffefbab4"
+        },
+        {
+          "file": "9-3.f64",
+          "bytes": 8432,
+          "sha256": "134fa6b87532601f90ed9c5478f65c9e2dd4d2708651854e983fdf2b19da5acf"
+        },
+        {
+          "file": "9-3.rgb",
+          "bytes": 3162,
+          "sha256": "88d85f8eff9da6efd4e0f7927eaebcb26fd9e9f6c52e46cd6beb53aba154212f"
+        },
+        {
+          "file": "9-5-fourier-0.f64",
+          "bytes": 25088,
+          "sha256": "77207b4b64f769fef2e50be4640fe9757b1ff774b1c8add154aca5ad8a816f8e"
+        },
+        {
+          "file": "9-5-fourier-0.rgb",
+          "bytes": 9408,
+          "sha256": "0f29d643c309b1a552c4e778ffc53f703a569e2ea03cf3cf4ea776f87ee87095"
+        },
+        {
+          "file": "9-5-fourier-1.f64",
+          "bytes": 6272,
+          "sha256": "737028954e12ac8ef583fb493d4e25694aac26323c4723e2b6a51139010f5a2d"
+        },
+        {
+          "file": "9-5-fourier-1.rgb",
+          "bytes": 2352,
+          "sha256": "ddf7ae5bd5bfc40023c85a0a25c5c66330200c9c011cecdcb0e48542de9cadcc"
+        },
+        {
+          "file": "9-5-fourier-2.f64",
+          "bytes": 1568,
+          "sha256": "70d17252d32d6f49424f9f89eaed02ba4df82f0f71cf8f106f8ae8d604612f88"
+        },
+        {
+          "file": "9-5-fourier-2.rgb",
+          "bytes": 588,
+          "sha256": "8721df0618554489d09f236fa0239890699cdddc0e1c2482d215994396ef0181"
+        },
+        {
+          "file": "9-5.f64",
+          "bytes": 7424,
+          "sha256": "c37cff92a9fa8456d0aff2e97d80edbd899c5742164b7a7d44379faaba10033b"
+        },
+        {
+          "file": "9-5.rgb",
+          "bytes": 2784,
+          "sha256": "3d4a05dc333d567b1bd5a9879811d662e3ad3c9c3a254f1542c2f312257a1f9b"
+        },
+        {
+          "file": "9.f64",
+          "bytes": 9504,
+          "sha256": "0909e277b4c40e83d55bda11f5ef4894f8145996a0b7ccfde427ac551b9a5591"
+        },
+        {
+          "file": "90-3-fourier-0.f64",
+          "bytes": 512,
+          "sha256": "29ea531d01e8632bb643e034138107315ce9defb8f997196780c4f9eca60332e"
+        },
+        {
+          "file": "90-3-fourier-0.rgb",
+          "bytes": 192,
+          "sha256": "4a01f66e67fefcbbd0d01ef5f9fb47c60bb80a1c41eb96cd30c2ae2f47cfdc82"
+        },
+        {
+          "file": "90-3-fourier-1.f64",
+          "bytes": 128,
+          "sha256": "344e94148c50f859e702da1da6de5bcc324a7af60c5c24a25fd08754ffd74992"
+        },
+        {
+          "file": "90-3-fourier-1.rgb",
+          "bytes": 48,
+          "sha256": "b4ef2b18f774d993d820c341175e95e3f36f11e9abb6bb863f19f7fe6ee15e37"
+        },
+        {
+          "file": "90-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "90-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "90-3.f64",
+          "bytes": 200,
+          "sha256": "b5042b94bb3e194d60156631bbc0b9cf76dbd6497a94f3c99d799c07f3978474"
+        },
+        {
+          "file": "90-3.rgb",
+          "bytes": 75,
+          "sha256": "f00a345855ec8c3b3588c313526d180a6b4d78e92b7d223c22e45595c799f4f1"
+        },
+        {
+          "file": "90.f64",
+          "bytes": 392,
+          "sha256": "a386defe0047880e7cf66e86988d4eee5262f3c3c2d5050da2ca0be488e137ed"
+        },
+        {
+          "file": "91-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "0ded989412b08d36c270cd629a4bc20af8d2fd29db589216c9f424be322a1c09"
+        },
+        {
+          "file": "91-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "e2572ac1b3a2bdb002328611c6c5e926ded4cca887997a03cd981ccc2e2f830d"
+        },
+        {
+          "file": "91-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "9e78ae0d347048343f8d91b82ecb28e88f91942ab13b3a423992240ff94c3df6"
+        },
+        {
+          "file": "91-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "9825e2917db15cee7623e9def1f54e432c4d86eaefad02d480229add505f6c6d"
+        },
+        {
+          "file": "91-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "91-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "91-3.f64",
+          "bytes": 288,
+          "sha256": "ab66150e79320f649e367b9276943dfc8dc89cfb3bf4ccbfb3711a0afced0c6d"
+        },
+        {
+          "file": "91-3.rgb",
+          "bytes": 108,
+          "sha256": "9155072dc7408c11c25604dc458232cbe7424ffd7be63a4340829a9640f2ddb7"
+        },
+        {
+          "file": "91.f64",
+          "bytes": 512,
+          "sha256": "396a4d5c72d4391da32b8516fcfc7ea0cac18fce52b578165885fd80a093f6a4"
+        },
+        {
+          "file": "92-3-fourier-0.f64",
+          "bytes": 1152,
+          "sha256": "b3312f7552191e25618e1d1eed4997c8202baec7905df13079176fbd5130346b"
+        },
+        {
+          "file": "92-3-fourier-0.rgb",
+          "bytes": 432,
+          "sha256": "5aba4e386a3459275076dc581ade08b6b89905f8f6f9e374019e4c0777ae0387"
+        },
+        {
+          "file": "92-3-fourier-1.f64",
+          "bytes": 288,
+          "sha256": "fa15b34a1b8415c5838cd9b330cf302fc0ccbf48a0d836ead374e782ef667651"
+        },
+        {
+          "file": "92-3-fourier-1.rgb",
+          "bytes": 108,
+          "sha256": "db570c440aaa404806ca94d6e67c2bd1172034afef788757e4eb64c6efcedd0b"
+        },
+        {
+          "file": "92-3-fourier-2.f64",
+          "bytes": 32,
+          "sha256": "41e57a811ac9776a5931d1ac2f1f354df344c042329b13e20b4b516db8b78410"
+        },
+        {
+          "file": "92-3-fourier-2.rgb",
+          "bytes": 12,
+          "sha256": "91a0d38a0158ee6e0aea9ad5f93891926b63613b79882615f7fd9296e9252898"
+        },
+        {
+          "file": "92-3.f64",
+          "bytes": 392,
+          "sha256": "05f1d1fb2afecb856873f9d8b2381e9d50035ecce7c3fcce307e3369dd739509"
+        },
+        {
+          "file": "92-3.rgb",
+          "bytes": 147,
+          "sha256": "288fbf3a69aa1b76605fdf9a1371cf0f5c7f7e05c97b6d9a5e89c9838af16af3"
+        },
+        {
+          "file": "92.f64",
+          "bytes": 648,
+          "sha256": "de30d86bcd511f49e5989c70716ff0bf94d35d711c73e6aa2f1beef944fa51f7"
+        },
+        {
+          "file": "93-3.f64",
+          "bytes": 80,
+          "sha256": "51623e557f327b93af23f1c9352d140c2cbeb55b976b5e411e130adf8a45182e"
+        },
+        {
+          "file": "93-3.rgb",
+          "bytes": 30,
+          "sha256": "a1a0acb82ada1c751b6ff162e71f7d5a5741a48ad43e3ceccd8500df3fdd0afc"
+        },
+        {
+          "file": "93.f64",
+          "bytes": 288,
+          "sha256": "90cccecfca1fa8d9fe3081e093dd38ec1329f3a46a2566b039c6796b83e937a6"
+        },
+        {
+          "file": "94.f64",
+          "bytes": 224,
+          "sha256": "0be38dc84a9e12e07f20dc57fee0ad0d5c385df82bd92f6a4130bd16db67f97e"
+        },
+        {
+          "file": "blas-host-model.json",
+          "bytes": 31910,
+          "sha256": "7281df0326652488c20aeb831641ef239a0be77c5dd0f4ad5873b60ac9eeab1c"
+        },
+        {
+          "file": "blas-portable-host.json",
+          "bytes": 33456,
+          "sha256": "677df8b1b1bee51bf6d5643914f12030ad81c8f95c9ff08f1e565f27914bf819"
+        },
+        {
+          "file": "blas-wasm-log.jsonl",
+          "bytes": 93940,
+          "sha256": "66a2e9b64dfa85a3932328424098d3f40879a2fb2b25b141671aa5c0cb339b8e"
+        },
+        {
+          "file": "reference.json",
+          "bytes": 194211,
+          "sha256": "7fb3abdbf34cde3ff3528fcc988ef0c9ab995453f53cbf38cff50b2c75914e30"
+        },
+        {
+          "file": "wasm-blas-probe.json",
+          "bytes": 148319,
+          "sha256": "8c5008e00f0841647a043a081f01b70f90d4b79a15806460d8f29f4136ddb0cd"
+        },
+        {
+          "file": "wasm-fourier-probe.json",
+          "bytes": 101697,
+          "sha256": "f81ba042599ba0e68ff09fa81a2c192eb9646b52df4b6cd484096bac712c7b0d"
+        },
+        {
+          "file": "wasm-full-probe.json",
+          "bytes": 146838,
+          "sha256": "fbf17ee6b7e502595a13b72f4fe72aa8b2caac81a30fe5f85e4a8924cd3196f0"
+        },
+        {
+          "file": "wasm-lu0-probe.json",
+          "bytes": 149570,
+          "sha256": "17139ae947d216fbd7343b7cb8218e9581c963a985c2bf42bbb776172bbf1e9f"
+        },
+        {
+          "file": "wasm-probe.json",
+          "bytes": 49268,
+          "sha256": "45db19a6378ca30c01fbb5d9093f11a74275b5f468f1f53fef8180f9b21c0ec5"
+        }
+      ]
+    },
+    {
+      "name": "resampling-analysis",
+      "source": "/Users/gaeldauchy/SHERLOQ/web-engine-m4/.build/resampling-analysis",
+      "files": [
+        {
+          "file": "0-composite.f64",
+          "bytes": 24576,
+          "sha256": "9aa07baf8f30614171b599519302415ef77850ea4bef24b421e4d31133c35d5a"
+        },
+        {
+          "file": "0-composite.rgb",
+          "bytes": 9216,
+          "sha256": "42c6b9d5fd7b7308c475d6baf27255bb47ae36af8c9afbd30e507783c8d9440d"
+        },
+        {
+          "file": "0-f0-0.f64",
+          "bytes": 67712,
+          "sha256": "3b2e56fcf9b8f8ce84cef60ac41e11d1e33742b1cacdea60e47ae5a8dc620ba2"
+        },
+        {
+          "file": "0-f0-0.rgb",
+          "bytes": 25392,
+          "sha256": "2059fbf89964abaadc2e3544c248660cf7fe8335d5756a5539d76ba9c38407c4"
+        },
+        {
+          "file": "0-f0-1.f64",
+          "bytes": 67712,
+          "sha256": "3b2e56fcf9b8f8ce84cef60ac41e11d1e33742b1cacdea60e47ae5a8dc620ba2"
+        },
+        {
+          "file": "0-f0-1.rgb",
+          "bytes": 25392,
+          "sha256": "2059fbf89964abaadc2e3544c248660cf7fe8335d5756a5539d76ba9c38407c4"
+        },
+        {
+          "file": "0-f1-0.f64",
+          "bytes": 3872,
+          "sha256": "d516d8a81cc0f846592bce3885133dee25b6f46091665679d62ffa3cf84659c9"
+        },
+        {
+          "file": "0-f1-0.rgb",
+          "bytes": 1452,
+          "sha256": "681992f82381256d744dae0acc997e05d586f54c7c15b2cd3613a62c752c148b"
+        },
+        {
+          "file": "0-f1-1.f64",
+          "bytes": 3872,
+          "sha256": "d516d8a81cc0f846592bce3885133dee25b6f46091665679d62ffa3cf84659c9"
+        },
+        {
+          "file": "0-f1-1.rgb",
+          "bytes": 1452,
+          "sha256": "681992f82381256d744dae0acc997e05d586f54c7c15b2cd3613a62c752c148b"
+        },
+        {
+          "file": "0-map0.f64",
+          "bytes": 22816,
+          "sha256": "913e6c725d0c1e99463731670448f5e13b66753d282585f857e797e37dbbed8f"
+        },
+        {
+          "file": "1-composite.f64",
+          "bytes": 24576,
+          "sha256": "24115a8b62db7c08a42c419b622922d4004a313494b89077c6baab12fb2bc94f"
+        },
+        {
+          "file": "1-composite.rgb",
+          "bytes": 9216,
+          "sha256": "e5d87df74c3f2590278ae4a331c301aea5dd52d03df3c594475deada338e9515"
+        },
+        {
+          "file": "1-f0-0.f64",
+          "bytes": 25088,
+          "sha256": "0d6db0aaa74074fcc3eda169342010cc191ae162293da655ede737c8043bacb4"
+        },
+        {
+          "file": "1-f0-0.rgb",
+          "bytes": 9408,
+          "sha256": "a947f6f0e8c64574a99cdd930d1a07dd65ab3d56aabec6cdaf8960455e341f1a"
+        },
+        {
+          "file": "1-f0-1.f64",
+          "bytes": 25088,
+          "sha256": "66960cdba4a99a114c1f2b35f524c7c2e49ae5c2acb9e4e5ff36dc3ab27f0451"
+        },
+        {
+          "file": "1-f0-1.rgb",
+          "bytes": 9408,
+          "sha256": "695f53a360764c6cd123817648fd40fdfa3ebfcdd577d5611970176503adde21"
+        },
+        {
+          "file": "1-f0-2.f64",
+          "bytes": 67712,
+          "sha256": "273c389a7adc54ac1710f0f43e653db72d9205b7476942e6715e0f41efc0eee1"
+        },
+        {
+          "file": "1-f0-2.rgb",
+          "bytes": 25392,
+          "sha256": "485488797c6afa34422f20a0da6ec8fad4cbf4b81588fe783d269427d074f1a2"
+        },
+        {
+          "file": "1-f1-0.f64",
+          "bytes": 1568,
+          "sha256": "29b9e9d2315c40c5de87e8b01a516d6f241507d53aeda80022d6a6fcf0d2dc48"
+        },
+        {
+          "file": "1-f1-0.rgb",
+          "bytes": 588,
+          "sha256": "cf7a5e3248d55419b58412e74f6dd3efe0cb6d7271d905f6c8f9c64dcd86c4e5"
+        },
+        {
+          "file": "1-f1-1.f64",
+          "bytes": 1568,
+          "sha256": "ea69c07dd10c29fb97aec3fa861b3a87511951398fe47c4976e829e85260d6b9"
+        },
+        {
+          "file": "1-f1-1.rgb",
+          "bytes": 588,
+          "sha256": "0b06d4740ccc371d2e290375b4f638b66c8f756408e485123eb37dc57fb8cbf0"
+        },
+        {
+          "file": "1-f1-2.f64",
+          "bytes": 3872,
+          "sha256": "037b9ea56389995aed716665f4f6a99f179bc8e83894f159d7aab632cdc5ebfa"
+        },
+        {
+          "file": "1-f1-2.rgb",
+          "bytes": 1452,
+          "sha256": "6e8ea912f5cfeedd409ef3f22a84d770094a1e6159b5cbb12eef2cc6aff15b76"
+        },
+        {
+          "file": "1-map0.f64",
+          "bytes": 10208,
+          "sha256": "bc6bfc5f6dd421a0bef364db6d594327d2d7dc73a4a2e1d56d8170229e36b929"
+        },
+        {
+          "file": "1-map1.f64",
+          "bytes": 9744,
+          "sha256": "959262d1c8b9a841ca687fd20ec8206f69ceacf42113d0c289b089ce7499a298"
+        },
+        {
+          "file": "10-composite.f64",
+          "bytes": 4216,
+          "sha256": "559c0a792340195aa0c473fe7dd2a3e8e8b041f06196ae8a0f1d2c8f5b516041"
+        },
+        {
+          "file": "10-composite.rgb",
+          "bytes": 1581,
+          "sha256": "838e4c12b65d2ed4195d9e985a6bfd34826c003107ed1ec1884974a9487806cc"
+        },
+        {
+          "file": "10-f0-0.f64",
+          "bytes": 3200,
+          "sha256": "f5691f87910d1be5d15d024723c64e6a66c2cf352aedbc8e531410b9426bf4a4"
+        },
+        {
+          "file": "10-f0-0.rgb",
+          "bytes": 1200,
+          "sha256": "1f23ca911a7189a7e25e021d8237db2eaf71fbe9c4586e98e1276a52d18875ef"
+        },
+        {
+          "file": "10-f0-1.f64",
+          "bytes": 2048,
+          "sha256": "8ab9b067047fc6a3b0449273a2b42295526f0c272ef7a9fa9dd30588ad89c8ea"
+        },
+        {
+          "file": "10-f0-1.rgb",
+          "bytes": 768,
+          "sha256": "cef5b9755f206bbf67be8bbba2a44034fd66d693583eb871cdd7e499137da79e"
+        },
+        {
+          "file": "10-f0-2.f64",
+          "bytes": 6272,
+          "sha256": "41165f9fb92ef63e194985c8ec04d821a8424b50cdcb133edfdfacec768b5d98"
+        },
+        {
+          "file": "10-f0-2.rgb",
+          "bytes": 2352,
+          "sha256": "d7a7992054d36250a1e3d49eab636bacfab161b8411a7f7717c4db2460aaa88e"
+        },
+        {
+          "file": "10-f1-0.f64",
+          "bytes": 128,
+          "sha256": "6721782f054fcb972ce5fb9be226324ed474c7b53aa4ab8ba1534420d55f73af"
+        },
+        {
+          "file": "10-f1-0.rgb",
+          "bytes": 48,
+          "sha256": "1f5d260ae3b23e07e4533a7565f72024ff749337161ca37ab78411c5c984110f"
+        },
+        {
+          "file": "10-f1-1.f64",
+          "bytes": 128,
+          "sha256": "5aa50b8982585d46a035e621a4e3517383b45a9d298a10da591c80cc387e8b5e"
+        },
+        {
+          "file": "10-f1-1.rgb",
+          "bytes": 48,
+          "sha256": "1fb57c24dac6a4532123030351dd295d7e40d7c2451e7f96a67f578a97a3e2bf"
+        },
+        {
+          "file": "10-f1-2.f64",
+          "bytes": 288,
+          "sha256": "38e106067cc1277a110979bdcd7dc72fe71800e2a54fc9c5b86404c54773440a"
+        },
+        {
+          "file": "10-f1-2.rgb",
+          "bytes": 108,
+          "sha256": "9f6e250946a44bdbfea8fefffd2003ce9163b4f23f3becdf2ab1982cc2382553"
+        },
+        {
+          "file": "10-map0.f64",
+          "bytes": 880,
+          "sha256": "f5fb4a7c071663060d830af0d775949ecfeda795d237219fe885fdc71e2cae3c"
+        },
+        {
+          "file": "10-map1.f64",
+          "bytes": 792,
+          "sha256": "779b5cfb27473ce2ef8b66ffd0797af1065a1d0059e3be3a231481fa9884b8a4"
+        },
+        {
+          "file": "11-composite.f64",
+          "bytes": 4216,
+          "sha256": "d85cb99ec27a616c973a7788dd7eb58d64b71ac20d395edb92ad3f8cec682d17"
+        },
+        {
+          "file": "11-composite.rgb",
+          "bytes": 1581,
+          "sha256": "f4b2d105381ed0fa84c031296f0a4d8cba6cc669b81f9034bfa810fb72c91c3f"
+        },
+        {
+          "file": "11-f0-0.f64",
+          "bytes": 6272,
+          "sha256": "4864231d0f27c9ad179346ca365377fd500e456868e1b92e82815c8169645c80"
+        },
+        {
+          "file": "11-f0-0.rgb",
+          "bytes": 2352,
+          "sha256": "d3c1698d69e847b59dbefbea16033894e91ec68744b868788ffb4407266227a0"
+        },
+        {
+          "file": "11-f1-0.f64",
+          "bytes": 288,
+          "sha256": "f2ae450232f020a19a6e682d2adf85fd90d5ad5bb3553e2a5f1ca363687ff2f9"
+        },
+        {
+          "file": "11-f1-0.rgb",
+          "bytes": 108,
+          "sha256": "a760abed3e493a1f7f8ea9cc41e82157d078da03be4f9e34aecd52ebc2210559"
+        },
+        {
+          "file": "2-composite.f64",
+          "bytes": 24576,
+          "sha256": "29259a61d022fee755e80a8a5bd3ee0aeb24f7672d9d3cdef94e8bfe4cac2e2a"
+        },
+        {
+          "file": "2-composite.rgb",
+          "bytes": 9216,
+          "sha256": "e4363d59703d320c9293e8559551b02b1aa015d62ce6fd9c66814f6b8b5107ef"
+        },
+        {
+          "file": "2-f0-0.f64",
+          "bytes": 67712,
+          "sha256": "cca75e439b264a52cf7ed17e7acbb5149cdfcee055358700052328f475d712bd"
+        },
+        {
+          "file": "2-f0-0.rgb",
+          "bytes": 25392,
+          "sha256": "5f7e0540e62dda6f85f9ef4ad83151cf56d9780074e6a3c92619201415908510"
+        },
+        {
+          "file": "2-f1-0.f64",
+          "bytes": 3872,
+          "sha256": "6385b253cf65a861a54d2746e1becac2d77dc569fca641d62ba9cd0ed454d856"
+        },
+        {
+          "file": "2-f1-0.rgb",
+          "bytes": 1452,
+          "sha256": "bfea7025c9fb5bb5458b364d2c29ed68e81338cb820ecc0b75f5ce2a7c84e7d2"
+        },
+        {
+          "file": "3-composite.f64",
+          "bytes": 24576,
+          "sha256": "9ae232f7b72b99401dba0fa7670f39895d9aa16133fa963816243ae2655b5d69"
+        },
+        {
+          "file": "3-composite.rgb",
+          "bytes": 9216,
+          "sha256": "81711bb478c18ee40ae6ce1c9b231e9d30cb64f6f02a261ff9727ec05f5672b9"
+        },
+        {
+          "file": "3-f0-0.f64",
+          "bytes": 61952,
+          "sha256": "f1308fb8ccf1731b5af633c5a54160ac2f3ec9df99341ccc1f054097d083c4d4"
+        },
+        {
+          "file": "3-f0-0.rgb",
+          "bytes": 23232,
+          "sha256": "ac5757c94eb08e17328eb28bac8503b557ad48ddae8dc61eb63d5ab1047faae1"
+        },
+        {
+          "file": "3-f0-1.f64",
+          "bytes": 67712,
+          "sha256": "3eaab191ea0b68b894fffd59e08ed1f4a9efa47407c0ba8144fc73fd96a94ecc"
+        },
+        {
+          "file": "3-f0-1.rgb",
+          "bytes": 25392,
+          "sha256": "80aa1846bc12dcf46eccb0972c395b605c1b348a44eeb17ef244b66946fb05e0"
+        },
+        {
+          "file": "3-f1-0.f64",
+          "bytes": 3872,
+          "sha256": "7337e4e01c1f8bede16a4a2073bd61013f95ecdea6e924dfef53d755c8afb85a"
+        },
+        {
+          "file": "3-f1-0.rgb",
+          "bytes": 1452,
+          "sha256": "99fa17ebbca82420401d5dca451edb06d24376fa20026d36db69eb5c2e528f91"
+        },
+        {
+          "file": "3-f1-1.f64",
+          "bytes": 3872,
+          "sha256": "6b9151031e5f2ac7790913d08fbb1a0931807100f1bee4d006be1d86ce58b306"
+        },
+        {
+          "file": "3-f1-1.rgb",
+          "bytes": 1452,
+          "sha256": "bd9dd7a4fa8add0315541d528dbd4ad1d0f8a461b911ba3d37ec8125e9806a8a"
+        },
+        {
+          "file": "3-map0.f64",
+          "bytes": 21120,
+          "sha256": "5d72b0ee79eca8221197eb08a765e742e086deed52a047f80aa3077647bec1d5"
+        },
+        {
+          "file": "4-composite.f64",
+          "bytes": 24576,
+          "sha256": "6026317fbd6c4d1aa0163e9013d0d1ffe5e6110fcc6b971887754b598c077573"
+        },
+        {
+          "file": "4-composite.rgb",
+          "bytes": 9216,
+          "sha256": "748ccb3b23ee0c00777f0d291e6aa55cb350c495083b160991441912f7cb533c"
+        },
+        {
+          "file": "4-f0-0.f64",
+          "bytes": 21632,
+          "sha256": "4a4f9e5ad24f3f4ae5a96de9353bfc3d758f20f33dadb7725ef4b51bcf758d00"
+        },
+        {
+          "file": "4-f0-0.rgb",
+          "bytes": 8112,
+          "sha256": "6017a8265f25758ef98389a2b813b5ed11ad0ccfcfd193230bb8ee1de6863be1"
+        },
+        {
+          "file": "4-f0-1.f64",
+          "bytes": 21632,
+          "sha256": "03f95a10ed786c27e126e270084c075e728103cd680d0ed6d9ff89a30003ffeb"
+        },
+        {
+          "file": "4-f0-1.rgb",
+          "bytes": 8112,
+          "sha256": "e99780a027a8432e594c8b02c54910cb2ba3228d09e1f7a5a94d7e7648e7c8c6"
+        },
+        {
+          "file": "4-f0-2.f64",
+          "bytes": 67712,
+          "sha256": "474bdf617bfa8337d05f5ca3df68c1eb643ef641327fa5332371e32f0172f0ff"
+        },
+        {
+          "file": "4-f0-2.rgb",
+          "bytes": 25392,
+          "sha256": "cb850b5c2d8f4d2ea9e54f5378c36a55876a0ab85995bf5e2f162a5390dce0db"
+        },
+        {
+          "file": "4-f1-0.f64",
+          "bytes": 1152,
+          "sha256": "5b16f7ccaae6933f858924474a52b385cc25a72f65108517611e377cb3d78ded"
+        },
+        {
+          "file": "4-f1-0.rgb",
+          "bytes": 432,
+          "sha256": "77f67c110b275a507355defeecc257819c8d3537e2cac860b97c7d7af1453f47"
+        },
+        {
+          "file": "4-f1-1.f64",
+          "bytes": 1152,
+          "sha256": "03fd950f022d8a0473a21eb257b2e233916128225a40dd071bb463ef7a488016"
+        },
+        {
+          "file": "4-f1-1.rgb",
+          "bytes": 432,
+          "sha256": "05fca531d72be456176320244bbd8ed653c2e883e2eec0e08dbf0e00fea31b16"
+        },
+        {
+          "file": "4-f1-2.f64",
+          "bytes": 3872,
+          "sha256": "8a90ef267dfd4cc7336cddcad125979bd2b031725ed9ab1f810660cda7d827d1"
+        },
+        {
+          "file": "4-f1-2.rgb",
+          "bytes": 1452,
+          "sha256": "5bde95957a2b8c54101c230b6d1df7ab82a6b8a83e4e6052ed60c572c88abddc"
+        },
+        {
+          "file": "4-map0.f64",
+          "bytes": 9072,
+          "sha256": "eb4e3b80a7000e09737927fa9436e75dce64ff9532f26a8c204ad41b54555e3d"
+        },
+        {
+          "file": "4-map1.f64",
+          "bytes": 8640,
+          "sha256": "2330ca6d974ea63c922cf4ce171adcd3b13bea33cdb366165ae6e39d4a38edda"
+        },
+        {
+          "file": "5-composite.f64",
+          "bytes": 24576,
+          "sha256": "29259a61d022fee755e80a8a5bd3ee0aeb24f7672d9d3cdef94e8bfe4cac2e2a"
+        },
+        {
+          "file": "5-composite.rgb",
+          "bytes": 9216,
+          "sha256": "e4363d59703d320c9293e8559551b02b1aa015d62ce6fd9c66814f6b8b5107ef"
+        },
+        {
+          "file": "5-f0-0.f64",
+          "bytes": 67712,
+          "sha256": "cca75e439b264a52cf7ed17e7acbb5149cdfcee055358700052328f475d712bd"
+        },
+        {
+          "file": "5-f0-0.rgb",
+          "bytes": 25392,
+          "sha256": "5f7e0540e62dda6f85f9ef4ad83151cf56d9780074e6a3c92619201415908510"
+        },
+        {
+          "file": "5-f1-0.f64",
+          "bytes": 3872,
+          "sha256": "6385b253cf65a861a54d2746e1becac2d77dc569fca641d62ba9cd0ed454d856"
+        },
+        {
+          "file": "5-f1-0.rgb",
+          "bytes": 1452,
+          "sha256": "bfea7025c9fb5bb5458b364d2c29ed68e81338cb820ecc0b75f5ce2a7c84e7d2"
+        },
+        {
+          "file": "6-composite.f64",
+          "bytes": 4216,
+          "sha256": "cc4bccd11893160aae3b98e2bf9c8ad4bb56ced2df582a64502d7d5973024a46"
+        },
+        {
+          "file": "6-composite.rgb",
+          "bytes": 1581,
+          "sha256": "1b6c3ebb360ef3e6a5e2569147016b19f1eef5c3340b08f789713fa6cd742440"
+        },
+        {
+          "file": "6-f0-0.f64",
+          "bytes": 6272,
+          "sha256": "9a895eea48daaffc736aa5cd07cf1410c6bcfb288eaaecfaff13e05044a9c07b"
+        },
+        {
+          "file": "6-f0-0.rgb",
+          "bytes": 2352,
+          "sha256": "748e9df18ac1c0c90eb355c55a735022b84cda619c2249f49fd122ab166b4aa8"
+        },
+        {
+          "file": "6-f0-1.f64",
+          "bytes": 6272,
+          "sha256": "9a895eea48daaffc736aa5cd07cf1410c6bcfb288eaaecfaff13e05044a9c07b"
+        },
+        {
+          "file": "6-f0-1.rgb",
+          "bytes": 2352,
+          "sha256": "748e9df18ac1c0c90eb355c55a735022b84cda619c2249f49fd122ab166b4aa8"
+        },
+        {
+          "file": "6-f1-0.f64",
+          "bytes": 288,
+          "sha256": "d1eb52458ca6119e98fbf244eaa2e162b1a56aabe7102c8cb5c72a4a5c31dd23"
+        },
+        {
+          "file": "6-f1-0.rgb",
+          "bytes": 108,
+          "sha256": "4f2dca04caced675f76becfc7a3adde6298e099785574e7a131cea78f5f495dc"
+        },
+        {
+          "file": "6-f1-1.f64",
+          "bytes": 288,
+          "sha256": "d1eb52458ca6119e98fbf244eaa2e162b1a56aabe7102c8cb5c72a4a5c31dd23"
+        },
+        {
+          "file": "6-f1-1.rgb",
+          "bytes": 108,
+          "sha256": "4f2dca04caced675f76becfc7a3adde6298e099785574e7a131cea78f5f495dc"
+        },
+        {
+          "file": "6-map0.f64",
+          "bytes": 3480,
+          "sha256": "50cdada562930214a086a1c7f0349c152619306b7367cdf877f010fdb42417e7"
+        },
+        {
+          "file": "7-composite.f64",
+          "bytes": 4216,
+          "sha256": "5cadaba7778e7014e08dab3d5a88a050e1f71f6adaa6710a1db13476905239c7"
+        },
+        {
+          "file": "7-composite.rgb",
+          "bytes": 1581,
+          "sha256": "cccd4573661352060839b9c023320097232cbebf3945cadb8a02e3ebba8e6cf5"
+        },
+        {
+          "file": "7-f0-0.f64",
+          "bytes": 4608,
+          "sha256": "f977200b9555c472588ecfdf3bf39e192fd88837eec886ed5a4d5999812e2e34"
+        },
+        {
+          "file": "7-f0-0.rgb",
+          "bytes": 1728,
+          "sha256": "00fae1f2299e47079aad2c4a3d65d0789df35b322d5464cc48dc63335e2ba9d5"
+        },
+        {
+          "file": "7-f0-1.f64",
+          "bytes": 3200,
+          "sha256": "a66f74656d5425359f0a606f3eccd48a601f0674c74352deb41b577fec4c18bb"
+        },
+        {
+          "file": "7-f0-1.rgb",
+          "bytes": 1200,
+          "sha256": "82960b8181e792c7893e1c4ceae589be9195ffdc6e216e4e9cf0d007b2e1096f"
+        },
+        {
+          "file": "7-f0-2.f64",
+          "bytes": 6272,
+          "sha256": "d4ae5a62143e892204921c281f9ef5909948a4d9ad437064de693bf769b2b6a9"
+        },
+        {
+          "file": "7-f0-2.rgb",
+          "bytes": 2352,
+          "sha256": "220c76df69e8dcd9d0a69b02fc87d80a91228b13a151dc0ef18d7a847c66fc26"
+        },
+        {
+          "file": "7-f1-0.f64",
+          "bytes": 288,
+          "sha256": "9ad418e34ad7b9fb652061176db6ed26a977105479c658071c24807c78d51201"
+        },
+        {
+          "file": "7-f1-0.rgb",
+          "bytes": 108,
+          "sha256": "c1099c9568a49286ec6cb82ace4874180c71685514b87a652cc67983f1dddcb8"
+        },
+        {
+          "file": "7-f1-1.f64",
+          "bytes": 128,
+          "sha256": "d176d077b93acc76509bfa1c19b3dea5594af5feae18e147f03dce7fb5454f8d"
+        },
+        {
+          "file": "7-f1-1.rgb",
+          "bytes": 48,
+          "sha256": "017f55cfad1729f895db7df82ed9a3d6427ed16d81175124b4a780a062b2399b"
+        },
+        {
+          "file": "7-f1-2.f64",
+          "bytes": 288,
+          "sha256": "b18213f1108df76b6ec5d5c39103daa6e7bf2dc098bdefa42579368d9d8b738c"
+        },
+        {
+          "file": "7-f1-2.rgb",
+          "bytes": 108,
+          "sha256": "77151ef002108ce98ce8d1d8355a9661e8bad4d887722ef06e8d2e8964c8f306"
+        },
+        {
+          "file": "7-map0.f64",
+          "bytes": 1248,
+          "sha256": "8955505957c1e0eba1ceaf10ebbd6e7dc8454bb7a0540bf84c49e60303b34a3d"
+        },
+        {
+          "file": "7-map1.f64",
+          "bytes": 1144,
+          "sha256": "3fd5bc5e9163c02bc01f629302629748d3b19914e0de5e0f67d4aed086980e9a"
+        },
+        {
+          "file": "8-composite.f64",
+          "bytes": 4216,
+          "sha256": "d85cb99ec27a616c973a7788dd7eb58d64b71ac20d395edb92ad3f8cec682d17"
+        },
+        {
+          "file": "8-composite.rgb",
+          "bytes": 1581,
+          "sha256": "f4b2d105381ed0fa84c031296f0a4d8cba6cc669b81f9034bfa810fb72c91c3f"
+        },
+        {
+          "file": "8-f0-0.f64",
+          "bytes": 6272,
+          "sha256": "4864231d0f27c9ad179346ca365377fd500e456868e1b92e82815c8169645c80"
+        },
+        {
+          "file": "8-f0-0.rgb",
+          "bytes": 2352,
+          "sha256": "d3c1698d69e847b59dbefbea16033894e91ec68744b868788ffb4407266227a0"
+        },
+        {
+          "file": "8-f1-0.f64",
+          "bytes": 288,
+          "sha256": "f2ae450232f020a19a6e682d2adf85fd90d5ad5bb3553e2a5f1ca363687ff2f9"
+        },
+        {
+          "file": "8-f1-0.rgb",
+          "bytes": 108,
+          "sha256": "a760abed3e493a1f7f8ea9cc41e82157d078da03be4f9e34aecd52ebc2210559"
+        },
+        {
+          "file": "9-composite.f64",
+          "bytes": 4216,
+          "sha256": "551c31f8891ef4f1bd88ebf6eb741f465f2aa11f50f8bda7abc2b22a33ed10fd"
+        },
+        {
+          "file": "9-composite.rgb",
+          "bytes": 1581,
+          "sha256": "06b949b935a58445d27979b0aeb5e6feedd87b1bf5696029d4bfe4e9f0cb99af"
+        },
+        {
+          "file": "9-f0-0.f64",
+          "bytes": 4608,
+          "sha256": "6be46a8e6192031b504ac918d491e309c4a7f1739c931308676613b124f38121"
+        },
+        {
+          "file": "9-f0-0.rgb",
+          "bytes": 1728,
+          "sha256": "504ca7e627a5e75fd5c4cf218af181fff98eff138a81a4325a6d28f254ea43bc"
+        },
+        {
+          "file": "9-f0-1.f64",
+          "bytes": 6272,
+          "sha256": "af353a3f8b2fee51f72f44e0ecb2f37ae2f7d617eff4f4e36ebe9bb401d47b3a"
+        },
+        {
+          "file": "9-f0-1.rgb",
+          "bytes": 2352,
+          "sha256": "2fe311d2d63a5acf05f93ca2e5de8a4d0a70186b44d0446bb10756dbb4e75245"
+        },
+        {
+          "file": "9-f1-0.f64",
+          "bytes": 288,
+          "sha256": "32cb536a80eafd58a04e8bc6ca5e5be63f4b6eef76a546c03cf2b9c95934ca21"
+        },
+        {
+          "file": "9-f1-0.rgb",
+          "bytes": 108,
+          "sha256": "3ccd202e4da5948274d9d8e49f3a5ffe53ec2684d213e4faddd8959b5f27a0ee"
+        },
+        {
+          "file": "9-f1-1.f64",
+          "bytes": 288,
+          "sha256": "438e4fb39f3f44b0f96467d4d9ba9f7f72c949862a094eccf3d65f5be2b52dd5"
+        },
+        {
+          "file": "9-f1-1.rgb",
+          "bytes": 108,
+          "sha256": "d7c345683ad181ec106c1a145bb86be63f0e35fae0a1f68747c576e525e365b3"
+        },
+        {
+          "file": "9-map0.f64",
+          "bytes": 2808,
+          "sha256": "1d7e75609ef442e08f5e30c68dee679184e3fad1f771997f592be456c7c4903f"
+        },
+        {
+          "file": "large-reference.json",
+          "bytes": 2658,
+          "sha256": "4d8b9a95943539bd3cb8a2cd765476976dcc9c73bbce2320ccaf8160d81ae898"
+        },
+        {
+          "file": "large.jpg",
+          "bytes": 988376,
+          "sha256": "98a911126827d5c7ec9eabca3a5f66f7bcbb7a5f5cbc01dcc3996e9cd16c5925"
+        },
+        {
+          "file": "reference.json",
+          "bytes": 41911,
+          "sha256": "c1157bb42bd1404ee38d996a7420aef01dd7fcb74d45be548aab9e5d0de910e4"
+        }
+      ]
+    }
+  ]
+}

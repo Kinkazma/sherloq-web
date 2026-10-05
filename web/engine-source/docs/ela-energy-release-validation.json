@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "version": "0.28.0",
+  "node": {
+    "tests": 174,
+    "passed": 174,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 342511.964083,
+    "logSha256": "816329d29ac0e6bc7442bf9a3b4077d5534f6cd3b2c1c157bcb8de656511c388"
+  },
+  "browsers": {
+    "chrome": {
+      "browser": "154.0.8037.58",
+      "pipelineCases": 51,
+      "pipelineProof": "docs/ela-energy-pipeline-chrome-proof.json",
+      "pipelineProofSha256": "fc9fc4d2e8bc05900ea41f1451370ebc5c0f5381c86d4f3a52bdb299416272a2",
+      "runtimeSmokeOperations": 38,
+      "components": {
+        "masks": {
+          "file": "docs/ela-energy-masks-chrome-proof.json",
+          "sha256": "b73be99f7071f4ffc9f4eff1b24be8338722cf503a70f6f6aaf4ad366e0d2b6f"
+        },
+        "auto": {
+          "file": "docs/ela-energy-auto-chrome-proof.json",
+          "sha256": "3aace99a558a306d7f40342f96e71ffb504b5b1a310d4d7277c03a794ad5f91c"
+        }
+      }
+    },
+    "firefox": {
+      "browser": "155.0",
+      "pipelineCases": 51,
+      "pipelineProof": "docs/ela-energy-pipeline-firefox-proof.json",
+      "pipelineProofSha256": "0bc0006599c2c3eac9920df14fe81ee5ffe49b089ec9509d4ca518610609ae47",
+      "runtimeSmokeOperations": 38,
+      "components": {
+        "masks": {
+          "file": "docs/ela-energy-masks-firefox-proof.json",
+          "sha256": "c01985e8282564e927827a935fba463bd8b5a9361c2001dc55abb1f79eb25476"
+        },
+        "auto": {
+          "file": "docs/ela-energy-auto-firefox-proof.json",
+          "sha256": "9c9d1b84caebe9181ffec0251a5129820924e7f89c2163bb8ad02300389139e6"
+        }
+      }
+    },
+    "webkit": {
+      "browser": "26.6",
+      "pipelineCases": 51,
+      "pipelineProof": "docs/ela-energy-pipeline-webkit-proof.json",
+      "pipelineProofSha256": "6329ad12b3015463fb87a9137a0223186dceab78119b7604c6b879e453433b13",
+      "runtimeSmokeOperations": 38,
+      "components": {
+        "masks": {
+          "file": "docs/ela-energy-masks-webkit-proof.json",
+          "sha256": "0bbd9a717d3db5af00723bb67d769a713df5604dd64e343fb85369709e19384b"
+        },
+        "auto": {
+          "file": "docs/ela-energy-auto-webkit-proof.json",
+          "sha256": "cc696f56577a8f518373d7808095fdad28a18e82d2f55a634a448c60b0419770"
+        }
+      }
+    }
+  },
+  "limitations": [
+    "No WordPress integration proof",
+    "No physical mobile, Safari or non-Apple hardware proof",
+    "Energy is CPU/full-memory only",
+    "Legacy biomes, native composite render and complete analysis remain separate"
+  ]
+}

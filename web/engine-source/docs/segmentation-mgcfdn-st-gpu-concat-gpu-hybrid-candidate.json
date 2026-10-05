@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "Actual ORT WebGPU + CPU (including unsupported TopK), float32 model,512MiB WASM ceiling and individually admitted GPU buffers capped512MiB under one3GiB budget. Functional study with profiling; no speedup claim or product startup probe. Fixtures/oracles and server copies are outside model admission. Driver/compiler overhead is not RSS-accounted.",
+  "variant": "mgcfdn-st",
+  "model": {
+    "file": "gpu-concat.onnx",
+    "bytes": 89592572,
+    "sha256": "d7b577b68f862a43d12959291e93ecd2143d0feb4723efeb56f2bd7f941cba6d"
+  },
+  "weights": {
+    "models/external/clone_detectors/04_mgcfdn/weight/MGCFDN_ST.pth": "95fa449ba33a4718b66ddcbe948ddc57abdfb34594c43bf47e49515bc63cec98"
+  },
+  "sessionMs": 1203,
+  "records": [],
+  "gpu": {
+    "limitBytes": 536870912,
+    "liveBytes": 0,
+    "peakBytes": 534608464,
+    "allocations": 2935,
+    "writeBufferBytes": 102401264,
+    "readMappingBytes": 168400,
+    "dispatchedProfiles": 3494,
+    "kernelTypes": {
+      "Pow": 1,
+      "Mul": 150,
+      "Add": 1304,
+      "Transpose": 80,
+      "Conv": 374,
+      "BatchNormalization": 111,
+      "Sigmoid": 149,
+      "Slice": 89,
+      "Gather": 1193,
+      "Div": 39,
+      "Resize": 3,
+      "Concat": 1
+    }
+  },
+  "gpuErrors": [],
+  "failure": "Error: [WebGPU] Kernel \"[Mul] /network/multi_granularity_consistency_module/Mul_4\" failed. Error: Failed to generate kernel's output[0] with dims [1,1600,1600]. If you are running with pre-allocated output, please make sure the output type/dims are correct. Error: Error: GPU buffer admission limit\n    at Object._OrtRun (http://127.0.0.1:51347/.build/segmentation-ort-gpu/ort-wasm-simd-threaded.jsep.mjs:3:281)\n    at async Oi (http://127.0.0.1:51347/.build/ort130/package/dist/ort.all.min.mjs:4696:26999)\n    at async ps.run (http://127.0.0.1:51347/.build/ort130/package/dist/ort.all.min.mjs:4696:34443)\n    at async r.run (http://127.0.0.1:51347/.build/ort130/package/dist/ort.all.min.mjs:6:18592)\n    at async eval (eval at evaluate (:311:30), <anonymous>:63:126)\n    at async <anonymous>:337:30",
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1341240132
+  },
+  "adapter": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "maxStorageBuffersPerShaderStage": 10,
+    "maxBufferSize": 4294967292,
+    "maxStorageBufferBindingSize": 4294967292
+  },
+  "browser": "154.0.8037.58",
+  "providerMessages": [
+    "\u001b[0;93m2026-10-01 17:06:00.778299 [W:onnxruntime:, session_state.cc:1397 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.\u001b[m",
+    "\u001b[0;93m2026-10-01 17:06:00.779798 [W:onnxruntime:, session_state.cc:1399 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.\u001b[m"
+  ],
+  "sources": {
+    "scripts/study-segmentation-gpu.mjs": "77003ee91e24f9768d46fa46b69ab7efa3efcf967566d033cca83f502f8405b7",
+    ".build/segmentation-ort-gpu/runtime.json": "5d70f153f4d999d24491dfc8abb1d6286d65286749e544c9ff3bb4e42bb1637a",
+    ".build/ort130/package/dist/ort.all.min.mjs": "2e4a0eae53c3f246e26423aaca493d3bfc22ce524894f27519a9ec4a14e6397a"
+  }
+}

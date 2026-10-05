@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.32",
+  "runtimeFiles": 377,
+  "runtimeManifestSha256": "d5163897e308bd11acc2bb5dd7aa7eb7faac870766e7666f1bb4ab801cfc3fcd",
+  "scope": "Every copied runtime file verified. The actual positive96MP CPU ONNX/ST run is reused only for byte-identical numerical/controller modules; index differs solely by its version literal. A fresh copied concurrent MPDN JPEG/API/NPZ run verifies cancellation after two inference-start events, reload and ownership. No universal model/device or WordPress claim.",
+  "largeSource": {
+    "width": 12000,
+    "height": 8000,
+    "foreground": 3370950,
+    "arrays": 6,
+    "exportBytes": 1440012552,
+    "exportSha256": "90beeccb4ed1200cf13008341ec97921da01bef6b4d7a99aabcad806a5421201"
+  },
+  "matches": [
+    {
+      "file": "src/index.js",
+      "largeRunSha256": "44f71ed1559a52d9f3ce68ea722c2da974b4b45bac206e1c52b00111912e364e",
+      "deliveredSha256": "51c9f0909ff0009fd643e38e9ed8f7741551a01c3a73b3431a1134953c8559d8",
+      "normalization": "Only the VERSION literal changed from0.30.0-m1.31; the complete remaining file hash matches."
+    },
+    {
+      "file": "src/worker.js",
+      "largeRunSha256": "2a8ffe81fd90a6c0bb320e2d9b20c0d967463b42f9823f6283daa655d811047e",
+      "deliveredSha256": "2a8ffe81fd90a6c0bb320e2d9b20c0d967463b42f9823f6283daa655d811047e"
+    },
+    {
+      "file": "src/worker-client.js",
+      "largeRunSha256": "f69daafba1fde4990180f9f9b3097e463458f73855fa63511a61b071ce05a315",
+      "deliveredSha256": "f69daafba1fde4990180f9f9b3097e463458f73855fa63511a61b071ce05a315"
+    },
+    {
+      "file": "src/d2prl-adapter.js",
+      "largeRunSha256": "814d77662ef2342a69939f0df1a8a3d2799fdb884acb1b3b5ac7bd6926c111b6",
+      "deliveredSha256": "814d77662ef2342a69939f0df1a8a3d2799fdb884acb1b3b5ac7bd6926c111b6"
+    },
+    {
+      "file": "src/segmentation-adapter.js",
+      "largeRunSha256": "a432c0216b6378e5f55e3976cc24404f2769f86079bd950c5b955ab0e61c93f0",
+      "deliveredSha256": "a432c0216b6378e5f55e3976cc24404f2769f86079bd950c5b955ab0e61c93f0"
+    },
+    {
+      "file": "src/neural-input.js",
+      "largeRunSha256": "3e146ac8abebb333b9e162539ce4246bd07ad7c0c3a2694439e06fd67599b152",
+      "deliveredSha256": "3e146ac8abebb333b9e162539ce4246bd07ad7c0c3a2694439e06fd67599b152"
+    },
+    {
+      "file": "src/neural-projector.js",
+      "largeRunSha256": "4ac9e00289cc33682d2ae1a8d8eac60036e8335da5baa6b289a36fdcd0dc2dfb",
+      "deliveredSha256": "4ac9e00289cc33682d2ae1a8d8eac60036e8335da5baa6b289a36fdcd0dc2dfb"
+    },
+    {
+      "file": "src/publish-neural-result.js",
+      "largeRunSha256": "0e579cc7247c7f5a1c57c51aecbe769ca57a07e1a687a5efdc6e1c4d888037f2",
+      "deliveredSha256": "0e579cc7247c7f5a1c57c51aecbe769ca57a07e1a687a5efdc6e1c4d888037f2"
+    },
+    {
+      "file": "src/neural-exports.js",
+      "largeRunSha256": "982cda32dd9d36c43e0d15e4f5c7b468eb3323e7c39e2c1490a09a83573595d8",
+      "deliveredSha256": "982cda32dd9d36c43e0d15e4f5c7b468eb3323e7c39e2c1490a09a83573595d8"
+    },
+    {
+      "file": "experiments/d2prl/model.js",
+      "largeRunSha256": "67986dc9cec08827c14629d2868fbd5323ebae8ee3751710136eba77903b25e5",
+      "deliveredSha256": "67986dc9cec08827c14629d2868fbd5323ebae8ee3751710136eba77903b25e5"
+    },
+    {
+      "file": "experiments/d2prl/analysis.js",
+      "largeRunSha256": "069a9e81c2b96e354c2df3b43b3e42aba6e11a49ab8b8d45bf1d4a0b5a9e1e37",
+      "deliveredSha256": "069a9e81c2b96e354c2df3b43b3e42aba6e11a49ab8b8d45bf1d4a0b5a9e1e37"
+    },
+    {
+      "file": "experiments/segmentation/analysis.js",
+      "largeRunSha256": "20efcf675cf2d6e40b0208959413a29081ddd72ba8fe219c46616b8f5d937cac",
+      "deliveredSha256": "20efcf675cf2d6e40b0208959413a29081ddd72ba8fe219c46616b8f5d937cac"
+    },
+    {
+      "file": "experiments/segmentation/zone-scheduler.js",
+      "largeRunSha256": "dc3788bc17863f826094aacd41ca79ebba2436c5c6df3036103f92647049ccc5",
+      "deliveredSha256": "dc3788bc17863f826094aacd41ca79ebba2436c5c6df3036103f92647049ccc5"
+    },
+    {
+      "file": "experiments/segmentation/cmseg-backbone.js",
+      "largeRunSha256": "737f43a6ed3aa674f547f8f586c341380fd852149fd60de342e965a09fc3a517",
+      "deliveredSha256": "737f43a6ed3aa674f547f8f586c341380fd852149fd60de342e965a09fc3a517"
+    },
+    {
+      "file": "experiments/segmentation/cmseg-inference.js",
+      "largeRunSha256": "93812939fe4de362b42f7f4b547ad57078972f9a1aef211e9cb0c34aed263c91",
+      "deliveredSha256": "93812939fe4de362b42f7f4b547ad57078972f9a1aef211e9cb0c34aed263c91"
+    },
+    {
+      "file": "experiments/segmentation/cmseg-inference-worker.js",
+      "largeRunSha256": "eb08d60c167279125fcf54deb3bc22de03788b7af2a6f1d1e9f0c5330fbe490f",
+      "deliveredSha256": "eb08d60c167279125fcf54deb3bc22de03788b7af2a6f1d1e9f0c5330fbe490f"
+    },
+    {
+      "file": "experiments/segmentation/models.js",
+      "largeRunSha256": "9329cdcae09575166a76c61eb1ada3c35d38196a96fc389dda5cde48fb8e7371",
+      "deliveredSha256": "9329cdcae09575166a76c61eb1ada3c35d38196a96fc389dda5cde48fb8e7371"
+    },
+    {
+      "file": "vendor/segmentation/CMSEG-EXACT-PINNED.json",
+      "largeRunSha256": "59e25760d8ad649f6eec2ef6d283b7c10bfa4b0911a0e2a179c2c88ee380cd9f",
+      "deliveredSha256": "59e25760d8ad649f6eec2ef6d283b7c10bfa4b0911a0e2a179c2c88ee380cd9f"
+    },
+    {
+      "file": "experiments/segmentation/tnt-backbone.js",
+      "largeRunSha256": "7996dd7002884d352a7ba843ddfe473955cbf8b6bfe38be330c91d9f67ebb8e8",
+      "deliveredSha256": "7996dd7002884d352a7ba843ddfe473955cbf8b6bfe38be330c91d9f67ebb8e8"
+    },
+    {
+      "file": "experiments/segmentation/tnt-linear.js",
+      "largeRunSha256": "076816da53d56761565f1f718866cb68561c52b1d4d6e8f1258532400554fcd6",
+      "deliveredSha256": "076816da53d56761565f1f718866cb68561c52b1d4d6e8f1258532400554fcd6"
+    },
+    {
+      "file": "experiments/segmentation/tnt-linear-worker.js",
+      "largeRunSha256": "ad5280f125769fdd254878f9da90beae90837ba386298ac8cfcc50939ab38bfd",
+      "deliveredSha256": "ad5280f125769fdd254878f9da90beae90837ba386298ac8cfcc50939ab38bfd"
+    },
+    {
+      "file": "experiments/segmentation/tnt-inference.js",
+      "largeRunSha256": "653283d44311c3f5c29d5a7f4a6eff65c1c86d4cd99a4076a31741508e302c1c",
+      "deliveredSha256": "653283d44311c3f5c29d5a7f4a6eff65c1c86d4cd99a4076a31741508e302c1c"
+    },
+    {
+      "file": "vendor/segmentation/TNT-PINNED.json",
+      "largeRunSha256": "ff4584f4c13ea3935edbfb3a3c37ce17efc56cfd2495d1d0b1adcc18393f2e1c",
+      "deliveredSha256": "ff4584f4c13ea3935edbfb3a3c37ce17efc56cfd2495d1d0b1adcc18393f2e1c"
+    },
+    {
+      "file": "experiments/segmentation/vig-backbone.js",
+      "largeRunSha256": "779c7c0f6463b59a1ead0ef39266a04a6de9472712a274a50e11222b23606509",
+      "deliveredSha256": "779c7c0f6463b59a1ead0ef39266a04a6de9472712a274a50e11222b23606509"
+    },
+    {
+      "file": "experiments/segmentation/vig-convolution.js",
+      "largeRunSha256": "2bfc249b8a6c97d0b563c6a9daf28a2550e36ffa569f5ca101bcdbe27482973a",
+      "deliveredSha256": "2bfc249b8a6c97d0b563c6a9daf28a2550e36ffa569f5ca101bcdbe27482973a"
+    },
+    {
+      "file": "experiments/segmentation/vig-convolution-worker.js",
+      "largeRunSha256": "b393e6911f7bacdf2666ce06819ee215e9bf383a08f898d60fe431d4270b5ac5",
+      "deliveredSha256": "b393e6911f7bacdf2666ce06819ee215e9bf383a08f898d60fe431d4270b5ac5"
+    },
+    {
+      "file": "experiments/segmentation/vig-inference.js",
+      "largeRunSha256": "ed675feae526111448ab0572d11005a9af402488828e69a8f98886de287c2d5c",
+      "deliveredSha256": "ed675feae526111448ab0572d11005a9af402488828e69a8f98886de287c2d5c"
+    },
+    {
+      "file": "vendor/segmentation/VIG-PINNED.json",
+      "largeRunSha256": "0fecccaa1e99269fafdce76e843d9c10d978b03c9705ae13a553e842fb19402c",
+      "deliveredSha256": "0fecccaa1e99269fafdce76e843d9c10d978b03c9705ae13a553e842fb19402c"
+    },
+    {
+      "file": "experiments/segmentation/inference.js",
+      "largeRunSha256": "3ce7b7fbf296315350ec518553cdfa379678c241b09ffdeb4d2a8a04759cb9f1",
+      "deliveredSha256": "3ce7b7fbf296315350ec518553cdfa379678c241b09ffdeb4d2a8a04759cb9f1"
+    },
+    {
+      "file": "experiments/segmentation/prepare.js",
+      "largeRunSha256": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+      "deliveredSha256": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa"
+    },
+    {
+      "file": "src/segmented-neural-projection.js",
+      "largeRunSha256": "bf94e73a6325caf3c3c7aaa14a8d11d3fb6636b718a16f71355050ab508001cc",
+      "deliveredSha256": "bf94e73a6325caf3c3c7aaa14a8d11d3fb6636b718a16f71355050ab508001cc"
+    },
+    {
+      "file": "src/neural-spatial-rows.js",
+      "largeRunSha256": "4ca09395f41fdfd9804fa47731706d35693a0030ed77fd8789c229594d7399be",
+      "deliveredSha256": "4ca09395f41fdfd9804fa47731706d35693a0030ed77fd8789c229594d7399be"
+    },
+    {
+      "file": "src/segmented-bytes.js",
+      "largeRunSha256": "95841305545ea89d6c55ef0970ffec72012ad049849016c99f0a23f8d38569be",
+      "deliveredSha256": "95841305545ea89d6c55ef0970ffec72012ad049849016c99f0a23f8d38569be"
+    }
+  ],
+  "copiedCancellation": {
+    "startedZones": 2,
+    "cancelled": true,
+    "retry": true
+  },
+  "unchangedArrayComparisons": [
+    "serial versus concurrent MPDN cold/warm grids/map/mask",
+    "96MP ST before versus after idle-session retirement, all six full-size arrays for analysis and cached view"
+  ]
+}

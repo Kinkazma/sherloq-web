@@ -1,0 +1,147 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "flowSha256": "68da36b636fda5d35f46e7fa136ed0aba7dd3c66d3cfbf86831dec1a58c10414",
+  "cases": [
+    {
+      "limitMiB": 64,
+      "mode": 0,
+      "sha256": "4e61ba7b05ca6dd1c097296c49e3fc68f6102a4333193a438e8547032ef232dc",
+      "metrics": {
+        "workers": 3,
+        "completedStripJobs": 16,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "searchCached": false,
+        "patternCached": false,
+        "flowCached": false,
+        "viewCached": true,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 571.8999999910593,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 6096172,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 60892160
+        }
+      }
+    },
+    {
+      "limitMiB": 64,
+      "mode": 1,
+      "sha256": "ae0f9dc975466352a9a3388ba0b6f2892a8b3680b032f122f0d259fc0204b0a5",
+      "metrics": {
+        "workers": 3,
+        "completedStripJobs": 16,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "searchCached": true,
+        "patternCached": true,
+        "flowCached": false,
+        "viewCached": false,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 376,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 9045292,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 60892160
+        }
+      }
+    },
+    {
+      "limitMiB": 64,
+      "mode": 2,
+      "sha256": "34e89bdf0a5c3ee1b5f21b8dcf5d5151b6f444d2a2c9ab79fcb1ce0ffa3ece92",
+      "metrics": {
+        "workers": 3,
+        "completedStripJobs": 16,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "searchCached": true,
+        "patternCached": true,
+        "flowCached": false,
+        "viewCached": false,
+        "flowWorkerHeapBytes": 9437184,
+        "flowPaged": true,
+        "flowMetrics": {
+          "workspaceBytes": 28375040,
+          "reads": 107200,
+          "writes": 53352,
+          "readBytes": 770104320,
+          "writeBytes": 372372480,
+          "temporaryPeakBytes": 74711040,
+          "heapBytes": 9437184,
+          "preflightExecutions": 0
+        },
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 59535.09999999404,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 11994412,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 64882988
+        }
+      }
+    },
+    {
+      "limitMiB": 64,
+      "mode": 3,
+      "sha256": "4f946168531cf19b766d2a1791c6dde27d98407f128b3f6fa5886a9339581ac3",
+      "metrics": {
+        "workers": 3,
+        "completedStripJobs": 16,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "searchCached": true,
+        "patternCached": true,
+        "flowCached": true,
+        "viewCached": false,
+        "flowWorkerHeapBytes": 9437184,
+        "flowPaged": true,
+        "flowMetrics": {
+          "workspaceBytes": 28375040,
+          "reads": 107200,
+          "writes": 53352,
+          "readBytes": 770104320,
+          "writeBytes": 372372480,
+          "temporaryPeakBytes": 74711040,
+          "heapBytes": 9437184,
+          "preflightExecutions": 0
+        },
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 356.70000000298023,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 14943532,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 64882988
+        }
+      }
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

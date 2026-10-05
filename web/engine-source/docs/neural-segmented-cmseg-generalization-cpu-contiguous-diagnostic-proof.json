@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "variant": "cmseg-generalization",
+  "backend": "cpu",
+  "diagnosticContiguous": true,
+  "scope": "Existing contiguous common-worker path on the identical JPEG, to isolate numerical differences from segmented I/O.",
+  "records": [
+    {
+      "name": "detect",
+      "rpcMs": 15806.10000000149,
+      "inferences": 3,
+      "outputs": {
+        "map": {
+          "different": 357205,
+          "maxAbs": 0.00015163421630859375,
+          "finite": true,
+          "sha256": "586de6eb65f7f15e8b52e40b44b22c1f5772cf8463902a7b60cca91aba2d5ed2",
+          "accepted": false
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true,
+          "sha256": "80e0fc90e4cdd54e768bb3e30afeedbab275f3a581a607cb839d614f6ab5028e",
+          "accepted": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true,
+          "sha256": "c40b6bae675d41eae955f7d7610d96c9f7d0eb11747b60c6bf46b4221a547923",
+          "accepted": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true,
+          "sha256": "be4481ff8d6cf5d03132fe333186ff65057ce36871b4e216889a48b0181a2681",
+          "accepted": true
+        }
+      },
+      "metrics": {
+        "execution": {
+          "backend": "cpu",
+          "wasmMaximumBytes": 536870912,
+          "gpuMaximumBytes": 0,
+          "observedHeapBytes": 514719744,
+          "gpuPeakBufferBytes": 0,
+          "correlationWorkerMaximumBytes": 67108864,
+          "observedCorrelationWorkers": 5,
+          "observedCorrelationHeapBytes": 16777216
+        },
+        "timings": {
+          "cropMs": 0.7999999970197678,
+          "preparationMs": 59.20000000298023,
+          "neuralRpcMs": 15615.39999999851,
+          "modelLoadMs": 389.40000000596046,
+          "inferenceMs": 15136.699999988079,
+          "outputCopyMs": 49.20000000298023,
+          "gpuWriteBytes": 0,
+          "gpuReadBytes": 0,
+          "snapshotAndHashMs": 1,
+          "correlationMs": 13049.89999999106,
+          "projectionMs": 127.59999999403954
+        },
+        "totalMs": 15805.10000000149,
+        "inferences": 3,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 1494311,
+          "cacheBytes": 3145728,
+          "activeReservationBytes": 36995072,
+          "peakAccountedBytes": 1048321673
+        }
+      }
+    }
+  ],
+  "checks": {
+    "originalBytes": true,
+    "raw": true,
+    "rawMetrics": [
+      {
+        "maxAbs": 0.000072479248046875,
+        "accepted": true
+      },
+      {
+        "maxAbs": 0.00015163421630859375,
+        "accepted": false
+      },
+      {
+        "maxAbs": 0.00008818507194519043,
+        "accepted": true
+      }
+    ]
+  },
+  "browser": "154.0.8037.58",
+  "extractedRuntime": false,
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 1048321673,
+    "finalWorkerPeakAccountedBytes": null
+  },
+  "sources": {
+    "src/index.js": "198b6b0b95c8968e9655169c30586da142e8fd750baaab014dad408c9e13483e",
+    "src/worker.js": "2a8ffe81fd90a6c0bb320e2d9b20c0d967463b42f9823f6283daa655d811047e",
+    "src/worker-client.js": "f69daafba1fde4990180f9f9b3097e463458f73855fa63511a61b071ce05a315",
+    "src/d2prl-adapter.js": "814d77662ef2342a69939f0df1a8a3d2799fdb884acb1b3b5ac7bd6926c111b6",
+    "src/segmentation-adapter.js": "bb379a0bd51fb53e50aeac8ca70886cd53aed808347110b04b6527667d34c28c",
+    "src/neural-input.js": "3e146ac8abebb333b9e162539ce4246bd07ad7c0c3a2694439e06fd67599b152",
+    "src/neural-projector.js": "4ac9e00289cc33682d2ae1a8d8eac60036e8335da5baa6b289a36fdcd0dc2dfb",
+    "src/publish-neural-result.js": "0e579cc7247c7f5a1c57c51aecbe769ca57a07e1a687a5efdc6e1c4d888037f2",
+    "src/neural-exports.js": "982cda32dd9d36c43e0d15e4f5c7b468eb3323e7c39e2c1490a09a83573595d8",
+    "experiments/d2prl/model.js": "67986dc9cec08827c14629d2868fbd5323ebae8ee3751710136eba77903b25e5",
+    "experiments/d2prl/analysis.js": "069a9e81c2b96e354c2df3b43b3e42aba6e11a49ab8b8d45bf1d4a0b5a9e1e37",
+    "experiments/segmentation/analysis.js": "c80b08d860cba572869deee32005b31b49d3ee655fc7158497ab9cb1d962a7aa"
+  },
+  "recipeSources": {
+    "scripts/generate-neural-segmented.py": "b9065edb0200c23815895ae3a14e003f5a3b7952bb03ad6c474134830d6c9fc0",
+    "scripts/study-neural-segmented.mjs": "e38b2bb047caa2207d48891279f3450aab7c5311f8b7aaa23ee8148ca904867b",
+    "tests/neural-segmented-browser.js": "948ed5125168d35d726eea0bc6741d72d567b755a58792080cca3653e4575d1e"
+  }
+}

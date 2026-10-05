@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Dedicated worker, generated full-resolution JPEG; exact native RGB SHA256/global channel histograms/four windows. Functional large-image test; time is not isolated benchmark; no full RGB array returned to UI.",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "originalBytes": 86050184,
+  "originalBlobBacking": "browser-managed and outside observable JS heap; not claimed zero resident memory",
+  "rgbBytes": 288000000,
+  "backend": "opfs",
+  "storage": "temporary",
+  "sourceMs": 387.10000002384186,
+  "decodeMs": 1805.7999999523163,
+  "decoded": {
+    "rowsPerChunk": 116,
+    "encodedWorkingBytes": 86050184,
+    "coefficientAllowanceBytes": 0,
+    "workingReservationBytes": 127956616,
+    "codecHeapCapacityBytes": 103546880
+  },
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 129005192
+  },
+  "temporary": {
+    "reservedBytes": 288000000,
+    "peakReservedBytes": 288000000,
+    "estimatedAvailableBytes": 10737418240,
+    "openFiles": 1
+  },
+  "windows": [
+    {
+      "region": {
+        "x": 0,
+        "y": 0,
+        "width": 17,
+        "height": 19,
+        "sha256": "a47e674c655c3f8e76f478bde7181dce757292cff355643810a146b04b62fae5"
+      },
+      "readMs": 2.699999988079071
+    },
+    {
+      "region": {
+        "x": 11969,
+        "y": 7977,
+        "width": 31,
+        "height": 23,
+        "sha256": "5d09fdb1f99edbb6bcb41597da72ed56cdadbe8b43c9ade73a5d77098d2b7e9b"
+      },
+      "readMs": 3.199999988079071
+    },
+    {
+      "region": {
+        "x": 5993,
+        "y": 3991,
+        "width": 67,
+        "height": 71,
+        "sha256": "98a7a9d88a0a03e59c5751e002168882ded697e0466c6b202c38dd6b8828e1a4"
+      },
+      "readMs": 7.699999988079071
+    },
+    {
+      "region": {
+        "x": 13,
+        "y": 57,
+        "width": 257,
+        "height": 63,
+        "sha256": "ce9ceca7bafe86460d6f6e3db526109034cfa2d00f904993a83a2df7f9b1d0c7"
+      },
+      "readMs": 7.199999988079071
+    }
+  ],
+  "sessionId": "job-bd552333-17af-4769-b8ed-9df7ea4c56b1",
+  "browser": "154.0.8037.58"
+}

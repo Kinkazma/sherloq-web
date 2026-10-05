@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "Real native512 CMSeg encoder/decoder ONNX CPU with bounded global SIMD-WASM correlation; all pair comparisons retained, no approximate neighbour pruning or resize. No common API, source projection, cancellation or UI qualification yet.",
+  "variant": "generalization",
+  "weights": {
+    "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/generalization.pth": "a3351ae664fca9780c3ca56db708fe3fdc74878c07327dfdd6ed75f14537454b"
+  },
+  "graphs": {
+    "encoder": {
+      "file": "encoder-native-mean.onnx",
+      "bytes": 9177409,
+      "sha256": "d5c3a556cc325505be719c7459180cecd849a3ab91445eaf76d7b37aa7c64d23",
+      "meanNodes": 1,
+      "batchnormNodes": 0
+    },
+    "decoder": {
+      "file": "decoder-native-mean.onnx",
+      "bytes": 11895657,
+      "sha256": "baf6edba21ef2516971922cb62a0d09e8097094917554a9dd8fd3e33b37d4b09",
+      "meanNodes": 3,
+      "batchnormNodes": 0
+    }
+  },
+  "records": [
+    {
+      "name": "blobs-copy",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.00007414817810058594,
+          "different": 704559,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00001481175422668457,
+          "different": 392316,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00003409385681152344,
+          "different": 130827,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000024437904357910156,
+          "different": 97841,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.0002925395965576172,
+          "different": 173320,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 2920.89999999851,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 2.491287887096405e-8,
+            "different": 393180,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 250.39999999850988,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 3.993045538663864e-8,
+            "different": 130841,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 88.30000000447035,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 1.7113052308559418e-8,
+            "different": 97589,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 0.00016444921493530273,
+        "different": 262083,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0011858940124511719,
+        "different": 260711,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 2611,
+        "nativeForeground": 2611
+      },
+      "heapBytes": 531431424,
+      "milliseconds": 4107.20000000298
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1340900862
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-cmseg-split.mjs": "c315cd85a9c42d71edc521e06193c73f55ff4726fa422cda2845cd8a693cd3d7",
+    "experiments/segmentation/cmseg-correlation.cpp": "b8b359097cc47e0159a1322c56ed952b26c3050d20a0ba4fa82c8554172fe6aa",
+    "experiments/segmentation/cmseg-correlation.js": "904e07fc56ec471c14edc5f5d4dee75b85bdfbcdc68f494a6076157335c1fae9",
+    "experiments/segmentation/cmseg-correlation-worker.js": "0978dc61da8198b6c664050567bd255ef34eb3f9c1898eab4c7daf42e8211122",
+    "scripts/export-cmseg-split.py": "285fa3a567e63a2d786a8cc800cf646b08d41a267fee355ec3bdb4ee2ddfb88a"
+  }
+}

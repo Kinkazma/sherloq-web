@@ -1,0 +1,380 @@
+[
+  {
+    "file": "pixels-random-odd.rgb",
+    "kind": "Average",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-random-odd.rgb",
+    "kind": "Block mean",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-random-odd.rgb",
+    "kind": "Color moments",
+    "different": 42,
+    "max": 1.7651093497418613e-8,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-random-odd.rgb",
+    "kind": "Marr-Hildreth",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-random-odd.rgb",
+    "kind": "Perceptual",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-random-odd.rgb",
+    "kind": "Radial variance",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-ties.rgb",
+    "kind": "Average",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-ties.rgb",
+    "kind": "Block mean",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-ties.rgb",
+    "kind": "Color moments",
+    "different": 42,
+    "max": 1.7247763390475582e-8,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-ties.rgb",
+    "kind": "Marr-Hildreth",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-ties.rgb",
+    "kind": "Perceptual",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-ties.rgb",
+    "kind": "Radial variance",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-black.rgb",
+    "kind": "Average",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-black.rgb",
+    "kind": "Block mean",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-black.rgb",
+    "kind": "Color moments",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-black.rgb",
+    "kind": "Marr-Hildreth",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-black.rgb",
+    "kind": "Perceptual",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-black.rgb",
+    "kind": "Radial variance",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-white.rgb",
+    "kind": "Average",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-white.rgb",
+    "kind": "Block mean",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-white.rgb",
+    "kind": "Color moments",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-white.rgb",
+    "kind": "Marr-Hildreth",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-white.rgb",
+    "kind": "Perceptual",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-white.rgb",
+    "kind": "Radial variance",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-flat.rgb",
+    "kind": "Average",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-flat.rgb",
+    "kind": "Block mean",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-flat.rgb",
+    "kind": "Color moments",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-flat.rgb",
+    "kind": "Marr-Hildreth",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-flat.rgb",
+    "kind": "Perceptual",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-flat.rgb",
+    "kind": "Radial variance",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-row.rgb",
+    "kind": "Average",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-row.rgb",
+    "kind": "Block mean",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-row.rgb",
+    "kind": "Color moments",
+    "different": 42,
+    "max": 1.6048425094481594e-8,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-row.rgb",
+    "kind": "Marr-Hildreth",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-row.rgb",
+    "kind": "Perceptual",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-row.rgb",
+    "kind": "Radial variance",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-column.rgb",
+    "kind": "Average",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-column.rgb",
+    "kind": "Block mean",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-column.rgb",
+    "kind": "Color moments",
+    "different": 42,
+    "max": 2.6546305615954974e-9,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-column.rgb",
+    "kind": "Marr-Hildreth",
+    "different": 3,
+    "max": 146,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-column.rgb",
+    "kind": "Perceptual",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-column.rgb",
+    "kind": "Radial variance",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-two.rgb",
+    "kind": "Average",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-two.rgb",
+    "kind": "Block mean",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-two.rgb",
+    "kind": "Color moments",
+    "different": 40,
+    "max": 4.598506537362157e-9,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-two.rgb",
+    "kind": "Marr-Hildreth",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-two.rgb",
+    "kind": "Perceptual",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-two.rgb",
+    "kind": "Radial variance",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-defects.rgb",
+    "kind": "Average",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-defects.rgb",
+    "kind": "Block mean",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-defects.rgb",
+    "kind": "Color moments",
+    "different": 42,
+    "max": 0.000004673261997351075,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-defects.rgb",
+    "kind": "Marr-Hildreth",
+    "different": 3,
+    "max": 128,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-defects.rgb",
+    "kind": "Perceptual",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  },
+  {
+    "file": "pixels-defects.rgb",
+    "kind": "Radial variance",
+    "different": 0,
+    "max": 0,
+    "exactLength": true
+  }
+]

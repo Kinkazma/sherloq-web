@@ -1,0 +1,50 @@
+[
+  {
+    "initialBatchPixels": 0,
+    "milliseconds": 23694.60000000894,
+    "comparisons": "1034228",
+    "hashes": {
+      "targets": "6e7754703dd6208e161846935c483499c73faf0be2f1645202772f7bf1504467",
+      "distancesSquared": "226a47eec707c4b9719608c79bc7e11636c460396ddbb04ce6d002112962bc14"
+    },
+    "metrics": {
+      "workspaceBytes": 16828664,
+      "initialBatchPixels": 0,
+      "batchBytes": 0,
+      "residentPool": true,
+      "residentPoolBytes": 7928,
+      "cacheBytes": 43520,
+      "pageBytes": 512,
+      "cachePages": 32,
+      "reads": 72629,
+      "writes": 2196,
+      "readBytes": 37186048,
+      "writeBytes": 1124352,
+      "heapBytes": 8388608
+    }
+  },
+  {
+    "initialBatchPixels": 30720,
+    "milliseconds": 9323.09999999404,
+    "comparisons": "1034228",
+    "hashes": {
+      "targets": "6e7754703dd6208e161846935c483499c73faf0be2f1645202772f7bf1504467",
+      "distancesSquared": "226a47eec707c4b9719608c79bc7e11636c460396ddbb04ce6d002112962bc14"
+    },
+    "metrics": {
+      "workspaceBytes": 27429112,
+      "initialBatchPixels": 30720,
+      "batchBytes": 10600448,
+      "residentPool": true,
+      "residentPoolBytes": 7928,
+      "cacheBytes": 43520,
+      "pageBytes": 512,
+      "cachePages": 32,
+      "reads": 37758,
+      "writes": 2196,
+      "readBytes": 22279168,
+      "writeBytes": 1124352,
+      "heapBytes": 8388608
+    }
+  }
+]

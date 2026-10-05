@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Offline developer comparison only; one cold and one warm requested 12.612623 MP task per condition, one main CPU worker, 256 MiB shared admission. Flags0=baseline,1=interior reflect fast path,3=plus vertical border indices once per row,7=plus exact integer-domain horizontal FMA;5=interior fast path and horizontal FMA without vertical-index table. No runtime calibration. Small257x63 derived Canvas presentation is not WordPress/full-image display; Blob fetch and final complete-image verification are outside timed chain.",
+  "browser": "154.0.8037.58",
+  "cases": [
+    {
+      "flags": 5,
+      "identity": {
+        "schema": 1,
+        "compiler": "Emscripten 4.0.15",
+        "optimizations": 5,
+        "arithmetic": "-O3 -ffp-contract=off; explicit native float32/float64 fma order",
+        "memory": {
+          "initialBytes": 67108864,
+          "maximumBytes": 67108864,
+          "growth": false
+        },
+        "files": {
+          "native/echo.cpp": {
+            "bytes": 3790,
+            "sha256": "a5b4c41b8f59807d558111bba5982f53043d4038de58ed019ad0533e1a6d57c8"
+          },
+          "scripts/build-echo.sh": {
+            "bytes": 1594,
+            "sha256": "20edf31973a89e53c0b68361a1c63f138768da2ea2aaf24332362d2bfd9d6936"
+          },
+          ".build/echo-candidates/5/echo.js": {
+            "bytes": 10446,
+            "sha256": "c6c15cef155a42eb39baf938615320685eff4b69f9e790a7e676f6906b8363c9"
+          },
+          ".build/echo-candidates/5/echo.wasm": {
+            "bytes": 18959,
+            "sha256": "ad09f13111099a42c5de54481af821c8ee23ad761d88805a183c92f5de80ce5a"
+          },
+          "vendor/quality/musl-fma.c": {
+            "bytes": 3764,
+            "sha256": "1e0c6bacd92cbbadb32d1f83defd52cd863fd766b7938efabafcef9f067d5860"
+          }
+        }
+      },
+      "nativeCases": 900,
+      "sourceSha256": "6e1f7631beac461679fa598731c5cc635e8ff112c9912db8a4f25dcb8e083eb0",
+      "outputSha256": "c6db9086755971bbabfd2f4f69ec5c82d9bb5de58ddbdbc79452d30a0c47dc5c",
+      "params": {
+        "radius": 15,
+        "contrast": 85,
+        "grayscale": false
+      },
+      "dimensions": [
+        4099,
+        3077
+      ],
+      "loadMs": 323.70000000298023,
+      "loadMetrics": {
+        "decodeMs": 217.10000000149012,
+        "rowsPerChunk": 341,
+        "encodedWorkingBytes": 11338359,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 53279345,
+        "codecHeapCapacityBytes": 16777216,
+        "storage": "memory",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "temporaryBytes": 0,
+        "originalBlobBytes": 11338359,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 272.6000000014901,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 37837869,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 92165790
+        }
+      },
+      "samples": [
+        {
+          "temperature": "cold",
+          "rpcMs": 6874.29999999702,
+          "transferMs": 0.30000000447034836,
+          "canvasFramesMs": 17.100000001490116,
+          "exportMs": 0.8000000044703484,
+          "chainMs": 7216.200000010431,
+          "exportBytes": 1685,
+          "metrics": {
+            "totalMs": 6873.79999999702,
+            "derivativesMs": 6761.60000000149,
+            "renderMs": 96.70000000298023,
+            "blocks": 49,
+            "rowsPerBlock": 63,
+            "storage": "memory",
+            "retainedResultBytes": 37837869,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 75675738,
+              "cacheBytes": 0,
+              "activeReservationBytes": 16777216,
+              "peakAccountedBytes": 169656107
+            }
+          }
+        },
+        {
+          "temperature": "warm",
+          "rpcMs": 6768.29999999702,
+          "transferMs": 0.20000000298023224,
+          "canvasFramesMs": 14.699999995529652,
+          "exportMs": 0.30000000447034836,
+          "chainMs": 6783.5,
+          "exportBytes": 1686,
+          "metrics": {
+            "totalMs": 6768.10000000149,
+            "derivativesMs": 6661.70000000298,
+            "renderMs": 93.39999999850988,
+            "blocks": 49,
+            "rowsPerBlock": 63,
+            "storage": "memory",
+            "retainedResultBytes": 37837869,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 113513607,
+              "cacheBytes": 0,
+              "activeReservationBytes": 16777216,
+              "peakAccountedBytes": 205396824
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 205396824,
+        "knownHeapCapacityBytes": 83886080
+      }
+    }
+  ],
+  "sources": {
+    "native/echo.cpp": "a5b4c41b8f59807d558111bba5982f53043d4038de58ed019ad0533e1a6d57c8",
+    "scripts/build-echo.sh": "20edf31973a89e53c0b68361a1c63f138768da2ea2aaf24332362d2bfd9d6936",
+    "scripts/study-echo-optimizations.mjs": "56add8ec33cc6d3c25635f87a439619b5603edeb6d7b5aab11be4c70f0216df4",
+    "tests/echo-optimization-browser.js": "836dbc7f13823eef423fef34be3185bfe7747968c9cc6d608dee9f5489979a12",
+    "src/echo-math.js": "36058680732e347378e80ad8a74d3eaea7bb449c6129dff354f74e06f8d45e31",
+    "src/segmented-echo.js": "e9ccfb7a0838dda2a26ce9aac14042db6a304ec6dfee1885f61dd8e0de4207e2",
+    "src/index.js": "e4143580ba1401c5fcb20ad634b1a462a36ab675acd5999c8d7d4dc8773c636c"
+  },
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 205396824,
+    "finalWorkerPeakAccountedBytes": null
+  }
+}

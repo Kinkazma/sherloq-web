@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "browser": "154.0.8037.93",
+  "samples": 391,
+  "frames": [
+    {
+      "functionName": "admissionNotificationLoop",
+      "scriptId": "3",
+      "url": "http://127.0.0.1:51983/src/worker.js",
+      "lineNumber": 0,
+      "columnNumber": 56
+    }
+  ],
+  "scope": "One-second CPU sample after three unanswered coordinator diagnostics; no pause, GC, heap snapshot or capacity trial."
+}

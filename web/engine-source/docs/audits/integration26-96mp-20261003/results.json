@@ -1,0 +1,98 @@
+[
+  {
+    "mode": "baseline",
+    "ok": true,
+    "hash": "ce929d42b13cbfa3b6a0c25f9046ad24b8870af683ed8e63c7795d198e9e1a0f",
+    "eventCount": 914,
+    "events": [],
+    "firstIO": {
+      "event": "io-start",
+      "id": 2,
+      "write": false,
+      "length": 64,
+      "heapBytes": 8388608
+    }
+  },
+  {
+    "mode": "capture-before-unwind",
+    "ok": false,
+    "name": "TypeError",
+    "message": "Cannot perform %TypedArray%.prototype.set on a detached ArrayBuffer",
+    "stack": "TypeError: Cannot perform %TypedArray%.prototype.set on a detached ArrayBuffer\n    at Uint8Array.set (<anonymous>)\n    at Object.readInto (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/src/portable-byte-store.js:61:128)\n    at async file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:17535",
+    "eventCount": 4,
+    "events": [
+      {
+        "event": "before-view",
+        "heapBytes": 8388608,
+        "lastAllocation": 8269984
+      },
+      {
+        "event": "grow",
+        "pages": 16,
+        "pending": true,
+        "oldBytes": 8388608,
+        "viewBytes": 64,
+        "stack": [
+          "    at memory.grow (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/docs/audits/integration26-96mp-20261003/repro.mjs:14:133)",
+          "    at growMemory (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:8281)",
+          "    at _emscripten_resize_heap (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:8693)",
+          "    at wasm://wasm/00097b4a:wasm-function[53]:0x1b28",
+          "    at wasm://wasm/00097b4a:wasm-function[64]:0x36a4",
+          "    at wrapper (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:9931)",
+          "    at Object.allocateData (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:11176)",
+          "    at Object.handleSleep (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:12828)"
+        ]
+      },
+      {
+        "event": "io-end",
+        "id": 2,
+        "write": false,
+        "viewBytes": 0,
+        "currentHeapBytes": 9437184
+      }
+    ],
+    "firstIO": {
+      "event": "io-start",
+      "id": 2,
+      "write": false,
+      "length": 64,
+      "heapBytes": 8388608
+    }
+  },
+  {
+    "mode": "deferred-view",
+    "ok": true,
+    "hash": "ce929d42b13cbfa3b6a0c25f9046ad24b8870af683ed8e63c7795d198e9e1a0f",
+    "eventCount": 916,
+    "events": [
+      {
+        "event": "before-view",
+        "heapBytes": 8388608,
+        "lastAllocation": 8269984
+      },
+      {
+        "event": "grow",
+        "pages": 16,
+        "pending": false,
+        "oldBytes": 8388608,
+        "stack": [
+          "    at memory.grow (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/docs/audits/integration26-96mp-20261003/repro.mjs:14:133)",
+          "    at growMemory (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:8281)",
+          "    at _emscripten_resize_heap (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:8693)",
+          "    at wasm://wasm/00097b4a:wasm-function[53]:0x1b28",
+          "    at wasm://wasm/00097b4a:wasm-function[64]:0x36a4",
+          "    at wrapper (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:9931)",
+          "    at Object.allocateData (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:11176)",
+          "    at Object.handleSleep (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/vendor/dense-paged/dense-paged.js:1:12828)"
+        ]
+      }
+    ],
+    "firstIO": {
+      "event": "io-start",
+      "id": 2,
+      "write": false,
+      "length": 64,
+      "heapBytes": 9437184
+    }
+  }
+]

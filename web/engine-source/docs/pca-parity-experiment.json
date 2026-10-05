@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "outputs": 360,
+  "mismatches": [],
+  "models": [
+    {
+      "fixture": "random-odd",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "random-odd",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "random-odd",
+      "key": "eigenvalues",
+      "max": 0
+    },
+    {
+      "fixture": "ties",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "ties",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "ties",
+      "key": "eigenvalues",
+      "max": 0
+    },
+    {
+      "fixture": "black",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "black",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "black",
+      "key": "eigenvalues",
+      "max": 0
+    },
+    {
+      "fixture": "white",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "white",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "white",
+      "key": "eigenvalues",
+      "max": 0
+    },
+    {
+      "fixture": "flat",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "flat",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "flat",
+      "key": "eigenvalues",
+      "max": 0
+    },
+    {
+      "fixture": "row",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "row",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "row",
+      "key": "eigenvalues",
+      "max": 0
+    },
+    {
+      "fixture": "column",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "column",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "column",
+      "key": "eigenvalues",
+      "max": 0
+    },
+    {
+      "fixture": "two",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "two",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "two",
+      "key": "eigenvalues",
+      "max": 0
+    },
+    {
+      "fixture": "defects",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "defects",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "defects",
+      "key": "eigenvalues",
+      "max": 0
+    },
+    {
+      "fixture": "texture",
+      "key": "mean",
+      "max": 0
+    },
+    {
+      "fixture": "texture",
+      "key": "eigenvectors",
+      "max": 0
+    },
+    {
+      "fixture": "texture",
+      "key": "eigenvalues",
+      "max": 0
+    }
+  ]
+}

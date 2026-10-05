@@ -1,0 +1,8 @@
+{
+  "scope": "Independent Node tests after restoring locked resources in a separate local copy",
+  "tests": 142,
+  "passed": 142,
+  "failed": 0,
+  "ui_source": "6fb6e874ef7a1c36af22f2dc3ca2383085d9e249",
+  "engine": "70473081aab0767f9ea10613001e444847e2d9db"
+}

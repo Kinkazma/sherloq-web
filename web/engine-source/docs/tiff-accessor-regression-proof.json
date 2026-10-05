@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "baselineCommit": "dfc162a",
+  "headersCompared": 101,
+  "changes": "Only byte access and TIFF header assembly extracted; previous parser output compared directly."
+}

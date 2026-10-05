@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "budgetBytes": 268435456,
+  "cameras": [
+    {
+      "name": "large_camera",
+      "width": 1198,
+      "height": 898,
+      "sha256": "dc22bf2d628a4b45976c17475dd8b98064cbb63c73060562d2b9b7fa3d16abf6"
+    },
+    {
+      "name": "small_camera",
+      "width": 77,
+      "height": 77,
+      "sha256": "559ccbdd138e49a2d8fbfb33fa34c704aa1609e776d69a222fa5187bad9b9de3"
+    }
+  ],
+  "metrics": {
+    "workers": 3,
+    "completedStripJobs": 250,
+    "preflightExecutions": 0,
+    "policy": "immediate-useful-work",
+    "temporaryBackend": "opfs",
+    "fingerprintLayout": "segmented",
+    "preparationMs": 26570.60000000149,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 4927027,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 225294377,
+      "hdf5HeapCapacityBytes": 19333120
+    }
+  },
+  "cancellationMode": "storage-closed-before-worker-termination",
+  "storageArtifactsRemaining": 0
+}

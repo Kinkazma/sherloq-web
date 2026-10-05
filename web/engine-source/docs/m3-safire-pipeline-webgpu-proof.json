@@ -1,0 +1,372 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "webgpu",
+  "cases": [
+    {
+      "params": {
+        "side": 4,
+        "groups": 3
+      },
+      "metadata": {
+        "image_shape": [
+          176,
+          448
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "sources": 3,
+        "chosen_prompt_ids": [
+          5,
+          6,
+          9
+        ],
+        "valid_prompts": 16,
+        "total_prompts": 16,
+        "binary": false,
+        "cluster": "kmeans",
+        "seed": 1701,
+        "points_per_batch": 16,
+        "proposals_reused": false,
+        "coordinates": "analysis-1024-pixel-centres",
+        "clusteringIterations": 2,
+        "postHeapBytes": 20185088,
+        "inference": {
+          "provider": "webgpu",
+          "actualHeapBytes": 882442240,
+          "maximumHeapBytes": 1610612736,
+          "promptBatch": 16,
+          "prepareHeapBytes": 16777216,
+          "postHeapBytes": 16777216,
+          "threads": 1,
+          "preflightExecutions": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 1073741824,
+          "attempts": 1
+        },
+        "counts": {
+          "proposals": 1,
+          "compositions": 1
+        },
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured"
+      },
+      "expectedMetadata": {
+        "image_shape": [
+          176,
+          448
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "sources": 3,
+        "chosen_prompt_ids": [
+          5,
+          6,
+          9
+        ],
+        "valid_prompts": 16,
+        "total_prompts": 16,
+        "binary": false,
+        "cluster": "kmeans",
+        "seed": 1701,
+        "points_per_batch": 16,
+        "proposals_reused": false
+      },
+      "comparisons": {
+        "map": {
+          "values": 1048576,
+          "expected": 1048576,
+          "differences": 1000628,
+          "maximum": 0.0000032186508178710938
+        },
+        "source_probabilities": {
+          "values": 3145728,
+          "expected": 3145728,
+          "differences": 3074963,
+          "maximum": 0.0000032186508178710938
+        },
+        "source_labels": {
+          "values": 1048576,
+          "expected": 1048576,
+          "differences": 8,
+          "maximum": 2
+        },
+        "prompt_features": {
+          "values": 4096,
+          "expected": 4096,
+          "differences": 3799,
+          "maximum": 3.2782554626464844e-7
+        },
+        "prompt_confidence": {
+          "values": 16,
+          "expected": 16,
+          "differences": 16,
+          "maximum": 0.0000021457672119140625
+        },
+        "prompt_clusters": {
+          "values": 16,
+          "expected": 16,
+          "differences": 0,
+          "maximum": 0
+        },
+        "points": {
+          "values": 32,
+          "expected": 32,
+          "differences": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "params": {
+        "side": 4,
+        "binary": true
+      },
+      "metadata": {
+        "image_shape": [
+          176,
+          448
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "sources": 2,
+        "chosen_prompt_ids": [
+          5,
+          6
+        ],
+        "valid_prompts": 16,
+        "total_prompts": 16,
+        "binary": true,
+        "cluster": "kmeans",
+        "seed": 1701,
+        "points_per_batch": 16,
+        "proposals_reused": true,
+        "coordinates": "analysis-1024-pixel-centres",
+        "clusteringIterations": 2,
+        "postHeapBytes": 16777216,
+        "inference": {
+          "provider": "webgpu",
+          "actualHeapBytes": 882442240,
+          "maximumHeapBytes": 1610612736,
+          "promptBatch": 16,
+          "prepareHeapBytes": 16777216,
+          "postHeapBytes": 16777216,
+          "threads": 1,
+          "preflightExecutions": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 1073741824,
+          "attempts": 1
+        },
+        "counts": {
+          "proposals": 1,
+          "compositions": 2
+        },
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured"
+      },
+      "expectedMetadata": {
+        "image_shape": [
+          176,
+          448
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "sources": 2,
+        "chosen_prompt_ids": [
+          5,
+          6
+        ],
+        "valid_prompts": 16,
+        "total_prompts": 16,
+        "binary": true,
+        "cluster": "kmeans",
+        "seed": 1701,
+        "points_per_batch": 16,
+        "proposals_reused": true
+      },
+      "comparisons": {
+        "map": {
+          "values": 1048576,
+          "expected": 1048576,
+          "differences": 1041849,
+          "maximum": 0.0000018477439880371094
+        },
+        "source_probabilities": {
+          "values": 2097152,
+          "expected": 2097152,
+          "differences": 2085341,
+          "maximum": 0.000003516674041748047
+        },
+        "source_labels": {
+          "values": 1048576,
+          "expected": 1048576,
+          "differences": 4,
+          "maximum": 1
+        },
+        "prompt_features": {
+          "values": 4096,
+          "expected": 4096,
+          "differences": 3799,
+          "maximum": 3.2782554626464844e-7
+        },
+        "prompt_confidence": {
+          "values": 16,
+          "expected": 16,
+          "differences": 16,
+          "maximum": 0.0000021457672119140625
+        },
+        "prompt_clusters": {
+          "values": 16,
+          "expected": 16,
+          "differences": 0,
+          "maximum": 0
+        },
+        "points": {
+          "values": 32,
+          "expected": 32,
+          "differences": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "params": {
+        "side": 4,
+        "kind": "dbscan",
+        "eps": 0.2,
+        "minimum": 1
+      },
+      "metadata": {
+        "image_shape": [
+          176,
+          448
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "sources": 7,
+        "chosen_prompt_ids": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          11
+        ],
+        "valid_prompts": 16,
+        "total_prompts": 16,
+        "binary": false,
+        "cluster": "dbscan",
+        "seed": 1701,
+        "points_per_batch": 16,
+        "proposals_reused": true,
+        "coordinates": "analysis-1024-pixel-centres",
+        "clusteringIterations": null,
+        "postHeapBytes": 37617664,
+        "inference": {
+          "provider": "webgpu",
+          "actualHeapBytes": 882442240,
+          "maximumHeapBytes": 1610612736,
+          "promptBatch": 16,
+          "prepareHeapBytes": 16777216,
+          "postHeapBytes": 16777216,
+          "threads": 1,
+          "preflightExecutions": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 1073741824,
+          "attempts": 1
+        },
+        "counts": {
+          "proposals": 1,
+          "compositions": 3
+        },
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured"
+      },
+      "expectedMetadata": {
+        "image_shape": [
+          176,
+          448
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "sources": 7,
+        "chosen_prompt_ids": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          11
+        ],
+        "valid_prompts": 16,
+        "total_prompts": 16,
+        "binary": false,
+        "cluster": "dbscan",
+        "seed": 1701,
+        "points_per_batch": 16,
+        "proposals_reused": true
+      },
+      "comparisons": {
+        "map": {
+          "values": 1048576,
+          "expected": 1048576,
+          "differences": 1016646,
+          "maximum": 0.000004380941390991211
+        },
+        "source_probabilities": {
+          "values": 7340032,
+          "expected": 7340032,
+          "differences": 7266929,
+          "maximum": 0.000004500150680541992
+        },
+        "source_labels": {
+          "values": 1048576,
+          "expected": 1048576,
+          "differences": 1,
+          "maximum": 1
+        },
+        "prompt_features": {
+          "values": 4096,
+          "expected": 4096,
+          "differences": 3799,
+          "maximum": 3.2782554626464844e-7
+        },
+        "prompt_confidence": {
+          "values": 16,
+          "expected": 16,
+          "differences": 16,
+          "maximum": 0.0000021457672119140625
+        },
+        "prompt_clusters": {
+          "values": 16,
+          "expected": 16,
+          "differences": 0,
+          "maximum": 0
+        },
+        "points": {
+          "values": 32,
+          "expected": 32,
+          "differences": 0,
+          "maximum": 0
+        }
+      }
+    }
+  ],
+  "cacheReused": true,
+  "cancelled": true,
+  "peakAccountedBytes": 3685151974,
+  "activeBytes": 0
+}

@@ -1,0 +1,37 @@
+{
+  "cases": [
+    {
+      "file": "adam7-rgb16.png",
+      "width": 12000,
+      "height": 8000,
+      "bytes": 172272846,
+      "rgbSha256": "333c79199f5f9969cca35b8881d0eeb55ad407fb8f89c17ea58e76948c0c0d5d",
+      "format": "png",
+      "depth": 16,
+      "interlace": 1,
+      "orientation": 1,
+      "sha256": "cbfd50f7a809cba7cbc377c798697ac7d32d9277ad59b4abdcbc9cdecaf50e88"
+    },
+    {
+      "file": "tiles-rgb16-bigtiff.tiff",
+      "width": 12000,
+      "height": 8000,
+      "bytes": 48940092,
+      "rgbSha256": "70aa97f774163ab4e6f1f1be4b2225ec65373a48ab191713a00123a13e37d2a9",
+      "format": "tiff",
+      "depth": 16,
+      "bigTiff": true,
+      "tile": [
+        256,
+        256
+      ],
+      "orientation": 3,
+      "compression": "deflate",
+      "predictor": true,
+      "sha256": "64feeeb9df08225fb53db89317c98bcc3616dd02bcf74aab5e0f80f06fd62615"
+    }
+  ],
+  "opencv": "4.11.0",
+  "nativeSeconds": 13.511642541998299,
+  "complexity": "Rich copied M2 original in16-bit RGB with deterministic nonzero low bits; full native RGB8 conversion, original96MP, no resize."
+}

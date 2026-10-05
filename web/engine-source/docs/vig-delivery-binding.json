@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.31",
+  "scope": "All copied runtime bytes and existing proof numerical/runtime sources bound; recipe hashes remain as measured in their original reports. Mean errors derived offline from the same NumPy-verified export, no new inference or timing.",
+  "runtimeFiles": 375,
+  "runtimeManifestSha256": "5b333c598c4c9ca0390d3aefdfa59af03862116b671f3aaa4966a573a25cb3c8",
+  "proofs": [
+    {
+      "file": "docs/vig-model-corpus-proof.json",
+      "sha256": "3449e7ac5c4dd37fb89ad432830577c7fe46ec6a3e7eb225b422d39405826a90",
+      "runtimeAndNumericalSourcesVerified": 8
+    },
+    {
+      "file": "docs/vig-useful-workers-proof.json",
+      "sha256": "1f84f6eebb983893e2a7c7dfe8f86be265808fa8106d89dd960157e4fa25ba45",
+      "runtimeAndNumericalSourcesVerified": 8
+    },
+    {
+      "file": "docs/neural-segmented-mgcfdn-vig-cpu-m1-31-extracted-proof.json",
+      "sha256": "7b2e3f4e9dafb260882ad28361a59340b954ba7210a9a17306e866f666352df3",
+      "runtimeAndNumericalSourcesVerified": 27
+    },
+    {
+      "file": "docs/neural-segmented-mgcfdn-vig-cpu-m1-31-extracted-npz-proof.json",
+      "sha256": "547317ef053e79f96a3946b6ed2971e48e80f0ec79297be096090da5e81098a2",
+      "runtimeAndNumericalSourcesVerified": 0
+    },
+    {
+      "file": "docs/neural-segmented-mgcfdn-tnt-cpu-m1-31-extracted-proof.json",
+      "sha256": "bb078ae510032688ce4edd97e664cc6c7afd4507002468d88e477e1a29aafe43",
+      "runtimeAndNumericalSourcesVerified": 27
+    },
+    {
+      "file": "docs/neural-segmented-mgcfdn-tnt-cpu-m1-31-extracted-npz-proof.json",
+      "sha256": "0fa4ea8e5044c77bc56ae5aa125336d7bc35c89f183def5f8dfffc6fdec579ff",
+      "runtimeAndNumericalSourcesVerified": 0
+    }
+  ],
+  "cachedViewExport": {
+    "map": {
+      "unit": "probability [0,1]",
+      "maxAbs": 1.7642974853515625e-05,
+      "meanAbs": 2.0047855963613182e-07,
+      "different": 95790
+    },
+    "mask": {
+      "unit": "binary label",
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "different": 0
+    },
+    "analyzed": {
+      "unit": "binary label",
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "different": 0
+    },
+    "candidates": {
+      "unit": "binary label",
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "different": 0
+    }
+  }
+}

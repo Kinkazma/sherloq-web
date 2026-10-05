@@ -1,0 +1,3512 @@
+{
+  "capturedAt": "2026-10-03T15:04:14.548415+00:00",
+  "runDirectory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-progress-recovery-96mp-20261003T144004Z",
+  "engineCommit": "7bff369bea0a35b5f039021702cd328c879d4bec",
+  "status": {
+    "state": "running",
+    "pid": 63638,
+    "startedAt": "2026-10-03T14:40:04.973Z",
+    "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-progress-recovery-96mp-20261003T144004Z",
+    "budgetPolicy": "maximum profile from browser RAM hint",
+    "computeProfile": "maximum",
+    "dimensions": [
+      12000,
+      8000
+    ],
+    "timeoutHours": 24,
+    "phase": "global-patchmatch",
+    "updatedAt": "2026-10-03T15:04:13.342Z",
+    "wallMs": 1448369,
+    "engineCommit": "7bff369bea0a35b5f039021702cd328c879d4bec",
+    "port": 60648,
+    "browser": "154.0.8037.93",
+    "environment": {
+      "crossOriginIsolated": true,
+      "sharedArrayBuffer": true,
+      "hardwareConcurrency": 10,
+      "deviceMemoryGiB": 32,
+      "webgpuExposed": true,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36"
+    },
+    "initialHostMemory": {
+      "at": "2026-10-03T14:40:06.489Z",
+      "scope": "Read-only host counters; not a browser allocation limit, RAM probe or capacity estimate.",
+      "vmStat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   715468.\nPages active:                                1051701.\nPages inactive:                              1085273.\nPages speculative:                             45837.\nPages throttled:                                   0.\nPages wired down:                             395690.\nPages purgeable:                               47583.\n\"Translation faults\":                     5702102169.\nPages copy-on-write:                       213015633.\nPages zero filled:                        9695537637.\nPages reactivated:                         106152049.\nPages purged:                               24261672.\nFile-backed pages:                            702692.\nAnonymous pages:                             1480119.\nPages stored in compressor:                  2373824.\nPages occupied by compressor:                 824481.\nDecompressions:                             75622850.\nCompressions:                              131122280.\nPageins:                                   235614118.\nPageouts:                                   18273061.\nSwapins:                                     1116894.\nSwapouts:                                    2056727.",
+      "swap": "vm.swapusage: total = 12288.00M  used = 10818.56M  free = 1469.44M  (encrypted)"
+    },
+    "lastProgress": {
+      "id": "complete96",
+      "phase": "global-patchmatch",
+      "stage": "propagation",
+      "iteration": 4,
+      "completed": 56960441,
+      "total": 96000000,
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 10,
+        "peakActiveKernels": 10,
+        "tasks": 840319,
+        "cpuGrants": [
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10,
+          1,
+          10
+        ],
+        "cpuGrantChanges": 10071,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 0,
+        "allocationRecoveries": 0,
+        "heapBytes": 225443840
+      },
+      "workers": 10,
+      "sharedReadCache": {
+        "bytes": 32,
+        "banks": 0,
+        "hits": 136745734,
+        "misses": 22995998,
+        "fills": 0,
+        "collisions": 1517
+      },
+      "group": "patchmatch",
+      "attempt": 1,
+      "groupAttempt": 1,
+      "elapsedMs": 1446743.269999981
+    },
+    "lastWorkEventAt": "2026-10-03T15:04:13.342Z",
+    "secondsSinceWorkEvent": 0,
+    "deliveredBytes": 0,
+    "partialDeliveredBytes": 0,
+    "lastAutomaticState": {
+      "states": {
+        "patchmatch": "running",
+        "sift": "done",
+        "forgeryscope": "done",
+        "d2prl": "failed",
+        "ela": "running"
+      },
+      "errors": {
+        "d2prl": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Neural projection allocation failed after admission",
+          "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+          "details": {
+            "recovery": {
+              "operation": "d2prl",
+              "phase": "zone-complete",
+              "consecutiveFailures": 5,
+              "totalFailures": 5,
+              "loopDetected": true,
+              "memory": {
+                "budgetBytes": 27487371264,
+                "retainedBytes": 387634160,
+                "activeReservationBytes": 11556063959,
+                "cacheBytes": 9417594,
+                "availableBytes": 15534255551
+              }
+            }
+          }
+        }
+      },
+      "attempts": {
+        "patchmatch": 1,
+        "sift": 1,
+        "forgeryscope": 1,
+        "d2prl": 5,
+        "ela": 2
+      },
+      "completed": [
+        "forgeryscope",
+        "sift"
+      ],
+      "running": [
+        "patchmatch",
+        "ela"
+      ],
+      "resumable": [
+        "d2prl"
+      ],
+      "preflightExecutions": 0
+    },
+    "budgetBytes": 27487371264,
+    "executionCapacity": {
+      "cpu": 10,
+      "gpu": 1
+    },
+    "runtimeDiagnostic": {
+      "phase": "diagnostic-heartbeat",
+      "memory": {
+        "budgetBytes": 27487371264,
+        "retainedBytes": 387634160,
+        "cacheBytes": 9417594,
+        "activeReservationBytes": 2550088855,
+        "peakAccountedBytes": 27485401195,
+        "activeRecoveries": 1,
+        "allocationRequestedBytes": 1048576,
+        "allocationTargetedReleasedBytes": 0,
+        "allocationOtherAccountedBytes": 102760448,
+        "knownHeapCapacityBytes": 30867456
+      },
+      "resources": {
+        "domains": {
+          "array-buffer": {
+            "reservedBytes": 1171380454,
+            "materializedBytes": 1171380454,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 98,
+            "owners": {
+              "unattributed": {
+                "reservedBytes": 288000000,
+                "materializedBytes": 288000000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "patchmatch": {
+                "reservedBytes": 876552454,
+                "materializedBytes": 876552454,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "sift": {
+                "reservedBytes": 6828000,
+                "materializedBytes": 6828000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "wasm": {
+            "reservedBytes": 674299904,
+            "materializedBytes": 674299904,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 111280128,
+            "backings": 9,
+            "owners": {
+              "d2prl": {
+                "reservedBytes": 448856064,
+                "materializedBytes": 448856064,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 111280128
+              },
+              "patchmatch": {
+                "reservedBytes": 225443840,
+                "materializedBytes": 225443840,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "gpu": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          },
+          "gpu-mapped": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          }
+        },
+        "pressures": [
+          {
+            "sequence": 39,
+            "kind": "array-buffer",
+            "owner": "ela",
+            "operation": null,
+            "requestedBytes": 0
+          }
+        ],
+        "operations": [
+          {
+            "key": 34482,
+            "owner": "patchmatch",
+            "id": "dense-image-field:0",
+            "state": "waiting-child",
+            "resource": null,
+            "dependencies": [
+              34483
+            ],
+            "parent": null,
+            "revision": 0,
+            "commits": 0,
+            "children": [
+              34483
+            ],
+            "childPrevious": "ready"
+          },
+          {
+            "key": 34483,
+            "owner": "patchmatch",
+            "id": "field:job-b8ea1d57-c988-407e-a1ed-4d22546f1510",
+            "state": "compute",
+            "resource": null,
+            "dependencies": [],
+            "parent": 34482,
+            "revision": 24573,
+            "commits": 24573,
+            "children": [],
+            "childPrevious": null
+          }
+        ],
+        "waitingOwners": [
+          "ela"
+        ],
+        "backingReleased": {
+          "array-buffer": 71233359438,
+          "gpu": 375060394000,
+          "wasm": 5379457024
+        },
+        "backingReusable": {},
+        "meaning": "Registered backing ownership; policy reservations are separate and retirement does not force browser garbage collection.",
+        "lastAllocationReclaim": {
+          "kind": "array-buffer",
+          "requestedBytes": 1048576,
+          "targetedReleasedBytes": 0,
+          "otherAccountedBytes": 102760448,
+          "ownersVisited": 16,
+          "completed": true,
+          "owners": [
+            {
+              "owner": "patchmatch",
+              "label": "shared-read-cache",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": null,
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": null,
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": null,
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": null,
+              "retiredBytes": 0,
+              "accountedBytes": 102760448
+            }
+          ]
+        }
+      },
+      "execution": {
+        "admitted": 273928,
+        "completed": 273927,
+        "peakCpu": 10,
+        "peakGpu": 1,
+        "peakQueued": 27,
+        "waitMs": 3112569.8399950266,
+        "cpuLeaseMs": 12811460.539998531,
+        "gpuLeaseMs": 317333.6850004196,
+        "elasticAdmissions": 19501,
+        "memoryReclaims": 0,
+        "preflightExecutions": 0,
+        "capacity": {
+          "cpu": 10,
+          "gpu": 1
+        },
+        "active": {
+          "cpu": 10,
+          "gpu": 0
+        },
+        "running": 1,
+        "queued": 0,
+        "waiting": {
+          "cpu": 0,
+          "gpu": 0,
+          "memory": 0
+        },
+        "labels": {
+          "dense-regions": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 89986.94500002265,
+            "gpuLeaseMs": 0
+          },
+          "ocr": {
+            "admitted": 64,
+            "completed": 64,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 224608.26000007987,
+            "gpuLeaseMs": 0
+          },
+          "forgeryscope/preparation": {
+            "admitted": 20,
+            "completed": 20,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 59.42499998211861,
+            "gpuLeaseMs": 0
+          },
+          "neural/yolo_panel_extractor": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 22588.20000010729,
+            "gpuLeaseMs": 0
+          },
+          "neural/wblot_overlap_embedder": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 116.05000001192093,
+            "gpuLeaseMs": 116.05000001192093
+          },
+          "neural/similarity": {
+            "admitted": 16,
+            "completed": 16,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 2955.8499991595745,
+            "gpuLeaseMs": 0
+          },
+          "neural/wblot_duplicate_embedder": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 77.0949999988079,
+            "gpuLeaseMs": 77.0949999988079
+          },
+          "neural/aliked/first-pool": {
+            "admitted": 6,
+            "completed": 6,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 811.630000025034,
+            "gpuLeaseMs": 811.630000025034
+          },
+          "neural/aliked/second": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 600.8850000202656,
+            "gpuLeaseMs": 600.8850000202656
+          },
+          "neural/aliked/b3-c1-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 83.64999997615814,
+            "gpuLeaseMs": 83.64999997615814
+          },
+          "neural/aliked/b3-c1-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 8,
+            "cpuLeaseMs": 3759.2999999523163,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/gate": {
+            "admitted": 4,
+            "completed": 4,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 70.24000000953674,
+            "gpuLeaseMs": 70.24000000953674
+          },
+          "neural/aliked/b3-c2-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 64.93499997258186,
+            "gpuLeaseMs": 64.93499997258186
+          },
+          "neural/aliked/b3-c2-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 7,
+            "cpuLeaseMs": 4595.8500000834465,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/b3-residual": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 123.34000000357628,
+            "gpuLeaseMs": 123.34000000357628
+          },
+          "neural/aliked/project3": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 41.19999998807907,
+            "gpuLeaseMs": 41.19999998807907
+          },
+          "neural/aliked/pool4": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 59.025000005960464,
+            "gpuLeaseMs": 59.025000005960464
+          },
+          "neural/aliked/b4-c1-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 41.875,
+            "gpuLeaseMs": 41.875
+          },
+          "neural/aliked/b4-c1-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 8,
+            "cpuLeaseMs": 3438.545000076294,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/b4-c2-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 82.86999997496605,
+            "gpuLeaseMs": 82.86999997496605
+          },
+          "neural/aliked/b4-c2-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 8,
+            "cpuLeaseMs": 3844.3950000703335,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/b4-residual": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 72.7800000011921,
+            "gpuLeaseMs": 72.7800000011921
+          },
+          "neural/aliked/project4": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 117.17500001192093,
+            "gpuLeaseMs": 117.17500001192093
+          },
+          "neural/aliked/first-project": {
+            "admitted": 60,
+            "completed": 60,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 4972.439999997616,
+            "gpuLeaseMs": 4972.439999997616
+          },
+          "neural/aliked/score": {
+            "admitted": 21,
+            "completed": 21,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 1387.624999910593,
+            "gpuLeaseMs": 1387.624999910593
+          },
+          "neural/aliked/nms": {
+            "admitted": 6,
+            "completed": 6,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 339.8499999642372,
+            "gpuLeaseMs": 339.8499999642372
+          },
+          "neural/aliked/localize": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 126.2950000166893,
+            "gpuLeaseMs": 126.2950000166893
+          },
+          "neural/aliked/normalize": {
+            "admitted": 39,
+            "completed": 39,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 2582.325000077486,
+            "gpuLeaseMs": 2582.325000077486
+          },
+          "neural/aliked/describe-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 114.69499999284744,
+            "gpuLeaseMs": 114.69499999284744
+          },
+          "neural/aliked/describe": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 119.18500003218651,
+            "gpuLeaseMs": 119.18500003218651
+          },
+          "d2prl-gpu-convolution": {
+            "admitted": 197,
+            "completed": 197,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 22708.25999981165
+          },
+          "dense-texture/buffers": {
+            "admitted": 11844,
+            "completed": 11844,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "dense-texture": {
+            "admitted": 11844,
+            "completed": 11844,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 37447.62000000477,
+            "gpuLeaseMs": 0
+          },
+          "dense-zernike/preparation-layout": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "dense-zernike/buffers": {
+            "admitted": 5924,
+            "completed": 5924,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "dense-zernike": {
+            "admitted": 5924,
+            "completed": 5924,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 907268.0150010586,
+            "gpuLeaseMs": 0
+          },
+          "d2prl-evaluator": {
+            "admitted": 77736,
+            "completed": 77736,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 2096011.535003543,
+            "gpuLeaseMs": 0
+          },
+          "neural/lightglue-blot": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 171.86500000953674,
+            "gpuLeaseMs": 171.86500000953674
+          },
+          "sift-input": {
+            "admitted": 21128,
+            "completed": 21128,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-prepare": {
+            "admitted": 768,
+            "completed": 768,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 12187.109999895096,
+            "gpuLeaseMs": 0
+          },
+          "sift-gpu": {
+            "admitted": 21117,
+            "completed": 21117,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 282448.3950006068
+          },
+          "sift-cpu": {
+            "admitted": 21117,
+            "completed": 21117,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 7,
+            "cpuLeaseMs": 265289.6300006509,
+            "gpuLeaseMs": 0
+          },
+          "sift-detect": {
+            "admitted": 1040,
+            "completed": 1040,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 3,
+            "cpuLeaseMs": 6084.270000755787,
+            "gpuLeaseMs": 0
+          },
+          "ghost-stream-pool": {
+            "admitted": 34717,
+            "completed": 34717,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 294045.9499973357,
+            "gpuLeaseMs": 0
+          },
+          "sift-refine-batch": {
+            "admitted": 19156,
+            "completed": 19156,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 4,
+            "cpuLeaseMs": 29461.930001437664,
+            "gpuLeaseMs": 0
+          },
+          "dense-paged-field": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 86.18999999761581,
+            "gpuLeaseMs": 0
+          },
+          "dense-paged-wavefront": {
+            "admitted": 24165,
+            "completed": 24164,
+            "activeJobs": 1,
+            "activeCpu": 10,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 8720442.384995252,
+            "gpuLeaseMs": 0
+          },
+          "dense-sift/preparation-layout": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-gradients/buffers": {
+            "admitted": 5924,
+            "completed": 5924,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-gradients": {
+            "admitted": 5924,
+            "completed": 5924,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 38913.849999308586,
+            "gpuLeaseMs": 0
+          },
+          "sift-vertical/buffers": {
+            "admitted": 2402,
+            "completed": 2402,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-vertical": {
+            "admitted": 2402,
+            "completed": 2402,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 26850.679999947548,
+            "gpuLeaseMs": 0
+          },
+          "sift-transpose/buffers": {
+            "admitted": 89,
+            "completed": 89,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-transpose": {
+            "admitted": 65,
+            "completed": 65,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 8,
+            "cpuLeaseMs": 1579.139999896288,
+            "gpuLeaseMs": 0
+          },
+          "sift-select": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 427.93499997258186,
+            "gpuLeaseMs": 0
+          },
+          "sift-describe": {
+            "admitted": 158,
+            "completed": 158,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 7,
+            "cpuLeaseMs": 2990.234999895096,
+            "gpuLeaseMs": 0
+          },
+          "d2prl-roles-bounded": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 3813.080000013113,
+            "gpuLeaseMs": 0
+          },
+          "d2prl-postprocess": {
+            "admitted": 5,
+            "completed": 5,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 547.1850000321865,
+            "gpuLeaseMs": 0
+          }
+        },
+        "phaseDomains": {
+          "array-buffer": 0,
+          "wasm": 0,
+          "gpu": 0,
+          "gpu-mapped": 0
+        },
+        "timingMeaning": "Admitted execution time; not an OS CPU-utilization measurement",
+        "domainMeaning": "New allocation requirements of active phases; separate from policy reservations and materialized backing ownership"
+      },
+      "elapsedMs": 1440184.3400000036
+    }
+  },
+  "job": {
+    "supervisorPid": 63637,
+    "runnerPid": 63638,
+    "caffeinatePid": 63639,
+    "startedAt": "2026-10-03T14:40:04.668187+00:00",
+    "timeoutSeconds": 86400,
+    "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-progress-recovery-96mp-20261003T144004Z"
+  },
+  "events": [
+    {
+      "at": "2026-10-03T14:48:58.561Z",
+      "phase": "resource-recovery",
+      "operation": "d2prl",
+      "group": "d2prl",
+      "attempt": 1,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Neural projection allocation failed after admission",
+        "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+        "details": {
+          "recovery": {
+            "operation": "d2prl",
+            "phase": "zone-complete",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 387634160,
+              "activeReservationBytes": 11679533783,
+              "cacheBytes": 9417594,
+              "availableBytes": 15410785727
+            }
+          }
+        }
+      },
+      "decision": {
+        "retry": true,
+        "error": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Neural projection allocation failed after admission",
+          "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+          "details": {
+            "recovery": {
+              "operation": "d2prl",
+              "phase": "zone-complete",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 27487371264,
+                "retainedBytes": 387634160,
+                "activeReservationBytes": 11679533783,
+                "cacheBytes": 9417594,
+                "availableBytes": 15410785727
+              }
+            }
+          }
+        },
+        "operation": "d2prl",
+        "phase": "zone-complete",
+        "consecutiveFailures": 1,
+        "totalFailures": 1,
+        "loopDetected": false,
+        "memory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 387634160,
+          "activeReservationBytes": 11679533783,
+          "cacheBytes": 9417594,
+          "availableBytes": 15410785727
+        }
+      },
+      "line": 2082,
+      "resources": {
+        "domains": {
+          "array-buffer": {
+            "reservedBytes": 9636015334,
+            "materializedBytes": 9636015334,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 8463482880,
+            "backings": 2109,
+            "owners": {
+              "unattributed": {
+                "reservedBytes": 288000000,
+                "materializedBytes": 288000000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "patchmatch": {
+                "reservedBytes": 9340035334,
+                "materializedBytes": 9340035334,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 8463482880
+              },
+              "sift": {
+                "reservedBytes": 6828000,
+                "materializedBytes": 6828000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "surface": {
+                "reservedBytes": 1152000,
+                "materializedBytes": 1152000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "wasm": {
+            "reservedBytes": 900530176,
+            "materializedBytes": 900530176,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 337510400,
+            "backings": 14,
+            "owners": {
+              "d2prl": {
+                "reservedBytes": 675086336,
+                "materializedBytes": 675086336,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 337510400
+              },
+              "patchmatch": {
+                "reservedBytes": 225443840,
+                "materializedBytes": 225443840,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "gpu": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          },
+          "gpu-mapped": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          }
+        },
+        "pressures": [
+          {
+            "sequence": 38,
+            "kind": null,
+            "owner": "d2prl",
+            "operation": null,
+            "requestedBytes": 0
+          }
+        ],
+        "lastAllocationReclaim": {
+          "kind": "array-buffer",
+          "requestedBytes": 4769280,
+          "targetedReleasedBytes": 24000000,
+          "otherAccountedBytes": 0,
+          "ownersVisited": 29,
+          "completed": true,
+          "owners": [
+            {
+              "owner": "patchmatch",
+              "label": "shared-read-cache",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-gray",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:0",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:1",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:2",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:3",
+              "kind": "array-buffer",
+              "retiredBytes": 24000000,
+              "accountedBytes": 24000000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T14:48:58.712Z",
+      "phase": "resource-recovery",
+      "operation": "d2prl",
+      "group": "d2prl",
+      "attempt": 2,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Neural projection allocation failed after admission",
+        "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+        "details": {
+          "recovery": {
+            "operation": "d2prl",
+            "phase": "zone-complete",
+            "consecutiveFailures": 2,
+            "totalFailures": 2,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 387634160,
+              "activeReservationBytes": 11662756567,
+              "cacheBytes": 9417594,
+              "availableBytes": 15427562943
+            }
+          }
+        }
+      },
+      "decision": {
+        "retry": true,
+        "error": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Neural projection allocation failed after admission",
+          "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+          "details": {
+            "recovery": {
+              "operation": "d2prl",
+              "phase": "zone-complete",
+              "consecutiveFailures": 2,
+              "totalFailures": 2,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 27487371264,
+                "retainedBytes": 387634160,
+                "activeReservationBytes": 11662756567,
+                "cacheBytes": 9417594,
+                "availableBytes": 15427562943
+              }
+            }
+          }
+        },
+        "operation": "d2prl",
+        "phase": "zone-complete",
+        "consecutiveFailures": 2,
+        "totalFailures": 2,
+        "loopDetected": false,
+        "memory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 387634160,
+          "activeReservationBytes": 11662756567,
+          "cacheBytes": 9417594,
+          "availableBytes": 15427562943
+        }
+      },
+      "line": 2086,
+      "resources": {
+        "domains": {
+          "array-buffer": {
+            "reservedBytes": 9636015334,
+            "materializedBytes": 9636015334,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 8463482880,
+            "backings": 2109,
+            "owners": {
+              "unattributed": {
+                "reservedBytes": 288000000,
+                "materializedBytes": 288000000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "patchmatch": {
+                "reservedBytes": 9340035334,
+                "materializedBytes": 9340035334,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 8463482880
+              },
+              "sift": {
+                "reservedBytes": 6828000,
+                "materializedBytes": 6828000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "surface": {
+                "reservedBytes": 1152000,
+                "materializedBytes": 1152000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "wasm": {
+            "reservedBytes": 883752960,
+            "materializedBytes": 883752960,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 320733184,
+            "backings": 13,
+            "owners": {
+              "d2prl": {
+                "reservedBytes": 658309120,
+                "materializedBytes": 658309120,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 320733184
+              },
+              "patchmatch": {
+                "reservedBytes": 225443840,
+                "materializedBytes": 225443840,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "gpu": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          },
+          "gpu-mapped": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          }
+        },
+        "pressures": [
+          {
+            "sequence": 38,
+            "kind": null,
+            "owner": "d2prl",
+            "operation": null,
+            "requestedBytes": 0
+          }
+        ],
+        "lastAllocationReclaim": {
+          "kind": "array-buffer",
+          "requestedBytes": 4769280,
+          "targetedReleasedBytes": 24000000,
+          "otherAccountedBytes": 0,
+          "ownersVisited": 29,
+          "completed": true,
+          "owners": [
+            {
+              "owner": "patchmatch",
+              "label": "shared-read-cache",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-gray",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:0",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:1",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:2",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:3",
+              "kind": "array-buffer",
+              "retiredBytes": 24000000,
+              "accountedBytes": 24000000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T14:48:58.848Z",
+      "phase": "resource-recovery",
+      "operation": "d2prl",
+      "group": "d2prl",
+      "attempt": 3,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Neural projection allocation failed after admission",
+        "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+        "details": {
+          "recovery": {
+            "operation": "d2prl",
+            "phase": "zone-complete",
+            "consecutiveFailures": 3,
+            "totalFailures": 3,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 387634160,
+              "activeReservationBytes": 11645979351,
+              "cacheBytes": 9417594,
+              "availableBytes": 15444340159
+            }
+          }
+        }
+      },
+      "decision": {
+        "retry": true,
+        "error": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Neural projection allocation failed after admission",
+          "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+          "details": {
+            "recovery": {
+              "operation": "d2prl",
+              "phase": "zone-complete",
+              "consecutiveFailures": 3,
+              "totalFailures": 3,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 27487371264,
+                "retainedBytes": 387634160,
+                "activeReservationBytes": 11645979351,
+                "cacheBytes": 9417594,
+                "availableBytes": 15444340159
+              }
+            }
+          }
+        },
+        "operation": "d2prl",
+        "phase": "zone-complete",
+        "consecutiveFailures": 3,
+        "totalFailures": 3,
+        "loopDetected": false,
+        "memory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 387634160,
+          "activeReservationBytes": 11645979351,
+          "cacheBytes": 9417594,
+          "availableBytes": 15444340159
+        }
+      },
+      "line": 2090,
+      "resources": {
+        "domains": {
+          "array-buffer": {
+            "reservedBytes": 9636015334,
+            "materializedBytes": 9636015334,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 8463482880,
+            "backings": 2109,
+            "owners": {
+              "unattributed": {
+                "reservedBytes": 288000000,
+                "materializedBytes": 288000000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "patchmatch": {
+                "reservedBytes": 9340035334,
+                "materializedBytes": 9340035334,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 8463482880
+              },
+              "sift": {
+                "reservedBytes": 6828000,
+                "materializedBytes": 6828000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "surface": {
+                "reservedBytes": 1152000,
+                "materializedBytes": 1152000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "wasm": {
+            "reservedBytes": 866975744,
+            "materializedBytes": 866975744,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 303955968,
+            "backings": 12,
+            "owners": {
+              "d2prl": {
+                "reservedBytes": 641531904,
+                "materializedBytes": 641531904,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 303955968
+              },
+              "patchmatch": {
+                "reservedBytes": 225443840,
+                "materializedBytes": 225443840,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "gpu": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          },
+          "gpu-mapped": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          }
+        },
+        "pressures": [
+          {
+            "sequence": 38,
+            "kind": null,
+            "owner": "d2prl",
+            "operation": null,
+            "requestedBytes": 0
+          }
+        ],
+        "lastAllocationReclaim": {
+          "kind": "array-buffer",
+          "requestedBytes": 4769280,
+          "targetedReleasedBytes": 24000000,
+          "otherAccountedBytes": 0,
+          "ownersVisited": 29,
+          "completed": true,
+          "owners": [
+            {
+              "owner": "patchmatch",
+              "label": "shared-read-cache",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-gray",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:0",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:1",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:2",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:3",
+              "kind": "array-buffer",
+              "retiredBytes": 24000000,
+              "accountedBytes": 24000000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T14:48:58.978Z",
+      "phase": "resource-recovery",
+      "operation": "d2prl",
+      "group": "d2prl",
+      "attempt": 4,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Neural projection allocation failed after admission",
+        "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+        "details": {
+          "recovery": {
+            "operation": "d2prl",
+            "phase": "zone-complete",
+            "consecutiveFailures": 4,
+            "totalFailures": 4,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 387634160,
+              "activeReservationBytes": 11607444183,
+              "cacheBytes": 9417594,
+              "availableBytes": 15482875327
+            }
+          }
+        }
+      },
+      "decision": {
+        "retry": true,
+        "error": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Neural projection allocation failed after admission",
+          "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+          "details": {
+            "recovery": {
+              "operation": "d2prl",
+              "phase": "zone-complete",
+              "consecutiveFailures": 4,
+              "totalFailures": 4,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 27487371264,
+                "retainedBytes": 387634160,
+                "activeReservationBytes": 11607444183,
+                "cacheBytes": 9417594,
+                "availableBytes": 15482875327
+              }
+            }
+          }
+        },
+        "operation": "d2prl",
+        "phase": "zone-complete",
+        "consecutiveFailures": 4,
+        "totalFailures": 4,
+        "loopDetected": false,
+        "memory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 387634160,
+          "activeReservationBytes": 11607444183,
+          "cacheBytes": 9417594,
+          "availableBytes": 15482875327
+        }
+      },
+      "line": 2094,
+      "resources": {
+        "domains": {
+          "array-buffer": {
+            "reservedBytes": 9636015334,
+            "materializedBytes": 9636015334,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 8463482880,
+            "backings": 2109,
+            "owners": {
+              "unattributed": {
+                "reservedBytes": 288000000,
+                "materializedBytes": 288000000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "patchmatch": {
+                "reservedBytes": 9340035334,
+                "materializedBytes": 9340035334,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 8463482880
+              },
+              "sift": {
+                "reservedBytes": 6828000,
+                "materializedBytes": 6828000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "surface": {
+                "reservedBytes": 1152000,
+                "materializedBytes": 1152000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "wasm": {
+            "reservedBytes": 828440576,
+            "materializedBytes": 828440576,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 265420800,
+            "backings": 11,
+            "owners": {
+              "d2prl": {
+                "reservedBytes": 602996736,
+                "materializedBytes": 602996736,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 265420800
+              },
+              "patchmatch": {
+                "reservedBytes": 225443840,
+                "materializedBytes": 225443840,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "gpu": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          },
+          "gpu-mapped": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          }
+        },
+        "pressures": [
+          {
+            "sequence": 38,
+            "kind": null,
+            "owner": "d2prl",
+            "operation": null,
+            "requestedBytes": 0
+          }
+        ],
+        "lastAllocationReclaim": {
+          "kind": "array-buffer",
+          "requestedBytes": 4769280,
+          "targetedReleasedBytes": 24000000,
+          "otherAccountedBytes": 0,
+          "ownersVisited": 29,
+          "completed": true,
+          "owners": [
+            {
+              "owner": "patchmatch",
+              "label": "shared-read-cache",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-gray",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:0",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:1",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:2",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:3",
+              "kind": "array-buffer",
+              "retiredBytes": 24000000,
+              "accountedBytes": 24000000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T14:48:59.163Z",
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "running",
+          "sift": "done",
+          "forgeryscope": "done",
+          "d2prl": "failed",
+          "ela": "running"
+        },
+        "errors": {
+          "d2prl": {
+            "code": "MEMORY_ALLOCATION",
+            "name": "EngineError",
+            "message": "Neural projection allocation failed after admission",
+            "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+            "details": {
+              "recovery": {
+                "operation": "d2prl",
+                "phase": "zone-complete",
+                "consecutiveFailures": 5,
+                "totalFailures": 5,
+                "loopDetected": true,
+                "memory": {
+                  "budgetBytes": 27487371264,
+                  "retainedBytes": 387634160,
+                  "activeReservationBytes": 11556063959,
+                  "cacheBytes": 9417594,
+                  "availableBytes": 15534255551
+                }
+              }
+            }
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 5,
+          "ela": 1
+        },
+        "completed": [
+          "forgeryscope",
+          "sift"
+        ],
+        "running": [
+          "patchmatch",
+          "ela"
+        ],
+        "resumable": [
+          "d2prl"
+        ],
+        "preflightExecutions": 0
+      },
+      "line": 2099
+    },
+    {
+      "at": "2026-10-03T14:49:53.168Z",
+      "phase": "resource-recovery",
+      "operation": "ela",
+      "group": "ela",
+      "attempt": 1,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float64Array (<anonymous>)\n    at aggregateGhostCells (http://127.0.0.1:60648/src/ela-cell-tools.js:74:16)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:70:28\n    at async workspace (http://127.0.0.1:60648/src/ela-cell-pipeline.js:27:65)\n    at async http://127.0.0.1:60648/src/ela-cell-pipeline.js:66:57\n    at async elaCellPipeline (http://127.0.0.1:60648/src/ela-cell-pipeline.js:64:16)\n    at async segmentedElaBiomes (http://127.0.0.1:60648/src/segmented-ela-biomes.js:14:15)\n    at async build (http://127.0.0.1:60648/src/automatic-ela-provider.js:31:19)\n    at async Object.run (http://127.0.0.1:60648/src/automatic-ela-provider.js:52:36)",
+        "details": {
+          "recovery": {
+            "operation": "ela",
+            "phase": "ela-biomes",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 387634160,
+              "activeReservationBytes": 11259495575,
+              "cacheBytes": 9417594,
+              "availableBytes": 15830823935
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float64Array (<anonymous>)\n    at aggregateGhostCells (http://127.0.0.1:60648/src/ela-cell-tools.js:74:16)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:70:28\n    at async workspace (http://127.0.0.1:60648/src/ela-cell-pipeline.js:27:65)\n    at async http://127.0.0.1:60648/src/ela-cell-pipeline.js:66:57\n    at async elaCellPipeline (http://127.0.0.1:60648/src/ela-cell-pipeline.js:64:16)\n    at async segmentedElaBiomes (http://127.0.0.1:60648/src/segmented-ela-biomes.js:14:15)\n    at async build (http://127.0.0.1:60648/src/automatic-ela-provider.js:31:19)\n    at async Object.run (http://127.0.0.1:60648/src/automatic-ela-provider.js:52:36)"
+        }
+      },
+      "decision": {
+        "retry": true,
+        "error": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float64Array (<anonymous>)\n    at aggregateGhostCells (http://127.0.0.1:60648/src/ela-cell-tools.js:74:16)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:70:28\n    at async workspace (http://127.0.0.1:60648/src/ela-cell-pipeline.js:27:65)\n    at async http://127.0.0.1:60648/src/ela-cell-pipeline.js:66:57\n    at async elaCellPipeline (http://127.0.0.1:60648/src/ela-cell-pipeline.js:64:16)\n    at async segmentedElaBiomes (http://127.0.0.1:60648/src/segmented-ela-biomes.js:14:15)\n    at async build (http://127.0.0.1:60648/src/automatic-ela-provider.js:31:19)\n    at async Object.run (http://127.0.0.1:60648/src/automatic-ela-provider.js:52:36)",
+          "details": {
+            "recovery": {
+              "operation": "ela",
+              "phase": "ela-biomes",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 27487371264,
+                "retainedBytes": 387634160,
+                "activeReservationBytes": 11259495575,
+                "cacheBytes": 9417594,
+                "availableBytes": 15830823935
+              }
+            }
+          },
+          "cause": {
+            "code": "INTERNAL",
+            "name": "RangeError",
+            "message": "Array buffer allocation failed",
+            "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float64Array (<anonymous>)\n    at aggregateGhostCells (http://127.0.0.1:60648/src/ela-cell-tools.js:74:16)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:70:28\n    at async workspace (http://127.0.0.1:60648/src/ela-cell-pipeline.js:27:65)\n    at async http://127.0.0.1:60648/src/ela-cell-pipeline.js:66:57\n    at async elaCellPipeline (http://127.0.0.1:60648/src/ela-cell-pipeline.js:64:16)\n    at async segmentedElaBiomes (http://127.0.0.1:60648/src/segmented-ela-biomes.js:14:15)\n    at async build (http://127.0.0.1:60648/src/automatic-ela-provider.js:31:19)\n    at async Object.run (http://127.0.0.1:60648/src/automatic-ela-provider.js:52:36)"
+          }
+        },
+        "operation": "ela",
+        "phase": "ela-biomes",
+        "consecutiveFailures": 1,
+        "totalFailures": 1,
+        "loopDetected": false,
+        "memory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 387634160,
+          "activeReservationBytes": 11259495575,
+          "cacheBytes": 9417594,
+          "availableBytes": 15830823935
+        }
+      },
+      "line": 2205,
+      "resources": {
+        "domains": {
+          "array-buffer": {
+            "reservedBytes": 9778026726,
+            "materializedBytes": 9778026726,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 8606646272,
+            "backings": 2142,
+            "owners": {
+              "unattributed": {
+                "reservedBytes": 288000000,
+                "materializedBytes": 288000000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "patchmatch": {
+                "reservedBytes": 9483198726,
+                "materializedBytes": 9483198726,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 8606646272
+              },
+              "sift": {
+                "reservedBytes": 6828000,
+                "materializedBytes": 6828000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "wasm": {
+            "reservedBytes": 777060352,
+            "materializedBytes": 777060352,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 214040576,
+            "backings": 10,
+            "owners": {
+              "d2prl": {
+                "reservedBytes": 551616512,
+                "materializedBytes": 551616512,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 214040576
+              },
+              "patchmatch": {
+                "reservedBytes": 225443840,
+                "materializedBytes": 225443840,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "gpu": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          },
+          "gpu-mapped": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          }
+        },
+        "pressures": [
+          {
+            "sequence": 39,
+            "kind": "array-buffer",
+            "owner": "ela",
+            "operation": null,
+            "requestedBytes": 0
+          }
+        ],
+        "lastAllocationReclaim": {
+          "kind": "array-buffer",
+          "requestedBytes": 4769280,
+          "targetedReleasedBytes": 24000000,
+          "otherAccountedBytes": 0,
+          "ownersVisited": 29,
+          "completed": true,
+          "owners": [
+            {
+              "owner": "patchmatch",
+              "label": "shared-read-cache",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-input-window",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "unattributed",
+              "label": "segmented-bank",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "zernike-descriptors",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-gray",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:0",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:1",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "patchmatch",
+              "label": "dense-eligibility",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:2",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            },
+            {
+              "owner": "sift",
+              "label": "sift-base:3",
+              "kind": "array-buffer",
+              "retiredBytes": 24000000,
+              "accountedBytes": 24000000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T14:49:53.251Z",
+      "phase": "resource-reclaimed",
+      "operation": "ela",
+      "group": "ela",
+      "attempt": 1,
+      "reclamation": {
+        "kind": "array-buffer",
+        "requestedBytes": 1048576,
+        "targetedReleasedBytes": 8606646272,
+        "otherAccountedBytes": 0,
+        "ownersVisited": 2,
+        "completed": true,
+        "owners": [
+          {
+            "owner": "patchmatch",
+            "label": "shared-read-cache",
+            "kind": "array-buffer",
+            "retiredBytes": 8606646272,
+            "accountedBytes": 8606646272
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          }
+        ]
+      },
+      "line": 2206
+    },
+    {
+      "at": "2026-10-03T14:49:53.253Z",
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "running",
+          "sift": "done",
+          "forgeryscope": "done",
+          "d2prl": "failed",
+          "ela": "waiting-memory"
+        },
+        "errors": {
+          "d2prl": {
+            "code": "MEMORY_ALLOCATION",
+            "name": "EngineError",
+            "message": "Neural projection allocation failed after admission",
+            "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+            "details": {
+              "recovery": {
+                "operation": "d2prl",
+                "phase": "zone-complete",
+                "consecutiveFailures": 5,
+                "totalFailures": 5,
+                "loopDetected": true,
+                "memory": {
+                  "budgetBytes": 27487371264,
+                  "retainedBytes": 387634160,
+                  "activeReservationBytes": 11556063959,
+                  "cacheBytes": 9417594,
+                  "availableBytes": 15534255551
+                }
+              }
+            }
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 5,
+          "ela": 1
+        },
+        "completed": [
+          "forgeryscope",
+          "sift"
+        ],
+        "running": [
+          "patchmatch"
+        ],
+        "resumable": [
+          "d2prl"
+        ],
+        "preflightExecutions": 0
+      },
+      "line": 2207
+    },
+    {
+      "at": "2026-10-03T14:49:53.253Z",
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "running",
+          "sift": "done",
+          "forgeryscope": "done",
+          "d2prl": "failed",
+          "ela": "running"
+        },
+        "errors": {
+          "d2prl": {
+            "code": "MEMORY_ALLOCATION",
+            "name": "EngineError",
+            "message": "Neural projection allocation failed after admission",
+            "stack": "EngineError: Neural projection allocation failed after admission\n    at segmentedNeuralProjection (http://127.0.0.1:60648/src/segmented-neural-projection.js:59:53)\n    at async Object.run (http://127.0.0.1:60648/src/neural-projector.js:10:17)\n    at async projectResult (http://127.0.0.1:60648/experiments/d2prl/analysis.js:37:20)\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:88:26\n    at async http://127.0.0.1:60648/experiments/d2prl/analysis.js:30:44",
+            "details": {
+              "recovery": {
+                "operation": "d2prl",
+                "phase": "zone-complete",
+                "consecutiveFailures": 5,
+                "totalFailures": 5,
+                "loopDetected": true,
+                "memory": {
+                  "budgetBytes": 27487371264,
+                  "retainedBytes": 387634160,
+                  "activeReservationBytes": 11556063959,
+                  "cacheBytes": 9417594,
+                  "availableBytes": 15534255551
+                }
+              }
+            }
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 5,
+          "ela": 2
+        },
+        "completed": [
+          "forgeryscope",
+          "sift"
+        ],
+        "running": [
+          "patchmatch",
+          "ela"
+        ],
+        "resumable": [
+          "d2prl"
+        ],
+        "preflightExecutions": 0
+      },
+      "line": 2208
+    },
+    {
+      "at": "2026-10-03T14:51:23.991Z",
+      "phase": "resource-recovery",
+      "operation": "ela",
+      "group": "ela",
+      "attempt": 2,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float64Array (<anonymous>)\n    at segmentedGhostMaps (http://127.0.0.1:60648/src/segmented-ghosts.js:7:101)\n    at ghostMaps (http://127.0.0.1:60648/src/segmented-ela-biomes.js:19:52)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:68:70\n    at workspace (http://127.0.0.1:60648/src/ela-cell-pipeline.js:27:71)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:66:63\n    at memo (http://127.0.0.1:60648/src/ela-cell-pipeline.js:24:49)\n    at elaCellPipeline (http://127.0.0.1:60648/src/ela-cell-pipeline.js:64:22)\n    at async segmentedElaBiomes (http://127.0.0.1:60648/src/segmented-ela-biomes.js:14:15)",
+        "details": {
+          "recovery": {
+            "operation": "ela",
+            "phase": "jpeg-render",
+            "consecutiveFailures": 1,
+            "totalFailures": 2,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 387634160,
+              "activeReservationBytes": 2652849303,
+              "cacheBytes": 9417594,
+              "availableBytes": 24437470207
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float64Array (<anonymous>)\n    at segmentedGhostMaps (http://127.0.0.1:60648/src/segmented-ghosts.js:7:101)\n    at ghostMaps (http://127.0.0.1:60648/src/segmented-ela-biomes.js:19:52)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:68:70\n    at workspace (http://127.0.0.1:60648/src/ela-cell-pipeline.js:27:71)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:66:63\n    at memo (http://127.0.0.1:60648/src/ela-cell-pipeline.js:24:49)\n    at elaCellPipeline (http://127.0.0.1:60648/src/ela-cell-pipeline.js:64:22)\n    at async segmentedElaBiomes (http://127.0.0.1:60648/src/segmented-ela-biomes.js:14:15)"
+        }
+      },
+      "decision": {
+        "retry": true,
+        "error": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float64Array (<anonymous>)\n    at segmentedGhostMaps (http://127.0.0.1:60648/src/segmented-ghosts.js:7:101)\n    at ghostMaps (http://127.0.0.1:60648/src/segmented-ela-biomes.js:19:52)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:68:70\n    at workspace (http://127.0.0.1:60648/src/ela-cell-pipeline.js:27:71)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:66:63\n    at memo (http://127.0.0.1:60648/src/ela-cell-pipeline.js:24:49)\n    at elaCellPipeline (http://127.0.0.1:60648/src/ela-cell-pipeline.js:64:22)\n    at async segmentedElaBiomes (http://127.0.0.1:60648/src/segmented-ela-biomes.js:14:15)",
+          "details": {
+            "recovery": {
+              "operation": "ela",
+              "phase": "jpeg-render",
+              "consecutiveFailures": 1,
+              "totalFailures": 2,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 27487371264,
+                "retainedBytes": 387634160,
+                "activeReservationBytes": 2652849303,
+                "cacheBytes": 9417594,
+                "availableBytes": 24437470207
+              }
+            }
+          },
+          "cause": {
+            "code": "INTERNAL",
+            "name": "RangeError",
+            "message": "Array buffer allocation failed",
+            "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float64Array (<anonymous>)\n    at segmentedGhostMaps (http://127.0.0.1:60648/src/segmented-ghosts.js:7:101)\n    at ghostMaps (http://127.0.0.1:60648/src/segmented-ela-biomes.js:19:52)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:68:70\n    at workspace (http://127.0.0.1:60648/src/ela-cell-pipeline.js:27:71)\n    at http://127.0.0.1:60648/src/ela-cell-pipeline.js:66:63\n    at memo (http://127.0.0.1:60648/src/ela-cell-pipeline.js:24:49)\n    at elaCellPipeline (http://127.0.0.1:60648/src/ela-cell-pipeline.js:64:22)\n    at async segmentedElaBiomes (http://127.0.0.1:60648/src/segmented-ela-biomes.js:14:15)"
+          }
+        },
+        "operation": "ela",
+        "phase": "jpeg-render",
+        "consecutiveFailures": 1,
+        "totalFailures": 2,
+        "loopDetected": false,
+        "memory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 387634160,
+          "activeReservationBytes": 2652849303,
+          "cacheBytes": 9417594,
+          "availableBytes": 24437470207
+        }
+      },
+      "line": 2824,
+      "resources": {
+        "domains": {
+          "array-buffer": {
+            "reservedBytes": 1171380454,
+            "materializedBytes": 1171380454,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 98,
+            "owners": {
+              "unattributed": {
+                "reservedBytes": 288000000,
+                "materializedBytes": 288000000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "patchmatch": {
+                "reservedBytes": 876552454,
+                "materializedBytes": 876552454,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              },
+              "sift": {
+                "reservedBytes": 6828000,
+                "materializedBytes": 6828000,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "wasm": {
+            "reservedBytes": 777060352,
+            "materializedBytes": 777060352,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 214040576,
+            "backings": 10,
+            "owners": {
+              "d2prl": {
+                "reservedBytes": 551616512,
+                "materializedBytes": 551616512,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 214040576
+              },
+              "patchmatch": {
+                "reservedBytes": 225443840,
+                "materializedBytes": 225443840,
+                "pinnedBytes": 0,
+                "reclaimableBytes": 0
+              }
+            }
+          },
+          "gpu": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          },
+          "gpu-mapped": {
+            "reservedBytes": 0,
+            "materializedBytes": 0,
+            "pinnedBytes": 0,
+            "reclaimableBytes": 0,
+            "backings": 0,
+            "owners": {}
+          }
+        },
+        "pressures": [
+          {
+            "sequence": 39,
+            "kind": "array-buffer",
+            "owner": "ela",
+            "operation": null,
+            "requestedBytes": 0
+          }
+        ],
+        "lastAllocationReclaim": {
+          "kind": "array-buffer",
+          "requestedBytes": 1048576,
+          "targetedReleasedBytes": 8606646272,
+          "otherAccountedBytes": 0,
+          "ownersVisited": 2,
+          "completed": true,
+          "owners": [
+            {
+              "owner": "patchmatch",
+              "label": "shared-read-cache",
+              "kind": "array-buffer",
+              "retiredBytes": 8606646272,
+              "accountedBytes": 8606646272
+            },
+            {
+              "owner": null,
+              "label": "",
+              "kind": "array-buffer",
+              "retiredBytes": 0,
+              "accountedBytes": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T14:51:23.992Z",
+      "phase": "resource-reclaimed",
+      "operation": "ela",
+      "group": "ela",
+      "attempt": 2,
+      "reclamation": {
+        "kind": "array-buffer",
+        "requestedBytes": 1048576,
+        "targetedReleasedBytes": 0,
+        "otherAccountedBytes": 102760448,
+        "ownersVisited": 16,
+        "completed": true,
+        "owners": [
+          {
+            "owner": "patchmatch",
+            "label": "shared-read-cache",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "dense-eligibility",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "zernike-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "zernike-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "dense-eligibility",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": null,
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": null,
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": null,
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": null,
+            "retiredBytes": 0,
+            "accountedBytes": 102760448
+          }
+        ]
+      },
+      "line": 2825
+    },
+    {
+      "at": "2026-10-03T14:51:23.992Z",
+      "phase": "resource-wait",
+      "operation": "ela",
+      "group": "ela",
+      "attempt": 2,
+      "stage": "waiting",
+      "baseline": {
+        "releasedBytes": 71233359438,
+        "reusableBytes": 0,
+        "commits": 55239,
+        "independentProducers": 2,
+        "operations": [
+          {
+            "id": "dense-image-field:0",
+            "owner": "patchmatch",
+            "state": "waiting-child",
+            "resource": null
+          },
+          {
+            "id": "field:job-b8ea1d57-c988-407e-a1ed-4d22546f1510",
+            "owner": "patchmatch",
+            "state": "compute",
+            "resource": null
+          }
+        ],
+        "blockedOperations": [],
+        "reuseRevision": 0
+      },
+      "current": {
+        "releasedBytes": 71233359438,
+        "reusableBytes": 0,
+        "commits": 55239,
+        "independentProducers": 2,
+        "operations": [
+          {
+            "id": "dense-image-field:0",
+            "owner": "patchmatch",
+            "state": "waiting-child",
+            "resource": null
+          },
+          {
+            "id": "field:job-b8ea1d57-c988-407e-a1ed-4d22546f1510",
+            "owner": "patchmatch",
+            "state": "compute",
+            "resource": null
+          }
+        ],
+        "blockedOperations": [],
+        "reuseRevision": 0
+      },
+      "requestedBytes": 1048576,
+      "kind": "array-buffer",
+      "line": 2826
+    }
+  ],
+  "sources": {
+    "src/segmented-neural-projection.js": "bf94e73a6325caf3c3c7aaa14a8d11d3fb6636b718a16f71355050ab508001cc",
+    "src/neural-spatial-rows.js": "4ca09395f41fdfd9804fa47731706d35693a0030ed77fd8789c229594d7399be",
+    "src/automatic-analysis-session.js": "d50ca557c22b8f0b9fa96e6e9991208828e4aaf1ef22414c89c2d964ff96ae01",
+    "src/resource-recovery.js": "4b9f0d193d93bf71994db02e69f5baa920182c53e6660ac6aa388f7de576d56d",
+    "src/cache.js": "0312364006dbf91a7e8790985118f836c34743b5df7fa5889d94b4c0dc4f6b6a",
+    "src/shared-read-cache.js": "8641a099104ae504cc038f76ee5880dc50ebf872e1d2ab60a0b90a725aeb01a6",
+    "src/automatic-ela-provider.js": "5526b5ade6b9fd1b7201d6b232e09a4f4cc43b97575ca8ff2c90e0d074a551d1",
+    "src/segmented-ela-biomes.js": "7a159a5ce332c0bada5f45f4487bd59fdccfceb51115b2a1c938110bebcadae6",
+    "src/segmented-ghosts.js": "688b0df73ad7d4bf1ddfe5b193593164aa1d785ba74c819b87d3935b37b156eb",
+    "src/ela-cell-pipeline.js": "f9a03e613ec27dcd48f2d27fb1732f5a326084c2ae30b6f1c393ddcd2907d3a1",
+    "src/ela-cell-tools.js": "84c5994974bfb83d9a1c15d1fde4bf2e959362eeb44e143e0bdff82bad050364",
+    "src/dense-field-parallel.js": "7c97f89b74d1d6d0e5cd837f30afead08e22228e74bf4fe6778fc456bcf80264",
+    "src/dense-paged-field-worker.js": "d232c83038239c6baf90cf3a52d862562dc6b34c09aadbef212ed73ca6198d1c",
+    "src/dense-paged-field-pool.js": "1aca782995b2ea2afff7bb74c92984a4b2b01a18edf87631497b0f032ca1095e"
+  },
+  "scope": "Read-only journal/source analysis while original frozen run continues; no debugger, capacity probe, benchmark or runtime modification."
+}

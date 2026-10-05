@@ -1,0 +1,700 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "mgcfdn-effnet",
+  "browser": "154.0.8037.58",
+  "scope": "Actual production CPU and WebGPU/WASM workers, fixed float32 network input and same 2GiB budget. One positive cold/two warm useful inferences then remaining synthetic corpus; exact preparation, continuous max/mean and projected mask/component differences. No profiler. GPU512MiB and WASM512MiB bounded, parameters loaded once. Fresh page per backend, shared host and OS/driver caches retained. Development fixture/oracle and comparison arrays outside product budget; no RSS claim. Not common API or 96MP qualification.",
+  "conditions": [
+    {
+      "backend": "cpu",
+      "status": "passed-declared-corpus",
+      "records": [
+        {
+          "name": "paired-spots",
+          "run": 0,
+          "kind": "cold",
+          "preparationExact": true,
+          "preparationMs": 5.399999991059303,
+          "inferenceMs": 1329.800000011921,
+          "projectionMs": 38.29999999701977,
+          "totalMs": 1373.5,
+          "modelRequests": 1,
+          "modelBytes": 74209401,
+          "probability": {
+            "maxAbs": 0.000004827976226806641,
+            "meanAbs": 4.3716200841498014e-7,
+            "different": 65251,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000004827976226806641,
+            "meanAbs": 4.3716200841498014e-7,
+            "different": 65251,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              4241,
+              3132
+            ],
+            "browser": [
+              4241,
+              3132
+            ]
+          },
+          "foreground": 7373,
+          "rawSha256": "c558332422335d1cce91f68b05fb9951c5afc903054b5d509fa93dff4bdd9161",
+          "heapBytes": 208338944,
+          "timings": {
+            "modelLoadMs": 821.2000000029802,
+            "inferenceMs": 500.20000000298023,
+            "outputCopyMs": 1
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 761203051,
+            "peakAccountedBytes": 1299974507
+          }
+        },
+        {
+          "name": "paired-spots",
+          "run": 1,
+          "kind": "warm",
+          "preparationExact": true,
+          "preparationMs": 4.200000002980232,
+          "inferenceMs": 465.59999999403954,
+          "projectionMs": 55,
+          "totalMs": 524.7999999970198,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000004827976226806641,
+            "meanAbs": 4.3716200841498014e-7,
+            "different": 65251,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000004827976226806641,
+            "meanAbs": 4.3716200841498014e-7,
+            "different": 65251,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              4241,
+              3132
+            ],
+            "browser": [
+              4241,
+              3132
+            ]
+          },
+          "foreground": 7373,
+          "rawSha256": "c558332422335d1cce91f68b05fb9951c5afc903054b5d509fa93dff4bdd9161",
+          "heapBytes": 208338944,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 462.40000000596046,
+            "outputCopyMs": 1.2000000029802322
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 761203051,
+            "peakAccountedBytes": 1299974507
+          }
+        },
+        {
+          "name": "paired-spots",
+          "run": 2,
+          "kind": "warm",
+          "preparationExact": true,
+          "preparationMs": 4.4000000059604645,
+          "inferenceMs": 463,
+          "projectionMs": 35.5,
+          "totalMs": 502.90000000596046,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000004827976226806641,
+            "meanAbs": 4.3716200841498014e-7,
+            "different": 65251,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000004827976226806641,
+            "meanAbs": 4.3716200841498014e-7,
+            "different": 65251,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              4241,
+              3132
+            ],
+            "browser": [
+              4241,
+              3132
+            ]
+          },
+          "foreground": 7373,
+          "rawSha256": "c558332422335d1cce91f68b05fb9951c5afc903054b5d509fa93dff4bdd9161",
+          "heapBytes": 208338944,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 460.29999999701977,
+            "outputCopyMs": 0.5999999940395355
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 761203051,
+            "peakAccountedBytes": 1299974507
+          }
+        },
+        {
+          "name": "structured-copy",
+          "run": 3,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 15.299999997019768,
+          "inferenceMs": 466.30000001192093,
+          "projectionMs": 45.3999999910593,
+          "totalMs": 527,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000004589557647705078,
+            "meanAbs": 5.831595863980965e-7,
+            "different": 65161,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000004649162292480469,
+            "meanAbs": 5.82197599353652e-7,
+            "different": 201460,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              1770,
+              494,
+              4
+            ],
+            "browser": [
+              1770,
+              494,
+              4
+            ]
+          },
+          "foreground": 2268,
+          "rawSha256": "e3a1bb1b9b3d9192b45c9648331de981d48d351f5e62e6a8108ecf8d534ffee4",
+          "heapBytes": 208338944,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 463.59999999403954,
+            "outputCopyMs": 0.5
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 762162982,
+            "peakAccountedBytes": 1302031502
+          }
+        },
+        {
+          "name": "constant",
+          "run": 4,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 4.0999999940395355,
+          "inferenceMs": 448.09999999403954,
+          "projectionMs": 31.900000005960464,
+          "totalMs": 484.09999999403954,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 2.1886080503463745e-7,
+            "meanAbs": 3.3447005219573505e-8,
+            "different": 65417,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 1.6205012798309326e-7,
+            "meanAbs": 2.640824768604288e-8,
+            "different": 14606,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [],
+            "browser": []
+          },
+          "foreground": 0,
+          "rawSha256": "467613107cfbe3448bfb31a4aaa7a9e0e900e54158523a4311dcbefec8735860",
+          "heapBytes": 208338944,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 445.40000000596046,
+            "outputCopyMs": 0.5999999940395355
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 760846828,
+            "peakAccountedBytes": 1302031502
+          }
+        }
+      ],
+      "modelLoads": 1,
+      "inferences": 5,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1302031502
+      }
+    },
+    {
+      "backend": "webgpu",
+      "status": "passed-declared-corpus",
+      "records": [
+        {
+          "name": "paired-spots",
+          "run": 0,
+          "kind": "cold",
+          "preparationExact": true,
+          "preparationMs": 5.100000008940697,
+          "inferenceMs": 1748,
+          "projectionMs": 40,
+          "totalMs": 1793.1000000089407,
+          "modelRequests": 1,
+          "modelBytes": 74209401,
+          "probability": {
+            "maxAbs": 0.000004172325134277344,
+            "meanAbs": 3.379976464875506e-7,
+            "different": 65184,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000004172325134277344,
+            "meanAbs": 3.379976464875506e-7,
+            "different": 65184,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 1,
+            "meanAbs": 0.0000152587890625,
+            "different": 1,
+            "finite": true
+          },
+          "maskTransitions": [
+            {
+              "x": 17,
+              "y": 51,
+              "native": 1,
+              "browser": 0,
+              "nativeMap": 0.5000031590461731,
+              "browserMap": 0.4999992847442627
+            }
+          ],
+          "components8": {
+            "native": [
+              4241,
+              3132
+            ],
+            "browser": [
+              4241,
+              3131
+            ]
+          },
+          "foreground": 7372,
+          "rawSha256": "f1ec254332a1eb21bef9d9a61d21bb936d27789d173a71537359c702c9f5e22e",
+          "heapBytes": 209518592,
+          "gpu": {
+            "allocations": 2614,
+            "writeBufferBytes": 86967040,
+            "readMappingBytes": 898144,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 361290752,
+            "peakAccountedBytes": 361815040,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 1475.2999999970198,
+            "inferenceMs": 261.20000000298023,
+            "outputCopyMs": 0.8999999910593033,
+            "gpuWriteBytes": 86967040,
+            "gpuReadBytes": 898144
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1298073963,
+            "peakAccountedBytes": 1836845419
+          }
+        },
+        {
+          "name": "paired-spots",
+          "run": 1,
+          "kind": "warm",
+          "preparationExact": true,
+          "preparationMs": 4.4000000059604645,
+          "inferenceMs": 128.20000000298023,
+          "projectionMs": 40.30000001192093,
+          "totalMs": 172.90000002086163,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000004172325134277344,
+            "meanAbs": 3.379976464875506e-7,
+            "different": 65184,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000004172325134277344,
+            "meanAbs": 3.379976464875506e-7,
+            "different": 65184,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 1,
+            "meanAbs": 0.0000152587890625,
+            "different": 1,
+            "finite": true
+          },
+          "maskTransitions": [
+            {
+              "x": 17,
+              "y": 51,
+              "native": 1,
+              "browser": 0,
+              "nativeMap": 0.5000031590461731,
+              "browserMap": 0.4999992847442627
+            }
+          ],
+          "components8": {
+            "native": [
+              4241,
+              3132
+            ],
+            "browser": [
+              4241,
+              3131
+            ]
+          },
+          "foreground": 7372,
+          "rawSha256": "f1ec254332a1eb21bef9d9a61d21bb936d27789d173a71537359c702c9f5e22e",
+          "heapBytes": 209518592,
+          "gpu": {
+            "allocations": 2742,
+            "writeBufferBytes": 100661888,
+            "readMappingBytes": 1796288,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 415921472,
+            "peakAccountedBytes": 417104704,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 125.3999999910593,
+            "outputCopyMs": 0.800000011920929,
+            "gpuWriteBytes": 13694848,
+            "gpuReadBytes": 898144
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1298073963,
+            "peakAccountedBytes": 1836845419
+          }
+        },
+        {
+          "name": "paired-spots",
+          "run": 2,
+          "kind": "warm",
+          "preparationExact": true,
+          "preparationMs": 4.399999991059303,
+          "inferenceMs": 132.69999998807907,
+          "projectionMs": 50.5,
+          "totalMs": 187.59999997913837,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000004172325134277344,
+            "meanAbs": 3.379976464875506e-7,
+            "different": 65184,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000004172325134277344,
+            "meanAbs": 3.379976464875506e-7,
+            "different": 65184,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 1,
+            "meanAbs": 0.0000152587890625,
+            "different": 1,
+            "finite": true
+          },
+          "maskTransitions": [
+            {
+              "x": 17,
+              "y": 51,
+              "native": 1,
+              "browser": 0,
+              "nativeMap": 0.5000031590461731,
+              "browserMap": 0.4999992847442627
+            }
+          ],
+          "components8": {
+            "native": [
+              4241,
+              3132
+            ],
+            "browser": [
+              4241,
+              3131
+            ]
+          },
+          "foreground": 7372,
+          "rawSha256": "f1ec254332a1eb21bef9d9a61d21bb936d27789d173a71537359c702c9f5e22e",
+          "heapBytes": 209518592,
+          "gpu": {
+            "allocations": 2814,
+            "writeBufferBytes": 114356736,
+            "readMappingBytes": 2694432,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 415921472,
+            "peakAccountedBytes": 417108800,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 130,
+            "outputCopyMs": 0.5999999940395355,
+            "gpuWriteBytes": 13694848,
+            "gpuReadBytes": 898144
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1298073963,
+            "peakAccountedBytes": 1836845419
+          }
+        },
+        {
+          "name": "structured-copy",
+          "run": 3,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 15.5,
+          "inferenceMs": 143.09999999403954,
+          "projectionMs": 62.5,
+          "totalMs": 221.09999999403954,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.0000032186508178710938,
+            "meanAbs": 3.66798521334033e-7,
+            "different": 64788,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.0000032186508178710938,
+            "meanAbs": 3.6651320207658966e-7,
+            "different": 200634,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              1770,
+              494,
+              4
+            ],
+            "browser": [
+              1770,
+              494,
+              4
+            ]
+          },
+          "foreground": 2268,
+          "rawSha256": "ed1cb7c17a61a3470c0015bb98cada50a2af2031bdcdc878ca6b5a0a2278240e",
+          "heapBytes": 209518592,
+          "gpu": {
+            "allocations": 2886,
+            "writeBufferBytes": 128051584,
+            "readMappingBytes": 3592576,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 415921472,
+            "peakAccountedBytes": 417108800,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0.09999999403953552,
+            "inferenceMs": 139.79999999701977,
+            "outputCopyMs": 0.800000011920929,
+            "gpuWriteBytes": 13694848,
+            "gpuReadBytes": 898144
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1299033894,
+            "peakAccountedBytes": 1838902414
+          }
+        },
+        {
+          "name": "constant",
+          "run": 4,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 4.0999999940395355,
+          "inferenceMs": 130,
+          "projectionMs": 42.6000000089407,
+          "totalMs": 176.70000000298023,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 1.1362135410308838e-7,
+            "meanAbs": 6.433574560700745e-9,
+            "different": 64808,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 1.0244548320770264e-7,
+            "meanAbs": 6.394807212266282e-9,
+            "different": 14523,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [],
+            "browser": []
+          },
+          "foreground": 0,
+          "rawSha256": "9475fb532b5b41d01d53ee99186dd55ae532ed3f56c1a047548aa4feaed1905b",
+          "heapBytes": 209518592,
+          "gpu": {
+            "allocations": 2958,
+            "writeBufferBytes": 141746432,
+            "readMappingBytes": 4490720,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 415921472,
+            "peakAccountedBytes": 417108800,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 126.70000000298023,
+            "outputCopyMs": 0.8999999910593033,
+            "gpuWriteBytes": 13694848,
+            "gpuReadBytes": 898144
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1297717740,
+            "peakAccountedBytes": 1838902414
+          }
+        }
+      ],
+      "modelLoads": 1,
+      "inferences": 5,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1838902414
+      }
+    }
+  ],
+  "sources": {
+    "scripts/study-mgcf-ort-workers.mjs": "34a097086f1c495ac456881f12208d47ea2a8cd572a913b1ff0214bf6772c3bc",
+    "experiments/segmentation/models.js": "5e2253d4fa1104be263a25d96d9dc29528b2516a777bbaf3b63be27135fc9885",
+    "experiments/segmentation/inference.js": "eae812f02caba7668ea462dd2751ba903ff532cedfc378c29c31df86b46d03ab",
+    "experiments/segmentation/inference-worker.js": "380edb97a6639b12be45165e552a53c6f94c58f382400ab4f74f46ea208e50b5",
+    "experiments/segmentation/inference-gpu-worker.js": "089b625783e854d9b95b6b3d6dc34a412a1b31ee3264916803a1af8bf27c0646",
+    "experiments/segmentation/gpu-budget.js": "a0d19ddc23efa2aa43ffc7363e21b8aa7b69c5608d7c6c028ac1abeeaaa724bf",
+    "experiments/segmentation/prepare.js": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+    "experiments/segmentation/zones.js": "9c5f8a9109caa2f6697a6696c850e4a5ebc7591f064cfeeb5cdce79d3963da5a",
+    "vendor/segmentation/PINNED.json": "d04c2a4038d5d94f89366fb3e0d9d83ea8ee5d40b0b570a8cdfb006a906393ec",
+    "vendor/d2prl/PINNED.json": "7ef2fd5413369b988b694625a8a62cb63a9ee85335fbffbc1a79e51314cfc3e2"
+  }
+}

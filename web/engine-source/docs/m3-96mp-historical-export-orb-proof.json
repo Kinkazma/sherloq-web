@@ -1,0 +1,19 @@
+{
+  "algorithm": "orb",
+  "sourceSize": [
+    12000,
+    8000
+  ],
+  "stats": {
+    "total": 501,
+    "filtered": 500,
+    "matches": 214,
+    "clusters": 153,
+    "regions": 2
+  },
+  "comparedBytes": 288000000,
+  "differentBytes": 0,
+  "maximumError": 0,
+  "seconds": 2.2142951488494873,
+  "scope": "Native historical drawing of exported browser arrays; extraction and matching are independently qualified on smaller corpora."
+}

@@ -1,0 +1,19 @@
+import {createIndexedDbSession} from '../src/indexeddb-storage.js';import {createRgbSurface} from '../src/rgb-surface.js';import {Budget} from '../src/cache.js';
+const hash=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join(''),value=i=>(Math.imul(i,73)^(i>>>13))&255;
+onmessage=async()=>{
+ const budget=new Budget(32*1024**2),w=4096,h=4096,total=w*h*3,paths={},cases=[];
+ try{
+  for(const name of ['uncached','cached','unbounded']){const session=await createIndexedDbSession({budget,readCache:name!=='uncached',readCachePages:name==='unbounded'?Infinity:2,maximumBytes:total}),store=await session.create(total),release=budget.reserve(1024**2);paths[name]={session,store};try{const chunk=new Uint8Array(1024**2);for(let offset=0;offset<total;offset+=chunk.length){for(let i=0;i<chunk.length;i++)chunk[i]=value(offset+i);await store.write(chunk,offset);}}finally{release();}}
+  for(const [name,orientation,rect] of [['upright-whole-rows',1,{x:0,y:512,width:w,height:512}],['upright-tile',1,{x:137,y:281,width:256,height:256}],['rotated-whole-rows',6,{x:0,y:281,width:h,height:32}]]){
+   const release=budget.reserve(rect.width*rect.height*3);let expected;
+   try{const bytes=new Uint8Array(rect.width*rect.height*3);for(let y=0;y<rect.height;y++)for(let x=0;x<rect.width;x++){const sx=orientation===6?y+rect.y:x+rect.x,sy=orientation===6?h-1-x-rect.x:y+rect.y;for(let c=0;c<3;c++)bytes[(y*rect.width+x)*3+c]=value((sy*w+sx)*3+c);}expected=await hash(bytes);}finally{release();}
+   const samples={uncached:[],cached:[],unbounded:[]};
+   for(let repeat=0;repeat<5;repeat++)for(const variant of repeat%2?['unbounded','cached','uncached']:['uncached','cached','unbounded']){
+    const {session,store}=paths[variant];session.clearReadCache();const before=session.snapshot().reads,priorPeak=budget.peak;budget.peak=budget.total();const surface=createRgbSurface(store,{width:w,height:h,orientation,budget,ownsStore:false}),started=performance.now(),window=await surface.readWindow(rect),elapsedMs=performance.now()-started,after=session.snapshot().reads;
+    try{if(await hash(window.pixels.data)!==expected)throw Error('Byte/orientation oracle mismatch');samples[variant].push({elapsedMs,transactions:after.transactions-before.transactions,cacheHits:after.cacheHits-before.cacheHits,requestedBytes:after.requestedBytes-before.requestedBytes,cacheBytes:budget.cacheBytes,peakAccountedBytes:budget.peak});}finally{window.release();await surface.dispose();session.clearReadCache();budget.peak=Math.max(priorPeak,budget.peak);}
+   }
+   const median=values=>values.slice().sort((a,b)=>a-b)[2];cases.push({name,orientation,rect,bytes:rect.width*rect.height*3,sha256:expected,samples,medianMs:Object.fromEntries(Object.entries(samples).map(([key,values])=>[key,median(values.map(s=>s.elapsedMs))]))});postMessage({progress:name});
+  }
+  for(const {store,session} of Object.values(paths)){await store.dispose();await session.dispose();}if(budget.total())throw Error('Page cache or staging leaked');postMessage({result:{schema:1,status:'passed',dimensions:[w,h],sourceBytes:total,backend:'indexeddb-forced',scope:'Development-only alternating5-sample cache-disabled/two-pages-per-array/unbounded-per-array comparison (all share one budget) on identical raw synthetic RGB stores. Each measured read starts with empty engine page cache. Includes window allocation/storage/yields; excludes store fill, hash, UI transfer and display. Browser storage cache is not flushed; no product calibration.',cases,memory:budget.snapshot()}});
+ }catch(error){postMessage({error:{code:error.code,message:error.message}});}finally{for(const {store,session} of Object.values(paths)){await store.dispose().catch(()=>{});await session.dispose().catch(()=>{});}}
+};

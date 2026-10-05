@@ -1,0 +1,41 @@
+{
+  "provider": "wasm",
+  "records": {
+    "noise": {
+      "values": 262144,
+      "maxError": 0.00002562999725341797,
+      "differences": 258906
+    },
+    "map": {
+      "values": 2704,
+      "maxError": 2.8812792152166367e-9,
+      "differences": 2687
+    },
+    "valid": {
+      "values": 2704,
+      "maxError": 0,
+      "differences": 0
+    },
+    "raster": {
+      "values": 262144,
+      "maxError": 0,
+      "differences": 0
+    },
+    "map_rgb": {
+      "values": 786432,
+      "maxError": 0,
+      "differences": 0
+    }
+  },
+  "exportBytes": 4107484,
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1884758620
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

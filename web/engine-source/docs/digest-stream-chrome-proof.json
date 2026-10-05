@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1600,
+    2200
+  ],
+  "nativeHashes": 6,
+  "cryptographicHashes": 10,
+  "sourceLayout": "segmented-scanlines",
+  "storage": "memory",
+  "wasmHeapPeakBytes": 16777216,
+  "wasmMaximumBytes": 50331648,
+  "sourceWindowReads": 1389,
+  "maxSourceWindowBytes": 182400,
+  "totalMs": 9838.70000000298,
+  "workers": 1,
+  "cache": {
+    "result": false
+  },
+  "memory": {
+    "budgetBytes": 121634816,
+    "retainedBytes": 10560000,
+    "cacheBytes": 5698,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 119799104
+  },
+  "peakAccountedBytes": 119799104,
+  "cacheOwnership": true,
+  "jsonExport": true,
+  "monotoneProgress": true,
+  "cancellationMode": "storage-closed-before-worker-termination",
+  "reload": true,
+  "storageCleanup": true,
+  "temporaryStorage": [
+    {
+      "backend": "opfs",
+      "nativeHashes": 6,
+      "dimensions": [
+        531,
+        517
+      ],
+      "wasmHeapPeakBytes": 16777216,
+      "wasmMaximumBytes": 50331648,
+      "sourceWindowReads": 1337,
+      "maxSourceWindowBytes": 60534
+    },
+    {
+      "backend": "indexeddb",
+      "nativeHashes": 6,
+      "dimensions": [
+        531,
+        517
+      ],
+      "wasmHeapPeakBytes": 16777216,
+      "wasmMaximumBytes": 50331648,
+      "sourceWindowReads": 1337,
+      "maxSourceWindowBytes": 60534
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

@@ -1,0 +1,49 @@
+{
+  "browser": "154.0.8037.58",
+  "passed": true,
+  "cases": [
+    {
+      "bytes": 3840012345,
+      "offsets": [
+        0,
+        1073741815,
+        2147483639,
+        3221225463,
+        3840012314
+      ],
+      "storage": {
+        "reservedBytes": 3840012345,
+        "peakReservedBytes": 3840012345,
+        "estimatedAvailableBytes": 10737418240,
+        "estimateIsAdmissionLimit": false,
+        "logicalLimitBytes": 10737418240,
+        "openFiles": 1,
+        "physicalFiles": 4,
+        "maximumPhysicalFileBytes": 1073741824
+      }
+    },
+    {
+      "bytes": 4294968320,
+      "offsets": [
+        0,
+        1073741815,
+        2147483639,
+        3221225463,
+        4294968289,
+        4294967287
+      ],
+      "storage": {
+        "reservedBytes": 4294968320,
+        "peakReservedBytes": 4294968320,
+        "estimatedAvailableBytes": 10737418240,
+        "estimateIsAdmissionLimit": false,
+        "logicalLimitBytes": 10737418240,
+        "openFiles": 1,
+        "physicalFiles": 5,
+        "maximumPhysicalFileBytes": 1073741824
+      }
+    }
+  ],
+  "cleanup": true,
+  "scope": "Real sparse logical arrays and seam I/O beyond4GiB; full ZERO and energy scientific archives require separate end-to-end qualification"
+}

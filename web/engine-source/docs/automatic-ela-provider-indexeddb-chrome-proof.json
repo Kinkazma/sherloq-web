@@ -1,0 +1,126 @@
+{
+  "passed": true,
+  "width": 176,
+  "height": 160,
+  "nativePreparedArrays": 22,
+  "maximumContentError": 0,
+  "nativeSelectedEntries": 7,
+  "metrics": {
+    "cells": {
+      "workers": 1,
+      "kernel": "ela-native-cells-segmented",
+      "cellRecompressions": 3,
+      "ghostPhasesComputed": 0
+    },
+    "preview": {
+      "workers": 1,
+      "kernel": "global-rgb-jpeg-scanlines",
+      "sampling": "420",
+      "recompressedCache": true,
+      "recompressions": 0,
+      "sourcePasses": 1,
+      "encodedBytes": 8992,
+      "encodedCapacityBytes": 171008,
+      "encodedStorage": "memory",
+      "cacheEntries": 2,
+      "rowsPerChunk": 32,
+      "maxSourceWindowBytes": 16896,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 16777216,
+      "storage": "memory",
+      "tableCached": false,
+      "retainedResultBytes": 84480
+    },
+    "energy": {
+      "workers": 1,
+      "kernel": "ela-energy-segmented",
+      "energyRecompressions": 1,
+      "energyQualityPlanesComputed": 3,
+      "energyPanelDetections": 1,
+      "energyPreparationMs": 115.70000000298023,
+      "energyProfileMs": 0,
+      "energySegmentationMs": 33.599999994039536,
+      "cache": {
+        "result": false,
+        "stages": {
+          "energy-panels": false,
+          "energy-plane/70": false,
+          "energy-plane/75": false,
+          "energy-plane/80": false,
+          "energy-scores/75/0.01/0.99": false
+        }
+      },
+      "sourcePasses": 4,
+      "scheduling": {
+        "count": 1,
+        "maximum": 1,
+        "ceiling": 1,
+        "resourceReduced": false,
+        "policy": "immediate-useful-work",
+        "priorUsefulSamples": 0,
+        "reason": "Aggressive capacity-based start",
+        "preflightExecutions": 0,
+        "taskExecutions": 1,
+        "retry": null
+      }
+    },
+    "decoded": {
+      "sha256": "b29782bbca39cca0f3c091026a427af350ce97135ba1fb67f1bc4de1e18b1562",
+      "width": 176,
+      "height": 160,
+      "colorOrder": "BGR",
+      "maximumChunkBytes": 16896
+    },
+    "preflightExecutions": 0
+  },
+  "sourceWindowReads": 71,
+  "filterSourceReads": 0,
+  "archive": {
+    "arrays": 25,
+    "byteLength": 968790
+  },
+  "sessionArchive": {
+    "nativeArrays": 25,
+    "byteLength": 1262860,
+    "storage": "temporary",
+    "elaVotes": 0,
+    "sourceReads": 0
+  },
+  "cellOnlyArchive": {
+    "arrays": 14,
+    "byteLength": 491658
+  },
+  "facade": {
+    "borrowedContiguousSource": true,
+    "missingEnginesExplicit": true,
+    "rawLeaseSurvivesDisposal": true
+  },
+  "globalCache": true,
+  "frameCache": true,
+  "nativePreview": true,
+  "nativeDecodedHash": true,
+  "scopedStorage": "indexeddb",
+  "temporarySessions": [
+    {
+      "id": "job-74e0de74-154c-49c5-964c-602d8e0348fa",
+      "backend": "indexeddb",
+      "purpose": "automatic-ela-scientific"
+    },
+    {
+      "id": "job-6aca41e9-90f0-49c6-9ba5-40d15158450c",
+      "backend": "indexeddb",
+      "purpose": "automatic-ela-scientific"
+    }
+  ],
+  "independentOwners": true,
+  "cancellationCleanup": true,
+  "memory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 109274550
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

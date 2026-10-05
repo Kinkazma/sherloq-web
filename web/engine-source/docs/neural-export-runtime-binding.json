@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "The copied exporter and storage modules exactly match the ones measured on96MP native planes. Dynamic dependencies are checked by the real MGCF-ST copied common-worker recipe; no new96MP timing claimed.",
+  "version": "0.30.0-m1.29",
+  "runtimeManifestSha256": "9e2f7383544815bfca94951fa475d1f48665eab412dc0fb01ddf853cb969d2f4",
+  "files": {
+    "src/scientific-npz-stream.js": "55d2ba67e332f794a7616fd325cdf1e8bba8f00e3b1b7984767434bfbf0b586c",
+    "src/segmented-bytes.js": "95841305545ea89d6c55ef0970ffec72012ad049849016c99f0a23f8d38569be",
+    "src/temporary-storage.js": "f1c01e4718e2d44298adcc341947b23ace4dc15248a99528dd271f911277ee41"
+  }
+}

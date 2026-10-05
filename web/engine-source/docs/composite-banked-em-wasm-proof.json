@@ -1,0 +1,388 @@
+{
+  "records": [
+    {
+      "case": "composite",
+      "errors": {
+        "Sigma": {
+          "values": 1024,
+          "maxError": 1.1102230246251565e-15,
+          "differences": 932
+        },
+        "mu": {
+          "values": 64,
+          "maxError": 5.329070518200751e-15,
+          "differences": 61
+        },
+        "prioriProb": {
+          "values": 1,
+          "maxError": 1.1102230246251565e-16,
+          "differences": 1
+        },
+        "outliersProb": {
+          "values": 1,
+          "maxError": 1.1102230246251565e-16,
+          "differences": 1
+        },
+        "map": {
+          "values": 1440,
+          "maxError": 3.205968823749572e-11,
+          "differences": 1413
+        }
+      },
+      "bestReplicate": 2,
+      "fitWorkers": 2,
+      "nativeBestReplicate": 2,
+      "replicates": [
+        {
+          "score": -39.06031078286265,
+          "exit": [
+            0,
+            17
+          ]
+        },
+        {
+          "score": -39.97313703726097,
+          "exit": [
+            0,
+            4
+          ]
+        },
+        {
+          "score": -35.79956813863424,
+          "exit": [
+            0,
+            83
+          ]
+        },
+        {
+          "score": -39.86424045130766,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -39.57750833842618,
+          "exit": [
+            0,
+            5
+          ]
+        },
+        {
+          "score": -39.588767928069934,
+          "exit": [
+            0,
+            8
+          ]
+        },
+        {
+          "score": -39.60786404392057,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -39.51651797077199,
+          "exit": [
+            0,
+            4
+          ]
+        },
+        {
+          "score": -40.03773883335792,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -35.79956828140046,
+          "exit": [
+            0,
+            68
+          ]
+        }
+      ],
+      "nativeReplicates": [
+        {
+          "score": -39.06031078286265,
+          "exit": [
+            0,
+            17
+          ]
+        },
+        {
+          "score": -39.973137037260976,
+          "exit": [
+            0,
+            4
+          ]
+        },
+        {
+          "score": -35.79956813863424,
+          "exit": [
+            0,
+            83
+          ]
+        },
+        {
+          "score": -39.86424045130767,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -39.57750833842618,
+          "exit": [
+            0,
+            5
+          ]
+        },
+        {
+          "score": -39.588767928069934,
+          "exit": [
+            0,
+            8
+          ]
+        },
+        {
+          "score": -39.607864043920564,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -39.516517970772,
+          "exit": [
+            0,
+            4
+          ]
+        },
+        {
+          "score": -40.037738833357906,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -35.799568281400454,
+          "exit": [
+            0,
+            68
+          ]
+        }
+      ],
+      "conditioning": [
+        0.008420266377581113,
+        3.233589927299475,
+        384.02465935149985,
+        32,
+        32,
+        2.2976038332696723e-14
+      ],
+      "ms": 29755.59999999404
+    },
+    {
+      "case": "composite-small-singular",
+      "errors": {
+        "Sigma": {
+          "values": 1024,
+          "maxError": 4.440892098500626e-16,
+          "differences": 698
+        },
+        "mu": {
+          "values": 64,
+          "maxError": 2.842170943040401e-14,
+          "differences": 45
+        },
+        "prioriProb": {
+          "values": 1,
+          "maxError": 0,
+          "differences": 0
+        },
+        "outliersProb": {
+          "values": 1,
+          "maxError": 0,
+          "differences": 0
+        },
+        "map": {
+          "values": 168,
+          "maxError": 6124957508000320,
+          "differences": 168
+        }
+      },
+      "bestReplicate": 3,
+      "fitWorkers": 2,
+      "nativeBestReplicate": 3,
+      "replicates": [
+        {
+          "score": -15.716579273231034,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -18.1288703908087,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -23.49564692089562,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -13.203629924909603,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -30.184953718480404,
+          "exit": [
+            0,
+            2
+          ]
+        },
+        {
+          "score": -19.39737868362926,
+          "exit": [
+            0,
+            2
+          ]
+        },
+        {
+          "score": -19.45373006730183,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -14.863548824708042,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -23.111809830297126,
+          "exit": [
+            0,
+            2
+          ]
+        },
+        {
+          "score": -16.88744657370653,
+          "exit": [
+            0,
+            3
+          ]
+        }
+      ],
+      "nativeReplicates": [
+        {
+          "score": -15.71887702424147,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -18.13492742626236,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -23.486300572431272,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -13.225383733763124,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -30.174721219984253,
+          "exit": [
+            0,
+            2
+          ]
+        },
+        {
+          "score": -19.391657875839517,
+          "exit": [
+            0,
+            2
+          ]
+        },
+        {
+          "score": -19.460537337193323,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -14.85073613697356,
+          "exit": [
+            0,
+            3
+          ]
+        },
+        {
+          "score": -23.08531880055276,
+          "exit": [
+            0,
+            2
+          ]
+        },
+        {
+          "score": -16.926111301649822,
+          "exit": [
+            0,
+            3
+          ]
+        }
+      ],
+      "conditioning": [
+        -1.7770989492818805e-17,
+        5.423071479656826,
+        null,
+        15,
+        32,
+        3.8533240453779353e-14
+      ],
+      "ms": 22446.5
+    }
+  ],
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1147778008
+  },
+  "passed": true,
+  "scope": "Native global EM over forced row windows; complete training data. Regular and previously identified singular cases reported separately; passing this proof qualifies only the regular numeric case.",
+  "browser": "154.0.8037.58",
+  "browserContext": "off-the-record Playwright context",
+  "executionNote": "CPU/WASM"
+}

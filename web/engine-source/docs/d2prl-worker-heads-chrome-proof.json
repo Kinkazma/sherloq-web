@@ -1,0 +1,960 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "ORT role worker cancellation during useful inference, BUSY, deterministic retry and refusal;180native postprocess cases through actual worker. Role lifecycle uses native boundary inputs; not end-to-end detector parity.",
+  "records": [
+    {
+      "name": "3x2-horizontal-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-horizontal-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-horizontal-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-horizontal-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-horizontal-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-vertical-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-vertical-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-vertical-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-vertical-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-vertical-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-checker-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-checker-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-checker-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-checker-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-checker-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-random-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-random-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-random-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-random-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-random-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-holes-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-holes-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-holes-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-holes-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-holes-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thin-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thin-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thin-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thin-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thin-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-diagonal-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-diagonal-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-diagonal-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-diagonal-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-diagonal-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thresholds-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thresholds-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thresholds-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thresholds-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-thresholds-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-islands-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-islands-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-islands-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-islands-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "3x2-islands-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-horizontal-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-horizontal-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-horizontal-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-horizontal-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-horizontal-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-vertical-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-vertical-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-vertical-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-vertical-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-vertical-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-checker-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-checker-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-checker-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-checker-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-checker-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-random-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-random-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-random-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-random-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-random-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-holes-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-holes-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-holes-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-holes-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-holes-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thin-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thin-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thin-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thin-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thin-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-diagonal-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-diagonal-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-diagonal-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-diagonal-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-diagonal-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thresholds-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thresholds-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thresholds-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thresholds-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-thresholds-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-islands-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-islands-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-islands-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-islands-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "35x32-islands-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-horizontal-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-horizontal-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-horizontal-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-horizontal-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-horizontal-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-vertical-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-vertical-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-vertical-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-vertical-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-vertical-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-checker-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-checker-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-checker-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-checker-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-checker-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-random-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-random-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-random-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-random-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-random-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-holes-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-holes-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-holes-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-holes-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-holes-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thin-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thin-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thin-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thin-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thin-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-diagonal-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-diagonal-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-diagonal-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-diagonal-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-diagonal-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thresholds-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thresholds-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thresholds-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thresholds-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-thresholds-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-islands-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-islands-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-islands-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-islands-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "131x77-islands-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-horizontal-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-horizontal-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-horizontal-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-horizontal-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-horizontal-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-vertical-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-vertical-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-vertical-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-vertical-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-vertical-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-checker-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-checker-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-checker-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-checker-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-checker-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-random-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-random-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-random-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-random-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-random-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-holes-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-holes-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-holes-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-holes-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-holes-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thin-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thin-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thin-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thin-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thin-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-diagonal-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-diagonal-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-diagonal-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-diagonal-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-diagonal-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thresholds-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thresholds-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thresholds-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thresholds-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-thresholds-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-islands-0",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-islands-1",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-islands-17",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-islands-500",
+      "exactMasks": true,
+      "exactFilter": true
+    },
+    {
+      "name": "448x448-islands-5000",
+      "exactMasks": true,
+      "exactFilter": true
+    }
+  ],
+  "roleLifecycle": {
+    "busy": true,
+    "entered": true,
+    "cancelled": true,
+    "cancelledReleased": true,
+    "retryExact": true,
+    "retryReleased": true,
+    "refused": true,
+    "refusalReleased": true,
+    "inputPreserved": true
+  },
+  "postLifecycle": {
+    "busy": true,
+    "entered": true,
+    "cancelled": true,
+    "cancelledReleased": true,
+    "retryExact": true,
+    "retryReleased": true,
+    "refused": true,
+    "refusalReleased": true,
+    "inputPreserved": true
+  },
+  "released": true,
+  "peakAccountedBytes": 4372458653,
+  "memoryScope": "Pinned maximum linear heaps admitted before worker creation: ORT4GiB, postprocess512MiB. Not RSS.",
+  "browser": "154.0.8037.58",
+  "sources": {
+    "roles": "0519ac51121959c4bae48257452445a105248c233458a3e95aca0ac4e6a68ff6",
+    "roles-worker": "5df4ae1d845f7ae2aa8be77ec8a5d0c9c442d043179acbf948601e257656a368",
+    "postprocess": "9a03158c646b6ae202918d177ff2287f69e4f8b1fb6d07365d5489511508ed6b",
+    "postprocess-worker": "740944cef28c73f8dc98cf881ef96b133418e8bbc9bdcb7ac47c61dd84f0ec95"
+  },
+  "ortWasmSha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2",
+  "postprocessBuild": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "d4c04fa19132e2cfad1e67debb42a721928a037d8480d5d1935d7a90956d075a",
+    "objects": {
+      "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+      "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+      "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    "files": {
+      "postprocess.js": {
+        "bytes": 26716,
+        "sha256": "d97047b84961cf61c38ae2b879413cc79bef9d123e279ef13fb68f3d0530e6e8"
+      },
+      "postprocess.wasm": {
+        "bytes": 760829,
+        "sha256": "427e23c7d7f63288d2ada235da1b7b26d1e6df6ea52dd9de61ee58301e7d444d"
+      }
+    }
+  }
+}

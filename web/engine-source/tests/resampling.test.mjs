@@ -1,0 +1,26 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {gunzipSync} from 'node:zlib';import {createHash} from 'node:crypto';
+import {createEngine} from '../src/index.js';import {verifyResamplingKernels,compareFourier} from './resampling-reference.js';
+import {resamplingFourierParams,resamplingFourierAdmission} from '../src/resampling-fourier.js';import {resamplingHeapBound} from '../src/resampling-math.js';
+const fixtures=new URL('../fixtures/',import.meta.url),reference=JSON.parse(await readFile(new URL('resampling/reference.json',fixtures))),raw=gunzipSync(await readFile(new URL('resampling/reference.bin.gz',fixtures))),payload=new Uint8Array(raw);
+assert.equal(createHash('sha256').update(payload).digest('hex'),reference.payload.sha256);
+test('Resampling FFT/pyrUp exact primitives, Fourier variants and actual native gray LUT',async()=>{const result=await verifyResamplingKernels(reference,payload);assert.equal(result.summary.cases,992);assert.equal(result.summary.expectedErrors,32);console.log(JSON.stringify(result.summary));});
+test('Resampling original-file grayscale, normalization before ROI, caches and owned exports',async()=>{
+ const engine=createEngine({memoryBudgetBytes:768*1024**2,cpuKernel:'single'}),task={id:'f',imageId:'image',operation:'tampering.resampling.fourier'};
+ try{for(const image of reference.images){await engine.loadBlob({id:'image',blob:new Blob([await readFile(new URL(image.file,fixtures))])});for(const item of image.cases){const progress=[];const result=await engine.run({...task,params:item.params},{onProgress:e=>progress.push(e.fraction)});compareFourier(result,item,payload,image.file);assert.deepEqual(result.data.grayNormalization,{minimum:image.minimum,maximum:image.maximum,scope:'whole decoded original grayscale image'});assert.ok(progress.every((x,i)=>!i||x>=progress[i-1]));}
+  const params=image.cases[0].params,first=await engine.run({...task,params});first.data.values.fill(9);first.pixels.data.fill(9);const cached=await engine.run({...task,params});assert.equal(cached.metrics.cache.result,true);compareFourier(cached,image.cases[0],payload,'Owned cached result');
+  const presentation=await engine.run({...task,params:{...params,gamma:2.5,rescale:!params.rescale}});assert.equal(presentation.metrics.cache.result,true);const json=JSON.parse(new TextDecoder().decode(engine.exportResult(presentation).bytes));assert.equal(json.provenance.originalSha256,image.originalSha256);assert.equal(json.layers[0].coordinateSpace,'frequency-grid');engine.unload('image');}
+ const state=engine.capabilities().memory;assert.equal(state.retainedBytes,0);assert.equal(state.cacheBytes,0);assert.equal(state.activeReservationBytes,0);
+ }finally{engine.dispose();}
+});
+test('Resampling invalid inputs, bounded allocations, cancellation and cache stage reuse',async()=>{
+ const engine=createEngine({memoryBudgetBytes:768*1024**2,cpuKernel:'single'}),task={id:'f',imageId:'image',operation:'tampering.resampling.fourier'};
+ try{const bytes=await readFile(new URL('synthetic.jpg',fixtures));await engine.loadBlob({id:'image',blob:new Blob([bytes])});
+ for(const params of [{gamma:NaN},{gamma:6},{gamma:-1},{window:'none'},{upsample:1},{rect:[0,0,1,3]},{rect:[-1,0,5,5]},{rect:[0,0,4.5,4]},{rect:[0,0,99999,99999]},{center:1},{probability:true}])await assert.rejects(engine.run({...task,params}),{code:'INVALID_INPUT'});
+ await assert.rejects(engine.run({...task,backend:'webgpu'}),{code:'UNSUPPORTED_BACKEND'});await assert.rejects(engine.run({...task,regions:[{x:0,y:0,width:4,height:4}]}),{code:'UNSUPPORTED_REGION'});
+ assert.throws(()=>resamplingHeapBound(16384,16384,'fft'),{code:'MEMORY_LIMIT'});assert.throws(()=>resamplingHeapBound(16385,1,'fft'),{code:'INVALID_INPUT'});
+ const cancel=new AbortController();await assert.rejects(engine.run(task,{signal:cancel.signal,onProgress:e=>{if(e.fraction>0)cancel.abort();}}),{code:'CANCELLED'});assert.equal(engine.capabilities().memory.activeReservationBytes,0);
+ const rect=[2,3,40,35],pending=engine.run({...task,params:{rect}});rect[0]=9000;const result=await pending;assert.deepEqual(result.data.geometry.selected,[2,3,40,35]);const changed=await engine.run({...task,params:{rect:[2,3,40,35],center:true,highpass:'radial'}});assert.equal(changed.metrics.cache.result,false);assert.equal(changed.metrics.fourierTransformMs,0);assert.equal(changed.metrics.cache.stages['normalized-gray'],true);assert.ok(changed.metrics.fourierMagnitudeMs>0);
+ const p=resamplingFourierParams(),pixels=engine.imagePixels('image'),admission=resamplingFourierAdmission(pixels,p,bytes),resident=engine.capabilities().memory.knownHeapCapacityBytes;const limited=createEngine({memoryBudgetBytes:resident+admission-1,cpuKernel:'single'});try{await limited.load({id:'image',bytes,pixels});await assert.rejects(limited.run(task),{code:'MEMORY_LIMIT'});assert.equal(limited.capabilities().memory.activeReservationBytes,0);}finally{limited.dispose();}
+ }finally{engine.dispose();}
+ const unsupported=createEngine({memoryBudgetBytes:512*1024**2,codec:{memoryBytes:()=>0}});try{await unsupported.load({id:'image',bytes:Uint8Array.of(0),pixels:{width:3,height:3,format:'rgb8',data:new Uint8Array(27)}});await assert.rejects(unsupported.run(task),{code:'UNSUPPORTED_FORMAT'});}finally{unsupported.dispose();}
+});

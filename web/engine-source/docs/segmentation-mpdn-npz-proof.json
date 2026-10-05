@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "status": "passed-corpus-tolerance",
+  "scope": "Actual CPU browser NPZ, independent NumPy allow_pickle=False; continuous values differ from native within reported errors, integer masks exact; Unicode metadata preserved",
+  "records": [
+    {
+      "export": "source",
+      "array": "map",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "float32",
+      "different": 116310,
+      "maxAbs": 2.562999725341797e-06,
+      "finite": true
+    },
+    {
+      "export": "source",
+      "array": "mask",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "uint8",
+      "different": 0,
+      "maxAbs": 0.0,
+      "finite": true
+    },
+    {
+      "export": "source",
+      "array": "candidates",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "uint8",
+      "different": 0,
+      "maxAbs": 0.0,
+      "finite": true
+    },
+    {
+      "export": "source",
+      "array": "analyzed",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "uint8",
+      "different": 0,
+      "maxAbs": 0.0,
+      "finite": true
+    },
+    {
+      "export": "raw",
+      "array": "raw_probabilities",
+      "shape": [
+        3,
+        1,
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "different": 195806,
+      "maxAbs": 2.60770320892334e-06,
+      "finite": true
+    }
+  ],
+  "exports": [
+    {
+      "name": "source",
+      "bytes": 1424563,
+      "sha256": "6dadcd855464180af792ed640bd01d7e8d91c39d54c8163046684f8765c1f207"
+    },
+    {
+      "name": "raw",
+      "bytes": 791756,
+      "sha256": "72962961fd3cbeed5b62b55beb23e30139e69cd87f01d5d36b19245540ebc119"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "keypoints": {
+        "values": 5496,
+        "maxError": 0,
+        "differences": 0
+      },
+      "descriptors": {
+        "values": 351744,
+        "maxError": 0.0015499219298362732,
+        "differences": 215042
+      },
+      "keypoint_scores": {
+        "values": 2748,
+        "maxError": 0,
+        "differences": 0
+      },
+      "scales": {
+        "values": 2748,
+        "maxError": 4.76837158203125e-7,
+        "differences": 18
+      },
+      "oris": {
+        "values": 2748,
+        "maxError": 9.5367431640625e-7,
+        "differences": 103
+      }
+    },
+    {
+      "case": 1,
+      "keypoints": {
+        "values": 5508,
+        "maxError": 0,
+        "differences": 0
+      },
+      "descriptors": {
+        "values": 352512,
+        "maxError": 0.0036911293864250183,
+        "differences": 207101
+      },
+      "keypoint_scores": {
+        "values": 2754,
+        "maxError": 0,
+        "differences": 0
+      },
+      "scales": {
+        "values": 2754,
+        "maxError": 4.76837158203125e-7,
+        "differences": 13
+      },
+      "oris": {
+        "values": 2754,
+        "maxError": 0.011952638626098633,
+        "differences": 99
+      }
+    },
+    {
+      "case": 2,
+      "keypoints": {
+        "values": 5510,
+        "maxError": 0,
+        "differences": 0
+      },
+      "descriptors": {
+        "values": 352640,
+        "maxError": 0.0016443803906440735,
+        "differences": 208784
+      },
+      "keypoint_scores": {
+        "values": 2755,
+        "maxError": 0,
+        "differences": 0
+      },
+      "scales": {
+        "values": 2755,
+        "maxError": 2.384185791015625e-7,
+        "differences": 19
+      },
+      "oris": {
+        "values": 2755,
+        "maxError": 9.5367431640625e-7,
+        "differences": 91
+      }
+    },
+    {
+      "case": 3,
+      "keypoints": {
+        "values": 5486,
+        "maxError": 0,
+        "differences": 0
+      },
+      "descriptors": {
+        "values": 351104,
+        "maxError": 0.002195879817008972,
+        "differences": 213226
+      },
+      "keypoint_scores": {
+        "values": 2743,
+        "maxError": 0,
+        "differences": 0
+      },
+      "scales": {
+        "values": 2743,
+        "maxError": 2.384185791015625e-7,
+        "differences": 11
+      },
+      "oris": {
+        "values": 2743,
+        "maxError": 7.152557373046875e-7,
+        "differences": 101
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1221077394
+  },
+  "passed": false,
+  "browser": "154.0.8037.58",
+  "browserContext": "off-the-record Playwright context",
+  "executionNote": "CPU/WASM"
+}

@@ -1,0 +1,1404 @@
+{
+  "result": {
+    "family": "pixels",
+    "budgetBytes": 268435456,
+    "cases": [
+      {
+        "family": "gradient",
+        "params": {
+          "intensity": 0,
+          "mode": 2,
+          "invert": false,
+          "equalize": false
+        },
+        "sha256": "cf90e913f6c6686fe46b70ed64e1ceb77bf6e3046af72c6fa51957a5b7951d27",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "workers": 1,
+          "completedStripJobs": 381,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "totalMs": 1306.2999999970198,
+          "derivativesMs": 749.4000000059605,
+          "lengthsMs": 0,
+          "renderMs": 550.2999999970198,
+          "toneMs": 0,
+          "blocks": 381,
+          "sourceReads": 381,
+          "analysisCacheHit": false,
+          "derivativeCacheStored": true,
+          "derivativeCacheBytes": 384001776,
+          "derivativeCacheStorage": "temporary",
+          "rowsPerBlock": 21,
+          "storage": "temporary",
+          "retainedResultBytes": 288000000,
+          "arithmeticHeapCapacityBytes": 67108864,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 175028128
+          }
+        },
+        "ms": 9215.5,
+        "export": {
+          "id": "443964c9-6886-42df-b16f-56d0d734423e",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "0d601cbd2558bd35655159460e6e43854ab06d6f7cad5e916c5333d6160f3934",
+          "imageId": "source",
+          "sourceSurfaceId": "7be11965-ce4d-47ee-ada4-6a3739e73da3",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 196083712,
+              "peakAccountedBytes": 197271712
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "cf90e913f6c6686fe46b70ed64e1ceb77bf6e3046af72c6fa51957a5b7951d27",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "gradient",
+        "params": {
+          "intensity": 95,
+          "mode": 3,
+          "invert": true,
+          "equalize": true
+        },
+        "sha256": "369a1539e425f54394001df1f74eee85412617e71c57339cb9362851640b6a78",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "workers": 1,
+          "completedStripJobs": 0,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "totalMs": 938.7999999970198,
+          "derivativesMs": 0,
+          "lengthsMs": 222.09999999403954,
+          "renderMs": 459.5,
+          "toneMs": 253,
+          "blocks": 0,
+          "sourceReads": 0,
+          "analysisCacheHit": true,
+          "derivativeCacheStored": true,
+          "derivativeCacheBytes": 384001776,
+          "derivativeCacheStorage": "temporary",
+          "rowsPerBlock": 21,
+          "storage": "temporary",
+          "retainedResultBytes": 288000000,
+          "arithmeticHeapCapacityBytes": 67108864,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 197271712
+          }
+        },
+        "ms": 9142.40000000596,
+        "export": {
+          "id": "b6a7731a-6beb-480c-ae82-e6c70e6b76d2",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "660cfc091eaf3d6f68ea782f71c3d408ce5fbb10f25b3995ce867c04927858e8",
+          "imageId": "source",
+          "sourceSurfaceId": "8635a406-1f55-4fa1-b97d-f50d7b1397e4",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 196083712,
+              "peakAccountedBytes": 197271712
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "369a1539e425f54394001df1f74eee85412617e71c57339cb9362851640b6a78",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "color",
+        "params": {
+          "space": "hsv",
+          "channel": 0
+        },
+        "sha256": "7dbad0bb02f4a4827c286df8956fb96d3548681f2c20af7bd611d946239ab64e",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "workers": 2,
+          "completedStripJobs": 381,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "totalMs": 2100.2000000029802,
+          "readMs": 113.79999978840351,
+          "kernelMs": 0,
+          "writeMs": 136.90000008046627,
+          "blocks": 381,
+          "rowsPerBlock": 21,
+          "storage": "temporary",
+          "retainedResultBytes": 288000000,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 9562.90000000596,
+        "export": {
+          "id": "d661a8dc-874d-47c9-8fbd-d410a28460a6",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "1c559043937770457c7e69db941725b8ea19344e24f36bd2007b48fc584b27f5",
+          "imageId": "source",
+          "sourceSurfaceId": "40851a33-1fb6-44ad-947f-2fc4c19f19a4",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 128974848,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "7dbad0bb02f4a4827c286df8956fb96d3548681f2c20af7bd611d946239ab64e",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "color",
+        "params": {
+          "space": "hls",
+          "channel": 2
+        },
+        "sha256": "942582a973ffa9f8a6388993855df8c7661ea57aa00c0fa2342da436c4a9e11a",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "workers": 2,
+          "completedStripJobs": 381,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "totalMs": 2286.300000011921,
+          "readMs": 103.59999997913837,
+          "kernelMs": 0,
+          "writeMs": 102.30000005662441,
+          "blocks": 381,
+          "rowsPerBlock": 21,
+          "storage": "temporary",
+          "retainedResultBytes": 288000000,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 9634,
+        "export": {
+          "id": "edda8c77-e00f-4fbf-a27d-05982d042e54",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "d51391a08d6495b672a18e6b7f39f69846a796b0836a42478aea4ffe4a8e1398",
+          "imageId": "source",
+          "sourceSurfaceId": "9119093a-c345-4a17-94cc-510bdbf52120",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 128974848,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "942582a973ffa9f8a6388993855df8c7661ea57aa00c0fa2342da436c4a9e11a",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "illuminant",
+        "params": {
+          "block": 32,
+          "method": 1,
+          "linear": true,
+          "exclude": true,
+          "mode": 1
+        },
+        "sha256": "89541b11bf4b0e5ffa5e5b1b7ec2b773ac5c08f85f03fc5cdf422b74dab43d13",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "totalMs": 9222.59999999404,
+          "analysisMs": 6663.70000000298,
+          "renderMs": 2554.7000000029802,
+          "analysisCacheHit": false,
+          "sourceReads": 500,
+          "rowsPerBlock": 21,
+          "storage": "temporary",
+          "retainedResultBytes": 288000000,
+          "retainedCellDataBytes": 3843774,
+          "histogramWorkspaceBytes": 1152000,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "workers": 1,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 3843774,
+            "cacheBytes": 3843774,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 16193.300000011921,
+        "export": {
+          "id": "c3d2857c-31d1-4806-907f-1f441206474c",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "19ea3fa992a8d71430484f9e154663a8078ccc74290b8d688a6332417e7fcb3d",
+          "imageId": "source",
+          "sourceSurfaceId": "d44e61f1-bf63-430a-aba4-61c81c94a117",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 3843774,
+              "cacheBytes": 3843774,
+              "activeReservationBytes": 128974848,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "89541b11bf4b0e5ffa5e5b1b7ec2b773ac5c08f85f03fc5cdf422b74dab43d13",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "illuminant",
+        "params": {
+          "block": 128,
+          "method": 2,
+          "linear": false,
+          "exclude": false,
+          "mode": 0
+        },
+        "sha256": "46d78b987cc19d4954bb7884287284f8ebc5ca95752b72c9a45fc347f7300057",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "totalMs": 7319.5,
+          "analysisMs": 5256.29999999702,
+          "renderMs": 2061.1000000089407,
+          "analysisCacheHit": false,
+          "sourceReads": 438,
+          "rowsPerBlock": 21,
+          "storage": "temporary",
+          "retainedResultBytes": 288000000,
+          "retainedCellDataBytes": 242826,
+          "histogramWorkspaceBytes": 288768,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "workers": 1,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 242826,
+            "cacheBytes": 4086600,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 14558.90000000596,
+        "export": {
+          "id": "e029e1dc-cd7d-42f5-b13e-d35a19b6dcc1",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "fb7190838cf889efba2296f1dc574837ab583c2e832bd30defbd92fc9ddf1351",
+          "imageId": "source",
+          "sourceSurfaceId": "cbd9d885-caf9-488b-95d9-59850466cda5",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 242826,
+              "cacheBytes": 4086600,
+              "activeReservationBytes": 128974848,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "46d78b987cc19d4954bb7884287284f8ebc5ca95752b72c9a45fc347f7300057",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "separation",
+        "params": {
+          "mode": 0,
+          "radius": 2,
+          "sigma": 3,
+          "grayscale": false,
+          "denoised": true,
+          "levels": 32
+        },
+        "sha256": "fe5f6f0c7b2f4961d4fa48634ddfe80a948f8abf8873744e5d1f88f446bfab1f",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "analysisCacheHit": false,
+          "filterCacheStorage": "temporary",
+          "filterCacheStored": true,
+          "filterCacheBytes": 288001360,
+          "totalMs": 6394.4000000059605,
+          "readMs": 82.90000005066395,
+          "kernelMs": 11869.600000053644,
+          "writeMs": 77.89999996125698,
+          "postprocessMs": 0.800000011920929,
+          "cacheWriteMs": 73.2000000178814,
+          "filterWallMs": 6385.600000008941,
+          "blocks": 381,
+          "sourceReads": 381,
+          "rowsPerBlock": 21,
+          "haloRows": 2,
+          "workers": 2,
+          "workerJobs": 381,
+          "dispatchAccountedBytes": 243391880,
+          "storage": "temporary",
+          "arithmeticHeapCapacityBytes": 134217728,
+          "retainedResultBytes": 288000000,
+          "scheduling": {
+            "count": 2,
+            "maximum": 8,
+            "ceiling": 8,
+            "resourceReduced": true,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "taskExecutions": 1,
+            "retry": null
+          },
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 4086600,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 14310.79999999702,
+        "export": {
+          "id": "d719ad45-208c-49e4-b269-2e30853fb3ed",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "66d8f0f0fa7b563bf15ba5ee3e1f73dbffa040e63ccf06843d2f0bd0b55e9ae4",
+          "imageId": "source",
+          "sourceSurfaceId": "19a9aa2d-70d7-4ac6-8cc2-64b803d56b10",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 4086600,
+              "activeReservationBytes": 128974848,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "refilterMetrics": {
+          "totalMs": 471.8999999910593,
+          "readMs": 50.59999994933605,
+          "kernelMs": 0,
+          "writeMs": 87.90000003576279,
+          "postprocessMs": 0,
+          "filterWallMs": 0,
+          "blocks": 69,
+          "sourceReads": 0,
+          "workers": 0,
+          "workerJobs": 0,
+          "storage": "temporary",
+          "arithmeticHeapCapacityBytes": 0,
+          "retainedResultBytes": 288000000,
+          "analysisCacheHit": true,
+          "filterCacheBytes": 0,
+          "scheduling": {
+            "policy": "cached-useful-work",
+            "preflightExecutions": 0,
+            "taskExecutions": 1,
+            "retry": null
+          },
+          "haloRows": 2,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 4086600,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "fe5f6f0c7b2f4961d4fa48634ddfe80a948f8abf8873744e5d1f88f446bfab1f",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "separation",
+        "params": {
+          "mode": 1,
+          "radius": 10,
+          "sigma": 3,
+          "grayscale": false,
+          "denoised": false,
+          "levels": 0
+        },
+        "sha256": "80caa44b6d34ddb43c2b92d69b0b0da9a55d7bc8f981aabae894a1efdeb1d53d",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "analysisCacheHit": false,
+          "filterCacheStorage": "temporary",
+          "filterCacheStored": true,
+          "filterCacheBytes": 288007504,
+          "totalMs": 15445.59999999404,
+          "readMs": 143.59999987483025,
+          "kernelMs": 25541.699999839067,
+          "writeMs": 72.29999999701977,
+          "postprocessMs": 1983.8999999910593,
+          "cacheWriteMs": 89.1000000089407,
+          "filterWallMs": 14031.5,
+          "blocks": 381,
+          "sourceReads": 381,
+          "rowsPerBlock": 21,
+          "haloRows": 10,
+          "workers": 2,
+          "workerJobs": 381,
+          "dispatchAccountedBytes": 243391880,
+          "storage": "temporary",
+          "arithmeticHeapCapacityBytes": 134217728,
+          "retainedResultBytes": 288000000,
+          "scheduling": {
+            "count": 2,
+            "maximum": 8,
+            "ceiling": 8,
+            "resourceReduced": true,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "taskExecutions": 1,
+            "retry": null
+          },
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 4086600,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 23148,
+        "export": {
+          "id": "a4d44bb2-b5be-48ac-8620-7f693d182330",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "286ee7352ad7d569ec2f942c85865d537f9cf9e59f0164c8c86a4e203ba9ed56",
+          "imageId": "source",
+          "sourceSurfaceId": "ca3596e7-1df9-4c43-97b7-a6f366a57d97",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 4086600,
+              "activeReservationBytes": 128974848,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "80caa44b6d34ddb43c2b92d69b0b0da9a55d7bc8f981aabae894a1efdeb1d53d",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "adjust",
+        "params": {
+          "brightness": 23,
+          "saturation": -17,
+          "hue": 180,
+          "gamma": 11,
+          "shadows": -25,
+          "highlights": 30,
+          "sweep": 127,
+          "width": 255,
+          "sharpen": 20,
+          "threshold": 255,
+          "equalize": 1,
+          "invert": false
+        },
+        "sha256": "acc5ffdf72724c704d1bedde1f9fb20ca62c4949139a1775e6076b9883c001d2",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "analysisCacheHit": false,
+          "prefixCacheStorage": "temporary",
+          "prefixCacheStored": true,
+          "prefixCacheBytes": 288002384,
+          "cacheWriteMs": 71.8999999165535,
+          "totalMs": 11018.5,
+          "readMs": 87.10000011324883,
+          "localMs": 14953.799999892712,
+          "histogramMs": 356.2999998778105,
+          "equalizeMs": 2759.0999999940395,
+          "finishMs": 0,
+          "writeMs": 66.1000002771616,
+          "filterWallMs": 8234.29999999702,
+          "workers": 2,
+          "workerJobs": 381,
+          "dispatchAccountedBytes": 245304424,
+          "sourceReads": 381,
+          "blocks": 381,
+          "rowsPerBlock": 21,
+          "haloRows": 5,
+          "clahePaddedSize": null,
+          "otsuThreshold": null,
+          "storage": "temporary",
+          "arithmeticHeapCapacityBytes": 134217728,
+          "retainedResultBytes": 288000000,
+          "scheduling": {
+            "count": 2,
+            "maximum": 8,
+            "ceiling": 8,
+            "resourceReduced": true,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "taskExecutions": 1,
+            "retry": null
+          },
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 4086600,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 17691.70000000298,
+        "export": {
+          "id": "3ac36da3-6f0c-4ee5-b45c-8410e9f003cf",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "4f4f16ef5db0e85f2559c9669ddf49fcfa9f4e46300d3affc641b6db111a7841",
+          "imageId": "source",
+          "sourceSurfaceId": "3f35e46a-05db-42ce-8e28-e5420a4b471d",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 4086600,
+              "activeReservationBytes": 196083712,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "refilterMetrics": {
+          "totalMs": 443.09999999403954,
+          "readMs": 35.19999988377094,
+          "localMs": 0,
+          "histogramMs": 0,
+          "equalizeMs": 0,
+          "writeMs": 81.00000011920929,
+          "finishMs": 0,
+          "blocks": 69,
+          "sourceReads": 0,
+          "workers": 0,
+          "storage": "temporary",
+          "arithmeticHeapCapacityBytes": 67108864,
+          "retainedResultBytes": 288000000,
+          "analysisCacheHit": true,
+          "prefixCacheBytes": 0,
+          "otsuThreshold": null,
+          "haloRows": 5,
+          "clahePaddedSize": null,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 4086600,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "acc5ffdf72724c704d1bedde1f9fb20ca62c4949139a1775e6076b9883c001d2",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "adjust",
+        "params": {
+          "brightness": 0,
+          "saturation": 0,
+          "hue": 0,
+          "gamma": 10,
+          "shadows": 0,
+          "highlights": 0,
+          "sweep": 127,
+          "width": 255,
+          "sharpen": 100,
+          "threshold": 0,
+          "equalize": 0,
+          "invert": false
+        },
+        "sha256": "a390606bda9a8cf6478edf52edebf18330545e850503d71cbc587c136a925235",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "analysisCacheHit": false,
+          "prefixCacheStorage": "temporary",
+          "prefixCacheStored": true,
+          "prefixCacheBytes": 288002384,
+          "cacheWriteMs": 92.29999989271164,
+          "totalMs": 135367.30000001192,
+          "readMs": 227.89999976754189,
+          "localMs": 131203.5000001192,
+          "histogramMs": 438.30000004172325,
+          "equalizeMs": 0,
+          "finishMs": 3214.699999988079,
+          "writeMs": 70.9000001847744,
+          "filterWallMs": 132075.5,
+          "workers": 1,
+          "workerJobs": 0,
+          "dispatchAccountedBytes": 176618024,
+          "sourceReads": 381,
+          "blocks": 381,
+          "rowsPerBlock": 21,
+          "haloRows": 25,
+          "clahePaddedSize": null,
+          "otsuThreshold": 127,
+          "storage": "temporary",
+          "arithmeticHeapCapacityBytes": 67108864,
+          "retainedResultBytes": 288000000,
+          "scheduling": {
+            "count": 1,
+            "maximum": 8,
+            "ceiling": 8,
+            "resourceReduced": true,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "taskExecutions": 1,
+            "retry": null
+          },
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 4086600,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 143100.19999998808,
+        "export": {
+          "id": "9deba7ea-4a5d-4de7-95dd-fed3b3e36a83",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "c25e50c92652a62f142b2d2dde2f58ec2c9b161fa7a6a08f2f25487e1917522c",
+          "imageId": "source",
+          "sourceSurfaceId": "bbb7fd9b-f06d-4276-8cb4-6767d9d761da",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 4086600,
+              "activeReservationBytes": 196083712,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "a390606bda9a8cf6478edf52edebf18330545e850503d71cbc587c136a925235",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "contrast",
+        "params": {
+          "block": 64,
+          "mode": 0
+        },
+        "sha256": "925344ddc5b361ced44507951fa12fd31f366edb5c1d351d074ef65c64e1834a",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "workers": 1,
+          "completedStripJobs": 126,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "totalMs": 3688.1000000089407,
+          "analysisMs": 1707.1000000089407,
+          "renderMs": 1979,
+          "analysisCacheHit": false,
+          "sourceReads": 126,
+          "storage": "temporary",
+          "retainedResultBytes": 288000000,
+          "retainedMapBytes": 288036,
+          "arithmeticHeapCapacityBytes": 67108864,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 288036,
+            "cacheBytes": 4374636,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 10721.199999988079,
+        "export": {
+          "id": "a2fda70e-0596-4849-ac3d-ae1a2f6760f6",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "60f280e9384de8d024c26ac3d5b5de61e65dc3e780a3c1d19d16902bf64f66a9",
+          "imageId": "source",
+          "sourceSurfaceId": "e6351d8c-ef4d-4306-9f74-dd05e96254a2",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 288036,
+              "cacheBytes": 4374636,
+              "activeReservationBytes": 196083712,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "925344ddc5b361ced44507951fa12fd31f366edb5c1d351d074ef65c64e1834a",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "contrast",
+        "params": {
+          "block": 64,
+          "mode": 2
+        },
+        "sha256": "bf92149fbf6e00c3a845b0c9017167d0c42246b66216628b7f952a4140aef80b",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "workers": 1,
+          "completedStripJobs": 0,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "totalMs": 1982.9000000059605,
+          "analysisMs": 0,
+          "renderMs": 1979.4000000059605,
+          "analysisCacheHit": true,
+          "sourceReads": 0,
+          "storage": "temporary",
+          "retainedResultBytes": 288000000,
+          "retainedMapBytes": 288036,
+          "arithmeticHeapCapacityBytes": 67108864,
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "cache": {
+            "result": false
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 288036,
+            "cacheBytes": 4374636,
+            "activeReservationBytes": 103546880,
+            "peakAccountedBytes": 254178176
+          }
+        },
+        "ms": 9034.5,
+        "export": {
+          "id": "bf9db11f-cb7f-49cd-9e86-d9e3658d3c25",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "37b831f6a7435b0f668cff1af22b4ef65ad06af1d5b6a1130dd67dd50f38bcd9",
+          "imageId": "source",
+          "sourceSurfaceId": "d3fba08f-024a-43c7-b416-f0ece290681f",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 288036,
+              "cacheBytes": 4374636,
+              "activeReservationBytes": 196083712,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "bf92149fbf6e00c3a845b0c9017167d0c42246b66216628b7f952a4140aef80b",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "magnifier",
+        "params": {
+          "bounds": null,
+          "mode": "equalize"
+        },
+        "sha256": "8c7644bf28b23a1561c09f8566db2f11cfe1e91ed1ca2b2d5be74ae4dabf468e",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "totalMs": 9484.89999999106,
+          "analysisCacheHit": false,
+          "sourceReads": 762,
+          "rowsPerBlock": 21,
+          "storage": "temporary",
+          "workers": 1
+        },
+        "ms": 17043,
+        "export": {
+          "id": "65764fcd-2d60-4107-a3fb-19286e0aba60",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "3c6e1641f4d9a919d5bd77ff590f362691a0bea51c9981f1b8792b5cfd47f98f",
+          "imageId": "source",
+          "sourceSurfaceId": "3886127f-87fa-4544-8f36-565e56359126",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 4378732,
+              "activeReservationBytes": 128974848,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "8c7644bf28b23a1561c09f8566db2f11cfe1e91ed1ca2b2d5be74ae4dabf468e",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "family": "magnifier",
+        "params": {
+          "bounds": null,
+          "mode": "contrast",
+          "percent": 20
+        },
+        "sha256": "96c743090009912be72005114c14afb1976679b9d536a7b561d2fcbaeb7f2112",
+        "allPixelsNativeExact": true,
+        "metrics": {
+          "totalMs": 4552.70000000298,
+          "analysisCacheHit": true,
+          "sourceReads": 381,
+          "rowsPerBlock": 21,
+          "storage": "temporary",
+          "workers": 1
+        },
+        "ms": 11832.89999999106,
+        "export": {
+          "id": "3a3ad0bd-bfb4-481a-815e-315cfaafcd7a",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "cc626edf3abf8426b2215949363678992028547f5a10136d0168d53c9949b698",
+          "imageId": "source",
+          "sourceSurfaceId": "ef5170d4-fc03-48d2-af46-297e1e61dd9d",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 4378732,
+              "activeReservationBytes": 128974848,
+              "peakAccountedBytes": 254178176
+            }
+          }
+        },
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "96c743090009912be72005114c14afb1976679b9d536a7b561d2fcbaeb7f2112",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      }
+    ],
+    "source": {
+      "id": "source",
+      "width": 12000,
+      "height": 8000,
+      "format": "rgb8",
+      "surface": {
+        "id": "7d7a80a4-0ca2-476d-9d34-68a514b28fe4",
+        "revision": 1,
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "sourceWidth": 12000,
+        "sourceHeight": 8000,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "temporary"
+      },
+      "sha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+      "provenance": {
+        "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          12000,
+          8000
+        ],
+        "icc": "absent",
+        "depth": 8,
+        "alpha": "absent",
+        "interpolation": "none"
+      },
+      "operationConstraints": {
+        "file.digest": {
+          "imageHashes": false
+        }
+      },
+      "availableOperations": [
+        "inspection.magnifier",
+        "inspection.adjust",
+        "noise.separation",
+        "tampering.contrast",
+        "various.illuminant",
+        "detail.gradient",
+        "colors.space",
+        "various.stereogram",
+        "noise.noisesniffer",
+        "comparison.image",
+        "tampering.resampling",
+        "tampering.resampling.fourier",
+        "noise.prnu",
+        "inspection.histogram",
+        "detail.frequency",
+        "noise.blocking",
+        "detail.wavelets",
+        "colors.pca",
+        "colors.stats",
+        "noise.planes",
+        "noise.minmax",
+        "pixels.defects",
+        "file.hex",
+        "file.digest"
+      ],
+      "metrics": {
+        "decodeMs": 2416.8999999910593,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 3472.5999999940395,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    "elapsedMs": 534403.299999997,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 254178176,
+      "knownHeapCapacityBytes": 103546880
+    },
+    "nativeReference": {
+      "allFourteenRgbViewsExact": true,
+      "pixelsPerView": 96000000
+    }
+  }
+}

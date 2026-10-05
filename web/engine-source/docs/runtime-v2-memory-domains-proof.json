@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-10-03T07:56:13.807506+00:00",
+  "version": "0.31.0-integration.25",
+  "base": "e1222a1f99172cc4361402ea9564d745a6aced08",
+  "scope": "Allocator-domain ownership, durable useful-work liveness and local recovery. Component validation is not a completed 96MP qualification.",
+  "policy": {
+    "profile": "maximum",
+    "globalCpuGpuLimits": "unchanged",
+    "globalBudget": "unchanged",
+    "productionCapacityProbes": 0,
+    "crossVisitCalibration": false,
+    "recoveryLimit": "Five consecutive comparable actual failures; peer commits permit a retry without resetting this guard."
+  },
+  "implementation": [
+    "Separate ArrayBuffer/SAB, Wasm, GPU and mapped-GPU backing ledgers from logical budget reservations. These are registered owned extents, not process RSS or physical free memory.",
+    "Durable operation tickets survive CPU admission gaps and track useful compute/IO, parent-child dependencies, waiting and recovery. Detect circular waits and exclude recovering callers without excluding independent same-owner work.",
+    "A useful peer publication permits a real allocation retry, including provider-level retry, without claiming any unobserved bytes were freed.",
+    "D2 intermediates use stable reusable Wasm arenas and bounded transferable windows; exact arithmetic and useful native output are preserved across output-allocation retries.",
+    "Active immutable dense input blocks can migrate transactionally at quiescent reader barriers; all aliases acknowledge, results/RNG persist, failures roll back, CPU leases return during storage IO.",
+    "Shared L2 read cache remains dormant until paged input actually needs it.",
+    "Automatic presentation failures, including cleanup/storage errors, preserve already committed detector ownership for update/export. Explicit cancellation still cancels.",
+    "Complete96 observation does not abort independent peers on the first detector failure. Terminal failure attempts a verified diagnostic archive, reusing an existing export after source unload and preserving primary errors.",
+    "Versioned standalone supervisor and immutable runtime snapshot run independently of chat tools. Host counters are read only at startup, first actual recovery and failure; no capacity calibration."
+  ],
+  "componentProofs": [
+    "docs/runtime-v2-d2prl-tensor-arena-proof.json",
+    "docs/runtime-v2-active-input-migration/proof.json"
+  ],
+  "validation": {
+    "fullNodeSuite": {
+      "command": "node --experimental-test-module-mocks --test tests/*.test.mjs",
+      "tests": 1013,
+      "passed": 1004,
+      "failed": 7,
+      "skipped": 2,
+      "durationMs": 247585.399416,
+      "initialFailures": "All seven failures were absent external development assets or their missing output directory. No assertion failure or runtime correction was needed. Existing native reference assets were reconnected; source files were unchanged.",
+      "restoredAssetsRuns": [
+        {
+          "command": "node --experimental-test-module-mocks --test tests/blocking-stream.test.mjs tests/ela-pipeline.test.mjs tests/neural-rows-prepare.test.mjs tests/neural-spatial-rows.test.mjs",
+          "passed": 9,
+          "failed": 0
+        },
+        {
+          "command": "node --experimental-test-module-mocks --test tests/segmented-neural-projection.test.mjs tests/xfeat-paged-preparation.test.mjs",
+          "passed": 7,
+          "failed": 0
+        }
+      ],
+      "unresolvedFailures": 0,
+      "remainingSkips": [
+        "resampling-analysis global native ROI oracle not generated",
+        "resampling-em-stream native EM oracle not generated"
+      ],
+      "releaseMetadata": "Package, lockfile and public VERSION synchronized to integration.25; no calculation change after component qualification."
+    },
+    "rootOwnership": {
+      "passed": 6,
+      "failed": 0,
+      "cases": [
+        "memory and storage failure in prepare",
+        "visible failure plus cleanup failure retains primary cause",
+        "cleanup-only failure preserves handle",
+        "reuse existing archive after source unload",
+        "later peer progress survives first detector failure"
+      ]
+    }
+  },
+  "complete96": {
+    "status": "awaiting a new cold run at proof recording time",
+    "acceptance": "All five groups done, full scientific outputs and views, verified complete archive, zero final owned memory and temporary-storage cleanup."
+  },
+  "limits": [
+    "A browser process kill cannot be caught by in-process JavaScript recovery.",
+    "Domain ledgers cover registered backings, not browser internals or every worker-local heap.",
+    "Diagnostic partial archives preserve completed science but do not constitute complete qualification or an implemented cross-process checkpoint reload.",
+    "The experimental dense GPU distance hook remains enabled or disabled exactly as before; its active descriptor pins are not revocable in this release. The default dense CPU path and D2 GPU execution keep their existing worker/queue ceilings."
+  ],
+  "evidence": [
+    {
+      "file": "docs/runtime-v2-memory-domains/full-node.log",
+      "bytes": 243383,
+      "sha256": "d1718636ff678ff96da9a6acda864df40d97a100f46b65fd2f827aa8682501fd"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/restored-assets-node.log",
+      "bytes": 2369,
+      "sha256": "0bc66ab6e52518b9532aa54bc3743a952b8d5dfa429a7a24b8da5dd434051278"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/restored-neural-assets-node.log",
+      "bytes": 2360,
+      "sha256": "562f31f6e3b777ac35322e0b8fa1b892e81c34eedbbc1f00a50d279045acd444"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/root-ownership.log",
+      "bytes": 1859,
+      "sha256": "84dce5aae727a75ba614e07706d6cccc2ffd5a1d18effadc44ae3b51087df98f"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/runtime-v2-dormant-cache-node.log",
+      "bytes": 4906,
+      "sha256": "6e42a30b0658e5f12db5fc9c4f7816646e78d6a2ec5d9d95c87c6b8aa1ff8604"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/runtime-v2-resource-ledger-node.log",
+      "bytes": 20727,
+      "sha256": "14441e21d64be1133dd835466e59fad7db5eb644d5ae5d83f4a231e1f50298d3"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/runtime-v2-resource-parent-rpc-node.log",
+      "bytes": 7850,
+      "sha256": "ac462441ade9841c2ba82e16b3592d198e4f09a62f4ef90ddc48cec82018de08"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/runtime-v2-resource-producers-chromium.log",
+      "bytes": 6852,
+      "sha256": "8454d9120962553371e7059fba1b079b7936795b2e5fbe21dc98f1da69a2eccf"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/runtime-v2-resource-producers-node.log",
+      "bytes": 26319,
+      "sha256": "c547ade36fb9d64536fe9b1847760fe54ac8b1d762299c89920a0f675ed1657d"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/runtime-v2-session-publication-retry-node.log",
+      "bytes": 14518,
+      "sha256": "83e8bcc1168252f1fb96a29e8aee6bc9b767c1f85eacf484a9488daf88fd9429"
+    },
+    {
+      "file": "docs/runtime-v2-memory-domains/runtime-v2-useful-publication-retry-node.log",
+      "bytes": 11818,
+      "sha256": "a8765fe9cf06cdc7f7042551ac7bbd27b6711c3757c8ca204a381b19af4701fc"
+    }
+  ],
+  "runtimeSourceCommit": "22be31b"
+}

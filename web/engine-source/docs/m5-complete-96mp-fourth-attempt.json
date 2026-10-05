@@ -1,0 +1,166 @@
+{
+  "passed": false,
+  "status": "interrupted-for-adaptive-group-scheduler",
+  "binding": {
+    "engineCommit": "4e3ca6e0aa7ef0b9fe5f19a47ff9c92eecb2d3cb",
+    "runtimeManifestSha256": "154c004a3ede5a4e0aa7ec81d0e10676d5124b4dd10f124fa1565a7d305bb0ca",
+    "runtime": {
+      "sha256": "99daf519c174734885b38102783261a01309e41b008948a15cb99c6546dfc120",
+      "files": 1007
+    },
+    "extra": [
+      {
+        "file": "tests/m5-complete-96mp-browser.js",
+        "bytes": 8983,
+        "sha256": "93c5a023c98bf1fefc828256c0682663584cf813a8c5884a6565e7f3bb7a94d6"
+      },
+      {
+        "file": "tests/verify-stored-npz.mjs",
+        "bytes": 4040,
+        "sha256": "f787a70c9f74a288e064e25261a1c9c21e155ef5171e6f290feecbe8284e5579"
+      },
+      {
+        "file": "tests/source-api-browser.js",
+        "bytes": 6532,
+        "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+      },
+      {
+        "file": ".build/forgeryscope/prepare.mjs",
+        "bytes": 39108,
+        "sha256": "afd9f6b45d9b0cd77037ba44d438b0e645c0db493ead35a3102d3ee311af6f1d"
+      },
+      {
+        "file": ".build/forgeryscope/prepare.wasm",
+        "bytes": 1829422,
+        "sha256": "2193f57450cb04ca5aa18886720aa67e93ad6cf0fee6d12981f623bfec7a2c82"
+      },
+      {
+        "file": ".build/forgeryscope/sift.mjs",
+        "bytes": 28362,
+        "sha256": "36bf7f751cf8518010ffe2af3e39f743a1c197ef6eca3b47c778d75a7090c187"
+      },
+      {
+        "file": ".build/forgeryscope/sift.wasm",
+        "bytes": 1346688,
+        "sha256": "05ec0786aa9b7961c34f242d73915b8f72bdb43cf7597f6a71da0fa998e1cc6f"
+      }
+    ]
+  },
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "budgetBytes": 6442450944,
+  "reason": "Early restart to include the common scheduler correction: a group refused for shared memory may resume after a peer settles at lower concurrency instead of waiting for the entire wave. Same native detector profile and parameters.",
+  "scope": "Partial progress only; no complete results/archive qualification.",
+  "deliveredArchiveBytes": 0,
+  "latestProgress": {
+    "decode": {
+      "id": "original",
+      "phase": "decode",
+      "fraction": 0.0145,
+      "elapsedMs": 482.79999999701977
+    },
+    "original-sha256": {
+      "id": "original",
+      "phase": "original-sha256",
+      "fraction": 0.049536441486278435,
+      "elapsedMs": 1454.1000000089407
+    },
+    "automatic-state": {
+      "id": "complete96",
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "running",
+          "sift": "running",
+          "forgeryscope": "running",
+          "d2prl": "running",
+          "ela": "running"
+        },
+        "errors": {},
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 1,
+          "ela": 1
+        },
+        "completed": [],
+        "running": [
+          "patchmatch",
+          "sift",
+          "forgeryscope",
+          "d2prl",
+          "ela"
+        ],
+        "preflightExecutions": 0
+      },
+      "elapsedMs": 1562.2999999970198
+    },
+    "d2prl": {
+      "id": "automatic-d2prl-1",
+      "iteration": 0,
+      "iterations": 40,
+      "branch": "cnn",
+      "phase": "patchmatch",
+      "completed": 5,
+      "total": 198,
+      "fraction": 0.025252525252525252,
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "attempt": 1,
+      "elapsedMs": 268205.60000000894
+    },
+    "ela": {
+      "id": "complete96",
+      "phase": "ghost-workers-render",
+      "fraction": 0.07252173913043478,
+      "qualities": [
+        34,
+        35
+      ],
+      "x": 0,
+      "y": 0,
+      "group": "ela",
+      "attempt": 1,
+      "elapsedMs": 276991.10000000894
+    },
+    "forgeryscope": {
+      "id": "complete96",
+      "phase": "inference",
+      "model": "aliked/first-project",
+      "group": "forgeryscope",
+      "fraction": 0,
+      "attempt": 1,
+      "elapsedMs": 281175.40000000596
+    },
+    "sift": {
+      "id": "complete96",
+      "octave": 0,
+      "completed": 147,
+      "total": 384,
+      "phase": "extracting",
+      "fraction": 0.1439753605769231,
+      "group": "sift",
+      "attempt": 1,
+      "elapsedMs": 186631.20000000298
+    },
+    "patchmatch": {
+      "id": "complete96",
+      "phase": "stored-zernike-descriptors",
+      "completed": 21536768,
+      "total": 96000000,
+      "group": "patchmatch",
+      "attempt": 1,
+      "elapsedMs": 271403.90000000596
+    }
+  },
+  "logSha256": "8e7af483c505eb808694cd840c8df40aa50952b58be5abc0271103f29abd3d13",
+  "interrupted": true
+}

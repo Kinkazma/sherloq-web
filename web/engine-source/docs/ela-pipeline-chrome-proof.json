@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "workers": 2,
+  "preflightExecutions": 0,
+  "thresholdRecompressions": 0,
+  "shiftedQualityRecompressions": 1,
+  "ghostPhases": 1,
+  "npzBytes": 65589,
+  "cancellation": "hard abort, reload, exact recovery",
+  "browser": "154.0.8037.58"
+}

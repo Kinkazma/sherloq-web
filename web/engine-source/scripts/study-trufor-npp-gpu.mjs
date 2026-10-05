@@ -1,0 +1,6 @@
+import {study} from './m2-browser-study.mjs';
+await study('trufor-npp-explicit',async()=>{
+ const base='/.build/trufor-npp/',json=async p=>(await fetch(p)).json(),f32=async p=>new Float32Array(await(await fetch(p)).arrayBuffer());
+ const {createNoiseprintPlusGPU}=await import('/src/noiseprint-plus-gpu.js'),gpu=await createNoiseprintPlusGPU(),program=await json(base+'native.program.json'),weights=await f32(base+'native.weights.f32'),ref=await json('/.build/trufor-unfused/reference.json'),records=[];
+ try{for(const c of ref.cases){const start=performance.now(),result=await gpu.run(program,weights,{data:await f32('/.build/trufor-unfused/'+c.files.rgb.file),dims:c.files.rgb.shape}),expected=await f32('/.build/trufor-unfused/'+c.files.noiseprint_pp.file);const cpu=await f32(base+'native-'+c.id+'.f32');let maxError=0,differences=0,cpuDifferences=0;for(let i=0;i<expected.length;i++){maxError=Math.max(maxError,Math.abs(expected[i]-result.data[i]));differences+=expected[i]!==result.data[i];cpuDifferences+=cpu[i]!==result.data[i];}records.push({case:c.id,maxError,differences,cpuDifferences,milliseconds:performance.now()-start});}return {records,passed:records.every(r=>r.maxError<=1e-4&&r.cpuDifferences===0)};}finally{gpu.dispose();}
+});

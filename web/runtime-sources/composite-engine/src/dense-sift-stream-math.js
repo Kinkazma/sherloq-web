@@ -1,0 +1,11 @@
+import {EngineError,requireValue} from './errors.js';
+export async function createDenseSiftStreamMath(){
+ const {default:create}=await import('../vendor/dense-sift-stream/dense-sift-stream.js'),m=await create();
+ const scope=action=>{const pointers=[];const alloc=bytes=>{const p=m._malloc(Math.max(1,bytes));if(!p)throw new EngineError('MEMORY_LIMIT','SIFT stream allocation failed.');pointers.push(p);return p;};const stage=a=>{const p=alloc(a.byteLength);m.HEAPU8.set(new Uint8Array(a.buffer,a.byteOffset,a.byteLength),p);return p;};try{return action(alloc,stage);}finally{for(const p of pointers)m._free(p);}};
+ return {
+  get heapBytes(){return m.HEAPU8.byteLength;},
+  gradients(gray,width,height,patch,mirror){return scope((alloc,stage)=>{const source=stage(gray),out=alloc(width*height*32),weights=alloc(16);if(m._sherloq_sift_inputs(source,width,height,patch,+mirror,out,weights))throw new EngineError('NUMERIC_RANGE','SIFT gradient preparation failed.');return {values:m.HEAPF32.slice(out/4,out/4+width*height*8),weights:m.HEAPF32.slice(weights/4,weights/4+4)};});},
+  columns(values,width,height,patch){requireValue(values instanceof Float32Array&&values.length===width*height,'Invalid SIFT columns.');return scope((alloc,stage)=>{const source=stage(values),out=alloc(values.byteLength);m._sift_stream_columns(source,width,height,patch,out);return m.HEAPF32.slice(out/4,out/4+values.length);});},
+  factors(hist,width,height,patch,weights,quarter,fullBounds=true){const count=(width-3*patch)*(height-3*patch);requireValue(count>0&&hist.length===width*height*8,'Invalid SIFT packing window.');return scope((alloc,stage)=>{const source=stage(hist),w=stage(weights),raw=alloc(count*512),factors=alloc(count*12),turns=alloc(count),diverse=alloc(count),bounds=fullBounds?alloc(count*128):0,samples=alloc(count*4);m._sherloq_sift_pack_range(source,w,width,height,patch,0,count,raw);m._sift_stream_factors(raw,count,+quarter,factors,turns,diverse);m._sift_stream_bounds(raw,count,bounds,samples,+quarter,turns);return {bounds:fullBounds?m.HEAPU8.slice(bounds,bounds+count*128):null,boundSamples:m.HEAPU8.slice(samples,samples+count*4),norms:m.HEAPF32.slice(factors/4,factors/4+count*3),turns:m.HEAPU8.slice(turns,turns+count),diverse:m.HEAPU8.slice(diverse,diverse+count)};});}
+ };
+}

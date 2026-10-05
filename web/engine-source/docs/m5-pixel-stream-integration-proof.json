@@ -1,0 +1,457 @@
+{
+  "integrationVersion": "0.31.0-integration.10",
+  "pinnedM4": "2a9e5e0",
+  "scope": "Actual Chrome helper corpus on the merged working tree; twelve exact views, cache, cancellation and lifecycle. Public 96 MP owner evidence remains unchanged.",
+  "cases": [
+    {
+      "id": "detail.gradient",
+      "cases": [
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 2,
+            "invert": false,
+            "equalize": false
+          },
+          "ms": 114,
+          "metrics": {
+            "workers": 1,
+            "completedStripJobs": 5,
+            "preflightExecutions": 0,
+            "policy": "immediate-useful-work",
+            "totalMs": 113.5,
+            "derivativesMs": 86.5,
+            "lengthsMs": 0,
+            "renderMs": 18.5,
+            "toneMs": 4.399999991059303,
+            "blocks": 5,
+            "sourceReads": 5,
+            "analysisCacheHit": false,
+            "derivativeCacheStored": true,
+            "derivativeCacheBytes": 4210940,
+            "derivativeCacheStorage": "temporary",
+            "rowsPerBlock": 256,
+            "storage": "memory",
+            "retainedResultBytes": 3157953,
+            "arithmeticHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 3,
+            "invert": true,
+            "equalize": true
+          },
+          "ms": 115.70000000298023,
+          "metrics": {
+            "workers": 1,
+            "completedStripJobs": 0,
+            "preflightExecutions": 0,
+            "policy": "immediate-useful-work",
+            "totalMs": 115.5,
+            "derivativesMs": 0,
+            "lengthsMs": 11.299999997019768,
+            "renderMs": 76.69999998807907,
+            "toneMs": 21.100000008940697,
+            "blocks": 0,
+            "sourceReads": 0,
+            "analysisCacheHit": true,
+            "derivativeCacheStored": true,
+            "derivativeCacheBytes": 4210940,
+            "derivativeCacheStorage": "temporary",
+            "rowsPerBlock": 256,
+            "storage": "temporary",
+            "retainedResultBytes": 3157953,
+            "arithmeticHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "cancellation": "CANCELLED",
+          "cachedRetry": true
+        }
+      ],
+      "memory": {
+        "budgetBytes": 75497472,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 74492814
+      }
+    },
+    {
+      "id": "colors.space",
+      "cases": [
+        {
+          "params": {
+            "space": "hsv",
+            "channel": 0
+          },
+          "ms": 145.70000000298023,
+          "metrics": {
+            "workers": 4,
+            "completedStripJobs": 5,
+            "preflightExecutions": 0,
+            "policy": "immediate-useful-work",
+            "totalMs": 145.5,
+            "readMs": 1.6000000089406967,
+            "kernelMs": 0,
+            "writeMs": 0.4000000059604645,
+            "blocks": 5,
+            "rowsPerBlock": 256,
+            "storage": "memory",
+            "retainedResultBytes": 3157953
+          }
+        },
+        {
+          "params": {
+            "space": "lab",
+            "channel": 1
+          },
+          "ms": 654.2000000029802,
+          "metrics": {
+            "workers": 4,
+            "completedStripJobs": 5,
+            "preflightExecutions": 0,
+            "policy": "immediate-useful-work",
+            "totalMs": 654.2000000029802,
+            "readMs": 19.799999982118607,
+            "kernelMs": 0,
+            "writeMs": 0.5,
+            "blocks": 5,
+            "rowsPerBlock": 256,
+            "storage": "memory",
+            "retainedResultBytes": 3157953
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 260877150
+      }
+    },
+    {
+      "id": "tampering.contrast",
+      "cases": [
+        {
+          "params": {
+            "block": 32,
+            "mode": 0
+          },
+          "ms": 139.70000000298023,
+          "metrics": {
+            "workers": 4,
+            "completedStripJobs": 33,
+            "preflightExecutions": 0,
+            "policy": "immediate-useful-work",
+            "totalMs": 139.29999999701977,
+            "analysisMs": 116.8999999910593,
+            "renderMs": 22.200000002980232,
+            "analysisCacheHit": false,
+            "sourceReads": 33,
+            "storage": "memory",
+            "retainedResultBytes": 3157953,
+            "retainedMapBytes": 13464,
+            "arithmeticHeapCapacityBytes": 268435456
+          }
+        },
+        {
+          "params": {
+            "block": 32,
+            "mode": 2
+          },
+          "ms": 2,
+          "metrics": {
+            "workers": 1,
+            "completedStripJobs": 0,
+            "preflightExecutions": 0,
+            "policy": "immediate-useful-work",
+            "totalMs": 1.9000000059604645,
+            "analysisMs": 0,
+            "renderMs": 1.9000000059604645,
+            "analysisCacheHit": true,
+            "sourceReads": 0,
+            "storage": "memory",
+            "retainedResultBytes": 3157953,
+            "retainedMapBytes": 13464,
+            "arithmeticHeapCapacityBytes": 67108864
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 273317729
+      }
+    },
+    {
+      "id": "noise.separation",
+      "cases": [
+        {
+          "params": {
+            "mode": 1,
+            "radius": 2,
+            "sigma": 3,
+            "grayscale": false,
+            "denoised": false,
+            "levels": 0
+          },
+          "ms": 123.3999999910593,
+          "metrics": {
+            "analysisCacheHit": false,
+            "filterCacheStorage": "temporary",
+            "filterCacheStored": true,
+            "filterCacheBytes": 3164369,
+            "totalMs": 123.1000000089407,
+            "readMs": 0.5999999940395355,
+            "kernelMs": 38.50000001490116,
+            "writeMs": 10.299999997019768,
+            "postprocessMs": 37.49999998509884,
+            "cacheWriteMs": 9.80000002682209,
+            "filterWallMs": 73.1000000089407,
+            "blocks": 5,
+            "sourceReads": 5,
+            "rowsPerBlock": 256,
+            "haloRows": 2,
+            "workers": 1,
+            "workerJobs": 0,
+            "dispatchAccountedBytes": 67915520,
+            "storage": "temporary",
+            "arithmeticHeapCapacityBytes": 67108864,
+            "retainedResultBytes": 3157953,
+            "scheduling": {
+              "count": 1,
+              "maximum": 4,
+              "ceiling": 4,
+              "resourceReduced": true,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "retry": null
+            }
+          }
+        },
+        {
+          "params": {
+            "mode": 1,
+            "radius": 2,
+            "sigma": 3,
+            "grayscale": false,
+            "denoised": false,
+            "levels": 19
+          },
+          "ms": 25,
+          "metrics": {
+            "totalMs": 24.799999997019768,
+            "readMs": 4.5999999940395355,
+            "kernelMs": 0,
+            "writeMs": 8,
+            "postprocessMs": 8.700000002980232,
+            "filterWallMs": 0,
+            "blocks": 1,
+            "sourceReads": 0,
+            "workers": 0,
+            "workerJobs": 0,
+            "storage": "temporary",
+            "arithmeticHeapCapacityBytes": 67108864,
+            "retainedResultBytes": 3157953,
+            "analysisCacheHit": true,
+            "filterCacheBytes": 0,
+            "scheduling": {
+              "policy": "cached-useful-work",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "retry": null
+            },
+            "haloRows": 2
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 71303168,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 70283201
+      }
+    },
+    {
+      "id": "inspection.adjust",
+      "cases": [
+        {
+          "params": {
+            "brightness": 0,
+            "saturation": 0,
+            "hue": 0,
+            "gamma": 10,
+            "shadows": 0,
+            "highlights": 0,
+            "sweep": 127,
+            "width": 255,
+            "sharpen": 8,
+            "threshold": 0,
+            "equalize": 2,
+            "invert": false
+          },
+          "ms": 204.5,
+          "metrics": {
+            "analysisCacheHit": false,
+            "prefixCacheStorage": "temporary",
+            "prefixCacheStored": true,
+            "prefixCacheBytes": 3159249,
+            "cacheWriteMs": 18.799999997019768,
+            "totalMs": 204.29999999701977,
+            "readMs": 1.4999999850988388,
+            "localMs": 50.099999994039536,
+            "histogramMs": 5.900000020861626,
+            "equalizeMs": 72.29999999701977,
+            "finishMs": 20.799999997019768,
+            "writeMs": 41.1000000089407,
+            "filterWallMs": 99.79999999701977,
+            "workers": 1,
+            "workerJobs": 0,
+            "dispatchAccountedBytes": 69007893,
+            "sourceReads": 5,
+            "blocks": 5,
+            "rowsPerBlock": 256,
+            "haloRows": 2,
+            "clahePaddedSize": [
+              1024,
+              1032
+            ],
+            "otsuThreshold": 125,
+            "storage": "temporary",
+            "arithmeticHeapCapacityBytes": 67108864,
+            "retainedResultBytes": 3157953,
+            "scheduling": {
+              "count": 1,
+              "maximum": 4,
+              "ceiling": 4,
+              "resourceReduced": true,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "retry": null
+            }
+          }
+        },
+        {
+          "params": {
+            "brightness": 0,
+            "saturation": 0,
+            "hue": 0,
+            "gamma": 10,
+            "shadows": 0,
+            "highlights": 0,
+            "sweep": 127,
+            "width": 255,
+            "sharpen": 8,
+            "threshold": 113,
+            "equalize": 2,
+            "invert": true
+          },
+          "ms": 34.79999999701977,
+          "metrics": {
+            "totalMs": 34.69999998807907,
+            "readMs": 2.2000000029802322,
+            "localMs": 0,
+            "histogramMs": 0,
+            "equalizeMs": 0,
+            "writeMs": 21,
+            "finishMs": 7.699999988079071,
+            "blocks": 1,
+            "sourceReads": 0,
+            "workers": 0,
+            "storage": "temporary",
+            "arithmeticHeapCapacityBytes": 67108864,
+            "retainedResultBytes": 3157953,
+            "analysisCacheHit": true,
+            "prefixCacheBytes": 0,
+            "otsuThreshold": null,
+            "haloRows": 2,
+            "clahePaddedSize": [
+              1024,
+              1032
+            ]
+          }
+        },
+        {
+          "cancellation": "CANCELLED",
+          "cachedRetry": true
+        }
+      ],
+      "memory": {
+        "budgetBytes": 71303168,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 70283201
+      }
+    },
+    {
+      "id": "inspection.magnifier",
+      "cases": [
+        {
+          "params": {
+            "mode": "equalize",
+            "percent": 20,
+            "channel": false,
+            "bounds": [
+              3,
+              7,
+              1004,
+              1029
+            ]
+          },
+          "ms": 425.40000000596046,
+          "metrics": {
+            "totalMs": 425.30000001192093,
+            "analysisCacheHit": false,
+            "sourceReads": 8,
+            "rowsPerBlock": 261,
+            "storage": "memory",
+            "workers": 1
+          }
+        },
+        {
+          "params": {
+            "mode": "contrast",
+            "percent": 20,
+            "channel": false,
+            "bounds": [
+              3,
+              7,
+              1004,
+              1029
+            ]
+          },
+          "ms": 228.09999999403954,
+          "metrics": {
+            "totalMs": 228,
+            "analysisCacheHit": true,
+            "sourceReads": 4,
+            "rowsPerBlock": 261,
+            "storage": "memory",
+            "workers": 1
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 67108864,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 7732184
+      }
+    }
+  ]
+}

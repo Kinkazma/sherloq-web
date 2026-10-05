@@ -1,0 +1,104 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "method": "sparse",
+      "operation": "tampering.copyMove.sparse",
+      "backend": "hybrid",
+      "cache": {
+        "stages": {
+          "features": true,
+          "matches": true,
+          "groups": true
+        },
+        "result": false,
+        "proposals": false
+      },
+      "npzBytes": 639387,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "retainedBytes": 491820,
+        "cacheBytes": 592362,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 481542204,
+        "knownHeapCapacityBytes": 0
+      }
+    },
+    {
+      "method": "focal",
+      "operation": "ai.localization.focal",
+      "backend": "webgpu",
+      "shape": [
+        64,
+        64
+      ],
+      "cache": {
+        "result": true,
+        "proposals": false
+      },
+      "npzBytes": 4747960,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "retainedBytes": 491820,
+        "cacheBytes": 5343722,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1931131158,
+        "knownHeapCapacityBytes": 0
+      }
+    },
+    {
+      "method": "adaifl",
+      "operation": "ai.localization.adaifl",
+      "backend": "webgpu",
+      "shape": [
+        64,
+        64
+      ],
+      "cache": {
+        "result": true,
+        "proposals": false
+      },
+      "npzBytes": 28880,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "retainedBytes": 491820,
+        "cacheBytes": 5380586,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 2065073084,
+        "knownHeapCapacityBytes": 0
+      }
+    },
+    {
+      "method": "safire",
+      "operation": "ai.sources.safire",
+      "backend": "webgpu",
+      "shape": [
+        1024,
+        1024
+      ],
+      "cache": {
+        "result": false,
+        "proposals": true
+      },
+      "npzBytes": 17849284,
+      "memory": {
+        "budgetBytes": 4294967296,
+        "retainedBytes": 491820,
+        "cacheBytes": 9595690,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 3724578812,
+        "knownHeapCapacityBytes": 0
+      }
+    }
+  ],
+  "cancelled": true,
+  "sourcePreserved": true,
+  "finalMemory": {
+    "budgetBytes": 4294967296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3724578812,
+    "knownHeapCapacityBytes": 0
+  }
+}

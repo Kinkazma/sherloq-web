@@ -1,0 +1,188 @@
+{
+  "schema": 1,
+  "scope": "Offline arithmetic-only comparison against the unchanged product baseline binary; alternating order, three useful repeats per mode, all first runs retained. Includes staging/readback separately, not decoding, RPC, geometry, rendering or WordPress. No whole-pipeline gain claim.",
+  "candidateInitializationMs": 10.599999999860302,
+  "baselineInitializationMs": 9.800000000046566,
+  "wasmSha256": "83a9fd97b7e650c4f057fe8337dbc1a4a870c72634fc39e54df7f8cbf240159f",
+  "baselineWasmSha256": "f3838f9aa5e8d25465c565d0daa03204cbc7997979319d2468f79153a2a54397",
+  "cases": [
+    {
+      "name": "shapes",
+      "width": 319,
+      "height": 257,
+      "count": 391,
+      "samples": [
+        {
+          "repeat": 0,
+          "fast": false,
+          "preparationMs": 0,
+          "calculationMs": 2582.9000000001397,
+          "readbackMs": 0.09999999986030161,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 0,
+          "fast": true,
+          "preparationMs": 0,
+          "calculationMs": 2624,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 1,
+          "fast": true,
+          "preparationMs": 0.09999999986030161,
+          "calculationMs": 2612.4000000001397,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 1,
+          "fast": false,
+          "preparationMs": 0,
+          "calculationMs": 2572.9000000001397,
+          "readbackMs": 0.09999999986030161,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 2,
+          "fast": false,
+          "preparationMs": 0,
+          "calculationMs": 2570.5,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 2,
+          "fast": true,
+          "preparationMs": 0,
+          "calculationMs": 2615.9000000001397,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        }
+      ],
+      "softwareMedianMs": 2572.9000000001397,
+      "candidateMedianMs": 2615.9000000001397,
+      "speedup": 0.9835620627699845
+    },
+    {
+      "name": "noise-320-256",
+      "width": 320,
+      "height": 256,
+      "count": 78,
+      "samples": [
+        {
+          "repeat": 0,
+          "fast": false,
+          "preparationMs": 0,
+          "calculationMs": 2685.6999999999534,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 0,
+          "fast": true,
+          "preparationMs": 0,
+          "calculationMs": 2717.8000000000466,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 1,
+          "fast": true,
+          "preparationMs": 0,
+          "calculationMs": 2723.8000000000466,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 1,
+          "fast": false,
+          "preparationMs": 0,
+          "calculationMs": 2678.399999999907,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 2,
+          "fast": false,
+          "preparationMs": 0,
+          "calculationMs": 2676.7000000001863,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        },
+        {
+          "repeat": 2,
+          "fast": true,
+          "preparationMs": 0,
+          "calculationMs": 2716.600000000093,
+          "readbackMs": 0,
+          "heapCapacityBytes": 33554432
+        }
+      ],
+      "softwareMedianMs": 2678.399999999907,
+      "candidateMedianMs": 2717.8000000000466,
+      "speedup": 0.9855029803517039
+    },
+    {
+      "name": "large-noise",
+      "width": 1031,
+      "height": 1024,
+      "count": 1764,
+      "samples": [
+        {
+          "repeat": 0,
+          "fast": false,
+          "preparationMs": 0,
+          "calculationMs": 34862.89999999991,
+          "readbackMs": 0.10000000009313226,
+          "heapCapacityBytes": 117440512
+        },
+        {
+          "repeat": 0,
+          "fast": true,
+          "preparationMs": 0.19999999972060323,
+          "calculationMs": 35574.700000000186,
+          "readbackMs": 0.10000000009313226,
+          "heapCapacityBytes": 117440512
+        },
+        {
+          "repeat": 1,
+          "fast": true,
+          "preparationMs": 0,
+          "calculationMs": 35643.40000000037,
+          "readbackMs": 0.09999999962747097,
+          "heapCapacityBytes": 117440512
+        },
+        {
+          "repeat": 1,
+          "fast": false,
+          "preparationMs": 0,
+          "calculationMs": 34913.299999999814,
+          "readbackMs": 0,
+          "heapCapacityBytes": 117440512
+        },
+        {
+          "repeat": 2,
+          "fast": false,
+          "preparationMs": 0,
+          "calculationMs": 34924.19999999972,
+          "readbackMs": 0.10000000009313226,
+          "heapCapacityBytes": 117440512
+        },
+        {
+          "repeat": 2,
+          "fast": true,
+          "preparationMs": 0.09999999962747097,
+          "calculationMs": 35660.60000000009,
+          "readbackMs": 0.10000000009313226,
+          "heapCapacityBytes": 117440512
+        }
+      ],
+      "softwareMedianMs": 34913.299999999814,
+      "candidateMedianMs": 35643.40000000037,
+      "speedup": 0.9795165444373839
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

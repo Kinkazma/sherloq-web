@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "modelSha256": "bc0c961a9ac7bf0fbabb0316eb5cb34665d7987b678fb8b64b487f10908f04f2",
+  "native": {
+    "xgboost": "2.0.3",
+    "numpy": "1.26.4",
+    "inplaceMatchesDMatrix": true
+  },
+  "rows": 523,
+  "scoreDifferences": 0,
+  "uiOneDecimalDifferences": 0,
+  "metadata": {
+    "format": "xgboost-numeric-quality-regression",
+    "features": 100,
+    "trees": 140,
+    "nodes": 6948,
+    "baseScore": 0.5,
+    "modelVersion": [
+      2,
+      0,
+      3
+    ],
+    "retainedBytes": 104780,
+    "scoreParity": "Sequential float32 additions starting with the stored base score; no sigmoid or clipping."
+  },
+  "memory": {
+    "budgetBytes": 33554432,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 14700960
+  },
+  "corpus": "Six native image curves, five flat/monotonic vectors,512 deterministic random vectors with root split equality/float32 neighbors and NaN missing features. Split-derived inputs remain private; no weights bundled."
+}

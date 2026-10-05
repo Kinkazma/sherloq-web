@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "reference": "OpenCV4.11 core/imgproc/photo single-thread libraries and existing qualified bilateral arithmetic",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/separation.cpp": {
+      "bytes": 1476,
+      "sha256": "47032409e4270626932423886b5b0d2b610ef3f005c5b9f9628cc3e1b0c92af5"
+    },
+    "native/opencv.cpp": {
+      "bytes": 27099,
+      "sha256": "3f22ebb31a9c8eb3beeabccedd866a4f6f565b62921d7fac266c7245cbc2d7a1"
+    },
+    "scripts/build-separation.sh": {
+      "bytes": 3202,
+      "sha256": "b5202e7f9ccf3fa7a1e82e679e42b7f07ce79a558874a71f7636a75c5076551d"
+    },
+    "vendor/separation/separation.js": {
+      "bytes": 29127,
+      "sha256": "5cae5928720c9bb43f722b4f958c9547ef134366e24b7d4c161426a734b03758"
+    },
+    "vendor/separation/separation.wasm": {
+      "bytes": 1260053,
+      "sha256": "9db2d107f292e14908349425251a77e50ced9386e75e0556683743eb18201721"
+    },
+    "vendor/separation/NOTICE-OPENCV-LEGACY.txt": {
+      "bytes": 6637,
+      "sha256": "9153bb7093ae49f71977905457cd4a6ff2347616428ca659bc783569d9f609ed"
+    }
+  },
+  "buildInputs": {
+    ".build/separation/separation-bilateral.h": "f20d600f40025d25d64bd6722af6d079b7f36f433cd8f7c2343db8e0c9bd64f9",
+    ".build/cv/lib/libopencv_photo.a": "a14766a2dc714a175cefdd84efe0500ec0dce261c05549b0baf2efd3275b1c0f",
+    ".build/cv/lib/libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d",
+    ".build/cv/lib/libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "view": {
+        "mode": "ssim",
+        "equalized": false,
+        "grayscale": false,
+        "sha256": "7a3ab264db5340ecf780b9baeb0c5534f5c067351be1a14cb7b448e490bc1b36"
+      },
+      "score": 0.887039457409037,
+      "nativeScore": 0.8870394574090325,
+      "metrics": {
+        "workers": 0,
+        "completedMetricJobs": 0,
+        "workerHeapPeakBytes": 0,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "pagedStages": [
+          {
+            "workers": 2,
+            "completedStripJobs": 16,
+            "preflightExecutions": 0,
+            "policy": "immediate-useful-work",
+            "paged": true,
+            "workspaceBytes": 34865152,
+            "coreRows": 64,
+            "halo": 5,
+            "heapPeak": 12582912,
+            "rawBytes": 8388608
+          }
+        ],
+        "storage": "memory",
+        "blockPixels": 65536,
+        "cache": {
+          "stages": {
+            "ssim": false,
+            "basic": false
+          }
+        },
+        "globalStageMaximumBytes": 34865152,
+        "totalMs": 2133.300000011921,
+        "temporaryBackend": "opfs",
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 9437184,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 114948096
+        }
+      }
+    },
+    {
+      "view": {
+        "mode": "ssim",
+        "equalized": true,
+        "grayscale": true,
+        "sha256": "4f513fb7eca50332de13aacd976aed6c2f60f1514af078d0cff8e4ecf5288113"
+      },
+      "score": 0.887039457409037,
+      "nativeScore": 0.8870394574090325,
+      "metrics": {
+        "workers": 0,
+        "completedMetricJobs": 0,
+        "workerHeapPeakBytes": 0,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "pagedStages": [
+          {
+            "workers": 2,
+            "completedStripJobs": 16,
+            "preflightExecutions": 0,
+            "policy": "immediate-useful-work",
+            "paged": true,
+            "workspaceBytes": 34865152,
+            "coreRows": 64,
+            "halo": 5,
+            "heapPeak": 12582912,
+            "rawBytes": 8388608
+          }
+        ],
+        "storage": "memory",
+        "blockPixels": 65536,
+        "cache": {
+          "stages": {
+            "ssim": false,
+            "basic": false
+          }
+        },
+        "globalStageMaximumBytes": 34865152,
+        "totalMs": 1887,
+        "temporaryBackend": "opfs",
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 9437184,
+          "cacheBytes": 0,
+          "activeReservationBytes": 25165824,
+          "peakAccountedBytes": 123336704
+        }
+      }
+    }
+  ],
+  "cancelled": true
+}

@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "files": [
+    {
+      "file": "double-jpeg-single.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 18
+    },
+    {
+      "file": "double-jpeg-double-up.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 11
+    },
+    {
+      "file": "double-jpeg-double-down.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 12
+    },
+    {
+      "file": "double-jpeg-same.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 16
+    },
+    {
+      "file": "double-jpeg-triple.jpg",
+      "verdict": "compatible_traces",
+      "milliseconds": 10
+    },
+    {
+      "file": "double-jpeg-odd.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 13
+    },
+    {
+      "file": "double-jpeg-progressive.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 13
+    },
+    {
+      "file": "double-jpeg-gray.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 10
+    },
+    {
+      "file": "double-jpeg-flat.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 6
+    },
+    {
+      "file": "double-jpeg-tiny.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 5
+    },
+    {
+      "file": "double-jpeg-coarse.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 6
+    },
+    {
+      "file": "double-jpeg-tails.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 8
+    },
+    {
+      "file": "double-jpeg-orientation6.jpg",
+      "verdict": "inconclusive",
+      "milliseconds": 5
+    }
+  ],
+  "maxNumericError": 0,
+  "decisionsExact": true,
+  "cancellation": "Hard termination and reload verified",
+  "browser": "26.6"
+}

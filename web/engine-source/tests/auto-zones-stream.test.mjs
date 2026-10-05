@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {gunzipSync} from 'node:zlib';import {Budget} from '../src/cache.js';import {createRgbSurface} from '../src/rgb-surface.js';import {detectSegmentedPanels} from '../src/auto-zones-stream.js';
+const root=new URL('../fixtures/auto-zones/',import.meta.url),ref=JSON.parse(await readFile(new URL('reference.json',root))),payload=gunzipSync(await readFile(new URL('reference.bin.gz',root)));
+function image(row,budget){const data=payload.subarray(row.pixels.offset,row.pixels.offset+row.pixels.length);return {surface:createRgbSurface({byteLength:data.length,readInto(out,at){out.set(data.subarray(at,at+out.length));}},{width:row.width,height:row.height,budget,ownsStore:false})};}
+test('segmented palette, morphology, global components and borders match all 144 native panel cases',async()=>{
+ for(const row of ref.cases){const budget=new Budget(32*1024**2),source=image(row,budget);let result;try{result=await detectSegmentedPanels(source,{budget});assert.deepEqual(result.polygons,row.polygons,row.name);}finally{result?.dispose();await source.surface.dispose();}assert.equal(budget.total(),0);}
+});
+test('panel cancellation in sampling/growing and consumer failure leave no temporary results',async()=>{
+ const row=ref.cases.find(r=>r.name==='outer-edges-1031-1024'),budget=new Budget(32*1024**2),source=image(row,budget);
+ try{for(const phase of ['panel-palette','panel-components','panel-colors']){const controller=new AbortController();await assert.rejects(detectSegmentedPanels(source,{budget,signal:controller.signal,onProgress:e=>{if(e.phase===phase)controller.abort();}}),{code:'CANCELLED'});assert.equal(budget.total(),0);}await assert.rejects(detectSegmentedPanels(source,{budget,onProgress:()=>{throw Error('consumer');}}),/consumer/);assert.equal(budget.total(),0);await assert.rejects(detectSegmentedPanels(source,{budget:new Budget(1)}),{code:'MEMORY_LIMIT'});}finally{await source.surface.dispose();}
+});

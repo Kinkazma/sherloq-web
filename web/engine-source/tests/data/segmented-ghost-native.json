@@ -1,0 +1,40 @@
+{
+  "opencv": "4.11.0",
+  "file": "tests/data/tiff-stream/tiles-bigtiff.tiff",
+  "width": 4103,
+  "height": 5401,
+  "cases": [
+    {
+      "params": {
+        "low": 60,
+        "high": 100,
+        "step": 20,
+        "x": 7,
+        "y": 3
+      },
+      "shape": [
+        337,
+        256,
+        3
+      ],
+      "rawSha256": "80f622f592411aa45c9b6c68a9ae1465948eb0b3c7e32bcef1993bcce2e09330",
+      "mapsSha256": "973c516afd57c8a02fea0aa65fd690b4aff71399b4f3566ed930d6be49092179"
+    },
+    {
+      "params": {
+        "low": 80,
+        "high": 100,
+        "step": 20,
+        "x": 7,
+        "y": 3
+      },
+      "shape": [
+        337,
+        256,
+        2
+      ],
+      "rawSha256": "dcf3a6a0978cbd8d024d6d766b449bb450a3679475b49cbefc0a6ff0f3e81ca4",
+      "mapsSha256": "e73112bfec3603795143a7d0b384c38ee8da6e56e9cc066eb68b73155658ed70"
+    }
+  ]
+}

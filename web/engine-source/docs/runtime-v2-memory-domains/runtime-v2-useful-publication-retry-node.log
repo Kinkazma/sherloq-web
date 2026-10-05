@@ -1,0 +1,310 @@
+TAP version 13
+# Subtest: ArrayBuffer refusal retires the optional backing before idle Wasm credit and waits for ownership ACK
+ok 1 - ArrayBuffer refusal retires the optional backing before idle Wasm credit and waits for ownership ACK
+  ---
+  duration_ms: 5.730917
+  type: 'test'
+  ...
+# Subtest: cold owners of the same backing domain precede unrelated accounting reclamation
+ok 2 - cold owners of the same backing domain precede unrelated accounting reclamation
+  ---
+  duration_ms: 0.226333
+  type: 'test'
+  ...
+# Subtest: logical MEMORY_LIMIT keeps ordinary admission reclamation and preserves optional cache
+ok 3 - logical MEMORY_LIMIT keeps ordinary admission reclamation and preserves optional cache
+  ---
+  duration_ms: 0.164042
+  type: 'test'
+  ...
+# Subtest: allocation kind is explicit and GPU or Wasm faults are never tagged as ArrayBuffer pressure
+ok 4 - allocation kind is explicit and GPU or Wasm faults are never tagged as ArrayBuffer pressure
+  ---
+  duration_ms: 0.236667
+  type: 'test'
+  ...
+# Subtest: cancellation during ownership retirement never publishes premature backing credit or retries useful allocation
+ok 5 - cancellation during ownership retirement never publishes premature backing credit or retries useful allocation
+  ---
+  duration_ms: 0.522042
+  type: 'test'
+  ...
+# Subtest: serialized allocation reclaims report their own domain and ownership result
+ok 6 - serialized allocation reclaims report their own domain and ownership result
+  ---
+  duration_ms: 0.293458
+  type: 'test'
+  ...
+# Subtest: automatic sparse adapter forwards lazy source storage and leaves borrowed session ownership with the source
+ok 7 - automatic sparse adapter forwards lazy source storage and leaves borrowed session ownership with the source
+  ---
+  duration_ms: 11.691833
+  type: 'test'
+  ...
+# Subtest: automatic SIFT consumes bounded source rows and windows without retaining full RGB
+ok 8 - automatic SIFT consumes bounded source rows and windows without retaining full RGB
+  ---
+  duration_ms: 262.346417
+  type: 'test'
+  ...
+# Subtest: qualities grow from one to four workers after real competing CPU and RAM are returned
+ok 9 - qualities grow from one to four workers after real competing CPU and RAM are returned
+  ---
+  duration_ms: 3.276291
+  type: 'test'
+  ...
+# Subtest: bounded heaps persist between low-memory batches and are released only after termination
+ok 10 - bounded heaps persist between low-memory batches and are released only after termination
+  ---
+  duration_ms: 0.873833
+  type: 'test'
+  ...
+# Subtest: running useful streams are not retired to satisfy memory pressure
+ok 11 - running useful streams are not retired to satisfy memory pressure
+  ---
+  duration_ms: 0.343334
+  type: 'test'
+  ...
+# Subtest: more workers can be admitted by spilling cold data without re-running any stream
+ok 12 - more workers can be admitted by spilling cold data without re-running any stream
+  ---
+  duration_ms: 0.165708
+  type: 'test'
+  ...
+# Subtest: a first quality waits for admitted competing memory without occupying a CPU
+ok 13 - a first quality waits for admitted competing memory without occupying a CPU
+  ---
+  duration_ms: 3.003625
+  type: 'test'
+  ...
+# Subtest: cancelled memory admission never constructs a late quality worker
+ok 14 - cancelled memory admission never constructs a late quality worker
+  ---
+  duration_ms: 2.61075
+  type: 'test'
+  ...
+# Subtest: useful publication retries an allocation before its peer finishes even without backing notifications
+ok 15 - useful publication retries an allocation before its peer finishes even without backing notifications
+  ---
+  duration_ms: 10.500042
+  type: 'test'
+  ...
+# Subtest: a typed reclaim result and its retirement notification are counted once
+ok 16 - a typed reclaim result and its retirement notification are counted once
+  ---
+  duration_ms: 0.924
+  type: 'test'
+  ...
+# Subtest: legacy typed owners publish only missing retirement notifications
+ok 17 - legacy typed owners publish only missing retirement notifications
+  ---
+  duration_ms: 0.131375
+  type: 'test'
+  ...
+# Subtest: waiting cancellation releases pressure and subscriptions without replaying the operation
+ok 18 - waiting cancellation releases pressure and subscriptions without replaying the operation
+  ---
+  duration_ms: 0.695084
+  type: 'test'
+  ...
+# Subtest: blocked, own, and merely queued leases cannot keep recovery waiting
+ok 19 - blocked, own, and merely queued leases cannot keep recovery waiting
+  ---
+  duration_ms: 1.1515
+  type: 'test'
+  ...
+# Subtest: peer quiescence resumes the bounded guard and two waiting owners cannot deadlock
+ok 20 - peer quiescence resumes the bounded guard and two waiting owners cannot deadlock
+  ---
+  duration_ms: 1.561792
+  type: 'test'
+  ...
+# Subtest: invalid producer ownership is rejected before execution admission
+ok 21 - invalid producer ownership is rejected before execution admission
+  ---
+  duration_ms: 0.520375
+  type: 'test'
+  ...
+# Subtest: peer publications allow real retries without resetting an unresolved five-failure guard
+ok 22 - peer publications allow real retries without resetting an unresolved five-failure guard
+  ---
+  duration_ms: 6.15575
+  type: 'test'
+  ...
+# Subtest: allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+ok 23 - allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+  ---
+  duration_ms: 1.78825
+  type: 'test'
+  ...
+# Subtest: normalization and wire errors preserve original stack, nested cause and details
+ok 24 - normalization and wire errors preserve original stack, nested cause and details
+  ---
+  duration_ms: 1.065084
+  type: 'test'
+  ...
+# Subtest: five failures with small memory jitter form one obstruction
+ok 25 - five failures with small memory jitter form one obstruction
+  ---
+  duration_ms: 0.397958
+  type: 'test'
+  ...
+# Subtest: distinct recoveries have no lifetime limit and committed progress resets the streak
+ok 26 - distinct recoveries have no lifetime limit and committed progress resets the streak
+  ---
+  duration_ms: 1.805583
+  type: 'test'
+  ...
+# Subtest: replayed checkpoints and attempt numbers cannot reset the high-water mark
+ok 27 - replayed checkpoints and attempt numbers cannot reset the high-water mark
+  ---
+  duration_ms: 0.165791
+  type: 'test'
+  ...
+# Subtest: different useful operations and substantially different capacity start a new streak
+ok 28 - different useful operations and substantially different capacity start a new streak
+  ---
+  duration_ms: 0.211542
+  type: 'test'
+  ...
+# Subtest: recovery pressure protects reclaim through the successful useful retry and is released once
+ok 29 - recovery pressure protects reclaim through the successful useful retry and is released once
+  ---
+  duration_ms: 0.240541
+  type: 'test'
+  ...
+# Subtest: terminal unrelated errors and cancellation release recovery pressure without another operation
+ok 30 - terminal unrelated errors and cancellation release recovery pressure without another operation
+  ---
+  duration_ms: 0.516334
+  type: 'test'
+  ...
+# Subtest: five stable failures yield between retries and stop without an outer restart
+ok 31 - five stable failures yield between retries and stop without an outer restart
+  ---
+  duration_ms: 4.825583
+  type: 'test'
+  ...
+# Subtest: generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+ok 32 - generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+  ---
+  duration_ms: 0.508166
+  type: 'test'
+  ...
+# Subtest: public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+ok 33 - public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+  ---
+  duration_ms: 0.273834
+  type: 'test'
+  ...
+# Subtest: a successful owned result survives a cancellation race for caller cleanup
+ok 34 - a successful owned result survives a cancellation race for caller cleanup
+  ---
+  duration_ms: 0.098791
+  type: 'test'
+  ...
+# Subtest: allocator failures in reclaim share the suspended operation guard and keep pressure held
+ok 35 - allocator failures in reclaim share the suspended operation guard and keep pressure held
+  ---
+  duration_ms: 0.410958
+  type: 'test'
+  ...
+# Subtest: storage failures during reclaim remain terminal without replaying useful work
+ok 36 - storage failures during reclaim remain terminal without replaying useful work
+  ---
+  duration_ms: 0.134625
+  type: 'test'
+  ...
+# Subtest: alternating startup and compute phases cannot hide the same stalled operation
+ok 37 - alternating startup and compute phases cannot hide the same stalled operation
+  ---
+  duration_ms: 0.229917
+  type: 'test'
+  ...
+# Subtest: domain ledger separates logical reservation, materialized backing and aliased pinned ownership
+ok 38 - domain ledger separates logical reservation, materialized backing and aliased pinned ownership
+  ---
+  duration_ms: 1.91425
+  type: 'test'
+  ...
+# Subtest: backing pressure is domain-specific, nested and ends after the useful retry
+ok 39 - backing pressure is domain-specific, nested and ends after the useful retry
+  ---
+  duration_ms: 2.480459
+  type: 'test'
+  ...
+# Subtest: durable operations bridge CPU lease gaps and real IO until backing retirement
+ok 40 - durable operations bridge CPU lease gaps and real IO until backing retirement
+  ---
+  duration_ms: 6.124
+  type: 'test'
+  ...
+# Subtest: queued operations have holder dependencies, and blocked cycles are not productive work
+ok 41 - queued operations have holder dependencies, and blocked cycles are not productive work
+  ---
+  duration_ms: 0.5415
+  type: 'test'
+  ...
+# Subtest: all operation owners waiting in recovery cannot keep each other alive
+ok 42 - all operation owners waiting in recovery cannot keep each other alive
+  ---
+  duration_ms: 0.233375
+  type: 'test'
+  ...
+# Subtest: reclaim carries owner, bounded target and attributable retirement diagnostics
+ok 43 - reclaim carries owner, bounded target and attributable retirement diagnostics
+  ---
+  duration_ms: 0.38275
+  type: 'test'
+  ...
+# Subtest: resource wait diagnostics preserve wait stage and exact baseline across cancellation
+ok 44 - resource wait diagnostics preserve wait stage and exact baseline across cancellation
+  ---
+  duration_ms: 0.734916
+  type: 'test'
+  ...
+# Subtest: one recovering lane does not hide useful compute or IO from the same owner
+ok 45 - one recovering lane does not hide useful compute or IO from the same owner
+  ---
+  duration_ms: 0.179292
+  type: 'test'
+  ...
+# Subtest: mixed legacy owner dependencies resolve through an explicit useful operation
+ok 46 - mixed legacy owner dependencies resolve through an explicit useful operation
+  ---
+  duration_ms: 0.193958
+  type: 'test'
+  ...
+# Subtest: a committed peer lane with the same owner wakes its suspended sibling
+ok 47 - a committed peer lane with the same owner wakes its suspended sibling
+  ---
+  duration_ms: 0.415375
+  type: 'test'
+  ...
+# Subtest: memory admission rejects self-held or parent-child cyclic ownership
+ok 48 - memory admission rejects self-held or parent-child cyclic ownership
+  ---
+  duration_ms: 0.317792
+  type: 'test'
+  ...
+# Subtest: explicit parent operations survive child RPC handoffs and restore their IO state
+ok 49 - explicit parent operations survive child RPC handoffs and restore their IO state
+  ---
+  duration_ms: 0.070667
+  type: 'test'
+  ...
+# Subtest: a parent awaiting two queued RPCs is not productive behind a blocked holder
+ok 50 - a parent awaiting two queued RPCs is not productive behind a blocked holder
+  ---
+  duration_ms: 2.4385
+  type: 'test'
+  ...
+1..50
+# tests 50
+# suites 0
+# pass 50
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 437.480958

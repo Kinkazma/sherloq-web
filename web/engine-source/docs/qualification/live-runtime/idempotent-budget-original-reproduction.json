@@ -1,0 +1,14 @@
+{
+  "originalCommit": "53d965c5f9a067e2f4a1206b9054dcd69adcb8dd",
+  "original": {
+    "turns": 101,
+    "pendingNotifications": 1,
+    "resumedBytes": 30
+  },
+  "corrected": {
+    "turns": 1,
+    "pendingNotifications": 0,
+    "resumedBytes": 30
+  },
+  "scope": "Real ForgeryscopePreparation empty clear and the shared scheduler, with budget notification draining controlled only to prevent a test-process hang."
+}

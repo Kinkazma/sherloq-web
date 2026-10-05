@@ -1,0 +1,684 @@
+TAP version 13
+# (node:428) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: explicit resume retains validated dense work after five terminal compute transport failures
+ok 1 - explicit resume retains validated dense work after five terminal compute transport failures
+  ---
+  duration_ms: 106.4095
+  type: 'test'
+  ...
+# Subtest: explicit resume retains validated dense work after five terminal cold transport failures
+ok 2 - explicit resume retains validated dense work after five terminal cold transport failures
+  ---
+  duration_ms: 42.462541
+  type: 'test'
+  ...
+# Subtest: completed coherence selections survive the failure of the next selection
+ok 3 - completed coherence selections survive the failure of the next selection
+  ---
+  duration_ms: 15.954875
+  type: 'test'
+  ...
+# Subtest: a cancelled checkpoint retains completed hypotheses until explicit cleanup
+ok 4 - a cancelled checkpoint retains completed hypotheses until explicit cleanup
+  ---
+  duration_ms: 10.990208
+  type: 'test'
+  ...
+# Subtest: changing checkpoint parameters retires the old incomplete owners
+ok 5 - changing checkpoint parameters retires the old incomplete owners
+  ---
+  duration_ms: 9.83375
+  type: 'test'
+  ...
+# { cases: 20, heap: 33554432 }
+# Subtest: compact SIFT reconstructs every float32 and global field for paired mirrors and quarter frames
+ok 6 - compact SIFT reconstructs every float32 and global field for paired mirrors and quarter frames
+  ---
+  duration_ms: 1550.6805
+  type: 'test'
+  ...
+# (node:441) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: geometry failure retains fully filtered evidence and releases it after both checkpoint and result owners close
+ok 7 - geometry failure retains fully filtered evidence and releases it after both checkpoint and result owners close
+  ---
+  duration_ms: 58.9245
+  type: 'test'
+  ...
+# Subtest: Integer GPU bound stays below the unchanged float32 evaluator across normal/subnormal and extreme values
+ok 8 - Integer GPU bound stays below the unchanged float32 evaluator across normal/subnormal and extreme values
+  ---
+  duration_ms: 111.102125
+  type: 'test'
+  ...
+# Subtest: Prefixes are valid full-distance bounds and nonfinite inputs cannot prove a rejection
+ok 9 - Prefixes are valid full-distance bounds and nonfinite inputs cannot prove a rejection
+  ---
+  duration_ms: 0.127333
+  type: 'test'
+  ...
+# (node:448) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: field recovery retains completed hypotheses and descriptors, and retries storage without recomputing the field
+ok 10 - field recovery retains completed hypotheses and descriptors, and retries storage without recomputing the field
+  ---
+  duration_ms: 215.737667
+  type: 'test'
+  ...
+# Subtest: partial free memory adds every fitting kernel and accounts for retained idle heaps
+ok 11 - partial free memory adds every fitting kernel and accounts for retained idle heaps
+  ---
+  duration_ms: 7.68575
+  type: 'test'
+  ...
+# Subtest: a bootstrap progress exception rejects the field and terminates its kernel
+ok 12 - a bootstrap progress exception rejects the field and terminates its kernel
+  ---
+  duration_ms: 0.553458
+  type: 'test'
+  ...
+# Subtest: a refused extra kernel preserves the ready field without repeated allocation attempts
+ok 13 - a refused extra kernel preserves the ready field without repeated allocation attempts
+  ---
+  duration_ms: 2.463084
+  type: 'test'
+  ...
+# Subtest: real recovered memory permits full width again without changing the budget limit
+ok 14 - real recovered memory permits full width again without changing the budget limit
+  ---
+  duration_ms: 1.029292
+  type: 'test'
+  ...
+# Subtest: a later release reopens a previously refused expansion
+ok 15 - a later release reopens a previously refused expansion
+  ---
+  duration_ms: 1.724166
+  type: 'test'
+  ...
+# Subtest: a failed bootstrap retries locally only after concrete memory recovery
+ok 16 - a failed bootstrap retries locally only after concrete memory recovery
+  ---
+  duration_ms: 4.024208
+  type: 'test'
+  ...
+# Subtest: allocation failures during a useful task remain fatal and retain their evidence
+ok 17 - allocation failures during a useful task remain fatal and retain their evidence
+  ---
+  duration_ms: 0.424125
+  type: 'test'
+  ...
+# Subtest: returning uncreated reservations does not itself retry a refused allocation
+ok 18 - returning uncreated reservations does not itself retry a refused allocation
+  ---
+  duration_ms: 0.912041
+  type: 'test'
+  ...
+# Subtest: dense output migration windows fit before a kernel fills the remaining workspace
+ok 19 - dense output migration windows fit before a kernel fills the remaining workspace
+  ---
+  duration_ms: 8.582167
+  type: 'test'
+  ...
+# Subtest: a field receives a partial memory grant and yields only its GPU coordinator CPU
+ok 20 - a field receives a partial memory grant and yields only its GPU coordinator CPU
+  ---
+  duration_ms: 16.684875
+  type: 'test'
+  ...
+# Subtest: unused kernel workspace is returned and a later useful grant can grow it again
+ok 21 - unused kernel workspace is returned and a later useful grant can grow it again
+  ---
+  duration_ms: 1.5475
+  type: 'test'
+  ...
+# Subtest: memory RPC hides blocked field activity without surrendering its CPU quota
+ok 22 - memory RPC hides blocked field activity without surrendering its CPU quota
+  ---
+  duration_ms: 5.433875
+  type: 'test'
+  ...
+# Subtest: two live fields acknowledge every immutable reader before a transactional migration
+ok 23 - two live fields acknowledge every immutable reader before a transactional migration
+  ---
+  duration_ms: 58.803958
+  type: 'test'
+  ...
+# Subtest: allocation-domain pressure changes automatic storage only for that live recovery
+ok 24 - allocation-domain pressure changes automatic storage only for that live recovery
+  ---
+  duration_ms: 0.463875
+  type: 'test'
+  ...
+# Subtest: allocation reclamation negotiates a safe boundary independently of detector identity
+ok 25 - allocation reclamation negotiates a safe boundary independently of detector identity
+  ---
+  duration_ms: 26.565959
+  type: 'test'
+  ...
+# Subtest: busy peer refuses immediate migration and already paused peers regain their authoritative banks
+ok 26 - busy peer refuses immediate migration and already paused peers regain their authoritative banks
+  ---
+  duration_ms: 1.200458
+  type: 'test'
+  ...
+# Subtest: allocation reclaim never waits for a reader without immediate boundary negotiation
+ok 27 - allocation reclaim never waits for a reader without immediate boundary negotiation
+  ---
+  duration_ms: 1.543791
+  type: 'test'
+  ...
+# Subtest: immediate pause refuses live kernels but pins the existing recovery boundary before restarting work
+ok 28 - immediate pause refuses live kernels but pins the existing recovery boundary before restarting work
+  ---
+  duration_ms: 2.617042
+  type: 'test'
+  ...
+# Subtest: failed io migration restores all live readers on the old authoritative bank
+ok 29 - failed io migration restores all live readers on the old authoritative bank
+  ---
+  duration_ms: 6.270916
+  type: 'test'
+  ...
+# Subtest: failed cancel migration restores all live readers on the old authoritative bank
+ok 30 - failed cancel migration restores all live readers on the old authoritative bank
+  ---
+  duration_ms: 5.978417
+  type: 'test'
+  ...
+# Subtest: an unrevocable reader prevents active migration rather than invalidating its SAB
+ok 31 - an unrevocable reader prevents active migration rather than invalidating its SAB
+  ---
+  duration_ms: 0.604
+  type: 'test'
+  ...
+# Subtest: input gate drains native work, supports overlapping stores, and returns CPU admission during I/O
+ok 32 - input gate drains native work, supports overlapping stores, and returns CPU admission during I/O
+  ---
+  duration_ms: 2.816625
+  type: 'test'
+  ...
+# Subtest: input gate cancellation releases blocked dispatcher and reader acknowledgements
+ok 33 - input gate cancellation releases blocked dispatcher and reader acknowledgements
+  ---
+  duration_ms: 0.944291
+  type: 'test'
+  ...
+# Subtest: final publication waits for a migration that first reaches its barrier during kernel shutdown
+ok 34 - final publication waits for a migration that first reaches its barrier during kernel shutdown
+  ---
+  duration_ms: 0.539792
+  type: 'test'
+  ...
+# Subtest: an ordinary reclaim queued behind migration exposes its already idle native boundary
+ok 35 - an ordinary reclaim queued behind migration exposes its already idle native boundary
+  ---
+  duration_ms: 0.128833
+  type: 'test'
+  ...
+# Subtest: field queued-start releases immutable publications without waiting for blocked CPU or a terminated worker
+ok 36 - field queued-start releases immutable publications without waiting for blocked CPU or a terminated worker
+  ---
+  duration_ms: 36.831292
+  type: 'test'
+  ...
+# Subtest: field cancel-ack releases immutable publications without waiting for blocked CPU or a terminated worker
+ok 37 - field cancel-ack releases immutable publications without waiting for blocked CPU or a terminated worker
+  ---
+  duration_ms: 5.832333
+  type: 'test'
+  ...
+# Subtest: retired SAB wrappers are collectible while old publications and reader objects remain alive
+ok 38 - retired SAB wrappers are collectible while old publications and reader objects remain alive
+  ---
+  duration_ms: 154.412916
+  type: 'test'
+  ...
+# Subtest: remote worker backing reports transfer adopted banks without a second policy charge
+ok 39 - remote worker backing reports transfer adopted banks without a second policy charge
+  ---
+  duration_ms: 2.676625
+  type: 'test'
+  ...
+# Subtest: native optional cache failure preserves the field and retries only on a memory recovery epoch
+ok 40 - native optional cache failure preserves the field and retries only on a memory recovery epoch
+  ---
+  duration_ms: 1183.301167
+  type: 'test'
+  ...
+# Subtest: actual linear-memory growth beyond planned vectors is charged and released
+ok 41 - actual linear-memory growth beyond planned vectors is charged and released
+  ---
+  duration_ms: 1.114875
+  type: 'test'
+  ...
+# Subtest: shared peer pressure prevents growth before the VM allocates the memory
+ok 42 - shared peer pressure prevents growth before the VM allocates the memory
+  ---
+  duration_ms: 0.435542
+  type: 'test'
+  ...
+# Subtest: VM-rejected growth does not leak a reservation
+ok 43 - VM-rejected growth does not leak a reservation
+  ---
+  duration_ms: 0.181542
+  type: 'test'
+  ...
+# Subtest: physical growth failures retain allocator evidence and release speculative capacity
+ok 44 - physical growth failures retain allocator evidence and release speculative capacity
+  ---
+  duration_ms: 5.430375
+  type: 'test'
+  ...
+# Subtest: initial physical allocation failure is distinct from a logical budget refusal
+ok 45 - initial physical allocation failure is distinct from a logical budget refusal
+  ---
+  duration_ms: 0.240375
+  type: 'test'
+  ...
+# Subtest: uses admitted RAM beyond the old16MiB descriptor cache without changing work
+ok 46 - uses admitted RAM beyond the old16MiB descriptor cache without changing work
+  ---
+  duration_ms: 1.474292
+  type: 'test'
+  ...
+# Subtest: real96MP and larger shapes fit the module and shared workspace
+ok 47 - real96MP and larger shapes fit the module and shared workspace
+  ---
+  duration_ms: 1.316167
+  type: 'test'
+  ...
+# Subtest: budget occupied by real source and peers reduces caches; no probe allocations
+ok 48 - budget occupied by real source and peers reduces caches; no probe allocations
+  ---
+  duration_ms: 0.145209
+  type: 'test'
+  ...
+# Subtest: explicit cache and batch choices remain exact and cannot overrun heap
+ok 49 - explicit cache and batch choices remain exact and cannot overrun heap
+  ---
+  duration_ms: 0.287042
+  type: 'test'
+  ...
+# Subtest: small cases allocate no initialization batch and explicit zero is honored
+ok 50 - small cases allocate no initialization batch and explicit zero is honored
+  ---
+  duration_ms: 0.098042
+  type: 'test'
+  ...
+# Subtest: 96MP propagation caches reuse initialization RAM without shrinking the native-sized batch
+ok 51 - 96MP propagation caches reuse initialization RAM without shrinking the native-sized batch
+  ---
+  duration_ms: 0.547958
+  type: 'test'
+  ...
+# Subtest: 96MP non-isolated admission includes every native and cloned candidate pool
+ok 52 - 96MP non-isolated admission includes every native and cloned candidate pool
+  ---
+  duration_ms: 0.264208
+  type: 'test'
+  ...
+# Subtest: dense preparation reclaims a completed plane before committing its hot descriptors to disk
+ok 53 - dense preparation reclaims a completed plane before committing its hot descriptors to disk
+  ---
+  duration_ms: 9.592125
+  type: 'test'
+  ...
+# Subtest: an impossible explicit in-memory preparation returns its layout lease without creating a worker
+ok 54 - an impossible explicit in-memory preparation returns its layout lease without creating a worker
+  ---
+  duration_ms: 2.411584
+  type: 'test'
+  ...
+# Subtest: only the missing shared migration capacity affects a resident preparation decision
+ok 55 - only the missing shared migration capacity affects a resident preparation decision
+  ---
+  duration_ms: 1.357042
+  type: 'test'
+  ...
+# Subtest: external preparation remains admissible when its worker fits but RAM and migration do not
+ok 56 - external preparation remains admissible when its worker fits but RAM and migration do not
+  ---
+  duration_ms: 0.084458
+  type: 'test'
+  ...
+# Subtest: native Zernike completes with exactly the planned source, descriptors, workspace and I/O budget
+ok 57 - native Zernike completes with exactly the planned source, descriptors, workspace and I/O budget
+  ---
+  duration_ms: 83.512584
+  type: 'test'
+  ...
+# Subtest: native compact SIFT completes every preparation stage at its exact planned I/O budget
+ok 58 - native compact SIFT completes every preparation stage at its exact planned I/O budget
+  ---
+  duration_ms: 47.037083
+  type: 'test'
+  ...
+# Subtest: native texture eligibility transfers its input window out of the planned allowance
+ok 59 - native texture eligibility transfers its input window out of the planned allowance
+  ---
+  duration_ms: 48.654791
+  type: 'test'
+  ...
+# Subtest: a transferred window keeps its output charged after the original allowance closes
+ok 60 - a transferred window keeps its output charged after the original allowance closes
+  ---
+  duration_ms: 2.1535
+  type: 'test'
+  ...
+# Subtest: failed window I/O returns transferred output and scratch ownership
+ok 61 - failed window I/O returns transferred output and scratch ownership
+  ---
+  duration_ms: 1.169833
+  type: 'test'
+  ...
+# Subtest: cancelling CPU admission returns the transferred window and its originating lane allowance
+ok 62 - cancelling CPU admission returns the transferred window and its originating lane allowance
+  ---
+  duration_ms: 3.057709
+  type: 'test'
+  ...
+# Subtest: resident null releases CPU and preserves only validated hypotheses for explicit resume
+ok 63 - resident null releases CPU and preserves only validated hypotheses for explicit resume
+  ---
+  duration_ms: 6.817459
+  type: 'test'
+  ...
+# Subtest: resident messageerror releases CPU and preserves only validated hypotheses for explicit resume
+ok 64 - resident messageerror releases CPU and preserves only validated hypotheses for explicit resume
+  ---
+  duration_ms: 2.808
+  type: 'test'
+  ...
+# Subtest: resident retainResult refusal returns the split reservation exactly once
+ok 65 - resident retainResult refusal returns the split reservation exactly once
+  ---
+  duration_ms: 0.652625
+  type: 'test'
+  ...
+# Subtest: clearing a resident checkpoint before-clear cannot publish a late worker result
+ok 66 - clearing a resident checkpoint before-clear cannot publish a late worker result
+  ---
+  duration_ms: 6.23275
+  type: 'test'
+  ...
+# Subtest: clearing a resident checkpoint after-clear cannot publish a late worker result
+ok 67 - clearing a resident checkpoint after-clear cannot publish a late worker result
+  ---
+  duration_ms: 0.488417
+  type: 'test'
+  ...
+# Subtest: the real resident worker handler reports null once and rejects subsequent commands
+ok 68 - the real resident worker handler reports null once and rejects subsequent commands
+  ---
+  duration_ms: 6.243125
+  type: 'test'
+  ...
+# Subtest: the real resident worker handler reports messageerror once and rejects subsequent commands
+ok 69 - the real resident worker handler reports messageerror once and rejects subsequent commands
+  ---
+  duration_ms: 0.884125
+  type: 'test'
+  ...
+# Subtest: actual resident lanes keep D2 waiting and return the first retired lane credit before the last finishes
+ok 70 - actual resident lanes keep D2 waiting and return the first retired lane credit before the last finishes
+  ---
+  duration_ms: 24.219625
+  type: 'test'
+  ...
+# Subtest: resident lane identity and dependencies survive the CPU gap between two hypotheses
+ok 71 - resident lane identity and dependencies survive the CPU gap between two hypotheses
+  ---
+  duration_ms: 2.793959
+  type: 'test'
+  ...
+# Subtest: resident cancel drains all lane credits, tickets and backing owners
+ok 72 - resident cancel drains all lane credits, tickets and backing owners
+  ---
+  duration_ms: 2.701041
+  type: 'test'
+  ...
+# Subtest: resident transport drains all lane credits, tickets and backing owners
+ok 73 - resident transport drains all lane credits, tickets and backing owners
+  ---
+  duration_ms: 2.636166
+  type: 'test'
+  ...
+# Subtest: resident planner counts Wasm linear growth and page rounding without changing the native ceiling
+ok 74 - resident planner counts Wasm linear growth and page rounding without changing the native ceiling
+  ---
+  duration_ms: 1.304167
+  type: 'test'
+  ...
+# Subtest: real resident native worker reports its grown capacity within the same admitted plan and matches an independent native reference
+ok 75 - real resident native worker reports its grown capacity within the same admitted plan and matches an independent native reference
+  ---
+  duration_ms: 453.183083
+  type: 'test'
+  ...
+# Subtest: surface admission includes all retained fields, source materialization and the real Wasm ceiling
+ok 76 - surface admission includes all retained fields, source materialization and the real Wasm ceiling
+  ---
+  duration_ms: 3.377375
+  type: 'test'
+  ...
+# Subtest: persistent worker admission retains the largest Wasm heap across unlike following jobs
+ok 77 - persistent worker admission retains the largest Wasm heap across unlike following jobs
+  ---
+  duration_ms: 0.252375
+  type: 'test'
+  ...
+# Subtest: disposing a resident pool cancels queued CPU admission and never creates a late worker
+ok 78 - disposing a resident pool cancels queued CPU admission and never creates a late worker
+  ---
+  duration_ms: 4.893833
+  type: 'test'
+  ...
+# Subtest: a persistent resident worker yields its CPU lease to a queued GPU task between hypotheses
+ok 79 - a persistent resident worker yields its CPU lease to a queued GPU task between hypotheses
+  ---
+  duration_ms: 1.270459
+  type: 'test'
+  ...
+# Subtest: preparation keeps a fitting hot representation instead of spending its RAM on extra workers
+ok 80 - preparation keeps a fitting hot representation instead of spending its RAM on extra workers
+  ---
+  duration_ms: 0.272125
+  type: 'test'
+  ...
+# Subtest: cold result admission accounts for filtered fields and global coherence scratch
+ok 81 - cold result admission accounts for filtered fields and global coherence scratch
+  ---
+  duration_ms: 0.355792
+  type: 'test'
+  ...
+# Subtest: worker transport pins and aliases immutable shared inputs without duplicating descriptor banks
+ok 82 - worker transport pins and aliases immutable shared inputs without duplicating descriptor banks
+  ---
+  duration_ms: 9.113917
+  type: 'test'
+  ...
+# Subtest: failed field worker startup releases reservations and all shared input pins
+ok 83 - failed field worker startup releases reservations and all shared input pins
+  ---
+  duration_ms: 6.650916
+  type: 'test'
+  ...
+# Subtest: completed worker fields move to cold storage without discarding or recounting borrowed inputs
+ok 84 - completed worker fields move to cold storage without discarding or recounting borrowed inputs
+  ---
+  duration_ms: 0.591208
+  type: 'test'
+  ...
+# Subtest: SIMD independent pixels preserve scalar descriptor bits and global candidate decisions
+ok 85 - SIMD independent pixels preserve scalar descriptor bits and global candidate decisions
+  ---
+  duration_ms: 2313.323959
+  type: 'test'
+  ...
+# Subtest: compatibility fallback compiles the real scalar job without a capability probe
+ok 86 - compatibility fallback compiles the real scalar job without a capability probe
+  ---
+  duration_ms: 3.081542
+  type: 'test'
+  ...
+# Subtest: allocation and download failures are not hidden by a scalar fallback
+ok 87 - allocation and download failures are not hidden by a scalar fallback
+  ---
+  duration_ms: 1.42675
+  type: 'test'
+  ...
+# Subtest: every asynchronously completed row segment respects all first and second order predecessors
+ok 88 - every asynchronously completed row segment respects all first and second order predecessors
+  ---
+  duration_ms: 90.340917
+  type: 'test'
+  ...
+# Subtest: elastic null retires only the bad lane and preserves committed tiles
+ok 89 - elastic null retires only the bad lane and preserves committed tiles
+  ---
+  duration_ms: 15.256
+  type: 'test'
+  ...
+# Subtest: elastic messageerror retires only the bad lane and preserves committed tiles
+ok 90 - elastic messageerror retires only the bad lane and preserves committed tiles
+  ---
+  duration_ms: 3.654334
+  type: 'test'
+  ...
+# Subtest: elastic unexpected retires only the bad lane and preserves committed tiles
+ok 91 - elastic unexpected retires only the bad lane and preserves committed tiles
+  ---
+  duration_ms: 4.505542
+  type: 'test'
+  ...
+# Subtest: five unreadable messages stop one elastic tile without holding CPU or replaying peers
+ok 92 - five unreadable messages stop one elastic tile without holding CPU or replaying peers
+  ---
+  duration_ms: 7.520417
+  type: 'test'
+  ...
+# Subtest: dense kernel null during bootstrap terminates pending native commands
+ok 93 - dense kernel null during bootstrap terminates pending native commands
+  ---
+  duration_ms: 0.743917
+  type: 'test'
+  ...
+# Subtest: dense kernel null during compute terminates pending native commands
+ok 94 - dense kernel null during compute terminates pending native commands
+  ---
+  duration_ms: 0.607625
+  type: 'test'
+  ...
+# Subtest: dense kernel messageerror during bootstrap terminates pending native commands
+ok 95 - dense kernel messageerror during bootstrap terminates pending native commands
+  ---
+  duration_ms: 0.21725
+  type: 'test'
+  ...
+# Subtest: dense kernel messageerror during compute terminates pending native commands
+ok 96 - dense kernel messageerror during compute terminates pending native commands
+  ---
+  duration_ms: 0.428917
+  type: 'test'
+  ...
+# Subtest: dense kernel unexpected during bootstrap terminates pending native commands
+ok 97 - dense kernel unexpected during bootstrap terminates pending native commands
+  ---
+  duration_ms: 0.263875
+  type: 'test'
+  ...
+# Subtest: dense kernel unexpected during compute terminates pending native commands
+ok 98 - dense kernel unexpected during compute terminates pending native commands
+  ---
+  duration_ms: 0.467584
+  type: 'test'
+  ...
+# Subtest: dense field null returns its parent CPU and storage ownership
+ok 99 - dense field null returns its parent CPU and storage ownership
+  ---
+  duration_ms: 6.0725
+  type: 'test'
+  ...
+# Subtest: dense field messageerror returns its parent CPU and storage ownership
+ok 100 - dense field messageerror returns its parent CPU and storage ownership
+  ---
+  duration_ms: 0.530958
+  type: 'test'
+  ...
+# Subtest: dense field unexpected returns its parent CPU and storage ownership
+ok 101 - dense field unexpected returns its parent CPU and storage ownership
+  ---
+  duration_ms: 0.746292
+  type: 'test'
+  ...
+# Subtest: SIFT null retries only detached input tile at unchanged width
+ok 102 - SIFT null retries only detached input tile at unchanged width
+  ---
+  duration_ms: 7.361166
+  type: 'test'
+  ...
+# Subtest: SIFT messageerror retries only detached input tile at unchanged width
+ok 103 - SIFT messageerror retries only detached input tile at unchanged width
+  ---
+  duration_ms: 4.811084
+  type: 'test'
+  ...
+# Subtest: SIFT unexpected retries only detached input tile at unchanged width
+ok 104 - SIFT unexpected retries only detached input tile at unchanged width
+  ---
+  duration_ms: 3.8225
+  type: 'test'
+  ...
+# Subtest: SIFT allocation retries only detached input tile at unchanged width
+ok 105 - SIFT allocation retries only detached input tile at unchanged width
+  ---
+  duration_ms: 5.831833
+  type: 'test'
+  ...
+# Subtest: SIFT transport guard terminates after five unreadable replies without global replay
+ok 106 - SIFT transport guard terminates after five unreadable replies without global replay
+  ---
+  duration_ms: 5.506375
+  type: 'test'
+  ...
+# Subtest: SIFT unavailable distinguishes local GPU fallback from numerical failure
+ok 107 - SIFT unavailable distinguishes local GPU fallback from numerical failure
+  ---
+  duration_ms: 0.949166
+  type: 'test'
+  ...
+# Subtest: SIFT lost distinguishes local GPU fallback from numerical failure
+ok 108 - SIFT lost distinguishes local GPU fallback from numerical failure
+  ---
+  duration_ms: 0.443792
+  type: 'test'
+  ...
+# Subtest: SIFT numeric distinguishes local GPU fallback from numerical failure
+ok 109 - SIFT numeric distinguishes local GPU fallback from numerical failure
+  ---
+  duration_ms: 0.434875
+  type: 'test'
+  ...
+# Subtest: SIFT cancellation during a broken lane retry settles admission and retains committed output
+ok 110 - SIFT cancellation during a broken lane retry settles admission and retains committed output
+  ---
+  duration_ms: 0.556917
+  type: 'test'
+  ...
+# { cases: 6, heap: 33554432 }
+# Subtest: haloed resident Zernike reproduces full descriptors and global fields including seams/mirrors
+ok 111 - haloed resident Zernike reproduces full descriptors and global fields including seams/mirrors
+  ---
+  duration_ms: 2690.468125
+  type: 'test'
+  ...
+1..111
+# tests 111
+# suites 0
+# pass 111
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3271.502125

@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "status": "bounded-arithmetic-candidate",
+  "variant": "cmseg-generalization",
+  "fixture": "blobs-copy",
+  "scope": "Full global correlation on unchanged native feature tensors. No full browser network, mask or UI qualification. All pairs evaluated twice, sorted top-k values; float32 reduction/GEMM arithmetic differs from native and is measured.",
+  "records": [
+    {
+      "name": "corr96",
+      "shape": [
+        1,
+        96,
+        32,
+        32
+      ],
+      "elements": 98304,
+      "different": 93240,
+      "maxAbs": 3.725290298461914e-9,
+      "maxRelative": 0.000004364046425307745,
+      "finite": true,
+      "milliseconds": 180.816416,
+      "heapBytes": 16777216,
+      "ownedFloatBytes": 1192192
+    },
+    {
+      "name": "corr32",
+      "shape": [
+        1,
+        32,
+        64,
+        64
+      ],
+      "elements": 131072,
+      "different": 130665,
+      "maxAbs": 1.461012288928032e-8,
+      "maxRelative": 0.000036565520417648686,
+      "finite": true,
+      "milliseconds": 1402.094666,
+      "heapBytes": 16777216,
+      "ownedFloatBytes": 1622528
+    },
+    {
+      "name": "corr24",
+      "shape": [
+        1,
+        24,
+        128,
+        128
+      ],
+      "elements": 393216,
+      "different": 393125,
+      "maxAbs": 2.444721758365631e-8,
+      "maxRelative": 0.00023924644694233913,
+      "finite": true,
+      "milliseconds": 21221.201583,
+      "heapBytes": 16777216,
+      "ownedFloatBytes": 4916224
+    }
+  ],
+  "sources": {
+    "experiments/segmentation/cmseg-correlation.cpp": "b8b359097cc47e0159a1322c56ed952b26c3050d20a0ba4fa82c8554172fe6aa",
+    "scripts/check-cmseg-correlation.mjs": "fe374178163ad2b45ce25fa818e790e19557fad7fe894ed89963ab394b76da09",
+    ".build/cmseg-correlation/build.json": "4ca4c9e1c7fc5046bec85ea973fb45d396008179282a1e3484446faece1ad231"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Session/crop/cache/refilter oracle with explicit synthetic neural-grid fixtures; no model inference or neural parity claim.",
+  "records": [
+    {
+      "name": "three-active-contexts",
+      "exact": true,
+      "inferences": true,
+      "provenance": true
+    },
+    {
+      "name": "refilter-0",
+      "exact": true,
+      "noInference": true
+    },
+    {
+      "name": "refilter-17",
+      "exact": true,
+      "noInference": true
+    },
+    {
+      "name": "refilter-5000",
+      "exact": true,
+      "noInference": true
+    },
+    {
+      "name": "rapid-slider",
+      "superseded": true,
+      "exact": true,
+      "noInference": true
+    },
+    {
+      "name": "envelope-disabled",
+      "exact": true,
+      "noInference": true,
+      "localContextsKept": true
+    }
+  ],
+  "lifecycle": {
+    "oldIdRejected": true,
+    "staleRejected": true,
+    "latestExact": true,
+    "sourcePreserved": true,
+    "disposedReleased": true,
+    "refused": true,
+    "refusalBeforeInference": true,
+    "released": true,
+    "progressIdentified": true,
+    "independentCrops": true
+  },
+  "fixtureInferenceCalls": 4,
+  "peakAccountedBytes": 570497398,
+  "browser": "154.0.8037.58",
+  "sourceSha256": "97210ee6e60988c1707c6ee7137c06613396bd0746d11d22408f8f13f597c184",
+  "referenceSha256": "917e3611da9c75311f2cacfb86780ac882fcdc52ee345d9449db691ae8757f62"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "file": "vendor/separation/separation.wasm",
+  "sha256": "9db2d107f292e14908349425251a77e50ced9386e75e0556683743eb18201721",
+  "expectedBytes": 67108864,
+  "memories": [
+    {
+      "flags": 1,
+      "minimumPages": 1024,
+      "maximumPages": 1024
+    }
+  ]
+}

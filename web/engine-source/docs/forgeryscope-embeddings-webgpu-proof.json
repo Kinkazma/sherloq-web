@@ -1,0 +1,260 @@
+{
+  "scope": "embedding networks on native-preprocessed synthetic inputs, not complete detector",
+  "provider": "webgpu",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "native": {
+    "torch": "2.8.0",
+    "numpy": "1.26.4",
+    "timm": "1.0.30"
+  },
+  "records": [
+    {
+      "model": "wblot_duplicate_embedder",
+      "case": "wblot_duplicate_embedder-0",
+      "maxError": 8.475035429000854e-08,
+      "ms": 658.9000000022352
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "case": "wblot_duplicate_embedder-1",
+      "maxError": 7.078051567077637e-08,
+      "ms": 25.899999998509884
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "case": "wblot_duplicate_embedder-2",
+      "maxError": 9.12696123123169e-08,
+      "ms": 18.600000001490116
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "pair": [
+        0,
+        1
+      ],
+      "scoreError": 3.173511797793793e-08,
+      "nativeScore": 0.8025947653892285,
+      "score": 0.8025947336541105,
+      "threshold": 0.84,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "pair": [
+        0,
+        2
+      ],
+      "scoreError": 9.126433142547796e-08,
+      "nativeScore": 0.9022594416253212,
+      "score": 0.9022593503609898,
+      "threshold": 0.84,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "pair": [
+        1,
+        2
+      ],
+      "scoreError": 4.071210157885474e-08,
+      "nativeScore": 0.7343066968513936,
+      "score": 0.7343067375634952,
+      "threshold": 0.84,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "case": "wblot_overlap_embedder-0",
+      "maxError": 5.726178642362356e-08,
+      "ms": 40.099999997764826
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "case": "wblot_overlap_embedder-1",
+      "maxError": 1.4156103134155273e-07,
+      "ms": 17.5
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "case": "wblot_overlap_embedder-2",
+      "maxError": 5.21540641784668e-08,
+      "ms": 17.700000002980232
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "pair": [
+        0,
+        1
+      ],
+      "scoreError": 1.3039093738065333e-07,
+      "nativeScore": 0.8290923862264953,
+      "score": 0.8290925166174327,
+      "threshold": 0.85,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "pair": [
+        0,
+        2
+      ],
+      "scoreError": 5.88115863786598e-08,
+      "nativeScore": 0.9677445522429593,
+      "score": 0.9677446110545457,
+      "threshold": 0.85,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "pair": [
+        1,
+        2
+      ],
+      "scoreError": 9.529599576119097e-08,
+      "nativeScore": 0.7458210586889944,
+      "score": 0.7458211539849902,
+      "threshold": 0.85,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "case": "wblot_lane_embedder-0",
+      "maxError": 1.043081283569336e-07,
+      "ms": 36.600000001490116
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "case": "wblot_lane_embedder-1",
+      "maxError": 8.940696716308594e-08,
+      "ms": 19.199999999254942
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "case": "wblot_lane_embedder-2",
+      "maxError": 1.1548399925231934e-07,
+      "ms": 19
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "pair": [
+        0,
+        1
+      ],
+      "scoreError": 9.840938008931488e-08,
+      "nativeScore": 0.3971333513320922,
+      "score": 0.3971332529227121,
+      "threshold": 0.65,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "pair": [
+        0,
+        2
+      ],
+      "scoreError": 4.131781472516138e-09,
+      "nativeScore": 0.46375364740810976,
+      "score": 0.46375365153989123,
+      "threshold": 0.65,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "pair": [
+        1,
+        2
+      ],
+      "scoreError": 7.638908669505007e-08,
+      "nativeScore": 0.2440065695229617,
+      "score": 0.244006493133875,
+      "threshold": 0.65,
+      "sameDecision": true
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "case": "micro_overlap_embedder-0",
+      "maxError": 5.960464477539063e-08,
+      "ms": 338.30000000074506
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "case": "micro_overlap_embedder-1",
+      "maxError": 4.842877388000488e-08,
+      "ms": 28.899999998509884
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "case": "micro_overlap_embedder-2",
+      "maxError": 6.891787052154541e-08,
+      "ms": 22.900000002235174
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "pair": [
+        0,
+        1
+      ],
+      "scoreError": 1.6797668855872416e-07,
+      "nativeScore": 0.8616441458293513,
+      "score": 0.8616439778526628,
+      "threshold": 0.58,
+      "sameDecision": true
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "pair": [
+        0,
+        2
+      ],
+      "scoreError": 2.4378332885710563e-07,
+      "nativeScore": 0.9581366844023722,
+      "score": 0.9581364406190434,
+      "threshold": 0.58,
+      "sameDecision": true
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "pair": [
+        1,
+        2
+      ],
+      "scoreError": 1.0878061362795677e-07,
+      "nativeScore": 0.7948924019782049,
+      "score": 0.7948922931975912,
+      "threshold": 0.58,
+      "sameDecision": true
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "passed": true,
+  "models": [
+    {
+      "id": "wblot_duplicate_embedder",
+      "sha256": "dd893d7f059728c22f370464b439426be198e02aef7f0c6124b1eaa838d307f8",
+      "checkpointSha256": "87e62f05cba4127357097d2f15f1401aed017ac0f6a64c67a57246aa33bfb02e",
+      "bytes": 123178895
+    },
+    {
+      "id": "wblot_overlap_embedder",
+      "sha256": "b9be00f7df632c33271244d9f51d9f958a3c0c3bbc30f33b0ce5005bb0068b46",
+      "checkpointSha256": "afc8c81fd829f356c51be7f6df357c3d258879342f2739d64595522f55497929",
+      "bytes": 123178895
+    },
+    {
+      "id": "wblot_lane_embedder",
+      "sha256": "1fb1439e5fe8036ea69b09156a57963648b8e4800bf2959acdd6e8cf09cc7ae6",
+      "checkpointSha256": "6cee086eab4ead02a242cbcb584da1a7e30b84cfcfa43e97e466019e6f2f0849",
+      "bytes": 123178896
+    },
+    {
+      "id": "micro_overlap_embedder",
+      "sha256": "36687369096760d55a35a0861d8a5ffde2aba176754b531d5d17cac6cc458f57",
+      "checkpointSha256": "b91f3923a93705898c864324b5c5d70589499e208c45f622b6a447a31225ae2a",
+      "bytes": 124214828
+    }
+  ],
+  "executionNote": "WebGPU requested; ORT reports nodes assigned to CPU fallback. This is a mixed-provider execution, not a GPU-only claim."
+}

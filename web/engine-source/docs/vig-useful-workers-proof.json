@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Same backbone, staging, float32 arithmetic, checkpoint, input and 1GiB budget; only useful-worker ceiling changes. Serial runs in one development browser, fresh helpers each time; OS caches not flushed. Preparation excluded, setup/parameter reads separate, no decoder/export/UI speed claim.",
+  "records": [
+    {
+      "name": "structured-copy",
+      "maxWorkers": 1,
+      "workers": 1,
+      "preparationExact": true,
+      "sha256": "b892caa76fd1eaaf959765d7b2121a039870757d5eb5a83f82c8b7f1adb81106",
+      "milliseconds": 42919.5,
+      "setupMs": 6.899999991059303,
+      "timings": {
+        "parameterLoadMs": 2084.4000000953674,
+        "executionMs": 40826.29999990761
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 135856128,
+        "peakAccountedBytes": 283401088
+      },
+      "nativeFeaturesExact": true,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 283401088
+      }
+    },
+    {
+      "name": "structured-copy",
+      "maxWorkers": 10,
+      "workers": 10,
+      "preparationExact": true,
+      "sha256": "b892caa76fd1eaaf959765d7b2121a039870757d5eb5a83f82c8b7f1adb81106",
+      "milliseconds": 10858.5,
+      "setupMs": 5.5,
+      "timings": {
+        "parameterLoadMs": 1931.1999999433756,
+        "executionMs": 8920.500000044703
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 739835904,
+        "peakAccountedBytes": 1066854272
+      },
+      "nativeFeaturesExact": true,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1066854272
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-vig-model.mjs": "c197564898870e6498888db103a4a6bdfed548f2fd00a7796b236b63297841b4",
+    "scripts/export-vig-backbone.py": "04c77e31dd9689d595305772bbdc4da9d34e3a04b6d410d3cff1d374058d4bd7",
+    "experiments/segmentation/vig-backbone.js": "779c7c0f6463b59a1ead0ef39266a04a6de9472712a274a50e11222b23606509",
+    "experiments/segmentation/vig-convolution.js": "2bfc249b8a6c97d0b563c6a9daf28a2550e36ffa569f5ca101bcdbe27482973a",
+    "experiments/segmentation/vig-convolution-worker.js": "b393e6911f7bacdf2666ce06819ee215e9bf383a08f898d60fe431d4270b5ac5",
+    "experiments/segmentation/vig-inference.js": "ed675feae526111448ab0572d11005a9af402488828e69a8f98886de287c2d5c",
+    "experiments/segmentation/vig-math.cpp": "e2552034f4b2f370ff3d1103b7a55dacb0b882d2ffa862dda8a2be2dbca87a7b",
+    "experiments/segmentation/vig-exp.h": "fd0e1684e6c2ada4a8044f2f2f43b81fcaed1bc63b1c1dad9e3275f8abb22f06",
+    "experiments/segmentation/vig-exp-table.h": "836ee95bb30123b5d442b50e015fbf14c9fe5a8a2c45b908f7928f47059d66cf",
+    "vendor/segmentation/VIG-PINNED.json": "0fecccaa1e99269fafdce76e843d9c10d978b03c9705ae13a553e842fb19402c"
+  }
+}

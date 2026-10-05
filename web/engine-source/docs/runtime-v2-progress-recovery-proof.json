@@ -1,0 +1,206 @@
+{
+  "version": "0.31.0-integration.28",
+  "sourceCodeCommit": "72b3d13581aa9f855a69081f3de16f5fc67c2ffc",
+  "scope": "Causal recovery arbitration, acknowledged reusable work buffers, finer PatchMatch preparation checkpoint and useful parallel drain; no production calibration or RAM probe.",
+  "gitChanges": [
+    "76061c5",
+    "b170dd8",
+    "0039534",
+    "6d784a4",
+    "dda1f0d",
+    "f02d2b3",
+    "72b3d13",
+    "a50a718"
+  ],
+  "node": {
+    "command": "node --experimental-test-module-mocks --test --test-concurrency=4 tests/*.test.mjs",
+    "node": "22.22.2",
+    "tests": 1323,
+    "pass": 1321,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 2,
+    "durationMs": 406614.978875,
+    "skips": [
+      "ok 898 - global native ROI maps, composites and their Fourier outputs preserve bits and existing tolerance # SKIP Generate local native integration oracle first.",
+      "ok 900 - streaming global EM preserves native validities, iterations and every binary64 weight # SKIP Generate local native EM oracle first."
+    ],
+    "log": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/progress-recovery-assembled-node.tap",
+    "sha256": "0c959dbabe8d7dedeb5783e0ce00e1d2c05e72ab7f1ccec9dde2a2bd4b496fff"
+  },
+  "compatibility": {
+    "sourceCommit": "72b3d13581aa9f855a69081f3de16f5fc67c2ffc",
+    "status": "passed",
+    "commands": [
+      "node scripts/check-runtime-storage-browser.mjs --browser=firefox",
+      "node scripts/check-runtime-storage-browser.mjs --browser=webkit"
+    ],
+    "reports": {
+      "firefox": {
+        "browserName": "firefox",
+        "browser": "155.0",
+        "isolated": true,
+        "storage": [
+          {
+            "ok": true,
+            "backend": "auto",
+            "selectedBackend": "opfs",
+            "shared": true,
+            "roundTrip": true,
+            "completePageWrites": false,
+            "cancellationRollback": true,
+            "peakBytes": 262163
+          },
+          {
+            "ok": true,
+            "backend": "indexeddb",
+            "selectedBackend": "indexeddb",
+            "shared": true,
+            "roundTrip": true,
+            "completePageWrites": true,
+            "cancellationRollback": true,
+            "peakBytes": 2097169
+          }
+        ],
+        "ocr": {
+          "boxes": 7,
+          "exactRowsParity": true,
+          "reads": 30,
+          "maxRows": 32,
+          "preflightExecutions": 0
+        }
+      },
+      "webkit": {
+        "browserName": "webkit",
+        "browser": "26.6",
+        "isolated": true,
+        "storage": [
+          {
+            "ok": true,
+            "backend": "auto",
+            "selectedBackend": "indexeddb",
+            "shared": true,
+            "roundTrip": true,
+            "completePageWrites": false,
+            "cancellationRollback": true,
+            "peakBytes": 1048652
+          },
+          {
+            "ok": true,
+            "backend": "indexeddb",
+            "selectedBackend": "indexeddb",
+            "shared": true,
+            "roundTrip": true,
+            "completePageWrites": true,
+            "cancellationRollback": true,
+            "peakBytes": 2097169
+          }
+        ],
+        "ocr": {
+          "boxes": 7,
+          "exactRowsParity": true,
+          "reads": 30,
+          "maxRows": 32,
+          "preflightExecutions": 0
+        }
+      }
+    },
+    "artifacts": {
+      "firefox.json": {
+        "path": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/progress-recovery-compat/firefox.json",
+        "sha256": "6fa0c21c032c07da6519f7a796ad7256841fef8fbb7fdf7886657a820c3be673"
+      },
+      "firefox.log": {
+        "path": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/progress-recovery-compat/firefox.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "webkit.json": {
+        "path": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/progress-recovery-compat/webkit.json",
+        "sha256": "9fffd5ea42180cc7605431e2144f8b401d54fc78ff8863b688ff061b942a08f3"
+      },
+      "webkit.log": {
+        "path": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/progress-recovery-compat/webkit.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "limits": [
+      "Only existing small storage/OCR corpus; not a 96 megapixel run.",
+      "Isolation enabled only; non-isolated browser mode was not exercised.",
+      "No performance claim or allocator-capacity measurement.",
+      "WebKit auto selected IndexedDB; this run does not qualify WebKit OPFS.",
+      "The auto branch completePageWrites=false means the dedicated complete-page test is reserved for the explicitly forced IndexedDB pass."
+    ],
+    "trackedChangesMade": false,
+    "browserCleanup": "Both scripts close their browser and HTTP server in finally."
+  },
+  "denseQualification": "runtime-v2-dense-tile-recovery-proof.json",
+  "chromeCompleteSmall": {
+    "status": "passed",
+    "sourceCommit": "a7ae4c4bff00d2a5215054e4437f84ae6c2902ac",
+    "browser": "154.0.8037.93",
+    "dimensions": [
+      2008,
+      1444
+    ],
+    "command": "M5_COMPLETE_VARIANT=small-positive node scripts/test-m5-complete-96mp.mjs",
+    "totalMs": 366426.12000000477,
+    "times": {
+      "modelConfigurationMs": 118.09500002861023,
+      "loadMs": 42.49500000476837,
+      "analysisMs": 318494.8900000155,
+      "exportMs": 20871.555000007153,
+      "readbackMs": 26358.990000009537
+    },
+    "allFiveGroupsDone": true,
+    "preflightExecutions": 0,
+    "archive": {
+      "byteLength": 638339234,
+      "sha256": "fbb75950b13bee49caff16f55014ca317d727055e5ffdd5496d42c1942d88563"
+    },
+    "scientificComparison": {
+      "report": "qualification/progress-recovery/complete-small-scientific-comparison.json",
+      "scientificallyEqual": true,
+      "arrayCount": 746,
+      "rootResultsArrayCount": 699,
+      "payloadBytesCompared": 630040316,
+      "differenceCount": 0,
+      "changedExclusionCount": 9
+    },
+    "finalMemory": {
+      "budgetBytes": 27487371264,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 27371811402,
+      "activeRecoveries": 0,
+      "knownHeapCapacityBytes": 16777216
+    },
+    "priorIntegration27TotalMs": 346637.0300000012,
+    "observedDeltaMs": 19789.090000003576,
+    "observedDeltaPercent": 5.708879400450528,
+    "timingInterpretation": "One cold run per revision, not a controlled repeated benchmark. This candidate took 19.789 seconds longer (+5.71%); no speedup is claimed. This 2.9MP corpus uses resident dense execution and is not evidence of full96MP paged success.",
+    "sourceScope": "Frozen a7ae4c4 before the final broker-reader failure cleanup; that later change is qualified separately below."
+  },
+  "full96mp": {
+    "status": "not qualified by this release proof",
+    "scope": "A fresh standalone supervised 96MP attempt is required; its result.json and verified complete.npz are the only success evidence."
+  },
+  "limits": [
+    "Local native global ROI and EM reference oracles are absent; their two conditional tests were skipped.",
+    "No complete 96MP success is claimed; the complete small run and final broker failure cleanup have distinct recorded source commits.",
+    "Checkpoint lifetime is the live engine. A lost native field worker may require restarting its own hypothesis, while published peers and texture tiles remain reusable.",
+    "Some opaque native allocation failures expose no trustworthy allocation extent; no exact value is invented."
+  ],
+  "finalSourceCodeCommit": "a50a718d54ffcb04058a3015a151b3a7087da248",
+  "finalBrokerCleanup": {
+    "sourceCommit": "a50a718d54ffcb04058a3015a151b3a7087da248",
+    "command": "node --experimental-test-module-mocks --test tests/dense-field-broker-cleanup.test.mjs tests/dense-field-resource-rpc.test.mjs tests/dense-preparation-drain.test.mjs tests/dense-eligibility-checkpoint.test.mjs",
+    "pass": 9,
+    "fail": 0,
+    "skipped": 0,
+    "durationMs": 354.623375,
+    "log": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/progress-recovery-final-cleanup.tap",
+    "sha256": "e8ae60555f927a5c671350985aeac1d7924ff9638b7b51ec1253d3d42ed921c8",
+    "scope": "Early destination session/store/reservation refusals close the broker and return staging credit; original error/cause survive secondary cleanup failure. Composition still resumes preparation while another field computes."
+  }
+}

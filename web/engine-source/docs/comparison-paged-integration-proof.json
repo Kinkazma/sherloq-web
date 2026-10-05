@@ -1,0 +1,155 @@
+{
+  "cases": [
+    {
+      "view": "normal",
+      "sha256": "14cd2aaafd0c26300069af397e5ba97de3379dc9178df7b75573ce12b5a85481",
+      "values": {
+        "rmse": 23.214752489783866,
+        "sam": 0.1698811499246425,
+        "ergas": 4.549795388207959,
+        "mb": -0.000005958627106297115,
+        "pfe": 16.967756548283145,
+        "psnr": 20.815522455048434,
+        "hist_0": -1.0091793602426313,
+        "hist_1": 108901.69622015934,
+        "hist_4": 194808.76006087934,
+        "hist_2": 946562,
+        "hist_3": 0.19604109214938584,
+        "hist_5": 761329.741981388,
+        "msssim": 0.9674590439872294,
+        "rase": 400.026552066782,
+        "scc": 0.8706636105720993,
+        "uqi": 0.9850423895233865,
+        "vifp": 0.8853745063989923,
+        "ssimul": 0.14817154,
+        "butter": 7.264762,
+        "ssim": 0.8870394574090325
+      },
+      "metrics": {
+        "workers": 1,
+        "completedMetricJobs": 5,
+        "workerHeapPeakBytes": 230686720,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "pagedStages": [
+          {
+            "name": "histograms",
+            "resident": true,
+            "cachePages": 1024,
+            "pageBytes": 16384,
+            "blockPixels": 262144,
+            "workspace": 159383552,
+            "workers": 1,
+            "paged": true,
+            "reads": 0,
+            "writes": 0,
+            "readBytes": 0,
+            "writeBytes": 0,
+            "heapBytes": 136380416,
+            "sourcePixels": 2097152,
+            "preflightExecutions": 0,
+            "heapPeak": 136380416
+          },
+          {
+            "name": "sewar",
+            "workspace": 44367872,
+            "workers": 1,
+            "paged": true,
+            "reads": 8982,
+            "writes": 3604,
+            "readBytes": 1866523728,
+            "writeBytes": 748957008,
+            "temporaryPeakBytes": 109051904,
+            "heapBytes": 8388608,
+            "arithmetic": "separated",
+            "preflightExecutions": 0,
+            "heapPeak": 8388608
+          },
+          {
+            "name": "ssimulacra",
+            "workspace": 39124992,
+            "workers": 1,
+            "paged": true,
+            "reads": 3711,
+            "writes": 1364,
+            "readBytes": 346633472,
+            "writeBytes": 127074304,
+            "temporaryPeakBytes": 50331648,
+            "heapBytes": 8388608,
+            "arithmetic": "native",
+            "preflightExecutions": 0,
+            "heapPeak": 8388608
+          }
+        ],
+        "storage": "memory",
+        "blockPixels": 65536,
+        "cache": {
+          "stages": {
+            "histograms": false,
+            "sewar": false,
+            "ssimulacra": false,
+            "butteraugli": false,
+            "ssim": false
+          }
+        },
+        "globalStageMaximumBytes": 419430400
+      },
+      "milliseconds": 152628.70000000298
+    },
+    {
+      "view": "difference",
+      "sha256": "107620bd2b9aa588c2aeb7bc96abb2546b8a020a4b8f2239637d897b39060d5d",
+      "values": {
+        "rmse": 23.214752489783866,
+        "sam": 0.1698811499246425,
+        "ergas": 4.549795388207959,
+        "mb": -0.000005958627106297115,
+        "pfe": 16.967756548283145,
+        "psnr": 20.815522455048434,
+        "hist_0": -1.0091793602426313,
+        "hist_1": 108901.69622015934,
+        "hist_4": 194808.76006087934,
+        "hist_2": 946562,
+        "hist_3": 0.19604109214938584,
+        "hist_5": 761329.741981388,
+        "msssim": 0.9674590439872294,
+        "rase": 400.026552066782,
+        "scc": 0.8706636105720993,
+        "uqi": 0.9850423895233865,
+        "vifp": 0.8853745063989923,
+        "ssimul": 0.14817154,
+        "butter": 7.264762,
+        "ssim": 0.8870394574090325
+      },
+      "metrics": {
+        "workers": 0,
+        "completedMetricJobs": 0,
+        "workerHeapPeakBytes": 0,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "pagedStages": [],
+        "storage": "memory",
+        "blockPixels": 65536,
+        "cache": {
+          "stages": {
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true,
+            "basic": true
+          }
+        },
+        "globalStageMaximumBytes": 0
+      },
+      "milliseconds": 537.2999999970198
+    }
+  ],
+  "memory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 438042624
+  }
+}

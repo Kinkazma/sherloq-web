@@ -1,0 +1,123 @@
+{
+  "records": [
+    {
+      "case": "composite-small-singular/reference.json",
+      "conditioning": [
+        -1.2780013876991748e-16,
+        5.423071479656822,
+        null,
+        15,
+        32,
+        3.853324045377933e-14
+      ],
+      "illConditioned": true,
+      "errors": {
+        "map": {
+          "max": 5373104449931248,
+          "mean": 967010628089809.5,
+          "differences": 168,
+          "values": 168
+        },
+        "valid": {
+          "max": 0,
+          "mean": 0,
+          "differences": 0,
+          "values": 168
+        },
+        "raster": {
+          "max": 28,
+          "mean": 7.438201121794871,
+          "differences": 34540,
+          "values": 39936,
+          "maxNormalized": 0.10980392156862745,
+          "meanNormalized": 0.029169416163901455,
+          "displayMidpointDifferences": 2240,
+          "note": "128 is a display midpoint diagnostic, not a native detection threshold."
+        }
+      }
+    },
+    {
+      "case": "composite/chain-reference.json",
+      "conditioning": [
+        3.917080048930635e-16,
+        5.310305221186269,
+        13556795252718884,
+        16,
+        32,
+        3.7731987995828354e-14
+      ],
+      "illConditioned": true,
+      "errors": {
+        "map": {
+          "max": 20460439047679696,
+          "mean": 2277658094905420,
+          "differences": 560,
+          "values": 560
+        },
+        "valid": {
+          "max": 0,
+          "mean": 0,
+          "differences": 0,
+          "values": 560
+        },
+        "raster": {
+          "max": 65,
+          "mean": 17.0712890625,
+          "differences": 51360,
+          "values": 81920,
+          "maxNormalized": 0.2549019607843137,
+          "meanNormalized": 0.06694623161764705,
+          "displayMidpointDifferences": 4576,
+          "note": "128 is a display midpoint diagnostic, not a native detection threshold."
+        }
+      }
+    },
+    {
+      "case": "composite/reference.json",
+      "conditioning": [
+        0.008420266377581009,
+        3.2335899272994753,
+        384.0246593515047,
+        32,
+        32,
+        2.2976038332696726e-14
+      ],
+      "illConditioned": false,
+      "errors": {
+        "map": {
+          "max": 7.526068657170981e-11,
+          "mean": 1.1020293319871952e-11,
+          "differences": 1425,
+          "values": 1440
+        },
+        "valid": {
+          "max": 0,
+          "mean": 0,
+          "differences": 0,
+          "values": 1440
+        },
+        "raster": {
+          "max": 0,
+          "mean": 0,
+          "differences": 0,
+          "values": 159744,
+          "maxNormalized": 0,
+          "meanNormalized": 0,
+          "displayMidpointDifferences": 0,
+          "note": "128 is a display midpoint diagnostic, not a native detection threshold."
+        }
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 876948428
+  },
+  "passed": true,
+  "scope": "Detection of material numerical instability, not a claim of singular-map parity. Exact native residual supplied to isolate statistics.",
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

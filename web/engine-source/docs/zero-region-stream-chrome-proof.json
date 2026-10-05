@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "elapsedMs": 6666.70000000298,
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "foreign": {
+    "components": 29695,
+    "visited": 432730,
+    "rowsPerClosingChunk": 64,
+    "closingHaloRows": 9,
+    "heapMaximumBytes": 16777216,
+    "heapCapacityBytes": 16777216,
+    "maskStorage": "temporary",
+    "regularizedStorage": "temporary"
+  },
+  "missing": {
+    "components": 37,
+    "visited": 133208,
+    "rowsPerClosingChunk": 64,
+    "closingHaloRows": 9,
+    "heapMaximumBytes": 16777216,
+    "heapCapacityBytes": 16777216,
+    "maskStorage": "temporary",
+    "regularizedStorage": "temporary"
+  },
+  "foreignRegions": [],
+  "missingRegions": [
+    {
+      "x0": 7,
+      "y0": 7,
+      "x1": 587,
+      "y1": 200,
+      "grid": 0,
+      "log10_nfa": -3.1418822864747895
+    },
+    {
+      "x0": 240,
+      "y0": 748,
+      "x1": 1016,
+      "y1": 1016,
+      "grid": 0,
+      "log10_nfa": -2.059661058949665
+    },
+    {
+      "x0": 496,
+      "y0": 832,
+      "x1": 1016,
+      "y1": 1016,
+      "grid": 0,
+      "log10_nfa": -5.1260595236425175
+    }
+  ],
+  "nativeMasksAndRegions": true,
+  "cancellationRemovesScratch": true,
+  "memory": {
+    "budgetBytes": 100663296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 76911616
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

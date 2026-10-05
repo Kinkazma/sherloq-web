@@ -1,0 +1,153 @@
+{
+  "source": "44a39f5178704a081e3c077666eace2ceeebadce",
+  "scope": "Real SiftPool.execute, Budget, recovery, scheduler; injected 32-byte allocation refusal; two actual 64-byte cache banks retired. No browser/native image.",
+  "calls": [
+    1,
+    1
+  ],
+  "failureCounts": [
+    1,
+    1
+  ],
+  "before": {
+    "operations": [
+      {
+        "key": 1,
+        "owner": "peer",
+        "id": "real-compute-holder",
+        "state": "compute",
+        "resource": null,
+        "dependencies": [],
+        "parent": null,
+        "revision": 0,
+        "commits": 0,
+        "children": [],
+        "childPrevious": null
+      },
+      {
+        "key": 2,
+        "owner": "sift",
+        "id": "sift-native-tile",
+        "state": "queued",
+        "resource": "array-buffer",
+        "dependencies": [
+          3
+        ],
+        "parent": null,
+        "revision": 0,
+        "commits": 0,
+        "children": [],
+        "childPrevious": null
+      },
+      {
+        "key": 3,
+        "owner": "sift",
+        "id": "sift-native-tile",
+        "state": "queued",
+        "resource": "array-buffer",
+        "dependencies": [
+          2
+        ],
+        "parent": null,
+        "revision": 0,
+        "commits": 0,
+        "children": [],
+        "childPrevious": null
+      }
+    ],
+    "pressures": [
+      {
+        "kind": "array-buffer",
+        "owner": "sift",
+        "operation": 2,
+        "requestedBytes": 32
+      },
+      {
+        "kind": "array-buffer",
+        "owner": "sift",
+        "operation": 3,
+        "requestedBytes": 32
+      }
+    ],
+    "execution": {
+      "running": 1,
+      "queued": 2
+    }
+  },
+  "stalled": {
+    "operations": [
+      {
+        "key": 2,
+        "owner": "sift",
+        "id": "sift-native-tile",
+        "state": "queued",
+        "resource": "array-buffer",
+        "dependencies": [
+          3
+        ],
+        "parent": null,
+        "revision": 0,
+        "commits": 0,
+        "children": [],
+        "childPrevious": null
+      },
+      {
+        "key": 3,
+        "owner": "sift",
+        "id": "sift-native-tile",
+        "state": "queued",
+        "resource": "array-buffer",
+        "dependencies": [
+          2
+        ],
+        "parent": null,
+        "revision": 0,
+        "commits": 0,
+        "children": [],
+        "childPrevious": null
+      }
+    ],
+    "pressures": [
+      {
+        "kind": "array-buffer",
+        "owner": "sift",
+        "operation": 2,
+        "requestedBytes": 32
+      },
+      {
+        "kind": "array-buffer",
+        "owner": "sift",
+        "operation": 3,
+        "requestedBytes": 32
+      }
+    ],
+    "execution": {
+      "running": 0,
+      "queued": 2,
+      "active": {
+        "cpu": 0,
+        "gpu": 0
+      }
+    },
+    "independentProducers": [
+      0,
+      0
+    ]
+  },
+  "reclaimMutexResponsive": true,
+  "outcomes": [
+    {
+      "status": "rejected",
+      "code": "CANCELLED"
+    },
+    {
+      "status": "rejected",
+      "code": "CANCELLED"
+    }
+  ],
+  "after": {
+    "budget": 0,
+    "operations": 0,
+    "pressures": 0
+  }
+}

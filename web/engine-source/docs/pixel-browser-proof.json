@@ -1,0 +1,221 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "fixtureCases": 9,
+  "counts": {
+    "colors.stats": 54,
+    "noise.planes": 1080,
+    "noise.minmax": 918,
+    "pixels.defects": 486,
+    "inspection.histogram": 144
+  },
+  "totalOutputs": 2682,
+  "pixelAndMaskMismatches": 0,
+  "nativeDefectCsvExact": true,
+  "rpcByOperation": {
+    "colors.stats": {
+      "runs": 54,
+      "totalMs": 7.700000047683716
+    },
+    "noise.planes": {
+      "runs": 1080,
+      "totalMs": 101.4000004529953
+    },
+    "noise.minmax": {
+      "runs": 918,
+      "totalMs": 124.90000075101852
+    },
+    "pixels.defects": {
+      "runs": 486,
+      "totalMs": 69.69999969005585
+    },
+    "inspection.histogram": {
+      "runs": 144,
+      "totalMs": 18.199999928474426
+    }
+  },
+  "durationMs": 431.60000002384186,
+  "capabilities": {
+    "version": "0.3.0",
+    "operations": [
+      {
+        "id": "ela.classic",
+        "status": "partial",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "kernelParity": "bit-exact on 40 native fixture outputs",
+        "codecParity": "bit-exact on declared native synthetic fixtures; unsupported metadata rejected"
+      },
+      {
+        "id": "inspection.histogram",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "channel": 3,
+          "start": 0,
+          "end": 255
+        },
+        "exports": [
+          "json",
+          "csv"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "histogram.py + tools/inspection/histogram.py"
+      },
+      {
+        "id": "colors.stats",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "mode": "min",
+          "inclusive": false
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "pixel_stats.py"
+      },
+      {
+        "id": "noise.planes",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "channel": 0,
+          "bit": 0,
+          "filter": 0
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "bit_planes.py"
+      },
+      {
+        "id": "noise.minmax",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "channel": 0,
+          "minimum": 1,
+          "maximum": 0,
+          "filter": 0
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "minmax.py"
+      },
+      {
+        "id": "pixels.defects",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "radius": 1,
+          "threshold": 32,
+          "spread": 32,
+          "kind": 0,
+          "mode": 0
+        },
+        "exports": [
+          "json",
+          "csv"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "defect_pixels.py"
+      }
+    ],
+    "formats": [
+      "image/jpeg (8-bit, no APP1/APP2, no CMYK)",
+      "explicit rgb8 with provenance"
+    ],
+    "unavailable": [
+      "ela.energy",
+      "ela.biomes",
+      "ela.ghosts",
+      "tiff",
+      "webgpu",
+      "onnx"
+    ],
+    "energyProfile": {
+      "id": "standard",
+      "name": "Conservateur",
+      "percentiles": [
+        1,
+        99
+      ],
+      "deviations": [
+        5,
+        5
+      ],
+      "adaptive": false,
+      "available": false
+    },
+    "memory": {
+      "budgetBytes": 3296722944,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 38838819
+    },
+    "workerThreads": 1,
+    "calculationProfile": "aggressive",
+    "resourceProfile": {
+      "id": "aggressive",
+      "label": "Agressif",
+      "memoryBudgetBytes": 3296722944,
+      "maxWorkers": 10,
+      "minimumBenefit": 0.05,
+      "hints": {
+        "deviceMemoryGiB": 32,
+        "heapLimitBytes": 4395630592,
+        "hardwareConcurrency": 10
+      },
+      "memoryPolicy": "One shared engine budget; approximate browser hints; 4 GiB accounting ceiling; no eager allocation",
+      "gpuPolicy": "High-performance adapter only when capability, exactness and full-path benefit are verified; CPU retained"
+    },
+    "concurrencyReason": "One codec thread; ELA kernels at >=1 MP calibrate useful workers under the shared budget. Other pixel kernels currently use one worker."
+  },
+  "limits": [
+    "Synthetic fixtures only",
+    "Real dedicated module worker; no WordPress UI validation",
+    "RPC smoke durations include caches and tiny inputs; not speed comparisons"
+  ],
+  "browser": "154.0.8037.58",
+  "errors": []
+}

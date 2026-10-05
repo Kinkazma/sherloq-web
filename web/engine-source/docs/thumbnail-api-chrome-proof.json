@@ -1,0 +1,205 @@
+{
+  "status": "passed",
+  "nativeCases": [
+    {
+      "file": "fixtures/exif-tools.jpg",
+      "available": true,
+      "metrics": {
+        "extraction": {
+          "wasmHeapBytes": 38600704,
+          "wasmMaximumBytes": 134217728,
+          "outputBytes": 1108,
+          "sourceReads": {
+            "count": 3,
+            "totalBytes": 9042,
+            "maximumBytes": 4489
+          },
+          "reservationBytes": 570434322,
+          "sourceCopyBytes": 0,
+          "workers": 1,
+          "pixelDecode": false,
+          "cache": {
+            "result": false
+          }
+        },
+        "decode": {
+          "heapBytes": 16777216
+        },
+        "kernel": "native-lanczos4-segmented-comparison",
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 50331648,
+        "workspaceBytes": 58735898,
+        "maxSourceWindowBytes": 6144,
+        "resizedStorage": "memory",
+        "differenceStorage": "memory",
+        "cache": {
+          "analysis": false,
+          "result": false
+        },
+        "temporaryBackend": null,
+        "totalMs": 384.20000000298023,
+        "memory": {
+          "budgetBytes": 671088640,
+          "retainedBytes": 38529,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 587220754
+        }
+      }
+    },
+    {
+      "file": "tests/data/png-exif/exif-1.png",
+      "available": true,
+      "metrics": {
+        "extraction": {
+          "wasmHeapBytes": 38862848,
+          "wasmMaximumBytes": 134217728,
+          "outputBytes": 1108,
+          "sourceReads": {
+            "count": 4,
+            "totalBytes": 19008,
+            "maximumBytes": 8192
+          },
+          "reservationBytes": 570444462,
+          "sourceCopyBytes": 0,
+          "workers": 1,
+          "pixelDecode": false,
+          "cache": {
+            "result": false
+          }
+        },
+        "decode": {
+          "heapBytes": 16777216
+        },
+        "kernel": "native-lanczos4-segmented-comparison",
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 50331648,
+        "workspaceBytes": 58735898,
+        "maxSourceWindowBytes": 6144,
+        "resizedStorage": "memory",
+        "differenceStorage": "memory",
+        "cache": {
+          "analysis": false,
+          "result": false
+        },
+        "temporaryBackend": null,
+        "totalMs": 360,
+        "memory": {
+          "budgetBytes": 671088640,
+          "retainedBytes": 38741,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 587230894
+        }
+      }
+    },
+    {
+      "file": "fixtures/odd.jpg",
+      "available": false,
+      "metrics": {
+        "wasmHeapBytes": 38600704,
+        "wasmMaximumBytes": 134217728,
+        "outputBytes": 0,
+        "sourceReads": {
+          "count": 3,
+          "totalBytes": 2280,
+          "maximumBytes": 1108
+        },
+        "reservationBytes": 570427560,
+        "sourceCopyBytes": 0,
+        "workers": 1,
+        "pixelDecode": false,
+        "cache": {
+          "analysis": false,
+          "result": false
+        },
+        "temporaryBackend": null,
+        "totalMs": 319.5,
+        "memory": {
+          "budgetBytes": 671088640,
+          "retainedBytes": 9773,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 587230894
+        }
+      }
+    },
+    {
+      "file": "tests/data/thumbnail-api/embedded-png.jpg",
+      "available": false,
+      "metrics": {
+        "wasmHeapBytes": 38600704,
+        "wasmMaximumBytes": 134217728,
+        "outputBytes": 0,
+        "sourceReads": {
+          "count": 3,
+          "totalBytes": 16448,
+          "maximumBytes": 8192
+        },
+        "reservationBytes": 570537668,
+        "sourceCopyBytes": 0,
+        "workers": 1,
+        "pixelDecode": false,
+        "cache": {
+          "analysis": false,
+          "result": false
+        },
+        "temporaryBackend": null,
+        "totalMs": 310.8999999985099,
+        "memory": {
+          "budgetBytes": 671088640,
+          "retainedBytes": 158301,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 587464845
+        }
+      }
+    },
+    {
+      "file": "tests/data/thumbnail-api/embedded-tiff.jpg",
+      "available": false,
+      "metrics": {
+        "wasmHeapBytes": 38600704,
+        "wasmMaximumBytes": 134217728,
+        "outputBytes": 0,
+        "sourceReads": {
+          "count": 3,
+          "totalBytes": 16448,
+          "maximumBytes": 8192
+        },
+        "reservationBytes": 570538260,
+        "sourceCopyBytes": 0,
+        "workers": 1,
+        "pixelDecode": false,
+        "cache": {
+          "analysis": false,
+          "result": false
+        },
+        "temporaryBackend": null,
+        "totalMs": 309,
+        "memory": {
+          "budgetBytes": 671088640,
+          "retainedBytes": 158301,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 587465437
+        }
+      }
+    }
+  ],
+  "explicitSegmentedLayout": true,
+  "ownedCaches": true,
+  "pngExport": true,
+  "cancellation": "storage-closed-before-worker-termination",
+  "retryExact": true,
+  "memory": {
+    "budgetBytes": 671088640,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 587220754,
+    "knownHeapCapacityBytes": 16777216
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

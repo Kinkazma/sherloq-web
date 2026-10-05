@@ -1,0 +1,33 @@
+{
+  "case": "shape-17",
+  "before": {
+    "name": "shape-17",
+    "width": 1024,
+    "height": 1024,
+    "offset": 64,
+    "sha256": "9209dc634fe2bfed430162a4eb5e462c8d9240343ab504a498306e21e8454472",
+    "nativeSha256": "9209dc634fe2bfed430162a4eb5e462c8d9240343ab504a498306e21e8454472",
+    "nativeExact": true,
+    "maximum": 0,
+    "mean": 0,
+    "lo": -2.0414459705352783,
+    "hi": 2.5799989700317383,
+    "heapBytes": 9437184,
+    "paged": true,
+    "metrics": {
+      "workspaceBytes": 28375040,
+      "reads": 107200,
+      "writes": 53352,
+      "readBytes": 770104320,
+      "writeBytes": 372372480,
+      "temporaryPeakBytes": 74711040,
+      "heapBytes": 9437184,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 19052.822332999996
+  },
+  "afterReport": "{\n  name: 'shape-17',\n  width: 1024,\n  height: 1024,\n  offset: 64,\n  sha256: '9209dc634fe2bfed430162a4eb5e462c8d9240343ab504a498306e21e8454472',\n  nativeSha256: '9209dc634fe2bfed430162a4eb5e462c8d9240343ab504a498306e21e8454472',\n  nativeExact: true,\n  maximum: 0,\n  mean: 0,\n  lo: -2.0414459705352783,\n  hi: 2.5799989700317383,\n  heapBytes: 9437184,\n  paged: true,\n  metrics: {\n    workspaceBytes: 28375040,\n    reads: 107200,\n    writes: 53352,\n    readBytes: 770104320,\n    writeBytes: 372372480,\n    temporaryPeakBytes: 74711040,\n    heapBytes: 9437184,\n    preflightExecutions: 0\n  },\n  milliseconds: 9117.217834\n}\n",
+  "observedSpeedRatio": 2.0897627631477733,
+  "timingScope": "Concurrent development runs, not isolated. Odd shape-10 also remained exact but slower (2.87s to6.53s); no universal speed claim.",
+  "implementation": "SIMD float64 products/sums, scalar fused correction on binary32 midpoints; native grayscale operands remain bounded and nonnegative."
+}

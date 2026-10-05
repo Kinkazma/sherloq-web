@@ -1,0 +1,405 @@
+{
+  "schema": 1,
+  "status": "passed-hybrid-corpus",
+  "scope": "Actual ORT WebGPU + CPU (including unsupported TopK), float32 model,512MiB WASM ceiling and individually admitted GPU buffers capped512MiB under one3GiB budget. Two unchanged ONNX stages separated at the complete feature tensor; CPU intermediate transfers and GPU queue completion are included, never an isolated shader timer. Idle storage/uniform buffer caches are bounded by32795264B each through the pinned bucket count table; active and submitted buffers unchanged. Functional study with profiling; no speedup claim or product startup probe. Fixtures/oracles and server copies are outside model admission. Driver/compiler overhead is not RSS-accounted.",
+  "variant": "mgcfdn-st",
+  "split": {
+    "schema": 1,
+    "status": "unqualified-split-candidate",
+    "variant": "mgcfdn-st",
+    "side": 256,
+    "kind": "softmax",
+    "sourceSha256": "d7b577b68f862a43d12959291e93ecd2143d0feb4723efeb56f2bd7f941cba6d",
+    "checkpointSha256": "95fa449ba33a4718b66ddcbe948ddc57abdfb34594c43bf47e49515bc63cec98",
+    "stages": [
+      {
+        "file": "gpu-split-encoder.onnx",
+        "bytes": 61042997,
+        "sha256": "d3739d6e9d540879f8fcf0f1483ffa2e5299e8c35e1d40c1916fa5ffa6d9d6ac",
+        "inputs": [
+          "rgb"
+        ],
+        "outputs": [
+          "/network/visual_feature_extractor/Concat_4_output_0",
+          "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+        ],
+        "nodes": 3734
+      },
+      {
+        "file": "gpu-split-head.onnx",
+        "bytes": 28852562,
+        "sha256": "ed18f1799651542fc0f950c26908d7e57fe2b027087df0ecea511fc91aaac784",
+        "inputs": [
+          "/network/visual_feature_extractor/Concat_4_output_0",
+          "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+        ],
+        "outputs": [
+          "logits",
+          "probability"
+        ],
+        "nodes": 426
+      }
+    ],
+    "assetBytes": 89895559,
+    "boundary": [
+      {
+        "name": "/network/visual_feature_extractor/Concat_4_output_0",
+        "dtype": "FLOAT",
+        "shape": [
+          1,
+          640,
+          40,
+          40
+        ]
+      },
+      {
+        "name": "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0",
+        "dtype": "INT64",
+        "shape": []
+      }
+    ],
+    "scriptSha256": "7badc432c309befad9a3ba284ba3931b665ea14789066dccfb867e447a608352",
+    "scope": "Unchanged ONNX nodes/initializers split at the existing complete1x640x40x40 feature tensor plus int64 scalar. No crop, approximation, training or tensor-size change. Both full global1600x1600 consistency operations remain in the head."
+  },
+  "encoderBackend": "webgpu",
+  "headBackend": "wasm",
+  "model": {
+    "file": "gpu-concat.onnx",
+    "bytes": 89592572,
+    "sha256": "d7b577b68f862a43d12959291e93ecd2143d0feb4723efeb56f2bd7f941cba6d"
+  },
+  "weights": {
+    "models/external/clone_detectors/04_mgcfdn/weight/MGCFDN_ST.pth": "95fa449ba33a4718b66ddcbe948ddc57abdfb34594c43bf47e49515bc63cec98"
+  },
+  "sessionMs": 1282.2000000029802,
+  "records": [
+    {
+      "name": "structured-copy",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 3.5762786865234375e-7,
+        "meanAbs": 1.307925721732504e-9,
+        "different": 126077,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0000514984130859375,
+        "meanAbs": 0.000005793110782785031,
+        "different": 188753,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 2.849847078323364e-7,
+        "meanAbs": 1.9430456158659996e-9,
+        "different": 201854,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 0,
+      "preparationMs": 19.099999994039536,
+      "runMs": 1310,
+      "projectionMs": 76.8999999910593,
+      "heapBytes": 212140032,
+      "gpuLiveBytes": 228493056,
+      "target": {
+        "maxAbs": 2.849847078323364e-7,
+        "meanAbs": 8.466246464008636e-10,
+        "different": 201554,
+        "finite": true
+      },
+      "source": {
+        "maxAbs": 2.8312206268310547e-7,
+        "meanAbs": 1.1111024979878703e-9,
+        "different": 201710,
+        "finite": true
+      }
+    },
+    {
+      "name": "constant",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 1.1920928955078125e-7,
+        "meanAbs": 1.5270790940736426e-9,
+        "different": 127988,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0000762939453125,
+        "meanAbs": 0.00000643285541931012,
+        "different": 190190,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 4.98257577419281e-8,
+        "meanAbs": 2.2403105920773653e-9,
+        "different": 14584,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 0,
+      "preparationMs": 10,
+      "runMs": 917.3999999910593,
+      "projectionMs": 55.79999999701977,
+      "heapBytes": 212140032,
+      "gpuLiveBytes": 233576304,
+      "target": {
+        "maxAbs": 9.66247171163559e-9,
+        "meanAbs": 4.999816139388499e-11,
+        "different": 14592,
+        "finite": true
+      },
+      "source": {
+        "maxAbs": 4.98257577419281e-8,
+        "meanAbs": 2.2173840979734076e-9,
+        "different": 14557,
+        "finite": true
+      }
+    },
+    {
+      "name": "paired-spots",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 3.5762786865234375e-7,
+        "meanAbs": 3.707590368547967e-9,
+        "different": 127091,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0001010894775390625,
+        "meanAbs": 0.000006835015786540073,
+        "different": 187920,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 3.3620744943618774e-7,
+        "meanAbs": 5.476237021468439e-9,
+        "different": 64150,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 0,
+      "preparationMs": 10.700000002980232,
+      "runMs": 906.7000000029802,
+      "projectionMs": 68.20000000298023,
+      "heapBytes": 212140032,
+      "gpuLiveBytes": 233629600,
+      "target": {
+        "maxAbs": 3.3620744943618774e-7,
+        "meanAbs": 5.302284941412311e-9,
+        "different": 62384,
+        "finite": true
+      },
+      "source": {
+        "maxAbs": 8.568167686462402e-8,
+        "meanAbs": 3.689749218046581e-10,
+        "different": 62096,
+        "finite": true
+      }
+    },
+    {
+      "name": "multiscale-copy",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 0.000010669231414794922,
+        "meanAbs": 1.2201161246803204e-7,
+        "different": 139595,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.00006771087646484375,
+        "meanAbs": 0.000004523641178764508,
+        "different": 187993,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 0.000010669231414794922,
+        "meanAbs": 1.823483925403953e-7,
+        "different": 62911,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 6476,
+      "preparationMs": 5,
+      "runMs": 888.9000000059605,
+      "projectionMs": 60.80000001192093,
+      "heapBytes": 212140032,
+      "gpuLiveBytes": 233682896,
+      "target": {
+        "maxAbs": 0.000010669231414794922,
+        "meanAbs": 9.654505305938855e-8,
+        "different": 61366,
+        "finite": true
+      },
+      "source": {
+        "maxAbs": 0.000007152557373046875,
+        "meanAbs": 8.705787854057078e-8,
+        "different": 62160,
+        "finite": true
+      }
+    },
+    {
+      "name": "partial-copy",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 0.000010669231414794922,
+        "meanAbs": 6.323404662409331e-8,
+        "different": 138873,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.000064849853515625,
+        "meanAbs": 0.000006242211936680064,
+        "different": 190314,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 0.000010669231414794922,
+        "meanAbs": 9.419266541742065e-8,
+        "different": 64588,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 30,
+      "preparationMs": 4.700000002980232,
+      "runMs": 880.2000000029802,
+      "projectionMs": 54.6000000089407,
+      "heapBytes": 212140032,
+      "gpuLiveBytes": 233736192,
+      "target": {
+        "maxAbs": 0.00001049041748046875,
+        "meanAbs": 7.995047416786054e-8,
+        "different": 63581,
+        "finite": true
+      },
+      "source": {
+        "maxAbs": 6.92903995513916e-7,
+        "meanAbs": 1.5459802498111043e-8,
+        "different": 63436,
+        "finite": true
+      }
+    },
+    {
+      "name": "envelope-copy",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 0.00001615285873413086,
+        "meanAbs": 1.2966798646234287e-7,
+        "different": 141566,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.00008106231689453125,
+        "meanAbs": 0.000006168682319914372,
+        "different": 190427,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 0.000015914440155029297,
+        "meanAbs": 1.9256911045565183e-7,
+        "different": 116322,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 5373,
+      "preparationMs": 9.5,
+      "runMs": 900.4000000059605,
+      "projectionMs": 61.29999999701977,
+      "heapBytes": 212140032,
+      "gpuLiveBytes": 233789488,
+      "target": {
+        "maxAbs": 0.000015854835510253906,
+        "meanAbs": 1.468737077893962e-7,
+        "different": 116288,
+        "finite": true
+      },
+      "source": {
+        "maxAbs": 0.000003129243850708008,
+        "meanAbs": 4.782365457749527e-8,
+        "different": 116220,
+        "finite": true
+      }
+    }
+  ],
+  "gpu": {
+    "limitBytes": 536870912,
+    "liveBytes": 0,
+    "peakBytes": 297971056,
+    "allocations": 4704,
+    "writeBufferBytes": 142564688,
+    "readMappingBytes": 25568176,
+    "dispatchedProfiles": 20179,
+    "kernelTypes": {
+      "Add": 7824,
+      "Transpose": 510,
+      "Conv": 1351,
+      "BatchNormalization": 702,
+      "Sigmoid": 894,
+      "Mul": 894,
+      "Slice": 534,
+      "Gather": 7158,
+      "Div": 234,
+      "Resize": 24,
+      "Concat": 18,
+      "Relu": 36
+    }
+  },
+  "gpuErrors": [],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1595601757
+  },
+  "adapter": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "maxStorageBuffersPerShaderStage": 10,
+    "maxBufferSize": 4294967292,
+    "maxStorageBufferBindingSize": 4294967292
+  },
+  "browser": "154.0.8037.58",
+  "providerMessages": [
+    "\u001b[0;93m2026-10-01 17:27:36.295199 [W:onnxruntime:, session_state.cc:1397 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.\u001b[m",
+    "\u001b[0;93m2026-10-01 17:27:36.296900 [W:onnxruntime:, session_state.cc:1399 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.\u001b[m"
+  ],
+  "sources": {
+    "scripts/study-mgcf-split-placement.mjs": "a8c7cb30b6c324ae9dee4f5f28713c692ee507cac91f5c951aa7a616da44c2aa",
+    "scripts/split-mgcf-gpu.py": "7badc432c309befad9a3ba284ba3931b665ea14789066dccfb867e447a608352",
+    ".build/segmentation-models/mgcfdn-st/gpu-split.json": "0c7d7f7f8ba51f72f2414cebdea0659b5c6c15ab32a4f83802a6afa285012df5",
+    "scripts/build-segmentation-gpu-cache.py": "cdc9dc51a21afccc0a1bcd8550a2b25d0cfce122648e5301688d000aeb8db6a7",
+    ".build/segmentation-ort-gpu/runtime.json": "5d70f153f4d999d24491dfc8abb1d6286d65286749e544c9ff3bb4e42bb1637a",
+    ".build/segmentation-ort-gpu-bounded-cache/build.json": "f3154fc4fa48af034bc8a8677063805e258538d405f5ea0359f3553363ff70be",
+    ".build/segmentation-ort-gpu-bounded-cache/ort.all.min.mjs": "7d310c76aac719959f1b7ddfacd696d40d7b9a811d0ced1a68fb44a038a77cf4"
+  }
+}

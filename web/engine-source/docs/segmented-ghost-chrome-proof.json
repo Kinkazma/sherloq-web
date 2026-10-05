@@ -1,0 +1,99 @@
+{
+  "status": "passed",
+  "dimensions": [
+    4103,
+    5401
+  ],
+  "results": [
+    {
+      "params": {
+        "low": 60,
+        "high": 100,
+        "step": 20,
+        "x": 7,
+        "y": 3
+      },
+      "rawSha256": "80f622f592411aa45c9b6c68a9ae1465948eb0b3c7e32bcef1993bcce2e09330",
+      "mapsSha256": "973c516afd57c8a02fea0aa65fd690b4aff71399b4f3566ed930d6be49092179",
+      "metrics": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-ghost-scanlines",
+        "recompressions": 3,
+        "qualityPlanesComputed": 3,
+        "encodedCacheHits": 0,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "maxSourceWindowBytes": 393888,
+        "encodedStorage": "temporary",
+        "stages": {
+          "60": false,
+          "80": false,
+          "100": false
+        },
+        "cache": {
+          "analysis": false,
+          "result": false,
+          "view": false,
+          "stages": {
+            "60": false,
+            "80": false,
+            "100": false
+          }
+        },
+        "totalMs": 14582.80000000447,
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 0,
+          "cacheBytes": 6214349,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 43780736
+        }
+      }
+    },
+    {
+      "params": {
+        "low": 80,
+        "high": 100,
+        "step": 20,
+        "x": 7,
+        "y": 3
+      },
+      "rawSha256": "dcf3a6a0978cbd8d024d6d766b449bb450a3679475b49cbefc0a6ff0f3e81ca4",
+      "mapsSha256": "e73112bfec3603795143a7d0b384c38ee8da6e56e9cc066eb68b73155658ed70",
+      "metrics": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-ghost-scanlines",
+        "recompressions": 0,
+        "qualityPlanesComputed": 0,
+        "encodedCacheHits": 0,
+        "stages": {
+          "80": true,
+          "100": true
+        },
+        "cache": {
+          "analysis": false,
+          "result": false,
+          "view": false,
+          "stages": {
+            "80": true,
+            "100": true
+          }
+        },
+        "totalMs": 109.69999999552965,
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 0,
+          "cacheBytes": 8977449,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 43780736
+        }
+      }
+    }
+  ],
+  "paletteAndOwnedCache": true,
+  "originalSurfaceReference": true,
+  "cancellation": "storage-closed-before-worker-termination",
+  "reload": true,
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

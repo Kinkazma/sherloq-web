@@ -1,0 +1,12 @@
+"""OpenCV native clone entry geometry; existing SDK and libraries are read-only."""
+from pathlib import Path
+import os,subprocess,hashlib,json
+root=Path(__file__).resolve().parents[1];build=Path(os.environ['OPENCV_BUILD_ROOT']);compiler=Path(os.environ['EMSDK'])/'upstream/emscripten/em++'
+env={**os.environ,'EM_FROZEN_CACHE':'1','EMCC_CORES':'1'};version=subprocess.check_output([str(compiler),'--version'],env=env,text=True).splitlines()[0];assert '4.0.15' in version
+out=root/'vendor/clone-entries';out.mkdir(parents=True,exist_ok=True);source=root/'native/clone-entries.cpp';objects=[build/'cv/lib/libopencv_imgproc.a',build/'cv/lib/libopencv_core.a']
+exports=['malloc','free','clone_entry_hull','clone_entry_distance','clone_entry_overlap','clone_regions_close','clone_regions_begin','clone_regions_select','clone_regions_stats','clone_regions_pixels','clone_regions_coordinates','clone_regions_offsets','clone_regions_contours','clone_regions_points']
+exports+=['clone_mask_contours','clone_scope_begin','clone_scope_fill','clone_scope_data','clone_scope_cells','clone_scope_close']
+subprocess.run([str(compiler),str(source),*map(str,objects),*['-I'+str(build/'opencv-4.11.0/modules'/name/'include')for name in ['core','imgproc']],'-I'+str(build/'cv'),'-O3','-fexceptions','-ffp-contract=off','-ffile-prefix-map='+str(root)+'/=','-ffile-prefix-map='+str(build)+'/=','-sDISABLE_EXCEPTION_CATCHING=0','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sFILESYSTEM=0','-sALLOW_MEMORY_GROWTH=1','-sIMPORTED_MEMORY=1','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY=2147483648','-sMEMORY_GROWTH_LINEAR_STEP=16777216','-sABORTING_MALLOC=0','-sEXPORTED_FUNCTIONS='+json.dumps(['_'+x for x in exports]),'-sEXPORTED_RUNTIME_METHODS=["HEAPU8","HEAP32","HEAPF32"]','-o',str(out/'clone-entries.js')],env=env,check=True)
+(out/'LICENSE').write_bytes((root/'vendor/opencv/LICENSE').read_bytes());sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+(out/'PINNED.json').write_text(json.dumps(dict(schema=1,opencv='4.11.0',compiler=version,sourceSha256=sha(source),libraries={p.name:sha(p)for p in objects},method='Native hull/moments/rounded overlap, 8-connected region masks, external contours and full-image fillPoly/complete-cell selection',files={p.name:dict(bytes=p.stat().st_size,sha256=sha(p))for p in [out/'clone-entries.js',out/'clone-entries.wasm']}),indent=2)+'\n')
+print('Native clone entry kernel built')

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual Chrome histogram LUT above2^24 plus one native complete segmented equalized gradient; bounded regression recipe, not a new speed or universal large-image claim.",
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true,
+  "countCases": 2,
+  "image": "random-odd",
+  "params": {
+    "intensity": 0,
+    "mode": 0,
+    "invert": false,
+    "equalize": true
+  },
+  "nativeSha256": "f6993cfb317cb67173107f06b4452772cdc4595ec8e6f3583d3fe70e9b098d0d",
+  "memory": {
+    "budgetBytes": 134217728,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 67129861
+  },
+  "sources": {
+    "src/segmented-gradient.js": "43ebc6fa0e3592bc6ef14cd1c4969e9d7a7a0cba2762ced6c7a3c44e4dda18ba",
+    "src/pixel-utils.js": "7b07b0492932cf472ed3cccbc30cf22e6962182d6cf56b61944c36219a890df8"
+  }
+}

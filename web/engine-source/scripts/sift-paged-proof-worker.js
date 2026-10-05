@@ -1,0 +1,5 @@
+// Development recipe only: force the same global stores through real OPFS.
+import {PagedSiftFeatureEngine} from '../src/sift-paged.js';
+import {Budget} from '../src/cache.js';
+import {createTemporarySession} from '../src/temporary-storage.js';
+self.onmessage=async({data:job})=>{let session,result;const budget=new Budget(3*1024**3),start=performance.now();try{session=await createTemporarySession({backend:'opfs',maximumBytes:512*1024**2});result=await new PagedSiftFeatureEngine(budget,{maxWorkers:2}).extract({...job.image,temporarySession:session},{...job.options,storage:'temporary'});const {release,...value}=result;result.release();result=null;const storage=session.snapshot();if(storage.openFiles||storage.reservedBytes||budget.total())throw Error('Paged SIFT storage or memory leak');await session.dispose();session=null;postMessage({...value,metadata:{...value.metadata,temporaryRecipe:{totalMs:performance.now()-start,storage,finalMemory:budget.snapshot()}}},[value.points.buffer,value.descriptors.buffer,value.members.buffer]);}catch(e){postMessage({error:String(e)});}finally{result?.release();await session?.dispose();}};

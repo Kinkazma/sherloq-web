@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "scope": "Every decoded pixel of both delivered full96MP PNGs compared with native after source unload.",
+  "engineCommit": "2c584d1cd90665125dcdd456234e846294406a6b",
+  "cases": [
+    {
+      "file": "adam7-rgb16.png",
+      "bytes": 288100808,
+      "sha256": "7a3975fb53ff0415f658a3f115a280fba06aa08817faa359046731a1a3d5d7d6",
+      "rgbSha256": "333c79199f5f9969cca35b8881d0eeb55ad407fb8f89c17ea58e76948c0c0d5d"
+    },
+    {
+      "file": "tiles-rgb16-bigtiff.tiff",
+      "bytes": 288100808,
+      "sha256": "4727a08e0bb384020ee758c936bbbb8998f8c96a9b60aa76196e501892bb0455",
+      "rgbSha256": "70aa97f774163ab4e6f1f1be4b2225ec65373a48ab191713a00123a13e37d2a9"
+    }
+  ],
+  "seconds": 2.168907666011364
+}

@@ -1,0 +1,9 @@
+import {Budget} from '../src/cache.js';import {createTemporarySession} from '../src/temporary-storage.js';import {createSegmentedBytes} from '../src/segmented-bytes.js';import {createRgbSurface} from '../src/rgb-surface.js';import {preparePagedEligibility} from '../src/dense-paged-regions.js';import {createDenseRegions} from '../src/dense-regions.js';
+self.onmessage=async()=>{const budget=new Budget(128*1024**2);let session,image;try{
+ session=await createTemporarySession({backend:'opfs',budget});const width=279,height=231,data=Uint8Array.from({length:width*height*3},(_,i)=>i/3%width<135?128+(i%5):((i*73+i%157*23)%256)),store=await createSegmentedBytes(data.length,{budget,storage:'temporary',temporarySession:session});await store.write(data);image={surface:createRgbSurface(store,{width,height,budget}),session};const native=await createDenseRegions(),proof=[];
+ for(const [method,patch,texture] of [[0,8,2],[1,3,2],[1,8,40],[1,5,1.42],[0,32,40]]){
+  const options={method,patch,texture,regions:[[[2.5,1],[-4,183],[215.5,221],[277,-7]],[[100,20],[140,17],[178,190],[119,155]]],excluded:[[[124,94],[179,129],[110,215]]]},expected=native.allowed({width,height,data},options),result=await preparePagedEligibility(image,{...options,budget,storage:'temporary',maxWorkers:4}),actual=new Uint8Array(result.mask.byteLength);await result.mask.readInto(actual);
+  const differing=actual.reduce((n,v,i)=>n+(v!==expected.mask[i]),0);if(differing)throw Error(JSON.stringify({method,patch,texture,differing}));proof.push({method,patch,texture,...result.metrics,differing});await result.dispose();
+ }
+ await image.surface.dispose();image=null;await session.dispose();session=null;if(budget.total())throw Error('Memory leak');self.postMessage({result:proof});
+}catch(e){self.postMessage({error:{message:e.message,code:e.code,stack:e.stack}});}finally{await image?.surface.dispose();await session?.dispose();}};

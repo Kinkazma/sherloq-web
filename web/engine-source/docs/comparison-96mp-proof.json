@@ -1,0 +1,455 @@
+{
+  "result": {
+    "family": "Comparison",
+    "budgetBytes": 805306368,
+    "cases": [
+      {
+        "params": {
+          "view": "butter"
+        },
+        "sha256": "9183b5ff707564ba797309cb32625f00d53d8b1395d95979fd6df507004a5c33",
+        "allPixelsNativeExact": true,
+        "values": {
+          "rmse": 15.273890884447225,
+          "sam": 0.10535907251844362,
+          "ergas": 2.995127146027082,
+          "mb": -0.034112607415261745,
+          "pfe": 11.165493439204917,
+          "psnr": 24.451809934482416,
+          "hist_0": -1.0254303489220808,
+          "hist_1": 18113385.994290054,
+          "hist_4": 20984490.20341928,
+          "hist_2": 79286006,
+          "hist_3": 0.18156477703447846,
+          "hist_5": 46622541.07115469,
+          "msssim": 0.9687201112609618,
+          "rase": 409.2454875608684,
+          "scc": 0.9564128536127768,
+          "uqi": 0.9930181348245384,
+          "vifp": 0.7692665006333487,
+          "ssimul": 0.1074578,
+          "butter": 17.730574,
+          "ssim": 0.9564399475542424
+        },
+        "errors": {},
+        "metrics": {
+          "workers": 4,
+          "completedMetricJobs": 5,
+          "workerHeapPeakBytes": 140509184,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "pagedStages": [
+            {
+              "name": "histograms",
+              "resident": true,
+              "cachePages": 1024,
+              "pageBytes": 16384,
+              "blockPixels": 262144,
+              "workspace": 159383552,
+              "workers": 1,
+              "paged": true,
+              "reads": 0,
+              "writes": 0,
+              "readBytes": 0,
+              "writeBytes": 0,
+              "heapBytes": 136380416,
+              "sourcePixels": 192000000,
+              "preflightExecutions": 0,
+              "heapPeak": 136380416
+            },
+            {
+              "name": "ssimulacra",
+              "workspace": 98834432,
+              "workers": 1,
+              "paged": true,
+              "reads": 29896,
+              "writes": 11241,
+              "readBytes": 31800211312,
+              "writeBytes": 11677219000,
+              "temporaryPeakBytes": 4608000000,
+              "heapBytes": 39321600,
+              "arithmetic": "native",
+              "preflightExecutions": 0,
+              "heapPeak": 39321600
+            },
+            {
+              "name": "sewar",
+              "workspace": 160274432,
+              "workers": 1,
+              "paged": true,
+              "reads": 70687,
+              "writes": 28466,
+              "readBytes": 172747855888,
+              "writeBytes": 69399663120,
+              "temporaryPeakBytes": 9984000000,
+              "heapBytes": 83165184,
+              "arithmetic": "separated",
+              "preflightExecutions": 0,
+              "heapPeak": 83165184
+            },
+            {
+              "name": "butteraugli",
+              "workspace": 258578432,
+              "workers": 1,
+              "paged": true,
+              "reads": 144000,
+              "writes": 83444,
+              "readBytes": 110592000000,
+              "writeBytes": 64084992000,
+              "temporaryPeakBytes": 19584000000,
+              "heapBytes": 140509184,
+              "arithmetic": "native",
+              "preflightExecutions": 0,
+              "heapPeak": 140509184
+            },
+            {
+              "name": "ssim",
+              "workers": 4,
+              "completedStripJobs": 1600,
+              "preflightExecutions": 0,
+              "policy": "immediate-useful-work",
+              "paged": true,
+              "workspaceBytes": 48205824,
+              "coreRows": 5,
+              "halo": 5,
+              "heapPeak": 20971520,
+              "rawBytes": 768000000
+            }
+          ],
+          "storage": "temporary",
+          "blockPixels": 65536,
+          "cache": {
+            "stages": {
+              "histograms": false,
+              "sewar": false,
+              "ssimulacra": false,
+              "butteraugli": false,
+              "ssim": false
+            }
+          },
+          "globalStageMaximumBytes": 258578432
+        },
+        "export": {
+          "id": "ba6b16d8-a4e1-4487-b5ed-0de8d6a663a2",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "95371221f27b70b12305cc25ce0264ade45b531f2edb5728c9ebad8adf3f51d6",
+          "sourceSurfaceId": "278f4f89-e971-4c59-9a3b-645aae1f817f",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "memory",
+            "temporaryBackend": null,
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 805306368,
+              "retainedBytes": 289197244,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 694856064
+            }
+          }
+        },
+        "ms": 1029167.299999997,
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "9183b5ff707564ba797309cb32625f00d53d8b1395d95979fd6df507004a5c33",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "params": {
+          "view": "normal"
+        },
+        "sha256": "b55dda1da200a13fbff139a0e709eb14525903f57e4a2deb9d2742b706bfbb48",
+        "allPixelsNativeExact": true,
+        "values": {
+          "rmse": 15.273890884447225,
+          "sam": 0.10535907251844362,
+          "ergas": 2.995127146027082,
+          "mb": -0.034112607415261745,
+          "pfe": 11.165493439204917,
+          "psnr": 24.451809934482416,
+          "hist_0": -1.0254303489220808,
+          "hist_1": 18113385.994290054,
+          "hist_4": 20984490.20341928,
+          "hist_2": 79286006,
+          "hist_3": 0.18156477703447846,
+          "hist_5": 46622541.07115469,
+          "msssim": 0.9687201112609618,
+          "rase": 409.2454875608684,
+          "scc": 0.9564128536127768,
+          "uqi": 0.9930181348245384,
+          "vifp": 0.7692665006333487,
+          "ssimul": 0.1074578,
+          "butter": 17.730574,
+          "ssim": 0.9564399475542424
+        },
+        "errors": {},
+        "metrics": {
+          "workers": 0,
+          "completedMetricJobs": 0,
+          "workerHeapPeakBytes": 0,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "pagedStages": [],
+          "storage": "temporary",
+          "blockPixels": 65536,
+          "cache": {
+            "stages": {
+              "histograms": true,
+              "sewar": true,
+              "ssimulacra": true,
+              "butteraugli": true,
+              "ssim": true,
+              "basic": true
+            }
+          },
+          "globalStageMaximumBytes": 0
+        },
+        "export": {
+          "id": "9ca57ed8-4116-442c-8214-25d9992e76a6",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "fc354d69725553a34f3025c756a542984c44be923b7335082dc219a769f6c114",
+          "sourceSurfaceId": "300613c8-9336-4623-a890-b0c320cf6008",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "memory",
+            "temporaryBackend": null,
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 805306368,
+              "retainedBytes": 578394488,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 694856064
+            }
+          }
+        },
+        "ms": 25292.40000000596,
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "b55dda1da200a13fbff139a0e709eb14525903f57e4a2deb9d2742b706bfbb48",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      },
+      {
+        "params": {
+          "view": "ssim"
+        },
+        "sha256": "18d9d5fa22d21db0b8d02883911e113cab481dd7c465747aeb746e3115372af4",
+        "allPixelsNativeExact": true,
+        "values": {
+          "ssim": 0.9564399475542424
+        },
+        "errors": {},
+        "metrics": {
+          "workers": 4,
+          "completedMetricJobs": 1,
+          "workerHeapPeakBytes": 20971520,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "pagedStages": [
+            {
+              "name": "ssim",
+              "workers": 4,
+              "completedStripJobs": 1600,
+              "preflightExecutions": 0,
+              "policy": "immediate-useful-work",
+              "paged": true,
+              "workspaceBytes": 48205824,
+              "coreRows": 5,
+              "halo": 5,
+              "heapPeak": 20971520,
+              "rawBytes": 768000000
+            }
+          ],
+          "storage": "temporary",
+          "blockPixels": 65536,
+          "cache": {
+            "stages": {
+              "ssim": false,
+              "basic": true
+            }
+          },
+          "globalStageMaximumBytes": 48205824
+        },
+        "export": {
+          "id": "b04128a2-e1ec-4698-8647-2672e3f55410",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "2faac074ce0f57ec5504ed4970c6be1cc9aebfb2fcb1c16d998b53240cc5c600",
+          "sourceSurfaceId": "bc06a6ef-fb9a-4b94-ac75-180077047245",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 805306368,
+              "retainedBytes": 578394488,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 789973176
+            }
+          }
+        },
+        "ms": 270891.10000000894,
+        "independentPngReader": {
+          "opencv": "4.11.0",
+          "rgbSha256": "18d9d5fa22d21db0b8d02883911e113cab481dd7c465747aeb746e3115372af4",
+          "allPixelsNativeExact": true,
+          "afterSourceRelease": true
+        }
+      }
+    ],
+    "sources": [
+      {
+        "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+        "shape": {
+          "id": "0044c036-0966-45ae-b600-85fcf2a1299c",
+          "revision": 1,
+          "width": 12000,
+          "height": 8000,
+          "format": "rgb8",
+          "sourceWidth": 12000,
+          "sourceHeight": 8000,
+          "orientation": 1,
+          "coordinates": "full-resolution",
+          "storage": "temporary"
+        },
+        "metrics": {
+          "decodeMs": 10182.09999999404,
+          "rowsPerChunk": 116,
+          "encodedWorkingBytes": 80426021,
+          "coefficientAllowanceBytes": 0,
+          "workingReservationBytes": 122332453,
+          "codecHeapCapacityBytes": 96731136,
+          "storage": "temporary",
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "temporaryBytes": 288000000,
+          "originalBlobBytes": 80426021,
+          "originalBlobResidency": "browser-managed; not measured as zero RAM"
+        }
+      },
+      {
+        "sha256": "d8259400e07d574d240daf8bb619d8dce16da8f1fafc2681a91cbb3d42941493",
+        "shape": {
+          "id": "a1d4d09f-ee08-4bf9-9bb1-9c65822d64fd",
+          "revision": 1,
+          "width": 12000,
+          "height": 8000,
+          "format": "rgb8",
+          "sourceWidth": 12000,
+          "sourceHeight": 8000,
+          "orientation": 1,
+          "coordinates": "full-resolution",
+          "storage": "temporary"
+        },
+        "metrics": {
+          "decodeMs": 3495.1000000089407,
+          "rowsPerChunk": 116,
+          "encodedWorkingBytes": 88948530,
+          "coefficientAllowanceBytes": 0,
+          "workingReservationBytes": 130854962,
+          "codecHeapCapacityBytes": 96731136,
+          "storage": "temporary",
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "temporaryBytes": 288000000,
+          "originalBlobBytes": 88948530,
+          "originalBlobResidency": "browser-managed; not measured as zero RAM"
+        }
+      }
+    ],
+    "elapsedMs": 1538195.799999997,
+    "memory": {
+      "budgetBytes": 805306368,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 789973176
+    },
+    "nativeComparison": {
+      "absoluteErrors": {
+        "rmse": 0.0,
+        "sam": 0.0,
+        "ergas": 0.0,
+        "mb": 0.0,
+        "pfe": 0.0,
+        "psnr": 0.0,
+        "hist_0": 0.0,
+        "hist_1": 0.0,
+        "hist_4": 0.0,
+        "hist_2": 0.0,
+        "hist_3": 0.0,
+        "hist_5": 0.0,
+        "msssim": 1.1102230246251565e-16,
+        "rase": 3.410605131648481e-13,
+        "scc": 4.6629367034256575e-15,
+        "uqi": 7.438494264988549e-15,
+        "vifp": 8.881784197001252e-16,
+        "ssimul": 0.0,
+        "butter": 0.0,
+        "ssim": 1.4777068457760834e-13
+      },
+      "allCompleteRgbHashesExact": true,
+      "nativeSeconds": 3145.052291125001,
+      "reference": "actual native ComparisonEngine; retained helpers with development-only extended timeout"
+    }
+  }
+}

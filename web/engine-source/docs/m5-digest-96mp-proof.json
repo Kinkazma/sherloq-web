@@ -1,0 +1,8721 @@
+{
+  "passed": true,
+  "scope": "Full96MP original, ten byte digests and six native perceptual hashes; owned cache and full JSON read after unload. Existing small cancellation/backend proofs reused.",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "sourceSha256": "7a6ac1368fd28adbbf841a88b3b897f791695ac6fe265c7ba6c9a93f36d704ca",
+  "sourceBytes": 21167770,
+  "sourceLayout": "segmented-scanlines",
+  "storage": "temporary",
+  "budgetBytes": 268435456,
+  "times": {
+    "loadMs": 1523,
+    "analysisMs": 13901.5,
+    "cacheMs": 0.20000000298023224,
+    "exportMs": 12.700000002980232
+  },
+  "totalMs": 15558.09999999404,
+  "metrics": {
+    "wasmHeapPeakBytes": 20185088,
+    "wasmMaximumBytes": 67108864,
+    "sourceWindowReads": 1570,
+    "maxSourceWindowBytes": 1368000,
+    "totalMs": 0,
+    "workers": 0,
+    "cache": {
+      "result": true
+    },
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 5698,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 141323360
+    }
+  },
+  "finalMemory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 141323360,
+    "knownHeapCapacityBytes": 30867456
+  },
+  "export": {
+    "bytes": 4688,
+    "sha256": "4d98e871e1cd81f7f033ab6381207e12d07c0b917e00ea908fbc46d4214ee0f7",
+    "afterSourceUnload": true
+  },
+  "nativeHashes": {
+    "Average": [
+      127,
+      127,
+      113,
+      7,
+      23,
+      121,
+      121,
+      121
+    ],
+    "Block mean": [
+      255,
+      127,
+      255,
+      127,
+      195,
+      127,
+      195,
+      127,
+      195,
+      127,
+      67,
+      82,
+      71,
+      64,
+      127,
+      0,
+      127,
+      0,
+      67,
+      0,
+      67,
+      18,
+      195,
+      127,
+      195,
+      127,
+      195,
+      127,
+      195,
+      127,
+      195,
+      127
+    ],
+    "Color moments": [
+      0.012691384014532596,
+      0.0001575660555423389,
+      1.44337523933e-10,
+      1.3436523492101262e-10,
+      1.8711909734111263e-20,
+      1.683515772497507e-12,
+      -5.513570301083162e-23,
+      0.041466177720194716,
+      0.0016840254424876262,
+      2.310782897418658e-9,
+      2.05591127565493e-9,
+      4.48047329583493e-18,
+      8.216527568245725e-11,
+      7.585491989165259e-20,
+      0.0007934757267141306,
+      1.3702884834449317e-9,
+      1.0849427558947578e-12,
+      1.661055071334119e-14,
+      9.879600767905974e-28,
+      6.148007231363589e-19,
+      -1.9990630682391073e-27,
+      0.0007938344304679334,
+      1.5094097221241732e-9,
+      1.0987822406333319e-12,
+      1.728819611360987e-14,
+      1.4307038018495096e-27,
+      6.638825286993194e-19,
+      -1.9054219420014176e-27,
+      0.0013020640194543569,
+      1.1914261406435432e-14,
+      2.7614292989178703e-17,
+      6.983638177119083e-18,
+      -4.3333453235169783e-35,
+      -7.513202304870263e-25,
+      8.676204172656972e-35,
+      0.0013020524191057303,
+      2.6980590824447585e-14,
+      7.573231669734737e-17,
+      5.37803068493852e-18,
+      6.492607490583699e-35,
+      -7.984251406231269e-25,
+      8.697563773623086e-35
+    ],
+    "Marr-Hildreth": [
+      27,
+      129,
+      192,
+      225,
+      208,
+      56,
+      44,
+      15,
+      38,
+      13,
+      143,
+      199,
+      242,
+      66,
+      72,
+      252,
+      126,
+      63,
+      13,
+      182,
+      219,
+      50,
+      66,
+      75,
+      109,
+      36,
+      73,
+      0,
+      112,
+      27,
+      35,
+      241,
+      185,
+      123,
+      129,
+      192,
+      0,
+      18,
+      45,
+      31,
+      143,
+      198,
+      208,
+      72,
+      0,
+      0,
+      2,
+      79,
+      227,
+      241,
+      252,
+      144,
+      72,
+      0,
+      0,
+      0,
+      65,
+      224,
+      112,
+      60,
+      218,
+      72,
+      0,
+      3,
+      129,
+      192,
+      224,
+      112,
+      60,
+      156,
+      14,
+      7
+    ],
+    "pHash": [
+      186,
+      195,
+      169,
+      35,
+      70,
+      141,
+      201,
+      67
+    ],
+    "Radial variance": [
+      73,
+      88,
+      255,
+      156,
+      102,
+      0,
+      53,
+      94,
+      68,
+      13,
+      61,
+      68,
+      90,
+      89,
+      61,
+      71,
+      77,
+      76,
+      84,
+      79,
+      71,
+      76,
+      67,
+      74,
+      78,
+      75,
+      79,
+      69,
+      72,
+      79,
+      75,
+      70,
+      65,
+      72,
+      77,
+      53,
+      66,
+      72,
+      68,
+      77
+    ]
+  },
+  "cryptographicHashes": {
+    "MD5": "beca5ee35e6069af9474b46c5fa478b9",
+    "SHA-1": "e72b95a7617a0065e8859e78230f4e5c343789e4",
+    "SHA2-224": "eaecd46b3a052f9cff862b2b97f96c024774b780e837918421d1208d",
+    "SHA2-256": "7a6ac1368fd28adbbf841a88b3b897f791695ac6fe265c7ba6c9a93f36d704ca",
+    "SHA2-384": "38731bc4d3c5843e955c04e50b8ece5bb73a65b39458b769ebc6a271c4ae71ba2bb8b3940bc84365de65b726cebd1f80",
+    "SHA2-512": "52235e4bf711a8838107c021bb4dd12c6a0843cabf653ab2a88c524223ecceda5d46480bacb3b86aaef77c7e4ef1ceaf625821b677950ea359b558a46fd6f40f",
+    "SHA3-224": "e0097b36080be2439d776a8e856c41cda17c66bd9a5baa826533e570",
+    "SHA3-256": "fb2dfc10b0328b54686e06a7416da85988358bf634cc8a59c5dd63924b7ea2a9",
+    "SHA3-384": "d1d88cf4c6de369f4cdcfe452647b68a9f1308cb60673ac16b7f9680f79f0719b8f725fc4a80f97e5cdb42bf66b7309b",
+    "SHA3-512": "e2e2c652a1877ace3f45a8e9075fc5729e7645823532b1ec01fba1e0d75617bc5522638ab67c420e6bc40f2fb3480d27d88694db5a41c85c329f7381b6aeaef1"
+  },
+  "events": [
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.0145
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.029
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.0435
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.058
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.0725
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.087
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.1015
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.116
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.1305
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.145
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.1595
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.174
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.1885
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.203
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.2175
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.232
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.2465
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.261
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.2755
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.29
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.3045
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.319
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.3335
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.348
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.3625
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.377
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.3915
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.406
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.4205
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.435
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.4495
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.464
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.4785
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.493
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.5075
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.522
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.5365
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.551
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.5655
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.58
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.5945
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.609
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.6235
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.638
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.6525
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.667
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.6815
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.696
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.7105
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.725
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.7395
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.754
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.7685
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.783
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.7975
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.812
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.8265
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.841
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.8555
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.87
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.8845
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.899
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.9135
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.928
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.9425
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.957
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.9715
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 0.986
+    },
+    {
+      "id": "digest96",
+      "phase": "decode",
+      "fraction": 1
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.049536441486278435
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.09907288297255687
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.1486093244588353
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.19814576594511374
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.24768220743139216
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.2972186489176706
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.34675509040394903
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.3962915318902275
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.44582797337650587
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.4953644148627843
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.5449008563490627
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.5944372978353412
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.6439737393216196
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.6935101808078981
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.7430466222941765
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.792583063780455
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.8421195052667333
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.8916559467530117
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.9411923882392902
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 0.9907288297255686
+    },
+    {
+      "id": "digest96",
+      "phase": "original-sha256",
+      "fraction": 1
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.03962915318902275
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.0792583063780455
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.11888745956706824
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.158516612756091
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.19814576594511374
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.23777491913413648
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.2774040723231592
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.317033225512182
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.3566623787012047
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.3962915318902275
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.4359206850792502
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.47554983826827296
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.5151789914572957
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.5548081446463184
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.5944372978353413
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.634066451024364
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.6736956042133867
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.7133247574024094
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.7529539105914322
+    },
+    {
+      "id": "digest",
+      "phase": "original-bytes",
+      "fraction": 0.792583063780455
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8041666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8083333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8166666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8208333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8250000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8291666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8333333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8334635416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.83359375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8337239583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8338541666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.833984375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8341145833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8342447916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8343750000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8345052083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8346354166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8347656250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8348958333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8350260416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.83515625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8352864583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8354166666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.835546875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8356770833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8358072916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8359375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8360677083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8361979166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8363281250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8364583333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8365885416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8367187500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8368489583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8369791666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.837109375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8372395833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8373697916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8376302083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8377604166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.837890625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8380208333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8381510416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8382812500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8384114583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8385416666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8386718750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8388020833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8389322916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8390625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8391927083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8393229166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.839453125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8395833333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8397135416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.83984375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8399739583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8401041666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8402343750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8403645833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8404947916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8406250000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8407552083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8408854166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.841015625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8411458333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8412760416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.84140625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8415364583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8416666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.841796875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8419270833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8420572916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8421875000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8423177083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8424479166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8425781250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8427083333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8428385416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.84296875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8430989583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8432291666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.843359375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8434895833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8436197916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.84375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8438802083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8440104166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8441406250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8442708333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8444010416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8445312500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8446614583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8447916666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.844921875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8450520833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8451822916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8453125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8454427083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8455729166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.845703125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8458333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8459635416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8460937500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8462239583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8463541666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8464843750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8466145833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8467447916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.846875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8470052083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8471354166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.847265625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8473958333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8475260416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.84765625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8477864583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8479166666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8480468750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8481770833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8483072916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8484375000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8485677083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8486979166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.848828125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8489583333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8490885416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.84921875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8493489583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8494791666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.849609375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8497395833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8498697916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8500000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8501302083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8502604166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8503906250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8505208333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8506510416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.85078125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8509114583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8510416666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.851171875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8513020833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8514322916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8515625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8516927083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8518229166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8519531250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8520833333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8522135416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8523437500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8524739583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8526041666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.852734375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8528645833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8529947916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.853125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8532552083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8533854166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.853515625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8536458333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8537760416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8539062500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8540364583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8541666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8542968750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8544270833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8545572916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8546875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8548177083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8549479166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.855078125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8552083333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8553385416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.85546875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8555989583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8557291666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8558593750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8559895833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8561197916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8562500000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8563802083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8565104166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.856640625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8567708333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8569010416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.85703125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8571614583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8572916666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.857421875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8575520833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8576822916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8578125000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8579427083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8580729166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8582031250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8583333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8584635416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.85859375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8587239583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8588541666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.858984375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8591145833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8592447916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.859375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8595052083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8596354166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8597656250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8598958333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8600260416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8601562500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8602864583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8604166666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.860546875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8606770833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8608072916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8609375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8610677083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8611979166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.861328125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8614583333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8615885416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8617187500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8618489583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8619791666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8621093750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8622395833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8623697916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8626302083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8627604166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.862890625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8630208333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8631510416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.86328125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8634114583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8635416666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8636718750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8638020833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8639322916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8640625000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8641927083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8643229166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.864453125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8645833333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8647135416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.86484375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8649739583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8651041666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.865234375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8653645833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8654947916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8656250000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8657552083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8658854166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8660156250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8661458333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8662760416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.86640625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8665364583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8666666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8667317708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.866796875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8668619791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8669270833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8669921875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8670572916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8671223958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8671875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8672526041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8673177083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8673828125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8674479166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8675130208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8675781250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8676432291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8677083333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8677734375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8678385416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8679036458333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8679687500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8680338541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8680989583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8681640625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8682291666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8682942708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.868359375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8684244791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8684895833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8685546875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8686197916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8686848958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.86875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8688151041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8688802083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8689453125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8690104166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8690755208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.869140625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8692057291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8692708333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8693359375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8694010416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8694661458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8695312500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8695963541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8696614583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8697265625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8697916666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8698567708333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8699218750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8699869791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8700520833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8701171875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8701822916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8702473958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8703125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8703776041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8704427083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8705078125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8705729166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8706380208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.870703125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8707682291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8708333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8708984375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8709635416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8710286458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.87109375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8711588541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8712239583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8712890625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8713541666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8714192708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8714843750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8715494791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8716145833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8716796875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8717447916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8718098958333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8718750000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8719401041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8720052083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8720703125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8721354166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8722005208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.872265625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8723307291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8723958333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8724609375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8725260416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8725911458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.87265625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8727213541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8727864583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8728515625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8729166666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8729817708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.873046875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8731119791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8731770833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8732421875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8733072916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8733723958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8734375000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8735026041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8735677083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8736328125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8736979166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8737630208333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8738281250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8738932291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8739583333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8740234375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8740885416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8741536458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.87421875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8742838541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8743489583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8744140625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8744791666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8745442708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.874609375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8746744791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8747395833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8748046875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8748697916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8749348958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8750651041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8751302083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8751953125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8752604166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8753255208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8753906250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8754557291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8755208333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8755859375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8756510416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8757161458333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8757812500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8758463541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8759114583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8759765625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8760416666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8761067708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.876171875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8762369791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8763020833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8763671875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8764322916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8764973958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8765625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8766276041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8766927083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8767578125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8768229166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8768880208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.876953125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8770182291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8770833333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8771484375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8772135416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8772786458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8773437500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8774088541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8774739583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8775390625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8776041666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8776692708333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8777343750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8777994791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8778645833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8779296875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8779947916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8780598958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.878125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8781901041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8782552083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8783203125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8783854166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8784505208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.878515625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8785807291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8786458333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8787109375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8787760416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8788411458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.87890625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8789713541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8790364583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8791015625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8791666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8792317708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8792968750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8793619791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8794270833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8794921875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8795572916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8796223958333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8796875000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8797526041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8798177083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8798828125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8799479166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8800130208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.880078125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8801432291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8802083333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8802734375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8803385416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8804036458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.88046875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8805338541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8805989583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8806640625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8807291666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8807942708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.880859375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8809244791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8809895833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8810546875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8811197916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8811848958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8812500000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8813151041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8813802083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8814453125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8815104166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8815755208333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8816406250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8817057291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8817708333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8818359375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8819010416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8819661458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.88203125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8820963541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8821614583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8822265625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8822916666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8823567708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.882421875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8824869791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8825520833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8826171875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8826822916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8827473958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8828125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8828776041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8829427083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8830078125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8830729166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8831380208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8832031250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8832682291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8833333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8833984375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8834635416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8835286458333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8835937500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8836588541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8837239583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8837890625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8838541666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8839192708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.883984375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8840494791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8841145833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8841796875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8842447916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8843098958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.884375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8844401041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8845052083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8845703125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8846354166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8847005208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.884765625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8848307291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8848958333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8849609375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8850260416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8850911458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8851562500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8852213541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8852864583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8853515625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8854166666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8854817708333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8855468750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8856119791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8856770833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8857421875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8858072916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8858723958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8859375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8860026041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8860677083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8861328125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8861979166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8862630208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.886328125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8863932291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8864583333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8865234375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8865885416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8866536458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.88671875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8867838541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8868489583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8869140625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8869791666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8870442708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8871093750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8871744791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8872395833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8873046875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8873697916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8874348958333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8875000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8875651041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8876302083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8876953125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8877604166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8878255208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.887890625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8879557291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8880208333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8880859375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8881510416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8882161458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.88828125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8883463541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8884114583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8884765625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8885416666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8886067708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.888671875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8887369791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8888020833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8888671875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8889322916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8889973958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8890625000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8891276041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8891927083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8892578125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8893229166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8893880208333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8894531250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8895182291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8895833333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8896484375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8897135416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8897786458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.88984375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8899088541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8899739583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8900390625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8901041666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8901692708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.890234375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8902994791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8903645833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8904296875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8904947916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8905598958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.890625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8906901041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8907552083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8908203125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8908854166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8909505208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8910156250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8910807291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8911458333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8912109375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8912760416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8913411458333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8914062500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8914713541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8915364583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8916015625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8916666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8917317708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.891796875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8918619791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8919270833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8919921875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8920572916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8921223958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8921875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8922526041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8923177083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8923828125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8924479166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8925130208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.892578125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8926432291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8927083333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8927734375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8928385416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8929036458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8929687500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8930338541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8930989583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8931640625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8932291666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8932942708333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8933593750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8934244791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8934895833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8935546875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8936197916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8936848958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.89375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8938151041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8938802083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8939453125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8940104166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8940755208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.894140625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8942057291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8942708333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8943359375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8944010416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8944661458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.89453125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8945963541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8946614583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8947265625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8947916666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8948567708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8949218750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8949869791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8950520833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8951171875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8951822916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8952473958333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8953125000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8953776041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8954427083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8955078125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8955729166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8956380208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.895703125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8957682291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8958333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8958984375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8959635416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8960286458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.89609375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8961588541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8962239583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8962890625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8963541666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8964192708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.896484375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8965494791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8966145833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8966796875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8967447916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8968098958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8968750000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8969401041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8970052083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8970703125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8971354166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8972005208333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8972656250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8973307291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8973958333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8974609375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8975260416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8975911458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.89765625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8977213541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8977864583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8978515625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8979166666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8979817708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.898046875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8981119791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8981770833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8982421875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8983072916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8983723958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8984375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8985026041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8985677083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8986328125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8986979166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8987630208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8988281250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8988932291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8989583333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8990234375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8990885416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8991536458333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8992187500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8992838541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8993489583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8994140625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8994791666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8995442708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.899609375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8996744791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8997395833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8998046875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8998697916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.8999348958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9000651041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9001302083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9001953125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9002604166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9003255208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.900390625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9004557291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9005208333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9005859375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9006510416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9007161458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9007812500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9008463541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9009114583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9009765625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9010416666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9011067708333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9011718750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9012369791666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9013020833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9013671875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9014322916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9014973958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9015625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9016276041666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9016927083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9017578125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9018229166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9018880208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.901953125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9020182291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9020833333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9021484375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9022135416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9022786458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.90234375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9024088541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9024739583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9025390625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9026041666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9026692708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9027343750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9027994791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9028645833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9029296875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9029947916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9030598958333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9031250000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9031901041666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9032552083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9033203125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9033854166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9034505208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.903515625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9035807291666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9036458333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9037109375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9037760416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9038411458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.90390625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9039713541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9040364583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9041015625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9041666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9042317708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.904296875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9043619791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9044270833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9044921875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9045572916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9046223958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9046875000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9047526041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9048177083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9048828125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9049479166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9050130208333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9050781250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9051432291666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9052083333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9052734375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9053385416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9054036458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.90546875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9055338541666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9055989583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9056640625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9057291666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9057942708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.905859375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9059244791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9059895833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9060546875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9061197916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9061848958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.90625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9063151041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9063802083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9064453125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9065104166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9065755208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9066406250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9067057291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9067708333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9068359375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9069010416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9069661458333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9070312500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9070963541666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9071614583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9072265625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9072916666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9073567708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.907421875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9074869791666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9075520833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9076171875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9076822916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9077473958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9078125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9078776041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9079427083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9080078125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9080729166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9081380208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.908203125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9082682291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9083333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9083984375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9084635416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9085286458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9085937500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9086588541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9087239583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9087890625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9088541666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9089192708333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9089843750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9090494791666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9091145833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9091796875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9092447916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9093098958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.909375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9094401041666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9095052083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9095703125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9096354166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9097005208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.909765625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9098307291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9098958333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9099609375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9100260416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9100911458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.91015625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9102213541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9102864583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9103515625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9104166666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9104817708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9105468750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9106119791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9106770833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9107421875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9108072916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9108723958333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9109375000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9110026041666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9110677083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9111328125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9111979166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9112630208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.911328125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9113932291666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9114583333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9115234375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9115885416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9116536458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.91171875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9117838541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9118489583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9119140625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9119791666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9120442708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.912109375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9121744791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9122395833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9123046875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9123697916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9124348958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9125000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9125651041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9126302083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9126953125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9127604166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9128255208333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9128906250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9129557291666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9130208333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9130859375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9131510416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9132161458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.91328125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9133463541666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9134114583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9134765625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9135416666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9136067708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.913671875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9137369791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9138020833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9138671875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9139322916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9139973958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9140625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9141276041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9141927083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9142578125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9143229166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9143880208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9144531250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9145182291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9145833333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9146484375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9147135416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9147786458333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9148437500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9149088541666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9149739583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9150390625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9151041666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9151692708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.915234375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9152994791666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9153645833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9154296875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9154947916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9155598958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.915625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9156901041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9157552083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9158203125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9158854166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9159505208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.916015625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9160807291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9161458333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9162109375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9162760416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9163411458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9164062500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9164713541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9165364583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9166015625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9166666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9167317708333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9167968750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9168619791666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9169270833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9169921875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9170572916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9171223958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9171875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9172526041666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9173177083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9173828125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9174479166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9175130208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.917578125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9176432291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9177083333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9177734375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9178385416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9179036458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.91796875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9180338541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9180989583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9181640625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9182291666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9182942708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9183593750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9184244791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9184895833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9185546875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9186197916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9186848958333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9187500000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9188151041666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9188802083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9189453125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9190104166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9190755208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.919140625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9192057291666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9192708333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9193359375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9194010416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9194661458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.91953125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9195963541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9196614583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9197265625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9197916666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9198567708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.919921875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9199869791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9200520833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9201171875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9201822916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9202473958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9203125000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9203776041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9204427083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9205078125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9205729166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9206380208333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9207031250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9207682291666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9208333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9208984375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9209635416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9210286458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.92109375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9211588541666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9212239583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9212890625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9213541666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9214192708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.921484375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9215494791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9216145833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9216796875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9217447916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9218098958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.921875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9219401041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9220052083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9220703125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9221354166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9222005208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9222656250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9223307291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9223958333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9224609375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9225260416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9225911458333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9226562500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9227213541666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9227864583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9228515625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9229166666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9229817708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.923046875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9231119791666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9231770833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9232421875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9233072916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9233723958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9234375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9235026041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9235677083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9236328125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9236979166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9237630208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.923828125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9238932291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9239583333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9240234375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9240885416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9241536458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9242187500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9242838541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9243489583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9244140625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9244791666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9245442708333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9246093750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9246744791666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9247395833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9248046875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9248697916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9249348958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.925
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9250651041666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9251302083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9251953125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9252604166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9253255208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.925390625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9254557291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9255208333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9255859375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9256510416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9257161458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.92578125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9258463541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9259114583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9259765625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9260416666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9261067708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9261718750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9262369791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9263020833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9263671875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9264322916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9264973958333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9265625000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9266276041666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9266927083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9267578125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9268229166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9268880208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.926953125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9270182291666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9270833333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9271484375000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9272135416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9272786458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.92734375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9274088541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9274739583333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9275390625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9276041666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9276692708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.927734375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9277994791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9278645833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9279296875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9279947916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9280598958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9281250000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9281901041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9282552083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9283203125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9283854166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9284505208333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9285156250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9285807291666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9286458333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9287109375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9287760416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9288411458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.92890625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9289713541666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9290364583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9291015625000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9291666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9292317708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.929296875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9293619791666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9294270833333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9294921875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9295572916666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9296223958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9296875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9297526041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9298177083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9298828125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9299479166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9300130208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9300781250000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9301432291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9302083333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9302734375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9303385416666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9304036458333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9304687500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9305338541666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9305989583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9306640625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9307291666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9307942708333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.930859375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9309244791666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9309895833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9310546875000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9311197916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9311848958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.93125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9313151041666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9313802083333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9314453125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9315104166666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9315755208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.931640625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9317057291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9317708333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9318359375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9319010416666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9319661458333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9320312500000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9320963541666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9321614583333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9322265625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9322916666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9323567708333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9324218750000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9324869791666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9325520833333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9326171875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9326822916666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9327473958333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9328125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9328776041666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9329427083333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9330078125000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9330729166666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9331380208333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.933203125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9332682291666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9333333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9343750000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9354166666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9364583333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9375
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9385416666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9395833333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.940625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9416666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9427083333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9437500000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9447916666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9458333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.946875
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9479166666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9489583333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9500000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9510416666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9520833333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.953125
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9541666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9552083333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.95625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9572916666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9583333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9593750000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9604166666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9614583333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9625
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9635416666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9645833333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9656250000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9666666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9668000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9669333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9670666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9672000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9673333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9674666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9676
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9677333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9678666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9680000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9681333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9682666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9684
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9685333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9686666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9688000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9689333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9690666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9692000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9693333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9694666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9696
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9697333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9698666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9700000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9701333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9702666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9704
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9705333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9706666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9708000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9709333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9710666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9712000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9713333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9714666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9716
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9717333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9718666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9720000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9721333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9722666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9724
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9725333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9726666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9728000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9729333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9730666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9732000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9733333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9734666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9736
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9737333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9738666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9740000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9741333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9742666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9744
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9745333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9746666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9748000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9749333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9750666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9752000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9753333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9754666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9756
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9757333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9758666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9760000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9761333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9762666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9764
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9765333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9766666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9768000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9769333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9770666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9772000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9773333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9774666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9776
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9777333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9778666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9780000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9781333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9782666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9784
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9785333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9786666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9788000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9789333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9790666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9792000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9793333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9794666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9796
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9797333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9798666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9800000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9801333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9802666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9804
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9805333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9806666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9808000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9809333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9810666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9812000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9813333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9814666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9816
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9817333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9818666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9820000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9821333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9822666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9824
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9825333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9826666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9828000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9829333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9830666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9832000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9833333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9834666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9836
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9837333333333333
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9838666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.984
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9841333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9842666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9844
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9845333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9846666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9848000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9849333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9850666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9852000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9853333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9854666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9856
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9857333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9858666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9860000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9861333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9862666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9864
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9865333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9866666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9868000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9869333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9870666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9872000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9873333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9874666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9876
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9877333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9878666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.988
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9881333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9882666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9884000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9885333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9886666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9888
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9889333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9890666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9892000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9893333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9894666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9896
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9897333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9898666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9900000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9901333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9902666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9904000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9905333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9906666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9908000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9909333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9910666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9912000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9913333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9914666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9916
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9917333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9918666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.992
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9921333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9922666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9924000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9925333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9926666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9928
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9929333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9930666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9932000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9933333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9934666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9936
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9937333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9938666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9940000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9941333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9942666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9944000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9945333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9946666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9948000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9949333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9950666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9952000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9953333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9954666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9956
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9957333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9958666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.996
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9961333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9962666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9964000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9965333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9966666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9968
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9969333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9970666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9972000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9973333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9974666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9976
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9977333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9978666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.998
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9981333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9982666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9984000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9985333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9986666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9988000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9989333333333335
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9990666666666668
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9992000000000001
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9993333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9994666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9996
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9997333333333334
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 0.9998666666666667
+    },
+    {
+      "id": "digest",
+      "phase": "perceptual-hashes",
+      "fraction": 1
+    },
+    {
+      "id": "digest",
+      "phase": "complete",
+      "fraction": 1
+    },
+    {
+      "phase": "encode-json",
+      "fraction": 0.19638069705093833
+    },
+    {
+      "phase": "complete",
+      "fraction": 1
+    }
+  ],
+  "storageCleanup": true,
+  "engineCommit": "4c2e13088595310d77ce07de11d5fad9500ebd4b",
+  "runtime": {
+    "sha256": "d82b020bd0bf6a6567fd1ab22e3496dab7920bfa3c731a7770180ae16f2b07bf",
+    "files": 986
+  },
+  "extra": [
+    {
+      "file": "tests/m5-digest-96mp-browser.js",
+      "sha256": "0433159fc89946a510319f2f509853792e9261d73c235681e88810dc29eff59e"
+    },
+    {
+      "file": "tests/source-api-browser.js",
+      "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+    },
+    {
+      "file": "docs/m5-digest-96mp-native-reference.json",
+      "sha256": "22a20b408840f2493c73cf077627c5ebe1079dcb0d21f97e6871c1c1c5f15d06"
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile removed after qualification"
+}

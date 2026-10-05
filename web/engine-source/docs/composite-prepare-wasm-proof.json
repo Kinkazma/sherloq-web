@@ -1,0 +1,54 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "model": 100,
+      "nativeModel": 100,
+      "gray": {
+        "values": 5913,
+        "maxError": 0,
+        "differences": 0
+      },
+      "curve": {
+        "values": 100,
+        "maxError": 0,
+        "differences": 0
+      },
+      "display": {
+        "values": 17739,
+        "maxError": 0,
+        "differences": 0
+      }
+    },
+    {
+      "case": 1,
+      "model": 90,
+      "nativeModel": 90,
+      "gray": {
+        "values": 12288,
+        "maxError": 0,
+        "differences": 0
+      },
+      "curve": {
+        "values": 100,
+        "maxError": 0,
+        "differences": 0
+      },
+      "display": {
+        "values": 36864,
+        "maxError": 0,
+        "differences": 0
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 573537229
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

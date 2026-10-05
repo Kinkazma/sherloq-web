@@ -1,0 +1,4868 @@
+{
+  "schema": 2,
+  "status": "passed",
+  "cases": 33,
+  "views": 528,
+  "scorePolicy": "SSIMULACRA and Butteraugli native printed scores exact; other finite scores absolute/relative tolerance 1e-12; nonfinite outcomes explicit and equal; all rendered pixels exact.",
+  "sourceSha256": {
+    "comparison.py": "df2386146f4346fb9abb50bbd1e3f33f3e6910fbc585a3bcb85bc821606a265b",
+    "utility.py": "4c70b30cfb1f8bebcdae85fa95f39a77d267081bc9509d67b661c9e9600a5fbc",
+    "sewar.full_ref": "fca0f97286c8a45f985ee5542e5a958b3a6fb34550c017e6b6a88db32d913db5",
+    "sewar.utils": "2dc579e5d9ee501ae6c3b1912c83daa9803606e9e78579809607176ca696617f",
+    "butteraugli/linux/butteraugli.cc": "4ec0d02ffaf100dd8ea17e42a7c6561ad30462441f01354b5a8cd90d7003dcdd",
+    "butteraugli/linux/butteraugli.h": "64d0c2838a307ef603cfe376976df4f2c246898c021dde5468cf63bcd1737231",
+    "butteraugli/linux/butteraugli_main.cc": "e09468e999b91cb1740f76177fa1d80e4e010cec60b050694ffaf2fe3b54bbaf",
+    "butteraugli/macos/butteraugli": "d29ae5e9dce768ed1296e933cb640cb55fc5137229810abdc82feb287f1bf5c0",
+    "ssimulacra/linux/ssimulacra.cpp": "9907e44b6fdd480275226a6c025a39fb038ff0057feccc9a9c12e1b0bda1b6f9",
+    "ssimulacra/macos/ssimulacra": "6af7a46becfea96ae40da9f14215a0caa5ef4756d62418cff85d820d3f80a1fa"
+  },
+  "rows": [
+    {
+      "name": "tiny",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "scc": 0,
+        "vifp": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "scc": true,
+        "vifp": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "small",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "scc": 0,
+        "vifp": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "scc": true,
+        "vifp": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "zero",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "constant",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 7.105427357601002e-15,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 0,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "same",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 0,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "shift",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 1.1102230246251565e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 1.457167719820518e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "brightness",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 0,
+        "scc": 1.1102230246251565e-16,
+        "uqi": 0,
+        "vifp": 2.220446049250313e-15,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "noise",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 3.3306690738754696e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 4.440892098500626e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "random",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 3.0531133177191805e-16,
+        "rase": 0,
+        "scc": 1.3010426069826053e-18,
+        "uqi": 1.1102230246251565e-16,
+        "vifp": 1.9949319973733282e-17,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "gamma",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 4.440892098500626e-16,
+        "rase": 5.684341886080802e-14,
+        "scc": 0,
+        "uqi": 2.220446049250313e-16,
+        "vifp": 9.992007221626409e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "large",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 1.1102230246251565e-16,
+        "rase": 0,
+        "scc": 1.1102230246251565e-16,
+        "uqi": 0,
+        "vifp": 1.1102230246251565e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "row",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 1.3877787807814457e-17,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "scc": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "scc": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "column",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 3.552713678800501e-15,
+        "ssim": 0,
+        "scc": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "scc": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "narrow",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "scc": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "scc": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "inverse",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 2.220446049250313e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 1.1102230246251565e-16,
+        "vifp": 0,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "impulse",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 0,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "gradient",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 1.6653345369377348e-15,
+        "rase": 0,
+        "scc": 4.336808689942018e-19,
+        "uqi": 0,
+        "vifp": 4.285460875053104e-14,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "checker",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 0,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "saturated",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge8",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "scc": 0,
+        "vifp": 2.220446049250313e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "scc": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge9",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 2.220446049250313e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge10",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 0,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge11",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 8.881784197001252e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge17",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 1.3877787807814457e-17,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 9.658940314238862e-15,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge31",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 1.1102230246251565e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 1.887379141862766e-15,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge33",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 1.1102230246251565e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 6.106226635438361e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge79",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 1.1102230246251565e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 4.996003610813204e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge80",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 2.220446049250313e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 2.220446049250313e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge81",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 2.220446049250313e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 1.8318679906315083e-15,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge175",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 1.1102230246251565e-16,
+        "rase": 2.2737367544323206e-13,
+        "scc": 1.1102230246251565e-16,
+        "uqi": 0,
+        "vifp": 1.1102230246251565e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge176",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 1.3877787807814457e-17,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 3.3306690738754696e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 1.1102230246251565e-16,
+        "vifp": 3.3306690738754696e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "edge177",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 4.440892098500626e-16,
+        "rase": 0,
+        "scc": 0,
+        "uqi": 0,
+        "vifp": 4.440892098500626e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "megapixel",
+      "passed": true,
+      "differences": {
+        "rmse": 0,
+        "sam": 0,
+        "ergas": 0,
+        "mb": 0,
+        "pfe": 0,
+        "psnr": 0,
+        "ssim": 0,
+        "msssim": 0,
+        "rase": 1.1368683772161603e-13,
+        "scc": 1.1102230246251565e-16,
+        "uqi": 0,
+        "vifp": 3.3306690738754696e-16,
+        "ssimul": 0,
+        "butter": 0,
+        "hist_0": 0,
+        "hist_1": 0,
+        "hist_4": 0,
+        "hist_2": 0,
+        "hist_3": 0,
+        "hist_5": 0
+      },
+      "metricChecks": {
+        "rmse": true,
+        "sam": true,
+        "ergas": true,
+        "mb": true,
+        "pfe": true,
+        "psnr": true,
+        "ssim": true,
+        "msssim": true,
+        "rase": true,
+        "scc": true,
+        "uqi": true,
+        "vifp": true,
+        "ssimul": true,
+        "butter": true,
+        "hist_0": true,
+        "hist_1": true,
+        "hist_4": true,
+        "hist_2": true,
+        "hist_3": true,
+        "hist_5": true
+      },
+      "errorsMatch": true,
+      "valuesMatch": true,
+      "histogramCorrelationFullBinsDifference": 0,
+      "views": [
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "normal",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "difference",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "ssim",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": false,
+          "grayscale": true,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": false,
+          "exact": true
+        },
+        {
+          "mode": "butter",
+          "equalized": true,
+          "grayscale": true,
+          "exact": true
+        }
+      ]
+    }
+  ]
+}

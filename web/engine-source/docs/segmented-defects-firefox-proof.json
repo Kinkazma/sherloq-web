@@ -1,0 +1,291 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "96MP synthetic JPEG, five settings including EXIF6; native four windows per display/mask/flags, complete first-case raster hashes and all ordered candidate/CSV bytes, ownership/release/unload/cancel/dispose. Functional timings, not isolated benchmarks.",
+  "nativeSourceSha256": "fa932eb01781bf03a2cc621b474dfa8cd3cd015e21e5becb78d42272ce4ab517",
+  "cases": [
+    {
+      "params": {
+        "radius": 1,
+        "threshold": 32,
+        "spread": 32,
+        "kind": 0,
+        "mode": 0
+      },
+      "orientation": 1,
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "windows": 4,
+      "fullHashes": {
+        "rgb": "4ae05f0a745bc95e9df629fe789aa76f7df025445219c28a84d33c3adb913c17",
+        "mask": "c18bffa814d51fecb00fd573caccacbe659dfdd183f76bfea17c2b4fa9a718a3",
+        "flags": "5e43d0e74f1eb27c4bdc60800bbb32b70d9d489b401cb4a07865b24a0370828e"
+      },
+      "count": 281250,
+      "candidateCount": 749625,
+      "tableSha256": "e9960f797d2bae98b5a3c8a4791272edbf32581e598c8969a7bac7f521effc0c",
+      "csvSha256": "3007d1861aa009c9adbca28b1ca17cac8f6686093382ba535d25620f3168daa8",
+      "csvBytes": 24317703,
+      "computeMs": 14728,
+      "metrics": {
+        "stageMs": {
+          "admission": 6,
+          "classificationAndDisplay": 8900,
+          "candidateRecords": 5822,
+          "candidateOrder": 0
+        },
+        "blocks": 236,
+        "rowsPerBlock": 34,
+        "candidateSort": {
+          "path": "already-ordered",
+          "passes": 0
+        },
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "flagStorage": "temporary",
+        "tableStorage": "memory",
+        "retainedResultBytes": 689991000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 14728,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 113991000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 20185088,
+          "peakAccountedBytes": 139418952
+        }
+      }
+    },
+    {
+      "params": {
+        "radius": 2,
+        "threshold": 32,
+        "spread": 64,
+        "kind": 1,
+        "mode": 1
+      },
+      "orientation": 1,
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "windows": 4,
+      "fullHashes": null,
+      "count": 93750,
+      "candidateCount": 281250,
+      "tableSha256": "84fdf360091800bb16291ed407e8faadcba6a75da836dbbb5189fb39a41aa53e",
+      "csvSha256": "2718c6e849940421974ae236f2a2102abd04883522a43df616874c282c59afdc",
+      "csvBytes": 9264480,
+      "computeMs": 14539,
+      "metrics": {
+        "stageMs": {
+          "admission": 5,
+          "classificationAndDisplay": 8796,
+          "candidateRecords": 5738,
+          "candidateOrder": 0
+        },
+        "blocks": 236,
+        "rowsPerBlock": 34,
+        "candidateSort": {
+          "path": "already-ordered",
+          "passes": 0
+        },
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "flagStorage": "temporary",
+        "tableStorage": "memory",
+        "retainedResultBytes": 678750000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 14539,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 102750000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 20185088,
+          "peakAccountedBytes": 147605832
+        }
+      }
+    },
+    {
+      "params": {
+        "radius": 2,
+        "threshold": 32,
+        "spread": 64,
+        "kind": 2,
+        "mode": 2
+      },
+      "orientation": 1,
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "windows": 4,
+      "fullHashes": null,
+      "count": 187500,
+      "candidateCount": 375000,
+      "tableSha256": "99063129a52fc0aeaadf0dfa10b45a85f699f9fb451fa01a108954de5cba8841",
+      "csvSha256": "2345111e6ae5eac6dff881ee8111d782cce065628570b5874327ef329c176b8f",
+      "csvBytes": 11977230,
+      "computeMs": 14409,
+      "metrics": {
+        "stageMs": {
+          "admission": 7,
+          "classificationAndDisplay": 8603,
+          "candidateRecords": 5799,
+          "candidateOrder": 0
+        },
+        "blocks": 236,
+        "rowsPerBlock": 34,
+        "candidateSort": {
+          "path": "already-ordered",
+          "passes": 0
+        },
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "flagStorage": "temporary",
+        "tableStorage": "memory",
+        "retainedResultBytes": 681000000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 14410,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 105000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 20185088,
+          "peakAccountedBytes": 147605832
+        }
+      }
+    },
+    {
+      "params": {
+        "radius": 1,
+        "threshold": 16,
+        "spread": 96,
+        "kind": 0,
+        "mode": 2
+      },
+      "orientation": 1,
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "windows": 4,
+      "fullHashes": null,
+      "count": 281250,
+      "candidateCount": 843375,
+      "tableSha256": "7a637e0a274a1e7ef7fb1f9b715bf0f675ef6196270a7d3fa09b373c9dacf2b1",
+      "csvSha256": "9d7dd6cc8b860a6d0bed5ddad03bd5f917bfb9cd0f28045b3d5d6585dee2a0cc",
+      "csvBytes": 27405078,
+      "computeMs": 14150,
+      "metrics": {
+        "stageMs": {
+          "admission": 6,
+          "classificationAndDisplay": 8421,
+          "candidateRecords": 5722,
+          "candidateOrder": 0
+        },
+        "blocks": 236,
+        "rowsPerBlock": 34,
+        "candidateSort": {
+          "path": "already-ordered",
+          "passes": 0
+        },
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "flagStorage": "temporary",
+        "tableStorage": "memory",
+        "retainedResultBytes": 692241000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 14149,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 116241000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 20185088,
+          "peakAccountedBytes": 147605832
+        }
+      }
+    },
+    {
+      "params": {
+        "radius": 2,
+        "threshold": 32,
+        "spread": 64,
+        "kind": 0,
+        "mode": 0
+      },
+      "orientation": 6,
+      "dimensions": [
+        8000,
+        12000
+      ],
+      "windows": 4,
+      "fullHashes": null,
+      "count": 281250,
+      "candidateCount": 656250,
+      "tableSha256": "2582b6e93d218b03bb6505eda808e074e2818f2f3ae3564d9f0aa5b766b97a8e",
+      "csvSha256": "40621880ea061ea7600d9919bad54196cb76c8b943dff758f208bb74a4fb5a09",
+      "csvBytes": 21239730,
+      "computeMs": 14981,
+      "metrics": {
+        "stageMs": {
+          "admission": 7,
+          "classificationAndDisplay": 8487,
+          "candidateRecords": 5864,
+          "candidateOrder": 622
+        },
+        "blocks": 236,
+        "rowsPerBlock": 34,
+        "candidateSort": {
+          "path": "memory-radix",
+          "passes": 4
+        },
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "flagStorage": "temporary",
+        "tableStorage": "memory",
+        "retainedResultBytes": 687750000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 14981,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 111750000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 20185088,
+          "peakAccountedBytes": 163437136
+        }
+      }
+    }
+  ],
+  "cancellationMs": 113,
+  "cancellation": "storage-closed-before-worker-termination",
+  "storageArtifactsRemaining": 0,
+  "browser": "155.0"
+}

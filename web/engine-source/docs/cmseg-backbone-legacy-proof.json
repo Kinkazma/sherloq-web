@@ -1,0 +1,401 @@
+{
+  "schema": 1,
+  "status": "passed-split-corpus",
+  "scope": "Real native512 CMSeg experimental exact backbone plus ONNX bypass/decoder CPU with bounded global SIMD-WASM correlation; all pair comparisons retained, no approximate neighbour pruning or resize. Component-only recipe; common API/source projection/cancellation/export qualification is recorded separately in neural-segmented proofs.",
+  "variant": "generalization",
+  "weights": {
+    "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/generalization.pth": "a3351ae664fca9780c3ca56db708fe3fdc74878c07327dfdd6ed75f14537454b"
+  },
+  "graphs": {
+    "encoder": {
+      "id": "bypass",
+      "file": "/.build/cmseg-backbone-candidate/bypass.onnx",
+      "bytes": 75101,
+      "sha256": "e6cbe35af0afa1a401b0fa6fb156ad72274f294e56a944d0232da191a2169d35"
+    },
+    "decoder": {
+      "file": "decoder-native-mean-bn.onnx",
+      "bytes": 11935456,
+      "sha256": "123f113286258c98b732605f854d8f08e2fa6253e2cb9bccc0491a181587dea6",
+      "meanNodes": 3,
+      "batchnormNodes": 33
+    }
+  },
+  "records": [
+    {
+      "oracleCorrelationInputs": false,
+      "diagnostics": [],
+      "name": "structured-copy",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.000029087066650390625,
+          "different": 642343,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 3979.5,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 356.6000000014901,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 106.70000000298023,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 8.437782526016235e-7,
+        "different": 262011,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0001583099365234375,
+        "different": 256171,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 0,
+        "nativeForeground": 0
+      },
+      "heapBytes": 521469952,
+      "milliseconds": 7289.10000000149
+    },
+    {
+      "oracleCorrelationInputs": false,
+      "diagnostics": [],
+      "name": "constant",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.00003886222839355469,
+          "different": 659113,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 3970,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 398.70000000298023,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 97.79999999701977,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 1.7415732145309448e-7,
+        "different": 262119,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0001583099365234375,
+        "different": 258887,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 0,
+        "nativeForeground": 0
+      },
+      "heapBytes": 521469952,
+      "milliseconds": 7002
+    },
+    {
+      "oracleCorrelationInputs": false,
+      "diagnostics": [],
+      "name": "paired-spots",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.000024318695068359375,
+          "different": 662434,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 4061.60000000149,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 355.5,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 89.60000000149012,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 1.7695128917694092e-7,
+        "different": 262097,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0001392364501953125,
+        "different": 252808,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 0,
+        "nativeForeground": 0
+      },
+      "heapBytes": 521469952,
+      "milliseconds": 6960.5
+    },
+    {
+      "oracleCorrelationInputs": false,
+      "diagnostics": [],
+      "name": "blobs-copy",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.00004423409700393677,
+          "different": 668687,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        },
+        {
+          "maxAbs": 0,
+          "different": 0,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 3949.39999999851,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 353.90000000596046,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 90.90000000596046,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 0,
+            "different": 0,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 0.000016391277313232422,
+        "different": 261871,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.00023651123046875,
+        "different": 257895,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 2611,
+        "nativeForeground": 2611
+      },
+      "heapBytes": 521469952,
+      "milliseconds": 6836.79999999702
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3218069687
+  },
+  "browser": "154.0.8037.58",
+  "kernel": {
+    "path": "/vendor/segmentation/correlation-fma.js",
+    "sha256": "3aec9e00d6364701d73fbe2eaa894f0c76c4b103b458471513b02d208cd47fbf",
+    "wasmSha256": "fe3a44357907b250fb00d82c5c6f9474de732e56340ffbfa694cca858efad39b"
+  },
+  "sources": {
+    "scripts/study-cmseg-backbone.mjs": "f9a68773b04b5c3a262b9b31b73dad5e83f2101d34282fa6c0c14650f5d77c6c",
+    "experiments/segmentation/cmseg-backbone.js": "737f43a6ed3aa674f547f8f586c341380fd852149fd60de342e965a09fc3a517",
+    "experiments/segmentation/cmseg-winograd.cpp": "02266364525a9fd78d08254af74b7297cedd304bf7163170bc8ba4df19686b86",
+    "scripts/export-cmseg-backbone.py": "4f5b3c7a36e590ff3b9b7bb354cb54040b6a6cec0fdb46722b9edb3dae94f6db",
+    "experiments/segmentation/cmseg-correlation.cpp": "8f65a246e8aabd069e4ff6c29c4d704b01d7c8717039b95e988269fd375aae54",
+    "experiments/segmentation/cmseg-correlation.js": "473ba0002d53980ef7034d81c032fa6f72d0187d52de49f260e8a2c89a9f7888",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "scripts/export-cmseg-split.py": "285fa3a567e63a2d786a8cc800cf646b08d41a267fee355ec3bdb4ee2ddfb88a"
+  }
+}

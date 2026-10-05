@@ -1,0 +1,561 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "35 synthetic/native-head interpolation cases in C++/WASM and ONNX explicit rounding. No complete detector claim.",
+  "ort": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "reports": [
+    {
+      "kind": "resize-small",
+      "backend": "cpp",
+      "schema": 1,
+      "status": "passed",
+      "scope": "Synthetic native small-output contiguous float32 bilinear align_corners=True, referenceThreads8",
+      "cases": 24,
+      "records": [
+        {
+          "name": "1-448-448-56-56-noise",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-448-448-56-56-signed",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-448-448-56-56-steps",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "64-112-112-56-56-noise",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "64-112-112-56-56-signed",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "64-112-112-56-56-steps",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "512-7-7-14-14-noise",
+          "elements": 100352,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "512-7-7-14-14-signed",
+          "elements": 100352,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "512-7-7-14-14-steps",
+          "elements": 100352,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "256-14-14-28-28-noise",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "256-14-14-28-28-signed",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "256-14-14-28-28-steps",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "128-28-28-56-56-noise",
+          "elements": 401408,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "128-28-28-56-56-signed",
+          "elements": 401408,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "128-28-28-56-56-steps",
+          "elements": 401408,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "3-37-46-20-23-noise",
+          "elements": 1380,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "3-37-46-20-23-signed",
+          "elements": 1380,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "3-37-46-20-23-steps",
+          "elements": 1380,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "5-37-46-20-23-noise",
+          "elements": 2300,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "5-37-46-20-23-signed",
+          "elements": 2300,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "5-37-46-20-23-steps",
+          "elements": 2300,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-56-56-56-56-noise",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-56-56-56-56-signed",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-56-56-56-56-steps",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      ]
+    },
+    {
+      "kind": "resize-small",
+      "backend": "onnx",
+      "status": "passed",
+      "cases": 24,
+      "records": [
+        {
+          "name": "1-448-448-56-56-noise",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-448-448-56-56-signed",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-448-448-56-56-steps",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "64-112-112-56-56-noise",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "64-112-112-56-56-signed",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "64-112-112-56-56-steps",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "512-7-7-14-14-noise",
+          "elements": 100352,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "512-7-7-14-14-signed",
+          "elements": 100352,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "512-7-7-14-14-steps",
+          "elements": 100352,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "256-14-14-28-28-noise",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "256-14-14-28-28-signed",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "256-14-14-28-28-steps",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "128-28-28-56-56-noise",
+          "elements": 401408,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "128-28-28-56-56-signed",
+          "elements": 401408,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "128-28-28-56-56-steps",
+          "elements": 401408,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "3-37-46-20-23-noise",
+          "elements": 1380,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "3-37-46-20-23-signed",
+          "elements": 1380,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "3-37-46-20-23-steps",
+          "elements": 1380,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "5-37-46-20-23-noise",
+          "elements": 2300,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "5-37-46-20-23-signed",
+          "elements": 2300,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "5-37-46-20-23-steps",
+          "elements": 2300,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-56-56-56-56-noise",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-56-56-56-56-signed",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "1-56-56-56-56-steps",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      ]
+    },
+    {
+      "kind": "head-resize",
+      "backend": "cpp",
+      "schema": 1,
+      "status": "passed",
+      "scope": "Native head interpolation boundaries on generated RGB448 source with native PatchMatch; not browser inference",
+      "cases": 11,
+      "records": [
+        {
+          "name": "head-resize-0",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-1",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-2",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-3",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-4",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-5",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-6",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-7",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-8",
+          "elements": 401408,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-9",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-10",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      ]
+    },
+    {
+      "kind": "head-resize",
+      "backend": "onnx",
+      "status": "passed",
+      "cases": 11,
+      "records": [
+        {
+          "name": "head-resize-0",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-1",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-2",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-3",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-4",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-5",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-6",
+          "elements": 3136,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-7",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-8",
+          "elements": 401408,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-9",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "head-resize-10",
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      ]
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "31c86d456b1a43de66aa60f1caf1ed6bccfb71bf16ab7052d47c45865ffc151c",
+    "largeSourceSha256": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d",
+    "files": {
+      "resize-small.js": {
+        "bytes": 7578,
+        "sha256": "2b529444a7ca166bf4ce1b0e803ebea035688f595ce72bd49cc61ff59c2730a8"
+      },
+      "resize-small.wasm": {
+        "bytes": 8278,
+        "sha256": "24a59523d546bff333ef5db56b679eb32782612b2ea3149a6820ab3f03eab2ad"
+      }
+    }
+  },
+  "references": {
+    "resize-small/reference.json": "a363f27ebcdaf21c9b2b44783aae73686fadf1241b7acf55f59c6be473bc8eaa",
+    "resize-small/onnx-reference.json": "e41c18200a1dc6e15a25491f15faa3408b5284a2f7c688373114c3e8a21ea048",
+    "head-resize/reference.json": "d4df6c329c2499c7502febe4adda046273a4fc8e691bc1fa3df1bed60a6bb296",
+    "head-resize/onnx-reference.json": "f28c8964641d5cf6870ee1f57123a46c54270062fd03f071a38f251f193d440a"
+  },
+  "rewriterSha256": "336ff3f8428953750940e7d6dfa723a1b039569887bdcf4e15328d13d73c1e8a"
+}

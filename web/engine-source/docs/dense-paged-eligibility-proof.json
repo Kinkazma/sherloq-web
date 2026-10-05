@@ -1,0 +1,72 @@
+[
+  {
+    "method": 0,
+    "patch": 8,
+    "texture": {
+      "workers": 2,
+      "tile": 128,
+      "halo": 26,
+      "workspaceBytes": 104810496,
+      "heapBytes": 33554432
+    },
+    "workspaceBytes": 16911072,
+    "heapBytes": 8388608,
+    "differing": 0
+  },
+  {
+    "method": 1,
+    "patch": 3,
+    "texture": {
+      "workers": 2,
+      "tile": 128,
+      "halo": 10,
+      "workspaceBytes": 103818368,
+      "heapBytes": 33554432
+    },
+    "workspaceBytes": 16911072,
+    "heapBytes": 8388608,
+    "differing": 0
+  },
+  {
+    "method": 1,
+    "patch": 8,
+    "texture": {
+      "workers": 2,
+      "tile": 128,
+      "halo": 26,
+      "workspaceBytes": 105990144,
+      "heapBytes": 33554432
+    },
+    "workspaceBytes": 16911072,
+    "heapBytes": 8388608,
+    "differing": 0
+  },
+  {
+    "method": 1,
+    "patch": 5,
+    "texture": {
+      "workers": 2,
+      "tile": 128,
+      "halo": 16,
+      "workspaceBytes": 104583296,
+      "heapBytes": 33554432
+    },
+    "workspaceBytes": 16911072,
+    "heapBytes": 8388608,
+    "differing": 0
+  },
+  {
+    "method": 0,
+    "patch": 32,
+    "texture": {
+      "workers": 2,
+      "tile": 128,
+      "halo": 98,
+      "workspaceBytes": 108912768,
+      "heapBytes": 33554432
+    },
+    "workspaceBytes": 16911072,
+    "heapBytes": 8388608,
+    "differing": 0
+  }
+]

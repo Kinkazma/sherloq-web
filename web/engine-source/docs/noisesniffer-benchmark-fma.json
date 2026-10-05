@@ -1,0 +1,286 @@
+{
+  "schema": 1,
+  "scope": "Sequential synthetic 1024x1024 full resolution, native checksums outside timed sections; includes worker RPC, copies, preparation and raster presentation; no physical-device claim",
+  "cpuKernel": "single",
+  "results": [
+    {
+      "block": 3,
+      "cold": {
+        "loadMs": 36.5,
+        "rpcMs": 2894.300000011921,
+        "presentationMs": 5.199999988079071,
+        "pipelineMs": 2936,
+        "viewRpcMs": 3.399999976158142,
+        "metrics": {
+          "totalMs": 2893.899999976158,
+          "cache": {
+            "result": false,
+            "stages": {
+              "statistics/3": false
+            },
+            "analysis": false,
+            "view": false
+          },
+          "kernel": "cpu-pinned-noisesniffer",
+          "workers": 1,
+          "stages": {
+            "statisticsMs": 1443.3999999761581,
+            "selectionRegionsMs": 1443.300000011921
+          },
+          "memory": {
+            "budgetBytes": 3736076288,
+            "retainedBytes": 6291456,
+            "cacheBytes": 47421236,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 482741558,
+            "codecHeapCapacityBytes": 50987008,
+            "hdf5HeapCapacityBytes": 0
+          }
+        }
+      },
+      "samples": [
+        {
+          "loadMs": 3.800000011920929,
+          "rpcMs": 2715.399999976158,
+          "presentationMs": 4.100000023841858,
+          "pipelineMs": 2723.300000011921,
+          "viewRpcMs": 3.199999988079071,
+          "metrics": {
+            "totalMs": 2715.2999999523163,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/3": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer",
+            "workers": 1,
+            "stages": {
+              "statisticsMs": 1248.4000000357628,
+              "selectionRegionsMs": 1460.3999999761581
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 47421236,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 489920308,
+              "codecHeapCapacityBytes": 50987008,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        },
+        {
+          "loadMs": 3.5,
+          "rpcMs": 2586.599999964237,
+          "presentationMs": 5.200000047683716,
+          "pipelineMs": 2595.300000011921,
+          "viewRpcMs": 3.399999976158142,
+          "metrics": {
+            "totalMs": 2586,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/3": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer",
+            "workers": 1,
+            "stages": {
+              "statisticsMs": 1238.5,
+              "selectionRegionsMs": 1341
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 47421236,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 489920308,
+              "codecHeapCapacityBytes": 50987008,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        },
+        {
+          "loadMs": 3.5,
+          "rpcMs": 2611.2999999523163,
+          "presentationMs": 7.300000011920929,
+          "pipelineMs": 2622.099999964237,
+          "viewRpcMs": 3.100000023841858,
+          "metrics": {
+            "totalMs": 2610.899999976158,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/3": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer",
+            "workers": 1,
+            "stages": {
+              "statisticsMs": 1248.699999988079,
+              "selectionRegionsMs": 1357.1000000238419
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 47421236,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 489920308,
+              "codecHeapCapacityBytes": 50987008,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 2611.2999999523163,
+      "medianPipelineMs": 2622.099999964237
+    },
+    {
+      "block": 8,
+      "cold": {
+        "loadMs": 41.80000001192093,
+        "rpcMs": 5412.100000023842,
+        "presentationMs": 4.799999952316284,
+        "pipelineMs": 5458.699999988079,
+        "viewRpcMs": 2.300000011920929,
+        "metrics": {
+          "totalMs": 5411.5,
+          "cache": {
+            "result": false,
+            "stages": {
+              "statistics/8": false
+            },
+            "analysis": false,
+            "view": false
+          },
+          "kernel": "cpu-pinned-noisesniffer",
+          "workers": 1,
+          "stages": {
+            "statisticsMs": 5244.100000023842,
+            "selectionRegionsMs": 163.5
+          },
+          "memory": {
+            "budgetBytes": 3736076288,
+            "retainedBytes": 6291456,
+            "cacheBytes": 41857216,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 479930594,
+            "codecHeapCapacityBytes": 110886912,
+            "hdf5HeapCapacityBytes": 0
+          }
+        }
+      },
+      "samples": [
+        {
+          "loadMs": 3.699999988079071,
+          "rpcMs": 4955.699999988079,
+          "presentationMs": 3.600000023841858,
+          "pipelineMs": 4963,
+          "viewRpcMs": 1.7999999523162842,
+          "metrics": {
+            "totalMs": 4955.599999964237,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/8": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer",
+            "workers": 1,
+            "stages": {
+              "statisticsMs": 4812,
+              "selectionRegionsMs": 139.5
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 41857216,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 484356288,
+              "codecHeapCapacityBytes": 110886912,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        },
+        {
+          "loadMs": 3.299999952316284,
+          "rpcMs": 4941.300000011921,
+          "presentationMs": 4.199999988079071,
+          "pipelineMs": 4948.799999952316,
+          "viewRpcMs": 3,
+          "metrics": {
+            "totalMs": 4941.200000047684,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/8": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer",
+            "workers": 1,
+            "stages": {
+              "statisticsMs": 4764,
+              "selectionRegionsMs": 174.60000002384186
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 41857216,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 484356288,
+              "codecHeapCapacityBytes": 110886912,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        },
+        {
+          "loadMs": 3.5,
+          "rpcMs": 4967.199999988079,
+          "presentationMs": 3.600000023841858,
+          "pipelineMs": 4974.300000011921,
+          "viewRpcMs": 1.9000000357627869,
+          "metrics": {
+            "totalMs": 4967,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/8": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer",
+            "workers": 1,
+            "stages": {
+              "statisticsMs": 4816.199999988079,
+              "selectionRegionsMs": 147.60000002384186
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 41857216,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 484356288,
+              "codecHeapCapacityBytes": 110886912,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 4955.699999988079,
+      "medianPipelineMs": 4963
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

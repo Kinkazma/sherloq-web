@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "backend": "opfs",
+  "peakAccountedBytes": 45481984,
+  "storage": "temporary",
+  "sha256": "d3c220aa0b0cc72bf61ff17db8210d15acf7fe96f6d8a55b49209d552635fedf",
+  "metrics": {
+    "workers": 1,
+    "completedRegions": 1,
+    "completedStripJobs": 256,
+    "preflightExecutions": 0,
+    "scheduling": {
+      "count": 1,
+      "maximum": 1,
+      "ceiling": 1,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start"
+    },
+    "grayCached": false,
+    "analysisCached": false,
+    "stage": "probability"
+  }
+}

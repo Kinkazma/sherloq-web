@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "pixels": 1048576,
+  "memoryBudgetBytes": 67108864,
+  "internalThreadsPerWorker": 1,
+  "scope": "Kernel slices only; startup/copy/transfer/assembly measured; JPEG remains one dependency",
+  "results": [
+    {
+      "workers": 1,
+      "iteration": 0,
+      "startupMs": 64.30000001192093,
+      "totalMs": 17,
+      "reservedBytes": 33619968,
+      "differentBytes": 0
+    },
+    {
+      "workers": 1,
+      "iteration": 1,
+      "startupMs": 64.30000001192093,
+      "totalMs": 8.800000011920929,
+      "reservedBytes": 33619968,
+      "differentBytes": 0
+    },
+    {
+      "workers": 1,
+      "iteration": 2,
+      "startupMs": 64.30000001192093,
+      "totalMs": 8.5,
+      "reservedBytes": 33619968,
+      "differentBytes": 0
+    },
+    {
+      "workers": 1,
+      "iteration": 3,
+      "startupMs": 64.30000001192093,
+      "totalMs": 8.800000011920929,
+      "reservedBytes": 33619968,
+      "differentBytes": 0
+    },
+    {
+      "workers": 2,
+      "iteration": 0,
+      "startupMs": 10.300000011920929,
+      "totalMs": 8.799999952316284,
+      "reservedBytes": 33685504,
+      "differentBytes": 0
+    },
+    {
+      "workers": 2,
+      "iteration": 1,
+      "startupMs": 10.300000011920929,
+      "totalMs": 4.900000035762787,
+      "reservedBytes": 33685504,
+      "differentBytes": 0
+    },
+    {
+      "workers": 2,
+      "iteration": 2,
+      "startupMs": 10.300000011920929,
+      "totalMs": 4.899999976158142,
+      "reservedBytes": 33685504,
+      "differentBytes": 0
+    },
+    {
+      "workers": 2,
+      "iteration": 3,
+      "startupMs": 10.300000011920929,
+      "totalMs": 4.900000035762787,
+      "reservedBytes": 33685504,
+      "differentBytes": 0
+    },
+    {
+      "workers": 4,
+      "iteration": 0,
+      "startupMs": 19.799999952316284,
+      "totalMs": 12.800000011920929,
+      "reservedBytes": 33816576,
+      "differentBytes": 0
+    },
+    {
+      "workers": 4,
+      "iteration": 1,
+      "startupMs": 19.799999952316284,
+      "totalMs": 6.300000011920929,
+      "reservedBytes": 33816576,
+      "differentBytes": 0
+    },
+    {
+      "workers": 4,
+      "iteration": 2,
+      "startupMs": 19.799999952316284,
+      "totalMs": 4,
+      "reservedBytes": 33816576,
+      "differentBytes": 0
+    },
+    {
+      "workers": 4,
+      "iteration": 3,
+      "startupMs": 19.799999952316284,
+      "totalMs": 3.599999964237213,
+      "reservedBytes": 33816576,
+      "differentBytes": 0
+    },
+    {
+      "workers": 8,
+      "iteration": 0,
+      "startupMs": 35.69999998807907,
+      "totalMs": 12.700000047683716,
+      "reservedBytes": 34078720,
+      "differentBytes": 0
+    },
+    {
+      "workers": 8,
+      "iteration": 1,
+      "startupMs": 35.69999998807907,
+      "totalMs": 11.399999976158142,
+      "reservedBytes": 34078720,
+      "differentBytes": 0
+    },
+    {
+      "workers": 8,
+      "iteration": 2,
+      "startupMs": 35.69999998807907,
+      "totalMs": 4,
+      "reservedBytes": 34078720,
+      "differentBytes": 0
+    },
+    {
+      "workers": 8,
+      "iteration": 3,
+      "startupMs": 35.69999998807907,
+      "totalMs": 4.600000023841858,
+      "reservedBytes": 34078720,
+      "differentBytes": 0
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

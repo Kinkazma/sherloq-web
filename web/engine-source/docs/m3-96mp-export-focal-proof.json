@@ -1,0 +1,39 @@
+[
+  {
+    "method": "focal",
+    "arrays": {
+      "map": {
+        "shape": [
+          64,
+          64
+        ],
+        "dtype": "float32"
+      },
+      "features": {
+        "shape": [
+          4096,
+          288
+        ],
+        "dtype": "float32"
+      },
+      "metadata_json": {
+        "shape": [],
+        "dtype": "<U2628"
+      },
+      "browser_provenance_json": {
+        "shape": [],
+        "dtype": "<U563"
+      }
+    },
+    "sourceSize": [
+      8000,
+      12000
+    ],
+    "fullResolutionPng": {
+      "comparedBytes": 288000000,
+      "differentBytes": 0,
+      "maximumError": 0
+    },
+    "seconds": 3.778693199157715
+  }
+]

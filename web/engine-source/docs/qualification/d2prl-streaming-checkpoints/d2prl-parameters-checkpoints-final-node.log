@@ -1,0 +1,378 @@
+TAP version 13
+# Subtest: An evicted D2PRL raw grid cannot trigger inference through refilter or raw export
+ok 1 - An evicted D2PRL raw grid cannot trigger inference through refilter or raw export
+  ---
+  duration_ms: 28.888584
+  type: 'test'
+  ...
+# Subtest: Memory pressure reclaims idle helper heaps before cached scientific results
+ok 2 - Memory pressure reclaims idle helper heaps before cached scientific results
+  ---
+  duration_ms: 0.303334
+  type: 'test'
+  ...
+# Subtest: UNet terminal preserves validated nodes; explicit resume does not replay them
+ok 3 - UNet terminal preserves validated nodes; explicit resume does not replay them
+  ---
+  duration_ms: 27.479916
+  type: 'test'
+  ...
+# Subtest: changing a checkpoint identity discards prior owned graph values
+ok 4 - changing a checkpoint identity discards prior owned graph values
+  ---
+  duration_ms: 11.095917
+  type: 'test'
+  ...
+# Subtest: PatchMatch terminal at evaluation keeps exact candidate/RNG cursor and completed evaluations
+ok 5 - PatchMatch terminal at evaluation keeps exact candidate/RNG cursor and completed evaluations
+  ---
+  duration_ms: 91.727084
+  type: 'test'
+  ...
+# Subtest: analysis retains completed zones through terminal resume and releases the active pipeline key
+ok 6 - analysis retains completed zones through terminal resume and releases the active pipeline key
+  ---
+  duration_ms: 4.825208
+  type: 'test'
+  ...
+# Subtest: cancellation discards checkpoints rather than retaining cancelled output
+ok 7 - cancellation discards checkpoints rather than retaining cancelled output
+  ---
+  duration_ms: 5.545375
+  type: 'test'
+  ...
+# Subtest: descriptor checkpoint preserves previously completed convolutions and descriptor planes
+ok 8 - descriptor checkpoint preserves previously completed convolutions and descriptor planes
+  ---
+  duration_ms: 360.586458
+  type: 'test'
+  ...
+# Subtest: union checkpoint keeps completed DLF/convolutions and held weights at refusal
+ok 9 - union checkpoint keeps completed DLF/convolutions and held weights at refusal
+  ---
+  duration_ms: 19.232417
+  type: 'test'
+  ...
+# Subtest: a changed RNG identity invalidates the previous PatchMatch checkpoint
+ok 10 - a changed RNG identity invalidates the previous PatchMatch checkpoint
+  ---
+  duration_ms: 9.254917
+  type: 'test'
+  ...
+# Subtest: an already cancelled explicit graph resume discards the retained checkpoint
+ok 11 - an already cancelled explicit graph resume discards the retained checkpoint
+  ---
+  duration_ms: 5.617375
+  type: 'test'
+  ...
+# (node:77871) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: adapter-owned projected outputs and raw grid copies survive adapter disposal
+ok 12 - adapter-owned projected outputs and raw grid copies survive adapter disposal
+  ---
+  duration_ms: 423.238791
+  type: 'test'
+  ...
+# Subtest: weights stream to stable Wasm, reuse retained parameters, release exact ownership
+ok 13 - weights stream to stable Wasm, reuse retained parameters, release exact ownership
+  ---
+  duration_ms: 224.581834
+  type: 'test'
+  ...
+# Subtest: two network refusals preserve hashed prefix with validated Range
+ok 14 - two network refusals preserve hashed prefix with validated Range
+  ---
+  duration_ms: 322.430666
+  type: 'test'
+  ...
+# Subtest: two network refusals preserve hashed prefix with 200 fallback
+ok 15 - two network refusals preserve hashed prefix with 200 fallback
+  ---
+  duration_ms: 325.15975
+  type: 'test'
+  ...
+# Subtest: allocation retry does not re-read committed data; terminal keeps prefix for explicit resume
+ok 16 - allocation retry does not re-read committed data; terminal keeps prefix for explicit resume
+  ---
+  duration_ms: 366.452167
+  type: 'test'
+  ...
+# Subtest: wrong size/hash/range never publish a parameter and cancellation clears incomplete banks
+ok 17 - wrong size/hash/range never publish a parameter and cancellation clears incomplete banks
+  ---
+  duration_ms: 393.885833
+  type: 'test'
+  ...
+# Subtest: initial Wasm refusal is retried without fetching and int64 offsets stay exact
+ok 18 - initial Wasm refusal is retried without fetching and int64 offsets stay exact
+  ---
+  duration_ms: 27.213875
+  type: 'test'
+  ...
+# Subtest: different live parameter extents share one bank and one SHA instance without whole-heap views
+ok 19 - different live parameter extents share one bank and one SHA instance without whole-heap views
+  ---
+  duration_ms: 2.166042
+  type: 'test'
+  ...
+# Subtest: an EOF network fault resumes at the final byte without hashing the prefix twice
+ok 20 - an EOF network fault resumes at the final byte without hashing the prefix twice
+  ---
+  duration_ms: 211.969958
+  type: 'test'
+  ...
+# Subtest: chunk admission refusal holds the received bytes and retries admission without reopening HTTP
+ok 21 - chunk admission refusal holds the received bytes and retries admission without reopening HTTP
+  ---
+  duration_ms: 109.463209
+  type: 'test'
+  ...
+# Subtest: large interrupted responses continue in bounded closed ranges accepted by the production host
+ok 22 - large interrupted responses continue in bounded closed ranges accepted by the production host
+  ---
+  duration_ms: 421.538167
+  type: 'test'
+  ...
+# Subtest: D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+ok 23 - D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+  ---
+  duration_ms: 112.613
+  type: 'test'
+  ...
+# Subtest: five failures without progress stop locally while more separated incidents remain recoverable
+ok 24 - five failures without progress stop locally while more separated incidents remain recoverable
+  ---
+  duration_ms: 23.109334
+  type: 'test'
+  ...
+# Subtest: feature copy recovery retains completed native work and releases all ownership
+ok 25 - feature copy recovery retains completed native work and releases all ownership
+  ---
+  duration_ms: 10.138833
+  type: 'test'
+  ...
+# Subtest: cancelled local recovery immediately releases pressure and does not retry
+ok 26 - cancelled local recovery immediately releases pressure and does not retry
+  ---
+  duration_ms: 0.821208
+  type: 'test'
+  ...
+# Subtest: two evaluator lanes refusing every useful tile stop without leaking work or pressure
+ok 27 - two evaluator lanes refusing every useful tile stop without leaking work or pressure
+  ---
+  duration_ms: 15.010416
+  type: 'test'
+  ...
+# Subtest: concurrent useful tiles do not combine independent first refusals into a loop
+ok 28 - concurrent useful tiles do not combine independent first refusals into a loop
+  ---
+  duration_ms: 2.295541
+  type: 'test'
+  ...
+# Subtest: guarded stages retain dynamic getters and original method ownership
+ok 29 - guarded stages retain dynamic getters and original method ownership
+  ---
+  duration_ms: 0.336
+  type: 'test'
+  ...
+# Subtest: a refused optional evaluator preserves the ready pool and grows again after external release
+ok 30 - a refused optional evaluator preserves the ready pool and grows again after external release
+  ---
+  duration_ms: 2.418084
+  type: 'test'
+  ...
+# Subtest: parameter digest recovery retains already fetched useful model bytes
+ok 31 - parameter digest recovery retains already fetched useful model bytes
+  ---
+  duration_ms: 45.981709
+  type: 'test'
+  ...
+# Subtest: cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+ok 32 - cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+  ---
+  duration_ms: 1.7245
+  type: 'test'
+  ...
+# Subtest: opaque role model is verified in a bounded owned Wasm byte view with symmetric child ledger
+ok 33 - opaque role model is verified in a bounded owned Wasm byte view with symmetric child ledger
+  ---
+  duration_ms: 180.487083
+  type: 'test'
+  ...
+# Subtest: model identity rejection releases every announced backing
+ok 34 - model identity rejection releases every announced backing
+  ---
+  duration_ms: 5.962125
+  type: 'test'
+  ...
+# Subtest: evaluator null retires only its worker and resumes the same tile
+ok 35 - evaluator null retires only its worker and resumes the same tile
+  ---
+  duration_ms: 28.089333
+  type: 'test'
+  ...
+# Subtest: evaluator messageerror retires only its worker and resumes the same tile
+ok 36 - evaluator messageerror retires only its worker and resumes the same tile
+  ---
+  duration_ms: 13.193292
+  type: 'test'
+  ...
+# Subtest: evaluator endpoint retires only its worker and resumes the same tile
+ok 37 - evaluator endpoint retires only its worker and resumes the same tile
+  ---
+  duration_ms: 6.454292
+  type: 'test'
+  ...
+# Subtest: evaluator wrong-id retires only its worker and resumes the same tile
+ok 38 - evaluator wrong-id retires only its worker and resumes the same tile
+  ---
+  duration_ms: 6.92
+  type: 'test'
+  ...
+# Subtest: five unreadable evaluator attempts stop locally with no orphaned scheduler lease
+ok 39 - five unreadable evaluator attempts stop locally with no orphaned scheduler lease
+  ---
+  duration_ms: 10.253834
+  type: 'test'
+  ...
+# Subtest: cancellation after unreadable evaluator data cannot recreate the failed worker
+ok 40 - cancellation after unreadable evaluator data cannot recreate the failed worker
+  ---
+  duration_ms: 4.46025
+  type: 'test'
+  ...
+# Subtest: optional evaluator bootstrap retries transport without reducing the healthy pool
+ok 41 - optional evaluator bootstrap retries transport without reducing the healthy pool
+  ---
+  duration_ms: 3.295333
+  type: 'test'
+  ...
+# Subtest: CPU convolution null preserves completed tiles and worker capacity
+ok 42 - CPU convolution null preserves completed tiles and worker capacity
+  ---
+  duration_ms: 52.387542
+  type: 'test'
+  ...
+# Subtest: CPU convolution messageerror preserves completed tiles and worker capacity
+ok 43 - CPU convolution messageerror preserves completed tiles and worker capacity
+  ---
+  duration_ms: 53.895167
+  type: 'test'
+  ...
+# Subtest: CPU convolution endpoint preserves completed tiles and worker capacity
+ok 44 - CPU convolution endpoint preserves completed tiles and worker capacity
+  ---
+  duration_ms: 23.987709
+  type: 'test'
+  ...
+# Subtest: unreadable convolution clear retains completed output and recreates only the idle slot on next layer
+ok 45 - unreadable convolution clear retains completed output and recreates only the idle slot on next layer
+  ---
+  duration_ms: 26.990709
+  type: 'test'
+  ...
+# Subtest: spatial transport retry retires its lease before retry and preserves input
+ok 46 - spatial transport retry retires its lease before retry and preserves input
+  ---
+  duration_ms: 1.685416
+  type: 'test'
+  ...
+# Subtest: bounded roles transport retry preserves prior inputs and releases each failed worker
+ok 47 - bounded roles transport retry preserves prior inputs and releases each failed worker
+  ---
+  duration_ms: 4.55475
+  type: 'test'
+  ...
+# Subtest: postprocess retries unreadable transport after retiring its workspace
+ok 48 - postprocess retries unreadable transport after retiring its workspace
+  ---
+  duration_ms: 1.250209
+  type: 'test'
+  ...
+# Subtest: evaluator terminal upload drains a companion retry before releasing shared buffers
+ok 49 - evaluator terminal upload drains a companion retry before releasing shared buffers
+  ---
+  duration_ms: 2.655416
+  type: 'test'
+  ...
+# Subtest: convolution terminal upload drains a companion retry before releasing shared buffers
+ok 50 - convolution terminal upload drains a companion retry before releasing shared buffers
+  ---
+  duration_ms: 6.794208
+  type: 'test'
+  ...
+# Subtest: five unreadable convolution tiles stop without reducing future configured parallelism or orphaning CPU
+ok 51 - five unreadable convolution tiles stop without reducing future configured parallelism or orphaning CPU
+  ---
+  duration_ms: 14.1125
+  type: 'test'
+  ...
+# Subtest: role child backing ledger is covered by the existing lease and follows growth, release and cancellation
+ok 52 - role child backing ledger is covered by the existing lease and follows growth, release and cancellation
+  ---
+  duration_ms: 4.269791
+  type: 'test'
+  ...
+# Subtest: Canonical neural identity hashes oriented RGB, memoizes only completed reads and releases every window
+ok 53 - Canonical neural identity hashes oriented RGB, memoizes only completed reads and releases every window
+  ---
+  duration_ms: 143.239375
+  type: 'test'
+  ...
+# Subtest: Both controllers consume real row crops, keep only serializable context and recompose cached grids
+ok 54 - Both controllers consume real row crops, keep only serializable context and recompose cached grids
+  ---
+  duration_ms: 29.801833
+  type: 'test'
+  ...
+# Subtest: Wasm tensor leases keep stable views across new banks and owner disposal
+ok 55 - Wasm tensor leases keep stable views across new banks and owner disposal
+  ---
+  duration_ms: 191.468541
+  type: 'test'
+  ...
+# Subtest: released ranges coalesce and reused tensors preserve new-array zero semantics
+ok 56 - released ranges coalesce and reused tensors preserve new-array zero semantics
+  ---
+  duration_ms: 6.153708
+  type: 'test'
+  ...
+# Subtest: retirement excludes live tensors and reports only the Wasm domain
+ok 57 - retirement excludes live tensors and reports only the Wasm domain
+  ---
+  duration_ms: 7.615625
+  type: 'test'
+  ...
+# Subtest: allocation refusal and cancellation publish no bank and return reservations
+ok 58 - allocation refusal and cancellation publish no bank and return reservations
+  ---
+  duration_ms: 11.07875
+  type: 'test'
+  ...
+# Subtest: zero:false reuses a dirty range and full output publication overwrites every sentinel
+ok 59 - zero:false reuses a dirty range and full output publication overwrites every sentinel
+  ---
+  duration_ms: 1.597459
+  type: 'test'
+  ...
+# Subtest: one bank is counted once and remains pinned until its final slice is returned
+ok 60 - one bank is counted once and remains pinned until its final slice is returned
+  ---
+  duration_ms: 0.634542
+  type: 'test'
+  ...
+# Subtest: refused standalone helper admission registers no orphaned arena reclaimer
+ok 61 - refused standalone helper admission registers no orphaned arena reclaimer
+  ---
+  duration_ms: 8.738584
+  type: 'test'
+  ...
+1..61
+# tests 61
+# suites 0
+# pass 61
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2586.6255

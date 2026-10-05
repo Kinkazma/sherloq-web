@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "status": "completed-diagnostic",
+  "scope": "Same prepared paired-spots RGB and same CPU encoder tensors passed to CPU/GPU heads. Additional existing outputs identify first divergence; no substitution or native expected tensor feeds. Development diagnostic, not memory/performance qualification or runtime routing.",
+  "records": [
+    {
+      "name": "logits",
+      "shape": [
+        1,
+        3,
+        256,
+        256
+      ],
+      "maxAbs": 11.867671012878418,
+      "meanAbs": 3.422589498100127,
+      "different": 196608,
+      "finite": true,
+      "largest": {
+        "index": 62050,
+        "cpu": -15.013854026794434,
+        "gpu": -26.88152503967285
+      }
+    },
+    {
+      "name": "probability",
+      "shape": [
+        1,
+        3,
+        256,
+        256
+      ],
+      "maxAbs": 0.7611156553030014,
+      "meanAbs": 0.0016190564697932458,
+      "different": 173617,
+      "finite": true,
+      "largest": {
+        "index": 146281,
+        "cpu": 0.9893965125083923,
+        "gpu": 0.22828085720539093
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/aspp/convs.4/convs.4.0/GlobalAveragePool_output_0",
+      "shape": [
+        1,
+        640,
+        1,
+        1
+      ],
+      "maxAbs": 4.76837158203125e-7,
+      "meanAbs": 3.28640453517437e-8,
+      "different": 184,
+      "finite": true,
+      "largest": {
+        "index": 21,
+        "cpu": -5.089252471923828,
+        "gpu": -5.08925199508667
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/aspp/convs.4/convs.4.1/Conv_output_0",
+      "shape": [
+        1,
+        256,
+        1,
+        1
+      ],
+      "maxAbs": 0.00002288818359375,
+      "meanAbs": 0.000003391323843970895,
+      "different": 178,
+      "finite": true,
+      "largest": {
+        "index": 152,
+        "cpu": 64.16414642333984,
+        "gpu": 64.16412353515625
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/aspp/convs.4/convs.4.2/BatchNormalization_output_0",
+      "shape": [
+        1,
+        256,
+        1,
+        1
+      ],
+      "maxAbs": 4.76837158203125e-7,
+      "meanAbs": 7.134076440706849e-8,
+      "different": 179,
+      "finite": true,
+      "largest": {
+        "index": 152,
+        "cpu": -0.2218865156173706,
+        "gpu": -0.2218869924545288
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/aspp/convs.4/convs.4.3/Relu_output_0",
+      "shape": [
+        1,
+        256,
+        1,
+        1
+      ],
+      "maxAbs": 3.5762786865234375e-7,
+      "meanAbs": 1.4253600966185331e-8,
+      "different": 30,
+      "finite": true,
+      "largest": {
+        "index": 245,
+        "cpu": 0.541681170463562,
+        "gpu": 0.5416808128356934
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/aspp/convs.4/Resize_output_0",
+      "shape": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "maxAbs": 3.5762786865234375e-7,
+      "meanAbs": 1.4253600966185331e-8,
+      "different": 48000,
+      "finite": true,
+      "largest": {
+        "index": 392000,
+        "cpu": 0.541681170463562,
+        "gpu": 0.5416808128356934
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1699617327
+  },
+  "gpu": {
+    "allocations": 337,
+    "writeBufferBytes": 33545984,
+    "readMappingBytes": 13457056,
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 258692992,
+    "devices": 1,
+    "errors": []
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-mgcf-pool-diagnostics.mjs": "9d8b947c0e5f8416ace19a53ca156d7b11fa2752d1eb13ef5b05cb85ccbaebc6",
+    "scripts/export-mgcf-pool-diagnostics.py": "9cc79224436ef3b8150626827f83454aeabf1db52f989de581e8291c582cc157",
+    ".build/segmentation-models/mgcfdn-st/gpu-pool-diagnostic.json": "5b38be1e02ddc1e907391c6921518ad5eb34cbc958d50a5269a8fb6a9e025d1a",
+    ".build/segmentation-ort-gpu-bounded-cache/build.json": "f3154fc4fa48af034bc8a8677063805e258538d405f5ea0359f3553363ff70be"
+  }
+}

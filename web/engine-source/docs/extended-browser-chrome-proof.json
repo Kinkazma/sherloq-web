@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "counts": {
+    "colors.space": 291,
+    "detail.gradient": 640,
+    "detail.echo": 900,
+    "noise.separation": 1680,
+    "inspection.adjust": 510,
+    "various.illuminant": 1441,
+    "inspection.magnifier": 441,
+    "colors.pca": 360,
+    "detail.wavelets": 3380,
+    "colors.plots": 1674,
+    "noise.blocking": 1094,
+    "jpeg.quality": 6,
+    "metadata.location": 1,
+    "metadata.thumbnail": 2,
+    "file.hex": 1,
+    "metadata.structure": 1,
+    "file.digest": 1
+  },
+  "formats": {
+    "metadata": 18,
+    "image-codec": 17
+  },
+  "maxIlluminantError": 7.105427357601002e-15,
+  "cancellation": "hard abort + reload",
+  "durationMs": 28621.399999976158,
+  "rpcTotalMs": {
+    "colors.space": 426.2999997138977,
+    "detail.gradient": 81.60000002384186,
+    "detail.echo": 21101.699999690056,
+    "noise.separation": 2499.899999499321,
+    "inspection.adjust": 79.10000002384186,
+    "various.illuminant": 514.1000002622604,
+    "inspection.magnifier": 163.59999978542328,
+    "colors.pca": 119.49999976158142,
+    "detail.wavelets": 2005.6000000238419,
+    "colors.plots": 196.50000059604645,
+    "noise.blocking": 129.09999918937683,
+    "jpeg.quality": 43.000000059604645,
+    "metadata.location": 0.19999998807907104,
+    "metadata.thumbnail": 1.4000000357627869,
+    "file.hex": 0.10000002384185791,
+    "metadata.structure": 0.19999998807907104,
+    "file.digest": 10.100000023841858
+  },
+  "limits": [
+    "Synthetic correctness tests in a real module worker",
+    "Durations are smoke timings under host load, not performance comparisons",
+    "No WordPress or physical mobile validation"
+  ],
+  "browser": "154.0.8037.58",
+  "errors": []
+}

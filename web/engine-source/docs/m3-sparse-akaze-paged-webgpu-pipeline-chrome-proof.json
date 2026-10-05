@@ -1,0 +1,119 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "name": "AKAZE/global/None",
+      "matrixMax": 0,
+      "pairs": 1,
+      "groups": 1,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "AKAZE/global/Affine",
+      "matrixMax": 0,
+      "pairs": 1,
+      "groups": 0,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": true,
+        "matches": true,
+        "groups": true
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "AKAZE/masked/None",
+      "matrixMax": 0,
+      "pairs": 0,
+      "groups": 0,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "AKAZE/masked/Affine",
+      "matrixMax": 0,
+      "pairs": 0,
+      "groups": 0,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": true,
+        "matches": true,
+        "groups": true
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "AKAZE/positive/Affine",
+      "matrixMax": 1.4063108137464927e-16,
+      "pairs": 47,
+      "groups": 1,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    }
+  ],
+  "cacheReused": true,
+  "cancelled": true,
+  "peakAccountedBytes": 755819113,
+  "remainingActiveBytes": 0
+}

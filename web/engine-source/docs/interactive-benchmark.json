@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "fixture": "bench-1024.jpg",
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "results": [
+    {
+      "operation": "detail.wavelets",
+      "initialParams": {
+        "wavelet": "db8",
+        "threshold": 0,
+        "level": 2,
+        "mode": "garrote"
+      },
+      "changedParams": {
+        "wavelet": "db8",
+        "threshold": 37,
+        "level": 2,
+        "mode": "garrote"
+      },
+      "loadMs": 42.5,
+      "coldMs": 114.30000001192093,
+      "changedCachedSamplesMs": [
+        63.700000047683716,
+        54.69999998807907,
+        53.60000002384186
+      ],
+      "changedCachedMedianMs": 54.69999998807907,
+      "changedUncachedMs": 123.60000002384186,
+      "displayMs": 4.399999976158142,
+      "changedDisplayMs": 3.600000023841858,
+      "coldEngineMs": 113.69999998807907,
+      "changedEngineMs": 53.40000003576279,
+      "memory": {
+        "budgetBytes": 3736076288,
+        "retainedBytes": 3992357,
+        "cacheBytes": 8879526,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 281307339,
+        "codecHeapCapacityBytes": 69337088
+      },
+      "nativeExact": true
+    },
+    {
+      "operation": "colors.pca",
+      "initialParams": {
+        "component": 0,
+        "mode": "project",
+        "invert": false,
+        "equalize": false
+      },
+      "changedParams": {
+        "component": 2,
+        "mode": "project",
+        "invert": false,
+        "equalize": false
+      },
+      "loadMs": 49,
+      "coldMs": 379.5999999642372,
+      "changedCachedSamplesMs": [
+        157.5,
+        156,
+        156.30000001192093
+      ],
+      "changedCachedMedianMs": 156.30000001192093,
+      "changedUncachedMs": 365.5999999642372,
+      "displayMs": 3.5,
+      "changedDisplayMs": 3.199999988079071,
+      "coldEngineMs": 378.9000000357628,
+      "changedEngineMs": 156,
+      "memory": {
+        "budgetBytes": 3736076288,
+        "retainedBytes": 3992357,
+        "cacheBytes": 3146972,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 174911489,
+        "codecHeapCapacityBytes": 103809024
+      },
+      "nativeExact": true
+    },
+    {
+      "operation": "colors.plots",
+      "initialParams": {
+        "scale": 1,
+        "x": 3,
+        "y": 4,
+        "z": 5,
+        "colored": true,
+        "alpha": 0.37,
+        "kind": "3d"
+      },
+      "changedParams": {
+        "scale": 1,
+        "x": 0,
+        "y": 1,
+        "z": 2,
+        "colored": true,
+        "alpha": 0.37,
+        "kind": "3d"
+      },
+      "loadMs": 45.10000002384186,
+      "coldMs": 54.30000001192093,
+      "changedCachedSamplesMs": [
+        15.299999952316284,
+        15.700000047683716,
+        15.300000011920929
+      ],
+      "changedCachedMedianMs": 15.300000011920929,
+      "changedUncachedMs": 54.19999998807907,
+      "displayMs": null,
+      "changedDisplayMs": null,
+      "coldEngineMs": 53.799999952316284,
+      "changedEngineMs": 14.699999988079071,
+      "memory": {
+        "budgetBytes": 3736076288,
+        "retainedBytes": 3992357,
+        "cacheBytes": 6292584,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 278720397,
+        "codecHeapCapacityBytes": 50331648
+      },
+      "nativeExact": true
+    },
+    {
+      "operation": "noise.blocking",
+      "initialParams": {
+        "block": 8
+      },
+      "changedParams": {
+        "block": 16
+      },
+      "loadMs": 42.69999998807907,
+      "coldMs": 67.5,
+      "changedCachedSamplesMs": [
+        3.400000035762787,
+        3.300000011920929,
+        3.300000011920929
+      ],
+      "changedCachedMedianMs": 3.300000011920929,
+      "changedUncachedMs": 68.89999997615814,
+      "displayMs": 4.299999952316284,
+      "changedDisplayMs": 6.5,
+      "coldEngineMs": 66.90000003576279,
+      "changedEngineMs": 3,
+      "memory": {
+        "budgetBytes": 3736076288,
+        "retainedBytes": 3992357,
+        "cacheBytes": 2156400,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 308138645,
+        "codecHeapCapacityBytes": 83886080
+      },
+      "nativeExact": true
+    }
+  ],
+  "limits": [
+    "One synthetic 1 MP JPEG; three cached parameter-change samples, one cold/uncached sample",
+    "RPC includes transport; load and raster canvas conversion/upload measured separately",
+    "No graph rendering, compositor paint, WordPress or physical-device measurement",
+    "Native outputs, point arrays, noise maps and PCA model hashes verified; no scientific parameter substitution"
+  ],
+  "browser": "154.0.8037.58"
+}

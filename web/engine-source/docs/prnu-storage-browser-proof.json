@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "originalSha256": "257087d633d60c729b0f54f0c29c916d0f8b9e968708cd87ad569105069d0ab2",
+  "newSnapshotBytes": 53327,
+  "memory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 222594251,
+    "knownHeapCapacityBytes": 86441984
+  },
+  "checks": "Exact public scores, source/result ownership, wrong-kind rejection, dual-source invalidation, imported training exclusion, ordered streaming Blob build, corrupt JPEG accounting, no overwrite/partial snapshot, JSON/CSV/HDF5 and release",
+  "imports": 3,
+  "builds": [
+    {
+      "workers": 1,
+      "completedStripJobs": 30,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "temporaryBackend": "opfs",
+      "fingerprintLayout": "segmented",
+      "preparationMs": 302,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 173951,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 205763819,
+        "hdf5HeapCapacityBytes": 19333120
+      }
+    }
+  ],
+  "temporaryBackend": "opfs",
+  "storageArtifactsRemaining": 0,
+  "nccWorkspaceBytes": 196608
+}

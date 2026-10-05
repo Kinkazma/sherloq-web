@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1600,
+    2200
+  ],
+  "results": [
+    {
+      "quality": 75,
+      "rows": 68,
+      "cols": 50,
+      "metrics": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-scanlines",
+        "recompressedCache": false,
+        "recompressions": 1,
+        "sourcePasses": 2,
+        "encodedBytes": 1995008,
+        "encodedCapacityBytes": 21198848,
+        "encodedStorage": "temporary",
+        "cacheEntries": 1,
+        "rowsPerChunk": 32,
+        "maxSourceWindowBytes": 153600,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "descriptorHeapMaximumBytes": 67108864,
+        "descriptorHaloRows": 48,
+        "descriptorResultBytes": 193800
+      }
+    },
+    {
+      "quality": 80,
+      "rows": 68,
+      "cols": 50,
+      "metrics": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-scanlines",
+        "recompressedCache": false,
+        "recompressions": 1,
+        "sourcePasses": 2,
+        "encodedBytes": 2168590,
+        "encodedCapacityBytes": 21198848,
+        "encodedStorage": "temporary",
+        "cacheEntries": 2,
+        "rowsPerChunk": 32,
+        "maxSourceWindowBytes": 153600,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "descriptorHeapMaximumBytes": 67108864,
+        "descriptorHaloRows": 48,
+        "descriptorResultBytes": 193800
+      }
+    }
+  ],
+  "maximumContentError": 2.384185791015625e-7,
+  "cancellationAndRetry": true,
+  "memory": {
+    "budgetBytes": 134217728,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 120226248
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

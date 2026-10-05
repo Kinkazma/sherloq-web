@@ -1,0 +1,155 @@
+{
+  "shapes": {
+    "bool": [
+      257,
+      257
+    ],
+    "uint8": [
+      257,
+      257
+    ],
+    "int8": [
+      37
+    ],
+    "uint16": [
+      331,
+      197
+    ],
+    "int16": [
+      331,
+      197
+    ],
+    "uint32": [
+      331,
+      197
+    ],
+    "int32": [
+      331,
+      197
+    ],
+    "uint64": [
+      19
+    ],
+    "int64": [
+      19
+    ],
+    "float32": [
+      3,
+      331,
+      197
+    ],
+    "float64": [
+      331,
+      197
+    ]
+  },
+  "arrays": {
+    "root_results_bool": {
+      "dtype": "|b1",
+      "shape": [
+        257,
+        257
+      ],
+      "sha256": "b5d6f53dfe693714a4da6bff7bd98a34c078ee47127435d6fda9da9087ca4bd2"
+    },
+    "root_results_uint8": {
+      "dtype": "|u1",
+      "shape": [
+        257,
+        257
+      ],
+      "sha256": "4d55f631603c8b334e649752af0b9bd9fa4e924a52a344fde2cbc4cd9b8b5cf9"
+    },
+    "root_results_int8": {
+      "dtype": "|i1",
+      "shape": [
+        37
+      ],
+      "sha256": "754e449b0c40a8df32e778dc88984b953ad44b3981ec2514012d49e2bcdaeca1"
+    },
+    "root_results_uint16": {
+      "dtype": "<u2",
+      "shape": [
+        331,
+        197
+      ],
+      "sha256": "303cbeaa0ac234a698c6aec911f407fbc61d845f08b85aa925e04de254a6dc00"
+    },
+    "root_results_int16": {
+      "dtype": "<i2",
+      "shape": [
+        331,
+        197
+      ],
+      "sha256": "03211efc04d5e84c95c456e58de442364ae0af1fe73ee8bdd29d559987198b6d"
+    },
+    "root_results_uint32": {
+      "dtype": "<u4",
+      "shape": [
+        331,
+        197
+      ],
+      "sha256": "1e16edac55866d94f89c0bcfc5cb9d2edc4669ee1eca49fd1e006a494de16031"
+    },
+    "root_results_int32": {
+      "dtype": "<i4",
+      "shape": [
+        331,
+        197
+      ],
+      "sha256": "03ac04fd72773b197d06c2ba1e3f25468ff60ae855b47c2932beaf7e4914d39e"
+    },
+    "root_results_uint64": {
+      "dtype": "<u8",
+      "shape": [
+        19
+      ],
+      "sha256": "eb0a498f43bd70f40a8a4d2cc24cbdbe2ddae858ce15e88485385ee92c658357"
+    },
+    "root_results_int64": {
+      "dtype": "<i8",
+      "shape": [
+        19
+      ],
+      "sha256": "9cd5283d3faad39b3064b8bf46f476ddf953932a6cb98c6a7a16116689a17224"
+    },
+    "root_results_float32": {
+      "dtype": "<f4",
+      "shape": [
+        3,
+        331,
+        197
+      ],
+      "sha256": "82de9b23835e193147a74b39e335d0342862dd1eec7b1ac1e31b5e2e5804d3da"
+    },
+    "root_results_float64": {
+      "dtype": "<f8",
+      "shape": [
+        331,
+        197
+      ],
+      "sha256": "ebfa7b4e391804d6113e95cd2f6b20880d043527de0fe6f41b1ef5e54eb04cf9"
+    },
+    "root_ela_profile_empty": {
+      "dtype": "<f4",
+      "shape": [
+        0,
+        3
+      ],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "root_ela_profile_scalar": {
+      "dtype": "<f8",
+      "shape": [],
+      "sha256": "5caaabe50da77f59f448b3edf650d68fbca7b858390664c251c52b3f458a881c"
+    },
+    "root_énergie 🧪": {
+      "dtype": "<i2",
+      "shape": [
+        3
+      ],
+      "sha256": "047dbf5366372631ba7e3e02520e651446b899c96c4b64663bac378a298a7bf7"
+    }
+  },
+  "metadataText": "{\"version\":1,\"method\":\"complete_automatic_analysis\",\"configuration\":{\"regions\":[[[0,0],[11,0],[11,7],[0,7]]],\"d2_minimum\":500},\"results\":{\"bool\":{\"array\":\"root_results_bool\"},\"uint8\":{\"array\":\"root_results_uint8\"},\"int8\":{\"array\":\"root_results_int8\"},\"uint16\":{\"array\":\"root_results_uint16\"},\"int16\":{\"array\":\"root_results_int16\"},\"uint32\":{\"array\":\"root_results_uint32\"},\"int32\":{\"array\":\"root_results_int32\"},\"uint64\":{\"array\":\"root_results_uint64\"},\"int64\":{\"array\":\"root_results_int64\"},\"float32\":{\"array\":\"root_results_float32\"},\"float64\":{\"array\":\"root_results_float64\"}},\"ela_profile\":{\"empty\":{\"array\":\"root_ela_profile_empty\"},\"scalar\":{\"array\":\"root_ela_profile_scalar\"}},\"states\":{\"ELA\":\"done\"},\"errors\":{},\"biomes\":[],\"display\":{\"source\":null,\"maximum_length_px\":Infinity,\"negative_zero\":-0.0,\"large_integer\":9007199254740997,\"nan\":NaN,\"negative_infinity\":-Infinity},\"image_shape\":[257,257,3],\"decoded_bgr8_sha256\":\"fixture\",\"énergie 🧪\":{\"array\":\"root_énergie 🧪\"}}"
+}

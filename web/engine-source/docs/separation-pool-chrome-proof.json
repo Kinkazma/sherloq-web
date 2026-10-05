@@ -1,0 +1,340 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Offline developer comparison, same96MP/Gaussian21x21/color/absolute residual with global equalization. One cold/warm requested task for single/auto under768MiB, hardwareConcurrency hint4. Previous result released before warm; no intertask filter cache. Fixed64MiB single-thread WASM per worker. No calibration or hidden precision/resolution changes. Chain includes load on cold, RPC, native reference window/Canvas frames and JSON descriptor; Blob fetch/full-image checksum outside timing; no WordPress claim. Automatic output storage may differ because workers share the same budget; kernelMs/postprocessMs sum jobs whereas filterWallMs measures elapsed filtering.",
+  "browser": "154.0.8037.58",
+  "extractedRuntime": false,
+  "cases": [
+    {
+      "options": {
+        "memoryBudgetBytes": 805306368,
+        "cpuKernel": "single",
+        "resourceHints": {
+          "hardwareConcurrency": 4
+        }
+      },
+      "sourceSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+      "outputSha256": "80caa44b6d34ddb43c2b92d69b0b0da9a55d7bc8f981aabae894a1efdeb1d53d",
+      "params": {
+        "mode": 1,
+        "radius": 10,
+        "sigma": 3,
+        "grayscale": false,
+        "denoised": false,
+        "levels": 0
+      },
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "loadMs": 2191.2000000029802,
+      "loadMetrics": {
+        "decodeMs": 1785.5,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "memory",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "temporaryBytes": 0,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 2146.0999999940395,
+        "memory": {
+          "budgetBytes": 805306368,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 417005192
+        }
+      },
+      "samples": [
+        {
+          "temperature": "cold",
+          "rpcMs": 20844.79999999702,
+          "transferMs": 0.30000000447034836,
+          "canvasFramesMs": 7.100000001490116,
+          "exportMs": 0.7000000029802322,
+          "chainMs": 23044.10000000894,
+          "exportBytes": 2176,
+          "metrics": {
+            "totalMs": 20844.39999999851,
+            "readMs": 91.2000001296401,
+            "kernelMs": 18962.499999947846,
+            "writeMs": 28.399999894201756,
+            "postprocessMs": 1742.0000000447035,
+            "filterWallMs": 19730.19999999553,
+            "blocks": 381,
+            "sourceReads": 381,
+            "rowsPerBlock": 21,
+            "haloRows": 10,
+            "workers": 1,
+            "workerJobs": 0,
+            "dispatchAccountedBytes": 749531424,
+            "storage": "memory",
+            "arithmeticHeapCapacityBytes": 67108864,
+            "retainedResultBytes": 288000000,
+            "scheduling": {
+              "count": 1,
+              "maximum": 1,
+              "ceiling": 1,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "retry": null
+            },
+            "temporaryBackend": null,
+            "temporaryFallback": null,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 805306368,
+              "retainedBytes": 576000000,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 752963584
+            }
+          }
+        },
+        {
+          "temperature": "warm",
+          "rpcMs": 20737.10000000149,
+          "transferMs": 0.30000000447034836,
+          "canvasFramesMs": 12.599999994039536,
+          "exportMs": 0.30000000447034836,
+          "chainMs": 20750.30000000447,
+          "exportBytes": 2165,
+          "metrics": {
+            "totalMs": 20737,
+            "readMs": 80.29999998956919,
+            "kernelMs": 18878.900000058115,
+            "writeMs": 28.599999986588955,
+            "postprocessMs": 1731.0999999046326,
+            "filterWallMs": 19619.70000000298,
+            "blocks": 381,
+            "sourceReads": 381,
+            "rowsPerBlock": 21,
+            "haloRows": 10,
+            "workers": 1,
+            "workerJobs": 0,
+            "dispatchAccountedBytes": 749531424,
+            "storage": "memory",
+            "arithmeticHeapCapacityBytes": 67108864,
+            "retainedResultBytes": 288000000,
+            "scheduling": {
+              "count": 1,
+              "maximum": 1,
+              "ceiling": 1,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 1,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "retry": null
+            },
+            "temporaryBackend": null,
+            "temporaryFallback": null,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 805306368,
+              "retainedBytes": 576000000,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 752963584
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 805306368,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 752963584,
+        "knownHeapCapacityBytes": 170655744
+      }
+    },
+    {
+      "options": {
+        "memoryBudgetBytes": 805306368,
+        "cpuKernel": "auto",
+        "resourceHints": {
+          "hardwareConcurrency": 4
+        }
+      },
+      "sourceSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+      "outputSha256": "80caa44b6d34ddb43c2b92d69b0b0da9a55d7bc8f981aabae894a1efdeb1d53d",
+      "params": {
+        "mode": 1,
+        "radius": 10,
+        "sigma": 3,
+        "grayscale": false,
+        "denoised": false,
+        "levels": 0
+      },
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "loadMs": 2158.2000000029802,
+      "loadMetrics": {
+        "decodeMs": 1760.5,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "memory",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "temporaryBytes": 0,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 2110.1999999955297,
+        "memory": {
+          "budgetBytes": 805306368,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 417005192
+        }
+      },
+      "samples": [
+        {
+          "temperature": "cold",
+          "rpcMs": 8087.39999999851,
+          "transferMs": 7.100000001490116,
+          "canvasFramesMs": 14.800000004470348,
+          "exportMs": 0.5999999940395355,
+          "chainMs": 10268.10000000149,
+          "exportBytes": 2184,
+          "metrics": {
+            "totalMs": 8086.89999999851,
+            "readMs": 635.6000000163913,
+            "kernelMs": 19785.79999998212,
+            "writeMs": 319.7999999523163,
+            "postprocessMs": 2005.5999999791384,
+            "filterWallMs": 6628.19999999553,
+            "blocks": 381,
+            "sourceReads": 381,
+            "rowsPerBlock": 21,
+            "haloRows": 10,
+            "workers": 4,
+            "workerJobs": 381,
+            "dispatchAccountedBytes": 665144448,
+            "storage": "temporary",
+            "arithmeticHeapCapacityBytes": 268435456,
+            "retainedResultBytes": 288000000,
+            "scheduling": {
+              "count": 4,
+              "maximum": 4,
+              "ceiling": 4,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "retry": null
+            },
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 805306368,
+              "retainedBytes": 288000000,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 671084448
+            }
+          }
+        },
+        {
+          "temperature": "warm",
+          "rpcMs": 8020.79999999702,
+          "transferMs": 6.5,
+          "canvasFramesMs": 1.8999999985098839,
+          "exportMs": 0.29999999701976776,
+          "chainMs": 8029.499999992549,
+          "exportBytes": 2186,
+          "metrics": {
+            "totalMs": 8020.79999999702,
+            "readMs": 627.9999999701977,
+            "kernelMs": 19739.10000001639,
+            "writeMs": 295.0000000670552,
+            "postprocessMs": 1980.4999999850988,
+            "filterWallMs": 6583.0999999940395,
+            "blocks": 381,
+            "sourceReads": 381,
+            "rowsPerBlock": 21,
+            "haloRows": 10,
+            "workers": 4,
+            "workerJobs": 381,
+            "dispatchAccountedBytes": 663047296,
+            "storage": "temporary",
+            "arithmeticHeapCapacityBytes": 268435456,
+            "retainedResultBytes": 288000000,
+            "scheduling": {
+              "count": 4,
+              "maximum": 4,
+              "ceiling": 4,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 1,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "retry": null
+            },
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 805306368,
+              "retainedBytes": 288000000,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 671084448
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 805306368,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 671084448,
+        "knownHeapCapacityBytes": 103546880
+      }
+    }
+  ],
+  "sources": {
+    "src/segmented-separation.js": "4779d252975dc63988e56e1d74a037b4cf12dbd442a29fdf70c940983833f3b8",
+    "src/separation-stage.js": "806d7d3c7f5447036421e8be64dc0b97f60f4d334f6707941033ca40f1112505",
+    "src/separation-worker.js": "356abb0e42fcb129d8f31a5bd5b54a5751178229c3da4a7c1e75bce4bc1ca380",
+    "src/separation-workers.js": "1793a5b1e0b2166dbb5b64a03335064c66f2d8a4f752e4c542c0aa7aaf4ea723",
+    "src/separation-math.js": "5d8cbe7bbf04cf963d1bd3a0a621b7e9c8e631b122c5509790a861bc446a6654",
+    "src/index.js": "897fa584b619272975d668385acb0486b2a05f48e01cd0844c58c633964c2e61",
+    "tests/separation-pool-optimization-browser.js": "6339910a6a14c59c05af6887ed9d4ee8ec8deae4ccf2938bd071d4c0e457feee",
+    "scripts/study-separation-pool.mjs": "05179fdd34cdcc893d4b8818c606bddf3abdf368674caacc3f709b977e6a7cf4"
+  },
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 752963584,
+    "finalWorkerPeakAccountedBytes": null
+  }
+}

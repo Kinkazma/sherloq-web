@@ -1,0 +1,101 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "width": 129,
+      "height": 97,
+      "layers": 3,
+      "initialMax": 0,
+      "gpuMs": 3.6000000089406967,
+      "levels": [
+        {
+          "layer": 0,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 1,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 2,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 3,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 4,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 5,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        }
+      ]
+    },
+    {
+      "width": 333,
+      "height": 197,
+      "layers": 4,
+      "initialMax": 0,
+      "gpuMs": 6.9000000059604645,
+      "levels": [
+        {
+          "layer": 0,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 1,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 2,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 3,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 4,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 5,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        {
+          "layer": 6,
+          "maximum": 0,
+          "mean": 0,
+          "differences": 0
+        }
+      ]
+    }
+  ]
+}

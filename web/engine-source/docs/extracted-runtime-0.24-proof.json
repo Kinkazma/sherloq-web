@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "version": "0.24.0",
+  "status": "passed",
+  "runtimeFilesVerified": 151,
+  "browser": "154.0.8037.58",
+  "operations": [
+    "ela.classic",
+    "metadata.structure",
+    "metadata.location",
+    "metadata.thumbnail",
+    "file.hex",
+    "colors.pca",
+    "colors.space",
+    "noise.separation",
+    "detail.gradient",
+    "inspection.adjust",
+    "detail.echo",
+    "tampering.resampling.fourier",
+    "various.median",
+    "noise.noisesniffer",
+    "noise.prnu",
+    "comparison.image",
+    "detail.frequency",
+    "noise.blocking",
+    "detail.wavelets",
+    "colors.plots",
+    "file.digest",
+    "inspection.magnifier",
+    "various.illuminant",
+    "tampering.contrast",
+    "various.stereogram",
+    "jpeg.zero",
+    "jpeg.ghosts",
+    "jpeg.multiple",
+    "jpeg.quality",
+    "inspection.histogram",
+    "colors.stats",
+    "noise.planes",
+    "noise.minmax",
+    "pixels.defects"
+  ],
+  "resampling": {
+    "kernels": {
+      "cases": 992,
+      "expectedErrors": 32,
+      "maxAbsolute": 7.891769371326518e-08,
+      "maxScaled": 8.128108605379478e-09,
+      "differingBytes": 0,
+      "peakChanges": 20,
+      "peakMeaning": "Diagnostic first-argmax changes include conjugate equal/near-equal peaks; native Fourier has no argmax-based classification."
+    },
+    "originalFiles": 9,
+    "originalPipelines": 180,
+    "largeCases": 3,
+    "parallelWorkers": [
+      10,
+      1,
+      10
+    ],
+    "pool": {
+      "status": "passed",
+      "bitExact": true,
+      "resourceReducedWorkers": 2,
+      "tooSmallPool": "serial",
+      "cancellation": "Active row groups terminated and budget returned",
+      "peakAccountedBytes": 37748736
+    }
+  },
+  "sourceRegression": {
+    "passed": 145,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 258177.744459,
+    "concurrency": 2
+  },
+  "runtimeArchive": {
+    "file": "sherloq-web-engine-0.24.0-runtime.zip",
+    "bytes": 7988220,
+    "sha256": "a4b923ffc1775318ede1bf47d0d7b253fb9ae3b10c842284e387e6e7993afa6d",
+    "manifestFiles": 151
+  }
+}

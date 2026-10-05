@@ -1,0 +1,11 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs/promises';import {createResamplingEmMath} from '../src/resampling-em-math.js';
+const base=new URL('../.build/resampling-em/',import.meta.url);const read=async name=>{const b=await fs.readFile(new URL(name,base));return new Float64Array(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength));};
+test('streaming global EM preserves native validities, iterations and every binary64 weight',async t=>{
+ let ref;try{ref=JSON.parse(await fs.readFile(new URL('reference.json',base)));}catch(e){if(e.code==='ENOENT'){t.skip('Generate local native EM oracle first.');return;}throw e;}const math=await createResamplingEmMath();let valid=0,rejected=0,pages=0;
+ try{for(const item of ref.images){const gray=await read(item.file),[h,w]=item.shape;for(const expected of item.results){const size=expected.size,cols=w-size+1,rows=h-size+1;let answer,error;
+ try{assert.ok(cols>0&&rows>0&&gray.some(v=>v!==gray[0]),'degenerate source');math.create(w,h,size);const weights=new Float64Array(cols*rows);let state;
+ do{for(let first=0;first<weights.length;first+=8192){const count=Math.min(8192,weights.length-first),top=Math.floor(first/cols),bottom=Math.floor((first+count-1)/cols)+size;weights.set(math.batch(gray.slice(top*w,bottom*w),first,count,top),first);pages++;}math.finish();for(let first=0;first<weights.length;first+=8192){const count=Math.min(8192,weights.length-first),top=Math.floor(first/cols),bottom=Math.floor((first+count-1)/cols)+size;math.batch(gray.slice(top*w,bottom*w),first,count,top,weights.slice(first,first+count));}state=math.finish();}while(state.status===1);answer={weights,iterations:state.iterations};
+ }catch(e){error=e;}finally{math.dispose();}
+ if(expected.error){assert.ok(error,`${item.name}/${size} expected refusal`);rejected++;}else{if(error)throw error;assert.equal(answer.iterations,expected.iterations,`${item.name}/${size} iterations`);const target=await read(expected.file);assert.deepEqual(new Uint8Array(answer.weights.buffer),new Uint8Array(target.buffer),`${item.name}/${size} bits`);valid++;}
+ }}console.log({valid,rejected,pages,heap:math.heapBytes()});}finally{math.dispose();}
+});

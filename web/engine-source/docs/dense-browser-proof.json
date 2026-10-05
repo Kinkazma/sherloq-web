@@ -1,0 +1,82 @@
+{
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "passes": 11,
+  "imageControllerFields": 22,
+  "refilterWithoutDescriptors": true,
+  "sizes": [
+    [
+      59,
+      49
+    ],
+    [
+      35,
+      25
+    ],
+    [
+      35,
+      25
+    ],
+    [
+      35,
+      25
+    ],
+    [
+      29,
+      19
+    ],
+    [
+      23,
+      13
+    ],
+    [
+      59,
+      49
+    ],
+    [
+      35,
+      25
+    ],
+    [
+      35,
+      25
+    ],
+    [
+      29,
+      19
+    ],
+    [
+      23,
+      13
+    ]
+  ],
+  "metrics": {
+    "workers": 2,
+    "completedJobs": 11,
+    "preflightExecutions": 0,
+    "policy": "immediate-useful-work",
+    "scheduling": {
+      "count": 2,
+      "maximum": 2,
+      "ceiling": 2,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start"
+    },
+    "outputBytes": 165998,
+    "workerReservationBytes": 114436838,
+    "compactDescriptorJobs": 0,
+    "residentZernikeJobs": 0
+  },
+  "progressEvents": 58,
+  "completed": 11,
+  "cancellation": "CANCELLED",
+  "budgetAfterRelease": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 114602836
+  },
+  "milliseconds": 880.6000000014901
+}

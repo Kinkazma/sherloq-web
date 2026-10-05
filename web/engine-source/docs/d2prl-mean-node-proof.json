@@ -1,0 +1,1106 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native UNet54 global-average boundaries and18 synthetic reductions; native prepared source and actual weights, no complete inference claim",
+  "records": [
+    {
+      "name": "encoder_stages.1.1.0.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 59
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 63
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 65
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 124
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 126
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 140
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 119
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 120
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 128
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 130
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 134
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 273
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 272
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 262
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 293
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 259
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 267
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 252
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 236
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 264
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 237
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 268
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 248
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 268
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 244
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 265
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 266
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 288
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 222
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 226
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 233
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 245
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 264
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 258
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 254
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 244
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 221
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 254
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 222
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 263
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 237
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 253
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 264
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 268
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 263
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 255
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 229
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 548
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 480
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 529
+        }
+      ]
+    },
+    {
+      "name": "bottlenecks.0.seq.2.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 56
+        }
+      ]
+    },
+    {
+      "name": "bottlenecks.1.seq.2.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 50
+        }
+      ]
+    },
+    {
+      "name": "bottlenecks.2.seq.2.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 31
+        }
+      ]
+    },
+    {
+      "name": "bottlenecks.3.seq.2.avg_pool",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 8
+        }
+      ]
+    },
+    {
+      "name": "generated-2-7-noise",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 0
+        }
+      ]
+    },
+    {
+      "name": "generated-2-7-signed",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 1
+        }
+      ]
+    },
+    {
+      "name": "generated-2-7-steps",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 0
+        }
+      ]
+    },
+    {
+      "name": "generated-17-14-noise",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 3
+        }
+      ]
+    },
+    {
+      "name": "generated-17-14-signed",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 2
+        }
+      ]
+    },
+    {
+      "name": "generated-17-14-steps",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 3
+        }
+      ]
+    },
+    {
+      "name": "generated-64-28-noise",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 18
+        }
+      ]
+    },
+    {
+      "name": "generated-64-28-signed",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 13
+        }
+      ]
+    },
+    {
+      "name": "generated-64-28-steps",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 4
+        }
+      ]
+    },
+    {
+      "name": "generated-128-56-noise",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 29
+        }
+      ]
+    },
+    {
+      "name": "generated-128-56-signed",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 31
+        }
+      ]
+    },
+    {
+      "name": "generated-128-56-steps",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 42
+        }
+      ]
+    },
+    {
+      "name": "generated-64-112-noise",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 14
+        }
+      ]
+    },
+    {
+      "name": "generated-64-112-signed",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 11
+        }
+      ]
+    },
+    {
+      "name": "generated-64-112-steps",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 8
+        }
+      ]
+    },
+    {
+      "name": "generated-16-224-noise",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 2
+        }
+      ]
+    },
+    {
+      "name": "generated-16-224-signed",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 1
+        }
+      ]
+    },
+    {
+      "name": "generated-16-224-steps",
+      "counts": [
+        {
+          "reciprocal": false,
+          "sumDifferent": 0,
+          "different": 0
+        },
+        {
+          "reciprocal": true,
+          "sumDifferent": 0,
+          "different": 1
+        }
+      ]
+    }
+  ],
+  "node": "v22.22.2",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "412d2558fd3d0152bac9f6f4dde7caca25363387ec9759c1779acb56ee7de72e",
+    "referenceSumSha256": "ed0af1f8d99378801ec0ff5b66c4ebff8c9ca37dd33187b6f15a9c909de5637c",
+    "files": {
+      "mean.js": {
+        "bytes": 7442,
+        "sha256": "28b8b259a0d3fd091621bd27e9a0d9837870253a71a50abe9719608588855564"
+      },
+      "mean.wasm": {
+        "bytes": 9373,
+        "sha256": "837c46bcbc1d45d98b18f8bc0ff69f69e1627e0067401544d15c5170b5152abf"
+      }
+    }
+  },
+  "arithmetic": "Float32 cascade sum followed by float32 division; reciprocal multiplication is a separately rejected comparison",
+  "referenceSha256": "4c32187b8e543794221001cfa6c6fd0c5d42d31652c7d286f597d1c88c6f457a"
+}

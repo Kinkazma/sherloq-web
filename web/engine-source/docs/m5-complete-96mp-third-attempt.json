@@ -1,0 +1,198 @@
+{
+  "passed": false,
+  "status": "interrupted-for-new-qualified-runtime",
+  "engineCommit": "9ea5395d60790ad1d17e5633566109287a758469",
+  "binding": {
+    "engineCommit": "9ea5395d60790ad1d17e5633566109287a758469",
+    "runtimeManifestSha256": "cf3902cb92301bfae233455879149b47c80af2198a376bd0831de53701359402",
+    "runtime": {
+      "sha256": "65a37f8b8c39811daa7403a3c75ab164f6e2c876193f47e62bda66d247bd0907",
+      "files": 985
+    },
+    "extra": [
+      {
+        "file": "tests/m5-complete-96mp-browser.js",
+        "bytes": 8983,
+        "sha256": "93c5a023c98bf1fefc828256c0682663584cf813a8c5884a6565e7f3bb7a94d6"
+      },
+      {
+        "file": "tests/verify-stored-npz.mjs",
+        "bytes": 4040,
+        "sha256": "f787a70c9f74a288e064e25261a1c9c21e155ef5171e6f290feecbe8284e5579"
+      },
+      {
+        "file": "tests/source-api-browser.js",
+        "bytes": 6532,
+        "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+      },
+      {
+        "file": ".build/forgeryscope/prepare.mjs",
+        "bytes": 39108,
+        "sha256": "afd9f6b45d9b0cd77037ba44d438b0e645c0db493ead35a3102d3ee311af6f1d"
+      },
+      {
+        "file": ".build/forgeryscope/prepare.wasm",
+        "bytes": 1829422,
+        "sha256": "2193f57450cb04ca5aa18886720aa67e93ad6cf0fee6d12981f623bfec7a2c82"
+      },
+      {
+        "file": ".build/forgeryscope/sift.mjs",
+        "bytes": 28362,
+        "sha256": "36bf7f751cf8518010ffe2af3e39f743a1c197ef6eca3b47c778d75a7090c187"
+      },
+      {
+        "file": ".build/forgeryscope/sift.wasm",
+        "bytes": 1346688,
+        "sha256": "05ec0786aa9b7961c34f242d73915b8f72bdb43cf7597f6a71da0fa998e1cc6f"
+      }
+    ]
+  },
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "budgetBytes": 6442450944,
+  "reason": "M4 5d20497 changes SIFT descriptor bounds, temporary storage and resident admission. Restart on integration 582d72b to qualify the delivered shared memory path. Native Extended profile, eight iterations, patch size eight and whole original source remain unchanged.",
+  "scope": "Partial progress only: Forge, D2PRL and SIFT group states done; PatchMatch first Zernike pass incomplete; ELA waiting for shared memory. No complete results/archive qualification.",
+  "deliveredArchiveBytes": 0,
+  "latestProgress": {
+    "decode": {
+      "id": "original",
+      "phase": "decode",
+      "fraction": 0.0145,
+      "elapsedMs": 496.70000000298023
+    },
+    "original-sha256": {
+      "id": "original",
+      "phase": "original-sha256",
+      "fraction": 0.049536441486278435,
+      "elapsedMs": 1473.5
+    },
+    "automatic-state": {
+      "id": "complete96",
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "running",
+          "sift": "done",
+          "forgeryscope": "done",
+          "d2prl": "done",
+          "ela": "waiting-memory"
+        },
+        "errors": {},
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 1,
+          "ela": 1
+        },
+        "completed": [
+          "forgeryscope",
+          "d2prl",
+          "sift"
+        ],
+        "running": [
+          "patchmatch"
+        ],
+        "preflightExecutions": 0
+      },
+      "elapsedMs": 1728536.900000006
+    },
+    "d2prl": {
+      "id": "automatic-d2prl-1",
+      "phase": "zone-projection",
+      "completed": 1,
+      "total": 1,
+      "stage": "projection",
+      "revision": 1,
+      "group": "d2prl",
+      "attempt": 1,
+      "elapsedMs": 1133110.200000003
+    },
+    "ela": {
+      "id": "complete96",
+      "phase": "jpeg-render",
+      "fraction": 0.612,
+      "quality": 90,
+      "group": "ela",
+      "attempt": 1,
+      "elapsedMs": 55268.40000000596
+    },
+    "forgeryscope": {
+      "id": "complete96",
+      "completed": 1,
+      "total": 1,
+      "group": "forgeryscope",
+      "phase": "zone-complete",
+      "fraction": 1,
+      "attempt": 1,
+      "elapsedMs": 738413.400000006
+    },
+    "sift": {
+      "id": "complete96",
+      "phase": "complete",
+      "fraction": 1,
+      "group": "sift",
+      "attempt": 1,
+      "elapsedMs": 1728536.700000003
+    },
+    "patchmatch": {
+      "id": "complete96",
+      "phase": "global-patchmatch",
+      "stage": "propagation",
+      "iteration": 5,
+      "completed": 93286400,
+      "total": 96000000,
+      "workspaceBytes": 392145464,
+      "initialBatchPixels": 4194304,
+      "batchBytes": 310378496,
+      "residentPool": true,
+      "residentPoolBytes": 24750008,
+      "cacheBytes": 40239744,
+      "pageBytes": 4096,
+      "cachePages": 4096,
+      "reads": 1055389838,
+      "writes": 11521951,
+      "readBytes": 4433036728320,
+      "writeBytes": 47193911296,
+      "heapBytes": 0,
+      "group": "patchmatch",
+      "attempt": 1,
+      "elapsedMs": 6974681.100000009
+    }
+  },
+  "latestState": {
+    "id": "complete96",
+    "phase": "automatic-state",
+    "state": {
+      "states": {
+        "patchmatch": "running",
+        "sift": "done",
+        "forgeryscope": "done",
+        "d2prl": "done",
+        "ela": "waiting-memory"
+      },
+      "errors": {},
+      "attempts": {
+        "patchmatch": 1,
+        "sift": 1,
+        "forgeryscope": 1,
+        "d2prl": 1,
+        "ela": 1
+      },
+      "completed": [
+        "forgeryscope",
+        "d2prl",
+        "sift"
+      ],
+      "running": [
+        "patchmatch"
+      ],
+      "preflightExecutions": 0
+    },
+    "elapsedMs": 1728536.900000006
+  },
+  "logSha256": "8b34aec0bb63c82c020be0937bc6217e43f5bff5da05569f78d8b85bdbfa7976",
+  "interrupted": true
+}

@@ -1,0 +1,285 @@
+{
+  "passed": true,
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "sourceSha256": "9cf0e522289832d28994f98c1758eca1a53a79f15c250644ef83d5f99a0d523b",
+  "complexity": "Rich texture, distant1500x1200 copy and smoothed2000x1500 area, native positive components; no resizing/crop",
+  "cases": [
+    {
+      "params": {
+        "quality": 75,
+        "block": 32,
+        "minimum": 1,
+        "profile": "sensitive"
+      },
+      "ms": 142692.90000000596,
+      "regions": [
+        {
+          "id": 1,
+          "kind": "low",
+          "energy_region": 1,
+          "components": 1,
+          "cells": 469,
+          "pixels": 2998029,
+          "bbox": [
+            2997,
+            2497,
+            2006,
+            1510
+          ],
+          "score": 5.064126014709473,
+          "strong_pixels": 2977527,
+          "dominant_descriptor": "energy_low",
+          "sources": [
+            "Low ELA energy"
+          ]
+        }
+      ],
+      "metrics": {
+        "workers": 3,
+        "kernel": "global-rgb-jpeg-energy-worker-pool",
+        "energyRecompressions": 3,
+        "energyQualityPlanesComputed": 3,
+        "energyPanelDetections": 1,
+        "energyPreparationMs": 113954.10000000894,
+        "energyProfileMs": 410.59999999403954,
+        "energySegmentationMs": 20099.60000000894,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-panels": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-scores/75/0.033/0.987": true
+          }
+        },
+        "sourcePasses": 2,
+        "codecHeapCapacityBytes": 16777216,
+        "totalCodecHeapMaximumBytes": 50331648,
+        "scheduling": {
+          "count": 3,
+          "maximum": 3,
+          "ceiling": 3,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "retry": null
+        },
+        "temporaryBackend": "opfs",
+        "totalMs": 142692,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 537600,
+          "peakAccountedBytes": 208441408
+        }
+      },
+      "automatic": {
+        "quantiles": [
+          0.033,
+          0.987
+        ],
+        "thresholds": [
+          2.7,
+          2
+        ],
+        "method": "quantile_tail_knees_one_sided_otsu_v1",
+        "status": "estimated",
+        "sample_count": 130965,
+        "tail_prominence": [
+          0.5784677132985676,
+          0.5680424480382414
+        ],
+        "profile": "sensitive",
+        "calibration": null
+      },
+      "hashes": {
+        "energy_low_score": "7259dd4d8b01e2f29efb9cb41bcbbd62dc55a9ad972bbfc4d4da310157330907",
+        "energy_high_score": "8799face7c70e79e50e6748eea3a7185d14410765049519502c7163fa6cedd22",
+        "energy_scope": "44d1f8dc861bf0d53b63c151a301840b587185b9456cbce02db0bf55fa832435",
+        "energy_labels": "4204788d43769f4ebabd0c1cddc4baa4ca2ff5f6fe3e14c9da20c16c2aa88bf1",
+        "energy_plane_0": "2dd55f5bdda5133d4e950f9fd27c116605a37292f7ea38f643da9196b5d73a52",
+        "energy_plane_1": "117dd39e5f3a2cf99816f8462ce64484d44b9db04a6e34595cd8533406073e25",
+        "energy_plane_2": "fc163d6db28db46ab45fd2371bea36f9187e5c803e7844253afc9846fb10c338"
+      }
+    },
+    {
+      "params": {
+        "quality": 75,
+        "block": 32,
+        "minimum": 1,
+        "profile": "conservative"
+      },
+      "ms": 114507.5,
+      "regions": [
+        {
+          "id": 1,
+          "kind": "low",
+          "energy_region": 1,
+          "components": 1,
+          "cells": 465,
+          "pixels": 2972681,
+          "bbox": [
+            2999,
+            2502,
+            2002,
+            1499
+          ],
+          "score": 5.010112285614014,
+          "strong_pixels": 827974,
+          "dominant_descriptor": "energy_low",
+          "sources": [
+            "Low ELA energy"
+          ]
+        }
+      ],
+      "metrics": {
+        "workers": 1,
+        "kernel": "ela-energy-segmented",
+        "energyRecompressions": 0,
+        "energyQualityPlanesComputed": 0,
+        "energyPanelDetections": 0,
+        "energyPreparationMs": 87860.20000000298,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 26641.09999999404,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-panels": true,
+            "energy-plane/70": true,
+            "energy-plane/75": true,
+            "energy-plane/80": true,
+            "energy-auto/75": true,
+            "energy-scores/75/0.007/0.997": false
+          }
+        },
+        "temporaryBackend": "opfs",
+        "totalMs": 114505.79999999702,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 540672,
+          "peakAccountedBytes": 208444480
+        }
+      },
+      "automatic": {
+        "quantiles": [
+          0.007,
+          0.997
+        ],
+        "thresholds": [
+          5.5,
+          4.9
+        ],
+        "method": "quantile_tail_knees_one_sided_otsu_v1",
+        "status": "estimated",
+        "sample_count": 130965,
+        "tail_prominence": [
+          0.5784677132985676,
+          0.5680424480382414
+        ],
+        "profile": "conservative",
+        "calibration": {
+          "tail_factor": 0.2,
+          "shadow_gain": 2.05,
+          "highlight_gain": 2.47
+        }
+      },
+      "hashes": {
+        "energy_low_score": "c0c4f799a4fca180b4266f18174d149b2f7bfc5929cbcee79799f0ad57d57e3f",
+        "energy_high_score": "fc807df04365ab2d780236e327cdc58103c6da1547fe8863116b20608d76366c",
+        "energy_scope": "44d1f8dc861bf0d53b63c151a301840b587185b9456cbce02db0bf55fa832435",
+        "energy_labels": "f0329f089053c7a15923bb7f97c23f5ef940462307303a543b8dadc7cfae51de",
+        "energy_plane_0": "2dd55f5bdda5133d4e950f9fd27c116605a37292f7ea38f643da9196b5d73a52",
+        "energy_plane_1": "117dd39e5f3a2cf99816f8462ce64484d44b9db04a6e34595cd8533406073e25",
+        "energy_plane_2": "fc163d6db28db46ab45fd2371bea36f9187e5c803e7844253afc9846fb10c338"
+      }
+    }
+  ],
+  "exportMs": 31412.89999999106,
+  "archive": {
+    "id": "0a378864-7fa0-4e5d-97d3-876c540b25bb",
+    "revision": 1,
+    "mime": "application/zip",
+    "format": "npz",
+    "width": 12000,
+    "height": 8000,
+    "byteLength": 2688013684,
+    "sha256": "667593e10c59f846742b9237a9adb353ebb88598ea7335f7fc15c3cf31bac215",
+    "imageId": "source",
+    "sourceSurfaceId": "719ccb88-9452-491b-8359-bc9868ba124d",
+    "sourceSurfaceRevision": 1,
+    "provenance": {
+      "originalSha256": "9cf0e522289832d28994f98c1758eca1a53a79f15c250644ef83d5f99a0d523b",
+      "operation": "ela.energy",
+      "coordinates": "full-resolution",
+      "arrays": "Native float32 energy/scores and int32 scopes/labels; no pickle"
+    },
+    "metrics": {
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "arrays": 7,
+      "zip64": false,
+      "assemblyMs": 13858,
+      "hashMs": 17537.70000000298,
+      "maximumScalarChunk": 65536,
+      "outputCapacityBytes": 2688013684,
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 540672,
+        "peakAccountedBytes": 208444480
+      }
+    },
+    "verified": [
+      {
+        "name": "energy_planes",
+        "bytes": 1152000000,
+        "sha256": "827cf8c27f199145e34c2a4aa2d16bf0914f0f5e68738a4645f0b6dd070b211a"
+      },
+      {
+        "name": "energy_low_score",
+        "bytes": 384000000,
+        "sha256": "7259dd4d8b01e2f29efb9cb41bcbbd62dc55a9ad972bbfc4d4da310157330907"
+      },
+      {
+        "name": "energy_high_score",
+        "bytes": 384000000,
+        "sha256": "8799face7c70e79e50e6748eea3a7185d14410765049519502c7163fa6cedd22"
+      },
+      {
+        "name": "energy_scope",
+        "bytes": 384000000,
+        "sha256": "44d1f8dc861bf0d53b63c151a301840b587185b9456cbce02db0bf55fa832435"
+      },
+      {
+        "name": "energy_labels",
+        "bytes": 384000000,
+        "sha256": "4204788d43769f4ebabd0c1cddc4baa4ca2ff5f6fe3e14c9da20c16c2aa88bf1"
+      }
+    ]
+  },
+  "totalMs": 469703.10000000894,
+  "finalMemory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 208444480,
+    "knownHeapCapacityBytes": 0
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile, removed after qualification"
+}

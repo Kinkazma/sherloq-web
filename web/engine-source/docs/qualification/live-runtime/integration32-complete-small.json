@@ -1,0 +1,57 @@
+{
+  "engineCommit": "4e062d857e9b31270f87b89b7aa46ec6da5cd964",
+  "passed": true,
+  "totalMs": 1321293.2150000334,
+  "times": {
+    "modelConfigurationMs": 671.9900000095367,
+    "loadMs": 313.55000001192093,
+    "analysisMs": 1149939.6100000143,
+    "exportMs": 42311.15999996662,
+    "readbackMs": 83436.28500002623
+  },
+  "finalMemory": {
+    "budgetBytes": 27487371264,
+    "policyAvailableBytes": 27487371264,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 27334226312,
+    "activeRecoveries": 0,
+    "knownHeapCapacityBytes": 16777216
+  },
+  "archive": {
+    "bytes": 638339978,
+    "sha256": "92ba8d28841fd8f2b0b98843d1f87088d3c98dec98af1d18c916401a36cc0fff",
+    "priorScientificComparison": {
+      "arrays": 746,
+      "allFullArraysExact": true,
+      "excludedProvenanceArrays": [
+        "metadata_json",
+        "browser_provenance_json"
+      ]
+    },
+    "priorDenseComparison": {
+      "baselineEngineCommit": "46d47522f0fc8284272a70f3a922a7057f3cd597",
+      "candidateEngineCommit": "4e062d857e9b31270f87b89b7aa46ec6da5cd964",
+      "arrays": 604,
+      "extendedMaps": 11,
+      "allFullArraysExact": true,
+      "scope": "Complete PatchMatch scientific arrays, geometry and detail planes against the independently verified positive-source baseline; not a new native inference oracle."
+    }
+  },
+  "recoveryEvents": 0,
+  "terminalEvents": 0,
+  "diagnosticTimeouts": [
+    {
+      "elapsedMs": 1296878.644999981,
+      "code": "CANCELLED"
+    }
+  ],
+  "hostContention": {
+    "at": "2026-10-04T00:13:32.732743+00:00",
+    "uptime": "2:13  up 3 days, 12:22, 1 user, load averages: 418.76 389.66 265.78",
+    "swap": "vm.swapusage: total = 12288.00M  used = 10674.50M  free = 1613.50M  (encrypted)",
+    "independentComputeProcessesObserved": true,
+    "interpretation": "Other independent compute workloads were active during qualification. This run establishes correctness, but its elapsed time is not an isolated performance comparison."
+  }
+}

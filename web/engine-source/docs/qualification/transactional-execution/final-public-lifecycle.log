@@ -1,0 +1,585 @@
+TAP version 13
+# Subtest: native half-open boxes and blackened crops preserve original RGB
+ok 1 - native half-open boxes and blackened crops preserve original RGB
+  ---
+  duration_ms: 28.184666
+  type: 'test'
+  ...
+# Subtest: D2PRL receives only native rectangles and output exclusions; disabled jobs have no request
+ok 2 - D2PRL receives only native rectangles and output exclusions; disabled jobs have no request
+  ---
+  duration_ms: 1.032792
+  type: 'test'
+  ...
+# Subtest: real analyzer boundary releases crops and partial outputs on failure, cancellation and invalid result
+ok 3 - real analyzer boundary releases crops and partial outputs on failure, cancellation and invalid result
+  ---
+  duration_ms: 10.299333
+  type: 'test'
+  ...
+# Subtest: AI archive preserves native mask/role types and ordered raw D2PRL grids across chunks
+ok 4 - AI archive preserves native mask/role types and ordered raw D2PRL grids across chunks
+  ---
+  duration_ms: 235.938792
+  type: 'test'
+  ...
+# Subtest: AI snapshots reject mixed analyses, reordered grids, missing data and lossy role conversion
+ok 5 - AI snapshots reject mixed analyses, reordered grids, missing data and lossy role conversion
+  ---
+  duration_ms: 72.447709
+  type: 'test'
+  ...
+# Subtest: segmented D2PRL snapshot exports the same complete scientific archive and rejects mixed layouts
+ok 6 - segmented D2PRL snapshot exports the same complete scientific archive and rejects mixed layouts
+  ---
+  duration_ms: 302.475042
+  type: 'test'
+  ...
+# Subtest: native panel fallback, ordered identity, disabled zones and four real submissions
+ok 7 - native panel fallback, ordered identity, disabled zones and four real submissions
+  ---
+  duration_ms: 3.455583
+  type: 'test'
+  ...
+# Subtest: complete analysis adds only ELA; M3/M4 receive independent native settings
+ok 8 - complete analysis adds only ELA; M3/M4 receive independent native settings
+  ---
+  duration_ms: 0.196416
+  type: 'test'
+  ...
+# Subtest: selection and plan own coordinates; empty manual selection never becomes whole-image
+ok 9 - selection and plan own coordinates; empty manual selection never becomes whole-image
+  ---
+  duration_ms: 0.465583
+  type: 'test'
+  ...
+# Subtest: a provider resumes on admission credit while the producer still owns live work
+ok 10 - a provider resumes on admission credit while the producer still owns live work
+  ---
+  duration_ms: 16.744667
+  type: 'test'
+  ...
+# Subtest: memory retry resumes after a peer releases its workspace while the long group still runs
+ok 11 - memory retry resumes after a peer releases its workspace while the long group still runs
+  ---
+  duration_ms: 29.274583
+  type: 'test'
+  ...
+# Subtest: persistent memory failure waits for peers and stops after five comparable failures even when alone
+ok 12 - persistent memory failure waits for peers and stops after five comparable failures even when alone
+  ---
+  duration_ms: 265.042625
+  type: 'test'
+  ...
+# Subtest: real allocation failure waits for a peer and retains already completed scientific results
+ok 13 - real allocation failure waits for a peer and retains already completed scientific results
+  ---
+  duration_ms: 31.021333
+  type: 'test'
+  ...
+# Subtest: persistent allocator refusal stops after bounded peer-settlement retries and preserves its cause
+ok 14 - persistent allocator refusal stops after bounded peer-settlement retries and preserves its cause
+  ---
+  duration_ms: 260.476125
+  type: 'test'
+  ...
+# Subtest: useful parallel admission retries only failed groups; independent view caches retain owned frames
+ok 15 - useful parallel admission retries only failed groups; independent view caches retain owned frames
+  ---
+  duration_ms: 34.155
+  type: 'test'
+  ...
+# Subtest: cancel retains completed groups and disposes late provider results; partial inspection remains available
+ok 16 - cancel retains completed groups and disposes late provider results; partial inspection remains available
+  ---
+  duration_ms: 5.709875
+  type: 'test'
+  ...
+# Subtest: disabled selections invoke no providers; missing engines stay explicit failures
+ok 17 - disabled selections invoke no providers; missing engines stay explicit failures
+  ---
+  duration_ms: 1.859791
+  type: 'test'
+  ...
+# Subtest: disposing during an asynchronous entry preparation disposes its late owner
+ok 18 - disposing during an asynchronous entry preparation disposes its late owner
+  ---
+  duration_ms: 0.696625
+  type: 'test'
+  ...
+# Subtest: real selected ELA composition stays alive through cached frames and session disposal
+ok 19 - real selected ELA composition stays alive through cached frames and session disposal
+  ---
+  duration_ms: 632.888458
+  type: 'test'
+  ...
+# Subtest: scientific snapshot holds raw and prepared owners and excludes concurrent refilters
+ok 20 - scientific snapshot holds raw and prepared owners and excludes concurrent refilters
+  ---
+  duration_ms: 0.945041
+  type: 'test'
+  ...
+# Subtest: disposal cancels the snapshot consumer and waits for all of its owners
+ok 21 - disposal cancels the snapshot consumer and waits for all of its owners
+  ---
+  duration_ms: 0.474
+  type: 'test'
+  ...
+# Subtest: completed raw planes release RAM under pressure without rerunning their provider or losing export ownership
+ok 22 - completed raw planes release RAM under pressure without rerunning their provider or losing export ownership
+  ---
+  duration_ms: 1.793417
+  type: 'test'
+  ...
+# Subtest: a lone raw allocator failure resumes at full configured capacity and preserves its output
+ok 23 - a lone raw allocator failure resumes at full configured capacity and preserves its output
+  ---
+  duration_ms: 27.054125
+  type: 'test'
+  ...
+# Subtest: more than five successive incidents with committed high-water progress can finish without a lifetime cap
+ok 24 - more than five successive incidents with committed high-water progress can finish without a lifetime cap
+  ---
+  duration_ms: 213.441334
+  type: 'test'
+  ...
+# Subtest: replayed provider progress does not evade the five-failure guard and keeps original diagnostics
+ok 25 - replayed provider progress does not evade the five-failure guard and keeps original diagnostics
+  ---
+  duration_ms: 257.883625
+  type: 'test'
+  ...
+# Subtest: an exhausted inner recovery loop is terminal to the session instead of five fresh provider starts
+ok 26 - an exhausted inner recovery loop is terminal to the session instead of five fresh provider starts
+  ---
+  duration_ms: 0.957917
+  type: 'test'
+  ...
+# Subtest: recovery does not lower admission of other useful providers or replay their completed results
+ok 27 - recovery does not lower admission of other useful providers or replay their completed results
+  ---
+  duration_ms: 26.995666
+  type: 'test'
+  ...
+# Subtest: cancelling a recovery delay releases pressure and never launches the next attempt
+ok 28 - cancelling a recovery delay releases pressure and never launches the next attempt
+  ---
+  duration_ms: 0.523041
+  type: 'test'
+  ...
+# Subtest: entry preparation retries preserve scientific raw and the previous display owner until successful replacement
+ok 29 - entry preparation retries preserve scientific raw and the previous display owner until successful replacement
+  ---
+  duration_ms: 27.408709
+  type: 'test'
+  ...
+# Subtest: a reclaimer allocation failure stays within the same five-failure guard without replaying the provider
+ok 30 - a reclaimer allocation failure stays within the same five-failure guard without replaying the provider
+  ---
+  duration_ms: 0.787125
+  type: 'test'
+  ...
+# Subtest: unrelated provider defects are terminal immediately with their original stack preserved
+ok 31 - unrelated provider defects are terminal immediately with their original stack preserved
+  ---
+  duration_ms: 0.264334
+  type: 'test'
+  ...
+# Subtest: a suspended provider resumes on backing retirement while an admitted peer continues
+ok 32 - a suspended provider resumes on backing retirement while an admitted peer continues
+  ---
+  duration_ms: 5.050791
+  type: 'test'
+  ...
+# Subtest: a provider ignores peer publication until its allocation domain actually retires backing
+ok 33 - a provider ignores peer publication until its allocation domain actually retires backing
+  ---
+  duration_ms: 2.255625
+  type: 'test'
+  ...
+# Subtest: matching domain retirement does not reset an unresolved provider five-failure streak
+ok 34 - matching domain retirement does not reset an unresolved provider five-failure streak
+  ---
+  duration_ms: 6.215708
+  type: 'test'
+  ...
+# Subtest: explicit resume preserves completed groups and stable checkpoint identities after the terminal guard
+ok 35 - explicit resume preserves completed groups and stable checkpoint identities after the terminal guard
+  ---
+  duration_ms: 254.623459
+  type: 'test'
+  ...
+# Subtest: nested recovery attempts remain visible independently from group attempts
+ok 36 - nested recovery attempts remain visible independently from group attempts
+  ---
+  duration_ms: 0.29825
+  type: 'test'
+  ...
+# Subtest: public integration facade preserves explicit missing engines and caller-owned source
+ok 37 - public integration facade preserves explicit missing engines and caller-owned source
+  ---
+  duration_ms: 106.843334
+  type: 'test'
+  ...
+# Subtest: all-disabled complete selection allocates no ELA provider or fallback analysis
+ok 38 - all-disabled complete selection allocates no ELA provider or fallback analysis
+  ---
+  duration_ms: 6.167042
+  type: 'test'
+  ...
+# (node:9072) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: public cancellation preserves real session checkpoints until explicit resume or destruction
+    # Subtest: before-first
+    ok 1 - before-first
+      ---
+      duration_ms: 8.1745
+      type: 'test'
+      ...
+    # Subtest: after-done
+    ok 2 - after-done
+      ---
+      duration_ms: 1.240917
+      type: 'test'
+      ...
+    # Subtest: frame-prepare
+    ok 3 - frame-prepare
+      ---
+      duration_ms: 1.08375
+      type: 'test'
+      ...
+    # Subtest: frame-owned
+    ok 4 - frame-owned
+      ---
+      duration_ms: 1.253417
+      type: 'test'
+      ...
+    # Subtest: frame-release
+    ok 5 - frame-release
+      ---
+      duration_ms: 2.382583
+      type: 'test'
+      ...
+    # Subtest: explicit dispose during a useful run drains and destroys its checkpoint
+    ok 6 - explicit dispose during a useful run drains and destroys its checkpoint
+      ---
+      duration_ms: 2.721834
+      type: 'test'
+      ...
+    # Subtest: new scope explicitly replaces a cancelled analysis and releases old checkpoints
+    ok 7 - new scope explicitly replaces a cancelled analysis and releases old checkpoints
+      ---
+      duration_ms: 1.19325
+      type: 'test'
+      ...
+    # Subtest: already cancelled calls create no analysis or checkpoint
+    ok 8 - already cancelled calls create no analysis or checkpoint
+      ---
+      duration_ms: 5.624041
+      type: 'test'
+      ...
+    1..8
+ok 39 - public cancellation preserves real session checkpoints until explicit resume or destruction
+  ---
+  duration_ms: 203.237834
+  type: 'test'
+  ...
+# Subtest: complete native cell/Ghost/background and energy selections preserve global references
+ok 40 - complete native cell/Ghost/background and energy selections preserve global references
+  ---
+  duration_ms: 1995.815666
+  type: 'test'
+  ...
+# Subtest: selection/segmentation cancellation, consumer errors and invalid parameters release partial state
+ok 41 - selection/segmentation cancellation, consumer errors and invalid parameters release partial state
+  ---
+  duration_ms: 67.375292
+  type: 'test'
+  ...
+# Subtest: global automatic archive adds native method/context counts, deduplicated pairs and exact mask/cell arrays
+ok 42 - global automatic archive adds native method/context counts, deduplicated pairs and exact mask/cell arrays
+  ---
+  duration_ms: 108.146708
+  type: 'test'
+  ...
+# Subtest: corroboration-stage abort, output-stage abort and metadata failures clean all owned scratch data
+ok 43 - corroboration-stage abort, output-stage abort and metadata failures clean all owned scratch data
+  ---
+  duration_ms: 199.466334
+  type: 'test'
+  ...
+# Subtest: export admission reports its full scratch envelope without leaving a partial reservation
+ok 44 - export admission reports its full scratch envelope without leaving a partial reservation
+  ---
+  duration_ms: 0.386
+  type: 'test'
+  ...
+# Subtest: translated M2 source crops preserve native black exclusions and borrowed source
+ok 45 - translated M2 source crops preserve native black exclusions and borrowed source
+  ---
+  duration_ms: 20.881375
+  type: 'test'
+  ...
+# Subtest: global segmented AI fields, analyzed exclusions and NPZ match contiguous assembly across overlapping zones
+ok 46 - global segmented AI fields, analyzed exclusions and NPZ match contiguous assembly across overlapping zones
+  ---
+  duration_ms: 106.420667
+  type: 'test'
+  ...
+# Subtest: paged automatic source failures and cancellation leave no output/window leases
+ok 47 - paged automatic source failures and cancellation leave no output/window leases
+  ---
+  duration_ms: 23.574917
+  type: 'test'
+  ...
+# (node:9076) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: presentation allocation and storage failures preserve committed detector owners for update and export
+ok 48 - presentation allocation and storage failures preserve committed detector owners for update and export
+  ---
+  duration_ms: 378.988666
+  type: 'test'
+  ...
+# Subtest: native automatic snapshot recursively exports all dtypes, shapes and Python scientific scalars
+ok 49 - native automatic snapshot recursively exports all dtypes, shapes and Python scientific scalars
+  ---
+  duration_ms: 141.619541
+  type: 'test'
+  ...
+# Subtest: invalid snapshots, path collisions, boolean payloads and cancellation cannot publish partial archives
+ok 50 - invalid snapshots, path collisions, boolean payloads and cancellation cannot publish partial archives
+  ---
+  duration_ms: 44.807917
+  type: 'test'
+  ...
+# Subtest: native BGR byte view preserves partial-pixel windows, exact source hash and source immutability
+ok 51 - native BGR byte view preserves partial-pixel windows, exact source hash and source immutability
+  ---
+  duration_ms: 75.545208
+  type: 'test'
+  ...
+# Subtest: classical snapshots retain native array types, int64 biome indices and full dense fields
+ok 52 - classical snapshots retain native array types, int64 biome indices and full dense fields
+  ---
+  duration_ms: 117.387541
+  type: 'test'
+  ...
+# Subtest: classical snapshot rejects ambiguous arrays and preserves empty native matrices
+ok 53 - classical snapshot rejects ambiguous arrays and preserves empty native matrices
+  ---
+  duration_ms: 20.493292
+  type: 'test'
+  ...
+# Subtest: paged dense fields export every native byte and reject unmarked or truncated stores
+ok 54 - paged dense fields export every native byte and reject unmarked or truncated stores
+  ---
+  duration_ms: 545.737042
+  type: 'test'
+  ...
+# Subtest: public complete analysis preserves all-disabled scope, cached identity, explicit views and independent export lifetime
+ok 55 - public complete analysis preserves all-disabled scope, cached identity, explicit views and independent export lifetime
+  ---
+  duration_ms: 303.344375
+  type: 'test'
+  ...
+# Subtest: invalid automatic configuration and early cancellation never leak or fabricate completed detectors
+ok 56 - invalid automatic configuration and early cancellation never leak or fabricate completed detectors
+  ---
+  duration_ms: 49.771125
+  type: 'test'
+  ...
+# Subtest: partial automatic archive records unavailable engines and real original BGR identity without fabricating results
+ok 57 - partial automatic archive records unavailable engines and real original BGR identity without fabricating results
+  ---
+  duration_ms: 55.1345
+  type: 'test'
+  ...
+# Subtest: export refuses inconsistent view filters and cleans snapshot owners after missing source
+ok 58 - export refuses inconsistent view filters and cleans snapshot owners after missing source
+  ---
+  duration_ms: 1.776041
+  type: 'test'
+  ...
+# Subtest: automatic sparse adapter forwards lazy source storage and leaves borrowed session ownership with the source
+ok 59 - automatic sparse adapter forwards lazy source storage and leaves borrowed session ownership with the source
+  ---
+  duration_ms: 23.28575
+  type: 'test'
+  ...
+# Subtest: automatic SIFT consumes bounded source rows and windows without retaining full RGB
+ok 60 - automatic SIFT consumes bounded source rows and windows without retaining full RGB
+  ---
+  duration_ms: 316.412958
+  type: 'test'
+  ...
+# Subtest: complete display selections match actual native widget methods
+ok 61 - complete display selections match actual native widget methods
+  ---
+  duration_ms: 4.458625
+  type: 'test'
+  ...
+# Subtest: view and export share global source/branch/family controls and restore per-tab presentation
+ok 62 - view and export share global source/branch/family controls and restore per-tab presentation
+  ---
+  duration_ms: 5.523875
+  type: 'test'
+  ...
+# (node:9090) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:9090) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+# Subtest: public worker automatic cancellation retains segmented storage and relays settled checkpoint ownership
+    # Subtest: run waits past five seconds and preserves exact retainedAnalysis
+    ok 1 - run waits past five seconds and preserves exact retainedAnalysis
+      ---
+      duration_ms: 92.476958
+      type: 'test'
+      ...
+    # Subtest: resumeAutomatic waits past five seconds and preserves exact retainedAnalysis
+    ok 2 - resumeAutomatic waits past five seconds and preserves exact retainedAnalysis
+      ---
+      duration_ms: 111.683583
+      type: 'test'
+      ...
+    # Subtest: updateAutomatic waits past five seconds and preserves exact retainedAnalysis
+    ok 3 - updateAutomatic waits past five seconds and preserves exact retainedAnalysis
+      ---
+      duration_ms: 142.126209
+      type: 'test'
+      ...
+    # Subtest: explicit dispose during cooperative cancellation drains and closes source ownership
+    ok 4 - explicit dispose during cooperative cancellation drains and closes source ownership
+      ---
+      duration_ms: 34.388417
+      type: 'test'
+      ...
+    # Subtest: explicit forced shutdown reports cleared images and cleans terminated temporary storage
+    ok 5 - explicit forced shutdown reports cleared images and cleans terminated temporary storage
+      ---
+      duration_ms: 3.719833
+      type: 'test'
+      ...
+    1..5
+ok 63 - public worker automatic cancellation retains segmented storage and relays settled checkpoint ownership
+  ---
+  duration_ms: 428.852208
+  type: 'test'
+  ...
+# Subtest: a completed automatic reply winning cancellation returns its owned success
+ok 64 - a completed automatic reply winning cancellation returns its owned success
+  ---
+  duration_ms: 1.225208
+  type: 'test'
+  ...
+# Subtest: public worker preserves allocation and recovery diagnostics without destroying the session
+ok 65 - public worker preserves allocation and recovery diagnostics without destroying the session
+  ---
+  duration_ms: 9.950917
+  type: 'test'
+  ...
+# Subtest: capabilities stays readable during a live public operation; unreadable responses settle pending work
+ok 66 - capabilities stays readable during a live public operation; unreadable responses settle pending work
+  ---
+  duration_ms: 8.556833
+  type: 'test'
+  ...
+# Subtest: public null preserves the cooperative storage-close acknowledgement
+ok 67 - public null preserves the cooperative storage-close acknowledgement
+  ---
+  duration_ms: 5.229
+  type: 'test'
+  ...
+# Subtest: public messageerror preserves the cooperative storage-close acknowledgement
+ok 68 - public messageerror preserves the cooperative storage-close acknowledgement
+  ---
+  duration_ms: 0.645041
+  type: 'test'
+  ...
+# Subtest: null fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+ok 69 - null fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+  ---
+  duration_ms: 16.102667
+  type: 'test'
+  ...
+# Subtest: messageerror fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+ok 70 - messageerror fails one pending RPC, releases its CPU lease, and poisons only that endpoint
+  ---
+  duration_ms: 6.354166
+  type: 'test'
+  ...
+# Subtest: unexpected asynchronous handler rejection is delivered instead of orphaning its caller
+ok 71 - unexpected asynchronous handler rejection is delivered instead of orphaning its caller
+  ---
+  duration_ms: 10.487958
+  type: 'test'
+  ...
+# Subtest: opaque transport retry preserves its cause, skips all memory reclaim and stops at five refusals
+ok 72 - opaque transport retry preserves its cause, skips all memory reclaim and stops at five refusals
+  ---
+  duration_ms: 24.928709
+  type: 'test'
+  ...
+# Subtest: unrelated policy-memory changes cannot reset an opaque transport obstruction
+ok 73 - unrelated policy-memory changes cannot reset an opaque transport obstruction
+  ---
+  duration_ms: 143.429667
+  type: 'test'
+  ...
+# (node:9095) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: diagnostic reads preserve the active cancellation controller and root transport failures close storage
+ok 74 - diagnostic reads preserve the active cancellation controller and root transport failures close storage
+  ---
+  duration_ms: 108.551542
+  type: 'test'
+  ...
+# Subtest: ghost publishes a completely closed companion before another close fails
+ok 75 - ghost publishes a completely closed companion before another close fails
+  ---
+  duration_ms: 26.402291
+  type: 'test'
+  ...
+# Subtest: gray publishes a completely closed companion before another close fails
+ok 76 - gray publishes a completely closed companion before another close fails
+  ---
+  duration_ms: 3.728125
+  type: 'test'
+  ...
+# Subtest: OCR rejects malformed success envelopes as transport without publishing undefined
+ok 77 - OCR rejects malformed success envelopes as transport without publishing undefined
+  ---
+  duration_ms: 0.772583
+  type: 'test'
+  ...
+# Subtest: OCR aborts and drains companion input before releasing the batch or recreating a worker
+ok 78 - OCR aborts and drains companion input before releasing the batch or recreating a worker
+  ---
+  duration_ms: 51.352166
+  type: 'test'
+  ...
+# Subtest: energy keeps its failed worker envelope until pending I/O drains
+ok 79 - energy keeps its failed worker envelope until pending I/O drains
+  ---
+  duration_ms: 10.418083
+  type: 'test'
+  ...
+# Subtest: ghost keeps its failed worker envelope until pending I/O drains
+ok 80 - ghost keeps its failed worker envelope until pending I/O drains
+  ---
+  duration_ms: 8.304375
+  type: 'test'
+  ...
+# Subtest: gray keeps its failed worker envelope until pending I/O drains
+ok 81 - gray keeps its failed worker envelope until pending I/O drains
+  ---
+  duration_ms: 6.765625
+  type: 'test'
+  ...
+1..81
+# tests 94
+# suites 0
+# pass 94
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2224.228292

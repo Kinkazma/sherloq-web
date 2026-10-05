@@ -1,0 +1,244 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "mgcfdn-tnt",
+  "pressure": true,
+  "budgetMiB": 2048,
+  "scope": "Repeated actual GPU inference through the production component, never an analysis/raw-grid cache. Same pinned positive RGB, preparation, model and declared budget. Parameter retention is present in both conditions; only idle model-session reuse changes versus immutable M1.36. Fresh browser per condition, OS/driver caches not flushed. HTTP parameter and ONNX model requests/bytes counted by the local fixture server. Optional final run follows an actual6MiB idle-budget pressure and re-admission.",
+  "records": [
+    {
+      "run": 0,
+      "kind": "cold",
+      "milliseconds": 10231,
+      "sha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+      "parameterRequests": 361,
+      "parameterBytes": 259304320,
+      "parameterCache": {
+        "enabled": true,
+        "sessionPeakResidentBytes": 259396736,
+        "residentBytesAfterInference": 259396736,
+        "hits": 0,
+        "misses": 361,
+        "hitBytes": 0,
+        "fetchBytes": 259304320,
+        "evictions": 0
+      },
+      "sessionCache": {
+        "enabled": true,
+        "residentBytesAfterInference": 623212592,
+        "creations": 1,
+        "reuses": 0,
+        "pressureEvictions": 0
+      },
+      "modelRequests": 1,
+      "modelBytes": 28780560,
+      "timings": {
+        "modelLoadMs": 2140.0999998152256,
+        "inferenceMs": 8070.400000169873,
+        "outputCopyMs": 1.0999999940395355,
+        "gpuWriteBytes": 432404904,
+        "gpuReadBytes": 150353920,
+        "backboneMs": 7936.6000001728535,
+        "parameterLoadMs": 1886.2999998182058,
+        "backboneSetupMs": 8.599999994039536
+      },
+      "workers": 0,
+      "probability": {
+        "maxAbs": 0.000003129243850708008,
+        "meanAbs": 1.2262190329792588e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 8009,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 884994652,
+        "peakAccountedBytes": 889713244
+      }
+    },
+    {
+      "run": 1,
+      "kind": "warm",
+      "milliseconds": 6086.20000000298,
+      "sha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+      "parameterRequests": 0,
+      "parameterBytes": 0,
+      "parameterCache": {
+        "enabled": true,
+        "sessionPeakResidentBytes": 259396736,
+        "residentBytesAfterInference": 259396736,
+        "hits": 361,
+        "misses": 0,
+        "hitBytes": 259304320,
+        "fetchBytes": 0,
+        "evictions": 0
+      },
+      "sessionCache": {
+        "enabled": true,
+        "residentBytesAfterInference": 623212592,
+        "creations": 0,
+        "reuses": 1,
+        "pressureEvictions": 0
+      },
+      "modelRequests": 0,
+      "modelBytes": 0,
+      "timings": {
+        "modelLoadMs": 2.3999999910593033,
+        "inferenceMs": 6075.70000000298,
+        "outputCopyMs": 0.8999999910593033,
+        "gpuWriteBytes": 432404904,
+        "gpuReadBytes": 150353920,
+        "backboneMs": 5976.4000000059605,
+        "parameterLoadMs": 2.3999999910593033,
+        "backboneSetupMs": 3.2000000029802322
+      },
+      "workers": 0,
+      "probability": {
+        "maxAbs": 0.000003129243850708008,
+        "meanAbs": 1.2262190329792588e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 8009,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 884994652,
+        "peakAccountedBytes": 1088214620
+      }
+    },
+    {
+      "run": 2,
+      "kind": "warm",
+      "milliseconds": 7963.20000000298,
+      "sha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+      "parameterRequests": 0,
+      "parameterBytes": 0,
+      "parameterCache": {
+        "enabled": true,
+        "sessionPeakResidentBytes": 259396736,
+        "residentBytesAfterInference": 259396736,
+        "hits": 361,
+        "misses": 0,
+        "hitBytes": 259304320,
+        "fetchBytes": 0,
+        "evictions": 0
+      },
+      "sessionCache": {
+        "enabled": true,
+        "residentBytesAfterInference": 623212592,
+        "creations": 0,
+        "reuses": 1,
+        "pressureEvictions": 0
+      },
+      "modelRequests": 0,
+      "modelBytes": 0,
+      "timings": {
+        "modelLoadMs": 1.899999961256981,
+        "inferenceMs": 7953.600000038743,
+        "outputCopyMs": 0.5999999940395355,
+        "gpuWriteBytes": 432404904,
+        "gpuReadBytes": 150353920,
+        "backboneMs": 7853.800000041723,
+        "parameterLoadMs": 1.899999961256981,
+        "backboneSetupMs": 3.1000000089406967
+      },
+      "workers": 0,
+      "probability": {
+        "maxAbs": 0.000003129243850708008,
+        "meanAbs": 1.2262190329792588e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 8009,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 884994652,
+        "peakAccountedBytes": 1088214620
+      }
+    },
+    {
+      "run": 3,
+      "kind": "after-pressure",
+      "milliseconds": 7895.600000008941,
+      "sha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+      "parameterRequests": 358,
+      "parameterBytes": 259296640,
+      "parameterCache": {
+        "enabled": true,
+        "sessionPeakResidentBytes": 259396736,
+        "residentBytesAfterInference": 259396736,
+        "hits": 3,
+        "misses": 358,
+        "hitBytes": 7680,
+        "fetchBytes": 259296640,
+        "evictions": 0
+      },
+      "sessionCache": {
+        "enabled": true,
+        "residentBytesAfterInference": 623212592,
+        "creations": 1,
+        "reuses": 0,
+        "pressureEvictions": 0
+      },
+      "modelRequests": 1,
+      "modelBytes": 28780560,
+      "timings": {
+        "modelLoadMs": 1819.5000000596046,
+        "inferenceMs": 6062.499999940395,
+        "outputCopyMs": 2.2000000029802322,
+        "gpuWriteBytes": 432404904,
+        "gpuReadBytes": 150353920,
+        "backboneMs": 5933.899999946356,
+        "parameterLoadMs": 1579.8000000566244,
+        "backboneSetupMs": 3.2000000029802322
+      },
+      "workers": 0,
+      "probability": {
+        "maxAbs": 0.000003129243850708008,
+        "meanAbs": 1.2262190329792588e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 8009,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 884994652,
+        "peakAccountedBytes": 1088214620
+      }
+    }
+  ],
+  "afterPressure": {
+    "budgetBytes": 6291456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 2131628,
+    "peakAccountedBytes": 1088214620
+  },
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1088214620
+  },
+  "browser": "154.0.8037.58",
+  "label": "candidate",
+  "extractedRuntime": false,
+  "sources": {
+    "experiments/segmentation/session-cache.js": "1bd46f7aa0c2b8a1f228c53bd87f30ab52dd3e485680852ea59d80a16a63000c",
+    "experiments/segmentation/parameter-cache.js": "902e2516cf530605050156b01f7039d223d92257ef874540ae3113c98295324e",
+    "experiments/segmentation/tnt-inference.js": "566a07fc1df900ad7f695a3d10a025b1f90796d4e41ca63a291f1df50de21411",
+    "experiments/segmentation/cmseg-correlation.js": "efd9ac635242650138d5a5ccc048a92d1204ac154b71166c2d47de4000b76293",
+    "experiments/segmentation/inference.js": "eae812f02caba7668ea462dd2751ba903ff532cedfc378c29c31df86b46d03ab",
+    "experiments/segmentation/models.js": "4108dcd9c45140ca9071faf3e2405681cccfc2872431026dff6340d61536fe0f"
+  },
+  "recipeSha256": "c326d8a049390e40cc55a400e05e54521f34251c079c7c867ae885be0cf96181"
+}

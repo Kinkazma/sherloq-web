@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "counts": {
+    "colors.space": 291,
+    "detail.gradient": 640,
+    "detail.echo": 900,
+    "noise.separation": 1680,
+    "inspection.adjust": 510,
+    "various.illuminant": 1441,
+    "inspection.magnifier": 441,
+    "colors.pca": 360,
+    "detail.wavelets": 3380,
+    "colors.plots": 1674,
+    "noise.blocking": 1094,
+    "jpeg.quality": 6,
+    "metadata.location": 1,
+    "metadata.thumbnail": 2,
+    "file.hex": 1,
+    "metadata.structure": 1,
+    "file.digest": 1
+  },
+  "formats": {
+    "metadata": 18,
+    "image-codec": 17
+  },
+  "maxIlluminantError": 7.105427357601002e-15,
+  "cancellation": "hard abort + reload",
+  "durationMs": 19380,
+  "rpcTotalMs": {
+    "colors.space": 245,
+    "detail.gradient": 105,
+    "detail.echo": 6388,
+    "noise.separation": 2632,
+    "inspection.adjust": 103,
+    "various.illuminant": 2289,
+    "inspection.magnifier": 208,
+    "colors.pca": 103,
+    "detail.wavelets": 1685,
+    "colors.plots": 291,
+    "noise.blocking": 197,
+    "jpeg.quality": 2852,
+    "metadata.location": 0,
+    "metadata.thumbnail": 2,
+    "file.hex": 0,
+    "metadata.structure": 0,
+    "file.digest": 34
+  },
+  "limits": [
+    "Synthetic correctness tests in a real module worker",
+    "Durations are smoke timings under host load, not performance comparisons",
+    "No WordPress or physical mobile validation"
+  ],
+  "browser": "26.6",
+  "errors": []
+}

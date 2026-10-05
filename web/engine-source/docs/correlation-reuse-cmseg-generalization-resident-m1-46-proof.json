@@ -1,0 +1,196 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "cmseg-generalization",
+  "pressure": false,
+  "budgetMiB": 2048,
+  "scope": "Repeated actual GPU inference through the production component, never an analysis/raw-grid cache. Same pinned positive RGB, preparation, model and declared budget. Parameter retention is present in both conditions; session reuse is also present in both conditions; the largest global correlation uses streamed GPU dot products and identical CPU postprocessing; input residency follows the exact measured runtime sources and the reported immutable snapshot when supplied; the two smaller correlations retain CPU. Fresh browser per condition, OS/driver caches not flushed. HTTP parameter and ONNX model requests/bytes counted by the local fixture server. Optional final run follows an actual6MiB idle-budget pressure and re-admission.",
+  "records": [
+    {
+      "run": 0,
+      "kind": "cold",
+      "milliseconds": 6706.699999988079,
+      "sha256": "13e4925c4a2d22c43b5799de9643f116bcd9e652e1a61f156b69cf8db840b8f2",
+      "parameterRequests": 260,
+      "parameterBytes": 9031936,
+      "parameterCache": {
+        "enabled": true,
+        "sessionPeakResidentBytes": 9098496,
+        "residentBytesAfterInference": 9098496,
+        "hits": 0,
+        "misses": 260,
+        "hitBytes": 0,
+        "fetchBytes": 9031936,
+        "evictions": 0
+      },
+      "sessionCache": {
+        "enabled": true,
+        "residentBytesAfterInference": 572905238,
+        "creations": 1,
+        "reuses": 0,
+        "pressureEvictions": 0
+      },
+      "modelRequests": 2,
+      "modelBytes": 12010557,
+      "timings": {
+        "modelLoadMs": 781.2000000625849,
+        "inferenceMs": 5886.8999999165535,
+        "outputCopyMs": 11.700000002980232,
+        "correlationMs": 4080.199999988079,
+        "correlationGpuMs": 3485.2999999970198,
+        "backboneMs": 1154.8999999314547,
+        "backboneSetupMs": 8.700000002980232,
+        "parameterLoadMs": 461.60000006854534,
+        "gpuWriteBytes": 113483512,
+        "gpuReadBytes": 2248966144
+      },
+      "workers": 10,
+      "probability": {
+        "maxAbs": 0.000016391277313232422,
+        "meanAbs": 6.403389791890049e-8,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 2611,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 588221060,
+        "peakAccountedBytes": 1323240068
+      }
+    },
+    {
+      "run": 1,
+      "kind": "warm",
+      "milliseconds": 5573.29999999702,
+      "sha256": "13e4925c4a2d22c43b5799de9643f116bcd9e652e1a61f156b69cf8db840b8f2",
+      "parameterRequests": 0,
+      "parameterBytes": 0,
+      "parameterCache": {
+        "enabled": true,
+        "sessionPeakResidentBytes": 9098496,
+        "residentBytesAfterInference": 9098496,
+        "hits": 260,
+        "misses": 0,
+        "hitBytes": 9031936,
+        "fetchBytes": 0,
+        "evictions": 0
+      },
+      "sessionCache": {
+        "enabled": true,
+        "residentBytesAfterInference": 572905238,
+        "creations": 0,
+        "reuses": 1,
+        "pressureEvictions": 0
+      },
+      "modelRequests": 0,
+      "modelBytes": 0,
+      "timings": {
+        "modelLoadMs": 0.7999999970197678,
+        "inferenceMs": 5544.100000008941,
+        "outputCopyMs": 10.099999994039536,
+        "correlationMs": 4104.79999999702,
+        "correlationGpuMs": 3466.7000000029802,
+        "backboneMs": 871.4000000059605,
+        "backboneSetupMs": 5.0999999940395355,
+        "parameterLoadMs": 0.7999999970197678,
+        "gpuWriteBytes": 113483512,
+        "gpuReadBytes": 2248966144
+      },
+      "workers": 10,
+      "probability": {
+        "maxAbs": 0.000016391277313232422,
+        "meanAbs": 6.403389791890049e-8,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 2611,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 588221060,
+        "peakAccountedBytes": 1323240068
+      }
+    },
+    {
+      "run": 2,
+      "kind": "warm",
+      "milliseconds": 5557.5999999940395,
+      "sha256": "13e4925c4a2d22c43b5799de9643f116bcd9e652e1a61f156b69cf8db840b8f2",
+      "parameterRequests": 0,
+      "parameterBytes": 0,
+      "parameterCache": {
+        "enabled": true,
+        "sessionPeakResidentBytes": 9098496,
+        "residentBytesAfterInference": 9098496,
+        "hits": 260,
+        "misses": 0,
+        "hitBytes": 9031936,
+        "fetchBytes": 0,
+        "evictions": 0
+      },
+      "sessionCache": {
+        "enabled": true,
+        "residentBytesAfterInference": 572905238,
+        "creations": 0,
+        "reuses": 1,
+        "pressureEvictions": 0
+      },
+      "modelRequests": 0,
+      "modelBytes": 0,
+      "timings": {
+        "modelLoadMs": 1.5999999940395355,
+        "inferenceMs": 5524.800000011921,
+        "outputCopyMs": 11,
+        "correlationMs": 4128.29999999702,
+        "correlationGpuMs": 3555.2999999970198,
+        "backboneMs": 834.5000000149012,
+        "backboneSetupMs": 7.200000002980232,
+        "parameterLoadMs": 1.5999999940395355,
+        "gpuWriteBytes": 113483512,
+        "gpuReadBytes": 2248966144
+      },
+      "workers": 10,
+      "probability": {
+        "maxAbs": 0.000016391277313232422,
+        "meanAbs": 6.403389791890049e-8,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 2611,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 588221060,
+        "peakAccountedBytes": 1323240068
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1323240068
+  },
+  "browser": "154.0.8037.58",
+  "label": "resident-m1-46",
+  "extractedRuntime": false,
+  "sources": {
+    "experiments/segmentation/cmseg-dot-gpu.js": "13b9f9eaa2aa1488f14c36fd3ef8cdaa22ca1962c0235a13cfa0bce29381cf33",
+    "experiments/segmentation/cmseg-correlation-gpu.js": "1792b114939830970fbab8494a0b333b8c3d0b7c121f208cebc96d4a30e412ef",
+    "experiments/segmentation/cmseg-correlation-gpu-worker.js": "245270f340794489637bae42b7356a73ca717621c6d58cbecc4a935319f74c12",
+    "vendor/segmentation/cmseg-correlation-gpu/post.js": "308ac75e9eeec1ab800c7f76138a2db61f02867dc980c75d711326faf981c699",
+    "vendor/segmentation/cmseg-correlation-gpu/post.wasm": "8ad628ecb2bc6bb288a382f0ff9eb446abfcddf957db1926f677cead57f3bfe0",
+    "experiments/segmentation/session-cache.js": "1bd46f7aa0c2b8a1f228c53bd87f30ab52dd3e485680852ea59d80a16a63000c",
+    "experiments/segmentation/parameter-cache.js": "902e2516cf530605050156b01f7039d223d92257ef874540ae3113c98295324e",
+    "experiments/segmentation/cmseg-inference.js": "ba2123b4df40a393fb1a871fb5207c89bd3334fed8fc1ef9f01dc5bca94eafb1",
+    "experiments/segmentation/cmseg-correlation.js": "efd9ac635242650138d5a5ccc048a92d1204ac154b71166c2d47de4000b76293",
+    "experiments/segmentation/inference.js": "f371ded70891ffb48fea958e95006318af765cc17d330d941c070864ece0155a",
+    "experiments/segmentation/models.js": "646e436392a8f928e38242fff734b527fd9e827b00af62091bb058a584b1eb45"
+  },
+  "recipeSha256": "4ee564fe43da2ed6ef77d50c619e4208e605aff40c3716b6bba9a9203739613b"
+}

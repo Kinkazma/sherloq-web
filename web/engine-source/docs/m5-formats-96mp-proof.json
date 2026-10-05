@@ -1,0 +1,326 @@
+{
+  "passed": true,
+  "scope": "Two distinct96MP source-memory paths: RGB16 Adam7 seven-pass PNG and deflate/predictor RGB16 tiled BigTIFF. Full native RGB8 comparisons, original-coordinate views and whole PNGs after unload.",
+  "budgetBytes": 268435456,
+  "cases": [
+    {
+      "file": "adam7-rgb16.png",
+      "source": {
+        "id": "source",
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "surface": {
+          "id": "b71d7fce-5d75-46ed-937d-c4f7e2e2996c",
+          "revision": 1,
+          "width": 12000,
+          "height": 8000,
+          "format": "rgb8",
+          "sourceWidth": 12000,
+          "sourceHeight": 8000,
+          "orientation": 1,
+          "coordinates": "full-resolution",
+          "storage": "temporary"
+        },
+        "sha256": "cbfd50f7a809cba7cbc377c798697ac7d32d9277ad59b4abdcbc9cdecaf50e88",
+        "provenance": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            12000,
+            8000
+          ],
+          "sourceDepth": 16,
+          "analysisDepth": 8,
+          "interlace": 1,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "file": {
+          "name": null,
+          "declaredMimeType": "application/octet-stream",
+          "lastModified": null,
+          "origin": null
+        },
+        "operationConstraints": {
+          "inspection.magnifier": {
+            "workingSet": "bounded-row-windows",
+            "resultLayout": "contiguous-or-surface"
+          }
+        },
+        "availableOperations": [
+          "analysis.complete",
+          "analysis.clones",
+          "metadata.thumbnail",
+          "ela.energy",
+          "jpeg.zero",
+          "jpeg.multiple",
+          "ela.biomes",
+          "jpeg.ghosts",
+          "ela.classic",
+          "metadata.c2pa",
+          "metadata.exiftool",
+          "jpeg.recompression",
+          "jpeg.quality",
+          "various.stereogram",
+          "noise.noisesniffer",
+          "comparison.image",
+          "tampering.resampling",
+          "tampering.resampling.fourier",
+          "noise.prnu",
+          "detail.frequency",
+          "noise.blocking",
+          "detail.wavelets",
+          "colors.pca",
+          "tampering.copyMove.sparse",
+          "ai.sources.safire",
+          "ai.localization.focal",
+          "ai.localization.adaifl",
+          "tampering.copyMove.brisk",
+          "tampering.copyMove.orb",
+          "tampering.copyMove.akaze",
+          "inspection.histogram",
+          "inspection.magnifier",
+          "inspection.adjust",
+          "noise.separation",
+          "various.median",
+          "tampering.contrast",
+          "various.illuminant",
+          "detail.echo",
+          "detail.gradient",
+          "colors.space",
+          "colors.stats",
+          "noise.planes",
+          "noise.minmax",
+          "pixels.defects",
+          "file.hex",
+          "file.digest",
+          "ai.clones.d2prl",
+          "ai.clones.segmentation"
+        ],
+        "metrics": {
+          "decodeMs": 8133.199999988079,
+          "rowsPerChunk": 32,
+          "passes": 7,
+          "encodedReadCalls": 658,
+          "encodedReadBytes": 172272846,
+          "codecHeapCapacityBytes": 16777216,
+          "codecHeapMaximumBytes": 33554432,
+          "workingReservationBytes": 43095040,
+          "storage": "temporary",
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "temporaryBytes": 288000000,
+          "originalBlobBytes": 172272846,
+          "originalBlobResidency": "browser-managed; not measured as zero RAM",
+          "preparationMs": 12757.39999999106,
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 43357184
+          }
+        }
+      },
+      "fullRgbSha256": "333c79199f5f9969cca35b8881d0eeb55ad407fb8f89c17ea58e76948c0c0d5d",
+      "times": {
+        "loadMs": 13059.40000000596,
+        "pixelReadMs": 1159.7999999970198,
+        "exportMs": 5742.70000000298,
+        "readbackMs": 10505.39999999106,
+        "totalMs": 32164.79999999702
+      },
+      "archive": {
+        "byteLength": 288100808,
+        "sha256": "7a3975fb53ff0415f658a3f115a280fba06aa08817faa359046731a1a3d5d7d6",
+        "afterSourceUnload": true
+      },
+      "finalMemory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 43357184,
+        "knownHeapCapacityBytes": 0
+      }
+    },
+    {
+      "file": "tiles-rgb16-bigtiff.tiff",
+      "source": {
+        "id": "source",
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "surface": {
+          "id": "70b67332-54c9-487e-8c09-6d3adb08c015",
+          "revision": 1,
+          "width": 12000,
+          "height": 8000,
+          "format": "rgb8",
+          "sourceWidth": 12000,
+          "sourceHeight": 8000,
+          "orientation": 1,
+          "coordinates": "full-resolution",
+          "storage": "temporary"
+        },
+        "sha256": "64feeeb9df08225fb53db89317c98bcc3616dd02bcf74aab5e0f80f06fd62615",
+        "provenance": {
+          "decoder": "libtiff-4.6.0/emscripten-4.0.15/blocks-v1",
+          "format": "tiff",
+          "container": "BigTIFF",
+          "layout": "segmented-strips-tiles",
+          "orientation": 3,
+          "orientationApplied": true,
+          "tiffOrientation": "native strip/tile transforms and placement",
+          "sourceSize": [
+            12000,
+            8000
+          ],
+          "sourceDepth": 16,
+          "analysisDepth": 8,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "first image only"
+        },
+        "file": {
+          "name": null,
+          "declaredMimeType": "application/octet-stream",
+          "lastModified": null,
+          "origin": null
+        },
+        "operationConstraints": {
+          "inspection.magnifier": {
+            "workingSet": "bounded-row-windows",
+            "resultLayout": "contiguous-or-surface"
+          }
+        },
+        "availableOperations": [
+          "analysis.complete",
+          "analysis.clones",
+          "metadata.thumbnail",
+          "ela.energy",
+          "jpeg.zero",
+          "jpeg.multiple",
+          "ela.biomes",
+          "jpeg.ghosts",
+          "ela.classic",
+          "metadata.c2pa",
+          "metadata.exiftool",
+          "jpeg.recompression",
+          "jpeg.quality",
+          "various.stereogram",
+          "noise.noisesniffer",
+          "comparison.image",
+          "tampering.resampling",
+          "tampering.resampling.fourier",
+          "noise.prnu",
+          "detail.frequency",
+          "noise.blocking",
+          "detail.wavelets",
+          "colors.pca",
+          "tampering.copyMove.sparse",
+          "ai.sources.safire",
+          "ai.localization.focal",
+          "ai.localization.adaifl",
+          "tampering.copyMove.brisk",
+          "tampering.copyMove.orb",
+          "tampering.copyMove.akaze",
+          "inspection.histogram",
+          "inspection.magnifier",
+          "inspection.adjust",
+          "noise.separation",
+          "various.median",
+          "tampering.contrast",
+          "various.illuminant",
+          "detail.echo",
+          "detail.gradient",
+          "colors.space",
+          "colors.stats",
+          "noise.planes",
+          "noise.minmax",
+          "pixels.defects",
+          "file.hex",
+          "file.digest",
+          "ai.clones.d2prl",
+          "ai.clones.segmentation"
+        ],
+        "metrics": {
+          "decodeMs": 5927.5,
+          "blocks": 1504,
+          "blockWidth": 256,
+          "blockHeight": 256,
+          "encodedReadCalls": 187,
+          "encodedReadBytes": 48940092,
+          "codecHeapCapacityBytes": 16777216,
+          "codecHeapMaximumBytes": 33554432,
+          "workingReservationBytes": 51159040,
+          "storage": "temporary",
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "temporaryBytes": 288000000,
+          "originalBlobBytes": 48940092,
+          "originalBlobResidency": "browser-managed; not measured as zero RAM",
+          "preparationMs": 6190.79999999702,
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 51421184
+          }
+        }
+      },
+      "fullRgbSha256": "70aa97f774163ab4e6f1f1be4b2225ec65373a48ab191713a00123a13e37d2a9",
+      "times": {
+        "loadMs": 6191,
+        "pixelReadMs": 1168,
+        "exportMs": 5708,
+        "readbackMs": 9738.10000000894,
+        "totalMs": 23562.40000000596
+      },
+      "archive": {
+        "byteLength": 288100808,
+        "sha256": "4727a08e0bb384020ee758c936bbbb8998f8c96a9b60aa76196e501892bb0455",
+        "afterSourceUnload": true
+      },
+      "finalMemory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 51421184,
+        "knownHeapCapacityBytes": 0
+      }
+    }
+  ],
+  "totalMs": 55729.20000000298,
+  "storageCleanup": true,
+  "engineCommit": "2c584d1cd90665125dcdd456234e846294406a6b",
+  "runtime": {
+    "sha256": "b9306407669880e8ad40bbc30c5bb566c6b0e1a616ea0c111901f17ad14a3e9f",
+    "files": 997
+  },
+  "extra": [
+    {
+      "file": "tests/m5-formats-96mp-browser.js",
+      "sha256": "6e7becb877668aa8e8d841df026c95700f33f4e3be5b4b927d86a1685f859f0b"
+    },
+    {
+      "file": "tests/source-api-browser.js",
+      "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+    },
+    {
+      "file": "docs/m5-formats-96mp-native-reference.json",
+      "sha256": "cd816bc99836e8b1ff3379944c9b32a230805f1d2c8afa004f53bb384f195c3e"
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile removed after qualification"
+}

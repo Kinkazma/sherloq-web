@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8"><title>SHERLOQ — calcul immédiat</title>
+<style>body{font:16px system-ui;max-width:1100px;margin:30px auto}pre{white-space:pre-wrap}</style>
+<h1>ELA — premier résultat sans calibration</h1><button id="run">Vérifier deux sessions neuves</button><a id="save" hidden>Télécharger les preuves</a><pre id="out">Prêt</pre>
+<script type="module">
+import {createEngine} from '/wp-content/plugins/sherloq-browser/assets/energy-engine/src/index.js';
+const NativeWorker=globalThis.Worker;let sentPixels=0,created=0;
+globalThis.Worker=class extends NativeWorker{constructor(...args){super(...args);created++;}postMessage(data,...args){if(data.a)sentPixels+=data.a.length/3;return super.postMessage(data,...args);}};
+const check=(ok,msg)=>{if(!ok)throw new Error(msg);};
+const run=document.getElementById('run'),out=document.getElementById('out');
+run.onclick=async()=>{
+ run.disabled=true;const proof={at:new Date().toISOString(),userAgent:navigator.userAgent,hardwareConcurrency:navigator.hardwareConcurrency,tests:[]};
+ const width=1025,height=1024,bytes=new Uint8Array(await (await fetch('./immediate.jpg')).arrayBuffer()),params={quality:75,scale:51,contrast:20,linear:false,grayscale:true};let expected;
+ for(let visit=1;visit<=2;visit++){
+  let engine;try{
+   sentPixels=0;created=0;engine=createEngine({memoryBudgetBytes:512*1024**2,resourceHints:{hardwareConcurrency:navigator.hardwareConcurrency}});
+   check(created===0,'Unexpected preliminary worker');engine.capabilities();check(created===0,'Capabilities performed work');
+   await engine.load({id:'fixture',bytes});check(created===0,'Load ran calibration');
+   const started=performance.now(),r=await engine.run({id:'result',imageId:'fixture',operation:'ela.classic',params}),elapsedMs=performance.now()-started;
+   check(r.metrics.calibrationMs===0&&r.metrics.calibration===null,'Calibration returned');check(sentPixels===width*height,'Repeated or skipped pixel processing');check(r.metrics.scheduling.initialWorkers===navigator.hardwareConcurrency,'Did not start aggressively');
+   if(!expected){const single=createEngine({memoryBudgetBytes:512*1024**2,cpuKernel:'single'});try{await single.load({id:'fixture',bytes});expected=(await single.run({id:'reference',imageId:'fixture',operation:'ela.classic',params})).pixels.data;}finally{single.dispose();}}
+   check(r.pixels.data.every((v,i)=>v===expected[i]),'Parallel/serial pixel difference');
+   proof.tests.push({visit,pass:true,width:r.pixels.width,height:r.pixels.height,elapsedMs,createdWorkers:created,sentPixels,metrics:r.metrics,version:engine.capabilities().version});
+  }catch(error){proof.tests.push({visit,pass:false,error:error.message});}finally{engine?.dispose();}
+  out.textContent=JSON.stringify(proof,null,2);
+ }
+ proof.pass=proof.tests.every(t=>t.pass);out.textContent=JSON.stringify(proof,null,2);const save=document.getElementById('save');save.hidden=false;save.href=URL.createObjectURL(new Blob([out.textContent],{type:'application/json'}));save.download='SHERLOQ-no-calibration-0.3.1.json';run.disabled=false;
+};
+</script>

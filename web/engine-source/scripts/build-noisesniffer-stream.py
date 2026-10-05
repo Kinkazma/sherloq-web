@@ -1,0 +1,12 @@
+"""Bounded native Noisesniffer statistics; external archives are read-only."""
+from pathlib import Path
+import os,subprocess,json,hashlib,shutil
+root=Path(__file__).resolve().parents[1];external=Path(os.environ['OPENCV_BUILD_ROOT']);compiler=Path(os.environ['EMSDK'])/'upstream/emscripten/em++';out=root/'vendor/noisesniffer-stream';out.mkdir(exist_ok=True)
+assert '4.0.15' in subprocess.check_output([str(compiler),'--version'],text=True).splitlines()[0]
+subprocess.run(['python3',str(root/'scripts/build-noisesniffer-dct.py')],check=True)
+subprocess.run([str(compiler),'-O3','-msimd128','-ffp-contract=off','-ffile-prefix-map='+str(root)+'/=','-c',str(root/'native/prnu-fma.cpp'),'-o',str(root/'.build/prnu-fma.o')],check=True)
+s=(root/'native/contrast.h').read_text();(root/'.build/noisesniffer-sum.h').write_text(s[s.index('template<class'):s.index('static cv::Mat')])
+files=[root/'.build/noisesniffer-dct.o',root/'.build/prnu-fma.o',external/'dft-reference.o',external/'cv/lib/libopencv_imgproc.a',external/'cv/lib/libopencv_core.a',external/'cv/3rdparty/lib/libzlib.a']
+exports=['malloc','free','noisesniffer_stream_blocks','noisesniffer_stream_mean8','noisesniffer_stream_optimal','noisesniffer_stream_valid','noisesniffer_stream_means','noisesniffer_stream_variance','noisesniffer_stream_release','cv_noisesniffer_log_tail']
+subprocess.run([str(compiler),str(root/'native/noisesniffer-stream.cpp'),str(root/'native/noisesniffer-tail.cpp'),*map(str,files),'-I',str(root/'vendor/boost-math/include'),'-I',str(external/'opencv-4.11.0/modules/core/include'),'-I',str(external/'opencv-4.11.0/modules/imgproc/include'),'-I',str(external/'cv'),'-O3','-msimd128','-fexceptions','-ffp-contract=off','-ffile-prefix-map='+str(root)+'/=','-sDISABLE_EXCEPTION_CATCHING=0','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sALLOW_MEMORY_GROWTH=1','-sINITIAL_MEMORY=8388608','-sMAXIMUM_MEMORY=134217728','-sMEMORY_GROWTH_LINEAR_STEP=4194304','-sABORTING_MALLOC=0','-sFILESYSTEM=0','-sEXPORTED_FUNCTIONS='+json.dumps(['_'+x for x in exports]),'-sEXPORTED_RUNTIME_METHODS=["HEAPU8","HEAP32","HEAPF32","HEAPF64"]','-o',str(out/'noisesniffer-stream.js')],check=True)
+shutil.copyfile(root/'vendor/opencv/LICENSE',out/'LICENSE');(out/'PINNED.json').write_text(json.dumps(dict(opencv='4.11.0',emscripten='4.0.15',files={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files}),indent=2)+'\n')

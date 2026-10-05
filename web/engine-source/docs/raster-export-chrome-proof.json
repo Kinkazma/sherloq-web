@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "lossless": {
+    "dimensions": [
+      4103,
+      5401
+    ],
+    "fullNativeRgbSha": "efe7cc7f274c2b8bf39b2d243139e4b541a015edd976b629248ad697a1e2d8c1",
+    "encodedBytes": 560894,
+    "metrics": {
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "outputCapacityBytes": 67567373,
+      "encodedWriteCalls": 3,
+      "maxSourceWindowBytes": 393888,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 16777216,
+      "memory": {
+        "budgetBytes": 50331648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 25427968,
+        "peakAccountedBytes": 43780736
+      }
+    }
+  },
+  "large": {
+    "encodedBytes": 66507546,
+    "writes": 64,
+    "maxPage": 1048576,
+    "sha256": "2f389fd3919d2e29941e6c0d15d9ded67a16e7120d3e707bf9783369d3810a55",
+    "metrics": {
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "outputCapacityBytes": 67567373,
+      "encodedWriteCalls": 254,
+      "maxSourceWindowBytes": 393888,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 16777216,
+      "memory": {
+        "budgetBytes": 50331648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 25427968,
+        "peakAccountedBytes": 43780736
+      }
+    },
+    "survivesSourceUnload": true
+  },
+  "cancellation": "storage-closed-before-worker-termination",
+  "idb": {
+    "backend": "indexeddb",
+    "encodedBytes": 10565770,
+    "peakAccountedBytes": 27525120,
+    "dimensions": [
+      1600,
+      2200
+    ],
+    "sha256": "8cd00bca5f1fa9d3883795c71421772653d2eb8ce3e9299f25e0ba9a2d0ea7a8"
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

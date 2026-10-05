@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual Node engine NPZ read by NumPy with allow_pickle=False; generated composite fixture",
+  "numpy": "1.26.4",
+  "arrays": {
+    "energy_planes": {
+      "shape": [
+        3,
+        193,
+        259
+      ],
+      "dtype": "float32",
+      "sha256": "87b5e2158d312a2f42ef68416049cad6725fb7b4994a63fa44bb57c1cc019722"
+    },
+    "energy_low_score": {
+      "shape": [
+        193,
+        259
+      ],
+      "dtype": "float32",
+      "sha256": "0635844ebad51d66a1d65c8763d36c25c1fd8036b59498a72950003edfe49dd9"
+    },
+    "energy_high_score": {
+      "shape": [
+        193,
+        259
+      ],
+      "dtype": "float32",
+      "sha256": "3476e1a19eeb5035bc8d40c2091cb9e076d37c9595a0df5d7b8f6462d1a9011f"
+    },
+    "energy_scope": {
+      "shape": [
+        193,
+        259
+      ],
+      "dtype": "int32",
+      "sha256": "b89b335bbc3bde0a47a1de89caa034d15958a838968583a4e43f640398789db5"
+    },
+    "energy_labels": {
+      "shape": [
+        193,
+        259
+      ],
+      "dtype": "int32",
+      "sha256": "e133a2e23b2dae5daf2794865fe06ff7bda3af5143e249fd8d972dccd4fb1b09"
+    }
+  },
+  "regions": [
+    {
+      "id": 1,
+      "kind": "low",
+      "energy_region": 1,
+      "components": 1,
+      "cells": 84,
+      "pixels": 21255,
+      "bbox": [
+        0,
+        0,
+        170,
+        193
+      ],
+      "score": 7.749532222747803,
+      "strong_pixels": 20694,
+      "dominant_descriptor": "energy_low",
+      "sources": [
+        "Low ELA energy"
+      ]
+    }
+  ],
+  "provenance": {
+    "engine": "0.28.0",
+    "operation": "ela.energy",
+    "params": {
+      "quality": 0,
+      "block": 16,
+      "minimum": 3,
+      "profile": "standard",
+      "histogramLow": 10,
+      "histogramHigh": 990,
+      "shadow": 50,
+      "highlight": 50
+    },
+    "backend": "cpu",
+    "originalSha256": "40dbfd874a5f0b20b86781ecb794c446e7230ad23f9cc0d6ee0e002ec85944b7",
+    "decode": {
+      "decoder": "opencv-4.11.0/emscripten-4.0.15",
+      "format": "png",
+      "sourceSize": [
+        259,
+        193
+      ],
+      "sourceDepth": 8,
+      "analysisDepth": 8,
+      "orientation": 1,
+      "orientationApplied": true,
+      "icc": "absent",
+      "alpha": "absent",
+      "interpolation": "none",
+      "frames": "first image only"
+    },
+    "native": "core/ela_biomes.py energy path + ela_energy.py + ela_energy_auto.py; original-byte JPEG tables",
+    "kernelParity": "51 complete native original-byte energy paths exact through real API workers in Chrome/Firefox/WebKit; 84 preparation,624 mask,512 colour and scientific-profile corpora. Three useful JPEG workers at1MP, cache/NPZ/cancellation verified. Energy-only; no legacy peer biomes or complete analysis.",
+    "semantics": "Descriptive low/high JPEG residual energy relative to each detected panel. Scores are not probabilities or attribution of editing. Exact pixel support may be disconnected. Legacy peer biomes, background and Ghost corroboration are separate operations."
+  },
+  "exportSha256": "26cfe2a40184db5b9d7a6c34472cc0c5878d1e34e423b768d2309d67ffdadbe6"
+}

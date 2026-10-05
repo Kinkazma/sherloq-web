@@ -1,0 +1,645 @@
+{
+  "scope": "Development regression and useful-work timing, never loaded by production",
+  "simdArithmetic": "Four independent pixel lanes, unchanged scalar accumulation order, f32x4 add/mul; no relaxed SIMD",
+  "scalarFallbackIdenticalToPrevious": true,
+  "scalarFallbackSha256": "fe2b49935fa50e0f12565dc783f455d99931e029414282b93c1f545f1eaa61b6",
+  "nodeTests": {
+    "files": [
+      "dense.test.mjs",
+      "dense-compact.test.mjs",
+      "dense-zernike-resident.test.mjs",
+      "dense-simd.test.mjs"
+    ],
+    "passed": 13
+  },
+  "native": [
+    {
+      "stem": "m0-p3",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 1.1920928955078125e-07,
+          "changed": 2939
+        },
+        {
+          "name": "b",
+          "max": 1.1920928955078125e-07,
+          "changed": 3134
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 47171
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 34044
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 45155
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    },
+    {
+      "stem": "m0-p8",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 1.1920928955078125e-07,
+          "changed": 3283
+        },
+        {
+          "name": "b",
+          "max": 1.1920928955078125e-07,
+          "changed": 3154
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 49826
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 35723
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 47281
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    },
+    {
+      "stem": "m1-p3",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 0,
+          "changed": 0
+        },
+        {
+          "name": "b",
+          "max": 0,
+          "changed": 0
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 30677
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 25242
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 26764
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    },
+    {
+      "stem": "m1-p4",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 0,
+          "changed": 0
+        },
+        {
+          "name": "b",
+          "max": 0,
+          "changed": 0
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 24681
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 20776
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 22336
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    },
+    {
+      "stem": "m1-p8",
+      "descriptors": [
+        {
+          "name": "a",
+          "max": 0,
+          "changed": 0
+        },
+        {
+          "name": "b",
+          "max": 0,
+          "changed": 0
+        }
+      ],
+      "fields": [
+        {
+          "case": "search",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 7365
+        },
+        {
+          "case": "compare",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 5692
+        },
+        {
+          "case": "gap-axes",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 5439
+        },
+        {
+          "case": "empty",
+          "distances": {
+            "max": 0,
+            "changed": 0
+          },
+          "composedTargets": {
+            "max": 0,
+            "changed": 0
+          },
+          "comparisons": 0
+        }
+      ]
+    }
+  ],
+  "paged": {
+    "status": "passed",
+    "width": 512,
+    "height": 384,
+    "budgetBytes": 67108864,
+    "milliseconds": 5226.4000000059605,
+    "metrics": {
+      "workspaceBytes": 58693328,
+      "initialBatchPixels": 175881,
+      "batchBytes": 21052040,
+      "residentPool": true,
+      "residentPoolBytes": 50696,
+      "residentSiftBoundsBytes": 0,
+      "pagedSiftBounds": false,
+      "cacheBytes": 20813376,
+      "pageBytes": 4096,
+      "cachePages": 2304,
+      "initialCachePages": 2304,
+      "initialCacheBytes": 20813376,
+      "cachePolicy": "reuse-after-initialization",
+      "reads": 5058,
+      "writes": 384,
+      "readBytes": 39518208,
+      "writeBytes": 1572864,
+      "heapBytes": 43974656,
+      "plannedWorkspaceBytes": 58693328,
+      "siftBoundRejections": 0,
+      "preparation": {
+        "tile": 128,
+        "halo": 25,
+        "workers": 1,
+        "workspaceBytes": 52490128,
+        "heapBytes": 33554432,
+        "storedDescriptorBytes": 18874368
+      }
+    },
+    "peakAccountedBytes": 58693328,
+    "comparisons": "5021062",
+    "sha256": {
+      "targets": "bcf83efb30771b2b281fc360151cef0f21d58584d6fa0630e6ee586cb66899b7",
+      "distancesSquared": "7b17285ff5266e4ece561aa8483dceac8003e46fcc4a8a286ddefe7a915260fd"
+    }
+  },
+  "browsers": [
+    {
+      "browser": "154.0.8037.93",
+      "preflightExecutions": 0,
+      "warmupExecutions": 0,
+      "timingScope": "Module load + compile + instance + input preparation + descriptors + final global field; comparison hashes afterwards",
+      "records": [
+        {
+          "width": 192,
+          "height": 144,
+          "patch": 8,
+          "method": 0,
+          "reflection": true,
+          "variant": "scalar",
+          "setupMs": 19.099999994039536,
+          "descriptorsMs": 410.90000000596046,
+          "fieldMs": 50.5,
+          "totalMs": 482.40000000596046,
+          "comparisons": "530660",
+          "hashes": {
+            "first": "847fb4a8eb7ee89ecc4ba585c412ad8e27c0dc0c50ef2ba87868e79bbf46c47b",
+            "second": "f2999661336def8213c67473fe4447b6461405a2d39ab7c758bc974756f4dadb",
+            "targets": "d5e0651882db0741090e4d9624617a1da0bc7f99423110ca7895d2735dcdeab8",
+            "distancesSquared": "05f926b77eae90deec436d8a496ed309823b9a4e2baa82b16e784ac45115dcd0"
+          }
+        },
+        {
+          "width": 192,
+          "height": 144,
+          "patch": 8,
+          "method": 0,
+          "reflection": true,
+          "variant": "simd",
+          "setupMs": 21.900000005960464,
+          "descriptorsMs": 95.19999998807907,
+          "fieldMs": 52.099999994039536,
+          "totalMs": 171.19999998807907,
+          "comparisons": "530660",
+          "hashes": {
+            "first": "847fb4a8eb7ee89ecc4ba585c412ad8e27c0dc0c50ef2ba87868e79bbf46c47b",
+            "second": "f2999661336def8213c67473fe4447b6461405a2d39ab7c758bc974756f4dadb",
+            "targets": "d5e0651882db0741090e4d9624617a1da0bc7f99423110ca7895d2735dcdeab8",
+            "distancesSquared": "05f926b77eae90deec436d8a496ed309823b9a4e2baa82b16e784ac45115dcd0"
+          }
+        },
+        {
+          "width": 131,
+          "height": 113,
+          "patch": 8,
+          "method": 1,
+          "reflection": true,
+          "variant": "scalar",
+          "setupMs": 16.700000017881393,
+          "descriptorsMs": 70.30000001192093,
+          "fieldMs": 44.79999998211861,
+          "totalMs": 132.90000000596046,
+          "comparisons": "186673",
+          "hashes": {
+            "first": "8d420f2b9971d97f12c6ae0d9427be3b3efa2fa810903e00abfba4e83ab347dc",
+            "second": "cdd9875d7d27f9df9901974d5a3346f845372a3990a7ac49197fda19506a9033",
+            "targets": "9263619c7d0b929e387d5cce7332624d6a5db0fca6e1b7b6d3d56910dcf55844",
+            "distancesSquared": "0ee4edef65a56332222b4e60c97e04548210dda6855b36ad98efb9ba08762619"
+          }
+        },
+        {
+          "width": 131,
+          "height": 113,
+          "patch": 8,
+          "method": 1,
+          "reflection": true,
+          "variant": "simd",
+          "setupMs": 18.600000023841858,
+          "descriptorsMs": 62.599999994039536,
+          "fieldMs": 44.099999994039536,
+          "totalMs": 126.30000001192093,
+          "comparisons": "186673",
+          "hashes": {
+            "first": "8d420f2b9971d97f12c6ae0d9427be3b3efa2fa810903e00abfba4e83ab347dc",
+            "second": "cdd9875d7d27f9df9901974d5a3346f845372a3990a7ac49197fda19506a9033",
+            "targets": "9263619c7d0b929e387d5cce7332624d6a5db0fca6e1b7b6d3d56910dcf55844",
+            "distancesSquared": "0ee4edef65a56332222b4e60c97e04548210dda6855b36ad98efb9ba08762619"
+          }
+        }
+      ],
+      "passed": true,
+      "browserName": "chromium"
+    },
+    {
+      "browser": "155.0",
+      "browserName": "firefox",
+      "preflightExecutions": 0,
+      "warmupExecutions": 0,
+      "timingScope": "Module load + compile + instance + input preparation + descriptors + final global field; comparison hashes afterwards",
+      "records": [
+        {
+          "width": 192,
+          "height": 144,
+          "patch": 8,
+          "method": 0,
+          "reflection": true,
+          "variant": "scalar",
+          "setupMs": 88,
+          "descriptorsMs": 394,
+          "fieldMs": 60,
+          "totalMs": 542,
+          "comparisons": "530660",
+          "hashes": {
+            "first": "847fb4a8eb7ee89ecc4ba585c412ad8e27c0dc0c50ef2ba87868e79bbf46c47b",
+            "second": "f2999661336def8213c67473fe4447b6461405a2d39ab7c758bc974756f4dadb",
+            "targets": "d5e0651882db0741090e4d9624617a1da0bc7f99423110ca7895d2735dcdeab8",
+            "distancesSquared": "05f926b77eae90deec436d8a496ed309823b9a4e2baa82b16e784ac45115dcd0"
+          }
+        },
+        {
+          "width": 192,
+          "height": 144,
+          "patch": 8,
+          "method": 0,
+          "reflection": true,
+          "variant": "simd",
+          "setupMs": 21,
+          "descriptorsMs": 105,
+          "fieldMs": 59,
+          "totalMs": 185,
+          "comparisons": "530660",
+          "hashes": {
+            "first": "847fb4a8eb7ee89ecc4ba585c412ad8e27c0dc0c50ef2ba87868e79bbf46c47b",
+            "second": "f2999661336def8213c67473fe4447b6461405a2d39ab7c758bc974756f4dadb",
+            "targets": "d5e0651882db0741090e4d9624617a1da0bc7f99423110ca7895d2735dcdeab8",
+            "distancesSquared": "05f926b77eae90deec436d8a496ed309823b9a4e2baa82b16e784ac45115dcd0"
+          }
+        },
+        {
+          "width": 131,
+          "height": 113,
+          "patch": 8,
+          "method": 1,
+          "reflection": true,
+          "variant": "scalar",
+          "setupMs": 18,
+          "descriptorsMs": 63,
+          "fieldMs": 32,
+          "totalMs": 114,
+          "comparisons": "186673",
+          "hashes": {
+            "first": "8d420f2b9971d97f12c6ae0d9427be3b3efa2fa810903e00abfba4e83ab347dc",
+            "second": "cdd9875d7d27f9df9901974d5a3346f845372a3990a7ac49197fda19506a9033",
+            "targets": "9263619c7d0b929e387d5cce7332624d6a5db0fca6e1b7b6d3d56910dcf55844",
+            "distancesSquared": "0ee4edef65a56332222b4e60c97e04548210dda6855b36ad98efb9ba08762619"
+          }
+        },
+        {
+          "width": 131,
+          "height": 113,
+          "patch": 8,
+          "method": 1,
+          "reflection": true,
+          "variant": "simd",
+          "setupMs": 17,
+          "descriptorsMs": 56,
+          "fieldMs": 32,
+          "totalMs": 105,
+          "comparisons": "186673",
+          "hashes": {
+            "first": "8d420f2b9971d97f12c6ae0d9427be3b3efa2fa810903e00abfba4e83ab347dc",
+            "second": "cdd9875d7d27f9df9901974d5a3346f845372a3990a7ac49197fda19506a9033",
+            "targets": "9263619c7d0b929e387d5cce7332624d6a5db0fca6e1b7b6d3d56910dcf55844",
+            "distancesSquared": "0ee4edef65a56332222b4e60c97e04548210dda6855b36ad98efb9ba08762619"
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "browser": "26.6",
+      "browserName": "webkit",
+      "preflightExecutions": 0,
+      "warmupExecutions": 0,
+      "timingScope": "Module load + compile + instance + input preparation + descriptors + final global field; comparison hashes afterwards",
+      "records": [
+        {
+          "width": 192,
+          "height": 144,
+          "patch": 8,
+          "method": 0,
+          "reflection": true,
+          "variant": "scalar",
+          "setupMs": 26,
+          "descriptorsMs": 181,
+          "fieldMs": 47,
+          "totalMs": 257,
+          "comparisons": "530660",
+          "hashes": {
+            "first": "847fb4a8eb7ee89ecc4ba585c412ad8e27c0dc0c50ef2ba87868e79bbf46c47b",
+            "second": "f2999661336def8213c67473fe4447b6461405a2d39ab7c758bc974756f4dadb",
+            "targets": "d5e0651882db0741090e4d9624617a1da0bc7f99423110ca7895d2735dcdeab8",
+            "distancesSquared": "05f926b77eae90deec436d8a496ed309823b9a4e2baa82b16e784ac45115dcd0"
+          }
+        },
+        {
+          "width": 192,
+          "height": 144,
+          "patch": 8,
+          "method": 0,
+          "reflection": true,
+          "variant": "simd",
+          "setupMs": 17,
+          "descriptorsMs": 69,
+          "fieldMs": 49,
+          "totalMs": 138,
+          "comparisons": "530660",
+          "hashes": {
+            "first": "847fb4a8eb7ee89ecc4ba585c412ad8e27c0dc0c50ef2ba87868e79bbf46c47b",
+            "second": "f2999661336def8213c67473fe4447b6461405a2d39ab7c758bc974756f4dadb",
+            "targets": "d5e0651882db0741090e4d9624617a1da0bc7f99423110ca7895d2735dcdeab8",
+            "distancesSquared": "05f926b77eae90deec436d8a496ed309823b9a4e2baa82b16e784ac45115dcd0"
+          }
+        },
+        {
+          "width": 131,
+          "height": 113,
+          "patch": 8,
+          "method": 1,
+          "reflection": true,
+          "variant": "scalar",
+          "setupMs": 20,
+          "descriptorsMs": 57,
+          "fieldMs": 57,
+          "totalMs": 135,
+          "comparisons": "186673",
+          "hashes": {
+            "first": "8d420f2b9971d97f12c6ae0d9427be3b3efa2fa810903e00abfba4e83ab347dc",
+            "second": "cdd9875d7d27f9df9901974d5a3346f845372a3990a7ac49197fda19506a9033",
+            "targets": "9263619c7d0b929e387d5cce7332624d6a5db0fca6e1b7b6d3d56910dcf55844",
+            "distancesSquared": "0ee4edef65a56332222b4e60c97e04548210dda6855b36ad98efb9ba08762619"
+          }
+        },
+        {
+          "width": 131,
+          "height": 113,
+          "patch": 8,
+          "method": 1,
+          "reflection": true,
+          "variant": "simd",
+          "setupMs": 19,
+          "descriptorsMs": 56,
+          "fieldMs": 59,
+          "totalMs": 135,
+          "comparisons": "186673",
+          "hashes": {
+            "first": "8d420f2b9971d97f12c6ae0d9427be3b3efa2fa810903e00abfba4e83ab347dc",
+            "second": "cdd9875d7d27f9df9901974d5a3346f845372a3990a7ac49197fda19506a9033",
+            "targets": "9263619c7d0b929e387d5cce7332624d6a5db0fca6e1b7b6d3d56910dcf55844",
+            "distancesSquared": "0ee4edef65a56332222b4e60c97e04548210dda6855b36ad98efb9ba08762619"
+          }
+        }
+      ],
+      "passed": true
+    }
+  ]
+}

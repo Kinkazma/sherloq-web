@@ -1,0 +1,110 @@
+[
+  {
+    "kind": "translation",
+    "views": [],
+    "profile": "Extended: PatchMatch Zernike + PatchMatch SIFT",
+    "groups": 2,
+    "points": 642,
+    "pairs": 321,
+    "denseCount": 5448,
+    "consistentCount": 321,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 4,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 192376,
+        "cacheBytes": 0,
+        "activeReservationBytes": 137195,
+        "peakAccountedBytes": 327982220
+      }
+    }
+  },
+  {
+    "kind": "translation",
+    "views": [],
+    "profile": "PatchMatch Zernike + PatchMatch SIFT + Mirror",
+    "groups": 2,
+    "points": 612,
+    "pairs": 306,
+    "denseCount": 9639,
+    "consistentCount": 306,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 4,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 219588,
+        "cacheBytes": 0,
+        "activeReservationBytes": 131750,
+        "peakAccountedBytes": 327997852
+      }
+    }
+  },
+  {
+    "kind": "translation",
+    "views": [],
+    "profile": "Extended: PatchMatch Zernike + PatchMatch SIFT + Mirror",
+    "groups": 2,
+    "points": 642,
+    "pairs": 321,
+    "denseCount": 10033,
+    "consistentCount": 321,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 7,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 340068,
+        "cacheBytes": 0,
+        "activeReservationBytes": 149483,
+        "peakAccountedBytes": 328129912
+      }
+    }
+  },
+  {
+    "kind": "reflection",
+    "views": [],
+    "profile": "Extended: PatchMatch Zernike + PatchMatch SIFT + Mirror",
+    "groups": 2,
+    "points": 478,
+    "pairs": 239,
+    "denseCount": 9540,
+    "consistentCount": 239,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 7,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 339740,
+        "cacheBytes": 17360,
+        "activeReservationBytes": 119717,
+        "peakAccountedBytes": 328061224
+      }
+    }
+  }
+]

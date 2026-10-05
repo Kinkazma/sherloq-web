@@ -1,0 +1,109 @@
+{
+  "browser": "154.0.8037.58",
+  "kind": "sift",
+  "provider": "wasm",
+  "model": {
+    "file": "sift-sparse-glue-paged.bin",
+    "bytes": 45608176,
+    "sha256": "ec453f04fe2b34250ca31c0e232deaa731897914cb469dc616d5c380b7df4acc",
+    "weightSha256": "5b52b8d9982d43532dc042606b346bb9594c9f5a4bd6f64362c63866287b4ac0",
+    "layers": 9,
+    "heads": 4,
+    "dim": 256
+  },
+  "records": [
+    {
+      "id": 0,
+      "values": 95,
+      "maximum": 0.000026941299438476562,
+      "meanAbsoluteError": 9.663835413315326e-7,
+      "differences": 95,
+      "selected": 3,
+      "nativeSelected": 3,
+      "decisionsEqual": true,
+      "milliseconds": 5992.0999999940395,
+      "metadata": {
+        "provider": "wasm",
+        "execution": "native-layers-global-csr-row-pages",
+        "actualHeapBytes": 24248320,
+        "attentionHeapBytes": 16777216,
+        "maximumHeapBytes": 536870912,
+        "threads": 1,
+        "totalMs": 5168.9000000059605,
+        "maximumConfidence": 0.9646578431129456,
+        "above": {
+          "point1": 7,
+          "point3": 3,
+          "point7": 1,
+          "point9": 1
+        },
+        "attentionPages": 18,
+        "assignmentPages": 1,
+        "maximumPageEdges": 95,
+        "preflightExecutions": 0
+      }
+    },
+    {
+      "id": 1,
+      "values": 18070,
+      "maximum": 0.000013530254364013672,
+      "meanAbsoluteError": 5.16355865978691e-9,
+      "differences": 17909,
+      "selected": 1,
+      "nativeSelected": 1,
+      "decisionsEqual": true,
+      "milliseconds": 4489.29999999702,
+      "metadata": {
+        "provider": "wasm",
+        "execution": "native-layers-global-csr-row-pages",
+        "actualHeapBytes": 24248320,
+        "attentionHeapBytes": 16777216,
+        "maximumHeapBytes": 536870912,
+        "threads": 1,
+        "totalMs": 3479.7000000029802,
+        "maximumConfidence": 0.6411600112915039,
+        "above": {
+          "point1": 5,
+          "point3": 1,
+          "point7": 0,
+          "point9": 0
+        },
+        "attentionPages": 36,
+        "assignmentPages": 1,
+        "maximumPageEdges": 16640,
+        "preflightExecutions": 0
+      }
+    },
+    {
+      "id": 2,
+      "values": 6400,
+      "maximum": 0.0000036954879760742188,
+      "meanAbsoluteError": 4.766043285741565e-9,
+      "differences": 4769,
+      "selected": 78,
+      "nativeSelected": 78,
+      "decisionsEqual": true,
+      "milliseconds": 4593.5,
+      "metadata": {
+        "provider": "wasm",
+        "execution": "native-layers-global-csr-row-pages",
+        "actualHeapBytes": 24248320,
+        "attentionHeapBytes": 16777216,
+        "maximumHeapBytes": 536870912,
+        "threads": 1,
+        "totalMs": 3392.2000000029802,
+        "maximumConfidence": 0.9776632189750671,
+        "above": {
+          "point1": 80,
+          "point3": 78,
+          "point7": 71,
+          "point9": 35
+        },
+        "attentionPages": 18,
+        "assignmentPages": 1,
+        "maximumPageEdges": 6400,
+        "preflightExecutions": 0
+      }
+    }
+  ]
+}

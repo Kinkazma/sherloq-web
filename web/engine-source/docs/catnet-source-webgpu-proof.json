@@ -1,0 +1,207 @@
+{
+  "dimensions": [
+    131,
+    97
+  ],
+  "analyzeMs": 89460.59999999404,
+  "totalMs": 89556.39999999106,
+  "fields": {
+    "map": {
+      "length": 12707,
+      "finite": true,
+      "min": 0.0025952402502298355,
+      "max": 0.012040120549499989,
+      "maxError": 4.6566128730773926e-8,
+      "meanError": 8.679762221136954e-9,
+      "thresholdChanges": 0
+    },
+    "native_map": {
+      "length": 884,
+      "finite": true,
+      "min": 0.0025836459826678038,
+      "max": 0.01251066941767931,
+      "maxError": 4.7963112592697144e-8,
+      "meanError": 9.455715993006305e-9,
+      "thresholdChanges": 0
+    }
+  },
+  "views": [
+    {
+      "view": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 0,
+      "rect": {
+        "x": 78,
+        "y": 56,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        78,
+        56
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 78,
+        "y": 56,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        78,
+        56
+      ],
+      "bytes": 6519
+    }
+  ],
+  "export": {
+    "bytes": 57988,
+    "descriptor": 57988,
+    "first": [
+      80,
+      75,
+      3,
+      4
+    ],
+    "last": [
+      80,
+      75,
+      5,
+      6
+    ]
+  },
+  "source": {
+    "dimensions": {
+      "id": "88de3387-be84-4aac-b01e-587250f71d31",
+      "revision": 1,
+      "width": 131,
+      "height": 97,
+      "format": "rgb8",
+      "sourceWidth": 131,
+      "sourceHeight": 97,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        131,
+        97
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "metrics": {
+      "decodeMs": 12.899999991059303,
+      "rowsPerChunk": 97,
+      "encodedWorkingBytes": 54996,
+      "coefficientAllowanceBytes": 0,
+      "workingReservationBytes": 33685670,
+      "codecHeapCapacityBytes": 16777216,
+      "storage": "memory",
+      "temporaryBackend": null,
+      "temporaryFallback": null,
+      "temporaryBytes": 0,
+      "originalBlobBytes": 54996,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM"
+    }
+  },
+  "provenance": {
+    "originalSourceSha256": "3ee646a9c0404fbbfdea115c110dfc634a02ccfcf9a1412b2f4781d20d5c4b78",
+    "sourceSurfaceIdentity": "88de3387-be84-4aac-b01e-587250f71d31/1",
+    "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+    "provider": "webgpu",
+    "qualification": "native segmented HRNet; see dimension-specific proof"
+  },
+  "storage": null,
+  "events": [
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-2-branch2",
+      "elapsedMs": 9964.79999999702
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-0-fuse3-2",
+      "elapsedMs": 20216.29999999702
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-2-branch0",
+      "elapsedMs": 30340.70000000298
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-2-fuse1-2",
+      "elapsedMs": 40626.29999999702
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stem",
+      "elapsedMs": 50747.89999999106
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage3-2-fuse0-1",
+      "elapsedMs": 60812.09999999404
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-0-fuse1-2",
+      "elapsedMs": 70859.5
+    },
+    {
+      "phase": "model-load",
+      "model": "fusion-stage5-0-fuse0-1",
+      "elapsedMs": 80968.09999999404
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 16777216,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3174645068,
+    "residentCodecBytes": 16777216
+  },
+  "cancelled": null,
+  "remainingTemporary": null,
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

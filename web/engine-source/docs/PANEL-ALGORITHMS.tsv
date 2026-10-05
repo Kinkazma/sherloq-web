@@ -1,0 +1,50 @@
+0:0	general/original	Decoded reference display; full-resolution pixels; zoom/export visualization	image_io
+0:1	general/digest	MD5; SHA1; SHA2 224/256/384/512; SHA3 224/256/384/512; average/block-mean/color-moment/Marr-Hildreth/pHash/radial-variance; filename ballistics	digest
+0:2	general/editor	External hex editor of original bytes; web byte viewer/editor requires explicit new output	metadata
+0:3	general/reverse	Links to external similarity search services; network/user-consent integration, not a local detector	metadata
+1:0	metadata/header	ExifTool HTML structural header dump; original bytes	metadata
+1:1	metadata/exif	ExifTool full metadata extraction and text/structured export	metadata
+1:2	metadata/thumbnail	Embedded JPEG thumbnail extraction; original/thumbnail comparison and resize semantics	thumbnail
+1:3	metadata/location	GPS extraction; map links/geolocation view; no invented location	location
+1:4	metadata/c2pa	c2patool signed provenance; integrity; certificate trust/offline policy; manifest export	c2pa
+2:0	inspection/magnifier	Region enhancement and equalization; interpolation/zoom separate from input	magnifier
+2:1	inspection/histogram	Exact channels histogram; cumulative/log scales; moments	histogram
+2:2	inspection/adjust	Brightness/saturation/hue/gamma; shadow/highlight LUT; sweep/width; sharpen; threshold/auto; invert; histogram EQ; CLAHE L1–L4	adjust
+2:3	inspection/comparison	Reference; difference; SSIM map; Butteraugli; image quality metrics and external ssimulacra	comparison,comparison_metric_worker
+3:0	detail/gradient	Luminance gradient; direction/magnitude visualization; blue channel variants	gradient
+3:1	detail/echo	Echo edge convolution; contrast/gain visualization	interactive
+3:2	detail/wavelets	Daubechies db1–20; Symlets sym2–20; Coiflets coif1–5; Biorthogonal listed families; Soft/Hard/Garrote/Greater/Less; decomposition levels	interactive,wavelet_threshold
+3:3	detail/frequency	FFT frequency split; mask; low/high components; reconstruction	frequency_mask,interactive
+4:0	colors/plots	RGB/HSV 2D/3D distributions; channels/axes; fast OpenGL versus Matplotlib render paths	pixel_stats
+4:1	colors/space	RGB; CMYK; gray lightness/luminance/average/perceptual; HSV; HLS; YCrCb; XYZ; Lab; Luv	color_spaces
+4:2	colors/pca	PCA components 1/2/3; eigenvector sign/centering/normalization	pca
+4:3	colors/stats	Channel rank min/middle/max; strict/inclusive; ties prefer red then green then blue	pixel_stats
+5:0	noise/noise	Median/Gaussian/BoxBlur/Bilateral/NonLocal; residual separation; grayscale/equalization	noise
+5:1	noise/minmax	Channel local minima/maxima deviation; color labels and neighborhood	minmax
+5:2	noise/planes	Channel/bit-plane 0–7; filter variants; binary pixel masks	bit_planes
+5:3	noise/noise_estimmation	Wavelet blocking and estimated noise; border/block parameters	wavelet_blocking
+5:4	noise/prnu	Residual extraction; camera references; NCC; database HDF5 build/read/validation; multi-image ingestion	prnu
+5:5	noise/noisesniffer	Noise inconsistency; block size 3/5/7/8; cells; regions/mask/block distribution; NPZ	noisesniffer
+6:0	jpeg/quality	JPEG quantization-table estimate;100 gray recompressions; native curve normalization/minimum; optional local100-feature regression for non-JPEG; table priority; raw score/one-decimal display; JSON/CSV	jpeg_quality,jpeg_curve,jpeg
+6:1	jpeg/ela	Classic absolute/sqrt residual; gain; LUT contrast; grayscale; Biomes; energy; Ghost evidence; profiles; exports	ela,ela_biomes,ela_energy,ela_energy_auto,ela_background,ela_ghosts
+6:2	jpeg/multiple	Double/multiple JPEG compression; DCT histogram/periodicity; original encoded data	double_jpeg
+6:3	jpeg/ghostmmaps	JPEG Ghost maps quality curves; grid offsets; normalized maps; visualization	ghost_maps
+6:4	jpeg/zero	ZERO grid votes; JPEG99 votes; 64 phase origins; differing/missing grids; regions	zero
+7:0	tampering/contrast	Contrast-enhancement histogram analysis and derived maps	contrast
+7:1	tampering/cloning	BRISK default; ORB; AKAZE; response normalization; ordered radius Hamming; displacement/proximity groups; binary1 detection mask; minimum count; seeded kmeans regions; points/lines/JSON	cloning
+7:2	tampering/splicing	Noiseprint learned residual; splicing map and scores; TensorFlow/native subprocess	splicing,noiseprint_mps
+7:3	tampering/resampling	Resampling probability and spectral evidence; ROI/FFT	resampling
+7:4	tampering/cloning2	SIFT; RootSIFT; AKAZE; BRISK; ORB; PatchMatch Zernike/SIFT; XFeat; ALIKED; rotation; LighterGlue/LightGlue; combined/extended/mirror; G2NN/RANSAC	cloning2,dense_copy,copy_detail,copy_mirror,copy_geometry,copy_overlap,learned_copy,sift_g2nn
+7:5	tampering/adaptive_cfa	Adaptive CFA statistical mosaic consistency; masks and significance	adaptive_cfa
+7:6	tampering/clone_detectors	D2PRL448/40; CMSeg-Net generalization/addnoise; MGCFDN 7 variants; Forgeryscope 4 public pipelines; original/ROI masks and semantic source/target	clone_detectors,clone_models,forgeryscope_adapter
+7:7	tampering/automatic_clones	Extended normal+mirror PatchMatch Zernike/SIFT and Forgeryscope microscopy; independent evidence; zone exclusions; overlap limits	automatic_clones,cloning2
+7:8	tampering/complete_analysis	Original/cached ELA inputs; independent clone+ELA branches; per-layer provenance; visibility; exact-cell masks; exclusions; exports	complete_analysis,automatic_clones,ela_biomes
+8:0	various/trufor	TruFor localization; confidence; Noiseprint++; detection score; confidence is not a binary mask	trufor
+8:1	various/catnet	CAT-Net v2 RGB/DCT branches; JPEG quantization input; probability/mask	catnet
+8:2	various/safire	SAFIRE/SAM; source clustering; confidence; grid 16/32; group count; epsilon/minimum	safire
+8:3	various/focal	FOCAL HRNet and ViT features; clustering/localization; no automatic ONNX equivalence	focal
+8:4	various/adaifl	AdaIFL dynamic decoder/MoE; localization; thresholds and scale	adaifl
+9:0	various/median	Numeric XGBoost formats8/24/96/128; median3/5/7/9 by1/4 levels; eight feature metrics; black64 padding + zero grid border; variance/threshold; speckle3; score/classes; interpolatedRGB and raw grid decisions; explicit model lifecycle and exports	median
+9:1	various/illuminant	Gray World; Shades of Gray p=6; White Patch; blocks 32/64/128/256; illuminant/difference/valid pixels	illuminant
+9:2	various/defect_pixels	Hot/dead candidates; radius 3×3/5×5; overlay/mask/correction preview; correction is derivative only	defect_pixels
+9:3	various/stereogram	Stereogram disparity decoding and visualization	stereogram

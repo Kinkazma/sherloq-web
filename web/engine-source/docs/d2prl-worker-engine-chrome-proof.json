@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Common real module-worker API, lazy verified model manifest and parameters, whole original-file inference at3GiB shared budget, owned result arrays, refilter, cooperative cancellation preserving raw caches, exports, source preservation and unload. No WordPress integration claim.",
+  "records": [
+    {
+      "name": "actual-worker-model",
+      "exact": true,
+      "oneInference": true
+    },
+    {
+      "name": "owned-results-and-refilter",
+      "exact": true,
+      "noInference": true
+    },
+    {
+      "name": "cooperative-filter-cancel",
+      "entered": true,
+      "cancelled": true,
+      "preserved": true,
+      "exact": true,
+      "noInference": true,
+      "noNewParameters": true
+    },
+    {
+      "name": "useful-inference-cancel",
+      "entered": true,
+      "cancelled": true,
+      "preserved": true,
+      "exact": true,
+      "noInference": true
+    }
+  ],
+  "modelRequired": true,
+  "lazyLoad": true,
+  "actualExports": true,
+  "originalPreserved": true,
+  "released": true,
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2259084271,
+    "knownHeapCapacityBytes": 33554432
+  },
+  "parameterRequestsAfterInference": 1107,
+  "npzBytes": 3051391,
+  "browser": "154.0.8037.58",
+  "package": {
+    "schema": 1,
+    "file": "model.json",
+    "bytes": 1173784,
+    "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+    "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+    "assets": 1062,
+    "assetBytes": 541513527,
+    "scope": "Private model parameters and configuration only; no native expected images/activations, no distribution permission inferred."
+  },
+  "sources": {
+    "src/index.js": "346c01255e81cce5294562b1d26a77c1c16fe229ef2e7fdcc0b7267596e44530",
+    "src/worker.js": "09857e61a37f8d19ce5d2010771ec975f8bebad935f15e496ba9e84553e19eed",
+    "src/worker-client.js": "15d9968d6f09efbdcce5f27d55dcc26d4d1c7d2040dd500f8e6199a8f051ae95",
+    "src/d2prl-adapter.js": "230175b2fa94c3e750c747413b6109116342c0d0d9695848cb5147c88b12c194",
+    "src/d2prl-runtime.js": "18ddade279448fefd88cafc254995354efc86b98067d4eb244907ea06385909b",
+    "src/exports.js": "5ca6f95324b6ac50272d0ed5f9fdc2052ffcc09aac9e22ba4b5ff51cfb0ae526",
+    "src/npz.js": "c4b2d59a1eae8a26cea86389de030ce0aa77261450259ddbcc9cbec822485aa1"
+  },
+  "runtimePinSha256": "032df3b4319c9dc22aadad627252cf174fae05d5f1f29cb6128a3073253ac54b"
+}

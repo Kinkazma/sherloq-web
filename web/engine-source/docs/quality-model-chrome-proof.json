@@ -1,0 +1,438 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "weightsBundled": false,
+  "sourceModelSha256": "4b3a90e3b22ec4436b4a4e2bee7abd5055e7c541d2d3ae9b541dc890656424d4",
+  "images": [
+    {
+      "file": "synthetic.png",
+      "width": 64,
+      "height": 48,
+      "prediction": 98.46873474121094,
+      "minimum": 91,
+      "rpcMs": 27,
+      "functionalSequenceMs": 56.90000003576279,
+      "metrics": {
+        "totalMs": 26.299999952316284,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0.3999999761581421,
+        "qualityRecompressionMs": 20.600000023841858,
+        "qualityNormalizationMs": 4.5,
+        "qualityPredictionMs": 0.30000001192092896,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 548902,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 49108666,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "one.png",
+      "width": 1,
+      "height": 1,
+      "prediction": 47.53107833862305,
+      "minimum": 12,
+      "rpcMs": 3.300000011920929,
+      "functionalSequenceMs": 5.100000023841858,
+      "metrics": {
+        "totalMs": 3.099999964237213,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0.09999996423721313,
+        "qualityRecompressionMs": 2.800000011920929,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0.10000002384185791,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 531489,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 84581228,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "odd.png",
+      "width": 31,
+      "height": 17,
+      "prediction": 98.00352478027344,
+      "minimum": 91,
+      "rpcMs": 6,
+      "functionalSequenceMs": 7.900000035762787,
+      "metrics": {
+        "totalMs": 5.800000011920929,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 5.300000011920929,
+        "qualityNormalizationMs": 0.3999999761581421,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 534456,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 84581228,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "gray.png",
+      "width": 23,
+      "height": 19,
+      "prediction": 97.6718521118164,
+      "minimum": 91,
+      "rpcMs": 4.200000047683716,
+      "functionalSequenceMs": 5.800000011920929,
+      "metrics": {
+        "totalMs": 4.100000023841858,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 3.800000011920929,
+        "qualityNormalizationMs": 0.09999996423721313,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 533661,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 84581228,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "progressive.png",
+      "width": 27,
+      "height": 33,
+      "prediction": 98.25735473632812,
+      "minimum": 91,
+      "rpcMs": 5.899999976158142,
+      "functionalSequenceMs": 7.400000035762787,
+      "metrics": {
+        "totalMs": 5.799999952316284,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0.09999996423721313,
+        "qualityRecompressionMs": 5.600000023841858,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 536463,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 84581228,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "exif-6-le.png",
+      "width": 48,
+      "height": 64,
+      "prediction": 99.06669616699219,
+      "minimum": 100,
+      "rpcMs": 8.300000011920929,
+      "functionalSequenceMs": 10.099999964237213,
+      "metrics": {
+        "totalMs": 8.200000047683716,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 7.900000035762787,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0.10000002384185791,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 549098,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 84581228,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "constant.png",
+      "width": 23,
+      "height": 17,
+      "prediction": 71.36026763916016,
+      "minimum": 61,
+      "rpcMs": 3.100000023841858,
+      "functionalSequenceMs": 4.399999976158142,
+      "metrics": {
+        "totalMs": 3,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 2.800000011920929,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 532701,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 84581424,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "raw.png",
+      "width": 67,
+      "height": 35,
+      "prediction": 99.08145904541016,
+      "minimum": 100,
+      "rpcMs": 8.099999964237213,
+      "functionalSequenceMs": 17.400000035762787,
+      "metrics": {
+        "totalMs": 8,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 7.399999976158142,
+        "qualityNormalizationMs": 0.3999999761581421,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 545590,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 84581424,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "gray16.png",
+      "width": 41,
+      "height": 29,
+      "prediction": 98.65003204345703,
+      "minimum": 100,
+      "rpcMs": 11.400000035762787,
+      "functionalSequenceMs": 15,
+      "metrics": {
+        "totalMs": 11,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 10.800000011920929,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0.10000002384185791,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 537459,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 84581424,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "rgb16.tiff",
+      "width": 31,
+      "height": 19,
+      "prediction": 99.30245971679688,
+      "minimum": 100,
+      "rpcMs": 8.600000023841858,
+      "functionalSequenceMs": 18,
+      "metrics": {
+        "totalMs": 7.300000011920929,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 7.100000023841858,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 538202,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 84581424,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    },
+    {
+      "file": "large.png",
+      "width": 1024,
+      "height": 1024,
+      "prediction": 97.62346649169922,
+      "minimum": 100,
+      "rpcMs": 369.19999998807907,
+      "functionalSequenceMs": 402.2999999523163,
+      "metrics": {
+        "totalMs": 366.9000000357628,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-pool",
+        "workers": 10,
+        "scheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "qualityKernelMs": 361.89999997615814,
+        "qualityPreparationMs": 4.300000011920929,
+        "qualityRecompressionMs": 362.30000001192093,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0.09999996423721313,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 5440888,
+          "cacheBytes": 7560,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 521602424,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      }
+    }
+  ],
+  "normalizedSamples": 1100,
+  "scoreDifferences": 0,
+  "displayDifferences": 0,
+  "model": {
+    "sha256": "bc0c961a9ac7bf0fbabb0316eb5cb34665d7987b678fb8b64b487f10908f04f2",
+    "features": 100,
+    "trees": 140,
+    "nodes": 6948,
+    "retainedBytes": 104780,
+    "rpcMs": 43.40000003576279,
+    "metrics": {
+      "preparationMs": 4.800000011920929,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 531417,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 49108666
+      }
+    }
+  },
+  "cleanup": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 521602424,
+    "knownHeapCapacityBytes": 50462720
+  },
+  "cancellation": "Useful recompression cancelled; image/model explicitly reloaded and native result recovered",
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true
+}

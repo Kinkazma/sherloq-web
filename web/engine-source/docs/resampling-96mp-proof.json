@@ -1,0 +1,799 @@
+{
+  "result": {
+    "family": "Resampling",
+    "budgetBytes": 268435456,
+    "cases": [
+      {
+        "path": "em",
+        "params": {
+          "size": 3,
+          "stage": "probability"
+        },
+        "shape": [
+          8000,
+          12000
+        ],
+        "data": {
+          "size": 3,
+          "regions": [
+            [
+              0,
+              0,
+              12000,
+              8000
+            ]
+          ],
+          "grayNormalization": {
+            "minimum": 0,
+            "maximum": 255,
+            "scope": "whole decoded original grayscale image"
+          },
+          "maps": [
+            {
+              "id": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "width": 11998,
+              "height": 7998,
+              "iterations": 1,
+              "converged": true,
+              "table": "probability0"
+            }
+          ],
+          "fourier": []
+        },
+        "metrics": {
+          "workers": 1,
+          "completedRegions": 1,
+          "completedStripJobs": 23428,
+          "preflightExecutions": 0,
+          "scheduling": {
+            "count": 1,
+            "maximum": 1,
+            "ceiling": 1,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start"
+          },
+          "grayCached": false,
+          "analysisCached": false,
+          "stage": "probability"
+        },
+        "sha256": "45a63d45be351b427d83ac1ea0311b2223d62f83c6683df85ad13126375d192c",
+        "export": {
+          "id": "0c53e39c-15f4-4946-9343-ac357b309e58",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "2384504514360ec8bb2215fb921420416fba962a32d21558e1fea90d9e1a32bc",
+          "sourceSurfaceId": "caa8bb7e-fb4e-4f98-8df1-6d127bbe0f27",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 123381029
+            }
+          }
+        },
+        "valuesSha256": "c61917d9456dcc5c007cb30c6d5e0a7d018a8f43bbe40c54f4ff92461f091c30",
+        "valuesExport": {
+          "sha256": "34898481d9ce8c6cca7fcdd707ed19d326e045aa2f0aa8ef4ba85bab4bc5ca19",
+          "byteLength": 767681334,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 3,
+            "zip64": false,
+            "assemblyMs": 10352.79999999702,
+            "hashMs": 5439.600000008941,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 767681334
+          }
+        },
+        "ms": 595497,
+        "allPixelsNativeExact": true,
+        "independentReader": {
+          "numpy": "1.26.4",
+          "opencv": "4.11.0",
+          "afterSourceRelease": true,
+          "crcChecked": true,
+          "completeNumericShape": [
+            7998,
+            11998
+          ],
+          "maximumAbsoluteError": 0.0,
+          "meanAbsoluteError": 0.0,
+          "differentValues": 0,
+          "differentRgbChannels": 0,
+          "maximumRgbDifference": 0
+        }
+      },
+      {
+        "path": "em",
+        "params": {
+          "size": 3,
+          "stage": "fourier",
+          "fourier": {
+            "upsample": false,
+            "gamma": 2,
+            "rescale": false
+          }
+        },
+        "shape": [
+          7998,
+          7998
+        ],
+        "data": {
+          "size": 3,
+          "regions": [
+            [
+              0,
+              0,
+              12000,
+              8000
+            ]
+          ],
+          "grayNormalization": {
+            "minimum": 0,
+            "maximum": 255,
+            "scope": "whole decoded original grayscale image"
+          },
+          "maps": [
+            {
+              "id": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "width": 11998,
+              "height": 7998,
+              "iterations": 1,
+              "converged": true,
+              "table": "probability0"
+            }
+          ],
+          "fourier": [
+            {
+              "id": "fourier0",
+              "source": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "geometry": {
+                "selected": [
+                  0,
+                  0,
+                  11998,
+                  7998
+                ],
+                "spatialSquare": [
+                  2000,
+                  0,
+                  9998,
+                  7998
+                ],
+                "spatialSide": 7998,
+                "fftSide": 7998,
+                "outputSide": 7998,
+                "fftOffset": 0,
+                "upsample": 1,
+                "domain": "fftshift complex spectrum; output is not an image-coordinate mask"
+              },
+              "minimumMagnitude": 0,
+              "maximumMagnitude": 4887.948121077755,
+              "metrics": {
+                "workers": 8,
+                "completedStripJobs": 2000,
+                "preflightExecutions": 0,
+                "policy": "immediate-useful-work",
+                "grayCached": false,
+                "spectrumCached": false,
+                "magnitudeCached": false,
+                "displayCached": false
+              }
+            }
+          ]
+        },
+        "metrics": {
+          "workers": 8,
+          "completedRegions": 1,
+          "completedStripJobs": 23428,
+          "preflightExecutions": 0,
+          "scheduling": {
+            "count": 1,
+            "maximum": 1,
+            "ceiling": 1,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start"
+          },
+          "grayCached": true,
+          "analysisCached": true,
+          "stage": "fourier"
+        },
+        "sha256": "2cac2a90e4f9df3228cac61f79e2be452d50c4f2630f1e60ee84c55763c26371",
+        "export": {
+          "id": "faffd1ab-475a-4bb9-944d-c289c2403f20",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 7998,
+          "height": 7998,
+          "byteLength": 191968939,
+          "sha256": "e1734f8b68f9568b916e22130d3adf7d7adc8c549a847e2c33018e06169bda6f",
+          "sourceSurfaceId": "f306d9bf-363b-41a3-9aa1-e863d736fce4",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 193054333,
+            "encodedWriteCalls": 733,
+            "maxSourceWindowBytes": 767808,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 219914240
+            }
+          }
+        },
+        "valuesSha256": "f3efeeeb4af0f50b197c368de620c7fdd51987a2da82f2e2907c3af98bbb41ca",
+        "valuesExport": {
+          "sha256": "544113074d9aab7c567f283e94adb85ee39daf95f3073b1320e1228c38321382",
+          "byteLength": 511745538,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 3,
+            "zip64": false,
+            "assemblyMs": 7939.199999988079,
+            "hashMs": 4045,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 511745538
+          }
+        },
+        "ms": 191038.20000000298,
+        "allPixelsNativeExact": true,
+        "independentReader": {
+          "numpy": "1.26.4",
+          "opencv": "4.11.0",
+          "afterSourceRelease": true,
+          "crcChecked": true,
+          "completeNumericShape": [
+            7998,
+            7998
+          ],
+          "maximumAbsoluteError": 7.355227538141662e-15,
+          "meanAbsoluteError": 2.1922298783175492e-17,
+          "differentValues": 48561329,
+          "differentRgbChannels": 0,
+          "maximumRgbDifference": 0
+        }
+      },
+      {
+        "path": "em",
+        "params": {
+          "size": 3,
+          "stage": "fourier",
+          "fourier": {
+            "upsample": false,
+            "gamma": 3,
+            "rescale": false
+          }
+        },
+        "shape": [
+          7998,
+          7998
+        ],
+        "data": {
+          "size": 3,
+          "regions": [
+            [
+              0,
+              0,
+              12000,
+              8000
+            ]
+          ],
+          "grayNormalization": {
+            "minimum": 0,
+            "maximum": 255,
+            "scope": "whole decoded original grayscale image"
+          },
+          "maps": [
+            {
+              "id": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "width": 11998,
+              "height": 7998,
+              "iterations": 1,
+              "converged": true,
+              "table": "probability0"
+            }
+          ],
+          "fourier": [
+            {
+              "id": "fourier0",
+              "source": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "geometry": {
+                "selected": [
+                  0,
+                  0,
+                  11998,
+                  7998
+                ],
+                "spatialSquare": [
+                  2000,
+                  0,
+                  9998,
+                  7998
+                ],
+                "spatialSide": 7998,
+                "fftSide": 7998,
+                "outputSide": 7998,
+                "fftOffset": 0,
+                "upsample": 1,
+                "domain": "fftshift complex spectrum; output is not an image-coordinate mask"
+              },
+              "minimumMagnitude": 0,
+              "maximumMagnitude": 4887.948121077755,
+              "metrics": {
+                "workers": 1,
+                "completedStripJobs": 0,
+                "preflightExecutions": 0,
+                "policy": "immediate-useful-work",
+                "grayCached": true,
+                "spectrumCached": true,
+                "magnitudeCached": true,
+                "displayCached": false
+              }
+            }
+          ]
+        },
+        "metrics": {
+          "workers": 1,
+          "completedRegions": 1,
+          "completedStripJobs": 23428,
+          "preflightExecutions": 0,
+          "scheduling": {
+            "count": 1,
+            "maximum": 1,
+            "ceiling": 1,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start"
+          },
+          "grayCached": true,
+          "analysisCached": true,
+          "stage": "fourier"
+        },
+        "sha256": "e3d2a82772892d1baa9eaed64b62f55b2ded4e21cb2260a942ab36be6a9459a7",
+        "export": {
+          "id": "f09f1d11-e285-4aa1-bb19-3e745d6c670f",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 7998,
+          "height": 7998,
+          "byteLength": 191968939,
+          "sha256": "7122da6870efb588028685d182ca655008a1cea3183b1ca950c51cb7c205ba79",
+          "sourceSurfaceId": "ed3c2ae5-eed0-42bb-9071-eca8f00037df",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 193054333,
+            "encodedWriteCalls": 733,
+            "maxSourceWindowBytes": 767808,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 219914240
+            }
+          }
+        },
+        "valuesSha256": "dbd2251787528d50a8d3671e7f02593182478ad8dfcb83f3aa0f7d71b4439ee2",
+        "valuesExport": {
+          "sha256": "88df3331a0814b7549ec3a423ccf1ab54cae95eca5605673961d69b806e795e0",
+          "byteLength": 511745538,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 3,
+            "zip64": false,
+            "assemblyMs": 7245.29999999702,
+            "hashMs": 3713.1000000089407,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 511745538
+          }
+        },
+        "ms": 31040.10000000894,
+        "allPixelsNativeExact": true,
+        "independentReader": {
+          "numpy": "1.26.4",
+          "opencv": "4.11.0",
+          "afterSourceRelease": true,
+          "crcChecked": true,
+          "completeNumericShape": [
+            7998,
+            7998
+          ],
+          "maximumAbsoluteError": 4.912736883966318e-15,
+          "meanAbsoluteError": 8.774795205755134e-18,
+          "differentValues": 48541753,
+          "differentRgbChannels": 0,
+          "maximumRgbDifference": 0
+        }
+      },
+      {
+        "path": "source",
+        "params": {
+          "upsample": true,
+          "gamma": 2,
+          "rescale": false
+        },
+        "shape": [
+          16000,
+          16000
+        ],
+        "data": {
+          "minimumMagnitude": 0,
+          "maximumMagnitude": 7961.399004260942,
+          "geometry": {
+            "selected": [
+              0,
+              0,
+              12000,
+              8000
+            ],
+            "spatialSquare": [
+              2000,
+              0,
+              10000,
+              8000
+            ],
+            "spatialSide": 8000,
+            "fftSide": 16000,
+            "outputSide": 16000,
+            "fftOffset": 0,
+            "upsample": 2,
+            "domain": "fftshift complex spectrum; output is not an image-coordinate mask"
+          },
+          "grayNormalization": {
+            "minimum": 0,
+            "maximum": 255,
+            "scope": "whole decoded original grayscale image"
+          }
+        },
+        "metrics": {
+          "workers": 8,
+          "completedStripJobs": 16000,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "grayCached": false,
+          "spectrumCached": false,
+          "magnitudeCached": false,
+          "displayCached": false
+        },
+        "sha256": "fccdd600581ccce83fe4d0bcd94e5bafc369152bbc9c05b8503c96ff31375085",
+        "export": {
+          "id": "a5f9cab2-2f21-4b65-a561-4a0e30f22ff5",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 16000,
+          "height": 16000,
+          "byteLength": 768236708,
+          "sha256": "9eb8df88c73393cad83675afabd91833b4d8c054b47efabbd419e61954682528",
+          "sourceSurfaceId": "441a3a4c-3d44-49b9-938f-240721f48052",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 769439668,
+            "encodedWriteCalls": 2931,
+            "maxSourceWindowBytes": 1536000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 238075904
+            }
+          }
+        },
+        "valuesSha256": "97dbd41f94aca52ea2dab0142546e2621b07bc069d2e7acb77dd3189739ff2e5",
+        "valuesExport": {
+          "sha256": "25966970ec9170d85f8d96cb365a97013a6c5523c882a651736afba5cdbf5b9f",
+          "byteLength": 2048001362,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 3,
+            "zip64": false,
+            "assemblyMs": 28194.60000000894,
+            "hashMs": 14768.29999999702,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 2048001362
+          }
+        },
+        "ms": 1264702.399999991,
+        "allPixelsNativeExact": true,
+        "independentReader": {
+          "numpy": "1.26.4",
+          "opencv": "4.11.0",
+          "afterSourceRelease": true,
+          "crcChecked": true,
+          "completeNumericShape": [
+            16000,
+            16000
+          ],
+          "maximumAbsoluteError": 2.4417967647849537e-14,
+          "meanAbsoluteError": 2.2489214022139153e-18,
+          "differentValues": 237015226,
+          "differentRgbChannels": 0,
+          "maximumRgbDifference": 0
+        }
+      },
+      {
+        "path": "source",
+        "params": {
+          "upsample": true,
+          "gamma": 3,
+          "rescale": false
+        },
+        "shape": [
+          16000,
+          16000
+        ],
+        "data": {
+          "minimumMagnitude": 0,
+          "maximumMagnitude": 7961.399004260942,
+          "geometry": {
+            "selected": [
+              0,
+              0,
+              12000,
+              8000
+            ],
+            "spatialSquare": [
+              2000,
+              0,
+              10000,
+              8000
+            ],
+            "spatialSide": 8000,
+            "fftSide": 16000,
+            "outputSide": 16000,
+            "fftOffset": 0,
+            "upsample": 2,
+            "domain": "fftshift complex spectrum; output is not an image-coordinate mask"
+          },
+          "grayNormalization": {
+            "minimum": 0,
+            "maximum": 255,
+            "scope": "whole decoded original grayscale image"
+          }
+        },
+        "metrics": {
+          "workers": 1,
+          "completedStripJobs": 0,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "grayCached": true,
+          "spectrumCached": true,
+          "magnitudeCached": true,
+          "displayCached": false
+        },
+        "sha256": "39d3ff5903756b79f5efb75793069ca74e597280ed95fea7a208dcea5e831b9a",
+        "export": {
+          "id": "ac602739-5670-4bb5-9a74-5a2c80fd4522",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 16000,
+          "height": 16000,
+          "byteLength": 768236708,
+          "sha256": "f6c069883684d2b441a4cd90974258b8714cc44043a6ab373ac391aedc2c2689",
+          "sourceSurfaceId": "ce55546a-3fee-4bfc-9b31-26ddf75de839",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 769439668,
+            "encodedWriteCalls": 2931,
+            "maxSourceWindowBytes": 1536000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 238075904
+            }
+          }
+        },
+        "valuesSha256": "2ad9d971d3c2ef4d26267127c2af60182f45bbb08b013c35f77c8bb62cc863a6",
+        "valuesExport": {
+          "sha256": "0fffcd040f1cf2742aa5d422562917e0d8a531fb906a600400072c4825fea651",
+          "byteLength": 2048001362,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 3,
+            "zip64": false,
+            "assemblyMs": 29474.29999999702,
+            "hashMs": 14911.20000000298,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 2048001362
+          }
+        },
+        "ms": 110782.10000000894,
+        "allPixelsNativeExact": true,
+        "independentReader": {
+          "numpy": "1.26.4",
+          "opencv": "4.11.0",
+          "afterSourceRelease": true,
+          "crcChecked": true,
+          "completeNumericShape": [
+            16000,
+            16000
+          ],
+          "maximumAbsoluteError": 1.5404344466674047e-14,
+          "meanAbsoluteError": 6.427594378686765e-19,
+          "differentValues": 236993183,
+          "differentRgbChannels": 0,
+          "maximumRgbDifference": 0
+        }
+      }
+    ],
+    "source": {
+      "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+      "shape": {
+        "id": "e79fafb7-e55c-4518-a791-d7ccecabd718",
+        "revision": 1,
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "sourceWidth": 12000,
+        "sourceHeight": 8000,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "temporary"
+      },
+      "metrics": {
+        "decodeMs": 2214.2999999970198,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 80426021,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 122332453,
+        "codecHeapCapacityBytes": 96731136,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 80426021,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      }
+    },
+    "elapsedMs": 2540438.899999991,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 238075904
+    }
+  }
+}

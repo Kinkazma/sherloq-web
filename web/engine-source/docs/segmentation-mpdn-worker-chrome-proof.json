@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "status": "passed-corpus-tolerance",
+  "scope": "Actual bounded CPU worker, unchanged MGCFDN MPDN model, prepared RGB to original-coordinate maps/masks. Continuous outputs are not bit exact. Three public synthetic inputs include189 native positive pixels. No multiple ROI/export/common API/WordPress qualification.",
+  "model": {
+    "file": "unfolded.onnx",
+    "bytes": 24005734,
+    "sha256": "d90097900a0005e19f7240ee1fd6c1f05b6ebf6fac2bc553ba2ccc01d6a5195b"
+  },
+  "records": [
+    {
+      "name": "structured-copy",
+      "preparationExact": true,
+      "probability": {
+        "different": 63448,
+        "maxAbs": 7.301568984985352e-7,
+        "finite": true
+      },
+      "sourceMap": {
+        "different": 196032,
+        "maxAbs": 7.301568984985352e-7,
+        "finite": true
+      },
+      "sourceMask": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "foreground": 0,
+      "sourcePreserved": true,
+      "heapBytes": 83296256
+    },
+    {
+      "name": "constant",
+      "preparationExact": true,
+      "probability": {
+        "different": 65355,
+        "maxAbs": 1.6202102415263653e-7,
+        "finite": true
+      },
+      "sourceMap": {
+        "different": 14589,
+        "maxAbs": 1.0521034710109234e-7,
+        "finite": true
+      },
+      "sourceMask": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "foreground": 0,
+      "sourcePreserved": true,
+      "heapBytes": 83296256
+    },
+    {
+      "name": "paired-spots",
+      "preparationExact": true,
+      "probability": {
+        "different": 65284,
+        "maxAbs": 0.0000019073486328125,
+        "finite": true
+      },
+      "sourceMap": {
+        "different": 65284,
+        "maxAbs": 0.0000019073486328125,
+        "finite": true
+      },
+      "sourceMask": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "foreground": 189,
+      "sourcePreserved": true,
+      "heapBytes": 83296256
+    }
+  ],
+  "lifecycle": {
+    "reused": true,
+    "busy": true,
+    "cancelled": true,
+    "retryError": {
+      "different": 65284,
+      "maxAbs": 0.0000019073486328125,
+      "finite": true
+    },
+    "reclaimed": true,
+    "resumedError": {
+      "different": 65284,
+      "maxAbs": 0.0000019073486328125,
+      "finite": true
+    },
+    "released": true,
+    "corruptionRefused": true,
+    "corruptionReleased": true,
+    "memoryRefused": true
+  },
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2612337359
+  },
+  "modelLoads": 1,
+  "usefulInferences": 3,
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-segmentation-worker.mjs": "f538f2cb3a5c60bc1a741f3dce219bdba4c5d5aafabfd7e27b5a1c2603de2860",
+    "experiments/segmentation/models.js": "c9eab67b868fe2e00b9c9379e9293c4c12a59474a277e89dd3e6a10f891dc234",
+    "experiments/segmentation/inference.js": "d4127287a2f1dac519b8bda342d80a10f14c3515e9d25784ea2304a51a5fc020",
+    "experiments/segmentation/inference-worker.js": "9ed4217e1e61f464bddf30bbd45d6a01b2f51d0fd43b6934f372b506d48208fd",
+    "experiments/segmentation/prepare.js": "d0cfb6c73cce88bca17ef41c3382bea4f816c8227a5f3ab2a460aff9e85ca688",
+    "experiments/segmentation/probabilities.js": "c052c8a40f6a5285f86b7e150ca8e85bc8badc94e0b900e8be20e2a248b9aa99",
+    "experiments/segmentation/zones.js": "9c5f8a9109caa2f6697a6696c850e4a5ebc7591f064cfeeb5cdce79d3963da5a",
+    "vendor/d2prl/PINNED.json": "032df3b4319c9dc22aadad627252cf174fae05d5f1f29cb6128a3073253ac54b"
+  }
+}

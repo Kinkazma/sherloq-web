@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: original grayscale db8 axes, medians and rendered maps match native across orientation and block sizes
+ok 1 - original grayscale db8 axes, medians and rendered maps match native across orientation and block sizes
+  ---
+  duration_ms: 728.175417
+  type: 'test'
+  ...
+# Subtest: fallback loaded grayscale and cancellation retain global boundaries and clean stores
+ok 2 - fallback loaded grayscale and cancellation retain global boundaries and clean stores
+  ---
+  duration_ms: 810.799042
+  type: 'test'
+  ...
+# Subtest: native ELA cell operation, background, one/64 Ghost phases, caches and NPZ
+ok 3 - native ELA cell operation, background, one/64 Ghost phases, caches and NPZ
+  ---
+  duration_ms: 25040.490334
+  type: 'test'
+  ...
+# Subtest: cell operation cancellation and subsequent useful recovery
+ok 4 - cell operation cancellation and subsequent useful recovery
+  ---
+  duration_ms: 205.800375
+  type: 'test'
+  ...
+# Subtest: Row preparations preserve all Torch and Pillow native tensor references across arbitrary strips
+ok 5 - Row preparations preserve all Torch and Pillow native tensor references across arbitrary strips
+  ---
+  duration_ms: 4359.21875
+  type: 'test'
+  ...
+# Subtest: Oriented half-open ROI reads match contiguous preparations and retain source bytes
+ok 6 - Oriented half-open ROI reads match contiguous preparations and retain source bytes
+  ---
+  duration_ms: 704.449458
+  type: 'test'
+  ...
+# Subtest: Rows preparation cancellation, malformed reads and memory refusal release windows and allow retry
+ok 7 - Rows preparation cancellation, malformed reads and memory refusal release windows and allow retry
+  ---
+  duration_ms: 50.360875
+  type: 'test'
+  ...
+# Subtest: Bounded projection rows preserve native full-output float bits for D2PRL and CMSeg domains
+ok 8 - Bounded projection rows preserve native full-output float bits for D2PRL and CMSeg domains
+  ---
+  duration_ms: 5651.969959
+  type: 'test'
+  ...
+# Subtest: Projection cancellation, consumer failure, nonfinite data and admission errors preserve input and release staging
+ok 9 - Projection cancellation, consumer failure, nonfinite data and admission errors preserve input and release staging
+  ---
+  duration_ms: 10.734959
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 25455.706958

@@ -1,0 +1,456 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "dimensions": [
+    4096,
+    4096
+  ],
+  "sourceBytes": 50331648,
+  "backend": "indexeddb-forced",
+  "scope": "Development-only alternating5-sample cache-disabled/two-pages-per-array/unbounded-per-array comparison (all share one budget) on identical raw synthetic RGB stores. Each measured read starts with empty engine page cache. Includes window allocation/storage/yields; excludes store fill, hash, UI transfer and display. Browser storage cache is not flushed; no product calibration.",
+  "cases": [
+    {
+      "name": "upright-whole-rows",
+      "orientation": 1,
+      "rect": {
+        "x": 0,
+        "y": 512,
+        "width": 4096,
+        "height": 512
+      },
+      "bytes": 6291456,
+      "sha256": "50041a260cebcb5b4d0d9ba1df806252f5dc1b3d006225254d44d9eda9ac0c1a",
+      "samples": {
+        "uncached": [
+          {
+            "elapsedMs": 5.300000011920929,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 7352320
+          },
+          {
+            "elapsedMs": 5,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 7352320
+          },
+          {
+            "elapsedMs": 3.800000011920929,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 7352320
+          },
+          {
+            "elapsedMs": 5.199999988079071,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 7352320
+          },
+          {
+            "elapsedMs": 4.199999988079071,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 7352320
+          }
+        ],
+        "cached": [
+          {
+            "elapsedMs": 4.699999988079071,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 9449472
+          },
+          {
+            "elapsedMs": 4.099999964237213,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 9449472
+          },
+          {
+            "elapsedMs": 3.600000023841858,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 9449472
+          },
+          {
+            "elapsedMs": 3.899999976158142,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 9449472
+          },
+          {
+            "elapsedMs": 4,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 9449472
+          }
+        ],
+        "unbounded": [
+          {
+            "elapsedMs": 4.199999988079071,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 6291456,
+            "peakAccountedBytes": 12595200
+          },
+          {
+            "elapsedMs": 4.800000011920929,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 6291456,
+            "peakAccountedBytes": 12595200
+          },
+          {
+            "elapsedMs": 4.899999976158142,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 6291456,
+            "peakAccountedBytes": 12595200
+          },
+          {
+            "elapsedMs": 4,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 6291456,
+            "peakAccountedBytes": 12595200
+          },
+          {
+            "elapsedMs": 3.899999976158142,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456,
+            "cacheBytes": 6291456,
+            "peakAccountedBytes": 12595200
+          }
+        ]
+      },
+      "medianMs": {
+        "uncached": 5,
+        "cached": 4,
+        "unbounded": 4.199999988079071
+      }
+    },
+    {
+      "name": "upright-tile",
+      "orientation": 1,
+      "rect": {
+        "x": 137,
+        "y": 281,
+        "width": 256,
+        "height": 256
+      },
+      "bytes": 196608,
+      "sha256": "fb7eb21e8d3add97bc533bf38ddc835f7c0a8661a89e5e58cd55cf7aa69d71f4",
+      "samples": {
+        "uncached": [
+          {
+            "elapsedMs": 134.89999997615814,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1245952
+          },
+          {
+            "elapsedMs": 138.30000001192093,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1245952
+          },
+          {
+            "elapsedMs": 139.5,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1245952
+          },
+          {
+            "elapsedMs": 130.19999998807907,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1245952
+          },
+          {
+            "elapsedMs": 130.89999997615814,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1245952
+          }
+        ],
+        "cached": [
+          {
+            "elapsedMs": 3,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3343104
+          },
+          {
+            "elapsedMs": 2.600000023841858,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3343104
+          },
+          {
+            "elapsedMs": 2.300000011920929,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3343104
+          },
+          {
+            "elapsedMs": 2.199999988079071,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3343104
+          },
+          {
+            "elapsedMs": 5.400000035762787,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3343104
+          }
+        ],
+        "unbounded": [
+          {
+            "elapsedMs": 2.300000011920929,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 4194304,
+            "peakAccountedBytes": 4391680
+          },
+          {
+            "elapsedMs": 2.400000035762787,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 4194304,
+            "peakAccountedBytes": 4391680
+          },
+          {
+            "elapsedMs": 2.099999964237213,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 4194304,
+            "peakAccountedBytes": 4391680
+          },
+          {
+            "elapsedMs": 4.5,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 4194304,
+            "peakAccountedBytes": 4391680
+          },
+          {
+            "elapsedMs": 2.5,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608,
+            "cacheBytes": 4194304,
+            "peakAccountedBytes": 4391680
+          }
+        ]
+      },
+      "medianMs": {
+        "uncached": 134.89999997615814,
+        "cached": 2.600000023841858,
+        "unbounded": 2.400000035762787
+      }
+    },
+    {
+      "name": "rotated-whole-rows",
+      "orientation": 6,
+      "rect": {
+        "x": 0,
+        "y": 281,
+        "width": 4096,
+        "height": 32
+      },
+      "bytes": 393216,
+      "sha256": "41a0c6940ea9ad8d449a84de1132549a74ba5fc650d9b85f11450647a1d656fd",
+      "samples": {
+        "uncached": [
+          {
+            "elapsedMs": 2441.300000011921,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1441888
+          },
+          {
+            "elapsedMs": 2230.099999964237,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1441888
+          },
+          {
+            "elapsedMs": 2383.600000023842,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1441888
+          },
+          {
+            "elapsedMs": 2330.199999988079,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1441888
+          },
+          {
+            "elapsedMs": 2264.400000035763,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216,
+            "cacheBytes": 0,
+            "peakAccountedBytes": 1441888
+          }
+        ],
+        "cached": [
+          {
+            "elapsedMs": 29.400000035762787,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3539040
+          },
+          {
+            "elapsedMs": 31.30000001192093,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3539040
+          },
+          {
+            "elapsedMs": 32.69999998807907,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3539040
+          },
+          {
+            "elapsedMs": 36.09999996423721,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3539040
+          },
+          {
+            "elapsedMs": 29,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 2097152,
+            "peakAccountedBytes": 3539040
+          }
+        ],
+        "unbounded": [
+          {
+            "elapsedMs": 31.599999964237213,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 32505856,
+            "peakAccountedBytes": 32899168
+          },
+          {
+            "elapsedMs": 29,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 32505856,
+            "peakAccountedBytes": 32899168
+          },
+          {
+            "elapsedMs": 30.099999964237213,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 32505856,
+            "peakAccountedBytes": 32899168
+          },
+          {
+            "elapsedMs": 34,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 32505856,
+            "peakAccountedBytes": 32899168
+          },
+          {
+            "elapsedMs": 28.5,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216,
+            "cacheBytes": 32505856,
+            "peakAccountedBytes": 32899168
+          }
+        ]
+      },
+      "medianMs": {
+        "uncached": 2330.199999988079,
+        "cached": 31.30000001192093,
+        "unbounded": 30.099999964237213
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 33554432,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 32899168
+  },
+  "browser": "154.0.8037.58"
+}

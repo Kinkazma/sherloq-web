@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "version": "0.12.0",
+  "status": "passed",
+  "node": {
+    "tests": 85,
+    "passed": 85,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 145719.559208,
+    "concurrency": 2
+  },
+  "noisesniffer": {
+    "statistics": 36,
+    "analyses": 120,
+    "views": 360,
+    "regionalCases": 24,
+    "sorts": 96,
+    "tailProbes": 796,
+    "largeTailProbes": 90,
+    "largeNativeChecksumCases": 2,
+    "forcedWorkerPartitionsPerBrowser": 12,
+    "nestedCancellation": "passed",
+    "nativeNpzReadback": "passed",
+    "browsers": [
+      "154.0.8037.58",
+      "155.0",
+      "26.6"
+    ]
+  },
+  "wasmSha256": "ed39fcf7f06846249fa088575104afc618382e8d1c85f64ea105a9477d2f19e6",
+  "benchmarkScope": "Sequential isolated Chrome 1 MP; original, FMA-only and worker-pool measured separately; first calibration is slower",
+  "limits": [
+    "WordPress integration pending",
+    "Physical devices untested",
+    "Segmented source/result and storage-backed engines pending; no arbitrary-photo-size claim",
+    "Other unavailable families remain explicitly unavailable"
+  ],
+  "runtimeSmoke": {
+    "status": "passed",
+    "operations": 32,
+    "source": "extracted immutable runtime"
+  }
+}

@@ -1,0 +1,9 @@
+"""Build isolated bounded libpng async row encoder; shared inputs are read-only."""
+from pathlib import Path
+import hashlib,json,os,subprocess
+ROOT=Path(__file__).resolve().parents[1];BUILD=Path(os.environ['OPENCV_BUILD_ROOT']);CC=Path(os.environ['EMSDK'])/'upstream/emscripten/emcc';OUT=ROOT/'vendor/png-export';OUT.mkdir(parents=True,exist_ok=True);PNG=BUILD/'opencv-4.11.0/3rdparty/libpng';ZLIB=BUILD/'opencv-4.11.0/3rdparty/zlib';libs=[BUILD/'cv/3rdparty/lib/liblibpng.a',BUILD/'cv/3rdparty/lib/libzlib.a'];env={**os.environ,'EM_FROZEN_CACHE':'1','EMCC_CORES':'1'}
+version=subprocess.check_output([str(CC),'--version'],env=env,text=True).splitlines()[0];assert '4.0.15' in version
+subprocess.run([str(CC),str(ROOT/'native/png-export.c'),*map(str,libs),'-I'+str(PNG),'-I'+str(ZLIB),'-I'+str(BUILD/'cv/3rdparty/zlib'),'-O3','-ffile-prefix-map='+str(ROOT)+'/=','-fexceptions','-sASYNCIFY=1','-sASYNCIFY_STACK_SIZE=131072','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sFILESYSTEM=0','-sALLOW_MEMORY_GROWTH=1','-sIMPORTED_MEMORY=1','-sABORTING_MALLOC=0','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY=67108864','-sEXPORTED_FUNCTIONS=["_malloc","_free","_png_export_open","_png_export_rows","_png_export_end","_png_export_error","_png_export_close"]','-sEXPORTED_RUNTIME_METHODS=["HEAPU8","ccall"]','-o',str(OUT/'png-export.js')],env=env,check=True)
+(OUT/'LICENSE').write_bytes((PNG/'LICENSE').read_bytes());(OUT/'ZLIB-README.txt').write_bytes((ZLIB/'README').read_bytes())
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+(OUT/'PINNED.json').write_text(json.dumps(dict(compiler=version,libpng='1.6.43',sources={p.name:sha(p)for p in [ROOT/'native/png-export.c',PNG/'png.h',PNG/'pnglibconf.h',PNG/'pngwrite.c',PNG/'pngwutil.c']},objects={p.name:sha(p)for p in libs},files={p.name:sha(p)for p in OUT.iterdir()if p.name!='PINNED.json'}),indent=2)+'\n');print('Built PNG export',version)

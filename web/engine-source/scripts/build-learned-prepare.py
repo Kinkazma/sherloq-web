@@ -1,0 +1,7 @@
+from pathlib import Path
+import os,subprocess,json,hashlib,shutil
+root=Path(__file__).resolve().parents[1];out=root/'vendor/learned-prepare';out.mkdir(exist_ok=True);compiler=Path(os.environ['EMSDK'])/'upstream/emscripten/em++'
+subprocess.run([str(compiler),str(root/'native/learned-prepare.cpp'),'-O3','-ffp-contract=off','-fexceptions','-sDISABLE_EXCEPTION_CATCHING=0','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sALLOW_MEMORY_GROWTH=1','-sIMPORTED_MEMORY=1','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY=2147483648','-sFILESYSTEM=0','-sABORTING_MALLOC=0','-sEXPORTED_FUNCTIONS=["_malloc","_free","_learned_prepare","_aliked_select","_learned_rows_create","_learned_rows_destroy","_learned_rows_support","_learned_rows_ksize","_learned_rows_horizontal","_learned_rows_vertical"]','-sEXPORTED_RUNTIME_METHODS=["HEAPU8","HEAP32","HEAPF32"]','-o',str(out/'prepare.js')],check=True)
+for name in ['SLEEF-LICENSE.txt','SLEEF-PINNED.json','PYTORCH-LICENSE.txt']:shutil.copyfile(root/'vendor/d2prl'/name,out/name)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();files={p.name:dict(bytes=p.stat().st_size,sha256=sha(p)) for p in out.iterdir() if p.name!='PINNED.json'}
+(out/'PINNED.json').write_text(json.dumps(dict(schema=1,source=sha(root/'native/learned-prepare.cpp'),referenceExp=sha(root/'experiments/d2prl/reference-exp.h'),files=files),indent=2)+'\n');(root/'src/learned-prepare-assets.js').write_text('export const LEARNED_PREPARE_WASM=Object.freeze('+json.dumps(files['prepare.wasm'])+');\n')

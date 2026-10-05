@@ -1,0 +1,38 @@
+{
+  "points": 274,
+  "expected": 274,
+  "fields": [
+    {
+      "differences": 0,
+      "max": 0
+    },
+    {
+      "differences": 0,
+      "max": 0
+    },
+    {
+      "differences": 1,
+      "max": 2.384185791015625e-7
+    },
+    {
+      "differences": 201,
+      "max": 0.000030517578125
+    },
+    {
+      "differences": 0,
+      "max": 0
+    },
+    {
+      "differences": 0,
+      "max": 0
+    },
+    {
+      "differences": 0,
+      "max": 0
+    }
+  ],
+  "descriptors": {
+    "differences": 0,
+    "max": 0
+  }
+}

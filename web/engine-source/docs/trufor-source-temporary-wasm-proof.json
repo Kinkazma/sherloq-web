@@ -1,0 +1,260 @@
+{
+  "dimensions": [
+    193,
+    129
+  ],
+  "analyzeMs": 66634.60000000894,
+  "totalMs": 86446.70000000298,
+  "fields": {
+    "map": {
+      "length": 24897,
+      "finite": true,
+      "min": 0.05359027162194252,
+      "max": 0.35939112305641174,
+      "maxError": 0.0000011175870895385742,
+      "meanError": 1.7904092012296533e-7,
+      "thresholdChanges": 0
+    },
+    "confidence": {
+      "length": 24897,
+      "finite": true,
+      "min": 0.6940186023712158,
+      "max": 0.9996518492698669,
+      "maxError": 0.0000013113021850585938,
+      "meanError": 1.2573546787177233e-7,
+      "thresholdChanges": 0
+    },
+    "noiseprint_pp": {
+      "length": 24897,
+      "finite": true,
+      "min": -1.6534096002578735,
+      "max": 1.102262020111084,
+      "maxError": 5.960464477539062e-7,
+      "meanError": 6.400924852799284e-8,
+      "thresholdChanges": 0
+    }
+  },
+  "score": 0.12482047080993652,
+  "scoreExpected": 0.1248205229640007,
+  "scoreError": 5.21540641784668e-8,
+  "views": [
+    {
+      "view": "map",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "confidence",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "noiseprint_pp",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "map",
+      "rect": {
+        "x": 140,
+        "y": 88,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        140,
+        88
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "confidence",
+      "rect": {
+        "x": 140,
+        "y": 88,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        140,
+        88
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "noiseprint_pp",
+      "rect": {
+        "x": 140,
+        "y": 88,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        140,
+        88
+      ],
+      "bytes": 6519
+    }
+  ],
+  "export": {
+    "bytes": 302612,
+    "descriptor": 302612,
+    "first": [
+      80,
+      75,
+      3,
+      4
+    ],
+    "last": [
+      80,
+      75,
+      5,
+      6
+    ]
+  },
+  "source": {
+    "dimensions": {
+      "id": "a7f02220-7990-4fb4-84ba-ce8718d80952",
+      "revision": 1,
+      "width": 193,
+      "height": 129,
+      "format": "rgb8",
+      "sourceWidth": 193,
+      "sourceHeight": 129,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        193,
+        129
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "metrics": {
+      "decodeMs": 9.399999991059303,
+      "rowsPerChunk": 129,
+      "encodedWorkingBytes": 23851,
+      "coefficientAllowanceBytes": 0,
+      "workingReservationBytes": 33727665,
+      "codecHeapCapacityBytes": 16777216,
+      "storage": "memory",
+      "temporaryBackend": null,
+      "temporaryFallback": null,
+      "temporaryBytes": 0,
+      "originalBlobBytes": 23851,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM"
+    }
+  },
+  "provenance": {
+    "originalSourceSha256": "83c726f9afd800d1fc14a7d688f61096a7170ab07606c037364f04b0da49dee6",
+    "sourceSurfaceIdentity": "a7f02220-7990-4fb4-84ba-ce8718d80952/1",
+    "checkpointSha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+    "provider": "wasm",
+    "qualification": "segmented native graph; see dimension-specific proof"
+  },
+  "storage": {
+    "backend": "opfs",
+    "reservedBytes": 298764,
+    "peakReservedBytes": 2997252,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 10737418240,
+    "openFiles": 3
+  },
+  "events": [
+    {
+      "phase": "noiseprint-plus-windows",
+      "completed": 24897,
+      "total": 24897,
+      "elapsedMs": 23827.20000000298
+    },
+    {
+      "phase": "trufor-encoder-stage",
+      "completed": 1,
+      "total": 4,
+      "elapsedMs": 28920.40000000596
+    },
+    {
+      "phase": "inference",
+      "model": "s2-cross2-context",
+      "elapsedMs": 39116.79999999702
+    },
+    {
+      "phase": "trufor-encoder-stage",
+      "completed": 2,
+      "total": 4,
+      "elapsedMs": 40237.29999999702
+    },
+    {
+      "phase": "inference",
+      "model": "s3-npp-b5-mlp",
+      "elapsedMs": 50303.20000000298
+    },
+    {
+      "phase": "trufor-encoder-stage",
+      "completed": 3,
+      "total": 4,
+      "elapsedMs": 52969.79999999702
+    },
+    {
+      "phase": "inference",
+      "model": "s4-cross2-context",
+      "elapsedMs": 63038.20000000298
+    },
+    {
+      "phase": "trufor-encoder-stage",
+      "completed": 4,
+      "total": 4,
+      "elapsedMs": 64415.20000000298
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 16777216,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3202523515,
+    "residentCodecBytes": 16777216
+  },
+  "cancelled": true,
+  "remainingTemporary": [],
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

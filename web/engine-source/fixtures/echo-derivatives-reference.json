@@ -1,0 +1,2038 @@
+{
+  "schema": 1,
+  "reference": "OpenCV4.11 cv.Laplacian CV_64F, CPU, absolute value before normalization",
+  "numpy": "1.26.4",
+  "opencv": "4.11.0",
+  "cases": [
+    {
+      "name": "random-odd",
+      "file": "pixels-random-odd.rgb",
+      "width": 17,
+      "height": 19,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "7b6d8d34d8e64797a758491dd755616d04f048961f7991c7823df66b495d62d6",
+          "limits": [
+            6.0,
+            1752.0,
+            2.0,
+            1556.0,
+            4.0,
+            1740.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "d02780f82d91806a726cb7771207bd676de2edd7809b696ca6b771bf63888bba",
+          "limits": [
+            12.0,
+            7236.0,
+            6.0,
+            6886.0,
+            0.0,
+            5762.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "2c9236e5de34a1f7d4d28dcd0be127066cc435f83935571666ccf9a192f95ba0",
+          "limits": [
+            42.0,
+            59880.0,
+            32.0,
+            57906.0,
+            64.0,
+            53908.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "16807bb2d1d8b3cd6f489f3fbf96d6d1667497da7b44be45559c5bcf125c4fe5",
+          "limits": [
+            714.0,
+            588672.0,
+            924.0,
+            560498.0,
+            1772.0,
+            604308.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "45db2ccfbcfa4b1b86f8d32614ce7c3b37870ad2978ac30719de446396bfc72b",
+          "limits": [
+            25872.0,
+            5852144.0,
+            1334.0,
+            5933508.0,
+            1660.0,
+            6818772.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "d6f50572b72bfc8d673cceb3cd64d118c068fe7fdd1e4a6e560d6f5c1a85ba8e",
+          "limits": [
+            43941.0,
+            65354128.0,
+            53654.0,
+            64828576.0,
+            58427.0,
+            78110832.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "19fa83ace432be4d7cd7e9517292fb480602db22e8ed94cd6e550b1782e4df3e",
+          "limits": [
+            1169706.0,
+            844266368.0,
+            2387680.0,
+            805684096.0,
+            77666.0,
+            910942656.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "32c04a726e9af64e287dc4fc2458081c5f1d2dca18ee4586b6a394a40af90659",
+          "limits": [
+            21262720.0,
+            10965686272.0,
+            2191376.0,
+            10694856704.0,
+            18116768.0,
+            10839912448.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "b6d4b9f616540b518660f092f5f17914d1f5673f68588d0513cb0d02cabf98a4",
+          "limits": [
+            4435968.0,
+            144151592960.0,
+            29629440.0,
+            143321432064.0,
+            331723136.0,
+            131834265600.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "e0732c964cb8c152e16f594913f519b04ac0be0902e3310a35ec92ac406b2ae8",
+          "limits": [
+            727384064.0,
+            1921540685824.0,
+            582680576.0,
+            1945627656192.0,
+            2097840128.0,
+            1639898152960.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "0a2b7f26b76172c4793f6f13de824ca642622b6be9643d0f76aafd9f0d58952c",
+          "limits": [
+            83974160384.0,
+            25964274778112.0,
+            18623725568.0,
+            27136953942016.0,
+            27501395968.0,
+            23271114276864.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "a0d690ffa4116ea71bda8468bdcd9add496203ba7f0f04b243d56cf02641854e",
+          "limits": [
+            42249224192.0,
+            355183259287552.0,
+            491903778816.0,
+            378843160379392.0,
+            200584200192.0,
+            336285738729472.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "7f7c89bf2bd713e832c650615d2ade64f18aa6c202824c5027cba7c30c193c44",
+          "limits": [
+            2664356118528.0,
+            4911592529461248.0,
+            963213524992.0,
+            5295567437561856.0,
+            243135414272.0,
+            4848846815363072.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "6dd038a7d6caf76cf01cda39f7e623f22abe80b5d2d487632550f97a3dd6a1d6",
+          "limits": [
+            28150826270720.0,
+            6.855732454070682e+16,
+            92083025084416.0,
+            7.413492369011507e+16,
+            30728343519232.0,
+            6.988103346133402e+16
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "e9caba53d37fc380f7f9b5b5aa9ff31bec4b1a830ff5ee4986354f308e1e3b11",
+          "limits": [
+            2204688317415424.0,
+            9.646898555754906e+17,
+            2798549150466048.0,
+            1.039579654127616e+18,
+            267722491428864.0,
+            1.007954882214232e+18
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ties",
+      "file": "pixels-ties.rgb",
+      "width": 9,
+      "height": 3,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "893c59c6add6efc3b4b0a59288da7f90a8a38cda3fb25b3331f08b3a7ccc1d16",
+          "limits": [
+            4.0,
+            1024.0,
+            0.0,
+            512.0,
+            4.0,
+            1532.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "8fa8a57d6d36f5438c0097e6007b2fed3341fbdc6c9a9c654473d723914e52e5",
+          "limits": [
+            0.0,
+            8160.0,
+            0.0,
+            2048.0,
+            16.0,
+            8160.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "d6cfb7429c8f618cff65e45ae1a44abb46aa5ac0c5b1a812abc97b99fbb91c9f",
+          "limits": [
+            0.0,
+            65280.0,
+            192.0,
+            24576.0,
+            64.0,
+            49024.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "230ecbc4b339bbe486092049c4d59fca596cdf9ff324095f52688798b296f1ea",
+          "limits": [
+            0.0,
+            522240.0,
+            1280.0,
+            327680.0,
+            256.0,
+            327168.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "992aab0a14aba271e53d6019abcf9867baf0bddd18d41eee0909365fdb55d6c5",
+          "limits": [
+            0.0,
+            4177920.0,
+            28672.0,
+            5242880.0,
+            0.0,
+            2619392.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "4235c3f4870d6345716ce4d9142d8be95eea4bd06bacc7b3e7ddef500400720a",
+          "limits": [
+            0.0,
+            33423360.0,
+            368636.0,
+            79683568.0,
+            24580.0,
+            25157636.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "2fca91992399eb6ced3c216b9ab542ca5b5ccd312aeae7d5c9b612a8d8686b70",
+          "limits": [
+            0.0,
+            267386880.0,
+            4849728.0,
+            1199210752.0,
+            524256.0,
+            276791328.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "439a626f099ae37e38a720669032e718c4b35849f3e336092ecd1c1ee1510dbb",
+          "limits": [
+            0.0,
+            2139095040.0,
+            64749528.0,
+            18075748352.0,
+            8650024.0,
+            3321757440.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "b6b070a157496af166bc621e53bbc0a2bce80f218543b7b9ca498a28c63770e6",
+          "limits": [
+            0.0,
+            17112760320.0,
+            872433920.0,
+            273573462016.0,
+            130025408.0,
+            42143293440.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "84753400c49c5d149b4944e132ebad22c77af0cab45a95247c7674982658dcb6",
+          "limits": [
+            0.0,
+            136902082560.0,
+            11819390976.0,
+            4157117825024.0,
+            1870722560.0,
+            556164710400.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "2b481f86ef081db0bf55b5936aacd922c6f61afb2fd2a89d73bdda50dc8cb5f6",
+          "limits": [
+            1255488.0,
+            1095218626560.0,
+            160654524416.0,
+            63377330143232.0,
+            26307614720.0,
+            7570902745088.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "1ce6f0342a3a986d306479da937a4d328ad09b18c34a4d7824d758db46f09610",
+          "limits": [
+            33821696.0,
+            8761714409472.0,
+            2187972313088.0,
+            968648202125312.0,
+            365336887296.0,
+            105745827758080.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "c6f58010e3e4f37136a215b08fae42d80c22cff309ae00c8b8e9f424c208edf9",
+          "limits": [
+            1055369216.0,
+            70094336032768.0,
+            29831754416128.0,
+            1.4832371056508928e+16,
+            5037592936448.0,
+            1509045349384192.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "ee762d1bdef2da1499ef99898526330cc23d374d64ad2485b02fef42ca813b77",
+          "limits": [
+            2734489600.0,
+            560764117057536.0,
+            407040526647296.0,
+            2.274322793984164e+17,
+            69189767266304.0,
+            2.191767982047232e+16
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "c36b5a3957dc3a1d0ea14041179ffad17c36bfc6f035bff05165d41aa860d71c",
+          "limits": [
+            34916093952.0,
+            4486031868952576.0,
+            5555933723754496.0,
+            3.4908400167818363e+18,
+            947908476141568.0,
+            3.228654734629929e+17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "black",
+      "file": "pixels-black.rgb",
+      "width": 1,
+      "height": 1,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "white",
+      "file": "pixels-white.rgb",
+      "width": 1,
+      "height": 1,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "a0d67cb4815c047e807d8b80a14b73ee0bf7cf22be63f5016482aa6b8176792c",
+          "limits": [
+            4728448.0,
+            4728448.0,
+            4728448.0,
+            4728448.0,
+            4728448.0,
+            4728448.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "38e9a1273d0fe4cbe4fe9af6460f3a077b37095fcef71834d9574702d666630a",
+          "limits": [
+            78227968.0,
+            78227968.0,
+            78227968.0,
+            78227968.0,
+            78227968.0,
+            78227968.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "e36cdce7dbf6e028f36fed8fdcb3c0b1b0264cc50d2bdea2b093a53089bbef65",
+          "limits": [
+            1073741824.0,
+            1073741824.0,
+            1073741824.0,
+            1073741824.0,
+            1073741824.0,
+            1073741824.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "2f6dc03a630ce57fd7647d0bb198e67a4c3e122f7c1e1ff2672e8d9ab42b92b3",
+          "limits": [
+            31334973440.0,
+            31334973440.0,
+            31334973440.0,
+            31334973440.0,
+            31334973440.0,
+            31334973440.0
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "e89f9f9610a75889a8ce95197908ff2fae81189ad28bcdd710bdac7f5e90f6f2",
+          "limits": [
+            143305572352.0,
+            143305572352.0,
+            143305572352.0,
+            143305572352.0,
+            143305572352.0,
+            143305572352.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "flat",
+      "file": "pixels-flat.rgb",
+      "width": 11,
+      "height": 13,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "ad4dbc3a4baae06859810eaab87d9c5bff983e0648bc5cf1cee51239006372c6",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "2356c31abe3db62a0195732764fbef2c0afdd940a76f260c4499db0f3f0e260f",
+          "limits": [
+            310649856.0,
+            310649856.0,
+            310649856.0,
+            310649856.0,
+            310649856.0,
+            310649856.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "bd625565e308c70f2a6a216af6f343221a6e6f6ef8c8f930b07756d292384592",
+          "limits": [
+            11274289152.0,
+            11274289152.0,
+            11274289152.0,
+            11274289152.0,
+            11274289152.0,
+            11274289152.0
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "b6566a40298a09cf2732cead8164ea6d7cbb8a453294b2569b78175c7a0aa37a",
+          "limits": [
+            282145128448.0,
+            282145128448.0,
+            282145128448.0,
+            282145128448.0,
+            282145128448.0,
+            282145128448.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "row",
+      "file": "pixels-row.rgb",
+      "width": 9,
+      "height": 1,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "c9d2d4694d645d7e01d7c3364025bf8092a4fee1c2d3d82096f25439e8c12e24",
+          "limits": [
+            64.0,
+            1096.0,
+            120.0,
+            1444.0,
+            28.0,
+            1524.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "030293909cf146a1f601d401774ea2f753d6b4b31e8918f33ff4d6629d1fa19d",
+          "limits": [
+            560.0,
+            6016.0,
+            1056.0,
+            5856.0,
+            224.0,
+            4816.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "e05aa019f7202f16158152f96424e7f3c74267c7bb3b2a04281e528ba0c6c34f",
+          "limits": [
+            5184.0,
+            59136.0,
+            5440.0,
+            61056.0,
+            960.0,
+            40000.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "9479d72786467c13e846473448dbf6ae70544d8fc18f83121daf1f0a7806d903",
+          "limits": [
+            35840.0,
+            633344.0,
+            43520.0,
+            620032.0,
+            18944.0,
+            503808.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "78c09e62200734d45a97b2068bf2a51a5d301437f0326b7d86d90986a79b2a6b",
+          "limits": [
+            158720.0,
+            7301120.0,
+            2048.0,
+            6580224.0,
+            68608.0,
+            6002688.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "3963a4e61400ac20cb11bcbb0de111fc49016c22ca8e3a8c091bdaa9f3ab9c8b",
+          "limits": [
+            262144.0,
+            88850432.0,
+            6447108.0,
+            72818688.0,
+            1892356.0,
+            71475200.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "ceef4eba8c39192d852aedc44aed48358bbfe5dc7006e8a1b4607232f950e269",
+          "limits": [
+            16285672.0,
+            1122271232.0,
+            112295992.0,
+            830996480.0,
+            18874336.0,
+            863633408.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "a30f1928dc4a822bc21b759deaff646c82eab9d40b72179ff1f9ea711ab0d873",
+          "limits": [
+            222299152.0,
+            14538505216.0,
+            632947328.0,
+            9688318976.0,
+            66976980.0,
+            10625874944.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "9c04c4c5133bcc59a19d7cbbd5e10ea2e2a847647a4d6d8f15cda71edba931ac",
+          "limits": [
+            1685584768.0,
+            191652429824.0,
+            1343761408.0,
+            114610405376.0,
+            11735132160.0,
+            133099970560.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "e261c2fde5e5f7cb210b855ef7eadbe60ec3b16729be4d956379e8946e5de9fa",
+          "limits": [
+            5184259072.0,
+            2557854351360.0,
+            126089175040.0,
+            1445063294976.0,
+            240004136960.0,
+            1695077761024.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "253d3e20388538dee0cde5efec2639a87137addb24e3243928067ed2e88cb73f",
+          "limits": [
+            57597673472.0,
+            34448940728320.0,
+            2856268070912.0,
+            18600714829824.0,
+            2281301344256.0,
+            21912952504320.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "03d3177e4c31abb08bd1f11167caa8b9da5a8d5a87955fd17720172e208e87ec",
+          "limits": [
+            9091331129344.0,
+            467178323181568.0,
+            50595582967808.0,
+            242439361134592.0,
+            18901129756672.0,
+            287095511842816.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "ec0bb721b82275444a243f600e0bd09cdeed9e6899fd33642840dd0f4fb2c819",
+          "limits": [
+            243627943002112.0,
+            6370644459520000.0,
+            804027541487616.0,
+            3334359205543936.0,
+            106989799604224.0,
+            3806599718109184.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "e9abbd61e765196f2cc9c52ad66ec9b2f586d1deb04aea9508cd1826e5e5f46e",
+          "limits": [
+            4843800765661184.0,
+            8.727155361133363e+16,
+            1.1996352611352576e+16,
+            4.964007666096538e+16,
+            220844970213376.0,
+            5.101198370458829e+16
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "fa6093c105a7409e5dd530464a4aabd3a9e529828c960821cdbf19b07b7e93e7",
+          "limits": [
+            8.62310290644009e+16,
+            1.2002804940721357e+18,
+            1.3330903317925069e+17,
+            7.330634375333151e+17,
+            2.810027665312973e+16,
+            6.901433826677883e+17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "column",
+      "file": "pixels-column.rgb",
+      "width": 1,
+      "height": 9,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "9a4ec8fbf51057ac483d0953810fd06eb2b815cba499329a2c3f1d04380a5fec",
+          "limits": [
+            192.0,
+            1204.0,
+            72.0,
+            1104.0,
+            4.0,
+            800.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "d12166e0f16aa9e4847069a2971c0e85948e5b55f387f73800d45d9630266aa3",
+          "limits": [
+            48.0,
+            6128.0,
+            192.0,
+            3520.0,
+            432.0,
+            3696.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "7b6f35bfbc76b60478b0c03bdcd5dec43b5cf169711d08916ded4f2a3252e80b",
+          "limits": [
+            10112.0,
+            57920.0,
+            7168.0,
+            34176.0,
+            3968.0,
+            40576.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "a6ef9bb7d301418e4a4df9e4cb289a81f2cfaf21ed61a539a56623fec506978c",
+          "limits": [
+            83968.0,
+            631808.0,
+            56832.0,
+            427520.0,
+            9216.0,
+            464896.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "32c6bc813994e05c41b466afabc393cbd26675adbf16a4a8e59c1cb489b3d226",
+          "limits": [
+            13312.0,
+            7496704.0,
+            364544.0,
+            5431296.0,
+            424960.0,
+            5427200.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "6eb87b7cfaf08b02a47e28e8fe84ece4d50761a311a704be36e0950944f7a0cf",
+          "limits": [
+            9060352.0,
+            93143040.0,
+            802816.0,
+            70008832.0,
+            9142272.0,
+            64372736.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "002e61ba844c3ea321a1aca2e71fe7b05c8830ffd9d630e4744c48b79bfd7f9d",
+          "limits": [
+            207093760.0,
+            1188691968.0,
+            29523968.0,
+            915636224.0,
+            3080192.0,
+            776257536.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "f8705485da9a69b8c681fc8efc2ffe30631d6bb87bfd24a12cf4ab46dc694e40",
+          "limits": [
+            3616800768.0,
+            15445262336.0,
+            762576896.0,
+            13451919360.0,
+            522715136.0,
+            9530507264.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "a134d925e8158f73d6f13e7add0c100b195bc9f632ec8af96bcabca41f9f5e5e",
+          "limits": [
+            56836489216.0,
+            210734415872.0,
+            3026194432.0,
+            203948032000.0,
+            21437095936.0,
+            119306452992.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "4c7e7c8a277798e8f176fe3bf0255ba03948b83418eb7b570657b80dfd93bc7e",
+          "limits": [
+            842652450816.0,
+            3136915767296.0,
+            185614680064.0,
+            3066053001216.0,
+            21819297792.0,
+            1524428308480.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "ee39baaaf2a45f92bf9e3956163f18017d5c823eeb8030fbcc08e19e726ee7ba",
+          "limits": [
+            10027630854144.0,
+            46264087478272.0,
+            763430174720.0,
+            45840991256576.0,
+            3722394468352.0,
+            19889716723712.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "2a7f1371d437664fa1199514fd748db7be28ae4b16aa045aded0ae5256bec529",
+          "limits": [
+            102493623156736.0,
+            678320962273280.0,
+            23726330478592.0,
+            683110521896960.0,
+            99565638254592.0,
+            306857126133760.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "bc4f0eac2cf9e089ca9ebcca29ca4437b9caddc7055db527b1756a36d44eb3f3",
+          "limits": [
+            894877105651712.0,
+            9911339262672896.0,
+            162685828202496.0,
+            1.0162249104621568e+16,
+            1358537749954560.0,
+            4878297942982656.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "1409baf93930d58a520ed88d197f67ad3d0e52db767ae1c1105ee4c9d66f18ca",
+          "limits": [
+            4730741120303104.0,
+            1.4457756707507405e+17,
+            746370893873152.0,
+            1.510997326120878e+17,
+            1.854365014949888e+16,
+            7.701814382585446e+16
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "8405faf8d5fa35d82f853fe9612c4f44a13b681db6702a19489a346cae5a10a7",
+          "limits": [
+            4.758720255256166e+16,
+            2.1081561786587546e+18,
+            6.12406501834752e+16,
+            2.2474315914270474e+18,
+            2.5317036913590272e+17,
+            1.2006603753395323e+18
+          ]
+        }
+      ]
+    },
+    {
+      "name": "two",
+      "file": "pixels-two.rgb",
+      "width": 2,
+      "height": 2,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "3e6d5dc47c87ecab0889f4246a10874d21ebe8542d9adcee3641b0851356e23e",
+          "limits": [
+            232.0,
+            1304.0,
+            360.0,
+            1576.0,
+            704.0,
+            936.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "17b0761f87b081d5cf10757ccc89f12be355c70e2e29df288b65b30710dcbcd1",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "d9283f54dcab9fff3570ed5a7c560482f34ef4c00eb9df88652ef7faa4f1e251",
+          "limits": [
+            0.0,
+            0.0,
+            0.0,
+            14960.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "4095efcc762d845359d17a22c0798768e11dc8fba052cfbce94d49196855bd1b",
+          "limits": [
+            0.0,
+            64496.0,
+            0.0,
+            184096.0,
+            114176.0,
+            183840.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "db1f4439316ef477282397c5c230098fef7a31c98475dc9f71e0122e0a572180",
+          "limits": [
+            475264.0,
+            1189952.0,
+            20160.0,
+            1544000.0,
+            574592.0,
+            1255488.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "38b084c1027b178517f93a9f2d2110f8ecd9090750cf93320b39ff5ef9e4a552",
+          "limits": [
+            8787712.0,
+            32085504.0,
+            9486592.0,
+            45870080.0,
+            0.0,
+            50331648.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "a2a8109f64a8183c347ece4e680456dcf527c452431cc076e3ee944ca74c696f",
+          "limits": [
+            179121152.0,
+            1003417600.0,
+            127695872.0,
+            402653152.0,
+            201326608.0,
+            335544320.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "150653b8679b845f7f2bc638d908f603194cb02d063eaee4987e8be023b6a4ef",
+          "limits": [
+            770699264.0,
+            3844218880.0,
+            5100273664.0,
+            13057146880.0,
+            2333315072.0,
+            11096846336.0
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "57d9dfa1a0ff24395f281482941121cb298ab561961cc21deb81d22dbdead4b3",
+          "limits": [
+            57572057088.0,
+            376346509312.0,
+            91310415872.0,
+            129880391680.0,
+            74568466432.0,
+            130609627136.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "defects",
+      "file": "pixels-defects.rgb",
+      "width": 33,
+      "height": 35,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "99311858c87190ad92febc634909d8aac3f34975135539452aee1c9241699fcf",
+          "limits": [
+            0.0,
+            1240.0,
+            0.0,
+            1240.0,
+            0.0,
+            1240.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "873edb0d1df727bd743e4699308861f462e390fb595afa37c542da56f1ba922e",
+          "limits": [
+            0.0,
+            3720.0,
+            0.0,
+            3720.0,
+            0.0,
+            3720.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "9458c712106eaefab4251076d8974419220c14b0df813a561c3028cf18beb88d",
+          "limits": [
+            0.0,
+            24800.0,
+            0.0,
+            24800.0,
+            0.0,
+            24800.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "58233bcb68049ae05abc7b6b892d7eb244fb452dfa9ae52263cd979e0e0e255e",
+          "limits": [
+            0.0,
+            217000.0,
+            0.0,
+            217000.0,
+            0.0,
+            217000.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "169d950fd1b69b842fa2faecafbe6e7d110538158ca5f9b84e1361889859cb75",
+          "limits": [
+            0.0,
+            2187360.0,
+            0.0,
+            2187360.0,
+            0.0,
+            2187360.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "51c38082056887a4ad7837c32681ca8cbe37fc7b87ea0d8951b626d68582d505",
+          "limits": [
+            0.0,
+            24060960.0,
+            0.0,
+            24060960.0,
+            0.0,
+            24060960.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "b5eccb16d29049ed5ed94484b91465ee3cb2d3a941482e409da08199bff0c9fd",
+          "limits": [
+            0.0,
+            280874944.0,
+            0.0,
+            280874944.0,
+            0.0,
+            280874944.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "29cef6157fbc9f490c392356cbbc24e2d63798d69c5f4f4581dac9ced996ee12",
+          "limits": [
+            0.0,
+            3423162880.0,
+            0.0,
+            3423162880.0,
+            0.0,
+            3423162880.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "8abf0111f90c997160acd089d0db79bd49d046beb2e8106375e922e1f0c666e0",
+          "limits": [
+            0.0,
+            43106934784.0,
+            0.0,
+            43105943552.0,
+            0.0,
+            43106934784.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "26fb5043f30c123d9b83c8dcc358e79ef0425f463d728b05c8497522e39e215f",
+          "limits": [
+            0.0,
+            556971720704.0,
+            0.0,
+            556891766784.0,
+            0.0,
+            556971720704.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "bf99958c9a76ebbbd318b72164bf6ec761faf34f83cb003d2fc4396f07286433",
+          "limits": [
+            0.0,
+            7347687653376.0,
+            0.0,
+            7344072687616.0,
+            0.0,
+            7347687653376.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "233fd5616039a1755e9038327d4144ee536e7e6bc425df6960bd3867a230c567",
+          "limits": [
+            13378720.0,
+            98616442093568.0,
+            13822420.0,
+            98494773723136.0,
+            8646646.0,
+            98616442093568.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "4f5f0c8cff72353b35cdc4738af5e5098eadaea93f08607d6352fbcca9448783",
+          "limits": [
+            8889824.0,
+            1342982854803456.0,
+            33825792.0,
+            1339574261383168.0,
+            33825792.0,
+            1342982854803456.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "cab07a71ceabdaa674daa5f8c200e20a55db8208a5bb59767fa5a4e9d342fd35",
+          "limits": [
+            99073024.0,
+            1.851922037551923e+16,
+            52795648.0,
+            1.8434961707106304e+16,
+            49981440.0,
+            1.851922037551923e+16
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "684e878d515714b946665819740b89d16a0ce3d35e50369338b7108514428496",
+          "limits": [
+            41312624640.0,
+            2.58169831327531e+17,
+            74989985792.0,
+            2.56266507980374e+17,
+            44734570496.0,
+            2.58169831327531e+17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "texture",
+      "file": "opencv-texture-input.rgb",
+      "width": 137,
+      "height": 129,
+      "expected": [
+        {
+          "radius": 1,
+          "float32StorageExact": true,
+          "sha256": "7434dbaeb25b492733e2303be34db29cb38917e7c7bc2781b7e0ae6845c0bc4c",
+          "limits": [
+            0.0,
+            1836.0,
+            0.0,
+            1908.0,
+            0.0,
+            1788.0
+          ]
+        },
+        {
+          "radius": 2,
+          "float32StorageExact": true,
+          "sha256": "015b43bda22559d8b0a7b49374584b0445cdfe8fb2a3b2e96236433d5f53d690",
+          "limits": [
+            0.0,
+            9084.0,
+            0.0,
+            7818.0,
+            0.0,
+            8912.0
+          ]
+        },
+        {
+          "radius": 3,
+          "float32StorageExact": true,
+          "sha256": "fb267da9b058514bb154020ac1530fc02cb2a41b04e1afde3e979e28369da376",
+          "limits": [
+            0.0,
+            75232.0,
+            0.0,
+            70570.0,
+            0.0,
+            66898.0
+          ]
+        },
+        {
+          "radius": 4,
+          "float32StorageExact": true,
+          "sha256": "a2aa11fcc15df3da4434e3aa376abe218e1ac4ce6654da94b7ed6e58cc078237",
+          "limits": [
+            20.0,
+            663300.0,
+            22.0,
+            690590.0,
+            16.0,
+            689880.0
+          ]
+        },
+        {
+          "radius": 5,
+          "float32StorageExact": true,
+          "sha256": "bd1ad0c16a3e016958f494300e8ce6257c568ae7b7802e0f9f02e9d746d70d52",
+          "limits": [
+            114.0,
+            7387424.0,
+            550.0,
+            7958828.0,
+            238.0,
+            8253946.0
+          ]
+        },
+        {
+          "radius": 6,
+          "float32StorageExact": true,
+          "sha256": "dd790308c0bf1e651615cdd591b1ab1e87764186a6f46f5466d73183fb372ca5",
+          "limits": [
+            2009.0,
+            89727504.0,
+            2898.0,
+            101244384.0,
+            1370.0,
+            100146464.0
+          ]
+        },
+        {
+          "radius": 7,
+          "float32StorageExact": true,
+          "sha256": "079371ac578ce9fb438b5c60c9aea38ee292f351bc95e5b7bd3e23ee4c2de59d",
+          "limits": [
+            53536.0,
+            1115938048.0,
+            10224.0,
+            1306333440.0,
+            18944.0,
+            1256186112.0
+          ]
+        },
+        {
+          "radius": 8,
+          "float32StorageExact": true,
+          "sha256": "a8d425494909b348fab47d0bed2e1ec1c7a76c62d22d32eb5ae73f533728be6a",
+          "limits": [
+            1207552.0,
+            14303896576.0,
+            218112.0,
+            17098415104.0,
+            791104.0,
+            17004726272.0
+          ]
+        },
+        {
+          "radius": 9,
+          "float32StorageExact": true,
+          "sha256": "db5d3d11d6f0e6bf7ee116acea3ebd31fa08707b02328d325073d11cc6675c9c",
+          "limits": [
+            2040320.0,
+            197063442432.0,
+            3475456.0,
+            226850766848.0,
+            51200.0,
+            231829766144.0
+          ]
+        },
+        {
+          "radius": 10,
+          "float32StorageExact": true,
+          "sha256": "0e544f41bd027ab19cbf3169a3c7a6de89028c2e6f740827b6c4f9e21de0c0b5",
+          "limits": [
+            55595008.0,
+            2719237537792.0,
+            32702464.0,
+            3097882001408.0,
+            1179648.0,
+            3268449402880.0
+          ]
+        },
+        {
+          "radius": 11,
+          "float32StorageExact": true,
+          "sha256": "caa68f50e23c47ad9a8151f369c2081ee6f050e1b5491f7aa9e29958dc037793",
+          "limits": [
+            39845888.0,
+            37661087629312.0,
+            336543744.0,
+            42989032308736.0,
+            1561329664.0,
+            45873694244864.0
+          ]
+        },
+        {
+          "radius": 12,
+          "float32StorageExact": true,
+          "sha256": "6e054fe8b168e2c3e5d34dbe5023c3a3936c6513a5cde31a544959ea550be013",
+          "limits": [
+            1518338048.0,
+            524085264121856.0,
+            23272226816.0,
+            600854851747840.0,
+            13660848128.0,
+            642248068825088.0
+          ]
+        },
+        {
+          "radius": 13,
+          "float32StorageExact": true,
+          "sha256": "95dfde15eef45a1c31b0e1d6f84ab5f70908b74fc4eeeb7a24ea87175f93d0d8",
+          "limits": [
+            170741727232.0,
+            7331263287394304.0,
+            18924699648.0,
+            8455822090698752.0,
+            25367150592.0,
+            8980732592521216.0
+          ]
+        },
+        {
+          "radius": 14,
+          "float32StorageExact": true,
+          "sha256": "959fee2a48ba0be8526a33fcd2bc196aafc78b6d4f35010a85f1b158963e0950",
+          "limits": [
+            348697657344.0,
+            1.0310610159927296e+17,
+            282394099712.0,
+            1.2051810517568717e+17,
+            1275605286912.0,
+            1.2552957609587507e+17
+          ]
+        },
+        {
+          "radius": 15,
+          "float32StorageExact": true,
+          "sha256": "fb90aef6da1f031db6fa9e4a61b2451972b11a2ea12aee2ced95599a35156f23",
+          "limits": [
+            54271206752256.0,
+            1.4578017853379707e+18,
+            16127602196480.0,
+            1.7301055981223936e+18,
+            10995116277760.0,
+            1.754832515119448e+18
+          ]
+        }
+      ]
+    }
+  ]
+}

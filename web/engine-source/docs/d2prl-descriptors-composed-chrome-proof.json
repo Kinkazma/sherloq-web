@@ -1,0 +1,412 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual verified D2PRL weights, generated RGB448 tensor through three scales, ordered WebGPU convolution and WASM helpers; no original-byte preparation, PatchMatch or final-mask claim",
+  "records": [
+    {
+      "name": "597-input",
+      "elements": 1069227,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-zm-real",
+      "elements": 4276908,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-zm-imag",
+      "elements": 4276908,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-zm-float",
+      "elements": 2408448,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-input",
+      "elements": 1119963,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-0",
+      "elements": 23736384,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-relu-0",
+      "elements": 23736384,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-3",
+      "elements": 47161472,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-relu-3",
+      "elements": 47161472,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-6",
+      "elements": 46541952,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-relu-6",
+      "elements": 46541952,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-9",
+      "elements": 22810176,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-relu-9",
+      "elements": 22810176,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-12",
+      "elements": 11405088,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-float",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-input",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-zm-real",
+      "elements": 2408448,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-zm-imag",
+      "elements": 2408448,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-zm-float",
+      "elements": 2408448,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-input",
+      "elements": 640332,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-0",
+      "elements": 13542400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-relu-0",
+      "elements": 13542400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-3",
+      "elements": 26849792,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-relu-3",
+      "elements": 26849792,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-6",
+      "elements": 26382848,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-relu-6",
+      "elements": 26382848,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-9",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-relu-9",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-12",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-float",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-input",
+      "elements": 266412,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-zm-real",
+      "elements": 1065648,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-zm-imag",
+      "elements": 1065648,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-zm-float",
+      "elements": 2408448,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-input",
+      "elements": 292032,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-0",
+      "elements": 6150400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-relu-0",
+      "elements": 6150400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-3",
+      "elements": 12142592,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-relu-3",
+      "elements": 12142592,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-6",
+      "elements": 11829248,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-relu-6",
+      "elements": 11829248,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-9",
+      "elements": 5683456,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-relu-9",
+      "elements": 5683456,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-12",
+      "elements": 2841728,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-float",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "combined-zm-half",
+      "elements": 7225344,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "combined-cnn-half",
+      "elements": 19267584,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    }
+  ],
+  "functionalMs": 16433.299999998882,
+  "peakAccountedBytes": 1409607680,
+  "allReservationsReleased": true,
+  "browser": "154.0.8037.58",
+  "sources": {
+    "experiments/d2prl/descriptors.js": "7763494b4bf0ae9f41bc419aef46f9c4f087fdc11e562cb81bbb284f50a1476e",
+    "experiments/d2prl/feature-math.js": "5abda2400abfd64d342706261cd8e6cda3f1b7a55b130c6c857c3c9ab2c38f42",
+    "experiments/d2prl/convolution-gpu.js": "814a87ada9acc5ec855a25cd76aa085af6f37456c4b08d31b720e001caefba42",
+    "fixtures/d2prl/gemm-layout-all.json": "be0d9c450af018b1d605a1d4c102716d2f9a01ba88afa3b1217907ed96184eea"
+  },
+  "mathBuild": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sources": {
+      "feature-math.cpp": "783ee56177651072361971e9b303f822ff9d16ca42de7326d9bd8ea6cda89548",
+      "resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d"
+    },
+    "files": {
+      "feature-math.js": {
+        "bytes": 7869,
+        "sha256": "bd7ba0e57605fba924c05cec583b4683efec0d17e78029368baa678645640717"
+      },
+      "feature-math.wasm": {
+        "bytes": 9735,
+        "sha256": "7a6f800fa4ae9762ab4c50b7cefbf9b8984799b478926ddac7db62bc22832d13"
+      }
+    }
+  },
+  "referenceSha256": "5b208a2f3d6268cfba11efe02f7b47de76e3d19c65b5db9766502503d63e0ed6"
+}

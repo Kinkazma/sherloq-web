@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1600,
+    1100
+  ],
+  "budgetBytes": 536870912,
+  "standalone": {
+    "workers": 4,
+    "completedStripJobs": 144,
+    "preflightExecutions": 0,
+    "policy": "immediate-useful-work",
+    "residualSha256": "42daef2416fc34d3ec1877fd9871e50aacf3ec12c8dd9ec9334ba3e096d4eac8",
+    "noisePower": 0.007773203461847316,
+    "memory": {
+      "budgetBytes": 536870912,
+      "retainedBytes": 0,
+      "cacheBytes": 1453920,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 242294640
+    }
+  },
+  "public": {
+    "workers": 4,
+    "completedStripJobs": 144,
+    "preflightExecutions": 0,
+    "policy": "immediate-useful-work",
+    "residualCached": false,
+    "totalMs": 3601.7000000029802,
+    "temporaryBackend": null,
+    "cache": {
+      "residual": false
+    },
+    "memory": {
+      "budgetBytes": 536870912,
+      "retainedBytes": 19401503,
+      "cacheBytes": 0,
+      "activeReservationBytes": 36110336,
+      "peakAccountedBytes": 335516319
+    }
+  },
+  "cached": {
+    "workers": 1,
+    "completedStripJobs": 0,
+    "preflightExecutions": 0,
+    "policy": "immediate-useful-work",
+    "residualCached": true,
+    "totalMs": 1.7999999970197678,
+    "temporaryBackend": null,
+    "cache": {
+      "residual": true
+    },
+    "memory": {
+      "budgetBytes": 536870912,
+      "retainedBytes": 19401503,
+      "cacheBytes": 0,
+      "activeReservationBytes": 36110336,
+      "peakAccountedBytes": 335516319
+    }
+  },
+  "scores": [
+    [
+      "camera_beta",
+      -0.014160083604236486
+    ],
+    [
+      "camera_alpha",
+      -0.015689198941289142
+    ]
+  ],
+  "storageArtifactsRemaining": 0
+}

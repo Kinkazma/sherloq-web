@@ -1,0 +1,462 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual common worker under declared budget;96MP global equalization/sharpen/Otsu and12.61MP CLAHE/HSV/LUT/Otsu. Four native whole RGB hashes and global thresholds. Original stage order, true halos, owned RAM/temporary surfaces, JSON and cancellation/reload; CPU workers admitted under the shared budget. Functional timings, not a speed comparison.",
+  "nativeSources": {
+    "source/gui/sherloq_app/core/adjust.py": "22ec57d31a06e7b2285bc020cd182bf6a3fa74f9176653fa5b62a18b1cc9d299"
+  },
+  "loads": [
+    {
+      "name": "large",
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "loadMs": 2165.9000000059605,
+      "metrics": {
+        "decodeMs": 1763.1999999955297,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "memory",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "temporaryBytes": 0,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 2119.89999999851,
+        "memory": {
+          "budgetBytes": 805306368,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 417005192
+        }
+      },
+      "sha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254"
+    },
+    {
+      "name": "asymmetric",
+      "dimensions": [
+        4099,
+        3077
+      ],
+      "loadMs": 261.3999999985099,
+      "metrics": {
+        "decodeMs": 204.19999999552965,
+        "rowsPerChunk": 341,
+        "encodedWorkingBytes": 11338359,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 111933434,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "memory",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "temporaryBytes": 0,
+        "originalBlobBytes": 11338359,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 261.19999999552965,
+        "memory": {
+          "budgetBytes": 805306368,
+          "retainedBytes": 37837869,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 743959488
+        }
+      },
+      "sha256": "6e1f7631beac461679fa598731c5cc635e8ff112c9912db8a4f25dcb8e083eb0"
+    }
+  ],
+  "cases": [
+    {
+      "source": "large",
+      "params": {
+        "brightness": 23,
+        "saturation": -17,
+        "hue": 180,
+        "gamma": 11,
+        "shadows": -25,
+        "highlights": 30,
+        "sweep": 127,
+        "width": 255,
+        "sharpen": 20,
+        "threshold": 255,
+        "equalize": 1,
+        "invert": false
+      },
+      "fullSha256": "acc5ffdf72724c704d1bedde1f9fb20ca62c4949139a1775e6076b9883c001d2",
+      "rpcMs": 7308.89999999851,
+      "metrics": {
+        "analysisCacheHit": false,
+        "prefixCacheStored": false,
+        "prefixCacheBytes": 0,
+        "cacheWriteMs": 0,
+        "totalMs": 7308.29999999702,
+        "readMs": 632.2999999597669,
+        "localMs": 12602.200000070035,
+        "histogramMs": 291.29999995976686,
+        "equalizeMs": 2320.89999999851,
+        "finishMs": 0,
+        "writeMs": 314.80000004172325,
+        "filterWallMs": 4965.89999999851,
+        "workers": 4,
+        "workerJobs": 381,
+        "dispatchAccountedBytes": 668687776,
+        "sourceReads": 381,
+        "blocks": 381,
+        "rowsPerBlock": 21,
+        "haloRows": 5,
+        "clahePaddedSize": null,
+        "otsuThreshold": null,
+        "storage": "temporary",
+        "arithmeticHeapCapacityBytes": 268435456,
+        "retainedResultBytes": 288000000,
+        "scheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "retry": null
+        },
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "cache": {
+          "result": false,
+          "analysis": false,
+          "view": false
+        },
+        "memory": {
+          "budgetBytes": 805306368,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 673187776
+        }
+      }
+    },
+    {
+      "source": "large",
+      "params": {
+        "brightness": 0,
+        "saturation": 0,
+        "hue": 0,
+        "gamma": 10,
+        "shadows": 0,
+        "highlights": 0,
+        "sweep": 127,
+        "width": 255,
+        "sharpen": 100,
+        "threshold": 0,
+        "equalize": 0,
+        "invert": false
+      },
+      "fullSha256": "a390606bda9a8cf6478edf52edebf18330545e850503d71cbc587c136a925235",
+      "rpcMs": 31865.5,
+      "metrics": {
+        "analysisCacheHit": false,
+        "prefixCacheStored": false,
+        "prefixCacheBytes": 0,
+        "cacheWriteMs": 0,
+        "totalMs": 31865.5,
+        "readMs": 673.0000000074506,
+        "localMs": 105210.69999992102,
+        "histogramMs": 186.20000007748604,
+        "equalizeMs": 0,
+        "finishMs": 3668.2999999970198,
+        "writeMs": 316.7999999374151,
+        "filterWallMs": 28176,
+        "workers": 4,
+        "workerJobs": 381,
+        "dispatchAccountedBytes": 733699488,
+        "sourceReads": 381,
+        "blocks": 381,
+        "rowsPerBlock": 21,
+        "haloRows": 25,
+        "clahePaddedSize": null,
+        "otsuThreshold": 127,
+        "storage": "temporary",
+        "arithmeticHeapCapacityBytes": 335544320,
+        "retainedResultBytes": 288000000,
+        "scheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "retry": null
+        },
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "cache": {
+          "result": false,
+          "analysis": false,
+          "view": false
+        },
+        "memory": {
+          "budgetBytes": 805306368,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 743959488
+        }
+      }
+    },
+    {
+      "source": "asymmetric",
+      "params": {
+        "brightness": 15,
+        "saturation": 30,
+        "hue": 90,
+        "gamma": 13,
+        "shadows": -10,
+        "highlights": 15,
+        "sweep": 113,
+        "width": 211,
+        "sharpen": 28,
+        "threshold": 0,
+        "equalize": 4,
+        "invert": true
+      },
+      "fullSha256": "2891e12476042b55e3c2bb8c5cdcd901edcc773303da235306f3721ab6e311c6",
+      "rpcMs": 1433.7999999970198,
+      "metrics": {
+        "analysisCacheHit": false,
+        "prefixCacheStored": true,
+        "prefixCacheBytes": 37839309,
+        "cacheWriteMs": 3.5,
+        "totalMs": 1433.6999999955297,
+        "readMs": 74.39999999850988,
+        "localMs": 1712.8999999836087,
+        "histogramMs": 30.600000001490116,
+        "equalizeMs": 422.59999999403954,
+        "finishMs": 397.80000000447035,
+        "writeMs": 4.300000004470348,
+        "filterWallMs": 611.5,
+        "workers": 4,
+        "workerJobs": 49,
+        "dispatchAccountedBytes": 561437672,
+        "sourceReads": 49,
+        "blocks": 49,
+        "rowsPerBlock": 63,
+        "haloRows": 7,
+        "clahePaddedSize": [
+          4104,
+          3080
+        ],
+        "otsuThreshold": 162,
+        "storage": "memory",
+        "arithmeticHeapCapacityBytes": 335544320,
+        "retainedResultBytes": 37837869,
+        "scheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "retry": null
+        },
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "cache": {
+          "result": false,
+          "analysis": false,
+          "view": false
+        },
+        "memory": {
+          "budgetBytes": 805306368,
+          "retainedBytes": 75675738,
+          "cacheBytes": 37839309,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 743959488
+        }
+      }
+    },
+    {
+      "source": "asymmetric",
+      "params": {
+        "brightness": 0,
+        "saturation": 0,
+        "hue": 0,
+        "gamma": 10,
+        "shadows": 0,
+        "highlights": 0,
+        "sweep": 127,
+        "width": 255,
+        "sharpen": 0,
+        "threshold": 255,
+        "equalize": 5,
+        "invert": false
+      },
+      "fullSha256": "6a3a7e4edcf6f9388b1744089092ae61c9197642630580232c115074fef09924",
+      "rpcMs": 632.1000000014901,
+      "metrics": {
+        "analysisCacheHit": false,
+        "prefixCacheStored": true,
+        "prefixCacheBytes": 37839309,
+        "cacheWriteMs": 4.099999971687794,
+        "totalMs": 632,
+        "readMs": 72.5,
+        "localMs": 164.39999996125698,
+        "histogramMs": 26.600000023841858,
+        "equalizeMs": 435.19999999552965,
+        "finishMs": 0,
+        "writeMs": 3.8999999910593033,
+        "filterWallMs": 195.70000000298023,
+        "workers": 4,
+        "workerJobs": 49,
+        "dispatchAccountedBytes": 637114850,
+        "sourceReads": 49,
+        "blocks": 49,
+        "rowsPerBlock": 63,
+        "haloRows": 0,
+        "clahePaddedSize": [
+          4104,
+          3080
+        ],
+        "otsuThreshold": null,
+        "storage": "memory",
+        "arithmeticHeapCapacityBytes": 335544320,
+        "retainedResultBytes": 37837869,
+        "scheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "retry": null
+        },
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "cache": {
+          "result": false,
+          "analysis": false,
+          "view": false
+        },
+        "memory": {
+          "budgetBytes": 805306368,
+          "retainedBytes": 113513607,
+          "cacheBytes": 75678618,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 743959488
+        }
+      }
+    }
+  ],
+  "exportBytes": 2447,
+  "cancellation": "storage-closed-before-worker-termination",
+  "cancellationMs": 10.700000002980232,
+  "retry": {
+    "analysisCacheHit": false,
+    "prefixCacheStored": true,
+    "prefixCacheBytes": 37839309,
+    "cacheWriteMs": 4.000000014901161,
+    "totalMs": 596.8999999985099,
+    "readMs": 77.00000001490116,
+    "localMs": 184.50000000745058,
+    "histogramMs": 38.30000001192093,
+    "equalizeMs": 380.70000000298023,
+    "finishMs": 0,
+    "writeMs": 4.099999986588955,
+    "filterWallMs": 203.30000000447035,
+    "workers": 4,
+    "workerJobs": 49,
+    "dispatchAccountedBytes": 407559144,
+    "sourceReads": 49,
+    "blocks": 49,
+    "rowsPerBlock": 63,
+    "haloRows": 0,
+    "clahePaddedSize": [
+      4104,
+      3080
+    ],
+    "otsuThreshold": null,
+    "storage": "memory",
+    "arithmeticHeapCapacityBytes": 268435456,
+    "retainedResultBytes": 37837869,
+    "scheduling": {
+      "count": 4,
+      "maximum": 4,
+      "ceiling": 4,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "taskExecutions": 1,
+      "retry": null
+    },
+    "temporaryBackend": null,
+    "temporaryFallback": null,
+    "cache": {
+      "result": false,
+      "analysis": false,
+      "view": false
+    },
+    "memory": {
+      "budgetBytes": 805306368,
+      "retainedBytes": 75675738,
+      "cacheBytes": 37839309,
+      "activeReservationBytes": 16777216,
+      "peakAccountedBytes": 410670285
+    }
+  },
+  "memory": {
+    "budgetBytes": 805306368,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 410670285,
+    "knownHeapCapacityBytes": 83886080
+  },
+  "storageArtifactsRemaining": 0,
+  "engineOptions": {
+    "memoryBudgetBytes": 805306368,
+    "resourceHints": {
+      "hardwareConcurrency": 4
+    }
+  },
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 743959488,
+    "finalWorkerPeakAccountedBytes": 410670285
+  },
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true,
+  "engineSources": {
+    "src/segmented-adjust.js": "0f481f24724c7bbeae87961bfe83a919a9b04c11c4e907b761281cc3b1cff9ed",
+    "src/adjust-math.js": "3c6311155a8e4cea65bc593a3b5ba384c36ca4fb6bfa0531fb943780e95a2c46",
+    "src/adjust-stage.js": "270d6d5b77ddd4e997dd246b1e631ca6b4a3305ff83c58b8cc556a3e7087062e",
+    "src/adjust-worker.js": "7794c4feefa5c01e864465ed4b552a434db3abad3fb57f39855258d5af82e38a",
+    "src/adjust-workers.js": "c1f5c68dd58bc8e97a6d8da12c9d2178c1f765353e5d82702838f965f84f0668",
+    "src/row-workers.js": "4ef07747bbe89e5d2b822ea32f06cac13958a338eb607918a162519a15ade34d",
+    "vendor/adjust/adjust.wasm": "3344196f97f89477ae7e6fd8fbdfd4afc76de7aaa7a31f743e71bb79daf7bba5",
+    "src/pixel-utils.js": "7b07b0492932cf472ed3cccbc30cf22e6962182d6cf56b61944c36219a890df8",
+    "src/exports.js": "1e503bd5ccf2f73f899ecc57b1add3a65d1f4a7d2ba8862b15feb4fe75e5525c",
+    "src/index.js": "075e72e00fc45e2d59c0a47e7047273deaa9c00d6ee8e7ae2c4026d43b53938c"
+  },
+  "recipeSources": {
+    "scripts/proof-memory.mjs": "8961fbe1092bdcc16c3991e04e9e60118ba28e232ec7a5bac86596fe1942654c",
+    "scripts/generate-large-adjust.py": "530c37bd1614f19fe3f9492509f064a9a1cbfd6dc1ae1b98fdd9834b5effc95a",
+    "scripts/study-segmented-adjust.mjs": "ad4b0cd8b8bf1fd82ead08273465881c87e971a8164971a013da696ae282a7c3",
+    "tests/segmented-adjust-browser.js": "ee977439b35865a6dd3724fd4710471a7fcf1b7e0916cda11b12761751f0318f"
+  }
+}

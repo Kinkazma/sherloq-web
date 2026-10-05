@@ -1,0 +1,55 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "name": "brisk-copy-0",
+      "matches": true,
+      "groupLengths": true,
+      "groupIndices": true,
+      "rgb": true
+    },
+    {
+      "name": "brisk-copy-1",
+      "matches": true,
+      "groupLengths": true,
+      "groupIndices": true,
+      "rgb": true
+    },
+    {
+      "name": "brisk-masked-0",
+      "matches": true,
+      "groupLengths": true,
+      "groupIndices": true,
+      "rgb": true
+    },
+    {
+      "name": "brisk-masked-1",
+      "matches": true,
+      "groupLengths": true,
+      "groupIndices": true,
+      "rgb": true
+    },
+    {
+      "name": "brisk-empty-0",
+      "matches": true,
+      "groupLengths": true,
+      "groupIndices": true,
+      "rgb": true
+    },
+    {
+      "name": "brisk-flat-0",
+      "matches": true,
+      "groupLengths": true,
+      "groupIndices": true,
+      "rgb": true
+    }
+  ],
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 255164440,
+    "knownHeapCapacityBytes": 83886080
+  }
+}

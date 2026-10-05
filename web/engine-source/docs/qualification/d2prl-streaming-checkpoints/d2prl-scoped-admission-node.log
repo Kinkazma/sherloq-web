@@ -1,0 +1,256 @@
+TAP version 13
+# Subtest: general GPU convolution admits its entire useful peak before splitting ownership
+ok 1 - general GPU convolution admits its entire useful peak before splitting ownership
+  ---
+  duration_ms: 8.822042
+  type: 'test'
+  ...
+# Subtest: ordered GPU convolution admits its entire useful peak before splitting ownership
+ok 2 - ordered GPU convolution admits its entire useful peak before splitting ownership
+  ---
+  duration_ms: 1.3265
+  type: 'test'
+  ...
+# Subtest: mapped GPU output survives engine disposal without a copied backing and releases idempotently
+ok 3 - mapped GPU output survives engine disposal without a copied backing and releases idempotently
+  ---
+  duration_ms: 0.792208
+  type: 'test'
+  ...
+# Subtest: one owned GPU output feeds another convolution and device lifetime covers every outstanding result
+ok 4 - one owned GPU output feeds another convolution and device lifetime covers every outstanding result
+  ---
+  duration_ms: 2.081708
+  type: 'test'
+  ...
+# Subtest: mapping and range recovery preserve the completed dispatch and release its transient resources before reclaim
+ok 5 - mapping and range recovery preserve the completed dispatch and release its transient resources before reclaim
+  ---
+  duration_ms: 14.201041
+  type: 'test'
+  ...
+# Subtest: cancellation after mapping frees unpublished output and does not keep a device lease
+ok 6 - cancellation after mapping frees unpublished output and does not keep a device lease
+  ---
+  duration_ms: 7.5685
+  type: 'test'
+  ...
+# Subtest: D2 policy refusal requests admission credit with 0 bytes of its own returned prefix
+ok 7 - D2 policy refusal requests admission credit with 0 bytes of its own returned prefix
+  ---
+  duration_ms: 10.183
+  type: 'test'
+  ...
+# Subtest: D2 policy refusal requests admission credit with 128 bytes of its own returned prefix
+ok 8 - D2 policy refusal requests admission credit with 128 bytes of its own returned prefix
+  ---
+  duration_ms: 1.275667
+  type: 'test'
+  ...
+# Subtest: feature admission includes borrowed inputs and native heap growth atomically
+ok 9 - feature admission includes borrowed inputs and native heap growth atomically
+  ---
+  duration_ms: 4.0015
+  type: 'test'
+  ...
+# Subtest: neural admission includes borrowed inputs and native heap growth atomically
+ok 10 - neural admission includes borrowed inputs and native heap growth atomically
+  ---
+  duration_ms: 14.807875
+  type: 'test'
+  ...
+# Subtest: prepare admission includes borrowed inputs and native heap growth atomically
+ok 11 - prepare admission includes borrowed inputs and native heap growth atomically
+  ---
+  duration_ms: 1.934083
+  type: 'test'
+  ...
+# Subtest: D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+ok 12 - D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+  ---
+  duration_ms: 60.620625
+  type: 'test'
+  ...
+# Subtest: five failures without progress stop locally while more separated incidents remain recoverable
+ok 13 - five failures without progress stop locally while more separated incidents remain recoverable
+  ---
+  duration_ms: 17.786
+  type: 'test'
+  ...
+# Subtest: feature copy recovery retains completed native work and releases all ownership
+ok 14 - feature copy recovery retains completed native work and releases all ownership
+  ---
+  duration_ms: 5.793542
+  type: 'test'
+  ...
+# Subtest: cancelled local recovery immediately releases pressure and does not retry
+ok 15 - cancelled local recovery immediately releases pressure and does not retry
+  ---
+  duration_ms: 0.671375
+  type: 'test'
+  ...
+# Subtest: two evaluator lanes refusing every useful tile stop without leaking work or pressure
+ok 16 - two evaluator lanes refusing every useful tile stop without leaking work or pressure
+  ---
+  duration_ms: 9.118208
+  type: 'test'
+  ...
+# Subtest: concurrent useful tiles do not combine independent first refusals into a loop
+ok 17 - concurrent useful tiles do not combine independent first refusals into a loop
+  ---
+  duration_ms: 6.471584
+  type: 'test'
+  ...
+# Subtest: guarded stages retain dynamic getters and original method ownership
+ok 18 - guarded stages retain dynamic getters and original method ownership
+  ---
+  duration_ms: 0.198875
+  type: 'test'
+  ...
+# Subtest: a refused optional evaluator preserves the ready pool and grows again after external release
+ok 19 - a refused optional evaluator preserves the ready pool and grows again after external release
+  ---
+  duration_ms: 1.70875
+  type: 'test'
+  ...
+# Subtest: parameter digest recovery retains already fetched useful model bytes
+ok 20 - parameter digest recovery retains already fetched useful model bytes
+  ---
+  duration_ms: 32.035542
+  type: 'test'
+  ...
+# Subtest: cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+ok 21 - cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+  ---
+  duration_ms: 0.813959
+  type: 'test'
+  ...
+# Subtest: evaluator null retires only its worker and resumes the same tile
+ok 22 - evaluator null retires only its worker and resumes the same tile
+  ---
+  duration_ms: 53.372708
+  type: 'test'
+  ...
+# Subtest: evaluator messageerror retires only its worker and resumes the same tile
+ok 23 - evaluator messageerror retires only its worker and resumes the same tile
+  ---
+  duration_ms: 16.871542
+  type: 'test'
+  ...
+# Subtest: evaluator endpoint retires only its worker and resumes the same tile
+ok 24 - evaluator endpoint retires only its worker and resumes the same tile
+  ---
+  duration_ms: 25.975209
+  type: 'test'
+  ...
+# Subtest: evaluator wrong-id retires only its worker and resumes the same tile
+ok 25 - evaluator wrong-id retires only its worker and resumes the same tile
+  ---
+  duration_ms: 8.225709
+  type: 'test'
+  ...
+# Subtest: five unreadable evaluator attempts stop locally with no orphaned scheduler lease
+ok 26 - five unreadable evaluator attempts stop locally with no orphaned scheduler lease
+  ---
+  duration_ms: 10.761625
+  type: 'test'
+  ...
+# Subtest: cancellation after unreadable evaluator data cannot recreate the failed worker
+ok 27 - cancellation after unreadable evaluator data cannot recreate the failed worker
+  ---
+  duration_ms: 1.650541
+  type: 'test'
+  ...
+# Subtest: optional evaluator bootstrap retries transport without reducing the healthy pool
+ok 28 - optional evaluator bootstrap retries transport without reducing the healthy pool
+  ---
+  duration_ms: 1.710291
+  type: 'test'
+  ...
+# Subtest: CPU convolution reuses an admitted arena output at exact remaining input and copy credit
+ok 29 - CPU convolution reuses an admitted arena output at exact remaining input and copy credit
+  ---
+  duration_ms: 52.659417
+  type: 'test'
+  ...
+# Subtest: CPU convolution retry includes retired previous-worker credit but not a retained arena bank
+ok 30 - CPU convolution retry includes retired previous-worker credit but not a retained arena bank
+  ---
+  duration_ms: 21.862834
+  type: 'test'
+  ...
+# Subtest: CPU convolution null preserves completed tiles and worker capacity
+ok 31 - CPU convolution null preserves completed tiles and worker capacity
+  ---
+  duration_ms: 25.956375
+  type: 'test'
+  ...
+# Subtest: CPU convolution messageerror preserves completed tiles and worker capacity
+ok 32 - CPU convolution messageerror preserves completed tiles and worker capacity
+  ---
+  duration_ms: 21.339042
+  type: 'test'
+  ...
+# Subtest: CPU convolution endpoint preserves completed tiles and worker capacity
+ok 33 - CPU convolution endpoint preserves completed tiles and worker capacity
+  ---
+  duration_ms: 24.739208
+  type: 'test'
+  ...
+# Subtest: unreadable convolution clear retains completed output and recreates only the idle slot on next layer
+ok 34 - unreadable convolution clear retains completed output and recreates only the idle slot on next layer
+  ---
+  duration_ms: 38.792459
+  type: 'test'
+  ...
+# Subtest: spatial transport retry retires its lease before retry and preserves input
+ok 35 - spatial transport retry retires its lease before retry and preserves input
+  ---
+  duration_ms: 2.840125
+  type: 'test'
+  ...
+# Subtest: bounded roles transport retry preserves prior inputs and releases each failed worker
+ok 36 - bounded roles transport retry preserves prior inputs and releases each failed worker
+  ---
+  duration_ms: 3.357792
+  type: 'test'
+  ...
+# Subtest: postprocess retries unreadable transport after retiring its workspace
+ok 37 - postprocess retries unreadable transport after retiring its workspace
+  ---
+  duration_ms: 6.893667
+  type: 'test'
+  ...
+# Subtest: evaluator terminal upload drains a companion retry before releasing shared buffers
+ok 38 - evaluator terminal upload drains a companion retry before releasing shared buffers
+  ---
+  duration_ms: 1.672708
+  type: 'test'
+  ...
+# Subtest: convolution terminal upload drains a companion retry before releasing shared buffers
+ok 39 - convolution terminal upload drains a companion retry before releasing shared buffers
+  ---
+  duration_ms: 1.236292
+  type: 'test'
+  ...
+# Subtest: five unreadable convolution tiles stop without reducing future configured parallelism or orphaning CPU
+ok 40 - five unreadable convolution tiles stop without reducing future configured parallelism or orphaning CPU
+  ---
+  duration_ms: 11.988125
+  type: 'test'
+  ...
+# Subtest: role child backing ledger is covered by the existing lease and follows growth, release and cancellation
+ok 41 - role child backing ledger is covered by the existing lease and follows growth, release and cancellation
+  ---
+  duration_ms: 5.019917
+  type: 'test'
+  ...
+1..41
+# tests 41
+# suites 0
+# pass 41
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 447.771042

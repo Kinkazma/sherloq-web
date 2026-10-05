@@ -1,0 +1,178 @@
+{
+  "passed": true,
+  "scope": "Public worker regression: actual50MP contiguous JPEG load, full native DCT evidence, own IndexedDB fallback, cache and full JSON after unload. Shared coefficient arithmetic/memory96MP proofs remain separate.",
+  "source": {
+    "id": "i",
+    "width": 10000,
+    "height": 5000,
+    "format": "rgb8",
+    "surface": {
+      "id": "d3fdad1f-3a51-4ad3-9b36-aed136f40f52",
+      "revision": 1,
+      "width": 10000,
+      "height": 5000,
+      "format": "rgb8",
+      "sourceWidth": 10000,
+      "sourceHeight": 5000,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "sha256": "c43de7f4a01a7cfb93e2681f4c0cd16c7dce773e995fb4c311c219692a631dc1",
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        10000,
+        5000
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "file": {
+      "name": null,
+      "declaredMimeType": "application/octet-stream",
+      "lastModified": null,
+      "origin": null
+    },
+    "availableOperations": [
+      "analysis.complete",
+      "analysis.clones",
+      "ela.classic",
+      "ela.biomes",
+      "ela.energy",
+      "metadata.exiftool",
+      "metadata.c2pa",
+      "metadata.structure",
+      "metadata.location",
+      "metadata.thumbnail",
+      "file.hex",
+      "colors.pca",
+      "colors.space",
+      "noise.separation",
+      "detail.gradient",
+      "inspection.adjust",
+      "detail.echo",
+      "subimages.detect",
+      "tampering.copyMove.brisk",
+      "tampering.copyMove.akaze",
+      "tampering.copyMove.orb",
+      "tampering.resampling",
+      "tampering.resampling.fourier",
+      "various.median",
+      "noise.noisesniffer",
+      "noise.prnu",
+      "comparison.image",
+      "detail.frequency",
+      "noise.blocking",
+      "detail.wavelets",
+      "colors.plots",
+      "file.digest",
+      "inspection.magnifier",
+      "various.illuminant",
+      "tampering.contrast",
+      "various.stereogram",
+      "jpeg.zero",
+      "jpeg.ghosts",
+      "jpeg.multiple",
+      "jpeg.recompression",
+      "jpeg.quality",
+      "inspection.histogram",
+      "colors.stats",
+      "noise.planes",
+      "noise.minmax",
+      "pixels.defects",
+      "tampering.copyMove.sparse",
+      "ai.sources.safire",
+      "ai.localization.focal",
+      "ai.localization.adaifl",
+      "ai.clones.d2prl",
+      "ai.clones.segmentation"
+    ],
+    "metrics": {
+      "storage": "memory",
+      "path": "existing-full-memory",
+      "originalBlobBytes": 2165657,
+      "preparationMs": 275.3999999910593,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 152165657,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1240051403
+      }
+    }
+  },
+  "budgetBytes": 2147483648,
+  "metrics": {
+    "kernel": "libjpeg-global-coefficients-paged",
+    "heapCapacityBytes": 16777216,
+    "heapMaximumBytes": 67108864,
+    "coefficientCacheBytes": 8388608,
+    "encodedReadBytes": 2165657,
+    "maxEncodedReadBytes": 65536,
+    "coefficientStores": 3,
+    "temporaryPeakBytes": 150240000,
+    "coefficientReadBytes": 100160000,
+    "coefficientWriteBytes": 149120000,
+    "totalMs": 535.7999999970198,
+    "workers": 1,
+    "cache": {
+      "result": false
+    },
+    "memory": {
+      "budgetBytes": 2147483648,
+      "retainedBytes": 152165657,
+      "cacheBytes": 23328,
+      "activeReservationBytes": 182845440,
+      "peakAccountedBytes": 1240051403
+    }
+  },
+  "times": {
+    "loadMs": 514.2999999970198,
+    "analysisMs": 538.5
+  },
+  "totalMs": 1081.5,
+  "finalMemory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1240051403,
+    "knownHeapCapacityBytes": 182845440
+  },
+  "export": {
+    "bytes": 14170,
+    "sha256": "0fa3a05e47bb573214a7dd6e9a21bc652729ad344656ddb6b9e1324993d831d0",
+    "afterSourceUnload": true
+  },
+  "storageCleanup": true,
+  "engineCommit": "9d9759a0838f2e032bc79fffa1904fff306c9b3b",
+  "runtime": {
+    "sha256": "623a8996babf2ecdcb116d2ecc289b417d415275d2fc423142cf81e4b01ea277",
+    "files": 1001
+  },
+  "extra": [
+    {
+      "file": "tests/m5-dct-contiguous-browser.js",
+      "sha256": "b1b90406d3d5e4366f1350de13d46dd702f2b2dc8c409d2a5ce16f9d4f259c1b"
+    },
+    {
+      "file": "tests/dct-no-opfs-worker.js",
+      "sha256": "428e227f7ea70b1c3ace8362d27d54835df096fc8e03d4c3ebc8eb9543065714"
+    },
+    {
+      "file": "tests/source-api-browser.js",
+      "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+    },
+    {
+      "file": "docs/m5-dct-contiguous-native-reference.json",
+      "sha256": "52decb34ac25e9fb102a7b06a83dcb1eb042729b2c7cfafe52447ac61a96a017"
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile removed after qualification"
+}

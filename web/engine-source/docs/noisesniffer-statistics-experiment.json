@@ -1,0 +1,626 @@
+{
+  "schema": 1,
+  "status": "diagnostic-only",
+  "rows": [
+    {
+      "name": "tiny-3",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "tiny-5",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "tiny-7",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "tiny-8",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "random-3",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "random-5",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "random-7",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "random-8",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "constant-3",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "constant-5",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "constant-7",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "constant-8",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "ties-3",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "ties-5",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "ties-7",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "ties-8",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "gradient-3",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "gradient-5",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "gradient-7",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "gradient-8",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "flat-channel-3",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "flat-channel-5",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "flat-channel-7",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "flat-channel-8",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "patch-3",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "patch-5",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "patch-7",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "patch-8",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "stripes-3",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "stripes-5",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "stripes-7",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "stripes-8",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "small-patch-3",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "small-patch-5",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "small-patch-7",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    },
+    {
+      "name": "small-patch-8",
+      "errors": {
+        "valid": {
+          "different": 0,
+          "maximum": 0
+        },
+        "means": {
+          "different": 0,
+          "maximum": 0
+        },
+        "variance": {
+          "different": 0,
+          "maximum": 0
+        }
+      }
+    }
+  ],
+  "sorts": 96,
+  "historicalDiagnostic": true,
+  "supersededBy": [
+    "noisesniffer-chrome-proof.json",
+    "noisesniffer-firefox-proof.json",
+    "noisesniffer-webkit-proof.json",
+    "qualification-0.12.0.json"
+  ]
+}

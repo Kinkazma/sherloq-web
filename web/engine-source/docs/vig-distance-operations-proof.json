@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Seeded random and tied native VIG graph fixtures; unchanged WASM normalization, TopK, dilation and gather. GPU only computes complete ordered dot products; float32 postprocessing keeps native order. Each repeated CPU/GPU result is compared to independent native distances AND indices/gather, including tied neighbors. Timings include cooperative chunks, returned output copies, GPU layout/transfers/readback; exclude identical normalization and TopK/gather. Development observations on a shared host, no user calibration.",
+  "records": [
+    {
+      "name": "random",
+      "k": 18,
+      "dilation": 4,
+      "samples": [
+        {
+          "run": 0,
+          "order": "cpu-gpu",
+          "cpuMs": 51.29999999701977,
+          "gpuMs": 18.200000002980232,
+          "gpu": {
+            "devices": 1,
+            "allocations": 7,
+            "peakAccountedBytes": 1836104,
+            "accounting": "explicit GPU buffers; shared device with convolutions, excludes driver/compiler residency",
+            "errors": []
+          },
+          "timings": {
+            "gpuWriteBytes": 1311816,
+            "gpuReadBytes": 262144
+          }
+        },
+        {
+          "run": 1,
+          "order": "gpu-cpu",
+          "gpuMs": 12.5,
+          "cpuMs": 49.70000000298023
+        },
+        {
+          "run": 2,
+          "order": "cpu-gpu",
+          "cpuMs": 49.20000000298023,
+          "gpuMs": 15.5
+        }
+      ],
+      "distanceSha256": "ceb009ebf9c42a879aa2538f28c34e40c5db3c8e1f3106c089241b307aed9b2f",
+      "indicesSha256": "34696ccc27c13d79af2ec8b0ff67bf40695d210bc2b89a30a5d8f2ed18441456",
+      "gatherSha256": "fe0af551ad15410eec6a0aea2cd9712705f549d6dbd68cfe77046f36911efb62",
+      "nativeExact": true
+    },
+    {
+      "name": "ties",
+      "k": 15,
+      "dilation": 3,
+      "samples": [
+        {
+          "run": 0,
+          "order": "cpu-gpu",
+          "cpuMs": 49.5,
+          "gpuMs": 13,
+          "gpu": {
+            "devices": 1,
+            "allocations": 7,
+            "peakAccountedBytes": 1836104,
+            "accounting": "explicit GPU buffers; shared device with convolutions, excludes driver/compiler residency",
+            "errors": []
+          },
+          "timings": {
+            "gpuWriteBytes": 1311816,
+            "gpuReadBytes": 262144
+          }
+        },
+        {
+          "run": 1,
+          "order": "gpu-cpu",
+          "gpuMs": 4.600000008940697,
+          "cpuMs": 49.400000005960464
+        },
+        {
+          "run": 2,
+          "order": "cpu-gpu",
+          "cpuMs": 49.400000005960464,
+          "gpuMs": 9.400000005960464
+        }
+      ],
+      "distanceSha256": "10db05d43755f8ce0d355487b8b984c53e8658dba3e1d06fd881b799ae7deacd",
+      "indicesSha256": "9919c410e28100b0d9800fc893ebe7495a1d1fd870c0c95ced9f05e77b8db4a3",
+      "gatherSha256": "14a6bffa891b9ddb4c60ac5f5f48391c34ecf9aecd536890deca6c95f2f41bef",
+      "nativeExact": true
+    }
+  ],
+  "checks": {
+    "cancelAfterSubmit": true,
+    "preAbort": true,
+    "geometry": true,
+    "memory": true,
+    "retry": true
+  },
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 73536512
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-vig-distance.mjs": "517c2739daeb00657744286b0d0c11f262a480a43a88f5c3e3328bb83d041f24",
+    "tests/vig-distance-gpu-browser.js": "e9316082fd74c1eb578e1dd62dc842e393389110d78de75ddc9cdec0b8462285",
+    "experiments/segmentation/vig-convolution-gpu.js": "4ec09402f135324d6c6df46c38072061c9619c8978cfa2d1905fa6d004614f11",
+    "experiments/segmentation/vig-distance-gpu.js": "f8bc8780d796d846b06ef56e8d97be0ff441e67690e2f91c20ea755446a31bfc",
+    "vendor/segmentation/vig-math.js": "c02f70d067bca9db9fce7648b7821729da189d867dc7aa25040b26f68809b8b7",
+    "vendor/segmentation/vig-math.wasm": "654867b0121c6c082a30b6306f671feb757d1db1ef01d0008c3c23c73b600928",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "records": [
+    {
+      "width": 448,
+      "height": 176,
+      "unit": 0,
+      "values": 3145728,
+      "differences": 0,
+      "max": 0
+    },
+    {
+      "width": 448,
+      "height": 176,
+      "unit": 1,
+      "values": 3145728,
+      "differences": 0,
+      "max": 0
+    },
+    {
+      "width": 131,
+      "height": 97,
+      "unit": 0,
+      "values": 3145728,
+      "differences": 0,
+      "max": 0
+    },
+    {
+      "width": 131,
+      "height": 97,
+      "unit": 1,
+      "values": 3145728,
+      "differences": 0,
+      "max": 0
+    },
+    {
+      "width": 1537,
+      "height": 1031,
+      "unit": 0,
+      "values": 3145728,
+      "differences": 0,
+      "max": 0
+    },
+    {
+      "width": 1537,
+      "height": 1031,
+      "unit": 1,
+      "values": 3145728,
+      "differences": 0,
+      "max": 0
+    }
+  ],
+  "exact": true
+}

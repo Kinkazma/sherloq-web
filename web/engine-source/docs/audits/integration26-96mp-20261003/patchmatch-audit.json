@@ -1,0 +1,178 @@
+{
+  "sourceCommit": "77562789b0004e88be9ccd81fac3c5b8f4203816",
+  "scope": "Read-only engine audit. This directory contains only deterministic development reproductions and evidence; no runtime changes, calibration or new 96 MP launch.",
+  "run": "runtime-v2-worker-liveness-96mp-20261003T091032Z",
+  "conclusion": {
+    "established": "The shipped native/JS bridge creates a borrowed Wasm view before Asyncify allocates its unwind stack. A successful automatic memory.grow can detach that view during broker readInto. The exact production error stack is reproducible with the unchanged shipped module and real broker on 8x8 pixels.",
+    "limit": "The 96MP journal contains no per-grow or failed store-id event. The mechanism is proved and precisely matches its stack, but its individual grow event was not recorded.",
+    "writeRisk": "A separate broker test proves silent truncation when write loops read source.length after an await and source detaches. No such truncation is established in the 96MP output."
+  },
+  "nativeProof": {
+    "command": "node docs/audits/integration26-96mp-20261003/repro.mjs",
+    "output": "results.json",
+    "baselineHash": "ce929d42b13cbfa3b6a0c25f9046ad24b8870af683ed8e63c7795d198e9e1a0f",
+    "fieldPixels": 64,
+    "viewBytesBefore": 64,
+    "viewBytesAfter": 0,
+    "heapBytesBefore": 8388608,
+    "heapBytesAfter": 9437184,
+    "growthCaller": "Asyncify.allocateData -> _malloc(12 + 262144) -> _emscripten_resize_heap -> memory.grow(16)",
+    "deferredViewResult": "Pass; same output hash as baseline. This is a fixture control, not a proposed blanket production async conversion."
+  },
+  "writeProof": {
+    "command": "node docs/audits/integration26-96mp-20261003/broker-write.mjs",
+    "output": "broker-write-results.json",
+    "requestedBytes": 131072,
+    "actualCorrectBytes": 65536,
+    "returnedSuccess": true
+  },
+  "vendorHashes": {
+    "dense-paged.js": "3128c4bf9da09d2cf6f0f5da954cc01302060590258b23ef1e7d12d3f373569a",
+    "dense-paged.wasm": "ef95e53996697bda90924aaaebf9b2e93275058ddb1fbcb25d79cbbe0dc6106f",
+    "matchesRunSnapshot": true
+  },
+  "causalSources": [
+    {
+      "path": "src/dense-field-kernel-worker.js",
+      "line": 23,
+      "role": "Borrow current HEAPU8 view and pass it into storage."
+    },
+    {
+      "path": "src/portable-byte-store.js",
+      "line": 61,
+      "role": "Writable broker awaits a response and then writes through the old view."
+    },
+    {
+      "path": "native/dense-paged.cpp",
+      "line": 11,
+      "role": "page_io_start invokes JS before asynchronous unwind."
+    },
+    {
+      "path": "native/dense-paged.cpp",
+      "line": 16,
+      "role": "page_io_wait enters Asyncify after I/O has begun."
+    },
+    {
+      "path": "vendor/dense-paged/dense-paged.js",
+      "line": 1,
+      "column": 11176,
+      "role": "Asyncify.allocateData allocates its stack through malloc."
+    },
+    {
+      "path": "scripts/build-dense-paged.py",
+      "line": 8,
+      "role": "Asyncify stack262144; next line enables growable memory."
+    },
+    {
+      "path": "src/portable-byte-store.js",
+      "line": 65,
+      "role": "Write loop can terminate early after source.length becomes zero."
+    }
+  ],
+  "counterEvidence": [
+    "Heap is an unshared WebAssembly.Memory; other workers do not mutate or transfer this heap.",
+    "The failing read is on the writable broker branch, not the immutable L2 cache read branch.",
+    "The incoming Uint8Array is constructed immediately before set without another await; the destination is the retained borrowed view.",
+    "Read-only descriptor migration cannot directly detach a separate kernel linear memory; its barrier also waits for native task completion.",
+    "The minimal native reproduction has no descriptor migration, GPU or concurrent field; Asyncify alone suffices.",
+    "A simple fixed-memory safety margin is not a lifetime guarantee; allocator fragmentation and useful later allocations can consume it."
+  ],
+  "correctionArchitecture": {
+    "invariant": "No raw borrowed Wasm TypedArray may survive a possible unwind/await/grow. Retain a numeric pointer and fixed byte length, resolve a fresh view at the actual synchronous copy.",
+    "suggestedContract": "One common owned-memory-range adapter for read/write bridges. Async transports accept a renewable range or stage through a bounded accounted buffer, while synchronous resident/OPFS/cache-hit copies retain their fast path.",
+    "requirements": [
+      "Save the original intended extent; never use detached view.length as the transaction progress bound.",
+      "Refresh after every asynchronous boundary and before every byte access, for source and destination.",
+      "Keep the native allocation alive and non-reentrant until I/O completion.",
+      "Propagate storage errors and cancellation; never reinterpret lifetime errors as OOM or silently retry the entire native field.",
+      "Test actual Asyncify-induced growth, read/write across multiple chunks, synchronous paths, temporary transports, cancellation, exact native outputs."
+    ],
+    "avoid": [
+      "Making every resident byte page unconditionally asynchronous: this loses the existing sync fast path.",
+      "Increasing heap minima or keeping permanent spare RAM as the sole fix.",
+      "Catching only TypedArray.set: write truncation can succeed silently."
+    ]
+  },
+  "additionalBridgesToAudit": [
+    {
+      "path": "src/dense-paged.js",
+      "line": 85,
+      "strength": "same vendor bridge"
+    },
+    {
+      "path": "src/dense-paged-coherence.js",
+      "line": 19,
+      "strength": "same vendor bridge"
+    },
+    {
+      "path": "src/dense-paged-links.js",
+      "line": 15,
+      "strength": "same vendor bridge"
+    },
+    {
+      "path": "src/dense-paged-regions.js",
+      "line": 18,
+      "strength": "same vendor bridge"
+    },
+    {
+      "path": "src/numpy-paged-sort.js",
+      "line": 11,
+      "strength": "same vendor bridge"
+    },
+    {
+      "path": "src/dense-field-kernel-worker.js",
+      "line": 26,
+      "strength": "experimental GPU hook retains native views while awaiting staging permission; disabled by default"
+    },
+    {
+      "path": "src/jpeg-rgb-stream.js",
+      "line": 30,
+      "strength": "analogous native async storage callback; not reproduced here"
+    },
+    {
+      "path": "src/jpeg-gray-stream-kernel.js",
+      "line": 7,
+      "strength": "analogous native async storage callback; not reproduced here"
+    },
+    {
+      "path": "src/jpeg-dct-paged.js",
+      "line": 23,
+      "strength": "analogous native async storage callback; not reproduced here"
+    },
+    {
+      "path": "src/comparison-paged-butteraugli.js",
+      "line": 11,
+      "strength": "analogous native async storage callback; not reproduced here"
+    },
+    {
+      "path": "src/comparison-paged-sewar.js",
+      "line": 11,
+      "strength": "analogous native async storage callback; not reproduced here"
+    },
+    {
+      "path": "src/comparison-paged-histograms.js",
+      "line": 7,
+      "strength": "analogous native async storage callback; not reproduced here"
+    }
+  ],
+  "latentPortProtocolRisk": {
+    "status": "Confirmed in an isolated real MessageChannel fixture; not observed or established as a cause of the 96MP failure.",
+    "command": "node .build/dense-asyncify-view-audit/port-null.mjs",
+    "files": [
+      "port-null.mjs",
+      "port-null-results.json"
+    ],
+    "owner": {
+      "source": "src/portable-byte-store.js:24-34",
+      "mechanism": "A null request throws while destructuring data. The catch dereferences data.id again, and tail.catch(()=>{}) swallows this second TypeError. No response or terminal endpoint failure is published.",
+      "proof": "A subsequent ordered read marker id999 returns [41,42,43,44], proving the owner queue advanced, while the original id1 read remains pending."
+    },
+    "reader": {
+      "source": "src/portable-byte-store.js:56",
+      "mechanism": "A null reply throws on data.id before resolving or rejecting any pending request.",
+      "proof": "The fixture captures TypeError at portable-byte-store.js:56:56 and receives a subsequent ordered marker, while the original read remains pending."
+    },
+    "cleanup": "Both pending reads reject CANCELLED only when the fixture explicitly disposes their reader. All ports are closed. A 1000ms fixture-only watchdog bounds cleanup/markers; success is based on ordered barriers rather than waiting for a timeout.",
+    "architecturalImplication": "Worker envelope guards alone do not cover MessagePort RPC. A shared channel contract should validate both envelope directions, observe async handler failures, poison an unreadable endpoint once, and reject every pending call; unknown/null request ids cannot be replied to individually. Include messageerror, close/cancel, postMessage failure and peer shutdown. Do not classify opaque transport errors as allocator failures."
+  }
+}

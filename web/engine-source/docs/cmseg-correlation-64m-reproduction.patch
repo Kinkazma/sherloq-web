@@ -1,0 +1,106 @@
+--- a/experiments/segmentation/cmseg-correlation-gpu.js
++++ b/experiments/segmentation/cmseg-correlation-gpu.js
+@@ -17,7 +17,7 @@
+       try{
+         admitted=budget.reserve(3*input.byteLength+16*n+rowsPerJob*(c+1)*4);release=budget.reserve(4*k*n);
+         const tileBytes=rowsPerJob*n*4,weightsBytes=rowsPerJob*c*4,biasBytes=rowsPerJob*4;
+-        const gpuHeadroom=2*(input.byteLength+weightsBytes+biasBytes)+3*tileBytes+2048+2*1024**2,perWorker=32*1024**2+2*input.byteLength+2*tileBytes+8*k*rowsPerJob;
++        const gpuHeadroom=2*(input.byteLength+weightsBytes+biasBytes)+3*tileBytes+2048+2*1024**2,perWorker=64*1024**2+2*input.byteLength+2*tileBytes+8*k*rowsPerJob;
+         budget.room(perWorker+gpuHeadroom);const count=Math.min(maxWorkers,Math.ceil(n/rowsPerJob),Math.floor((budget.limit-budget.total()+(parameterCache?.bytes??0)-gpuHeadroom)/perWorker));
+         if(count<1)throw new EngineError('MEMORY_LIMIT','No correlation postprocess worker fits');parameterCache?.reclaim(count*perWorker+gpuHeadroom);
+         const maxima=new Float32Array(n),inverse=new Float32Array(2*n),output=new Float32Array(k*n);let normalized;
+@@ -53,7 +53,7 @@
+           if(phase==='statistics')await Promise.all(workers.map(entry=>call(entry,{type:'distribute',maxima,inverse})));checkAbort(signal);
+         }
+         requireValue(output.every(Number.isFinite),'Finite GPU correlation output');complete=true;
+-        return{data:output,shape:[1,k,h,w],workers:count,heapMaximumBytes:32*1024**2,observedHeapBytes:peakHeap,gpu:{devices:1,allocations:gpuAllocations,peakAccountedBytes:gpuPeak,accounting:'explicit GPU buffers, excludes driver/compiler residency',errors:[]},timings:{gpuWriteBytes,gpuReadBytes},release};
++        return{data:output,shape:[1,k,h,w],workers:count,heapMaximumBytes:64*1024**2,observedHeapBytes:peakHeap,gpu:{devices:1,allocations:gpuAllocations,peakAccountedBytes:gpuPeak,accounting:'explicit GPU buffers, excludes driver/compiler residency',errors:[]},timings:{gpuWriteBytes,gpuReadBytes},release};
+       }finally{signal?.removeEventListener('abort',abort);clear(new EngineError('CANCELLED','Correlation GPU released'));gpu?.dispose();admitted?.();if(!complete)release?.();busy=false;}
+     },
+     dispose(){requireValue(!busy,'Correlation GPU busy');disposed=true;clear(new EngineError('CANCELLED','Correlation GPU disposed'));}
+--- a/experiments/segmentation/cmseg-correlation-gpu-worker.js
++++ b/experiments/segmentation/cmseg-correlation-gpu-worker.js
+@@ -1,7 +1,7 @@
+ // Separate experimental worker: receives complete dot-product rows, never a
+ // cropped comparison domain. Native Gaussian/softmax/TopK arithmetic stays CPU.
+ let module,geometry,p;
+-const allocate=n=>{const at=module._malloc(n*4);if(!at||module.HEAPU8.length>32*1024**2)throw Error('Correlation postprocess heap');return at;};
++const allocate=n=>{const at=module._malloc(n*4);if(!at||module.HEAPU8.length>64*1024**2)throw Error('Correlation postprocess heap');return at;};
+ self.onmessage=async({data})=>{
+   const{id,type}=data;
+   try{
+--- a/scripts/build-cmseg-correlation-gpu-post.py
++++ b/scripts/build-cmseg-correlation-gpu-post.py
+@@ -20,13 +20,13 @@
+ source=source.replace('row(xn,c,h,w,i,alpha,gy,gx,scratch);','row(xn,n,w,i,i-first,alpha,gy,gx,scratch);')
+ source=source.replace('row(xn,c,h,w,j,alpha,gy,gx,scratch);','row(xn,n,w,j,j-first,alpha,gy,gx,scratch);')
+ source=source.replace('int cmseg_statistics(', 'int cmseg_statistics_dots(').replace('int cmseg_topk(', 'int cmseg_topk_dots(')
+-out=root/'.build/cmseg-correlation-gpu-post-32m';out.mkdir(exist_ok=True)
++out=root/'.build/cmseg-correlation-gpu-post';out.mkdir(exist_ok=True)
+ cpp=out/'post.cpp';cpp.write_text(source)
+ subprocess.run([str(compiler),str(cpp),'-I'+str(root/'experiments/segmentation'),'-O3','-msimd128','-ffp-contract=off','-ffile-prefix-map='+str(root)+'=',
+  '-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sFILESYSTEM=0','-sABORTING_MALLOC=0',
+- '-sALLOW_MEMORY_GROWTH=1','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY=33554432','-sMEMORY_GROWTH_LINEAR_STEP=16777216',
++ '-sALLOW_MEMORY_GROWTH=1','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY=67108864','-sMEMORY_GROWTH_LINEAR_STEP=16777216',
+  '-sEXPORTED_FUNCTIONS=["_malloc","_free","_cmseg_normalize","_cmseg_statistics_dots","_cmseg_topk_dots"]',
+  '-sEXPORTED_RUNTIME_METHODS=["HEAPU8","HEAPF32"]','-o',str(out/'post.js')],check=True)
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+-(out/'build.json').write_text(json.dumps(dict(schema=1,compiler=version,maximumMemoryBytes=33554432,sources={str(p.relative_to(root)):sha(p) for p in [parent,Path(__file__),root/'experiments/d2prl/reference-exp.h']},generatedSourceSha256=sha(cpp),files={p.name:dict(bytes=p.stat().st_size,sha256=sha(p)) for p in [out/'post.js',out/'post.wasm']}),indent=2)+'\n')
++(out/'build.json').write_text(json.dumps(dict(schema=1,compiler=version,sources={str(p.relative_to(root)):sha(p) for p in [parent,Path(__file__),root/'experiments/d2prl/reference-exp.h']},generatedSourceSha256=sha(cpp),files={p.name:dict(bytes=p.stat().st_size,sha256=sha(p)) for p in [out/'post.js',out/'post.wasm']}),indent=2)+'\n')
+ print('Separate CMSeg GPU-dot CPU postprocessor built')
+--- a/scripts/study-cmseg-correlation-gpu.mjs
++++ b/scripts/study-cmseg-correlation-gpu.mjs
+@@ -18,7 +18,7 @@
+   const report=await page.evaluate(async rowsPerJob=>{
+     const {Budget}=await import('/src/cache.js'),{createCmsegCorrelation}=await import('/experiments/segmentation/cmseg-correlation.js'),{createCmsegCorrelationGpu}=await import('/experiments/segmentation/cmseg-correlation-gpu.js');
+     const base='/.build/segmentation-models/cmseg-generalization/',reference=await(await fetch(base+'split-reference.json')).json(),row=reference.records.find(r=>r.name==='blobs-copy');
+-    const cpuUrl=new URL('/vendor/segmentation/correlation-fma.js',location.href).href,gpuUrl=new URL('/.build/cmseg-correlation-gpu-post-32m/post.js',location.href).href;
++    const cpuUrl=new URL('/vendor/segmentation/correlation-fma.js',location.href).href,gpuUrl=new URL('/.build/cmseg-correlation-gpu-post/post.js',location.href).href;
+     const hash=async a=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',a)),b=>b.toString(16).padStart(2,'0')).join(''),assert=(v,m)=>{if(!v)throw Error(m);};
+     const read=async s=>{const b=await(await fetch(base+s.file)).arrayBuffer();assert(b.byteLength===s.bytes&&await hash(b)===s.sha256,'Native operator fixture identity');return b;};
+     const records=[],checks={};let retryJob,retrySha;
+@@ -42,12 +42,12 @@
+       checks.cancelAfterSubmit=await rejected(()=>pool.run(retryJob,{signal:abort.signal,onProgress:e=>{if(e.phase==='cmseg-correlation-dot-gpu'){submitted=true;abort.abort();}}}),'CANCELLED');assert(submitted&&budget.total()===0,'Submitted GPU cancellation cleanup');
+       checks.preAbort=await rejected(()=>pool.run(retryJob,{signal:abort.signal}),'CANCELLED');
+       checks.geometry=await rejected(()=>pool.run({...retryJob,k:31}),'INVALID_INPUT');
+-      budget.limit=32*1024**2;checks.memory=await rejected(()=>pool.run(retryJob),'MEMORY_LIMIT');assert(budget.total()===0,'Refusal cleanup');budget.limit=64*1024**2;
++      budget.limit=32*1024**2;checks.memory=await rejected(()=>pool.run(retryJob),'MEMORY_LIMIT');assert(budget.total()===0,'Refusal cleanup');budget.limit=128*1024**2;
+       const r=await pool.run(retryJob);try{checks.retry=await hash(r.data)===retrySha;checks.pressureWorkers=r.workers===1;}finally{r.release();}
+     }finally{pool.dispose();}
+     assert(Object.values(checks).every(Boolean)&&budget.total()===0,'Hybrid lifecycle');
+     return{schema:1,status:'passed',productionSelected:false,rowsPerJob,scope:'Three full-global native feature geometries24x128x128,32x64x64,96x32x32. CPU uses existing qualified FMA and10 bounded workers; hybrid uses one ordered GPU and up to10 CPU postprocess workers. Every complete comparison row is computed twice, no distant pair excluded. Native Gaussian/softmax axes/TopK retained, exact comparison to CPU and continuous errors against independent native correlations. Each timing includes setup, normalization, staging/transfers/readback and postprocessing. Shared host, single observation per condition; no production or universal gain claim.',records,checks,memory:budget.snapshot()};
+   },rowsPerJob);
+-  report.browser=browser.version();report.sources={};for(const file of ['scripts/study-cmseg-correlation-gpu.mjs','scripts/build-cmseg-correlation-gpu-post.py','experiments/segmentation/cmseg-correlation-gpu.js','experiments/segmentation/cmseg-correlation-gpu-worker.js','experiments/segmentation/cmseg-correlation.js','experiments/segmentation/cmseg-correlation-worker.js','experiments/segmentation/cmseg-correlation.cpp','experiments/d2prl/convolution-general-gpu.js','vendor/segmentation/correlation-fma.js','vendor/segmentation/correlation-fma.wasm','.build/cmseg-correlation-gpu-post-32m/build.json'])report.sources[file]=createHash('sha256').update(await readFile(path.join(root,file))).digest('hex');
+-  await writeFile(path.join(root,'docs/cmseg-correlation-gpu-streaming-r'+rowsPerJob+'-32m-probe.json'),JSON.stringify(report,null,2)+'\n');console.log(report.status);
++  report.browser=browser.version();report.sources={};for(const file of ['scripts/study-cmseg-correlation-gpu.mjs','scripts/build-cmseg-correlation-gpu-post.py','experiments/segmentation/cmseg-correlation-gpu.js','experiments/segmentation/cmseg-correlation-gpu-worker.js','experiments/segmentation/cmseg-correlation.js','experiments/segmentation/cmseg-correlation-worker.js','experiments/segmentation/cmseg-correlation.cpp','experiments/d2prl/convolution-general-gpu.js','vendor/segmentation/correlation-fma.js','vendor/segmentation/correlation-fma.wasm','.build/cmseg-correlation-gpu-post/build.json'])report.sources[file]=createHash('sha256').update(await readFile(path.join(root,file))).digest('hex');
++  await writeFile(path.join(root,'docs/cmseg-correlation-gpu-streaming-r'+rowsPerJob+'-probe.json'),JSON.stringify(report,null,2)+'\n');console.log(report.status);
+ }finally{await browser?.close();await new Promise(r=>server.close(r));}
+--- a/scripts/study-cmseg-correlation-model.mjs
++++ b/scripts/study-cmseg-correlation-model.mjs
+@@ -8,7 +8,6 @@
+ import {fileURLToPath} from 'node:url';
+ const root=fileURLToPath(new URL('../',import.meta.url));
+ const compareBackends=process.argv.includes('--compare-backends');
+-const tag=process.argv.find(v=>v.startsWith('--tag='))?.slice(6)??'';if(tag&&!/^[a-z0-9-]+$/.test(tag))throw Error('Proof tag');
+ const server=createServer(async(req,res)=>{try{
+   const url=new URL(req.url,'http://local').pathname;
+   if(url==='/')return res.end('<!doctype html><title>CMSeg GPU qualification</title>');
+@@ -57,6 +56,6 @@
+   },{compareBackends});
+   report.browser=browser.version();report.sources={};
+   for(const file of ['experiments/segmentation/cmseg-correlation-gpu.js','experiments/segmentation/cmseg-correlation-gpu-worker.js','vendor/segmentation/cmseg-correlation-gpu/post.js','vendor/segmentation/cmseg-correlation-gpu/post.wasm','scripts/study-cmseg-correlation-model.mjs','experiments/segmentation/cmseg-backbone.js','experiments/segmentation/cmseg-inference.js','experiments/segmentation/cmseg-inference-worker.js','experiments/segmentation/cmseg-correlation.js','experiments/segmentation/cmseg-correlation-worker.js','experiments/segmentation/prepare.js','experiments/d2prl/convolution-general-gpu.js','vendor/segmentation/CMSEG-EXACT-PINNED.json'])report.sources[file]=createHash('sha256').update(await readFile(path.join(root,file))).digest('hex');
+-  await writeFile(path.join(root,'docs/cmseg-'+(compareBackends?'correlation-backend-comparison':'correlation-model-corpus')+(tag?'-'+tag:'')+'-proof.json'),JSON.stringify(report,null,2)+'\n');
++  await writeFile(path.join(root,'docs/cmseg-'+(compareBackends?'correlation-backend-comparison':'correlation-model-corpus')+'-proof.json'),JSON.stringify(report,null,2)+'\n');
+   console.log(report.status);if(report.status!=='passed')process.exitCode=1;
+ }finally{await browser?.close();await new Promise(r=>server.close(r));}
+--- a/scripts/stage-cmseg-correlation-gpu.mjs
++++ b/scripts/stage-cmseg-correlation-gpu.mjs
+@@ -3,7 +3,7 @@
+ import {readFile,writeFile,mkdir} from 'node:fs/promises';
+ import {createHash} from 'node:crypto';
+ import assert from 'node:assert/strict';
+-const root=new URL('../',import.meta.url),built=new URL('.build/cmseg-correlation-gpu-post-32m/',root),output=new URL('vendor/segmentation/cmseg-correlation-gpu/',root);
++const root=new URL('../',import.meta.url),built=new URL('.build/cmseg-correlation-gpu-post/',root),output=new URL('vendor/segmentation/cmseg-correlation-gpu/',root);
+ const hash=b=>createHash('sha256').update(b).digest('hex'),build=JSON.parse(await readFile(new URL('build.json',built)));
+ for(const [file,sha]of Object.entries(build.sources))assert.equal(hash(await readFile(new URL(file,root))),sha);
+ await mkdir(output,{recursive:true});

@@ -1,0 +1,33 @@
+{
+  "records": [
+    {
+      "height": 32,
+      "width": 64,
+      "co": 1,
+      "checked": 2048,
+      "exact": true
+    },
+    {
+      "height": 32,
+      "width": 64,
+      "co": 64,
+      "checked": 131072,
+      "exact": true
+    },
+    {
+      "height": 65,
+      "width": 77,
+      "co": 1,
+      "checked": 5005,
+      "exact": true
+    },
+    {
+      "height": 65,
+      "width": 77,
+      "co": 64,
+      "checked": 320320,
+      "exact": true
+    }
+  ],
+  "passed": true
+}

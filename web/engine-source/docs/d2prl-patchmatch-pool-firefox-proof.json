@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Complete PatchMatch loop on synthetic descriptors; no learned feature extraction, heads or masks",
+  "cases": 7,
+  "records": [
+    {
+      "name": "2-40-flat",
+      "side": 2,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 92
+    },
+    {
+      "name": "3-40-noise",
+      "side": 3,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 1290
+    },
+    {
+      "name": "7-40-steps",
+      "side": 7,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 254
+    },
+    {
+      "name": "17-40-noise",
+      "side": 17,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 6999
+    },
+    {
+      "name": "32-40-signed",
+      "side": 32,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 10070
+    },
+    {
+      "name": "33-2-noise",
+      "side": 33,
+      "iterations": 2,
+      "evaluations": 8,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 119
+    },
+    {
+      "name": "65-1-noise",
+      "side": 65,
+      "iterations": 1,
+      "evaluations": 3,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 116
+    }
+  ],
+  "lifecycle": {
+    "cancelled": true,
+    "busy": true,
+    "refused": true,
+    "retry": true,
+    "allReservationsReleased": true
+  },
+  "peakAccountedBytes": 474671584,
+  "pool": {
+    "peakWorkers": 9,
+    "tiles": 1439,
+    "descriptorUploads": 57,
+    "activeWorkers": 0,
+    "tileSize": 512
+  },
+  "hardwareConcurrency": 10,
+  "browser": "155.0",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sources": {
+      "evaluator-tiled.cpp": "f1d89ef902cdd517d1eae45bf3b873231d3f2440fcd2bb107b96b59f7637b255",
+      "evaluator.cpp": "e53d58085d325bd2a741202407b44f819b02cbcc1efee4fe67e1b27f265bdf1d",
+      "reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+    },
+    "files": {
+      "evaluator-tiled.js": {
+        "bytes": 7839,
+        "sha256": "9dd63733d7e78b2834b9afc8ccf8f07d853dd191181e739a6b4ca1ef3141467a"
+      },
+      "evaluator-tiled.wasm": {
+        "bytes": 16172,
+        "sha256": "41165efcd4e56bdad5e1cefe9806cf61a9eec24af600d76ba468c8ed3a4dfa98"
+      }
+    }
+  },
+  "referenceSha256": "d0afed190833508ad19d54a937956d98b4c0f0d5a6dd951fe820ac804a6a53ee",
+  "sources": {
+    "patchmatch.js": "8082b6e5770482d3cdd7cd8f15362a28e81ba9a17f4eec5f5ca5882aae9a0286",
+    "patchmatch-study.js": "2ad588c4e46a15f39ffcf5d0b732f86a025b3701349ad14cd17598fb0b85f6d2",
+    "candidates.js": "5f3323322148f474abbbebfbcacea8b211b20be6cf914a6c1904a2765b02de14",
+    "random.js": "a36a0fc45f61e0081df4af49caadcf04757007ef3fb53ae81838412a36470b37",
+    "evaluator-pool.js": "7600135d47f9e4961ca9b21c8e36c81901e22217962471c44bbfb1a375a460f1",
+    "evaluator-worker.js": "9898019890e58926a65135b8eee93896b8bc1a64f052265cd7713e24be7f65ff"
+  }
+}

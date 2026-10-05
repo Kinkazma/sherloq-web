@@ -1,0 +1,134 @@
+{
+  "date": "2026-10-03",
+  "base": "abbad32",
+  "dependencies": [
+    "eb40004",
+    "3728de8"
+  ],
+  "scope": "D2PRL candidate backing reuse, exact byte diagnostics and allocation-domain reclamation. No 96 MP or full learned-model run in this proof.",
+  "node": {
+    "passed": 21,
+    "failed": 0,
+    "nativeOracle": {
+      "fixture": "fixtures/d2prl/candidates.json",
+      "sha256": "70384871c6e5df714754d6fba11d6c29edd820ac3298ede43e3eb193f1bb95c0",
+      "side": 448,
+      "patterns": [
+        "noise",
+        "boundaries",
+        "tiny"
+      ],
+      "checks": 12,
+      "description": "Pinned Torch propagation and propagateWrap hashes, random-candidate hashes and final RNG, plus immutable-vs-owned random wrapping parity."
+    },
+    "ownership": "Second-plane growth failure retains first plane; subsequent operations reuse both buffers. Cancellation leaves committed offsets unchanged; disposal clears workspace references."
+  },
+  "memoryChange": {
+    "one448CandidatePlaneBytes": 10436608,
+    "reusedCandidatePairBytes": 20873216,
+    "previousGenerationAndWrapPairsBytes": 41746432,
+    "allocationPolicy": "Lazy growth on useful work, two planes reused only after evaluation returns. No preflight or permanent global resource cap."
+  },
+  "browsers": {
+    "chromium": {
+      "previousReferenceLog": "docs/runtime-v2-d2prl-recovery/chromium.log",
+      "previousReferenceLogSha256": "48ec3d596422e14ad286cf4711e86a5211f4a065cdaab84143289751ce12dbdd",
+      "allEightHashesMatchPreviousImplementation": true,
+      "sha256": [
+        "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+        "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+        "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+        "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+        "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+        "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+        "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+        "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+      ],
+      "rngExact": true,
+      "evaluations": 18,
+      "committedTiles": 144,
+      "descriptorUploads": 4,
+      "recoveredTileCopyFailures": 2,
+      "candidateWorkspaceBeforeDisposal": {
+        "allocations": 4,
+        "allocatedBytes": 36864,
+        "residentBytes": 26624
+      },
+      "finalBudgetBytes": 0
+    },
+    "firefox": {
+      "previousReferenceLog": "docs/runtime-v2-d2prl-recovery/firefox.log",
+      "previousReferenceLogSha256": "18d0f7022dd9274b8ac32e1c0d81d99bff1087ce5ac0ac2c376a09e9781faf7d",
+      "allEightHashesMatchPreviousImplementation": true,
+      "sha256": [
+        "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+        "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+        "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+        "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+        "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+        "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+        "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+        "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+      ],
+      "rngExact": true,
+      "evaluations": 18,
+      "committedTiles": 144,
+      "descriptorUploads": 4,
+      "recoveredTileCopyFailures": 2,
+      "candidateWorkspaceBeforeDisposal": {
+        "allocations": 4,
+        "allocatedBytes": 36864,
+        "residentBytes": 26624
+      },
+      "finalBudgetBytes": 0
+    },
+    "webkit": {
+      "previousReferenceLog": "docs/runtime-v2-d2prl-recovery/webkit.log",
+      "previousReferenceLogSha256": "2efe65264db3428c22354f34cdfe75b1e9c0e6bd9f4ff1102ff8268702152b0b",
+      "allEightHashesMatchPreviousImplementation": true,
+      "sha256": [
+        "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+        "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+        "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+        "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+        "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+        "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+        "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+        "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+      ],
+      "rngExact": true,
+      "evaluations": 18,
+      "committedTiles": 144,
+      "descriptorUploads": 4,
+      "recoveredTileCopyFailures": 2,
+      "candidateWorkspaceBeforeDisposal": {
+        "allocations": 4,
+        "allocatedBytes": 36864,
+        "residentBytes": 26624
+      },
+      "finalBudgetBytes": 0
+    }
+  },
+  "logs": [
+    {
+      "path": "docs/runtime-v2-d2prl-candidate-memory/node.log",
+      "command": "node --test tests/d2prl-candidate-workspace.test.mjs tests/d2prl-recovery.test.mjs tests/d2prl-admission.test.mjs tests/d2prl-cache.test.mjs tests/d2prl-execution-admission.test.mjs",
+      "sha256": "a94be241f2806ba17b92deba3e4616d727854b645f4fc0ea84afc47f2f2559bf"
+    },
+    {
+      "path": "docs/runtime-v2-d2prl-candidate-memory/chromium.log",
+      "command": "node tests/d2prl-recovery-browser.mjs",
+      "sha256": "d270b4bccddf012e15ba3a1e03976fddbf786c3746c0aca61c2ad5cc3bff943d"
+    },
+    {
+      "path": "docs/runtime-v2-d2prl-candidate-memory/firefox.log",
+      "command": "BROWSER=firefox node tests/d2prl-recovery-browser.mjs",
+      "sha256": "d687d9f43cf0f32faa6f4f143ad9180023ca09d12a62f1fded705f55b9abfe0c"
+    },
+    {
+      "path": "docs/runtime-v2-d2prl-candidate-memory/webkit.log",
+      "command": "BROWSER=webkit node tests/d2prl-recovery-browser.mjs",
+      "sha256": "1d6120f46334d770a5c38521aa05a00b8d563bd9d857693a6167c4dd82b3b00b"
+    }
+  ]
+}

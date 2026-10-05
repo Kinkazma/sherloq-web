@@ -1,0 +1,259 @@
+{
+  "scope": "embedding networks on native-preprocessed synthetic inputs, not complete detector",
+  "provider": "wasm",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "native": {
+    "torch": "2.8.0",
+    "numpy": "1.26.4",
+    "timm": "1.0.30"
+  },
+  "records": [
+    {
+      "model": "wblot_duplicate_embedder",
+      "case": "wblot_duplicate_embedder-0",
+      "maxError": 8.195638656616211e-08,
+      "ms": 162.69999999925494
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "case": "wblot_duplicate_embedder-1",
+      "maxError": 6.146728992462158e-08,
+      "ms": 135.89999999850988
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "case": "wblot_duplicate_embedder-2",
+      "maxError": 9.313225746154785e-08,
+      "ms": 136.19999999925494
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "pair": [
+        0,
+        1
+      ],
+      "scoreError": 3.61967781303818e-08,
+      "nativeScore": 0.8025947653892285,
+      "score": 0.8025947291924503,
+      "threshold": 0.84,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "pair": [
+        0,
+        2
+      ],
+      "scoreError": 6.503893634768332e-08,
+      "nativeScore": 0.9022594416253212,
+      "score": 0.9022595066642576,
+      "threshold": 0.84,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "pair": [
+        1,
+        2
+      ],
+      "scoreError": 2.2616114270235244e-07,
+      "nativeScore": 0.7343066968513936,
+      "score": 0.7343069230125363,
+      "threshold": 0.84,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "case": "wblot_overlap_embedder-0",
+      "maxError": 5.960464477539063e-08,
+      "ms": 137.60000000149012
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "case": "wblot_overlap_embedder-1",
+      "maxError": 1.8440186977386475e-07,
+      "ms": 136.30000000074506
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "case": "wblot_overlap_embedder-2",
+      "maxError": 5.960464477539063e-08,
+      "ms": 136.5
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "pair": [
+        0,
+        1
+      ],
+      "scoreError": 3.971162387816918e-07,
+      "nativeScore": 0.8290923862264953,
+      "score": 0.8290927833427341,
+      "threshold": 0.85,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "pair": [
+        0,
+        2
+      ],
+      "scoreError": 1.2213888322953892e-07,
+      "nativeScore": 0.9677445522429593,
+      "score": 0.9677446743818425,
+      "threshold": 0.85,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "pair": [
+        1,
+        2
+      ],
+      "scoreError": 1.7608677849167975e-07,
+      "nativeScore": 0.7458210586889944,
+      "score": 0.7458208826022159,
+      "threshold": 0.85,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "case": "wblot_lane_embedder-0",
+      "maxError": 7.82310962677002e-08,
+      "ms": 102
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "case": "wblot_lane_embedder-1",
+      "maxError": 8.195638656616211e-08,
+      "ms": 102.60000000149012
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "case": "wblot_lane_embedder-2",
+      "maxError": 9.685754776000977e-08,
+      "ms": 101.89999999850988
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "pair": [
+        0,
+        1
+      ],
+      "scoreError": 3.278474691725819e-08,
+      "nativeScore": 0.3971333513320922,
+      "score": 0.3971333841168391,
+      "threshold": 0.65,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "pair": [
+        0,
+        2
+      ],
+      "scoreError": 1.6603289665351184e-07,
+      "nativeScore": 0.46375364740810976,
+      "score": 0.4637538134410064,
+      "threshold": 0.65,
+      "sameDecision": true
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "pair": [
+        1,
+        2
+      ],
+      "scoreError": 1.3996270240013153e-07,
+      "nativeScore": 0.2440065695229617,
+      "score": 0.2440067094856641,
+      "threshold": 0.65,
+      "sameDecision": true
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "case": "micro_overlap_embedder-0",
+      "maxError": 5.21540641784668e-08,
+      "ms": 324.70000000298023
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "case": "micro_overlap_embedder-1",
+      "maxError": 4.0978193283081055e-08,
+      "ms": 325.80000000074506
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "case": "micro_overlap_embedder-2",
+      "maxError": 7.450580596923828e-08,
+      "ms": 325.19999999925494
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "pair": [
+        0,
+        1
+      ],
+      "scoreError": 1.5921907081661857e-07,
+      "nativeScore": 0.8616441458293513,
+      "score": 0.8616443050484222,
+      "threshold": 0.58,
+      "sameDecision": true
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "pair": [
+        0,
+        2
+      ],
+      "scoreError": 2.5055243657590154e-08,
+      "nativeScore": 0.9581366844023722,
+      "score": 0.9581367094576159,
+      "threshold": 0.58,
+      "sameDecision": true
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "pair": [
+        1,
+        2
+      ],
+      "scoreError": 4.0732962003353634e-08,
+      "nativeScore": 0.7948924019782049,
+      "score": 0.7948924427111669,
+      "threshold": 0.58,
+      "sameDecision": true
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "passed": true,
+  "models": [
+    {
+      "id": "wblot_duplicate_embedder",
+      "sha256": "dd893d7f059728c22f370464b439426be198e02aef7f0c6124b1eaa838d307f8",
+      "checkpointSha256": "87e62f05cba4127357097d2f15f1401aed017ac0f6a64c67a57246aa33bfb02e",
+      "bytes": 123178895
+    },
+    {
+      "id": "wblot_overlap_embedder",
+      "sha256": "b9be00f7df632c33271244d9f51d9f958a3c0c3bbc30f33b0ce5005bb0068b46",
+      "checkpointSha256": "afc8c81fd829f356c51be7f6df357c3d258879342f2739d64595522f55497929",
+      "bytes": 123178895
+    },
+    {
+      "id": "wblot_lane_embedder",
+      "sha256": "1fb1439e5fe8036ea69b09156a57963648b8e4800bf2959acdd6e8cf09cc7ae6",
+      "checkpointSha256": "6cee086eab4ead02a242cbcb584da1a7e30b84cfcfa43e97e466019e6f2f0849",
+      "bytes": 123178896
+    },
+    {
+      "id": "micro_overlap_embedder",
+      "sha256": "36687369096760d55a35a0861d8a5ffde2aba176754b531d5d17cac6cc458f57",
+      "checkpointSha256": "b91f3923a93705898c864324b5c5d70589499e208c45f622b6a447a31225ae2a",
+      "bytes": 124214828
+    }
+  ]
+}

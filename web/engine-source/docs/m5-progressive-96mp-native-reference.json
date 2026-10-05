@@ -1,0 +1,24 @@
+{
+  "width": 8000,
+  "height": 12000,
+  "encodedDimensions": [
+    12000,
+    8000
+  ],
+  "orientation": 6,
+  "progressive": true,
+  "sourceBytes": 8406415,
+  "sha256": "3d5aef51c73f0d1b8ad24307d2fe8cc8319b4afff11e373141315aeecb7bce7d",
+  "rgbSha256": "3568329dc15320abc71e5e6ee5a11d4e4290aa86ab0735439f9d5b3d441de256",
+  "elaSha256": "1d0dbb0aab32166b5cfb10b06272144928ac1eee01d2a38eda65e6ee3d8b95be",
+  "elaParams": {
+    "quality": 75,
+    "scale": 50,
+    "contrast": 20,
+    "linear": false,
+    "grayscale": false
+  },
+  "opencv": "4.11.0",
+  "nativeSeconds": 3.2260781249933643,
+  "complexity": "Rich M2 original with distant copied boxes, encoded as progressive JPEG90 and EXIF orientation6; full native decoded pixels, no source reduction."
+}

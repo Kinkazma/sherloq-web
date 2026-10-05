@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "preparations": 27,
+  "scoreGroups": 9,
+  "segmentations": 27,
+  "values": 195486,
+  "maximumContentError": 2.384185791015625e-7,
+  "peakAccountedBytes": 134705916,
+  "browser": "154.0.8037.58"
+}

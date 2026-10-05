@@ -1,0 +1,61 @@
+{
+  "provider": "wasm",
+  "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+  "graphSha256": "4e37dc4e94c52667add2112954e6f28a8b54e6043fb0e2a59bf275527064018a",
+  "records": [
+    {
+      "case": 0,
+      "outputs": {
+        "native_map": {
+          "values": 384,
+          "maxError": 1.4528632164001465e-7,
+          "differences": 348
+        },
+        "padded_map": {
+          "values": 6144,
+          "maxError": 1.1920928955078125e-7,
+          "differences": 5808
+        }
+      },
+      "metrics": {
+        "milliseconds": 1848.4000000059605,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "wasm",
+        "workers": 1
+      }
+    },
+    {
+      "case": 1,
+      "outputs": {
+        "native_map": {
+          "values": 884,
+          "maxError": 3.166496753692627e-8,
+          "differences": 754
+        },
+        "padded_map": {
+          "values": 14144,
+          "maxError": 2.9802322387695312e-8,
+          "differences": 13730
+        }
+      },
+      "metrics": {
+        "milliseconds": 494.40000000596046,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "wasm",
+        "workers": 1
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 4294967296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2178623210
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

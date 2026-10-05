@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "version": "0.26.0",
+  "status": "Rebuilt loader and WASM are byte-identical",
+  "emscripten": "4.0.15",
+  "files": {
+    "vendor/cloning/cloning.js": "a5f4cd1f98bc0c1501797ea11baada126a5894bafec441b4b009bd00fdb843df",
+    "vendor/cloning/cloning.wasm": "f3838f9aa5e8d25465c565d0daa03204cbc7997979319d2468f79153a2a54397"
+  },
+  "scope": "Rebuild reproducibility only; browser/product qualification is recorded separately"
+}

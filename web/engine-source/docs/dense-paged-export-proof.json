@@ -1,0 +1,28 @@
+{
+  "expected": {
+    "targets": "aed81c0fde5004567d13f436bc04a4624f3fbaf73c9e95ca20cc8a0e5b9a4cdd",
+    "distancesSquared": "a425548c0b2f5faf050f53ed62c206cfc2367b0cb79361676dc3194dd9ae0e19",
+    "allowed": "9ccd0b5e6846ebd7b276fc68215a2dbe3966365bc12268dd50d1e0d519ff0fb5",
+    "selected": "e9c88e021c7109919d4afbfeec8f7c2ee4d99e00f38d0033133548a7961c62fc",
+    "errors": "e227d45a936050493c18b5c5d8e179bc27c8ad74b66c0b757a04cfeb534b2924"
+  },
+  "sha256": "e5c8c1397a73a9243426aac7418201c8981ddf86506cb90b11346a89a32aa47d",
+  "byteLength": 106204,
+  "metrics": {
+    "storage": "temporary",
+    "temporaryBackend": "opfs",
+    "arrays": 14,
+    "zip64": true,
+    "assemblyMs": 81.90000000596046,
+    "hashMs": 7.5,
+    "maximumScalarChunk": 65536,
+    "outputCapacityBytes": 106204
+  },
+  "independentReader": {
+    "numpy": "1.26.4",
+    "crc": "all entries valid",
+    "fields": "all five hashes exact",
+    "nativeArrays": "points, pairs, colors, provenance exact",
+    "afterSourceRelease": true
+  }
+}

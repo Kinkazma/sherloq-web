@@ -1,0 +1,63 @@
+{
+  "chrome": {
+    "browser": "154.0.8037.93",
+    "passed": true,
+    "realTimerSurvived": true,
+    "emptyReclaimer": true,
+    "concurrentCpuGpu": true,
+    "executions": 1,
+    "memory": {
+      "budgetBytes": 100,
+      "policyAvailableBytes": 100,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 80,
+      "activeRecoveries": 0
+    }
+  },
+  "firefox": {
+    "browser": "155.0",
+    "passed": true,
+    "realTimerSurvived": true,
+    "emptyReclaimer": true,
+    "concurrentCpuGpu": true,
+    "executions": 1,
+    "memory": {
+      "budgetBytes": 100,
+      "policyAvailableBytes": 100,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 80,
+      "activeRecoveries": 0
+    }
+  },
+  "webkit": {
+    "browser": "26.6",
+    "passed": true,
+    "realTimerSurvived": true,
+    "emptyReclaimer": true,
+    "concurrentCpuGpu": true,
+    "executions": 1,
+    "memory": {
+      "budgetBytes": 100,
+      "policyAvailableBytes": 100,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 80,
+      "activeRecoveries": 0
+    }
+  },
+  "resourceIntegration": {
+    "passed": 184.0,
+    "failed": 0.0,
+    "durationMs": 25186.777875
+  },
+  "schedulerWithQueueMetadata": {
+    "passed": 46.0,
+    "failed": 0.0,
+    "durationMs": 117.671166
+  }
+}

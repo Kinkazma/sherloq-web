@@ -1,0 +1,93 @@
+{
+  "browser": "154.0.8037.58",
+  "algorithm": "BRISK",
+  "backend": "webgpu",
+  "source": {
+    "file": "m3-96mp-noise-copy.jpg",
+    "width": 12000,
+    "height": 8000,
+    "description": "Public deterministic full-resolution RGB noise (seed130014); entire6000x8000 left half copied at dx6000 before JPEG90 encoding.",
+    "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+    "bytes": 80426021
+  },
+  "loadMs": 3173.699999988079,
+  "totalMs": 220921.09999999404,
+  "points": 6000,
+  "pairs": 4997,
+  "groups": 2,
+  "metadata": {
+    "extraction": {
+      "family": "BRISK",
+      "opencv": "4.11.0",
+      "featurePolicy": "global",
+      "reflectedPixels": false,
+      "workers": 1,
+      "peakWorkerHeapBytes": 1935933440,
+      "executions": 1,
+      "retries": 0,
+      "preflightExecutions": 0,
+      "inputLayout": "source-rows-gray",
+      "qualification": "native arithmetic differences unresolved"
+    },
+    "stageCache": {
+      "features": false,
+      "matches": false,
+      "groups": false
+    },
+    "counts": {
+      "detections": 1,
+      "matchings": 1,
+      "groupings": 1,
+      "ocr": 0
+    },
+    "preflightExecutions": 0,
+    "coordinates": "original-pixel-centres",
+    "colorOrder": "BGR",
+    "qualification": "native-arithmetic-differences-unresolved",
+    "method": "sparse"
+  },
+  "params": {
+    "algorithm": "BRISK",
+    "radius": 20000,
+    "minimum": 5,
+    "threshold": 0.3,
+    "tolerance": 600,
+    "geometricMinimum": 4
+  },
+  "exports": [
+    {
+      "format": "npz",
+      "bytes": 3572145
+    },
+    {
+      "format": "png",
+      "bytes": 217497231,
+      "sha256": "7c14aea1fbe1cdf035b13c4fb86580a9e3dad466111adaf1304d75e0fbc69434",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 289197244,
+        "encodedWriteCalls": 830,
+        "maxSourceWindowBytes": 1152000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 865197416,
+          "cacheBytes": 967240,
+          "activeReservationBytes": 122159104,
+          "peakAccountedBytes": 2779150652
+        }
+      }
+    }
+  ],
+  "output": "brisk",
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2779150652,
+    "knownHeapCapacityBytes": 96731136
+  }
+}

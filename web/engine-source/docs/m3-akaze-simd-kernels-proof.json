@@ -1,0 +1,57 @@
+{
+  "runtime": "v22.22.2",
+  "width": 1280,
+  "height": 1280,
+  "globalConfiguration": [
+    12000,
+    8000
+  ],
+  "records": [
+    {
+      "stage": "initial-gaussian-scharr",
+      "elements": 3276800,
+      "differences": 0,
+      "maximumError": 0,
+      "referenceMs": 3489.226208,
+      "simdMs": 48.22087499999998,
+      "speedup": 72.35924706882655
+    },
+    {
+      "stage": "evolution-0",
+      "elements": 8192000,
+      "differences": 0,
+      "maximumError": 0,
+      "referenceMs": 3926.447125,
+      "simdMs": 26.785499999999956,
+      "speedup": 146.5885320415899
+    },
+    {
+      "stage": "evolution-1",
+      "elements": 8192000,
+      "differences": 0,
+      "maximumError": 0,
+      "referenceMs": 7560.4688750000005,
+      "simdMs": 52.92462499999965,
+      "speedup": 142.85351809294917
+    },
+    {
+      "stage": "evolution-7",
+      "elements": 8192000,
+      "differences": 0,
+      "maximumError": 0,
+      "referenceMs": 9029.881375,
+      "simdMs": 65.54374999999709,
+      "speedup": 137.76876323067268
+    },
+    {
+      "stage": "evolution-15",
+      "elements": 8192000,
+      "differences": 0,
+      "maximumError": 0,
+      "referenceMs": 8121.661207999998,
+      "simdMs": 182.19054200000028,
+      "speedup": 44.577842070418704
+    }
+  ],
+  "scope": "Development comparison of useful local finite-support AKAZE work; not runtime calibration or an end-to-end96MP claim."
+}

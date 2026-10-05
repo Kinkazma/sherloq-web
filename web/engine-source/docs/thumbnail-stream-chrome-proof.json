@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "dimensions": [
+    4103,
+    5401
+  ],
+  "embeddedDimensions": [
+    31,
+    17
+  ],
+  "resizedAndDifferenceNativeExact": true,
+  "metrics": {
+    "kernel": "native-lanczos4-segmented-comparison",
+    "codecHeapCapacityBytes": 83427328,
+    "codecHeapMaximumBytes": 117440512,
+    "workspaceBytes": 126632367,
+    "maxSourceWindowBytes": 393888,
+    "resizedStorage": "temporary",
+    "differenceStorage": "temporary"
+  },
+  "cancellationRemovesPartialFiles": true,
+  "memory": {
+    "budgetBytes": 201326592,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 193519473
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

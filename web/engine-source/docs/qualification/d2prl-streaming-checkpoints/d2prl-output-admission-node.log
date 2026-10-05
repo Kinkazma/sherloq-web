@@ -1,0 +1,220 @@
+TAP version 13
+# Subtest: An evicted D2PRL raw grid cannot trigger inference through refilter or raw export
+ok 1 - An evicted D2PRL raw grid cannot trigger inference through refilter or raw export
+  ---
+  duration_ms: 9.564417
+  type: 'test'
+  ...
+# Subtest: Memory pressure reclaims idle helper heaps before cached scientific results
+ok 2 - Memory pressure reclaims idle helper heaps before cached scientific results
+  ---
+  duration_ms: 0.2535
+  type: 'test'
+  ...
+# Subtest: UNet terminal preserves validated nodes; explicit resume does not replay them
+ok 3 - UNet terminal preserves validated nodes; explicit resume does not replay them
+  ---
+  duration_ms: 13.712708
+  type: 'test'
+  ...
+# Subtest: changing a checkpoint identity discards prior owned graph values
+ok 4 - changing a checkpoint identity discards prior owned graph values
+  ---
+  duration_ms: 7.681542
+  type: 'test'
+  ...
+# Subtest: PatchMatch terminal at evaluation keeps exact candidate/RNG cursor and completed evaluations
+ok 5 - PatchMatch terminal at evaluation keeps exact candidate/RNG cursor and completed evaluations
+  ---
+  duration_ms: 34.52325
+  type: 'test'
+  ...
+# Subtest: analysis retains completed zones through terminal resume and releases the active pipeline key
+ok 6 - analysis retains completed zones through terminal resume and releases the active pipeline key
+  ---
+  duration_ms: 3.857875
+  type: 'test'
+  ...
+# Subtest: cancellation discards checkpoints rather than retaining cancelled output
+ok 7 - cancellation discards checkpoints rather than retaining cancelled output
+  ---
+  duration_ms: 6.50425
+  type: 'test'
+  ...
+# Subtest: descriptor checkpoint preserves previously completed convolutions and descriptor planes
+ok 8 - descriptor checkpoint preserves previously completed convolutions and descriptor planes
+  ---
+  duration_ms: 293.563833
+  type: 'test'
+  ...
+# Subtest: union checkpoint keeps completed DLF/convolutions and held weights at refusal
+ok 9 - union checkpoint keeps completed DLF/convolutions and held weights at refusal
+  ---
+  duration_ms: 17.689083
+  type: 'test'
+  ...
+# Subtest: a changed RNG identity invalidates the previous PatchMatch checkpoint
+ok 10 - a changed RNG identity invalidates the previous PatchMatch checkpoint
+  ---
+  duration_ms: 8.410833
+  type: 'test'
+  ...
+# Subtest: an already cancelled explicit graph resume discards the retained checkpoint
+ok 11 - an already cancelled explicit graph resume discards the retained checkpoint
+  ---
+  duration_ms: 5.952
+  type: 'test'
+  ...
+# Subtest: cancelled queued analysis releases the preceding terminal checkpoint
+ok 12 - cancelled queued analysis releases the preceding terminal checkpoint
+  ---
+  duration_ms: 2.091458
+  type: 'test'
+  ...
+# Subtest: cancelled queued analysis preserves the following resume checkpoint
+ok 13 - cancelled queued analysis preserves the following resume checkpoint
+  ---
+  duration_ms: 1.681334
+  type: 'test'
+  ...
+# Subtest: D2 waits for independent work without retrying or treating GPU retirement as ArrayBuffer backing
+ok 14 - D2 waits for independent work without retrying or treating GPU retirement as ArrayBuffer backing
+  ---
+  duration_ms: 9.227834
+  type: 'test'
+  ...
+# Subtest: scheduled D2 worker calls carry one owner and cannot be mistaken for an independent producer
+ok 15 - scheduled D2 worker calls carry one owner and cannot be mistaken for an independent producer
+  ---
+  duration_ms: 0.603083
+  type: 'test'
+  ...
+# Subtest: native D2 work is visible to peers but its parent does not manufacture progress during output recovery
+ok 16 - native D2 work is visible to peers but its parent does not manufacture progress during output recovery
+  ---
+  duration_ms: 6.316791
+  type: 'test'
+  ...
+# Subtest: guarded concurrent invocations forward distinct tickets without mutating caller options
+ok 17 - guarded concurrent invocations forward distinct tickets without mutating caller options
+  ---
+  duration_ms: 0.581792
+  type: 'test'
+  ...
+# Subtest: evaluator null retires only its worker and resumes the same tile
+ok 18 - evaluator null retires only its worker and resumes the same tile
+  ---
+  duration_ms: 11.86975
+  type: 'test'
+  ...
+# Subtest: evaluator messageerror retires only its worker and resumes the same tile
+ok 19 - evaluator messageerror retires only its worker and resumes the same tile
+  ---
+  duration_ms: 3.092667
+  type: 'test'
+  ...
+# Subtest: evaluator endpoint retires only its worker and resumes the same tile
+ok 20 - evaluator endpoint retires only its worker and resumes the same tile
+  ---
+  duration_ms: 2.679417
+  type: 'test'
+  ...
+# Subtest: evaluator wrong-id retires only its worker and resumes the same tile
+ok 21 - evaluator wrong-id retires only its worker and resumes the same tile
+  ---
+  duration_ms: 2.724334
+  type: 'test'
+  ...
+# Subtest: five unreadable evaluator attempts stop locally with no orphaned scheduler lease
+ok 22 - five unreadable evaluator attempts stop locally with no orphaned scheduler lease
+  ---
+  duration_ms: 5.767042
+  type: 'test'
+  ...
+# Subtest: cancellation after unreadable evaluator data cannot recreate the failed worker
+ok 23 - cancellation after unreadable evaluator data cannot recreate the failed worker
+  ---
+  duration_ms: 1.253042
+  type: 'test'
+  ...
+# Subtest: optional evaluator bootstrap retries transport without reducing the healthy pool
+ok 24 - optional evaluator bootstrap retries transport without reducing the healthy pool
+  ---
+  duration_ms: 1.574542
+  type: 'test'
+  ...
+# Subtest: CPU convolution null preserves completed tiles and worker capacity
+ok 25 - CPU convolution null preserves completed tiles and worker capacity
+  ---
+  duration_ms: 25.003875
+  type: 'test'
+  ...
+# Subtest: CPU convolution messageerror preserves completed tiles and worker capacity
+ok 26 - CPU convolution messageerror preserves completed tiles and worker capacity
+  ---
+  duration_ms: 20.139083
+  type: 'test'
+  ...
+# Subtest: CPU convolution endpoint preserves completed tiles and worker capacity
+ok 27 - CPU convolution endpoint preserves completed tiles and worker capacity
+  ---
+  duration_ms: 20.14675
+  type: 'test'
+  ...
+# Subtest: unreadable convolution clear retains completed output and recreates only the idle slot on next layer
+ok 28 - unreadable convolution clear retains completed output and recreates only the idle slot on next layer
+  ---
+  duration_ms: 20.71075
+  type: 'test'
+  ...
+# Subtest: spatial transport retry retires its lease before retry and preserves input
+ok 29 - spatial transport retry retires its lease before retry and preserves input
+  ---
+  duration_ms: 2.931791
+  type: 'test'
+  ...
+# Subtest: bounded roles transport retry preserves prior inputs and releases each failed worker
+ok 30 - bounded roles transport retry preserves prior inputs and releases each failed worker
+  ---
+  duration_ms: 3.844458
+  type: 'test'
+  ...
+# Subtest: postprocess retries unreadable transport after retiring its workspace
+ok 31 - postprocess retries unreadable transport after retiring its workspace
+  ---
+  duration_ms: 1.97375
+  type: 'test'
+  ...
+# Subtest: evaluator terminal upload drains a companion retry before releasing shared buffers
+ok 32 - evaluator terminal upload drains a companion retry before releasing shared buffers
+  ---
+  duration_ms: 1.427167
+  type: 'test'
+  ...
+# Subtest: convolution terminal upload drains a companion retry before releasing shared buffers
+ok 33 - convolution terminal upload drains a companion retry before releasing shared buffers
+  ---
+  duration_ms: 1.724292
+  type: 'test'
+  ...
+# Subtest: five unreadable convolution tiles stop without reducing future configured parallelism or orphaning CPU
+ok 34 - five unreadable convolution tiles stop without reducing future configured parallelism or orphaning CPU
+  ---
+  duration_ms: 7.962292
+  type: 'test'
+  ...
+# Subtest: role child backing ledger is covered by the existing lease and follows growth, release and cancellation
+ok 35 - role child backing ledger is covered by the existing lease and follows growth, release and cancellation
+  ---
+  duration_ms: 2.989917
+  type: 'test'
+  ...
+1..35
+# tests 35
+# suites 0
+# pass 35
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 497.108292

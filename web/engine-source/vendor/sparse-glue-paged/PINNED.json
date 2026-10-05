@@ -1,0 +1,13 @@
+{
+  "source": "d5f25e97cc31db975960942b0d6341946217df703037cd25e177c625d804175a",
+  "files": {
+    "attention.js": {
+      "bytes": 7952,
+      "sha256": "ce45508acefcf405a2cfad9134d9a48e4d7a67a5bb88d66117368e006501f21f"
+    },
+    "attention.wasm": {
+      "bytes": 9953,
+      "sha256": "9f0cec197e38a0e7e9288a617f6766f1822aaf9e035a6b83a3e7a31f65fc00bb"
+    }
+  }
+}

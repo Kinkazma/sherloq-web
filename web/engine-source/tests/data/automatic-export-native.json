@@ -1,0 +1,84 @@
+{
+  "arrays": {
+    "root_results_D2PRL_raw": {
+      "dtype": "<f4",
+      "shape": [
+        23
+      ],
+      "sha256": "407f92b821bb7c4d83a9279e7c608968841dcc02f3f26fa443b81fbb33c7ff36"
+    },
+    "root_biomes_5_pixel_mask": {
+      "dtype": "|u1",
+      "shape": [
+        8,
+        9
+      ],
+      "sha256": "529539cf84fb88b560c46e24ed86f3e8974e6a38f8e7c9968ca2d50f2e2e24a5"
+    },
+    "root_biomes_6_pixel_mask": {
+      "dtype": "|u1",
+      "shape": [
+        8,
+        9
+      ],
+      "sha256": "529539cf84fb88b560c46e24ed86f3e8974e6a38f8e7c9968ca2d50f2e2e24a5"
+    },
+    "root_biomes_8_cells": {
+      "dtype": "<i4",
+      "shape": [
+        3,
+        2
+      ],
+      "sha256": "72373165deffec74d858505d53012fbaf7c533a0434b8179030dea3b85939ca2"
+    },
+    "root_corroboration_entries_5_pixel_mask": {
+      "dtype": "|u1",
+      "shape": [
+        8,
+        9
+      ],
+      "sha256": "529539cf84fb88b560c46e24ed86f3e8974e6a38f8e7c9968ca2d50f2e2e24a5"
+    },
+    "root_corroboration_entries_6_pixel_mask": {
+      "dtype": "|u1",
+      "shape": [
+        8,
+        9
+      ],
+      "sha256": "529539cf84fb88b560c46e24ed86f3e8974e6a38f8e7c9968ca2d50f2e2e24a5"
+    },
+    "root_corroboration_counts": {
+      "dtype": "|u1",
+      "shape": [
+        285,
+        42
+      ],
+      "sha256": "f596d0cfa5eef9d94ca5bb0fa4bb6446f8c3a5fc49b0178c6deafd03ea441d4a"
+    },
+    "root_corroboration_context_counts": {
+      "dtype": "<u4",
+      "shape": [
+        285,
+        42
+      ],
+      "sha256": "e263d8c4dd51c9de13740e1b464bea25e7dc9a79dffbe86763c05a68fc8e741c"
+    },
+    "root_corroboration_deduplicated_envelopes_5_pixel_mask": {
+      "dtype": "|u1",
+      "shape": [
+        8,
+        9
+      ],
+      "sha256": "529539cf84fb88b560c46e24ed86f3e8974e6a38f8e7c9968ca2d50f2e2e24a5"
+    },
+    "root_corroboration_deduplicated_envelopes_6_pixel_mask": {
+      "dtype": "|u1",
+      "shape": [
+        8,
+        9
+      ],
+      "sha256": "529539cf84fb88b560c46e24ed86f3e8974e6a38f8e7c9968ca2d50f2e2e24a5"
+    }
+  },
+  "metadataText": "{\"version\":1,\"method\":\"complete_automatic_analysis\",\"configuration\":{\"regions\":[[[0,0],[20,0],[20,100],[0,100]],[[22,0],[41,0],[41,100],[22,100]],[[0,0],[41,0],[41,284],[0,284]]]},\"results\":{\"D2PRL\":{\"raw\":{\"array\":\"root_results_D2PRL_raw\"}}},\"states\":{\"D2PRL\":\"done\"},\"errors\":{},\"biomes\":[{\"id\":\"0\",\"source\":\"PatchMatch Zernike\",\"polygons\":[[[-3,-4],[19,-4],[19,24],[-3,24]],[[9.5,247.5],[37,262],[8,280.5]]],\"search_context\":\"roi:a\"},{\"id\":\"1\",\"source\":\"PatchMatch Zernike\",\"polygons\":[[[4,3],[20,3],[20,20],[4,20]]],\"search_context\":\"roi:a\"},{\"id\":\"2\",\"source\":\"PatchMatch Zernike\",\"polygons\":[[[6,4],[22,4],[22,22],[6,22]]],\"search_context\":\"roi:b\"},{\"id\":\"3\",\"source\":\"PatchMatch SIFT\",\"polygons\":[[[6,4],[22,4],[22,22],[6,22]]],\"search_context\":\"roi:a\"},{\"id\":\"4\",\"source\":\"Forgeryscope Auto\",\"polygons\":[[[6,4],[22,4],[22,22],[6,22]]],\"search_context\":\"roi:a\"},{\"id\":\"5\",\"source\":\"D2PRL\",\"polygons\":[[[2,2],[10,2],[10,9],[2,9]]],\"search_context\":\"d2prl-selected-zones\",\"pixel_mask\":{\"array\":\"root_biomes_5_pixel_mask\"},\"origin\":[2,2]},{\"id\":\"6\",\"source\":\"D2PRL\",\"polygons\":[[[3,3],[11,3],[11,10],[3,10]]],\"search_context\":\"d2prl-selected-zones\",\"pixel_mask\":{\"array\":\"root_biomes_6_pixel_mask\"},\"origin\":[3,3]},{\"id\":\"duplicate\",\"source\":\"PatchMatch SIFT\",\"polygons\":[[[-3,-4],[19,-4],[19,24],[-3,24]],[[9.5,247.5],[37,262],[8,280.5]]],\"search_context\":\"roi:a\"},{\"id\":\"7\",\"source\":\"ELA biomes\",\"polygons\":[[[0,0],[41,0],[41,284],[0,284]]],\"search_context\":\"roi:a\",\"cells\":{\"array\":\"root_biomes_8_cells\"},\"block\":8}],\"display\":{\"maximum_length_px\":Infinity},\"corroboration\":{\"entries\":[{\"id\":\"0\",\"source\":\"PatchMatch Zernike\",\"polygons\":[[[-3,-4],[19,-4],[19,24],[-3,24]],[[9.5,247.5],[37,262],[8,280.5]]],\"search_context\":\"roi:a\"},{\"id\":\"1\",\"source\":\"PatchMatch Zernike\",\"polygons\":[[[4,3],[20,3],[20,20],[4,20]]],\"search_context\":\"roi:a\"},{\"id\":\"2\",\"source\":\"PatchMatch Zernike\",\"polygons\":[[[6,4],[22,4],[22,22],[6,22]]],\"search_context\":\"roi:b\"},{\"id\":\"3\",\"source\":\"PatchMatch SIFT\",\"polygons\":[[[6,4],[22,4],[22,22],[6,22]]],\"search_context\":\"roi:a\"},{\"id\":\"4\",\"source\":\"Forgeryscope Auto\",\"polygons\":[[[6,4],[22,4],[22,22],[6,22]]],\"search_context\":\"roi:a\"},{\"id\":\"5\",\"source\":\"D2PRL\",\"polygons\":[[[2,2],[10,2],[10,9],[2,9]]],\"search_context\":\"d2prl-selected-zones\",\"pixel_mask\":{\"array\":\"root_corroboration_entries_5_pixel_mask\"},\"origin\":[2,2]},{\"id\":\"6\",\"source\":\"D2PRL\",\"polygons\":[[[3,3],[11,3],[11,10],[3,10]]],\"search_context\":\"d2prl-selected-zones\",\"pixel_mask\":{\"array\":\"root_corroboration_entries_6_pixel_mask\"},\"origin\":[3,3]},{\"id\":\"duplicate\",\"source\":\"PatchMatch SIFT\",\"polygons\":[[[-3,-4],[19,-4],[19,24],[-3,24]],[[9.5,247.5],[37,262],[8,280.5]]],\"search_context\":\"roi:a\"}],\"excluded\":[[[10.5,0.5],[15.5,10.5],[8.5,16.5]],[[-3,258],[7,258],[7,268],[-3,268]]],\"sources\":[\"Forgeryscope Auto\",\"PatchMatch Zernike\",\"PatchMatch SIFT\",\"SIFT + G2NN + RANSAC + Panels + Text\",\"D2PRL\"],\"metric\":\"integer_method_search_context_count_not_probability\",\"presentation\":\"overlay\",\"opacity\":0.7,\"counts\":{\"array\":\"root_corroboration_counts\"},\"context_counts\":{\"array\":\"root_corroboration_context_counts\"},\"deduplicated_envelopes\":[{\"id\":\"0\",\"source\":\"PatchMatch Zernike\",\"polygons\":[[[-3,-4],[19,-4],[19,24],[-3,24]],[[9.5,247.5],[37,262],[8,280.5]]],\"search_context\":\"roi:a\",\"member_ids\":[\"0\",\"duplicate\"],\"corroborating_sources\":[\"PatchMatch Zernike\",\"PatchMatch SIFT\"]},{\"id\":\"1\",\"source\":\"PatchMatch Zernike\",\"polygons\":[[[4,3],[20,3],[20,20],[4,20]]],\"search_context\":\"roi:a\",\"member_ids\":[\"1\"],\"corroborating_sources\":[\"PatchMatch Zernike\"]},{\"id\":\"2\",\"source\":\"PatchMatch Zernike\",\"polygons\":[[[6,4],[22,4],[22,22],[6,22]]],\"search_context\":\"roi:b\",\"member_ids\":[\"2\"],\"corroborating_sources\":[\"PatchMatch Zernike\"]},{\"id\":\"3\",\"source\":\"PatchMatch SIFT\",\"polygons\":[[[6,4],[22,4],[22,22],[6,22]]],\"search_context\":\"roi:a\",\"member_ids\":[\"3\"],\"corroborating_sources\":[\"PatchMatch SIFT\"]},{\"id\":\"4\",\"source\":\"Forgeryscope Auto\",\"polygons\":[[[6,4],[22,4],[22,22],[6,22]]],\"search_context\":\"roi:a\",\"member_ids\":[\"4\"],\"corroborating_sources\":[\"Forgeryscope Auto\"]},{\"id\":\"5\",\"source\":\"D2PRL\",\"polygons\":[[[2,2],[10,2],[10,9],[2,9]]],\"search_context\":\"d2prl-selected-zones\",\"pixel_mask\":{\"array\":\"root_corroboration_deduplicated_envelopes_5_pixel_mask\"},\"origin\":[2,2],\"member_ids\":[\"5\"],\"corroborating_sources\":[\"D2PRL\"]},{\"id\":\"6\",\"source\":\"D2PRL\",\"polygons\":[[[3,3],[11,3],[11,10],[3,10]]],\"search_context\":\"d2prl-selected-zones\",\"pixel_mask\":{\"array\":\"root_corroboration_deduplicated_envelopes_6_pixel_mask\"},\"origin\":[3,3],\"member_ids\":[\"6\"],\"corroborating_sources\":[\"D2PRL\"]}]},\"image_shape\":[285,42,3],\"decoded_bgr8_sha256\":\"fixture\"}"
+}

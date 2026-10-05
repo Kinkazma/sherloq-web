@@ -1,0 +1,15 @@
+{
+  "version": "llvmorg-15.0.7",
+  "source": "https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-15.0.7/libcxx/include/__algorithm/sort.h",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "files": {
+    "sort.h": "33f739d139c79d5467aa69083e696b157c3d73e72711ff7552e6cd66e87d3f36",
+    "LICENSE.TXT": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b",
+    "push_heap.h": "e573d393259aa0bf88f5d8378db190281c176b883eb7914898ce2b8d8995e69c",
+    "partial_sort.h": "f72f4a0cff0abf8ae1e876c880557273baeea9af02c1c133312a3f3426cbb918",
+    "sift_down.h": "6fbce3eef2082306a31f253846d0969c450724786b68730dc7a92b99704b4738",
+    "make_heap.h": "3f19485fc8ae5a1b50b59964f6f6c438c72f140b0bf11df6b9c4d1fed4212283",
+    "sort_heap.h": "aa6ef63e4b03d6bf457e59b8096b042f2580acdac64ac95437fd2fefd7875d8a",
+    "pop_heap.h": "9afbf9fd2e0476b41ce576fcf056a3607fdfb200eee7ea23e2ff4742189ec17d"
+  }
+}

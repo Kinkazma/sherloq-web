@@ -1,0 +1,492 @@
+[
+  {
+    "name": "tiny",
+    "resident": true,
+    "width": 1,
+    "height": 1,
+    "values": [
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      65536
+    ],
+    "native": [
+      1,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": true,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 159383552,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "heapBytes": 136380416,
+      "sourcePixels": 2,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 5122.508124999999
+  },
+  {
+    "name": "brightness",
+    "resident": true,
+    "width": 97,
+    "height": 99,
+    "values": [
+      -0.17042059312411276,
+      9595,
+      38380,
+      8,
+      0.9995833767135078,
+      220933.03967275438,
+      0.0002604592356099995,
+      65536
+    ],
+    "native": [
+      -0.17042059312411276,
+      9595,
+      38380,
+      8,
+      0.9995833767135078,
+      220933.03967275438
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": true,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 159383552,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "heapBytes": 136380416,
+      "sourcePixels": 19206,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 6455.444917
+  },
+  {
+    "name": "random",
+    "resident": true,
+    "width": 192,
+    "height": 192,
+    "values": [
+      -1.2746405011006277,
+      36781,
+      147124,
+      83,
+      0.9988736060697458,
+      846966.5022395061,
+      0.00005426230399739811,
+      65536
+    ],
+    "native": [
+      -1.2746405011006277,
+      36781,
+      147124,
+      83,
+      0.9988736060697458,
+      846966.5022395061
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": true,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 159383552,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "heapBytes": 136380416,
+      "sourcePixels": 73728,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 20940.347625
+  },
+  {
+    "name": "rare",
+    "resident": true,
+    "width": 4097,
+    "height": 4097,
+    "values": [
+      0.9999999999999982,
+      1.0000000595755552,
+      0.6666667262422236,
+      16785408,
+      0.00007148968397178208,
+      0.3068528494024386,
+      0.9999999999999982,
+      16777216
+    ],
+    "native": [
+      0.9999999999999982,
+      1.0000000595755552,
+      0.6666667262422236,
+      16785408,
+      0.00007148968397178208,
+      0.3068528494024386
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": true,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 159383552,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "heapBytes": 136380416,
+      "sourcePixels": 33570818,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 45583.873416999995
+  },
+  {
+    "name": "disjoint",
+    "resident": true,
+    "width": 4097,
+    "height": 4097,
+    "values": [
+      -5.960464832810452e-8,
+      16785409,
+      67141636,
+      0,
+      1,
+      665740734.5817363,
+      -5.960464832810452e-8,
+      16777216
+    ],
+    "native": [
+      -5.960464832810452e-8,
+      16785409,
+      67141636,
+      0,
+      1,
+      665740734.5817363
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": true,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 159383552,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "heapBytes": 136380416,
+      "sourcePixels": 33570818,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 21873.744542
+  },
+  {
+    "name": "tiny",
+    "resident": false,
+    "width": 1,
+    "height": 1,
+    "values": [
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      65536
+    ],
+    "native": [
+      1,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": false,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 26216448,
+      "workers": 1,
+      "paged": true,
+      "reads": 16386,
+      "writes": 2,
+      "readBytes": 268468224,
+      "writeBytes": 32768,
+      "heapBytes": 8388608,
+      "sourcePixels": 2,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 6487.027749999999
+  },
+  {
+    "name": "brightness",
+    "resident": false,
+    "width": 97,
+    "height": 99,
+    "values": [
+      -0.17042059312411276,
+      9595,
+      38380,
+      8,
+      0.9995833767135078,
+      220933.03967275438,
+      0.0002604592356099995,
+      65536
+    ],
+    "native": [
+      -0.17042059312411276,
+      9595,
+      38380,
+      8,
+      0.9995833767135078,
+      220933.03967275438
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": false,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 26216448,
+      "workers": 1,
+      "paged": true,
+      "reads": 23379,
+      "writes": 6995,
+      "readBytes": 383041536,
+      "writeBytes": 114606080,
+      "heapBytes": 8388608,
+      "sourcePixels": 19206,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 17099.442791999998
+  },
+  {
+    "name": "random",
+    "resident": false,
+    "width": 192,
+    "height": 192,
+    "values": [
+      -1.2746405011006277,
+      36781,
+      147124,
+      83,
+      0.9988736060697458,
+      846966.5022395061,
+      0.00005426230399739811,
+      65536
+    ],
+    "native": [
+      -1.2746405011006277,
+      36781,
+      147124,
+      83,
+      0.9988736060697458,
+      846966.5022395061
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": false,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 26216448,
+      "workers": 1,
+      "paged": true,
+      "reads": 24576,
+      "writes": 8192,
+      "readBytes": 402653184,
+      "writeBytes": 134217728,
+      "heapBytes": 8388608,
+      "sourcePixels": 73728,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 8871.938583
+  },
+  {
+    "name": "rare",
+    "resident": false,
+    "width": 4097,
+    "height": 4097,
+    "values": [
+      0.9999999999999982,
+      1.0000000595755552,
+      0.6666667262422236,
+      16785408,
+      0.00007148968397178208,
+      0.3068528494024386,
+      0.9999999999999982,
+      16777216
+    ],
+    "native": [
+      0.9999999999999982,
+      1.0000000595755552,
+      0.6666667262422236,
+      16785408,
+      0.00007148968397178208,
+      0.3068528494024386
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": false,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 26216448,
+      "workers": 1,
+      "paged": true,
+      "reads": 73730,
+      "writes": 4,
+      "readBytes": 1207992320,
+      "writeBytes": 65536,
+      "heapBytes": 8388608,
+      "sourcePixels": 33570818,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 10681.236624999998
+  },
+  {
+    "name": "disjoint",
+    "resident": false,
+    "width": 4097,
+    "height": 4097,
+    "values": [
+      -5.960464832810452e-8,
+      16785409,
+      67141636,
+      0,
+      1,
+      665740734.5817363,
+      -5.960464832810452e-8,
+      16777216
+    ],
+    "native": [
+      -5.960464832810452e-8,
+      16785409,
+      67141636,
+      0,
+      1,
+      665740734.5817363
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": false,
+      "cachePages": 32,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 26216448,
+      "workers": 1,
+      "paged": true,
+      "reads": 57347,
+      "writes": 2,
+      "readBytes": 939573248,
+      "writeBytes": 32768,
+      "heapBytes": 8388608,
+      "sourcePixels": 33570818,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 8715.142124999998
+  }
+]

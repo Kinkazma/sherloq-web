@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "file": "exif-0.png",
+      "latitude": 1.0341666666666667,
+      "longitude": 4.085,
+      "thumbnailOffset": 211,
+      "thumbnailLength": 1108,
+      "thumbnailSha256": "4a6db9737cf6fd92d2807d9ea30f0c4b9b177682120aeff51139d2c5d3427818",
+      "rgbSha256": "a1d1677edb7825f0ab70b263f6653db617deefe463c1233f5ea098ddffc8edd0",
+      "resizedSha256": "3b605eb6523d9645606f03691c3569bbe0c8443c72fa02dafb51a75117d299b2",
+      "differenceSha256": "e4f2b8f1cb35fa37d094c5ba0bb7ff2fe8d38e3f86d0207afff599f6bc883fe2"
+    },
+    {
+      "file": "exif-1.png",
+      "latitude": 1.0341666666666667,
+      "longitude": 4.085,
+      "thumbnailOffset": 8435,
+      "thumbnailLength": 1108,
+      "thumbnailSha256": "4a6db9737cf6fd92d2807d9ea30f0c4b9b177682120aeff51139d2c5d3427818",
+      "rgbSha256": "a1d1677edb7825f0ab70b263f6653db617deefe463c1233f5ea098ddffc8edd0",
+      "resizedSha256": "3b605eb6523d9645606f03691c3569bbe0c8443c72fa02dafb51a75117d299b2",
+      "differenceSha256": "e4f2b8f1cb35fa37d094c5ba0bb7ff2fe8d38e3f86d0207afff599f6bc883fe2"
+    }
+  ]
+}

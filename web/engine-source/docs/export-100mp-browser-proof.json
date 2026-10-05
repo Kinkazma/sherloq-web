@@ -1,0 +1,140 @@
+{
+  "browser": "154.0.8037.93",
+  "synthetic": true,
+  "dimensions": [
+    10000,
+    10000
+  ],
+  "pixels": 100000000,
+  "budgetBytes": 134217728,
+  "exports": [
+    {
+      "id": "21c53848-3177-4dac-8e07-139f31c1a6bd",
+      "revision": 1,
+      "mime": "image/png",
+      "format": "png",
+      "width": 10000,
+      "height": 10000,
+      "byteLength": 1419989,
+      "sha256": "4bdb8a8a70cb6e6fe4498cbc6b4dbf0a2b984cf75ab853da88802f39cb06a58e",
+      "imageId": "synthetic-100mp",
+      "sourceSurfaceId": "generated-rgb",
+      "sourceSurfaceRevision": 1,
+      "sourceFormat": "rgb8",
+      "provenance": {
+        "coordinates": "full-resolution",
+        "pixels": "exact surface bytes",
+        "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+        "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+        "compression": 6
+      },
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "outputCapacityBytes": 301205115,
+        "encodedWriteCalls": 6,
+        "maxSourceWindowBytes": 960000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 134217728,
+          "policyAvailableBytes": 108789760,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 25427968,
+          "peakAccountedBytes": 26387968,
+          "activeRecoveries": 0
+        }
+      },
+      "maximumReadBytes": 1419989,
+      "sourceRgbSha256": "c0270d5007429405649c3bf04a41346dcbd6edb281d4052163cf377f65725f5b",
+      "wallMs": 5457.055000007153
+    },
+    {
+      "id": "77f22947-33cc-4e8c-bc8e-10a087ae0b12",
+      "revision": 1,
+      "mime": "image/png",
+      "format": "png",
+      "width": 10000,
+      "height": 10000,
+      "byteLength": 300097599,
+      "sha256": "920a467b3541548757555b5ad5a3b79cde0a322e576cba4ca97d29a19b133ded",
+      "imageId": "synthetic-100mp",
+      "sourceSurfaceId": "generated-rgb",
+      "sourceSurfaceRevision": 1,
+      "sourceFormat": "rgb8",
+      "provenance": {
+        "coordinates": "full-resolution",
+        "pixels": "exact surface bytes",
+        "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+        "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+        "compression": 0
+      },
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "outputCapacityBytes": 301205115,
+        "encodedWriteCalls": 1145,
+        "maxSourceWindowBytes": 960000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 134217728,
+          "policyAvailableBytes": 108789760,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 25427968,
+          "peakAccountedBytes": 26387968,
+          "activeRecoveries": 0
+        }
+      },
+      "maximumReadBytes": 4194304,
+      "sourceRgbSha256": "c0270d5007429405649c3bf04a41346dcbd6edb281d4052163cf377f65725f5b",
+      "wallMs": 11027.055000007153
+    },
+    {
+      "id": "1ff92742-45d9-499f-a9a5-4e8c4ee36226",
+      "revision": 1,
+      "mime": "application/zip",
+      "format": "npz",
+      "width": 10000,
+      "height": 10000,
+      "byteLength": 5500023986,
+      "sha256": "87285e45048b06a6465980c38a6f614e5eda7757ed232299891986909c05b116",
+      "imageId": "synthetic-100mp",
+      "provenance": {
+        "operation": "analysis.complete",
+        "coordinates": "full-resolution"
+      },
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "arrays": 28,
+        "zip64": true,
+        "assemblyMs": 40834.410000026226,
+        "hashMs": 37222.16500002146,
+        "maximumScalarChunk": 65536,
+        "outputCapacityBytes": 5500023986,
+        "memory": {
+          "budgetBytes": 134217728,
+          "policyAvailableBytes": 134217728,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 79908864,
+          "activeRecoveries": 0
+        }
+      },
+      "maximumReadBytes": 4194304,
+      "wallMs": 230102.63499999046
+    }
+  ],
+  "storageEstimate": {
+    "quota": 10737418240,
+    "usage": 0,
+    "usageDetails": {}
+  },
+  "peakAccountedBytes": 79908864,
+  "finalAccountedBytes": 0,
+  "wallMs": 247781.77499997616
+}

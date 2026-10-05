@@ -1,0 +1,418 @@
+{
+  "version": "0.21.0",
+  "extractedRuntime": true,
+  "observations": [
+    {
+      "runtimeSmoke": {
+        "status": "passed",
+        "version": "0.21.0",
+        "operations": [
+          "ela.classic",
+          "metadata.structure",
+          "metadata.location",
+          "metadata.thumbnail",
+          "file.hex",
+          "colors.pca",
+          "colors.space",
+          "noise.separation",
+          "detail.gradient",
+          "inspection.adjust",
+          "detail.echo",
+          "noise.noisesniffer",
+          "noise.prnu",
+          "comparison.image",
+          "detail.frequency",
+          "noise.blocking",
+          "detail.wavelets",
+          "colors.plots",
+          "file.digest",
+          "inspection.magnifier",
+          "various.illuminant",
+          "tampering.contrast",
+          "various.stereogram",
+          "jpeg.zero",
+          "jpeg.ghosts",
+          "jpeg.multiple",
+          "jpeg.quality",
+          "inspection.histogram",
+          "colors.stats",
+          "noise.planes",
+          "noise.minmax",
+          "pixels.defects"
+        ],
+        "browser": "154.0.8037.58",
+        "extractedRuntime": true
+      }
+    },
+    {
+      "segmentedDefects": {
+        "schema": 1,
+        "status": "passed",
+        "scope": "96MP synthetic JPEG, five settings including EXIF6; native four windows per display/mask/flags, complete first-case raster hashes and all ordered candidate/CSV bytes, ownership/release/unload/cancel/dispose. Functional timings, not isolated benchmarks.",
+        "nativeSourceSha256": "fa932eb01781bf03a2cc621b474dfa8cd3cd015e21e5becb78d42272ce4ab517",
+        "cases": [
+          {
+            "params": {
+              "radius": 1,
+              "threshold": 32,
+              "spread": 32,
+              "kind": 0,
+              "mode": 0
+            },
+            "orientation": 1,
+            "dimensions": [
+              12000,
+              8000
+            ],
+            "windows": 4,
+            "fullHashes": {
+              "rgb": "4ae05f0a745bc95e9df629fe789aa76f7df025445219c28a84d33c3adb913c17",
+              "mask": "c18bffa814d51fecb00fd573caccacbe659dfdd183f76bfea17c2b4fa9a718a3",
+              "flags": "5e43d0e74f1eb27c4bdc60800bbb32b70d9d489b401cb4a07865b24a0370828e"
+            },
+            "count": 281250,
+            "candidateCount": 749625,
+            "tableSha256": "e9960f797d2bae98b5a3c8a4791272edbf32581e598c8969a7bac7f521effc0c",
+            "csvSha256": "3007d1861aa009c9adbca28b1ca17cac8f6686093382ba535d25620f3168daa8",
+            "csvBytes": 24317703,
+            "computeMs": 13636.5,
+            "metrics": {
+              "stageMs": {
+                "admission": 40.40000003576279,
+                "classificationAndDisplay": 7673.599999964237,
+                "candidateRecords": 5921.200000047684,
+                "candidateOrder": 0
+              },
+              "blocks": 236,
+              "rowsPerBlock": 34,
+              "candidateSort": {
+                "path": "already-ordered",
+                "passes": 0
+              },
+              "storage": "temporary",
+              "maskStorage": "memory",
+              "flagStorage": "temporary",
+              "tableStorage": "memory",
+              "retainedResultBytes": 689991000,
+              "temporaryBackend": "opfs",
+              "temporaryFallback": null,
+              "totalMs": 13636,
+              "workers": 1,
+              "cache": {
+                "result": false
+              },
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 113991000,
+                "cacheBytes": 0,
+                "activeReservationBytes": 20185088,
+                "peakAccountedBytes": 139418952
+              }
+            }
+          },
+          {
+            "params": {
+              "radius": 2,
+              "threshold": 32,
+              "spread": 64,
+              "kind": 1,
+              "mode": 1
+            },
+            "orientation": 1,
+            "dimensions": [
+              12000,
+              8000
+            ],
+            "windows": 4,
+            "fullHashes": null,
+            "count": 93750,
+            "candidateCount": 281250,
+            "tableSha256": "84fdf360091800bb16291ed407e8faadcba6a75da836dbbb5189fb39a41aa53e",
+            "csvSha256": "2718c6e849940421974ae236f2a2102abd04883522a43df616874c282c59afdc",
+            "csvBytes": 9264480,
+            "computeMs": 13662.700000047684,
+            "metrics": {
+              "stageMs": {
+                "admission": 39.89999997615814,
+                "classificationAndDisplay": 7677.600000023842,
+                "candidateRecords": 5944.800000011921,
+                "candidateOrder": 0
+              },
+              "blocks": 236,
+              "rowsPerBlock": 34,
+              "candidateSort": {
+                "path": "already-ordered",
+                "passes": 0
+              },
+              "storage": "temporary",
+              "maskStorage": "memory",
+              "flagStorage": "temporary",
+              "tableStorage": "memory",
+              "retainedResultBytes": 678750000,
+              "temporaryBackend": "opfs",
+              "temporaryFallback": null,
+              "totalMs": 13662.5,
+              "workers": 1,
+              "cache": {
+                "result": false
+              },
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 102750000,
+                "cacheBytes": 0,
+                "activeReservationBytes": 20185088,
+                "peakAccountedBytes": 147605752
+              }
+            }
+          },
+          {
+            "params": {
+              "radius": 2,
+              "threshold": 32,
+              "spread": 64,
+              "kind": 2,
+              "mode": 2
+            },
+            "orientation": 1,
+            "dimensions": [
+              12000,
+              8000
+            ],
+            "windows": 4,
+            "fullHashes": null,
+            "count": 187500,
+            "candidateCount": 375000,
+            "tableSha256": "99063129a52fc0aeaadf0dfa10b45a85f699f9fb451fa01a108954de5cba8841",
+            "csvSha256": "2345111e6ae5eac6dff881ee8111d782cce065628570b5874327ef329c176b8f",
+            "csvBytes": 11977230,
+            "computeMs": 13767.099999964237,
+            "metrics": {
+              "stageMs": {
+                "admission": 40.10000002384186,
+                "classificationAndDisplay": 7788.800000011921,
+                "candidateRecords": 5937.800000011921,
+                "candidateOrder": 0
+              },
+              "blocks": 236,
+              "rowsPerBlock": 34,
+              "candidateSort": {
+                "path": "already-ordered",
+                "passes": 0
+              },
+              "storage": "temporary",
+              "maskStorage": "memory",
+              "flagStorage": "temporary",
+              "tableStorage": "memory",
+              "retainedResultBytes": 681000000,
+              "temporaryBackend": "opfs",
+              "temporaryFallback": null,
+              "totalMs": 13766.900000035763,
+              "workers": 1,
+              "cache": {
+                "result": false
+              },
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 105000000,
+                "cacheBytes": 0,
+                "activeReservationBytes": 20185088,
+                "peakAccountedBytes": 147605752
+              }
+            }
+          },
+          {
+            "params": {
+              "radius": 1,
+              "threshold": 16,
+              "spread": 96,
+              "kind": 0,
+              "mode": 2
+            },
+            "orientation": 1,
+            "dimensions": [
+              12000,
+              8000
+            ],
+            "windows": 4,
+            "fullHashes": null,
+            "count": 281250,
+            "candidateCount": 843375,
+            "tableSha256": "7a637e0a274a1e7ef7fb1f9b715bf0f675ef6196270a7d3fa09b373c9dacf2b1",
+            "csvSha256": "9d7dd6cc8b860a6d0bed5ddad03bd5f917bfb9cd0f28045b3d5d6585dee2a0cc",
+            "csvBytes": 27405078,
+            "computeMs": 13637.300000011921,
+            "metrics": {
+              "stageMs": {
+                "admission": 39.19999998807907,
+                "classificationAndDisplay": 7671.100000023842,
+                "candidateRecords": 5926.599999964237,
+                "candidateOrder": 0
+              },
+              "blocks": 236,
+              "rowsPerBlock": 34,
+              "candidateSort": {
+                "path": "already-ordered",
+                "passes": 0
+              },
+              "storage": "temporary",
+              "maskStorage": "memory",
+              "flagStorage": "temporary",
+              "tableStorage": "memory",
+              "retainedResultBytes": 692241000,
+              "temporaryBackend": "opfs",
+              "temporaryFallback": null,
+              "totalMs": 13637.099999964237,
+              "workers": 1,
+              "cache": {
+                "result": false
+              },
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 116241000,
+                "cacheBytes": 0,
+                "activeReservationBytes": 20185088,
+                "peakAccountedBytes": 147605752
+              }
+            }
+          },
+          {
+            "params": {
+              "radius": 2,
+              "threshold": 32,
+              "spread": 64,
+              "kind": 0,
+              "mode": 0
+            },
+            "orientation": 6,
+            "dimensions": [
+              8000,
+              12000
+            ],
+            "windows": 4,
+            "fullHashes": null,
+            "count": 281250,
+            "candidateCount": 656250,
+            "tableSha256": "2582b6e93d218b03bb6505eda808e074e2818f2f3ae3564d9f0aa5b766b97a8e",
+            "csvSha256": "40621880ea061ea7600d9919bad54196cb76c8b943dff758f208bb74a4fb5a09",
+            "csvBytes": 21239730,
+            "computeMs": 14224.200000047684,
+            "metrics": {
+              "stageMs": {
+                "admission": 39.80000001192093,
+                "classificationAndDisplay": 7715.899999976158,
+                "candidateRecords": 5830.800000011921,
+                "candidateOrder": 637.1999999880791
+              },
+              "blocks": 236,
+              "rowsPerBlock": 34,
+              "candidateSort": {
+                "path": "memory-radix",
+                "passes": 4
+              },
+              "storage": "temporary",
+              "maskStorage": "memory",
+              "flagStorage": "temporary",
+              "tableStorage": "memory",
+              "retainedResultBytes": 687750000,
+              "temporaryBackend": "opfs",
+              "temporaryFallback": null,
+              "totalMs": 14224,
+              "workers": 1,
+              "cache": {
+                "result": false
+              },
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 111750000,
+                "cacheBytes": 0,
+                "activeReservationBytes": 20185088,
+                "peakAccountedBytes": 163437136
+              }
+            }
+          }
+        ],
+        "cancellationMs": 18.399999976158142,
+        "cancellation": "storage-closed-before-worker-termination",
+        "storageArtifactsRemaining": 0,
+        "browser": "154.0.8037.58"
+      }
+    },
+    {
+      "candidateStorage": {
+        "schema": 1,
+        "status": "passed",
+        "scope": "Real worker external candidate ordering, exact non-truncated coordinates beyond2^32 keys,100003 records,8MiB engine budget, cancellation and injected write failure. Fixture/oracle outside engine budget; no process RSS or physical quota exhaustion claim.",
+        "runs": [
+          {
+            "status": "passed",
+            "sessionId": "job-07b50905-b78f-43b2-998f-ca6f66df71e0",
+            "backend": "opfs",
+            "count": 100003,
+            "largestKey": 8490990003,
+            "metrics": {
+              "path": "external-radix",
+              "passes": 9,
+              "bucketBytes": 458712,
+              "inputBytes": 1048560,
+              "peakAccountedBytes": 8388336,
+              "storage": {
+                "reservedBytes": 2400072,
+                "peakReservedBytes": 4800144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 33554432,
+                "openFiles": 1
+              }
+            },
+            "cancellation": true,
+            "injectedWriteFailure": true,
+            "accountedBytesAfterCleanup": 0
+          },
+          {
+            "status": "passed",
+            "sessionId": "job-53a7db86-fa64-4334-84ab-0b3b9179d26d",
+            "backend": "indexeddb",
+            "count": 100003,
+            "largestKey": 8490990003,
+            "metrics": {
+              "path": "external-radix",
+              "passes": 9,
+              "bucketBytes": 327648,
+              "inputBytes": 1048560,
+              "peakAccountedBytes": 8388464,
+              "storage": {
+                "reservedBytes": 2400072,
+                "peakReservedBytes": 4800144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 33554432,
+                "openFiles": 0,
+                "arrays": 1,
+                "pageBytes": 1048576,
+                "backend": "indexeddb",
+                "readCacheEnabled": true,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 63,
+                  "cacheHits": 54,
+                  "requestedBytes": 45601368
+                }
+              }
+            },
+            "cancellation": true,
+            "injectedWriteFailure": true,
+            "accountedBytesAfterCleanup": 0
+          }
+        ],
+        "storageArtifactsRemaining": 0,
+        "browser": "154.0.8037.58"
+      }
+    },
+    {
+      "status": "passed",
+      "browser": "154.0.8037.58",
+      "exact": true,
+      "cancellation": "hard worker termination, explicit reload and large-image cancellation verified"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "scope": "offline native orientation oracle; no system-library code shipped",
+  "vectors": 413428,
+  "expanded": true,
+  "referenceSource": "161d3b3589383740fafd97cd9871f531c7ee2313db55ac5620a8c9770637db27",
+  "vectorsSha256": "6ef448f07d8c5268e1496c37f496456eeaf89aacc6d60ff396edac77d145324f",
+  "results": {
+    "system-atan2f": {
+      "differingAngles": 0,
+      "maxDegrees": 0,
+      "changedDescriptorBins": 0
+    },
+    "wasm-atan2f": {
+      "differingAngles": 42703,
+      "maxDegrees": 3.0517578125e-05,
+      "changedDescriptorBins": 0
+    },
+    "double-rounded-to-float": {
+      "differingAngles": 12636,
+      "maxDegrees": 3.0517578125e-05,
+      "changedDescriptorBins": 0
+    }
+  }
+}

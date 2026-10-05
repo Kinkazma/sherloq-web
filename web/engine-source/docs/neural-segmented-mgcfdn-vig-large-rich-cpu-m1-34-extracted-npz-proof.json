@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "mgcfdn-vig",
+  "backend": "cpu",
+  "large": true,
+  "rich": true,
+  "extracted": true,
+  "scope": "Actual paged common-worker NPZ read with NumPy allow_pickle=False; ZIP CRC, owned export SHA, names/dtypes/shapes, canonical source identity, all native array values and browser window hashes.",
+  "bytes": 672014112,
+  "sha256": "03202b726bb4ad653db625fedeb68c19bdc745b0148fd648388680d01979fcf1",
+  "numpy": "1.26.4",
+  "records": [
+    {
+      "array": "map",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 3.236532211303711e-05,
+      "meanAbs": 2.788043936412416e-07,
+      "nonzero": 45148043,
+      "different": 45348012,
+      "sha256": "e152ff7997cfd7a51fbb81756ccf075e6b2783c4530829f4640e61aab3e1d2ac",
+      "accepted": true
+    },
+    {
+      "array": "mask",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "nonzero": 3589606,
+      "different": 0,
+      "sha256": "f32ab33c7407e415b1a0f922f486ab01bf5ca03cac9c5fda5b49c9ae0652c689",
+      "accepted": true
+    },
+    {
+      "array": "analyzed",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "nonzero": 45748471,
+      "different": 0,
+      "sha256": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+      "accepted": true
+    },
+    {
+      "array": "candidates",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "nonzero": 0,
+      "different": 0,
+      "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+      "accepted": true
+    }
+  ]
+}

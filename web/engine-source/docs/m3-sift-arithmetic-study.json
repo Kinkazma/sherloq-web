@@ -1,0 +1,71 @@
+[
+  {
+    "name": "flat",
+    "grayDifferences": [
+      0,
+      0
+    ],
+    "preprocessingDifferences": 0,
+    "n": 0,
+    "expected": 0,
+    "pointDifferences": 0,
+    "fields": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "maxPoint": 0,
+    "descriptorDifferences": 0,
+    "descriptorExamples": []
+  },
+  {
+    "name": "texture",
+    "grayDifferences": [
+      0,
+      0
+    ],
+    "preprocessingDifferences": 0,
+    "n": 400,
+    "expected": 400,
+    "pointDifferences": 20,
+    "fields": [
+      0,
+      0,
+      5,
+      15,
+      0,
+      0,
+      0
+    ],
+    "maxPoint": 0.000030517578125,
+    "descriptorDifferences": 0,
+    "descriptorExamples": []
+  },
+  {
+    "name": "texture-odd",
+    "grayDifferences": [
+      0,
+      0
+    ],
+    "preprocessingDifferences": 0,
+    "n": 401,
+    "expected": 401,
+    "pointDifferences": 12,
+    "fields": [
+      0,
+      0,
+      1,
+      11,
+      0,
+      0,
+      0
+    ],
+    "maxPoint": 0.000030517578125,
+    "descriptorDifferences": 0,
+    "descriptorExamples": []
+  }
+]

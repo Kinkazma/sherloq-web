@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Same production TNT backbone, checkpoint, native256 preparation, attention and decoder. GPU replaces ordered linear layers and outer attention matrices; small inner attention matrices, norms, scaling, softmax, GELU and residuals remain CPU. Native final probabilities and masks compared. Fresh helpers, serial runs in one browser context with identical1GiB budgets; OS/driver caches not flushed. Component timings exclude source decoding, projection/export/UI; those have separate API recipes.",
+  "records": [
+    {
+      "name": "structured-copy",
+      "backend": "webgpu",
+      "preparationMs": 21.600000008940697,
+      "preparationExact": true,
+      "milliseconds": 7929,
+      "sha256": "9b9f48bffd21db75d85d4f6b293639b51d5c5e1e0d7c2378b1bfe479f60b36fc",
+      "gpu": {
+        "devices": 1,
+        "allocations": 1267,
+        "peakAccountedBytes": 12485192,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "workers": 0,
+      "timings": {
+        "modelLoadMs": 4252.099999979138,
+        "inferenceMs": 3637.100000023842,
+        "outputCopyMs": 7.5,
+        "gpuWriteBytes": 487949352,
+        "gpuReadBytes": 189952480,
+        "backboneMs": 3435.9000000208616,
+        "attentionMatmulMs": 382.8999999910593,
+        "parameterLoadMs": 3704.899999976158,
+        "backboneSetupMs": 11.5
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 884994652,
+        "peakAccountedBytes": 889713244
+      },
+      "probability": {
+        "maxAbs": 0.0000029802322387695312,
+        "meanAbs": 6.533844469913674e-7,
+        "different": 64740,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 11990,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 889713244
+      }
+    },
+    {
+      "name": "constant",
+      "backend": "webgpu",
+      "preparationMs": 20.200000002980232,
+      "preparationExact": true,
+      "milliseconds": 7683.29999999702,
+      "sha256": "ae2e3bb75af5c7a20a2a9bfd93d4e34ab6653e77ad46bc5eca27685915c9858d",
+      "gpu": {
+        "devices": 1,
+        "allocations": 1267,
+        "peakAccountedBytes": 12485192,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "workers": 0,
+      "timings": {
+        "modelLoadMs": 4253.7000001221895,
+        "inferenceMs": 3399.7999998778105,
+        "outputCopyMs": 3.699999988079071,
+        "gpuWriteBytes": 487949352,
+        "gpuReadBytes": 189952480,
+        "backboneMs": 3212.7999998778105,
+        "attentionMatmulMs": 364.00000001490116,
+        "parameterLoadMs": 3741.0000001192093,
+        "backboneSetupMs": 4.899999991059303
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 884994652,
+        "peakAccountedBytes": 889713244
+      },
+      "probability": {
+        "maxAbs": 0.000001296401023864746,
+        "meanAbs": 9.895602381959634e-8,
+        "different": 65282,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 0,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 889713244
+      }
+    },
+    {
+      "name": "paired-spots",
+      "backend": "webgpu",
+      "preparationMs": 19,
+      "preparationExact": true,
+      "milliseconds": 7163,
+      "sha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+      "gpu": {
+        "devices": 1,
+        "allocations": 1267,
+        "peakAccountedBytes": 12485192,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "workers": 0,
+      "timings": {
+        "modelLoadMs": 3756.0999998748302,
+        "inferenceMs": 3383.8000001460314,
+        "outputCopyMs": 3.0999999940395355,
+        "gpuWriteBytes": 487949352,
+        "gpuReadBytes": 189952480,
+        "backboneMs": 3228.400000140071,
+        "attentionMatmulMs": 356.4000000208616,
+        "parameterLoadMs": 3420.2999998629093,
+        "backboneSetupMs": 7.799999997019768
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 884994652,
+        "peakAccountedBytes": 889713244
+      },
+      "probability": {
+        "maxAbs": 0.000003129243850708008,
+        "meanAbs": 1.2262190329792588e-7,
+        "different": 64569,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 8009,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 889713244
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-tnt-attention-model.mjs": "7f78ffeb58d0521ebbeb4c1fe8d193b5b2672c942d7ee2b30d215d1c6c3b9b6f",
+    "experiments/segmentation/tnt-attention-gpu.js": "1a26c5c78017a4294339f367d2d2094f2da4aea820c07d8e4003ffaad069b104",
+    "experiments/segmentation/parameter-cache.js": "902e2516cf530605050156b01f7039d223d92257ef874540ae3113c98295324e",
+    "experiments/segmentation/session-cache.js": "1bd46f7aa0c2b8a1f228c53bd87f30ab52dd3e485680852ea59d80a16a63000c",
+    "experiments/segmentation/tnt-backbone.js": "6ef883eabd58728317b682350e932588ed4b096d94b3e474443f177b82bfd060",
+    "experiments/segmentation/tnt-inference.js": "3a73b9540af9404258bdec8bf914c8990422150b01790d023b3c9dd8de6b3687",
+    "experiments/segmentation/tnt-linear-gpu.js": "0ec7b75470442c5e6473d66d7a7c351757375ac8eaff6f9d082edd2de59ddbcc",
+    "experiments/segmentation/tnt-linear.js": "076816da53d56761565f1f718866cb68561c52b1d4d6e8f1258532400554fcd6",
+    "experiments/segmentation/tnt-linear-worker.js": "ad5280f125769fdd254878f9da90beae90837ba386298ac8cfcc50939ab38bfd",
+    "experiments/segmentation/prepare.js": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "vendor/segmentation/TNT-PINNED.json": "ff4584f4c13ea3935edbfb3a3c37ce17efc56cfd2495d1d0b1adcc18393f2e1c"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "cases": 44,
+  "nativeRgbExact": 43,
+  "explicitRefusals": 1,
+  "mappedTilesExact": 18,
+  "nativeFloatRefusal": 1,
+  "peakAccountedBytes": 92361142,
+  "originalAnalysisResolution": true,
+  "admissionRefusal": true,
+  "directCancellation": true,
+  "hardCancellationAndReload": true,
+  "browser": "154.0.8037.58"
+}

@@ -1,0 +1,2065 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.28.0",
+  "cases": 51,
+  "runtimeFiles": {
+    "src/index.js": "4227a0c9d2afd4e2abb3743f0237b1776210e36b64a6cf11bb2da18126a72e33",
+    "src/pixel-operations.js": "dea3d9db5582aec59968d70a69ea24654aacb75ad74580b75d9f09f870920774",
+    "src/energy-pipeline.js": "28ce99b9cc9e16df1db2862bb41ee7ab91b70ad418dd3ec32fe79e92fd8a6a59",
+    "src/energy-primitives.js": "0a93e84deca015a90508da176972240de986c52108418fa7671fbcc76a7a9fd9",
+    "src/energy-prepare.js": "b08c82622ecab0bec7b87cb458dd271ae0fe2f8ef2807fd4f0c7055d73b5768f",
+    "src/auto-zones.js": "4e8e9b97c1f2abd93ccbfac0f90709237e4d26e71edcd4c05ea85e8ae889c95a",
+    "src/energy-segment.js": "4b058e639667d08867f5e6e6bfc04922cca886577cd1bcc939bb7c886bc72663",
+    "src/energy-auto.js": "6677c42313f6ab0521475071f6d8602c9bfedddd171fa1a325a6c528cfee460f",
+    "src/energy-log-reference.js": "f0433cc1ca2ee56b11355f544466cbd4eb7b6c239c9e9e84a2cfabcdb4ba7a38",
+    "src/energy-log-data.js": "ae9c7f51bb44a97b6f7e1fec627e67fc44d5132b56ff4d5c7ce6cf568f800e15",
+    "src/quality-pool.js": "507f44196041edc16513392fb73d6e6e033502b2ff2b843ba652498885d46ac6",
+    "src/quality-worker.js": "d5c69fddea5666b7ef5f4ac569bef06475356add050110fe229281df764d6986",
+    "src/npz.js": "d2d79e708823a7074ecb944eac755317ff1f0975398fe7d1dab7758f163c6950",
+    "src/exports.js": "a4059049131a86050895a9854b3bfe2a0a850c034ab38823d87d5661abb8a09d",
+    "src/worker-client.js": "4ee9edfaed55bff027f18ddd10681f33e1ee33cab762a64453d4a171f142d02a",
+    "src/worker.js": "ac472d18141cdae8ab0d7437d4d95f9b6670334f858ffa58a3612be0fccd7a77"
+  },
+  "native": {
+    "ela_biomes.py": "717d361b3a1393a84e1df08c61d52365f1786eaff5993cd838e6ec655c666900",
+    "ela_energy.py": "ae24f9eef8e38ecb42cf807d25a92d132be76473328a03e9f0d1e04a7d85b992",
+    "ela_energy_auto.py": "90dcaf350aed6ca133a1973f214d8cceba39f5078d3fbfc38cce900e69a7e815",
+    "jpeg.py": "9a54842c777d9b81cea7a3dff46f68e1157d143974057ba05d8b7837addf235a"
+  },
+  "payloadSha256": "24b161df98d64316fc3682d4f011d9d758a0b90b58d258f3263a210b644cdb88",
+  "records": [
+    {
+      "name": "flat-0",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 67.09999999962747,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-scores/75/0.01/0.99": false,
+            "energy-panels": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 12.700000001117587,
+        "energyPrimitivesMs": 8.699999999254942,
+        "energyPreparationMs": 38.40000000037253,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 3.900000000372529,
+        "energyPanelDetections": 1,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 77339,
+          "cacheBytes": 1652644,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 70680091,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-1",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 36.59999999962747,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 32.19999999925494,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 3.599999999627471,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 77339,
+          "cacheBytes": 2690772,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 70680091,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-2",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 29.59999999962747,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/1": false,
+            "energy-plane/1": false,
+            "energy-plane/6": false,
+            "energy-plane/11": false,
+            "energy-scores/1/0.5/0.5": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 2,
+        "energyPrimitivesMs": 4.199999999254942,
+        "energyPreparationMs": 18.899999998509884,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 3.600000001490116,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 77339,
+          "cacheBytes": 4343300,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 90148079,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-3",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 29.600000001490116,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/100": false,
+            "energy-plane/90": false,
+            "energy-plane/95": false,
+            "energy-plane/100": false,
+            "energy-scores/100/0/1": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 1.799999998882413,
+        "energyPrimitivesMs": 4,
+        "energyPreparationMs": 19.199999999254942,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 3.700000001117587,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 77339,
+          "cacheBytes": 5995828,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 91800607,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-4",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 17.899999998509884,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 0,
+        "energyProfileMs": 13.799999998882413,
+        "energySegmentationMs": 3.5,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 77339,
+          "cacheBytes": 6725696,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 91800607,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-5",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 15.599999999627471,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": true,
+            "energy-scores/75/0.02/0.98": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 12.5,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.5,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 77339,
+          "cacheBytes": 7764982,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 91800607,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-0",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 36.80000000074506,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/83": false,
+            "energy-plane/78": false,
+            "energy-plane/83": false,
+            "energy-plane/88": false,
+            "energy-scores/83/0.01/0.99": false,
+            "energy-panels": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 2.900000000372529,
+        "energyPrimitivesMs": 4.599999999627471,
+        "energyPreparationMs": 24.40000000037253,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.800000000745058,
+        "energyPanelDetections": 1,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 97810,
+          "cacheBytes": 1693758,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 91800607,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-1",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 29.300000000745058,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 4.400000000372529,
+        "energyPrimitivesMs": 1.099999999627471,
+        "energyPreparationMs": 21,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.200000001117587,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 97810,
+          "cacheBytes": 3387438,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 91800607,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-2",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 43,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/1": false,
+            "energy-plane/1": false,
+            "energy-plane/6": false,
+            "energy-plane/11": false,
+            "energy-scores/1/0.5/0.5": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 2.099999997764826,
+        "energyPrimitivesMs": 1.6000000014901161,
+        "energyPreparationMs": 22.700000001117587,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 15.900000000372529,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 97810,
+          "cacheBytes": 5086134,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 91800607,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-3",
+      "regions": 1,
+      "metrics": {
+        "totalMs": 31.40000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/100": false,
+            "energy-plane/90": false,
+            "energy-plane/95": false,
+            "energy-plane/100": false,
+            "energy-scores/100/0/1": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 3.5,
+        "energyPrimitivesMs": 1.300000000745058,
+        "energyPreparationMs": 17.799999998882413,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 8.5,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 97810,
+          "cacheBytes": 6782316,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 92638500,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-4",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 40,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": true,
+            "energy-scores/75/0.016/0.987": true,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 20.90000000037253,
+        "energyProfileMs": 15.299999998882413,
+        "energySegmentationMs": 3.400000000372529,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 97810,
+          "cacheBytes": 7848090,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 92638500,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-5",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 73.39999999850988,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/83": true,
+            "energy-auto/83": false,
+            "energy-scores/83/0.1/0.9": false,
+            "energy-panels": true,
+            "energy-scores/83/0.013/0.978": false,
+            "energy-scores/83/0.003/0.996": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 57.19999999925494,
+        "energyProfileMs": 11.300000002607703,
+        "energySegmentationMs": 3.5,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 97810,
+          "cacheBytes": 9549178,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 92638500,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "composite-0",
+      "regions": 1,
+      "metrics": {
+        "totalMs": 88.5,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-scores/75/0.01/0.99": false,
+            "energy-panels": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 4.799999998882413,
+        "energyPrimitivesMs": 2.200000001117587,
+        "energyPreparationMs": 74.90000000037253,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 5.699999999254942,
+        "energyPanelDetections": 1,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 276269,
+          "cacheBytes": 3215914,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 92638500,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "composite-1",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 57.80000000074506,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 38.20000000111759,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 18.59999999962747,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 276269,
+          "cacheBytes": 5234538,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 92638500,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "composite-2",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 49.19999999925494,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/1": false,
+            "energy-plane/1": false,
+            "energy-plane/6": false,
+            "energy-plane/11": false,
+            "energy-scores/1/0.5/0.5": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 3.199999999254942,
+        "energyPrimitivesMs": 5.800000000745058,
+        "energyPreparationMs": 32.600000001490116,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 6.599999999627471,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 276269,
+          "cacheBytes": 8452850,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 95719667,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "composite-3",
+      "regions": 1,
+      "metrics": {
+        "totalMs": 46,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/100": false,
+            "energy-plane/90": false,
+            "energy-plane/95": false,
+            "energy-plane/100": false,
+            "energy-scores/100/0/1": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 5.099999999627471,
+        "energyPrimitivesMs": 2.099999997764826,
+        "energyPreparationMs": 34.100000001490116,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 3.899999998509884,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 276269,
+          "cacheBytes": 11668648,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 98937979,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "composite-4",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 48,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": true,
+            "energy-scores/75/0.1/0.987": true,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 21.399999998509884,
+        "energyProfileMs": 19.700000001117587,
+        "energySegmentationMs": 6.199999999254942,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 276269,
+          "cacheBytes": 13689198,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 98937979,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "composite-5",
+      "regions": 1,
+      "metrics": {
+        "totalMs": 26.59999999962747,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": true,
+            "energy-scores/75/0.02/0.997": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 22,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 3.900000000372529,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 276269,
+          "cacheBytes": 15706656,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 98937979,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "panels-0",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 389.1000000014901,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/83": false,
+            "energy-plane/78": false,
+            "energy-plane/83": false,
+            "energy-plane/88": false,
+            "energy-scores/83/0.01/0.99": false,
+            "energy-panels": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 16,
+        "energyPrimitivesMs": 8,
+        "energyPreparationMs": 334.09999999962747,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 27.700000001117587,
+        "energyPanelDetections": 1,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 681325,
+          "cacheBytes": 12667878,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 108002273,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "panels-1",
+      "regions": 4,
+      "metrics": {
+        "totalMs": 267.90000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 15,
+        "energyPrimitivesMs": 8.300000000745058,
+        "energyPreparationMs": 181.7000000011176,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 60.69999999925494,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 681325,
+          "cacheBytes": 25339054,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 120670151,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "panels-2",
+      "regions": 4,
+      "metrics": {
+        "totalMs": 211.59999999962747,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/1": false,
+            "energy-plane/1": false,
+            "energy-plane/6": false,
+            "energy-plane/11": false,
+            "energy-scores/1/0.5/0.5": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 11.100000001490116,
+        "energyPrimitivesMs": 8.099999999627471,
+        "energyPreparationMs": 120,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 70,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 681325,
+          "cacheBytes": 38010230,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 133341327,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "panels-3",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 187.19999999925494,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/100": false,
+            "energy-plane/90": false,
+            "energy-plane/95": false,
+            "energy-plane/100": false,
+            "energy-scores/100/0/1": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 17.700000001117587,
+        "energyPrimitivesMs": 7.899999998509884,
+        "energyPreparationMs": 129.19999999925494,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 29.699999999254942,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 681325,
+          "cacheBytes": 50676378,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "panels-4",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 193.09999999962747,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": true,
+            "energy-scores/75/0.1/0.986": true,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 128.5,
+        "energyProfileMs": 32.20000000111759,
+        "energySegmentationMs": 30,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 681325,
+          "cacheBytes": 58604344,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "panels-5",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 470.69999999925494,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/83": true,
+            "energy-auto/83": false,
+            "energy-scores/83/0.1/0.9": false,
+            "energy-panels": true,
+            "energy-scores/83/0.1/0.986": false,
+            "energy-scores/83/0.02/0.997": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 409.19999999925494,
+        "energyProfileMs": 42.09999999962747,
+        "energySegmentationMs": 16.90000000037253,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 681325,
+          "cacheBytes": 71277360,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-alpha-0",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 50.40000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-scores/75/0.01/0.99": false,
+            "energy-panels": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 4.900000000372529,
+        "energyPrimitivesMs": 2.099999999627471,
+        "energyPreparationMs": 40.20000000111759,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.5,
+        "energyPanelDetections": 1,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 347816,
+          "cacheBytes": 3188708,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-alpha-1",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 35.09999999962747,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 32,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.600000001490116,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 347816,
+          "cacheBytes": 5186876,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-alpha-2",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 47.100000001490116,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/1": false,
+            "energy-plane/1": false,
+            "energy-plane/6": false,
+            "energy-plane/11": false,
+            "energy-scores/1/0.5/0.5": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 3.499999998137355,
+        "energyPrimitivesMs": 2.400000002235174,
+        "energyPreparationMs": 30.799999998882413,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 9.399999998509884,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 347816,
+          "cacheBytes": 8380484,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-alpha-3",
+      "regions": 1,
+      "metrics": {
+        "totalMs": 40.80000000074506,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/100": false,
+            "energy-plane/90": false,
+            "energy-plane/95": false,
+            "energy-plane/100": false,
+            "energy-scores/100/0/1": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 5.600000001490116,
+        "energyPrimitivesMs": 2.199999999254942,
+        "energyPreparationMs": 27.100000001490116,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 4.799999998882413,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 347816,
+          "cacheBytes": 11571578,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-alpha-4",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 43.30000000074506,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": true,
+            "energy-scores/75/0.009/0.985": true,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 27,
+        "energyProfileMs": 13.200000001117587,
+        "energySegmentationMs": 2.400000000372529,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 347816,
+          "cacheBytes": 13571672,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-alpha-5",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 29.90000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": true,
+            "energy-scores/75/0.002/0.997": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 26.799999998882413,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.400000000372529,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 347816,
+          "cacheBytes": 15571188,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "gradient16-0",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 42.30000000074506,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-scores/75/0.01/0.99": false,
+            "energy-panels": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 5.399999996647239,
+        "energyPrimitivesMs": 2.1000000033527613,
+        "energyPreparationMs": 31.699999999254942,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.400000000372529,
+        "energyPanelDetections": 1,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 395109,
+          "cacheBytes": 3188708,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "gradient16-1",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 30.300000000745058,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 27.300000000745058,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.400000000372529,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 395109,
+          "cacheBytes": 5186876,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "gradient16-2",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 44.80000000074506,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/1": false,
+            "energy-plane/1": false,
+            "energy-plane/6": false,
+            "energy-plane/11": false,
+            "energy-scores/1/0.5/0.5": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 3.400000000372529,
+        "energyPrimitivesMs": 2.099999999627471,
+        "energyPreparationMs": 29.5,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 9,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 395109,
+          "cacheBytes": 8380484,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "gradient16-3",
+      "regions": 1,
+      "metrics": {
+        "totalMs": 40.40000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/100": false,
+            "energy-plane/90": false,
+            "energy-plane/95": false,
+            "energy-plane/100": false,
+            "energy-scores/100/0/1": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 5.299999998882413,
+        "energyPrimitivesMs": 2.300000000745058,
+        "energyPreparationMs": 26.90000000037253,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 4.900000000372529,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 395109,
+          "cacheBytes": 11571578,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "gradient16-4",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 43.100000001490116,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": true,
+            "energy-scores/75/0.015/0.984": true,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 26.59999999962747,
+        "energyProfileMs": 13.400000000372529,
+        "energySegmentationMs": 2.5,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 395109,
+          "cacheBytes": 13571672,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "gradient16-5",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 29.90000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": true,
+            "energy-scores/75/0.003/0.997": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 26.5,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.599999999627471,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 395109,
+          "cacheBytes": 15571188,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "oriented-0",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 42.90000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/83": false,
+            "energy-plane/78": false,
+            "energy-plane/83": false,
+            "energy-plane/88": false,
+            "energy-scores/83/0.01/0.99": false,
+            "energy-panels": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 4.900000000372529,
+        "energyPrimitivesMs": 2.299999998882413,
+        "energyPreparationMs": 31.300000000745058,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.599999999627471,
+        "energyPanelDetections": 1,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 186273,
+          "cacheBytes": 3188670,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "oriented-1",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 38.5,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 5.099999997764826,
+        "energyPrimitivesMs": 2.0000000037252903,
+        "energyPreparationMs": 27.59999999962747,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.800000000745058,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 186273,
+          "cacheBytes": 6377262,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "oriented-2",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 46.90000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/1": false,
+            "energy-plane/1": false,
+            "energy-plane/6": false,
+            "energy-plane/11": false,
+            "energy-scores/1/0.5/0.5": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 3.600000001490116,
+        "energyPrimitivesMs": 2.399999998509884,
+        "energyPreparationMs": 30.5,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 9.400000000372529,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 186273,
+          "cacheBytes": 9570870,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "oriented-3",
+      "regions": 1,
+      "metrics": {
+        "totalMs": 40.09999999962747,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/100": false,
+            "energy-plane/90": false,
+            "energy-plane/95": false,
+            "energy-plane/100": false,
+            "energy-scores/100/0/1": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 5.799999998882413,
+        "energyPrimitivesMs": 2.200000001117587,
+        "energyPreparationMs": 26.300000000745058,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 5.099999999627471,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 186273,
+          "cacheBytes": 12761964,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "oriented-4",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 43.59999999962747,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": true,
+            "energy-scores/75/0.018/0.984": true,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 26.90000000037253,
+        "energyProfileMs": 13.5,
+        "energySegmentationMs": 2.599999999627471,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 186273,
+          "cacheBytes": 14762058,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "oriented-5",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 121.79999999888241,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/83": true,
+            "energy-auto/83": false,
+            "energy-scores/83/0.1/0.9": false,
+            "energy-panels": true,
+            "energy-scores/83/0.015/0.984": false,
+            "energy-scores/83/0.003/0.997": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 103.20000000298023,
+        "energyProfileMs": 14.499999998137355,
+        "energySegmentationMs": 2.599999999627471,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 186273,
+          "cacheBytes": 17958058,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "custom-tables-0",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 42.40000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/83": false,
+            "energy-plane/78": false,
+            "energy-plane/83": false,
+            "energy-plane/88": false,
+            "energy-scores/83/0.01/0.99": false,
+            "energy-panels": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 5.099999997764826,
+        "energyPrimitivesMs": 2.300000002607703,
+        "energyPreparationMs": 31,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.5,
+        "energyPanelDetections": 1,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 187713,
+          "cacheBytes": 3213374,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "custom-tables-1",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 37.90000000037253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 4.799999998882413,
+        "energyPrimitivesMs": 2.300000000745058,
+        "energyPreparationMs": 27.5,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 2.599999999627471,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 187713,
+          "cacheBytes": 6426670,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "custom-tables-2",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 44.69999999925494,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/1": false,
+            "energy-plane/1": false,
+            "energy-plane/6": false,
+            "energy-plane/11": false,
+            "energy-scores/1/0.5/0.5": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 3.300000000745058,
+        "energyPrimitivesMs": 2.300000000745058,
+        "energyPreparationMs": 29.199999999254942,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 9,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 187713,
+          "cacheBytes": 9644982,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "custom-tables-3",
+      "regions": 1,
+      "metrics": {
+        "totalMs": 41.20000000111759,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/100": false,
+            "energy-plane/90": false,
+            "energy-plane/95": false,
+            "energy-plane/100": false,
+            "energy-scores/100/0/1": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 3,
+        "energyCodecMs": 5.399999998509884,
+        "energyPrimitivesMs": 2,
+        "energyPreparationMs": 26,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 6.699999999254942,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 187713,
+          "cacheBytes": 12860780,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "custom-tables-4",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 42.5,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": true,
+            "energy-scores/75/0.015/0.983": true,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 26.100000001490116,
+        "energyProfileMs": 12.999999998137355,
+        "energySegmentationMs": 2.599999999627471,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 187713,
+          "cacheBytes": 14876314,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "custom-tables-5",
+      "regions": 0,
+      "metrics": {
+        "totalMs": 118.5,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/83": true,
+            "energy-auto/83": false,
+            "energy-scores/83/0.1/0.9": false,
+            "energy-panels": true,
+            "energy-scores/83/0.009/0.983": false,
+            "energy-scores/83/0.002/0.997": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 101.89999999850988,
+        "energyProfileMs": 12.900000000372529,
+        "energySegmentationMs": 2.400000000372529,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 187713,
+          "cacheBytes": 18097018,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 146012503,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "large-panels-0",
+      "regions": 2,
+      "metrics": {
+        "totalMs": 1775.9000000003725,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": false,
+            "energy-plane/70": false,
+            "energy-plane/75": false,
+            "energy-plane/80": false,
+            "energy-scores/75/0.01/0.99": false,
+            "energy-panels": false
+          }
+        },
+        "kernel": "ela-energy-pool",
+        "workers": 3,
+        "energyRecompressions": 3,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 1515.7000000011176,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 163.59999999962747,
+        "energyPoolMs": 82.70000000111759,
+        "energyScheduling": {
+          "count": 3,
+          "maximum": 3,
+          "ceiling": 3,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "energyPanelDetections": 1,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 5768593,
+          "cacheBytes": 67596086,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 414659985,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "large-panels-1",
+      "regions": 4,
+      "metrics": {
+        "totalMs": 999.0999999996275,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-scores/75/0.1/0.9": false,
+            "energy-panels": true
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 754.1999999992549,
+        "energyProfileMs": 0,
+        "energySegmentationMs": 235.90000000037253,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 5768593,
+          "cacheBytes": 109856702,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 414659985,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "large-panels-2",
+      "regions": 1,
+      "metrics": {
+        "totalMs": 1749.7999999988824,
+        "cache": {
+          "result": false,
+          "stages": {
+            "energy-planes/75": true,
+            "energy-auto/75": false,
+            "energy-scores/75/0.1/0.9": true,
+            "energy-scores/75/0.1/0.985": false,
+            "energy-panels": true,
+            "energy-scores/75/0.02/0.997": false
+          }
+        },
+        "kernel": "ela-energy-reference",
+        "workers": 1,
+        "energyRecompressions": 0,
+        "energyCodecMs": 0,
+        "energyPrimitivesMs": 0,
+        "energyPreparationMs": 1555.5,
+        "energyProfileMs": 36.90000000037253,
+        "energySegmentationMs": 137.90000000037253,
+        "energyPanelDetections": 0,
+        "memory": {
+          "budgetBytes": 2147483648,
+          "retainedBytes": 5768593,
+          "cacheBytes": 164785788,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 414659985,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    }
+  ],
+  "cleanup": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 397882769,
+    "knownHeapCapacityBytes": 33554432
+  },
+  "cancellation": "Actual worker stopped during useful energy work; original reloaded and masks reproduced",
+  "scope": "Original-file energy-only CPU/worker path. Typed arrays, masks, regions, parameters, cache and exports tested. No legacy biome, physical-device, GPU or WordPress claim. Timings are functional runs, not a benchmark.",
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true
+}

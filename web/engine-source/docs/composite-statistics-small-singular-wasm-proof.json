@@ -1,0 +1,92 @@
+{
+  "records": {
+    "spam": {
+      "values": 86016,
+      "maxError": 0,
+      "differences": 0
+    },
+    "valid": {
+      "values": 168,
+      "maxError": 0,
+      "differences": 0
+    },
+    "range0": {
+      "values": 12,
+      "maxError": 0,
+      "differences": 0
+    },
+    "range1": {
+      "values": 14,
+      "maxError": 0,
+      "differences": 0
+    },
+    "map": {
+      "values": 168,
+      "maxError": 5373104449931248,
+      "differences": 168
+    },
+    "raster": {
+      "values": 39936,
+      "maxError": 28,
+      "differences": 34540
+    },
+    "map_rgb": {
+      "values": 119808,
+      "maxError": 112,
+      "differences": 53660
+    },
+    "Sigma": {
+      "values": 1024,
+      "maxError": 1.6747714326470486e-13,
+      "differences": 1022
+    },
+    "mu": {
+      "values": 64,
+      "maxError": 4.242828310907498e-12,
+      "differences": 63
+    },
+    "L": {
+      "values": 16384,
+      "maxError": 3.3564262480467733e-12,
+      "differences": 16209
+    },
+    "eigs": {
+      "values": 512,
+      "maxError": 2.42861286636753e-17,
+      "differences": 511
+    },
+    "outliersNlogl": {
+      "shapeMismatch": true,
+      "actual": 1,
+      "expected": 8
+    },
+    "outliersProb": {
+      "values": 1,
+      "maxError": 0,
+      "differences": 0
+    }
+  },
+  "phases": [
+    "statistics-load",
+    "statistics",
+    "statistics",
+    "fit"
+  ],
+  "packages": {
+    "numpy": "1.26.4",
+    "openblas": "0.3.26",
+    "scipy": "1.12.0",
+    "opencv-python": "4.9.0.80",
+    "pillow": "10.2.0"
+  },
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 562356224
+  },
+  "passed": false,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

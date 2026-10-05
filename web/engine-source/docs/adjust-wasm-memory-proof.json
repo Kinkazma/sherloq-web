@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "file": "vendor/adjust/adjust.wasm",
+  "sha256": "3344196f97f89477ae7e6fd8fbdfd4afc76de7aaa7a31f743e71bb79daf7bba5",
+  "expectedBytes": 67108864,
+  "memories": [
+    {
+      "flags": 1,
+      "minimumPages": 1024,
+      "maximumPages": 1024
+    }
+  ]
+}

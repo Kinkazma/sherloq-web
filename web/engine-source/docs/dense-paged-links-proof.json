@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "limit": 1,
+      "count": 1,
+      "total": 8951,
+      "denseCount": 4760,
+      "workspaceBytes": 16779392,
+      "heapBytes": 8388608
+    },
+    {
+      "limit": 6,
+      "count": 6,
+      "total": 8951,
+      "denseCount": 4760,
+      "workspaceBytes": 16779392,
+      "heapBytes": 8388608
+    },
+    {
+      "limit": 6000,
+      "count": 6000,
+      "total": 8951,
+      "denseCount": 4760,
+      "workspaceBytes": 16779392,
+      "heapBytes": 8388608
+    },
+    {
+      "limit": 18022,
+      "count": 8951,
+      "total": 8951,
+      "denseCount": 4760,
+      "workspaceBytes": 16779392,
+      "heapBytes": 8388608
+    }
+  ]
+}

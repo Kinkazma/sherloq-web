@@ -1,0 +1,472 @@
+TAP version 13
+# Subtest: partial free memory adds every fitting kernel and accounts for retained idle heaps
+ok 1 - partial free memory adds every fitting kernel and accounts for retained idle heaps
+  ---
+  duration_ms: 4.864791
+  type: 'test'
+  ...
+# Subtest: a bootstrap progress exception rejects the field and terminates its kernel
+ok 2 - a bootstrap progress exception rejects the field and terminates its kernel
+  ---
+  duration_ms: 0.522958
+  type: 'test'
+  ...
+# Subtest: a refused extra kernel preserves the ready field without repeated allocation attempts
+ok 3 - a refused extra kernel preserves the ready field without repeated allocation attempts
+  ---
+  duration_ms: 2.121584
+  type: 'test'
+  ...
+# Subtest: real recovered memory permits full width again without changing the budget limit
+ok 4 - real recovered memory permits full width again without changing the budget limit
+  ---
+  duration_ms: 0.961416
+  type: 'test'
+  ...
+# Subtest: a later release reopens a previously refused expansion
+ok 5 - a later release reopens a previously refused expansion
+  ---
+  duration_ms: 1.218875
+  type: 'test'
+  ...
+# Subtest: a failed bootstrap retries locally only after concrete memory recovery
+ok 6 - a failed bootstrap retries locally only after concrete memory recovery
+  ---
+  duration_ms: 2.665375
+  type: 'test'
+  ...
+# Subtest: allocation failures during a useful task remain fatal and retain their evidence
+ok 7 - allocation failures during a useful task remain fatal and retain their evidence
+  ---
+  duration_ms: 0.820417
+  type: 'test'
+  ...
+# Subtest: returning uncreated reservations does not itself retry a refused allocation
+ok 8 - returning uncreated reservations does not itself retry a refused allocation
+  ---
+  duration_ms: 1.4665
+  type: 'test'
+  ...
+# Subtest: dense output migration windows fit before a kernel fills the remaining workspace
+ok 9 - dense output migration windows fit before a kernel fills the remaining workspace
+  ---
+  duration_ms: 6.302917
+  type: 'test'
+  ...
+# Subtest: a field receives a partial memory grant and yields only its GPU coordinator CPU
+ok 10 - a field receives a partial memory grant and yields only its GPU coordinator CPU
+  ---
+  duration_ms: 15.273792
+  type: 'test'
+  ...
+# Subtest: unused kernel workspace is returned and a later useful grant can grow it again
+ok 11 - unused kernel workspace is returned and a later useful grant can grow it again
+  ---
+  duration_ms: 2.637375
+  type: 'test'
+  ...
+# Subtest: memory RPC hides blocked field activity without surrendering its CPU quota
+ok 12 - memory RPC hides blocked field activity without surrendering its CPU quota
+  ---
+  duration_ms: 3.813125
+  type: 'test'
+  ...
+# Subtest: two live fields acknowledge every immutable reader before a transactional migration
+ok 13 - two live fields acknowledge every immutable reader before a transactional migration
+  ---
+  duration_ms: 42.763375
+  type: 'test'
+  ...
+# Subtest: allocation-domain pressure changes automatic storage only for that live recovery
+ok 14 - allocation-domain pressure changes automatic storage only for that live recovery
+  ---
+  duration_ms: 0.421084
+  type: 'test'
+  ...
+# Subtest: ordinary reclaim and a field own allocation recovery cannot wait on that field native task
+ok 15 - ordinary reclaim and a field own allocation recovery cannot wait on that field native task
+  ---
+  duration_ms: 6.662417
+  type: 'test'
+  ...
+# Subtest: failed io migration restores all live readers on the old authoritative bank
+ok 16 - failed io migration restores all live readers on the old authoritative bank
+  ---
+  duration_ms: 6.896458
+  type: 'test'
+  ...
+# Subtest: failed cancel migration restores all live readers on the old authoritative bank
+ok 17 - failed cancel migration restores all live readers on the old authoritative bank
+  ---
+  duration_ms: 5.392917
+  type: 'test'
+  ...
+# Subtest: an unrevocable reader prevents active migration rather than invalidating its SAB
+ok 18 - an unrevocable reader prevents active migration rather than invalidating its SAB
+  ---
+  duration_ms: 0.403375
+  type: 'test'
+  ...
+# Subtest: input gate drains native work, supports overlapping stores, and returns CPU admission during I/O
+ok 19 - input gate drains native work, supports overlapping stores, and returns CPU admission during I/O
+  ---
+  duration_ms: 0.946625
+  type: 'test'
+  ...
+# Subtest: input gate cancellation releases blocked dispatcher and reader acknowledgements
+ok 20 - input gate cancellation releases blocked dispatcher and reader acknowledgements
+  ---
+  duration_ms: 0.390209
+  type: 'test'
+  ...
+# Subtest: final publication waits for a migration that first reaches its barrier during kernel shutdown
+ok 21 - final publication waits for a migration that first reaches its barrier during kernel shutdown
+  ---
+  duration_ms: 0.51425
+  type: 'test'
+  ...
+# Subtest: an ordinary reclaim queued behind migration exposes its already idle native boundary
+ok 22 - an ordinary reclaim queued behind migration exposes its already idle native boundary
+  ---
+  duration_ms: 0.385917
+  type: 'test'
+  ...
+# Subtest: field queued-start releases immutable publications without waiting for blocked CPU or a terminated worker
+ok 23 - field queued-start releases immutable publications without waiting for blocked CPU or a terminated worker
+  ---
+  duration_ms: 6.71075
+  type: 'test'
+  ...
+# Subtest: field cancel-ack releases immutable publications without waiting for blocked CPU or a terminated worker
+ok 24 - field cancel-ack releases immutable publications without waiting for blocked CPU or a terminated worker
+  ---
+  duration_ms: 1.545083
+  type: 'test'
+  ...
+# Subtest: retired SAB wrappers are collectible while old publications and reader objects remain alive
+ok 25 - retired SAB wrappers are collectible while old publications and reader objects remain alive
+  ---
+  duration_ms: 109.598625
+  type: 'test'
+  ...
+# Subtest: remote worker backing reports transfer adopted banks without a second policy charge
+ok 26 - remote worker backing reports transfer adopted banks without a second policy charge
+  ---
+  duration_ms: 0.989958
+  type: 'test'
+  ...
+# Subtest: uses admitted RAM beyond the old16MiB descriptor cache without changing work
+ok 27 - uses admitted RAM beyond the old16MiB descriptor cache without changing work
+  ---
+  duration_ms: 0.872833
+  type: 'test'
+  ...
+# Subtest: real96MP and larger shapes fit the module and shared workspace
+ok 28 - real96MP and larger shapes fit the module and shared workspace
+  ---
+  duration_ms: 1.276917
+  type: 'test'
+  ...
+# Subtest: budget occupied by real source and peers reduces caches; no probe allocations
+ok 29 - budget occupied by real source and peers reduces caches; no probe allocations
+  ---
+  duration_ms: 0.138125
+  type: 'test'
+  ...
+# Subtest: explicit cache and batch choices remain exact and cannot overrun heap
+ok 30 - explicit cache and batch choices remain exact and cannot overrun heap
+  ---
+  duration_ms: 0.288166
+  type: 'test'
+  ...
+# Subtest: small cases allocate no initialization batch and explicit zero is honored
+ok 31 - small cases allocate no initialization batch and explicit zero is honored
+  ---
+  duration_ms: 0.077166
+  type: 'test'
+  ...
+# Subtest: 96MP propagation caches reuse initialization RAM without shrinking the native-sized batch
+ok 32 - 96MP propagation caches reuse initialization RAM without shrinking the native-sized batch
+  ---
+  duration_ms: 0.076416
+  type: 'test'
+  ...
+# Subtest: 96MP non-isolated admission includes every native and cloned candidate pool
+ok 33 - 96MP non-isolated admission includes every native and cloned candidate pool
+  ---
+  duration_ms: 0.804958
+  type: 'test'
+  ...
+# Subtest: dense preparation reclaims a completed plane before committing its hot descriptors to disk
+ok 34 - dense preparation reclaims a completed plane before committing its hot descriptors to disk
+  ---
+  duration_ms: 7.862584
+  type: 'test'
+  ...
+# Subtest: an impossible explicit in-memory preparation returns its layout lease without creating a worker
+ok 35 - an impossible explicit in-memory preparation returns its layout lease without creating a worker
+  ---
+  duration_ms: 0.974833
+  type: 'test'
+  ...
+# Subtest: immutable broker groups useful page reads, preserves seams, and releases pins
+ok 36 - immutable broker groups useful page reads, preserves seams, and releases pins
+  ---
+  duration_ms: 39.001542
+  type: 'test'
+  ...
+# Subtest: mutable broker serializes the owned backing and flushes before publication
+ok 37 - mutable broker serializes the owned backing and flushes before publication
+  ---
+  duration_ms: 3.918916
+  type: 'test'
+  ...
+# Subtest: shared mutable publication includes sparse zero banks and borrows one reservation
+ok 38 - shared mutable publication includes sparse zero banks and borrows one reservation
+  ---
+  duration_ms: 0.45925
+  type: 'test'
+  ...
+# Subtest: shared cache reuses actual pages across clients and waits for retirement acknowledgements
+ok 39 - shared cache reuses actual pages across clients and waits for retirement acknowledgements
+  ---
+  duration_ms: 3.078083
+  type: 'test'
+  ...
+# Subtest: released competing RAM expands useful shared pages and nested workers acknowledge retirement
+ok 40 - released competing RAM expands useful shared pages and nested workers acknowledge retirement
+  ---
+  duration_ms: 13.884584
+  type: 'test'
+  ...
+# Subtest: cold result reclamation preserves useful bytes and excludes active read pins
+ok 41 - cold result reclamation preserves useful bytes and excludes active read pins
+  ---
+  duration_ms: 1.977667
+  type: 'test'
+  ...
+# Subtest: forcing the portable immutable broker still pins its source
+ok 42 - forcing the portable immutable broker still pins its source
+  ---
+  duration_ms: 0.494667
+  type: 'test'
+  ...
+# Subtest: adopted worker SAB outputs migrate after publication without a duplicate reservation or recomputation
+ok 43 - adopted worker SAB outputs migrate after publication without a duplicate reservation or recomputation
+  ---
+  duration_ms: 1.864167
+  type: 'test'
+  ...
+# Subtest: segmented I/O and migrations forward the operation-owned staging allocator
+ok 44 - segmented I/O and migrations forward the operation-owned staging allocator
+  ---
+  duration_ms: 4.830875
+  type: 'test'
+  ...
+# Subtest: completed bootstrap writer becomes an immutable pin without disconnecting its reader
+ok 45 - completed bootstrap writer becomes an immutable pin without disconnecting its reader
+  ---
+  duration_ms: 2.241708
+  type: 'test'
+  ...
+# Subtest: broker read staging is admitted before a competing heap fills the budget
+ok 46 - broker read staging is admitted before a competing heap fills the budget
+  ---
+  duration_ms: 0.79475
+  type: 'test'
+  ...
+# Subtest: small and empty broker planes reserve only their possible windows
+ok 47 - small and empty broker planes reserve only their possible windows
+  ---
+  duration_ms: 0.529334
+  type: 'test'
+  ...
+# Subtest: optional shared cache metadata failures preserve direct transport and later useful admission
+ok 48 - optional shared cache metadata failures preserve direct transport and later useful admission
+  ---
+  duration_ms: 0.501375
+  type: 'test'
+  ...
+# Subtest: failed cache growth waits for external memory release and never feeds its own notifications
+ok 49 - failed cache growth waits for external memory release and never feeds its own notifications
+  ---
+  duration_ms: 14.259417
+  type: 'test'
+  ...
+# Subtest: a real shared bank failure preserves prior data and concurrent writes at a full budget
+ok 50 - a real shared bank failure preserves prior data and concurrent writes at a full budget
+  ---
+  duration_ms: 7.950333
+  type: 'test'
+  ...
+# Subtest: a real ordinary bank failure preserves prior data and concurrent writes at a full budget
+ok 51 - a real ordinary bank failure preserves prior data and concurrent writes at a full budget
+  ---
+  duration_ms: 0.923834
+  type: 'test'
+  ...
+# Subtest: failed write during allocation recovery preserves the complete old RAM source
+ok 52 - failed write during allocation recovery preserves the complete old RAM source
+  ---
+  duration_ms: 3.414667
+  type: 'test'
+  ...
+# Subtest: failed flush during allocation recovery preserves the complete old RAM source
+ok 53 - failed flush during allocation recovery preserves the complete old RAM source
+  ---
+  duration_ms: 3.352833
+  type: 'test'
+  ...
+# Subtest: failed cancel during allocation recovery preserves the complete old RAM source
+ok 54 - failed cancel during allocation recovery preserves the complete old RAM source
+  ---
+  duration_ms: 3.456833
+  type: 'test'
+  ...
+# Subtest: mutable SAB materialization falls back before publishing and preserves a parallel broker
+ok 55 - mutable SAB materialization falls back before publishing and preserves a parallel broker
+  ---
+  duration_ms: 29.577625
+  type: 'test'
+  ...
+# Subtest: an already published mutable broker survives its backing allocation failure
+ok 56 - an already published mutable broker survives its backing allocation failure
+  ---
+  duration_ms: 2.801625
+  type: 'test'
+  ...
+# Subtest: without temporary storage allocation errors retain useful diagnostics and old bytes
+ok 57 - without temporary storage allocation errors retain useful diagnostics and old bytes
+  ---
+  duration_ms: 0.389584
+  type: 'test'
+  ...
+# Subtest: disposal waits for allocation recovery and rejects queued writes without losing ownership
+ok 58 - disposal waits for allocation recovery and rejects queued writes without losing ownership
+  ---
+  duration_ms: 2.707084
+  type: 'test'
+  ...
+# Subtest: a published direct SAB remains pinned until every worker releases it
+ok 59 - a published direct SAB remains pinned until every worker releases it
+  ---
+  duration_ms: 0.689416
+  type: 'test'
+  ...
+# Subtest: allocation recovery uses its prefunded window rather than the narrow pending-write scope
+ok 60 - allocation recovery uses its prefunded window rather than the narrow pending-write scope
+  ---
+  duration_ms: 1.457333
+  type: 'test'
+  ...
+# Subtest: All segmented result adapters name allocation exhaustion and retain the original source after cleanup
+ok 61 - All segmented result adapters name allocation exhaustion and retain the original source after cleanup
+  ---
+  duration_ms: 13.307167
+  type: 'test'
+  ...
+# Subtest: lazy 576 MB cold store reports only materialized bank bytes after a committed spill
+ok 62 - lazy 576 MB cold store reports only materialized bank bytes after a committed spill
+  ---
+  duration_ms: 5.011083
+  type: 'test'
+  ...
+# Subtest: backing capacity counts exact final banks, excludes holes, and disposal waits for pins
+ok 63 - backing capacity counts exact final banks, excludes holes, and disposal waits for pins
+  ---
+  duration_ms: 0.375292
+  type: 'test'
+  ...
+# Subtest: an aborted spill never publishes the still-owned RAM as freed backing
+ok 64 - an aborted spill never publishes the still-owned RAM as freed backing
+  ---
+  duration_ms: 2.210791
+  type: 'test'
+  ...
+# Subtest: JPEG allocation reclamation retires actual encoded banks before unrelated Wasm credit
+ok 65 - JPEG allocation reclamation retires actual encoded banks before unrelated Wasm credit
+  ---
+  duration_ms: 0.862417
+  type: 'test'
+  ...
+# Subtest: JPEG allocation reclaim waits for the retired encoded store transport ACK
+ok 66 - JPEG allocation reclaim waits for the retired encoded store transport ACK
+  ---
+  duration_ms: 1.998292
+  type: 'test'
+  ...
+# Subtest: typed JPEG reclaim preserves the quality actively decoded by the native codec
+ok 67 - typed JPEG reclaim preserves the quality actively decoded by the native codec
+  ---
+  duration_ms: 47.170375
+  type: 'test'
+  ...
+# Subtest: Segmented RAM preserves byte ranges across every seam, holes and ownership
+ok 68 - Segmented RAM preserves byte ranges across every seam, holes and ownership
+  ---
+  duration_ms: 48.637458
+  type: 'test'
+  ...
+# Subtest: Segmented Blob staging is bounded, cancellable and preserves the source
+ok 69 - Segmented Blob staging is bounded, cancellable and preserves the source
+  ---
+  duration_ms: 1.907625
+  type: 'test'
+  ...
+# Subtest: Segmented admission requires an actual storage alternative and rejects invalid ranges
+ok 70 - Segmented admission requires an actual storage alternative and rejects invalid ranges
+  ---
+  duration_ms: 0.189792
+  type: 'test'
+  ...
+# Subtest: Temporary session creation is deferred until admitted RAM no longer fits
+ok 71 - Temporary session creation is deferred until admitted RAM no longer fits
+  ---
+  duration_ms: 0.726458
+  type: 'test'
+  ...
+# Subtest: Recomputable cached pages cannot force a live result out of otherwise admissible RAM
+ok 72 - Recomputable cached pages cannot force a live result out of otherwise admissible RAM
+  ---
+  duration_ms: 0.169042
+  type: 'test'
+  ...
+# Subtest: segmented migration preserves sparse holes, seams and ownership without a second RAM image
+ok 73 - segmented migration preserves sparse holes, seams and ownership without a second RAM image
+  ---
+  duration_ms: 23.577542
+  type: 'test'
+  ...
+# Subtest: failed spill and cancelled promotion preserve the authoritative source and release destination memory
+ok 74 - failed spill and cancelled promotion preserve the authoritative source and release destination memory
+  ---
+  duration_ms: 4.044459
+  type: 'test'
+  ...
+# Subtest: a shared read lease freezes writes and migration, pins disposal, and is read by another worker without cloning banks
+ok 75 - a shared read lease freezes writes and migration, pins disposal, and is read by another worker without cloning banks
+  ---
+  duration_ms: 21.902958
+  type: 'test'
+  ...
+# Subtest: shared storage has an ordinary memory fallback and validates bank descriptors
+ok 76 - shared storage has an ordinary memory fallback and validates bank descriptors
+  ---
+  duration_ms: 0.395042
+  type: 'test'
+  ...
+# Subtest: migration cannot race outstanding temporary I/O and disposal waits before deleting its backing
+ok 77 - migration cannot race outstanding temporary I/O and disposal waits before deleting its backing
+  ---
+  duration_ms: 0.164166
+  type: 'test'
+  ...
+1..77
+# tests 77
+# suites 0
+# pass 77
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 307.26525

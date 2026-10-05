@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "qualities": 101,
+  "different": 0,
+  "workers": 2,
+  "preflightExecutions": 0,
+  "sharedCacheRecompressions": 0,
+  "cancellation": "hard worker abort, explicit reload, exact recovery",
+  "browser": "154.0.8037.58"
+}

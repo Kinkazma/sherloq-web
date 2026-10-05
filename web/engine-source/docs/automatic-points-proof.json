@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "m3Commit": "938fe74cc0ff165d6cae268243681e0c07f70264",
+  "records": [
+    {
+      "case": "dense-split",
+      "entries": 4,
+      "exact": true,
+      "peakBytes": 68250664
+    },
+    {
+      "case": "filtered-stable",
+      "entries": 2,
+      "exact": true,
+      "peakBytes": 68236150
+    },
+    {
+      "case": "sift-colors",
+      "entries": 4,
+      "exact": true,
+      "peakBytes": 68229160
+    },
+    {
+      "case": "source-panels",
+      "entries": 4,
+      "exact": true,
+      "peakBytes": 68229160
+    },
+    {
+      "case": "compare",
+      "entries": 3,
+      "exact": true,
+      "peakBytes": 68217202
+    },
+    {
+      "case": "unknown-owner",
+      "entries": 3,
+      "exact": true,
+      "peakBytes": 68238316
+    },
+    {
+      "case": "unspecified",
+      "entries": 3,
+      "exact": true,
+      "peakBytes": 68238316
+    },
+    {
+      "case": "self-policy",
+      "entries": 0,
+      "exact": true,
+      "peakBytes": 68198752
+    },
+    {
+      "case": "no-groups",
+      "entries": 0,
+      "exact": true,
+      "peakBytes": 19808
+    },
+    {
+      "case": "float32",
+      "entries": 4,
+      "exact": true,
+      "peakBytes": 68250664
+    }
+  ],
+  "nativeRingKeys": 9,
+  "concaveEdgesPreserved": true,
+  "cancellationCleanup": true
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "gamma",
+    "width": 257,
+    "height": 259,
+    "values": [
+      0.0031431
+    ],
+    "native": [
+      0.0031431
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 34952512,
+      "workers": 1,
+      "paged": true,
+      "reads": 1062,
+      "writes": 363,
+      "readBytes": 21567824,
+      "writeBytes": 7782420,
+      "temporaryPeakBytes": 3195024,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 1239.251583
+  }
+]

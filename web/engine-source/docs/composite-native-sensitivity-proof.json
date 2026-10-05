@@ -1,0 +1,293 @@
+{
+  "numpy": "1.26.4",
+  "scipy": "1.17.1",
+  "blas": [
+    {
+      "user_api": "blas",
+      "internal_api": "openblas",
+      "num_threads": 2,
+      "prefix": "libopenblas",
+      "filepath": "/Users/gaeldauchy/SHERLOQ/venv/lib/python3.11/site-packages/numpy/.dylibs/libopenblas64_.0.dylib",
+      "version": "0.3.23.dev",
+      "threading_layer": "pthreads",
+      "architecture": "armv8"
+    }
+  ],
+  "records": [
+    {
+      "case": "composite-small-singular/reference.json",
+      "shape": [
+        12,
+        14,
+        512
+      ],
+      "valid": 168,
+      "runs": [
+        {
+          "threads": 1,
+          "seconds": 0.06360220799979288,
+          "mapVsStored": {
+            "max": 6687224141472344.0,
+            "mean": 1031061710727541.8,
+            "different": 167
+          },
+          "rasterVsStored": {
+            "max": 28.0,
+            "mean": 5.627804487179487,
+            "different": 34860
+          },
+          "mapSha256": "e90e1a419f604dd73e4083faab0d2faedb125e7778f3d0bc1453971d0da868e5",
+          "rasterSha256": "85eebefa3d0d64fe05ab8bda75899fb6ea3df7afaa0e895fcabbd0b4fd3dcd2d"
+        },
+        {
+          "threads": 2,
+          "seconds": 0.03510387499409262,
+          "mapVsStored": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "rasterVsStored": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "mapSha256": "c41c8a54544c2629a060a3fe6b680a22b3e98301b61b3061972c70a3610ecd6a",
+          "rasterSha256": "2ab97c3f24ee5ce816b64516251becac4f6380f2efa7af5e284eacc5d444462b",
+          "mapVsOneThread": {
+            "max": 6687224141472344.0,
+            "mean": 1031061710727541.8,
+            "different": 167
+          },
+          "rasterVsOneThread": {
+            "max": 28.0,
+            "mean": 5.627804487179487,
+            "different": 34860
+          },
+          "sigmaVsOneThread": {
+            "max": 1.4516166046973922e-13,
+            "mean": 5.660093535086574e-15,
+            "different": 1024
+          }
+        },
+        {
+          "threads": 4,
+          "seconds": 0.02697966599953361,
+          "mapVsStored": {
+            "max": 7227483756582200.0,
+            "mean": 1358168741682958.5,
+            "different": 168
+          },
+          "rasterVsStored": {
+            "max": 22.0,
+            "mean": 6.380108173076923,
+            "different": 30536
+          },
+          "mapSha256": "7c693563fa98ec18f7d3a02b09d83caf381c7d68dc9fbf32839e42c4943b2ffe",
+          "rasterSha256": "dbd3c5a4cdb912e80249271b6e2edabb307b3a18d8f244de28c3033a3049a2e5",
+          "mapVsOneThread": {
+            "max": 7598479659757628.0,
+            "mean": 1456239242605379.0,
+            "different": 168
+          },
+          "rasterVsOneThread": {
+            "max": 24.0,
+            "mean": 4.735476762820513,
+            "different": 34268
+          },
+          "sigmaVsOneThread": {
+            "max": 1.4316325902541394e-13,
+            "mean": 5.084560058415694e-15,
+            "different": 1021
+          }
+        }
+      ]
+    },
+    {
+      "case": "composite/chain-reference.json",
+      "shape": [
+        20,
+        28,
+        512
+      ],
+      "valid": 446,
+      "runs": [
+        {
+          "threads": 1,
+          "seconds": 0.05378079200454522,
+          "mapVsStored": {
+            "max": 2.133550972931515e+16,
+            "mean": 2120707102105377.8,
+            "different": 560
+          },
+          "rasterVsStored": {
+            "max": 56.0,
+            "mean": 15.37197265625,
+            "different": 51232
+          },
+          "mapSha256": "bff9b9ade4f1574addc6e33cf7c78daa2eb13edc6a464300b402cf0ebf58e277",
+          "rasterSha256": "24ea6177c3379bb66218a7d7d12a57bf631e61cc7de8e82d0451f2037c03c479"
+        },
+        {
+          "threads": 2,
+          "seconds": 0.04248258299776353,
+          "mapVsStored": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "rasterVsStored": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "mapSha256": "4c597c91b3a242de28a13bf9de3a80036b7b4b033e10b2afb17c8088e640a284",
+          "rasterSha256": "e57b448f2dcab39f3b618efc35dcebdd527287a7f5fd2d67c012c1e21170552c",
+          "mapVsOneThread": {
+            "max": 2.133550972931515e+16,
+            "mean": 2120707102105377.8,
+            "different": 560
+          },
+          "rasterVsOneThread": {
+            "max": 56.0,
+            "mean": 15.37197265625,
+            "different": 51232
+          },
+          "sigmaVsOneThread": {
+            "max": 2.6867397195928788e-14,
+            "mean": 2.010006642735613e-15,
+            "different": 1015
+          }
+        },
+        {
+          "threads": 4,
+          "seconds": 0.06174674999783747,
+          "mapVsStored": {
+            "max": 7.534626909387667e+16,
+            "mean": 1.5176192484739808e+16,
+            "different": 560
+          },
+          "rasterVsStored": {
+            "max": 188.0,
+            "mean": 43.893798828125,
+            "different": 55376
+          },
+          "mapSha256": "78755a30d75eb536668641d384a101317e87c8c93a36a1ac6514a2d8a360c67e",
+          "rasterSha256": "d4a6dc072f2b114b547e5aebf17c1d4a9e885e0afa2c2399a0a3be084e978a58",
+          "mapVsOneThread": {
+            "max": 6.741016676331988e+16,
+            "mean": 1.5367737779632034e+16,
+            "different": 560
+          },
+          "rasterVsOneThread": {
+            "max": 188.0,
+            "mean": 35.795654296875,
+            "different": 55248
+          },
+          "sigmaVsOneThread": {
+            "max": 1.3830752492966696,
+            "mean": 0.22500932673665353,
+            "different": 1024
+          }
+        }
+      ]
+    },
+    {
+      "case": "composite/reference.json",
+      "shape": [
+        36,
+        40,
+        512
+      ],
+      "valid": 1440,
+      "runs": [
+        {
+          "threads": 1,
+          "seconds": 0.25184358398837503,
+          "mapVsStored": {
+            "max": 3.092281986027956e-11,
+            "mean": 4.185030100245513e-12,
+            "different": 1419
+          },
+          "rasterVsStored": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "mapSha256": "5c552d3f7fa9ccd946ff7cb9600a6fec3e33f8b9ce69bd85e49cdb8f8b25aa26",
+          "rasterSha256": "8f4f42abdbeb4bb100a446548d6e92b09582bf5edcf740b5a5a4f8cdaaa21393"
+        },
+        {
+          "threads": 2,
+          "seconds": 0.15731333300936967,
+          "mapVsStored": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "rasterVsStored": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "mapSha256": "5e4b93aa4a939a93c629f469d77ec2021930b8b51f1d980d066ea481134166e7",
+          "rasterSha256": "8f4f42abdbeb4bb100a446548d6e92b09582bf5edcf740b5a5a4f8cdaaa21393",
+          "mapVsOneThread": {
+            "max": 3.092281986027956e-11,
+            "mean": 4.185030100245513e-12,
+            "different": 1419
+          },
+          "rasterVsOneThread": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "sigmaVsOneThread": {
+            "max": 1.1338152638984411e-14,
+            "mean": 2.068076468742289e-15,
+            "different": 1017
+          }
+        },
+        {
+          "threads": 4,
+          "seconds": 0.13930949999485165,
+          "mapVsStored": {
+            "max": 3.456079866737127e-11,
+            "mean": 4.566342365958715e-12,
+            "different": 1416
+          },
+          "rasterVsStored": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "mapSha256": "bd1d75424b6d096acea1cecba2a2da604b0378423563ab04ffe8d8f064b639b7",
+          "rasterSha256": "8f4f42abdbeb4bb100a446548d6e92b09582bf5edcf740b5a5a4f8cdaaa21393",
+          "mapVsOneThread": {
+            "max": 2.2964741219766438e-11,
+            "mean": 3.67633084468682e-12,
+            "different": 1415
+          },
+          "rasterVsOneThread": {
+            "max": 0.0,
+            "mean": 0.0,
+            "different": 0
+          },
+          "sigmaVsOneThread": {
+            "max": 8.881784197001252e-15,
+            "mean": 1.6389217203017408e-15,
+            "different": 1019
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "Unchanged native EMgu_img and exact native residual, only BLAS thread count varies. Same seed, 32 PCA components, ten replicates, regularizer and max iterations. Numerical sensitivity, not a browser parity claim.",
+  "nativeSources": {
+    "post_em.py": "00b7646f8044c6d21b80bc70f4aef4f35fed41842b28ae94509eafc6cd523c88",
+    "utility/gaussianMixture.py": "e5254faa40e1ffdf6785f2b026ee74a12f8dbf5b3b12ec969e45a4058b225bea",
+    "noiseprint_blind.py": "8d6316851ecabda393296dd83d5c0e33293555930b795e9949eba5df117c8d97"
+  },
+  "passed": true,
+  "passMeaning": "Native reference reproduced exactly at two BLAS threads; native thread sensitivity established for both ill-conditioned cases, stable displayed control. Not browser parity or a change to regularization."
+}

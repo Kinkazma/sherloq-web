@@ -1,0 +1,60 @@
+{
+  "native": "ExifTool13.55 + core.thumbnail.analyze_thumbnail",
+  "opencv": "4.11.0",
+  "cases": [
+    {
+      "file": "fixtures/exif-tools.jpg",
+      "width": 64,
+      "height": 48,
+      "available": true,
+      "thumbnailBytes": 1108,
+      "thumbnailSha256": "4a6db9737cf6fd92d2807d9ea30f0c4b9b177682120aeff51139d2c5d3427818",
+      "resizedSha256": "3b605eb6523d9645606f03691c3569bbe0c8443c72fa02dafb51a75117d299b2",
+      "differenceSha256": "e4f2b8f1cb35fa37d094c5ba0bb7ff2fe8d38e3f86d0207afff599f6bc883fe2"
+    },
+    {
+      "file": "tests/data/png-exif/exif-1.png",
+      "width": 64,
+      "height": 48,
+      "available": true,
+      "thumbnailBytes": 1108,
+      "thumbnailSha256": "4a6db9737cf6fd92d2807d9ea30f0c4b9b177682120aeff51139d2c5d3427818",
+      "resizedSha256": "3b605eb6523d9645606f03691c3569bbe0c8443c72fa02dafb51a75117d299b2",
+      "differenceSha256": "e4f2b8f1cb35fa37d094c5ba0bb7ff2fe8d38e3f86d0207afff599f6bc883fe2"
+    },
+    {
+      "file": "fixtures/odd.jpg",
+      "width": 31,
+      "height": 17,
+      "available": false,
+      "thumbnailBytes": 0,
+      "thumbnailSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "tests/data/thumbnail-api/embedded-png.jpg",
+      "width": 259,
+      "height": 193,
+      "available": false,
+      "thumbnailBytes": 0,
+      "thumbnailSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "tests/data/thumbnail-api/embedded-tiff.jpg",
+      "width": 259,
+      "height": 193,
+      "available": false,
+      "thumbnailBytes": 0,
+      "thumbnailSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "large": {
+    "file": "tests/data/thumbnail-api/large.tiff",
+    "width": 4103,
+    "height": 5401,
+    "available": true,
+    "thumbnailBytes": 1293,
+    "thumbnailSha256": "08846573296caadf40b2a28a8e55975eea33c293401185b2f2776af5b851f7b1",
+    "resizedSha256": "156e3fc4795348798c633e79990c04dcdbddfc56e282032cfef2cb6e96c3f972",
+    "differenceSha256": "07592e363ba1b3e65dffdd97408cdf4c145e19d76766f282a7fe82cf5ae72f8e"
+  }
+}

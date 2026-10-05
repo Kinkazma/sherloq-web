@@ -1,0 +1,44 @@
+{
+  "provider": "wasm",
+  "modelSha256": "5b08e8ae8524a73cfa95eb0b86597300cfa84e0b3253199e69b1c67d32eab804",
+  "weightSha256": "5b52b8d9982d43532dc042606b346bb9594c9f5a4bd6f64362c63866287b4ac0",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "cases": [
+    {
+      "id": 0,
+      "values": 95,
+      "expected": 95,
+      "differences": 95,
+      "maximum": 0.000029206275939941406,
+      "matches": 3,
+      "expectedMatches": 3,
+      "matchesEqual": true
+    },
+    {
+      "id": 1,
+      "values": 18070,
+      "expected": 18070,
+      "differences": 17877,
+      "maximum": 0.000011727213859558105,
+      "matches": 1,
+      "expectedMatches": 1,
+      "matchesEqual": true
+    },
+    {
+      "id": 2,
+      "values": 6400,
+      "expected": 6400,
+      "differences": 4771,
+      "maximum": 0.000003248453140258789,
+      "matches": 78,
+      "expectedMatches": 78,
+      "matchesEqual": true
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU WASM",
+  "decisionsMatch": true
+}

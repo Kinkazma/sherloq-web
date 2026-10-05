@@ -1,0 +1,183 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "method": "safire",
+      "width": 12000,
+      "height": 8000,
+      "params": {},
+      "backend": "webgpu",
+      "preparation": {
+        "sourceReads": 2048,
+        "sourceLayout": "rows",
+        "verticalFirst": false,
+        "preparedShape": [
+          1,
+          3,
+          1024,
+          1024
+        ],
+        "sha256": "71f5f73b0e3ea4a93fe0e5c3cf3d459eacf6cf79489889e0ace6d86623c7f561",
+        "workspacePeakBytes": 12749984,
+        "exact": true
+      },
+      "sourceStorage": "memory",
+      "elapsedMs": 25410.5,
+      "loadMs": 2503.4000000059605,
+      "cache": {
+        "result": false,
+        "proposals": true
+      },
+      "shape": [
+        1024,
+        1024
+      ],
+      "metadata": {
+        "image_shape": [
+          8000,
+          12000
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "sources": 3,
+        "chosen_prompt_ids": [
+          83,
+          138,
+          228
+        ],
+        "valid_prompts": 256,
+        "total_prompts": 256,
+        "binary": false,
+        "cluster": "kmeans",
+        "seed": 1701,
+        "points_per_batch": 16,
+        "proposals_reused": false,
+        "coordinates": "analysis-1024-pixel-centres",
+        "clusteringIterations": 4,
+        "postHeapBytes": 20185088,
+        "inference": {
+          "provider": "webgpu",
+          "actualHeapBytes": 882442240,
+          "maximumHeapBytes": 1610612736,
+          "promptBatch": 16,
+          "prepareHeapBytes": 0,
+          "postHeapBytes": 16777216,
+          "threads": 1,
+          "preflightExecutions": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 1073741824,
+          "attempts": 1
+        },
+        "counts": {
+          "proposals": 1,
+          "compositions": 1
+        },
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "method": "safire",
+        "native_shape": [
+          1024,
+          1024
+        ]
+      },
+      "exports": [
+        {
+          "format": "npz",
+          "bytes": 18100512,
+          "sha256": "6bd1b6b03c6482a367b70c84e5ac011e4e4b4ce7e031ced7abe87ce63e220ab7",
+          "milliseconds": 1566.2000000029802,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 9,
+            "assemblyMs": 224.8999999910593,
+            "hashMs": 331.6000000089407,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 18100512,
+            "memory": {
+              "budgetBytes": 6442450944,
+              "retainedBytes": 306122552,
+              "cacheBytes": 67380224,
+              "activeReservationBytes": 96731136,
+              "peakAccountedBytes": 4263107794
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 6442450944,
+        "retainedBytes": 288018732,
+        "cacheBytes": 67380224,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 4263107794,
+        "knownHeapCapacityBytes": 96731136
+      }
+    }
+  ],
+  "source": {
+    "width": 12000,
+    "height": 8000,
+    "file": "m3-96mp-rich.jpg",
+    "source": "Existing public seed130014 noisy JPEG, then two distant patches (one mirrored) before JPEG90 encoding.",
+    "originalSha256": "2bd5607e72a4ccc8f6a40cc19d55f68e898722eb0421b8d2f4b03807a7e62f79",
+    "bytes": 80424459,
+    "windows": [
+      {
+        "x": 0,
+        "y": 0,
+        "width": 17,
+        "height": 19,
+        "sha256": "c0130727b2d01d2cfa5aa512b6804cfe4ee4fae2e77d562e174aef4cf7905138"
+      },
+      {
+        "x": 512,
+        "y": 512,
+        "width": 31,
+        "height": 29,
+        "sha256": "d9d6187da18c80d18b7cd6b982cf0a2d1278024212e990a200d9994a5910a9b8"
+      },
+      {
+        "x": 10240,
+        "y": 6144,
+        "width": 31,
+        "height": 29,
+        "sha256": "169b38574d21879bf61fbeb06f02845a11bdbe0c476d080aaf2bf165ddd05226"
+      },
+      {
+        "x": 11963,
+        "y": 7971,
+        "width": 37,
+        "height": 29,
+        "sha256": "01d03a21d1f721bdad8aa13d591cd5e68ac959e7f3bad41934aab3bf3670b69b"
+      }
+    ],
+    "preparations": [
+      {
+        "method": "focal",
+        "file": "m3-96mp-focal-prepared.bin",
+        "sha256": "b718d63f78c294cb1092b93786b338b45854036a483ee9773c1c081d45f32203"
+      },
+      {
+        "method": "safire",
+        "file": "m3-96mp-safire-prepared.bin",
+        "sha256": "71f5f73b0e3ea4a93fe0e5c3cf3d459eacf6cf79489889e0ace6d86623c7f561"
+      },
+      {
+        "method": "adaifl",
+        "file": "m3-96mp-adaifl-prepared.bin",
+        "sha256": "4c44cacb9d7355410f670164ea33276d93630218b633176bee516e1449d01de9"
+      }
+    ]
+  },
+  "totalMs": 27915.40000000596,
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 4263107794,
+    "knownHeapCapacityBytes": 96731136
+  }
+}

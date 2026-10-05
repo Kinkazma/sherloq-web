@@ -1,0 +1,4237 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "large": true,
+  "nativeSourceSha256": "161d3b3589383740fafd97cd9871f531c7ee2313db55ac5620a8c9770637db27",
+  "cases": 76,
+  "records": [
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 444,
+      "metrics": {
+        "totalMs": 298,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 134,
+        "cloningDetectionMs": 158,
+        "cloningSelectionMs": 1,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1128100,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465256273,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 1,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 170,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/0": false,
+            "matches/0/20": false,
+            "geometry/0/20/15": false,
+            "count/0/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1142874,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465256273,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 28,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 150,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/50": false,
+            "matches/50/20": false,
+            "geometry/50/20/15": false,
+            "count/50/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1149418,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465256273,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 500,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 171,
+      "metrics": {
+        "totalMs": 3,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 2,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1223930,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465400839,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 150,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/1": false,
+            "geometry/90/1/15": false,
+            "count/90/1/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1236248,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465400839,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 124,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 161,
+      "metrics": {
+        "totalMs": 2,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/35": false,
+            "geometry/90/35/15": false,
+            "count/90/35/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 1,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1259638,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465428443,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 166,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/1": false,
+            "count/90/20/1/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1271956,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465428443,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 152,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/100": false,
+            "count/90/20/100/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1284274,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465428443,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 145,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1284274,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465428443,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 151,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/15": true,
+            "count/90/20/15/20": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 1,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1296392,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465428443,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 147,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1296392,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465428443,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 147,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1296392,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465428443,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 500,
+        "filtered": 178,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 481,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6341153,
+          "cacheBytes": 1296392,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 465428443,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 87,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 410,
+      "metrics": {
+        "totalMs": 292,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 136,
+        "cloningDetectionMs": 127,
+        "cloningSelectionMs": 10,
+        "cloningMatchingMs": 6,
+        "cloningClusteringMs": 6,
+        "cloningCountMs": 1,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9513072,
+          "cacheBytes": 2376980,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470637792,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 108,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 152,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9513072,
+          "cacheBytes": 2395044,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470652312,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 87,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 461,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9513072,
+          "cacheBytes": 2395044,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470652312,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 78,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 408,
+      "metrics": {
+        "totalMs": 294,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 143,
+        "cloningDetectionMs": 122,
+        "cloningSelectionMs": 10,
+        "cloningMatchingMs": 6,
+        "cloningClusteringMs": 6,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9642900,
+          "cacheBytes": 2375684,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470763732,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 109,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 151,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9642900,
+          "cacheBytes": 2393892,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-noise",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 78,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 457,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9642900,
+          "cacheBytes": 2393892,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 30,
+        "clusters": 3,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 390,
+      "metrics": {
+        "totalMs": 266,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 147,
+        "cloningDetectionMs": 85,
+        "cloningSelectionMs": 5,
+        "cloningMatchingMs": 14,
+        "cloningClusteringMs": 6,
+        "cloningCountMs": 1,
+        "backend": "cpu",
+        "viewMs": 8,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1146292,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 0,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 154,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/0": false,
+            "matches/0/20": false,
+            "geometry/0/20/15": false,
+            "count/0/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1168234,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 84,
+        "matches": 16,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 163,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/50": false,
+            "matches/50/20": false,
+            "geometry/50/20/15": false,
+            "count/50/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 1,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1184370,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 491,
+        "matches": 40,
+        "clusters": 6,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 160,
+      "metrics": {
+        "totalMs": 3,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 2,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1261586,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 18,
+        "clusters": 1,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 152,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/1": false,
+            "geometry/90/1/15": false,
+            "count/90/1/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1281880,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 328,
+        "clusters": 3,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 152,
+      "metrics": {
+        "totalMs": 3,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/35": false,
+            "geometry/90/35/15": false,
+            "count/90/35/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 1,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1331062,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 30,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 154,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/1": false,
+            "count/90/20/1/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1351548,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 30,
+        "clusters": 23,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 158,
+      "metrics": {
+        "totalMs": 6,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/100": false,
+            "count/90/20/100/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1373890,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 30,
+        "clusters": 30,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 152,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1373890,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 30,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 147,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/15": true,
+            "count/90/20/15/20": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1393320,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 30,
+        "clusters": 3,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 152,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1393320,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 30,
+        "clusters": 3,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 147,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1393320,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 492,
+        "filtered": 289,
+        "matches": 30,
+        "clusters": 3,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 471,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907569,
+          "cacheBytes": 1393320,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 81,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 375,
+      "metrics": {
+        "totalMs": 255,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 137,
+        "cloningDetectionMs": 93,
+        "cloningSelectionMs": 6,
+        "cloningMatchingMs": 7,
+        "cloningClusteringMs": 6,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9079488,
+          "cacheBytes": 2473044,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 109,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 152,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9079488,
+          "cacheBytes": 2491252,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 81,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 465,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9079488,
+          "cacheBytes": 2491252,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 74,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 364,
+      "metrics": {
+        "totalMs": 241,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 127,
+        "cloningDetectionMs": 90,
+        "cloningSelectionMs": 5,
+        "cloningMatchingMs": 6,
+        "cloningClusteringMs": 6,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9209316,
+          "cacheBytes": 2472036,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 109,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 152,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9209316,
+          "cacheBytes": 2490244,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-clone",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 74,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 484,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9209316,
+          "cacheBytes": 2490244,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 32,
+        "clusters": 2,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 375,
+      "metrics": {
+        "totalMs": 253,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 136,
+        "cloningDetectionMs": 87,
+        "cloningSelectionMs": 10,
+        "cloningMatchingMs": 6,
+        "cloningClusteringMs": 6,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1146196,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 1,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 150,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/0": false,
+            "matches/0/20": false,
+            "geometry/0/20/15": false,
+            "count/0/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1168314,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 85,
+        "matches": 16,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 163,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/50": false,
+            "matches/50/20": false,
+            "geometry/50/20/15": false,
+            "count/50/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1184554,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 490,
+        "matches": 38,
+        "clusters": 2,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 173,
+      "metrics": {
+        "totalMs": 2,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1261402,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 16,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 158,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/1": false,
+            "geometry/90/1/15": false,
+            "count/90/1/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 1,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1281400,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 346,
+        "clusters": 4,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 153,
+      "metrics": {
+        "totalMs": 4,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/35": false,
+            "geometry/90/35/15": false,
+            "count/90/35/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 2,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1332206,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 32,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 153,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/1": false,
+            "count/90/20/1/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1352780,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 32,
+        "clusters": 26,
+        "regions": 7
+      },
+      "rpcAndVerificationMs": 158,
+      "metrics": {
+        "totalMs": 10,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/100": false,
+            "count/90/20/100/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 1,
+        "cloningCountMs": 3,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1375338,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 32,
+        "clusters": 32,
+        "regions": 7
+      },
+      "rpcAndVerificationMs": 154,
+      "metrics": {
+        "totalMs": 2,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1375338,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 32,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 157,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/15": true,
+            "count/90/20/15/20": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1394800,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 32,
+        "clusters": 2,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 154,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1394800,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 32,
+        "clusters": 2,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 151,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1394800,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 490,
+        "filtered": 288,
+        "matches": 32,
+        "clusters": 2,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 445,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5907662,
+          "cacheBytes": 1394800,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 81,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 384,
+      "metrics": {
+        "totalMs": 259,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 137,
+        "cloningDetectionMs": 93,
+        "cloningSelectionMs": 10,
+        "cloningMatchingMs": 7,
+        "cloningClusteringMs": 6,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9079581,
+          "cacheBytes": 2474524,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 109,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 167,
+      "metrics": {
+        "totalMs": 11,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9079581,
+          "cacheBytes": 2492732,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 81,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 414,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9079581,
+          "cacheBytes": 2492732,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 74,
+        "matches": 6,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 413,
+      "metrics": {
+        "totalMs": 268,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 146,
+        "cloningDetectionMs": 93,
+        "cloningSelectionMs": 10,
+        "cloningMatchingMs": 7,
+        "cloningClusteringMs": 6,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9209409,
+          "cacheBytes": 2474060,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 109,
+        "matches": 6,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 135,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9209409,
+          "cacheBytes": 2492812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-rotated",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 109,
+        "filtered": 74,
+        "matches": 6,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 414,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 9209409,
+          "cacheBytes": 2492812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 1122,
+        "clusters": 244,
+        "regions": 3
+      },
+      "rpcAndVerificationMs": 466,
+      "metrics": {
+        "totalMs": 336,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 136,
+        "cloningDetectionMs": 73,
+        "cloningSelectionMs": 6,
+        "cloningMatchingMs": 6,
+        "cloningClusteringMs": 39,
+        "cloningCountMs": 19,
+        "backend": "cpu",
+        "viewMs": 57,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 1237700,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 0,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 0,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 152,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/0": false,
+            "matches/0/20": false,
+            "geometry/0/20/15": false,
+            "count/0/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 1300118,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 50,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 68,
+        "matches": 92,
+        "clusters": 1,
+        "regions": 1
+      },
+      "rpcAndVerificationMs": 146,
+      "metrics": {
+        "totalMs": 2,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/50": false,
+            "matches/50/20": false,
+            "geometry/50/20/15": false,
+            "count/50/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 1321054,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 300,
+        "matches": 1694,
+        "clusters": 333,
+        "regions": 3
+      },
+      "rpcAndVerificationMs": 276,
+      "metrics": {
+        "totalMs": 123,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 32,
+        "cloningCountMs": 20,
+        "backend": "cpu",
+        "viewMs": 70,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 1543630,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 1,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 24,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 142,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/1": false,
+            "geometry/90/1/15": false,
+            "count/90/1/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 1561180,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 3328,
+        "clusters": 1010,
+        "regions": 6
+      },
+      "rpcAndVerificationMs": 615,
+      "metrics": {
+        "totalMs": 465,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/35": false,
+            "geometry/90/35/15": false,
+            "count/90/35/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 1,
+        "cloningClusteringMs": 110,
+        "cloningCountMs": 73,
+        "backend": "cpu",
+        "viewMs": 281,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 1947482,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 1,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 1242,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 147,
+      "metrics": {
+        "totalMs": 11,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/1": false,
+            "count/90/20/1/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 10,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 2042712,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 100,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 324,
+        "clusters": 311,
+        "regions": 7
+      },
+      "rpcAndVerificationMs": 697,
+      "metrics": {
+        "totalMs": 559,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/100": false,
+            "count/90/20/100/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 4,
+        "cloningCountMs": 92,
+        "backend": "cpu",
+        "viewMs": 463,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 2176742,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 1,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 1122,
+        "clusters": 1122,
+        "regions": 5
+      },
+      "rpcAndVerificationMs": 216,
+      "metrics": {
+        "totalMs": 65,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 65,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 2176742,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 20,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 1122,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 151,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "detected": true,
+            "selected/90": true,
+            "matches/90/20": true,
+            "geometry/90/20/15": true,
+            "count/90/20/15/20": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 2236648,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": false,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 1122,
+        "clusters": 244,
+        "regions": 3
+      },
+      "rpcAndVerificationMs": 179,
+      "metrics": {
+        "totalMs": 34,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 33,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 2236648,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": true,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 1122,
+        "clusters": 244,
+        "regions": 3
+      },
+      "rpcAndVerificationMs": 167,
+      "metrics": {
+        "totalMs": 24,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 24,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 2236648,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "all",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": null
+      },
+      "stats": {
+        "total": 301,
+        "filtered": 232,
+        "matches": 1122,
+        "clusters": 244,
+        "regions": 3
+      },
+      "rpcAndVerificationMs": 426,
+      "metrics": {
+        "totalMs": 25,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 25,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3323456,
+          "cacheBytes": 2236648,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 0,
+        "filtered": 0,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 353,
+      "metrics": {
+        "totalMs": 225,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 135,
+        "cloningDetectionMs": 68,
+        "cloningSelectionMs": 5,
+        "cloningMatchingMs": 5,
+        "cloningClusteringMs": 7,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 5,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6495375,
+          "cacheBytes": 3295116,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "half",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 0,
+        "filtered": 0,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 149,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6495375,
+          "cacheBytes": 3297628,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "half",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 0,
+        "filtered": 0,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 388,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6495375,
+          "cacheBytes": 3297628,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 0,
+        "filtered": 0,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 377,
+      "metrics": {
+        "totalMs": 230,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": false,
+            "detected": false,
+            "selected/90": false,
+            "matches/90/20": false,
+            "geometry/90/20/15": false,
+            "count/90/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 136,
+        "cloningDetectionMs": 70,
+        "cloningSelectionMs": 6,
+        "cloningMatchingMs": 6,
+        "cloningClusteringMs": 6,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 6,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6625203,
+          "cacheBytes": 3295116,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "sparse",
+      "params": {
+        "response": 100,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 0,
+        "filtered": 0,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 151,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false,
+          "stages": {
+            "gray": true,
+            "mask": true,
+            "detected": true,
+            "selected/100": false,
+            "matches/100/20": false,
+            "geometry/100/20/15": false,
+            "count/100/20/15/5": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "copy-move-orb-reference",
+        "workers": 1,
+        "cloningPreparationMs": 0,
+        "cloningDetectionMs": 0,
+        "cloningSelectionMs": 0,
+        "cloningMatchingMs": 0,
+        "cloningClusteringMs": 0,
+        "cloningCountMs": 0,
+        "backend": "cpu",
+        "viewMs": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6625203,
+          "cacheBytes": 3297628,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "image": "large-checker",
+      "mask": "sparse",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": true,
+        "hideLines": true,
+        "maskImageId": "mask"
+      },
+      "stats": {
+        "total": 0,
+        "filtered": 0,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "rpcAndVerificationMs": 379,
+      "metrics": {
+        "totalMs": 0,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 6625203,
+          "cacheBytes": 3297628,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 470781276,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 33554432
+        }
+      }
+    }
+  ],
+  "cleanup": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 470781276,
+    "knownHeapCapacityBytes": 67108864
+  },
+  "cancellation": "Hard worker termination followed by original image and mask reload; exact result reproduced",
+  "limitations": "ORB only; full-memory admission; no BRISK/AKAZE/GPU or physical mobile/Safari qualification; no WordPress integration. Functional timings include verification and are not benchmarks.",
+  "browser": "26.6",
+  "extractedRuntime": false
+}

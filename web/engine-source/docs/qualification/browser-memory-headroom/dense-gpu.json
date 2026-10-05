@@ -1,0 +1,356 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "kind": "full128",
+      "gpu": false,
+      "width": 192,
+      "height": 128,
+      "iterations": 4,
+      "budgetMiB": 1024,
+      "workspaceMiB": 384,
+      "preparationMs": 193.85499995946884,
+      "solveMs": 423.9200000166893,
+      "gpuInitializationMs": 0,
+      "totalMs": 618.3700000047684,
+      "comparisons": "1308194",
+      "hashes": {
+        "targets": "65a7221c27efbc81c7f549434ee5442af3641833fb5d2a2694cb6d824b190626",
+        "distancesSquared": "e959fef9b474a38d28d171d6889aeef3f02d711971c2d58f1b2b0eefd500adc6",
+        "allowed": "68947a67d211698c75dab7e054a1972ad5fe400dfa18b156ab9960a2c4bc8817"
+      },
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 4463,
+        "cpuGrants": [
+          4,
+          1,
+          4,
+          1,
+          4,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 8,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 0,
+        "allocationRecoveries": 0,
+        "heapBytes": 109838336,
+        "reservedWorkspaceBytes": 402653184,
+        "kernels": [
+          {
+            "reads": 9593,
+            "writes": 2670,
+            "readBytes": 39292928,
+            "writeBytes": 1564040,
+            "heapBytes": 27459584,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 9094,
+            "writes": 2280,
+            "readBytes": 37249024,
+            "writeBytes": 401408,
+            "heapBytes": 27459584,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 9120,
+            "writes": 2220,
+            "readBytes": 37355520,
+            "writeBytes": 432128,
+            "heapBytes": 27459584,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 8934,
+            "writes": 2188,
+            "readBytes": 36593664,
+            "writeBytes": 333464,
+            "heapBytes": 27459584,
+            "siftBoundRejections": 0
+          }
+        ]
+      },
+      "gpuMetrics": null,
+      "remainingBudgetBytes": 0,
+      "requestWallMs": 671.265667,
+      "browser": "154.0.8037.93"
+    },
+    {
+      "kind": "full128",
+      "gpu": true,
+      "width": 192,
+      "height": 128,
+      "iterations": 4,
+      "budgetMiB": 1024,
+      "workspaceMiB": 384,
+      "preparationMs": 190.88499999046326,
+      "solveMs": 432.5300000309944,
+      "gpuInitializationMs": 5.089999973773956,
+      "totalMs": 624.035000026226,
+      "comparisons": "1308194",
+      "hashes": {
+        "targets": "65a7221c27efbc81c7f549434ee5442af3641833fb5d2a2694cb6d824b190626",
+        "distancesSquared": "e959fef9b474a38d28d171d6889aeef3f02d711971c2d58f1b2b0eefd500adc6",
+        "allowed": "68947a67d211698c75dab7e054a1972ad5fe400dfa18b156ab9960a2c4bc8817"
+      },
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 4482,
+        "cpuGrants": [
+          4,
+          1,
+          4,
+          1,
+          4,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 8,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 0,
+        "allocationRecoveries": 0,
+        "heapBytes": 113180672,
+        "reservedWorkspaceBytes": 402653184,
+        "kernels": [
+          {
+            "reads": 9307,
+            "writes": 2692,
+            "readBytes": 38121472,
+            "writeBytes": 1538680,
+            "heapBytes": 30801920,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 9219,
+            "writes": 2292,
+            "readBytes": 37761024,
+            "writeBytes": 425784,
+            "heapBytes": 27459584,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 9172,
+            "writes": 2248,
+            "readBytes": 37568512,
+            "writeBytes": 422024,
+            "heapBytes": 27459584,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 9220,
+            "writes": 2200,
+            "readBytes": 37765120,
+            "writeBytes": 444752,
+            "heapBytes": 27459584,
+            "siftBoundRejections": 0
+          }
+        ]
+      },
+      "gpuMetrics": {
+        "preflightExecutions": 0,
+        "batches": 7,
+        "pairs": 11529,
+        "rejected": 11066,
+        "refinements": 463,
+        "uploadedBytes": 11805696,
+        "readbackBytes": 92232,
+        "bufferAllocations": 5,
+        "milliseconds": 19.805000126361847,
+        "deviceLimits": {
+          "maxStorageBufferBindingSize": 134217728,
+          "maxBufferSize": 268435456,
+          "maxComputeWorkgroupsPerDimension": 65535
+        }
+      },
+      "remainingBudgetBytes": 0,
+      "requestWallMs": 661.8431249999999,
+      "browser": "154.0.8037.93"
+    },
+    {
+      "kind": "compact-sift",
+      "gpu": false,
+      "width": 192,
+      "height": 128,
+      "iterations": 4,
+      "budgetMiB": 1024,
+      "workspaceMiB": 384,
+      "preparationMs": 103.08999997377396,
+      "solveMs": 412.6200000047684,
+      "gpuInitializationMs": 0,
+      "totalMs": 516.2199999690056,
+      "comparisons": "1324459",
+      "hashes": {
+        "targets": "de0866afc5c8300f713556c5f82c3a81aa406bc8ac6979f57c3a5a2a556a1739",
+        "distancesSquared": "b2e923f400812d0fb0a061952bdde331cab20924dbd2137bf3c4f31c0b1f825a",
+        "allowed": "ae73d91ab5e7de59f9b13bdfce2b5b055f3ce63562dd4bddfc339fb7781a0255"
+      },
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 4062,
+        "cpuGrants": [
+          4,
+          1,
+          4,
+          1,
+          4,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 8,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 0,
+        "allocationRecoveries": 0,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 402653184,
+        "kernels": [
+          {
+            "reads": 3730,
+            "writes": 2304,
+            "readBytes": 15009289,
+            "writeBytes": 862968,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3146,
+            "writes": 2008,
+            "readBytes": 12740184,
+            "writeBytes": 324520,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3100,
+            "writes": 1966,
+            "readBytes": 12623864,
+            "writeBytes": 247224,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3224,
+            "writes": 1998,
+            "readBytes": 13119752,
+            "writeBytes": 382336,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      },
+      "gpuMetrics": null,
+      "remainingBudgetBytes": 0,
+      "requestWallMs": 544.644875,
+      "browser": "154.0.8037.93"
+    },
+    {
+      "kind": "compact-sift",
+      "gpu": true,
+      "width": 192,
+      "height": 128,
+      "iterations": 4,
+      "budgetMiB": 1024,
+      "workspaceMiB": 384,
+      "preparationMs": 99.69999998807907,
+      "solveMs": 411.125,
+      "gpuInitializationMs": 5.004999995231628,
+      "totalMs": 511.40499997138977,
+      "comparisons": "1324459",
+      "hashes": {
+        "targets": "de0866afc5c8300f713556c5f82c3a81aa406bc8ac6979f57c3a5a2a556a1739",
+        "distancesSquared": "b2e923f400812d0fb0a061952bdde331cab20924dbd2137bf3c4f31c0b1f825a",
+        "allowed": "ae73d91ab5e7de59f9b13bdfce2b5b055f3ce63562dd4bddfc339fb7781a0255"
+      },
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 4076,
+        "cpuGrants": [
+          4,
+          1,
+          4,
+          1,
+          4,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 8,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 0,
+        "allocationRecoveries": 0,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 402653184,
+        "kernels": [
+          {
+            "reads": 3548,
+            "writes": 2282,
+            "readBytes": 14299865,
+            "writeBytes": 724264,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3247,
+            "writes": 2028,
+            "readBytes": 13153880,
+            "writeBytes": 384992,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3236,
+            "writes": 2018,
+            "readBytes": 13132856,
+            "writeBytes": 346936,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3259,
+            "writes": 1996,
+            "readBytes": 13275128,
+            "writeBytes": 376544,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      },
+      "gpuMetrics": {
+        "preflightExecutions": 0,
+        "batches": 7,
+        "pairs": 11126,
+        "rejected": 0,
+        "refinements": 11126,
+        "uploadedBytes": 1424128,
+        "readbackBytes": 89008,
+        "bufferAllocations": 5,
+        "milliseconds": 10.385000050067902,
+        "deviceLimits": {
+          "maxStorageBufferBindingSize": 134217728,
+          "maxBufferSize": 268435456,
+          "maxComputeWorkgroupsPerDimension": 65535
+        }
+      },
+      "remainingBudgetBytes": 0,
+      "requestWallMs": 550.6885000000002,
+      "browser": "154.0.8037.93"
+    }
+  ],
+  "note": "Cold useful preparation, solver, shader initialization, transfers, output materialization and worker startup included. No extrapolation to 96 MP."
+}

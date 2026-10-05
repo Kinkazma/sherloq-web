@@ -1,0 +1,14 @@
+import test from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';import{gunzipSync}from'node:zlib';import{createHash}from'node:crypto';
+import{estimateEnergy,energyDeviations,energyProfile,roundDecimal}from'../experiments/ela-energy/auto.js';import{referenceLogFunction}from'../experiments/ela-energy/log-reference.js';
+const root=new URL('../fixtures/ela-energy/',import.meta.url),reference=JSON.parse(await readFile(new URL('automatic.json',root))),compressed=await readFile(new URL(reference.payload.file,root)),payload=gunzipSync(compressed),sha=b=>createHash('sha256').update(b).digest('hex');
+const floats=part=>new Float32Array(payload.buffer,payload.byteOffset+part.offset,part.length/4),ints=part=>new Int32Array(payload.buffer,payload.byteOffset+part.offset,part.length/4),log=referenceLogFunction(JSON.parse(await readFile(new URL('log-domain.json',root))),gunzipSync(await readFile(new URL('log-corrections.bin.gz',root))));
+test('Native tail-knee quantiles and prominence match across generated images and sampling boundaries',async()=>{assert.equal(sha(compressed),reference.payload.compressedSha256);assert.equal(sha(payload),reference.payload.sha256);for(const row of reference.estimates)assert.deepEqual(await estimateEnergy({energy_planes:floats(row.planes),energy_scope:ints(row.scope),energy_summary:row.summary},log),row.result,row.name);});
+test('Independent one-sided native Otsu deviations match generated score distributions',async()=>{for(const row of reference.deviations)assert.deepEqual(await energyDeviations({energy_low_score:floats(row.low),energy_high_score:floats(row.high)}),row.result,row.name);});
+test('Named scientific profiles and decimal rounding preserve native settings, Conservative defaults remain1/99 and5/5',()=>{assert.deepEqual(energyProfile(null,'standard'),{profile:'standard',quantiles:[.01,.99],thresholds:[5,5],automatic:false});for(const row of reference.profiles)assert.deepEqual(energyProfile(row.input,row.profile),row.result);for(const row of reference.rounding)assert.equal(roundDecimal(row.value,row.digits),row.result,`${row.value}/${row.digits}`);});
+
+test('Automatic scientific estimation rejects invalid scope and budget and accepts cancellation',async()=>{
+ const row=reference.estimates.at(-1),base={energy_planes:floats(row.planes),energy_scope:ints(row.scope),energy_summary:row.summary};
+ await assert.rejects(estimateEnergy({...base,energy_summary:[{id:1},{id:1}]},log),{code:'INVALID_INPUT'});
+ await assert.rejects(estimateEnergy(base,log,{account:()=>{throw Error('denied');}}),/denied/);
+ const signal=AbortSignal.abort();await assert.rejects(estimateEnergy(base,log,{signal}),{code:'CANCELLED'});await assert.rejects(energyDeviations({energy_low_score:floats(reference.deviations.at(-1).low),energy_high_score:floats(reference.deviations.at(-1).high)},{signal}),{code:'CANCELLED'});
+});

@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Large-output contiguous NCHW float32 align_corners=True only; no antialias, small-output or channels-last claim",
+  "cases": 24,
+  "records": [
+    {
+      "name": "3-448x448-298x298-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-298x298-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-298x298-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-597x597-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-597x597-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-597x597-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "12-298x298-448x448-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "12-298x298-448x448-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "12-298x298-448x448-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "32-597x597-448x448-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "32-597x597-448x448-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "32-597x597-448x448-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-56x56-448x448-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-56x56-448x448-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-56x56-448x448-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "64-56x56-112x112-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "64-56x56-112x112-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "64-56x56-112x112-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-2x3-65x66-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-2x3-65x66-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-2x3-65x66-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "8-33x65-67x129-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "8-33x65-67x129-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "8-33x65-67x129-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    }
+  ],
+  "node": "v22.22.2",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "10b33039f631630e8f5dc26bd89881ead1ceb346326da756c7dc0d64b5a69d8b",
+    "files": {
+      "resize.js": {
+        "bytes": 7449,
+        "sha256": "fb20df74da7ae5893c53d96fd1cf4d2b6d640646716955c5219c1e322dcb545f"
+      },
+      "resize.wasm": {
+        "bytes": 7467,
+        "sha256": "6cfd995c4a9b1109de51643c3436c64485ee957feb483c57fe3683bd46eec3b9"
+      }
+    }
+  },
+  "referenceSha256": "5839fd3051368655d2f56d895dee661e81229c60b09dc2e9f824827c705f6c9c"
+}

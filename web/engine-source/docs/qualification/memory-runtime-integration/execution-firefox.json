@@ -1,0 +1,577 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "suite": "qualityPoolBrowserTest",
+      "browser": "155.0",
+      "result": {
+        "schema": 1,
+        "status": "passed",
+        "exact": true,
+        "workers": 4,
+        "metrics": {
+          "totalMs": 475,
+          "cache": {
+            "result": false,
+            "stages": {
+              "1": false,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false,
+              "6": false,
+              "7": false,
+              "8": false,
+              "9": false,
+              "10": false,
+              "11": false,
+              "12": false,
+              "13": false,
+              "14": false,
+              "15": false,
+              "16": false,
+              "17": false,
+              "18": false,
+              "19": false,
+              "20": false,
+              "21": false,
+              "22": false,
+              "23": false,
+              "24": false,
+              "25": false,
+              "26": false,
+              "27": false,
+              "28": false,
+              "29": false,
+              "30": false,
+              "31": false,
+              "32": false,
+              "33": false,
+              "34": false,
+              "35": false,
+              "36": false,
+              "37": false,
+              "38": false,
+              "39": false,
+              "40": false,
+              "41": false,
+              "42": false,
+              "43": false,
+              "44": false,
+              "45": false,
+              "46": false,
+              "47": false,
+              "48": false,
+              "49": false,
+              "50": false,
+              "51": false,
+              "52": false,
+              "53": false,
+              "54": false,
+              "55": false,
+              "56": false,
+              "57": false,
+              "58": false,
+              "59": false,
+              "60": false,
+              "61": false,
+              "62": false,
+              "63": false,
+              "64": false,
+              "65": false,
+              "66": false,
+              "67": false,
+              "68": false,
+              "69": false,
+              "70": false,
+              "71": false,
+              "72": false,
+              "73": false,
+              "74": false,
+              "75": false,
+              "76": false,
+              "77": false,
+              "78": false,
+              "79": false,
+              "80": false,
+              "81": false,
+              "82": false,
+              "83": false,
+              "84": false,
+              "85": false,
+              "86": false,
+              "87": false,
+              "88": false,
+              "89": false,
+              "90": false,
+              "91": false,
+              "92": false,
+              "93": false,
+              "94": false,
+              "95": false,
+              "96": false,
+              "97": false,
+              "98": false,
+              "99": false,
+              "100": false,
+              "loss-curve": false
+            }
+          },
+          "kernel": "jpeg-recompression-pool",
+          "workers": 4,
+          "recompressions": 100,
+          "qualityPreparationMs": 4,
+          "qualityRecompressionMs": 460,
+          "scheduling": {
+            "count": 4,
+            "maximum": 4,
+            "ceiling": 4,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "taskExecutions": 1,
+            "preflightExecutions": 0,
+            "retry": null
+          },
+          "qualityKernelMs": 460,
+          "qualityNormalizationMs": 8,
+          "qualityPredictionMs": 0,
+          "memory": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 3992357,
+            "cacheBytes": 15738,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 239004453,
+            "activeRecoveries": 0,
+            "codecHeapCapacityBytes": 16777216,
+            "hdf5HeapCapacityBytes": 0,
+            "medianHeapCapacityBytes": 0,
+            "qualityHeapCapacityBytes": 131072,
+            "resamplingHeapCapacityBytes": 0,
+            "cloningHeapCapacityBytes": 0
+          }
+        },
+        "cancellation": "Parallel abort and reload verified",
+        "cache": "No repeat recompressions",
+        "limits": [
+          "One generated 1 MP image; four-core candidate cap for this lifecycle test"
+        ]
+      }
+    },
+    {
+      "suite": "segmentedRecompressionPoolBrowserTest",
+      "browser": "155.0",
+      "result": {
+        "status": "passed",
+        "nativeValues": 6,
+        "workers": 2,
+        "sourcePasses": 6,
+        "preflightExecutions": 0,
+        "workerHeapMaximumBytes": 33554432,
+        "lastBandCancellation": true,
+        "realSerialResourceFallback": true,
+        "capacityReductionRetained": true,
+        "peakAccountedBytes": 123771008,
+        "publicAPI": {
+          "status": "passed",
+          "workers": 2,
+          "preflightExecutions": 0,
+          "nativeValues": 101,
+          "dimensions": [
+            1600,
+            2200
+          ],
+          "sourceLayout": "segmented-scanlines",
+          "storage": "memory",
+          "codecHeapMaximumBytes": 16777216,
+          "codecHeapCapacityBytes": 16777216,
+          "cacheReuseBothPanels": true,
+          "tableEstimate": 85,
+          "csvRows": 102,
+          "peakAccountedBytes": 95864080
+        }
+      }
+    },
+    {
+      "suite": "zeroStreamPoolBrowserTest",
+      "browser": "155.0",
+      "result": {
+        "status": "passed",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "nativeVotesAndGlobalNfa": true,
+        "original": {
+          "workers": 3,
+          "scheduling": {
+            "count": 3,
+            "maximum": 3,
+            "ceiling": 3,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "retry": null,
+            "completedBandsPreserved": 0
+          },
+          "heapCapacityBytes": 16777216,
+          "totalWorkerHeapMaximumBytes": 50331648,
+          "kernel": "zero-native-overlapping-bands",
+          "rowsPerChunk": 64,
+          "haloRows": 7,
+          "heapMaximumBytes": 16777216,
+          "thresholdFallbacks": 25657,
+          "luminanceStorage": "temporary",
+          "voteStorage": "temporary",
+          "retainedPlaneBytes": 2097152
+        },
+        "jpeg99": {
+          "workers": 3,
+          "scheduling": {
+            "count": 3,
+            "maximum": 3,
+            "ceiling": 3,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 1,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "retry": null,
+            "completedBandsPreserved": 0
+          },
+          "heapCapacityBytes": 16777216,
+          "totalWorkerHeapMaximumBytes": 50331648,
+          "kernel": "zero-native-overlapping-bands",
+          "rowsPerChunk": 64,
+          "haloRows": 7,
+          "heapMaximumBytes": 16777216,
+          "thresholdFallbacks": 28542,
+          "luminanceStorage": "temporary",
+          "voteStorage": "temporary",
+          "retainedPlaneBytes": 2097152,
+          "jpeg99": {
+            "workers": 1,
+            "kernel": "global-rgb-jpeg-scanlines",
+            "sampling": "444",
+            "recompressedCache": false,
+            "recompressions": 1,
+            "sourcePasses": 2,
+            "encodedBytes": 2465611,
+            "encodedCapacityBytes": 6293504,
+            "encodedStorage": "memory",
+            "cacheEntries": 1,
+            "rowsPerChunk": 32,
+            "maxSourceWindowBytes": 98304,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216
+          }
+        },
+        "retry": {
+          "workers": 1,
+          "scheduling": {
+            "count": 3,
+            "maximum": 3,
+            "ceiling": 3,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "retry": {
+              "code": "MEMORY_LIMIT",
+              "failedWorkers": 3,
+              "completedBandsPreserved": 3
+            },
+            "completedBandsPreserved": 3
+          },
+          "kernel": "zero-native-overlapping-bands",
+          "rowsPerChunk": 64,
+          "haloRows": 7,
+          "heapCapacityBytes": 16777216,
+          "heapMaximumBytes": 16777216,
+          "thresholdFallbacks": 25657,
+          "luminanceStorage": "temporary",
+          "voteStorage": "temporary",
+          "retainedPlaneBytes": 2097152
+        },
+        "cancellationRemovesPlanes": true,
+        "adaptiveRecoveryCeiling": 1,
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 105338880,
+          "activeRecoveries": 0
+        },
+        "storageCleanup": true
+      }
+    },
+    {
+      "suite": "energyStreamPoolBrowserTest",
+      "browser": "155.0",
+      "result": {
+        "status": "passed",
+        "dimensions": [
+          1031,
+          1024
+        ],
+        "nativePlanesExact": 3,
+        "parallel": {
+          "workers": 3,
+          "kernel": "global-rgb-jpeg-energy-worker-pool",
+          "energyRecompressions": 3,
+          "energyQualityPlanesComputed": 3,
+          "sourcePasses": 2,
+          "codecHeapCapacityBytes": 16777216,
+          "totalCodecHeapMaximumBytes": 50331648,
+          "elastic": {
+            "created": 3,
+            "reclaimed": 0,
+            "peakWorkers": 3,
+            "batches": 1,
+            "batchWorkers": [
+              3
+            ],
+            "residentWorkers": 3,
+            "maximum": 3,
+            "policy": "replan after each completed useful quality batch"
+          },
+          "scheduling": {
+            "count": 3,
+            "maximum": 3,
+            "ceiling": 3,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "taskExecutions": 1,
+            "retry": null
+          }
+        },
+        "stores": [
+          "memory",
+          "temporary",
+          "temporary"
+        ],
+        "retried": {
+          "workers": 3,
+          "kernel": "ela-energy-segmented",
+          "energyRecompressions": 3,
+          "energyQualityPlanesComputed": 3,
+          "sourcePasses": 4,
+          "codecHeapCapacityBytes": 16777216,
+          "totalCodecHeapMaximumBytes": 50331648,
+          "elastic": {
+            "created": 3,
+            "reclaimed": 0,
+            "peakWorkers": 3,
+            "batches": 1,
+            "batchWorkers": [
+              3
+            ],
+            "residentWorkers": 3,
+            "maximum": 3,
+            "policy": "replan after each completed useful quality batch"
+          },
+          "scheduling": {
+            "count": 3,
+            "maximum": 3,
+            "ceiling": 3,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "taskExecutions": 2,
+            "retry": {
+              "code": "MEMORY_LIMIT",
+              "failedWorkers": 3,
+              "completedQualitiesPreserved": 2,
+              "remainingQualities": 1
+            }
+          }
+        },
+        "adaptiveCeilingAfterFailure": 1,
+        "cancellationCleanup": true,
+        "memory": {
+          "budgetBytes": 100663296,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 94674857,
+          "activeRecoveries": 0
+        },
+        "storageCleanup": true
+      }
+    },
+    {
+      "suite": "ghostStreamPoolBrowserTest",
+      "browser": "155.0",
+      "result": {
+        "status": "passed",
+        "dimensions": [
+          4103,
+          5401
+        ],
+        "metrics": {
+          "workers": 3,
+          "kernel": "global-rgb-jpeg-ghost-worker-pool",
+          "recompressions": 3,
+          "qualityPlanesComputed": 3,
+          "encodedCacheHits": 0,
+          "elastic": {
+            "created": 3,
+            "reclaimed": 0,
+            "peakWorkers": 3,
+            "batches": 1,
+            "batchWorkers": [
+              3
+            ],
+            "residentWorkers": 3,
+            "maximum": 3,
+            "policy": "replan after each completed useful quality batch"
+          },
+          "transportRecoveries": 0,
+          "codecHeapCapacityBytes": 16777216,
+          "codecHeapMaximumBytes": 16777216,
+          "totalCodecHeapMaximumBytes": 50331648,
+          "maxSourceWindowBytes": 393888,
+          "sourcePasses": 2,
+          "encodedStorage": "temporary",
+          "maximumEncodedBytes": 20464249,
+          "scheduling": {
+            "count": 3,
+            "maximum": 3,
+            "ceiling": 3,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "preflightExecutions": 0,
+            "taskExecutions": 1,
+            "retry": null
+          },
+          "stages": {
+            "60": false,
+            "80": false,
+            "100": false
+          },
+          "normalizedOnly": false,
+          "cache": {
+            "analysis": false,
+            "result": false,
+            "view": false,
+            "stages": {
+              "60": false,
+              "80": false,
+              "100": false
+            }
+          },
+          "totalMs": 1493,
+          "memory": {
+            "budgetBytes": 201326592,
+            "retainedBytes": 66480909,
+            "cacheBytes": 6216305,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 160852941,
+            "activeRecoveries": 0
+          }
+        },
+        "cancellation": "storage-closed-before-worker-termination",
+        "reload": true,
+        "failure": {
+          "status": "passed",
+          "metrics": {
+            "workers": 1,
+            "kernel": "global-rgb-jpeg-ghost-scanlines",
+            "recompressions": 9,
+            "qualityPlanesComputed": 9,
+            "encodedCacheHits": 0,
+            "sourcePasses": 14,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "maxSourceWindowBytes": 98304,
+            "encodedStorage": "memory",
+            "scheduling": {
+              "count": 3,
+              "maximum": 3,
+              "ceiling": 3,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 2,
+              "retry": {
+                "code": "MEMORY_LIMIT",
+                "failedWorkers": 3,
+                "remainingQualities": 6
+              }
+            },
+            "stages": {
+              "50": false,
+              "55": false,
+              "60": false,
+              "65": false,
+              "70": false,
+              "75": false,
+              "80": false,
+              "85": false,
+              "90": false
+            },
+            "normalizedOnly": false
+          },
+          "completedQualitiesNotRepeated": 3,
+          "nativeRawAndMaps": true
+        },
+        "storageCleanup": true
+      }
+    },
+    {
+      "browser": "155.0",
+      "execution": {
+        "admitted": 0,
+        "completed": 0,
+        "peakCpu": 0,
+        "peakGpu": 0,
+        "peakQueued": 0,
+        "waitMs": 0,
+        "cpuLeaseMs": 0,
+        "gpuLeaseMs": 0,
+        "elasticAdmissions": 0,
+        "memoryReclaims": 0,
+        "preflightExecutions": 0,
+        "capacity": {
+          "cpu": 1,
+          "gpu": 1
+        },
+        "active": {
+          "cpu": 0,
+          "gpu": 0
+        },
+        "running": 0,
+        "queued": 0,
+        "waiting": {
+          "cpu": 0,
+          "gpu": 0,
+          "memory": 0
+        },
+        "labels": {},
+        "phaseDomains": {
+          "array-buffer": 0,
+          "wasm": 0,
+          "gpu": 0,
+          "gpu-mapped": 0
+        },
+        "timingMeaning": "Admitted execution time; not an OS CPU-utilization measurement",
+        "domainMeaning": "New allocation requirements of active phases; separate from policy reservations and materialized backing ownership"
+      },
+      "passed": true
+    }
+  ]
+}

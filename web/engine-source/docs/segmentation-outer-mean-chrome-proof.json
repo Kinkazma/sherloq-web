@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Torch2.8 channels-last global mean; real TNT pool tensor and three signed synthetic non-power-of-two/regular geometries. This primitive does not qualify the full network.",
+  "records": [
+    {
+      "name": "multi_granularity_consistency_module.aspp.convs.4.0",
+      "elements": 640,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-15",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-16",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-31",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    }
+  ],
+  "ort": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/rewrite-segmentation-mean.py": "e7a6ffd0f339cea56a5a68e882f40259fd0972867cee029bd64e1d74ce83e2e4",
+    "scripts/study-segmentation-outer-mean.mjs": "963819ad0362dc2cb8c69ae1f7d60706ab3f5e50b471d8adc7e4508bbc21566d"
+  }
+}

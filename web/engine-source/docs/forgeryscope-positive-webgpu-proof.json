@@ -1,0 +1,77 @@
+{
+  "provider": "webgpu",
+  "records": [
+    {
+      "case": "microscopy",
+      "status": "ok",
+      "nativeStatus": "ok",
+      "fields": {
+        "mask": {
+          "values": 34336,
+          "differences": 0
+        },
+        "map": {
+          "values": 34336,
+          "differences": 0
+        },
+        "candidates": {
+          "values": 34336,
+          "differences": 0
+        }
+      },
+      "comparisons": 1,
+      "nativeComparisons": 1
+    },
+    {
+      "case": "auto",
+      "status": "ok",
+      "nativeStatus": "ok",
+      "fields": {
+        "mask": {
+          "values": 2899552,
+          "differences": 0
+        },
+        "map": {
+          "values": 2899552,
+          "differences": 0
+        },
+        "candidates": {
+          "values": 2899552,
+          "differences": 0
+        },
+        "geometric": {
+          "values": 2899552,
+          "differences": 0
+        },
+        "branch_microscopy": {
+          "values": 2899552,
+          "differences": 0
+        },
+        "branch_blots": {
+          "values": 2899552,
+          "differences": 0
+        },
+        "branch_lanes": {
+          "values": 2899552,
+          "differences": 0
+        }
+      },
+      "comparisons": 1,
+      "nativeComparisons": 1,
+      "laneSearch": false,
+      "nativeLaneSearch": false,
+      "laneMatches": 0,
+      "nativeLaneMatches": 0
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3195640107
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

@@ -1,0 +1,286 @@
+{
+  "passed": true,
+  "scope": "Horizontal-run panel component helper on actual rich96MP JPEG, full native polygons and decoded BGR hash; not a complete five-group qualification.",
+  "sourceSha256": "7a6ac1368fd28adbbf841a88b3b897f791695ac6fe265c7ba6c9a93f36d704ca",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "polygons": [
+    [
+      [
+        11123,
+        0
+      ],
+      [
+        11999,
+        0
+      ],
+      [
+        11999,
+        7999
+      ],
+      [
+        11123,
+        7999
+      ]
+    ],
+    [
+      [
+        1696,
+        1034
+      ],
+      [
+        4407,
+        1034
+      ],
+      [
+        4407,
+        1464
+      ],
+      [
+        1696,
+        1464
+      ]
+    ],
+    [
+      [
+        1695,
+        1592
+      ],
+      [
+        4408,
+        1592
+      ],
+      [
+        4408,
+        2029
+      ],
+      [
+        1695,
+        2029
+      ]
+    ],
+    [
+      [
+        1691,
+        2145
+      ],
+      [
+        4412,
+        2145
+      ],
+      [
+        4412,
+        2579
+      ],
+      [
+        1691,
+        2579
+      ]
+    ],
+    [
+      [
+        1704,
+        2689
+      ],
+      [
+        4413,
+        2689
+      ],
+      [
+        4413,
+        3131
+      ],
+      [
+        1704,
+        3131
+      ]
+    ],
+    [
+      [
+        5480,
+        2659
+      ],
+      [
+        5733,
+        2659
+      ],
+      [
+        5733,
+        5243
+      ],
+      [
+        5480,
+        5243
+      ]
+    ],
+    [
+      [
+        5888,
+        2693
+      ],
+      [
+        6145,
+        2693
+      ],
+      [
+        6145,
+        5240
+      ],
+      [
+        5888,
+        5240
+      ]
+    ],
+    [
+      [
+        7400,
+        2657
+      ],
+      [
+        7652,
+        2657
+      ],
+      [
+        7652,
+        5243
+      ],
+      [
+        7400,
+        5243
+      ]
+    ],
+    [
+      [
+        7807,
+        2810
+      ],
+      [
+        8066,
+        2810
+      ],
+      [
+        8066,
+        5240
+      ],
+      [
+        7807,
+        5240
+      ]
+    ],
+    [
+      [
+        9725,
+        2833
+      ],
+      [
+        9973,
+        2833
+      ],
+      [
+        9973,
+        5241
+      ],
+      [
+        9725,
+        5241
+      ]
+    ],
+    [
+      [
+        1692,
+        4490
+      ],
+      [
+        4397,
+        4490
+      ],
+      [
+        4397,
+        5050
+      ],
+      [
+        1692,
+        5050
+      ]
+    ],
+    [
+      [
+        1693,
+        5101
+      ],
+      [
+        4396,
+        5101
+      ],
+      [
+        4396,
+        6014
+      ],
+      [
+        1693,
+        6014
+      ]
+    ],
+    [
+      [
+        1693,
+        6071
+      ],
+      [
+        4396,
+        6071
+      ],
+      [
+        4396,
+        7281
+      ],
+      [
+        1693,
+        7281
+      ]
+    ],
+    [
+      [
+        1692,
+        7332
+      ],
+      [
+        4396,
+        7332
+      ],
+      [
+        4396,
+        7898
+      ],
+      [
+        1692,
+        7898
+      ]
+    ]
+  ],
+  "metrics": {
+    "sampleStep": 7,
+    "paletteColors": 8,
+    "proposals": 20,
+    "panelWorkspaceBytes": 7113650,
+    "maskStorage": "memory"
+  },
+  "loadMs": 1427.7999999970198,
+  "analysisMs": 99196.60000000894,
+  "totalMs": 103445.29999999702,
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 204495954
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile removed after qualification",
+  "engineCommit": "e68cf79",
+  "runtimeManifestSha256": "4d9c6ba7f1c9fea6d13130a5315aeb06674a3cc78ea82e6b151427a492f39b4d",
+  "timingScope": "Complete component recipe including original decode and complete BGR verification, concurrent with the fixed five-group recipe and other host work; not an isolated benchmark or OS RSS measurement."
+}

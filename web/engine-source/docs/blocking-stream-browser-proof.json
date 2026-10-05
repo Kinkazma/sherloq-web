@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1600,
+    1100
+  ],
+  "budgetBytes": 67108864,
+  "cases": [
+    {
+      "noiseSha256": "4dc741c24f3868eea89d2a998c1df10db32af908d3a8720b06ea8c0b66d7a9bf",
+      "params": {
+        "block": 8
+      },
+      "sha256": "3495de209d16849873b3e6ce9bb63120a288f9617a1750de3600d28719897402",
+      "metrics": {
+        "workers": 2,
+        "completedStripJobs": 111,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "blockPixels": 65536,
+        "detailCached": false,
+        "globalMinimum": 0.06482215461229009,
+        "globalMaximum": 6.7598804382499535,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 9376.29999999702,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 10560000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 66457856
+        }
+      }
+    },
+    {
+      "noiseSha256": "2c5d9fca4be8b0f3519228330dc17b09d2b96f12d8844b8aa2b8a7b22ee92e2a",
+      "params": {
+        "block": 13
+      },
+      "sha256": "93c82b67bc215b2415e225d899aaf6c6050faaae5ef3722502c1a0f4033f0d87",
+      "metrics": {
+        "workers": 1,
+        "completedStripJobs": 42,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "blockPixels": 65536,
+        "detailCached": true,
+        "globalMinimum": 0.18628603937599322,
+        "globalMaximum": 6.682748764251561,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 805.3999999985099,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 10560000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 66457856
+        }
+      }
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

@@ -1,0 +1,449 @@
+{
+  "schema": 1,
+  "scope": "Seeded finite float32 native depthwise3x3 stride1, borders/odd sizes and optional bias; independent of private model activations.",
+  "torch": "2.8.0",
+  "seed": 280512,
+  "records": [
+    {
+      "name": "0",
+      "channels": 1,
+      "height": 3,
+      "width": 3,
+      "padding": 0,
+      "biased": false,
+      "input": {
+        "file": "0-input.bin",
+        "bytes": 36,
+        "shape": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "sha256": "ea57626e5f2afe1e4926b94ae1233fc1f4ccd98aeff11d655b757e99afa6f452"
+      },
+      "weight": {
+        "file": "0-weights.bin",
+        "bytes": 36,
+        "shape": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "sha256": "065d67dd7be4c8d0d7ca1d553dd3c815742b14b591c7da2baa81f7fe02bc33c8"
+      },
+      "bias": {
+        "file": "0-bias.bin",
+        "bytes": 4,
+        "shape": [
+          1
+        ],
+        "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+      },
+      "output": {
+        "file": "0-output.bin",
+        "bytes": 4,
+        "shape": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "sha256": "f7de876795065124365982b3eeae85664e8055dc0a002bc7ca622d731838fe01"
+      }
+    },
+    {
+      "name": "1",
+      "channels": 3,
+      "height": 5,
+      "width": 7,
+      "padding": 1,
+      "biased": true,
+      "input": {
+        "file": "1-input.bin",
+        "bytes": 420,
+        "shape": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "sha256": "7d48f98e0b6ba07b846dcf0b7e62662198dc72a58bd95047ed22169fb999ea6f"
+      },
+      "weight": {
+        "file": "1-weights.bin",
+        "bytes": 108,
+        "shape": [
+          3,
+          1,
+          3,
+          3
+        ],
+        "sha256": "a93d287ebc6b3939d832809b42fe8e9fbb699500fc92f9723dbab14af4ee49a2"
+      },
+      "bias": {
+        "file": "1-bias.bin",
+        "bytes": 12,
+        "shape": [
+          3
+        ],
+        "sha256": "ff553db62f022ceb1638aaeb9a5e28f02bad706a401bae61089dabe3daf3d9ec"
+      },
+      "output": {
+        "file": "1-output.bin",
+        "bytes": 420,
+        "shape": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "sha256": "26fafca4f6df3d10979271fd24743220c08318fd5ac7b5b0f29bf730971e4af6"
+      }
+    },
+    {
+      "name": "2",
+      "channels": 2,
+      "height": 13,
+      "width": 17,
+      "padding": 0,
+      "biased": true,
+      "input": {
+        "file": "2-input.bin",
+        "bytes": 1768,
+        "shape": [
+          1,
+          2,
+          13,
+          17
+        ],
+        "sha256": "e3d9143b989c2171277215de39c2e4c8235ac53975d4fd046d86f8cbf842ce89"
+      },
+      "weight": {
+        "file": "2-weights.bin",
+        "bytes": 72,
+        "shape": [
+          2,
+          1,
+          3,
+          3
+        ],
+        "sha256": "8388c3a555cd31a37d285b3bd0ce2478553cb2febdb4173d89c64a67bd02ea6d"
+      },
+      "bias": {
+        "file": "2-bias.bin",
+        "bytes": 8,
+        "shape": [
+          2
+        ],
+        "sha256": "602c9a6ff6652e3fe7eaa876fe3fb40ef9f2133881374c78e4893154670ff72f"
+      },
+      "output": {
+        "file": "2-output.bin",
+        "bytes": 1320,
+        "shape": [
+          1,
+          2,
+          11,
+          15
+        ],
+        "sha256": "544fc86d483b576cdb7c25bdaed82195056bf98f6980ed4061961df1c0cc51fb"
+      }
+    },
+    {
+      "name": "3",
+      "channels": 3,
+      "height": 13,
+      "width": 17,
+      "padding": 1,
+      "biased": false,
+      "input": {
+        "file": "3-input.bin",
+        "bytes": 2652,
+        "shape": [
+          1,
+          3,
+          13,
+          17
+        ],
+        "sha256": "2dfb1f3bba36f537b467229d19eba236d1d7105f2416ec144de42f8dfe8c32f5"
+      },
+      "weight": {
+        "file": "3-weights.bin",
+        "bytes": 108,
+        "shape": [
+          3,
+          1,
+          3,
+          3
+        ],
+        "sha256": "e92f18180b4ba2878e2ef52353dd6da9337afed4859a031bec93b8e62e96bbad"
+      },
+      "bias": {
+        "file": "3-bias.bin",
+        "bytes": 12,
+        "shape": [
+          3
+        ],
+        "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+      },
+      "output": {
+        "file": "3-output.bin",
+        "bytes": 2652,
+        "shape": [
+          1,
+          3,
+          13,
+          17
+        ],
+        "sha256": "9763befe39918f43ed8d29389dbd71b8c4d977b3e5ddd9d538803b9ceb4473ea"
+      }
+    },
+    {
+      "name": "4",
+      "channels": 4,
+      "height": 16,
+      "width": 16,
+      "padding": 1,
+      "biased": true,
+      "input": {
+        "file": "4-input.bin",
+        "bytes": 4096,
+        "shape": [
+          1,
+          4,
+          16,
+          16
+        ],
+        "sha256": "f3f2a9b51f137bb7cb709d1d9ad34c9bac70ea755b92d4a39c6ba9173b3bf1e3"
+      },
+      "weight": {
+        "file": "4-weights.bin",
+        "bytes": 144,
+        "shape": [
+          4,
+          1,
+          3,
+          3
+        ],
+        "sha256": "b7faa9d47170ba4b23dcdf6bad719121ad7e2894869b216b73f8efb8f20d16ab"
+      },
+      "bias": {
+        "file": "4-bias.bin",
+        "bytes": 16,
+        "shape": [
+          4
+        ],
+        "sha256": "5ff686059ca8d584bb8dc71abbf688c4267946ce9803fbac0a3c8894a72e264e"
+      },
+      "output": {
+        "file": "4-output.bin",
+        "bytes": 4096,
+        "shape": [
+          1,
+          4,
+          16,
+          16
+        ],
+        "sha256": "3d6771cbe8daea3e8daa520040f214578950811655d0fe6b4b1cf7b8a87e9cc8"
+      }
+    },
+    {
+      "name": "5",
+      "channels": 3,
+      "height": 32,
+      "width": 32,
+      "padding": 1,
+      "biased": false,
+      "input": {
+        "file": "5-input.bin",
+        "bytes": 12288,
+        "shape": [
+          1,
+          3,
+          32,
+          32
+        ],
+        "sha256": "75cb191c77778caab5477a20e20c050bba3aa615337dbd2101fcf97e4567c857"
+      },
+      "weight": {
+        "file": "5-weights.bin",
+        "bytes": 108,
+        "shape": [
+          3,
+          1,
+          3,
+          3
+        ],
+        "sha256": "d0d3c33fdfe4886dceaa86bfd6f492952c2500087e20916fb24a20145bfc9c7d"
+      },
+      "bias": {
+        "file": "5-bias.bin",
+        "bytes": 12,
+        "shape": [
+          3
+        ],
+        "sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+      },
+      "output": {
+        "file": "5-output.bin",
+        "bytes": 12288,
+        "shape": [
+          1,
+          3,
+          32,
+          32
+        ],
+        "sha256": "418fe8bd98f20c4f87dbb16674de971517d7770343dd19b0e49362926582aca6"
+      }
+    },
+    {
+      "name": "6",
+      "channels": 2,
+      "height": 64,
+      "width": 64,
+      "padding": 1,
+      "biased": true,
+      "input": {
+        "file": "6-input.bin",
+        "bytes": 32768,
+        "shape": [
+          1,
+          2,
+          64,
+          64
+        ],
+        "sha256": "41f47d6c33959a4d52c6d2202dbea8b5eee3f23ffef93748e675755d40bd7d9d"
+      },
+      "weight": {
+        "file": "6-weights.bin",
+        "bytes": 72,
+        "shape": [
+          2,
+          1,
+          3,
+          3
+        ],
+        "sha256": "f628db489cab7ac2b7cbcf75dc0fb244c89ef73f9f8bd4bd5f42771e975de2d7"
+      },
+      "bias": {
+        "file": "6-bias.bin",
+        "bytes": 8,
+        "shape": [
+          2
+        ],
+        "sha256": "742a76e8c1f30e1dbb5ada40b1b26252109319d4720818a0ab327acac33cd3ba"
+      },
+      "output": {
+        "file": "6-output.bin",
+        "bytes": 32768,
+        "shape": [
+          1,
+          2,
+          64,
+          64
+        ],
+        "sha256": "f87b0b9c17a684f622842fcb5e8231af4009bafacd09005617ea6bc7a63a5250"
+      }
+    },
+    {
+      "name": "7",
+      "channels": 2,
+      "height": 128,
+      "width": 128,
+      "padding": 1,
+      "biased": false,
+      "input": {
+        "file": "7-input.bin",
+        "bytes": 131072,
+        "shape": [
+          1,
+          2,
+          128,
+          128
+        ],
+        "sha256": "53f765815f23176fd6ee7e650d3f060c9088de94d2993af2cc8adc2d9aa69fbd"
+      },
+      "weight": {
+        "file": "7-weights.bin",
+        "bytes": 72,
+        "shape": [
+          2,
+          1,
+          3,
+          3
+        ],
+        "sha256": "e14c3424763fc1a19fd54a7c86629711c6bce8fa2e3467516e01867c4aac5853"
+      },
+      "bias": {
+        "file": "7-bias.bin",
+        "bytes": 8,
+        "shape": [
+          2
+        ],
+        "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+      },
+      "output": {
+        "file": "7-output.bin",
+        "bytes": 131072,
+        "shape": [
+          1,
+          2,
+          128,
+          128
+        ],
+        "sha256": "7893f187786f39fb968769fdccf4c6f6da4ea0c6bbd2123909b98a4bbfa0db1b"
+      }
+    },
+    {
+      "name": "8",
+      "channels": 1,
+      "height": 256,
+      "width": 256,
+      "padding": 1,
+      "biased": false,
+      "input": {
+        "file": "8-input.bin",
+        "bytes": 262144,
+        "shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "sha256": "7b0540b223317a59d596b74be845cf85a49e9309bcafddd7ee65f41fcfdb1dc5"
+      },
+      "weight": {
+        "file": "8-weights.bin",
+        "bytes": 36,
+        "shape": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "sha256": "9a5102e100f5c653852bb79f24e90171c4378f9dab615e3e35d8d8aea8fd18b0"
+      },
+      "bias": {
+        "file": "8-bias.bin",
+        "bytes": 4,
+        "shape": [
+          1
+        ],
+        "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+      },
+      "output": {
+        "file": "8-output.bin",
+        "bytes": 262144,
+        "shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "sha256": "a4a8ad36df7614eb31c012e25fbe11671e968bafaa09561f4951050ac476cbfb"
+      }
+    }
+  ]
+}

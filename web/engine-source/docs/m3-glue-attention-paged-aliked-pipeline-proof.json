@@ -1,0 +1,365 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "backend": "cpu",
+      "name": "ALIKED + LightGlue/compare",
+      "points": 4346,
+      "pointDifferences": 8,
+      "scoreMax": 0.000014722347259521484,
+      "pairs": 98,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 1.7881393432617188e-7,
+      "groups": 1,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "ALIKED",
+          "provider": "wasm",
+          "execution": "wasm",
+          "threads": 1,
+          "actualHeapBytes": 687472640,
+          "maximumHeapBytes": 805306368,
+          "maskHeapBytes": 33554432,
+          "preflightExecutions": 0,
+          "qualification": "native-floating-arithmetic-differences-measured",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 0,
+          "workerAdmittedBytes": 1410482624,
+          "preparation": {
+            "sourceReads": 176,
+            "preparedShape": [
+              1,
+              3,
+              402,
+              1024
+            ],
+            "maximumHeapBytes": 38862848,
+            "actualHeapBytes": 16777216,
+            "preparation": "native-separable-support-rows"
+          }
+        },
+        "matching": {
+          "kind": "aliked",
+          "runs": [
+            {
+              "provider": "wasm",
+              "execution": "native-layers-global-csr-row-pages",
+              "actualHeapBytes": 20185088,
+              "attentionHeapBytes": 16777216,
+              "maximumHeapBytes": 536870912,
+              "threads": 1,
+              "totalMs": 1163.9000000059605,
+              "maximumConfidence": 0.9999950528144836,
+              "above": {
+                "point1": 98,
+                "point3": 98,
+                "point7": 98,
+                "point9": 98
+              },
+              "attentionPages": 36,
+              "assignmentPages": 1,
+              "maximumPageEdges": 20478,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 22398,
+              "gpuEstimatedBytes": 536870912
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    },
+    {
+      "backend": "cpu",
+      "name": "ALIKED rotation + LightGlue/compare",
+      "points": 2758,
+      "pointDifferences": 12,
+      "scoreMax": 0.000009775161743164062,
+      "pairs": 84,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 1.7881393432617188e-7,
+      "groups": 1,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "ALIKED rotation",
+          "provider": "wasm",
+          "execution": "wasm",
+          "threads": 1,
+          "actualHeapBytes": 687472640,
+          "maximumHeapBytes": 805306368,
+          "maskHeapBytes": 33554432,
+          "preflightExecutions": 0,
+          "qualification": "native-floating-arithmetic-differences-measured",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 0,
+          "workerAdmittedBytes": 1410482624,
+          "preparation": {
+            "sourceReads": 176,
+            "preparedShape": [
+              1,
+              3,
+              402,
+              1024
+            ],
+            "maximumHeapBytes": 38862848,
+            "actualHeapBytes": 16777216,
+            "preparation": "native-separable-support-rows"
+          }
+        },
+        "matching": {
+          "kind": "aliked",
+          "runs": [
+            {
+              "provider": "wasm",
+              "execution": "native-layers-global-csr-row-pages",
+              "actualHeapBytes": 20185088,
+              "attentionHeapBytes": 16777216,
+              "maximumHeapBytes": 536870912,
+              "threads": 1,
+              "totalMs": 1025.5999999940395,
+              "maximumConfidence": 0.9999838471412659,
+              "above": {
+                "point1": 84,
+                "point3": 84,
+                "point7": 84,
+                "point9": 84
+              },
+              "attentionPages": 27,
+              "assignmentPages": 1,
+              "maximumPageEdges": 21875,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 21875,
+              "gpuEstimatedBytes": 536870912
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 2,
+          "matchings": 2,
+          "groupings": 2,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    },
+    {
+      "backend": "webgpu",
+      "name": "ALIKED + LightGlue/compare",
+      "points": 4346,
+      "pointDifferences": 118,
+      "scoreMax": 0.000023126602172851562,
+      "pairs": 98,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.00000667572021484375,
+      "groups": 1,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "ALIKED",
+          "provider": "webgpu",
+          "execution": "webgpu-with-cpu-fallback-nodes",
+          "threads": 1,
+          "actualHeapBytes": 129171456,
+          "maximumHeapBytes": 201326592,
+          "maskHeapBytes": 33554432,
+          "preflightExecutions": 0,
+          "qualification": "native-floating-arithmetic-differences-measured",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 699400192,
+          "workerAdmittedBytes": 1505903040,
+          "preparation": {
+            "sourceReads": 176,
+            "preparedShape": [
+              1,
+              3,
+              402,
+              1024
+            ],
+            "maximumHeapBytes": 38862848,
+            "actualHeapBytes": 16777216,
+            "preparation": "native-separable-support-rows"
+          }
+        },
+        "matching": {
+          "kind": "aliked",
+          "runs": [
+            {
+              "provider": "webgpu",
+              "execution": "native-layers-global-csr-row-pages",
+              "actualHeapBytes": 20185088,
+              "attentionHeapBytes": 16777216,
+              "maximumHeapBytes": 536870912,
+              "threads": 1,
+              "totalMs": 2836.1000000089407,
+              "maximumConfidence": 0.9999950528144836,
+              "above": {
+                "point1": 98,
+                "point3": 98,
+                "point7": 98,
+                "point9": 98
+              },
+              "attentionPages": 36,
+              "assignmentPages": 1,
+              "maximumPageEdges": 20478,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 22398,
+              "gpuEstimatedBytes": 536870912
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    },
+    {
+      "backend": "webgpu",
+      "name": "ALIKED rotation + LightGlue/compare",
+      "points": 2758,
+      "pointDifferences": 82,
+      "scoreMax": 0.00002014636993408203,
+      "pairs": 84,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.00000286102294921875,
+      "groups": 1,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "ALIKED rotation",
+          "provider": "webgpu",
+          "execution": "webgpu-with-cpu-fallback-nodes",
+          "threads": 1,
+          "actualHeapBytes": 129171456,
+          "maximumHeapBytes": 201326592,
+          "maskHeapBytes": 33554432,
+          "preflightExecutions": 0,
+          "qualification": "native-floating-arithmetic-differences-measured",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 699400192,
+          "workerAdmittedBytes": 1505903040,
+          "preparation": {
+            "sourceReads": 176,
+            "preparedShape": [
+              1,
+              3,
+              402,
+              1024
+            ],
+            "maximumHeapBytes": 38862848,
+            "actualHeapBytes": 16777216,
+            "preparation": "native-separable-support-rows"
+          }
+        },
+        "matching": {
+          "kind": "aliked",
+          "runs": [
+            {
+              "provider": "webgpu",
+              "execution": "native-layers-global-csr-row-pages",
+              "actualHeapBytes": 24248320,
+              "attentionHeapBytes": 16777216,
+              "maximumHeapBytes": 536870912,
+              "threads": 1,
+              "totalMs": 2315.5,
+              "maximumConfidence": 0.9999837875366211,
+              "above": {
+                "point1": 84,
+                "point3": 84,
+                "point7": 84,
+                "point9": 84
+              },
+              "attentionPages": 27,
+              "assignmentPages": 1,
+              "maximumPageEdges": 21875,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 21875,
+              "gpuEstimatedBytes": 536870912
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 2,
+          "matchings": 2,
+          "groupings": 2,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    }
+  ],
+  "cacheReused": true,
+  "disposalCancels": true,
+  "peakAccountedBytes": 1525132428,
+  "activeBytes": 0
+}

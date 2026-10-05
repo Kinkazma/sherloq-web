@@ -1,0 +1,103 @@
+{
+  "width": 12000,
+  "height": 8000,
+  "sourceBytes": 21167770,
+  "sha256": "7a6ac1368fd28adbbf841a88b3b897f791695ac6fe265c7ba6c9a93f36d704ca",
+  "patches": [
+    {
+      "offset": 2,
+      "deleteCount": 0,
+      "bytes": [
+        255,
+        254,
+        0,
+        8,
+        77,
+        53,
+        45,
+        72,
+        69,
+        88
+      ]
+    },
+    {
+      "offset": 65533,
+      "deleteCount": 11,
+      "bytes": [
+        0,
+        37,
+        74,
+        111,
+        148,
+        185,
+        222,
+        3,
+        40,
+        77,
+        114,
+        151,
+        188,
+        225,
+        6,
+        43,
+        80,
+        117,
+        154,
+        191,
+        228,
+        9,
+        46,
+        83,
+        120,
+        157,
+        194,
+        231,
+        12
+      ]
+    },
+    {
+      "offset": 10583885,
+      "deleteCount": 8193,
+      "bytes": []
+    },
+    {
+      "offset": 21167770,
+      "deleteCount": 0,
+      "bytes": [
+        0,
+        255,
+        17,
+        128
+      ]
+    }
+  ],
+  "edits": [
+    {
+      "offset": 2,
+      "deleteCount": 0,
+      "insertedBytes": 10,
+      "outputOffset": 2
+    },
+    {
+      "offset": 65533,
+      "deleteCount": 11,
+      "insertedBytes": 29,
+      "outputOffset": 65543
+    },
+    {
+      "offset": 10583885,
+      "deleteCount": 8193,
+      "insertedBytes": 0,
+      "outputOffset": 10583913
+    },
+    {
+      "offset": 21167770,
+      "deleteCount": 0,
+      "insertedBytes": 4,
+      "outputOffset": 21159605
+    }
+  ],
+  "derivedBytes": 21159609,
+  "derivedSha256": "14e08c50309bbfc23ad2f71daeac4cf1edcf6546ba215b3c304e4fffc5084650",
+  "oracle": "Python byte slices and hashlib over complete original and derived output; raw edits do not claim image validity."
+}

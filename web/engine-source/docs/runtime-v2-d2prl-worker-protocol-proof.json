@@ -1,0 +1,197 @@
+{
+  "scope": "D2PRL worker transport recovery on existing exact native arithmetic; no96MP run or production probe",
+  "base": "2998c1e",
+  "dependencies": [
+    "bdb8f97",
+    "d5e7dbf"
+  ],
+  "commands": [
+    "node --test tests/d2prl-worker-protocol.test.mjs tests/d2prl-recovery.test.mjs tests/d2prl-execution-admission.test.mjs tests/worker-message-protocol.test.mjs",
+    "BROWSER=chromium node tests/d2prl-worker-protocol-browser.mjs",
+    "BROWSER=firefox node tests/d2prl-worker-protocol-browser.mjs",
+    "BROWSER=webkit node tests/d2prl-worker-protocol-browser.mjs"
+  ],
+  "node": {
+    "passed": 34,
+    "failed": 0,
+    "newD2Tests": 17,
+    "cases": [
+      "null reply",
+      "messageerror",
+      "endpoint transport error",
+      "unexpected evaluator response id",
+      "five consecutive unreadable evaluations",
+      "five consecutive unreadable convolution tiles",
+      "cancellation before retry",
+      "optional worker bootstrap",
+      "preserve output after unreadable clear",
+      "terminal upload drains companion retry before freeing ownership",
+      "spatial, postprocess and bounded roles worker cleanup"
+    ]
+  },
+  "nativeBrowsers": {
+    "chromium": {
+      "incidents": [
+        "null reply after useful kernel",
+        "messageerror after useful kernel",
+        "null command delivered to real endpoint"
+      ],
+      "patchmatch": {
+        "side": 16,
+        "iterations": 4,
+        "evaluations": 18,
+        "committedTiles": 144,
+        "configuredWorkers": 2,
+        "createdWorkersAfterOneFault": 3,
+        "descriptorUploadsReference": 4,
+        "descriptorUploadsAfterOneFault": 5,
+        "exactOutputHashes": [
+          "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+          "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+          "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+          "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+          "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+          "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+          "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+          "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+        ],
+        "exactRng": true,
+        "exactCandidateBitsWithOneResubmission": true,
+        "candidateWorkspace": {
+          "allocations": 4,
+          "allocatedBytes": 36864,
+          "residentBytes": 26624
+        }
+      },
+      "convolution": {
+        "shape": [
+          1,
+          3,
+          128,
+          128
+        ],
+        "outputChannels": 16,
+        "kernel": 3,
+        "committedTiles": 16,
+        "workers": 2,
+        "createdWorkersAfterOneFault": 3,
+        "exactOutputHash": "12f927544cd9c3eb7b3b8fb7d1f011c8c33d8997bc0183a43652e89ca9fa9d9a"
+      },
+      "finalBudgetBytes": 0,
+      "finalSchedulerLeases": 0
+    },
+    "firefox": {
+      "incidents": [
+        "null reply after useful kernel",
+        "messageerror after useful kernel",
+        "null command delivered to real endpoint"
+      ],
+      "patchmatch": {
+        "side": 16,
+        "iterations": 4,
+        "evaluations": 18,
+        "committedTiles": 144,
+        "configuredWorkers": 2,
+        "createdWorkersAfterOneFault": 3,
+        "descriptorUploadsReference": 4,
+        "descriptorUploadsAfterOneFault": 5,
+        "exactOutputHashes": [
+          "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+          "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+          "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+          "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+          "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+          "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+          "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+          "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+        ],
+        "exactRng": true,
+        "exactCandidateBitsWithOneResubmission": true,
+        "candidateWorkspace": {
+          "allocations": 4,
+          "allocatedBytes": 36864,
+          "residentBytes": 26624
+        }
+      },
+      "convolution": {
+        "shape": [
+          1,
+          3,
+          128,
+          128
+        ],
+        "outputChannels": 16,
+        "kernel": 3,
+        "committedTiles": 16,
+        "workers": 2,
+        "createdWorkersAfterOneFault": 3,
+        "exactOutputHash": "12f927544cd9c3eb7b3b8fb7d1f011c8c33d8997bc0183a43652e89ca9fa9d9a"
+      },
+      "finalBudgetBytes": 0,
+      "finalSchedulerLeases": 0
+    },
+    "webkit": {
+      "incidents": [
+        "null reply after useful kernel",
+        "messageerror after useful kernel",
+        "null command delivered to real endpoint"
+      ],
+      "patchmatch": {
+        "side": 16,
+        "iterations": 4,
+        "evaluations": 18,
+        "committedTiles": 144,
+        "configuredWorkers": 2,
+        "createdWorkersAfterOneFault": 3,
+        "descriptorUploadsReference": 4,
+        "descriptorUploadsAfterOneFault": 5,
+        "exactOutputHashes": [
+          "cfc41f0e1372ff5be4a2e319c92a711088836bdef813673670563a80d28d2441",
+          "2fae311008574355c438f15e987b8bab44070565aeb885e06803d11dddf62815",
+          "d505770f80fb07219c22d8f7a6ab2e4c92b70f31ddf3673b4dd7d1df0dbdc37c",
+          "02d0b0767197a753242befc656cc27797513fc6cc57f1331684a7bd505328082",
+          "fd6bf056169679c78ee6e1b295db52ca0634324f989517cbdc14076148aa2a93",
+          "5d7fa5b0546cf973fe07a5ddeccd454f7bf83eeaf0849ef8273a42e31e414d86",
+          "890a85950e32339f7b8f9551d64c0824551868673323d3b68759d75fb5414558",
+          "3bd3fcabb4c55612d3757c758ec60da3257fc40407da9a1f114bf0d704030ad0"
+        ],
+        "exactRng": true,
+        "exactCandidateBitsWithOneResubmission": true,
+        "candidateWorkspace": {
+          "allocations": 4,
+          "allocatedBytes": 36864,
+          "residentBytes": 26624
+        }
+      },
+      "convolution": {
+        "shape": [
+          1,
+          3,
+          128,
+          128
+        ],
+        "outputChannels": 16,
+        "kernel": 3,
+        "committedTiles": 16,
+        "workers": 2,
+        "createdWorkersAfterOneFault": 3,
+        "exactOutputHash": "12f927544cd9c3eb7b3b8fb7d1f011c8c33d8997bc0183a43652e89ca9fa9d9a"
+      },
+      "finalBudgetBytes": 0,
+      "finalSchedulerLeases": 0
+    }
+  },
+  "ownership": "Only the failed worker is retired before retry. Original descriptors/inputs and committed output tiles remain owned. Terminal errors drain all concurrent upload/clear attempts before releasing common reservations.",
+  "recovery": "WORKER_MESSAGE_FAILED remains distinct from memory allocation. No global reclaimer runs for transport failures. Five consecutive failures terminate locally; configured parallelism is unchanged.",
+  "limits": [
+    "Transport incidents are deterministic development injections at the real worker boundary, not evidence of a browser allocator cause.",
+    "Small native PatchMatch and CPU convolution fixtures are qualified in three browsers; the full96MP integrated model is not run here.",
+    "Spatial, postprocess and role wrapper cleanup is tested with protocol fixtures; their underlying native/ONNX arithmetic is unchanged."
+  ],
+  "logs": {
+    "docs/runtime-v2-d2prl-worker-protocol/chromium.log": "14a6a936078b9e94d8157359f77f328c58d5b861f33cf126ef0475057def1ca7",
+    "docs/runtime-v2-d2prl-worker-protocol/firefox.log": "d591fa8524c664f1c9718362b04b1e24155925e02a17909325b3b185f2eee38c",
+    "docs/runtime-v2-d2prl-worker-protocol/node.log": "d7a851a3c02c7420c277efe63d9e4d065db1e9819418946554125dc70b10717c",
+    "docs/runtime-v2-d2prl-worker-protocol/webkit.log": "c8bbadf78bb891cef40033f307bbdbd217daba6adb4a0415f6d660e8b68d63d6"
+  }
+}

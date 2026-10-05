@@ -1,0 +1,215 @@
+{
+  "schema": 1,
+  "scope": "synthetic integer vectors near descriptor bin boundaries; not observed image detections",
+  "vectorsSha256": "df4bf689340fd070599aac89241bd3b256f355ae258c8690d4232a86d4e7cef6",
+  "results": {
+    "wasm-atan2f": {
+      "vectors": 128000,
+      "differingAngles": 19212,
+      "maxDegrees": 0.0000152587890625,
+      "changedBins": 120,
+      "examples": [
+        {
+          "x": 241145,
+          "y": 65938,
+          "native": 15.292967796325684,
+          "actual": 15.292969703674316,
+          "nativeBin": 43,
+          "actualBin": 44
+        },
+        {
+          "x": 964591,
+          "y": 263755,
+          "native": 15.292967796325684,
+          "actual": 15.292969703674316,
+          "nativeBin": 43,
+          "actualBin": 44
+        },
+        {
+          "x": 871596,
+          "y": 490227,
+          "native": 29.355470657348633,
+          "actual": 29.355466842651367,
+          "nativeBin": 84,
+          "actualBin": 83
+        },
+        {
+          "x": 210804,
+          "y": 134398,
+          "native": 32.519527435302734,
+          "actual": 32.51953125,
+          "nativeBin": 92,
+          "actualBin": 93
+        },
+        {
+          "x": 206582,
+          "y": 140801,
+          "native": 34.277339935302734,
+          "actual": 34.27734375,
+          "nativeBin": 97,
+          "actualBin": 98
+        },
+        {
+          "x": 805031,
+          "y": 593232,
+          "native": 36.386714935302734,
+          "actual": 36.38671875,
+          "nativeBin": 103,
+          "actualBin": 104
+        },
+        {
+          "x": 717871,
+          "y": 696178,
+          "native": 44.12109375,
+          "actual": 44.121089935302734,
+          "nativeBin": 126,
+          "actualBin": 125
+        },
+        {
+          "x": 678352,
+          "y": 734741,
+          "native": 47.28515625,
+          "actual": 47.285152435302734,
+          "nativeBin": 135,
+          "actualBin": 134
+        },
+        {
+          "x": 641482,
+          "y": 767140,
+          "native": 50.09765625,
+          "actual": 50.097652435302734,
+          "nativeBin": 143,
+          "actualBin": 142
+        },
+        {
+          "x": 603066,
+          "y": 797690,
+          "native": 52.910152435302734,
+          "actual": 52.91015625,
+          "nativeBin": 150,
+          "actualBin": 151
+        },
+        {
+          "x": 357032,
+          "y": 934095,
+          "native": 69.08203125,
+          "actual": 69.08202362060547,
+          "nativeBin": 197,
+          "actualBin": 196
+        },
+        {
+          "x": -767,
+          "y": 250001,
+          "native": 90.17578125,
+          "actual": 90.17577362060547,
+          "nativeBin": 257,
+          "actualBin": 256
+        }
+      ]
+    },
+    "double-rounded-to-float": {
+      "vectors": 128000,
+      "differingAngles": 5998,
+      "maxDegrees": 0.0000152587890625,
+      "changedBins": 38,
+      "examples": [
+        {
+          "x": 241145,
+          "y": 65938,
+          "native": 15.292967796325684,
+          "actual": 15.292969703674316,
+          "nativeBin": 43,
+          "actualBin": 44
+        },
+        {
+          "x": 239012,
+          "y": 73305,
+          "native": 17.050779342651367,
+          "actual": 17.05078125,
+          "nativeBin": 48,
+          "actualBin": 49
+        },
+        {
+          "x": 210804,
+          "y": 134398,
+          "native": 32.519527435302734,
+          "actual": 32.51953125,
+          "nativeBin": 92,
+          "actualBin": 93
+        },
+        {
+          "x": 206582,
+          "y": 140801,
+          "native": 34.277339935302734,
+          "actual": 34.27734375,
+          "nativeBin": 97,
+          "actualBin": 98
+        },
+        {
+          "x": 801374,
+          "y": 598159,
+          "native": 36.73828125,
+          "actual": 36.738277435302734,
+          "nativeBin": 105,
+          "actualBin": 104
+        },
+        {
+          "x": 175142,
+          "y": 178396,
+          "native": 45.52734375,
+          "actual": 45.527339935302734,
+          "nativeBin": 130,
+          "actualBin": 129
+        },
+        {
+          "x": 700568,
+          "y": 713584,
+          "native": 45.52734375,
+          "actual": 45.527339935302734,
+          "nativeBin": 130,
+          "actualBin": 129
+        },
+        {
+          "x": 660116,
+          "y": 751167,
+          "native": 48.69140625,
+          "actual": 48.691402435302734,
+          "nativeBin": 139,
+          "actualBin": 138
+        },
+        {
+          "x": 641482,
+          "y": 767140,
+          "native": 50.09765625,
+          "actual": 50.097652435302734,
+          "nativeBin": 143,
+          "actualBin": 142
+        },
+        {
+          "x": 607951,
+          "y": 793977,
+          "native": 52.558589935302734,
+          "actual": 52.55859375,
+          "nativeBin": 149,
+          "actualBin": 150
+        },
+        {
+          "x": 603066,
+          "y": 797690,
+          "native": 52.910152435302734,
+          "actual": 52.91015625,
+          "nativeBin": 150,
+          "actualBin": 151
+        },
+        {
+          "x": 563200,
+          "y": 826322,
+          "native": 55.72265625,
+          "actual": 55.722652435302734,
+          "nativeBin": 159,
+          "actualBin": 158
+        }
+      ]
+    }
+  }
+}

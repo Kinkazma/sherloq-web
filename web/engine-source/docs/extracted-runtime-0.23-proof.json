@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.23.0",
+  "runtimeFiles": 137,
+  "allRuntimeHashesVerified": true,
+  "browser": "154.0.8037.58",
+  "operations": 33,
+  "qualityImages": 11,
+  "normalizedSamples": 1100,
+  "scoreDifferences": 0,
+  "displayDifferences": 0,
+  "modelSha256": "bc0c961a9ac7bf0fbabb0316eb5cb34665d7987b678fb8b64b487f10908f04f2",
+  "sourceModelSha256": "4b3a90e3b22ec4436b4a4e2bee7abd5055e7c541d2d3ae9b541dc890656424d4",
+  "weightsBundled": false,
+  "cancellation": "Useful recompression cancelled; image/model explicitly reloaded and native result recovered",
+  "cleanup": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 521602424,
+    "knownHeapCapacityBytes": 50462720
+  },
+  "scope": "Immutable runtime extracted and used by real browser workers; model supplied explicitly from excluded local conversion. Generic median API smoke uses a labeled toy; separate source median regression uses actual native model."
+}

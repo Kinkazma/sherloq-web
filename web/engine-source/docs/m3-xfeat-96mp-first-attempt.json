@@ -1,0 +1,45 @@
+{
+  "status": "not-qualified-positive-groups",
+  "browser": "154.0.8037.58",
+  "source": {
+    "file": "m3-96mp-noise-copy.jpg",
+    "width": 12000,
+    "height": 8000,
+    "description": "Public deterministic full-resolution RGB noise (seed130014); entire6000x8000 left half copied at dx6000 before JPEG90 encoding.",
+    "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+    "bytes": 80426021
+  },
+  "backend": "webgpu",
+  "budgetBytes": 6442450944,
+  "params": {
+    "algorithm": "XFeat",
+    "limit": 6000,
+    "radius": 20000,
+    "minimum": 5,
+    "threshold": 0.3,
+    "tolerance": 600,
+    "geometricMinimum": 4
+  },
+  "observed": {
+    "points": 6000,
+    "pairs": 944950,
+    "groups": 0,
+    "rejected": 0
+  },
+  "completed": [
+    "decode",
+    "global preparation",
+    "96 convolution cores",
+    "global NMS/top-k/descriptors",
+    "matching",
+    "biomes",
+    "geometry",
+    "native rendering"
+  ],
+  "missing": [
+    "positive fitted group",
+    "full export recipe",
+    "final memory snapshot"
+  ],
+  "note": "The developer recipe stopped after its nonempty-group assertion. This is a completed useful large extraction/matching workload, not a passing end-to-end96MP qualification. No artificial pair cap or changed model."
+}

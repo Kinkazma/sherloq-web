@@ -1,0 +1,121 @@
+{
+  "provider": "wasm",
+  "records": [
+    {
+      "case": "duplicate",
+      "status": "ok",
+      "nativeStatus": "ok",
+      "fields": {
+        "mask": {
+          "values": 30160,
+          "differences": 296
+        },
+        "map": {
+          "values": 30160,
+          "differences": 296
+        },
+        "candidates": {
+          "values": 30160,
+          "differences": 0
+        }
+      },
+      "comparisons": 1,
+      "nativeComparisons": 1
+    },
+    {
+      "case": "overlap",
+      "status": "ok",
+      "nativeStatus": "ok",
+      "fields": {
+        "mask": {
+          "values": 30160,
+          "differences": 0
+        },
+        "map": {
+          "values": 30160,
+          "differences": 0
+        },
+        "candidates": {
+          "values": 30160,
+          "differences": 0
+        }
+      },
+      "comparisons": 1,
+      "nativeComparisons": 1
+    },
+    {
+      "case": "auto",
+      "status": "empty",
+      "nativeStatus": "empty",
+      "fields": {
+        "mask": {
+          "values": 58028,
+          "differences": 0
+        },
+        "map": {
+          "values": 58028,
+          "differences": 0
+        },
+        "candidates": {
+          "values": 58028,
+          "differences": 0
+        },
+        "geometric": {
+          "values": 58028,
+          "differences": 0
+        },
+        "branch_microscopy": {
+          "values": 58028,
+          "differences": 0
+        },
+        "branch_blots": {
+          "values": 58028,
+          "differences": 0
+        },
+        "branch_lanes": {
+          "values": 58028,
+          "differences": 0
+        }
+      },
+      "comparisons": 0,
+      "nativeComparisons": 0,
+      "laneSearch": true,
+      "nativeLaneSearch": true,
+      "laneMatches": 0,
+      "nativeLaneMatches": 0
+    },
+    {
+      "case": "lanes",
+      "status": "candidates",
+      "nativeStatus": "candidates",
+      "fields": {
+        "mask": {
+          "values": 117836,
+          "differences": 0
+        },
+        "map": {
+          "values": 117836,
+          "differences": 0
+        },
+        "candidates": {
+          "values": 117836,
+          "differences": 0
+        }
+      },
+      "comparisons": 0,
+      "nativeComparisons": 0,
+      "laneMatches": 4,
+      "nativeLaneMatches": 4
+    }
+  ],
+  "memory": {
+    "budgetBytes": 1610612736,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1420984432
+  },
+  "passed": false,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

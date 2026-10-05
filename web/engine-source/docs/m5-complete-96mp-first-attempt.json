@@ -1,0 +1,137 @@
+{
+  "passed": false,
+  "status": "interrupted-for-new-qualified-runtime",
+  "engineCommit": "d9f135f",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "budgetBytes": 6442450944,
+  "reason": "M4 513558d changes the dense matcher I/O path; the new complete recipe must qualify the merged implementation and M5 panel optimization. Original Extended profile, eight iterations and global search will be retained.",
+  "scope": "Partial progress only. Group snapshots were underlogged by the old harness and do not establish final group states, outputs, exports or cleanup.",
+  "latestProgress": {
+    "decode": {
+      "id": "original",
+      "phase": "decode",
+      "fraction": 0.0145,
+      "elapsedMs": 1000.6000000089407
+    },
+    "original-sha256": {
+      "id": "original",
+      "phase": "original-sha256",
+      "fraction": 0.049536441486278435,
+      "elapsedMs": 1993.4000000059605
+    },
+    "automatic-state": {
+      "id": "complete96",
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "running",
+          "sift": "pending",
+          "forgeryscope": "pending",
+          "d2prl": "pending",
+          "ela": "pending"
+        },
+        "errors": {},
+        "attempts": {
+          "patchmatch": 1
+        },
+        "completed": [],
+        "running": [
+          "patchmatch"
+        ],
+        "preflightExecutions": 0
+      },
+      "elapsedMs": 2120.4000000059605
+    },
+    "d2prl": {
+      "id": "automatic-d2prl-1",
+      "phase": "zone-projection",
+      "completed": 1,
+      "total": 1,
+      "stage": "projection",
+      "revision": 1,
+      "group": "d2prl",
+      "attempt": 1,
+      "elapsedMs": 1263574.200000003
+    },
+    "ela": {
+      "id": "complete96",
+      "phase": "panel-components",
+      "color": 8,
+      "visited": 8192,
+      "group": "ela",
+      "attempt": 1,
+      "elapsedMs": 4878683.900000006
+    },
+    "forgeryscope": {
+      "id": "complete96",
+      "completed": 1,
+      "total": 1,
+      "group": "forgeryscope",
+      "phase": "zone-complete",
+      "fraction": 1,
+      "attempt": 1,
+      "elapsedMs": 799739.200000003
+    },
+    "sift": {
+      "id": "complete96",
+      "phase": "extracting",
+      "fraction": 0.10008,
+      "group": "sift",
+      "attempt": 1,
+      "elapsedMs": 144195.60000000894
+    },
+    "patchmatch": {
+      "id": "complete96",
+      "phase": "global-patchmatch",
+      "stage": "propagation",
+      "iteration": 1,
+      "completed": 37691392,
+      "total": 96000000,
+      "workspaceBytes": 392145464,
+      "initialBatchPixels": 4194304,
+      "batchBytes": 310378496,
+      "residentPool": true,
+      "residentPoolBytes": 24750008,
+      "cacheBytes": 40239744,
+      "pageBytes": 4096,
+      "cachePages": 4096,
+      "reads": 232913844,
+      "writes": 5569441,
+      "readBytes": 1064175056896,
+      "writeBytes": 22812430336,
+      "heapBytes": 0,
+      "group": "patchmatch",
+      "attempt": 1,
+      "elapsedMs": 4923741.200000003
+    }
+  },
+  "loggedStates": [
+    {
+      "id": "complete96",
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "running",
+          "sift": "pending",
+          "forgeryscope": "pending",
+          "d2prl": "pending",
+          "ela": "pending"
+        },
+        "errors": {},
+        "attempts": {
+          "patchmatch": 1
+        },
+        "completed": [],
+        "running": [
+          "patchmatch"
+        ],
+        "preflightExecutions": 0
+      },
+      "elapsedMs": 2120.4000000059605
+    }
+  ],
+  "logSha256": "f9a99b13571ae864186151e56affc389a45dcb06f614e37a69595c1330f0dfde"
+}

@@ -1,0 +1,290 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real96MP segmented bit-plane display and raw-mask handles; nine settings/four windows each; complete Gaussian display and mask checksums; release/unload/cancel/dispose. Functional timings, not isolated benchmarks.",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+  "nativeSourceSha256": "3adcc94a4ef29afb583d06e29d2f4df9f3bee513994e0f1cc483e2d42931b7fe",
+  "cases": [
+    {
+      "params": {
+        "channel": 0,
+        "bit": 0,
+        "filter": 0
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 1394.5999999642372,
+      "metrics": {
+        "blocks": 95,
+        "rowsPerBlock": 85,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 384000000,
+        "totalMs": 1394.199999988079,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 0,
+        "bit": 0,
+        "filter": 1
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 3237.699999988079,
+      "metrics": {
+        "blocks": 95,
+        "rowsPerBlock": 85,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 384000000,
+        "totalMs": 3237.599999964237,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 0,
+        "bit": 0,
+        "filter": 2
+      },
+      "windows": 4,
+      "fullRgbSha256": "95cac21d326ed82858b123fa0336de325e0dd09adc683785956df787fa198616",
+      "fullMaskSha256": "1b7c8b19a1d82133e562f6560812a2d19e190574538814cd4d9abafc18950855",
+      "computeMs": 3806.800000011921,
+      "metrics": {
+        "blocks": 95,
+        "rowsPerBlock": 85,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 384000000,
+        "totalMs": 3806.699999988079,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 4,
+        "bit": 3,
+        "filter": 0
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 1757,
+      "metrics": {
+        "blocks": 95,
+        "rowsPerBlock": 85,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 384000000,
+        "totalMs": 1756.9000000357628,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 4,
+        "bit": 3,
+        "filter": 1
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 3344.2999999523163,
+      "metrics": {
+        "blocks": 95,
+        "rowsPerBlock": 85,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 384000000,
+        "totalMs": 3344.199999988079,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 4,
+        "bit": 3,
+        "filter": 2
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 3857.5,
+      "metrics": {
+        "blocks": 95,
+        "rowsPerBlock": 85,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 384000000,
+        "totalMs": 3857.399999976158,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 1,
+        "bit": 7,
+        "filter": 2
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 3620.800000011921,
+      "metrics": {
+        "blocks": 95,
+        "rowsPerBlock": 85,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 384000000,
+        "totalMs": 3620.699999988079,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 2,
+        "bit": 7,
+        "filter": 1
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 3133.5,
+      "metrics": {
+        "blocks": 95,
+        "rowsPerBlock": 85,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 384000000,
+        "totalMs": 3133.399999976158,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 3,
+        "bit": 0,
+        "filter": 0
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 1650.199999988079,
+      "metrics": {
+        "blocks": 95,
+        "rowsPerBlock": 85,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 384000000,
+        "totalMs": 1650.1000000238419,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    }
+  ],
+  "cancellationMs": 37.69999998807907,
+  "cancellation": "storage-closed-before-worker-termination",
+  "storageArtifactsRemaining": 0,
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true,
+  "runtimeVersion": "0.16.0",
+  "runtimeArchiveSha256": "68955e49efb7d3a32cab4d8c17c7867691c3074662b91b31bf5a40073eeb32dc"
+}

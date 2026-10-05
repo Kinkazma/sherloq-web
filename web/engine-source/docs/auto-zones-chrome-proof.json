@@ -1,0 +1,3778 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.28.0",
+  "cases": 144,
+  "native": {
+    "numpy": "1.26.4",
+    "opencv": "4.11.0",
+    "sourceSha256": "b603fd91384d597b81632c6c25f8f5c37c01267cb8ef3df99a525c23a6c2482e"
+  },
+  "payloadSha256": "55de6854be1e9adc702d1861600a9327b24464b0d49880daf6c4ea2a36f7ac09",
+  "runtimeFiles": {
+    "src/index.js": "4227a0c9d2afd4e2abb3743f0237b1776210e36b64a6cf11bb2da18126a72e33",
+    "src/pixel-operations.js": "dea3d9db5582aec59968d70a69ea24654aacb75ad74580b75d9f09f870920774",
+    "src/auto-zones.js": "4e8e9b97c1f2abd93ccbfac0f90709237e4d26e71edcd4c05ea85e8ae889c95a",
+    "src/analysis-scope.js": "e64e6c401ae2b63f724858b807f912a91aaa8c8f36fb7ae30b1341d0eb8a5283",
+    "src/worker-client.js": "4ee9edfaed55bff027f18ddd10681f33e1ee33cab762a64453d4a171f142d02a",
+    "src/worker.js": "ac472d18141cdae8ab0d7437d4d95f9b6670334f858ffa58a3612be0fccd7a77"
+  },
+  "records": [
+    {
+      "name": "flat-1-1",
+      "regions": 0,
+      "rpcAndVerificationMs": 2.799999998882413,
+      "metrics": {
+        "totalMs": 1.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 72,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33696764,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-1-1",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.6999999992549419,
+      "metrics": {
+        "totalMs": 0.2999999988824129,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 72,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33696764,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-23-15",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.900000000372529,
+      "metrics": {
+        "totalMs": 0.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 1142,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33700586,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-23-15",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.6000000014901161,
+      "metrics": {
+        "totalMs": 0.30000000074505806,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 2153,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33701597,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-24-16",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.7000000011175871,
+      "metrics": {
+        "totalMs": 0.40000000037252903,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 1263,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33701597,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-24-16",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.40000000037252903,
+      "metrics": {
+        "totalMs": 0.10000000149011612,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 2388,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33702144,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-25-17",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.6000000014901161,
+      "metrics": {
+        "totalMs": 0.40000000037252903,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 1388,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33702144,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-25-17",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.40000000037252903,
+      "metrics": {
+        "totalMs": 0.30000000074505806,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 2635,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33702719,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-131-97",
+      "regions": 0,
+      "rpcAndVerificationMs": 4.299999998882413,
+      "metrics": {
+        "totalMs": 4,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 38479,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33860474,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-131-97",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.300000000745058,
+      "metrics": {
+        "totalMs": 0.900000000372529,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 76465,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 33974432,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-1800-129",
+      "regions": 0,
+      "rpcAndVerificationMs": 28.100000001490116,
+      "metrics": {
+        "totalMs": 27.700000001117587,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 697710,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 39130562,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-1800-129",
+      "regions": 0,
+      "rpcAndVerificationMs": 2.5,
+      "metrics": {
+        "totalMs": 2.199999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 1394627,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 41221313,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-1801-131",
+      "regions": 0,
+      "rpcAndVerificationMs": 12.5,
+      "metrics": {
+        "totalMs": 12,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 708919,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 41221313,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-1801-131",
+      "regions": 0,
+      "rpcAndVerificationMs": 3.400000000372529,
+      "metrics": {
+        "totalMs": 2.799999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 1417032,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 41344493,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-3601-133",
+      "regions": 0,
+      "rpcAndVerificationMs": 22.199999999254942,
+      "metrics": {
+        "totalMs": 21.799999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 1438640,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 45054347,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-3601-133",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.199999999254942,
+      "metrics": {
+        "totalMs": 0.7999999988824129,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 2876334,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 49367429,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-1031-1024",
+      "regions": 0,
+      "rpcAndVerificationMs": 80.69999999925494,
+      "metrics": {
+        "totalMs": 79.69999999925494,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 3173213,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 58910231,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-1031-1024",
+      "regions": 0,
+      "rpcAndVerificationMs": 7.399999998509884,
+      "metrics": {
+        "totalMs": 6.800000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 6341153,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-4001-1",
+      "regions": 0,
+      "rpcAndVerificationMs": 1,
+      "metrics": {
+        "totalMs": 0.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 12097,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-4001-1",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.40000000037252903,
+      "metrics": {
+        "totalMs": 0.09999999962747097,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 24087,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-1-4001",
+      "regions": 0,
+      "rpcAndVerificationMs": 5.799999998882413,
+      "metrics": {
+        "totalMs": 5.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 14579,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "noise-1-4001",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.5,
+      "metrics": {
+        "totalMs": 0.30000000074505806,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 25755,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-0-0",
+      "regions": 1,
+      "rpcAndVerificationMs": 6,
+      "metrics": {
+        "totalMs": 4.900000000372529,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 277446,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-0-255",
+      "regions": 1,
+      "rpcAndVerificationMs": 7.599999999627471,
+      "metrics": {
+        "totalMs": 6.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 277982,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-0-23",
+      "regions": 1,
+      "rpcAndVerificationMs": 6.200000001117587,
+      "metrics": {
+        "totalMs": 4.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 278027,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-1-0",
+      "regions": 1,
+      "rpcAndVerificationMs": 5.299999998882413,
+      "metrics": {
+        "totalMs": 4.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 276732,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-1-255",
+      "regions": 1,
+      "rpcAndVerificationMs": 8.400000000372529,
+      "metrics": {
+        "totalMs": 7.700000001117587,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 277257,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-1-23",
+      "regions": 1,
+      "rpcAndVerificationMs": 7,
+      "metrics": {
+        "totalMs": 4.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 277311,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-2-0",
+      "regions": 1,
+      "rpcAndVerificationMs": 6.399999998509884,
+      "metrics": {
+        "totalMs": 6,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 275944,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-2-255",
+      "regions": 1,
+      "rpcAndVerificationMs": 5.099999999627471,
+      "metrics": {
+        "totalMs": 4.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 276482,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-2-23",
+      "regions": 1,
+      "rpcAndVerificationMs": 6.599999999627471,
+      "metrics": {
+        "totalMs": 2.799999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 276525,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-3-0",
+      "regions": 4,
+      "rpcAndVerificationMs": 5.400000000372529,
+      "metrics": {
+        "totalMs": 4.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 274679,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-3-255",
+      "regions": 4,
+      "rpcAndVerificationMs": 8.299999998882413,
+      "metrics": {
+        "totalMs": 6.900000000372529,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 275195,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-3-23",
+      "regions": 4,
+      "rpcAndVerificationMs": 5.699999999254942,
+      "metrics": {
+        "totalMs": 5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 275252,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-4-0",
+      "regions": 4,
+      "rpcAndVerificationMs": 6,
+      "metrics": {
+        "totalMs": 4.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 273447,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-4-255",
+      "regions": 4,
+      "rpcAndVerificationMs": 5.5,
+      "metrics": {
+        "totalMs": 4.899999998509884,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 273966,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-4-23",
+      "regions": 4,
+      "rpcAndVerificationMs": 5.400000000372529,
+      "metrics": {
+        "totalMs": 4.900000000372529,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 274020,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-7-0",
+      "regions": 4,
+      "rpcAndVerificationMs": 5.300000000745058,
+      "metrics": {
+        "totalMs": 4.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 269788,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-7-255",
+      "regions": 4,
+      "rpcAndVerificationMs": 5.5,
+      "metrics": {
+        "totalMs": 4.899999998509884,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 270309,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-7-23",
+      "regions": 4,
+      "rpcAndVerificationMs": 4.199999999254942,
+      "metrics": {
+        "totalMs": 3.799999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 270366,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-16-0",
+      "regions": 4,
+      "rpcAndVerificationMs": 3.5,
+      "metrics": {
+        "totalMs": 2.800000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 259120,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-16-255",
+      "regions": 4,
+      "rpcAndVerificationMs": 3.200000001117587,
+      "metrics": {
+        "totalMs": 2.800000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 259643,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "grid-16-23",
+      "regions": 4,
+      "rpcAndVerificationMs": 3,
+      "metrics": {
+        "totalMs": 2.700000001117587,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 259701,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "outer-edges-97-79",
+      "regions": 2,
+      "rpcAndVerificationMs": 1.199999999254942,
+      "metrics": {
+        "totalMs": 0.6999999992549419,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 33601,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "asymmetric-97-79",
+      "regions": 3,
+      "rpcAndVerificationMs": 2.699999999254942,
+      "metrics": {
+        "totalMs": 1.199999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 33894,
+          "cacheBytes": 4746,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "tie-palette-97-79",
+      "regions": 2,
+      "rpcAndVerificationMs": 5,
+      "metrics": {
+        "totalMs": 4.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 23529,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "broken-gutter-97-79",
+      "regions": 0,
+      "rpcAndVerificationMs": 3.199999999254942,
+      "metrics": {
+        "totalMs": 2.900000000372529,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 33661,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "outer-edges-1801-129",
+      "regions": 2,
+      "rpcAndVerificationMs": 22.699999999254942,
+      "metrics": {
+        "totalMs": 21.800000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 1032166,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "asymmetric-1801-129",
+      "regions": 3,
+      "rpcAndVerificationMs": 35,
+      "metrics": {
+        "totalMs": 34.29999999888241,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 1032807,
+          "cacheBytes": 4746,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "tie-palette-1801-129",
+      "regions": 2,
+      "rpcAndVerificationMs": 25.199999999254942,
+      "metrics": {
+        "totalMs": 24.799999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 698714,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "broken-gutter-1801-129",
+      "regions": 0,
+      "rpcAndVerificationMs": 20,
+      "metrics": {
+        "totalMs": 19.59999999962747,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 1032235,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "outer-edges-1031-1024",
+      "regions": 2,
+      "rpcAndVerificationMs": 48.90000000037253,
+      "metrics": {
+        "totalMs": 48.40000000037253,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 4753375,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "asymmetric-1031-1024",
+      "regions": 3,
+      "rpcAndVerificationMs": 153.7999999988824,
+      "metrics": {
+        "totalMs": 153.19999999925494,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 4759031,
+          "cacheBytes": 4746,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "tie-palette-1031-1024",
+      "regions": 2,
+      "rpcAndVerificationMs": 193.09999999962747,
+      "metrics": {
+        "totalMs": 192.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 3179274,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "broken-gutter-1031-1024",
+      "regions": 0,
+      "rpcAndVerificationMs": 114.39999999850988,
+      "metrics": {
+        "totalMs": 114,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 4753434,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "palette-7-0",
+      "regions": 2,
+      "rpcAndVerificationMs": 16.300000000745058,
+      "metrics": {
+        "totalMs": 15.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 223433,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "palette-7-1",
+      "regions": 2,
+      "rpcAndVerificationMs": 33.19999999925494,
+      "metrics": {
+        "totalMs": 32.899999998509884,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 223667,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "palette-8-0",
+      "regions": 2,
+      "rpcAndVerificationMs": 28.600000001490116,
+      "metrics": {
+        "totalMs": 28.09999999962747,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 255313,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "palette-8-1",
+      "regions": 2,
+      "rpcAndVerificationMs": 19.399999998509884,
+      "metrics": {
+        "totalMs": 19.09999999962747,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 255529,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "palette-9-0",
+      "regions": 2,
+      "rpcAndVerificationMs": 45,
+      "metrics": {
+        "totalMs": 44.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 287279,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "palette-9-1",
+      "regions": 2,
+      "rpcAndVerificationMs": 26.700000001117587,
+      "metrics": {
+        "totalMs": 26.09999999962747,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 287496,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "palette-12-0",
+      "regions": 2,
+      "rpcAndVerificationMs": 29.300000000745058,
+      "metrics": {
+        "totalMs": 28.90000000037253,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 383008,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "palette-12-1",
+      "regions": 2,
+      "rpcAndVerificationMs": 28.399999998509884,
+      "metrics": {
+        "totalMs": 28.09999999962747,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 383203,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-median-distance-1",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.8000000007450581,
+      "metrics": {
+        "totalMs": 0.7000000011175871,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 32101,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-median-distance-2",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.900000000372529,
+      "metrics": {
+        "totalMs": 0.6000000014901161,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 32120,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-median-distance-3",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.900000000372529,
+      "metrics": {
+        "totalMs": 0.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 32121,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-median-distance-7",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.6999999992549419,
+      "metrics": {
+        "totalMs": 0.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 32122,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-median-distance-14",
+      "regions": 0,
+      "rpcAndVerificationMs": 0.900000000372529,
+      "metrics": {
+        "totalMs": 0.8000000007450581,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 32273,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "flat-median-distance-15",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.1000000014901161,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 32273,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-23-16-delta-14",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.200000001117587,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36775,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-23-16-delta-15",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.5,
+      "metrics": {
+        "totalMs": 1.400000000372529,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36775,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-24-15-delta-14",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.300000000745058,
+      "metrics": {
+        "totalMs": 1.099999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36771,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-24-15-delta-15",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.5,
+      "metrics": {
+        "totalMs": 1.400000000372529,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36771,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-24-16-delta-14",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.200000001117587,
+      "metrics": {
+        "totalMs": 1.1000000014901161,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36777,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-24-16-delta-15",
+      "regions": 1,
+      "rpcAndVerificationMs": 1.700000001117587,
+      "metrics": {
+        "totalMs": 1.300000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36777,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-25-16-delta-14",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.300000000745058,
+      "metrics": {
+        "totalMs": 1.199999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36777,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-25-16-delta-15",
+      "regions": 1,
+      "rpcAndVerificationMs": 1.300000000745058,
+      "metrics": {
+        "totalMs": 1.200000001117587,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36777,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-24-17-delta-14",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.299999998882413,
+      "metrics": {
+        "totalMs": 1.199999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36783,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-24-17-delta-15",
+      "regions": 1,
+      "rpcAndVerificationMs": 1.5,
+      "metrics": {
+        "totalMs": 1.299999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36783,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-60-40-delta-14",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.199999999254942,
+      "metrics": {
+        "totalMs": 1,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36892,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "minimum-60-40-delta-15",
+      "regions": 1,
+      "rpcAndVerificationMs": 1.5,
+      "metrics": {
+        "totalMs": 1.299999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 36892,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "occupancy-170",
+      "regions": 1,
+      "rpcAndVerificationMs": 3.5,
+      "metrics": {
+        "totalMs": 3,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43145,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "occupancy-179",
+      "regions": 1,
+      "rpcAndVerificationMs": 3.400000000372529,
+      "metrics": {
+        "totalMs": 3.299999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43144,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "occupancy-180",
+      "regions": 1,
+      "rpcAndVerificationMs": 6.699999999254942,
+      "metrics": {
+        "totalMs": 6.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43145,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "occupancy-181",
+      "regions": 1,
+      "rpcAndVerificationMs": 2.700000001117587,
+      "metrics": {
+        "totalMs": 2.400000000372529,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43145,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "occupancy-190",
+      "regions": 0,
+      "rpcAndVerificationMs": 2.799999998882413,
+      "metrics": {
+        "totalMs": 2.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43146,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "border-17",
+      "regions": 1,
+      "rpcAndVerificationMs": 4,
+      "metrics": {
+        "totalMs": 3.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43253,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "border-18",
+      "regions": 1,
+      "rpcAndVerificationMs": 4.100000001490116,
+      "metrics": {
+        "totalMs": 3.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43253,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "border-19",
+      "regions": 1,
+      "rpcAndVerificationMs": 3.900000000372529,
+      "metrics": {
+        "totalMs": 3.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43253,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "border-20",
+      "regions": 1,
+      "rpcAndVerificationMs": 4.200000001117587,
+      "metrics": {
+        "totalMs": 3.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43254,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "row-order-3",
+      "regions": 3,
+      "rpcAndVerificationMs": 19.90000000037253,
+      "metrics": {
+        "totalMs": 19.300000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 183119,
+          "cacheBytes": 4746,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "row-order-4",
+      "regions": 3,
+      "rpcAndVerificationMs": 11.400000000372529,
+      "metrics": {
+        "totalMs": 11,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 183119,
+          "cacheBytes": 4746,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "row-order-5",
+      "regions": 3,
+      "rpcAndVerificationMs": 25.199999999254942,
+      "metrics": {
+        "totalMs": 24.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 183120,
+          "cacheBytes": 4746,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "row-order-6",
+      "regions": 3,
+      "rpcAndVerificationMs": 20.300000000745058,
+      "metrics": {
+        "totalMs": 19.800000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 183120,
+          "cacheBytes": 4746,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "diagonal-contact",
+      "regions": 0,
+      "rpcAndVerificationMs": 3.200000001117587,
+      "metrics": {
+        "totalMs": 3,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 42594,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "ring",
+      "regions": 1,
+      "rpcAndVerificationMs": 3,
+      "metrics": {
+        "totalMs": 2.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 42980,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "almost-full",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.699999999254942,
+      "metrics": {
+        "totalMs": 1.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 42564,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "full",
+      "regions": 0,
+      "rpcAndVerificationMs": 1,
+      "metrics": {
+        "totalMs": 0.7999999988824129,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 42367,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "single-hole",
+      "regions": 1,
+      "rpcAndVerificationMs": 1.800000000745058,
+      "metrics": {
+        "totalMs": 1.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 42689,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "holes-2",
+      "regions": 1,
+      "rpcAndVerificationMs": 1.700000001117587,
+      "metrics": {
+        "totalMs": 1.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43120,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "holes-3",
+      "regions": 1,
+      "rpcAndVerificationMs": 1.8999999985098839,
+      "metrics": {
+        "totalMs": 1.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 43359,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-0",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.5,
+      "metrics": {
+        "totalMs": 1.300000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 93097,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-1",
+      "regions": 0,
+      "rpcAndVerificationMs": 2.900000000372529,
+      "metrics": {
+        "totalMs": 2.700000001117587,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 233211,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-2",
+      "regions": 0,
+      "rpcAndVerificationMs": 4.799999998882413,
+      "metrics": {
+        "totalMs": 4.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 399024,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-3",
+      "regions": 0,
+      "rpcAndVerificationMs": 2.900000000372529,
+      "metrics": {
+        "totalMs": 2.700000001117587,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 226228,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-4",
+      "regions": 2,
+      "rpcAndVerificationMs": 2.900000000372529,
+      "metrics": {
+        "totalMs": 2.800000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 191355,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-5",
+      "regions": 1,
+      "rpcAndVerificationMs": 3.5,
+      "metrics": {
+        "totalMs": 3.200000001117587,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 239474,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-6",
+      "regions": 0,
+      "rpcAndVerificationMs": 6.599999999627471,
+      "metrics": {
+        "totalMs": 6.300000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 383282,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-7",
+      "regions": 3,
+      "rpcAndVerificationMs": 5.900000000372529,
+      "metrics": {
+        "totalMs": 5.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 210306,
+          "cacheBytes": 4746,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-8",
+      "regions": 0,
+      "rpcAndVerificationMs": 5.200000001117587,
+      "metrics": {
+        "totalMs": 5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 262163,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-9",
+      "regions": 1,
+      "rpcAndVerificationMs": 3,
+      "metrics": {
+        "totalMs": 2.800000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 115632,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-10",
+      "regions": 1,
+      "rpcAndVerificationMs": 7.700000001117587,
+      "metrics": {
+        "totalMs": 7.300000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 345377,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-11",
+      "regions": 1,
+      "rpcAndVerificationMs": 6.099999999627471,
+      "metrics": {
+        "totalMs": 5.700000001117587,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 229765,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-12",
+      "regions": 0,
+      "rpcAndVerificationMs": 6,
+      "metrics": {
+        "totalMs": 5.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 109241,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-13",
+      "regions": 1,
+      "rpcAndVerificationMs": 3.800000000745058,
+      "metrics": {
+        "totalMs": 3.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 142920,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-14",
+      "regions": 1,
+      "rpcAndVerificationMs": 4.300000000745058,
+      "metrics": {
+        "totalMs": 4,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 167604,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-15",
+      "regions": 2,
+      "rpcAndVerificationMs": 2.899999998509884,
+      "metrics": {
+        "totalMs": 2.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 199577,
+          "cacheBytes": 3496,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-16",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.8999999985098839,
+      "metrics": {
+        "totalMs": 1.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 118034,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-17",
+      "regions": 0,
+      "rpcAndVerificationMs": 2.400000000372529,
+      "metrics": {
+        "totalMs": 2.200000001117587,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 190322,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-18",
+      "regions": 0,
+      "rpcAndVerificationMs": 2.300000000745058,
+      "metrics": {
+        "totalMs": 2,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 126452,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-19",
+      "regions": 1,
+      "rpcAndVerificationMs": 2.599999999627471,
+      "metrics": {
+        "totalMs": 2.100000001490116,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 197137,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-20",
+      "regions": 0,
+      "rpcAndVerificationMs": 1.599999999627471,
+      "metrics": {
+        "totalMs": 1.5,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 121187,
+          "cacheBytes": 996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-21",
+      "regions": 1,
+      "rpcAndVerificationMs": 2.599999999627471,
+      "metrics": {
+        "totalMs": 2.399999998509884,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 222870,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-22",
+      "regions": 3,
+      "rpcAndVerificationMs": 2.5,
+      "metrics": {
+        "totalMs": 2.099999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 165018,
+          "cacheBytes": 4746,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "random-overlap-23",
+      "regions": 1,
+      "rpcAndVerificationMs": 2.099999999627471,
+      "metrics": {
+        "totalMs": 1.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 101920,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "progressive-70",
+      "regions": 1,
+      "rpcAndVerificationMs": 33.29999999888241,
+      "metrics": {
+        "totalMs": 32.69999999925494,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 168570,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-70-orientation-2",
+      "regions": 1,
+      "rpcAndVerificationMs": 28.100000001490116,
+      "metrics": {
+        "totalMs": 27.800000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 168606,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-70-orientation-3",
+      "regions": 1,
+      "rpcAndVerificationMs": 18.800000000745058,
+      "metrics": {
+        "totalMs": 18.300000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 168606,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-70-orientation-4",
+      "regions": 1,
+      "rpcAndVerificationMs": 20.899999998509884,
+      "metrics": {
+        "totalMs": 19.799999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 168606,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-70-orientation-5",
+      "regions": 1,
+      "rpcAndVerificationMs": 19.199999999254942,
+      "metrics": {
+        "totalMs": 18.899999998509884,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 168606,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-70-orientation-6",
+      "regions": 1,
+      "rpcAndVerificationMs": 18,
+      "metrics": {
+        "totalMs": 17.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 168606,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-70-orientation-7",
+      "regions": 1,
+      "rpcAndVerificationMs": 18.199999999254942,
+      "metrics": {
+        "totalMs": 17.799999998882413,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 168606,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-70-orientation-8",
+      "regions": 1,
+      "rpcAndVerificationMs": 18,
+      "metrics": {
+        "totalMs": 17.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 168606,
+          "cacheBytes": 2246,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "progressive-95",
+      "regions": 4,
+      "rpcAndVerificationMs": 7.099999999627471,
+      "metrics": {
+        "totalMs": 6.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 191986,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-95-orientation-2",
+      "regions": 4,
+      "rpcAndVerificationMs": 7.200000001117587,
+      "metrics": {
+        "totalMs": 6.600000001490116,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 192022,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-95-orientation-3",
+      "regions": 4,
+      "rpcAndVerificationMs": 7.300000000745058,
+      "metrics": {
+        "totalMs": 6.800000000745058,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 192022,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-95-orientation-4",
+      "regions": 4,
+      "rpcAndVerificationMs": 7,
+      "metrics": {
+        "totalMs": 6.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 192022,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-95-orientation-5",
+      "regions": 4,
+      "rpcAndVerificationMs": 7.400000000372529,
+      "metrics": {
+        "totalMs": 7,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 192022,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-95-orientation-6",
+      "regions": 4,
+      "rpcAndVerificationMs": 7.300000000745058,
+      "metrics": {
+        "totalMs": 7,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 192022,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-95-orientation-7",
+      "regions": 4,
+      "rpcAndVerificationMs": 7.300000000745058,
+      "metrics": {
+        "totalMs": 7,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 192022,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "jpeg-95-orientation-8",
+      "regions": 4,
+      "rpcAndVerificationMs": 7,
+      "metrics": {
+        "totalMs": 6.699999999254942,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 192022,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "tiff-rgb16",
+      "regions": 4,
+      "rpcAndVerificationMs": 2.800000000745058,
+      "metrics": {
+        "totalMs": 2.599999999627471,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 532527,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "tiff-gray16",
+      "regions": 4,
+      "rpcAndVerificationMs": 18.40000000037253,
+      "metrics": {
+        "totalMs": 18.09999999962747,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 207491,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "name": "tiff-rgba8",
+      "regions": 4,
+      "rpcAndVerificationMs": 3.099999999627471,
+      "metrics": {
+        "totalMs": 2.600000001490116,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 387391,
+          "cacheBytes": 5996,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 68414051,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 0,
+          "cloningHeapCapacityBytes": 0
+        }
+      }
+    }
+  ],
+  "cleanup": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 63650717,
+    "knownHeapCapacityBytes": 33554432
+  },
+  "cancellation": "Hard worker cancellation during useful panel work; original bytes reloaded and exact result reproduced",
+  "scope": "Actual detector with empty-result orchestration. Complete analysis remains unavailable; test callback is not a real analysis pipeline. Full-memory CPU only; no physical Safari/mobile/non-Apple or WordPress qualification. Timings include verification, not benchmarks.",
+  "browser": "154.0.8037.58",
+  "extractedRuntime": false
+}

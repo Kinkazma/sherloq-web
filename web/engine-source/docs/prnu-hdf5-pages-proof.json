@@ -1,0 +1,35 @@
+{
+  "byteLength": 53327,
+  "sha256": "dff3e73ded7efa8412c436179c3794ebb6c48ca3511732a8877fc074a774f53b",
+  "metrics": {
+    "encodedCapacityBytes": 33798776,
+    "heapBytes": 19333120,
+    "workingBytes": 71696384,
+    "temporaryBackend": "opfs"
+  },
+  "cameras": [
+    {
+      "name": "camera_alpha",
+      "width": 85,
+      "height": 87
+    },
+    {
+      "name": "camera_beta",
+      "width": 87,
+      "height": 89
+    }
+  ],
+  "memory": {
+    "budgetBytes": 134217728,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 71696384
+  },
+  "independentReader": {
+    "h5py": "3.16.0",
+    "fingerprints": "all bit-exact",
+    "cameraAttributes": "same values, JSON whitespace ignored",
+    "afterDatabaseRelease": true
+  }
+}

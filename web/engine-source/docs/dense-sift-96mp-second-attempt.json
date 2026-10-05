@@ -1,0 +1,39 @@
+{
+  "status": "interrupted-not-qualified",
+  "reason": "Compact SIFT propagation incurred over a terabyte of descriptor I/O in only a small fraction of the first SIFT pass. An isolated exact interval-bound prototype preserved native fields, masks, coherence and counters and reduced random reads. Continue with that measured optimization; no source/ROI/scientific parameter change.",
+  "commit": "9930bee",
+  "lastProgress": {
+    "elapsedMs": 5691065.799999997,
+    "phase": "global-patchmatch",
+    "stage": "propagation",
+    "iteration": 0,
+    "completed": 8896512,
+    "total": 95820081,
+    "workspaceBytes": 1014511408,
+    "initialBatchPixels": 1700972,
+    "batchBytes": 920109600,
+    "residentPool": true,
+    "residentPoolBytes": 24703632,
+    "cacheBytes": 52920960,
+    "pageBytes": 4096,
+    "cachePages": 4096,
+    "reads": 294111462,
+    "writes": 390654,
+    "readBytes": 1371720466653,
+    "writeBytes": 1600107280,
+    "heapBytes": 0,
+    "memory": {
+      "budgetBytes": 1610612736,
+      "retainedBytes": 288000000,
+      "cacheBytes": 0,
+      "activeReservationBytes": 1014511408,
+      "peakAccountedBytes": 1302511408
+    }
+  },
+  "developmentScheduling": {
+    "reason": "Serialize own heavy OPFS recipes to avoid storage contention. No scientific state or parameters changed.",
+    "state": "resumed",
+    "pausedSeconds": 1603.082158088684
+  },
+  "nativeCases": "486321 and 428431 comparisons, all fields/coherence bit-exact, including prepared quarter-turn data reused by a normal view."
+}

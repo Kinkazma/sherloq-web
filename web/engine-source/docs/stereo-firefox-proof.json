@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "searches": 28,
+  "flows": 25,
+  "views": 100,
+  "absent": 3,
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 281610622
+  },
+  "cancellation": "Abort, reload, lazy-flow cache, owned result buffers, insufficient budget and unload verified",
+  "browser": "155.0"
+}

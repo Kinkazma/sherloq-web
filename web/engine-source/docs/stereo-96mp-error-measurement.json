@@ -1,0 +1,9 @@
+{
+  "flowNonidentical": 11252,
+  "flowMaximumAbsoluteError": 1.5914440155029297e-05,
+  "flowMeanAbsoluteError": 4.060412277067297e-11,
+  "view3NonidenticalChannels": 1,
+  "view3MaximumByteError": 1,
+  "view3MeanByteError": 3.528681120144535e-09,
+  "recovery": "Completed third-attempt archive recovered read-only from own closed Chrome OPFS; CRC and SHA valid. Field units original pixels."
+}

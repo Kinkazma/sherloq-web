@@ -1,0 +1,161 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Torch2.8 LayerNorm Welford candidate: four actual and two synthetic inputs, output/mean/rstd; no full-network qualification.",
+  "records": [
+    {
+      "name": "visual_feature_extractor.proj_norm1",
+      "output": "output",
+      "elements": 163840,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.proj_norm1",
+      "output": "mean",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.proj_norm1",
+      "output": "rstd",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.0.inner_norm1",
+      "output": "output",
+      "elements": 163840,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.0.inner_norm1",
+      "output": "mean",
+      "elements": 4096,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.0.inner_norm1",
+      "output": "rstd",
+      "elements": 4096,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.5.outer_norm1",
+      "output": "output",
+      "elements": 164480,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.5.outer_norm1",
+      "output": "mean",
+      "elements": 257,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.blocks.5.outer_norm1",
+      "output": "rstd",
+      "elements": 257,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.norm",
+      "output": "output",
+      "elements": 164480,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.norm",
+      "output": "mean",
+      "elements": 257,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "visual_feature_extractor.norm",
+      "output": "rstd",
+      "elements": 257,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-40",
+      "output": "output",
+      "elements": 160,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-40",
+      "output": "mean",
+      "elements": 4,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-40",
+      "output": "rstd",
+      "elements": 4,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-640",
+      "output": "output",
+      "elements": 2560,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-640",
+      "output": "mean",
+      "elements": 4,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "generated-640",
+      "output": "rstd",
+      "elements": 4,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    }
+  ],
+  "ort": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/rewrite-segmentation-mean.py": "e7a6ffd0f339cea56a5a68e882f40259fd0972867cee029bd64e1d74ce83e2e4",
+    "scripts/study-segmentation-outer-mean.mjs": "61fc07ee299c913a1c7f856584422b74e6ce7d6a880af6d5b8a6013408532c22",
+    "scripts/rewrite-tnt-layernorm.py": "7332a2ae3beed830b15d3534b1470fcdc0241e6fc4f549a5bc473d8e2ac0f1be"
+  }
+}

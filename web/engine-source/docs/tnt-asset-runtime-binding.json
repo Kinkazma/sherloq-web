@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Exporter gained an explicit loaded-checkpoint identity assertion after the component recipes. Re-exported bundle/backbone/tail identities remain those consumed by the immutable runtime. All computation sources in the recipes are unchanged. Original proof source hashes retained.",
+  "exporterSha256": "4b9bd1e58e0bf846986f220715f6abb41e508e976e033369680179c3d9474f9e",
+  "model": {
+    "id": "mgcfdn-tnt-native-order-v1",
+    "variant": "MGCFDN TNT 16\u00d716",
+    "family": "tnt",
+    "side": 256,
+    "kind": "sigmoid",
+    "bytes": 507,
+    "sha256": "27e4a64f492e0c161c9d50a850bf6e57ba3365e3e7633075bbba4a1edf4c75e3",
+    "checkpointSha256": "c83f0d1a2840ebfdfafbf5c7ed842f8b5756c8975a6e6aff18cf73f95fbba56e",
+    "backbone": {
+      "file": "backbone.json",
+      "bytes": 113507,
+      "sha256": "6270c09edca590d59fe922dd740999ec7f4dde867ac507bc84cbf8b46cc99fa4"
+    },
+    "tail": {
+      "file": "tail.onnx",
+      "bytes": 28780560,
+      "sha256": "0972f12d0ce15c58d1dcd0aa992ca28b3ddb46afeacaf8c9d15dc5419ba5f55b"
+    },
+    "status": "experimental-cpu-corpus",
+    "cpuContinuousBitExact": false
+  },
+  "assetCount": 364,
+  "assetBytes": 288198894,
+  "deliveryManifestSha256": "dca03725a09bad5b97f564ca8a5321ac777deac059dbf3ef7e639c81715c9284",
+  "runtimeManifestSha256": "35f264fe9b495e6331703685d2a1dcc2d12d2c81e24a18d6721b751b6b0a20ef",
+  "records": [
+    {
+      "proof": "docs/tnt-model-corpus-proof.json",
+      "sha256": "723c4eef63e1f628a75b69f6005cdd448b1c78e2afc9a213dc4976c8ce88f6ef",
+      "sameRuntimeSources": [
+        "experiments/segmentation/tnt-backbone.js",
+        "experiments/segmentation/tnt-linear.js",
+        "experiments/segmentation/tnt-linear-worker.js",
+        "experiments/segmentation/tnt-inference.js",
+        "experiments/segmentation/tnt-math.cpp",
+        "vendor/segmentation/TNT-PINNED.json"
+      ],
+      "recordedExporterSha256": "f80e4c9059b0588b286a0781a10557abe8bd24ac07e0981f89d7608cb2ff0d36"
+    },
+    {
+      "proof": "docs/tnt-useful-workers-proof.json",
+      "sha256": "3c6cff28add83c601e73bd06a596308678ae296f7bd85d05b12a36b1638b4341",
+      "sameRuntimeSources": [
+        "experiments/segmentation/tnt-backbone.js",
+        "experiments/segmentation/tnt-linear.js",
+        "experiments/segmentation/tnt-linear-worker.js",
+        "experiments/segmentation/tnt-inference.js",
+        "experiments/segmentation/tnt-math.cpp",
+        "vendor/segmentation/TNT-PINNED.json"
+      ],
+      "recordedExporterSha256": "f80e4c9059b0588b286a0781a10557abe8bd24ac07e0981f89d7608cb2ff0d36"
+    }
+  ]
+}

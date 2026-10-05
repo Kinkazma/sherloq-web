@@ -1,0 +1,31 @@
+[
+  {
+    "passed": true,
+    "browser": "154.0.8037.93",
+    "hints": {
+      "systemMemoryCapacityBytes": 68719476736,
+      "systemMemoryAvailableBytes": 13760151552,
+      "systemMemoryObservedAt": 1791068399056
+    },
+    "profile": {
+      "id": "maximum",
+      "label": "Maximum utile",
+      "memoryBudgetBytes": 11007950848,
+      "maxWorkers": 10,
+      "minimumBenefit": 0.05,
+      "enableDenseGpu": true,
+      "hints": {
+        "deviceMemoryGiB": 32,
+        "heapLimitBytes": 4395630592,
+        "hardwareConcurrency": 10,
+        "systemMemoryCapacityBytes": 68719476736,
+        "systemMemoryAvailableBytes": 13760151552,
+        "systemMemoryObservedAt": 1791068399056
+      },
+      "memoryBudgetSource": "system-available-snapshot",
+      "memoryPolicy": "Shared policy budget from a fresh optional host availability snapshot, otherwise approximate device RAM or unknown-RAM fallback; not an allocation guarantee; per-allocation limits remain independent; no eager allocation",
+      "gpuPolicy": "High-performance adapter for offline-qualified kernels within API limits; no startup benchmark; CPU retained"
+    },
+    "scope": "Fresh throwaway profile; metadata only; extension not installed into user profile."
+  }
+]

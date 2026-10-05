@@ -1,0 +1,393 @@
+{
+  "schema": 1,
+  "scope": "offline candidate, no product activation",
+  "wasmSha256": "83a9fd97b7e650c4f057fe8337dbc1a4a870c72634fc39e54df7f8cbf240159f",
+  "nativeSourceSha256": "161d3b3589383740fafd97cd9871f531c7ee2313db55ac5620a8c9770637db27",
+  "fmaChecks": 2021297,
+  "records": [
+    {
+      "image": "flat",
+      "width": 128,
+      "height": 96,
+      "mask": "all",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "flat",
+      "width": 128,
+      "height": 96,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "flat",
+      "width": 128,
+      "height": 96,
+      "mask": "half",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "flat",
+      "width": 128,
+      "height": 96,
+      "mask": "sparse",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "tiny",
+      "width": 9,
+      "height": 7,
+      "mask": "all",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "tiny",
+      "width": 9,
+      "height": 7,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "tiny",
+      "width": 9,
+      "height": 7,
+      "mask": "half",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "tiny",
+      "width": 9,
+      "height": 7,
+      "mask": "sparse",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-37-32",
+      "width": 37,
+      "height": 32,
+      "mask": "all",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-37-32",
+      "width": 37,
+      "height": 32,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-37-32",
+      "width": 37,
+      "height": 32,
+      "mask": "half",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-37-32",
+      "width": 37,
+      "height": 32,
+      "mask": "sparse",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-80-64",
+      "width": 80,
+      "height": 64,
+      "mask": "all",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-80-64",
+      "width": 80,
+      "height": 64,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-80-64",
+      "width": 80,
+      "height": 64,
+      "mask": "half",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-80-64",
+      "width": 80,
+      "height": 64,
+      "mask": "sparse",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-193-127",
+      "width": 193,
+      "height": 127,
+      "mask": "all",
+      "count": 23,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-193-127",
+      "width": 193,
+      "height": 127,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-193-127",
+      "width": 193,
+      "height": 127,
+      "mask": "half",
+      "count": 15,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-193-127",
+      "width": 193,
+      "height": 127,
+      "mask": "sparse",
+      "count": 3,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-193-127",
+      "width": 193,
+      "height": 127,
+      "mask": "all",
+      "count": 12,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-193-127",
+      "width": 193,
+      "height": 127,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-193-127",
+      "width": 193,
+      "height": 127,
+      "mask": "half",
+      "count": 8,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-193-127",
+      "width": 193,
+      "height": 127,
+      "mask": "sparse",
+      "count": 1,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-320-256",
+      "width": 320,
+      "height": 256,
+      "mask": "all",
+      "count": 78,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-320-256",
+      "width": 320,
+      "height": 256,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-320-256",
+      "width": 320,
+      "height": 256,
+      "mask": "half",
+      "count": 42,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-320-256",
+      "width": 320,
+      "height": 256,
+      "mask": "sparse",
+      "count": 16,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-320-256",
+      "width": 320,
+      "height": 256,
+      "mask": "all",
+      "count": 27,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-320-256",
+      "width": 320,
+      "height": 256,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-320-256",
+      "width": 320,
+      "height": 256,
+      "mask": "half",
+      "count": 11,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-320-256",
+      "width": 320,
+      "height": 256,
+      "mask": "sparse",
+      "count": 5,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-512-384",
+      "width": 512,
+      "height": 384,
+      "mask": "all",
+      "count": 258,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-512-384",
+      "width": 512,
+      "height": 384,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-512-384",
+      "width": 512,
+      "height": 384,
+      "mask": "half",
+      "count": 123,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "noise-512-384",
+      "width": 512,
+      "height": 384,
+      "mask": "sparse",
+      "count": 45,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-512-384",
+      "width": 512,
+      "height": 384,
+      "mask": "all",
+      "count": 110,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-512-384",
+      "width": 512,
+      "height": 384,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-512-384",
+      "width": 512,
+      "height": 384,
+      "mask": "half",
+      "count": 52,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "clone-512-384",
+      "width": 512,
+      "height": 384,
+      "mask": "sparse",
+      "count": 17,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "checker",
+      "width": 319,
+      "height": 257,
+      "mask": "all",
+      "count": 1128,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "checker",
+      "width": 319,
+      "height": 257,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "checker",
+      "width": 319,
+      "height": 257,
+      "mask": "half",
+      "count": 552,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "checker",
+      "width": 319,
+      "height": 257,
+      "mask": "sparse",
+      "count": 186,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "shapes",
+      "width": 319,
+      "height": 257,
+      "mask": "all",
+      "count": 391,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "shapes",
+      "width": 319,
+      "height": 257,
+      "mask": "empty",
+      "count": 0,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "shapes",
+      "width": 319,
+      "height": 257,
+      "mask": "half",
+      "count": 193,
+      "heapCapacityBytes": 33554432
+    },
+    {
+      "image": "shapes",
+      "width": 319,
+      "height": 257,
+      "mask": "sparse",
+      "count": 52,
+      "heapCapacityBytes": 33554432
+    }
+  ]
+}

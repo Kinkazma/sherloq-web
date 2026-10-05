@@ -1,0 +1,147 @@
+{
+  "result": {
+    "family": "PRNU",
+    "budgetBytes": 268435456,
+    "cases": [
+      {
+        "data": {
+          "databaseId": "two-cameras",
+          "scores": [
+            {
+              "camera": "same",
+              "score": 1,
+              "rank": 1,
+              "scoreText": "1.00000",
+              "gapText": "0.99993"
+            },
+            {
+              "camera": "shifted",
+              "score": 7.371887800723797e-05,
+              "rank": 2,
+              "scoreText": "0.00007",
+              "gapText": ""
+            }
+          ],
+          "threshold": 0.005,
+          "reachesExperimentalThreshold": true,
+          "highestCandidate": "same",
+          "scoreGap": 0.9999262811219928,
+          "gapAboveHistoricalDisplayCutoff": true,
+          "legacy": true,
+          "trainingMembershipVerified": false,
+          "residualMethod": "fft",
+          "noisePower": 0.0336582355362334,
+          "semantics": "Historical Wiener-residual NCC, with an uncalibrated experimental threshold. The highest candidate is not a calibrated camera identification or an authenticity verdict."
+        },
+        "metrics": {
+          "workers": 5,
+          "completedStripJobs": 9620,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "residualCached": false
+        },
+        "ms": 1593597.300000012
+      },
+      {
+        "data": {
+          "databaseId": "two-cameras",
+          "scores": [
+            {
+              "camera": "same",
+              "score": 1,
+              "rank": 1,
+              "scoreText": "1.00000",
+              "gapText": "0.99993"
+            },
+            {
+              "camera": "shifted",
+              "score": 7.371887800723797e-05,
+              "rank": 2,
+              "scoreText": "0.00007",
+              "gapText": ""
+            }
+          ],
+          "threshold": 0.005,
+          "reachesExperimentalThreshold": true,
+          "highestCandidate": "same",
+          "scoreGap": 0.9999262811219928,
+          "gapAboveHistoricalDisplayCutoff": true,
+          "legacy": true,
+          "trainingMembershipVerified": false,
+          "residualMethod": "fft",
+          "noisePower": 0.0336582355362334,
+          "semantics": "Historical Wiener-residual NCC, with an uncalibrated experimental threshold. The highest candidate is not a calibrated camera identification or an authenticity verdict."
+        },
+        "metrics": {
+          "workers": 1,
+          "completedStripJobs": 0,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "residualCached": true
+        },
+        "ms": 245598.59999999404
+      }
+    ],
+    "source": {
+      "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+      "shape": {
+        "id": "ff2bad31-a5f3-4b30-b83c-5e9bd991c5de",
+        "revision": 1,
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "sourceWidth": 12000,
+        "sourceHeight": 8000,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "temporary"
+      },
+      "metrics": {
+        "decodeMs": 5968.9000000059605,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 80426021,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 122332453,
+        "codecHeapCapacityBytes": 96731136,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 80426021,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      }
+    },
+    "residualSha256": "27f61bf9cc4c7baec11d7b2a9aeb7cb816d4adb252cb56721676f171c1be038f",
+    "nativeResidualSha256": "27f61bf9cc4c7baec11d7b2a9aeb7cb816d4adb252cb56721676f171c1be038f",
+    "residualBitExact": true,
+    "residualExport": {
+      "sha256": "2b0368ae9fe8b6603bd53a7356edfb545498f6ad98470fe6603531a99c604b46",
+      "byteLength": 767681230
+    },
+    "databaseExport": {
+      "sha256": "d2a198d12281a72f363c2e2804740c17f020eeee1587c654886ca4f996c1b75c",
+      "byteLength": 1072888868,
+      "metrics": {
+        "originalBlobBytes": 1072888868,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      }
+    },
+    "elapsedMs": 2106276.299999997,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 265631744
+    },
+    "independentReader": {
+      "numpy": "1.26.4",
+      "h5py": "3.16.0",
+      "allFingerprintsExact": true,
+      "crcChecked": true,
+      "afterSourceRelease": true,
+      "residualMaximumAbsoluteError": 0.0,
+      "residualMeanAbsoluteError": 0.0
+    }
+  }
+}

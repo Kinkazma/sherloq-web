@@ -1,0 +1,257 @@
+{
+  "width": 1027,
+  "height": 1021,
+  "quantiles": [
+    0.01,
+    0.99
+  ],
+  "polygons": [
+    [
+      [
+        3,
+        3
+      ],
+      [
+        510,
+        3
+      ],
+      [
+        510,
+        1017
+      ],
+      [
+        3,
+        1017
+      ]
+    ],
+    [
+      [
+        516,
+        3
+      ],
+      [
+        1023,
+        3
+      ],
+      [
+        1023,
+        1017
+      ],
+      [
+        516,
+        1017
+      ]
+    ]
+  ],
+  "summary": [
+    {
+      "id": 1,
+      "bbox": [
+        3,
+        3,
+        511,
+        1018
+      ],
+      "probes": [
+        {
+          "q10": 2.55642032623291,
+          "q90": 252.47080993652344,
+          "central_mean": 127.65231323242188,
+          "central_variance": 5212.08056640625,
+          "low_mean": 1.2773021459579468,
+          "low_variance": 0.5458992123603821,
+          "high_mean": 253.73617553710938,
+          "high_variance": 0.5345872640609741
+        },
+        {
+          "q10": 2.5447471141815186,
+          "q90": 252.46295013427726,
+          "central_mean": 127.50775909423828,
+          "central_variance": 5205.349609375,
+          "low_mean": 1.2753735780715942,
+          "low_variance": 0.5407054424285889,
+          "high_mean": 253.73599243164062,
+          "high_variance": 0.5365185737609863
+        },
+        {
+          "q10": 2.5603113174438477,
+          "q90": 252.44357299804688,
+          "central_mean": 127.59075164794922,
+          "central_variance": 5196.58984375,
+          "low_mean": 1.2775120735168457,
+          "low_variance": 0.5483775734901428,
+          "high_mean": 253.72320556640625,
+          "high_variance": 0.548344612121582
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "bbox": [
+        516,
+        3,
+        1024,
+        1018
+      ],
+      "probes": [
+        {
+          "q10": 2.548638105392456,
+          "q90": 252.47080993652344,
+          "central_mean": 127.65030670166016,
+          "central_variance": 5212.19921875,
+          "low_mean": 1.2718255519866943,
+          "low_variance": 0.5424426794052124,
+          "high_mean": 253.73680114746094,
+          "high_variance": 0.5351338982582092
+        },
+        {
+          "q10": 2.548638105392456,
+          "q90": 252.46302795410156,
+          "central_mean": 127.50480651855469,
+          "central_variance": 5205.634765625,
+          "low_mean": 1.271487832069397,
+          "low_variance": 0.5439523458480835,
+          "high_mean": 253.73379516601562,
+          "high_variance": 0.5371547937393188
+        },
+        {
+          "q10": 2.5603891372680683,
+          "q90": 252.435791015625,
+          "central_mean": 127.58528137207031,
+          "central_variance": 5196.5869140625,
+          "low_mean": 1.281432867050171,
+          "low_variance": 0.5470954775810242,
+          "high_mean": 253.72164916992188,
+          "high_variance": 0.5486806035041809
+        }
+      ]
+    }
+  ],
+  "segmentation": {
+    "block": 16,
+    "minimum": 1,
+    "offset": 7,
+    "thresholds": [
+      1,
+      1
+    ],
+    "labelsSha256": "d0427e2e90c440ea447d73a4e8e492b8a6a1ee5b5d4a397957fa740840d9aa19",
+    "regions": [
+      {
+        "id": 8,
+        "kind": "low",
+        "energy_region": 1,
+        "components": 195,
+        "cells": 541,
+        "pixels": 138261,
+        "bbox": [
+          3,
+          3,
+          508,
+          1011
+        ],
+        "score": 2.25441312789917,
+        "strong_pixels": 118242,
+        "dominant_descriptor": "energy_low",
+        "sources": [
+          "Low ELA energy"
+        ]
+      },
+      {
+        "id": 9,
+        "kind": "high",
+        "energy_region": 1,
+        "components": 181,
+        "cells": 514,
+        "pixels": 131427,
+        "bbox": [
+          3,
+          5,
+          508,
+          1012
+        ],
+        "score": 1.5652668476104736,
+        "strong_pixels": 106056,
+        "dominant_descriptor": "energy_high",
+        "sources": [
+          "High ELA energy"
+        ]
+      },
+      {
+        "id": 10,
+        "kind": "low",
+        "energy_region": 2,
+        "components": 196,
+        "cells": 541,
+        "pixels": 138379,
+        "bbox": [
+          516,
+          7,
+          508,
+          1011
+        ],
+        "score": 2.263664722442627,
+        "strong_pixels": 118622,
+        "dominant_descriptor": "energy_low",
+        "sources": [
+          "Low ELA energy"
+        ]
+      },
+      {
+        "id": 11,
+        "kind": "high",
+        "energy_region": 2,
+        "components": 182,
+        "cells": 515,
+        "pixels": 131714,
+        "bbox": [
+          516,
+          4,
+          508,
+          1012
+        ],
+        "score": 1.5652709007263184,
+        "strong_pixels": 106341,
+        "dominant_descriptor": "energy_high",
+        "sources": [
+          "High ELA energy"
+        ]
+      }
+    ]
+  },
+  "profileEstimate": {
+    "quantiles": [
+      0.01,
+      0.969
+    ],
+    "thresholds": [
+      2.0,
+      2.0
+    ],
+    "method": "quantile_tail_knees_v1",
+    "status": "estimated",
+    "sample_count": 124875,
+    "tail_prominence": [
+      0.6300305754934099,
+      0.22163972815465433
+    ]
+  },
+  "scoreDeviations": [
+    4.0,
+    1.5
+  ],
+  "sourceSha256": "94cdde8ee995ad6058fb4454ce818db88a010c78b313a1d9c9efc2a89d10ecfc",
+  "planeSha256": [
+    "b62e6efdce11f8c2136faa74299f86423165ce2d780f4110295bc061c9eec9c2",
+    "819510f48ab4410d1e5a6e9f03a47ba42a633513e7834d61542737098836ca13",
+    "d1d301352470f4bea95e8074d842ae236c6388cc7dcfb127f71d148583c1719c"
+  ],
+  "arrays": {
+    "energy_low_score": "f025e1cd3808dcef18ea9de86b79d912f5451cc15bd0e08fb4c8e5770631c12f",
+    "energy_high_score": "6c7f8a76f13a5fac56bc5987eb2478aa5c5fb759d903b2f894e05f8cf13add82",
+    "energy_scope": "e909251f32a14eb2d4853952a28ddf604fd08e603294266419ceb2e5d31b2acc"
+  },
+  "nativeSha256": "ae24f9eef8e38ecb42cf807d25a92d132be76473328a03e9f0d1e04a7d85b992",
+  "numpy": "1.26.4",
+  "opencv": "4.11.0"
+}

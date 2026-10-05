@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "boxes": 10,
+  "nativeExclusionBoundsEqual": true,
+  "confidenceDifferences": [
+    -0.8269580000000047,
+    -0.029694000000006326,
+    0.6395640000000071,
+    -0.22095500000000357,
+    -0.06571199999999067,
+    -0.13024899999999207,
+    -0.2081759999999946,
+    0.1875309999999928,
+    -0.4947429999999997,
+    -0.14202099999999973
+  ],
+  "metadata": {
+    "engine": "Tesseract",
+    "nativeVersion": "5.1.0-288-g2a9c1",
+    "runtime": "tesseract.js-core 7.0.0",
+    "language": "eng",
+    "languageSha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "psm": 11,
+    "tileEdge": 1536,
+    "overlap": 128,
+    "backend": "simd-lstm",
+    "workers": 1,
+    "peakWorkerHeapBytes": 20905984,
+    "preflightExecutions": 0,
+    "taskExecutions": 2,
+    "retries": 0,
+    "totalMs": 897.2999999970198
+  },
+  "cancellation": true,
+  "initializationCancellation": true,
+  "scalar": true,
+  "peakReservedBytes": 498905560,
+  "browser": "154.0.8037.58"
+}

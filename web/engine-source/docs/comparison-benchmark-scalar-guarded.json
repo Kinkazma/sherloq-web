@@ -1,0 +1,1009 @@
+{
+  "schema": 1,
+  "scope": "Sequential full-resolution 1024x1024 synthetic pair; all 20 metrics. Original bytes and explicit RGB8 inputs. RPC includes copies/transfers; raster presentation separate. No WordPress, physical-device or speedup claim.",
+  "samples": [
+    {
+      "loadMs": 7.400000035762787,
+      "rpcMs": 48215.89999997616,
+      "displayMs": 40.19999998807907,
+      "pipelineMs": 48263.5,
+      "views": [
+        {
+          "view": "difference",
+          "rpcMs": 9,
+          "stages": {
+            "basic": true,
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true,
+            "difference": false
+          }
+        },
+        {
+          "view": "ssim",
+          "rpcMs": 0.8999999761581421,
+          "stages": {
+            "basic": true,
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true
+          }
+        },
+        {
+          "view": "butter",
+          "rpcMs": 1.0999999642372131,
+          "stages": {
+            "basic": true,
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true
+          }
+        }
+      ],
+      "metrics": {
+        "totalMs": 48214.5,
+        "cache": {
+          "result": false,
+          "stages": {
+            "basic": false,
+            "histograms": false,
+            "sewar": false,
+            "ssimulacra": false,
+            "butteraugli": false,
+            "ssim": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "cpu-pinned-comparison-guarded",
+        "workers": 1,
+        "stages": {
+          "basic": 17.099999964237213,
+          "histograms": 252.19999998807907,
+          "sewar": 45047.69999998808,
+          "ssimulacra": 275,
+          "butteraugli": 1350.300000011921,
+          "ssim": 1271
+        },
+        "memory": {
+          "budgetBytes": 3736076288,
+          "retainedBytes": 12582912,
+          "cacheBytes": 9443278,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 736114596,
+          "codecHeapCapacityBytes": 254803968
+        }
+      }
+    },
+    {
+      "loadMs": 6.100000023841858,
+      "rpcMs": 48004.80000001192,
+      "displayMs": 38,
+      "pipelineMs": 48048.90000003576,
+      "views": [
+        {
+          "view": "difference",
+          "rpcMs": 9,
+          "stages": {
+            "basic": true,
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true,
+            "difference": false
+          }
+        },
+        {
+          "view": "ssim",
+          "rpcMs": 0.699999988079071,
+          "stages": {
+            "basic": true,
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true
+          }
+        },
+        {
+          "view": "butter",
+          "rpcMs": 1,
+          "stages": {
+            "basic": true,
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true
+          }
+        }
+      ],
+      "metrics": {
+        "totalMs": 48004.09999996424,
+        "cache": {
+          "result": false,
+          "stages": {
+            "basic": false,
+            "histograms": false,
+            "sewar": false,
+            "ssimulacra": false,
+            "butteraugli": false,
+            "ssim": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "cpu-pinned-comparison-guarded",
+        "workers": 1,
+        "stages": {
+          "basic": 14.599999964237213,
+          "histograms": 244.10000002384186,
+          "sewar": 44852.39999997616,
+          "ssimulacra": 275.80000001192093,
+          "butteraugli": 1338.0999999642372,
+          "ssim": 1278.300000011921
+        },
+        "memory": {
+          "budgetBytes": 3736076288,
+          "retainedBytes": 12582912,
+          "cacheBytes": 9443278,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 736114596,
+          "codecHeapCapacityBytes": 254803968
+        }
+      }
+    },
+    {
+      "loadMs": 6.100000023841858,
+      "rpcMs": 47872.30000001192,
+      "displayMs": 38.69999998807907,
+      "pipelineMs": 47917.10000002384,
+      "views": [
+        {
+          "view": "difference",
+          "rpcMs": 8.799999952316284,
+          "stages": {
+            "basic": true,
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true,
+            "difference": false
+          }
+        },
+        {
+          "view": "ssim",
+          "rpcMs": 0.699999988079071,
+          "stages": {
+            "basic": true,
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true
+          }
+        },
+        {
+          "view": "butter",
+          "rpcMs": 0.9000000357627869,
+          "stages": {
+            "basic": true,
+            "histograms": true,
+            "sewar": true,
+            "ssimulacra": true,
+            "butteraugli": true,
+            "ssim": true
+          }
+        }
+      ],
+      "metrics": {
+        "totalMs": 47871.39999997616,
+        "cache": {
+          "result": false,
+          "stages": {
+            "basic": false,
+            "histograms": false,
+            "sewar": false,
+            "ssimulacra": false,
+            "butteraugli": false,
+            "ssim": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "cpu-pinned-comparison-guarded",
+        "workers": 1,
+        "stages": {
+          "basic": 13.899999976158142,
+          "histograms": 246.10000002384186,
+          "sewar": 44735.19999998808,
+          "ssimulacra": 274.80000001192093,
+          "butteraugli": 1336.8999999761581,
+          "ssim": 1263.800000011921
+        },
+        "memory": {
+          "budgetBytes": 3736076288,
+          "retainedBytes": 12582912,
+          "cacheBytes": 9443278,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 736114596,
+          "codecHeapCapacityBytes": 254803968
+        }
+      }
+    }
+  ],
+  "cold": {
+    "loadMs": 34.59999996423721,
+    "rpcMs": 49548.19999998808,
+    "displayMs": 38.5,
+    "pipelineMs": 49621.299999952316,
+    "views": [
+      {
+        "view": "difference",
+        "rpcMs": 17.600000023841858,
+        "stages": {
+          "basic": true,
+          "histograms": true,
+          "sewar": true,
+          "ssimulacra": true,
+          "butteraugli": true,
+          "ssim": true,
+          "difference": false
+        }
+      },
+      {
+        "view": "ssim",
+        "rpcMs": 1.2000000476837158,
+        "stages": {
+          "basic": true,
+          "histograms": true,
+          "sewar": true,
+          "ssimulacra": true,
+          "butteraugli": true,
+          "ssim": true
+        }
+      },
+      {
+        "view": "butter",
+        "rpcMs": 1,
+        "stages": {
+          "basic": true,
+          "histograms": true,
+          "sewar": true,
+          "ssimulacra": true,
+          "butteraugli": true,
+          "ssim": true
+        }
+      }
+    ],
+    "metrics": {
+      "totalMs": 49547.5,
+      "cache": {
+        "result": false,
+        "stages": {
+          "basic": false,
+          "histograms": false,
+          "sewar": false,
+          "ssimulacra": false,
+          "butteraugli": false,
+          "ssim": false
+        },
+        "analysis": false,
+        "view": false
+      },
+      "kernel": "cpu-pinned-comparison-guarded",
+      "workers": 1,
+      "stages": {
+        "basic": 16.5,
+        "histograms": 458.30000001192093,
+        "sewar": 45929.799999952316,
+        "ssimulacra": 291.10000002384186,
+        "butteraugli": 1464.199999988079,
+        "ssim": 1385.800000011921
+      },
+      "memory": {
+        "budgetBytes": 3736076288,
+        "retainedBytes": 12582912,
+        "cacheBytes": 9443278,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 723519618,
+        "codecHeapCapacityBytes": 254803968
+      }
+    }
+  },
+  "medianRpcMs": 48004.80000001192,
+  "medianPipelineMs": 48048.90000003576,
+  "capabilities": {
+    "version": "0.10.0-dev",
+    "operations": [
+      {
+        "id": "ela.classic",
+        "status": "partial",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "kernelParity": "bit-exact on 40 native fixture outputs",
+        "codecParity": "Declared JPEG/PNG/TIFF native RGB fixtures; unsupported encodings fail explicitly"
+      },
+      {
+        "id": "metadata.structure",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {},
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "Bounded parser; not equivalent to complete ExifTool HTML/text output",
+        "native": "metadata.py (structural subset)"
+      },
+      {
+        "id": "metadata.location",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {},
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "EXIF GPS rationals only; other ExifTool composite sources unavailable",
+        "native": "location.py (EXIF GPS subset)"
+      },
+      {
+        "id": "metadata.thumbnail",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {},
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "Original bytes retained; decoded thumbnail, Lanczos4 resize and difference checked against native synthetic fixture",
+        "native": "thumbnail.py"
+      },
+      {
+        "id": "file.hex",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "offset": 0,
+          "length": 256
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "Byte window copied exactly; interactive editing is a separate UI feature",
+        "native": "metadata.py / external hex editor"
+      },
+      {
+        "id": "colors.pca",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "component": 0,
+          "mode": "distance",
+          "invert": false,
+          "equalize": false
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "360 native renders and mean/eigenvectors/eigenvalues exact; includes repeated eigenvalues and 1/2-pixel inputs",
+        "native": "pca.py"
+      },
+      {
+        "id": "colors.space",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "space": "rgb",
+          "channel": 0
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "4020 native output comparisons exact across five operations; see fixtures/opencv-reference.json",
+        "native": "color_spaces.py"
+      },
+      {
+        "id": "noise.separation",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "mode": 0,
+          "radius": 1,
+          "sigma": 3,
+          "grayscale": false,
+          "denoised": false,
+          "levels": 32
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "4020 native output comparisons exact across five operations; see fixtures/opencv-reference.json",
+        "native": "noise.py"
+      },
+      {
+        "id": "detail.gradient",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "intensity": 95,
+          "mode": 2,
+          "invert": false,
+          "equalize": false
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "4020 native output comparisons exact across five operations; see fixtures/opencv-reference.json",
+        "native": "gradient.py"
+      },
+      {
+        "id": "inspection.adjust",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "brightness": 0,
+          "saturation": 0,
+          "hue": 0,
+          "gamma": 10,
+          "shadows": 0,
+          "highlights": 0,
+          "sweep": 127,
+          "width": 255,
+          "sharpen": 0,
+          "threshold": 255,
+          "equalize": 0,
+          "invert": false
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "4020 native output comparisons exact across five operations; see fixtures/opencv-reference.json",
+        "native": "adjust.py"
+      },
+      {
+        "id": "detail.echo",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "radius": 2,
+          "contrast": 85,
+          "grayscale": false
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "4020 native output comparisons exact across five operations; see fixtures/opencv-reference.json",
+        "native": "interactive.py:EchoEngine"
+      },
+      {
+        "id": "comparison.image",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "referenceImageId": null,
+          "view": "normal",
+          "metrics": false,
+          "equalized": false,
+          "grayscale": false
+        },
+        "exports": [
+          "json",
+          "csv"
+        ],
+        "kernelParity": "33 native pairs/528 views exact; all 20 measures and undefined outcomes checked; helper printed scores exact, other finite scores within absolute/relative 1e-12; full-bin histogram correlation separately reported",
+        "native": "comparison.py + pinned Sewar, SSIMULACRA and Butteraugli"
+      },
+      {
+        "id": "detail.frequency",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu",
+          "webgpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "split": 15,
+          "smooth": 25,
+          "threshold": 0,
+          "filter": 0
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "4368 native views, float32 DFT/magnitude/phase and zeroed-coefficient counts exact; 132 GPU masks exact on declared fixtures, runtime probes required",
+        "native": "interactive.py:FrequencyEngine + frequency_mask.py"
+      },
+      {
+        "id": "noise.blocking",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "block": 8
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "1094 native output and noise-map cases; original-file grayscale and db8 diagonal details verified separately",
+        "native": "wavelet_blocking.py"
+      },
+      {
+        "id": "detail.wavelets",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "wavelet": "db1",
+          "threshold": 0,
+          "level": 0,
+          "mode": "soft"
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "3380 native outputs exact across all 59 UI wavelets and five threshold modes; float64 symmetric extension and native truncation",
+        "native": "interactive.py:WaveletEngine + wavelet_threshold.py"
+      },
+      {
+        "id": "colors.plots",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "scale": null,
+          "x": 3,
+          "y": 4,
+          "z": 5,
+          "colored": false,
+          "alpha": 1,
+          "kind": "2d"
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "1674 native plots: all RGB/HSV values, positions and colors exact; UI graph rendering is separate",
+        "native": "interactive.py:PlotEngine"
+      },
+      {
+        "id": "file.digest",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {},
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "Ten cryptographic digests exact against independent byte oracle; four perceptual hashes exact against native; two rejected hashes and filename ballistics explicitly unavailable",
+        "native": "digest.py"
+      },
+      {
+        "id": "inspection.magnifier",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "mode": "equalize",
+          "percent": 20,
+          "channel": false,
+          "bounds": null
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "440 native ROI cases exact, including empty/clipped bounds, equalization and auto contrast",
+        "native": "magnifier.py"
+      },
+      {
+        "id": "various.illuminant",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "block": 128,
+          "method": 1,
+          "linear": true,
+          "exclude": true,
+          "mode": 0
+        },
+        "exports": [
+          "json",
+          "csv"
+        ],
+        "kernelParity": "1440 native renders and validity/counts exact; unit RGB/angles absolute error <=1e-12",
+        "native": "illuminant.py"
+      },
+      {
+        "id": "tampering.contrast",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "block": 64,
+          "mode": 2
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "52 native maps and 156 views exact, including 1 MP, correlated channels, padding and quantized histograms",
+        "native": "contrast.py"
+      },
+      {
+        "id": "various.stereogram",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "mode": 0
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "28 native searches, 25 float32 flows and 100 views exact, including 1 MP and odd pyramid dimensions; full-resolution relative disparity",
+        "native": "stereogram.py + OpenCV 4.11 Farneback CPU"
+      },
+      {
+        "id": "jpeg.zero",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "missing": true,
+          "view": 0
+        },
+        "exports": [
+          "json",
+          "npz"
+        ],
+        "kernelParity": "152 native analyses/760 views and 1 MP masks/votes/regions exact; log10 NFA maximum observed error 1.27e-11 with unchanged decisions; full RGB8 luminance domain exact",
+        "native": "zero.py + ZERO 2021 C"
+      },
+      {
+        "id": "jpeg.ghosts",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "low": 50,
+          "high": 90,
+          "step": 5,
+          "x": 0,
+          "y": 0,
+          "grayscale": true,
+          "includeOriginal": false
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "Full-resolution JPEG block errors and normalized maps against synthetic native fixtures; graph composition remains UI work",
+        "native": "ghost_maps.py"
+      },
+      {
+        "id": "jpeg.multiple",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {},
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "Exact stored DCT counts/steps/tails and declared native lattice scores/decisions; experimental aligned-grid evidence",
+        "native": "double_jpeg.py"
+      },
+      {
+        "id": "jpeg.quality",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {},
+        "exports": [
+          "json",
+          "csv"
+        ],
+        "kernelParity": "600 native grayscale recompression means exact; normalized curve max error <=1e-12; table estimate/minimum exact; learned predictor unavailable",
+        "native": "jpeg_quality.py + jpeg_curve.py"
+      },
+      {
+        "id": "inspection.histogram",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "channel": 3,
+          "start": 0,
+          "end": 255
+        },
+        "exports": [
+          "json",
+          "csv"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "histogram.py + tools/inspection/histogram.py"
+      },
+      {
+        "id": "colors.stats",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "mode": "min",
+          "inclusive": false
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "pixel_stats.py"
+      },
+      {
+        "id": "noise.planes",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "channel": 0,
+          "bit": 0,
+          "filter": 0
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "bit_planes.py"
+      },
+      {
+        "id": "noise.minmax",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "channel": 0,
+          "minimum": 1,
+          "maximum": 0,
+          "filter": 0
+        },
+        "exports": [
+          "json"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "minmax.py"
+      },
+      {
+        "id": "pixels.defects",
+        "status": "partial",
+        "kernelStatus": "validated-synthetic",
+        "backends": [
+          "cpu"
+        ],
+        "regions": [
+          "full-frame"
+        ],
+        "defaults": {
+          "radius": 1,
+          "threshold": 32,
+          "spread": 32,
+          "kind": 0,
+          "mode": 0
+        },
+        "exports": [
+          "json",
+          "csv"
+        ],
+        "kernelParity": "bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending",
+        "native": "defect_pixels.py"
+      }
+    ],
+    "formats": [
+      "image/jpeg (8-bit, EXIF orientation, ICC preserved but not applied, no CMYK)",
+      "image/png (8/16-bit gray/RGB, alpha converted by native policy)",
+      "image/tiff (verified 8/16-bit grayscale/RGB subset)",
+      "explicit rgb8 with provenance"
+    ],
+    "unavailable": [
+      "analysis.complete",
+      "subimages.detect",
+      "ela.energy",
+      "ela.biomes",
+      "ela.ghosts",
+      "onnx"
+    ],
+    "energyProfile": {
+      "id": "standard",
+      "name": "Conservateur",
+      "percentiles": [
+        1,
+        99
+      ],
+      "deviations": [
+        5,
+        5
+      ],
+      "adaptive": false,
+      "available": false
+    },
+    "memory": {
+      "budgetBytes": 3736076288,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 736114596
+    },
+    "workerThreads": 1,
+    "calculationProfile": "maximum",
+    "resourceProfile": {
+      "id": "maximum",
+      "label": "Maximum utile",
+      "memoryBudgetBytes": 3736076288,
+      "maxWorkers": 10,
+      "minimumBenefit": 0.05,
+      "hints": {
+        "deviceMemoryGiB": 32,
+        "heapLimitBytes": 4395630592,
+        "hardwareConcurrency": 10
+      },
+      "memoryPolicy": "One shared engine budget; approximate browser hints; 4 GiB accounting ceiling; no eager allocation",
+      "gpuPolicy": "High-performance adapter only when capability, exactness and full-path benefit are verified; CPU retained"
+    },
+    "concurrencyReason": "One codec thread; ELA kernels at >=1 MP calibrate useful workers under the shared budget. JPEG quality curves and Ghost blocks at >=1 MP calibrate bounded independent single-thread codec workers in one shared pool. Frequency mask smoothing can use a measured, runtime-qualified WebGPU path; DFT and reconstruction remain on CPU. Other pixel kernels currently use one worker."
+  },
+  "browser": "154.0.8037.58"
+}

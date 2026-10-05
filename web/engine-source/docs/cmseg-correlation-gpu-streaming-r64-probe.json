@@ -1,0 +1,233 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "productionSelected": false,
+  "rowsPerJob": 64,
+  "scope": "Three full-global native feature geometries24x128x128,32x64x64,96x32x32. CPU uses existing qualified FMA and10 bounded workers; hybrid uses one ordered GPU and up to10 CPU postprocess workers. Every complete comparison row is computed twice, no distant pair excluded. Native Gaussian/softmax axes/TopK retained, exact comparison to CPU and continuous errors against independent native correlations. Each timing includes setup, normalization, staging/transfers/readback and postprocessing. Shared host, single observation per condition; no production or universal gain claim.",
+  "records": [
+    {
+      "name": "corr96",
+      "pair": [
+        {
+          "backend": "cpu",
+          "milliseconds": 348.5,
+          "workers": 10,
+          "sha256": "43af5964e436aa27e56662dfba06419c2a63daf9b0018ae3f09c1b54ecd7de0d",
+          "shape": [
+            1,
+            96,
+            32,
+            32
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 680411136
+          }
+        },
+        {
+          "backend": "gpu",
+          "milliseconds": 419.70000000298023,
+          "workers": 10,
+          "sha256": "43af5964e436aa27e56662dfba06419c2a63daf9b0018ae3f09c1b54ecd7de0d",
+          "shape": [
+            1,
+            96,
+            32,
+            32
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "gpu": {
+            "devices": 1,
+            "allocations": 224,
+            "peakAccountedBytes": 942408,
+            "accounting": "explicit GPU buffers, excludes driver/compiler residency",
+            "errors": []
+          },
+          "timings": {
+            "gpuWriteBytes": 13379840,
+            "gpuReadBytes": 8388608
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 690023168
+          }
+        }
+      ],
+      "exactCpu": true
+    },
+    {
+      "name": "corr32",
+      "pair": [
+        {
+          "backend": "cpu",
+          "milliseconds": 882.5999999940395,
+          "workers": 10,
+          "sha256": "2389cd1677be8c5adbc0cda297e68fd9349bd6aa43071cccc8660b3a47df0fff",
+          "shape": [
+            1,
+            32,
+            64,
+            64
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 683507712
+          }
+        },
+        {
+          "backend": "gpu",
+          "milliseconds": 1521.6000000089407,
+          "workers": 10,
+          "sha256": "2389cd1677be8c5adbc0cda297e68fd9349bd6aa43071cccc8660b3a47df0fff",
+          "shape": [
+            1,
+            32,
+            64,
+            64
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "gpu": {
+            "devices": 1,
+            "allocations": 896,
+            "peakAccountedBytes": 2629960,
+            "accounting": "explicit GPU buffers, excludes driver/compiler residency",
+            "errors": []
+          },
+          "timings": {
+            "gpuWriteBytes": 68199424,
+            "gpuReadBytes": 134217728
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 711191296
+          }
+        }
+      ],
+      "exactCpu": true
+    },
+    {
+      "name": "corr24",
+      "pair": [
+        {
+          "backend": "cpu",
+          "milliseconds": 9809.5,
+          "workers": 10,
+          "sha256": "f1fd51bb52d949ee99d8a89851f308123998c167b443bd97b218f2ce0bc3a275",
+          "shape": [
+            1,
+            24,
+            128,
+            128
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 708698112
+          }
+        },
+        {
+          "backend": "gpu",
+          "milliseconds": 6103.70000000298,
+          "workers": 10,
+          "sha256": "f1fd51bb52d949ee99d8a89851f308123998c167b443bd97b218f2ce0bc3a275",
+          "shape": [
+            1,
+            24,
+            128,
+            128
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "gpu": {
+            "devices": 1,
+            "allocations": 3584,
+            "peakAccountedBytes": 9967944,
+            "accounting": "explicit GPU buffers, excludes driver/compiler residency",
+            "errors": []
+          },
+          "timings": {
+            "gpuWriteBytes": 808620032,
+            "gpuReadBytes": 2147483648
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 810955520
+          }
+        }
+      ],
+      "exactCpu": true
+    }
+  ],
+  "checks": {
+    "cancelAfterSubmit": true,
+    "preAbort": true,
+    "geometry": true,
+    "memory": true,
+    "retry": true,
+    "pressureWorkers": true
+  },
+  "memory": {
+    "budgetBytes": 134217728,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 711191296
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-cmseg-correlation-gpu.mjs": "1b3d2db5e5836616d26cccf30a259f56cda6e329ec504a55ce02cbb868c64ce1",
+    "scripts/build-cmseg-correlation-gpu-post.py": "43e1e2fac4a86f7b53cf384bc4f5c881c1050ea2e802ba74e137707f97a25c80",
+    "experiments/segmentation/cmseg-correlation-gpu.js": "9761a1a155029f5aabc7dd06d08b6b6a3ac0c213b25d8bc1f46fbd4974bcd2df",
+    "experiments/segmentation/cmseg-correlation-gpu-worker.js": "20977d207932044143291c9656ae73fd325f175bf910fb78cf6b94c45c334748",
+    "experiments/segmentation/cmseg-correlation.js": "efd9ac635242650138d5a5ccc048a92d1204ac154b71166c2d47de4000b76293",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "experiments/segmentation/cmseg-correlation.cpp": "8f65a246e8aabd069e4ff6c29c4d704b01d7c8717039b95e988269fd375aae54",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "vendor/segmentation/correlation-fma.js": "3aec9e00d6364701d73fbe2eaa894f0c76c4b103b458471513b02d208cd47fbf",
+    "vendor/segmentation/correlation-fma.wasm": "fe3a44357907b250fb00d82c5c6f9474de732e56340ffbfa694cca858efad39b",
+    ".build/cmseg-correlation-gpu-post/build.json": "ba650ae54b82f3478d21dfd03bc56df668af71df787ba43bfb97ec82f1466f0d"
+  }
+}

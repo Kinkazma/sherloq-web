@@ -1,0 +1,8 @@
+import {readFile,writeFile} from 'node:fs/promises';import create from '../.build/m3/akaze-paged/akaze-paged.js';
+const m=await create({wasmBinary:await readFile(new URL('../.build/m3/akaze-paged/akaze-paged.wasm',import.meta.url)),print(){}}),records=[];
+for(const [w,h] of [[398,282],[397,281],[642,480],[643,481]]){
+ const nw=Math.floor(w/2),nh=Math.floor(h/2),input=Float32Array.from({length:w*h},(_,i)=>Math.sin(i*.017)*.3+.5),p=m._malloc(input.byteLength);m.HEAPF32.set(input,p/4);if(m._m3_akaze_resize(p,w,h,nw,nh)!==1)throw Error('Reference');const reference=m.HEAPF32.slice(m._m3_akaze_plane(0)/4,m._m3_akaze_plane(0)/4+nw*nh);m._free(p);m._m3_akaze_release();const actual=new Float32Array(nw*nh);let strips=0;
+ for(let y=0;y<nh;y+=7){const count=Math.min(7,nh-y),sy=1/(nh/h),y0=Math.max(0,Math.floor(y*sy)-1),y1=Math.min(h,Math.ceil((y+count)*sy)+1),data=input.subarray(y0*w,y1*w),ptr=m._malloc(data.byteLength);m.HEAPF32.set(data,ptr/4);if(m._m3_akaze_resize_rows(ptr,w,y1-y0,h,y0,nw,nh,y,count)!==1)throw Error('Strip');actual.set(m.HEAPF32.subarray(m._m3_akaze_plane(0)/4,m._m3_akaze_plane(0)/4+nw*count),y*nw);m._free(ptr);m._m3_akaze_release();strips++;}
+ let differences=0,maximum=0;for(let i=0;i<actual.length;i++){differences+=actual[i]!==reference[i];maximum=Math.max(maximum,Math.abs(actual[i]-reference[i]));}records.push({w,h,nw,nh,strips,differences,maximum});if(differences)throw Error(JSON.stringify(records.at(-1)));
+}
+await writeFile(new URL('../docs/m3-akaze-area-rows-study.json',import.meta.url),JSON.stringify({qualification:'Global-phase INTER_AREA row-strip study; no detector qualification',records},null,2)+'\n');console.log(JSON.stringify(records));

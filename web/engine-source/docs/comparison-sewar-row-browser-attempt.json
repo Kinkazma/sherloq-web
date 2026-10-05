@@ -1,0 +1,6 @@
+{
+  "status": "interrupted",
+  "reason": "Replaced individual-row I/O by qualified bounded32-row block transfers; old browser recipe did not finish and is not a successful proof.",
+  "elapsedAtLeastSeconds": 480,
+  "ownedProcessesOnly": true
+}

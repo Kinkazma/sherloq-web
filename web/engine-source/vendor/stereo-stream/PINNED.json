@@ -1,0 +1,11 @@
+{
+  "opencv": "4.11.0",
+  "emscripten": "4.0.15",
+  "files": {
+    "farneback-reference.o": "badb60504583d3e362910dd2f5adda1308ca1d3b14cd73243b88b079664c566c",
+    "libopencv_video.a": "2a110b2073d1a190c840b83a357c6272fc6a78a2b44fb14197be441ad54ad53d",
+    "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d",
+    "libzlib.a": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+  }
+}

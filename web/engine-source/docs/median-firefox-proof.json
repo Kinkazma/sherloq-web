@@ -1,0 +1,331 @@
+{
+  "schema": 1,
+  "images": [
+    {
+      "width": 1,
+      "height": 1,
+      "renders": 612,
+      "first": {
+        "rpcMs": 96,
+        "metrics": {
+          "totalMs": 97,
+          "cache": {
+            "result": false,
+            "analysis": false,
+            "view": false
+          },
+          "kernel": "cpu-pinned-median-guarded",
+          "workers": 1,
+          "featureMs": 96,
+          "predictMs": 1,
+          "scheduling": {
+            "count": 1,
+            "maximum": 1,
+            "ceiling": 1,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "workerReservationBytes": 0,
+            "dispatchAccountedBytes": 85799975,
+            "taskExecutions": 1,
+            "preflightExecutions": 0,
+            "retry": null
+          },
+          "analysisMs": 97,
+          "memory": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 34419224,
+            "cacheBytes": 3198,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 981137236,
+            "codecHeapCapacityBytes": 0,
+            "hdf5HeapCapacityBytes": 0,
+            "medianHeapCapacityBytes": 16777216
+          }
+        }
+      }
+    },
+    {
+      "width": 32,
+      "height": 17,
+      "renders": 612,
+      "first": {
+        "rpcMs": 92,
+        "metrics": {
+          "totalMs": 92,
+          "cache": {
+            "result": false,
+            "analysis": false,
+            "view": false
+          },
+          "kernel": "cpu-pinned-median-guarded",
+          "workers": 1,
+          "featureMs": 84,
+          "predictMs": 1,
+          "scheduling": {
+            "count": 1,
+            "maximum": 1,
+            "ceiling": 1,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "workerReservationBytes": 0,
+            "dispatchAccountedBytes": 85808306,
+            "taskExecutions": 1,
+            "preflightExecutions": 0,
+            "retry": null
+          },
+          "analysisMs": 85,
+          "memory": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 34422482,
+            "cacheBytes": 3198,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 981137236,
+            "codecHeapCapacityBytes": 0,
+            "hdf5HeapCapacityBytes": 0,
+            "medianHeapCapacityBytes": 16777216
+          }
+        }
+      }
+    },
+    {
+      "width": 64,
+      "height": 64,
+      "renders": 612,
+      "first": {
+        "rpcMs": 164,
+        "metrics": {
+          "totalMs": 163,
+          "cache": {
+            "result": false,
+            "analysis": false,
+            "view": false
+          },
+          "kernel": "cpu-pinned-median-guarded",
+          "workers": 4,
+          "featureMs": 161,
+          "predictMs": 1,
+          "scheduling": {
+            "count": 4,
+            "maximum": 4,
+            "ceiling": 4,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "workerReservationBytes": 68157440,
+            "dispatchAccountedBytes": 154019858,
+            "taskExecutions": 1,
+            "preflightExecutions": 0,
+            "retry": null
+          },
+          "analysisMs": 163,
+          "memory": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 34443794,
+            "cacheBytes": 3278,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 981137236,
+            "codecHeapCapacityBytes": 0,
+            "hdf5HeapCapacityBytes": 0,
+            "medianHeapCapacityBytes": 16777216
+          }
+        }
+      }
+    },
+    {
+      "width": 65,
+      "height": 127,
+      "renders": 612,
+      "first": {
+        "rpcMs": 178,
+        "metrics": {
+          "totalMs": 178,
+          "cache": {
+            "result": false,
+            "analysis": false,
+            "view": false
+          },
+          "kernel": "cpu-pinned-median-guarded",
+          "workers": 4,
+          "featureMs": 162,
+          "predictMs": 1,
+          "scheduling": {
+            "count": 4,
+            "maximum": 4,
+            "ceiling": 4,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "workerReservationBytes": 68157440,
+            "dispatchAccountedBytes": 154082249,
+            "taskExecutions": 1,
+            "preflightExecutions": 0,
+            "retry": null
+          },
+          "analysisMs": 164,
+          "memory": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 34468748,
+            "cacheBytes": 3278,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 981137236,
+            "codecHeapCapacityBytes": 0,
+            "hdf5HeapCapacityBytes": 0,
+            "medianHeapCapacityBytes": 16777216
+          }
+        }
+      }
+    },
+    {
+      "width": 129,
+      "height": 193,
+      "renders": 612,
+      "first": {
+        "rpcMs": 392,
+        "metrics": {
+          "totalMs": 393,
+          "cache": {
+            "result": false,
+            "analysis": false,
+            "view": false
+          },
+          "kernel": "cpu-pinned-median-guarded",
+          "workers": 4,
+          "featureMs": 350,
+          "predictMs": 5,
+          "scheduling": {
+            "count": 4,
+            "maximum": 4,
+            "ceiling": 4,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start",
+            "workerReservationBytes": 68157440,
+            "dispatchAccountedBytes": 154333671,
+            "taskExecutions": 1,
+            "preflightExecutions": 0,
+            "retry": null
+          },
+          "analysisMs": 355,
+          "memory": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 34568600,
+            "cacheBytes": 3454,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 981137236,
+            "codecHeapCapacityBytes": 0,
+            "hdf5HeapCapacityBytes": 0,
+            "medianHeapCapacityBytes": 16777216
+          }
+        }
+      }
+    }
+  ],
+  "renders": 3252,
+  "maxProbabilityError": 0,
+  "maxMeanError": 1.3877787807814457e-17,
+  "modelBundled": false,
+  "modelSha256": "5ca6bbd67d3d427c31814ac1813b143bdec94e97a33b9f3c8e311b87638ef9e1",
+  "fixtureSource": "synthetic seed220023, no private image",
+  "timingScope": "Functional recipe; timings include RPC and are not an isolated speedup benchmark",
+  "model": {
+    "features": 128,
+    "trees": 3724,
+    "nodes": 437672,
+    "retainedBytes": 6579976,
+    "loadMetrics": {
+      "preparationMs": 854,
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 34419218,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 981137236
+      }
+    }
+  },
+  "cleanup": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 981137236,
+    "knownHeapCapacityBytes": 16777216
+  },
+  "cancellation": "Worker terminated during useful analysis; explicit image and local model reload recovered native output",
+  "large": {
+    "width": 1024,
+    "height": 1024,
+    "views": 4,
+    "sourceSha256": "29adee0f8029bf9ab1c8589ae9cf3c34050a10ca83742ae0d43db6ee2ca403b5",
+    "metrics": {
+      "totalMs": 8707,
+      "cache": {
+        "result": false,
+        "analysis": false,
+        "view": false
+      },
+      "kernel": "cpu-pinned-median-guarded",
+      "workers": 4,
+      "featureMs": 8363,
+      "predictMs": 94,
+      "scheduling": {
+        "count": 4,
+        "maximum": 4,
+        "ceiling": 4,
+        "resourceReduced": false,
+        "policy": "immediate-useful-work",
+        "priorUsefulSamples": 0,
+        "reason": "Aggressive capacity-based start",
+        "workerReservationBytes": 68157440,
+        "dispatchAccountedBytes": 167164479,
+        "taskExecutions": 1,
+        "preflightExecutions": 0,
+        "retry": null
+      },
+      "analysisMs": 8512,
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 38142015,
+        "cacheBytes": 8318,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 981286618,
+        "codecHeapCapacityBytes": 16777216,
+        "hdf5HeapCapacityBytes": 0,
+        "medianHeapCapacityBytes": 0
+      }
+    },
+    "cancelledBetweenUsefulBatches": true
+  },
+  "singleCpu": {
+    "totalMs": 1249,
+    "cache": {
+      "result": false,
+      "analysis": false,
+      "view": false
+    },
+    "kernel": "cpu-pinned-median-guarded",
+    "workers": 1,
+    "featureMs": 1185,
+    "predictMs": 16,
+    "memory": {
+      "budgetBytes": 1073741824,
+      "retainedBytes": 34568600,
+      "cacheBytes": 2418,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 981286618,
+      "codecHeapCapacityBytes": 0,
+      "hdf5HeapCapacityBytes": 0,
+      "medianHeapCapacityBytes": 16777216
+    }
+  },
+  "insufficientMemory": "Explicit MEMORY_LIMIT before model parse under256MiB",
+  "status": "passed",
+  "browser": "155.0"
+}

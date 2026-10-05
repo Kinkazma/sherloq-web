@@ -1,0 +1,207 @@
+{
+  "reports": [
+    {
+      "backend": "cpu",
+      "fault": false,
+      "digest": {
+        "points": "c206a8f9208e4293cda607ce3138a213eef5b954efa1293e246565a3c0ac5183",
+        "descriptors": "2dd9c921517ee9a943d126dc621178c0b236bcac2ab208f4305666d3f17fde83",
+        "members": "80f93e8c7d0e1e083e6aab0b073011d858d092951eb4bb2d595cd43173e04704"
+      },
+      "count": 100,
+      "continuationSeeds": 0,
+      "continuationWindows": 0,
+      "recoveries": 0,
+      "prepareCalls": 2,
+      "domains": {
+        "array-buffer": {
+          "reservedBytes": 56900,
+          "materializedBytes": 56900,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 1,
+          "owners": {
+            "sift": {
+              "reservedBytes": 56900,
+              "materializedBytes": 56900,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "wasm": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu-mapped": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        }
+      }
+    },
+    {
+      "backend": "cpu",
+      "fault": true,
+      "digest": {
+        "points": "c206a8f9208e4293cda607ce3138a213eef5b954efa1293e246565a3c0ac5183",
+        "descriptors": "2dd9c921517ee9a943d126dc621178c0b236bcac2ab208f4305666d3f17fde83",
+        "members": "80f93e8c7d0e1e083e6aab0b073011d858d092951eb4bb2d595cd43173e04704"
+      },
+      "count": 100,
+      "continuationSeeds": 0,
+      "continuationWindows": 0,
+      "recoveries": 4,
+      "prepareCalls": 2,
+      "domains": {
+        "array-buffer": {
+          "reservedBytes": 56900,
+          "materializedBytes": 56900,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 1,
+          "owners": {
+            "sift": {
+              "reservedBytes": 56900,
+              "materializedBytes": 56900,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "wasm": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu-mapped": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        }
+      }
+    },
+    {
+      "backend": "webgpu",
+      "fault": false,
+      "digest": {
+        "points": "c206a8f9208e4293cda607ce3138a213eef5b954efa1293e246565a3c0ac5183",
+        "descriptors": "2dd9c921517ee9a943d126dc621178c0b236bcac2ab208f4305666d3f17fde83",
+        "members": "80f93e8c7d0e1e083e6aab0b073011d858d092951eb4bb2d595cd43173e04704"
+      },
+      "count": 100,
+      "continuationSeeds": 0,
+      "continuationWindows": 0,
+      "recoveries": 0,
+      "prepareCalls": 2,
+      "domains": {
+        "array-buffer": {
+          "reservedBytes": 56900,
+          "materializedBytes": 56900,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 1,
+          "owners": {
+            "sift": {
+              "reservedBytes": 56900,
+              "materializedBytes": 56900,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "wasm": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu-mapped": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        }
+      }
+    },
+    {
+      "backend": "cpu",
+      "cache": false,
+      "pyramids": 4,
+      "hits": 0,
+      "exact": true
+    },
+    {
+      "backend": "cpu",
+      "cache": true,
+      "pyramids": 2,
+      "hits": 2,
+      "exact": true
+    },
+    {
+      "backend": "webgpu",
+      "cache": false,
+      "pyramids": 4,
+      "hits": 0,
+      "exact": true
+    },
+    {
+      "backend": "webgpu",
+      "cache": true,
+      "pyramids": 2,
+      "hits": 2,
+      "exact": true
+    },
+    {
+      "mode": "clear",
+      "drained": true,
+      "finalBytes": 0
+    },
+    {
+      "mode": "dispose",
+      "drained": true,
+      "finalBytes": 0
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "provider": "webgpu",
+  "graphs": {
+    "detect": {
+      "file": "aliked-blot-detect.onnx",
+      "bytes": 2356,
+      "sha256": "e3152832e89d0b1d68d8e73ab332bca6392509e9f79f7ef6f57b92d988f37794"
+    },
+    "localize": {
+      "file": "aliked-blot-localize.onnx",
+      "bytes": 7624,
+      "sha256": "abdaec69ec32bcd02a3c7a71f82330667c44c53ce925585e87db5a3de26d9062"
+    },
+    "describe": {
+      "file": "aliked-blot-describe.onnx",
+      "bytes": 1286066,
+      "sha256": "730379519029173f08af56e5cca86997f47791cea355748754a3f123c8286c09"
+    }
+  },
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "records": [
+    {
+      "case": 0,
+      "composed": false,
+      "indices": {
+        "values": 512,
+        "maxError": 0,
+        "differences": 0,
+        "missing": [],
+        "extra": []
+      },
+      "keypoints": {
+        "values": 1024,
+        "maxError": 1.1920928955078125e-7,
+        "differences": 238
+      },
+      "confidence": {
+        "values": 512,
+        "maxError": 0.000007152557373046875,
+        "differences": 264
+      },
+      "dispersion": {
+        "values": 512,
+        "maxError": 2.384185791015625e-7,
+        "differences": 346
+      },
+      "descriptors": {
+        "values": 65536,
+        "maxError": 0.0000017136335372924805,
+        "differences": 64796
+      },
+      "offset": {
+        "values": 16384,
+        "maxError": 0.0000247955322265625,
+        "differences": 15785
+      }
+    },
+    {
+      "case": 0,
+      "composed": true,
+      "indices": {
+        "values": 512,
+        "maxError": 0,
+        "differences": 0,
+        "missing": [],
+        "extra": []
+      },
+      "keypoints": {
+        "values": 1024,
+        "maxError": 2.384185791015625e-7,
+        "differences": 372
+      },
+      "confidence": {
+        "values": 512,
+        "maxError": 0.000007987022399902344,
+        "differences": 367
+      },
+      "dispersion": {
+        "values": 512,
+        "maxError": 0.00000476837158203125,
+        "differences": 481
+      },
+      "descriptors": {
+        "values": 65536,
+        "maxError": 0.0000018030405044555664,
+        "differences": 64846
+      },
+      "offset": {
+        "values": 16384,
+        "maxError": 0.0000286102294921875,
+        "differences": 15757
+      }
+    },
+    {
+      "case": 1,
+      "composed": false,
+      "indices": {
+        "values": 512,
+        "maxError": 0,
+        "differences": 0,
+        "missing": [],
+        "extra": []
+      },
+      "keypoints": {
+        "values": 1024,
+        "maxError": 1.1920928955078125e-7,
+        "differences": 235
+      },
+      "confidence": {
+        "values": 512,
+        "maxError": 0.000005304813385009766,
+        "differences": 276
+      },
+      "dispersion": {
+        "values": 512,
+        "maxError": 1.7881393432617188e-7,
+        "differences": 340
+      },
+      "descriptors": {
+        "values": 65536,
+        "maxError": 0.000002034008502960205,
+        "differences": 64885
+      },
+      "offset": {
+        "values": 16384,
+        "maxError": 0.0000247955322265625,
+        "differences": 15761
+      }
+    },
+    {
+      "case": 1,
+      "composed": true,
+      "indices": {
+        "values": 512,
+        "maxError": 0,
+        "differences": 0,
+        "missing": [],
+        "extra": []
+      },
+      "keypoints": {
+        "values": 1024,
+        "maxError": 2.384185791015625e-7,
+        "differences": 317
+      },
+      "confidence": {
+        "values": 512,
+        "maxError": 0.000005364418029785156,
+        "differences": 327
+      },
+      "dispersion": {
+        "values": 512,
+        "maxError": 0.0000033974647521972656,
+        "differences": 475
+      },
+      "descriptors": {
+        "values": 65536,
+        "maxError": 0.000002008862793445587,
+        "differences": 64892
+      },
+      "offset": {
+        "values": 16384,
+        "maxError": 0.0000247955322265625,
+        "differences": 15774
+      }
+    },
+    {
+      "case": 2,
+      "composed": false,
+      "indices": {
+        "values": 512,
+        "maxError": 0,
+        "differences": 0,
+        "missing": [],
+        "extra": []
+      },
+      "keypoints": {
+        "values": 1024,
+        "maxError": 1.1920928955078125e-7,
+        "differences": 159
+      },
+      "confidence": {
+        "values": 512,
+        "maxError": 0.0000020265579223632812,
+        "differences": 273
+      },
+      "dispersion": {
+        "values": 512,
+        "maxError": 2.980232238769531e-7,
+        "differences": 340
+      },
+      "descriptors": {
+        "values": 65536,
+        "maxError": 0.0000014584511518478394,
+        "differences": 64773
+      },
+      "offset": {
+        "values": 16384,
+        "maxError": 0.00002193450927734375,
+        "differences": 15725
+      }
+    },
+    {
+      "case": 2,
+      "composed": true,
+      "indices": {
+        "values": 512,
+        "maxError": 0,
+        "differences": 0,
+        "missing": [],
+        "extra": []
+      },
+      "keypoints": {
+        "values": 1024,
+        "maxError": 2.384185791015625e-7,
+        "differences": 304
+      },
+      "confidence": {
+        "values": 512,
+        "maxError": 0.0000054836273193359375,
+        "differences": 375
+      },
+      "dispersion": {
+        "values": 512,
+        "maxError": 0.000005811452865600586,
+        "differences": 474
+      },
+      "descriptors": {
+        "values": 65536,
+        "maxError": 0.0000015022233128547668,
+        "differences": 64832
+      },
+      "offset": {
+        "values": 16384,
+        "maxError": 0.00002288818359375,
+        "differences": 15770
+      }
+    }
+  ],
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

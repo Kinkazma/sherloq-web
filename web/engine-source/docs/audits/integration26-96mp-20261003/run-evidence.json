@@ -1,0 +1,132 @@
+{
+  "runDirectory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-worker-liveness-96mp-20261003T091032Z",
+  "sourceCommit": "77562789b0004e88be9ccd81fac3c5b8f4203816",
+  "job": {
+    "supervisorPid": 27632,
+    "runnerPid": 27634,
+    "caffeinatePid": 27635,
+    "startedAt": "2026-10-03T09:10:32.612928+00:00",
+    "timeoutSeconds": 86400,
+    "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-worker-liveness-96mp-20261003T091032Z",
+    "exitCode": 1,
+    "timedOut": false,
+    "stoppedAt": "2026-10-03T09:32:57.746928+00:00",
+    "orphanBrowserPids": []
+  },
+  "status": {
+    "state": "failed",
+    "startedAt": "2026-10-03T09:10:32.913Z",
+    "finishedAt": "2026-10-03T09:32:57.153Z",
+    "stoppedAt": "2026-10-03T09:32:57.470Z",
+    "dimensions": [
+      12000,
+      8000
+    ],
+    "budgetBytes": 27487371264,
+    "executionCapacity": {
+      "cpu": 10,
+      "gpu": 1
+    },
+    "cleanupErrors": []
+  },
+  "automaticState": {
+    "states": {
+      "patchmatch": "failed",
+      "sift": "failed",
+      "forgeryscope": "done",
+      "d2prl": "failed",
+      "ela": "done"
+    },
+    "errors": {
+      "sift": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at ArrayBuffer.slice (<anonymous>)\n    at Object.pyramid (http://127.0.0.1:62934/src/sift-paged-gaussian.js:25:133)\n    at async build (http://127.0.0.1:62934/src/sift-paged-worker.js:12:54)\n    at async installWorkerMessageProtocol.label (http://127.0.0.1:62934/src/sift-paged-worker.js:29:4)",
+        "details": {
+          "recovery": {
+            "operation": "sift-native-tile",
+            "phase": "compute",
+            "consecutiveFailures": 5,
+            "totalFailures": 9,
+            "loopDetected": true,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 4995634160,
+              "activeReservationBytes": 12497439789,
+              "cacheBytes": 0,
+              "availableBytes": 9994297315
+            }
+          }
+        },
+        "cause": {
+          "code": "FEATURE_EXTRACTION_FAILED",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at ArrayBuffer.slice (<anonymous>)\n    at Object.pyramid (http://127.0.0.1:62934/src/sift-paged-gaussian.js:25:133)\n    at async build (http://127.0.0.1:62934/src/sift-paged-worker.js:12:54)\n    at async installWorkerMessageProtocol.label (http://127.0.0.1:62934/src/sift-paged-worker.js:29:4)"
+        }
+      },
+      "d2prl": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Uint8Array (<anonymous>)\n    at operation.bytes (http://127.0.0.1:62934/experiments/d2prl/model.js:22:70)\n    at attempt (http://127.0.0.1:62934/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:62934/src/resource-recovery.js:88:97)\n    at async operation (http://127.0.0.1:62934/experiments/d2prl/recovery.js:14:16)\n    at async readVerifiedModelAsset (http://127.0.0.1:62934/experiments/d2prl/model.js:22:35)\n    at async attempt (http://127.0.0.1:62934/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:62934/src/resource-recovery.js:88:91)\n    at async operation (http://127.0.0.1:62934/experiments/d2prl/recovery.js:14:16)",
+        "details": {
+          "requestedBytes": 75497472,
+          "recovery": {
+            "operation": "asset:buffer",
+            "phase": "asset:buffer",
+            "consecutiveFailures": 5,
+            "totalFailures": 6,
+            "loopDetected": true,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5571636208,
+              "activeReservationBytes": 5260639929,
+              "cacheBytes": 0,
+              "requestedBytes": 75497472,
+              "availableBytes": 16655095127
+            }
+          }
+        },
+        "cause": {
+          "code": "COMPUTE_FAILED",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Uint8Array (<anonymous>)\n    at operation.bytes (http://127.0.0.1:62934/experiments/d2prl/model.js:22:70)\n    at attempt (http://127.0.0.1:62934/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:62934/src/resource-recovery.js:88:97)\n    at async operation (http://127.0.0.1:62934/experiments/d2prl/recovery.js:14:16)\n    at async readVerifiedModelAsset (http://127.0.0.1:62934/experiments/d2prl/model.js:22:35)\n    at async attempt (http://127.0.0.1:62934/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:62934/src/resource-recovery.js:88:91)\n    at async operation (http://127.0.0.1:62934/experiments/d2prl/recovery.js:14:16)"
+        }
+      },
+      "patchmatch": {
+        "code": "WORKER_FAILED",
+        "name": "EngineError",
+        "message": "Cannot perform %TypedArray%.prototype.set on a detached or out-of-bounds ArrayBuffer",
+        "stack": "TypeError: Cannot perform %TypedArray%.prototype.set on a detached or out-of-bounds ArrayBuffer\n    at Uint8Array.set (<anonymous>)\n    at Object.readInto (http://127.0.0.1:62934/src/portable-byte-store.js:61:128)\n    at async http://127.0.0.1:62934/vendor/dense-paged/dense-paged.js:1:17535"
+      }
+    },
+    "attempts": {
+      "patchmatch": 1,
+      "sift": 1,
+      "forgeryscope": 1,
+      "d2prl": 1,
+      "ela": 1
+    },
+    "completed": [
+      "forgeryscope",
+      "ela"
+    ],
+    "running": [],
+    "preflightExecutions": 0
+  },
+  "partialArchive": {
+    "verified": true,
+    "delivery": "partial",
+    "deliveredBytes": 4620213001
+  },
+  "resultJsonExists": false,
+  "sourceLogSha256": {
+    "status.json": "c1c80813e41b41185dddb74631967e0022b21ef21d0701cc46d11b537494b514",
+    "job.json": "2c8bbf1c480a85a3e31de8cc4e5ebb8cc327dd97b368c1b668fb0338228bbaec",
+    "incomplete.json": "9be5760fe08c047a754c13485d99f4365c18768c599bdd2ae4a4a43e0e998610",
+    "progress.jsonl": "1a4b190cf53b8c5f254a04ad91bd39cd1adab9c2e6b7763ffb5a1811d6bb6a87"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "cases": [
+    {
+      "width": 128,
+      "height": 96,
+      "candidates": 523,
+      "count": 100,
+      "coordinateDifferences": 0,
+      "scoreMaximum": 0,
+      "descriptorMaximum": 2.9802322387695312e-8,
+      "descriptorMean": 1.6132548807945376e-9
+    },
+    {
+      "width": 12000,
+      "height": 64,
+      "candidates": 31510,
+      "count": 100,
+      "coordinateDifferences": 0,
+      "scoreMaximum": 0,
+      "descriptorMaximum": 2.9802322387695312e-8,
+      "descriptorMean": 1.5601995073666159e-9
+    }
+  ],
+  "ties": [
+    {
+      "n": 100,
+      "differences": 0
+    },
+    {
+      "n": 17001,
+      "differences": 0
+    }
+  ]
+}

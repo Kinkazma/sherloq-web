@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.1",
+  "scope": "Targeted common-engine, ELA energy, D2PRL admission/cache and segmentation regressions; no new universal parity claim.",
+  "tests": 21,
+  "passed": 21,
+  "failed": 0,
+  "logSha256": "20dedd0b046dc750aed628e69a12b214746d859414da9a4590ef21646af7732f",
+  "testsSha256": {
+    "tests/engine.test.mjs": "f5c63943d70097de105cf9b85f520d144ae29828dd2d806c258b7c161dce986c",
+    "tests/ela-energy-pipeline.test.mjs": "05a41504c579c882590143cfa0bef9ae37f293932ccefff6038b4761be405c94",
+    "tests/d2prl-admission.test.mjs": "8edf5a328fb353ab53872c5f1d5c7a5005f47d6609e82e3b1d66a5c25aca27f4",
+    "tests/d2prl-cache.test.mjs": "b803936f039e12c5bf7860ad3ced75e30bbd8197fed8961b8ee0b0a6a7e3e397",
+    "tests/segmentation-admission.test.mjs": "0748ff820a8ac750b9acd393450a6533c1fa8e410d5582e5f2675c8780e1a55f",
+    "tests/segmentation-prepare.test.mjs": "e8a9aebbb0af2abcdefbaf312c1e7432e37f86f915b8f1804fc72fafc53839ef",
+    "tests/segmentation-probabilities.test.mjs": "f04e3b0bcf159f14da916046eb67c981bf652aa674d814e320832853f55c2cb9",
+    "tests/segmentation-zones.test.mjs": "c5729fd1957d427868b99fa13214e35b04f9e3dabeb379a104a5416a8455a1bc"
+  }
+}

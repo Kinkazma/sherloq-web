@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "version": "0.8.0",
+  "tests": 59,
+  "passed": 59,
+  "failed": 0,
+  "command": "node --test tests/*.test.mjs",
+  "limits": [
+    "Synthetic native fixtures; WordPress integration separate",
+    "GPU lifecycle and runtime probes verified separately in browser reports",
+    "Unqualified native algorithms remain explicitly unavailable"
+  ]
+}

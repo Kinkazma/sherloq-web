@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "status": "diagnostic-only",
+  "scope": "Native captured feature normalization and sampled rows of the full native affinity matrix. Alternative rounding orders are diagnostics only; no neural probabilities or detector masks are qualified by this probe.",
+  "records": [
+    {
+      "level": "corr24",
+      "mode": "sequential-mul-add",
+      "normalized": {
+        "different": 21154,
+        "maxAbs": 1.1920928955078125e-7,
+        "rms": 4.616082090169027e-9
+      },
+      "dots": {
+        "different": 55202,
+        "maxAbs": 1.1920928955078125e-7,
+        "rms": 2.1374491115456504e-8
+      }
+    },
+    {
+      "level": "corr24",
+      "mode": "sequential-fma",
+      "normalized": {
+        "different": 0,
+        "maxAbs": 0,
+        "rms": 0
+      },
+      "dots": {
+        "different": 0,
+        "maxAbs": 0,
+        "rms": 0
+      }
+    },
+    {
+      "level": "corr24",
+      "mode": "double-sum-rounded-f32",
+      "normalized": {
+        "different": 37700,
+        "maxAbs": 1.1920928955078125e-7,
+        "rms": 6.330292832407947e-9
+      },
+      "dots": {
+        "different": 59163,
+        "maxAbs": 1.7881393432617188e-7,
+        "rms": 2.577607459279849e-8
+      }
+    },
+    {
+      "level": "corr24",
+      "mode": "four-lane-mul-add",
+      "normalized": {
+        "different": 44937,
+        "maxAbs": 1.1920928955078125e-7,
+        "rms": 7.013019203691462e-9
+      },
+      "dots": {
+        "different": 76301,
+        "maxAbs": 2.384185791015625e-7,
+        "rms": 2.768030983867808e-8
+      }
+    },
+    {
+      "level": "corr24",
+      "mode": "four-lane-fma",
+      "normalized": {
+        "different": 45416,
+        "maxAbs": 1.1920928955078125e-7,
+        "rms": 7.1415919121651196e-9
+      },
+      "dots": {
+        "different": 67857,
+        "maxAbs": 1.7881393432617188e-7,
+        "rms": 2.836937732189396e-8
+      }
+    },
+    {
+      "level": "corr32",
+      "mode": "sequential-mul-add",
+      "normalized": {
+        "different": 19993,
+        "maxAbs": 5.960464477539063e-8,
+        "rms": 6.426498307688466e-9
+      },
+      "dots": {
+        "different": 9609,
+        "maxAbs": 1.7881393432617188e-7,
+        "rms": 3.2574723064265415e-8
+      }
+    },
+    {
+      "level": "corr32",
+      "mode": "sequential-fma",
+      "normalized": {
+        "different": 0,
+        "maxAbs": 0,
+        "rms": 0
+      },
+      "dots": {
+        "different": 0,
+        "maxAbs": 0,
+        "rms": 0
+      }
+    },
+    {
+      "level": "corr32",
+      "mode": "double-sum-rounded-f32",
+      "normalized": {
+        "different": 30641,
+        "maxAbs": 1.1920928955078125e-7,
+        "rms": 8.630523213969515e-9
+      },
+      "dots": {
+        "different": 17789,
+        "maxAbs": 2.384185791015625e-7,
+        "rms": 5.219476522593428e-8
+      }
+    },
+    {
+      "level": "corr32",
+      "mode": "four-lane-mul-add",
+      "normalized": {
+        "different": 36218,
+        "maxAbs": 1.1920928955078125e-7,
+        "rms": 9.48925500472523e-9
+      },
+      "dots": {
+        "different": 15368,
+        "maxAbs": 2.384185791015625e-7,
+        "rms": 5.6436029364221913e-8
+      }
+    },
+    {
+      "level": "corr32",
+      "mode": "four-lane-fma",
+      "normalized": {
+        "different": 33824,
+        "maxAbs": 8.940696716308594e-8,
+        "rms": 9.049916109182303e-9
+      },
+      "dots": {
+        "different": 17197,
+        "maxAbs": 2.980232238769531e-7,
+        "rms": 5.723352194708387e-8
+      }
+    },
+    {
+      "level": "corr96",
+      "mode": "sequential-mul-add",
+      "normalized": {
+        "different": 14172,
+        "maxAbs": 5.960464477539063e-8,
+        "rms": 3.7368469193096106e-9
+      },
+      "dots": {
+        "different": 2563,
+        "maxAbs": 1.7881393432617188e-7,
+        "rms": 2.9315964336616235e-8
+      }
+    },
+    {
+      "level": "corr96",
+      "mode": "sequential-fma",
+      "normalized": {
+        "different": 0,
+        "maxAbs": 0,
+        "rms": 0
+      },
+      "dots": {
+        "different": 0,
+        "maxAbs": 0,
+        "rms": 0
+      }
+    },
+    {
+      "level": "corr96",
+      "mode": "double-sum-rounded-f32",
+      "normalized": {
+        "different": 52547,
+        "maxAbs": 8.940696716308594e-8,
+        "rms": 8.632804249781674e-9
+      },
+      "dots": {
+        "different": 4758,
+        "maxAbs": 3.5762786865234375e-7,
+        "rms": 7.422707759078668e-8
+      }
+    },
+    {
+      "level": "corr96",
+      "mode": "four-lane-mul-add",
+      "normalized": {
+        "different": 55210,
+        "maxAbs": 8.940696716308594e-8,
+        "rms": 9.176788597555899e-9
+      },
+      "dots": {
+        "different": 4859,
+        "maxAbs": 4.172325134277344e-7,
+        "rms": 7.960382103998317e-8
+      }
+    },
+    {
+      "level": "corr96",
+      "mode": "four-lane-fma",
+      "normalized": {
+        "different": 55765,
+        "maxAbs": 8.940696716308594e-8,
+        "rms": 9.269852200755539e-9
+      },
+      "dots": {
+        "different": 4812,
+        "maxAbs": 4.172325134277344e-7,
+        "rms": 7.953481650263026e-8
+      }
+    }
+  ]
+}

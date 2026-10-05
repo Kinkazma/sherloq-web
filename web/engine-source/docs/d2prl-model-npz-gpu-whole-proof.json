@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual browser D2PRL export read by NumPy allow_pickle=False; all six source-coordinate arrays and metadata equal native reference.",
+  "numpy": "1.26.4",
+  "arrays": {
+    "map": {
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "float32",
+      "sha256": "f6f283d27e3b1771c4bcc8c87f7a00dba7d2dd56a78b2bfcdf72586d6fbc7448"
+    },
+    "mask": {
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "uint8",
+      "sha256": "284195a6a16475ac9f5f2e7a9e6e5ef5db9697f7174271ee5b2ee46c2cb48d89"
+    },
+    "target": {
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "float32",
+      "sha256": "3221b04b327b53139464a889de72a0269403a47d9df5dffdd459f09f3000420d"
+    },
+    "source": {
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "float32",
+      "sha256": "c83788dce7cbcdaed8a465118f913ea0a3166469e12b5f089017fdaa9364fe8a"
+    },
+    "analyzed": {
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "uint8",
+      "sha256": "6f96c41dcddc57e97172b09e9388488a2b79d424bb3f8e4fe1b0f588541fccc2"
+    },
+    "candidates": {
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "uint8",
+      "sha256": "8e9114ef0f50c81b3fcb56f73ae8a773163ed868938db02c0214bfdc05d27582"
+    }
+  },
+  "exportSha256": "41234f45a660555e01c2b18922f14d7643ca73fb54b959513efc022400aef2bc",
+  "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db"
+}

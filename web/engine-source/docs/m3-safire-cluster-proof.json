@@ -1,0 +1,302 @@
+{
+  "initialCases": 1024,
+  "initialExact": true,
+  "cases": [
+    {
+      "file": "safire-cluster-4.bin",
+      "count": 4,
+      "kind": "kmeans",
+      "groups": 1,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-4.bin",
+      "count": 4,
+      "kind": "kmeans",
+      "groups": 2,
+      "iterationsOrClusters": 3,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-4.bin",
+      "count": 4,
+      "kind": "kmeans",
+      "groups": 3,
+      "iterationsOrClusters": 3,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-4.bin",
+      "count": 4,
+      "kind": "kmeans",
+      "groups": 16,
+      "iterationsOrClusters": 1,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-4.bin",
+      "count": 4,
+      "kind": "dbscan",
+      "eps": 0.0001,
+      "minimum": 1,
+      "iterationsOrClusters": 4,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-4.bin",
+      "count": 4,
+      "kind": "dbscan",
+      "eps": 0.03,
+      "minimum": 2,
+      "iterationsOrClusters": 0,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-4.bin",
+      "count": 4,
+      "kind": "dbscan",
+      "eps": 0.2,
+      "minimum": 3,
+      "iterationsOrClusters": 1,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-16.bin",
+      "count": 16,
+      "kind": "kmeans",
+      "groups": 1,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-16.bin",
+      "count": 16,
+      "kind": "kmeans",
+      "groups": 2,
+      "iterationsOrClusters": 3,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-16.bin",
+      "count": 16,
+      "kind": "kmeans",
+      "groups": 3,
+      "iterationsOrClusters": 3,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-16.bin",
+      "count": 16,
+      "kind": "kmeans",
+      "groups": 16,
+      "iterationsOrClusters": 1,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-16.bin",
+      "count": 16,
+      "kind": "dbscan",
+      "eps": 0.0001,
+      "minimum": 1,
+      "iterationsOrClusters": 16,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-16.bin",
+      "count": 16,
+      "kind": "dbscan",
+      "eps": 0.03,
+      "minimum": 2,
+      "iterationsOrClusters": 4,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-16.bin",
+      "count": 16,
+      "kind": "dbscan",
+      "eps": 0.2,
+      "minimum": 3,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-64.bin",
+      "count": 64,
+      "kind": "kmeans",
+      "groups": 1,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-64.bin",
+      "count": 64,
+      "kind": "kmeans",
+      "groups": 2,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-64.bin",
+      "count": 64,
+      "kind": "kmeans",
+      "groups": 3,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-64.bin",
+      "count": 64,
+      "kind": "kmeans",
+      "groups": 16,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-64.bin",
+      "count": 64,
+      "kind": "dbscan",
+      "eps": 0.0001,
+      "minimum": 1,
+      "iterationsOrClusters": 64,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-64.bin",
+      "count": 64,
+      "kind": "dbscan",
+      "eps": 0.03,
+      "minimum": 2,
+      "iterationsOrClusters": 4,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-64.bin",
+      "count": 64,
+      "kind": "dbscan",
+      "eps": 0.2,
+      "minimum": 3,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-256.bin",
+      "count": 256,
+      "kind": "kmeans",
+      "groups": 1,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-256.bin",
+      "count": 256,
+      "kind": "kmeans",
+      "groups": 2,
+      "iterationsOrClusters": 3,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-256.bin",
+      "count": 256,
+      "kind": "kmeans",
+      "groups": 3,
+      "iterationsOrClusters": 3,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-256.bin",
+      "count": 256,
+      "kind": "kmeans",
+      "groups": 16,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-256.bin",
+      "count": 256,
+      "kind": "dbscan",
+      "eps": 0.0001,
+      "minimum": 1,
+      "iterationsOrClusters": 256,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-256.bin",
+      "count": 256,
+      "kind": "dbscan",
+      "eps": 0.03,
+      "minimum": 2,
+      "iterationsOrClusters": 4,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-256.bin",
+      "count": 256,
+      "kind": "dbscan",
+      "eps": 0.2,
+      "minimum": 3,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-1024.bin",
+      "count": 1024,
+      "kind": "kmeans",
+      "groups": 1,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-1024.bin",
+      "count": 1024,
+      "kind": "kmeans",
+      "groups": 2,
+      "iterationsOrClusters": 3,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-1024.bin",
+      "count": 1024,
+      "kind": "kmeans",
+      "groups": 3,
+      "iterationsOrClusters": 3,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-1024.bin",
+      "count": 1024,
+      "kind": "kmeans",
+      "groups": 16,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-1024.bin",
+      "count": 1024,
+      "kind": "dbscan",
+      "eps": 0.0001,
+      "minimum": 1,
+      "iterationsOrClusters": 1024,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-1024.bin",
+      "count": 1024,
+      "kind": "dbscan",
+      "eps": 0.03,
+      "minimum": 2,
+      "iterationsOrClusters": 4,
+      "differences": 0
+    },
+    {
+      "file": "safire-cluster-1024.bin",
+      "count": 1024,
+      "kind": "dbscan",
+      "eps": 0.2,
+      "minimum": 3,
+      "iterationsOrClusters": 2,
+      "differences": 0
+    }
+  ],
+  "exact": true
+}

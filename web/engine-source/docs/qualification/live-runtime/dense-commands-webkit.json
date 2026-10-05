@@ -1,0 +1,1266 @@
+{
+  "reports": [
+    {
+      "scenario": {
+        "dimensions": 12,
+        "trim": true
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 3,
+        "peakActiveKernels": 4,
+        "tasks": 284,
+        "cpuGrants": [
+          3,
+          1,
+          4,
+          1,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 8,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 284,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 8388608,
+        "memoryTrims": 4,
+        "reservedWorkspaceBytes": 44739504,
+        "kernels": [
+          {
+            "reads": 41685,
+            "writes": 920,
+            "readBytes": 162057409,
+            "writeBytes": 137384,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "failurePhase": 1
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 709,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 12,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 12,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 1,
+        "committedTasks": 708,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "lastAllocationFailure": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Injected refusal after private command write",
+          "stack": "@http://127.0.0.1:64929/tests/dense-command-fault-worker.js:6:147\npage_io_start@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:17287\n154@wasm-function[154]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\ninvoke_iidiii@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:24766\n136@wasm-function[136]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\n@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:12334",
+          "details": {
+            "allocationKind": "array-buffer",
+            "requestedBytes": 4096,
+            "recovery": {
+              "operation": "dense-field-command",
+              "phase": "2:0",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 176297,
+                "activeReservationBytes": 134217728,
+                "cacheBytes": 0,
+                "requestedBytes": 4096,
+                "availableBytes": 134041431
+              }
+            }
+          },
+          "cause": {
+            "code": "WORKER_FAILED",
+            "name": "RangeError",
+            "message": "Injected allocation",
+            "stack": "@http://127.0.0.1:64929/tests/dense-command-fault-worker.js:6:236\npage_io_start@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:17287\n154@wasm-function[154]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\ninvoke_iidiii@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:24766\n136@wasm-function[136]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\n@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:12334"
+          }
+        },
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 24362,
+            "writes": 865,
+            "readBytes": 92395772,
+            "writeBytes": 101200,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 11353,
+            "writes": 418,
+            "readBytes": 43552216,
+            "writeBytes": 21248,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6271,
+            "writes": 268,
+            "readBytes": 23483068,
+            "writeBytes": 10672,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 1964,
+            "writes": 89,
+            "readBytes": 7186364,
+            "writeBytes": 4400,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "failurePhase": 2
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 719,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 12,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 12,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 1,
+        "committedTasks": 718,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "lastAllocationFailure": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Injected refusal after private command write",
+          "stack": "@http://127.0.0.1:64929/tests/dense-command-fault-worker.js:6:147\npage_io_start@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:17287\n154@wasm-function[154]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\ninvoke_iidiii@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:24766\n136@wasm-function[136]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\n@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:12334",
+          "details": {
+            "allocationKind": "array-buffer",
+            "requestedBytes": 4096,
+            "recovery": {
+              "operation": "dense-field-command",
+              "phase": "2:0",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 176297,
+                "activeReservationBytes": 134217728,
+                "cacheBytes": 0,
+                "requestedBytes": 4096,
+                "availableBytes": 134041431
+              }
+            }
+          },
+          "cause": {
+            "code": "WORKER_FAILED",
+            "name": "RangeError",
+            "message": "Injected allocation",
+            "stack": "@http://127.0.0.1:64929/tests/dense-command-fault-worker.js:6:236\npage_io_start@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:17287\n154@wasm-function[154]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\ninvoke_iidiii@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:24766\n136@wasm-function[136]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\n@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:12334"
+          }
+        },
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 23866,
+            "writes": 816,
+            "readBytes": 90335344,
+            "writeBytes": 100196,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 11396,
+            "writes": 426,
+            "readBytes": 43803596,
+            "writeBytes": 21296,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6316,
+            "writes": 281,
+            "readBytes": 23676304,
+            "writeBytes": 10844,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2421,
+            "writes": 138,
+            "readBytes": 8975448,
+            "writeBytes": 5080,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "failurePhase": 3
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 588,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 12,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 12,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 1,
+        "committedTasks": 587,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "lastAllocationFailure": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Injected refusal after private command write",
+          "stack": "@http://127.0.0.1:64929/tests/dense-command-fault-worker.js:6:147\npage_io_start@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:17287\n62@wasm-function[62]\n45@wasm-function[45]\n153@wasm-function[153]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\ninvoke_iijii@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:24934\n136@wasm-function[136]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\n@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:12334",
+          "details": {
+            "allocationKind": "array-buffer",
+            "requestedBytes": 4096,
+            "recovery": {
+              "operation": "dense-field-command",
+              "phase": "3:0",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 176297,
+                "activeReservationBytes": 178956840,
+                "cacheBytes": 0,
+                "requestedBytes": 4096,
+                "availableBytes": 89302319
+              }
+            }
+          },
+          "cause": {
+            "code": "WORKER_FAILED",
+            "name": "RangeError",
+            "message": "Injected allocation",
+            "stack": "@http://127.0.0.1:64929/tests/dense-command-fault-worker.js:6:236\npage_io_start@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:17287\n62@wasm-function[62]\n45@wasm-function[45]\n153@wasm-function[153]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\ninvoke_iijii@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:24934\n136@wasm-function[136]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\n@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:12334"
+          }
+        },
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 24681,
+            "writes": 813,
+            "readBytes": 94947240,
+            "writeBytes": 81884,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 9544,
+            "writes": 265,
+            "readBytes": 35811736,
+            "writeBytes": 20304,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 4730,
+            "writes": 97,
+            "readBytes": 17103068,
+            "writeBytes": 10840,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 798,
+            "writes": 2,
+            "readBytes": 2568372,
+            "writeBytes": 2896,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "failurePhase": 4
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 585,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 12,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 12,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 1,
+        "committedTasks": 584,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "lastAllocationFailure": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Injected refusal after private command write",
+          "stack": "@http://127.0.0.1:64929/tests/dense-command-fault-worker.js:6:147\npage_io_start@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:17287\n62@wasm-function[62]\n45@wasm-function[45]\n153@wasm-function[153]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\ninvoke_iijii@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:24934\n136@wasm-function[136]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\n@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:12334",
+          "details": {
+            "allocationKind": "array-buffer",
+            "requestedBytes": 4096,
+            "recovery": {
+              "operation": "dense-field-command",
+              "phase": "3:0",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 176297,
+                "activeReservationBytes": 178956840,
+                "cacheBytes": 0,
+                "requestedBytes": 4096,
+                "availableBytes": 89302319
+              }
+            }
+          },
+          "cause": {
+            "code": "WORKER_FAILED",
+            "name": "RangeError",
+            "message": "Injected allocation",
+            "stack": "@http://127.0.0.1:64929/tests/dense-command-fault-worker.js:6:236\npage_io_start@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:17287\n62@wasm-function[62]\n45@wasm-function[45]\n153@wasm-function[153]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\ninvoke_iijii@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:24934\n136@wasm-function[136]\nwrapper@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:9939\n@http://127.0.0.1:64929/vendor/dense-paged/dense-paged.js:1:12334"
+          }
+        },
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 24505,
+            "writes": 842,
+            "readBytes": 94166752,
+            "writeBytes": 94204,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 9641,
+            "writes": 266,
+            "readBytes": 36174524,
+            "writeBytes": 20560,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 4675,
+            "writes": 102,
+            "readBytes": 16884436,
+            "writeBytes": 11116,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 798,
+            "writes": 2,
+            "readBytes": 2568372,
+            "writeBytes": 2896,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "reverseWindowPixels": 127
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 852,
+        "cpuGrants": [
+          1,
+          4,
+          1,
+          3,
+          1,
+          4,
+          1,
+          3,
+          1,
+          4,
+          1,
+          3,
+          1,
+          4,
+          1,
+          3,
+          1,
+          4,
+          1,
+          3,
+          2,
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          1
+        ],
+        "cpuGrantChanges": 77,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 99,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 852,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 25890,
+            "writes": 964,
+            "readBytes": 97286725,
+            "writeBytes": 113604,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 12574,
+            "writes": 480,
+            "readBytes": 48171628,
+            "writeBytes": 23904,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 5991,
+            "writes": 240,
+            "readBytes": 22683204,
+            "writeBytes": 8852,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2194,
+            "writes": 119,
+            "readBytes": 8302864,
+            "writeBytes": 4140,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "symmetric": true
+      },
+      "storage": "memory",
+      "comparisons": "59309",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 713,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 713,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 17223,
+            "writes": 771,
+            "readBytes": 62997337,
+            "writeBytes": 141660,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 7945,
+            "writes": 298,
+            "readBytes": 29134576,
+            "writeBytes": 23128,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 4307,
+            "writes": 100,
+            "readBytes": 15271220,
+            "writeBytes": 8236,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 1753,
+            "writes": 8,
+            "readBytes": 6092848,
+            "writeBytes": 2928,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 128,
+        "compare": true,
+        "axes": true
+      },
+      "storage": "memory",
+      "comparisons": "47230",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 719,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 719,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 29527,
+            "writes": 909,
+            "readBytes": 113323121,
+            "writeBytes": 147688,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 14601,
+            "writes": 443,
+            "readBytes": 57047112,
+            "writeBytes": 24628,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 7575,
+            "writes": 215,
+            "readBytes": 29187144,
+            "writeBytes": 9496,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2863,
+            "writes": 64,
+            "readBytes": 10792204,
+            "writeBytes": 3404,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "ties": true
+      },
+      "storage": "memory",
+      "comparisons": "54020",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 710,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 710,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 7868,
+            "writes": 16,
+            "readBytes": 24155865,
+            "writeBytes": 44128,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3136,
+            "writes": 10,
+            "readBytes": 9719800,
+            "writeBytes": 16096,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 1471,
+            "writes": 8,
+            "readBytes": 4391692,
+            "writeBytes": 6800,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 689,
+            "writes": 2,
+            "readBytes": 2065664,
+            "writeBytes": 2896,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "overflow": true
+      },
+      "storage": "memory",
+      "comparisons": "95583",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 714,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 714,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 53127,
+            "writes": 16,
+            "readBytes": 216132241,
+            "writeBytes": 35952,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 23103,
+            "writes": 8,
+            "readBytes": 93770256,
+            "writeBytes": 12632,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2266,
+            "writes": 8,
+            "readBytes": 9049372,
+            "writeBytes": 6800,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 694,
+            "writes": 2,
+            "readBytes": 2784460,
+            "writeBytes": 2896,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "temporary": true
+      },
+      "storage": "indexeddb",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 893,
+        "cpuGrants": [
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1
+        ],
+        "cpuGrantChanges": 67,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 75,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 893,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 24628,
+            "writes": 950,
+            "readBytes": 92615477,
+            "writeBytes": 110016,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 12943,
+            "writes": 500,
+            "readBytes": 49975072,
+            "writeBytes": 24996,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6337,
+            "writes": 266,
+            "readBytes": 24255952,
+            "writeBytes": 11324,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2263,
+            "writes": 90,
+            "readBytes": 8444656,
+            "writeBytes": 5420,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "gpu": {
+        "preflightExecutions": 0,
+        "batches": 10,
+        "pairs": 2636,
+        "rejected": 2536,
+        "refinements": 100,
+        "uploadedBytes": 2699264,
+        "readbackBytes": 21088,
+        "bufferAllocations": 5,
+        "milliseconds": 16.799999999999272,
+        "deviceLimits": {
+          "maxStorageBufferBindingSize": 134217728,
+          "maxBufferSize": 268435456,
+          "maxComputeWorkgroupsPerDimension": 65535
+        },
+        "residentBufferBytes": 344256
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 128,
+        "gpu": true
+      },
+      "storage": "memory",
+      "comparisons": "55733",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 712,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 712,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 33503,
+            "writes": 832,
+            "readBytes": 130057621,
+            "writeBytes": 128856,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 17761,
+            "writes": 464,
+            "readBytes": 69515944,
+            "writeBytes": 25288,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 7704,
+            "writes": 188,
+            "readBytes": 29784872,
+            "writeBytes": 9156,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3445,
+            "writes": 74,
+            "readBytes": 13343564,
+            "writeBytes": 3384,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "staging": "admitted",
+      "stagingPeak": 91416,
+      "stagingCalls": 5,
+      "distanceCalls": 5
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "staging": "admitted"
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 717,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 717,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 27943,
+            "writes": 815,
+            "readBytes": 107055593,
+            "writeBytes": 120656,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 13043,
+            "writes": 440,
+            "readBytes": 50235152,
+            "writeBytes": 24532,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6578,
+            "writes": 213,
+            "readBytes": 25032296,
+            "writeBytes": 9328,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2742,
+            "writes": 61,
+            "readBytes": 10252488,
+            "writeBytes": 3364,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "staging": "declined",
+      "stagingPeak": 0,
+      "stagingCalls": 5,
+      "distanceCalls": 0
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "staging": "declined"
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 720,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 720,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 28572,
+            "writes": 859,
+            "readBytes": 109364797,
+            "writeBytes": 122492,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 12691,
+            "writes": 408,
+            "readBytes": 48865312,
+            "writeBytes": 24264,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6723,
+            "writes": 202,
+            "readBytes": 25617696,
+            "writeBytes": 9380,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2326,
+            "writes": 58,
+            "readBytes": 8745700,
+            "writeBytes": 3336,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "width": 257,
+        "height": 257,
+        "iterations": 1
+      },
+      "storage": "memory",
+      "comparisons": "683874",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 1864,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 21,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 22,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 1864,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 42467328,
+        "reservedWorkspaceBytes": 178951284,
+        "kernels": [
+          {
+            "reads": 421424,
+            "writes": 28177,
+            "readBytes": 1745377137,
+            "writeBytes": 1319520,
+            "heapBytes": 10616832,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 303546,
+            "writes": 12943,
+            "readBytes": 1264240584,
+            "writeBytes": 654264,
+            "heapBytes": 10616832,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 146332,
+            "writes": 7660,
+            "readBytes": 607711360,
+            "writeBytes": 257304,
+            "heapBytes": 10616832,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 55892,
+            "writes": 3548,
+            "readBytes": 231055512,
+            "writeBytes": 94328,
+            "heapBytes": 10616832,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "gpuStagingCleanup": "cancel",
+      "code": "CANCELLED"
+    },
+    {
+      "gpuStagingCleanup": "error",
+      "code": "GPU_FAILED"
+    }
+  ],
+  "cancelled": true
+}

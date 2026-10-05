@@ -1,0 +1,855 @@
+{
+  "schema": 1,
+  "scope": "DLF7/9/11 ordered arithmetic on six synthetic coordinate inputs, weights remain outside delivery",
+  "torch": "2.8.0",
+  "referenceThreads": 8,
+  "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36",
+  "records": [
+    {
+      "name": "7-native-zm",
+      "side": 448,
+      "kernel": 7,
+      "input": {
+        "file": "native-zm-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "a5f9046c8ffb2c529162b965be9a52abf1306e6427ee16804ee5f9b560be566c"
+      },
+      "weights": {
+        "file": "weights-7.bin",
+        "bytes": 784,
+        "shape": [
+          4,
+          7,
+          7
+        ],
+        "sha256": "cec9ac33d5335e8644e3385e1e38533c7051940777922c5e60becf4eb7b2bb69"
+      },
+      "errors": {
+        "file": "7-native-zm-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "dc2afa29221271c41982934940343b809c1eb198428988e202850abf3c8b7e17"
+      },
+      "scores": {
+        "file": "7-native-zm-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "f84f1ac240c03ebd293184c7da8509b839cb51d266c78effa52af6c46eb06e0d"
+      }
+    },
+    {
+      "name": "7-native-cnn",
+      "side": 448,
+      "kernel": 7,
+      "input": {
+        "file": "native-cnn-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "97072597775af7b70ecd56195b93bb2e2768027ce46d4dc40cbff1776d6a7cd7"
+      },
+      "weights": {
+        "file": "weights-7.bin",
+        "bytes": 784,
+        "shape": [
+          4,
+          7,
+          7
+        ],
+        "sha256": "cec9ac33d5335e8644e3385e1e38533c7051940777922c5e60becf4eb7b2bb69"
+      },
+      "errors": {
+        "file": "7-native-cnn-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "b97fdc68507fa6993bffb724ba6e1e2d7887d9f7e179bd9a95140e5840180eb0"
+      },
+      "scores": {
+        "file": "7-native-cnn-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "d732e6d8925fdc214e4050578e52d7f2feb2a681e7dbb10d75f179c4ee7ce4ac"
+      }
+    },
+    {
+      "name": "7-plane",
+      "side": 448,
+      "kernel": 7,
+      "input": {
+        "file": "plane-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "034d8553a60d383b3d046625e3b9e05fdf880ff87accaf39bb489b1ff56cc0be"
+      },
+      "weights": {
+        "file": "weights-7.bin",
+        "bytes": 784,
+        "shape": [
+          4,
+          7,
+          7
+        ],
+        "sha256": "cec9ac33d5335e8644e3385e1e38533c7051940777922c5e60becf4eb7b2bb69"
+      },
+      "errors": {
+        "file": "7-plane-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "2ac0d908ab5c7672c4133cca8f8da6151fe41d132f7fa764736784dd7e292963"
+      },
+      "scores": {
+        "file": "7-plane-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "addd6cb5eec1504333274e8c02d79bfca177b4b81a72d6996a26b50a96dc8778"
+      }
+    },
+    {
+      "name": "7-constant",
+      "side": 448,
+      "kernel": 7,
+      "input": {
+        "file": "constant-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "ecac49f72ffea6b54aad71fb504b178b816cb43dae236c1c8fe2b18958c700cb"
+      },
+      "weights": {
+        "file": "weights-7.bin",
+        "bytes": 784,
+        "shape": [
+          4,
+          7,
+          7
+        ],
+        "sha256": "cec9ac33d5335e8644e3385e1e38533c7051940777922c5e60becf4eb7b2bb69"
+      },
+      "errors": {
+        "file": "7-constant-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "79dadbe5e44442f85a84240fd4ace4a73a078096ab8f537a7a2ef5d06efbd818"
+      },
+      "scores": {
+        "file": "7-constant-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "1360bc98b50279ca55bb7d954763d5ff2ef968c4c9edee1c34aa65e43aebd2b1"
+      }
+    },
+    {
+      "name": "7-noise",
+      "side": 448,
+      "kernel": 7,
+      "input": {
+        "file": "noise-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "d940c451b4aa62e7e3bd56669fba0d22a68948a2870ec09705aa766807572798"
+      },
+      "weights": {
+        "file": "weights-7.bin",
+        "bytes": 784,
+        "shape": [
+          4,
+          7,
+          7
+        ],
+        "sha256": "cec9ac33d5335e8644e3385e1e38533c7051940777922c5e60becf4eb7b2bb69"
+      },
+      "errors": {
+        "file": "7-noise-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "adfad1aabf2268c2f1f0f8ef0a2c160fa9824b303f80fdda404f667bd5eb0508"
+      },
+      "scores": {
+        "file": "7-noise-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "875371af32379374bbb59114369350a6818eaeee17aa8a0e621a2dbe70e67bd6"
+      }
+    },
+    {
+      "name": "7-diagonal",
+      "side": 448,
+      "kernel": 7,
+      "input": {
+        "file": "diagonal-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "a1d9202d65312984395a5a1dc4fd3df386f3c87b5d240ee9207677d8a051cdc7"
+      },
+      "weights": {
+        "file": "weights-7.bin",
+        "bytes": 784,
+        "shape": [
+          4,
+          7,
+          7
+        ],
+        "sha256": "cec9ac33d5335e8644e3385e1e38533c7051940777922c5e60becf4eb7b2bb69"
+      },
+      "errors": {
+        "file": "7-diagonal-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "d1508ae9268e2544e78b34220770f42344f2bdd69d30e5fe90a12943f36abeae"
+      },
+      "scores": {
+        "file": "7-diagonal-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "ae6535e507bf6042eaff0863554f2edd39fd42d22c4157ed9908e33658e81d2f"
+      }
+    },
+    {
+      "name": "9-native-zm",
+      "side": 448,
+      "kernel": 9,
+      "input": {
+        "file": "native-zm-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "a5f9046c8ffb2c529162b965be9a52abf1306e6427ee16804ee5f9b560be566c"
+      },
+      "weights": {
+        "file": "weights-9.bin",
+        "bytes": 1296,
+        "shape": [
+          4,
+          9,
+          9
+        ],
+        "sha256": "904007bd34ce46af9171818a8cf667ec1d621b962bd8df7c79ede0cdb59f330d"
+      },
+      "errors": {
+        "file": "9-native-zm-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "1b92a2a1dbba0563237e2370af5d20c5c3a7ae22c94ea5785406841b6d2b1232"
+      },
+      "scores": {
+        "file": "9-native-zm-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "09f72283b13788e587ab534bd7bffab4745e1eced108df586823824df6ecf0f7"
+      }
+    },
+    {
+      "name": "9-native-cnn",
+      "side": 448,
+      "kernel": 9,
+      "input": {
+        "file": "native-cnn-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "97072597775af7b70ecd56195b93bb2e2768027ce46d4dc40cbff1776d6a7cd7"
+      },
+      "weights": {
+        "file": "weights-9.bin",
+        "bytes": 1296,
+        "shape": [
+          4,
+          9,
+          9
+        ],
+        "sha256": "904007bd34ce46af9171818a8cf667ec1d621b962bd8df7c79ede0cdb59f330d"
+      },
+      "errors": {
+        "file": "9-native-cnn-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "4bedd61dc47401124c031726098a8ddcc58b450d208a5483145bee5696e1a2fc"
+      },
+      "scores": {
+        "file": "9-native-cnn-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "80d64dc231e30a7d79200d4e8351fa81d57c4b2fee25f034aac43366b961d1f0"
+      }
+    },
+    {
+      "name": "9-plane",
+      "side": 448,
+      "kernel": 9,
+      "input": {
+        "file": "plane-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "034d8553a60d383b3d046625e3b9e05fdf880ff87accaf39bb489b1ff56cc0be"
+      },
+      "weights": {
+        "file": "weights-9.bin",
+        "bytes": 1296,
+        "shape": [
+          4,
+          9,
+          9
+        ],
+        "sha256": "904007bd34ce46af9171818a8cf667ec1d621b962bd8df7c79ede0cdb59f330d"
+      },
+      "errors": {
+        "file": "9-plane-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "f61ee666b96b4dda9b972f0b89ec71d9b4df3fa4040c230a8f6eca8690fac531"
+      },
+      "scores": {
+        "file": "9-plane-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "dbf0f17f69b3caf7be8b731335582c06a9e6b9f4fcd338c65b4affaad36bded7"
+      }
+    },
+    {
+      "name": "9-constant",
+      "side": 448,
+      "kernel": 9,
+      "input": {
+        "file": "constant-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "ecac49f72ffea6b54aad71fb504b178b816cb43dae236c1c8fe2b18958c700cb"
+      },
+      "weights": {
+        "file": "weights-9.bin",
+        "bytes": 1296,
+        "shape": [
+          4,
+          9,
+          9
+        ],
+        "sha256": "904007bd34ce46af9171818a8cf667ec1d621b962bd8df7c79ede0cdb59f330d"
+      },
+      "errors": {
+        "file": "9-constant-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "ddfff9920b1c00329caeb4296e9f468e531374ce19614d789c8a1d771f2a8dc0"
+      },
+      "scores": {
+        "file": "9-constant-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "c20d25915f5c30a51b6b4a9f4ff1a879440a373e9b5cae1686ca35ff1865e711"
+      }
+    },
+    {
+      "name": "9-noise",
+      "side": 448,
+      "kernel": 9,
+      "input": {
+        "file": "noise-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "d940c451b4aa62e7e3bd56669fba0d22a68948a2870ec09705aa766807572798"
+      },
+      "weights": {
+        "file": "weights-9.bin",
+        "bytes": 1296,
+        "shape": [
+          4,
+          9,
+          9
+        ],
+        "sha256": "904007bd34ce46af9171818a8cf667ec1d621b962bd8df7c79ede0cdb59f330d"
+      },
+      "errors": {
+        "file": "9-noise-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "83bfe70542d7d1316fcd685ea0abcd26f41c08aa13e55610ed61a07632159162"
+      },
+      "scores": {
+        "file": "9-noise-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "01b83d946d69a5829c564a5b6f99de55ef0b4aeb68d249f64ff490d6aa79352f"
+      }
+    },
+    {
+      "name": "9-diagonal",
+      "side": 448,
+      "kernel": 9,
+      "input": {
+        "file": "diagonal-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "a1d9202d65312984395a5a1dc4fd3df386f3c87b5d240ee9207677d8a051cdc7"
+      },
+      "weights": {
+        "file": "weights-9.bin",
+        "bytes": 1296,
+        "shape": [
+          4,
+          9,
+          9
+        ],
+        "sha256": "904007bd34ce46af9171818a8cf667ec1d621b962bd8df7c79ede0cdb59f330d"
+      },
+      "errors": {
+        "file": "9-diagonal-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "45788efd96ea711b588321b91bca021056054cab2d43880a7a1d220dfea94d0a"
+      },
+      "scores": {
+        "file": "9-diagonal-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "187f233bf84437c94b799293f0d53e7cf58bda2cd06a4d5c3ba653f7e6ba0a76"
+      }
+    },
+    {
+      "name": "11-native-zm",
+      "side": 448,
+      "kernel": 11,
+      "input": {
+        "file": "native-zm-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "a5f9046c8ffb2c529162b965be9a52abf1306e6427ee16804ee5f9b560be566c"
+      },
+      "weights": {
+        "file": "weights-11.bin",
+        "bytes": 1936,
+        "shape": [
+          4,
+          11,
+          11
+        ],
+        "sha256": "c37fe39adcd8d3bdaa557d436aa31e1f9649368b5148ff617534efbd4bc558af"
+      },
+      "errors": {
+        "file": "11-native-zm-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "7380249596fdf5de519f70b9f58519c0fcc51211a8871e6a511728d504b845f0"
+      },
+      "scores": {
+        "file": "11-native-zm-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "ce8e7f62e62f525c61e1624215318bd74cc18412fec9778934f4c59773b31c1a"
+      }
+    },
+    {
+      "name": "11-native-cnn",
+      "side": 448,
+      "kernel": 11,
+      "input": {
+        "file": "native-cnn-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "97072597775af7b70ecd56195b93bb2e2768027ce46d4dc40cbff1776d6a7cd7"
+      },
+      "weights": {
+        "file": "weights-11.bin",
+        "bytes": 1936,
+        "shape": [
+          4,
+          11,
+          11
+        ],
+        "sha256": "c37fe39adcd8d3bdaa557d436aa31e1f9649368b5148ff617534efbd4bc558af"
+      },
+      "errors": {
+        "file": "11-native-cnn-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "10f87f54cf6a9aa6610726a44684b1e91a770df0d041993c62b3d82d8a8977c8"
+      },
+      "scores": {
+        "file": "11-native-cnn-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "6e51711a3480ac4974d5878650827f1a0afa15b7a77c111eb3c6663608da449f"
+      }
+    },
+    {
+      "name": "11-plane",
+      "side": 448,
+      "kernel": 11,
+      "input": {
+        "file": "plane-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "034d8553a60d383b3d046625e3b9e05fdf880ff87accaf39bb489b1ff56cc0be"
+      },
+      "weights": {
+        "file": "weights-11.bin",
+        "bytes": 1936,
+        "shape": [
+          4,
+          11,
+          11
+        ],
+        "sha256": "c37fe39adcd8d3bdaa557d436aa31e1f9649368b5148ff617534efbd4bc558af"
+      },
+      "errors": {
+        "file": "11-plane-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "b377c7021e0875c315a22acbf2620806cf1d1f02a34c5653d265905876e48f47"
+      },
+      "scores": {
+        "file": "11-plane-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "1b2ec03caf29255077f6fc994330f7c82c34e29251fc95d2834e3284671675c7"
+      }
+    },
+    {
+      "name": "11-constant",
+      "side": 448,
+      "kernel": 11,
+      "input": {
+        "file": "constant-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "ecac49f72ffea6b54aad71fb504b178b816cb43dae236c1c8fe2b18958c700cb"
+      },
+      "weights": {
+        "file": "weights-11.bin",
+        "bytes": 1936,
+        "shape": [
+          4,
+          11,
+          11
+        ],
+        "sha256": "c37fe39adcd8d3bdaa557d436aa31e1f9649368b5148ff617534efbd4bc558af"
+      },
+      "errors": {
+        "file": "11-constant-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "f9faf3c07c07d9f0c693b762197b75aaa00567ef44bc761421778117e4bd367b"
+      },
+      "scores": {
+        "file": "11-constant-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "d9bb50649852882138c717c69818a1122ddf0deb85bac3ce65a357830ee83cad"
+      }
+    },
+    {
+      "name": "11-noise",
+      "side": 448,
+      "kernel": 11,
+      "input": {
+        "file": "noise-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "d940c451b4aa62e7e3bd56669fba0d22a68948a2870ec09705aa766807572798"
+      },
+      "weights": {
+        "file": "weights-11.bin",
+        "bytes": 1936,
+        "shape": [
+          4,
+          11,
+          11
+        ],
+        "sha256": "c37fe39adcd8d3bdaa557d436aa31e1f9649368b5148ff617534efbd4bc558af"
+      },
+      "errors": {
+        "file": "11-noise-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "d247c441ada43ab32330d52caa550878556edcc163d83b5a4407612ce99fb3bd"
+      },
+      "scores": {
+        "file": "11-noise-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "9d779872b5813e1ffe3b3b19784c54b1d133a987b74f5c96b9d61bff20cc37bd"
+      }
+    },
+    {
+      "name": "11-diagonal",
+      "side": 448,
+      "kernel": 11,
+      "input": {
+        "file": "diagonal-coordinates.bin",
+        "bytes": 1605632,
+        "shape": [
+          2,
+          448,
+          448
+        ],
+        "sha256": "a1d9202d65312984395a5a1dc4fd3df386f3c87b5d240ee9207677d8a051cdc7"
+      },
+      "weights": {
+        "file": "weights-11.bin",
+        "bytes": 1936,
+        "shape": [
+          4,
+          11,
+          11
+        ],
+        "sha256": "c37fe39adcd8d3bdaa557d436aa31e1f9649368b5148ff617534efbd4bc558af"
+      },
+      "errors": {
+        "file": "11-diagonal-errors.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "71e5801eb35457860e4c5f73ab51d010ce90699d97a685d879f11af1b41219a7"
+      },
+      "scores": {
+        "file": "11-diagonal-scores.bin",
+        "bytes": 802816,
+        "shape": [
+          1,
+          1,
+          448,
+          448
+        ],
+        "sha256": "c88897584331a7d29f0d89dfa0c2f235dd76d16366a96e4f36d94115662fb7f8"
+      }
+    }
+  ]
+}

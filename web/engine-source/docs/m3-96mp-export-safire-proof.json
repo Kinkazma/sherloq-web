@@ -1,0 +1,68 @@
+[
+  {
+    "method": "safire",
+    "arrays": {
+      "map": {
+        "shape": [
+          1024,
+          1024
+        ],
+        "dtype": "float32"
+      },
+      "source_probabilities": {
+        "shape": [
+          3,
+          1024,
+          1024
+        ],
+        "dtype": "float32"
+      },
+      "source_labels": {
+        "shape": [
+          1024,
+          1024
+        ],
+        "dtype": "uint8"
+      },
+      "prompt_features": {
+        "shape": [
+          256,
+          256
+        ],
+        "dtype": "float32"
+      },
+      "prompt_confidence": {
+        "shape": [
+          256
+        ],
+        "dtype": "float32"
+      },
+      "prompt_clusters": {
+        "shape": [
+          256
+        ],
+        "dtype": "int64"
+      },
+      "points": {
+        "shape": [
+          256,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "metadata_json": {
+        "shape": [],
+        "dtype": "<U755"
+      },
+      "browser_provenance_json": {
+        "shape": [],
+        "dtype": "<U564"
+      }
+    },
+    "sourceSize": [
+      8000,
+      12000
+    ],
+    "seconds": 0.0392458438873291
+  }
+]

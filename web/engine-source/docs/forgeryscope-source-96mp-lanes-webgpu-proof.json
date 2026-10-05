@@ -1,0 +1,475 @@
+{
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "sourceSha256": "bffb7c97234615dc536f82a928705bfe907cd21eaed7a7b493c9f28f76c7d887",
+  "analyzeMs": 12791.40000000596,
+  "totalMs": 19925.40000000596,
+  "fields": {
+    "mask": {
+      "length": 96000000,
+      "positive": 0,
+      "finite": true,
+      "differences": null
+    },
+    "map": {
+      "length": 96000000,
+      "positive": 0,
+      "finite": true,
+      "differences": null
+    },
+    "candidates": {
+      "length": 96000000,
+      "positive": 2649692,
+      "finite": true,
+      "differences": null
+    }
+  },
+  "views": [
+    {
+      "field": "mask",
+      "box": [
+        0,
+        0,
+        47,
+        39
+      ],
+      "pixels": 1833
+    },
+    {
+      "field": "candidates",
+      "box": [
+        0,
+        0,
+        47,
+        39
+      ],
+      "pixels": 1833
+    },
+    {
+      "field": "mask",
+      "box": [
+        11953,
+        7961,
+        47,
+        39
+      ],
+      "pixels": 1833
+    },
+    {
+      "field": "candidates",
+      "box": [
+        11953,
+        7961,
+        47,
+        39
+      ],
+      "pixels": 1833
+    }
+  ],
+  "metadata": {
+    "profile": "Forgeryscope pistes",
+    "public_simplified": true,
+    "panels": [
+      [
+        "Blots",
+        0.965,
+        1691.7576904296875,
+        6075.083984375,
+        4391.07421875,
+        7266.701171875
+      ],
+      [
+        "Blots",
+        0.964,
+        1691.10400390625,
+        5095.64306640625,
+        4386.638671875,
+        5999.759765625
+      ],
+      [
+        "Blots",
+        0.949,
+        1689.29638671875,
+        2140.746337890625,
+        4396.7001953125,
+        2560.6884765625
+      ],
+      [
+        "Blots",
+        0.941,
+        1695.558837890625,
+        1586.4654541015625,
+        4391.86865234375,
+        2013.123046875
+      ],
+      [
+        "Blots",
+        0.939,
+        1686.827880859375,
+        4484.58154296875,
+        4387.8623046875,
+        5035.2822265625
+      ],
+      [
+        "Blots",
+        0.928,
+        1706.46337890625,
+        2687.136474609375,
+        4397.11474609375,
+        3116.08447265625
+      ],
+      [
+        "Blots",
+        0.926,
+        1690.9354248046875,
+        1030.058349609375,
+        4398.67578125,
+        1452.2137451171875
+      ],
+      [
+        "Blots",
+        0.924,
+        1691.4678955078125,
+        7332.390625,
+        4391.3662109375,
+        7887.2138671875
+      ]
+    ],
+    "comparisons": [],
+    "embedding_candidates": [],
+    "manual_panels": false,
+    "status": "candidates",
+    "thresholds": {
+      "microscopy": 0.58,
+      "duplicate": 0.84,
+      "overlap": 0.85,
+      "lanes": 0.65,
+      "inliers": 8,
+      "matchScore": 0.73,
+      "intersectionMargin": 10,
+      "laneOverlap": 5
+    },
+    "competition_ensemble": false,
+    "segmentation_fallback": false,
+    "excluded_panels": [],
+    "excluded_boxes": [],
+    "lanes": 36,
+    "lane_matches": 3,
+    "mask_semantics": "embedding-supported lane candidates; no geometric verification"
+  },
+  "source": {
+    "dimensions": {
+      "id": "887e0527-91db-422f-90eb-701817a7fa7f",
+      "revision": 1,
+      "width": 12000,
+      "height": 8000,
+      "format": "rgb8",
+      "sourceWidth": 12000,
+      "sourceHeight": 8000,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        12000,
+        8000
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "metrics": {
+      "decodeMs": 1048,
+      "rowsPerChunk": 116,
+      "encodedWorkingBytes": 19974577,
+      "coefficientAllowanceBytes": 0,
+      "workingReservationBytes": 61881009,
+      "codecHeapCapacityBytes": 29229056,
+      "storage": "memory",
+      "temporaryBackend": null,
+      "temporaryFallback": null,
+      "temporaryBytes": 0,
+      "originalBlobBytes": 19974577,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM"
+    }
+  },
+  "provenance": {
+    "originalSourceSha256": "bffb7c97234615dc536f82a928705bfe907cd21eaed7a7b493c9f28f76c7d887",
+    "sourceSurfaceIdentity": "887e0527-91db-422f-90eb-701817a7fa7f/1",
+    "models": [
+      [
+        "aliked-blot-dense",
+        "23dfbde04fb68d567e3e25f02bae871b13027e50a59d4d750a6e18e06f5186eb"
+      ],
+      [
+        "aliked-blot-describe",
+        "730379519029173f08af56e5cca86997f47791cea355748754a3f123c8286c09"
+      ],
+      [
+        "aliked-blot-detect",
+        "e3152832e89d0b1d68d8e73ab332bca6392509e9f79f7ef6f57b92d988f37794"
+      ],
+      [
+        "aliked-blot-localize",
+        "abdaec69ec32bcd02a3c7a71f82330667c44c53ce925585e87db5a3de26d9062"
+      ],
+      [
+        "aliked/b3-c1-deform",
+        "c25ee1f9415b77ef8042974f6bc5b6ed58ae6aa3f052d34c481abd76dbbf9cb4"
+      ],
+      [
+        "aliked/b3-c1-offset",
+        "e338dd389b2c206eb4a4c99f1e1340548cb5ee22b1852e65e7bcb9a4357588b7"
+      ],
+      [
+        "aliked/b3-c2-deform",
+        "dcc740ee1df63a7df0d77c6b05c7ec4e6e7fecffd1fd5c168c2e19b6cc3b3004"
+      ],
+      [
+        "aliked/b3-c2-offset",
+        "9e7f9f37ab9b5ecc152c5b5a659debb0870990527f57ef3c70421cb6f861294b"
+      ],
+      [
+        "aliked/b3-residual",
+        "41901294911a889cb6c83f1d991f3d2904b32283e5d0afd8bb923c5b7549a055"
+      ],
+      [
+        "aliked/b4-c1-deform",
+        "826522c7ea6e17ea39001f6877dc925900a2e49e2700a107bbfd3e1f71c031e7"
+      ],
+      [
+        "aliked/b4-c1-offset",
+        "f3173f64103943dc03264bc65af6bc69ec312f7f6a94b53ca5ec7915f33f4111"
+      ],
+      [
+        "aliked/b4-c2-deform",
+        "03cbc67e83b24b6f2f9a679d5cb15f72a01934afe40f55ce780a1e7094784bd1"
+      ],
+      [
+        "aliked/b4-c2-offset",
+        "4a5b5018adbb641d99843a60190db7fa55e18e063bebe0b0bb14222a88241622"
+      ],
+      [
+        "aliked/b4-residual",
+        "3e354eb955ecda36cc2842ae47c23fc4c949dd1a610d5bd61c81391bbbdc23b9"
+      ],
+      [
+        "aliked/describe",
+        "48c67e10f5259f9bb1afc841700b53c6b28548b624a2a70c1fbbcbc7dbdcb8e2"
+      ],
+      [
+        "aliked/describe-offset",
+        "621bb1df912af303a7f1eba59d54c0bfd7c464ce35aad2579cc8d3860122e465"
+      ],
+      [
+        "aliked/first-pool",
+        "80d8bb7750f7576a020f425fd3b5a63fe7aaad8d570bdf89b60e5befcf4566c7"
+      ],
+      [
+        "aliked/first-project",
+        "f5c9f2d3acd75fe8b89f80049a692394f0a55a22b53cde0ffa0f0da86432c4eb"
+      ],
+      [
+        "aliked/gate",
+        "48b8d43a7b68466f4244e7ee5b09c7137d93772fafbc12a57135a44a93a54199"
+      ],
+      [
+        "aliked/localize",
+        "3a756506c62beef3659b76309bacc14ed52fc29fef8a08c244e6da3ebc5a0a41"
+      ],
+      [
+        "aliked/nms",
+        "c41fdb978a6c5475dad16df14697bb24d7f483abb28299d7b5a80a3878cf93a7"
+      ],
+      [
+        "aliked/normalize",
+        "b8ce6bae0d7379c66029621f66eb9212cef3b29a4766aac505cb84cfafcf8999"
+      ],
+      [
+        "aliked/pool4",
+        "f7651a672520cdf04b76bcebb6e1ffe8a2d2a8440ce5dd96c226915de5c3b857"
+      ],
+      [
+        "aliked/project3",
+        "cf8b804ea7777da6b9a5f44320ed9c03df16fcff7e561e662219350172a362bf"
+      ],
+      [
+        "aliked/project4",
+        "6dc29f7732d2dcb6b4f3a5d0f75096678516ec63c7e936bf028d14763f2f43ba"
+      ],
+      [
+        "aliked/score",
+        "0e2ab14b67a1b5159a3cbe0b0b9e51caf9a274df702a7fa8c6702eb50c0e9922"
+      ],
+      [
+        "aliked/second",
+        "4343204f62ca6ced966cf171f13df584912a6400b891f5c269ea1cc47ceb77cf"
+      ],
+      [
+        "lightglue-blot",
+        "9b0c29d8ece319c55b8754f94ec5f73198d765d4bb672e841fbaecb4831fb7d4"
+      ],
+      [
+        "micro_overlap_embedder",
+        "36687369096760d55a35a0861d8a5ffde2aba176754b531d5d17cac6cc458f57"
+      ],
+      [
+        "micro/assignment-0",
+        "593bcb4df3685cb8300771a34530d2d1db5fc56fba9b5aa2d473cca5c7db8329"
+      ],
+      [
+        "micro/assignment-1",
+        "27c2e8283c31aa54921a6bd19999eb5ad474568ac02ca87e17611fe81303f138"
+      ],
+      [
+        "micro/assignment-2",
+        "0aef8167e2e8cf79a2e4303d9748b6cbb776c64d5cc83db269e5fa3f60f48345"
+      ],
+      [
+        "micro/assignment-3",
+        "3811ce82a817b5ac7f1f32c52dc9033ea6cfe30b89e4accf9df32a8039cda8d0"
+      ],
+      [
+        "micro/assignment-4",
+        "d99d4fa75d6de8ad69dbe8509b44e42e6ee2c357c966f3465b6c4998ca187374"
+      ],
+      [
+        "micro/assignment-5",
+        "12fac3a82b96085684a97f2f708e54f5f72d2a0f0536bad80b7046c72f096a60"
+      ],
+      [
+        "micro/assignment-6",
+        "6afdee4c26c66850f434542c65a865264316f3ebb2aa32412ea3e6b93fd8129c"
+      ],
+      [
+        "micro/assignment-7",
+        "c0c973a9d90757fd298477f3c530d38a78c75fd4ce9364e2c7eb6669c47f7ef7"
+      ],
+      [
+        "micro/assignment-8",
+        "393c5a84cb40b381e1fc2003db984c354ac9887326930a702919eb48204048ef"
+      ],
+      [
+        "micro/initial",
+        "d5bad5570575256f14d319fb22d0239921c03e0dc490299d13817d3a2f8c4b11"
+      ],
+      [
+        "micro/layer-0",
+        "ea31e5dd4930ceec4e39fe2a05d8b20aca770d74b2aa1bee39c113425c745875"
+      ],
+      [
+        "micro/layer-1",
+        "4211606975952c558acf6a12cb09273dbf63c02e2e89b3f95806c9769f7e0cc5"
+      ],
+      [
+        "micro/layer-2",
+        "4b9221a122d8868db1ba213f610c4c42e66a7898cf3dcdbd5e2e572c1f8c04cd"
+      ],
+      [
+        "micro/layer-3",
+        "67fcf7a8fcfad10b95be5a77c7d3f8aa806855334ff7267083f8009226b884e9"
+      ],
+      [
+        "micro/layer-4",
+        "cdb997f059836ead9b80a03759b1f23a7c845648d02032ba5fca286161084ec4"
+      ],
+      [
+        "micro/layer-5",
+        "a92758e6aee41ae8e18137095c04134d8d0fba0bd3b9992c19755222b58ed659"
+      ],
+      [
+        "micro/layer-6",
+        "4b7525bb586ab7b56c5778689c0328f6c2b1c7fcad264a3cc9255fb1b99f866b"
+      ],
+      [
+        "micro/layer-7",
+        "ac925cc32dc8d28248d068c7a6079514c669fd70ac02ee14135f52494540e11e"
+      ],
+      [
+        "micro/layer-8",
+        "0913632cc3d2ccdbeef4601994685b6397841b107f6b5a9c13e09f5705e4d3a3"
+      ],
+      [
+        "rootsift",
+        "44f69fb9bc58807773a3148c2a58c391a7fb9158feed34573d54efc6d95d88f8"
+      ],
+      [
+        "similarity",
+        "17ab7af9b5a6a2b3379903a7bb0f6163e9b0ff1fa84266e5d2daa5bbc766e579"
+      ],
+      [
+        "wblot_duplicate_embedder",
+        "dd893d7f059728c22f370464b439426be198e02aef7f0c6124b1eaa838d307f8"
+      ],
+      [
+        "wblot_lane_embedder",
+        "1fb1439e5fe8036ea69b09156a57963648b8e4800bf2959acdd6e8cf09cc7ae6"
+      ],
+      [
+        "wblot_overlap_embedder",
+        "b9be00f7df632c33271244d9f51d9f958a3c0c3bbc30f33b0ce5005bb0068b46"
+      ],
+      [
+        "yolo_lane_extractor",
+        "7882628ba5f1d6dd8ac1391a6f42f60220e9d287098f19caaf25699e36bfb6aa"
+      ],
+      [
+        "yolo_panel_extractor",
+        "4d21992065489d4b60c794b9b564f7e0f799ef92b8c12729294cf528d036841d"
+      ]
+    ],
+    "publicPipeline": true,
+    "competitionEnsemble": false
+  },
+  "events": [
+    {
+      "phase": "model-load",
+      "model": "wblot_lane_embedder",
+      "elapsedMs": 10033
+    }
+  ],
+  "export": {
+    "bytes": 576026216,
+    "descriptor": 576026216,
+    "first": [
+      80,
+      75,
+      3,
+      4
+    ],
+    "last": [
+      80,
+      75,
+      5,
+      6
+    ]
+  },
+  "pinnedMemory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 317229056,
+    "cacheBytes": 0,
+    "activeReservationBytes": 195333295,
+    "peakAccountedBytes": 2712647648,
+    "residentCodecBytes": 29229056
+  },
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 29229056,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2712647648,
+    "residentCodecBytes": 29229056
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "temporary on-disk profile owned by M2",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

@@ -1,0 +1,541 @@
+{
+  "schema": 1,
+  "status": "rejected-parity",
+  "productAvailable": false,
+  "native": {
+    "torch": "2.8.0",
+    "numpy": "1.26.4",
+    "onnx": "1.19.0",
+    "sources": {
+      "gui/sherloq_app/core/adaptive_cfa.py": "c4e56c2eda643c26a4cbc339fb2c5a95a4dcee878228af8e35050bb592d834fc",
+      "gui/sherloq_app/vendor/adaptive_cfa/structure.py": "4bbef4204698fe5903d50e0b695e0a6162c2be68156236be95ad5f84970696c9"
+    }
+  },
+  "models": [
+    {
+      "variant": "Original",
+      "checkpointSha256": "992dade71b8682a617f63e5a92e46292cd34e391f8b46dd050ce4c0f86e7745d",
+      "onnxFile": "pretrained-b32.onnx",
+      "onnxBytes": 156943,
+      "onnxSha256": "dc2a21b5639ed3abf77dbbf552b45ff33af29030e481161f865970bf19d4b2f2",
+      "operators": {
+        "Conv": 28,
+        "Constant": 89,
+        "Slice": 22,
+        "Concat": 11,
+        "Softplus": 7,
+        "LeakyRelu": 3,
+        "Gather": 4,
+        "AveragePool": 1,
+        "LogSoftmax": 1
+      }
+    },
+    {
+      "variant": "JPEG 95",
+      "checkpointSha256": "4705e72f88c8c770cbfa763ae6c6866f316249ced456e2b8d1d1e91a273fafd2",
+      "onnxFile": "adapted_to_j95_database-b32.onnx",
+      "onnxBytes": 156943,
+      "onnxSha256": "25647a41df05337a7e1fc89267e7d654053ffb6946c98377b2bc7a90e90ac76f",
+      "operators": {
+        "Conv": 28,
+        "Constant": 89,
+        "Slice": 22,
+        "Concat": 11,
+        "Softplus": 7,
+        "LeakyRelu": 3,
+        "Gather": 4,
+        "AveragePool": 1,
+        "LogSoftmax": 1
+      }
+    },
+    {
+      "variant": "Sans JPEG",
+      "checkpointSha256": "5cf541e11c0d6b06f860b9021f2e1ac144929cccbf0e0f1a634680c60c232bd3",
+      "onnxFile": "adapted_to_nojpeg_database-b32.onnx",
+      "onnxBytes": 156943,
+      "onnxSha256": "8724981706d28f9d03d3cf18547bb2c0f514d8d4d9ed9234b8be257ed2fce758",
+      "operators": {
+        "Conv": 28,
+        "Constant": 89,
+        "Slice": 22,
+        "Concat": 11,
+        "Softplus": 7,
+        "LeakyRelu": 3,
+        "Gather": 4,
+        "AveragePool": 1,
+        "LogSoftmax": 1
+      }
+    }
+  ],
+  "corpus": "Nine generated RGB inputs per model: flat127, zero, white, small/random noise, odd random image, gradient, checkerboard and smooth field. Block32 only. Source RGB and float32 input semantics pinned by native; no private images.",
+  "summary": {
+    "wasm": {
+      "browser": "154.0.8037.58",
+      "runtime": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "groups": [
+        {
+          "optimization": "all",
+          "runs": 27,
+          "maxLogError": 0.0013427734375,
+          "maxProbabilityError": 0.0002980232238769531,
+          "maxGridError": 0.00014853477478027344,
+          "maxSuspicionError": 0.2611052393913269,
+          "localDecisionDifferences": 5,
+          "globalDecisionDifferences": 4,
+          "postNativeGridError": 0,
+          "postNativeDecisionDifferences": 0
+        },
+        {
+          "optimization": "basic",
+          "runs": 27,
+          "maxLogError": 0.0013427734375,
+          "maxProbabilityError": 0.0002980232238769531,
+          "maxGridError": 0.00014853477478027344,
+          "maxSuspicionError": 0.2611052393913269,
+          "localDecisionDifferences": 5,
+          "globalDecisionDifferences": 4,
+          "postNativeGridError": 0,
+          "postNativeDecisionDifferences": 0
+        },
+        {
+          "optimization": "disabled",
+          "runs": 27,
+          "maxLogError": 0.0013427734375,
+          "maxProbabilityError": 0.0002980232238769531,
+          "maxGridError": 0.00014853477478027344,
+          "maxSuspicionError": 0.2611052393913269,
+          "localDecisionDifferences": 5,
+          "globalDecisionDifferences": 4,
+          "postNativeGridError": 0,
+          "postNativeDecisionDifferences": 0
+        },
+        {
+          "optimization": "extended",
+          "runs": 27,
+          "maxLogError": 0.0013427734375,
+          "maxProbabilityError": 0.0002980232238769531,
+          "maxGridError": 0.00014853477478027344,
+          "maxSuspicionError": 0.2611052393913269,
+          "localDecisionDifferences": 5,
+          "globalDecisionDifferences": 4,
+          "postNativeGridError": 0,
+          "postNativeDecisionDifferences": 0
+        }
+      ],
+      "mixedCpuFallback": false
+    },
+    "webgpu-default": {
+      "browser": "154.0.8037.58",
+      "runtime": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "groups": [
+        {
+          "optimization": "all",
+          "runs": 27,
+          "maxLogError": 667.1119384765625,
+          "maxProbabilityError": 1,
+          "maxGridError": 0.5332552492618561,
+          "maxSuspicionError": 0.7680986523628235,
+          "localDecisionDifferences": 49,
+          "globalDecisionDifferences": 10,
+          "postNativeGridError": 0,
+          "postNativeDecisionDifferences": 0
+        },
+        {
+          "optimization": "disabled",
+          "runs": 27,
+          "maxLogError": 667.1119384765625,
+          "maxProbabilityError": 1,
+          "maxGridError": 0.5332552492618561,
+          "maxSuspicionError": 0.7680986523628235,
+          "localDecisionDifferences": 49,
+          "globalDecisionDifferences": 10,
+          "postNativeGridError": 0,
+          "postNativeDecisionDifferences": 0
+        }
+      ],
+      "mixedCpuFallback": true
+    },
+    "webgpu-nchw": {
+      "browser": "154.0.8037.58",
+      "runtime": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "groups": [
+        {
+          "optimization": "all",
+          "runs": 27,
+          "maxLogError": 0.003173828125,
+          "maxProbabilityError": 0.000265657901763916,
+          "maxGridError": 0.00014579296112060547,
+          "maxSuspicionError": 0.26111066341400146,
+          "localDecisionDifferences": 5,
+          "globalDecisionDifferences": 4,
+          "postNativeGridError": 0,
+          "postNativeDecisionDifferences": 0
+        },
+        {
+          "optimization": "disabled",
+          "runs": 27,
+          "maxLogError": 0.003173828125,
+          "maxProbabilityError": 0.000265657901763916,
+          "maxGridError": 0.00014579296112060547,
+          "maxSuspicionError": 0.26111066341400146,
+          "localDecisionDifferences": 5,
+          "globalDecisionDifferences": 4,
+          "postNativeGridError": 0,
+          "postNativeDecisionDifferences": 0
+        }
+      ],
+      "mixedCpuFallback": true
+    }
+  },
+  "layerExperiment": {
+    "layers": [
+      {
+        "name": "spatial.conv1.hd",
+        "shape": [
+          1,
+          10,
+          136,
+          164
+        ],
+        "values": 223040,
+        "maxError": 2.980232238769531e-07,
+        "differences": 180206
+      },
+      {
+        "name": "spatial.conv1.vd",
+        "shape": [
+          1,
+          10,
+          132,
+          168
+        ],
+        "values": 221760,
+        "maxError": 3.5762786865234375e-07,
+        "differences": 176428
+      },
+      {
+        "name": "spatial.conv1.fd",
+        "shape": [
+          1,
+          5,
+          132,
+          164
+        ],
+        "values": 108240,
+        "maxError": 9.5367431640625e-07,
+        "differences": 80130
+      },
+      {
+        "name": "spatial.conv1.h1",
+        "shape": [
+          1,
+          10,
+          136,
+          166
+        ],
+        "values": 225760,
+        "maxError": 1.043081283569336e-06,
+        "differences": 169766
+      },
+      {
+        "name": "spatial.conv1.v1",
+        "shape": [
+          1,
+          10,
+          134,
+          168
+        ],
+        "values": 225120,
+        "maxError": 1.430511474609375e-06,
+        "differences": 160861
+      },
+      {
+        "name": "spatial.conv1.f1",
+        "shape": [
+          1,
+          5,
+          134,
+          166
+        ],
+        "values": 111220,
+        "maxError": 1.430511474609375e-06,
+        "differences": 75784
+      },
+      {
+        "name": "spatial.conv1.h2",
+        "shape": [
+          1,
+          10,
+          134,
+          164
+        ],
+        "values": 219760,
+        "maxError": 2.2649765014648438e-06,
+        "differences": 202120
+      },
+      {
+        "name": "spatial.conv1.v2",
+        "shape": [
+          1,
+          10,
+          132,
+          166
+        ],
+        "values": 219120,
+        "maxError": 1.9725412130355835e-06,
+        "differences": 206037
+      },
+      {
+        "name": "spatial.conv1.f2",
+        "shape": [
+          1,
+          5,
+          132,
+          164
+        ],
+        "values": 108240,
+        "maxError": 7.62939453125e-06,
+        "differences": 104400
+      },
+      {
+        "name": "spatial.conv2.hd",
+        "shape": [
+          1,
+          10,
+          132,
+          160
+        ],
+        "values": 211200,
+        "maxError": 4.470348358154297e-06,
+        "differences": 209004
+      },
+      {
+        "name": "spatial.conv2.vd",
+        "shape": [
+          1,
+          10,
+          128,
+          164
+        ],
+        "values": 209920,
+        "maxError": 6.258487701416016e-06,
+        "differences": 207461
+      },
+      {
+        "name": "spatial.conv2.fd",
+        "shape": [
+          1,
+          5,
+          128,
+          160
+        ],
+        "values": 102400,
+        "maxError": 9.059906005859375e-06,
+        "differences": 99051
+      },
+      {
+        "name": "spatial.conv2.h1",
+        "shape": [
+          1,
+          10,
+          132,
+          162
+        ],
+        "values": 213840,
+        "maxError": 2.47955322265625e-05,
+        "differences": 206401
+      },
+      {
+        "name": "spatial.conv2.v1",
+        "shape": [
+          1,
+          10,
+          130,
+          164
+        ],
+        "values": 213200,
+        "maxError": 2.6702880859375e-05,
+        "differences": 206140
+      },
+      {
+        "name": "spatial.conv2.f1",
+        "shape": [
+          1,
+          5,
+          130,
+          162
+        ],
+        "values": 105300,
+        "maxError": 4.57763671875e-05,
+        "differences": 104780
+      },
+      {
+        "name": "spatial.conv2.h2",
+        "shape": [
+          1,
+          10,
+          130,
+          160
+        ],
+        "values": 208000,
+        "maxError": 1.8596649169921875e-05,
+        "differences": 206857
+      },
+      {
+        "name": "spatial.conv2.v2",
+        "shape": [
+          1,
+          10,
+          128,
+          162
+        ],
+        "values": 207360,
+        "maxError": 1.5974044799804688e-05,
+        "differences": 206670
+      },
+      {
+        "name": "spatial.conv2.f2",
+        "shape": [
+          1,
+          5,
+          128,
+          160
+        ],
+        "values": 102400,
+        "maxError": 2.6702880859375e-05,
+        "differences": 101920
+      },
+      {
+        "name": "pixelwise.conv1",
+        "shape": [
+          1,
+          30,
+          128,
+          160
+        ],
+        "values": 614400,
+        "maxError": 3.9577484130859375e-05,
+        "differences": 610248
+      },
+      {
+        "name": "pixelwise.conv2",
+        "shape": [
+          1,
+          15,
+          128,
+          160
+        ],
+        "values": 307200,
+        "maxError": 2.6702880859375e-05,
+        "differences": 306160
+      },
+      {
+        "name": "pixelwise.conv3",
+        "shape": [
+          1,
+          15,
+          128,
+          160
+        ],
+        "values": 307200,
+        "maxError": 4.57763671875e-05,
+        "differences": 305373
+      },
+      {
+        "name": "pixelwise.conv4",
+        "shape": [
+          1,
+          30,
+          128,
+          160
+        ],
+        "values": 614400,
+        "maxError": 5.219224840402603e-05,
+        "differences": 613491
+      },
+      {
+        "name": "blockwise.0",
+        "shape": [
+          4,
+          180,
+          4,
+          5
+        ],
+        "values": 14400,
+        "maxError": 2.5987625122070312e-05,
+        "differences": 14223
+      },
+      {
+        "name": "blockwise.2",
+        "shape": [
+          4,
+          90,
+          4,
+          5
+        ],
+        "values": 7200,
+        "maxError": 4.9114227294921875e-05,
+        "differences": 7030
+      },
+      {
+        "name": "blockwise.4",
+        "shape": [
+          4,
+          90,
+          4,
+          5
+        ],
+        "values": 7200,
+        "maxError": 0.000148773193359375,
+        "differences": 6919
+      },
+      {
+        "name": "blockwise.6",
+        "shape": [
+          4,
+          45,
+          4,
+          5
+        ],
+        "values": 3600,
+        "maxError": 0.0001621246337890625,
+        "differences": 3523
+      },
+      {
+        "name": "blockwise.8",
+        "shape": [
+          4,
+          45,
+          4,
+          5
+        ],
+        "values": 3600,
+        "maxError": 0.0006103515625,
+        "differences": 3523
+      },
+      {
+        "name": "blockwise.10",
+        "shape": [
+          4,
+          4,
+          4,
+          5
+        ],
+        "values": 320,
+        "maxError": 0.0015869140625,
+        "differences": 308
+      }
+    ],
+    "browser": "154.0.8037.58"
+  },
+  "limitations": "Conversion success is not inference/decision parity. Fixed batch1/even crop enforced in study. No model bundled, no training, no runtime kernel activation. WebGPU provider warning reports CPU fallback, so these are mixed-provider probes. No performance or memory qualification, no GPU-only claim. Other block sizes and devices remain untested."
+}

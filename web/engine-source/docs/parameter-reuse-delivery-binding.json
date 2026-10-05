@@ -1,0 +1,224 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.36",
+  "runtimeFiles": 385,
+  "runtimeManifestSha256": "5686ce5f37ae46dcf04e60a414ff87f1156c19d5420c9eabcb26893710541463",
+  "scope": "All immutable copied runtime bytes verified. Component parameter-cache sources match the delivery exactly. Large VIG GPU/controller/cache modules byte-identical; all full-resolution plane hashes match the earlier M1.33 GPU path. Fresh copied API checks auto GPU, useful inter-zone cache, zero-work cached view, full NPZ including telemetry, actual GPU cancellation and source reload. VIG exercises the largest shared parameter cache on96MP; TNT/CMSeg component pressure and earlier distinct96MP path proofs are explicitly reused, not rerun here. No WordPress/device-general claim.",
+  "variants": [
+    {
+      "variant": "mgcfdn-vig",
+      "probabilitySha256": "a050434b5773fbf9f8f5faee40c6fb2cb6654e57c0b2d9caa18646bfe5260a55",
+      "foreground": 7256,
+      "warmParameterRequestsAvoided": 511,
+      "warmParameterBytesAvoided": 341539200,
+      "retainedCapacity": 341670016,
+      "peakAccountedBytes": 972715985,
+      "pressure": {
+        "budgetBytes": 6291456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 2865770,
+        "peakAccountedBytes": 972715985
+      }
+    },
+    {
+      "variant": "mgcfdn-tnt",
+      "probabilitySha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+      "foreground": 8009,
+      "warmParameterRequestsAvoided": 361,
+      "warmParameterBytesAvoided": 259304320,
+      "retainedCapacity": 259396736,
+      "peakAccountedBytes": 889713244,
+      "pressure": {
+        "budgetBytes": 6291456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 2131628,
+        "peakAccountedBytes": 889713244
+      }
+    },
+    {
+      "variant": "cmseg-generalization",
+      "probabilitySha256": "13e4925c4a2d22c43b5799de9643f116bcd9e652e1a61f156b69cf8db840b8f2",
+      "foreground": 2611,
+      "warmParameterRequestsAvoided": 260,
+      "warmParameterBytesAvoided": 9031936,
+      "retainedCapacity": 9098496,
+      "peakAccountedBytes": 1064741508,
+      "pressure": {
+        "budgetBytes": 6291456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 5190254,
+        "peakAccountedBytes": 1064741508
+      }
+    }
+  ],
+  "matches": [
+    {
+      "file": "experiments/segmentation/parameter-cache.js",
+      "sha256": "902e2516cf530605050156b01f7039d223d92257ef874540ae3113c98295324e"
+    },
+    {
+      "file": "src/index.js",
+      "sha256": "4202e53adc8eb031910ecfbeb1b4bb25b859676951b2b52bdc54f94eca1586f7"
+    },
+    {
+      "file": "src/worker.js",
+      "sha256": "2a8ffe81fd90a6c0bb320e2d9b20c0d967463b42f9823f6283daa655d811047e"
+    },
+    {
+      "file": "src/worker-client.js",
+      "sha256": "f69daafba1fde4990180f9f9b3097e463458f73855fa63511a61b071ce05a315"
+    },
+    {
+      "file": "src/d2prl-adapter.js",
+      "sha256": "814d77662ef2342a69939f0df1a8a3d2799fdb884acb1b3b5ac7bd6926c111b6"
+    },
+    {
+      "file": "src/segmentation-adapter.js",
+      "sha256": "fa1bd69cb6cc078848aa416c008d5f8b9c406d598f82ac37fe9a1cab871f18cb"
+    },
+    {
+      "file": "src/neural-input.js",
+      "sha256": "3e146ac8abebb333b9e162539ce4246bd07ad7c0c3a2694439e06fd67599b152"
+    },
+    {
+      "file": "src/neural-projector.js",
+      "sha256": "4ac9e00289cc33682d2ae1a8d8eac60036e8335da5baa6b289a36fdcd0dc2dfb"
+    },
+    {
+      "file": "src/publish-neural-result.js",
+      "sha256": "0e579cc7247c7f5a1c57c51aecbe769ca57a07e1a687a5efdc6e1c4d888037f2"
+    },
+    {
+      "file": "src/neural-exports.js",
+      "sha256": "982cda32dd9d36c43e0d15e4f5c7b468eb3323e7c39e2c1490a09a83573595d8"
+    },
+    {
+      "file": "experiments/d2prl/model.js",
+      "sha256": "67986dc9cec08827c14629d2868fbd5323ebae8ee3751710136eba77903b25e5"
+    },
+    {
+      "file": "experiments/d2prl/analysis.js",
+      "sha256": "069a9e81c2b96e354c2df3b43b3e42aba6e11a49ab8b8d45bf1d4a0b5a9e1e37"
+    },
+    {
+      "file": "experiments/segmentation/analysis.js",
+      "sha256": "27a1bf1a95b4c15358ef4e9089d111238c3daf87b00a67c69dfbfbdceb514ddf"
+    },
+    {
+      "file": "experiments/segmentation/zone-scheduler.js",
+      "sha256": "dc3788bc17863f826094aacd41ca79ebba2436c5c6df3036103f92647049ccc5"
+    },
+    {
+      "file": "experiments/segmentation/inference.js",
+      "sha256": "eae812f02caba7668ea462dd2751ba903ff532cedfc378c29c31df86b46d03ab"
+    },
+    {
+      "file": "experiments/segmentation/backend.js",
+      "sha256": "34d3dd4f5481ad2757db5179fe6131e9c6844b26dfe0c4fc63bc16b6531677ba"
+    },
+    {
+      "file": "experiments/segmentation/prepare.js",
+      "sha256": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa"
+    },
+    {
+      "file": "experiments/d2prl/convolution-general-gpu.js",
+      "sha256": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30"
+    },
+    {
+      "file": "experiments/segmentation/cmseg-correlation.js",
+      "sha256": "efd9ac635242650138d5a5ccc048a92d1204ac154b71166c2d47de4000b76293"
+    },
+    {
+      "file": "experiments/segmentation/cmseg-correlation-worker.js",
+      "sha256": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7"
+    },
+    {
+      "file": "experiments/segmentation/cmseg-backbone.js",
+      "sha256": "9d7a8a5f8de1074bd5a444f6af4b0bb79c1f1d5250e683574e3be2400ee9605e"
+    },
+    {
+      "file": "experiments/segmentation/cmseg-inference.js",
+      "sha256": "4ac8b748078584d7005eb5d8900676b00ef63fc01c23e8a6b085ab03d675378b"
+    },
+    {
+      "file": "experiments/segmentation/cmseg-inference-worker.js",
+      "sha256": "eb08d60c167279125fcf54deb3bc22de03788b7af2a6f1d1e9f0c5330fbe490f"
+    },
+    {
+      "file": "experiments/segmentation/models.js",
+      "sha256": "4108dcd9c45140ca9071faf3e2405681cccfc2872431026dff6340d61536fe0f"
+    },
+    {
+      "file": "vendor/segmentation/CMSEG-EXACT-PINNED.json",
+      "sha256": "59e25760d8ad649f6eec2ef6d283b7c10bfa4b0911a0e2a179c2c88ee380cd9f"
+    },
+    {
+      "file": "experiments/segmentation/tnt-backbone.js",
+      "sha256": "ce96cb17e59eaaa21011b0b2a8a32e3640e361d7421428f8b807087896171af7"
+    },
+    {
+      "file": "experiments/segmentation/tnt-linear.js",
+      "sha256": "076816da53d56761565f1f718866cb68561c52b1d4d6e8f1258532400554fcd6"
+    },
+    {
+      "file": "experiments/segmentation/tnt-linear-worker.js",
+      "sha256": "ad5280f125769fdd254878f9da90beae90837ba386298ac8cfcc50939ab38bfd"
+    },
+    {
+      "file": "experiments/segmentation/tnt-inference.js",
+      "sha256": "724e6fb3b1c25a3b5947e3a3dfad72d028215d6059642b575af68d9ad917853b"
+    },
+    {
+      "file": "vendor/segmentation/TNT-PINNED.json",
+      "sha256": "ff4584f4c13ea3935edbfb3a3c37ce17efc56cfd2495d1d0b1adcc18393f2e1c"
+    },
+    {
+      "file": "experiments/segmentation/vig-backbone.js",
+      "sha256": "0df95f0391fff5eef26f45026083da3e09909cf329b98f8b03ccb46a1f520fc0"
+    },
+    {
+      "file": "experiments/segmentation/vig-convolution.js",
+      "sha256": "2bfc249b8a6c97d0b563c6a9daf28a2550e36ffa569f5ca101bcdbe27482973a"
+    },
+    {
+      "file": "experiments/segmentation/vig-convolution-worker.js",
+      "sha256": "b393e6911f7bacdf2666ce06819ee215e9bf383a08f898d60fe431d4270b5ac5"
+    },
+    {
+      "file": "experiments/segmentation/vig-inference.js",
+      "sha256": "fdd026c0198b2a6729b0332b98f3f395ac15a2fd9cbf8429292b6c02278f5e69"
+    },
+    {
+      "file": "vendor/segmentation/VIG-PINNED.json",
+      "sha256": "0fecccaa1e99269fafdce76e843d9c10d978b03c9705ae13a553e842fb19402c"
+    }
+  ],
+  "large": {
+    "width": 12000,
+    "height": 8000,
+    "foreground": 3848796,
+    "arrays": 4,
+    "exportBytes": 672014984,
+    "exportSha256": "f339fb6ac0f00f7102a39b9a077b387b21a12c3fe279eaa9aa9d3fc8560b3cf3",
+    "peakAccountedBytes": 2713889617,
+    "parameterCache": {
+      "enabled": true,
+      "hits": 1022,
+      "misses": 511,
+      "hitBytes": 683078400,
+      "fetchBytes": 341539200,
+      "evictions": 0,
+      "sessionPeakResidentBytes": 341670016
+    },
+    "allPlaneHashesEqualToM1_33": true
+  },
+  "copied": {
+    "automaticGpu": true,
+    "cancelled": true,
+    "retry": true
+  }
+}

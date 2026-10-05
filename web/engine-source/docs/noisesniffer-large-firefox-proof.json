@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Functional 1 MP qualification, timing is not an isolated benchmark",
+  "cases": [
+    {
+      "block": 3,
+      "exact": true,
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 6291456,
+        "cacheBytes": 47421244,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 482741558,
+        "codecHeapCapacityBytes": 50987008,
+        "hdf5HeapCapacityBytes": 0
+      }
+    },
+    {
+      "block": 8,
+      "exact": true,
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 6291456,
+        "cacheBytes": 89278468,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 527351838,
+        "codecHeapCapacityBytes": 110886912,
+        "hdf5HeapCapacityBytes": 0
+      }
+    }
+  ],
+  "forcedPartitionCases": 12,
+  "nestedCancellation": "Cancelled after DCT worker dispatch; parent and sources reset; reloaded analysis completed",
+  "browser": "155.0"
+}

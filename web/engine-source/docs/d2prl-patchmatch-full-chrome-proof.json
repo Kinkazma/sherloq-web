@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Complete PatchMatch loop on synthetic descriptors; no learned feature extraction, heads or masks",
+  "cases": 1,
+  "records": [
+    {
+      "name": "448-40-noise",
+      "side": 448,
+      "iterations": 40,
+      "evaluations": 198,
+      "traceExact": true,
+      "outputsExact": true,
+      "elapsedMs": 2470158.6000000015
+    }
+  ],
+  "lifecycle": {
+    "notRun": true,
+    "reason": "Lifecycle is exercised separately by the seven-case corpus",
+    "allReservationsReleased": true
+  },
+  "peakAccountedBytes": 227119104,
+  "browser": "154.0.8037.58",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "696035917385acf5eae7faaeafc88dcc26c34950ba695eb6ef439a3cc0c008d5",
+    "referenceExpSha256": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+    "files": {
+      "evaluator.js": {
+        "bytes": 7725,
+        "sha256": "383c8540ef5388c500a8d9b51e7f0cb9e72d0c8d31b9f5ccd63d472567d8fd56"
+      },
+      "evaluator.wasm": {
+        "bytes": 16029,
+        "sha256": "72e2ce40f994c443d494f00392425c361eac10f66caddde35c63c7b15f7d959c"
+      }
+    }
+  },
+  "referenceSha256": "9db5486b6f6a02bef569286e61afb39a9e63b9ec625a395e4662dae347855834",
+  "sources": {
+    "patchmatch.js": "5bfd83937554b9ebadf7c70fe9f4efccb91bdecbc44735a23b56c14af0d96ca9",
+    "candidates.js": "5f3323322148f474abbbebfbcacea8b211b20be6cf914a6c1904a2765b02de14",
+    "random.js": "a36a0fc45f61e0081df4af49caadcf04757007ef3fb53ae81838412a36470b37",
+    "evaluator.js": "0e5805142147334e3a065f6bc00b35ece6c189e53baf006dc84b928742812b94"
+  },
+  "sourceCaptureNote": "Scalar engine loaded before the optional evaluatorFactory injection was added. The loaded source hash is verified against the unchanged Node baseline source reconstructed locally; numerical implementation unchanged."
+}

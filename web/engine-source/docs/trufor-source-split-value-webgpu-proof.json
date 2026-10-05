@@ -1,0 +1,305 @@
+{
+  "dimensions": [
+    193,
+    129
+  ],
+  "analyzeMs": 144163.10000000894,
+  "totalMs": 144567.5,
+  "fields": {
+    "map": {
+      "length": 24897,
+      "finite": true,
+      "min": 0.05359030142426491,
+      "max": 0.3593912720680237,
+      "maxError": 8.940696716308594e-7,
+      "meanError": 1.7599957977647632e-7,
+      "thresholdChanges": 0
+    },
+    "confidence": {
+      "length": 24897,
+      "finite": true,
+      "min": 0.6940183043479919,
+      "max": 0.9996519088745117,
+      "maxError": 0.0000010132789611816406,
+      "meanError": 9.714094334282243e-8,
+      "thresholdChanges": 0
+    },
+    "noiseprint_pp": {
+      "length": 24897,
+      "finite": true,
+      "min": -1.6534096002578735,
+      "max": 1.102262020111084,
+      "maxError": 5.960464477539062e-7,
+      "meanError": 6.400924852799284e-8,
+      "thresholdChanges": 0
+    }
+  },
+  "score": 0.12482049316167831,
+  "scoreExpected": 0.1248205229640007,
+  "scoreError": 2.9802322387695312e-8,
+  "views": [
+    {
+      "view": "map",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "confidence",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "noiseprint_pp",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "map",
+      "rect": {
+        "x": 140,
+        "y": 88,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        140,
+        88
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "confidence",
+      "rect": {
+        "x": 140,
+        "y": 88,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        140,
+        88
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": "noiseprint_pp",
+      "rect": {
+        "x": 140,
+        "y": 88,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        140,
+        88
+      ],
+      "bytes": 6519
+    }
+  ],
+  "export": {
+    "bytes": 302620,
+    "descriptor": 302620,
+    "first": [
+      80,
+      75,
+      3,
+      4
+    ],
+    "last": [
+      80,
+      75,
+      5,
+      6
+    ]
+  },
+  "source": {
+    "dimensions": {
+      "id": "e15d07af-e8d2-4d02-9252-31bad99cd165",
+      "revision": 1,
+      "width": 193,
+      "height": 129,
+      "format": "rgb8",
+      "sourceWidth": 193,
+      "sourceHeight": 129,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        193,
+        129
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "metrics": {
+      "decodeMs": 727.5,
+      "rowsPerChunk": 129,
+      "encodedWorkingBytes": 23851,
+      "coefficientAllowanceBytes": 0,
+      "workingReservationBytes": 33727665,
+      "codecHeapCapacityBytes": 16777216,
+      "storage": "memory",
+      "temporaryBackend": null,
+      "temporaryFallback": null,
+      "temporaryBytes": 0,
+      "originalBlobBytes": 23851,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM"
+    }
+  },
+  "provenance": {
+    "originalSourceSha256": "83c726f9afd800d1fc14a7d688f61096a7170ab07606c037364f04b0da49dee6",
+    "sourceSurfaceIdentity": "e15d07af-e8d2-4d02-9252-31bad99cd165/1",
+    "checkpointSha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+    "provider": "webgpu",
+    "qualification": "segmented native graph; see dimension-specific proof"
+  },
+  "storage": {
+    "backend": "opfs",
+    "reservedBytes": 298764,
+    "peakReservedBytes": 2169348,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 10737418240,
+    "openFiles": 3
+  },
+  "events": [
+    {
+      "phase": "decode",
+      "fraction": 1,
+      "elapsedMs": 7076
+    },
+    {
+      "phase": "inference",
+      "model": "s1-rgb-b1-kv",
+      "elapsedMs": 18513.40000000596
+    },
+    {
+      "phase": "inference",
+      "model": "s1-npp-patch",
+      "elapsedMs": 28544.5
+    },
+    {
+      "phase": "model-load",
+      "model": "s1-cross1-apply",
+      "elapsedMs": 38690.90000000596
+    },
+    {
+      "phase": "trufor-encoder-stage",
+      "completed": 1,
+      "total": 4,
+      "elapsedMs": 42082.80000001192
+    },
+    {
+      "phase": "model-load",
+      "model": "s2-npp-patch",
+      "elapsedMs": 52318.10000000894
+    },
+    {
+      "phase": "model-load",
+      "model": "s2-npp-b2-mlp",
+      "elapsedMs": 62401.60000000894
+    },
+    {
+      "phase": "trufor-encoder-stage",
+      "completed": 2,
+      "total": 4,
+      "elapsedMs": 70435
+    },
+    {
+      "phase": "model-load",
+      "model": "s3-rgb-b3-kv",
+      "elapsedMs": 80798.80000001192
+    },
+    {
+      "phase": "trufor-global-attention",
+      "model": "s3-npp-b0-query-split-value",
+      "completed": 117,
+      "total": 117,
+      "elapsedMs": 90940.5
+    },
+    {
+      "phase": "model-load",
+      "model": "s3-npp-b4-kv",
+      "elapsedMs": 100972.5
+    },
+    {
+      "phase": "trufor-encoder-stage",
+      "completed": 3,
+      "total": 4,
+      "elapsedMs": 109266.10000000894
+    },
+    {
+      "phase": "inference",
+      "model": "s4-npp-patch",
+      "elapsedMs": 119588.90000000596
+    },
+    {
+      "phase": "inference",
+      "model": "s4-cross1-context",
+      "elapsedMs": 129933.80000001192
+    },
+    {
+      "phase": "trufor-encoder-stage",
+      "completed": 4,
+      "total": 4,
+      "elapsedMs": 134720.60000000894
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 16777216,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3183839639,
+    "residentCodecBytes": 16777216
+  },
+  "pinnedMemory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 16851907,
+    "cacheBytes": 0,
+    "activeReservationBytes": 2348158,
+    "peakAccountedBytes": 3183839639,
+    "residentCodecBytes": 16777216
+  },
+  "cancelled": true,
+  "remainingTemporary": [],
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "temporary on-disk profile owned by M2",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

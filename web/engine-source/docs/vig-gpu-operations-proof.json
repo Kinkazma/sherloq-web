@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Three independent seeded native convolution fixtures (stem bias domains, grouped graph convolution and FFN); actual ordered GPU execution, cancellation after submission, refusal, retry and release. No model oracle is used as a computation input.",
+  "records": [
+    {
+      "name": "stem",
+      "geometry": [
+        3,
+        256,
+        256,
+        80,
+        3,
+        1,
+        2,
+        1
+      ],
+      "milliseconds": 24.299999997019768,
+      "sha256": "940e759f6538b9047d11b04cf0201df9e31f16bfd542e0896d3a94cd622c4fc7",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 14,
+        "peakAccountedBytes": 9182280,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 1581976,
+        "gpuReadBytes": 5242880
+      }
+    },
+    {
+      "name": "grouped",
+      "geometry": [
+        1280,
+        16,
+        16,
+        1280,
+        1,
+        0,
+        1,
+        4
+      ],
+      "milliseconds": 13.900000005960464,
+      "sha256": "305260430fbae59beb5054c6df988030b95b89fdb260d22048b84a13e7d1999e",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 7,
+        "peakAccountedBytes": 5575752,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 2954312,
+        "gpuReadBytes": 1310720
+      }
+    },
+    {
+      "name": "ffn",
+      "geometry": [
+        640,
+        16,
+        16,
+        2560,
+        1,
+        0,
+        1,
+        1
+      ],
+      "milliseconds": 43.79999999701977,
+      "sha256": "edbc6604826186d2b96607d29fe5f285e336c93ca289eb73e77e25e48b613ead",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 7,
+        "peakAccountedBytes": 12462152,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 7219272,
+        "gpuReadBytes": 2621440
+      }
+    }
+  ],
+  "checks": {
+    "cancelAfterSubmit": true,
+    "alreadyCancelled": true,
+    "geometry": true,
+    "memory": true,
+    "retry": true
+  },
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 28596224
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-vig-gpu-operations.mjs": "dc24eeae32739863a29bb16cf19f921ab116abb241bc990e60b9a017c8ffa271",
+    "tests/vig-gpu-browser.js": "80e0e5c7ebebdc3ce1c9ab070bf90593ec214da70452eeff45e49e38fc4c25a4",
+    "experiments/segmentation/vig-convolution-gpu.js": "a853af2900dbfc21cd0b62caa4245b98963d2b7fd5a62e0f28294f35dbc54a9a",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "fixtures/vig-math/reference.json": "356c669bd6ee9caf3403f5966540a9f759129cbee0a8a2a37eb6c949a603e767"
+  }
+}

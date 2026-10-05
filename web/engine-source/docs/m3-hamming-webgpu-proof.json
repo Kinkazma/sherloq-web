@@ -1,0 +1,181 @@
+{
+  "browser": "154.0.8037.93",
+  "records": [
+    {
+      "descriptorSize": 32,
+      "count": 33,
+      "radius": 1,
+      "matches": 160,
+      "identical": true
+    },
+    {
+      "descriptorSize": 32,
+      "count": 33,
+      "radius": 8.000001,
+      "matches": 220,
+      "identical": true
+    },
+    {
+      "descriptorSize": 32,
+      "count": 33,
+      "radius": 127,
+      "matches": 506,
+      "identical": true
+    },
+    {
+      "descriptorSize": 32,
+      "count": 33,
+      "radius": 255,
+      "matches": 946,
+      "identical": true
+    },
+    {
+      "descriptorSize": 32,
+      "count": 130,
+      "radius": 1,
+      "matches": 2774,
+      "identical": true
+    },
+    {
+      "descriptorSize": 32,
+      "count": 130,
+      "radius": 8.000001,
+      "matches": 3698,
+      "identical": true
+    },
+    {
+      "descriptorSize": 32,
+      "count": 130,
+      "radius": 127,
+      "matches": 8266,
+      "identical": true
+    },
+    {
+      "descriptorSize": 32,
+      "count": 130,
+      "radius": 255,
+      "matches": 14922,
+      "identical": true
+    },
+    {
+      "descriptorSize": 61,
+      "count": 33,
+      "radius": 1,
+      "matches": 160,
+      "identical": true
+    },
+    {
+      "descriptorSize": 61,
+      "count": 33,
+      "radius": 8.000001,
+      "matches": 220,
+      "identical": true
+    },
+    {
+      "descriptorSize": 61,
+      "count": 33,
+      "radius": 127,
+      "matches": 220,
+      "identical": true
+    },
+    {
+      "descriptorSize": 61,
+      "count": 33,
+      "radius": 255,
+      "matches": 776,
+      "identical": true
+    },
+    {
+      "descriptorSize": 61,
+      "count": 130,
+      "radius": 1,
+      "matches": 2774,
+      "identical": true
+    },
+    {
+      "descriptorSize": 61,
+      "count": 130,
+      "radius": 8.000001,
+      "matches": 3698,
+      "identical": true
+    },
+    {
+      "descriptorSize": 61,
+      "count": 130,
+      "radius": 127,
+      "matches": 3698,
+      "identical": true
+    },
+    {
+      "descriptorSize": 61,
+      "count": 130,
+      "radius": 255,
+      "matches": 11774,
+      "identical": true
+    },
+    {
+      "descriptorSize": 64,
+      "count": 33,
+      "radius": 1,
+      "matches": 160,
+      "identical": true
+    },
+    {
+      "descriptorSize": 64,
+      "count": 33,
+      "radius": 8.000001,
+      "matches": 220,
+      "identical": true
+    },
+    {
+      "descriptorSize": 64,
+      "count": 33,
+      "radius": 127,
+      "matches": 220,
+      "identical": true
+    },
+    {
+      "descriptorSize": 64,
+      "count": 33,
+      "radius": 255,
+      "matches": 512,
+      "identical": true
+    },
+    {
+      "descriptorSize": 64,
+      "count": 130,
+      "radius": 1,
+      "matches": 2774,
+      "identical": true
+    },
+    {
+      "descriptorSize": 64,
+      "count": 130,
+      "radius": 8.000001,
+      "matches": 3698,
+      "identical": true
+    },
+    {
+      "descriptorSize": 64,
+      "count": 130,
+      "radius": 127,
+      "matches": 3698,
+      "identical": true
+    },
+    {
+      "descriptorSize": 64,
+      "count": 130,
+      "radius": 255,
+      "matches": 8216,
+      "identical": true
+    }
+  ],
+  "adaptive": {
+    "count": 4096,
+    "batchRows": 8,
+    "peakAccountedBytes": 983040,
+    "identical": true
+  },
+  "peakAccountedBytes": 1320736,
+  "remainingBytes": 0
+}

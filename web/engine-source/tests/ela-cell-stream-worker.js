@@ -1,0 +1,13 @@
+import {loadSegmentedJpeg,disposeSegmentedImage} from '../src/image-sources.js';
+import {Budget} from '../src/cache.js';import {jpegCodec} from '../src/jpeg.js';
+import {segmentedElaCellPlane} from '../src/ela-cell-stream.js';
+const assert=(ok,message)=>{if(!ok)throw Error(message);};
+self.onmessage=async()=>{let image,resident;try{
+ const ref=await(await fetch('/tests/data/ela-cell-stream-native.json')).json(),payload=await(await fetch('/tests/data/ela-cell-stream-native.bin')).arrayBuffer(),blob=await(await fetch('/'+ref.file)).blob(),budget=new Budget(128*1024**2);
+ image=await loadSegmentedJpeg(blob,{budget});resident=budget.reserve(jpegCodec.memoryBytes());let maximumContentError=0;const results=[];
+ function compare(result,expected){for(const [key,field]of Object.entries(expected.fields)){const actual=result[key],data=key==='usable'?new Uint8Array(payload,field.offset,field.bytes):new Float32Array(payload,field.offset,field.bytes/4);assert(actual.length===data.length,'Descriptor shape differs');for(let i=0;i<data.length;i++){const error=Math.abs(actual[i]-data[i]);assert(error<=(key==='content'?3e-7:0),'Native streamed descriptor differs '+key+'/'+i+' error '+error);if(key==='content')maximumContentError=Math.max(maximumContentError,error);}}}
+ for(const expected of ref.cases){const result=await segmentedElaCellPlane(image,expected.quality,expected.block,{budget});try{compare(result,expected);assert(result.metrics.encodedStorage==='temporary','Expected temporary encoded JPEG');results.push({quality:expected.quality,rows:result.rows,cols:result.cols,metrics:result.metrics});}finally{result.release();}}
+ const controller=new AbortController();let error;try{await segmentedElaCellPlane(image,80,32,{budget,signal:controller.signal,onProgress:e=>{if(e.phase==='ela-cell-describe'&&e.fraction>.1)controller.abort();}});}catch(e){error=e;}assert(error?.code==='CANCELLED','Descriptor cancellation missing');assert(budget.active===jpegCodec.memoryBytes(),'Descriptor cancellation leaked heap/results');
+ const retry=await segmentedElaCellPlane(image,80,32,{budget});try{compare(retry,ref.cases[1]);assert(retry.metrics.recompressions===0,'Descriptor retry lost completed JPEG');}finally{retry.release();}
+ await disposeSegmentedImage(image);image=null;resident();resident=null;assert(budget.total()===0,'Descriptor cleanup leaked');self.postMessage({status:'passed',dimensions:[ref.width,ref.height],results,maximumContentError,cancellationAndRetry:true,memory:budget.snapshot()});
+ }catch(e){if(image)await disposeSegmentedImage(image);resident?.();self.postMessage({error:e.message});}};

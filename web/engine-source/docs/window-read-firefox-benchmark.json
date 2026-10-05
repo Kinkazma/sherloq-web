@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Development-only alternating isolated window-read comparison; same decoded96MP source, same budget and storage, same output bytes. Includes storage reads/window allocation; excludes load, hashing, UI transfer and display. Five observations per path, no product preflight.",
+  "backend": "opfs",
+  "cases": [
+    {
+      "rect": {
+        "x": 0,
+        "y": 4000,
+        "width": 12000,
+        "height": 64
+      },
+      "bytes": 2304000,
+      "sha256": "320e2a434a96fa7e09143d7ff68951469ab35d637d43c017bdac332ec056e173",
+      "samples": {
+        "rows": [
+          2,
+          2,
+          1,
+          1,
+          2
+        ],
+        "spans": [
+          1,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "medianMs": {
+        "rows": 2,
+        "spans": 0
+      }
+    },
+    {
+      "rect": {
+        "x": 0,
+        "y": 4000,
+        "width": 12000,
+        "height": 512
+      },
+      "bytes": 18432000,
+      "sha256": "442db79e0f8bef4a9754e65491bdf393c68114d2ba8668717194d8edbf6f7c78",
+      "samples": {
+        "rows": [
+          81,
+          85,
+          85,
+          88,
+          84
+        ],
+        "spans": [
+          8,
+          9,
+          10,
+          9,
+          9
+        ]
+      },
+      "medianMs": {
+        "rows": 85,
+        "spans": 9
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 129005192
+  },
+  "browser": "155.0"
+}

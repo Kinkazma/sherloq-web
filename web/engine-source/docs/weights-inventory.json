@@ -1,0 +1,2183 @@
+{
+  "schema": 3,
+  "check": "local model/checkpoint component files, including composite suffixes, data shards and paired meta graphs; path count is not distinct-model count; component presence is not inference or redistribution approval",
+  "weights": [
+    {
+      "path": "models/external/AdaIFL_v0.pth",
+      "bytes": 649660293,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/CAT_full_v2.pth.tar",
+      "bytes": 915503873,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/FOCAL_HRNet_weights.pth",
+      "bytes": 115010941,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/FOCAL_ViT_weights.pth",
+      "bytes": 1249580537,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/adapted_to_j95_database.pt",
+      "bytes": 143144,
+      "status": "present-on-disk",
+      "onnx": "export executable but WASM/WebGPU decision parity rejected; not qualified",
+      "redistribution": "not-cleared",
+      "component": "model-file",
+      "sha256": "4705e72f88c8c770cbfa763ae6c6866f316249ced456e2b8d1d1e91a273fafd2",
+      "inference": "browser unavailable",
+      "proofs": [
+        "cfa-conversion-rejection.json"
+      ]
+    },
+    {
+      "path": "models/external/adapted_to_nojpeg_database.pt",
+      "bytes": 143144,
+      "status": "present-on-disk",
+      "onnx": "export executable but WASM/WebGPU decision parity rejected; not qualified",
+      "redistribution": "not-cleared",
+      "component": "model-file",
+      "sha256": "5cf541e11c0d6b06f860b9021f2e1ac144929cccbf0e0f1a634680c60c232bd3",
+      "inference": "browser unavailable",
+      "proofs": [
+        "cfa-conversion-rejection.json"
+      ]
+    },
+    {
+      "path": "models/external/aliked-n16.pth",
+      "bytes": 2738091,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/aliked-n16rot.pth",
+      "bytes": 2738325,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/aliked_lightglue.pth",
+      "bytes": 47632827,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/01_d2prl/d2prl.pth",
+      "bytes": 540533481,
+      "status": "present-on-disk",
+      "onnx": "Role subgraph converted and verified ONNX Runtime Web1.30; full all-ONNX candidate rejected. UNet/feature convolutions use explicitly qualified WebGPU/WASM arithmetic.",
+      "redistribution": "not-cleared; personal receipt is not redistribution approval",
+      "component": "model-file",
+      "sha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36",
+      "receipt": "verified local final checkpoint; 2026-09-30",
+      "inference": "Frozen0.29 runtime supplies qualified fixed-model CPU/GPU original-file inference and independent zones on the declared corpus. Converted manifest/assets loaded lazily with exact sizes/SHA256. WordPress integration remains separate.",
+      "proofs": [
+        "D2PRL-WEB-STUDY.md",
+        "d2prl-composed-cpu-bounded-ort-file-to-source-masks-chrome-proof.json",
+        "d2prl-composed-bounded-ort-jpeg-file-to-source-masks-chrome-proof.json",
+        "d2prl-composed-bounded-ort-flat-file-to-source-masks-chrome-proof.json",
+        "d2prl-model-api-gpu-zones-chrome-proof.json",
+        "d2prl-worker-engine-chrome-proof.json",
+        "d2prl-worker-engine-cpu-chrome-proof.json",
+        "d2prl-worker-engine-webgpu-extracted-chrome-proof.json"
+      ]
+    },
+    {
+      "path": "models/external/clone_detectors/01_d2prl/osn.pth",
+      "bytes": 516690299,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/02_forgeryscope/aliked_wblot.pth",
+      "bytes": 151145298,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/02_forgeryscope/micro_overlap_embedder.ckpt",
+      "bytes": 124354059,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/02_forgeryscope/wblot_duplicate_embedder.ckpt",
+      "bytes": 123301843,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/02_forgeryscope/wblot_lane_embedder.ckpt",
+      "bytes": 369457114,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/02_forgeryscope/wblot_overlap_embedder.ckpt",
+      "bytes": 123301843,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/02_forgeryscope/yolo_lane_extractor.pt",
+      "bytes": 19167194,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/02_forgeryscope/yolo_panel_extractor.pt",
+      "bytes": 119075905,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/03_cmsegnet/predict_folder/mobilenet_v2.pth.tar",
+      "bytes": 14205652,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/addnoise.pth",
+      "bytes": 26192696,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/generalization.pth",
+      "bytes": 26192094,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/04_mgcfdn/weight/EffNet_MGCFDN_16x16.pth",
+      "bytes": 73550311,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/04_mgcfdn/weight/MGCFDN.pth",
+      "bytes": 88898591,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/04_mgcfdn/weight/MGCFDN_16x16.pth",
+      "bytes": 88959711,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/04_mgcfdn/weight/MGCFDN_ST.pth",
+      "bytes": 88900639,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/04_mgcfdn/weight/MPDN_MGCFDN_16x16.pth",
+      "bytes": 24004611,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/04_mgcfdn/weight/TNT_MGCFDN_16x16.pth",
+      "bytes": 288819703,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/04_mgcfdn/weight/VIG_MGCFDN_16x16.pth",
+      "bytes": 370483043,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/04_mgcfdn/weight/tnt_b_82.9.pth.tar",
+      "bytes": 262354363,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/clone_detectors/04_mgcfdn/weight/vig_b_82.6.pth",
+      "bytes": 348353844,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/pretrained.pt",
+      "bytes": 143144,
+      "status": "present-on-disk",
+      "onnx": "export executable but WASM/WebGPU decision parity rejected; not qualified",
+      "redistribution": "not-cleared",
+      "component": "model-file",
+      "sha256": "992dade71b8682a617f63e5a92e46292cd34e391f8b46dd050ce4c0f86e7745d",
+      "inference": "browser unavailable",
+      "proofs": [
+        "cfa-conversion-rejection.json"
+      ]
+    },
+    {
+      "path": "models/external/safire.pth",
+      "bytes": 420798714,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/sam_vit_b_01ec64.pth",
+      "bytes": 375042383,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/sift_lightglue.pth",
+      "bytes": 47632573,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/xfeat-lighterglue.pt",
+      "bytes": 10820795,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "models/external/xfeat.pt",
+      "bytes": 6247949,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "source/gui/TruFor_main/test_docker/weights/trufor-state.pt",
+      "bytes": 275168069,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "source/gui/TruFor_main/test_docker/weights/trufor.pth.tar",
+      "bytes": 281496429,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file"
+    },
+    {
+      "path": "source/gui/models/jpeg_qf.mdl",
+      "bytes": 278168,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file",
+      "format": "joblib native model; executable deserialization not used by this inventory",
+      "sha256": "4b3a90e3b22ec4436b4a4e2bee7abd5055e7c541d2d3ae9b541dc890656424d4",
+      "inference": "hash-gated offline JSON export and numeric regression CPU interpreter verified on declared synthetic browser corpus; not ONNX",
+      "proofs": [
+        "quality-model-chrome-proof.json",
+        "quality-model-firefox-proof.json",
+        "quality-model-webkit-proof.json"
+      ],
+      "convertedSha256": "bc0c961a9ac7bf0fbabb0316eb5cb34665d7987b678fb8b64b487f10908f04f2"
+    },
+    {
+      "path": "source/gui/models/median_b64.json",
+      "bytes": 27839242,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "model-file",
+      "format": "XGBoost JSON, binary logistic,128 features",
+      "sha256": "5ca6bbd67d3d427c31814ac1813b143bdec94e97a33b9f3c8e311b87638ef9e1",
+      "inference": "native numeric JSON CPU interpreter verified on declared synthetic browser corpus; not ONNX",
+      "proofs": [
+        "median-chrome-proof.json",
+        "median-firefox-proof.json",
+        "median-webkit-proof.json"
+      ]
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg100/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg100/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg100/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg101/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg101/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg101/model.meta",
+      "bytes": 1570935,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg51/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg51/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg51/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg52/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg52/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg52/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg53/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg53/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg53/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg54/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg54/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg54/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg55/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg55/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg55/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg56/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg56/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg56/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg57/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg57/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg57/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg58/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg58/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg58/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg59/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg59/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg59/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg60/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg60/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg60/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg61/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg61/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg61/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg62/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg62/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg62/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg63/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg63/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg63/model.meta",
+      "bytes": 1572125,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg64/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg64/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg64/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg65/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg65/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg65/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg66/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg66/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg66/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg67/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg67/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg67/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg68/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg68/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg68/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg69/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg69/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg69/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg70/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg70/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg70/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg71/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg71/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg71/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg72/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg72/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg72/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg73/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg73/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg73/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg74/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg74/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg74/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg75/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg75/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg75/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg76/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg76/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg76/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg77/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg77/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg77/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg78/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg78/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg78/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg79/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg79/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg79/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg80/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg80/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg80/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg81/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg81/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg81/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg82/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg82/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg82/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg83/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg83/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg83/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg84/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg84/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg84/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg85/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg85/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg85/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg86/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg86/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg86/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg87/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg87/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg87/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg88/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg88/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg88/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg89/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg89/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg89/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg90/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg90/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg90/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg91/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg91/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg91/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg92/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg92/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg92/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg93/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg93/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg93/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg94/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg94/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg94/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg95/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg95/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg95/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg96/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg96/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg96/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg97/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg97/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg97/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg98/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg98/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg98/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg99/model.data-00000-of-00001",
+      "bytes": 2232080,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-checkpoint-data"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg99/model.index",
+      "bytes": 3051,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "checkpoint-index"
+    },
+    {
+      "path": "source/gui/noiseprint/nets/net_jpg99/model.meta",
+      "bytes": 1575487,
+      "status": "present-on-disk",
+      "onnx": "not-verified",
+      "redistribution": "not-cleared",
+      "component": "tensorflow-meta-graph"
+    }
+  ],
+  "tensorflowCheckpointSets": [
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg100/model",
+      "index": "source/gui/noiseprint/nets/net_jpg100/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg100/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg100/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg101/model",
+      "index": "source/gui/noiseprint/nets/net_jpg101/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg101/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg101/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg51/model",
+      "index": "source/gui/noiseprint/nets/net_jpg51/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg51/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg51/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg52/model",
+      "index": "source/gui/noiseprint/nets/net_jpg52/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg52/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg52/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg53/model",
+      "index": "source/gui/noiseprint/nets/net_jpg53/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg53/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg53/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg54/model",
+      "index": "source/gui/noiseprint/nets/net_jpg54/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg54/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg54/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg55/model",
+      "index": "source/gui/noiseprint/nets/net_jpg55/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg55/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg55/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg56/model",
+      "index": "source/gui/noiseprint/nets/net_jpg56/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg56/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg56/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg57/model",
+      "index": "source/gui/noiseprint/nets/net_jpg57/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg57/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg57/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg58/model",
+      "index": "source/gui/noiseprint/nets/net_jpg58/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg58/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg58/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg59/model",
+      "index": "source/gui/noiseprint/nets/net_jpg59/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg59/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg59/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg60/model",
+      "index": "source/gui/noiseprint/nets/net_jpg60/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg60/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg60/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg61/model",
+      "index": "source/gui/noiseprint/nets/net_jpg61/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg61/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg61/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg62/model",
+      "index": "source/gui/noiseprint/nets/net_jpg62/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg62/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg62/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg63/model",
+      "index": "source/gui/noiseprint/nets/net_jpg63/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg63/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg63/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg64/model",
+      "index": "source/gui/noiseprint/nets/net_jpg64/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg64/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg64/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg65/model",
+      "index": "source/gui/noiseprint/nets/net_jpg65/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg65/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg65/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg66/model",
+      "index": "source/gui/noiseprint/nets/net_jpg66/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg66/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg66/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg67/model",
+      "index": "source/gui/noiseprint/nets/net_jpg67/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg67/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg67/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg68/model",
+      "index": "source/gui/noiseprint/nets/net_jpg68/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg68/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg68/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg69/model",
+      "index": "source/gui/noiseprint/nets/net_jpg69/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg69/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg69/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg70/model",
+      "index": "source/gui/noiseprint/nets/net_jpg70/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg70/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg70/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg71/model",
+      "index": "source/gui/noiseprint/nets/net_jpg71/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg71/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg71/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg72/model",
+      "index": "source/gui/noiseprint/nets/net_jpg72/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg72/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg72/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg73/model",
+      "index": "source/gui/noiseprint/nets/net_jpg73/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg73/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg73/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg74/model",
+      "index": "source/gui/noiseprint/nets/net_jpg74/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg74/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg74/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg75/model",
+      "index": "source/gui/noiseprint/nets/net_jpg75/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg75/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg75/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg76/model",
+      "index": "source/gui/noiseprint/nets/net_jpg76/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg76/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg76/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg77/model",
+      "index": "source/gui/noiseprint/nets/net_jpg77/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg77/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg77/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg78/model",
+      "index": "source/gui/noiseprint/nets/net_jpg78/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg78/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg78/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg79/model",
+      "index": "source/gui/noiseprint/nets/net_jpg79/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg79/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg79/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg80/model",
+      "index": "source/gui/noiseprint/nets/net_jpg80/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg80/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg80/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg81/model",
+      "index": "source/gui/noiseprint/nets/net_jpg81/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg81/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg81/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg82/model",
+      "index": "source/gui/noiseprint/nets/net_jpg82/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg82/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg82/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg83/model",
+      "index": "source/gui/noiseprint/nets/net_jpg83/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg83/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg83/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg84/model",
+      "index": "source/gui/noiseprint/nets/net_jpg84/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg84/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg84/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg85/model",
+      "index": "source/gui/noiseprint/nets/net_jpg85/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg85/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg85/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg86/model",
+      "index": "source/gui/noiseprint/nets/net_jpg86/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg86/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg86/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg87/model",
+      "index": "source/gui/noiseprint/nets/net_jpg87/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg87/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg87/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg88/model",
+      "index": "source/gui/noiseprint/nets/net_jpg88/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg88/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg88/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg89/model",
+      "index": "source/gui/noiseprint/nets/net_jpg89/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg89/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg89/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg90/model",
+      "index": "source/gui/noiseprint/nets/net_jpg90/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg90/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg90/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg91/model",
+      "index": "source/gui/noiseprint/nets/net_jpg91/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg91/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg91/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg92/model",
+      "index": "source/gui/noiseprint/nets/net_jpg92/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg92/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg92/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg93/model",
+      "index": "source/gui/noiseprint/nets/net_jpg93/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg93/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg93/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg94/model",
+      "index": "source/gui/noiseprint/nets/net_jpg94/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg94/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg94/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg95/model",
+      "index": "source/gui/noiseprint/nets/net_jpg95/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg95/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg95/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg96/model",
+      "index": "source/gui/noiseprint/nets/net_jpg96/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg96/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg96/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg97/model",
+      "index": "source/gui/noiseprint/nets/net_jpg97/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg97/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg97/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg98/model",
+      "index": "source/gui/noiseprint/nets/net_jpg98/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg98/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg98/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    },
+    {
+      "prefix": "source/gui/noiseprint/nets/net_jpg99/model",
+      "index": "source/gui/noiseprint/nets/net_jpg99/model.index",
+      "dataShards": [
+        "source/gui/noiseprint/nets/net_jpg99/model.data-00000-of-00001"
+      ],
+      "metaGraph": "source/gui/noiseprint/nets/net_jpg99/model.meta",
+      "status": "components-present",
+      "inference": "not-verified",
+      "redistribution": "not-cleared"
+    }
+  ],
+  "blocked": [
+    {
+      "id": "05_luc_pub_yolo",
+      "status": "blocked",
+      "expected": [
+        "epoch20_0.pt",
+        "epoch20_42.pt",
+        "epoch20_123.pt",
+        "epoch20_456.pt",
+        "epoch20_789.pt",
+        "best.pt"
+      ],
+      "received": false
+    },
+    {
+      "id": "02_forgeryscope_competition_extras",
+      "status": "blocked",
+      "expected": [
+        "Additional microscopy/macroscopy embedding checkpoints for the ensemble of three models (two additional models if public checkpoint is the matching version)",
+        "Additional panel detector checkpoint for the ensemble of two YOLO panel detectors",
+        "Exact public segmentation fallback notebook version, checkpoint links and inference configuration"
+      ],
+      "received": false
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "pcaComponents": 32,
+      "pcaRegularized": 27,
+      "pcaFinite": true,
+      "originalZeroEigenvalues": 507,
+      "initialReferenceScale": 2,
+      "collapsedReferenceScale": 2,
+      "covarianceRegularizations": 2,
+      "collapsedDiagonal": [
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08
+      ],
+      "expectedFloor": 2.9802322387695312e-08,
+      "noVariationRejected": true,
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 627919526,
+        "activeRecoveries": 0
+      },
+      "passed": true,
+      "browser": "154.0.8037.93",
+      "browserContext": "off-the-record Playwright context",
+      "executionNote": "CPU/WASM"
+    }
+  ]
+}

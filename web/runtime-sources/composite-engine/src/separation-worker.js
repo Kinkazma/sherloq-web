@@ -1,0 +1,5 @@
+import {separationStage} from './separation-stage.js';
+self.onmessage=async({data})=>{
+ try{const result=await separationStage(data.image,data.params,data.start,data.rows),transfer=[result.bytes.buffer];if(result.histograms)transfer.push(result.histograms.buffer);self.postMessage(result,transfer);}
+ catch(error){self.postMessage({error:error.code??'WORKER_FAILED'});}
+};

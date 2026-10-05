@@ -1,0 +1,570 @@
+{
+  "provider": "wasm",
+  "variant": "unfused",
+  "denseSha256": "23dfbde04fb68d567e3e25f02bae871b13027e50a59d4d750a6e18e06f5186eb",
+  "records": [
+    {
+      "id": "duplicate",
+      "extracts": [
+        {
+          "keypoints": {
+            "values": 1024,
+            "expected": 1024,
+            "max": 0.00003814697265625,
+            "mean": 0.0000012959353625774384,
+            "differences": 268
+          },
+          "descriptors": {
+            "values": 65536,
+            "expected": 65536,
+            "max": 0.0000021010637283325195,
+            "mean": 1.9401473460353008e-7,
+            "differences": 64849
+          },
+          "keypoint_scores": {
+            "values": 512,
+            "expected": 512,
+            "max": 0.000025033950805664062,
+            "mean": 4.173489287495613e-7,
+            "differences": 421
+          },
+          "aligned": {
+            "missing": [],
+            "permuted": 0,
+            "maxPointDistance": 0.00004108554692943195,
+            "descriptorMax": 0.0000021010637283325195,
+            "descriptorMean": 1.9401473460353008e-7
+          }
+        },
+        {
+          "keypoints": {
+            "values": 1024,
+            "expected": 1024,
+            "max": 0.00003814697265625,
+            "mean": 0.0000012959353625774384,
+            "differences": 268
+          },
+          "descriptors": {
+            "values": 65536,
+            "expected": 65536,
+            "max": 0.0000021010637283325195,
+            "mean": 1.9401473460353008e-7,
+            "differences": 64849
+          },
+          "keypoint_scores": {
+            "values": 512,
+            "expected": 512,
+            "max": 0.000025033950805664062,
+            "mean": 4.173489287495613e-7,
+            "differences": 421
+          },
+          "aligned": {
+            "missing": [],
+            "permuted": 0,
+            "maxPointDistance": 0.00004108554692943195,
+            "descriptorMax": 0.0000021010637283325195,
+            "descriptorMean": 1.9401473460353008e-7
+          }
+        }
+      ],
+      "matches": {
+        "matches0": {
+          "values": 512,
+          "expected": 512,
+          "max": 0,
+          "mean": 0,
+          "differences": 0
+        },
+        "scores0": {
+          "values": 512,
+          "expected": 512,
+          "max": 0.000007152557373046875,
+          "mean": 2.0884908735752106e-7,
+          "differences": 430
+        },
+        "aligned": {
+          "compared": 512,
+          "different": 0
+        }
+      },
+      "milliseconds": 2803.699999988079,
+      "fields": {
+        "mask": {
+          "differences": 296,
+          "pixels": 30160,
+          "intersection": 19100,
+          "union": 19396,
+          "iou": 0.984739121468344
+        },
+        "map": {
+          "differences": 296,
+          "pixels": 30160,
+          "intersection": 19100,
+          "union": 19396,
+          "iou": 0.984739121468344
+        },
+        "candidates": {
+          "differences": 0,
+          "pixels": 30160,
+          "intersection": 0,
+          "union": 0,
+          "iou": 1
+        }
+      },
+      "comparisons": [
+        {
+          "panel0": 0,
+          "panel1": 1,
+          "supported": true,
+          "accepted": true,
+          "branch": "blots",
+          "evidence": "geometry",
+          "candidate": false,
+          "inliers": 512,
+          "score": 0.9852794408798218,
+          "matrix": [
+            1,
+            1.464701726077175e-7,
+            -0.000004997854912356576,
+            0.000001224990293816659,
+            0.9999991632334445,
+            -0.00003177640104679284,
+            0,
+            0,
+            1
+          ],
+          "polygon0": [
+            [
+              35.940120079355474,
+              10
+            ],
+            [
+              109.99999237060547,
+              10.000090722627647
+            ],
+            [
+              110,
+              58.00004917601109
+            ],
+            [
+              110,
+              106
+            ],
+            [
+              103.75000771508338,
+              106
+            ],
+            [
+              10.00000906328205,
+              105.99988555908203
+            ],
+            [
+              10,
+              44.121935362510726
+            ],
+            [
+              10,
+              10
+            ],
+            [
+              35.940120079355474,
+              10
+            ]
+          ],
+          "polygon1": [
+            [
+              175.94012641906738,
+              9.99999999999885
+            ],
+            [
+              250,
+              10.000000000002535
+            ],
+            [
+              250,
+              58
+            ],
+            [
+              249.99999237060547,
+              105.99999237060547
+            ],
+            [
+              243.75,
+              106
+            ],
+            [
+              150.00000000000074,
+              106
+            ],
+            [
+              150.0000000000001,
+              44.12199783325195
+            ],
+            [
+              150.00000499785028,
+              10.000031776420656
+            ],
+            [
+              175.94012641906738,
+              9.99999999999885
+            ]
+          ],
+          "fallback": null
+        }
+      ],
+      "nativeComparisons": [
+        {
+          "panel0": 0,
+          "panel1": 1,
+          "supported": true,
+          "inliers": 512,
+          "score": 0.9852794408798218,
+          "matrix": [
+            [
+              1,
+              3.248674740206508e-8,
+              -0.000001108512724462668
+            ],
+            [
+              -0.0000013318277001120684,
+              0.9999954442913066,
+              0.00022103997806543322
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "polygon0": [
+            [
+              110,
+              10.00008785721002
+            ],
+            [
+              10,
+              10.000221039981968
+            ],
+            [
+              10,
+              44.1220647393734
+            ],
+            [
+              10.000002010214985,
+              105.99978637695312
+            ],
+            [
+              110,
+              105.99964904785156
+            ],
+            [
+              110,
+              10.00008785721002
+            ]
+          ],
+          "polygon1": [
+            [
+              250,
+              10.00000000000344
+            ],
+            [
+              150.00000110851272,
+              10.000000000006855
+            ],
+            [
+              149.9999999999999,
+              44.12200164794922
+            ],
+            [
+              149.99999999999986,
+              106
+            ],
+            [
+              250,
+              106
+            ],
+            [
+              250,
+              10.00000000000344
+            ]
+          ],
+          "fallback": null
+        }
+      ]
+    },
+    {
+      "id": "auto",
+      "extracts": [
+        {
+          "keypoints": {
+            "values": 1024,
+            "expected": 1024,
+            "max": 0.000030517578125,
+            "mean": 8.130446076393127e-7,
+            "differences": 143
+          },
+          "descriptors": {
+            "values": 65536,
+            "expected": 65536,
+            "max": 0.0000013187527656555176,
+            "mean": 1.7629099593498287e-7,
+            "differences": 64734
+          },
+          "keypoint_scores": {
+            "values": 512,
+            "expected": 512,
+            "max": 5.960464477539062e-7,
+            "mean": 5.506444722414017e-8,
+            "differences": 328
+          },
+          "aligned": {
+            "missing": [],
+            "permuted": 0,
+            "maxPointDistance": 0.000030651395187355416,
+            "descriptorMax": 0.0000013187527656555176,
+            "descriptorMean": 1.7629099593498287e-7
+          }
+        },
+        {
+          "keypoints": {
+            "values": 1024,
+            "expected": 1024,
+            "max": 363.9886932373047,
+            "mean": 1.248937304597348,
+            "differences": 152
+          },
+          "descriptors": {
+            "values": 65536,
+            "expected": 65536,
+            "max": 0.309593990445137,
+            "mean": 0.0006423423003298727,
+            "differences": 64719
+          },
+          "keypoint_scores": {
+            "values": 512,
+            "expected": 512,
+            "max": 0.004233837127685547,
+            "mean": 0.000020853127352893353,
+            "differences": 352
+          },
+          "aligned": {
+            "missing": [],
+            "permuted": 4,
+            "maxPointDistance": 0.000030651395187355416,
+            "descriptorMax": 0.0000019669532775878906,
+            "descriptorMean": 1.714653940880495e-7
+          }
+        }
+      ],
+      "matches": {
+        "matches0": {
+          "values": 512,
+          "expected": 512,
+          "max": 1,
+          "mean": 0.001953125,
+          "differences": 1
+        },
+        "scores0": {
+          "values": 512,
+          "expected": 512,
+          "max": 0.00006809830665588379,
+          "mean": 0.000003063776858470979,
+          "differences": 335
+        },
+        "aligned": {
+          "compared": 512,
+          "different": 0
+        }
+      },
+      "milliseconds": 10609.90000000596,
+      "fields": {
+        "mask": {
+          "differences": 0,
+          "pixels": 2899552,
+          "intersection": 78640,
+          "union": 78640,
+          "iou": 1
+        },
+        "map": {
+          "differences": 0,
+          "pixels": 2899552,
+          "intersection": 78640,
+          "union": 78640,
+          "iou": 1
+        },
+        "candidates": {
+          "differences": 0,
+          "pixels": 2899552,
+          "intersection": 0,
+          "union": 0,
+          "iou": 1
+        },
+        "geometric": {
+          "differences": 0,
+          "pixels": 2899552,
+          "intersection": 78640,
+          "union": 78640,
+          "iou": 1
+        },
+        "branch_microscopy": {
+          "differences": 0,
+          "pixels": 2899552,
+          "intersection": 0,
+          "union": 0,
+          "iou": 1
+        },
+        "branch_blots": {
+          "differences": 0,
+          "pixels": 2899552,
+          "intersection": 78640,
+          "union": 78640,
+          "iou": 1
+        },
+        "branch_lanes": {
+          "differences": 0,
+          "pixels": 2899552,
+          "intersection": 0,
+          "union": 0,
+          "iou": 1
+        }
+      },
+      "comparisons": [
+        {
+          "panel0": 3,
+          "panel1": 4,
+          "supported": true,
+          "accepted": true,
+          "branch": "blots",
+          "evidence": "geometry",
+          "candidate": false,
+          "inliers": 280,
+          "score": 0.7565733790397644,
+          "matrix": [
+            -1.0310120053267207,
+            0.013372299628462682,
+            492.4055390725897,
+            -0.0001982480614291068,
+            1.1550656393840573,
+            0.12303262045761443,
+            0,
+            0,
+            1
+          ],
+          "polygon0": [
+            [
+              791.8975219726562,
+              1321.919774564546
+            ],
+            [
+              305.89752197265625,
+              1321.8263240932222
+            ],
+            [
+              305.89752197265625,
+              1409.6111205682485
+            ],
+            [
+              791.8975219726562,
+              1409.704566611195
+            ],
+            [
+              791.8975219726562,
+              1321.919774564546
+            ]
+          ],
+          "polygon1": [
+            [
+              312.2975215911865,
+              286.1145629860488
+            ],
+            [
+              783.6790466308594,
+              286.11456298891096
+            ],
+            [
+              784.6647644042969,
+              362.1145706176758
+            ],
+            [
+              313.28324699401855,
+              362.11456298828125
+            ],
+            [
+              312.2975215911865,
+              286.1145629860488
+            ]
+          ],
+          "fallback": null
+        }
+      ],
+      "nativeComparisons": [
+        {
+          "panel0": 3,
+          "panel1": 4,
+          "supported": true,
+          "accepted": true,
+          "branch": "blots",
+          "evidence": "geometry",
+          "inliers": 280,
+          "score": 0.7565723061561584,
+          "polygon0": [
+            [
+              791.8975219726562,
+              1321.9197728824768
+            ],
+            [
+              305.89752197265625,
+              1321.826322544843
+            ],
+            [
+              305.89752197265625,
+              1409.6111206847286
+            ],
+            [
+              791.8975219726562,
+              1409.7045741275836
+            ],
+            [
+              791.8975219726562,
+              1321.9197728824768
+            ]
+          ],
+          "polygon1": [
+            [
+              312.29742908477783,
+              286.11450195246545
+            ],
+            [
+              783.678955078125,
+              286.11450195208783
+            ],
+            [
+              784.6646728515625,
+              362.114501953125
+            ],
+            [
+              313.28315353393555,
+              362.114501953125
+            ],
+            [
+              312.29742908477783,
+              286.11450195246545
+            ]
+          ],
+          "fallback": null
+        }
+      ]
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3197979562
+  },
+  "passed": true,
+  "scope": "Diagnostic numerical errors and actual decisions, not qualification.",
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

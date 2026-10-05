@@ -1,0 +1,71 @@
+{
+  "status": "stopped-development-run",
+  "reason": "SIFT target reconstruction and per-page WASM suspension dominated propagation; exact lazy components and synchronous OPFS bridge passed42native field cases and compact mirror/native checks before rerun.",
+  "lastProgress": {
+    "elapsedMs": 4858994.599999994,
+    "phase": "global-patchmatch",
+    "stage": "propagation",
+    "iteration": 0,
+    "completed": 1994752,
+    "total": 95820081,
+    "workspaceBytes": 1014511408,
+    "initialBatchPixels": 1700972,
+    "batchBytes": 920109600,
+    "residentPool": true,
+    "residentPoolBytes": 24703632,
+    "cacheBytes": 52920960,
+    "pageBytes": 4096,
+    "cachePages": 4096,
+    "reads": 129317013,
+    "writes": 377176,
+    "readBytes": 696722428401,
+    "writeBytes": 1544901392,
+    "heapBytes": 0,
+    "memory": {
+      "budgetBytes": 1610612736,
+      "retainedBytes": 288000000,
+      "cacheBytes": 0,
+      "activeReservationBytes": 1014511408,
+      "peakAccountedBytes": 1302511408
+    }
+  },
+  "completedFields": [
+    {
+      "elapsedMs": 3120228.700000003,
+      "phase": "field-complete",
+      "completed": 1,
+      "total": 7,
+      "pass": {
+        "id": 0,
+        "algorithm": "PatchMatch Zernike",
+        "method": 0,
+        "patch": 3,
+        "targetPatch": 3,
+        "quarterTurn": false,
+        "reflection": false,
+        "stage": "base",
+        "descriptorFrame": "normal",
+        "requireTransform": false,
+        "requireReflection": false,
+        "requireDetail": false
+      },
+      "context": {
+        "id": "global:0",
+        "pairSearchRegion": 0,
+        "compare": false,
+        "regions": [],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "memory": {
+        "budgetBytes": 1610612736,
+        "retainedBytes": 288000000,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 805996600
+      }
+    }
+  ]
+}

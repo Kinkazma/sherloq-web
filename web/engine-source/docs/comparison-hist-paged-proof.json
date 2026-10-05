@@ -1,0 +1,108 @@
+[
+  {
+    "resident": true,
+    "values": [
+      -1.0091793602426313,
+      108901.69622015934,
+      194808.76006087934,
+      946562,
+      0.19604109214938584,
+      761329.741981388,
+      0.960437236457407,
+      65536
+    ],
+    "native": [
+      -1.0091793602426313,
+      108901.69622015934,
+      194808.76006087934,
+      946562,
+      0.19604109214938584,
+      761329.741981388
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": true,
+      "cachePages": 1024,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 159383552,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "heapBytes": 136380416,
+      "sourcePixels": 2097152,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 6448.5,
+    "memory": {
+      "budgetBytes": 201326592,
+      "retainedBytes": 6291456,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 166464512
+    }
+  },
+  {
+    "resident": false,
+    "values": [
+      -1.0091793602426313,
+      108901.69622015934,
+      194808.76006087934,
+      946562,
+      0.19604109214938584,
+      761329.741981388,
+      0.960437236457407,
+      65536
+    ],
+    "native": [
+      -1.0091793602426313,
+      108901.69622015934,
+      194808.76006087934,
+      946562,
+      0.19604109214938584,
+      761329.741981388
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "resident": false,
+      "cachePages": 702,
+      "pageBytes": 16384,
+      "blockPixels": 262144,
+      "workspace": 48213888,
+      "workers": 1,
+      "paged": true,
+      "reads": 38897,
+      "writes": 22513,
+      "readBytes": 637288448,
+      "writeBytes": 368852992,
+      "heapBytes": 26214400,
+      "sourcePixels": 2097152,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 267468,
+    "memory": {
+      "budgetBytes": 67108864,
+      "retainedBytes": 6291456,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 55294848
+    }
+  }
+]

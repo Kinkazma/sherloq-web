@@ -1,0 +1,16 @@
+import {createServer} from 'node:http';import {readFile,writeFile} from 'node:fs/promises';import {fileURLToPath} from 'node:url';import {resolve,extname,sep} from 'node:path';import {chromium} from 'playwright';
+const root=fileURLToPath(new URL('../',import.meta.url)),server=createServer(async(req,res)=>{try{if(req.url==='/'){res.setHeader('Content-Type','text/html');res.end('<!doctype html><title>M3 extraction check</title>');return;}const path=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));if(!path.startsWith(root.endsWith(sep)?root:root+sep))throw Error('path');res.setHeader('Content-Type',({'.js':'text/javascript','.json':'application/json','.wasm':'application/wasm'})[extname(path)]??'application/octet-stream');res.end(await readFile(path));}catch{res.statusCode=404;res.end();}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
+try{browser=await chromium.launch({channel:'chrome',headless:true});const page=await browser.newPage();await page.goto('http://127.0.0.1:'+server.address().port);
+ const report=await page.evaluate(async()=>{
+  const {SparseFeatureEngine}=await import('/src/sparse-extract.js'),{Budget}=await import('/src/cache.js'),ref=await(await fetch('/.build/m3/sparse-reference.json')).json(),image={format:'rgb8',width:ref.width,height:ref.height,data:new Uint8Array(await(await fetch('/.build/m3/sparse-rgb.bin')).arrayBuffer())};
+  const budget=new Budget(1024**3),engine=new SparseFeatureEngine(budget,{maxWorkers:2}),records=[];
+  for(const c of ref.cases){const r=await engine.extract(image,c),expected=c.points.flat(),diffs=Array(7).fill(0);let descriptorDifferences=0,maxMetadata=0;
+   if(r.points.length===expected.length)r.points.forEach((v,i)=>{if(v!==expected[i]){diffs[i%7]++;maxMetadata=Math.max(maxMetadata,Math.abs(v-expected[i]));}});
+   const desc=c.descriptors.flat();r.descriptors.forEach((v,i)=>{if(v!==desc[i])descriptorDifferences++;});
+   const membersEqual=JSON.stringify([...r.members])===JSON.stringify(c.members.flat()),record={name:c.name,count:r.points.length/7,nativeCount:c.points.length,total:r.totalFeatures,nativeTotal:c.totalFeatures,pointFieldDifferences:diffs,maxMetadata,descriptorDifferences,membersEqual,metadata:r.metadata};records.push(record);
+   if(['ORB','AKAZE'].includes(c.family)&&(r.points.length!==expected.length||diffs.some(x=>x)||descriptorDifferences||!membersEqual||r.totalFeatures!==c.totalFeatures))throw Error(JSON.stringify(record));r.release();r.release();if(budget.active!==0)throw Error('Leaked extraction reservations');
+  }
+  const controller=new AbortController(),pending=engine.extract(image,{family:'SIFT-G2NN',regions:[[[0,0],[223,0],[223,175],[0,175]]],limit:100,signal:controller.signal});setTimeout(()=>controller.abort(),20);let cancelled=false;try{await pending;}catch(e){cancelled=e.code==='CANCELLED';}if(!cancelled||budget.active||engine.workers.size)throw Error('Cancellation lifecycle failed');engine.dispose();return {records,cancelled,peakAccountedBytes:budget.peak,remainingActiveBytes:budget.active};
+ });await writeFile(new URL('../docs/m3-sparse-extract-chrome-proof.json',import.meta.url),JSON.stringify({browser:browser.version(),...report},null,2)+'\n');console.log(JSON.stringify(report));
+}finally{await browser?.close();await new Promise(r=>server.close(r));}

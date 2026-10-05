@@ -1,0 +1,111 @@
+{
+  "browser": "154.0.8037.93",
+  "kind": "xfeat",
+  "provider": "wasm",
+  "model": {
+    "file": "xfeat-sparse-glue-paged.bin",
+    "bytes": 4443142,
+    "sha256": "15533916afb3aabac613e4c9ebe5b4a5a3ab2303d634609e3b858bed55713704",
+    "weightSha256": "766102df37f11189efe5b0811d1f47c72b22629b79bfabfcfff9d2a2f84654b8",
+    "layers": 6,
+    "heads": 1,
+    "dim": 96
+  },
+  "records": [
+    {
+      "id": 0,
+      "values": 95,
+      "maximum": 9.319046512246132e-08,
+      "meanAbsoluteError": 2.0284905493267156e-09,
+      "differences": 94,
+      "selected": 0,
+      "nativeSelected": 0,
+      "decisionsEqual": true,
+      "milliseconds": 405.30000001192093,
+      "metadata": {
+        "provider": "wasm",
+        "execution": "native-layers-global-csr-row-pages",
+        "actualHeapBytes": 16777216,
+        "attentionHeapBytes": 16777216,
+        "maximumHeapBytes": 536870912,
+        "threads": 1,
+        "totalMs": 387.80000001192093,
+        "maximumConfidence": 0.0031789313070476055,
+        "above": {
+          "point1": 0,
+          "point3": 0,
+          "point7": 0,
+          "point9": 0
+        },
+        "attentionPages": 12,
+        "assignmentPages": 1,
+        "maximumPageEdges": 95,
+        "preflightExecutions": 0
+      }
+    },
+    {
+      "id": 1,
+      "values": 18070,
+      "maximum": 1.1728843674063683e-08,
+      "meanAbsoluteError": 2.1147794807698664e-12,
+      "differences": 17899,
+      "selected": 0,
+      "nativeSelected": 0,
+      "decisionsEqual": true,
+      "milliseconds": 710.5999999940395,
+      "metadata": {
+        "provider": "wasm",
+        "execution": "native-layers-global-csr-row-pages",
+        "actualHeapBytes": 16777216,
+        "attentionHeapBytes": 16777216,
+        "maximumHeapBytes": 536870912,
+        "threads": 1,
+        "totalMs": 657.5,
+        "maximumConfidence": 0.000178165064426139,
+        "above": {
+          "point1": 0,
+          "point3": 0,
+          "point7": 0,
+          "point9": 0
+        },
+        "attentionPages": 24,
+        "assignmentPages": 1,
+        "maximumPageEdges": 16640,
+        "preflightExecutions": 0
+      }
+    },
+    {
+      "id": 2,
+      "values": 6400,
+      "maximum": 4.875659942626953e-05,
+      "meanAbsoluteError": 4.4420469808284165e-08,
+      "differences": 4208,
+      "selected": 80,
+      "nativeSelected": 80,
+      "decisionsEqual": true,
+      "milliseconds": 462.90000000596046,
+      "metadata": {
+        "provider": "wasm",
+        "execution": "native-layers-global-csr-row-pages",
+        "actualHeapBytes": 16777216,
+        "attentionHeapBytes": 16777216,
+        "maximumHeapBytes": 536870912,
+        "threads": 1,
+        "totalMs": 437.5,
+        "maximumConfidence": 0.998942494392395,
+        "above": {
+          "point1": 80,
+          "point3": 80,
+          "point7": 75,
+          "point9": 68
+        },
+        "attentionPages": 12,
+        "assignmentPages": 1,
+        "maximumPageEdges": 6400,
+        "preflightExecutions": 0
+      }
+    }
+  ],
+  "passed": true,
+  "scope": "Actual Chromium SparseGlue paged attention and assignment, native reference tolerances unchanged, three cases including 80 retained matches; not a claim of bit-exact GPU floating arithmetic."
+}

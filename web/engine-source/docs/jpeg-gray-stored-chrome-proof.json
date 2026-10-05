@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "dimensions": [
+    1600,
+    2200
+  ],
+  "parallel": {
+    "workers": 2,
+    "kernel": "global-gray-jpeg-stored-worker-pool",
+    "recompressions": 3,
+    "codecHeapCapacityBytes": 16777216,
+    "codecHeapMaximumBytes": 16777216,
+    "totalCodecHeapMaximumBytes": 33554432,
+    "maxSourceWindowBytes": 153600,
+    "sourcePasses": 4,
+    "encodedStorage": "memory",
+    "maximumEncodedBytes": 4153214,
+    "kernelMs": 254.5,
+    "scheduling": {
+      "count": 2,
+      "maximum": 2,
+      "ceiling": 2,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "taskExecutions": 1,
+      "retry": null
+    }
+  },
+  "referenceValues": 3,
+  "serialFallback": {
+    "workers": 1,
+    "kernel": "global-gray-jpeg-stored-serial",
+    "recompressions": 2,
+    "sourcePasses": 4,
+    "codecHeapCapacityBytes": 16777216,
+    "codecHeapMaximumBytes": 16777216,
+    "maxSourceWindowBytes": 153600,
+    "encodedStorage": "memory",
+    "maximumEncodedBytes": 4153214,
+    "kernelMs": 2676.9000000059605,
+    "scheduling": {
+      "count": 2,
+      "maximum": 2,
+      "ceiling": 2,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "taskExecutions": 2,
+      "retry": {
+        "failedWorkers": 2,
+        "remainingQualities": 2
+      }
+    }
+  },
+  "cancellation": "CANCELLED",
+  "peakAccountedBytes": 93574336,
+  "cleanup": true,
+  "browser": "154.0.8037.58"
+}

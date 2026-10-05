@@ -1,0 +1,159 @@
+{
+  "version": "0.31.0-integration.29",
+  "passed": true,
+  "scope": "Integrated recovery, reusable working sets and scientific regression qualification. No new 96 MP run. Does not claim recovery after destruction of the entire browser process, nor measured physical saturation of every CPU/GPU core.",
+  "engineSourceCommit": "549bd42f3c2bf3355f1869cc5cc51df1124f976d",
+  "runtimeManifestSha256": "15edf791b30131b068e009b8193a6bdbd666aa68ee71a350a93d1db59ef51f53",
+  "frozenRuntime": {
+    "sha256": "c65a972837dfd0c9c9346d1f7ca3beb79b937b591a59bb6665a2466c389b69d3",
+    "files": 1191
+  },
+  "completeBrowserRun": {
+    "browser": "154.0.8037.93",
+    "dimensions": [
+      2008,
+      1444
+    ],
+    "states": {
+      "states": {
+        "patchmatch": "done",
+        "sift": "done",
+        "forgeryscope": "done",
+        "d2prl": "done",
+        "ela": "done"
+      },
+      "errors": {},
+      "attempts": {
+        "patchmatch": 1,
+        "sift": 1,
+        "forgeryscope": 1,
+        "d2prl": 1,
+        "ela": 1
+      },
+      "completed": [
+        "sift",
+        "forgeryscope",
+        "ela",
+        "patchmatch",
+        "d2prl"
+      ],
+      "running": [],
+      "resumable": [],
+      "preflightExecutions": 0
+    },
+    "totalMs": 364032.6899999976,
+    "times": {
+      "modelConfigurationMs": 128.1050000190735,
+      "loadMs": 43.13499999046326,
+      "analysisMs": 316216.0200000107,
+      "exportMs": 20700.560000002384,
+      "readbackMs": 26378.034999996424
+    },
+    "timingScope": "Cold end-to-end elapsed time including export and readback; development EM checks overlapped part of the run, so this is not an isolated performance comparison.",
+    "archive": {
+      "bytes": 638339234,
+      "sha256": "9f44fa9a8d031dcb5955f156a8f13b3e7f5ea17cdc2e212dd418326556763a0f",
+      "scientificallyEqual": true,
+      "arrays": 746,
+      "rootResultArrays": 699,
+      "payloadBytesCompared": 630040316,
+      "differences": 0
+    },
+    "finalMemory": {
+      "budgetBytes": 27487371264,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 27486874112,
+      "activeRecoveries": 0,
+      "knownHeapCapacityBytes": 16777216
+    },
+    "storageCleanup": true
+  },
+  "nodeCases": {
+    "distinct": 1360,
+    "unresolvedSkips": 0,
+    "failures": 0,
+    "note": "1358 complete-suite passes plus the two restored oracle cases; overlapping supplemental tests are not added."
+  },
+  "runtimeDependencies": {
+    "references": 2337,
+    "baseDirectories": 92,
+    "missing": [],
+    "outsideRuntimeManifest": [],
+    "manifestSha256": "15edf791b30131b068e009b8193a6bdbd666aa68ee71a350a93d1db59ef51f53",
+    "scope": "Literal ESM imports and URL paths in all manifested JavaScript; dynamic paths require the browser proofs."
+  },
+  "automation": "PAUSED; no new automation created",
+  "baseline96MP": "integration.28 stopped with D2PRL and PatchMatch failures; see integration28-terminal.json",
+  "proofs": [
+    {
+      "file": "docs/qualification/memory-runtime-integration/complete-small-scientific-comparison.json",
+      "sha256": "f91698ccc459a9c401bed3d3aba349890185307741a8f5fd0f543b2897c0d0cb"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/execution-chromium.json",
+      "sha256": "ba925ce0a76cf78a9f47bccb875318b3b0c7b6230358b63b05130829b8b75566"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/execution-firefox.json",
+      "sha256": "daa66ff72fd5fd06d529e5fcd24ea50f5667020bc84d21ee1371e6f119f40ad8"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/execution-webkit.json",
+      "sha256": "025ead4c3db2fa1313c1fbf38ed00a5bd60410cc0d6581fb0cc63ac00a92190e"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/integration28-terminal.json",
+      "sha256": "7cfeb388a083ae95ac96776f0e5f10f8df3d76e5a0aa27a8a814492bff713f29"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/neural-cpu.json",
+      "sha256": "89ddbf4eae1f1d775784bd25e7b9a9441496beb561e98c14d17f7fa0c71dc771"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/neural-gpu.json",
+      "sha256": "b0767a18009aeda7c59389419300b4c7de289473f17d87f56f95fbc76dabe8df"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/node-validation.json",
+      "sha256": "1467b6ce922e9279001aeb7fb8b33b62361d9a0ecfad72c7e4e2825f02123481"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/preparation-browsers.json",
+      "sha256": "acaef2fa2210b13b5761fca6893014bde369f6942e821d51947c0413a4e41a6b"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/restored-native-oracles.json",
+      "sha256": "3558eb90b83fcdcee84ec59b67b05d4d62e2c02b841212876d6a7928992383d3"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/runtime-paths.json",
+      "sha256": "43431969d4a15e20c151e6982f1309677d30b7a236a7fbc8fe1293357c6afd4f"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/sparse-glue-wasm.json",
+      "sha256": "7f8f19663c05d9b0d2cf869f6a458dd4e3e08a03cc6e3afc9b5900dd4e7c4dcc"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/sparse-glue-webgpu.json",
+      "sha256": "0fe9535b1dc5064a5e8b66260152a8f3f9e1d7aa5961bb23751b93a0d97f3c50"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/statistics-native.json",
+      "sha256": "f634a0a316d17dbbe375477b39592d5d9991ce09bd3fbaf46a9913b8c7f43a3b"
+    },
+    {
+      "file": "docs/qualification/memory-runtime-integration/worker-recovery-browsers.json",
+      "sha256": "9a54e72b39986c6f4368c2c8d0bab4e9adefba7766c33efe10926fa1f43072af"
+    },
+    {
+      "file": "docs/m5-complete-small-positive-proof.json",
+      "sha256": "1c180d941992121821d7d321ddd1b02b900cdaa218410a9b98c93d45fb621dd9"
+    },
+    {
+      "file": "docs/m5-complete-small-positive-archive-proof.json",
+      "sha256": "a9a375472a724ae452749fdbca333ca14a46c370375170807a305ea91de6e88c"
+    }
+  ]
+}

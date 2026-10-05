@@ -1,0 +1,585 @@
+{
+  "schema": 1,
+  "scope": "Isolated sequential measurements. Original-order and optimized serial comparison at 256²; shared-budget worker comparison at 1024². Full image size preserved, raster display includes two animation frames; no WordPress overhead.",
+  "small": [
+    {
+      "cpuKernel": "reference",
+      "rpcMs": 5367.800000011921,
+      "pipelineMs": 5408.699999988079,
+      "metrics": {
+        "totalMs": 5366.699999988079,
+        "cache": {
+          "result": false,
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "zero-original-fma",
+        "workers": 1,
+        "thresholdFallbacks": 0,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 226933,
+          "cacheBytes": 2889250,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 79918709,
+          "codecHeapCapacityBytes": 33554432
+        }
+      }
+    },
+    {
+      "cpuKernel": "single",
+      "rpcMs": 68.80000001192093,
+      "pipelineMs": 109.5,
+      "metrics": {
+        "totalMs": 68,
+        "cache": {
+          "result": false,
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "zero-separated-threshold-filter",
+        "workers": 1,
+        "thresholdFallbacks": 1074,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 226933,
+          "cacheBytes": 2889278,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 79918709,
+          "codecHeapCapacityBytes": 33554432
+        }
+      }
+    }
+  ],
+  "large": [
+    {
+      "cpuKernel": "single",
+      "samples": [
+        {
+          "loadMs": 49.19999998807907,
+          "rpcMs": 2072.199999988079,
+          "renderMs": 43.09999996423721,
+          "pipelineMs": 2164.599999964237,
+          "viewMs": 38.39999997615814,
+          "metrics": {
+            "totalMs": 2070.899999976158,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "zero-separated-threshold-filter",
+            "workers": 1,
+            "thresholdFallbacks": 49690,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 46144178,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 272427813,
+              "codecHeapCapacityBytes": 91815936
+            }
+          }
+        },
+        {
+          "loadMs": 14.199999988079071,
+          "rpcMs": 1600.5,
+          "renderMs": 40.09999996423721,
+          "pipelineMs": 1654.7999999523163,
+          "viewMs": 38.39999997615814,
+          "metrics": {
+            "totalMs": 1600,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "zero-separated-threshold-filter",
+            "workers": 1,
+            "thresholdFallbacks": 49690,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 46144178,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 318571991,
+              "codecHeapCapacityBytes": 91815936
+            }
+          }
+        },
+        {
+          "loadMs": 14.200000047683716,
+          "rpcMs": 1641.5999999642372,
+          "renderMs": 39.80000001192093,
+          "pipelineMs": 1695.6000000238419,
+          "viewMs": 38.5,
+          "metrics": {
+            "totalMs": 1641.199999988079,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "zero-separated-threshold-filter",
+            "workers": 1,
+            "thresholdFallbacks": 49690,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 46144178,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 318571991,
+              "codecHeapCapacityBytes": 91815936
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 1641.5999999642372
+    },
+    {
+      "cpuKernel": "auto",
+      "samples": [
+        {
+          "loadMs": 54.09999996423721,
+          "rpcMs": 4672.800000011921,
+          "renderMs": 40.10000002384186,
+          "pipelineMs": 4767,
+          "viewMs": 38.39999997615814,
+          "metrics": {
+            "totalMs": 4671.300000011921,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "zero-separated-threshold-filter",
+            "workers": 8,
+            "thresholdFallbacks": null,
+            "votePasses": [
+              {
+                "workers": 8,
+                "calibration": {
+                  "width": 1024,
+                  "height": 1024,
+                  "selectedWorkers": 8,
+                  "measurements": [
+                    {
+                      "workers": 1,
+                      "medianMs": 426.39999997615814,
+                      "samplesMs": [
+                        730.1000000238419,
+                        426.39999997615814,
+                        424.80000001192093
+                      ]
+                    },
+                    {
+                      "workers": 2,
+                      "medianMs": 233.5,
+                      "samplesMs": [
+                        233.89999997615814,
+                        233.5,
+                        232.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 4,
+                      "medianMs": 133.39999997615814,
+                      "samplesMs": [
+                        146,
+                        133.39999997615814,
+                        132.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 8,
+                      "medianMs": 110,
+                      "samplesMs": [
+                        110,
+                        123.5,
+                        108.19999998807907
+                      ]
+                    },
+                    {
+                      "workers": 10,
+                      "medianMs": 117.89999997615814,
+                      "samplesMs": [
+                        141,
+                        116.60000002384186,
+                        117.89999997615814
+                      ]
+                    }
+                  ],
+                  "totalMs": 3506.5,
+                  "includesWorkerStartup": true,
+                  "rule": "At least 5% measured median improvement with copies/startup, exact global vote phases and seven-row halos; bounded single-thread workers"
+                },
+                "kernelMs": 121.5
+              },
+              {
+                "workers": 8,
+                "calibration": {
+                  "width": 1024,
+                  "height": 1024,
+                  "selectedWorkers": 8,
+                  "measurements": [
+                    {
+                      "workers": 1,
+                      "medianMs": 426.39999997615814,
+                      "samplesMs": [
+                        730.1000000238419,
+                        426.39999997615814,
+                        424.80000001192093
+                      ]
+                    },
+                    {
+                      "workers": 2,
+                      "medianMs": 233.5,
+                      "samplesMs": [
+                        233.89999997615814,
+                        233.5,
+                        232.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 4,
+                      "medianMs": 133.39999997615814,
+                      "samplesMs": [
+                        146,
+                        133.39999997615814,
+                        132.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 8,
+                      "medianMs": 110,
+                      "samplesMs": [
+                        110,
+                        123.5,
+                        108.19999998807907
+                      ]
+                    },
+                    {
+                      "workers": 10,
+                      "medianMs": 117.89999997615814,
+                      "samplesMs": [
+                        141,
+                        116.60000002384186,
+                        117.89999997615814
+                      ]
+                    }
+                  ],
+                  "totalMs": 3506.5,
+                  "includesWorkerStartup": true,
+                  "rule": "At least 5% measured median improvement with copies/startup, exact global vote phases and seven-row halos; bounded single-thread workers"
+                },
+                "kernelMs": 107.10000002384186
+              }
+            ],
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 46150906,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 943516453,
+              "codecHeapCapacityBytes": 91815936
+            }
+          }
+        },
+        {
+          "loadMs": 13.899999976158142,
+          "rpcMs": 977,
+          "renderMs": 39.40000003576279,
+          "pipelineMs": 1030.300000011921,
+          "viewMs": 38.5,
+          "metrics": {
+            "totalMs": 976.3999999761581,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "zero-separated-threshold-filter",
+            "workers": 8,
+            "thresholdFallbacks": null,
+            "votePasses": [
+              {
+                "workers": 8,
+                "calibration": {
+                  "width": 1024,
+                  "height": 1024,
+                  "selectedWorkers": 8,
+                  "measurements": [
+                    {
+                      "workers": 1,
+                      "medianMs": 426.39999997615814,
+                      "samplesMs": [
+                        730.1000000238419,
+                        426.39999997615814,
+                        424.80000001192093
+                      ]
+                    },
+                    {
+                      "workers": 2,
+                      "medianMs": 233.5,
+                      "samplesMs": [
+                        233.89999997615814,
+                        233.5,
+                        232.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 4,
+                      "medianMs": 133.39999997615814,
+                      "samplesMs": [
+                        146,
+                        133.39999997615814,
+                        132.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 8,
+                      "medianMs": 110,
+                      "samplesMs": [
+                        110,
+                        123.5,
+                        108.19999998807907
+                      ]
+                    },
+                    {
+                      "workers": 10,
+                      "medianMs": 117.89999997615814,
+                      "samplesMs": [
+                        141,
+                        116.60000002384186,
+                        117.89999997615814
+                      ]
+                    }
+                  ],
+                  "totalMs": 3506.5,
+                  "includesWorkerStartup": true,
+                  "rule": "At least 5% measured median improvement with copies/startup, exact global vote phases and seven-row halos; bounded single-thread workers"
+                },
+                "kernelMs": 109.40000003576279
+              },
+              {
+                "workers": 8,
+                "calibration": {
+                  "width": 1024,
+                  "height": 1024,
+                  "selectedWorkers": 8,
+                  "measurements": [
+                    {
+                      "workers": 1,
+                      "medianMs": 426.39999997615814,
+                      "samplesMs": [
+                        730.1000000238419,
+                        426.39999997615814,
+                        424.80000001192093
+                      ]
+                    },
+                    {
+                      "workers": 2,
+                      "medianMs": 233.5,
+                      "samplesMs": [
+                        233.89999997615814,
+                        233.5,
+                        232.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 4,
+                      "medianMs": 133.39999997615814,
+                      "samplesMs": [
+                        146,
+                        133.39999997615814,
+                        132.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 8,
+                      "medianMs": 110,
+                      "samplesMs": [
+                        110,
+                        123.5,
+                        108.19999998807907
+                      ]
+                    },
+                    {
+                      "workers": 10,
+                      "medianMs": 117.89999997615814,
+                      "samplesMs": [
+                        141,
+                        116.60000002384186,
+                        117.89999997615814
+                      ]
+                    }
+                  ],
+                  "totalMs": 3506.5,
+                  "includesWorkerStartup": true,
+                  "rule": "At least 5% measured median improvement with copies/startup, exact global vote phases and seven-row halos; bounded single-thread workers"
+                },
+                "kernelMs": 107.90000003576279
+              }
+            ],
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 46150906,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 943516453,
+              "codecHeapCapacityBytes": 91815936
+            }
+          }
+        },
+        {
+          "loadMs": 13.399999976158142,
+          "rpcMs": 1034.199999988079,
+          "renderMs": 39.69999998807907,
+          "pipelineMs": 1087.2999999523163,
+          "viewMs": 38,
+          "metrics": {
+            "totalMs": 1033.699999988079,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "zero-separated-threshold-filter",
+            "workers": 8,
+            "thresholdFallbacks": null,
+            "votePasses": [
+              {
+                "workers": 8,
+                "calibration": {
+                  "width": 1024,
+                  "height": 1024,
+                  "selectedWorkers": 8,
+                  "measurements": [
+                    {
+                      "workers": 1,
+                      "medianMs": 426.39999997615814,
+                      "samplesMs": [
+                        730.1000000238419,
+                        426.39999997615814,
+                        424.80000001192093
+                      ]
+                    },
+                    {
+                      "workers": 2,
+                      "medianMs": 233.5,
+                      "samplesMs": [
+                        233.89999997615814,
+                        233.5,
+                        232.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 4,
+                      "medianMs": 133.39999997615814,
+                      "samplesMs": [
+                        146,
+                        133.39999997615814,
+                        132.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 8,
+                      "medianMs": 110,
+                      "samplesMs": [
+                        110,
+                        123.5,
+                        108.19999998807907
+                      ]
+                    },
+                    {
+                      "workers": 10,
+                      "medianMs": 117.89999997615814,
+                      "samplesMs": [
+                        141,
+                        116.60000002384186,
+                        117.89999997615814
+                      ]
+                    }
+                  ],
+                  "totalMs": 3506.5,
+                  "includesWorkerStartup": true,
+                  "rule": "At least 5% measured median improvement with copies/startup, exact global vote phases and seven-row halos; bounded single-thread workers"
+                },
+                "kernelMs": 149.70000004768372
+              },
+              {
+                "workers": 8,
+                "calibration": {
+                  "width": 1024,
+                  "height": 1024,
+                  "selectedWorkers": 8,
+                  "measurements": [
+                    {
+                      "workers": 1,
+                      "medianMs": 426.39999997615814,
+                      "samplesMs": [
+                        730.1000000238419,
+                        426.39999997615814,
+                        424.80000001192093
+                      ]
+                    },
+                    {
+                      "workers": 2,
+                      "medianMs": 233.5,
+                      "samplesMs": [
+                        233.89999997615814,
+                        233.5,
+                        232.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 4,
+                      "medianMs": 133.39999997615814,
+                      "samplesMs": [
+                        146,
+                        133.39999997615814,
+                        132.10000002384186
+                      ]
+                    },
+                    {
+                      "workers": 8,
+                      "medianMs": 110,
+                      "samplesMs": [
+                        110,
+                        123.5,
+                        108.19999998807907
+                      ]
+                    },
+                    {
+                      "workers": 10,
+                      "medianMs": 117.89999997615814,
+                      "samplesMs": [
+                        141,
+                        116.60000002384186,
+                        117.89999997615814
+                      ]
+                    }
+                  ],
+                  "totalMs": 3506.5,
+                  "includesWorkerStartup": true,
+                  "rule": "At least 5% measured median improvement with copies/startup, exact global vote phases and seven-row halos; bounded single-thread workers"
+                },
+                "kernelMs": 117.80000001192093
+              }
+            ],
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 46150906,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 943516453,
+              "codecHeapCapacityBytes": 91815936
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 1034.199999988079
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

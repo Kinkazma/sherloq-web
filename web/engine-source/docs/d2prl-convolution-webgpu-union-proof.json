@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native union head boundaries on generated RGB448 with native PatchMatch and DLF; no browser final inference; ordered explicit WGSL float32 fma",
+  "records": [
+    {
+      "name": "union-0",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 540
+    },
+    {
+      "name": "union-3",
+      "elements": 25690112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 878.3000000007451
+    },
+    {
+      "name": "union-6",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 673.3000000007451
+    },
+    {
+      "name": "union-9",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 211
+    },
+    {
+      "name": "union-12",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 51.79999999701977
+    }
+  ],
+  "cases": 5,
+  "limits": {
+    "maxStorageBufferBindingSize": 536870912,
+    "maxBufferSize": 536870912
+  },
+  "peakAccountedBytes": 416877568,
+  "lifecycle": {
+    "cancelledAfterSubmission": true,
+    "busy": true,
+    "refused": true,
+    "retry": true,
+    "allReservationsReleased": true
+  },
+  "browser": "154.0.8037.58",
+  "sourceSha256": "814a87ada9acc5ec855a25cd76aa085af6f37456c4b08d31b720e001caefba42",
+  "referenceSha256": "68c0be7667e03c76e627b9c2568b5481836397e98ef1d3c412f86724edecba38"
+}

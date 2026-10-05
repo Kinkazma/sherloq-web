@@ -1,0 +1,312 @@
+{
+  "browser": "154.0.8037.58",
+  "algorithm": "AKAZE",
+  "backend": "webgpu",
+  "source": {
+    "file": "m3-96mp-noise-copy.jpg",
+    "width": 12000,
+    "height": 8000,
+    "description": "Public deterministic full-resolution RGB noise (seed130014); entire6000x8000 left half copied at dx6000 before JPEG90 encoding.",
+    "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+    "bytes": 80426021
+  },
+  "params": {
+    "response": 30,
+    "matching": 20,
+    "distance": 40,
+    "minimum": 5
+  },
+  "stats": {
+    "total": 175544,
+    "filtered": 72,
+    "matches": 72,
+    "clusters": 26,
+    "regions": 2
+  },
+  "metrics": {
+    "totalMs": 93790.39999999106,
+    "cache": {
+      "result": false,
+      "stages": {
+        "gray": false,
+        "detected": false,
+        "selected/30": false,
+        "matches/30/20/webgpu": false,
+        "geometry/30/20/webgpu/40": false,
+        "count/30/20/webgpu/40/5": false
+      },
+      "analysis": false,
+      "view": false
+    },
+    "kernel": "copy-move-akaze-reference",
+    "workers": 1,
+    "cloningPreparationMs": 195.29999999701977,
+    "cloningDetectionMs": 93350.89999999106,
+    "cloningSelectionMs": 42.900000005960464,
+    "cloningMatchingMs": 18.200000002980232,
+    "cloningClusteringMs": 2.7000000029802322,
+    "cloningCountMs": 13.600000008940697,
+    "hammingBackend": "webgpu",
+    "cloningPagedExtraction": {
+      "family": "AKAZE",
+      "provider": "cpu",
+      "inputLayout": "global-paged-diffusion",
+      "preflightExecutions": 0,
+      "globalCandidates": 175544,
+      "sourceReads": 125,
+      "coreSize": 1024,
+      "stripRows": 128,
+      "levels": [
+        {
+          "width": 12000,
+          "height": 8000,
+          "contrast": 1.4508711099624634,
+          "halo": 128,
+          "ltStorage": "memory",
+          "smoothStorage": "memory",
+          "detStorage": "memory"
+        },
+        {
+          "width": 12000,
+          "height": 8000,
+          "contrast": 1.4508711099624634,
+          "halo": 128,
+          "ltStorage": "memory",
+          "smoothStorage": "memory",
+          "detStorage": "memory"
+        },
+        {
+          "width": 12000,
+          "height": 8000,
+          "contrast": 1.4508711099624634,
+          "halo": 128,
+          "ltStorage": "memory",
+          "smoothStorage": "memory",
+          "detStorage": "memory"
+        },
+        {
+          "width": 12000,
+          "height": 8000,
+          "contrast": 1.4508711099624634,
+          "halo": 128,
+          "ltStorage": "memory",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 6000,
+          "height": 4000,
+          "contrast": 1.08815336227417,
+          "halo": 128,
+          "ltStorage": "memory",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 6000,
+          "height": 4000,
+          "contrast": 1.08815336227417,
+          "halo": 128,
+          "ltStorage": "memory",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 6000,
+          "height": 4000,
+          "contrast": 1.08815336227417,
+          "halo": 128,
+          "ltStorage": "temporary",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 6000,
+          "height": 4000,
+          "contrast": 1.08815336227417,
+          "halo": 128,
+          "ltStorage": "temporary",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 3000,
+          "height": 2000,
+          "contrast": 0.8161150217056274,
+          "halo": 128,
+          "ltStorage": "temporary",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 3000,
+          "height": 2000,
+          "contrast": 0.8161150217056274,
+          "halo": 128,
+          "ltStorage": "memory",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 3000,
+          "height": 2000,
+          "contrast": 0.8161150217056274,
+          "halo": 128,
+          "ltStorage": "temporary",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 3000,
+          "height": 2000,
+          "contrast": 0.8161150217056274,
+          "halo": 128,
+          "ltStorage": "temporary",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 1500,
+          "height": 1000,
+          "contrast": 0.612086296081543,
+          "halo": 128,
+          "ltStorage": "memory",
+          "smoothStorage": "memory",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 1500,
+          "height": 1000,
+          "contrast": 0.612086296081543,
+          "halo": 128,
+          "ltStorage": "memory",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 1500,
+          "height": 1000,
+          "contrast": 0.612086296081543,
+          "halo": 128,
+          "ltStorage": "temporary",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        },
+        {
+          "width": 1500,
+          "height": 1000,
+          "contrast": 0.612086296081543,
+          "halo": 128,
+          "ltStorage": "temporary",
+          "smoothStorage": "temporary",
+          "detStorage": "temporary"
+        }
+      ],
+      "stages": [
+        {
+          "executions": 2561,
+          "retries": 0,
+          "workers": 2,
+          "peakWorkerHeapBytes": 69730304,
+          "preflightExecutions": 0,
+          "failures": []
+        },
+        {
+          "executions": 1,
+          "retries": 0,
+          "workers": 1,
+          "peakWorkerHeapBytes": 138674176,
+          "preflightExecutions": 0,
+          "failures": []
+        },
+        {
+          "executions": 287,
+          "retries": 0,
+          "workers": 2,
+          "peakWorkerHeapBytes": 48365568,
+          "preflightExecutions": 0,
+          "failures": []
+        }
+      ],
+      "spills": [
+        {
+          "bytes": 384000000,
+          "milliseconds": 1208.2000000029802,
+          "reason": "useful-stage-admission"
+        }
+      ],
+      "arithmetic": "relaxed-simd-fma",
+      "workers": 2,
+      "peakWorkerHeapBytes": 138674176,
+      "executions": 2849,
+      "retries": 0
+    },
+    "cloningGeometryStrategy": "direct",
+    "backend": "hybrid",
+    "cloningGroupWorkers": 1,
+    "cloningGroupCandidateRows": 2556,
+    "cloningGroupAllPairRows": 2556,
+    "viewMs": 165.20000000298023,
+    "memory": {
+      "budgetBytes": 6442450944,
+      "retainedBytes": 576000000,
+      "cacheBytes": 20585772,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 6440481767
+    },
+    "resultStorage": "memory"
+  },
+  "loadMs": 6303.20000000298,
+  "totalMs": 116932.60000000894,
+  "exports": [
+    {
+      "format": "json",
+      "bytes": 14568,
+      "sha256": "d6f6484b3347ff0352b89021ac3d1c7ce8cc0e7944a5509fe4576a8cecfb7d56",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 65198,
+        "encodedWriteCalls": 1,
+        "maxEncodedChunkBytes": 262144,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 576065198,
+          "cacheBytes": 20585772,
+          "activeReservationBytes": 385117728,
+          "peakAccountedBytes": 6440481767
+        }
+      }
+    },
+    {
+      "format": "png",
+      "bytes": 145759141,
+      "sha256": "8573f85bef2dcac65345f1e06d7531e8a8d09d8da1f3c0ca3597c33763c58bfd",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 289197244,
+        "encodedWriteCalls": 557,
+        "maxSourceWindowBytes": 1152000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 865197244,
+          "cacheBytes": 20585772,
+          "activeReservationBytes": 410517504,
+          "peakAccountedBytes": 6440481767
+        }
+      }
+    }
+  ],
+  "output": "historical-akaze",
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 6440481767,
+    "knownHeapCapacityBytes": 385089536
+  }
+}

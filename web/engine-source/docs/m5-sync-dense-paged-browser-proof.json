@@ -1,0 +1,46 @@
+[
+  {
+    "backend": "opfs",
+    "milliseconds": 2280,
+    "metrics": {
+      "workspaceBytes": 16900576,
+      "initialBatchPixels": 0,
+      "batchBytes": 0,
+      "residentPool": false,
+      "residentPoolBytes": 0,
+      "cacheBytes": 123360,
+      "pageBytes": 8192,
+      "cachePages": 4,
+      "reads": 2313,
+      "writes": 2,
+      "readBytes": 18551109,
+      "writeBytes": 10664,
+      "heapBytes": 8388608
+    },
+    "comparisons": "22449",
+    "peakAccountedBytes": 16900576,
+    "bitExact": true
+  },
+  {
+    "backend": "indexeddb",
+    "milliseconds": 61.29999999701977,
+    "metrics": {
+      "workspaceBytes": 16900576,
+      "initialBatchPixels": 0,
+      "batchBytes": 0,
+      "residentPool": false,
+      "residentPoolBytes": 0,
+      "cacheBytes": 123360,
+      "pageBytes": 8192,
+      "cachePages": 4,
+      "reads": 2313,
+      "writes": 2,
+      "readBytes": 18551109,
+      "writeBytes": 10664,
+      "heapBytes": 8388608
+    },
+    "comparisons": "22449",
+    "peakAccountedBytes": 17056537,
+    "bitExact": true
+  }
+]

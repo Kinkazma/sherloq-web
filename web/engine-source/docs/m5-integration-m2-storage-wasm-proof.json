@@ -1,0 +1,152 @@
+{
+  "records": [
+    {
+      "offset": 0,
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "offset": 268435448,
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "offset": 2147483632,
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "offset": 2147483648,
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "offset": 4294967288,
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "offset": 6143999984,
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "storage": {
+    "reservedBytes": 6144000000,
+    "peakReservedBytes": 6144000000,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 10737418240,
+    "openFiles": 1,
+    "physicalFiles": 6,
+    "maximumPhysicalFileBytes": 1073741824
+  },
+  "memory": {
+    "budgetBytes": 16777216,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 0
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "temporary on-disk profile owned by this worktree",
+  "executionNote": "CPU/WASM",
+  "integration": "API0.31.0-integration.7; M2 tensor banks reuse shared OPFS1GiB physical shards. No second generic256MiB sharding layer."
+}

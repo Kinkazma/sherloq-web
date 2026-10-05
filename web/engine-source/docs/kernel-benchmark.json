@@ -1,0 +1,234 @@
+{
+  "schema": 1,
+  "scope": "isolated kernels, synthetic images, NOT end-to-end JPEG or WordPress",
+  "units": "milliseconds; RGB byte error 0..255",
+  "runs": [
+    {
+      "side": 64,
+      "pixels": 4096,
+      "iteration": 0,
+      "tableMs": 0.5,
+      "referenceMs": 0.30000001192092896,
+      "fusedCpuMs": 0.699999988079071,
+      "cpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      },
+      "gpu": {
+        "preparationMs": 0.10000002384185791,
+        "transferPreparationMs": 0.19999998807907104,
+        "dispatchAndReadbackMs": 0.800000011920929,
+        "unpackMs": 0.10000002384185791,
+        "totalMs": 1.2000000476837158,
+        "accountedGpuBufferBytes": 327696
+      },
+      "gpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      }
+    },
+    {
+      "side": 64,
+      "pixels": 4096,
+      "iteration": 1,
+      "tableMs": 0.5,
+      "referenceMs": 0.30000001192092896,
+      "fusedCpuMs": 0.10000002384185791,
+      "cpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      },
+      "gpu": {
+        "preparationMs": 0.09999996423721313,
+        "transferPreparationMs": 0.10000002384185791,
+        "dispatchAndReadbackMs": 0.699999988079071,
+        "unpackMs": 0.10000002384185791,
+        "totalMs": 1,
+        "accountedGpuBufferBytes": 327696
+      },
+      "gpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      }
+    },
+    {
+      "side": 64,
+      "pixels": 4096,
+      "iteration": 2,
+      "tableMs": 0.5,
+      "referenceMs": 0.10000002384185791,
+      "fusedCpuMs": 0.30000001192092896,
+      "cpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      },
+      "gpu": {
+        "preparationMs": 0.09999996423721313,
+        "transferPreparationMs": 0.10000002384185791,
+        "dispatchAndReadbackMs": 0.5999999642372131,
+        "unpackMs": 0.10000002384185791,
+        "totalMs": 0.8999999761581421,
+        "accountedGpuBufferBytes": 327696
+      },
+      "gpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      }
+    },
+    {
+      "side": 512,
+      "pixels": 262144,
+      "iteration": 0,
+      "tableMs": 0.699999988079071,
+      "referenceMs": 7,
+      "fusedCpuMs": 1.600000023841858,
+      "cpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      },
+      "gpu": {
+        "preparationMs": 0.8999999761581421,
+        "transferPreparationMs": 0.30000001192092896,
+        "dispatchAndReadbackMs": 3.699999988079071,
+        "unpackMs": 0.800000011920929,
+        "totalMs": 5.699999988079071,
+        "accountedGpuBufferBytes": 4456464
+      },
+      "gpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      }
+    },
+    {
+      "side": 512,
+      "pixels": 262144,
+      "iteration": 1,
+      "tableMs": 0.699999988079071,
+      "referenceMs": 5.600000023841858,
+      "fusedCpuMs": 1.5,
+      "cpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      },
+      "gpu": {
+        "preparationMs": 0.8999999761581421,
+        "transferPreparationMs": 0.10000002384185791,
+        "dispatchAndReadbackMs": 1.699999988079071,
+        "unpackMs": 0.699999988079071,
+        "totalMs": 3.399999976158142,
+        "accountedGpuBufferBytes": 4456464
+      },
+      "gpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      }
+    },
+    {
+      "side": 512,
+      "pixels": 262144,
+      "iteration": 2,
+      "tableMs": 0.699999988079071,
+      "referenceMs": 5.5,
+      "fusedCpuMs": 1.600000023841858,
+      "cpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      },
+      "gpu": {
+        "preparationMs": 1,
+        "transferPreparationMs": 0.10000002384185791,
+        "dispatchAndReadbackMs": 2.600000023841858,
+        "unpackMs": 0.7999999523162842,
+        "totalMs": 4.5,
+        "accountedGpuBufferBytes": 4456464
+      },
+      "gpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      }
+    },
+    {
+      "side": 1024,
+      "pixels": 1048576,
+      "iteration": 0,
+      "tableMs": 0.699999988079071,
+      "referenceMs": 22.5,
+      "fusedCpuMs": 6.199999988079071,
+      "cpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      },
+      "gpu": {
+        "preparationMs": 3.200000047683716,
+        "transferPreparationMs": 1,
+        "dispatchAndReadbackMs": 6,
+        "unpackMs": 2.800000011920929,
+        "totalMs": 13.100000023841858,
+        "accountedGpuBufferBytes": 17039376
+      },
+      "gpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      }
+    },
+    {
+      "side": 1024,
+      "pixels": 1048576,
+      "iteration": 1,
+      "tableMs": 0.699999988079071,
+      "referenceMs": 22.600000023841858,
+      "fusedCpuMs": 6,
+      "cpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      },
+      "gpu": {
+        "preparationMs": 3.400000035762787,
+        "transferPreparationMs": 1.2999999523162842,
+        "dispatchAndReadbackMs": 4.200000047683716,
+        "unpackMs": 2.799999952316284,
+        "totalMs": 11.699999988079071,
+        "accountedGpuBufferBytes": 17039376
+      },
+      "gpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      }
+    },
+    {
+      "side": 1024,
+      "pixels": 1048576,
+      "iteration": 2,
+      "tableMs": 0.699999988079071,
+      "referenceMs": 22.600000023841858,
+      "fusedCpuMs": 6.199999988079071,
+      "cpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      },
+      "gpu": {
+        "preparationMs": 3.100000023841858,
+        "transferPreparationMs": 0.3999999761581421,
+        "dispatchAndReadbackMs": 5.5,
+        "unpackMs": 2.600000023841858,
+        "totalMs": 11.600000023841858,
+        "accountedGpuBufferBytes": 17039376
+      },
+      "gpuError": {
+        "differentBytes": 0,
+        "maxAbsoluteErrorByte": 0
+      }
+    }
+  ],
+  "gpu": {
+    "adapter": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "isFallbackAdapter": false
+    },
+    "initMs": 6.300000011920929,
+    "nativeOutputsChecked": 40
+  },
+  "browser": "154.0.8037.58"
+}

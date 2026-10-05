@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "44a39f5178704a081e3c077666eace2ceeebadce",
+  "date": "2026-10-03T13:33:26.975701+00:00",
+  "purpose": "Read-only incident analysis and proposed design; no engine correction or run intervention. Reproductions inject tiny deterministic failures and never probe browser capacity.",
+  "runDirectory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-transactional-96mp-20261003T125106Z",
+  "conclusion": "Confirmed composition defects between admission, allocation error contracts and recovery. No single physical memory cause or global leak has been proved.",
+  "findings": [
+    {
+      "id": "F1",
+      "confidence": "confirmed_in_run_and_real_module_reproduction",
+      "title": "Concurrent recovery pressure deadlocks SIFT admission",
+      "mechanism": "Pressure survives through useful retry. Each retry requests ArrayBuffer admission. blockingPressure treats another queued pressured operation as a producer and returns before canWaitForMemory; mutual dependencies never reach no-independent-producer handling.",
+      "locations": [
+        "src/execution-scheduler.js:72",
+        "src/execution-scheduler.js:83",
+        "src/execution-scheduler.js:101",
+        "src/sift-paged.js:53",
+        "src/resource-recovery.js:103"
+      ],
+      "evidence": [
+        "pressure-cycle-result.json",
+        "run-evidence.json"
+      ],
+      "consequence": "Eight recovery pressures and ten queued SIFT operations remain with no active execution. Five-error guard cannot advance because no retry runs."
+    },
+    {
+      "id": "F2",
+      "confidence": "confirmed_real_module_reproduction_and_code",
+      "title": "RGB window wrapper discards allocator cause and misclassifies arbitrary RangeError",
+      "mechanism": "readWindow catches output allocation, row allocation and nested storage RangeError together and replaces them with MEMORY_ALLOCATION without cause, allocationKind or requestedBytes. Genuine allocation refusal and bounds error become indistinguishable.",
+      "locations": [
+        "src/rgb-surface.js:18",
+        "src/rgb-surface.js:31",
+        "src/errors.js:20",
+        "src/resource-recovery.js:4",
+        "src/resource-recovery.js:51"
+      ],
+      "evidence": [
+        "window-errors-result.json"
+      ],
+      "consequence": "The recovery path loses domain-aware reclamation and causal wait. Its missing requested extent falls back to 1 MiB. The test shows five identical retries and no call to typed reclaim for both injected error types.",
+      "limit": "Actual native cause of the PatchMatch failure cannot be reconstructed from its rewritten error."
+    },
+    {
+      "id": "F3",
+      "confidence": "confirmed_code_and_run",
+      "title": "Allocator ownership and pressure admission are incompletely connected",
+      "mechanism": "RGB scratch/window and Elastic input/output have policy reservations without full backing records; Elastic memory admission declares no domains. SIFT readRect allocates before registration and does not annotate failed extent.",
+      "locations": [
+        "src/rgb-surface.js:18",
+        "src/elastic-worker-pool.js:30",
+        "src/elastic-worker-pool.js:37",
+        "src/sift-paged.js:60",
+        "src/sift-paged.js:114"
+      ],
+      "consequence": "Diagnostics are known owners only. Some paths can grow during pressure while others are blocked. A policy allowance and backing retirement are not proof of a successful new allocation."
+    },
+    {
+      "id": "F4",
+      "confidence": "confirmed_code_and_run",
+      "title": "PatchMatch partial texture and in-flight fields lack sufficiently fine checkpoints",
+      "mechanism": "Texture mask is published only after all tiles; failure disposes the partial mask. The outer dense image finally aborts other in-flight fields. Existing checkpoints keep validated products, not arbitrary native iteration fronts.",
+      "locations": [
+        "src/dense-paged-regions.js:49",
+        "src/dense-paged-regions.js:58",
+        "src/dense-paged-image.js:45",
+        "src/dense-paged-image.js:87",
+        "src/dense-paged-image.js:98"
+      ],
+      "runEvidence": {
+        "textureCommittedTilesReported": 1121,
+        "textureTotalTiles": 5922,
+        "terminalOperation": "dense-texture/tile/1121",
+        "consecutiveFailures": 5,
+        "fieldCompleteEventsBeforeFailure": 0
+      },
+      "consequence": "A resumable detector does not imply preservation of every partial internal result."
+    },
+    {
+      "id": "F5",
+      "confidence": "confirmed_code_and_run",
+      "title": "Failure telemetry and terminal settlement miss structural stalls",
+      "mechanism": "Elastic recovery callbacks only update local metrics, losing public reclaim/wait episodes. Automatic session awaits active provider promises; no structural stall transition exists for a closed waiting cycle.",
+      "locations": [
+        "src/elastic-worker-pool.js:26",
+        "src/automatic-analysis-session.js:82",
+        "src/automatic-analysis-session.js:120",
+        "tests/m5-complete-96mp-browser.js:17"
+      ],
+      "consequence": "PatchMatch can be failed and peers done while SIFT keeps runPromise pending; explicit resume and final partial export remain unavailable until settlement. Heartbeats continue without useful progress."
+    }
+  ],
+  "memoryEvidence": {
+    "policyBudgetBytes": 27487371264,
+    "deviceMemoryHintGiB": 32,
+    "initialHostFreeBytes": 10718674944,
+    "firstFailureHostFreeBytes": 643055616,
+    "initialHostCompressorBytes": 12209307648,
+    "firstFailureHostCompressorBytes": 21062123520,
+    "initialSwapUsedMiB": 10850.56,
+    "firstFailureRegisteredArrayBufferBytes": 9256322142,
+    "firstFailureMaterializedWasmBytes": 1796603904,
+    "laterTargetedRetirementsBytes": [
+      96000000,
+      4608000000,
+      1536000000
+    ],
+    "postRetirementSiftRefusalsObserved": false,
+    "limits": [
+      "Free pages alone are not total reclaimable RAM. Host observations support memory pressure, not a unique cause.",
+      "deviceMemory is an approximate physical-memory class, not current free memory or the Chromium ArrayBuffer pool ceiling.",
+      "Retired ownership bytes and policy credits do not prove browser GC completion.",
+      "No heap dump, debugger, browser allocation probe or OS OOM evidence identifies an exact allocator ceiling."
+    ],
+    "plannedTextureRgbBytes": 172800,
+    "plannedTextureRowBytes": 720,
+    "plannedElaRgbBandBytes": 1152000,
+    "plannedSizeQualification": "Derived plan bounds, not proven native failed extents; wrapper includes output, row, readInto and copies."
+  },
+  "secondaryFinding": {
+    "title": "Released registry handle can retain identity strongly",
+    "location": "src/resource-registry.js:15",
+    "repro": "retirement-liveness.jsonl",
+    "causalToThisRun": false,
+    "reason": "The tested raw ArrayBuffer identity remains reachable through release closure, but the production identity caller supplies SIFT worker record rec and clears its worker on retirement. Tested segmented regular/adopted SAB banks do become collectable after spill."
+  },
+  "proposedDesign": [
+    "Single exact allocation contract: domain, requested bytes, operation, generation, native cause, rollback and ownership; reject bounds errors as programming errors rather than memory pressure.",
+    "Recovery arbiter per allocation domain: grant one useful continuation and its dependency chain; pressure delays competing new growth but cannot block every repairing continuation. Unrelated admitted CPU/GPU work remains runnable.",
+    "One dependency model for every wait. Detect closed waiting components with no genuine CPU/GPU/IO producer and choose a continuation or settle as blocked with retained checkpoints. Do not use short fixed timeouts to kill productive work.",
+    "Reusable exact-size or size-class buffers and readInto destinations; include transfer/map/spill peaks in admission. Retire aliases only after acknowledgements. Avoid allocating a large copy in order to evacuate memory.",
+    "Adapt in-flight allocation width and eligible tile sizes from useful work, without preflight probes, quality reduction, persistent history or permanent global worker reduction. Preserve halo, arithmetic and ordering when splitting.",
+    "Transactional per-tile texture mask with committed bitmap; retain completed descriptor/field products. Add safe iteration/front checkpoints only with scientific parity and measured whole-run cost.",
+    "Unified failure/reclaim/wait/resume/publication events and automatic partial settlement when no useful producer can resolve a stall. Keep five comparable actual failures without own useful progress; track structural deadlock separately."
+  ],
+  "requiredRegressions": [
+    "Two and many simultaneous failures in one domain; third producer present then gone; at least one retry progresses without cycle or pressure leak.",
+    "Native allocation and storage bounds errors through RGB/SIFT/Elastic preserve exact distinct cause, domain and requested extent.",
+    "Backend credits released in another domain, delayed retirement, shared buffers pinned by peers, incomplete IO and nested reclaim do not create false retry evidence or deadlock.",
+    "Mid-texture failure retains committed tile bitmap and output, retries only unfinished work, exact final scientific results and RNG state.",
+    "One detector terminal plus another structurally stuck yields explicit resumable partial state without replaying completed groups.",
+    "Full cold 96 MP after targeted proofs, total wall time includes useful computation, migration, recovery, export and verification; success only verified final archive."
+  ],
+  "whyPriorTestsMissedIt": "Pressure admission tests cover one recovering owner and children; graph cycle tests exercise a separate registry wait path. Their composition with concurrent SiftPool retry re-admission was not covered. RGB error wrapping was not tested end-to-end with allocator recovery, and the smaller successful fixture did not hit the same refusal conditions.",
+  "externalSources": [
+    {
+      "url": "https://www.w3.org/TR/device-memory/",
+      "supports": "deviceMemory is rounded approximate physical memory with implementation-defined bounds, not current allocatable memory."
+    },
+    {
+      "url": "https://github.com/chromium/chromium/blob/main/third_party/blink/renderer/platform/wtf/allocator/partitions.cc",
+      "supports": "Chromium uses a distinct ArrayBuffer partition and configurable pool when the V8 cage is enabled. This does not identify the exact ceiling of the tested Chrome build."
+    }
+  ],
+  "evidence": [
+    {
+      "file": "pressure-cycle-repro.mjs",
+      "bytes": 4064,
+      "sha256": "e1fffae6b165a20707aa325220fe14d390427b3c9d6c8ec3d698d341c9f180ce"
+    },
+    {
+      "file": "pressure-cycle-result.json",
+      "bytes": 3069,
+      "sha256": "2482f6bcf014303b067ff09ec478a76de5061052f6b077c593d6750a7513e7ec"
+    },
+    {
+      "file": "retirement-liveness.jsonl",
+      "bytes": 535,
+      "sha256": "c6d6c93dd9138ee784216c2a5e065a8f512c591a2c5897e82acf1b5e29c91fc0"
+    },
+    {
+      "file": "retirement-liveness.mjs",
+      "bytes": 1779,
+      "sha256": "e14d2fdbbc1dc38d668225f59004eb57f3a1601da3b1db2c54566f9da396a189"
+    },
+    {
+      "file": "run-evidence.json",
+      "bytes": 1365983,
+      "sha256": "ab19c3e6673d619e4246985b141fdccde122970e4bac4cdf153d079b353f5137"
+    },
+    {
+      "file": "window-errors-repro.mjs",
+      "bytes": 2585,
+      "sha256": "a5ffe661634f26cfe33c485d0aa78257627ba48355e1e15c8a8eb17f90a97418"
+    },
+    {
+      "file": "window-errors-result.json",
+      "bytes": 1418,
+      "sha256": "4fffb96611e1ef1f84a1203b53c3c0b340ee6fb7d15c1e1bb381731db9827f57"
+    },
+    {
+      "file": "patchmatch-timeline.json",
+      "bytes": 78042,
+      "sha256": "b169df807c387205ad051c4dfc8fffa17329111812ce047c096b234c822ef42e"
+    }
+  ],
+  "reproductionCommands": [
+    "node docs/audits/integration27-96mp-20261003/pressure-cycle-repro.mjs",
+    "node docs/audits/integration27-96mp-20261003/window-errors-repro.mjs",
+    "node --expose-gc docs/audits/integration27-96mp-20261003/retirement-liveness.mjs"
+  ]
+}

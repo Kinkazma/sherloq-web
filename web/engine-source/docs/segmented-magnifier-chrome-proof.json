@@ -1,0 +1,2063 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real common worker, 96 MP synthetic JPEG under 256 MiB; exact native ROI equalization/contrast, caches, JSON, budget refusal, original bytes, cancellation/storage closure, reload/unload. Functional timings, not isolated benchmarks.",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+  "nativeSources": {
+    "source/gui/sherloq_app/core/magnifier.py": "2f6f5f5d27531305456ee6a4b3284b0574386b5ebbc30c976c76c241101691a1",
+    "source/gui/sherloq_app/core/utility.py": "4c70b30cfb1f8bebcdae85fa95f39a77d267081bc9509d67b661c9e9600a5fbc"
+  },
+  "loadMs": 2551.89999999851,
+  "loadMetrics": {
+    "decodeMs": 2122.7999999970198,
+    "rowsPerChunk": 116,
+    "encodedWorkingBytes": 86050184,
+    "coefficientAllowanceBytes": 0,
+    "workingReservationBytes": 127956616,
+    "codecHeapCapacityBytes": 103546880,
+    "storage": "temporary",
+    "temporaryBackend": "opfs",
+    "temporaryFallback": null,
+    "temporaryBytes": 288000000,
+    "originalBlobBytes": 86050184,
+    "originalBlobResidency": "browser-managed; not measured as zero RAM",
+    "preparationMs": 2507.7999999970198,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 129005192
+    }
+  },
+  "cases": [
+    {
+      "params": {
+        "bounds": [
+          13,
+          17,
+          270,
+          210
+        ],
+        "mode": "equalize",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        13,
+        17,
+        270,
+        210
+      ],
+      "sha256": "2cb3c86e0fb30cad4485b4bd89fc9cb4f791b03d22efa410ec24c1d8dac53095",
+      "rpcMs": 41.20000000298023,
+      "metrics": {
+        "totalMs": 40.5,
+        "readMs": 26.899999998509884,
+        "kernelMs": 13.5,
+        "sourceWindowBytes": 148803,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 298630,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 298630,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          13,
+          17,
+          270,
+          210
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": false
+      },
+      "bounds": [
+        13,
+        17,
+        270,
+        210
+      ],
+      "sha256": "d1d7d48c683fe046c2a524ccdb33fd063b28b2984344e599b994bf4587f8e2f1",
+      "rpcMs": 12.399999998509884,
+      "metrics": {
+        "totalMs": 12.199999995529652,
+        "readMs": 0,
+        "kernelMs": 12.100000001490116,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 448457,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 448457,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          13,
+          17,
+          270,
+          210
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": true
+      },
+      "bounds": [
+        13,
+        17,
+        270,
+        210
+      ],
+      "sha256": "eef0d5d33f5c557a5576616d2419a368fa63d07b382d1229ce46b631b53dda26",
+      "rpcMs": 11.699999995529652,
+      "metrics": {
+        "totalMs": 11.600000001490116,
+        "readMs": 0,
+        "kernelMs": 11.400000005960464,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 598284,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 598284,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          13,
+          17,
+          270,
+          210
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        13,
+        17,
+        270,
+        210
+      ],
+      "sha256": "0f1d2739c143f7b93f6337d6bd31f01dc02345001f732459108b69b2b5a365ae",
+      "rpcMs": 10.5,
+      "metrics": {
+        "totalMs": 10.400000005960464,
+        "readMs": 0,
+        "kernelMs": 10.300000004470348,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 748111,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0.10000000149011612,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 748111,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          13,
+          17,
+          270,
+          210
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": true
+      },
+      "bounds": [
+        13,
+        17,
+        270,
+        210
+      ],
+      "sha256": "8d06233037ae4753d0616e44ce64497f1155a2eb2b93780de803872e41d6eabc",
+      "rpcMs": 11.399999998509884,
+      "metrics": {
+        "totalMs": 11.299999997019768,
+        "readMs": 0,
+        "kernelMs": 11.199999995529652,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 897938,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0.09999999403953552,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 897938,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          13,
+          17,
+          270,
+          210
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": false
+      },
+      "bounds": [
+        13,
+        17,
+        270,
+        210
+      ],
+      "sha256": "06183f99ebc02ae66464ed0ae61e5dc637f2c99b0cc518043032b3ed31995018",
+      "rpcMs": 11.300000004470348,
+      "metrics": {
+        "totalMs": 11.200000002980232,
+        "readMs": 0,
+        "kernelMs": 11.100000001490116,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 1047765,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 1047765,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          13,
+          17,
+          270,
+          210
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": true
+      },
+      "bounds": [
+        13,
+        17,
+        270,
+        210
+      ],
+      "sha256": "06183f99ebc02ae66464ed0ae61e5dc637f2c99b0cc518043032b3ed31995018",
+      "rpcMs": 10.100000001490116,
+      "metrics": {
+        "totalMs": 10,
+        "readMs": 0,
+        "kernelMs": 10,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 1197592,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0.10000000149011612,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 1197592,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          4793,
+          2981,
+          6330,
+          4006
+        ],
+        "mode": "equalize",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        4793,
+        2981,
+        6330,
+        4006
+      ],
+      "sha256": "902a878309ea281a5898368b85712cb24c8c30055401267810196b349a21f46b",
+      "rpcMs": 583.8999999985099,
+      "metrics": {
+        "totalMs": 583.6999999955297,
+        "readMs": 281.3999999985099,
+        "kernelMs": 301.20000000298023,
+        "sourceWindowBytes": 4726275,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 10651166,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 1.1000000014901161,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 10651166,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 133111338
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          4793,
+          2981,
+          6330,
+          4006
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": false
+      },
+      "bounds": [
+        4793,
+        2981,
+        6330,
+        4006
+      ],
+      "sha256": "8f6e44a0db643def10759c07b94f2e602a57a52186afbd47586dc8c167d42733",
+      "rpcMs": 304.5,
+      "metrics": {
+        "totalMs": 304.5,
+        "readMs": 0,
+        "kernelMs": 303.3999999985099,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 15378465,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 133111338
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 1,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 15378465,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 137838637
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          4793,
+          2981,
+          6330,
+          4006
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": true
+      },
+      "bounds": [
+        4793,
+        2981,
+        6330,
+        4006
+      ],
+      "sha256": "6eafe78d90c72364fbe60062950cb7bba5e8dbd1a4e337d58e5a6fe36c426dbb",
+      "rpcMs": 299.59999999403954,
+      "metrics": {
+        "totalMs": 299.5,
+        "readMs": 0,
+        "kernelMs": 298.5,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 20105764,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 137838637
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 1.1999999955296516,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 20105764,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 142565936
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          4793,
+          2981,
+          6330,
+          4006
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        4793,
+        2981,
+        6330,
+        4006
+      ],
+      "sha256": "45fefff077c39ad02e071c5d5276ce51e5431566f810ce5f6ccc835e8890faae",
+      "rpcMs": 302.1000000014901,
+      "metrics": {
+        "totalMs": 301.8999999985099,
+        "readMs": 0,
+        "kernelMs": 300.69999999552965,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 24833063,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 142565936
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 1.1000000014901161,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 24833063,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 147293235
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          4793,
+          2981,
+          6330,
+          4006
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": true
+      },
+      "bounds": [
+        4793,
+        2981,
+        6330,
+        4006
+      ],
+      "sha256": "7e18c53849fe5149c62c1fa1dc6f93e885a2698efe72832823739473084767de",
+      "rpcMs": 300.5,
+      "metrics": {
+        "totalMs": 300.40000000596046,
+        "readMs": 0,
+        "kernelMs": 299.40000000596046,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 29560362,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 147293235
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 1.1000000014901161,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 29560362,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 152020534
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          4793,
+          2981,
+          6330,
+          4006
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": false
+      },
+      "bounds": [
+        4793,
+        2981,
+        6330,
+        4006
+      ],
+      "sha256": "4a01802a57183b36af1c6fed869f57544c2e31f5bb8ac88d96d96ea88e61483d",
+      "rpcMs": 300.20000000298023,
+      "metrics": {
+        "totalMs": 300.1000000014901,
+        "readMs": 0,
+        "kernelMs": 299,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 34287661,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 152020534
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 1,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 34287661,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 156747833
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          4793,
+          2981,
+          6330,
+          4006
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": true
+      },
+      "bounds": [
+        4793,
+        2981,
+        6330,
+        4006
+      ],
+      "sha256": "4a01802a57183b36af1c6fed869f57544c2e31f5bb8ac88d96d96ea88e61483d",
+      "rpcMs": 301.5,
+      "metrics": {
+        "totalMs": 301.20000000298023,
+        "readMs": 0,
+        "kernelMs": 300.30000000447035,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39014960,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 156747833
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 1,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39014960,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          -5,
+          -3,
+          35,
+          29
+        ],
+        "mode": "equalize",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        0,
+        0,
+        35,
+        29
+      ],
+      "sha256": "f420c504ee6020572b3bc83dae75f7f07605cce382ac34b5a828778b155f5a09",
+      "rpcMs": 3.5,
+      "metrics": {
+        "totalMs": 3.5,
+        "readMs": 3.1999999955296516,
+        "kernelMs": 0.30000000447034836,
+        "sourceWindowBytes": 3045,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39022074,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39022074,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          -5,
+          -3,
+          35,
+          29
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": false
+      },
+      "bounds": [
+        0,
+        0,
+        35,
+        29
+      ],
+      "sha256": "8ce0fca19acf70d7808217803c06e23327a5dcb8707ad78c27df908c973b5e92",
+      "rpcMs": 0.4000000059604645,
+      "metrics": {
+        "totalMs": 0.20000000298023224,
+        "readMs": 0,
+        "kernelMs": 0.20000000298023224,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39026143,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39026143,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          -5,
+          -3,
+          35,
+          29
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": true
+      },
+      "bounds": [
+        0,
+        0,
+        35,
+        29
+      ],
+      "sha256": "52671265b3799c1d3102e438833fb22271f97a589f1c1040d1715e43e76ab5f0",
+      "rpcMs": 0.4000000059604645,
+      "metrics": {
+        "totalMs": 0.30000000447034836,
+        "readMs": 0,
+        "kernelMs": 0.30000000447034836,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39030212,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39030212,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          -5,
+          -3,
+          35,
+          29
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        0,
+        0,
+        35,
+        29
+      ],
+      "sha256": "6e3669856929668355c39cf499af7992d26573228fa1e118778ddf49df5c7063",
+      "rpcMs": 0.4000000059604645,
+      "metrics": {
+        "totalMs": 0.30000000447034836,
+        "readMs": 0,
+        "kernelMs": 0.30000000447034836,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39034281,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39034281,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          -5,
+          -3,
+          35,
+          29
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": true
+      },
+      "bounds": [
+        0,
+        0,
+        35,
+        29
+      ],
+      "sha256": "9c1dd2d37af14c3cae434b202697301283200f633d22f327a5dfa2052fd73437",
+      "rpcMs": 0.30000000447034836,
+      "metrics": {
+        "totalMs": 0.20000000298023224,
+        "readMs": 0,
+        "kernelMs": 0.20000000298023224,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39038350,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39038350,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          -5,
+          -3,
+          35,
+          29
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": false
+      },
+      "bounds": [
+        0,
+        0,
+        35,
+        29
+      ],
+      "sha256": "56a8b1ac96ebfe1fb89f904227f3acfd58e45e7b06ec44f60cfc0aef255d2539",
+      "rpcMs": 0.29999999701976776,
+      "metrics": {
+        "totalMs": 0.20000000298023224,
+        "readMs": 0,
+        "kernelMs": 0.20000000298023224,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39042419,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39042419,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          -5,
+          -3,
+          35,
+          29
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": true
+      },
+      "bounds": [
+        0,
+        0,
+        35,
+        29
+      ],
+      "sha256": "56a8b1ac96ebfe1fb89f904227f3acfd58e45e7b06ec44f60cfc0aef255d2539",
+      "rpcMs": 0.3999999985098839,
+      "metrics": {
+        "totalMs": 0.29999999701976776,
+        "readMs": 0,
+        "kernelMs": 0.19999999552965164,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39046488,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39046488,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          11971,
+          7983,
+          12050,
+          8010
+        ],
+        "mode": "equalize",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        11971,
+        7983,
+        12000,
+        8000
+      ],
+      "sha256": "ca05eca48a4e9cce6fc1e462781eda9aed6f17bccd436ffa9e857fbb2fe255fd",
+      "rpcMs": 2.100000001490116,
+      "metrics": {
+        "totalMs": 2.100000001490116,
+        "readMs": 1.8999999985098839,
+        "kernelMs": 0.20000000298023224,
+        "sourceWindowBytes": 1479,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39050470,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39050470,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          11971,
+          7983,
+          12050,
+          8010
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": false
+      },
+      "bounds": [
+        11971,
+        7983,
+        12000,
+        8000
+      ],
+      "sha256": "4409fb185da416a401e96f5e4a94207f66673f6ee9d0bffd10e244db18574f5e",
+      "rpcMs": 0.29999999701976776,
+      "metrics": {
+        "totalMs": 0.19999999552965164,
+        "readMs": 0,
+        "kernelMs": 0.19999999552965164,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39052973,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39052973,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          11971,
+          7983,
+          12050,
+          8010
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": true
+      },
+      "bounds": [
+        11971,
+        7983,
+        12000,
+        8000
+      ],
+      "sha256": "44b3e10106da777a610815e68fb02a4ae9c2b1fcc4ec7a6844e5d5a1b107390d",
+      "rpcMs": 0.19999999552965164,
+      "metrics": {
+        "totalMs": 0.10000000149011612,
+        "readMs": 0,
+        "kernelMs": 0.10000000149011612,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39055476,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39055476,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          11971,
+          7983,
+          12050,
+          8010
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        11971,
+        7983,
+        12000,
+        8000
+      ],
+      "sha256": "16418184ac0daccbd97839299a87aa8e718a18bd48755ae189e9395e73155c53",
+      "rpcMs": 0.30000000447034836,
+      "metrics": {
+        "totalMs": 0.10000000149011612,
+        "readMs": 0,
+        "kernelMs": 0.10000000149011612,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39057979,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39057979,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          11971,
+          7983,
+          12050,
+          8010
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": true
+      },
+      "bounds": [
+        11971,
+        7983,
+        12000,
+        8000
+      ],
+      "sha256": "4f12d296c1a58a2ef3baa418b481b0c3ba54ffb45ee5956f0de47ccd61238372",
+      "rpcMs": 0.29999999701976776,
+      "metrics": {
+        "totalMs": 0.29999999701976776,
+        "readMs": 0,
+        "kernelMs": 0.29999999701976776,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39060482,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39060482,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          11971,
+          7983,
+          12050,
+          8010
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": false
+      },
+      "bounds": [
+        11971,
+        7983,
+        12000,
+        8000
+      ],
+      "sha256": "9486f85e70e54e128c3ee03974d48bcc4743b9b5f73ca915e4697d20aa9b1e8e",
+      "rpcMs": 0.20000000298023224,
+      "metrics": {
+        "totalMs": 0.20000000298023224,
+        "readMs": 0,
+        "kernelMs": 0.20000000298023224,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39062985,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39062985,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          11971,
+          7983,
+          12050,
+          8010
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": true
+      },
+      "bounds": [
+        11971,
+        7983,
+        12000,
+        8000
+      ],
+      "sha256": "9486f85e70e54e128c3ee03974d48bcc4743b9b5f73ca915e4697d20aa9b1e8e",
+      "rpcMs": 0.20000000298023224,
+      "metrics": {
+        "totalMs": 0.10000000149011612,
+        "readMs": 0,
+        "kernelMs": 0.10000000149011612,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": true
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39065488,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39065488,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          12005,
+          0,
+          12010,
+          20
+        ],
+        "mode": "equalize",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        12000,
+        0,
+        12000,
+        20
+      ],
+      "sha256": null,
+      "rpcMs": 0.19999999552965164,
+      "metrics": {
+        "totalMs": 0.09999999403953552,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39066512,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39066512,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          12005,
+          0,
+          12010,
+          20
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": false
+      },
+      "bounds": [
+        12000,
+        0,
+        12000,
+        20
+      ],
+      "sha256": null,
+      "rpcMs": 0,
+      "metrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39067536,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39067536,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          12005,
+          0,
+          12010,
+          20
+        ],
+        "mode": "contrast",
+        "percent": 0,
+        "channel": true
+      },
+      "bounds": [
+        12000,
+        0,
+        12000,
+        20
+      ],
+      "sha256": null,
+      "rpcMs": 0.10000000149011612,
+      "metrics": {
+        "totalMs": 0.10000000149011612,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39068560,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39068560,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          12005,
+          0,
+          12010,
+          20
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": false
+      },
+      "bounds": [
+        12000,
+        0,
+        12000,
+        20
+      ],
+      "sha256": null,
+      "rpcMs": 0,
+      "metrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39069584,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39069584,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          12005,
+          0,
+          12010,
+          20
+        ],
+        "mode": "contrast",
+        "percent": 20,
+        "channel": true
+      },
+      "bounds": [
+        12000,
+        0,
+        12000,
+        20
+      ],
+      "sha256": null,
+      "rpcMs": 0.10000000149011612,
+      "metrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39070608,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39070608,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          12005,
+          0,
+          12010,
+          20
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": false
+      },
+      "bounds": [
+        12000,
+        0,
+        12000,
+        20
+      ],
+      "sha256": null,
+      "rpcMs": 0.09999999403953552,
+      "metrics": {
+        "totalMs": 0.09999999403953552,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39071632,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39071632,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    },
+    {
+      "params": {
+        "bounds": [
+          12005,
+          0,
+          12010,
+          20
+        ],
+        "mode": "contrast",
+        "percent": 100,
+        "channel": true
+      },
+      "bounds": [
+        12000,
+        0,
+        12000,
+        20
+      ],
+      "sha256": null,
+      "rpcMs": 0.10000000149011612,
+      "metrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": false,
+          "input": false
+        },
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39072656,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      },
+      "cacheMetrics": {
+        "totalMs": 0,
+        "readMs": 0,
+        "kernelMs": 0,
+        "sourceWindowBytes": 0,
+        "cache": {
+          "result": true,
+          "input": false
+        },
+        "workers": 0,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 39072656,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 161475132
+        }
+      }
+    }
+  ],
+  "jsonBytes": 532962,
+  "cancellation": "storage-closed-before-worker-termination",
+  "cancellationMs": 30,
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 129005192,
+    "knownHeapCapacityBytes": 103546880
+  },
+  "storageArtifactsRemaining": 0,
+  "browser": "154.0.8037.58",
+  "extractedRuntime": false,
+  "engineSources": {
+    "src/segmented-magnifier.js": "cbe1d006c0bed0999b2674c13d992f12b1723ecf090b5584a28f3e5545a0c918",
+    "src/magnifier.js": "197b669e46ab8c9c30f577ac6dc7abdeb095a5fd8a5e3bae1deda513a0c34668",
+    "src/index.js": "dbe736827fcb15a3003d42e1b07c715380fb6610376a4cde5918d2a17f89c0de"
+  },
+  "recipeSources": {
+    "scripts/generate-large-magnifier.py": "4abd22713f712620f5c2077b37f5bbf1d20c8083cc79d16d4f40cd60d3361d78",
+    "scripts/study-segmented-magnifier.mjs": "6eef29853270dcc1697c7693188d225810aa6b67e488ce40fef59e66c55055e5",
+    "tests/segmented-magnifier-browser.js": "2afb15f8e3800bd935160c95670665fbfbca87b38604e0ed27f3ef2edde86ce1"
+  },
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 161475132,
+    "finalWorkerPeakAccountedBytes": 129005192
+  }
+}

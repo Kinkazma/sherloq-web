@@ -1,0 +1,429 @@
+[
+  {
+    "kind": "translation",
+    "views": [
+      {
+        "file": "0-view-0.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75614241,
+          "overlayBytes": 1020,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "0-view-1.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75613221,
+          "overlayBytes": 0,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "0-view-2.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75613221,
+          "overlayBytes": 0,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      }
+    ],
+    "profile": "PatchMatch Zernike",
+    "groups": 1,
+    "points": 482,
+    "pairs": 241,
+    "denseCount": 4584,
+    "consistentCount": 241,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 1,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 65196,
+        "cacheBytes": 0,
+        "activeReservationBytes": 95771,
+        "peakAccountedBytes": 277461632
+      }
+    }
+  },
+  {
+    "kind": "translation",
+    "views": [
+      {
+        "file": "1-view-0.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75548565,
+          "overlayBytes": 288,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "1-view-1.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75548277,
+          "overlayBytes": 0,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "1-view-2.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75548277,
+          "overlayBytes": 0,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      }
+    ],
+    "profile": "PatchMatch SIFT",
+    "groups": 1,
+    "points": 130,
+    "pairs": 65,
+    "denseCount": 470,
+    "consistentCount": 65,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 1,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 43660,
+        "cacheBytes": 0,
+        "activeReservationBytes": 31883,
+        "peakAccountedBytes": 277461632
+      }
+    }
+  },
+  {
+    "kind": "translation",
+    "views": [
+      {
+        "file": "2-view-0.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75638994,
+          "overlayBytes": 1020,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "2-view-1.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75637974,
+          "overlayBytes": 0,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "2-view-2.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75638262,
+          "overlayBytes": 288,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      }
+    ],
+    "profile": "PatchMatch Zernike + PatchMatch SIFT",
+    "groups": 2,
+    "points": 612,
+    "pairs": 306,
+    "denseCount": 5054,
+    "consistentCount": 306,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 2,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 108856,
+        "cacheBytes": 0,
+        "activeReservationBytes": 123558,
+        "peakAccountedBytes": 277555472
+      }
+    }
+  },
+  {
+    "kind": "translation",
+    "views": [
+      {
+        "file": "3-view-0.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75643089,
+          "overlayBytes": 1020,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "3-view-1.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75642069,
+          "overlayBytes": 0,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "3-view-2.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75642357,
+          "overlayBytes": 288,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      }
+    ],
+    "profile": "Extended: PatchMatch Zernike + PatchMatch SIFT",
+    "groups": 2,
+    "points": 642,
+    "pairs": 321,
+    "denseCount": 5448,
+    "consistentCount": 321,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 4,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 192376,
+        "cacheBytes": 0,
+        "activeReservationBytes": 137195,
+        "peakAccountedBytes": 327982220
+      }
+    }
+  },
+  {
+    "kind": "translation",
+    "views": [
+      {
+        "file": "4-view-0.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75638994,
+          "overlayBytes": 1020,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "4-view-1.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75637974,
+          "overlayBytes": 0,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "4-view-2.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75638262,
+          "overlayBytes": 288,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      }
+    ],
+    "profile": "PatchMatch Zernike + PatchMatch SIFT + Mirror",
+    "groups": 2,
+    "points": 612,
+    "pairs": 306,
+    "denseCount": 9639,
+    "consistentCount": 306,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 4,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 219588,
+        "cacheBytes": 0,
+        "activeReservationBytes": 131750,
+        "peakAccountedBytes": 327997852
+      }
+    }
+  },
+  {
+    "kind": "translation",
+    "views": [
+      {
+        "file": "5-view-0.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75643089,
+          "overlayBytes": 1020,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "5-view-1.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75642069,
+          "overlayBytes": 0,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "5-view-2.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75642357,
+          "overlayBytes": 288,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      }
+    ],
+    "profile": "Extended: PatchMatch Zernike + PatchMatch SIFT + Mirror",
+    "groups": 2,
+    "points": 642,
+    "pairs": 321,
+    "denseCount": 10033,
+    "consistentCount": 321,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 7,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 340068,
+        "cacheBytes": 0,
+        "activeReservationBytes": 149483,
+        "peakAccountedBytes": 328129912
+      }
+    }
+  },
+  {
+    "kind": "reflection",
+    "views": [
+      {
+        "file": "6-view-0.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75614067,
+          "overlayBytes": 816,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "6-view-1.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75613251,
+          "overlayBytes": 0,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      },
+      {
+        "file": "6-view-2.rgb",
+        "exact": true,
+        "metrics": {
+          "workspaceBytes": 75613332,
+          "overlayBytes": 81,
+          "heapBytes": 33554432,
+          "framebufferBytes": 13764,
+          "storage": "memory"
+        }
+      }
+    ],
+    "profile": "Extended: PatchMatch Zernike + PatchMatch SIFT + Mirror",
+    "groups": 2,
+    "points": 478,
+    "pairs": 239,
+    "denseCount": 9540,
+    "consistentCount": 239,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 7,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 339740,
+        "cacheBytes": 17360,
+        "activeReservationBytes": 119717,
+        "peakAccountedBytes": 328061224
+      }
+    }
+  }
+]

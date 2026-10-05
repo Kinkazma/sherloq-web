@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "cases": 152,
+  "views": 760,
+  "maxSignificanceError": 1.2640555269172182e-11,
+  "thresholdFallbacks": 9364,
+  "limits": [
+    "Synthetic corpus; physical Safari/mobile and WordPress UI not tested",
+    "Significance is float64 log10 NFA, not a manipulation probability"
+  ],
+  "largeMetrics": {
+    "totalMs": 1508,
+    "cache": {
+      "result": false,
+      "analysis": false,
+      "view": false
+    },
+    "kernel": "zero-separated-threshold-filter",
+    "workers": 4,
+    "thresholdFallbacks": null,
+    "votePasses": [
+      {
+        "workers": 4,
+        "scheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "kernelMs": 348
+      },
+      {
+        "workers": 4,
+        "scheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 1,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "kernelMs": 334
+      }
+    ],
+    "memory": {
+      "budgetBytes": 1073741824,
+      "retainedBytes": 3992357,
+      "cacheBytes": 46146648,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 442034981,
+      "codecHeapCapacityBytes": 91815936,
+      "hdf5HeapCapacityBytes": 0
+    }
+  },
+  "npz": {
+    "bytes": 41951110,
+    "mime": "application/zip",
+    "sha256": "a8fbe30aa6b76b78920fdd5f1b32d13175855894cccfccd84a739ce3393a1035",
+    "workerMatchesLocal": true
+  },
+  "released": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 67159552
+  },
+  "cancellation": "Hard termination and explicit reload verified",
+  "browser": "155.0"
+}

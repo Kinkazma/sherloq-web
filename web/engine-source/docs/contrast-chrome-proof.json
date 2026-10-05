@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "maps": 52,
+  "views": 156,
+  "memory": {
+    "budgetBytes": 3296722944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 123731968
+  },
+  "cancellation": "Hard abort, source reload, cache ownership, low-budget admission and unload verified",
+  "browser": "154.0.8037.58"
+}

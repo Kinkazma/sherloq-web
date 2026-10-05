@@ -1,0 +1,30 @@
+{
+  "browser": "154.0.8037.58",
+  "width": 10000,
+  "height": 6000,
+  "layout": "segmented-scanlines",
+  "sourceStorage": "memory",
+  "stats": {
+    "total": 0,
+    "filtered": 0,
+    "matches": 0,
+    "clusters": 0,
+    "regions": 0
+  },
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 180000000,
+    "cacheBytes": 60003198,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2700859310,
+    "knownHeapCapacityBytes": 591986688
+  },
+  "finalMemory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2700859310,
+    "knownHeapCapacityBytes": 591986688
+  }
+}

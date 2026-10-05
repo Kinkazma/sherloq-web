@@ -1,0 +1,212 @@
+[
+  {
+    "file": "codec-rgb8.png",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-rgba8.png",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-gray8.png",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-gray16.png",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-rgb8.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-rgba8.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-gray8.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-gray16.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-orientation-1.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-orientation-2.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-orientation-3.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-orientation-4.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-orientation-5.tiff",
+    "nativeError": "Native file loader rejects this encoding/orientation",
+    "error": null,
+    "width": 13,
+    "height": 17,
+    "headerWidth": 13,
+    "headerHeight": 17,
+    "exact": false
+  },
+  {
+    "file": "codec-orientation-6.tiff",
+    "nativeError": "Native file loader rejects this encoding/orientation",
+    "error": null,
+    "width": 13,
+    "height": 17,
+    "headerWidth": 13,
+    "headerHeight": 17,
+    "exact": false
+  },
+  {
+    "file": "codec-orientation-7.tiff",
+    "nativeError": "Native file loader rejects this encoding/orientation",
+    "error": null,
+    "width": 13,
+    "height": 17,
+    "headerWidth": 13,
+    "headerHeight": 17,
+    "exact": false
+  },
+  {
+    "file": "codec-orientation-8.tiff",
+    "nativeError": "Native file loader rejects this encoding/orientation",
+    "error": null,
+    "width": 13,
+    "height": 17,
+    "headerWidth": 13,
+    "headerHeight": 17,
+    "exact": false
+  },
+  {
+    "file": "codec-tiff_lzw.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-tiff_adobe_deflate.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-packbits.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-rgb16.png",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  },
+  {
+    "file": "codec-rgb16.tiff",
+    "nativeError": null,
+    "error": null,
+    "width": 17,
+    "height": 13,
+    "headerWidth": 17,
+    "headerHeight": 13,
+    "exact": true
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1600,
+    1100
+  ],
+  "budgetBytes": 67108864,
+  "cases": [
+    {
+      "params": {
+        "wavelet": "db4",
+        "threshold": 31,
+        "level": 3,
+        "mode": "soft"
+      },
+      "sha256": "1faaefa1287fa2726a65f77a44ffe6a5c4b3e328a566ba38b385ac5a16317007",
+      "metrics": {
+        "workers": 1,
+        "completedStripJobs": 138,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "blockPixels": 65536,
+        "coefficientsCached": false,
+        "maximumLevel": 7,
+        "retainedResultBytes": 5280000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 23854.5,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 10560000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 48645984
+        }
+      }
+    },
+    {
+      "params": {
+        "wavelet": "db4",
+        "threshold": 73,
+        "level": 2,
+        "mode": "hard"
+      },
+      "sha256": "c11cae18246e4dfd0ed19fafffcb4d52ea183239794b952c6103b708d2f1b7c6",
+      "metrics": {
+        "workers": 1,
+        "completedStripJobs": 51,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "blockPixels": 65536,
+        "coefficientsCached": true,
+        "maximumLevel": 7,
+        "retainedResultBytes": 5280000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 8565.59999999404,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 10560000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 48645984
+        }
+      }
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

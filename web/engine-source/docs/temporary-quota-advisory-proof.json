@@ -1,0 +1,46 @@
+[
+  {
+    "backend": "opfs",
+    "reportedQuota": 4096,
+    "allocatedBytes": 8192,
+    "explicitRejection": "STORAGE_QUOTA",
+    "snapshot": {
+      "reservedBytes": 8192,
+      "peakReservedBytes": 8192,
+      "estimatedAvailableBytes": 0,
+      "estimateIsAdmissionLimit": false,
+      "logicalLimitBytes": 16384,
+      "openFiles": 1,
+      "physicalFiles": 1,
+      "maximumPhysicalFileBytes": 1073741824
+    }
+  },
+  {
+    "backend": "indexeddb",
+    "reportedQuota": 4096,
+    "allocatedBytes": 8192,
+    "explicitRejection": "STORAGE_QUOTA",
+    "snapshot": {
+      "reservedBytes": 8192,
+      "peakReservedBytes": 8192,
+      "estimatedAvailableBytes": 0,
+      "estimateIsAdmissionLimit": false,
+      "logicalLimitBytes": 16384,
+      "openFiles": 0,
+      "arrays": 1,
+      "pageBytes": 1048576,
+      "backend": "indexeddb",
+      "readCacheEnabled": true,
+      "readCachePages": 2,
+      "reads": {
+        "transactions": 1,
+        "cacheHits": 0,
+        "requestedBytes": 8192
+      }
+    }
+  },
+  {
+    "actualWriteFailure": "STORAGE_QUOTA",
+    "reservedBytes": 0
+  }
+]

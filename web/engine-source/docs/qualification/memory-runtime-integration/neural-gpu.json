@@ -1,0 +1,742 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "records": [
+        {
+          "id": 0,
+          "shape": [
+            1,
+            3,
+            29,
+            35
+          ],
+          "values": 1015,
+          "nativeValues": 1015,
+          "different": 0,
+          "maximum": 0,
+          "metrics": {
+            "bufferAllocations": 54,
+            "uploadedWeightBytes": 2228996,
+            "arenaReuses": 0,
+            "submissions": 8,
+            "hostFences": 0
+          }
+        },
+        {
+          "id": 1,
+          "shape": [
+            1,
+            3,
+            64,
+            96
+          ],
+          "values": 6144,
+          "nativeValues": 6144,
+          "different": 0,
+          "maximum": 0,
+          "metrics": {
+            "bufferAllocations": 59,
+            "uploadedWeightBytes": 2228996,
+            "arenaReuses": 0,
+            "submissions": 16,
+            "hostFences": 0
+          }
+        },
+        {
+          "id": 2,
+          "shape": [
+            1,
+            3,
+            97,
+            65
+          ],
+          "values": 6305,
+          "nativeValues": 6305,
+          "different": 0,
+          "maximum": 0,
+          "metrics": {
+            "bufferAllocations": 64,
+            "uploadedWeightBytes": 2228996,
+            "arenaReuses": 0,
+            "submissions": 24,
+            "hostFences": 0
+          }
+        }
+      ],
+      "cfaRecords": [
+        {
+          "variant": "Original",
+          "label": "flat",
+          "milliseconds": 97.73999997973442,
+          "legacyMilliseconds": 53.25,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 3.725290298461914e-09,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 61,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 751520,
+            "uploadedInputBytes": 279200,
+            "residentOperations": 62
+          }
+        },
+        {
+          "variant": "Original",
+          "label": "zero",
+          "milliseconds": 8.870000004768372,
+          "legacyMilliseconds": 20.474999994039536,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 62,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 1503040,
+            "uploadedInputBytes": 558400,
+            "residentOperations": 124
+          }
+        },
+        {
+          "variant": "Original",
+          "label": "white",
+          "milliseconds": 8.84500002861023,
+          "legacyMilliseconds": 20.86499997973442,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 62,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 2254560,
+            "uploadedInputBytes": 837600,
+            "residentOperations": 186
+          }
+        },
+        {
+          "variant": "Original",
+          "label": "noise-small",
+          "milliseconds": 8.820000022649765,
+          "legacyMilliseconds": 19.144999980926514,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 62,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 3006080,
+            "uploadedInputBytes": 1116800,
+            "residentOperations": 248
+          }
+        },
+        {
+          "variant": "Original",
+          "label": "noise",
+          "milliseconds": 28.559999972581863,
+          "legacyMilliseconds": 48.11500000953674,
+          "readbackBytes": 4309920,
+          "legacyReadbackBytes": 6267040,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 1.8440779217507783e-32,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 78,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 7316000,
+            "uploadedInputBytes": 2567456,
+            "residentOperations": 310
+          }
+        },
+        {
+          "variant": "Original",
+          "label": "noise-odd",
+          "milliseconds": 76.63500002026558,
+          "legacyMilliseconds": 114.21000000834465,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 93,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 21476800,
+            "uploadedInputBytes": 7172032,
+            "residentOperations": 372
+          }
+        },
+        {
+          "variant": "Original",
+          "label": "gradient",
+          "milliseconds": 82.96500000357628,
+          "legacyMilliseconds": 114.17500001192093,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 4.246830940246582e-06,
+          "localDifferences": 0,
+          "best": 3,
+          "nativeBest": 3,
+          "metrics": {
+            "bufferAllocations": 94,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 35637600,
+            "uploadedInputBytes": 11776608,
+            "residentOperations": 434
+          }
+        },
+        {
+          "variant": "Original",
+          "label": "checker",
+          "milliseconds": 72.9249999821186,
+          "legacyMilliseconds": 107.6700000166893,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 95,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 49798400,
+            "uploadedInputBytes": 16381184,
+            "residentOperations": 496
+          }
+        },
+        {
+          "variant": "Original",
+          "label": "smooth",
+          "milliseconds": 85.00999999046326,
+          "legacyMilliseconds": 116.70500001311302,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 5.2241375669837e-09,
+          "localDifferences": 0,
+          "best": 2,
+          "nativeBest": 2,
+          "metrics": {
+            "bufferAllocations": 96,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 63959200,
+            "uploadedInputBytes": 20985760,
+            "residentOperations": 558
+          }
+        },
+        {
+          "variant": "JPEG 95",
+          "label": "flat",
+          "milliseconds": 9.365000009536743,
+          "legacyMilliseconds": 23.144999980926514,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 157,
+            "uploadedWeightBytes": 186120,
+            "readbackBytes": 64710720,
+            "uploadedInputBytes": 21264960,
+            "residentOperations": 620
+          }
+        },
+        {
+          "variant": "JPEG 95",
+          "label": "zero",
+          "milliseconds": 7.969999998807907,
+          "legacyMilliseconds": 19.67500001192093,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 158,
+            "uploadedWeightBytes": 186120,
+            "readbackBytes": 65462240,
+            "uploadedInputBytes": 21544160,
+            "residentOperations": 682
+          }
+        },
+        {
+          "variant": "JPEG 95",
+          "label": "white",
+          "milliseconds": 8.909999996423721,
+          "legacyMilliseconds": 19.969999998807907,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 158,
+            "uploadedWeightBytes": 186120,
+            "readbackBytes": 66213760,
+            "uploadedInputBytes": 21823360,
+            "residentOperations": 744
+          }
+        },
+        {
+          "variant": "JPEG 95",
+          "label": "noise-small",
+          "milliseconds": 8.929999977350235,
+          "legacyMilliseconds": 21.84000000357628,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 158,
+            "uploadedWeightBytes": 186120,
+            "readbackBytes": 66965280,
+            "uploadedInputBytes": 22102560,
+            "residentOperations": 806
+          }
+        },
+        {
+          "variant": "JPEG 95",
+          "label": "noise",
+          "milliseconds": 26.92500001192093,
+          "legacyMilliseconds": 44.83500000834465,
+          "readbackBytes": 4309920,
+          "legacyReadbackBytes": 6267040,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 3.5762786865234375e-07,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 174,
+            "uploadedWeightBytes": 186120,
+            "readbackBytes": 71275200,
+            "uploadedInputBytes": 23553216,
+            "residentOperations": 868
+          }
+        },
+        {
+          "variant": "JPEG 95",
+          "label": "noise-odd",
+          "milliseconds": 75.93500000238419,
+          "legacyMilliseconds": 102.93500000238419,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 6.22868537902832e-06,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 189,
+            "uploadedWeightBytes": 186120,
+            "readbackBytes": 85436000,
+            "uploadedInputBytes": 28157792,
+            "residentOperations": 930
+          }
+        },
+        {
+          "variant": "JPEG 95",
+          "label": "gradient",
+          "milliseconds": 80.83000001311302,
+          "legacyMilliseconds": 109.54499998688698,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 1.1920928955078125e-06,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 190,
+            "uploadedWeightBytes": 186120,
+            "readbackBytes": 99596800,
+            "uploadedInputBytes": 32762368,
+            "residentOperations": 992
+          }
+        },
+        {
+          "variant": "JPEG 95",
+          "label": "checker",
+          "milliseconds": 70.15000000596046,
+          "legacyMilliseconds": 98.73999997973442,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 6.591949208711867e-16,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 191,
+            "uploadedWeightBytes": 186120,
+            "readbackBytes": 113757600,
+            "uploadedInputBytes": 37366944,
+            "residentOperations": 1054
+          }
+        },
+        {
+          "variant": "JPEG 95",
+          "label": "smooth",
+          "milliseconds": 80.37999999523163,
+          "legacyMilliseconds": 108.30000001192093,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 2.384185791015625e-06,
+          "localDifferences": 0,
+          "best": 3,
+          "nativeBest": 3,
+          "metrics": {
+            "bufferAllocations": 192,
+            "uploadedWeightBytes": 186120,
+            "readbackBytes": 127918400,
+            "uploadedInputBytes": 41971520,
+            "residentOperations": 1116
+          }
+        },
+        {
+          "variant": "Sans JPEG",
+          "label": "flat",
+          "milliseconds": 9.384999990463257,
+          "legacyMilliseconds": 20.100000023841858,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 3,
+          "nativeBest": 3,
+          "metrics": {
+            "bufferAllocations": 253,
+            "uploadedWeightBytes": 279180,
+            "readbackBytes": 128669920,
+            "uploadedInputBytes": 42250720,
+            "residentOperations": 1178
+          }
+        },
+        {
+          "variant": "Sans JPEG",
+          "label": "zero",
+          "milliseconds": 7.659999996423721,
+          "legacyMilliseconds": 18.00500002503395,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 1.4901161193847656e-08,
+          "localDifferences": 0,
+          "best": 2,
+          "nativeBest": 2,
+          "metrics": {
+            "bufferAllocations": 254,
+            "uploadedWeightBytes": 279180,
+            "readbackBytes": 129421440,
+            "uploadedInputBytes": 42529920,
+            "residentOperations": 1240
+          }
+        },
+        {
+          "variant": "Sans JPEG",
+          "label": "white",
+          "milliseconds": 8.189999997615814,
+          "legacyMilliseconds": 18.21500000357628,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 2.9802322387695312e-08,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 254,
+            "uploadedWeightBytes": 279180,
+            "readbackBytes": 130172960,
+            "uploadedInputBytes": 42809120,
+            "residentOperations": 1302
+          }
+        },
+        {
+          "variant": "Sans JPEG",
+          "label": "noise-small",
+          "milliseconds": 7.814999997615814,
+          "legacyMilliseconds": 18.394999980926514,
+          "readbackBytes": 751520,
+          "legacyReadbackBytes": 1136800,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 0,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 254,
+            "uploadedWeightBytes": 279180,
+            "readbackBytes": 130924480,
+            "uploadedInputBytes": 43088320,
+            "residentOperations": 1364
+          }
+        },
+        {
+          "variant": "Sans JPEG",
+          "label": "noise",
+          "milliseconds": 25.83500000834465,
+          "legacyMilliseconds": 42.769999980926514,
+          "readbackBytes": 4309920,
+          "legacyReadbackBytes": 6267040,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 3.725290298461914e-06,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 270,
+            "uploadedWeightBytes": 279180,
+            "readbackBytes": 135234400,
+            "uploadedInputBytes": 44538976,
+            "residentOperations": 1426
+          }
+        },
+        {
+          "variant": "Sans JPEG",
+          "label": "noise-odd",
+          "milliseconds": 67.87000000476837,
+          "legacyMilliseconds": 95.56499999761581,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 2.1047890186309814e-07,
+          "localDifferences": 0,
+          "best": 3,
+          "nativeBest": 3,
+          "metrics": {
+            "bufferAllocations": 285,
+            "uploadedWeightBytes": 279180,
+            "readbackBytes": 149395200,
+            "uploadedInputBytes": 49143552,
+            "residentOperations": 1488
+          }
+        },
+        {
+          "variant": "Sans JPEG",
+          "label": "gradient",
+          "milliseconds": 81.31000000238419,
+          "legacyMilliseconds": 110.81999999284744,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 7.152557373046875e-07,
+          "localDifferences": 0,
+          "best": 2,
+          "nativeBest": 2,
+          "metrics": {
+            "bufferAllocations": 286,
+            "uploadedWeightBytes": 279180,
+            "readbackBytes": 163556000,
+            "uploadedInputBytes": 53748128,
+            "residentOperations": 1550
+          }
+        },
+        {
+          "variant": "Sans JPEG",
+          "label": "checker",
+          "milliseconds": 62.81500002741814,
+          "legacyMilliseconds": 91.28999999165535,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 7.253220246639103e-11,
+          "localDifferences": 0,
+          "best": 0,
+          "nativeBest": 0,
+          "metrics": {
+            "bufferAllocations": 287,
+            "uploadedWeightBytes": 279180,
+            "readbackBytes": 177716800,
+            "uploadedInputBytes": 58352704,
+            "residentOperations": 1612
+          }
+        },
+        {
+          "variant": "Sans JPEG",
+          "label": "smooth",
+          "milliseconds": 77.9200000166893,
+          "legacyMilliseconds": 103.41999998688698,
+          "readbackBytes": 14160800,
+          "legacyReadbackBytes": 20316320,
+          "different": 0,
+          "maximum": 0,
+          "probabilityError": 5.960464477539062e-07,
+          "localDifferences": 0,
+          "best": 1,
+          "nativeBest": 1,
+          "metrics": {
+            "bufferAllocations": 288,
+            "uploadedWeightBytes": 279180,
+            "readbackBytes": 191877600,
+            "uploadedInputBytes": 62957280,
+            "residentOperations": 1674
+          }
+        }
+      ],
+      "cfaWorker": {
+        "maximum": 2.8263664630934215e-08,
+        "metrics": {
+          "milliseconds": 51.39000001549721,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 117440512,
+          "provider": "webgpu",
+          "workers": 1,
+          "threads": 1,
+          "threadReconfigured": false,
+          "cpuGranted": 1,
+          "gpuGranted": 1,
+          "reusedInputBytes": 0,
+          "copiedOutputBytes": 0
+        },
+        "runtime": {
+          "executor": "cfa-native-order-v1",
+          "gpu": {
+            "bufferAllocations": 61,
+            "uploadedWeightBytes": 93060,
+            "readbackBytes": 751520,
+            "uploadedInputBytes": 279200,
+            "residentOperations": 62
+          }
+        },
+        "remainingBudgetBytes": 0
+      },
+      "denseRecords": [
+        {
+          "dimensions": 12,
+          "pairCount": 2049,
+          "invalidRejections": 0,
+          "rejected": 730,
+          "refinements": 1319,
+          "metrics": {
+            "preflightExecutions": 0,
+            "batches": 9,
+            "pairs": 2049,
+            "rejected": 730,
+            "refinements": 1319,
+            "uploadedBytes": 196704,
+            "readbackBytes": 16392,
+            "bufferAllocations": 5,
+            "milliseconds": 7.5999999940395355
+          }
+        },
+        {
+          "dimensions": 128,
+          "pairCount": 2049,
+          "invalidRejections": 0,
+          "rejected": 730,
+          "refinements": 1319,
+          "metrics": {
+            "preflightExecutions": 0,
+            "batches": 18,
+            "pairs": 4098,
+            "rejected": 1460,
+            "refinements": 2638,
+            "uploadedBytes": 2294880,
+            "readbackBytes": 32784,
+            "bufferAllocations": 10,
+            "milliseconds": 14.009999990463257
+          }
+        }
+      ],
+      "denseRemainingBudgetBytes": 0,
+      "ortOutputs": [
+        {
+          "values": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "input": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "copiedOutputBytes": 0,
+          "threads": 2
+        },
+        {
+          "values": [
+            8,
+            6,
+            4,
+            2
+          ],
+          "input": [
+            4,
+            3,
+            2,
+            1
+          ],
+          "copiedOutputBytes": 0,
+          "threads": 2
+        }
+      ],
+      "remainingBudgetBytes": 0,
+      "passed": true,
+      "preflightExecutions": 0,
+      "browser": "154.0.8037.93"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "algorithm": "brisk",
+  "sourceSize": [
+    12000,
+    8000
+  ],
+  "stats": {
+    "total": 9721597,
+    "filtered": 14811,
+    "matches": 14742,
+    "clusters": 14726,
+    "regions": 2
+  },
+  "comparedBytes": 288000000,
+  "differentBytes": 0,
+  "maximumError": 0,
+  "seconds": 1987.1862621307373,
+  "scope": "Native historical drawing of exported browser arrays; extraction and matching are independently qualified on smaller corpora."
+}

@@ -1,0 +1,23 @@
+import {createWorkerEngine} from '../src/worker-client.js';
+import {createSHA256} from '../vendor/hash-wasm/hashes.js';
+import {storageInventory} from './source-api-browser.js';
+const assert=(value,message)=>{if(!value)throw Error(message);},same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+async function pixelHash(engine,surface){const hash=await createSHA256();for(let y=0;y<surface.height;y+=64){const part=await engine.readPixels({surfaceId:surface.id,revision:surface.revision,rect:{x:0,y,width:surface.width,height:Math.min(64,surface.height-y)}});hash.update(part.pixels.data);}return hash.digest('hex');}
+export async function testProgressive96mp({requireOrientationCache=false}={}){
+ const reference=await(await fetch('/progressive-reference')).json(),before=await storageInventory(),budgetBytes=256*1024**2,engine=createWorkerEngine({memoryBudgetBytes:budgetBytes,resourceHints:{hardwareConcurrency:4}}),started=performance.now(),times={},events=[];let archive,last='',stamp=0;
+ const progress=event=>{const now=performance.now();if(event.phase!==last||now-stamp>2000){last=event.phase;stamp=now;events.push(event);console.log('PROGRESSIVE96',JSON.stringify(event));}};
+ try{
+  const blob=await(await fetch('/progressive-original')).blob();let at=performance.now();const source=await engine.loadBlob({id:'progressive96',blob,layout:'segmented'},{onProgress:progress});times.loadMs=performance.now()-at;
+  assert(source.width===reference.width&&source.height===reference.height&&source.sha256===reference.sha256,'Oriented original dimensions and identity');assert(source.metrics.coefficientStores>0&&source.provenance.orientation===6,'External progressive coefficient path');
+  if(requireOrientationCache)assert(source.metrics.orientationCacheBytes===reference.width*reference.height*3&&source.metrics.originalStorePreserved,'Lossless oriented cache actually used');
+  at=performance.now();assert(await pixelHash(engine,source.surface)===reference.rgbSha256,'Every original RGB pixel exact');times.sourceReadMs=performance.now()-at;
+  const task={id:'ela',imageId:'progressive96',operation:'ela.classic',params:reference.elaParams};at=performance.now();const result=await engine.run(task,{onProgress:progress});times.elaMs=performance.now()-at;assert(await pixelHash(engine,result.surface)===reference.elaSha256,'Every native ELA pixel exact');
+  const cached=await engine.run({...task,id:'cached-ela'});assert(cached.metrics.cache.recompressed,'Reuse unchanged ELA');await engine.releaseSurface(result.surface.id);await engine.releaseSurface(cached.surface.id);
+  at=performance.now();archive=await engine.exportSurface({surfaceId:source.surface.id,revision:source.surface.revision,format:'png',compression:0,storage:'temporary'},{onProgress:progress});times.exportMs=performance.now()-at;await engine.unload('progressive96');
+  at=performance.now();const hash=await createSHA256();let bytes=0;for(let offset=0;offset<archive.byteLength;offset+=4*1024**2){const part=await engine.readExport({exportId:archive.id,revision:archive.revision,offset,length:Math.min(4*1024**2,archive.byteLength-offset)});hash.update(part.bytes);bytes+=part.bytes.length;if(!offset){const view=new DataView(part.bytes.buffer,part.bytes.byteOffset,part.bytes.byteLength);assert(view.getUint32(16)===reference.width&&view.getUint32(20)===reference.height,'Oriented full PNG dimensions');}const response=await fetch('/png-part?offset='+offset,{method:'POST',body:part.bytes});assert(response.ok,'Complete PNG delivery');}
+  assert(bytes===archive.byteLength&&hash.digest('hex')===archive.sha256,'Every PNG byte after unload');times.readbackMs=performance.now()-at;
+  const exportInfo={byteLength:bytes,sha256:archive.sha256,afterSourceUnload:true};await engine.releaseExport(archive.id);archive=null;
+  const memory=(await engine.capabilities()).memory;assert(memory.retainedBytes+memory.cacheBytes+memory.activeReservationBytes===0,'Final memory ownership');await engine.dispose();assert(same(before,await storageInventory()),'Temporary cleanup');
+  return {passed:true,scope:'Original96MP progressive JPEG, EXIF6 orientation, every decoded RGB and ELA pixel native-exact, cache, full PNG delivered after unload. Source and coefficient storage stay external.',dimensions:[source.width,source.height],encodedDimensions:reference.encodedDimensions,sourceSha256:source.sha256,sourceBytes:blob.size,budgetBytes,source,elaMetrics:result.metrics,times,totalMs:performance.now()-started,archive:exportInfo,finalMemory:memory,storageCleanup:true,events};
+ }finally{if(archive)await engine.releaseExport(archive.id);await engine.dispose();}
+}

@@ -1,0 +1,3154 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Generated D2PRL evaluator units only, no weights or complete inference; CPU vector-softmax arithmetic reference",
+  "cases": 164,
+  "records": [
+    {
+      "name": "zernike-2-1-flat",
+      "side": 2,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-2-5-noise",
+      "side": 2,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-2-13-signed",
+      "side": 2,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-2-1-tiny",
+      "side": 2,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-2-5-wide",
+      "side": 2,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-2-13-steps",
+      "side": 2,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-2-1-fences",
+      "side": 2,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-5-flat",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-13-noise",
+      "side": 3,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-1-signed",
+      "side": 3,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-5-tiny",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-13-wide",
+      "side": 3,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-1-steps",
+      "side": 3,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-5-fences",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-13-flat",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-1-noise",
+      "side": 7,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-5-signed",
+      "side": 7,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-13-tiny",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-1-wide",
+      "side": 7,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-5-steps",
+      "side": 7,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-13-fences",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-17-1-flat",
+      "side": 17,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-17-5-noise",
+      "side": 17,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-17-13-signed",
+      "side": 17,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-17-1-tiny",
+      "side": 17,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-17-5-wide",
+      "side": 17,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-17-13-steps",
+      "side": 17,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-17-1-fences",
+      "side": 17,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-32-5-flat",
+      "side": 32,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-32-13-noise",
+      "side": 32,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-32-1-signed",
+      "side": 32,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-32-5-tiny",
+      "side": 32,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-32-13-wide",
+      "side": 32,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-32-1-steps",
+      "side": 32,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-32-5-fences",
+      "side": 32,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-13-flat",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-1-noise",
+      "side": 33,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-5-signed",
+      "side": 33,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-13-tiny",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-1-wide",
+      "side": 33,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-5-steps",
+      "side": 33,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-13-fences",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-64-1-flat",
+      "side": 64,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-64-5-noise",
+      "side": 64,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-64-13-signed",
+      "side": 64,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-64-1-tiny",
+      "side": 64,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-64-5-wide",
+      "side": 64,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-64-13-steps",
+      "side": 64,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-64-1-fences",
+      "side": 64,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-5-flat",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-13-noise",
+      "side": 65,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-1-signed",
+      "side": 65,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-5-tiny",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-13-wide",
+      "side": 65,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-1-steps",
+      "side": 65,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-5-fences",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-448-5-noise",
+      "side": 448,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-448-13-noise",
+      "side": 448,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-2-1-flat",
+      "side": 2,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-2-5-noise",
+      "side": 2,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-2-13-signed",
+      "side": 2,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-2-1-tiny",
+      "side": 2,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-2-5-wide",
+      "side": 2,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-2-13-steps",
+      "side": 2,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-2-1-fences",
+      "side": 2,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-5-flat",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-13-noise",
+      "side": 3,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-1-signed",
+      "side": 3,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-5-tiny",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-13-wide",
+      "side": 3,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-1-steps",
+      "side": 3,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-5-fences",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-13-flat",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-1-noise",
+      "side": 7,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-5-signed",
+      "side": 7,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-13-tiny",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-1-wide",
+      "side": 7,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-5-steps",
+      "side": 7,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-13-fences",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-17-1-flat",
+      "side": 17,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-17-5-noise",
+      "side": 17,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-17-13-signed",
+      "side": 17,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-17-1-tiny",
+      "side": 17,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-17-5-wide",
+      "side": 17,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-17-13-steps",
+      "side": 17,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-17-1-fences",
+      "side": 17,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 289,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-32-5-flat",
+      "side": 32,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-32-13-noise",
+      "side": 32,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-32-1-signed",
+      "side": 32,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-32-5-tiny",
+      "side": 32,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-32-13-wide",
+      "side": 32,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-32-1-steps",
+      "side": 32,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-32-5-fences",
+      "side": 32,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1024,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-13-flat",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-1-noise",
+      "side": 33,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-5-signed",
+      "side": 33,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-13-tiny",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-1-wide",
+      "side": 33,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-5-steps",
+      "side": 33,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-13-fences",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-64-1-flat",
+      "side": 64,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-64-5-noise",
+      "side": 64,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-64-13-signed",
+      "side": 64,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-64-1-tiny",
+      "side": 64,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-64-5-wide",
+      "side": 64,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-64-13-steps",
+      "side": 64,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-64-1-fences",
+      "side": 64,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4096,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-5-flat",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-13-noise",
+      "side": 65,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-1-signed",
+      "side": 65,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-5-tiny",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-13-wide",
+      "side": 65,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-1-steps",
+      "side": 65,
+      "candidates": 1,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-5-fences",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-448-5-noise",
+      "side": 448,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-448-13-noise",
+      "side": 448,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-5-flat-threads1",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-13-noise-threads1",
+      "side": 3,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-5-tiny-threads1",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-13-flat-threads1",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-13-tiny-threads1",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-13-flat-threads1",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-13-tiny-threads1",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-5-flat-threads1",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-13-noise-threads1",
+      "side": 65,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-5-tiny-threads1",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-448-5-noise-threads1",
+      "side": 448,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-448-13-noise-threads1",
+      "side": 448,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-5-flat-threads1",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-13-noise-threads1",
+      "side": 3,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-5-tiny-threads1",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-13-flat-threads1",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-13-tiny-threads1",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-13-flat-threads1",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-13-tiny-threads1",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-5-flat-threads1",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-13-noise-threads1",
+      "side": 65,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-5-tiny-threads1",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-448-5-noise-threads1",
+      "side": 448,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-448-13-noise-threads1",
+      "side": 448,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-5-flat-threads8",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-13-noise-threads8",
+      "side": 3,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-3-5-tiny-threads8",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-13-flat-threads8",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-7-13-tiny-threads8",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-13-flat-threads8",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-33-13-tiny-threads8",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-5-flat-threads8",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-13-noise-threads8",
+      "side": 65,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-65-5-tiny-threads8",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-448-5-noise-threads8",
+      "side": 448,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "zernike-448-13-noise-threads8",
+      "side": 448,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-5-flat-threads8",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-13-noise-threads8",
+      "side": 3,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-3-5-tiny-threads8",
+      "side": 3,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 9,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-13-flat-threads8",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-7-13-tiny-threads8",
+      "side": 7,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 49,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-13-flat-threads8",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-33-13-tiny-threads8",
+      "side": 33,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 1089,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-5-flat-threads8",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-13-noise-threads8",
+      "side": 65,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-65-5-tiny-threads8",
+      "side": 65,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 4225,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-448-5-noise-threads8",
+      "side": 448,
+      "candidates": 5,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    },
+    {
+      "name": "cnn-448-13-noise-threads8",
+      "side": 448,
+      "candidates": 13,
+      "outputs": {
+        "x": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        },
+        "y": {
+          "elements": 200704,
+          "different": 0,
+          "maxAbs": 0,
+          "nonfinite": 0
+        }
+      }
+    }
+  ],
+  "lifecycle": {
+    "cancelled": true,
+    "admission": true,
+    "retry": true
+  },
+  "browser": "26.6",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "696035917385acf5eae7faaeafc88dcc26c34950ba695eb6ef439a3cc0c008d5",
+    "referenceExpSha256": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+    "files": {
+      "evaluator.js": {
+        "bytes": 7725,
+        "sha256": "383c8540ef5388c500a8d9b51e7f0cb9e72d0c8d31b9f5ccd63d472567d8fd56"
+      },
+      "evaluator.wasm": {
+        "bytes": 16029,
+        "sha256": "72e2ce40f994c443d494f00392425c361eac10f66caddde35c63c7b15f7d959c"
+      }
+    }
+  },
+  "sources": {
+    "experiments/d2prl/evaluator.cpp": "696035917385acf5eae7faaeafc88dcc26c34950ba695eb6ef439a3cc0c008d5",
+    "experiments/d2prl/reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+    "experiments/d2prl/evaluator.js": "0e5805142147334e3a065f6bc00b35ece6c189e53baf006dc84b928742812b94",
+    "scripts/generate-d2prl-evaluator-study.py": "5832b00d27ff6a87c4e9615f7ff87a0f640570745d56699211b5e6aac2662700",
+    "scripts/extend-d2prl-evaluator-threads.py": "e7e70a173026cf0c623bd13cb2518de3ce8ad69e0730132f97717ab8ffb2e1c1"
+  },
+  "referenceSha256": "f5e618d87604393de6f3deaf6d3f4bf86dc267f10fc2b86706fe5dee340bba8a"
+}

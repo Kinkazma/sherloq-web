@@ -1,0 +1,119 @@
+{
+  "provider": "wasm",
+  "checkpointSha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+  "graphSha256": "7c0f6b6892c8df66632e078bacd3543221ad572a1f3ceff9cd49981eabd95b9f",
+  "records": [
+    {
+      "case": 0,
+      "width": 35,
+      "height": 29,
+      "outputs": {
+        "map": {
+          "values": 1015,
+          "maxError": 0.000010818243026733398,
+          "differences": 1011
+        },
+        "confidence": {
+          "values": 1015,
+          "maxError": 0.000010132789611816406,
+          "differences": 991
+        },
+        "score": {
+          "values": 1,
+          "maxError": 5.960464477539062e-7,
+          "differences": 1
+        },
+        "noiseprint_pp": {
+          "values": 1015,
+          "maxError": 0.00026530027389526367,
+          "differences": 1014
+        }
+      },
+      "metrics": {
+        "milliseconds": 2318.0999999940395,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 889192448,
+        "provider": "wasm",
+        "workers": 1
+      }
+    },
+    {
+      "case": 1,
+      "width": 96,
+      "height": 64,
+      "outputs": {
+        "map": {
+          "values": 6144,
+          "maxError": 0.00004486739635467529,
+          "differences": 6141
+        },
+        "confidence": {
+          "values": 6144,
+          "maxError": 0.00003224611282348633,
+          "differences": 6103
+        },
+        "score": {
+          "values": 1,
+          "maxError": 0.000004291534423828125,
+          "differences": 1
+        },
+        "noiseprint_pp": {
+          "values": 6144,
+          "maxError": 0.0005157142877578735,
+          "differences": 6139
+        }
+      },
+      "metrics": {
+        "milliseconds": 346.40000000596046,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 889192448,
+        "provider": "wasm",
+        "workers": 1
+      }
+    },
+    {
+      "case": 2,
+      "width": 65,
+      "height": 97,
+      "outputs": {
+        "map": {
+          "values": 6305,
+          "maxError": 0.000042304396629333496,
+          "differences": 6296
+        },
+        "confidence": {
+          "values": 6305,
+          "maxError": 0.000015556812286376953,
+          "differences": 6222
+        },
+        "score": {
+          "values": 1,
+          "maxError": 5.662441253662109e-7,
+          "differences": 1
+        },
+        "noiseprint_pp": {
+          "values": 6305,
+          "maxError": 0.00038367509841918945,
+          "differences": 6302
+        }
+      },
+      "metrics": {
+        "milliseconds": 431,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 889192448,
+        "provider": "wasm",
+        "workers": 1
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1445805836
+  },
+  "passed": false,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

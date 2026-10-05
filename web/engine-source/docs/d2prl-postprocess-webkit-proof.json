@@ -1,0 +1,1292 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native four-connected components and50x50 signed role filter, generated raw tensors only",
+  "cases": 180,
+  "filterExact": true,
+  "rows": [
+    {
+      "name": "3x2-horizontal-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-horizontal-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-horizontal-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-horizontal-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-horizontal-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-vertical-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-vertical-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-vertical-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-vertical-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-vertical-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-checker-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-checker-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-checker-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-checker-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-checker-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-random-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-random-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-random-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-random-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-random-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-holes-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-holes-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-holes-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-holes-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-holes-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thin-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thin-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thin-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thin-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thin-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-diagonal-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-diagonal-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-diagonal-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-diagonal-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-diagonal-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thresholds-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thresholds-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thresholds-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thresholds-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-thresholds-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-islands-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-islands-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-islands-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-islands-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3x2-islands-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-horizontal-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-horizontal-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-horizontal-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-horizontal-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-horizontal-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-vertical-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-vertical-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-vertical-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-vertical-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-vertical-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-checker-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-checker-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-checker-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-checker-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-checker-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-random-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-random-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-random-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-random-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-random-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-holes-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-holes-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-holes-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-holes-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-holes-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thin-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thin-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thin-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thin-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thin-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-diagonal-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-diagonal-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-diagonal-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-diagonal-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-diagonal-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thresholds-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thresholds-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thresholds-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thresholds-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-thresholds-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-islands-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-islands-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-islands-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-islands-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "35x32-islands-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-horizontal-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-horizontal-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-horizontal-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-horizontal-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-horizontal-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-vertical-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-vertical-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-vertical-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-vertical-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-vertical-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-checker-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-checker-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-checker-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-checker-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-checker-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-random-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-random-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-random-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-random-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-random-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-holes-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-holes-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-holes-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-holes-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-holes-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thin-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thin-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thin-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thin-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thin-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-diagonal-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-diagonal-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-diagonal-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-diagonal-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-diagonal-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thresholds-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thresholds-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thresholds-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thresholds-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-thresholds-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-islands-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-islands-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-islands-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-islands-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "131x77-islands-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-horizontal-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-horizontal-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-horizontal-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-horizontal-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-horizontal-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-vertical-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-vertical-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-vertical-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-vertical-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-vertical-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-checker-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-checker-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-checker-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-checker-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-checker-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-random-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-random-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-random-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-random-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-random-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-holes-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-holes-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-holes-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-holes-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-holes-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thin-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thin-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thin-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thin-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thin-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-diagonal-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-diagonal-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-diagonal-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-diagonal-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-diagonal-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thresholds-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thresholds-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thresholds-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thresholds-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-thresholds-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-islands-0",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-islands-1",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-islands-17",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-islands-500",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-islands-5000",
+      "differentMasks": 0,
+      "differentFilter": 0,
+      "maxFilterError": 0,
+      "nonfinite": 0
+    }
+  ],
+  "heapBytes": 16777216,
+  "fixtureSha256": "2bb2dc799402ccdca45fdf9bc49319ee9a7a6b962ff372247184f45901cea740",
+  "browser": "26.6",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "d4c04fa19132e2cfad1e67debb42a721928a037d8480d5d1935d7a90956d075a",
+    "objects": {
+      "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+      "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+      "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    "files": {
+      "postprocess.js": {
+        "bytes": 26716,
+        "sha256": "d97047b84961cf61c38ae2b879413cc79bef9d123e279ef13fb68f3d0530e6e8"
+      },
+      "postprocess.wasm": {
+        "bytes": 760829,
+        "sha256": "427e23c7d7f63288d2ada235da1b7b26d1e6df6ea52dd9de61ee58301e7d444d"
+      }
+    }
+  }
+}

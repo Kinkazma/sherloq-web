@@ -1,0 +1,50 @@
+{
+  "records": [
+    {
+      "mode": "direct",
+      "readMs": 14.100000008940697,
+      "writeMs": 36.80000004172325,
+      "inferenceMs": 2790.5999999791384,
+      "coldMs": 654,
+      "totalMs": 2844.2999999970198
+    },
+    {
+      "mode": "buffered",
+      "readMs": 2.4999999403953552,
+      "writeMs": 2.4000000059604645,
+      "inferenceMs": 2192.0000000596046,
+      "coldMs": 0,
+      "totalMs": 2199.0999999940395
+    }
+  ],
+  "keys": 93750,
+  "queries": 9984,
+  "bankDimensions": [
+    1,
+    64,
+    2000,
+    3000
+  ],
+  "queryOffset": 5990016,
+  "maxError": 0,
+  "storage": {
+    "reservedBytes": 3072000000,
+    "peakReservedBytes": 3072000000,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 10737418240,
+    "openFiles": 12
+  },
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 575554122
+  },
+  "passed": true,
+  "scope": "Real global learned query graph and OPFS banks with 96MP stage geometry; only last9984queries timed, not a full96MP qualification. Development only.",
+  "browser": "154.0.8037.58",
+  "browserContext": "temporary on-disk profile owned by M2",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

@@ -1,0 +1,3089 @@
+{
+  "passed": true,
+  "scope": "Original96MP progressive JPEG, EXIF6 orientation, every decoded RGB and ELA pixel native-exact, cache, full PNG delivered after unload. Source and coefficient storage stay external.",
+  "dimensions": [
+    8000,
+    12000
+  ],
+  "encodedDimensions": [
+    12000,
+    8000
+  ],
+  "sourceSha256": "3d5aef51c73f0d1b8ad24307d2fe8cc8319b4afff11e373141315aeecb7bce7d",
+  "sourceBytes": 8406415,
+  "budgetBytes": 268435456,
+  "source": {
+    "id": "progressive96",
+    "width": 8000,
+    "height": 12000,
+    "format": "rgb8",
+    "surface": {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "revision": 1,
+      "width": 8000,
+      "height": 12000,
+      "format": "rgb8",
+      "sourceWidth": 12000,
+      "sourceHeight": 8000,
+      "orientation": 6,
+      "coordinates": "full-resolution",
+      "storage": "temporary"
+    },
+    "sha256": "3d5aef51c73f0d1b8ad24307d2fe8cc8319b4afff11e373141315aeecb7bce7d",
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "coefficientStorage": "global-virtual-arrays",
+      "coefficientCacheBytes": 8388608,
+      "layout": "segmented-scanlines",
+      "orientation": 6,
+      "orientationApplied": true,
+      "sourceSize": [
+        12000,
+        8000
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "file": {
+      "name": null,
+      "declaredMimeType": "application/octet-stream",
+      "lastModified": null,
+      "origin": null
+    },
+    "operationConstraints": {
+      "inspection.magnifier": {
+        "workingSet": "bounded-row-windows",
+        "resultLayout": "contiguous-or-surface"
+      }
+    },
+    "availableOperations": [
+      "analysis.complete",
+      "analysis.clones",
+      "metadata.thumbnail",
+      "ela.energy",
+      "jpeg.zero",
+      "jpeg.multiple",
+      "ela.biomes",
+      "jpeg.ghosts",
+      "ela.classic",
+      "metadata.c2pa",
+      "metadata.exiftool",
+      "jpeg.recompression",
+      "jpeg.quality",
+      "various.stereogram",
+      "noise.noisesniffer",
+      "comparison.image",
+      "tampering.resampling",
+      "tampering.resampling.fourier",
+      "noise.prnu",
+      "detail.frequency",
+      "noise.blocking",
+      "detail.wavelets",
+      "colors.pca",
+      "tampering.copyMove.sparse",
+      "ai.sources.safire",
+      "ai.localization.focal",
+      "ai.localization.adaifl",
+      "tampering.copyMove.brisk",
+      "tampering.copyMove.orb",
+      "tampering.copyMove.akaze",
+      "inspection.histogram",
+      "inspection.magnifier",
+      "inspection.adjust",
+      "noise.separation",
+      "various.median",
+      "tampering.contrast",
+      "various.illuminant",
+      "detail.echo",
+      "detail.gradient",
+      "colors.space",
+      "colors.stats",
+      "noise.planes",
+      "noise.minmax",
+      "pixels.defects",
+      "file.hex",
+      "file.digest",
+      "ai.clones.d2prl",
+      "ai.clones.segmentation"
+    ],
+    "metrics": {
+      "decodeMs": 8375,
+      "kernel": "libjpeg-rgb-global-coefficients-paged",
+      "heapCapacityBytes": 16777216,
+      "heapMaximumBytes": 67108864,
+      "coefficientCacheBytes": 8388608,
+      "encodedReadBytes": 8406415,
+      "maxEncodedReadBytes": 65536,
+      "coefficientStores": 3,
+      "temporaryPeakBytes": 288000000,
+      "coefficientReadBytes": 1536000000,
+      "coefficientWriteBytes": 1536000000,
+      "decodedBytes": 288000000,
+      "maxDecodedChunkBytes": 1044000,
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "temporaryFallback": null,
+      "temporaryBytes": 288000000,
+      "originalBlobBytes": 8406415,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM",
+      "preparationMs": 8608.29999999702,
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 69271552
+      }
+    }
+  },
+  "elaMetrics": {
+    "workers": 1,
+    "kernel": "global-rgb-jpeg-scanlines",
+    "sampling": "420",
+    "recompressedCache": false,
+    "recompressions": 1,
+    "sourcePasses": 2,
+    "encodedBytes": 6386161,
+    "encodedCapacityBytes": 576002048,
+    "encodedStorage": "temporary",
+    "cacheEntries": 1,
+    "rowsPerChunk": 32,
+    "maxSourceWindowBytes": 768000,
+    "codecHeapCapacityBytes": 16777216,
+    "codecHeapMaximumBytes": 16777216,
+    "storage": "temporary",
+    "tableCached": false,
+    "retainedResultBytes": 288000000,
+    "cache": {
+      "recompressed": false,
+      "table": false,
+      "result": false
+    },
+    "temporaryBackend": "opfs",
+    "totalMs": 947874.1000000089,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 65536,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 69271552
+    }
+  },
+  "times": {
+    "loadMs": 8868.79999999702,
+    "sourceReadMs": 236876.20000000298,
+    "elaMs": 947875,
+    "exportMs": 501723.6999999881,
+    "readbackMs": 9409.5
+  },
+  "totalMs": 2179584,
+  "archive": {
+    "byteLength": 288097528,
+    "sha256": "da3f41d7740f1a646b3dd4cdfe899a9abb7983b6fec368604ced3793a4464268",
+    "afterSourceUnload": true
+  },
+  "finalMemory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 69271552,
+    "knownHeapCapacityBytes": 0
+  },
+  "storageCleanup": true,
+  "events": [
+    {
+      "id": "progressive96",
+      "phase": "decode-coefficients",
+      "fraction": 0.003897975534160519,
+      "encodedBytes": 65536,
+      "totalEncodedBytes": 8406415
+    },
+    {
+      "id": "progressive96",
+      "phase": "decode-coefficients",
+      "fraction": 0.14812307029809973,
+      "encodedBytes": 2490368,
+      "totalEncodedBytes": 8406415
+    },
+    {
+      "id": "progressive96",
+      "phase": "decode-coefficients",
+      "fraction": 0.35081779807444674,
+      "encodedBytes": 5898240,
+      "totalEncodedBytes": 8406415
+    },
+    {
+      "id": "progressive96",
+      "phase": "decode",
+      "fraction": 0.5018125,
+      "decodedBytes": 1044000,
+      "totalDecodedBytes": 288000000
+    },
+    {
+      "id": "progressive96",
+      "phase": "decode",
+      "fraction": 0.8425625,
+      "decodedBytes": 197316000,
+      "totalDecodedBytes": 288000000
+    },
+    {
+      "id": "progressive96",
+      "phase": "original-sha256",
+      "fraction": 0.1247352170931366
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.0026666666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.008
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.013333333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.018666666666666668
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.024
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.029333333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.034666666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.04
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.04533333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.050666666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.056
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.06133333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.06666666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.072
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.07733333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.08266666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.088
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.09333333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.09866666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.104
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.10933333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.11466666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.12
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.12533333333333332
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.13066666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.136
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.14133333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.14666666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.152
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.15733333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.16266666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.168
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.17333333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.17866666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.184
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.18933333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.19466666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.2
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.20533333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.21066666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.216
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.22133333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.22666666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.232
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.23733333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.24266666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.248
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.25333333333333335
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.25866666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.264
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.2693333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.27466666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.28
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.2853333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.2906666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.296
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.30133333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.30666666666666664
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.312
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.31733333333333336
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.32266666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.328
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.3333333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.33866666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.344
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.34933333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.3546666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.36
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.36533333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.37066666666666664
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.376
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.38133333333333336
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.38666666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.392
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.3973333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.4026666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.408
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.41333333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.4186666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.424
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.42933333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.43466666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.44
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.44533333333333336
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.45066666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.456
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.4613333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.4666666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.472
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.47733333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.4826666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.488
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.49333333333333335
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.49866666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.504
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5093333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5146666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.52
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5253333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5306666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.536
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5413333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5466666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.552
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5573333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5626666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.568
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5733333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5786666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.584
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5893333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.5946666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6053333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6106666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.616
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6213333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6266666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.632
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6373333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6426666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.648
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6533333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6586666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.664
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6693333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6746666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.68
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6853333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.6906666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.696
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7013333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7066666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.712
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7173333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7226666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.728
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7333333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7386666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.744
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7493333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7546666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.76
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7653333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7706666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.776
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7813333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7866666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.792
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.7973333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8026666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.808
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8133333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8186666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.824
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8293333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8346666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.84
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8453333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8506666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.856
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8613333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8666666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.872
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8773333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8826666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.888
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8933333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8986666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.904
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9093333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9146666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.92
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9253333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9306666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.936
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9413333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9466666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.952
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9573333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9626666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.968
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9733333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9786666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.984
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9893333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.9946666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 1
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.0026666666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.008
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.013333333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.018666666666666668
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.024
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.029333333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.034666666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.04
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.04533333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.050666666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.056
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.06133333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.06666666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.072
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.07733333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.08266666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.088
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.09333333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.09866666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.104
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.10933333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.11466666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.12
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.12533333333333332
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.13066666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.136
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.14133333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.14666666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.152
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.15733333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.16266666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.168
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.17333333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.17866666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.184
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.18933333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.19466666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.2
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.20533333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.21066666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.216
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.22133333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.22666666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.232
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.23733333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.24266666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.248
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.25333333333333335
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.25866666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.264
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.2693333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.27466666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.28
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.2853333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.2906666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.296
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.30133333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.30666666666666664
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.312
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.31733333333333336
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.32266666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.328
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.3333333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.33866666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.344
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.34933333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.3546666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.36
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.36533333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.37066666666666664
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.376
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.38133333333333336
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.38666666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.392
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.3973333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.4026666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.408
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.41333333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.4186666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.424
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.42933333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.43466666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.44
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.44533333333333336
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.45066666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.456
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.4613333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.4666666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.472
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.47733333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.4826666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.488
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.49333333333333335
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.49866666666666665
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.504
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5093333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5146666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.52
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5253333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5306666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.536
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5413333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5466666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.552
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5573333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5626666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.568
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5733333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5786666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.584
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5893333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.5946666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6053333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6106666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.616
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6213333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6266666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.632
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6373333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6426666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.648
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6533333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6586666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.664
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6693333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6746666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.68
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6853333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.6906666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.696
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7013333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7066666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.712
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7173333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7226666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.728
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7333333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7386666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.744
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7493333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7546666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.76
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7653333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7706666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.776
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7813333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7866666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.792
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.7973333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8026666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.808
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8133333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8186666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.824
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8293333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8346666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.84
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8453333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8506666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.856
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8613333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8666666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.872
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8773333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8826666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.888
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8933333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.8986666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.904
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9093333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9146666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.92
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9253333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9306666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.936
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9413333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9466666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.952
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9573333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9626666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.968
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9733333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9786666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.984
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9893333333333333
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.9946666666666667
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 1
+    },
+    {
+      "id": "ela",
+      "phase": "complete",
+      "fraction": 1
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.0026666666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.008
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.013333333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.018666666666666668
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.024
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.029333333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.034666666666666665
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.04
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.04533333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.050666666666666665
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.056
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.06133333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.06666666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.072
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.07733333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.08266666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.088
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.09333333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.09866666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.104
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.10933333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.11466666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.12
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.12533333333333332
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.13066666666666665
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.136
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.14133333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.14666666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.152
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.15733333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.16266666666666665
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.168
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.17333333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.17866666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.184
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.18933333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.19466666666666665
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.2
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.20533333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.21066666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.216
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.22133333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.22666666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.232
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.23733333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.24266666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.248
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.25333333333333335
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.25866666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.264
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.2693333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.27466666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.28
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.2853333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.2906666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.296
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.30133333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.30666666666666664
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.312
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.31733333333333336
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.32266666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.328
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.3333333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.33866666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.344
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.34933333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.3546666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.36
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.36533333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.37066666666666664
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.376
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.38133333333333336
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.38666666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.392
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.3973333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.4026666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.408
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.41333333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.4186666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.424
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.42933333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.43466666666666665
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.44
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.44533333333333336
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.45066666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.456
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.4613333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.4666666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.472
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.47733333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.4826666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.488
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.49333333333333335
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.49866666666666665
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.504
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5093333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5146666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.52
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5253333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5306666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.536
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5413333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5466666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.552
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5573333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5626666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.568
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5733333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5786666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.584
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5893333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.5946666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6053333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6106666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.616
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6186666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.624
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6293333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6346666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.64
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6453333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6506666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.656
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6613333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6666666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.672
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6773333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6826666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.688
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6933333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.6986666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.704
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7093333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7146666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.72
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7253333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7306666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.736
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7413333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7466666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.752
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7573333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7626666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.768
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7733333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7786666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.784
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7893333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.7946666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8053333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8106666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.816
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8213333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8266666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.832
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8373333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8426666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.848
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8533333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8586666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.864
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8693333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8746666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.88
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8853333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.8906666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.896
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9013333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9066666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.912
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9173333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9226666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.928
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9333333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9386666666666666
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.944
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9493333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9546666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.96
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9653333333333334
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9706666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.976
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9813333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9866666666666667
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.992
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "encode-png",
+      "fraction": 0.9973333333333333
+    },
+    {
+      "id": "fac874db-651f-4686-b19b-d3fe4039ebd8",
+      "phase": "complete",
+      "fraction": 1
+    }
+  ],
+  "engineCommit": "c27b071d6ea30b42a4156761740ff6cca2c0af8f",
+  "runtime": {
+    "sha256": "b9306407669880e8ad40bbc30c5bb566c6b0e1a616ea0c111901f17ad14a3e9f",
+    "files": 997
+  },
+  "extra": [
+    {
+      "file": "tests/m5-progressive-96mp-browser.js",
+      "sha256": "069aef19c0a09aeb0eea65e14b596c6ff217fb04b697a825f03b8eea3367aa6a"
+    },
+    {
+      "file": "tests/source-api-browser.js",
+      "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+    },
+    {
+      "file": "docs/m5-progressive-96mp-native-reference.json",
+      "sha256": "0c966ee98c63472ee139fb940bd3c87a3997ba1adab7930f8392f6aa90552d03"
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile removed after qualification"
+}

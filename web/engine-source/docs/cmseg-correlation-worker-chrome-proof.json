@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Same full-global64x64 native feature job with1/10 workers and80MiB pressure admission; source immutable, cancellation during statistics, retry and insufficient-memory refusal. One observation per condition with setup/transfers included, no universal speed claim. No startup calibration.",
+  "records": [
+    {
+      "name": "single",
+      "milliseconds": 1381.1000000014901,
+      "workers": 1,
+      "outputSha256": "19c5f7b25692fb837845a78c2b4ff827b1739c7bac5aa83de29ae1b704b4a7f7",
+      "heapBytes": 16777216,
+      "memory": {
+        "budgetBytes": 3221225472,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 69353472
+      }
+    },
+    {
+      "name": "parallel",
+      "milliseconds": 271.69999999552965,
+      "workers": 10,
+      "outputSha256": "19c5f7b25692fb837845a78c2b4ff827b1739c7bac5aa83de29ae1b704b4a7f7",
+      "heapBytes": 16777216,
+      "memory": {
+        "budgetBytes": 3221225472,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 683507712
+      }
+    },
+    {
+      "name": "pressure",
+      "milliseconds": 1343.6999999955297,
+      "workers": 1,
+      "outputSha256": "19c5f7b25692fb837845a78c2b4ff827b1739c7bac5aa83de29ae1b704b4a7f7",
+      "heapBytes": 16777216,
+      "memory": {
+        "budgetBytes": 83886080,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 69353472
+      }
+    }
+  ],
+  "cancelled": true,
+  "recovered": true,
+  "refused": true,
+  "originalExact": true,
+  "finalMemory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 683507712
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "experiments/segmentation/cmseg-correlation.js": "473ba0002d53980ef7034d81c032fa6f72d0187d52de49f260e8a2c89a9f7888",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "vendor/segmentation/CMSEG-PINNED.json": "2fd1ba5eac975d79fa7a0d2ed246ec929a224c52e5500292b118ba921d6a5658"
+  }
+}

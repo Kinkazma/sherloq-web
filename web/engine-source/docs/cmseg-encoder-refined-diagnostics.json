@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "status": "diagnostic-with-native-inputs",
+  "records": [
+    {
+      "name": "0.1",
+      "kind": "BatchNorm2d",
+      "onnx": {
+        "maxAbs": 2.9802322387695312e-8,
+        "different": 87699
+      },
+      "d2prlBn": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "1.conv.0",
+      "kind": "Conv2d",
+      "onnx": {
+        "maxAbs": 8.046627044677734e-7,
+        "different": 849955
+      },
+      "d2prlCpu": {
+        "maxAbs": 7.152557373046875e-7,
+        "different": 862200
+      },
+      "winograd": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "1.conv.1",
+      "kind": "BatchNorm2d",
+      "onnx": {
+        "maxAbs": 4.76837158203125e-7,
+        "different": 182401
+      },
+      "d2prlBn": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "1.conv.4",
+      "kind": "BatchNorm2d",
+      "onnx": {
+        "maxAbs": 2.384185791015625e-7,
+        "different": 81050
+      },
+      "d2prlBn": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "2.conv.1",
+      "kind": "BatchNorm2d",
+      "onnx": {
+        "maxAbs": 0.0001220703125,
+        "different": 1114112
+      },
+      "d2prlBn": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "2.conv.4",
+      "kind": "BatchNorm2d",
+      "onnx": {
+        "maxAbs": 1.1920928955078125e-7,
+        "different": 656074
+      },
+      "d2prlBn": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "2.conv.7",
+      "kind": "BatchNorm2d",
+      "onnx": {
+        "maxAbs": 2.384185791015625e-7,
+        "different": 39564
+      },
+      "d2prlBn": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "3.conv.1",
+      "kind": "BatchNorm2d",
+      "onnx": {
+        "maxAbs": 5.960464477539063e-8,
+        "different": 32126
+      },
+      "d2prlBn": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "3.conv.3",
+      "kind": "Conv2d",
+      "onnx": {
+        "maxAbs": 2.980232238769531e-7,
+        "different": 1729650
+      },
+      "d2prlCpu": {
+        "maxAbs": 2.384185791015625e-7,
+        "different": 1661627
+      },
+      "winograd": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "3.conv.4",
+      "kind": "BatchNorm2d",
+      "onnx": {
+        "maxAbs": 2.384185791015625e-7,
+        "different": 539001
+      },
+      "d2prlBn": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    },
+    {
+      "name": "3.conv.7",
+      "kind": "BatchNorm2d",
+      "onnx": {
+        "maxAbs": 1.1920928955078125e-7,
+        "different": 90784
+      },
+      "d2prlBn": {
+        "maxAbs": 0,
+        "different": 0
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1214820480
+  }
+}

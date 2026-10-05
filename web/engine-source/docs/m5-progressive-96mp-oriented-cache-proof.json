@@ -1,0 +1,349 @@
+{
+  "passed": true,
+  "scope": "Original96MP progressive JPEG, EXIF6 orientation, every decoded RGB and ELA pixel native-exact, cache, full PNG delivered after unload. Source and coefficient storage stay external.",
+  "dimensions": [
+    8000,
+    12000
+  ],
+  "encodedDimensions": [
+    12000,
+    8000
+  ],
+  "sourceSha256": "3d5aef51c73f0d1b8ad24307d2fe8cc8319b4afff11e373141315aeecb7bce7d",
+  "sourceBytes": 8406415,
+  "budgetBytes": 268435456,
+  "source": {
+    "id": "progressive96",
+    "width": 8000,
+    "height": 12000,
+    "format": "rgb8",
+    "surface": {
+      "id": "f6adc3d2-9ceb-48de-843a-e100436aaded",
+      "revision": 1,
+      "width": 8000,
+      "height": 12000,
+      "format": "rgb8",
+      "sourceWidth": 12000,
+      "sourceHeight": 8000,
+      "orientation": 6,
+      "coordinates": "full-resolution",
+      "storage": "temporary"
+    },
+    "sha256": "3d5aef51c73f0d1b8ad24307d2fe8cc8319b4afff11e373141315aeecb7bce7d",
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "coefficientStorage": "global-virtual-arrays",
+      "coefficientCacheBytes": 8388608,
+      "layout": "segmented-scanlines",
+      "orientation": 6,
+      "orientationApplied": true,
+      "sourceSize": [
+        12000,
+        8000
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "file": {
+      "name": null,
+      "declaredMimeType": "application/octet-stream",
+      "lastModified": null,
+      "origin": null
+    },
+    "operationConstraints": {
+      "inspection.magnifier": {
+        "workingSet": "bounded-row-windows",
+        "resultLayout": "contiguous-or-surface"
+      }
+    },
+    "availableOperations": [
+      "analysis.complete",
+      "analysis.clones",
+      "metadata.thumbnail",
+      "ela.energy",
+      "jpeg.zero",
+      "jpeg.multiple",
+      "ela.biomes",
+      "jpeg.ghosts",
+      "ela.classic",
+      "metadata.c2pa",
+      "metadata.exiftool",
+      "jpeg.recompression",
+      "jpeg.quality",
+      "various.stereogram",
+      "noise.noisesniffer",
+      "comparison.image",
+      "tampering.resampling",
+      "tampering.resampling.fourier",
+      "noise.prnu",
+      "detail.frequency",
+      "noise.blocking",
+      "detail.wavelets",
+      "colors.pca",
+      "tampering.copyMove.sparse",
+      "ai.sources.safire",
+      "ai.localization.focal",
+      "ai.localization.adaifl",
+      "tampering.copyMove.brisk",
+      "tampering.copyMove.orb",
+      "tampering.copyMove.akaze",
+      "inspection.histogram",
+      "inspection.magnifier",
+      "inspection.adjust",
+      "noise.separation",
+      "various.median",
+      "tampering.contrast",
+      "various.illuminant",
+      "detail.echo",
+      "detail.gradient",
+      "colors.space",
+      "colors.stats",
+      "noise.planes",
+      "noise.minmax",
+      "pixels.defects",
+      "file.hex",
+      "file.digest",
+      "ai.clones.d2prl",
+      "ai.clones.segmentation"
+    ],
+    "metrics": {
+      "decodeMs": 7653.29999999702,
+      "kernel": "libjpeg-rgb-global-coefficients-paged",
+      "heapCapacityBytes": 16777216,
+      "heapMaximumBytes": 67108864,
+      "coefficientCacheBytes": 8388608,
+      "encodedReadBytes": 8406415,
+      "maxEncodedReadBytes": 65536,
+      "coefficientStores": 3,
+      "temporaryPeakBytes": 288000000,
+      "coefficientReadBytes": 1536000000,
+      "coefficientWriteBytes": 1536000000,
+      "decodedBytes": 288000000,
+      "maxDecodedChunkBytes": 1044000,
+      "orientationCacheBytes": 288000000,
+      "orientationCacheMs": 12360,
+      "orientationCacheWindows": 9,
+      "orientationCacheWindowBytes": 33552000,
+      "originalStorePreserved": true,
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "temporaryFallback": null,
+      "temporaryBytes": 576000000,
+      "originalBlobBytes": 8406415,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM",
+      "preparationMs": 20091.20000000298,
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 69271552
+      }
+    }
+  },
+  "elaMetrics": {
+    "workers": 1,
+    "kernel": "global-rgb-jpeg-scanlines",
+    "sampling": "420",
+    "recompressedCache": false,
+    "recompressions": 1,
+    "sourcePasses": 2,
+    "encodedBytes": 6386161,
+    "encodedCapacityBytes": 576002048,
+    "encodedStorage": "temporary",
+    "cacheEntries": 1,
+    "rowsPerChunk": 32,
+    "maxSourceWindowBytes": 768000,
+    "codecHeapCapacityBytes": 16777216,
+    "codecHeapMaximumBytes": 16777216,
+    "storage": "temporary",
+    "tableCached": false,
+    "retainedResultBytes": 288000000,
+    "cache": {
+      "recompressed": false,
+      "table": false,
+      "result": false
+    },
+    "temporaryBackend": "opfs",
+    "totalMs": 5931.5,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 65536,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 69271552
+    }
+  },
+  "times": {
+    "loadMs": 20307.70000000298,
+    "sourceReadMs": 1197.5,
+    "elaMs": 5932.20000000298,
+    "exportMs": 6794.70000000298,
+    "readbackMs": 9899.29999999702
+  },
+  "totalMs": 46739.10000000894,
+  "archive": {
+    "byteLength": 288097528,
+    "sha256": "da3f41d7740f1a646b3dd4cdfe899a9abb7983b6fec368604ced3793a4464268",
+    "afterSourceUnload": true
+  },
+  "finalMemory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 69271552,
+    "knownHeapCapacityBytes": 0
+  },
+  "storageCleanup": true,
+  "events": [
+    {
+      "id": "progressive96",
+      "phase": "decode-coefficients",
+      "fraction": 0.003897975534160519,
+      "encodedBytes": 65536,
+      "totalEncodedBytes": 8406415
+    },
+    {
+      "id": "progressive96",
+      "phase": "decode-coefficients",
+      "fraction": 0.25336840972043373,
+      "encodedBytes": 4259840,
+      "totalEncodedBytes": 8406415
+    },
+    {
+      "id": "progressive96",
+      "phase": "decode-coefficients",
+      "fraction": 0.36251172467692827,
+      "encodedBytes": 6094848,
+      "totalEncodedBytes": 8406415
+    },
+    {
+      "id": "progressive96",
+      "phase": "decode",
+      "fraction": 0.5018125,
+      "decodedBytes": 1044000,
+      "totalDecodedBytes": 288000000
+    },
+    {
+      "id": "progressive96",
+      "phase": "decode",
+      "fraction": 0.880625,
+      "decodedBytes": 219240000,
+      "totalDecodedBytes": 288000000
+    },
+    {
+      "id": "progressive96",
+      "phase": "original-sha256",
+      "fraction": 0.1247352170931366
+    },
+    {
+      "id": "progressive96",
+      "phase": "orientation-cache",
+      "fraction": 0.1165,
+      "completedRows": 1398,
+      "totalRows": 12000
+    },
+    {
+      "id": "progressive96",
+      "phase": "orientation-cache",
+      "fraction": 0.3495,
+      "completedRows": 4194,
+      "totalRows": 12000
+    },
+    {
+      "id": "progressive96",
+      "phase": "orientation-cache",
+      "fraction": 0.5825,
+      "completedRows": 6990,
+      "totalRows": 12000
+    },
+    {
+      "id": "progressive96",
+      "phase": "orientation-cache",
+      "fraction": 0.8155,
+      "completedRows": 9786,
+      "totalRows": 12000
+    },
+    {
+      "id": "progressive96",
+      "phase": "orientation-cache",
+      "fraction": 1,
+      "completedRows": 12000,
+      "totalRows": 12000
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.0026666666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.424
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-encode",
+      "fraction": 0.8453333333333334
+    },
+    {
+      "id": "ela",
+      "phase": "jpeg-render",
+      "fraction": 0.0026666666666666666
+    },
+    {
+      "id": "ela",
+      "phase": "complete",
+      "fraction": 1
+    },
+    {
+      "id": "f6adc3d2-9ceb-48de-843a-e100436aaded",
+      "phase": "encode-png",
+      "fraction": 0.0026666666666666666
+    },
+    {
+      "id": "f6adc3d2-9ceb-48de-843a-e100436aaded",
+      "phase": "encode-png",
+      "fraction": 0.296
+    },
+    {
+      "id": "f6adc3d2-9ceb-48de-843a-e100436aaded",
+      "phase": "encode-png",
+      "fraction": 0.5946666666666667
+    },
+    {
+      "id": "f6adc3d2-9ceb-48de-843a-e100436aaded",
+      "phase": "encode-png",
+      "fraction": 0.8906666666666667
+    },
+    {
+      "id": "f6adc3d2-9ceb-48de-843a-e100436aaded",
+      "phase": "complete",
+      "fraction": 1
+    }
+  ],
+  "engineCommit": "282bf6f7c2fb60620977a3d66ec62c6f81e3576e",
+  "runtime": {
+    "sha256": "bfc753f49e46dccbef3c7f08962c677c1a8fd81926e0f83c3e13234b6a27656e",
+    "files": 1001
+  },
+  "extra": [
+    {
+      "file": "tests/m5-progressive-96mp-browser.js",
+      "sha256": "cfe758ac6ebc62be9d7d67407dcad57fc03b9009a83329155750385bdeedfcd6"
+    },
+    {
+      "file": "tests/source-api-browser.js",
+      "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+    },
+    {
+      "file": "docs/m5-progressive-96mp-native-reference.json",
+      "sha256": "0c966ee98c63472ee139fb940bd3c87a3997ba1adab7930f8392f6aa90552d03"
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile removed after qualification"
+}

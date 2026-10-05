@@ -1,0 +1,873 @@
+{
+  "at": "2026-10-04T00:40:28.390Z",
+  "targetId": "678B3BED5FA63AC8D22A2B7A91538655",
+  "url": "http://127.0.0.1:52699/src/worker.js",
+  "profile": {
+    "nodes": [
+      {
+        "id": 1,
+        "callFrame": {
+          "functionName": "(root)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        "hitCount": 0,
+        "children": [
+          2,
+          9,
+          17
+        ]
+      },
+      {
+        "id": 2,
+        "callFrame": {
+          "functionName": "",
+          "scriptId": "97",
+          "url": "http://127.0.0.1:52699/src/cache.js",
+          "lineNumber": 32,
+          "columnNumber": 113
+        },
+        "hitCount": 1,
+        "children": [
+          3
+        ],
+        "positionTicks": [
+          {
+            "line": 33,
+            "ticks": 1
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "callFrame": {
+          "functionName": "",
+          "scriptId": "9",
+          "url": "http://127.0.0.1:52699/src/execution-scheduler.js",
+          "lineNumber": 21,
+          "columnNumber": 42
+        },
+        "hitCount": 2,
+        "children": [
+          4
+        ],
+        "positionTicks": [
+          {
+            "line": 22,
+            "ticks": 2
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "callFrame": {
+          "functionName": "pump",
+          "scriptId": "9",
+          "url": "http://127.0.0.1:52699/src/execution-scheduler.js",
+          "lineNumber": 91,
+          "columnNumber": 6
+        },
+        "hitCount": 18,
+        "children": [
+          5,
+          6,
+          10,
+          12,
+          13,
+          14,
+          16
+        ],
+        "positionTicks": [
+          {
+            "line": 199,
+            "ticks": 1
+          },
+          {
+            "line": 109,
+            "ticks": 1
+          },
+          {
+            "line": 100,
+            "ticks": 1
+          },
+          {
+            "line": 109,
+            "ticks": 1
+          },
+          {
+            "line": 124,
+            "ticks": 10
+          },
+          {
+            "line": 200,
+            "ticks": 3
+          },
+          {
+            "line": 201,
+            "ticks": 1
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "callFrame": {
+          "functionName": "markQueued",
+          "scriptId": "9",
+          "url": "http://127.0.0.1:52699/src/execution-scheduler.js",
+          "lineNumber": 56,
+          "columnNumber": 12
+        },
+        "hitCount": 4,
+        "positionTicks": [
+          {
+            "line": 57,
+            "ticks": 4
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "callFrame": {
+          "functionName": "reserve",
+          "scriptId": "97",
+          "url": "http://127.0.0.1:52699/src/cache.js",
+          "lineNumber": 148,
+          "columnNumber": 8
+        },
+        "hitCount": 0,
+        "children": [
+          7,
+          20
+        ]
+      },
+      {
+        "id": 7,
+        "callFrame": {
+          "functionName": "room",
+          "scriptId": "97",
+          "url": "http://127.0.0.1:52699/src/cache.js",
+          "lineNumber": 35,
+          "columnNumber": 5
+        },
+        "hitCount": 12,
+        "children": [
+          8,
+          18
+        ],
+        "positionTicks": [
+          {
+            "line": 37,
+            "ticks": 1
+          },
+          {
+            "line": 39,
+            "ticks": 11
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "callFrame": {
+          "functionName": "EngineError",
+          "scriptId": "6",
+          "url": "http://127.0.0.1:52699/src/errors.js",
+          "lineNumber": 1,
+          "columnNumber": 13
+        },
+        "hitCount": 32,
+        "positionTicks": [
+          {
+            "line": 2,
+            "ticks": 32
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "callFrame": {
+          "functionName": "ForgeryscopePreparation.unreclaim.budget.registerReclaimer.allocationKind",
+          "scriptId": "263",
+          "url": "http://127.0.0.1:52699/src/forgeryscope-preparation.js",
+          "lineNumber": 6,
+          "columnNumber": 327
+        },
+        "hitCount": 1,
+        "children": [
+          19
+        ],
+        "positionTicks": [
+          {
+            "line": 7,
+            "ticks": 1
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "callFrame": {
+          "functionName": "queueMicrotask",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        "hitCount": 1,
+        "positionTicks": [
+          {
+            "line": 7,
+            "ticks": 1
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "callFrame": {
+          "functionName": "",
+          "scriptId": "431",
+          "url": "http://127.0.0.1:52699/src/elastic-worker-pool.js",
+          "lineNumber": 16,
+          "columnNumber": 42
+        },
+        "hitCount": 1,
+        "positionTicks": [
+          {
+            "line": 17,
+            "ticks": 1
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "callFrame": {
+          "functionName": "canWaitForMemory",
+          "scriptId": "9",
+          "url": "http://127.0.0.1:52699/src/execution-scheduler.js",
+          "lineNumber": 73,
+          "columnNumber": 18
+        },
+        "hitCount": 6,
+        "children": [
+          11
+        ],
+        "positionTicks": [
+          {
+            "line": 74,
+            "ticks": 6
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "callFrame": {
+          "functionName": "progress",
+          "scriptId": "132",
+          "url": "http://127.0.0.1:52699/src/resource-registry.js",
+          "lineNumber": 95,
+          "columnNumber": 9
+        },
+        "hitCount": 45,
+        "children": [
+          15
+        ],
+        "positionTicks": [
+          {
+            "line": 96,
+            "ticks": 45
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "callFrame": {
+          "functionName": "productive",
+          "scriptId": "132",
+          "url": "http://127.0.0.1:52699/src/resource-registry.js",
+          "lineNumber": 53,
+          "columnNumber": 11
+        },
+        "hitCount": 38,
+        "positionTicks": [
+          {
+            "line": 54,
+            "ticks": 38
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "callFrame": {
+          "functionName": "publishQueuedOperations",
+          "scriptId": "9",
+          "url": "http://127.0.0.1:52699/src/execution-scheduler.js",
+          "lineNumber": 63,
+          "columnNumber": 25
+        },
+        "hitCount": 19,
+        "positionTicks": [
+          {
+            "line": 64,
+            "ticks": 19
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "callFrame": {
+          "functionName": "blockingPressure",
+          "scriptId": "9",
+          "url": "http://127.0.0.1:52699/src/execution-scheduler.js",
+          "lineNumber": 81,
+          "columnNumber": 18
+        },
+        "hitCount": 9,
+        "positionTicks": [
+          {
+            "line": 82,
+            "ticks": 9
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "callFrame": {
+          "functionName": "productive",
+          "scriptId": "132",
+          "url": "http://127.0.0.1:52699/src/resource-registry.js",
+          "lineNumber": 53,
+          "columnNumber": 11
+        },
+        "hitCount": 28,
+        "positionTicks": [
+          {
+            "line": 54,
+            "ticks": 28
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "callFrame": {
+          "functionName": "",
+          "scriptId": "9",
+          "url": "http://127.0.0.1:52699/src/execution-scheduler.js",
+          "lineNumber": 108,
+          "columnNumber": 62
+        },
+        "hitCount": 1,
+        "positionTicks": [
+          {
+            "line": 109,
+            "ticks": 1
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "callFrame": {
+          "functionName": "(program)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        "hitCount": 10
+      },
+      {
+        "id": 17,
+        "callFrame": {
+          "functionName": "(garbage collector)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        "hitCount": 8
+      }
+    ],
+    "startTime": 278064545233,
+    "endTime": 278065977609,
+    "samples": [
+      5,
+      4,
+      8,
+      5,
+      9,
+      11,
+      12,
+      11,
+      11,
+      12,
+      8,
+      13,
+      7,
+      11,
+      11,
+      12,
+      14,
+      15,
+      15,
+      16,
+      11,
+      7,
+      11,
+      8,
+      11,
+      15,
+      7,
+      13,
+      9,
+      8,
+      17,
+      9,
+      4,
+      11,
+      4,
+      15,
+      11,
+      8,
+      8,
+      8,
+      11,
+      11,
+      14,
+      9,
+      9,
+      13,
+      14,
+      8,
+      10,
+      14,
+      8,
+      11,
+      12,
+      15,
+      14,
+      7,
+      11,
+      8,
+      9,
+      11,
+      11,
+      12,
+      14,
+      11,
+      15,
+      14,
+      11,
+      14,
+      4,
+      4,
+      5,
+      15,
+      15,
+      8,
+      14,
+      15,
+      11,
+      4,
+      9,
+      8,
+      15,
+      14,
+      8,
+      8,
+      14,
+      8,
+      8,
+      12,
+      17,
+      17,
+      4,
+      14,
+      12,
+      8,
+      8,
+      7,
+      13,
+      13,
+      15,
+      15,
+      14,
+      11,
+      14,
+      14,
+      14,
+      12,
+      7,
+      8,
+      15,
+      15,
+      7,
+      3,
+      15,
+      19,
+      12,
+      8,
+      7,
+      11,
+      4,
+      8,
+      11,
+      18,
+      12,
+      14,
+      9,
+      15,
+      7,
+      15,
+      4,
+      15,
+      12,
+      12,
+      8,
+      10,
+      15,
+      13,
+      11,
+      14,
+      15,
+      8,
+      8,
+      15,
+      8,
+      14,
+      14,
+      12,
+      11,
+      14,
+      8,
+      12,
+      13,
+      5,
+      13,
+      7,
+      9,
+      11,
+      11,
+      15,
+      17,
+      12,
+      14,
+      9,
+      8,
+      11,
+      4,
+      8,
+      4,
+      4,
+      11,
+      15,
+      15,
+      11,
+      15,
+      4,
+      13,
+      11,
+      12,
+      4,
+      11,
+      15,
+      12,
+      11,
+      5,
+      11,
+      11,
+      11,
+      15,
+      2,
+      10,
+      14,
+      17,
+      17,
+      11,
+      7,
+      15,
+      11,
+      14,
+      8,
+      20,
+      4,
+      15,
+      8,
+      15,
+      11,
+      10,
+      4,
+      14,
+      15,
+      4,
+      12,
+      15,
+      8,
+      11,
+      15,
+      15,
+      17,
+      17,
+      10,
+      14,
+      11,
+      15,
+      11,
+      14,
+      3,
+      4,
+      12,
+      11,
+      15,
+      14,
+      10,
+      15,
+      4,
+      11,
+      11,
+      15,
+      7,
+      11,
+      8
+    ],
+    "timeDeltas": [
+      399714,
+      3029,
+      1600,
+      5937,
+      670,
+      4312,
+      4300,
+      4792,
+      5439,
+      2160,
+      980,
+      5394,
+      3968,
+      9035,
+      1012,
+      5683,
+      8265,
+      3657,
+      4382,
+      5902,
+      1675,
+      4930,
+      7107,
+      4925,
+      1215,
+      4733,
+      1406,
+      3773,
+      5203,
+      4103,
+      4820,
+      6318,
+      4086,
+      5100,
+      4659,
+      5984,
+      6393,
+      1689,
+      2439,
+      1355,
+      1504,
+      1890,
+      1601,
+      3472,
+      946,
+      2604,
+      424,
+      1498,
+      2900,
+      2924,
+      1517,
+      5661,
+      663,
+      1527,
+      1531,
+      1895,
+      873,
+      5438,
+      614,
+      1637,
+      1354,
+      1492,
+      3253,
+      950,
+      1489,
+      8696,
+      569,
+      1939,
+      3638,
+      812,
+      1821,
+      1275,
+      1918,
+      1406,
+      1815,
+      1167,
+      1532,
+      2580,
+      877,
+      1632,
+      2573,
+      333,
+      1911,
+      1544,
+      7688,
+      10613,
+      3824,
+      1284,
+      14896,
+      4515,
+      3779,
+      9702,
+      4191,
+      6262,
+      5440,
+      4601,
+      1733,
+      3636,
+      2316,
+      3864,
+      9016,
+      7463,
+      13675,
+      6649,
+      10233,
+      4494,
+      571,
+      1497,
+      5330,
+      8066,
+      255,
+      7805,
+      4350,
+      2521,
+      4260,
+      10599,
+      7620,
+      3765,
+      11243,
+      2760,
+      3171,
+      757,
+      1831,
+      5806,
+      1224,
+      5663,
+      6432,
+      3350,
+      5355,
+      4416,
+      6894,
+      2453,
+      4620,
+      5504,
+      4690,
+      5106,
+      229,
+      2436,
+      1845,
+      1784,
+      4833,
+      5734,
+      3967,
+      8589,
+      3307,
+      1194,
+      5217,
+      3527,
+      11131,
+      1778,
+      4577,
+      573,
+      4632,
+      6164,
+      944,
+      2582,
+      527,
+      5137,
+      1531,
+      5966,
+      1496,
+      11690,
+      1341,
+      5785,
+      6685,
+      7089,
+      13233,
+      1156,
+      1501,
+      1523,
+      8012,
+      4142,
+      4646,
+      8640,
+      1781,
+      4365,
+      1384,
+      3990,
+      5343,
+      2733,
+      2958,
+      1879,
+      6694,
+      4468,
+      7194,
+      3635,
+      4997,
+      2803,
+      5340,
+      9994,
+      6586,
+      10109,
+      2996,
+      8306,
+      7608,
+      8991,
+      10948,
+      7141,
+      6990,
+      5170,
+      4442,
+      4255,
+      3246,
+      879,
+      4995,
+      20575,
+      2839,
+      4844,
+      1463,
+      10013,
+      4660,
+      8213,
+      2387,
+      5283,
+      6508,
+      5765,
+      2889,
+      4482,
+      4914,
+      6985,
+      2907,
+      8971,
+      106,
+      6513,
+      6211,
+      2162,
+      8256,
+      3083,
+      5367,
+      1505,
+      2425,
+      1972,
+      1531,
+      13285,
+      1185,
+      9328,
+      296,
+      9849
+    ]
+  },
+  "scope": "One-second CPU sample after three unanswered coordinator diagnostics; no pause, GC, heap snapshot or capacity trial."
+}

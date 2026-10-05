@@ -1,0 +1,33 @@
+{
+  "provider": "wasm",
+  "phases": [
+    "model-load",
+    "inference"
+  ],
+  "cacheIsolated": true,
+  "views": [
+    {
+      "view": "map",
+      "bytes": 18432
+    },
+    {
+      "view": "confidence",
+      "bytes": 18432
+    },
+    {
+      "view": "noiseprint_pp",
+      "bytes": 18432
+    }
+  ],
+  "npzBytes": 77028,
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1546615894
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

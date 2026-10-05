@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "width": 512,
+  "height": 384,
+  "budgetBytes": 67108864,
+  "milliseconds": 5287.600000023842,
+  "metrics": {
+    "workspaceBytes": 58693328,
+    "initialBatchPixels": 175881,
+    "batchBytes": 21052040,
+    "residentPool": true,
+    "residentPoolBytes": 50696,
+    "residentSiftBoundsBytes": 0,
+    "pagedSiftBounds": false,
+    "cacheBytes": 20813376,
+    "pageBytes": 4096,
+    "cachePages": 2304,
+    "initialCachePages": 2304,
+    "initialCacheBytes": 20813376,
+    "cachePolicy": "reuse-after-initialization",
+    "reads": 5058,
+    "writes": 384,
+    "readBytes": 39518208,
+    "writeBytes": 1572864,
+    "heapBytes": 43974656,
+    "plannedWorkspaceBytes": 58693328,
+    "siftBoundRejections": 0,
+    "preparation": {
+      "tile": 128,
+      "halo": 25,
+      "workers": 1,
+      "preparation": {
+        "workers": 1,
+        "storage": "temporary",
+        "dataBytes": 18874368,
+        "hotBytes": 0,
+        "workerBytes": 54682866,
+        "resident": false
+      },
+      "execution": {
+        "created": 1,
+        "reclaimed": 0,
+        "peakWorkers": 1,
+        "peakComputing": 1,
+        "computing": 0,
+        "completed": 12,
+        "computeMs": 1016.5000000298023,
+        "preparationMs": 262.10000002384186,
+        "storageMs": 658.0999999642372,
+        "heapBytes": 33554432,
+        "residentWorkers": 1,
+        "residentAllowanceBytes": 52490128,
+        "maximum": 4,
+        "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+      },
+      "workspaceBytes": 52490128,
+      "heapBytes": 33554432,
+      "storedDescriptorBytes": 18874368
+    }
+  },
+  "peakAccountedBytes": 58693328,
+  "comparisons": "5021062",
+  "sha256": {
+    "targets": "bcf83efb30771b2b281fc360151cef0f21d58584d6fa0630e6ee586cb66899b7",
+    "distancesSquared": "7b17285ff5266e4ece561aa8483dceac8003e46fcc4a8a286ddefe7a915260fd"
+  }
+}

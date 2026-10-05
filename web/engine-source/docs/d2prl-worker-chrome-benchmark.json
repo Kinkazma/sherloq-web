@@ -1,0 +1,1281 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "browser": "154.0.8037.58",
+  "scope": "Offline common-worker original-file to source mask, display submission and NPZ; CPU and GPU sequential, 3GiB shared budget, one cold browser context and one fresh engine with warm browser caches per backend. No synthetic warm-up. Generated 521x389 source, fixed448 model. Ambient desktop applications remain active; a small development sample, not a device-wide or statistical speed guarantee.",
+  "timingLimits": "Headless canvas submission and two animation frames do not measure physical display latency. RPC minus engine time approximates dispatch/serialization/transfer together. Progress milestones include model fetch/verification and are not isolated kernel timings. Accounted memory includes conservative WASM ceilings, not RSS.",
+  "package": {
+    "schema": 1,
+    "file": "model.json",
+    "bytes": 1173784,
+    "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+    "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+    "assets": 1062,
+    "assetBytes": 541513527,
+    "scope": "Private model parameters and configuration only; no native expected images/activations, no distribution permission inferred."
+  },
+  "sources": {
+    "src/index.js": "faa28b9efa9e4c50f96bd5ecec040c2892fc8e5d9e2514e3703d1421fa577dd4",
+    "src/d2prl-adapter.js": "ed48a2fbfcbdf0708747986c1e7239be8b94280cb401f8564ca6acf08d87f25d",
+    "src/worker-client.js": "6179f23e801067bf46bb66304a5832ce3325fd36928d1094e2e1a39ca8ed39da",
+    "experiments/d2prl/model.js": "e9fbc85605a73a1e48e434c7fdeb41b0c91da3c4a672eef8cb41d1452d183e12",
+    "vendor/d2prl/PINNED.json": "032df3b4319c9dc22aadad627252cf174fae05d5f1f29cb6128a3073253ac54b"
+  },
+  "extractedRuntime": true,
+  "runs": [
+    {
+      "backend": "cpu",
+      "repetition": "cold-context",
+      "times": {
+        "sourceFetchMs": 4.800000000745058,
+        "sourceDecodeRpcMs": 101.30000000074506,
+        "manifestVerifyRpcMs": 20.699999999254942,
+        "runRpcMs": 445648.1000000015,
+        "engineRunMs": 445647.30000000075,
+        "dispatchAndTransferApproxMs": 0.8000000007450581,
+        "displayPreparationMs": 1.800000000745058,
+        "canvasSubmissionMs": 0.5999999977648258,
+        "twoAnimationFramesMs": 12.5,
+        "sourceToDisplayMs": 445790,
+        "npzRpcMs": 55.100000001490116,
+        "sourceThroughNpzMs": 445845.1000000015
+      },
+      "milestones": [
+        {
+          "phase": "preparation",
+          "completed": 0,
+          "ms": 20.100000001490116
+        },
+        {
+          "phase": "preparation",
+          "completed": 1,
+          "ms": 26.800000000745058
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 40,
+          "ms": 215607.6000000015
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 80,
+          "ms": 256109.90000000224
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 120,
+          "ms": 295604.69999999925
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 160,
+          "ms": 336585.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-7-zm",
+          "ms": 375264.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-7-cnn",
+          "ms": 375540
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-9-zm",
+          "ms": 375921.69999999925
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-9-cnn",
+          "ms": 376322
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-11-zm",
+          "ms": 376873.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-11-cnn",
+          "ms": 377451.5
+        },
+        {
+          "phase": "heads",
+          "message": "union-input",
+          "ms": 377451.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-0",
+          "ms": 377782.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-0-relu",
+          "ms": 377870.19999999925
+        },
+        {
+          "phase": "heads",
+          "message": "union-3",
+          "ms": 386005.90000000224
+        },
+        {
+          "phase": "heads",
+          "message": "union-3-relu",
+          "ms": 386195.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-6",
+          "ms": 395190.90000000224
+        },
+        {
+          "phase": "heads",
+          "message": "union-6-relu",
+          "ms": 395283.30000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-9",
+          "ms": 395885.30000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-9-relu",
+          "ms": 395921.19999999925
+        },
+        {
+          "phase": "heads",
+          "message": "union-12",
+          "ms": 395963.19999999925
+        },
+        {
+          "phase": "heads",
+          "message": "union-sigmoid",
+          "ms": 395971.90000000224
+        },
+        {
+          "phase": "unet",
+          "completed": 200,
+          "ms": 409193.40000000224
+        },
+        {
+          "phase": "unet",
+          "completed": 400,
+          "ms": 415900.40000000224
+        },
+        {
+          "phase": "unet",
+          "completed": 600,
+          "ms": 423357.5
+        },
+        {
+          "phase": "unet",
+          "completed": 800,
+          "ms": 432085.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "unet-sigmoid",
+          "ms": 443030.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "combined-union",
+          "ms": 443060.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "target",
+          "ms": 445483.90000000224
+        },
+        {
+          "phase": "heads",
+          "message": "source",
+          "ms": 445484
+        },
+        {
+          "phase": "zone-complete",
+          "completed": 1,
+          "ms": 445484.40000000224
+        }
+      ],
+      "cached": [
+        {
+          "minimum": 0,
+          "rpcMs": 150.69999999925494,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 17,
+          "rpcMs": 147.10000000149012,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 5000,
+          "rpcMs": 150.30000000074506,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 500,
+          "rpcMs": 169,
+          "inferences": 0,
+          "cacheHits": 1
+        }
+      ],
+      "exact": true,
+      "inferences": 1,
+      "execution": {
+        "boxes": [
+          [
+            0,
+            0,
+            521,
+            389
+          ]
+        ],
+        "zones": [
+          {
+            "id": "whole-image",
+            "bounds": [
+              0,
+              0,
+              521,
+              389
+            ],
+            "origin": [
+              0,
+              0
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 500,
+            "role_filter": 50,
+            "kind": "whole-image",
+            "decision": {
+              "overlap": 38161.30078125,
+              "threshold": 28291.060546875,
+              "combineMaximum": true
+            },
+            "execution": {
+              "convolution": "wasm-simd-workers",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 10,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                }
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 500,
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "exclusion_policy": "output-only-native-d2prl",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "cpu",
+        "pixelSha256": "1238856164fe1cde39f48ca43729fc0d5c2058eaab31502712a5762cc6ed41fd",
+        "resultId": "d2prl-session-1:1",
+        "analysisId": "d2prl-session-1:1",
+        "revision": 1,
+        "sourceProvenance": {
+          "originalSha256": "a49d384b21e357114e799c084c69318d3dd63d1264473a15035f35a84f6acd98",
+          "decode": {
+            "decoder": "opencv-4.11.0/emscripten-4.0.15",
+            "format": "png",
+            "sourceSize": [
+              521,
+              389
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "orientation": 1,
+            "orientationApplied": true,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "first image only"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "memory": {
+        "budgetBytes": 3221225472,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 3220575215,
+        "knownHeapCapacityBytes": 33554432
+      },
+      "exportBytes": 3051487,
+      "hardwareConcurrency": 10,
+      "adapterInfo": null,
+      "adapterInfoScope": "Read-only high-performance adapter query after the requested job; no extra device or compute dispatch"
+    },
+    {
+      "backend": "cpu",
+      "repetition": "warm-http-wasm-new-engine",
+      "times": {
+        "sourceFetchMs": 3.199999999254942,
+        "sourceDecodeRpcMs": 93,
+        "manifestVerifyRpcMs": 21.199999999254942,
+        "runRpcMs": 441693.1000000015,
+        "engineRunMs": 441692.40000000224,
+        "dispatchAndTransferApproxMs": 0.6999999992549419,
+        "displayPreparationMs": 1.1000000014901161,
+        "canvasSubmissionMs": 0,
+        "twoAnimationFramesMs": 2.899999998509884,
+        "sourceToDisplayMs": 441814.6000000015,
+        "npzRpcMs": 52.69999999925494,
+        "sourceThroughNpzMs": 441867.30000000075
+      },
+      "milestones": [
+        {
+          "phase": "preparation",
+          "completed": 0,
+          "ms": 19.400000002235174
+        },
+        {
+          "phase": "preparation",
+          "completed": 1,
+          "ms": 26.5
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 40,
+          "ms": 214445
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 80,
+          "ms": 255825.5
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 120,
+          "ms": 297061.6000000015
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 160,
+          "ms": 337716.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-7-zm",
+          "ms": 373989.5
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-7-cnn",
+          "ms": 374257.5
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-9-zm",
+          "ms": 374630.700000003
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-9-cnn",
+          "ms": 375029.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-11-zm",
+          "ms": 375600.200000003
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-11-cnn",
+          "ms": 376183.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-input",
+          "ms": 376184
+        },
+        {
+          "phase": "heads",
+          "message": "union-0",
+          "ms": 376503.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-0-relu",
+          "ms": 376587.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-3",
+          "ms": 384673.200000003
+        },
+        {
+          "phase": "heads",
+          "message": "union-3-relu",
+          "ms": 384853.5
+        },
+        {
+          "phase": "heads",
+          "message": "union-6",
+          "ms": 393863.700000003
+        },
+        {
+          "phase": "heads",
+          "message": "union-6-relu",
+          "ms": 393947.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-9",
+          "ms": 394555.200000003
+        },
+        {
+          "phase": "heads",
+          "message": "union-9-relu",
+          "ms": 394573.200000003
+        },
+        {
+          "phase": "heads",
+          "message": "union-12",
+          "ms": 394608.30000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-sigmoid",
+          "ms": 394617.700000003
+        },
+        {
+          "phase": "unet",
+          "completed": 200,
+          "ms": 407310.200000003
+        },
+        {
+          "phase": "unet",
+          "completed": 400,
+          "ms": 413422.5
+        },
+        {
+          "phase": "unet",
+          "completed": 600,
+          "ms": 420400.1000000015
+        },
+        {
+          "phase": "unet",
+          "completed": 800,
+          "ms": 428444.200000003
+        },
+        {
+          "phase": "heads",
+          "message": "unet-sigmoid",
+          "ms": 439053.30000000075
+        },
+        {
+          "phase": "heads",
+          "message": "combined-union",
+          "ms": 439083.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "target",
+          "ms": 441529.5
+        },
+        {
+          "phase": "heads",
+          "message": "source",
+          "ms": 441529.6000000015
+        },
+        {
+          "phase": "zone-complete",
+          "completed": 1,
+          "ms": 441530
+        }
+      ],
+      "cached": [
+        {
+          "minimum": 0,
+          "rpcMs": 145.59999999776483,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 17,
+          "rpcMs": 151.10000000149012,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 5000,
+          "rpcMs": 156.39999999850988,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 500,
+          "rpcMs": 169.10000000149012,
+          "inferences": 0,
+          "cacheHits": 1
+        }
+      ],
+      "exact": true,
+      "inferences": 1,
+      "execution": {
+        "boxes": [
+          [
+            0,
+            0,
+            521,
+            389
+          ]
+        ],
+        "zones": [
+          {
+            "id": "whole-image",
+            "bounds": [
+              0,
+              0,
+              521,
+              389
+            ],
+            "origin": [
+              0,
+              0
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 500,
+            "role_filter": 50,
+            "kind": "whole-image",
+            "decision": {
+              "overlap": 38161.30078125,
+              "threshold": 28291.060546875,
+              "combineMaximum": true
+            },
+            "execution": {
+              "convolution": "wasm-simd-workers",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 10,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                }
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 500,
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "exclusion_policy": "output-only-native-d2prl",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "cpu",
+        "pixelSha256": "1238856164fe1cde39f48ca43729fc0d5c2058eaab31502712a5762cc6ed41fd",
+        "resultId": "d2prl-session-1:1",
+        "analysisId": "d2prl-session-1:1",
+        "revision": 1,
+        "sourceProvenance": {
+          "originalSha256": "a49d384b21e357114e799c084c69318d3dd63d1264473a15035f35a84f6acd98",
+          "decode": {
+            "decoder": "opencv-4.11.0/emscripten-4.0.15",
+            "format": "png",
+            "sourceSize": [
+              521,
+              389
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "orientation": 1,
+            "orientationApplied": true,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "first image only"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "memory": {
+        "budgetBytes": 3221225472,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 3220575215,
+        "knownHeapCapacityBytes": 33554432
+      },
+      "exportBytes": 3051487,
+      "hardwareConcurrency": 10,
+      "adapterInfo": null,
+      "adapterInfoScope": "Read-only high-performance adapter query after the requested job; no extra device or compute dispatch"
+    },
+    {
+      "backend": "webgpu",
+      "repetition": "cold-context",
+      "times": {
+        "sourceFetchMs": 4.600000001490116,
+        "sourceDecodeRpcMs": 120.80000000074506,
+        "manifestVerifyRpcMs": 30.899999998509884,
+        "runRpcMs": 237860.1000000015,
+        "engineRunMs": 237859.40000000224,
+        "dispatchAndTransferApproxMs": 0.6999999992549419,
+        "displayPreparationMs": 1.699999999254942,
+        "canvasSubmissionMs": 0.5,
+        "twoAnimationFramesMs": 8.5,
+        "sourceToDisplayMs": 238027.3999999985,
+        "npzRpcMs": 51.900000002235174,
+        "sourceThroughNpzMs": 238079.30000000075
+      },
+      "milestones": [
+        {
+          "phase": "preparation",
+          "completed": 0,
+          "ms": 25.800000000745058
+        },
+        {
+          "phase": "preparation",
+          "completed": 1,
+          "ms": 32.70000000298023
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 40,
+          "ms": 66166.10000000149
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 80,
+          "ms": 106513.5
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 120,
+          "ms": 146014.1000000015
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 160,
+          "ms": 183887.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-7-zm",
+          "ms": 218493.30000000075
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-7-cnn",
+          "ms": 218786.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-9-zm",
+          "ms": 219171.30000000075
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-9-cnn",
+          "ms": 219594.40000000224
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-11-zm",
+          "ms": 220163.5
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-11-cnn",
+          "ms": 220746.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-input",
+          "ms": 220746.90000000224
+        },
+        {
+          "phase": "heads",
+          "message": "union-0",
+          "ms": 220811.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-0-relu",
+          "ms": 220907.30000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-3",
+          "ms": 221607.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-3-relu",
+          "ms": 221801.30000000075
+        },
+        {
+          "phase": "heads",
+          "message": "union-6",
+          "ms": 222680
+        },
+        {
+          "phase": "heads",
+          "message": "union-6-relu",
+          "ms": 222753.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-9",
+          "ms": 222859.90000000224
+        },
+        {
+          "phase": "heads",
+          "message": "union-9-relu",
+          "ms": 222878.70000000298
+        },
+        {
+          "phase": "heads",
+          "message": "union-12",
+          "ms": 222902.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-sigmoid",
+          "ms": 222911.6000000015
+        },
+        {
+          "phase": "unet",
+          "completed": 200,
+          "ms": 227362.30000000075
+        },
+        {
+          "phase": "unet",
+          "completed": 400,
+          "ms": 229215.6000000015
+        },
+        {
+          "phase": "unet",
+          "completed": 600,
+          "ms": 231111.5
+        },
+        {
+          "phase": "unet",
+          "completed": 800,
+          "ms": 233456.5
+        },
+        {
+          "phase": "heads",
+          "message": "unet-sigmoid",
+          "ms": 235325.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "combined-union",
+          "ms": 235354.70000000298
+        },
+        {
+          "phase": "heads",
+          "message": "target",
+          "ms": 237700.70000000298
+        },
+        {
+          "phase": "heads",
+          "message": "source",
+          "ms": 237700.80000000075
+        },
+        {
+          "phase": "zone-complete",
+          "completed": 1,
+          "ms": 237701.1000000015
+        }
+      ],
+      "cached": [
+        {
+          "minimum": 0,
+          "rpcMs": 143.09999999776483,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 17,
+          "rpcMs": 144.80000000074506,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 5000,
+          "rpcMs": 139.69999999925494,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 500,
+          "rpcMs": 145.10000000149012,
+          "inferences": 0,
+          "cacheHits": 1
+        }
+      ],
+      "exact": true,
+      "inferences": 1,
+      "execution": {
+        "boxes": [
+          [
+            0,
+            0,
+            521,
+            389
+          ]
+        ],
+        "zones": [
+          {
+            "id": "whole-image",
+            "bounds": [
+              0,
+              0,
+              521,
+              389
+            ],
+            "origin": [
+              0,
+              0
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 500,
+            "role_filter": 50,
+            "kind": "whole-image",
+            "decision": {
+              "overlap": 38161.30078125,
+              "threshold": 28291.060546875,
+              "combineMaximum": true
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 10,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                }
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 500,
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "exclusion_policy": "output-only-native-d2prl",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "1238856164fe1cde39f48ca43729fc0d5c2058eaab31502712a5762cc6ed41fd",
+        "resultId": "d2prl-session-1:1",
+        "analysisId": "d2prl-session-1:1",
+        "revision": 1,
+        "sourceProvenance": {
+          "originalSha256": "a49d384b21e357114e799c084c69318d3dd63d1264473a15035f35a84f6acd98",
+          "decode": {
+            "decoder": "opencv-4.11.0/emscripten-4.0.15",
+            "format": "png",
+            "sourceSize": [
+              521,
+              389
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "orientation": 1,
+            "orientationApplied": true,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "first image only"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "memory": {
+        "budgetBytes": 3221225472,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 2259084271,
+        "knownHeapCapacityBytes": 33554432
+      },
+      "exportBytes": 3051507,
+      "hardwareConcurrency": 10,
+      "adapterInfo": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": ""
+      },
+      "adapterInfoScope": "Read-only high-performance adapter query after the requested job; no extra device or compute dispatch"
+    },
+    {
+      "backend": "webgpu",
+      "repetition": "warm-http-wasm-new-engine",
+      "times": {
+        "sourceFetchMs": 2.2999999970197678,
+        "sourceDecodeRpcMs": 72.10000000149012,
+        "manifestVerifyRpcMs": 17.5,
+        "runRpcMs": 219718.8999999985,
+        "engineRunMs": 219718.19999999925,
+        "dispatchAndTransferApproxMs": 0.6999999992549419,
+        "displayPreparationMs": 1,
+        "canvasSubmissionMs": 0.10000000149011612,
+        "twoAnimationFramesMs": 17.100000001490116,
+        "sourceToDisplayMs": 219829.09999999776,
+        "npzRpcMs": 53.69999999925494,
+        "sourceThroughNpzMs": 219882.79999999702
+      },
+      "milestones": [
+        {
+          "phase": "preparation",
+          "completed": 0,
+          "ms": 18.199999999254942
+        },
+        {
+          "phase": "preparation",
+          "completed": 1,
+          "ms": 25.100000001490116
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 40,
+          "ms": 57989.5
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 80,
+          "ms": 94396.19999999925
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 120,
+          "ms": 131026.69999999925
+        },
+        {
+          "phase": "patchmatch",
+          "completed": 160,
+          "ms": 165992.30000000075
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-7-zm",
+          "ms": 200634.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-7-cnn",
+          "ms": 200911.69999999925
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-9-zm",
+          "ms": 201293.5
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-9-cnn",
+          "ms": 201700.8999999985
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-11-zm",
+          "ms": 202243.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "dlf-11-cnn",
+          "ms": 202812
+        },
+        {
+          "phase": "heads",
+          "message": "union-input",
+          "ms": 202812.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-0",
+          "ms": 202879.8999999985
+        },
+        {
+          "phase": "heads",
+          "message": "union-0-relu",
+          "ms": 202964.3999999985
+        },
+        {
+          "phase": "heads",
+          "message": "union-3",
+          "ms": 203657.5
+        },
+        {
+          "phase": "heads",
+          "message": "union-3-relu",
+          "ms": 203836.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-6",
+          "ms": 204664.69999999925
+        },
+        {
+          "phase": "heads",
+          "message": "union-6-relu",
+          "ms": 204727.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-9",
+          "ms": 204815.6000000015
+        },
+        {
+          "phase": "heads",
+          "message": "union-9-relu",
+          "ms": 204832
+        },
+        {
+          "phase": "heads",
+          "message": "union-12",
+          "ms": 204852
+        },
+        {
+          "phase": "heads",
+          "message": "union-sigmoid",
+          "ms": 204861.3999999985
+        },
+        {
+          "phase": "unet",
+          "completed": 200,
+          "ms": 209036.6000000015
+        },
+        {
+          "phase": "unet",
+          "completed": 400,
+          "ms": 211006.8999999985
+        },
+        {
+          "phase": "unet",
+          "completed": 600,
+          "ms": 212966.30000000075
+        },
+        {
+          "phase": "unet",
+          "completed": 800,
+          "ms": 215250.69999999925
+        },
+        {
+          "phase": "heads",
+          "message": "unet-sigmoid",
+          "ms": 217139.1000000015
+        },
+        {
+          "phase": "heads",
+          "message": "combined-union",
+          "ms": 217167.80000000075
+        },
+        {
+          "phase": "heads",
+          "message": "target",
+          "ms": 219564.3999999985
+        },
+        {
+          "phase": "heads",
+          "message": "source",
+          "ms": 219564.5
+        },
+        {
+          "phase": "zone-complete",
+          "completed": 1,
+          "ms": 219564.80000000075
+        }
+      ],
+      "cached": [
+        {
+          "minimum": 0,
+          "rpcMs": 144.70000000298023,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 17,
+          "rpcMs": 144.09999999776483,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 5000,
+          "rpcMs": 139.40000000223517,
+          "inferences": 0,
+          "cacheHits": 1
+        },
+        {
+          "minimum": 500,
+          "rpcMs": 143.69999999925494,
+          "inferences": 0,
+          "cacheHits": 1
+        }
+      ],
+      "exact": true,
+      "inferences": 1,
+      "execution": {
+        "boxes": [
+          [
+            0,
+            0,
+            521,
+            389
+          ]
+        ],
+        "zones": [
+          {
+            "id": "whole-image",
+            "bounds": [
+              0,
+              0,
+              521,
+              389
+            ],
+            "origin": [
+              0,
+              0
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 500,
+            "role_filter": 50,
+            "kind": "whole-image",
+            "decision": {
+              "overlap": 38161.30078125,
+              "threshold": 28291.060546875,
+              "combineMaximum": true
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 10,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                }
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 500,
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "exclusion_policy": "output-only-native-d2prl",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "1238856164fe1cde39f48ca43729fc0d5c2058eaab31502712a5762cc6ed41fd",
+        "resultId": "d2prl-session-1:1",
+        "analysisId": "d2prl-session-1:1",
+        "revision": 1,
+        "sourceProvenance": {
+          "originalSha256": "a49d384b21e357114e799c084c69318d3dd63d1264473a15035f35a84f6acd98",
+          "decode": {
+            "decoder": "opencv-4.11.0/emscripten-4.0.15",
+            "format": "png",
+            "sourceSize": [
+              521,
+              389
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "orientation": 1,
+            "orientationApplied": true,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "first image only"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "memory": {
+        "budgetBytes": 3221225472,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 2259084271,
+        "knownHeapCapacityBytes": 33554432
+      },
+      "exportBytes": 3051507,
+      "hardwareConcurrency": 10,
+      "adapterInfo": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": ""
+      },
+      "adapterInfoScope": "Read-only high-performance adapter query after the requested job; no extra device or compute dispatch"
+    }
+  ]
+}

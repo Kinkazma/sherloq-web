@@ -1,0 +1,734 @@
+{
+  "schema": 1,
+  "width": 1024,
+  "height": 1024,
+  "originalSha256": "7cc57d16c6ab42ff9989756f54af6243b65778aa1ecb70517507a4b136b41559",
+  "sourceModelSha256": "4b3a90e3b22ec4436b4a4e2bee7abd5055e7c541d2d3ae9b541dc890656424d4",
+  "weightsBundled": false,
+  "scope": "Three alternating single/aggressive samples. New engine for each cold sample, useful second input for warm calculation. No preflight or discarded warm-up. End-to-end includes model, image, calculation RPC and sample curve display; internal phase times include cooperative yields. RPC-minus-engine is a transport/scheduling envelope, not pure copy time. Accounted memory is not RSS. Harness display is not WordPress integration.",
+  "samples": [
+    {
+      "sample": 0,
+      "cpuKernel": "single",
+      "modelLoadMs": 37.90000003576279,
+      "imageLoadMs": 49.09999996423721,
+      "rpcMs": 1190.300000011921,
+      "transportSchedulingMs": 0.699999988079071,
+      "presentationMs": 3.399999976158142,
+      "pipelineMs": 1280.699999988079,
+      "modelReloadMs": 4.700000047683716,
+      "curveReuseRpcMs": 0.3999999761581421,
+      "warmLoadMs": 18,
+      "warmRpcMs": 1171.3999999761581,
+      "metrics": {
+        "totalMs": 1189.6000000238419,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 2.600000023841858,
+        "qualityRecompressionMs": 1180.8999999761581,
+        "qualityNormalizationMs": 5.5,
+        "qualityPredictionMs": 0.2999999523162842,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 64542902,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "reusedMetrics": {
+        "totalMs": 0.2999999523162842,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": true
+          }
+        },
+        "kernel": "jpeg-quality-cached-curve",
+        "workers": 1,
+        "qualityKernelMs": 0,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 0,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 5894,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 81203204,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 1171.199999988079,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 2.899999976158142,
+        "qualityRecompressionMs": 1168,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 81451190,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 81451190,
+        "knownHeapCapacityBytes": 50462720
+      }
+    },
+    {
+      "sample": 0,
+      "cpuKernel": "auto",
+      "modelLoadMs": 39.80000001192093,
+      "imageLoadMs": 50.19999998807907,
+      "rpcMs": 247.19999998807907,
+      "transportSchedulingMs": 0.699999988079071,
+      "presentationMs": 0.30000001192092896,
+      "pipelineMs": 337.5,
+      "modelReloadMs": 4.599999964237213,
+      "curveReuseRpcMs": 0.30000001192092896,
+      "warmLoadMs": 18.299999952316284,
+      "warmRpcMs": 264.2000000476837,
+      "metrics": {
+        "totalMs": 246.5,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-pool",
+        "workers": 10,
+        "scheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "qualityKernelMs": 235.0999999642372,
+        "qualityPreparationMs": 2.5,
+        "qualityRecompressionMs": 235.4000000357628,
+        "qualityNormalizationMs": 7.799999952316284,
+        "qualityPredictionMs": 0.30000001192092896,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 7560,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 504694136,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "reusedMetrics": {
+        "totalMs": 0.19999998807907104,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": true
+          }
+        },
+        "kernel": "jpeg-quality-cached-curve",
+        "workers": 1,
+        "qualityKernelMs": 0,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 0,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0.09999996423721313,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 6768,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 504694136,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 263.69999998807907,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-pool",
+        "workers": 10,
+        "scheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 1,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "qualityKernelMs": 260.30000001192093,
+        "qualityPreparationMs": 2.900000035762787,
+        "qualityRecompressionMs": 260.5,
+        "qualityNormalizationMs": 0.09999996423721313,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 7560,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 504825208,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 504825208,
+        "knownHeapCapacityBytes": 33685504
+      }
+    },
+    {
+      "sample": 1,
+      "cpuKernel": "auto",
+      "modelLoadMs": 40.90000003576279,
+      "imageLoadMs": 46.89999997615814,
+      "rpcMs": 269.60000002384186,
+      "transportSchedulingMs": 0.6000000238418579,
+      "presentationMs": 0.19999998807907104,
+      "pipelineMs": 357.60000002384186,
+      "modelReloadMs": 4.300000011920929,
+      "curveReuseRpcMs": 0.19999998807907104,
+      "warmLoadMs": 18.80000001192093,
+      "warmRpcMs": 256.69999998807907,
+      "metrics": {
+        "totalMs": 269,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-pool",
+        "workers": 10,
+        "scheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "qualityKernelMs": 258.2000000476837,
+        "qualityPreparationMs": 2.599999964237213,
+        "qualityRecompressionMs": 258.4000000357628,
+        "qualityNormalizationMs": 7.399999976158142,
+        "qualityPredictionMs": 0.19999998807907104,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 7560,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 504694136,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "reusedMetrics": {
+        "totalMs": 0.10000002384185791,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": true
+          }
+        },
+        "kernel": "jpeg-quality-cached-curve",
+        "workers": 1,
+        "qualityKernelMs": 0,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 0,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 6768,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 504694136,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 256.60000002384186,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-pool",
+        "workers": 10,
+        "scheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 1,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "qualityKernelMs": 253.20000004768372,
+        "qualityPreparationMs": 3,
+        "qualityRecompressionMs": 253.30000001192093,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0.19999998807907104,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 7560,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 504825208,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 504825208,
+        "knownHeapCapacityBytes": 33685504
+      }
+    },
+    {
+      "sample": 1,
+      "cpuKernel": "single",
+      "modelLoadMs": 42.80000001192093,
+      "imageLoadMs": 40.89999997615814,
+      "rpcMs": 1190.5,
+      "transportSchedulingMs": 0.5,
+      "presentationMs": 0.30000001192092896,
+      "pipelineMs": 1274.5,
+      "modelReloadMs": 4,
+      "curveReuseRpcMs": 0.30000001192092896,
+      "warmLoadMs": 18.099999964237213,
+      "warmRpcMs": 1176.800000011921,
+      "metrics": {
+        "totalMs": 1190,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 2.5,
+        "qualityRecompressionMs": 1182.2999999523163,
+        "qualityNormalizationMs": 4.600000023841858,
+        "qualityPredictionMs": 0.30000001192092896,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 64542902,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "reusedMetrics": {
+        "totalMs": 0.09999996423721313,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": true
+          }
+        },
+        "kernel": "jpeg-quality-cached-curve",
+        "workers": 1,
+        "qualityKernelMs": 0,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 0,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 5894,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 81203204,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 1176.5999999642372,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 2.899999976158142,
+        "qualityRecompressionMs": 1173.4000000357628,
+        "qualityNormalizationMs": 0.09999996423721313,
+        "qualityPredictionMs": 0.10000002384185791,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 81451190,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 81451190,
+        "knownHeapCapacityBytes": 50462720
+      }
+    },
+    {
+      "sample": 2,
+      "cpuKernel": "single",
+      "modelLoadMs": 38.89999997615814,
+      "imageLoadMs": 40.60000002384186,
+      "rpcMs": 1188.5999999642372,
+      "transportSchedulingMs": 0.5999999642372131,
+      "presentationMs": 0.30000001192092896,
+      "pipelineMs": 1268.3999999761581,
+      "modelReloadMs": 4.100000023841858,
+      "curveReuseRpcMs": 0.30000001192092896,
+      "warmLoadMs": 18.400000035762787,
+      "warmRpcMs": 1166.5999999642372,
+      "metrics": {
+        "totalMs": 1188,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 2.600000023841858,
+        "qualityRecompressionMs": 1179.5,
+        "qualityNormalizationMs": 5.399999976158142,
+        "qualityPredictionMs": 0.30000001192092896,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 64542902,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "reusedMetrics": {
+        "totalMs": 0.30000001192092896,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": true
+          }
+        },
+        "kernel": "jpeg-quality-cached-curve",
+        "workers": 1,
+        "qualityKernelMs": 0,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 0,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 5894,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 81203204,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 1166.5,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-serial",
+        "workers": 1,
+        "qualityPreparationMs": 3,
+        "qualityRecompressionMs": 1163,
+        "qualityNormalizationMs": 0.20000004768371582,
+        "qualityPredictionMs": 0.09999996423721313,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 5812,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 81451190,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 81451190,
+        "knownHeapCapacityBytes": 50462720
+      }
+    },
+    {
+      "sample": 2,
+      "cpuKernel": "auto",
+      "modelLoadMs": 43.90000003576279,
+      "imageLoadMs": 39.30000001192093,
+      "rpcMs": 263.5,
+      "transportSchedulingMs": 0.5,
+      "presentationMs": 0.19999998807907104,
+      "pipelineMs": 346.9000000357628,
+      "modelReloadMs": 4.5,
+      "curveReuseRpcMs": 0.30000001192092896,
+      "warmLoadMs": 18.099999964237213,
+      "warmRpcMs": 263,
+      "metrics": {
+        "totalMs": 263,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-pool",
+        "workers": 10,
+        "scheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "qualityKernelMs": 252.4000000357628,
+        "qualityPreparationMs": 2.5,
+        "qualityRecompressionMs": 252.69999998807907,
+        "qualityNormalizationMs": 7,
+        "qualityPredictionMs": 0.19999998807907104,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 7560,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 504694136,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "reusedMetrics": {
+        "totalMs": 0.30000001192092896,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": true
+          }
+        },
+        "kernel": "jpeg-quality-cached-curve",
+        "workers": 1,
+        "qualityKernelMs": 0,
+        "qualityPreparationMs": 0,
+        "qualityRecompressionMs": 0,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0.19999998807907104,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 6768,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 504694136,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 262.89999997615814,
+        "cache": {
+          "result": false,
+          "stages": {
+            "loss-curve": false
+          }
+        },
+        "kernel": "jpeg-quality-pool",
+        "workers": 10,
+        "scheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 1,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "qualityKernelMs": 259.30000001192093,
+        "qualityPreparationMs": 3.099999964237213,
+        "qualityRecompressionMs": 259.60000002384186,
+        "qualityNormalizationMs": 0,
+        "qualityPredictionMs": 0.10000002384185791,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 5440888,
+          "cacheBytes": 7560,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 504825208,
+          "codecHeapCapacityBytes": 33554432,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 131072
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 504825208,
+        "knownHeapCapacityBytes": 33685504
+      }
+    }
+  ],
+  "summary": [
+    {
+      "cpuKernel": "single",
+      "medianRpcMs": 1190.300000011921,
+      "medianWarmRpcMs": 1171.3999999761581,
+      "medianPipelineMs": 1274.5,
+      "medianModelLoadMs": 38.89999997615814,
+      "medianImageLoadMs": 40.89999997615814,
+      "medianPresentationMs": 0.30000001192092896,
+      "medianTransportSchedulingMs": 0.5999999642372131,
+      "medianModelReloadMs": 4.100000023841858,
+      "medianCurveReuseRpcMs": 0.30000001192092896,
+      "peakAccountedBytes": 81451190,
+      "workers": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "cpuKernel": "auto",
+      "medianRpcMs": 263.5,
+      "medianWarmRpcMs": 263,
+      "medianPipelineMs": 346.9000000357628,
+      "medianModelLoadMs": 40.90000003576279,
+      "medianImageLoadMs": 46.89999997615814,
+      "medianPresentationMs": 0.19999998807907104,
+      "medianTransportSchedulingMs": 0.6000000238418579,
+      "medianModelReloadMs": 4.5,
+      "medianCurveReuseRpcMs": 0.30000001192092896,
+      "peakAccountedBytes": 504825208,
+      "workers": [
+        10,
+        10,
+        10
+      ]
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

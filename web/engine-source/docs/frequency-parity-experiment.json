@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "views": 1080,
+  "base": [
+    {
+      "fixture": "random-odd",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    },
+    {
+      "fixture": "ties",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    },
+    {
+      "fixture": "black",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    },
+    {
+      "fixture": "white",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    },
+    {
+      "fixture": "flat",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    },
+    {
+      "fixture": "row",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    },
+    {
+      "fixture": "column",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    },
+    {
+      "fixture": "two",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    },
+    {
+      "fixture": "defects",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    },
+    {
+      "fixture": "texture",
+      "errors": [
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        },
+        {
+          "different": 0,
+          "max": 0
+        }
+      ]
+    }
+  ],
+  "mismatches": []
+}

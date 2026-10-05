@@ -1,0 +1,125 @@
+{
+  "browser": "154.0.8037.58",
+  "algorithm": "ALIKED + LightGlue",
+  "backend": "webgpu",
+  "source": {
+    "file": "m3-96mp-sparse.jpg",
+    "width": 12000,
+    "height": 8000,
+    "description": "Public deterministic multiscale RGB field, rectangles and full-resolution noise; second6000x8000 half cloned at dx6000, JPEG90.",
+    "sha256": "9673353343be0e4bb9a2e7efb5bdf0c4111de05d624cff47e7433fe670d347f8",
+    "bytes": 27022849
+  },
+  "loadMs": 4313.20000000298,
+  "totalMs": 425943.799999997,
+  "points": 1932,
+  "pairs": 515,
+  "groups": 8,
+  "metadata": {
+    "extraction": {
+      "family": "ALIKED",
+      "provider": "webgpu",
+      "execution": "webgpu-with-cpu-fallback-nodes",
+      "threads": 1,
+      "actualHeapBytes": 208142336,
+      "maximumHeapBytes": 268435456,
+      "maskHeapBytes": 96862208,
+      "preflightExecutions": 0,
+      "qualification": "native-floating-arithmetic-differences-measured",
+      "executions": 1,
+      "retries": 0,
+      "failures": [],
+      "gpuEstimatedBytes": 1139802112,
+      "workerAdmittedBytes": 2700910432,
+      "preparation": {
+        "sourceReads": 8000,
+        "preparedShape": [
+          1,
+          3,
+          682,
+          1024
+        ],
+        "maximumHeapBytes": 43450368,
+        "actualHeapBytes": 16777216,
+        "preparation": "native-separable-support-rows"
+      }
+    },
+    "matching": {
+      "kind": "aliked",
+      "runs": [
+        {
+          "provider": "webgpu",
+          "actualHeapBytes": 440401920,
+          "maximumHeapBytes": 1409286144,
+          "threads": 1,
+          "preflightExecutions": 0,
+          "zone": 0,
+          "candidates": 3730692,
+          "gpuEstimatedBytes": 1112834625
+        }
+      ],
+      "failures": [],
+      "preflightExecutions": 0
+    },
+    "stageCache": {
+      "features": false,
+      "matches": false,
+      "groups": false
+    },
+    "counts": {
+      "detections": 1,
+      "matchings": 1,
+      "groupings": 1,
+      "ocr": 0
+    },
+    "preflightExecutions": 0,
+    "coordinates": "original-pixel-centres",
+    "colorOrder": "BGR",
+    "qualification": "native-arithmetic-differences-unresolved",
+    "method": "sparse"
+  },
+  "params": {
+    "algorithm": "ALIKED + LightGlue",
+    "radius": 20000,
+    "minimum": 5,
+    "threshold": 0.3,
+    "tolerance": 600,
+    "geometricMinimum": 4
+  },
+  "exports": [
+    {
+      "format": "npz",
+      "bytes": 834331
+    },
+    {
+      "format": "png",
+      "bytes": 102632364,
+      "sha256": "aa9672d2cd0994b8718372d66f4156d85257ee38832b2b162e86cd4ea0ab5957",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 289197244,
+        "encodedWriteCalls": 392,
+        "maxSourceWindowBytes": 1152000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 865199664,
+          "cacheBytes": 49894979,
+          "activeReservationBytes": 58064896,
+          "peakAccountedBytes": 3385057385
+        }
+      }
+    }
+  ],
+  "output": "aliked-lightglue",
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3385057385,
+    "knownHeapCapacityBytes": 32636928
+  }
+}

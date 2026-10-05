@@ -1,0 +1,60 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "hybrid",
+  "panels": 2,
+  "textBoxes": 3,
+  "pairs": 362,
+  "groups": 7,
+  "regionsEqual": true,
+  "textBoundsEqual": true,
+  "pairsEqual": true,
+  "groupsEqual": true,
+  "ownersEqual": true,
+  "renderDifferences": 0,
+  "metadata": {
+    "extraction": {
+      "family": "SIFT-G2NN",
+      "opencv": "4.11.0",
+      "featurePolicy": "independent_roi_v2",
+      "reflectedPixels": false,
+      "workers": 3,
+      "peakWorkerHeapBytes": 455737344,
+      "executions": 3,
+      "retries": 0,
+      "preflightExecutions": 0,
+      "qualification": "native arithmetic differences unresolved"
+    },
+    "matching": {
+      "gpuBatches": 15,
+      "gpuFailure": null,
+      "integerDescriptorDistance": true,
+      "spatialArithmetic": "native-float64"
+    },
+    "stageCache": {
+      "panels": false,
+      "text": false,
+      "features": false,
+      "matches": false,
+      "groups": false
+    },
+    "counts": {
+      "detections": 2,
+      "matchings": 2,
+      "groupings": 2,
+      "ocr": 1
+    },
+    "preflightExecutions": 0,
+    "coordinates": "original-pixel-centres",
+    "colorOrder": "BGR",
+    "qualification": "native-arithmetic-differences-unresolved",
+    "method": "sparse"
+  },
+  "finalMemory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2095041698,
+    "knownHeapCapacityBytes": 0
+  }
+}

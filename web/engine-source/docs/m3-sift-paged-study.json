@@ -1,0 +1,59 @@
+{
+  "qualification": "Development octave-support study; not a paged runtime or96MP qualification",
+  "records": [
+    {
+      "width": 193,
+      "height": 157,
+      "layers": 3,
+      "contrast": 0.04,
+      "octaves": 7,
+      "windows": 21,
+      "rawPoints": 563,
+      "points": 403,
+      "expectedPoints": 403,
+      "pointDiff": 0,
+      "pointMax": 0,
+      "descriptorDiff": 0,
+      "descriptorMax": 0,
+      "escapes": 0,
+      "totalMs": 2912.153708,
+      "heapBytes": 33554432
+    },
+    {
+      "width": 333,
+      "height": 257,
+      "layers": 3,
+      "contrast": 0.001,
+      "octaves": 8,
+      "windows": 46,
+      "rawPoints": 1677,
+      "points": 400,
+      "expectedPoints": 400,
+      "pointDiff": 0,
+      "pointMax": 0,
+      "descriptorDiff": 0,
+      "descriptorMax": 0,
+      "escapes": 0,
+      "totalMs": 16865.602167,
+      "heapBytes": 33554432
+    },
+    {
+      "width": 271,
+      "height": 197,
+      "layers": 4,
+      "contrast": 0.0066667,
+      "octaves": 8,
+      "windows": 33,
+      "rawPoints": 1073,
+      "points": 400,
+      "expectedPoints": 400,
+      "pointDiff": 0,
+      "pointMax": 0,
+      "descriptorDiff": 0,
+      "descriptorMax": 0,
+      "escapes": 0,
+      "totalMs": 31214.11775,
+      "heapBytes": 33554432
+    }
+  ]
+}

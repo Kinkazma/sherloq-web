@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: Dispose during factory initialization keeps the heap charged until completion
+ok 1 - Dispose during factory initialization keeps the heap charged until completion
+  ---
+  duration_ms: 4.383333
+  type: 'test'
+  ...
+# Subtest: Preparation factory waits without CPU, then its native work queues behind a real owner
+ok 2 - Preparation factory waits without CPU, then its native work queues behind a real owner
+  ---
+  duration_ms: 5.929833
+  type: 'test'
+  ...
+# Subtest: Cancellation during initialization leaves IO visible until the factory settles
+ok 3 - Cancellation during initialization leaves IO visible until the factory settles
+  ---
+  duration_ms: 0.716916
+  type: 'test'
+  ...
+# Subtest: Preparation abort while queued retires only its own request
+ok 4 - Preparation abort while queued retires only its own request
+  ---
+  duration_ms: 1.053916
+  type: 'test'
+  ...
+# Subtest: Preparation dispose while queued retires only its own request
+ok 5 - Preparation dispose while queued retires only its own request
+  ---
+  duration_ms: 0.898625
+  type: 'test'
+  ...
+# Subtest: Native failure frees pointers and CPU; inherited CAT-Net preparation has its own owner
+ok 6 - Native failure frees pointers and CPU; inherited CAT-Net preparation has its own owner
+  ---
+  duration_ms: 0.78175
+  type: 'test'
+  ...
+# Subtest: Admitted native embedding preserves output bits and releases the CPU before returning
+ok 7 - Admitted native embedding preserves output bits and releases the CPU before returning
+  ---
+  duration_ms: 20.627667
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 128.224042

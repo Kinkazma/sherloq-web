@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.45",
+  "runtimeFiles": 412,
+  "runtimeManifestSha256": "1b6cd8d4abe6c1373612a4e2e38dd388960160e5f60f905cd94bf2ee4ebb1d17",
+  "scope": "Exact delivered files, new addnoise hybrid global-correlation operator and complete corpus, budget-matched actual CPU/GPU warm work and pressure reload, new rich96MP source path and full NPZ, copied automatic common-worker API, cancellation after correlation GPU submission and source reload. CPU assets/arithmetic unchanged. Existing generalization numerical path is reused with a targeted final-model regression, not a new96MP claim. WordPress cohabitation and other physical GPU devices remain unqualified.",
+  "comparisons": [
+    {
+      "budgetMiB": 1024,
+      "pair": [
+        {
+          "backend": "cpu",
+          "milliseconds": [
+            6030.79999999702,
+            5830.70000000298,
+            5521.70000000298
+          ],
+          "peakAccountedBytes": 1059652530,
+          "workers": 6
+        },
+        {
+          "backend": "webgpu",
+          "milliseconds": [
+            5286.5,
+            4743.199999988079,
+            4139.5999999940395
+          ],
+          "peakAccountedBytes": 1059652530,
+          "workers": 8
+        }
+      ]
+    },
+    {
+      "budgetMiB": 2048,
+      "pair": [
+        {
+          "backend": "cpu",
+          "milliseconds": [
+            5008.0999999940395,
+            4472.29999999702,
+            4513.600000008941
+          ],
+          "peakAccountedBytes": 1356227506,
+          "workers": 10
+        },
+        {
+          "backend": "webgpu",
+          "milliseconds": [
+            5018,
+            4434.399999991059,
+            4549.4000000059605
+          ],
+          "peakAccountedBytes": 1332609970,
+          "workers": 10
+        }
+      ]
+    }
+  ],
+  "corpus": {
+    "cases": 4,
+    "foreground": 245,
+    "maximumProbabilityError": 0.00006008148193359375,
+    "maskChanges": 0
+  },
+  "large": {
+    "width": 12000,
+    "height": 8000,
+    "foreground": 216407,
+    "cachedForeground": 65705,
+    "arrays": 4,
+    "bytes": 672015276,
+    "sha256": "7f2fd3590328e5605a79c38585d441c772df1b9db35368af01e1a7ce6e5f25ea",
+    "peakAccountedBytes": 2355803954
+  },
+  "copied": {
+    "automaticGpu": true,
+    "cancelled": true,
+    "retry": true
+  },
+  "unchangedCpuAndGeneralizationFiles": [
+    "experiments/segmentation/cmseg-inference-worker.js",
+    "experiments/segmentation/cmseg-backbone.js",
+    "experiments/segmentation/cmseg-correlation.js",
+    "experiments/segmentation/cmseg-correlation-worker.js",
+    "experiments/segmentation/prepare.js",
+    "experiments/segmentation/analysis.js",
+    "src/neural-input.js",
+    "src/neural-projector.js",
+    "src/neural-exports.js",
+    "vendor/segmentation/correlation.js",
+    "vendor/segmentation/correlation.wasm",
+    "vendor/segmentation/correlation-fma.js",
+    "vendor/segmentation/correlation-fma.wasm",
+    "vendor/segmentation/cmseg-correlation-gpu/post.js",
+    "vendor/segmentation/cmseg-correlation-gpu/post.wasm"
+  ]
+}

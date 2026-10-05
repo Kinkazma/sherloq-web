@@ -1,0 +1,1254 @@
+{
+  "reports": [
+    {
+      "scenario": {
+        "dimensions": 12,
+        "trim": true
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 3,
+        "peakActiveKernels": 4,
+        "tasks": 285,
+        "cpuGrants": [
+          3,
+          1,
+          4,
+          1,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 8,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 285,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 8388608,
+        "memoryTrims": 4,
+        "reservedWorkspaceBytes": 44739504,
+        "kernels": [
+          {
+            "reads": 41688,
+            "writes": 922,
+            "readBytes": 162064969,
+            "writeBytes": 137384,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "failurePhase": 1
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 695,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 12,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 12,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 1,
+        "committedTasks": 694,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "lastAllocationFailure": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Injected refusal after private command write",
+          "stack": "EngineError@http://127.0.0.1:64927/src/errors.js:2:52\nDenseWriteBatch.prototype.write@http://127.0.0.1:64927/tests/dense-command-fault-worker.js?phase=1:6:132\nmodule.pageIO@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:27:227\npage_io_start@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17281\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[24]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[154]:0x22dce\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_iidiii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24752\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1fcff\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[137]:0x21271\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[150]:0x22a68\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_viiii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25408\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1fc19\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[156]:0x2309a\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[100]:0xce46\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_viii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24018\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1e480\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1b35d\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\nccall@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:16333\n@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:42:15\n",
+          "details": {
+            "allocationKind": "array-buffer",
+            "requestedBytes": 4096,
+            "recovery": {
+              "operation": "dense-field-command",
+              "phase": "2:0",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 176297,
+                "activeReservationBytes": 134217728,
+                "cacheBytes": 0,
+                "requestedBytes": 4096,
+                "availableBytes": 134041431
+              }
+            }
+          },
+          "cause": {
+            "code": "WORKER_FAILED",
+            "name": "RangeError",
+            "message": "Injected allocation",
+            "stack": "DenseWriteBatch.prototype.write@http://127.0.0.1:64927/tests/dense-command-fault-worker.js?phase=1:6:222\nmodule.pageIO@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:27:227\npage_io_start@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17281\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[24]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[154]:0x22dce\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_iidiii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24752\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1fcff\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[137]:0x21271\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[150]:0x22a68\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_viiii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25408\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1fc19\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[156]:0x2309a\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[100]:0xce46\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_viii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24018\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1e480\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1b35d\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\nccall@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:16333\n@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:42:15\n"
+          }
+        },
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 23921,
+            "writes": 831,
+            "readBytes": 90556832,
+            "writeBytes": 100404,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 11309,
+            "writes": 423,
+            "readBytes": 43344164,
+            "writeBytes": 21156,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6137,
+            "writes": 241,
+            "readBytes": 23094908,
+            "writeBytes": 10772,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2467,
+            "writes": 132,
+            "readBytes": 9164356,
+            "writeBytes": 5112,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "failurePhase": 2
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 685,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 12,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 12,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 1,
+        "committedTasks": 684,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "lastAllocationFailure": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Injected refusal after private command write",
+          "stack": "EngineError@http://127.0.0.1:64927/src/errors.js:2:52\nDenseWriteBatch.prototype.write@http://127.0.0.1:64927/tests/dense-command-fault-worker.js?phase=2:6:132\nmodule.pageIO@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:27:227\npage_io_start@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17281\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[24]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[154]:0x22dce\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_iidiii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24752\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1fcff\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[137]:0x21271\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[150]:0x22a68\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_viiii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25408\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1fc19\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[156]:0x2309a\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[100]:0xce46\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_viii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24018\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1e480\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1b35d\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\nccall@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:16333\n@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:42:15\n",
+          "details": {
+            "allocationKind": "array-buffer",
+            "requestedBytes": 4096,
+            "recovery": {
+              "operation": "dense-field-command",
+              "phase": "2:0",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 176297,
+                "activeReservationBytes": 134217728,
+                "cacheBytes": 0,
+                "requestedBytes": 4096,
+                "availableBytes": 134041431
+              }
+            }
+          },
+          "cause": {
+            "code": "WORKER_FAILED",
+            "name": "RangeError",
+            "message": "Injected allocation",
+            "stack": "DenseWriteBatch.prototype.write@http://127.0.0.1:64927/tests/dense-command-fault-worker.js?phase=2:6:222\nmodule.pageIO@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:27:227\npage_io_start@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17281\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[24]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[154]:0x22dce\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_iidiii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24752\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1fcff\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[137]:0x21271\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[150]:0x22a68\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_viiii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25408\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1fc19\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[156]:0x2309a\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[100]:0xce46\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_viii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24018\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1e480\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1b35d\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\nccall@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:16333\n@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:42:15\n"
+          }
+        },
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 23891,
+            "writes": 806,
+            "readBytes": 90246704,
+            "writeBytes": 100600,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 11101,
+            "writes": 399,
+            "readBytes": 42624580,
+            "writeBytes": 20496,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6070,
+            "writes": 266,
+            "readBytes": 22924492,
+            "writeBytes": 10772,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2734,
+            "writes": 151,
+            "readBytes": 10219228,
+            "writeBytes": 5388,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "failurePhase": 3
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 560,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 12,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 12,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 1,
+        "committedTasks": 559,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "lastAllocationFailure": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Injected refusal after private command write",
+          "stack": "EngineError@http://127.0.0.1:64927/src/errors.js:2:52\nDenseWriteBatch.prototype.write@http://127.0.0.1:64927/tests/dense-command-fault-worker.js?phase=3:6:132\nmodule.pageIO@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:27:227\npage_io_start@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17281\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[62]:0x2de6\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[45]:0xce8\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[153]:0x22ce4\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_iijii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24921\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1e2da\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1dfe3\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[145]:0x21f88\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[152]:0x22c1e\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_vii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25082\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1df5f\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1f233\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[145]:0x21f88\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[152]:0x22c1e\n",
+          "details": {
+            "allocationKind": "array-buffer",
+            "requestedBytes": 4096,
+            "recovery": {
+              "operation": "dense-field-command",
+              "phase": "3:0",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 176297,
+                "activeReservationBytes": 178956840,
+                "cacheBytes": 0,
+                "requestedBytes": 4096,
+                "availableBytes": 89302319
+              }
+            }
+          },
+          "cause": {
+            "code": "WORKER_FAILED",
+            "name": "RangeError",
+            "message": "Injected allocation",
+            "stack": "DenseWriteBatch.prototype.write@http://127.0.0.1:64927/tests/dense-command-fault-worker.js?phase=3:6:222\nmodule.pageIO@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:27:227\npage_io_start@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17281\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[62]:0x2de6\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[45]:0xce8\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[153]:0x22ce4\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_iijii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24921\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1e2da\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1dfe3\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[145]:0x21f88\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[152]:0x22c1e\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_vii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25082\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1df5f\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1f233\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[145]:0x21f88\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[152]:0x22c1e\n"
+          }
+        },
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 24196,
+            "writes": 788,
+            "readBytes": 92887396,
+            "writeBytes": 81784,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 9607,
+            "writes": 260,
+            "readBytes": 36183700,
+            "writeBytes": 19880,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 4909,
+            "writes": 124,
+            "readBytes": 17849500,
+            "writeBytes": 11104,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 798,
+            "writes": 2,
+            "readBytes": 2568372,
+            "writeBytes": 2896,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "failurePhase": 4
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 559,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 12,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 12,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 1,
+        "committedTasks": 558,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "lastAllocationFailure": {
+          "code": "MEMORY_ALLOCATION",
+          "name": "EngineError",
+          "message": "Injected refusal after private command write",
+          "stack": "EngineError@http://127.0.0.1:64927/src/errors.js:2:52\nDenseWriteBatch.prototype.write@http://127.0.0.1:64927/tests/dense-command-fault-worker.js?phase=4:6:132\nmodule.pageIO@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:27:227\npage_io_start@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17281\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[62]:0x2de6\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[45]:0xce8\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[153]:0x22ce4\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_iijii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24921\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1e2da\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1dfe3\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[145]:0x21f88\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[152]:0x22c1e\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_vii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25082\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1df5f\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1f233\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[145]:0x21f88\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[152]:0x22c1e\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_vii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25082\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1df5f\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\n",
+          "details": {
+            "allocationKind": "array-buffer",
+            "requestedBytes": 4096,
+            "recovery": {
+              "operation": "dense-field-command",
+              "phase": "3:0",
+              "consecutiveFailures": 1,
+              "totalFailures": 1,
+              "loopDetected": false,
+              "memory": {
+                "budgetBytes": 268435456,
+                "retainedBytes": 176297,
+                "activeReservationBytes": 178956840,
+                "cacheBytes": 0,
+                "requestedBytes": 4096,
+                "availableBytes": 89302319
+              }
+            }
+          },
+          "cause": {
+            "code": "WORKER_FAILED",
+            "name": "RangeError",
+            "message": "Injected allocation",
+            "stack": "DenseWriteBatch.prototype.write@http://127.0.0.1:64927/tests/dense-command-fault-worker.js?phase=4:6:222\nmodule.pageIO@http://127.0.0.1:64927/src/dense-field-kernel-worker.js:27:227\npage_io_start@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17281\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[62]:0x2de6\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[45]:0xce8\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[153]:0x22ce4\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_iijii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24921\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1e2da\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1dfe3\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[145]:0x21f88\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[152]:0x22c1e\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_vii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25082\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1df5f\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_ii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24462\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1d364\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[7]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[155]:0x22e90\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_i@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:24599\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1f233\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__checkpoint@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:17718\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[145]:0x21f88\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[152]:0x22c1e\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ninvoke_vii@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:25082\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[136]:0x1df5f\nwrapper@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:9931\ndoRewind@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11768\nModule/handleSleep/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:12326\npromise callback*Module/handleAsync/<@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13357\nhandleSleep@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:11926\nhandleAsync@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:13323\n__asyncjs__field_command@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.js:1:18610\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[39]:0x0\n@http://127.0.0.1:64927/vendor/dense-paged/dense-paged.wasm:wasm-function[99]:0xcd83\n"
+          }
+        },
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 23733,
+            "writes": 820,
+            "readBytes": 91366380,
+            "writeBytes": 93192,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 9948,
+            "writes": 258,
+            "readBytes": 37230072,
+            "writeBytes": 21908,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 5056,
+            "writes": 115,
+            "readBytes": 18322528,
+            "writeBytes": 11052,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 798,
+            "writes": 2,
+            "readBytes": 2568372,
+            "writeBytes": 2896,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "reverseWindowPixels": 127
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 808,
+        "cpuGrants": [
+          1,
+          4,
+          1,
+          3,
+          1,
+          4,
+          1,
+          3,
+          1,
+          4,
+          1,
+          3,
+          1,
+          4,
+          1,
+          3,
+          1,
+          4,
+          1,
+          3,
+          2,
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          1
+        ],
+        "cpuGrantChanges": 77,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 99,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 808,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 25232,
+            "writes": 915,
+            "readBytes": 94415145,
+            "writeBytes": 113264,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 12464,
+            "writes": 456,
+            "readBytes": 47847836,
+            "writeBytes": 24160,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6301,
+            "writes": 255,
+            "readBytes": 24085348,
+            "writeBytes": 8920,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2443,
+            "writes": 126,
+            "readBytes": 9273124,
+            "writeBytes": 4104,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "symmetric": true
+      },
+      "storage": "memory",
+      "comparisons": "59309",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 689,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 689,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 17098,
+            "writes": 712,
+            "readBytes": 61931225,
+            "writeBytes": 140544,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 8074,
+            "writes": 299,
+            "readBytes": 29777812,
+            "writeBytes": 23744,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 4196,
+            "writes": 115,
+            "readBytes": 15038828,
+            "writeBytes": 8872,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 1752,
+            "writes": 13,
+            "readBytes": 6311412,
+            "writeBytes": 2952,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 128,
+        "compare": true,
+        "axes": true
+      },
+      "storage": "memory",
+      "comparisons": "47230",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 494,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 12,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 12,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 494,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 34283,
+            "writes": 942,
+            "readBytes": 133642917,
+            "writeBytes": 146156,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 13587,
+            "writes": 318,
+            "readBytes": 51871300,
+            "writeBytes": 31552,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 4986,
+            "writes": 122,
+            "readBytes": 18771720,
+            "writeBytes": 8944,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 878,
+            "writes": 2,
+            "readBytes": 2958364,
+            "writeBytes": 2896,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "ties": true
+      },
+      "storage": "memory",
+      "comparisons": "54020",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 684,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 684,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 7675,
+            "writes": 18,
+            "readBytes": 23547365,
+            "writeBytes": 44128,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3139,
+            "writes": 10,
+            "readBytes": 9710812,
+            "writeBytes": 16096,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 1597,
+            "writes": 8,
+            "readBytes": 4777768,
+            "writeBytes": 6800,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 699,
+            "writes": 2,
+            "readBytes": 2082984,
+            "writeBytes": 2896,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "overflow": true
+      },
+      "storage": "memory",
+      "comparisons": "95583",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 691,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 691,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 52814,
+            "writes": 16,
+            "readBytes": 214931505,
+            "writeBytes": 35952,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 22860,
+            "writes": 8,
+            "readBytes": 92898840,
+            "writeBytes": 12632,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2492,
+            "writes": 8,
+            "readBytes": 9856376,
+            "writeBytes": 6800,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 952,
+            "writes": 2,
+            "readBytes": 3813796,
+            "writeBytes": 2896,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "temporary": true
+      },
+      "storage": "opfs",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 921,
+        "cpuGrants": [
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 52,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 59,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 921,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 22830,
+            "writes": 931,
+            "readBytes": 85274209,
+            "writeBytes": 109360,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 13722,
+            "writes": 502,
+            "readBytes": 52961964,
+            "writeBytes": 26396,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6146,
+            "writes": 247,
+            "readBytes": 23586596,
+            "writeBytes": 11756,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3110,
+            "writes": 138,
+            "readBytes": 11996660,
+            "writeBytes": 4256,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "gpuSkipped": "Dense WebGPU adapter unavailable."
+    },
+    {
+      "scenario": {
+        "dimensions": 128,
+        "gpu": true
+      },
+      "storage": "memory",
+      "comparisons": "55733",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 688,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 688,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 33842,
+            "writes": 839,
+            "readBytes": 131345657,
+            "writeBytes": 128704,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 16264,
+            "writes": 415,
+            "readBytes": 63808608,
+            "writeBytes": 24632,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 8561,
+            "writes": 199,
+            "readBytes": 32999644,
+            "writeBytes": 9352,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 3388,
+            "writes": 62,
+            "readBytes": 13105364,
+            "writeBytes": 3552,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "staging": "admitted",
+      "stagingPeak": 78208,
+      "stagingCalls": 5,
+      "distanceCalls": 5
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "staging": "admitted"
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 689,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 689,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 27385,
+            "writes": 817,
+            "readBytes": 105010217,
+            "writeBytes": 120388,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 13239,
+            "writes": 417,
+            "readBytes": 50775120,
+            "writeBytes": 26696,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6410,
+            "writes": 199,
+            "readBytes": 24502112,
+            "writeBytes": 9048,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2959,
+            "writes": 77,
+            "readBytes": 11034892,
+            "writeBytes": 3368,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "staging": "declined",
+      "stagingPeak": 0,
+      "stagingCalls": 7,
+      "distanceCalls": 0
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "staging": "declined"
+      },
+      "storage": "memory",
+      "comparisons": "55789",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 699,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "cpuGrantChanges": 11,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 11,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 699,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 33554432,
+        "reservedWorkspaceBytes": 178956840,
+        "kernels": [
+          {
+            "reads": 27223,
+            "writes": 807,
+            "readBytes": 104235065,
+            "writeBytes": 117552,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 13106,
+            "writes": 411,
+            "readBytes": 50370764,
+            "writeBytes": 27368,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 6729,
+            "writes": 213,
+            "readBytes": 25757664,
+            "writeBytes": 9592,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 2918,
+            "writes": 80,
+            "readBytes": 10882124,
+            "writeBytes": 3548,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "dimensions": 12,
+        "width": 257,
+        "height": 257,
+        "iterations": 1
+      },
+      "storage": "memory",
+      "comparisons": "683874",
+      "parallel": {
+        "coordinator": "control-and-storage-only",
+        "workers": 4,
+        "peakActiveKernels": 4,
+        "tasks": 1906,
+        "cpuGrants": [
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          2,
+          4,
+          1,
+          3,
+          1,
+          3,
+          1
+        ],
+        "cpuGrantChanges": 24,
+        "wavefront": "ordered-row-segments",
+        "reverse": "parallel-proposals-ordered-commit",
+        "cacheReconfigurations": 26,
+        "allocationRecoveries": 0,
+        "commandRecoveries": 0,
+        "committedTasks": 1906,
+        "writeBatchBytesPerKernel": 2097152,
+        "heapBytes": 40239104,
+        "reservedWorkspaceBytes": 178951284,
+        "kernels": [
+          {
+            "reads": 486800,
+            "writes": 27279,
+            "readBytes": 2015434553,
+            "writeBytes": 1567296,
+            "heapBytes": 10616832,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 234641,
+            "writes": 12433,
+            "readBytes": 978073148,
+            "writeBytes": 473120,
+            "heapBytes": 10616832,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 147006,
+            "writes": 9068,
+            "readBytes": 611260952,
+            "writeBytes": 230160,
+            "heapBytes": 10616832,
+            "siftBoundRejections": 0
+          },
+          {
+            "reads": 59366,
+            "writes": 3667,
+            "readBytes": 242997572,
+            "writeBytes": 54936,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 0
+          }
+        ]
+      }
+    },
+    {
+      "gpuStagingCleanup": "cancel",
+      "code": "CANCELLED"
+    },
+    {
+      "gpuStagingCleanup": "error",
+      "code": "GPU_FAILED"
+    }
+  ],
+  "cancelled": true
+}

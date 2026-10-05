@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "d2prl",
+  "backend": "webgpu",
+  "large": false,
+  "extracted": false,
+  "scope": "Actual paged common-worker NPZ read with NumPy allow_pickle=False; ZIP CRC, owned export SHA, names/dtypes/shapes, canonical source identity, all native array values and browser window hashes.",
+  "bytes": 3056431,
+  "sha256": "36a8308061b761bddaef4c986be159fa2e746076693dc8e26f22dbe575d1c8d6",
+  "numpy": "1.26.4",
+  "records": [
+    {
+      "array": "map",
+      "dtype": "float32",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "82ecd2ed3c9c82a0f99dc3bd6af625c98d66cf1327550b28e734b5337cde0ba5",
+      "accepted": true
+    },
+    {
+      "array": "mask",
+      "dtype": "uint8",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "eed7fd6fb092b61499fec6ffa9fd5ceb71754066201f0a53402ab4d4f808d2c6",
+      "accepted": true
+    },
+    {
+      "array": "analyzed",
+      "dtype": "uint8",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "5c0d25426cd81558c53152f84a3259b572bcbee59e0f5ca8abb0801b33e8afe5",
+      "accepted": true
+    },
+    {
+      "array": "candidates",
+      "dtype": "uint8",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "8e9114ef0f50c81b3fcb56f73ae8a773163ed868938db02c0214bfdc05d27582",
+      "accepted": true
+    },
+    {
+      "array": "target",
+      "dtype": "float32",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "bdd49b11a962341008bc998d5063cbaee0529f91d568e1b30335621acca45d87",
+      "accepted": true
+    },
+    {
+      "array": "source",
+      "dtype": "float32",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "2183dabe187256bd35023dbca9e19c02a2c8648f2d7b71e660b07c8ac5fa4483",
+      "accepted": true
+    }
+  ]
+}

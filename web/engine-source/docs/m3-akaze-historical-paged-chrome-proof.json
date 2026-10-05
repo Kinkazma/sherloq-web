@@ -1,0 +1,486 @@
+{
+  "browser": "154.0.8037.58",
+  "qualification": "Native historical point/match/group/count/RGB fixtures through forced paged detector and segmented source API",
+  "records": [
+    {
+      "case": "api-0",
+      "stats": {
+        "total": 0,
+        "filtered": 0,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "pointsMatchesGroupsRGBExact": true,
+      "paged": {
+        "family": "AKAZE",
+        "provider": "cpu",
+        "inputLayout": "global-paged-diffusion",
+        "preflightExecutions": 0,
+        "globalCandidates": 0,
+        "sourceReads": 2,
+        "coreSize": 1024,
+        "stripRows": 128,
+        "levels": [
+          {
+            "width": 128,
+            "height": 96,
+            "contrast": 0.03,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 128,
+            "height": 96,
+            "contrast": 0.03,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 128,
+            "height": 96,
+            "contrast": 0.03,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 128,
+            "height": 96,
+            "contrast": 0.03,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          }
+        ],
+        "stages": [
+          {
+            "executions": 19,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 1,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 0,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 0,
+            "preflightExecutions": 0,
+            "failures": []
+          }
+        ],
+        "spills": [],
+        "arithmetic": "relaxed-simd-fma",
+        "workers": 1,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 20,
+        "retries": 0
+      }
+    },
+    {
+      "case": "api-95",
+      "stats": {
+        "total": 391,
+        "filtered": 64,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "pointsMatchesGroupsRGBExact": true,
+      "paged": {
+        "family": "AKAZE",
+        "provider": "cpu",
+        "inputLayout": "global-paged-diffusion",
+        "preflightExecutions": 0,
+        "globalCandidates": 391,
+        "sourceReads": 5,
+        "coreSize": 1024,
+        "stripRows": 128,
+        "levels": [
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          }
+        ],
+        "stages": [
+          {
+            "executions": 73,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 1,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 7,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          }
+        ],
+        "spills": [],
+        "arithmetic": "relaxed-simd-fma",
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 81,
+        "retries": 0
+      }
+    },
+    {
+      "case": "api-96",
+      "stats": {
+        "total": 391,
+        "filtered": 1,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "pointsMatchesGroupsRGBExact": true,
+      "paged": {
+        "family": "AKAZE",
+        "provider": "cpu",
+        "inputLayout": "global-paged-diffusion",
+        "preflightExecutions": 0,
+        "globalCandidates": 391,
+        "sourceReads": 5,
+        "coreSize": 1024,
+        "stripRows": 128,
+        "levels": [
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          }
+        ],
+        "stages": [
+          {
+            "executions": 73,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 1,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 7,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          }
+        ],
+        "spills": [],
+        "arithmetic": "relaxed-simd-fma",
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 81,
+        "retries": 0
+      }
+    },
+    {
+      "case": "api-108",
+      "stats": {
+        "total": 193,
+        "filtered": 28,
+        "matches": 0,
+        "clusters": 0,
+        "regions": 0
+      },
+      "pointsMatchesGroupsRGBExact": true,
+      "paged": {
+        "family": "AKAZE",
+        "provider": "cpu",
+        "inputLayout": "global-paged-diffusion",
+        "preflightExecutions": 0,
+        "globalCandidates": 391,
+        "sourceReads": 5,
+        "coreSize": 1024,
+        "stripRows": 128,
+        "levels": [
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 319,
+            "height": 257,
+            "contrast": 2.98351788520813,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 159,
+            "height": 128,
+            "contrast": 2.237638473510742,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          }
+        ],
+        "stages": [
+          {
+            "executions": 73,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 1,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 7,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          }
+        ],
+        "spills": [],
+        "arithmetic": "relaxed-simd-fma",
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 81,
+        "retries": 0
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 958181418,
+    "knownHeapCapacityBytes": 33554432
+  }
+}

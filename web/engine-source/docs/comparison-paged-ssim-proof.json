@@ -1,0 +1,5678 @@
+[
+  {
+    "name": "tiny",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+    },
+    "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 1,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25165952,
+          "coreRows": 1,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25165952
+    }
+  },
+  {
+    "name": "tiny",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+    },
+    "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 1,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25165952,
+          "coreRows": 1,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25165952
+    }
+  },
+  {
+    "name": "tiny",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+    },
+    "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 1,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25165952,
+          "coreRows": 1,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25165952
+    }
+  },
+  {
+    "name": "tiny",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+    },
+    "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 1,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25165952,
+          "coreRows": 1,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25165952
+    }
+  },
+  {
+    "name": "small",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "3c957521573a740f064e6cc16004521d6f587919f5966426c37213b3e7a9a972"
+    },
+    "sha256": "3c957521573a740f064e6cc16004521d6f587919f5966426c37213b3e7a9a972",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 3,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25167744,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 120
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 6,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25167744
+    }
+  },
+  {
+    "name": "small",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "3c957521573a740f064e6cc16004521d6f587919f5966426c37213b3e7a9a972"
+    },
+    "sha256": "3c957521573a740f064e6cc16004521d6f587919f5966426c37213b3e7a9a972",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 3,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25167744,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 120
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 6,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25167744
+    }
+  },
+  {
+    "name": "small",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "3c957521573a740f064e6cc16004521d6f587919f5966426c37213b3e7a9a972"
+    },
+    "sha256": "3c957521573a740f064e6cc16004521d6f587919f5966426c37213b3e7a9a972",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 3,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25167744,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 120
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 6,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25167744
+    }
+  },
+  {
+    "name": "small",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "3c957521573a740f064e6cc16004521d6f587919f5966426c37213b3e7a9a972"
+    },
+    "sha256": "3c957521573a740f064e6cc16004521d6f587919f5966426c37213b3e7a9a972",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 3,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25167744,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 120
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 6,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25167744
+    }
+  },
+  {
+    "name": "zero",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "069af124b2f3cf012a5020a5fbb99a474031f732f11b3429aac3f1e6beb13aab"
+    },
+    "sha256": "069af124b2f3cf012a5020a5fbb99a474031f732f11b3429aac3f1e6beb13aab",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 8,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25190400,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2048
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 32,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25190400
+    }
+  },
+  {
+    "name": "zero",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "069af124b2f3cf012a5020a5fbb99a474031f732f11b3429aac3f1e6beb13aab"
+    },
+    "sha256": "069af124b2f3cf012a5020a5fbb99a474031f732f11b3429aac3f1e6beb13aab",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 8,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25190400,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2048
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 32,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25190400
+    }
+  },
+  {
+    "name": "zero",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "069af124b2f3cf012a5020a5fbb99a474031f732f11b3429aac3f1e6beb13aab"
+    },
+    "sha256": "069af124b2f3cf012a5020a5fbb99a474031f732f11b3429aac3f1e6beb13aab",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 8,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25190400,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2048
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 32,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25190400
+    }
+  },
+  {
+    "name": "zero",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "069af124b2f3cf012a5020a5fbb99a474031f732f11b3429aac3f1e6beb13aab"
+    },
+    "sha256": "069af124b2f3cf012a5020a5fbb99a474031f732f11b3429aac3f1e6beb13aab",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 8,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25190400,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2048
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 32,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25190400
+    }
+  },
+  {
+    "name": "constant",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "1a7493ff2f2bde5f78405d46eb01abfeaea9b0a95fa5b6cec211b05faa0cf1d3"
+    },
+    "sha256": "1a7493ff2f2bde5f78405d46eb01abfeaea9b0a95fa5b6cec211b05faa0cf1d3",
+    "score": 0.9997275658209847,
+    "nativeScore": 0.9997275658209847,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25214976,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8192
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 64,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25214976
+    }
+  },
+  {
+    "name": "constant",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "1a7493ff2f2bde5f78405d46eb01abfeaea9b0a95fa5b6cec211b05faa0cf1d3"
+    },
+    "sha256": "1a7493ff2f2bde5f78405d46eb01abfeaea9b0a95fa5b6cec211b05faa0cf1d3",
+    "score": 0.9997275658209847,
+    "nativeScore": 0.9997275658209847,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25214976,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8192
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 64,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25214976
+    }
+  },
+  {
+    "name": "constant",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "1a7493ff2f2bde5f78405d46eb01abfeaea9b0a95fa5b6cec211b05faa0cf1d3"
+    },
+    "sha256": "1a7493ff2f2bde5f78405d46eb01abfeaea9b0a95fa5b6cec211b05faa0cf1d3",
+    "score": 0.9997275658209847,
+    "nativeScore": 0.9997275658209847,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25214976,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8192
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 64,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25214976
+    }
+  },
+  {
+    "name": "constant",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "1a7493ff2f2bde5f78405d46eb01abfeaea9b0a95fa5b6cec211b05faa0cf1d3"
+    },
+    "sha256": "1a7493ff2f2bde5f78405d46eb01abfeaea9b0a95fa5b6cec211b05faa0cf1d3",
+    "score": 0.9997275658209847,
+    "nativeScore": 0.9997275658209847,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25214976,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8192
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 64,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25214976
+    }
+  },
+  {
+    "name": "same",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "d7abb82db6d5bde5958f6336f64cd1e404c8a63eee15e32e290ba17b4a9c98cb"
+    },
+    "sha256": "d7abb82db6d5bde5958f6336f64cd1e404c8a63eee15e32e290ba17b4a9c98cb",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 25,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25238016,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 18424
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 94,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25238016
+    }
+  },
+  {
+    "name": "same",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "d7abb82db6d5bde5958f6336f64cd1e404c8a63eee15e32e290ba17b4a9c98cb"
+    },
+    "sha256": "d7abb82db6d5bde5958f6336f64cd1e404c8a63eee15e32e290ba17b4a9c98cb",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 25,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25238016,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 18424
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 94,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25238016
+    }
+  },
+  {
+    "name": "same",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "d7abb82db6d5bde5958f6336f64cd1e404c8a63eee15e32e290ba17b4a9c98cb"
+    },
+    "sha256": "d7abb82db6d5bde5958f6336f64cd1e404c8a63eee15e32e290ba17b4a9c98cb",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 25,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25238016,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 18424
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 94,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25238016
+    }
+  },
+  {
+    "name": "same",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "d7abb82db6d5bde5958f6336f64cd1e404c8a63eee15e32e290ba17b4a9c98cb"
+    },
+    "sha256": "d7abb82db6d5bde5958f6336f64cd1e404c8a63eee15e32e290ba17b4a9c98cb",
+    "score": 1,
+    "nativeScore": 1,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 25,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25238016,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 18424
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 94,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25238016
+    }
+  },
+  {
+    "name": "shift",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "064956d4279b61d3b62ab9e4db6366cd4c346b11d4d4eb1f79d914862d6cf43c"
+    },
+    "sha256": "064956d4279b61d3b62ab9e4db6366cd4c346b11d4d4eb1f79d914862d6cf43c",
+    "score": -0.03546878987390889,
+    "nativeScore": -0.035468789873908814,
+    "absoluteError": 7.632783294297951e-17,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 32,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25265664,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 32760
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 130,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25265664
+    }
+  },
+  {
+    "name": "shift",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "064956d4279b61d3b62ab9e4db6366cd4c346b11d4d4eb1f79d914862d6cf43c"
+    },
+    "sha256": "064956d4279b61d3b62ab9e4db6366cd4c346b11d4d4eb1f79d914862d6cf43c",
+    "score": -0.03546878987390889,
+    "nativeScore": -0.035468789873908814,
+    "absoluteError": 7.632783294297951e-17,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 32,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25265664,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 32760
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 130,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25265664
+    }
+  },
+  {
+    "name": "shift",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "0f5f78f75bc226c3e1779f32a93392f4f0e02f256ca54653c1c2e360f8c6b6e8"
+    },
+    "sha256": "0f5f78f75bc226c3e1779f32a93392f4f0e02f256ca54653c1c2e360f8c6b6e8",
+    "score": -0.03546878987390889,
+    "nativeScore": -0.035468789873908814,
+    "absoluteError": 7.632783294297951e-17,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 32,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25265664,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 32760
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 130,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25265664
+    }
+  },
+  {
+    "name": "shift",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "0f5f78f75bc226c3e1779f32a93392f4f0e02f256ca54653c1c2e360f8c6b6e8"
+    },
+    "sha256": "0f5f78f75bc226c3e1779f32a93392f4f0e02f256ca54653c1c2e360f8c6b6e8",
+    "score": -0.03546878987390889,
+    "nativeScore": -0.035468789873908814,
+    "absoluteError": 7.632783294297951e-17,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 32,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25265664,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 32760
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 130,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25265664
+    }
+  },
+  {
+    "name": "brightness",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "b5e1d88f96d1e2219c172606c4f5bd91ce1b3db2fbc690cd8f2078d0f44ac8c0"
+    },
+    "sha256": "b5e1d88f96d1e2219c172606c4f5bd91ce1b3db2fbc690cd8f2078d0f44ac8c0",
+    "score": 0.9936416604783004,
+    "nativeScore": 0.9936416604783,
+    "absoluteError": 3.3306690738754696e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 50,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25314816,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 76824
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 194,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25314816
+    }
+  },
+  {
+    "name": "brightness",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "b5e1d88f96d1e2219c172606c4f5bd91ce1b3db2fbc690cd8f2078d0f44ac8c0"
+    },
+    "sha256": "b5e1d88f96d1e2219c172606c4f5bd91ce1b3db2fbc690cd8f2078d0f44ac8c0",
+    "score": 0.9936416604783004,
+    "nativeScore": 0.9936416604783,
+    "absoluteError": 3.3306690738754696e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 50,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25314816,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 76824
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 194,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25314816
+    }
+  },
+  {
+    "name": "brightness",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "60be3741d847f220f8b33b3b9d04c70a030dd9d6b5ba7b064bae70b00c9652f1"
+    },
+    "sha256": "60be3741d847f220f8b33b3b9d04c70a030dd9d6b5ba7b064bae70b00c9652f1",
+    "score": 0.9936416604783004,
+    "nativeScore": 0.9936416604783,
+    "absoluteError": 3.3306690738754696e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 50,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25314816,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 76824
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 194,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25314816
+    }
+  },
+  {
+    "name": "brightness",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "60be3741d847f220f8b33b3b9d04c70a030dd9d6b5ba7b064bae70b00c9652f1"
+    },
+    "sha256": "60be3741d847f220f8b33b3b9d04c70a030dd9d6b5ba7b064bae70b00c9652f1",
+    "score": 0.9936416604783004,
+    "nativeScore": 0.9936416604783,
+    "absoluteError": 3.3306690738754696e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 50,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25314816,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 76824
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 194,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25314816
+    }
+  },
+  {
+    "name": "noise",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "6fb487444184abbf7eac404653f9bb363f55dbe673735134bf10a9abfa8dce1c"
+    },
+    "sha256": "6fb487444184abbf7eac404653f9bb363f55dbe673735134bf10a9abfa8dce1c",
+    "score": 0.9977307097124097,
+    "nativeScore": 0.997730709712408,
+    "absoluteError": 1.7763568394002505e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 64,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25367040,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 133096
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 262,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25367040
+    }
+  },
+  {
+    "name": "noise",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "6fb487444184abbf7eac404653f9bb363f55dbe673735134bf10a9abfa8dce1c"
+    },
+    "sha256": "6fb487444184abbf7eac404653f9bb363f55dbe673735134bf10a9abfa8dce1c",
+    "score": 0.9977307097124097,
+    "nativeScore": 0.997730709712408,
+    "absoluteError": 1.7763568394002505e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 64,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25367040,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 133096
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 262,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25367040
+    }
+  },
+  {
+    "name": "noise",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "9470e1d09cb6decb5dc23dd97415d5867a321f8821efe85ccc3f7a7c9f3c7f3b"
+    },
+    "sha256": "9470e1d09cb6decb5dc23dd97415d5867a321f8821efe85ccc3f7a7c9f3c7f3b",
+    "score": 0.9977307097124097,
+    "nativeScore": 0.997730709712408,
+    "absoluteError": 1.7763568394002505e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 64,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25367040,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 133096
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 262,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25367040
+    }
+  },
+  {
+    "name": "noise",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "9470e1d09cb6decb5dc23dd97415d5867a321f8821efe85ccc3f7a7c9f3c7f3b"
+    },
+    "sha256": "9470e1d09cb6decb5dc23dd97415d5867a321f8821efe85ccc3f7a7c9f3c7f3b",
+    "score": 0.9977307097124097,
+    "nativeScore": 0.997730709712408,
+    "absoluteError": 1.7763568394002505e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 64,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25367040,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 133096
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 262,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25367040
+    }
+  },
+  {
+    "name": "random",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "9bf7b17a8d738daaeac2bc919312feea374cbbd35180ca2ef361d85ffe8152ce"
+    },
+    "sha256": "9bf7b17a8d738daaeac2bc919312feea374cbbd35180ca2ef361d85ffe8152ce",
+    "score": 0.017214122755747345,
+    "nativeScore": 0.017214122755747376,
+    "absoluteError": 3.122502256758253e-17,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 96,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25460736,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 294912
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 384,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25460736
+    }
+  },
+  {
+    "name": "random",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "9bf7b17a8d738daaeac2bc919312feea374cbbd35180ca2ef361d85ffe8152ce"
+    },
+    "sha256": "9bf7b17a8d738daaeac2bc919312feea374cbbd35180ca2ef361d85ffe8152ce",
+    "score": 0.017214122755747345,
+    "nativeScore": 0.017214122755747376,
+    "absoluteError": 3.122502256758253e-17,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 96,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25460736,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 294912
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 384,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25460736
+    }
+  },
+  {
+    "name": "random",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "569e598249e680e2f2fc43855fd8ac6bccfd156cca2ac3aae36fea51c82e81a2"
+    },
+    "sha256": "569e598249e680e2f2fc43855fd8ac6bccfd156cca2ac3aae36fea51c82e81a2",
+    "score": 0.017214122755747345,
+    "nativeScore": 0.017214122755747376,
+    "absoluteError": 3.122502256758253e-17,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 96,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25460736,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 294912
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 384,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25460736
+    }
+  },
+  {
+    "name": "random",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "569e598249e680e2f2fc43855fd8ac6bccfd156cca2ac3aae36fea51c82e81a2"
+    },
+    "sha256": "569e598249e680e2f2fc43855fd8ac6bccfd156cca2ac3aae36fea51c82e81a2",
+    "score": 0.017214122755747345,
+    "nativeScore": 0.017214122755747376,
+    "absoluteError": 3.122502256758253e-17,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 96,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25460736,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 294912
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 384,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25460736
+    }
+  },
+  {
+    "name": "gamma",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "b4db7d74ffbae51de2f8a22b144f4fc10f8c2adf6340454e9b62f05593c2092e"
+    },
+    "sha256": "b4db7d74ffbae51de2f8a22b144f4fc10f8c2adf6340454e9b62f05593c2092e",
+    "score": 0.9979468826315028,
+    "nativeScore": 0.9979468826315011,
+    "absoluteError": 1.6653345369377348e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 130,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25560576,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 532504
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 514,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25560576
+    }
+  },
+  {
+    "name": "gamma",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "b4db7d74ffbae51de2f8a22b144f4fc10f8c2adf6340454e9b62f05593c2092e"
+    },
+    "sha256": "b4db7d74ffbae51de2f8a22b144f4fc10f8c2adf6340454e9b62f05593c2092e",
+    "score": 0.9979468826315028,
+    "nativeScore": 0.9979468826315011,
+    "absoluteError": 1.6653345369377348e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 130,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25560576,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 532504
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 514,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25560576
+    }
+  },
+  {
+    "name": "gamma",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "8052043f5c793f6791834bc638cd66bd3c2ac2294a65a4da6333427b6d4c2945"
+    },
+    "sha256": "8052043f5c793f6791834bc638cd66bd3c2ac2294a65a4da6333427b6d4c2945",
+    "score": 0.9979468826315028,
+    "nativeScore": 0.9979468826315011,
+    "absoluteError": 1.6653345369377348e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 130,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25560576,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 532504
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 514,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25560576
+    }
+  },
+  {
+    "name": "gamma",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "8052043f5c793f6791834bc638cd66bd3c2ac2294a65a4da6333427b6d4c2945"
+    },
+    "sha256": "8052043f5c793f6791834bc638cd66bd3c2ac2294a65a4da6333427b6d4c2945",
+    "score": 0.9979468826315028,
+    "nativeScore": 0.9979468826315011,
+    "absoluteError": 1.6653345369377348e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 130,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25560576,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 532504
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 514,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25560576
+    }
+  },
+  {
+    "name": "large",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "c00ed94abbdd4a4aa85ddd1c6ef5c5e47cdfb716e3b7878e39e1046526ad49d3"
+    },
+    "sha256": "c00ed94abbdd4a4aa85ddd1c6ef5c5e47cdfb716e3b7878e39e1046526ad49d3",
+    "score": 0.8863764362819719,
+    "nativeScore": 0.886376436281974,
+    "absoluteError": 2.1094237467877974e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 256,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25952256,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2097152
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 1024,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25952256
+    }
+  },
+  {
+    "name": "large",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "c00ed94abbdd4a4aa85ddd1c6ef5c5e47cdfb716e3b7878e39e1046526ad49d3"
+    },
+    "sha256": "c00ed94abbdd4a4aa85ddd1c6ef5c5e47cdfb716e3b7878e39e1046526ad49d3",
+    "score": 0.8863764362819719,
+    "nativeScore": 0.886376436281974,
+    "absoluteError": 2.1094237467877974e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 256,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25952256,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2097152
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 1024,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25952256
+    }
+  },
+  {
+    "name": "large",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "a9fa9646690d2cdf0618f101620c72d637ac232fdd791afb38459ab0dee7836e"
+    },
+    "sha256": "a9fa9646690d2cdf0618f101620c72d637ac232fdd791afb38459ab0dee7836e",
+    "score": 0.8863764362819719,
+    "nativeScore": 0.886376436281974,
+    "absoluteError": 2.1094237467877974e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 256,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25952256,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2097152
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 1024,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25952256
+    }
+  },
+  {
+    "name": "large",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "a9fa9646690d2cdf0618f101620c72d637ac232fdd791afb38459ab0dee7836e"
+    },
+    "sha256": "a9fa9646690d2cdf0618f101620c72d637ac232fdd791afb38459ab0dee7836e",
+    "score": 0.8863764362819719,
+    "nativeScore": 0.886376436281974,
+    "absoluteError": 2.1094237467877974e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 256,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25952256,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2097152
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 1024,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25952256
+    }
+  },
+  {
+    "name": "row",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "9450f5d88c99e4d0e38b0e438f905380897024cef8a6a44bef901da68345384d"
+    },
+    "sha256": "9450f5d88c99e4d0e38b0e438f905380897024cef8a6a44bef901da68345384d",
+    "score": 0.8724466759636603,
+    "nativeScore": 0.8724466759636604,
+    "absoluteError": 1.1102230246251565e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 1,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25170048,
+          "coreRows": 1,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 264
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25170048
+    }
+  },
+  {
+    "name": "row",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "9450f5d88c99e4d0e38b0e438f905380897024cef8a6a44bef901da68345384d"
+    },
+    "sha256": "9450f5d88c99e4d0e38b0e438f905380897024cef8a6a44bef901da68345384d",
+    "score": 0.8724466759636603,
+    "nativeScore": 0.8724466759636604,
+    "absoluteError": 1.1102230246251565e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 1,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25170048,
+          "coreRows": 1,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 264
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25170048
+    }
+  },
+  {
+    "name": "row",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "cc0f1a8a432d5f9f6bd25de865b6533d3ceb6a15af53e19062ef60872e47b64a"
+    },
+    "sha256": "cc0f1a8a432d5f9f6bd25de865b6533d3ceb6a15af53e19062ef60872e47b64a",
+    "score": 0.8724466759636603,
+    "nativeScore": 0.8724466759636604,
+    "absoluteError": 1.1102230246251565e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 1,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25170048,
+          "coreRows": 1,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 264
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25170048
+    }
+  },
+  {
+    "name": "row",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "cc0f1a8a432d5f9f6bd25de865b6533d3ceb6a15af53e19062ef60872e47b64a"
+    },
+    "sha256": "cc0f1a8a432d5f9f6bd25de865b6533d3ceb6a15af53e19062ef60872e47b64a",
+    "score": 0.8724466759636603,
+    "nativeScore": 0.8724466759636604,
+    "absoluteError": 1.1102230246251565e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 1,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25170048,
+          "coreRows": 1,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 264
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25170048
+    }
+  },
+  {
+    "name": "column",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "3a8bb18074981c0ad8a172d43b4a30a8be01bc7f5f67d037b84d09e3ad74b93e"
+    },
+    "sha256": "3a8bb18074981c0ad8a172d43b4a30a8be01bc7f5f67d037b84d09e3ad74b93e",
+    "score": 0.9143081748231877,
+    "nativeScore": 0.9143081748231877,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 17,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25167360,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 264
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25167360
+    }
+  },
+  {
+    "name": "column",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "3a8bb18074981c0ad8a172d43b4a30a8be01bc7f5f67d037b84d09e3ad74b93e"
+    },
+    "sha256": "3a8bb18074981c0ad8a172d43b4a30a8be01bc7f5f67d037b84d09e3ad74b93e",
+    "score": 0.9143081748231877,
+    "nativeScore": 0.9143081748231877,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 17,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25167360,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 264
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25167360
+    }
+  },
+  {
+    "name": "column",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "e246551e7ed6955789688288d7201ce2500439d783e1087b684023ce5a48d018"
+    },
+    "sha256": "e246551e7ed6955789688288d7201ce2500439d783e1087b684023ce5a48d018",
+    "score": 0.9143081748231877,
+    "nativeScore": 0.9143081748231877,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 17,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25167360,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 264
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25167360
+    }
+  },
+  {
+    "name": "column",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "e246551e7ed6955789688288d7201ce2500439d783e1087b684023ce5a48d018"
+    },
+    "sha256": "e246551e7ed6955789688288d7201ce2500439d783e1087b684023ce5a48d018",
+    "score": 0.9143081748231877,
+    "nativeScore": 0.9143081748231877,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 17,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25167360,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 264
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25167360
+    }
+  },
+  {
+    "name": "narrow",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "b75c3ca68032e347b159eebe35e89969005069e441d2cb51a3b162b0d73b7f51"
+    },
+    "sha256": "b75c3ca68032e347b159eebe35e89969005069e441d2cb51a3b162b0d73b7f51",
+    "score": 0.9492602452087576,
+    "nativeScore": 0.9492602452087576,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 2,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25172352,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 408
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 34,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25172352
+    }
+  },
+  {
+    "name": "narrow",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "b75c3ca68032e347b159eebe35e89969005069e441d2cb51a3b162b0d73b7f51"
+    },
+    "sha256": "b75c3ca68032e347b159eebe35e89969005069e441d2cb51a3b162b0d73b7f51",
+    "score": 0.9492602452087576,
+    "nativeScore": 0.9492602452087576,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 2,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25172352,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 408
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 34,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25172352
+    }
+  },
+  {
+    "name": "narrow",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "0222b3385ad0a6c52e8f90eab86177cf3adee592bf06ac9e77448a077f5e033b"
+    },
+    "sha256": "0222b3385ad0a6c52e8f90eab86177cf3adee592bf06ac9e77448a077f5e033b",
+    "score": 0.9492602452087576,
+    "nativeScore": 0.9492602452087576,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 2,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25172352,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 408
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 34,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25172352
+    }
+  },
+  {
+    "name": "narrow",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "0222b3385ad0a6c52e8f90eab86177cf3adee592bf06ac9e77448a077f5e033b"
+    },
+    "sha256": "0222b3385ad0a6c52e8f90eab86177cf3adee592bf06ac9e77448a077f5e033b",
+    "score": 0.9492602452087576,
+    "nativeScore": 0.9492602452087576,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 2,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25172352,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 408
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 34,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25172352
+    }
+  },
+  {
+    "name": "inverse",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "a0f92185d4b96d0f048953e2ebd76141a801d09e088ed5ec4e2cc4947b10dcf7"
+    },
+    "sha256": "a0f92185d4b96d0f048953e2ebd76141a801d09e088ed5ec4e2cc4947b10dcf7",
+    "score": -0.9634430979169197,
+    "nativeScore": -0.963443097916919,
+    "absoluteError": 7.771561172376096e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 64,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25363968,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 131064
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 258,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25363968
+    }
+  },
+  {
+    "name": "inverse",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "a0f92185d4b96d0f048953e2ebd76141a801d09e088ed5ec4e2cc4947b10dcf7"
+    },
+    "sha256": "a0f92185d4b96d0f048953e2ebd76141a801d09e088ed5ec4e2cc4947b10dcf7",
+    "score": -0.9634430979169197,
+    "nativeScore": -0.963443097916919,
+    "absoluteError": 7.771561172376096e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 64,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25363968,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 131064
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 258,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25363968
+    }
+  },
+  {
+    "name": "inverse",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "26505a76e87ae45fb7961443c67684b86cbc41ae45f000bc8ac1b74a064b6f63"
+    },
+    "sha256": "26505a76e87ae45fb7961443c67684b86cbc41ae45f000bc8ac1b74a064b6f63",
+    "score": -0.9634430979169197,
+    "nativeScore": -0.963443097916919,
+    "absoluteError": 7.771561172376096e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 64,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25363968,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 131064
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 258,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25363968
+    }
+  },
+  {
+    "name": "inverse",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "26505a76e87ae45fb7961443c67684b86cbc41ae45f000bc8ac1b74a064b6f63"
+    },
+    "sha256": "26505a76e87ae45fb7961443c67684b86cbc41ae45f000bc8ac1b74a064b6f63",
+    "score": -0.9634430979169197,
+    "nativeScore": -0.963443097916919,
+    "absoluteError": 7.771561172376096e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 64,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25363968,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 131064
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 258,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25363968
+    }
+  },
+  {
+    "name": "impulse",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "4150f6d458a753e348da40dc7b9a4162832ee515c8b8f97a0b3218184cbca494"
+    },
+    "sha256": "4150f6d458a753e348da40dc7b9a4162832ee515c8b8f97a0b3218184cbca494",
+    "score": 0.9267048162685217,
+    "nativeScore": 0.926704816268522,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25216512,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8184
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25216512
+    }
+  },
+  {
+    "name": "impulse",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "4150f6d458a753e348da40dc7b9a4162832ee515c8b8f97a0b3218184cbca494"
+    },
+    "sha256": "4150f6d458a753e348da40dc7b9a4162832ee515c8b8f97a0b3218184cbca494",
+    "score": 0.9267048162685217,
+    "nativeScore": 0.926704816268522,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25216512,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8184
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25216512
+    }
+  },
+  {
+    "name": "impulse",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "bf7b23a0b0eafd76fadc9eb8e002751064cdb1fa201a01173be50cdb8b4a97d4"
+    },
+    "sha256": "bf7b23a0b0eafd76fadc9eb8e002751064cdb1fa201a01173be50cdb8b4a97d4",
+    "score": 0.9267048162685217,
+    "nativeScore": 0.926704816268522,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25216512,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8184
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25216512
+    }
+  },
+  {
+    "name": "impulse",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "bf7b23a0b0eafd76fadc9eb8e002751064cdb1fa201a01173be50cdb8b4a97d4"
+    },
+    "sha256": "bf7b23a0b0eafd76fadc9eb8e002751064cdb1fa201a01173be50cdb8b4a97d4",
+    "score": 0.9267048162685217,
+    "nativeScore": 0.926704816268522,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25216512,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8184
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25216512
+    }
+  },
+  {
+    "name": "gradient",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "d0c4086d0172a93dbdf675a024a861aa77d6723e70eab26b8bd3185eeb951492"
+    },
+    "sha256": "d0c4086d0172a93dbdf675a024a861aa77d6723e70eab26b8bd3185eeb951492",
+    "score": 0.9441866101477354,
+    "nativeScore": 0.9441866101477412,
+    "absoluteError": 5.773159728050814e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 49,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25311744,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 73720
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 190,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25311744
+    }
+  },
+  {
+    "name": "gradient",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "d0c4086d0172a93dbdf675a024a861aa77d6723e70eab26b8bd3185eeb951492"
+    },
+    "sha256": "d0c4086d0172a93dbdf675a024a861aa77d6723e70eab26b8bd3185eeb951492",
+    "score": 0.9441866101477354,
+    "nativeScore": 0.9441866101477412,
+    "absoluteError": 5.773159728050814e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 49,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25311744,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 73720
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 190,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25311744
+    }
+  },
+  {
+    "name": "gradient",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "02849ab71a4f97d9e40ea9551e57476e2c4d0c14bf0f1a5aaf6160f4d7b2909b"
+    },
+    "sha256": "02849ab71a4f97d9e40ea9551e57476e2c4d0c14bf0f1a5aaf6160f4d7b2909b",
+    "score": 0.9441866101477354,
+    "nativeScore": 0.9441866101477412,
+    "absoluteError": 5.773159728050814e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 49,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25311744,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 73720
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 190,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25311744
+    }
+  },
+  {
+    "name": "gradient",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "02849ab71a4f97d9e40ea9551e57476e2c4d0c14bf0f1a5aaf6160f4d7b2909b"
+    },
+    "sha256": "02849ab71a4f97d9e40ea9551e57476e2c4d0c14bf0f1a5aaf6160f4d7b2909b",
+    "score": 0.9441866101477354,
+    "nativeScore": 0.9441866101477412,
+    "absoluteError": 5.773159728050814e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 49,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25311744,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 73720
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 190,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25311744
+    }
+  },
+  {
+    "name": "checker",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "fe31ba99eaa50a81d1ecbf764830b0c45e68596ea5efe25c6b9303c30d715de1"
+    },
+    "sha256": "fe31ba99eaa50a81d1ecbf764830b0c45e68596ea5efe25c6b9303c30d715de1",
+    "score": -0.9964064683569829,
+    "nativeScore": -0.9964064683569829,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 34,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25267200,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 35904
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 132,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25267200
+    }
+  },
+  {
+    "name": "checker",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "fe31ba99eaa50a81d1ecbf764830b0c45e68596ea5efe25c6b9303c30d715de1"
+    },
+    "sha256": "fe31ba99eaa50a81d1ecbf764830b0c45e68596ea5efe25c6b9303c30d715de1",
+    "score": -0.9964064683569829,
+    "nativeScore": -0.9964064683569829,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 34,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25267200,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 35904
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 132,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25267200
+    }
+  },
+  {
+    "name": "checker",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "fe31ba99eaa50a81d1ecbf764830b0c45e68596ea5efe25c6b9303c30d715de1"
+    },
+    "sha256": "fe31ba99eaa50a81d1ecbf764830b0c45e68596ea5efe25c6b9303c30d715de1",
+    "score": -0.9964064683569829,
+    "nativeScore": -0.9964064683569829,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 34,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25267200,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 35904
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 132,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25267200
+    }
+  },
+  {
+    "name": "checker",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "fe31ba99eaa50a81d1ecbf764830b0c45e68596ea5efe25c6b9303c30d715de1"
+    },
+    "sha256": "fe31ba99eaa50a81d1ecbf764830b0c45e68596ea5efe25c6b9303c30d715de1",
+    "score": -0.9964064683569829,
+    "nativeScore": -0.9964064683569829,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 34,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25267200,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 35904
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 132,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25267200
+    }
+  },
+  {
+    "name": "saturated",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "6d146af572b5799bc842976f26aae2c75bfe3f7fd0ebe97b2732f88f67810bdc"
+    },
+    "sha256": "6d146af572b5799bc842976f26aae2c75bfe3f7fd0ebe97b2732f88f67810bdc",
+    "score": 0.00009999000099986155,
+    "nativeScore": 0.00009999000099986155,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 26,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25238016,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 19176
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 94,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25238016
+    }
+  },
+  {
+    "name": "saturated",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "6d146af572b5799bc842976f26aae2c75bfe3f7fd0ebe97b2732f88f67810bdc"
+    },
+    "sha256": "6d146af572b5799bc842976f26aae2c75bfe3f7fd0ebe97b2732f88f67810bdc",
+    "score": 0.00009999000099986155,
+    "nativeScore": 0.00009999000099986155,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 26,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25238016,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 19176
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 94,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25238016
+    }
+  },
+  {
+    "name": "saturated",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "6d146af572b5799bc842976f26aae2c75bfe3f7fd0ebe97b2732f88f67810bdc"
+    },
+    "sha256": "6d146af572b5799bc842976f26aae2c75bfe3f7fd0ebe97b2732f88f67810bdc",
+    "score": 0.00009999000099986155,
+    "nativeScore": 0.00009999000099986155,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 26,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25238016,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 19176
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 94,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25238016
+    }
+  },
+  {
+    "name": "saturated",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "6d146af572b5799bc842976f26aae2c75bfe3f7fd0ebe97b2732f88f67810bdc"
+    },
+    "sha256": "6d146af572b5799bc842976f26aae2c75bfe3f7fd0ebe97b2732f88f67810bdc",
+    "score": 0.00009999000099986155,
+    "nativeScore": 0.00009999000099986155,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 26,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25238016,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 19176
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 94,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25238016
+    }
+  },
+  {
+    "name": "edge8",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "7bc37b3a5d41c4c90f076c7dfbd3b10f52da68dacec12aa225d91d394257ed5b"
+    },
+    "sha256": "7bc37b3a5d41c4c90f076c7dfbd3b10f52da68dacec12aa225d91d394257ed5b",
+    "score": 0.9649326911493316,
+    "nativeScore": 0.9649326911493316,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 5,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25175040,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 576
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 16,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25175040
+    }
+  },
+  {
+    "name": "edge8",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "7bc37b3a5d41c4c90f076c7dfbd3b10f52da68dacec12aa225d91d394257ed5b"
+    },
+    "sha256": "7bc37b3a5d41c4c90f076c7dfbd3b10f52da68dacec12aa225d91d394257ed5b",
+    "score": 0.9649326911493316,
+    "nativeScore": 0.9649326911493316,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 5,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25175040,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 576
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 16,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25175040
+    }
+  },
+  {
+    "name": "edge8",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "ba3413bebb5275e4fd6fb4280e14bea4b89b2e8f7d78d526b8d15841aa50dd0a"
+    },
+    "sha256": "ba3413bebb5275e4fd6fb4280e14bea4b89b2e8f7d78d526b8d15841aa50dd0a",
+    "score": 0.9649326911493316,
+    "nativeScore": 0.9649326911493316,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 5,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25175040,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 576
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 16,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25175040
+    }
+  },
+  {
+    "name": "edge8",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "ba3413bebb5275e4fd6fb4280e14bea4b89b2e8f7d78d526b8d15841aa50dd0a"
+    },
+    "sha256": "ba3413bebb5275e4fd6fb4280e14bea4b89b2e8f7d78d526b8d15841aa50dd0a",
+    "score": 0.9649326911493316,
+    "nativeScore": 0.9649326911493316,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 5,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25175040,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 576
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 16,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25175040
+    }
+  },
+  {
+    "name": "edge9",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "94859cc3936a33addf388a42454543dfe459dc87c239b25e3375a1f033b148d1"
+    },
+    "sha256": "94859cc3936a33addf388a42454543dfe459dc87c239b25e3375a1f033b148d1",
+    "score": 0.9654451653567558,
+    "nativeScore": 0.9654451653567556,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 5,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25177344,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 720
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 18,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25177344
+    }
+  },
+  {
+    "name": "edge9",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "94859cc3936a33addf388a42454543dfe459dc87c239b25e3375a1f033b148d1"
+    },
+    "sha256": "94859cc3936a33addf388a42454543dfe459dc87c239b25e3375a1f033b148d1",
+    "score": 0.9654451653567558,
+    "nativeScore": 0.9654451653567556,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 5,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25177344,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 720
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 18,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25177344
+    }
+  },
+  {
+    "name": "edge9",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "65ff01432da06cd25affe88030fa86ef382d71ac06d46e0dfd8b0f6f77ae74ab"
+    },
+    "sha256": "65ff01432da06cd25affe88030fa86ef382d71ac06d46e0dfd8b0f6f77ae74ab",
+    "score": 0.9654451653567558,
+    "nativeScore": 0.9654451653567556,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 5,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25177344,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 720
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 18,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25177344
+    }
+  },
+  {
+    "name": "edge9",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "65ff01432da06cd25affe88030fa86ef382d71ac06d46e0dfd8b0f6f77ae74ab"
+    },
+    "sha256": "65ff01432da06cd25affe88030fa86ef382d71ac06d46e0dfd8b0f6f77ae74ab",
+    "score": 0.9654451653567558,
+    "nativeScore": 0.9654451653567556,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 5,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25177344,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 720
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 18,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25177344
+    }
+  },
+  {
+    "name": "edge10",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "d6aafd51d38b2e271d0370c247c851d7844c3a8da9811fe5c51d9fbc51c60e4b"
+    },
+    "sha256": "d6aafd51d38b2e271d0370c247c851d7844c3a8da9811fe5c51d9fbc51c60e4b",
+    "score": 0.9530648674254222,
+    "nativeScore": 0.9530648674254222,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 6,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25179904,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 880
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 20,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25179904
+    }
+  },
+  {
+    "name": "edge10",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "d6aafd51d38b2e271d0370c247c851d7844c3a8da9811fe5c51d9fbc51c60e4b"
+    },
+    "sha256": "d6aafd51d38b2e271d0370c247c851d7844c3a8da9811fe5c51d9fbc51c60e4b",
+    "score": 0.9530648674254222,
+    "nativeScore": 0.9530648674254222,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 6,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25179904,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 880
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 20,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25179904
+    }
+  },
+  {
+    "name": "edge10",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "9cb639a33442c6fccb1f06c2c550b7f0949b931023d2a8e81ec5b504785eceef"
+    },
+    "sha256": "9cb639a33442c6fccb1f06c2c550b7f0949b931023d2a8e81ec5b504785eceef",
+    "score": 0.9530648674254222,
+    "nativeScore": 0.9530648674254222,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 6,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25179904,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 880
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 20,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25179904
+    }
+  },
+  {
+    "name": "edge10",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "9cb639a33442c6fccb1f06c2c550b7f0949b931023d2a8e81ec5b504785eceef"
+    },
+    "sha256": "9cb639a33442c6fccb1f06c2c550b7f0949b931023d2a8e81ec5b504785eceef",
+    "score": 0.9530648674254222,
+    "nativeScore": 0.9530648674254222,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 6,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25179904,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 880
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 20,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25179904
+    }
+  },
+  {
+    "name": "edge11",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "3c47bad72f5b93eb1f3f232ae5e9d38b7b2c7659cc2d910b6a84e7cac4bf8253"
+    },
+    "sha256": "3c47bad72f5b93eb1f3f232ae5e9d38b7b2c7659cc2d910b6a84e7cac4bf8253",
+    "score": 0.9522742672132164,
+    "nativeScore": 0.9522742672132164,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 6,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25182720,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 1056
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 22,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25182720
+    }
+  },
+  {
+    "name": "edge11",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "3c47bad72f5b93eb1f3f232ae5e9d38b7b2c7659cc2d910b6a84e7cac4bf8253"
+    },
+    "sha256": "3c47bad72f5b93eb1f3f232ae5e9d38b7b2c7659cc2d910b6a84e7cac4bf8253",
+    "score": 0.9522742672132164,
+    "nativeScore": 0.9522742672132164,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 6,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25182720,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 1056
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 22,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25182720
+    }
+  },
+  {
+    "name": "edge11",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "7f0f11f07347e6d8f6ce5d422db9f4c9abddecebbb9c2b39d38bccaedd6c067a"
+    },
+    "sha256": "7f0f11f07347e6d8f6ce5d422db9f4c9abddecebbb9c2b39d38bccaedd6c067a",
+    "score": 0.9522742672132164,
+    "nativeScore": 0.9522742672132164,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 6,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25182720,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 1056
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 22,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25182720
+    }
+  },
+  {
+    "name": "edge11",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "7f0f11f07347e6d8f6ce5d422db9f4c9abddecebbb9c2b39d38bccaedd6c067a"
+    },
+    "sha256": "7f0f11f07347e6d8f6ce5d422db9f4c9abddecebbb9c2b39d38bccaedd6c067a",
+    "score": 0.9522742672132164,
+    "nativeScore": 0.9522742672132164,
+    "absoluteError": 0,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 6,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25182720,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 1056
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 22,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25182720
+    }
+  },
+  {
+    "name": "edge17",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "02fc775cd7be28846e66d7f068860fa0231a881b3ac65510a7a6000951eb0a36"
+    },
+    "sha256": "02fc775cd7be28846e66d7f068860fa0231a881b3ac65510a7a6000951eb0a36",
+    "score": 0.9451311560385247,
+    "nativeScore": 0.9451311560385248,
+    "absoluteError": 1.1102230246251565e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 9,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25191936,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2448
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 34,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25191936
+    }
+  },
+  {
+    "name": "edge17",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "02fc775cd7be28846e66d7f068860fa0231a881b3ac65510a7a6000951eb0a36"
+    },
+    "sha256": "02fc775cd7be28846e66d7f068860fa0231a881b3ac65510a7a6000951eb0a36",
+    "score": 0.9451311560385247,
+    "nativeScore": 0.9451311560385248,
+    "absoluteError": 1.1102230246251565e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 9,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25191936,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2448
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 34,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25191936
+    }
+  },
+  {
+    "name": "edge17",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "6e4f6db4fb15abc6bc0089c71ce745464b550ac864ce1ca0d314105d580b75ca"
+    },
+    "sha256": "6e4f6db4fb15abc6bc0089c71ce745464b550ac864ce1ca0d314105d580b75ca",
+    "score": 0.9451311560385247,
+    "nativeScore": 0.9451311560385248,
+    "absoluteError": 1.1102230246251565e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 9,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25191936,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2448
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 34,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25191936
+    }
+  },
+  {
+    "name": "edge17",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "6e4f6db4fb15abc6bc0089c71ce745464b550ac864ce1ca0d314105d580b75ca"
+    },
+    "sha256": "6e4f6db4fb15abc6bc0089c71ce745464b550ac864ce1ca0d314105d580b75ca",
+    "score": 0.9451311560385247,
+    "nativeScore": 0.9451311560385248,
+    "absoluteError": 1.1102230246251565e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 9,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25191936,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 2448
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 34,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25191936
+    }
+  },
+  {
+    "name": "edge31",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "946fa4a870d5ab5f1ad1670fd14e1d964c97e1b1a0e5cf958636890d878e376c"
+    },
+    "sha256": "946fa4a870d5ab5f1ad1670fd14e1d964c97e1b1a0e5cf958636890d878e376c",
+    "score": 0.9516281343011498,
+    "nativeScore": 0.9516281343011496,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25213440,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 7936
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 62,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25213440
+    }
+  },
+  {
+    "name": "edge31",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "946fa4a870d5ab5f1ad1670fd14e1d964c97e1b1a0e5cf958636890d878e376c"
+    },
+    "sha256": "946fa4a870d5ab5f1ad1670fd14e1d964c97e1b1a0e5cf958636890d878e376c",
+    "score": 0.9516281343011498,
+    "nativeScore": 0.9516281343011496,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25213440,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 7936
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 62,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25213440
+    }
+  },
+  {
+    "name": "edge31",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "52b6b62abbf6d630afe1c705a292176eed3a9c1e950309e8f9e3e8712b2b8540"
+    },
+    "sha256": "52b6b62abbf6d630afe1c705a292176eed3a9c1e950309e8f9e3e8712b2b8540",
+    "score": 0.9516281343011498,
+    "nativeScore": 0.9516281343011496,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25213440,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 7936
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 62,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25213440
+    }
+  },
+  {
+    "name": "edge31",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "52b6b62abbf6d630afe1c705a292176eed3a9c1e950309e8f9e3e8712b2b8540"
+    },
+    "sha256": "52b6b62abbf6d630afe1c705a292176eed3a9c1e950309e8f9e3e8712b2b8540",
+    "score": 0.9516281343011498,
+    "nativeScore": 0.9516281343011496,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 16,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25213440,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 7936
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 62,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25213440
+    }
+  },
+  {
+    "name": "edge33",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "1ce738be3cb408384e05782c239400f7bf93bca284177a2586afd0e2e5e3902f"
+    },
+    "sha256": "1ce738be3cb408384e05782c239400f7bf93bca284177a2586afd0e2e5e3902f",
+    "score": 0.9555346219301322,
+    "nativeScore": 0.9555346219301319,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 17,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25216512,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8976
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25216512
+    }
+  },
+  {
+    "name": "edge33",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "1ce738be3cb408384e05782c239400f7bf93bca284177a2586afd0e2e5e3902f"
+    },
+    "sha256": "1ce738be3cb408384e05782c239400f7bf93bca284177a2586afd0e2e5e3902f",
+    "score": 0.9555346219301322,
+    "nativeScore": 0.9555346219301319,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 17,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25216512,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8976
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25216512
+    }
+  },
+  {
+    "name": "edge33",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "dca97e1b526ef9787f2425cc2d8f604eb233dce1f7d209d2419046b804f69245"
+    },
+    "sha256": "dca97e1b526ef9787f2425cc2d8f604eb233dce1f7d209d2419046b804f69245",
+    "score": 0.9555346219301322,
+    "nativeScore": 0.9555346219301319,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 17,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25216512,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8976
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25216512
+    }
+  },
+  {
+    "name": "edge33",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "dca97e1b526ef9787f2425cc2d8f604eb233dce1f7d209d2419046b804f69245"
+    },
+    "sha256": "dca97e1b526ef9787f2425cc2d8f604eb233dce1f7d209d2419046b804f69245",
+    "score": 0.9555346219301322,
+    "nativeScore": 0.9555346219301319,
+    "absoluteError": 2.220446049250313e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 17,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25216512,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8976
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 66,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25216512
+    }
+  },
+  {
+    "name": "edge79",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "7ddc2f51439f5b4711ef9e428295f2116a53bafe358fc7a9e891e73e091e7da1"
+    },
+    "sha256": "7ddc2f51439f5b4711ef9e428295f2116a53bafe358fc7a9e891e73e091e7da1",
+    "score": 0.9536129443417654,
+    "nativeScore": 0.953612944341765,
+    "absoluteError": 3.3306690738754696e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 40,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25287168,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 50560
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 158,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25287168
+    }
+  },
+  {
+    "name": "edge79",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "7ddc2f51439f5b4711ef9e428295f2116a53bafe358fc7a9e891e73e091e7da1"
+    },
+    "sha256": "7ddc2f51439f5b4711ef9e428295f2116a53bafe358fc7a9e891e73e091e7da1",
+    "score": 0.9536129443417654,
+    "nativeScore": 0.953612944341765,
+    "absoluteError": 3.3306690738754696e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 40,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25287168,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 50560
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 158,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25287168
+    }
+  },
+  {
+    "name": "edge79",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "a50b29ac3f0307d6d5d35fef870fadc1412da5d63f6c6ccde57ae8cfaa2c4ffd"
+    },
+    "sha256": "a50b29ac3f0307d6d5d35fef870fadc1412da5d63f6c6ccde57ae8cfaa2c4ffd",
+    "score": 0.9536129443417654,
+    "nativeScore": 0.953612944341765,
+    "absoluteError": 3.3306690738754696e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 40,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25287168,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 50560
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 158,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25287168
+    }
+  },
+  {
+    "name": "edge79",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "a50b29ac3f0307d6d5d35fef870fadc1412da5d63f6c6ccde57ae8cfaa2c4ffd"
+    },
+    "sha256": "a50b29ac3f0307d6d5d35fef870fadc1412da5d63f6c6ccde57ae8cfaa2c4ffd",
+    "score": 0.9536129443417654,
+    "nativeScore": 0.953612944341765,
+    "absoluteError": 3.3306690738754696e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 40,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25287168,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 50560
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 158,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25287168
+    }
+  },
+  {
+    "name": "edge80",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "506d930411cfff36a2c660f068f419a64dfa245600676881aa18fa8fcf576f03"
+    },
+    "sha256": "506d930411cfff36a2c660f068f419a64dfa245600676881aa18fa8fcf576f03",
+    "score": 0.9541472856962981,
+    "nativeScore": 0.9541472856962998,
+    "absoluteError": 1.6653345369377348e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 41,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25288704,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 51840
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 160,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25288704
+    }
+  },
+  {
+    "name": "edge80",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "506d930411cfff36a2c660f068f419a64dfa245600676881aa18fa8fcf576f03"
+    },
+    "sha256": "506d930411cfff36a2c660f068f419a64dfa245600676881aa18fa8fcf576f03",
+    "score": 0.9541472856962981,
+    "nativeScore": 0.9541472856962998,
+    "absoluteError": 1.6653345369377348e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 41,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25288704,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 51840
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 160,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25288704
+    }
+  },
+  {
+    "name": "edge80",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "0f24b737669f2f79cc9910ba671f6638c23d94860277c363c5388365036133d6"
+    },
+    "sha256": "0f24b737669f2f79cc9910ba671f6638c23d94860277c363c5388365036133d6",
+    "score": 0.9541472856962981,
+    "nativeScore": 0.9541472856962998,
+    "absoluteError": 1.6653345369377348e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 41,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25288704,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 51840
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 160,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25288704
+    }
+  },
+  {
+    "name": "edge80",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "0f24b737669f2f79cc9910ba671f6638c23d94860277c363c5388365036133d6"
+    },
+    "sha256": "0f24b737669f2f79cc9910ba671f6638c23d94860277c363c5388365036133d6",
+    "score": 0.9541472856962981,
+    "nativeScore": 0.9541472856962998,
+    "absoluteError": 1.6653345369377348e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 41,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25288704,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 51840
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 160,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25288704
+    }
+  },
+  {
+    "name": "edge81",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "d1a1d4b8c7f7e5e9ba7016cbbdd162356f6646611c7433c3a6701e9ea2813aa9"
+    },
+    "sha256": "d1a1d4b8c7f7e5e9ba7016cbbdd162356f6646611c7433c3a6701e9ea2813aa9",
+    "score": 0.9532224488064284,
+    "nativeScore": 0.9532224488064261,
+    "absoluteError": 2.220446049250313e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 41,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25290240,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 53136
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 162,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25290240
+    }
+  },
+  {
+    "name": "edge81",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "d1a1d4b8c7f7e5e9ba7016cbbdd162356f6646611c7433c3a6701e9ea2813aa9"
+    },
+    "sha256": "d1a1d4b8c7f7e5e9ba7016cbbdd162356f6646611c7433c3a6701e9ea2813aa9",
+    "score": 0.9532224488064284,
+    "nativeScore": 0.9532224488064261,
+    "absoluteError": 2.220446049250313e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 41,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25290240,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 53136
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 162,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25290240
+    }
+  },
+  {
+    "name": "edge81",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "294711027908ba0fc1eeb0e0724b046c8eb7b419fd192cc29780b37c4f4cef26"
+    },
+    "sha256": "294711027908ba0fc1eeb0e0724b046c8eb7b419fd192cc29780b37c4f4cef26",
+    "score": 0.9532224488064284,
+    "nativeScore": 0.9532224488064261,
+    "absoluteError": 2.220446049250313e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 41,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25290240,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 53136
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 162,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25290240
+    }
+  },
+  {
+    "name": "edge81",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "294711027908ba0fc1eeb0e0724b046c8eb7b419fd192cc29780b37c4f4cef26"
+    },
+    "sha256": "294711027908ba0fc1eeb0e0724b046c8eb7b419fd192cc29780b37c4f4cef26",
+    "score": 0.9532224488064284,
+    "nativeScore": 0.9532224488064261,
+    "absoluteError": 2.220446049250313e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 41,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25290240,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 53136
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 162,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25290240
+    }
+  },
+  {
+    "name": "edge175",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "e7d52408a4baabedf80d8e2796d94f6aaf5dbc3ee2d9440e7186e962021bb6f9"
+    },
+    "sha256": "e7d52408a4baabedf80d8e2796d94f6aaf5dbc3ee2d9440e7186e962021bb6f9",
+    "score": 0.9522251599544965,
+    "nativeScore": 0.9522251599544986,
+    "absoluteError": 2.1094237467877974e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 88,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25434624,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 246400
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 350,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25434624
+    }
+  },
+  {
+    "name": "edge175",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "e7d52408a4baabedf80d8e2796d94f6aaf5dbc3ee2d9440e7186e962021bb6f9"
+    },
+    "sha256": "e7d52408a4baabedf80d8e2796d94f6aaf5dbc3ee2d9440e7186e962021bb6f9",
+    "score": 0.9522251599544965,
+    "nativeScore": 0.9522251599544986,
+    "absoluteError": 2.1094237467877974e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 88,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25434624,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 246400
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 350,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25434624
+    }
+  },
+  {
+    "name": "edge175",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "253950a1e31c3719478e2419ace1a9700c60553e32c8b3a5cf13f8651c0b215a"
+    },
+    "sha256": "253950a1e31c3719478e2419ace1a9700c60553e32c8b3a5cf13f8651c0b215a",
+    "score": 0.9522251599544965,
+    "nativeScore": 0.9522251599544986,
+    "absoluteError": 2.1094237467877974e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 88,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25434624,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 246400
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 350,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25434624
+    }
+  },
+  {
+    "name": "edge175",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "253950a1e31c3719478e2419ace1a9700c60553e32c8b3a5cf13f8651c0b215a"
+    },
+    "sha256": "253950a1e31c3719478e2419ace1a9700c60553e32c8b3a5cf13f8651c0b215a",
+    "score": 0.9522251599544965,
+    "nativeScore": 0.9522251599544986,
+    "absoluteError": 2.1094237467877974e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 88,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25434624,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 246400
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 350,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25434624
+    }
+  },
+  {
+    "name": "edge176",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "1f041fe176b4bf53085950c83ae7c4a2c2b50a412510960286f2ee3884e21c2a"
+    },
+    "sha256": "1f041fe176b4bf53085950c83ae7c4a2c2b50a412510960286f2ee3884e21c2a",
+    "score": 0.952710050728435,
+    "nativeScore": 0.952710050728429,
+    "absoluteError": 5.995204332975845e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 89,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25436160,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 249216
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 352,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25436160
+    }
+  },
+  {
+    "name": "edge176",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "1f041fe176b4bf53085950c83ae7c4a2c2b50a412510960286f2ee3884e21c2a"
+    },
+    "sha256": "1f041fe176b4bf53085950c83ae7c4a2c2b50a412510960286f2ee3884e21c2a",
+    "score": 0.952710050728435,
+    "nativeScore": 0.952710050728429,
+    "absoluteError": 5.995204332975845e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 89,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25436160,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 249216
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 352,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25436160
+    }
+  },
+  {
+    "name": "edge176",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "e9109332e8f5afab6f6ebc45d8a86575c63e87c27c570047707aec722e48bd7b"
+    },
+    "sha256": "e9109332e8f5afab6f6ebc45d8a86575c63e87c27c570047707aec722e48bd7b",
+    "score": 0.952710050728435,
+    "nativeScore": 0.952710050728429,
+    "absoluteError": 5.995204332975845e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 89,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25436160,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 249216
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 352,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25436160
+    }
+  },
+  {
+    "name": "edge176",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "e9109332e8f5afab6f6ebc45d8a86575c63e87c27c570047707aec722e48bd7b"
+    },
+    "sha256": "e9109332e8f5afab6f6ebc45d8a86575c63e87c27c570047707aec722e48bd7b",
+    "score": 0.952710050728435,
+    "nativeScore": 0.952710050728429,
+    "absoluteError": 5.995204332975845e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 89,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25436160,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 249216
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 352,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25436160
+    }
+  },
+  {
+    "name": "edge177",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "a709742644128391c5ace2eb96ef2746e0e0200fcfcd56e0adde8ea7f72b117b"
+    },
+    "sha256": "a709742644128391c5ace2eb96ef2746e0e0200fcfcd56e0adde8ea7f72b117b",
+    "score": 0.9532231560841473,
+    "nativeScore": 0.9532231560841481,
+    "absoluteError": 7.771561172376096e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 89,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25437696,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 252048
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 354,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25437696
+    }
+  },
+  {
+    "name": "edge177",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "a709742644128391c5ace2eb96ef2746e0e0200fcfcd56e0adde8ea7f72b117b"
+    },
+    "sha256": "a709742644128391c5ace2eb96ef2746e0e0200fcfcd56e0adde8ea7f72b117b",
+    "score": 0.9532231560841473,
+    "nativeScore": 0.9532231560841481,
+    "absoluteError": 7.771561172376096e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 89,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25437696,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 252048
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 354,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25437696
+    }
+  },
+  {
+    "name": "edge177",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "74091c2352217dd5dc812a64ec763351960f452f6c8ad5954404ab9c7ef1ab6a"
+    },
+    "sha256": "74091c2352217dd5dc812a64ec763351960f452f6c8ad5954404ab9c7ef1ab6a",
+    "score": 0.9532231560841473,
+    "nativeScore": 0.9532231560841481,
+    "absoluteError": 7.771561172376096e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 89,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25437696,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 252048
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 354,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25437696
+    }
+  },
+  {
+    "name": "edge177",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "74091c2352217dd5dc812a64ec763351960f452f6c8ad5954404ab9c7ef1ab6a"
+    },
+    "sha256": "74091c2352217dd5dc812a64ec763351960f452f6c8ad5954404ab9c7ef1ab6a",
+    "score": 0.9532231560841473,
+    "nativeScore": 0.9532231560841481,
+    "absoluteError": 7.771561172376096e-16,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 89,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 25437696,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 252048
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 354,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 25437696
+    }
+  },
+  {
+    "name": "megapixel",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": false,
+      "sha256": "d91fe28b5942df5a505802776dfcae27c7290928554ab2e1b9f3041971230810"
+    },
+    "sha256": "d91fe28b5942df5a505802776dfcae27c7290928554ab2e1b9f3041971230810",
+    "score": 0.8870556816199796,
+    "nativeScore": 0.8870556816199854,
+    "absoluteError": 5.773159728050814e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 512,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 26738688,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8388608
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2048,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 26738688
+    }
+  },
+  {
+    "name": "megapixel",
+    "view": {
+      "mode": "ssim",
+      "equalized": false,
+      "grayscale": true,
+      "sha256": "d91fe28b5942df5a505802776dfcae27c7290928554ab2e1b9f3041971230810"
+    },
+    "sha256": "d91fe28b5942df5a505802776dfcae27c7290928554ab2e1b9f3041971230810",
+    "score": 0.8870556816199796,
+    "nativeScore": 0.8870556816199854,
+    "absoluteError": 5.773159728050814e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 512,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 26738688,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8388608
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2048,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 26738688
+    }
+  },
+  {
+    "name": "megapixel",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": false,
+      "sha256": "60c19fc793e4df715f27ae2ec2d7a8d1f27efa7fcadfa66215663b31ce84d366"
+    },
+    "sha256": "60c19fc793e4df715f27ae2ec2d7a8d1f27efa7fcadfa66215663b31ce84d366",
+    "score": 0.8870556816199796,
+    "nativeScore": 0.8870556816199854,
+    "absoluteError": 5.773159728050814e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 512,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 26738688,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8388608
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2048,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 26738688
+    }
+  },
+  {
+    "name": "megapixel",
+    "view": {
+      "mode": "ssim",
+      "equalized": true,
+      "grayscale": true,
+      "sha256": "60c19fc793e4df715f27ae2ec2d7a8d1f27efa7fcadfa66215663b31ce84d366"
+    },
+    "sha256": "60c19fc793e4df715f27ae2ec2d7a8d1f27efa7fcadfa66215663b31ce84d366",
+    "score": 0.8870556816199796,
+    "nativeScore": 0.8870556816199854,
+    "absoluteError": 5.773159728050814e-15,
+    "metrics": {
+      "workers": 0,
+      "completedMetricJobs": 0,
+      "workerHeapPeakBytes": 0,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "pagedStages": [
+        {
+          "workers": 1,
+          "completedStripJobs": 512,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "paged": true,
+          "workspaceBytes": 26738688,
+          "coreRows": 2,
+          "halo": 5,
+          "heapPeak": 8388608,
+          "rawBytes": 8388608
+        }
+      ],
+      "storage": "memory",
+      "blockPixels": 2048,
+      "cache": {
+        "stages": {
+          "ssim": false,
+          "basic": false
+        }
+      },
+      "globalStageMaximumBytes": 26738688
+    }
+  }
+]

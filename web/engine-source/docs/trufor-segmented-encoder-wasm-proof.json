@@ -1,0 +1,125 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "features": [
+        {
+          "stage": 1,
+          "dims": [
+            1,
+            64,
+            17,
+            25
+          ],
+          "values": 27200,
+          "maxError": 0.000004351139068603516,
+          "differences": 25780
+        },
+        {
+          "stage": 2,
+          "dims": [
+            1,
+            128,
+            9,
+            13
+          ],
+          "values": 14976,
+          "maxError": 0.000011608004570007324,
+          "differences": 14629
+        },
+        {
+          "stage": 3,
+          "dims": [
+            1,
+            320,
+            5,
+            7
+          ],
+          "values": 11200,
+          "maxError": 0.000010728836059570312,
+          "differences": 11030
+        },
+        {
+          "stage": 4,
+          "dims": [
+            1,
+            512,
+            3,
+            4
+          ],
+          "values": 6144,
+          "maxError": 0.000008463859558105469,
+          "differences": 6001
+        }
+      ],
+      "ms": 15037.5,
+      "operations": 4712
+    },
+    {
+      "case": 1,
+      "features": [
+        {
+          "stage": 1,
+          "dims": [
+            1,
+            64,
+            32,
+            40
+          ],
+          "values": 81920,
+          "maxError": 0.0000040531158447265625,
+          "differences": 77705
+        },
+        {
+          "stage": 2,
+          "dims": [
+            1,
+            128,
+            16,
+            20
+          ],
+          "values": 40960,
+          "maxError": 0.00001430511474609375,
+          "differences": 40191
+        },
+        {
+          "stage": 3,
+          "dims": [
+            1,
+            320,
+            8,
+            10
+          ],
+          "values": 25600,
+          "maxError": 0.000016391277313232422,
+          "differences": 25235
+        },
+        {
+          "stage": 4,
+          "dims": [
+            1,
+            512,
+            4,
+            5
+          ],
+          "values": 10240,
+          "maxError": 0.000010222196578979492,
+          "differences": 10055
+        }
+      ],
+      "ms": 17323.20000000298,
+      "operations": 12612
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3219548934
+  },
+  "scope": "Complete native encoder, global attention across query windows and global FRM/FFM statistics. Forced small row/query windows. Decoder/source/96MP are separate pending qualifications.",
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

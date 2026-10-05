@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "version": "0.26.0",
+  "status": "passed",
+  "browser": "154.0.8037.58",
+  "archives": [
+    {
+      "file": "sherloq-web-engine-0.26.0-runtime.zip",
+      "bytes": 8505884,
+      "sha256": "7f9bdea0e50f39d6b1268c8310f5bb2abc01ff1d9b2c525bdbcc345ee314e52b",
+      "manifestFiles": 167
+    },
+    {
+      "file": "sherloq-web-engine-0.26.0-source.zip",
+      "bytes": 145992557,
+      "sha256": "131acb068b2d9d3f0b307c9e9bbc553ca17319b07ed25a8a50209762c215274a",
+      "manifestFiles": 3061
+    }
+  ],
+  "verifiedRuntimeFiles": 167,
+  "runtimeSmoke": {
+    "status": "passed",
+    "version": "0.26.0",
+    "operations": [
+      "ela.classic",
+      "metadata.structure",
+      "metadata.location",
+      "metadata.thumbnail",
+      "file.hex",
+      "colors.pca",
+      "colors.space",
+      "noise.separation",
+      "detail.gradient",
+      "inspection.adjust",
+      "detail.echo",
+      "tampering.copyMove.akaze",
+      "tampering.copyMove.orb",
+      "tampering.resampling.fourier",
+      "various.median",
+      "noise.noisesniffer",
+      "noise.prnu",
+      "comparison.image",
+      "detail.frequency",
+      "noise.blocking",
+      "detail.wavelets",
+      "colors.plots",
+      "file.digest",
+      "inspection.magnifier",
+      "various.illuminant",
+      "tampering.contrast",
+      "various.stereogram",
+      "jpeg.zero",
+      "jpeg.ghosts",
+      "jpeg.multiple",
+      "jpeg.quality",
+      "inspection.histogram",
+      "colors.stats",
+      "noise.planes",
+      "noise.minmax",
+      "pixels.defects"
+    ],
+    "medianModel": "hand-authored toy for API smoke only; not a detector qualification",
+    "browser": "154.0.8037.58",
+    "extractedRuntime": true
+  },
+  "akaze": {
+    "cases": 162,
+    "runtimeFiles": {
+      "src/index.js": "5189a3485cf505cb37c32f720da3c598e8e32f0f11f9620af6f82fa0700f1bf3",
+      "src/pixel-operations.js": "ca00a3ae9d3eca0f89426a7f588871ea6f5c75ff54ad6a02e6f66302396bd4ce",
+      "src/cloning.js": "434ea26dac899749842e91ec35b5295179a6b0f1c09be3b68c9f726c5e971722",
+      "src/cloning-post.js": "10f01cc18b6784053c7a4cfeb38cadb48a63342c5adaf16a8d0650c5ea3a2259",
+      "src/cloning-math.js": "0c21bf9f283c11f955a66b42d88b7d4a3eb282d205a31fbaf771e14fe416b4f8",
+      "src/cloning-group-pool.js": "0f104477172756f9b43bba96c031228e6809fd3de61e84f54cc52f65511ee978",
+      "src/cloning-group-worker.js": "2c9cfb692223427e3fbb26f0a66a8de090501cce2e13da817bc1ed3fe3f2da7d",
+      "vendor/cloning/cloning.js": "a5f4cd1f98bc0c1501797ea11baada126a5894bafec441b4b009bd00fdb843df",
+      "vendor/cloning/cloning.wasm": "f3838f9aa5e8d25465c565d0daa03204cbc7997979319d2468f79153a2a54397"
+    },
+    "payloadSha256": "1189ae60d542650caddc9bc39aa5e2fd5d843bbd69ddca9c42aa605ae3489f6b",
+    "cancellation": "Hard worker termination followed by original image and mask reload; exact result reproduced"
+  },
+  "scope": "Executed immutable extracted src/vendor in Chrome; synthetic fixtures and test harness served from source tree. Full large and other-browser qualification preceded freezing; not repeated after extraction. WordPress and other hardware remain unqualified."
+}

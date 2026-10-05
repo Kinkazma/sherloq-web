@@ -1,0 +1,1123 @@
+{
+  "schema": 1,
+  "scope": "Three alternating single/auto useful fresh-engine runs; codec/main-worker startup included, browser/network caches not purged. Warm-engine reload and result-cache RPC are separate. Fixture loading and native comparisons are outside timing. Label-colour Canvas submission is illustrative, not native composite rendering, physical paint or WordPress. No discarded warm-up/preflight. Accounted memory is not RSS.",
+  "cases": [
+    {
+      "name": "composite",
+      "width": 259,
+      "height": 193,
+      "params": {
+        "quality": 0,
+        "block": 16,
+        "minimum": 3,
+        "profile": "standard",
+        "histogramLow": 10,
+        "histogramHigh": 990,
+        "shadow": 50,
+        "highlight": 50
+      },
+      "originalSha256": "40dbfd874a5f0b20b86781ecb794c446e7230ad23f9cc0d6ee0e002ec85944b7",
+      "samples": [
+        {
+          "trial": 0,
+          "cpuKernel": "single",
+          "loadMs": 116.40000000037253,
+          "rpcMs": 208.7000000011176,
+          "colorizationMs": 2.900000000372529,
+          "displaySubmissionMs": 5.800000000745058,
+          "pipelineMs": 333.8000000026077,
+          "transportSchedulingMs": 0.8000000007450581,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 126308,
+            "preparationMs": 39.09999999962747,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 35133044
+            }
+          },
+          "metrics": {
+            "totalMs": 207.90000000037253,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 20.799999998882413,
+            "energyPrimitivesMs": 18.800000000745058,
+            "energyPreparationMs": 134.30000000074506,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 30,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 3215914,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 73707913,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 2.900000000372529,
+          "warmLoadMs": 3,
+          "warmRpcMs": 153.19999999925494,
+          "warmMetrics": {
+            "totalMs": 152.80000000074506,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 5.600000001490116,
+            "energyPrimitivesMs": 7,
+            "energyPreparationMs": 118.09999999962747,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 20.90000000037253,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 3215914,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 90485129,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 90485129,
+            "knownHeapCapacityBytes": 50331648
+          }
+        },
+        {
+          "trial": 0,
+          "cpuKernel": "auto",
+          "loadMs": 89,
+          "rpcMs": 190.89999999850988,
+          "colorizationMs": 2.300000000745058,
+          "displaySubmissionMs": 0.2999999988824129,
+          "pipelineMs": 282.49999999813735,
+          "transportSchedulingMs": 0.7999999988824129,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 126308,
+            "preparationMs": 33.40000000037253,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 35133044
+            }
+          },
+          "metrics": {
+            "totalMs": 190.09999999962747,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 18.300000000745058,
+            "energyPrimitivesMs": 14.099999999627471,
+            "energyPreparationMs": 121.59999999962747,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 32.69999999925494,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 3215914,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 73707913,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 1.200000001117587,
+          "warmLoadMs": 2.800000000745058,
+          "warmRpcMs": 170.40000000037253,
+          "warmMetrics": {
+            "totalMs": 170.2000000011176,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 5.399999998509884,
+            "energyPrimitivesMs": 8.200000001117587,
+            "energyPreparationMs": 127.40000000037253,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 28,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 3215914,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 90485129,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 90485129,
+            "knownHeapCapacityBytes": 50331648
+          }
+        },
+        {
+          "trial": 1,
+          "cpuKernel": "auto",
+          "loadMs": 102.10000000149012,
+          "rpcMs": 188.39999999850988,
+          "colorizationMs": 2.099999999627471,
+          "displaySubmissionMs": 0.40000000037252903,
+          "pipelineMs": 293,
+          "transportSchedulingMs": 0.6999999992549419,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 126308,
+            "preparationMs": 34,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 35133044
+            }
+          },
+          "metrics": {
+            "totalMs": 187.69999999925494,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 19.700000001117587,
+            "energyPrimitivesMs": 14.400000000372529,
+            "energyPreparationMs": 119.69999999925494,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 30,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 3215914,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 73707913,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 1,
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 73707913,
+            "knownHeapCapacityBytes": 50331648
+          }
+        },
+        {
+          "trial": 1,
+          "cpuKernel": "single",
+          "loadMs": 72,
+          "rpcMs": 187.09999999962747,
+          "colorizationMs": 0.6000000014901161,
+          "displaySubmissionMs": 0.2999999988824129,
+          "pipelineMs": 260,
+          "transportSchedulingMs": 0.7000000011175871,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 126308,
+            "preparationMs": 27.699999999254942,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 35133044
+            }
+          },
+          "metrics": {
+            "totalMs": 186.39999999850988,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 17.600000001490116,
+            "energyPrimitivesMs": 13.499999998137355,
+            "energyPreparationMs": 122.19999999925494,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 29.40000000037253,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 3215914,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 73707913,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 1.400000000372529,
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 73707913,
+            "knownHeapCapacityBytes": 50331648
+          }
+        },
+        {
+          "trial": 2,
+          "cpuKernel": "single",
+          "loadMs": 99.30000000074506,
+          "rpcMs": 189.40000000037253,
+          "colorizationMs": 0.40000000037252903,
+          "displaySubmissionMs": 0.2999999988824129,
+          "pipelineMs": 289.40000000037253,
+          "transportSchedulingMs": 0.6999999992549419,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 126308,
+            "preparationMs": 36.5,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 35133044
+            }
+          },
+          "metrics": {
+            "totalMs": 188.7000000011176,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 18.600000001490116,
+            "energyPrimitivesMs": 12.700000001117587,
+            "energyPreparationMs": 122.20000000111759,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 31.09999999962747,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 3215914,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 73707913,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 1.099999999627471,
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 73707913,
+            "knownHeapCapacityBytes": 50331648
+          }
+        },
+        {
+          "trial": 2,
+          "cpuKernel": "auto",
+          "loadMs": 99.39999999850988,
+          "rpcMs": 193.90000000037253,
+          "colorizationMs": 0.30000000074505806,
+          "displaySubmissionMs": 0.19999999925494194,
+          "pipelineMs": 293.7999999988824,
+          "transportSchedulingMs": 0.5,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 126308,
+            "preparationMs": 33.90000000037253,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 35133044
+            }
+          },
+          "metrics": {
+            "totalMs": 193.40000000037253,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 17.699999999254942,
+            "energyPrimitivesMs": 14.900000000372529,
+            "energyPreparationMs": 123.20000000111759,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 33.70000000111759,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 276269,
+              "cacheBytes": 3215914,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 73707913,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 3.599999999627471,
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 73707913,
+            "knownHeapCapacityBytes": 50331648
+          }
+        }
+      ],
+      "summary": [
+        {
+          "cpuKernel": "single",
+          "loadMs": 99.30000000074506,
+          "rpcMs": 189.40000000037253,
+          "colorizationMs": 0.6000000014901161,
+          "displaySubmissionMs": 0.2999999988824129,
+          "pipelineMs": 289.40000000037253,
+          "transportSchedulingMs": 0.7000000011175871,
+          "cacheRpcMs": 1.400000000372529,
+          "peakAccountedBytes": 90485129
+        },
+        {
+          "cpuKernel": "auto",
+          "loadMs": 99.39999999850988,
+          "rpcMs": 190.89999999850988,
+          "colorizationMs": 2.099999999627471,
+          "displaySubmissionMs": 0.2999999988824129,
+          "pipelineMs": 293,
+          "transportSchedulingMs": 0.6999999992549419,
+          "cacheRpcMs": 1.200000001117587,
+          "peakAccountedBytes": 90485129
+        }
+      ]
+    },
+    {
+      "name": "large-panels",
+      "width": 1031,
+      "height": 1024,
+      "params": {
+        "quality": 0,
+        "block": 16,
+        "minimum": 3,
+        "profile": "standard",
+        "histogramLow": 10,
+        "histogramHigh": 990,
+        "shadow": 50,
+        "highlight": 50
+      },
+      "originalSha256": "d2067eee8e78583bd6c34bdc2c05dcea12a77df8605587587d768c20e7a49f1e",
+      "samples": [
+        {
+          "trial": 0,
+          "cpuKernel": "single",
+          "loadMs": 108.59999999962747,
+          "rpcMs": 2196.4000000003725,
+          "colorizationMs": 10,
+          "displaySubmissionMs": 0.7000000011175871,
+          "pipelineMs": 2315.7000000011176,
+          "transportSchedulingMs": 0.900000000372529,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 2601361,
+            "preparationMs": 58.80000000074506,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 66696371
+            }
+          },
+          "metrics": {
+            "totalMs": 2195.5,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 100,
+            "energyPrimitivesMs": 98,
+            "energyPreparationMs": 1644.300000000745,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 321.09999999962747,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 67595212,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 208844225,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 16.799999998882413,
+          "warmLoadMs": 24.300000000745058,
+          "warmRpcMs": 1954.5,
+          "warmMetrics": {
+            "totalMs": 1953.9000000003725,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 82.10000000149012,
+            "energyPrimitivesMs": 57.59999999962747,
+            "energyPreparationMs": 1574.5999999996275,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 216.40000000037253,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 67595212,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 225621441,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 225621441,
+            "knownHeapCapacityBytes": 50331648
+          }
+        },
+        {
+          "trial": 0,
+          "cpuKernel": "auto",
+          "loadMs": 121.59999999962747,
+          "rpcMs": 2156.7999999988824,
+          "colorizationMs": 12.400000000372529,
+          "displaySubmissionMs": 0.6999999992549419,
+          "pipelineMs": 2291.4999999981374,
+          "transportSchedulingMs": 0.9999999981373549,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 2601361,
+            "preparationMs": 55.59999999962747,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 66696371
+            }
+          },
+          "metrics": {
+            "totalMs": 2155.800000000745,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-pool",
+            "workers": 3,
+            "energyRecompressions": 3,
+            "energyCodecMs": 0,
+            "energyPrimitivesMs": 0,
+            "energyPreparationMs": 1722.5,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 308.09999999962747,
+            "energyPoolMs": 100.40000000037253,
+            "energyScheduling": {
+              "count": 3,
+              "maximum": 3,
+              "ceiling": 3,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "taskExecutions": 1,
+              "preflightExecutions": 0,
+              "retry": null
+            },
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 67596086,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 397882769,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 15.800000000745058,
+          "warmLoadMs": 24.59999999962747,
+          "warmRpcMs": 1928.5999999996275,
+          "warmMetrics": {
+            "totalMs": 1928.2000000011176,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-pool",
+            "workers": 3,
+            "energyRecompressions": 3,
+            "energyCodecMs": 0,
+            "energyPrimitivesMs": 0,
+            "energyPreparationMs": 1607.800000000745,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 197.59999999962747,
+            "energyPoolMs": 106,
+            "energyScheduling": {
+              "count": 3,
+              "maximum": 3,
+              "ceiling": 3,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 1,
+              "reason": "Aggressive capacity-based start",
+              "taskExecutions": 1,
+              "preflightExecutions": 0,
+              "retry": null
+            },
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 67596086,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 397882769,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 397882769,
+            "knownHeapCapacityBytes": 33554432
+          }
+        },
+        {
+          "trial": 1,
+          "cpuKernel": "auto",
+          "loadMs": 104.59999999962747,
+          "rpcMs": 2172.199999999255,
+          "colorizationMs": 12.900000000372529,
+          "displaySubmissionMs": 0.8000000007450581,
+          "pipelineMs": 2290.5,
+          "transportSchedulingMs": 1,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 2601361,
+            "preparationMs": 53.59999999962747,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 66696371
+            }
+          },
+          "metrics": {
+            "totalMs": 2171.199999999255,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-pool",
+            "workers": 3,
+            "energyRecompressions": 3,
+            "energyCodecMs": 0,
+            "energyPrimitivesMs": 0,
+            "energyPreparationMs": 1675.699999999255,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 321.90000000037253,
+            "energyPoolMs": 153.09999999962747,
+            "energyScheduling": {
+              "count": 3,
+              "maximum": 3,
+              "ceiling": 3,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "taskExecutions": 1,
+              "preflightExecutions": 0,
+              "retry": null
+            },
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 67596086,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 397882769,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 13.199999999254942,
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 397882769,
+            "knownHeapCapacityBytes": 33554432
+          }
+        },
+        {
+          "trial": 1,
+          "cpuKernel": "single",
+          "loadMs": 116.20000000111759,
+          "rpcMs": 2138.699999999255,
+          "colorizationMs": 5.700000001117587,
+          "displaySubmissionMs": 0.3999999985098839,
+          "pipelineMs": 2261,
+          "transportSchedulingMs": 0.8000000007450581,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 2601361,
+            "preparationMs": 56.5,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 66696371
+            }
+          },
+          "metrics": {
+            "totalMs": 2137.89999999851,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 99.89999999850988,
+            "energyPrimitivesMs": 100.30000000074506,
+            "energyPreparationMs": 1592.7999999988824,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 324.1000000014901,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 67595212,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 208844225,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 14.5,
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 212441075,
+            "knownHeapCapacityBytes": 50331648
+          }
+        },
+        {
+          "trial": 2,
+          "cpuKernel": "single",
+          "loadMs": 103.40000000037253,
+          "rpcMs": 2114,
+          "colorizationMs": 5.5,
+          "displaySubmissionMs": 0.5,
+          "pipelineMs": 2223.4000000003725,
+          "transportSchedulingMs": 1.099999999627471,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 2601361,
+            "preparationMs": 58.29999999888241,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 66696371
+            }
+          },
+          "metrics": {
+            "totalMs": 2112.9000000003725,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-reference",
+            "workers": 1,
+            "energyRecompressions": 3,
+            "energyCodecMs": 99.40000000037253,
+            "energyPrimitivesMs": 103.00000000186265,
+            "energyPreparationMs": 1620.7999999988824,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 270.7000000011176,
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 67595212,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 208844225,
+              "codecHeapCapacityBytes": 50331648,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 13.699999999254942,
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 212441075,
+            "knownHeapCapacityBytes": 50331648
+          }
+        },
+        {
+          "trial": 2,
+          "cpuKernel": "auto",
+          "loadMs": 104.09999999962747,
+          "rpcMs": 2175,
+          "colorizationMs": 12,
+          "displaySubmissionMs": 1,
+          "pipelineMs": 2292.0999999996275,
+          "transportSchedulingMs": 1,
+          "loadMetrics": {
+            "storage": "memory",
+            "path": "existing-full-memory",
+            "originalBlobBytes": 2601361,
+            "preparationMs": 57.80000000074506,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 0,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 66696371
+            }
+          },
+          "metrics": {
+            "totalMs": 2174,
+            "cache": {
+              "result": false,
+              "stages": {
+                "energy-planes/75": false,
+                "energy-plane/70": false,
+                "energy-plane/75": false,
+                "energy-plane/80": false,
+                "energy-scores/75/0.01/0.99": false,
+                "energy-panels": false
+              }
+            },
+            "kernel": "ela-energy-pool",
+            "workers": 3,
+            "energyRecompressions": 3,
+            "energyCodecMs": 0,
+            "energyPrimitivesMs": 0,
+            "energyPreparationMs": 1740.1000000014901,
+            "energyProfileMs": 0,
+            "energySegmentationMs": 324.5,
+            "energyPoolMs": 91,
+            "energyScheduling": {
+              "count": 3,
+              "maximum": 3,
+              "ceiling": 3,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "taskExecutions": 1,
+              "preflightExecutions": 0,
+              "retry": null
+            },
+            "energyPanelDetections": 1,
+            "memory": {
+              "budgetBytes": 2147483648,
+              "retainedBytes": 5768593,
+              "cacheBytes": 67596086,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 397882769,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 0
+            }
+          },
+          "cacheRpcMs": 16.5,
+          "cleanup": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 397882769,
+            "knownHeapCapacityBytes": 33554432
+          }
+        }
+      ],
+      "summary": [
+        {
+          "cpuKernel": "single",
+          "loadMs": 108.59999999962747,
+          "rpcMs": 2138.699999999255,
+          "colorizationMs": 5.700000001117587,
+          "displaySubmissionMs": 0.5,
+          "pipelineMs": 2261,
+          "transportSchedulingMs": 0.900000000372529,
+          "cacheRpcMs": 14.5,
+          "peakAccountedBytes": 225621441
+        },
+        {
+          "cpuKernel": "auto",
+          "loadMs": 104.59999999962747,
+          "rpcMs": 2172.199999999255,
+          "colorizationMs": 12.400000000372529,
+          "displaySubmissionMs": 0.8000000007450581,
+          "pipelineMs": 2291.4999999981374,
+          "transportSchedulingMs": 1,
+          "cacheRpcMs": 15.800000000745058,
+          "peakAccountedBytes": 397882769
+        }
+      ]
+    }
+  ],
+  "runtimeFiles": {
+    "src/index.js": "4227a0c9d2afd4e2abb3743f0237b1776210e36b64a6cf11bb2da18126a72e33",
+    "src/pixel-operations.js": "dea3d9db5582aec59968d70a69ea24654aacb75ad74580b75d9f09f870920774",
+    "src/energy-pipeline.js": "28ce99b9cc9e16df1db2862bb41ee7ab91b70ad418dd3ec32fe79e92fd8a6a59",
+    "src/energy-primitives.js": "0a93e84deca015a90508da176972240de986c52108418fa7671fbcc76a7a9fd9",
+    "src/energy-prepare.js": "b08c82622ecab0bec7b87cb458dd271ae0fe2f8ef2807fd4f0c7055d73b5768f",
+    "src/auto-zones.js": "4e8e9b97c1f2abd93ccbfac0f90709237e4d26e71edcd4c05ea85e8ae889c95a",
+    "src/energy-segment.js": "4b058e639667d08867f5e6e6bfc04922cca886577cd1bcc939bb7c886bc72663",
+    "src/energy-auto.js": "6677c42313f6ab0521475071f6d8602c9bfedddd171fa1a325a6c528cfee460f",
+    "src/quality-pool.js": "507f44196041edc16513392fb73d6e6e033502b2ff2b843ba652498885d46ac6",
+    "src/quality-worker.js": "d5c69fddea5666b7ef5f4ac569bef06475356add050110fe229281df764d6986"
+  },
+  "browser": "154.0.8037.58"
+}

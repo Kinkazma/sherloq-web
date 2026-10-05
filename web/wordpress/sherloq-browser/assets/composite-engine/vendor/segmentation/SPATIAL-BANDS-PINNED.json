@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "sourceSha256": "af578dde350c8c773586f58747a1f2bd8238cdfb6cd125c10264ab3422a6e752",
+  "qualifiedReferenceSha256": "e677ce48c8ea4e1822e9be7f6132c46ee3b996d96ac09b9d0e80b703e54fab43",
+  "memoryMaximumBytes": 67108864,
+  "files": {
+    "spatial-bands.js": {
+      "bytes": 7847,
+      "sha256": "5a265aa390f5769b85a87c9cfe1033d0ae2d314c47b2e8c010f8ca2892454cb4"
+    },
+    "spatial-bands.wasm": {
+      "bytes": 9352,
+      "sha256": "66ad3a1157ba9c1ff10ecbf395ab9d5fa95c46e62485f4e351c947467ef5021e"
+    }
+  }
+}

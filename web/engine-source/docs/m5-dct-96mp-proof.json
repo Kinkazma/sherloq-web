@@ -1,0 +1,170 @@
+{
+  "passed": true,
+  "scope": "Actual public96MP stored-DCT evidence on rich original, complete histograms/native scores and decisions, cache, full JSON after unload, cancellation and progressive reload; not a new compression-history claim.",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "sourceSha256": "7a6ac1368fd28adbbf841a88b3b897f791695ac6fe265c7ba6c9a93f36d704ca",
+  "sourceBytes": 21167770,
+  "budgetBytes": 268435456,
+  "storage": "temporary",
+  "metrics": {
+    "kernel": "libjpeg-global-coefficients-paged",
+    "heapCapacityBytes": 16777216,
+    "heapMaximumBytes": 67108864,
+    "coefficientCacheBytes": 8388608,
+    "encodedReadBytes": 21167770,
+    "maxEncodedReadBytes": 65536,
+    "coefficientStores": 3,
+    "temporaryPeakBytes": 288000000,
+    "coefficientReadBytes": 192000000,
+    "coefficientWriteBytes": 286080000,
+    "totalMs": 814.2000000029802,
+    "workers": 1,
+    "cache": {
+      "result": false
+    },
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 23824,
+      "activeReservationBytes": 33554432,
+      "peakAccountedBytes": 102825984
+    }
+  },
+  "numeric": {
+    "max": 0,
+    "count": 19,
+    "sum": 0,
+    "mean": 0
+  },
+  "times": {
+    "loadMs": 1377.2999999970198,
+    "analysisMs": 814.8999999910593,
+    "exportMs": 14.400000005960464
+  },
+  "totalMs": 5068.5,
+  "export": {
+    "bytes": 17873,
+    "sha256": "43b5fb38be1b32d62acca0d43a98a2e840690a4e4b9ec134a81b135703d10f7f",
+    "afterSourceUnload": true
+  },
+  "cancellation": "storage-closed-before-worker-termination",
+  "finalMemory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 103612416,
+    "knownHeapCapacityBytes": 16777216
+  },
+  "storageCleanup": true,
+  "backends": [
+    {
+      "backend": "opfs",
+      "exactNativeHistograms": 9,
+      "kernel": "libjpeg-global-coefficients-paged",
+      "heapCapacityBytes": 16777216,
+      "heapMaximumBytes": 67108864,
+      "coefficientCacheBytes": 65536,
+      "encodedReadBytes": 188262,
+      "maxEncodedReadBytes": 65536,
+      "coefficientStores": 3,
+      "temporaryPeakBytes": 786432,
+      "coefficientReadBytes": 3932160,
+      "coefficientWriteBytes": 4177920
+    },
+    {
+      "backend": "indexeddb",
+      "exactNativeHistograms": 9,
+      "kernel": "libjpeg-global-coefficients-paged",
+      "heapCapacityBytes": 16777216,
+      "heapMaximumBytes": 67108864,
+      "coefficientCacheBytes": 65536,
+      "encodedReadBytes": 188262,
+      "maxEncodedReadBytes": 65536,
+      "coefficientStores": 3,
+      "temporaryPeakBytes": 786432,
+      "coefficientReadBytes": 3932160,
+      "coefficientWriteBytes": 4177920
+    }
+  ],
+  "events": [
+    {
+      "id": "dct96",
+      "phase": "decode",
+      "fraction": 0.0145
+    },
+    {
+      "id": "dct96",
+      "phase": "original-sha256",
+      "fraction": 0.049536441486278435
+    },
+    {
+      "id": "dct",
+      "phase": "dct-coefficients",
+      "fraction": 0.0022291398668825295,
+      "encodedBytes": 65536,
+      "totalEncodedBytes": 21167770
+    },
+    {
+      "id": "dct",
+      "phase": "dct-histograms",
+      "fraction": 0.7257600000000001,
+      "completed": 32,
+      "total": 1000
+    },
+    {
+      "id": "dct",
+      "phase": "dct-lattice",
+      "fraction": 0.9111111111111111
+    },
+    {
+      "id": "dct",
+      "phase": "complete",
+      "fraction": 1
+    },
+    {
+      "phase": "encode-json",
+      "fraction": 0.102816480090201
+    },
+    {
+      "phase": "complete",
+      "fraction": 1
+    }
+  ],
+  "engineCommit": "716c106e2e59a3769e79322a4b74bc56514b9fe4",
+  "runtime": {
+    "sha256": "1917f340e49dc5568281dc445bdb006aa0c8ffec9aee10f4e57d60b25e935244",
+    "files": 992
+  },
+  "extra": [
+    {
+      "file": "tests/m5-dct-96mp-browser.js",
+      "sha256": "fa9a350c97e78c8cc1b2be6c1bf54fc505618120d299b44dcae2a90710b72582"
+    },
+    {
+      "file": "tests/jpeg-dct-storage-worker.js",
+      "sha256": "117406059353a55bc0c44f203f45ce91b0fde822c75b766f87ab775416710955"
+    },
+    {
+      "file": "tests/source-api-browser.js",
+      "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+    },
+    {
+      "file": "docs/m5-dct-96mp-native-reference.json",
+      "sha256": "d479dc9ef458bd020da54a6184d37022bcadf8d1a83d5f2894b1201cdfb7f577"
+    },
+    {
+      "file": "fixtures/double-jpeg-progressive.jpg",
+      "sha256": "59adec2995059baef8f2165cf6d3cd109ed2321e4f1a21ec5a2b068f92153354"
+    },
+    {
+      "file": "fixtures/double-jpeg-reference.json",
+      "sha256": "51e8cf7a75aa1fc685589bbf7a7b1dfa75b66768704cfa6104e1978ebcce2f23"
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile removed after qualification"
+}

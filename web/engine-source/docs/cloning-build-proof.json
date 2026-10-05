@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "status": "byte-identical rebuild",
+  "emscripten": "4.0.15",
+  "opencv": "4.11.0",
+  "before": {
+    "vendor/cloning/cloning.js": "4741dfce67c19661f3f3ed2cc4f7b4e758f748cc1f6726b3325bfda07375db4b",
+    "vendor/cloning/cloning.wasm": "508e79a9f593bb5700c075eaee30a5fe2295512e441a13869d24255c8415dbd4"
+  },
+  "after": {
+    "vendor/cloning/cloning.js": "4741dfce67c19661f3f3ed2cc4f7b4e758f748cc1f6726b3325bfda07375db4b",
+    "vendor/cloning/cloning.wasm": "508e79a9f593bb5700c075eaee30a5fe2295512e441a13869d24255c8415dbd4"
+  },
+  "scope": "Local pinned source rebuild; no claim about untested host toolchains"
+}

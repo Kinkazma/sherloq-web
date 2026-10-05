@@ -1,0 +1,1238 @@
+{
+  "schema": 1,
+  "kind": "tnt-native-order-v1",
+  "epsilon": 1e-05,
+  "inputShape": [
+    1,
+    3,
+    256,
+    256
+  ],
+  "parameters": {
+    "cls_token": [
+      1,
+      1,
+      640
+    ],
+    "outer_pos": [
+      1,
+      257,
+      640
+    ],
+    "inner_pos": [
+      1,
+      16,
+      40
+    ],
+    "patch_embed.proj.weight": [
+      40,
+      3,
+      7,
+      7
+    ],
+    "patch_embed.proj.bias": [
+      40
+    ],
+    "proj_norm1.weight": [
+      640
+    ],
+    "proj_norm1.bias": [
+      640
+    ],
+    "proj.weight": [
+      640,
+      640
+    ],
+    "proj.bias": [
+      640
+    ],
+    "proj_norm2.weight": [
+      640
+    ],
+    "proj_norm2.bias": [
+      640
+    ],
+    "blocks.0.inner_norm1.weight": [
+      40
+    ],
+    "blocks.0.inner_norm1.bias": [
+      40
+    ],
+    "blocks.0.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.0.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.0.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.0.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.0.inner_norm2.weight": [
+      40
+    ],
+    "blocks.0.inner_norm2.bias": [
+      40
+    ],
+    "blocks.0.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.0.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.0.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.0.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.0.proj_norm1.weight": [
+      640
+    ],
+    "blocks.0.proj_norm1.bias": [
+      640
+    ],
+    "blocks.0.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.0.proj_norm2.weight": [
+      640
+    ],
+    "blocks.0.proj_norm2.bias": [
+      640
+    ],
+    "blocks.0.outer_norm1.weight": [
+      640
+    ],
+    "blocks.0.outer_norm1.bias": [
+      640
+    ],
+    "blocks.0.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.0.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.0.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.0.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.0.outer_norm2.weight": [
+      640
+    ],
+    "blocks.0.outer_norm2.bias": [
+      640
+    ],
+    "blocks.0.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.0.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.0.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.0.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.1.inner_norm1.weight": [
+      40
+    ],
+    "blocks.1.inner_norm1.bias": [
+      40
+    ],
+    "blocks.1.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.1.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.1.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.1.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.1.inner_norm2.weight": [
+      40
+    ],
+    "blocks.1.inner_norm2.bias": [
+      40
+    ],
+    "blocks.1.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.1.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.1.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.1.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.1.proj_norm1.weight": [
+      640
+    ],
+    "blocks.1.proj_norm1.bias": [
+      640
+    ],
+    "blocks.1.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.1.proj_norm2.weight": [
+      640
+    ],
+    "blocks.1.proj_norm2.bias": [
+      640
+    ],
+    "blocks.1.outer_norm1.weight": [
+      640
+    ],
+    "blocks.1.outer_norm1.bias": [
+      640
+    ],
+    "blocks.1.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.1.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.1.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.1.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.1.outer_norm2.weight": [
+      640
+    ],
+    "blocks.1.outer_norm2.bias": [
+      640
+    ],
+    "blocks.1.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.1.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.1.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.1.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.2.inner_norm1.weight": [
+      40
+    ],
+    "blocks.2.inner_norm1.bias": [
+      40
+    ],
+    "blocks.2.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.2.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.2.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.2.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.2.inner_norm2.weight": [
+      40
+    ],
+    "blocks.2.inner_norm2.bias": [
+      40
+    ],
+    "blocks.2.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.2.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.2.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.2.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.2.proj_norm1.weight": [
+      640
+    ],
+    "blocks.2.proj_norm1.bias": [
+      640
+    ],
+    "blocks.2.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.2.proj_norm2.weight": [
+      640
+    ],
+    "blocks.2.proj_norm2.bias": [
+      640
+    ],
+    "blocks.2.outer_norm1.weight": [
+      640
+    ],
+    "blocks.2.outer_norm1.bias": [
+      640
+    ],
+    "blocks.2.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.2.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.2.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.2.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.2.outer_norm2.weight": [
+      640
+    ],
+    "blocks.2.outer_norm2.bias": [
+      640
+    ],
+    "blocks.2.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.2.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.2.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.2.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.3.inner_norm1.weight": [
+      40
+    ],
+    "blocks.3.inner_norm1.bias": [
+      40
+    ],
+    "blocks.3.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.3.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.3.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.3.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.3.inner_norm2.weight": [
+      40
+    ],
+    "blocks.3.inner_norm2.bias": [
+      40
+    ],
+    "blocks.3.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.3.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.3.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.3.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.3.proj_norm1.weight": [
+      640
+    ],
+    "blocks.3.proj_norm1.bias": [
+      640
+    ],
+    "blocks.3.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.3.proj_norm2.weight": [
+      640
+    ],
+    "blocks.3.proj_norm2.bias": [
+      640
+    ],
+    "blocks.3.outer_norm1.weight": [
+      640
+    ],
+    "blocks.3.outer_norm1.bias": [
+      640
+    ],
+    "blocks.3.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.3.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.3.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.3.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.3.outer_norm2.weight": [
+      640
+    ],
+    "blocks.3.outer_norm2.bias": [
+      640
+    ],
+    "blocks.3.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.3.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.3.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.3.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.4.inner_norm1.weight": [
+      40
+    ],
+    "blocks.4.inner_norm1.bias": [
+      40
+    ],
+    "blocks.4.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.4.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.4.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.4.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.4.inner_norm2.weight": [
+      40
+    ],
+    "blocks.4.inner_norm2.bias": [
+      40
+    ],
+    "blocks.4.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.4.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.4.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.4.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.4.proj_norm1.weight": [
+      640
+    ],
+    "blocks.4.proj_norm1.bias": [
+      640
+    ],
+    "blocks.4.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.4.proj_norm2.weight": [
+      640
+    ],
+    "blocks.4.proj_norm2.bias": [
+      640
+    ],
+    "blocks.4.outer_norm1.weight": [
+      640
+    ],
+    "blocks.4.outer_norm1.bias": [
+      640
+    ],
+    "blocks.4.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.4.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.4.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.4.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.4.outer_norm2.weight": [
+      640
+    ],
+    "blocks.4.outer_norm2.bias": [
+      640
+    ],
+    "blocks.4.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.4.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.4.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.4.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.5.inner_norm1.weight": [
+      40
+    ],
+    "blocks.5.inner_norm1.bias": [
+      40
+    ],
+    "blocks.5.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.5.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.5.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.5.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.5.inner_norm2.weight": [
+      40
+    ],
+    "blocks.5.inner_norm2.bias": [
+      40
+    ],
+    "blocks.5.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.5.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.5.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.5.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.5.proj_norm1.weight": [
+      640
+    ],
+    "blocks.5.proj_norm1.bias": [
+      640
+    ],
+    "blocks.5.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.5.proj_norm2.weight": [
+      640
+    ],
+    "blocks.5.proj_norm2.bias": [
+      640
+    ],
+    "blocks.5.outer_norm1.weight": [
+      640
+    ],
+    "blocks.5.outer_norm1.bias": [
+      640
+    ],
+    "blocks.5.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.5.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.5.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.5.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.5.outer_norm2.weight": [
+      640
+    ],
+    "blocks.5.outer_norm2.bias": [
+      640
+    ],
+    "blocks.5.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.5.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.5.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.5.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.6.inner_norm1.weight": [
+      40
+    ],
+    "blocks.6.inner_norm1.bias": [
+      40
+    ],
+    "blocks.6.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.6.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.6.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.6.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.6.inner_norm2.weight": [
+      40
+    ],
+    "blocks.6.inner_norm2.bias": [
+      40
+    ],
+    "blocks.6.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.6.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.6.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.6.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.6.proj_norm1.weight": [
+      640
+    ],
+    "blocks.6.proj_norm1.bias": [
+      640
+    ],
+    "blocks.6.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.6.proj_norm2.weight": [
+      640
+    ],
+    "blocks.6.proj_norm2.bias": [
+      640
+    ],
+    "blocks.6.outer_norm1.weight": [
+      640
+    ],
+    "blocks.6.outer_norm1.bias": [
+      640
+    ],
+    "blocks.6.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.6.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.6.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.6.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.6.outer_norm2.weight": [
+      640
+    ],
+    "blocks.6.outer_norm2.bias": [
+      640
+    ],
+    "blocks.6.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.6.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.6.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.6.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.7.inner_norm1.weight": [
+      40
+    ],
+    "blocks.7.inner_norm1.bias": [
+      40
+    ],
+    "blocks.7.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.7.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.7.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.7.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.7.inner_norm2.weight": [
+      40
+    ],
+    "blocks.7.inner_norm2.bias": [
+      40
+    ],
+    "blocks.7.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.7.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.7.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.7.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.7.proj_norm1.weight": [
+      640
+    ],
+    "blocks.7.proj_norm1.bias": [
+      640
+    ],
+    "blocks.7.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.7.proj_norm2.weight": [
+      640
+    ],
+    "blocks.7.proj_norm2.bias": [
+      640
+    ],
+    "blocks.7.outer_norm1.weight": [
+      640
+    ],
+    "blocks.7.outer_norm1.bias": [
+      640
+    ],
+    "blocks.7.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.7.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.7.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.7.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.7.outer_norm2.weight": [
+      640
+    ],
+    "blocks.7.outer_norm2.bias": [
+      640
+    ],
+    "blocks.7.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.7.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.7.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.7.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.8.inner_norm1.weight": [
+      40
+    ],
+    "blocks.8.inner_norm1.bias": [
+      40
+    ],
+    "blocks.8.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.8.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.8.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.8.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.8.inner_norm2.weight": [
+      40
+    ],
+    "blocks.8.inner_norm2.bias": [
+      40
+    ],
+    "blocks.8.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.8.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.8.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.8.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.8.proj_norm1.weight": [
+      640
+    ],
+    "blocks.8.proj_norm1.bias": [
+      640
+    ],
+    "blocks.8.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.8.proj_norm2.weight": [
+      640
+    ],
+    "blocks.8.proj_norm2.bias": [
+      640
+    ],
+    "blocks.8.outer_norm1.weight": [
+      640
+    ],
+    "blocks.8.outer_norm1.bias": [
+      640
+    ],
+    "blocks.8.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.8.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.8.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.8.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.8.outer_norm2.weight": [
+      640
+    ],
+    "blocks.8.outer_norm2.bias": [
+      640
+    ],
+    "blocks.8.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.8.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.8.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.8.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.9.inner_norm1.weight": [
+      40
+    ],
+    "blocks.9.inner_norm1.bias": [
+      40
+    ],
+    "blocks.9.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.9.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.9.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.9.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.9.inner_norm2.weight": [
+      40
+    ],
+    "blocks.9.inner_norm2.bias": [
+      40
+    ],
+    "blocks.9.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.9.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.9.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.9.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.9.proj_norm1.weight": [
+      640
+    ],
+    "blocks.9.proj_norm1.bias": [
+      640
+    ],
+    "blocks.9.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.9.proj_norm2.weight": [
+      640
+    ],
+    "blocks.9.proj_norm2.bias": [
+      640
+    ],
+    "blocks.9.outer_norm1.weight": [
+      640
+    ],
+    "blocks.9.outer_norm1.bias": [
+      640
+    ],
+    "blocks.9.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.9.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.9.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.9.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.9.outer_norm2.weight": [
+      640
+    ],
+    "blocks.9.outer_norm2.bias": [
+      640
+    ],
+    "blocks.9.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.9.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.9.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.9.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.10.inner_norm1.weight": [
+      40
+    ],
+    "blocks.10.inner_norm1.bias": [
+      40
+    ],
+    "blocks.10.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.10.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.10.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.10.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.10.inner_norm2.weight": [
+      40
+    ],
+    "blocks.10.inner_norm2.bias": [
+      40
+    ],
+    "blocks.10.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.10.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.10.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.10.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.10.proj_norm1.weight": [
+      640
+    ],
+    "blocks.10.proj_norm1.bias": [
+      640
+    ],
+    "blocks.10.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.10.proj_norm2.weight": [
+      640
+    ],
+    "blocks.10.proj_norm2.bias": [
+      640
+    ],
+    "blocks.10.outer_norm1.weight": [
+      640
+    ],
+    "blocks.10.outer_norm1.bias": [
+      640
+    ],
+    "blocks.10.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.10.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.10.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.10.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.10.outer_norm2.weight": [
+      640
+    ],
+    "blocks.10.outer_norm2.bias": [
+      640
+    ],
+    "blocks.10.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.10.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.10.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.10.outer_mlp.fc2.bias": [
+      640
+    ],
+    "blocks.11.inner_norm1.weight": [
+      40
+    ],
+    "blocks.11.inner_norm1.bias": [
+      40
+    ],
+    "blocks.11.inner_attn.qk.weight": [
+      80,
+      40
+    ],
+    "blocks.11.inner_attn.v.weight": [
+      40,
+      40
+    ],
+    "blocks.11.inner_attn.proj.weight": [
+      40,
+      40
+    ],
+    "blocks.11.inner_attn.proj.bias": [
+      40
+    ],
+    "blocks.11.inner_norm2.weight": [
+      40
+    ],
+    "blocks.11.inner_norm2.bias": [
+      40
+    ],
+    "blocks.11.inner_mlp.fc1.weight": [
+      160,
+      40
+    ],
+    "blocks.11.inner_mlp.fc1.bias": [
+      160
+    ],
+    "blocks.11.inner_mlp.fc2.weight": [
+      40,
+      160
+    ],
+    "blocks.11.inner_mlp.fc2.bias": [
+      40
+    ],
+    "blocks.11.proj_norm1.weight": [
+      640
+    ],
+    "blocks.11.proj_norm1.bias": [
+      640
+    ],
+    "blocks.11.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.11.proj_norm2.weight": [
+      640
+    ],
+    "blocks.11.proj_norm2.bias": [
+      640
+    ],
+    "blocks.11.outer_norm1.weight": [
+      640
+    ],
+    "blocks.11.outer_norm1.bias": [
+      640
+    ],
+    "blocks.11.outer_attn.qk.weight": [
+      1280,
+      640
+    ],
+    "blocks.11.outer_attn.v.weight": [
+      640,
+      640
+    ],
+    "blocks.11.outer_attn.proj.weight": [
+      640,
+      640
+    ],
+    "blocks.11.outer_attn.proj.bias": [
+      640
+    ],
+    "blocks.11.outer_norm2.weight": [
+      640
+    ],
+    "blocks.11.outer_norm2.bias": [
+      640
+    ],
+    "blocks.11.outer_mlp.fc1.weight": [
+      2560,
+      640
+    ],
+    "blocks.11.outer_mlp.fc1.bias": [
+      2560
+    ],
+    "blocks.11.outer_mlp.fc2.weight": [
+      640,
+      2560
+    ],
+    "blocks.11.outer_mlp.fc2.bias": [
+      640
+    ],
+    "norm.weight": [
+      640
+    ],
+    "norm.bias": [
+      640
+    ]
+  }
+}

@@ -1,0 +1,509 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "backend": "cpu",
+      "name": "XFeat + LighterGlue/compare",
+      "points": 300,
+      "pointDifferences": 0,
+      "scoreMax": 4.842877388000488e-8,
+      "pairs": 11,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.00002682209014892578,
+      "groups": 2,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "XFeat",
+          "provider": "wasm",
+          "execution": "global-normalization-paged-backbone-global-selection",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "maximumActualHeapBytes": 20185088,
+          "preflightExecutions": 0,
+          "halo": 256,
+          "coreSize": 1024,
+          "workers": 1,
+          "workerAdmittedBytes": 270155776,
+          "preparation": {
+            "width": 448,
+            "height": 160,
+            "mean": 127.54545593261719,
+            "inverseStd": 0.0288655087351799,
+            "reads": 3,
+            "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+          },
+          "storage": {
+            "gray": "memory",
+            "heat": "memory",
+            "dense": "memory",
+            "bytes": 860160
+          },
+          "finalWorkers": 1,
+          "globalCandidates": 2038,
+          "postHeapBytes": 16777216,
+          "maskHeapBytes": 33554432
+        },
+        "matching": {
+          "kind": "xfeat",
+          "runs": [
+            {
+              "provider": "wasm",
+              "actualHeapBytes": 50331648,
+              "maximumHeapBytes": 201326592,
+              "threads": 1,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 22098,
+              "gpuEstimatedBytes": 0
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    },
+    {
+      "backend": "cpu",
+      "name": "XFeat + LighterGlue/global",
+      "points": 300,
+      "pointDifferences": 0,
+      "scoreMax": 4.842877388000488e-8,
+      "pairs": 8,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.00004673004150390625,
+      "groups": 0,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "XFeat",
+          "provider": "wasm",
+          "execution": "global-normalization-paged-backbone-global-selection",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "maximumActualHeapBytes": 20185088,
+          "preflightExecutions": 0,
+          "halo": 256,
+          "coreSize": 1024,
+          "workers": 1,
+          "workerAdmittedBytes": 270155776,
+          "preparation": {
+            "width": 448,
+            "height": 160,
+            "mean": 127.54545593261719,
+            "inverseStd": 0.0288655087351799,
+            "reads": 3,
+            "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+          },
+          "storage": {
+            "gray": "memory",
+            "heat": "memory",
+            "dense": "memory",
+            "bytes": 860160
+          },
+          "finalWorkers": 1,
+          "globalCandidates": 2038,
+          "postHeapBytes": 16777216,
+          "maskHeapBytes": 33554432
+        },
+        "matching": {
+          "kind": "xfeat",
+          "runs": [
+            {
+              "provider": "wasm",
+              "actualHeapBytes": 60424192,
+              "maximumHeapBytes": 201326592,
+              "threads": 1,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 89608,
+              "gpuEstimatedBytes": 0
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 2,
+          "matchings": 2,
+          "groupings": 2,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    },
+    {
+      "backend": "cpu",
+      "name": "XFeat + LighterGlue/overlap",
+      "points": 300,
+      "pointDifferences": 0,
+      "scoreMax": 4.842877388000488e-8,
+      "pairs": 10,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.000021219253540039062,
+      "groups": 1,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "XFeat",
+          "provider": "wasm",
+          "execution": "global-normalization-paged-backbone-global-selection",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "maximumActualHeapBytes": 20185088,
+          "preflightExecutions": 0,
+          "halo": 256,
+          "coreSize": 1024,
+          "workers": 1,
+          "workerAdmittedBytes": 270155776,
+          "preparation": {
+            "width": 448,
+            "height": 160,
+            "mean": 127.54545593261719,
+            "inverseStd": 0.0288655087351799,
+            "reads": 3,
+            "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+          },
+          "storage": {
+            "gray": "memory",
+            "heat": "memory",
+            "dense": "memory",
+            "bytes": 860160
+          },
+          "finalWorkers": 1,
+          "globalCandidates": 2038,
+          "postHeapBytes": 16777216,
+          "maskHeapBytes": 33554432
+        },
+        "matching": {
+          "kind": "xfeat",
+          "runs": [
+            {
+              "provider": "wasm",
+              "actualHeapBytes": 50331648,
+              "maximumHeapBytes": 201326592,
+              "threads": 1,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 47240,
+              "gpuEstimatedBytes": 0
+            },
+            {
+              "provider": "wasm",
+              "actualHeapBytes": 50331648,
+              "maximumHeapBytes": 201326592,
+              "threads": 1,
+              "preflightExecutions": 0,
+              "zone": 1,
+              "candidates": 37388,
+              "gpuEstimatedBytes": 0
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 3,
+          "matchings": 3,
+          "groupings": 3,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    },
+    {
+      "backend": "webgpu",
+      "name": "XFeat + LighterGlue/compare",
+      "points": 300,
+      "pointDifferences": 0,
+      "scoreMax": 5.122274160385132e-8,
+      "pairs": 11,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.00003808736801147461,
+      "groups": 2,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "XFeat",
+          "provider": "webgpu",
+          "execution": "global-normalization-paged-backbone-global-selection",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "maximumActualHeapBytes": 20185088,
+          "preflightExecutions": 0,
+          "halo": 256,
+          "coreSize": 1024,
+          "workers": 1,
+          "workerAdmittedBytes": 364789760,
+          "preparation": {
+            "width": 448,
+            "height": 160,
+            "mean": 127.54545593261719,
+            "inverseStd": 0.0288655087351799,
+            "reads": 3,
+            "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+          },
+          "storage": {
+            "gray": "memory",
+            "heat": "memory",
+            "dense": "memory",
+            "bytes": 860160
+          },
+          "finalWorkers": 1,
+          "globalCandidates": 2038,
+          "postHeapBytes": 16777216,
+          "maskHeapBytes": 33554432
+        },
+        "matching": {
+          "kind": "xfeat",
+          "runs": [
+            {
+              "provider": "webgpu",
+              "actualHeapBytes": 41943040,
+              "maximumHeapBytes": 201326592,
+              "threads": 1,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 22098,
+              "gpuEstimatedBytes": 15972758
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    },
+    {
+      "backend": "webgpu",
+      "name": "XFeat + LighterGlue/global",
+      "points": 300,
+      "pointDifferences": 0,
+      "scoreMax": 5.122274160385132e-8,
+      "pairs": 8,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.0000457763671875,
+      "groups": 0,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "XFeat",
+          "provider": "webgpu",
+          "execution": "global-normalization-paged-backbone-global-selection",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "maximumActualHeapBytes": 20185088,
+          "preflightExecutions": 0,
+          "halo": 256,
+          "coreSize": 1024,
+          "workers": 1,
+          "workerAdmittedBytes": 364789760,
+          "preparation": {
+            "width": 448,
+            "height": 160,
+            "mean": 127.54545593261719,
+            "inverseStd": 0.0288655087351799,
+            "reads": 3,
+            "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+          },
+          "storage": {
+            "gray": "memory",
+            "heat": "memory",
+            "dense": "memory",
+            "bytes": 860160
+          },
+          "finalWorkers": 1,
+          "globalCandidates": 2038,
+          "postHeapBytes": 16777216,
+          "maskHeapBytes": 33554432
+        },
+        "matching": {
+          "kind": "xfeat",
+          "runs": [
+            {
+              "provider": "webgpu",
+              "actualHeapBytes": 41943040,
+              "maximumHeapBytes": 201326592,
+              "threads": 1,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 89608,
+              "gpuEstimatedBytes": 20626198
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 2,
+          "matchings": 2,
+          "groupings": 2,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    },
+    {
+      "backend": "webgpu",
+      "name": "XFeat + LighterGlue/overlap",
+      "points": 300,
+      "pointDifferences": 0,
+      "scoreMax": 5.122274160385132e-8,
+      "pairs": 10,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.000015616416931152344,
+      "groups": 1,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "family": "XFeat",
+          "provider": "webgpu",
+          "execution": "global-normalization-paged-backbone-global-selection",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "maximumActualHeapBytes": 20185088,
+          "preflightExecutions": 0,
+          "halo": 256,
+          "coreSize": 1024,
+          "workers": 1,
+          "workerAdmittedBytes": 364789760,
+          "preparation": {
+            "width": 448,
+            "height": 160,
+            "mean": 127.54545593261719,
+            "inverseStd": 0.0288655087351799,
+            "reads": 3,
+            "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+          },
+          "storage": {
+            "gray": "memory",
+            "heat": "memory",
+            "dense": "memory",
+            "bytes": 860160
+          },
+          "finalWorkers": 1,
+          "globalCandidates": 2038,
+          "postHeapBytes": 16777216,
+          "maskHeapBytes": 33554432
+        },
+        "matching": {
+          "kind": "xfeat",
+          "runs": [
+            {
+              "provider": "webgpu",
+              "actualHeapBytes": 41943040,
+              "maximumHeapBytes": 201326592,
+              "threads": 1,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 47240,
+              "gpuEstimatedBytes": 17704726
+            },
+            {
+              "provider": "webgpu",
+              "actualHeapBytes": 41943040,
+              "maximumHeapBytes": 201326592,
+              "threads": 1,
+              "preflightExecutions": 0,
+              "zone": 1,
+              "candidates": 37388,
+              "gpuEstimatedBytes": 17012758
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 3,
+          "matchings": 3,
+          "groupings": 3,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    }
+  ],
+  "cacheReused": true,
+  "disposalCancels": true,
+  "peakAccountedBytes": 466909064,
+  "activeBytes": 0
+}

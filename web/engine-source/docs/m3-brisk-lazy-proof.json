@@ -1,0 +1,69 @@
+{
+  "reference": "full qualified BRISK detectAndCompute before response selection",
+  "records": [
+    {
+      "masked": false,
+      "response": 0,
+      "total": 2669,
+      "selected": 1,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "masked": false,
+      "response": 30,
+      "total": 2669,
+      "selected": 22,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "masked": false,
+      "response": 90,
+      "total": 2669,
+      "selected": 2360,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "masked": false,
+      "response": 100,
+      "total": 2669,
+      "selected": 2668,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "masked": true,
+      "response": 0,
+      "total": 1290,
+      "selected": 1,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "masked": true,
+      "response": 30,
+      "total": 1290,
+      "selected": 15,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "masked": true,
+      "response": 90,
+      "total": 1290,
+      "selected": 1156,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "masked": true,
+      "response": 100,
+      "total": 1290,
+      "selected": 1290,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    }
+  ]
+}

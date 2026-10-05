@@ -1,0 +1,3022 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "Actual checkpoint parameters, generated prepared RGB448, complete UNet graph; exploratory unresolved reductions retained explicitly; no final D2PRL detection or universal parity claim",
+  "final": {
+    "name": "unet-final-sigmoid",
+    "elements": 200704,
+    "different": 19260,
+    "maxAbs": 0.0002135634422302246,
+    "meanAbs": 9.588354614271628e-8,
+    "thresholdChanges": 0,
+    "nonfinite": 0
+  },
+  "unqualified": [
+    {
+      "name": "encoder_stages.1.1.0.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.1.1.0.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.0.downsample.0",
+      "reason": "native-tail-reduction-unresolved"
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.4.0.downsample.0",
+      "reason": "native-tail-reduction-unresolved"
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "decoder_stages.3.layer.1",
+      "reason": "native-tail-reduction-unresolved"
+    },
+    {
+      "name": "bottlenecks.0.seq.0",
+      "reason": "native-tail-reduction-unresolved"
+    },
+    {
+      "name": "bottlenecks.0.seq.2.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "bottlenecks.0.seq.2.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "bottlenecks.1.seq.2.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "bottlenecks.1.seq.2.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "bottlenecks.2.seq.2.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "bottlenecks.2.seq.2.fc2",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "bottlenecks.3.seq.2.fc1",
+      "reason": "four-lane-reduction-probe"
+    },
+    {
+      "name": "bottlenecks.3.seq.2.fc2",
+      "reason": "four-lane-reduction-probe"
+    }
+  ],
+  "records": [
+    {
+      "name": "encoder_stages.0.conv1",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.0.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.0.conv3",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.conv1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.conv3",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.downsample.0",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.se_module.fc1",
+      "elements": 16,
+      "different": 1,
+      "maxAbs": 1.1920928955078125e-7,
+      "meanAbs": 7.450580596923828e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.se_module.fc2",
+      "elements": 256,
+      "different": 39,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 3.620516508817673e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.conv1",
+      "elements": 1605632,
+      "different": 216414,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 1.8074400969100902e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.conv2",
+      "elements": 3211264,
+      "different": 667770,
+      "maxAbs": 5.960464477539062e-7,
+      "meanAbs": 7.453901748012399e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.conv3",
+      "elements": 3211264,
+      "different": 1878835,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 6.862356088338167e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.fc1",
+      "elements": 16,
+      "different": 10,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 3.0547380447387695e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.fc2",
+      "elements": 256,
+      "different": 100,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 8.213100954890251e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.conv1",
+      "elements": 1605632,
+      "different": 1000193,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 1.276580855010517e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.conv2",
+      "elements": 3211264,
+      "different": 2234825,
+      "maxAbs": 8.344650268554688e-7,
+      "meanAbs": 3.7502035294358e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.conv3",
+      "elements": 3211264,
+      "different": 2643573,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 1.50770911081334e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.fc1",
+      "elements": 16,
+      "different": 6,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 3.427267074584961e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.fc2",
+      "elements": 256,
+      "different": 124,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 9.010545909404755e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.conv1",
+      "elements": 3211264,
+      "different": 2446393,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 2.3352431091164476e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.conv2",
+      "elements": 1605632,
+      "different": 1244019,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 4.037977213328882e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.conv3",
+      "elements": 1605632,
+      "different": 1374032,
+      "maxAbs": 0.000003814697265625,
+      "meanAbs": 2.3725614853699686e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.downsample.0",
+      "elements": 1605632,
+      "different": 1309209,
+      "maxAbs": 0.0000152587890625,
+      "meanAbs": 0.000001241388241724665,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.fc1",
+      "elements": 32,
+      "different": 23,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 5.373731255531311e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.fc2",
+      "elements": 512,
+      "different": 341,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 2.0227162167429924e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.conv1",
+      "elements": 802816,
+      "different": 678422,
+      "maxAbs": 0.0000057220458984375,
+      "meanAbs": 5.210135142921479e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.conv2",
+      "elements": 1605632,
+      "different": 1330321,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 5.596855898210189e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.conv3",
+      "elements": 1605632,
+      "different": 1425882,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 1.8210615105216558e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.fc1",
+      "elements": 32,
+      "different": 25,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 5.532056093215942e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.fc2",
+      "elements": 512,
+      "different": 244,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 1.2456439435482025e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.conv1",
+      "elements": 802816,
+      "different": 689177,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 5.763221405689033e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.conv2",
+      "elements": 1605632,
+      "different": 1363854,
+      "maxAbs": 0.0000016689300537109375,
+      "meanAbs": 6.655500566728096e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.conv3",
+      "elements": 1605632,
+      "different": 1423067,
+      "maxAbs": 0.0000021457672119140625,
+      "meanAbs": 1.7679952098259255e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.fc1",
+      "elements": 32,
+      "different": 27,
+      "maxAbs": 0.000003814697265625,
+      "meanAbs": 0.0000010402873158454895,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.fc2",
+      "elements": 512,
+      "different": 284,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 2.5963527150452137e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.conv1",
+      "elements": 802816,
+      "different": 696470,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 6.567086667157481e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.conv2",
+      "elements": 1605632,
+      "different": 1388645,
+      "maxAbs": 0.0000013113021850585938,
+      "meanAbs": 6.791974266838263e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.conv3",
+      "elements": 1605632,
+      "different": 1458074,
+      "maxAbs": 0.000003337860107421875,
+      "meanAbs": 2.376596419521842e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.fc1",
+      "elements": 32,
+      "different": 26,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 3.9441511034965515e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.fc2",
+      "elements": 512,
+      "different": 207,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 5.279434844851494e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.conv1",
+      "elements": 802816,
+      "different": 702379,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 6.358095728525972e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.conv2",
+      "elements": 1605632,
+      "different": 1389654,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 6.389828129062735e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.conv3",
+      "elements": 1605632,
+      "different": 1435641,
+      "maxAbs": 0.000002384185791015625,
+      "meanAbs": 1.859025319691385e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.fc1",
+      "elements": 32,
+      "different": 26,
+      "maxAbs": 0.000003814697265625,
+      "meanAbs": 3.641471266746521e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.fc2",
+      "elements": 512,
+      "different": 356,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 2.1854066289961338e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.conv1",
+      "elements": 802816,
+      "different": 699624,
+      "maxAbs": 0.0000095367431640625,
+      "meanAbs": 6.508018301498946e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.conv2",
+      "elements": 1605632,
+      "different": 1390116,
+      "maxAbs": 0.0000011920928955078125,
+      "meanAbs": 6.733934105046271e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.conv3",
+      "elements": 1605632,
+      "different": 1424351,
+      "maxAbs": 0.000002384185791015625,
+      "meanAbs": 1.9843700160837585e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.fc1",
+      "elements": 32,
+      "different": 22,
+      "maxAbs": 1.1920928955078125e-7,
+      "meanAbs": 2.2584572434425354e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.conv1",
+      "elements": 802816,
+      "different": 702252,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 6.498734873357085e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.conv2",
+      "elements": 1605632,
+      "different": 1388365,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 6.542623241713331e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.conv3",
+      "elements": 1605632,
+      "different": 1405714,
+      "maxAbs": 0.000003337860107421875,
+      "meanAbs": 2.3523665650625674e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.fc1",
+      "elements": 32,
+      "different": 14,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 2.9313378036022186e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.conv1",
+      "elements": 802816,
+      "different": 711798,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 5.548254088910121e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.conv2",
+      "elements": 1605632,
+      "different": 1390124,
+      "maxAbs": 0.0000016689300537109375,
+      "meanAbs": 6.531012391785528e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.conv3",
+      "elements": 1605632,
+      "different": 1425962,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 2.144443484010022e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.fc1",
+      "elements": 32,
+      "different": 21,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 5.606561899185181e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.fc2",
+      "elements": 512,
+      "different": 374,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 8.8853994384408e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.conv1",
+      "elements": 1605632,
+      "different": 1434699,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 5.174609178624574e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.conv2",
+      "elements": 802816,
+      "different": 679050,
+      "maxAbs": 0.0000010728836059570312,
+      "meanAbs": 3.8592727432942954e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.conv3",
+      "elements": 802816,
+      "different": 731766,
+      "maxAbs": 0.0000152587890625,
+      "meanAbs": 6.22682171599759e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.downsample.0",
+      "elements": 802816,
+      "different": 722793,
+      "maxAbs": 0.000072479248046875,
+      "meanAbs": 0.0000029105377250458553,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.fc1",
+      "elements": 64,
+      "different": 52,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 0.0000012794043868780136,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.fc2",
+      "elements": 1024,
+      "different": 675,
+      "maxAbs": 0.000003814697265625,
+      "meanAbs": 5.133042577654123e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.conv1",
+      "elements": 401408,
+      "different": 345196,
+      "maxAbs": 0.0000152587890625,
+      "meanAbs": 0.0000011503270663005766,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.conv2",
+      "elements": 802816,
+      "different": 661636,
+      "maxAbs": 0.0000011920928955078125,
+      "meanAbs": 7.174017653048342e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.conv3",
+      "elements": 802816,
+      "different": 711691,
+      "maxAbs": 0.000002384185791015625,
+      "meanAbs": 1.9647987242559433e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.fc1",
+      "elements": 64,
+      "different": 41,
+      "maxAbs": 0.0000057220458984375,
+      "meanAbs": 7.457565516233444e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.fc2",
+      "elements": 1024,
+      "different": 627,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 1.6142621461767703e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.conv1",
+      "elements": 401408,
+      "different": 347074,
+      "maxAbs": 0.0000152587890625,
+      "meanAbs": 0.000001126623843393017,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.conv2",
+      "elements": 802816,
+      "different": 630795,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 6.304510338597932e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.conv3",
+      "elements": 802816,
+      "different": 721205,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 1.3524592981935752e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.fc1",
+      "elements": 64,
+      "different": 52,
+      "maxAbs": 2.384185791015625e-7,
+      "meanAbs": 4.5372871682047844e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.conv1",
+      "elements": 401408,
+      "different": 345785,
+      "maxAbs": 0.000057220458984375,
+      "meanAbs": 0.0000011396396710183095,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.conv2",
+      "elements": 802816,
+      "different": 657084,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 6.048283966621473e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.conv3",
+      "elements": 802816,
+      "different": 735405,
+      "maxAbs": 0.000012874603271484375,
+      "meanAbs": 1.193800962852547e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.fc1",
+      "elements": 64,
+      "different": 35,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 1.2220721146150026e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.fc2",
+      "elements": 1024,
+      "different": 484,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 6.947630026843399e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.conv1",
+      "elements": 401408,
+      "different": 345235,
+      "maxAbs": 0.000030517578125,
+      "meanAbs": 0.0000011313064340700324,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.conv2",
+      "elements": 802816,
+      "different": 685133,
+      "maxAbs": 0.0000030994415283203125,
+      "meanAbs": 6.226957043160645e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.conv3",
+      "elements": 802816,
+      "different": 714429,
+      "maxAbs": 0.000002384185791015625,
+      "meanAbs": 1.9577257937054584e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.fc1",
+      "elements": 64,
+      "different": 53,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 2.6669476937968284e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.fc2",
+      "elements": 1024,
+      "different": 625,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 9.610175766283646e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.conv1",
+      "elements": 401408,
+      "different": 346529,
+      "maxAbs": 0.0000286102294921875,
+      "meanAbs": 0.000001066759979790188,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.conv2",
+      "elements": 802816,
+      "different": 683932,
+      "maxAbs": 0.0000016689300537109375,
+      "meanAbs": 5.362078878172192e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.conv3",
+      "elements": 802816,
+      "different": 719011,
+      "maxAbs": 0.000004291534423828125,
+      "meanAbs": 3.0155949946574175e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.fc1",
+      "elements": 64,
+      "different": 51,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 3.744344212464057e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.conv1",
+      "elements": 401408,
+      "different": 344154,
+      "maxAbs": 0.0000324249267578125,
+      "meanAbs": 0.000001107307707754026,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.conv2",
+      "elements": 802816,
+      "different": 683563,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 5.2102514391587564e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.conv3",
+      "elements": 802816,
+      "different": 716425,
+      "maxAbs": 0.00000476837158203125,
+      "meanAbs": 2.7453801426941097e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.fc1",
+      "elements": 64,
+      "different": 53,
+      "maxAbs": 3.5762786865234375e-7,
+      "meanAbs": 7.916241884231567e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.conv1",
+      "elements": 401408,
+      "different": 346123,
+      "maxAbs": 0.00002288818359375,
+      "meanAbs": 0.0000010496204068419044,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.conv2",
+      "elements": 802816,
+      "different": 641476,
+      "maxAbs": 0.0000026226043701171875,
+      "meanAbs": 4.421718889337759e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.conv3",
+      "elements": 802816,
+      "different": 724504,
+      "maxAbs": 0.0000152587890625,
+      "meanAbs": 3.7027125277374774e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.fc1",
+      "elements": 64,
+      "different": 36,
+      "maxAbs": 3.5762786865234375e-7,
+      "meanAbs": 9.555151336826384e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.conv1",
+      "elements": 401408,
+      "different": 343822,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 0.0000010254513585635407,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.conv2",
+      "elements": 802816,
+      "different": 650362,
+      "maxAbs": 0.0000011920928955078125,
+      "meanAbs": 3.908191790450821e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.conv3",
+      "elements": 802816,
+      "different": 722377,
+      "maxAbs": 0.000004291534423828125,
+      "meanAbs": 3.626566609042194e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.fc1",
+      "elements": 64,
+      "different": 54,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 2.100205165334046e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.fc2",
+      "elements": 1024,
+      "different": 533,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 1.4083707355894148e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.conv1",
+      "elements": 401408,
+      "different": 342605,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 0.0000010474344535933644,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.conv2",
+      "elements": 802816,
+      "different": 658124,
+      "maxAbs": 0.0000010728836059570312,
+      "meanAbs": 3.476821160565999e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.conv3",
+      "elements": 802816,
+      "different": 739578,
+      "maxAbs": 0.000003814697265625,
+      "meanAbs": 3.1486141744840993e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.fc1",
+      "elements": 64,
+      "different": 51,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 1.546004568808712e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.fc2",
+      "elements": 1024,
+      "different": 904,
+      "maxAbs": 7.152557373046875e-7,
+      "meanAbs": 1.2519649317255244e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.conv1",
+      "elements": 401408,
+      "different": 347354,
+      "maxAbs": 0.00001430511474609375,
+      "meanAbs": 0.0000010609218315470437,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.conv2",
+      "elements": 802816,
+      "different": 627254,
+      "maxAbs": 0.0000011920928955078125,
+      "meanAbs": 4.161519551892064e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.conv3",
+      "elements": 802816,
+      "different": 732237,
+      "maxAbs": 0.0000059604644775390625,
+      "meanAbs": 3.9391453488551614e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.fc1",
+      "elements": 64,
+      "different": 51,
+      "maxAbs": 1.1920928955078125e-7,
+      "meanAbs": 2.6433554012328386e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.conv1",
+      "elements": 401408,
+      "different": 348557,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 0.0000010108015121382827,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.conv2",
+      "elements": 802816,
+      "different": 623639,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 3.66837797167186e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.conv3",
+      "elements": 802816,
+      "different": 743082,
+      "maxAbs": 0.00000667572021484375,
+      "meanAbs": 5.659225224620395e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.fc1",
+      "elements": 64,
+      "different": 47,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 2.2228050511330366e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.fc2",
+      "elements": 1024,
+      "different": 820,
+      "maxAbs": 1.7881393432617188e-7,
+      "meanAbs": 3.8685584513586946e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.conv1",
+      "elements": 401408,
+      "different": 349056,
+      "maxAbs": 0.0000133514404296875,
+      "meanAbs": 0.0000011182880488383464,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.conv2",
+      "elements": 802816,
+      "different": 683941,
+      "maxAbs": 0.0000010728836059570312,
+      "meanAbs": 3.9632558613295357e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.conv3",
+      "elements": 802816,
+      "different": 728132,
+      "maxAbs": 0.0000054836273193359375,
+      "meanAbs": 3.6762676512787676e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.fc1",
+      "elements": 64,
+      "different": 53,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 1.7913407646119595e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.fc2",
+      "elements": 1024,
+      "different": 867,
+      "maxAbs": 3.5762786865234375e-7,
+      "meanAbs": 8.307415555464104e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.conv1",
+      "elements": 401408,
+      "different": 351813,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 0.0000010796203793246876,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.conv2",
+      "elements": 802816,
+      "different": 648494,
+      "maxAbs": 7.152557373046875e-7,
+      "meanAbs": 4.086132634200097e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.conv3",
+      "elements": 802816,
+      "different": 745911,
+      "maxAbs": 0.00000667572021484375,
+      "meanAbs": 5.518059176563017e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.fc1",
+      "elements": 64,
+      "different": 44,
+      "maxAbs": 8.940696716308594e-8,
+      "meanAbs": 1.928128767758608e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.conv1",
+      "elements": 401408,
+      "different": 353973,
+      "maxAbs": 0.00001430511474609375,
+      "meanAbs": 0.0000011504747016292428,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.conv2",
+      "elements": 802816,
+      "different": 637632,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 3.179036216819761e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.conv3",
+      "elements": 802816,
+      "different": 736618,
+      "maxAbs": 0.0000036954879760742188,
+      "meanAbs": 3.6844795883901604e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.fc1",
+      "elements": 64,
+      "different": 50,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 4.5303022488951683e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.fc2",
+      "elements": 1024,
+      "different": 737,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 2.3069878807291389e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.conv1",
+      "elements": 401408,
+      "different": 355938,
+      "maxAbs": 0.0000133514404296875,
+      "meanAbs": 0.0000012142615807522596,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.conv2",
+      "elements": 802816,
+      "different": 636007,
+      "maxAbs": 0.0000011920928955078125,
+      "meanAbs": 3.862732688030726e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.conv3",
+      "elements": 802816,
+      "different": 751232,
+      "maxAbs": 0.0000057220458984375,
+      "meanAbs": 4.843096614598106e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.fc1",
+      "elements": 64,
+      "different": 49,
+      "maxAbs": 1.1920928955078125e-7,
+      "meanAbs": 1.6239937394857407e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.conv1",
+      "elements": 401408,
+      "different": 354676,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 0.0000011466100585099998,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.conv2",
+      "elements": 802816,
+      "different": 609474,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 3.3142160499785495e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.conv3",
+      "elements": 802816,
+      "different": 749867,
+      "maxAbs": 0.00000476837158203125,
+      "meanAbs": 4.1483027332315286e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.fc1",
+      "elements": 64,
+      "different": 40,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 3.8831785786896944e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.fc2",
+      "elements": 1024,
+      "different": 625,
+      "maxAbs": 4.76837158203125e-7,
+      "meanAbs": 3.8403413782361895e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.conv1",
+      "elements": 401408,
+      "different": 358653,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 0.0000013762917284366393,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.conv2",
+      "elements": 802816,
+      "different": 625311,
+      "maxAbs": 8.344650268554688e-7,
+      "meanAbs": 3.211984427087159e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.conv3",
+      "elements": 802816,
+      "different": 752162,
+      "maxAbs": 0.000007152557373046875,
+      "meanAbs": 6.693653392145736e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.fc1",
+      "elements": 64,
+      "different": 47,
+      "maxAbs": 5.960464477539063e-8,
+      "meanAbs": 7.415110303554684e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.conv1",
+      "elements": 401408,
+      "different": 357526,
+      "maxAbs": 0.0000152587890625,
+      "meanAbs": 0.00000125431537804356,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.conv2",
+      "elements": 802816,
+      "different": 571665,
+      "maxAbs": 7.748603820800781e-7,
+      "meanAbs": 2.7419380527636875e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.conv3",
+      "elements": 802816,
+      "different": 752319,
+      "maxAbs": 0.000011444091796875,
+      "meanAbs": 7.508955511481266e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.fc1",
+      "elements": 64,
+      "different": 45,
+      "maxAbs": 1.862645149230957e-8,
+      "meanAbs": 3.5433913581073284e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.conv1",
+      "elements": 401408,
+      "different": 357384,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 0.0000011714306663366935,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.conv2",
+      "elements": 802816,
+      "different": 536928,
+      "maxAbs": 0.0000011324882507324219,
+      "meanAbs": 2.7390592533608657e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.conv3",
+      "elements": 802816,
+      "different": 756601,
+      "maxAbs": 0.000013828277587890625,
+      "meanAbs": 8.157121996725793e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.fc1",
+      "elements": 64,
+      "different": 41,
+      "maxAbs": 2.9802322387695312e-8,
+      "meanAbs": 6.71207089908421e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.conv1",
+      "elements": 401408,
+      "different": 356583,
+      "maxAbs": 0.000019073486328125,
+      "meanAbs": 0.0000010580891319129564,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.conv2",
+      "elements": 802816,
+      "different": 455612,
+      "maxAbs": 8.642673492431641e-7,
+      "meanAbs": 1.6841585858141023e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.conv3",
+      "elements": 802816,
+      "different": 752143,
+      "maxAbs": 0.00001621246337890625,
+      "meanAbs": 5.709562020938151e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.fc1",
+      "elements": 64,
+      "different": 47,
+      "maxAbs": 2.2351741790771484e-8,
+      "meanAbs": 4.869434633292258e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.conv1",
+      "elements": 401408,
+      "different": 354334,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 9.19703765106467e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.conv2",
+      "elements": 802816,
+      "different": 479425,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 1.9053951997796015e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.conv3",
+      "elements": 802816,
+      "different": 753045,
+      "maxAbs": 0.000011444091796875,
+      "meanAbs": 5.819242376234324e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.fc1",
+      "elements": 64,
+      "different": 49,
+      "maxAbs": 4.470348358154297e-8,
+      "meanAbs": 1.618172973394394e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.conv1",
+      "elements": 401408,
+      "different": 357256,
+      "maxAbs": 0.000019073486328125,
+      "meanAbs": 8.806541733257126e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.conv2",
+      "elements": 802816,
+      "different": 437110,
+      "maxAbs": 8.940696716308594e-7,
+      "meanAbs": 1.4644696018781874e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.conv3",
+      "elements": 802816,
+      "different": 725860,
+      "maxAbs": 0.0000057220458984375,
+      "meanAbs": 3.267129076167663e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.fc1",
+      "elements": 64,
+      "different": 42,
+      "maxAbs": 4.76837158203125e-7,
+      "meanAbs": 6.530899554491043e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.conv1",
+      "elements": 401408,
+      "different": 356064,
+      "maxAbs": 0.0000133514404296875,
+      "meanAbs": 7.656879928158563e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.conv2",
+      "elements": 802816,
+      "different": 456249,
+      "maxAbs": 5.960464477539062e-7,
+      "meanAbs": 1.197836221266185e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.conv3",
+      "elements": 802816,
+      "different": 707356,
+      "maxAbs": 0.000003337860107421875,
+      "meanAbs": 1.7027170565968903e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.fc1",
+      "elements": 64,
+      "different": 49,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 2.654269337654114e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.fc2",
+      "elements": 1024,
+      "different": 604,
+      "maxAbs": 4.76837158203125e-7,
+      "meanAbs": 9.392806532559916e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.conv1",
+      "elements": 401408,
+      "different": 352146,
+      "maxAbs": 0.00001621246337890625,
+      "meanAbs": 8.346810732630427e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.conv2",
+      "elements": 802816,
+      "different": 505387,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 2.74065784746636e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.conv3",
+      "elements": 802816,
+      "different": 748112,
+      "maxAbs": 0.00000667572021484375,
+      "meanAbs": 4.855490260789185e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.fc1",
+      "elements": 64,
+      "different": 44,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 4.1400198824703693e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.conv1",
+      "elements": 401408,
+      "different": 353587,
+      "maxAbs": 0.0000133514404296875,
+      "meanAbs": 6.676033971182979e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.conv2",
+      "elements": 802816,
+      "different": 408551,
+      "maxAbs": 8.940696716308594e-7,
+      "meanAbs": 1.2526110170816047e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.conv3",
+      "elements": 802816,
+      "different": 735681,
+      "maxAbs": 0.00000667572021484375,
+      "meanAbs": 1.7796793109691283e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.fc1",
+      "elements": 64,
+      "different": 45,
+      "maxAbs": 5.960464477539062e-7,
+      "meanAbs": 6.612390279769897e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.conv1",
+      "elements": 401408,
+      "different": 351000,
+      "maxAbs": 0.0000152587890625,
+      "meanAbs": 6.309741144906745e-7,
+      "thresholdChanges": 1,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.conv2",
+      "elements": 802816,
+      "different": 418699,
+      "maxAbs": 0.0000011920928955078125,
+      "meanAbs": 1.5867963863186142e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.conv3",
+      "elements": 802816,
+      "different": 743967,
+      "maxAbs": 0.0000057220458984375,
+      "meanAbs": 2.1255304823892917e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.fc1",
+      "elements": 64,
+      "different": 46,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 2.4028122425079346e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.fc2",
+      "elements": 1024,
+      "different": 819,
+      "maxAbs": 2.384185791015625e-7,
+      "meanAbs": 4.5522028813138604e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.conv1",
+      "elements": 401408,
+      "different": 349205,
+      "maxAbs": 0.000011444091796875,
+      "meanAbs": 5.019307995488568e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.conv2",
+      "elements": 802816,
+      "different": 284366,
+      "maxAbs": 0.000001043081283569336,
+      "meanAbs": 8.788597877014027e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.conv3",
+      "elements": 802816,
+      "different": 707044,
+      "maxAbs": 0.0000050067901611328125,
+      "meanAbs": 9.45429675884892e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.fc1",
+      "elements": 64,
+      "different": 38,
+      "maxAbs": 8.940696716308594e-8,
+      "meanAbs": 2.6775524020195007e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.conv1",
+      "elements": 401408,
+      "different": 351835,
+      "maxAbs": 0.00000858306884765625,
+      "meanAbs": 4.48939357310589e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.conv2",
+      "elements": 802816,
+      "different": 400975,
+      "maxAbs": 0.0000013113021850585938,
+      "meanAbs": 1.2628583167679433e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.conv3",
+      "elements": 802816,
+      "different": 722139,
+      "maxAbs": 0.0000057220458984375,
+      "meanAbs": 1.2768240061521547e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.fc1",
+      "elements": 64,
+      "different": 55,
+      "maxAbs": 5.960464477539062e-7,
+      "meanAbs": 1.0780058801174164e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.conv1",
+      "elements": 401408,
+      "different": 356442,
+      "maxAbs": 0.00000667572021484375,
+      "meanAbs": 4.1223097859801424e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.conv2",
+      "elements": 802816,
+      "different": 597499,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 2.560244619689889e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.conv3",
+      "elements": 802816,
+      "different": 735410,
+      "maxAbs": 0.00000858306884765625,
+      "meanAbs": 3.5924033300206377e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.fc1",
+      "elements": 64,
+      "different": 50,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 5.104229785501957e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.fc2",
+      "elements": 1024,
+      "different": 1003,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 5.737492756452411e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.conv1",
+      "elements": 401408,
+      "different": 361387,
+      "maxAbs": 0.0000095367431640625,
+      "meanAbs": 4.715541307431792e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.conv2",
+      "elements": 802816,
+      "different": 695885,
+      "maxAbs": 0.000004291534423828125,
+      "meanAbs": 7.782161124261985e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.conv3",
+      "elements": 802816,
+      "different": 745603,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 3.259402759184918e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.fc1",
+      "elements": 64,
+      "different": 53,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 2.93337507173419e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.fc2",
+      "elements": 1024,
+      "different": 957,
+      "maxAbs": 9.5367431640625e-7,
+      "meanAbs": 1.7298225429840386e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.conv1",
+      "elements": 401408,
+      "different": 356175,
+      "maxAbs": 0.0000057220458984375,
+      "meanAbs": 4.048636496702543e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.conv2",
+      "elements": 802816,
+      "different": 684525,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 3.0691637642957837e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.conv3",
+      "elements": 802816,
+      "different": 728879,
+      "maxAbs": 0.0000133514404296875,
+      "meanAbs": 4.466679833310983e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.fc1",
+      "elements": 64,
+      "different": 43,
+      "maxAbs": 8.940696716308594e-8,
+      "meanAbs": 1.594889909029007e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.conv1",
+      "elements": 401408,
+      "different": 357545,
+      "maxAbs": 0.000006198883056640625,
+      "meanAbs": 3.3404565273761954e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.conv2",
+      "elements": 802816,
+      "different": 567458,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 1.5876357531480624e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.conv3",
+      "elements": 802816,
+      "different": 737199,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 1.7908054202435635e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.fc1",
+      "elements": 64,
+      "different": 44,
+      "maxAbs": 7.450580596923828e-8,
+      "meanAbs": 1.2882082955911756e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.conv1",
+      "elements": 401408,
+      "different": 354527,
+      "maxAbs": 0.000005245208740234375,
+      "meanAbs": 2.8742351949243385e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.conv2",
+      "elements": 802816,
+      "different": 454486,
+      "maxAbs": 8.344650268554688e-7,
+      "meanAbs": 7.739849911834925e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.conv3",
+      "elements": 802816,
+      "different": 589753,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 3.3176376262176867e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.fc1",
+      "elements": 64,
+      "different": 50,
+      "maxAbs": 1.043081283569336e-7,
+      "meanAbs": 1.14796421257779e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.conv1",
+      "elements": 401408,
+      "different": 355381,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 2.814010462923108e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.conv2",
+      "elements": 802816,
+      "different": 597973,
+      "maxAbs": 0.0000010728836059570312,
+      "meanAbs": 1.814412127933673e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.conv3",
+      "elements": 802816,
+      "different": 710890,
+      "maxAbs": 0.0000095367431640625,
+      "meanAbs": 2.790393192453475e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.fc1",
+      "elements": 64,
+      "different": 49,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 2.1829328034073114e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.fc2",
+      "elements": 1024,
+      "different": 741,
+      "maxAbs": 0.00000286102294921875,
+      "meanAbs": 3.6851997720077634e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.conv1",
+      "elements": 401408,
+      "different": 359365,
+      "maxAbs": 0.0000057220458984375,
+      "meanAbs": 3.546797374064132e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.conv2",
+      "elements": 802816,
+      "different": 662150,
+      "maxAbs": 0.000001430511474609375,
+      "meanAbs": 2.159239754681708e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.conv3",
+      "elements": 802816,
+      "different": 613273,
+      "maxAbs": 0.000011444091796875,
+      "meanAbs": 4.999349772550921e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.fc1",
+      "elements": 64,
+      "different": 54,
+      "maxAbs": 0.0000019073486328125,
+      "meanAbs": 1.2212558431201614e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.fc2",
+      "elements": 1024,
+      "different": 961,
+      "maxAbs": 2.384185791015625e-7,
+      "meanAbs": 5.228002919466235e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.conv1",
+      "elements": 802816,
+      "different": 721002,
+      "maxAbs": 0.0000057220458984375,
+      "meanAbs": 2.853299790133134e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.conv2",
+      "elements": 401408,
+      "different": 222592,
+      "maxAbs": 4.76837158203125e-7,
+      "meanAbs": 8.879229349909918e-9,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.conv3",
+      "elements": 401408,
+      "different": 351276,
+      "maxAbs": 0.000011444091796875,
+      "meanAbs": 5.387984530786383e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.downsample.0",
+      "elements": 401408,
+      "different": 353136,
+      "maxAbs": 0.00011444091796875,
+      "meanAbs": 0.0000019051032628816969,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.fc1",
+      "elements": 128,
+      "different": 109,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 0.000001048436388373375,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.fc2",
+      "elements": 2048,
+      "different": 1905,
+      "maxAbs": 0.000011444091796875,
+      "meanAbs": 0.0000018859936972148716,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.conv1",
+      "elements": 200704,
+      "different": 174712,
+      "maxAbs": 0.0000171661376953125,
+      "meanAbs": 8.54655821134606e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.conv2",
+      "elements": 401408,
+      "different": 342225,
+      "maxAbs": 0.000003814697265625,
+      "meanAbs": 1.0233029579723177e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.conv3",
+      "elements": 401408,
+      "different": 350438,
+      "maxAbs": 0.00002288818359375,
+      "meanAbs": 8.278343834265933e-7,
+      "thresholdChanges": 1,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.fc1",
+      "elements": 128,
+      "different": 95,
+      "maxAbs": 0.000003814697265625,
+      "meanAbs": 3.7791323848068714e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.fc2",
+      "elements": 2048,
+      "different": 1968,
+      "maxAbs": 7.152557373046875e-7,
+      "meanAbs": 1.4442593965213746e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.conv1",
+      "elements": 200704,
+      "different": 168408,
+      "maxAbs": 0.0000133514404296875,
+      "meanAbs": 4.34384035233227e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.conv2",
+      "elements": 401408,
+      "different": 341530,
+      "maxAbs": 0.000002384185791015625,
+      "meanAbs": 4.609085441498071e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.conv3",
+      "elements": 401408,
+      "different": 338157,
+      "maxAbs": 0.000026702880859375,
+      "meanAbs": 8.262485253717404e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.fc1",
+      "elements": 128,
+      "different": 100,
+      "maxAbs": 0.000002384185791015625,
+      "meanAbs": 3.0401861295104027e-7,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.fc2",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "decoder_stages.3.layer.1",
+      "elements": 301056,
+      "different": 267120,
+      "maxAbs": 0.0000762939453125,
+      "meanAbs": 0.000002237493192309537,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.0",
+      "elements": 301056,
+      "different": 263757,
+      "maxAbs": 0.00016021728515625,
+      "meanAbs": 0.000004113019837434638,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.2.fc1",
+      "elements": 192,
+      "different": 144,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 0.0000014705583453178406,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.2.fc2",
+      "elements": 384,
+      "different": 252,
+      "maxAbs": 0.00002288818359375,
+      "meanAbs": 0.0000036116689443588257,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.2.spatial_se.0",
+      "elements": 784,
+      "different": 691,
+      "maxAbs": 0.00003814697265625,
+      "meanAbs": 0.000005279876747909857,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "decoder_stages.2.layer.1",
+      "elements": 802816,
+      "different": 724842,
+      "maxAbs": 0.0001220703125,
+      "meanAbs": 0.00000467508461330776,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.0",
+      "elements": 802816,
+      "different": 712009,
+      "maxAbs": 0.00017547607421875,
+      "meanAbs": 0.000009159061227616029,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.2.fc1",
+      "elements": 128,
+      "different": 109,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 0.000001648208126425743,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.2.fc2",
+      "elements": 256,
+      "different": 208,
+      "maxAbs": 0.000011444091796875,
+      "meanAbs": 0.0000029404181987047195,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.2.spatial_se.0",
+      "elements": 3136,
+      "different": 2954,
+      "maxAbs": 0.00005245208740234375,
+      "meanAbs": 0.000005810604845316206,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "decoder_stages.1.layer.1",
+      "elements": 1605632,
+      "different": 1470588,
+      "maxAbs": 0.0009765625,
+      "meanAbs": 0.000027126350139624543,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.0",
+      "elements": 1605632,
+      "different": 1449381,
+      "maxAbs": 0.00049591064453125,
+      "meanAbs": 0.000015023256340401917,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.2.fc1",
+      "elements": 64,
+      "different": 57,
+      "maxAbs": 0.0000152587890625,
+      "meanAbs": 0.0000031106173992156982,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.2.fc2",
+      "elements": 128,
+      "different": 117,
+      "maxAbs": 0.0000152587890625,
+      "meanAbs": 0.000005200505256652832,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.2.spatial_se.0",
+      "elements": 12544,
+      "different": 11867,
+      "maxAbs": 0.00009918212890625,
+      "meanAbs": 0.000007038852305988851,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "decoder_stages.0.layer.1",
+      "elements": 3211264,
+      "different": 2997095,
+      "maxAbs": 0.00079345703125,
+      "meanAbs": 0.000029623104199104156,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.0",
+      "elements": 3211264,
+      "different": 2846107,
+      "maxAbs": 0.0008544921875,
+      "meanAbs": 0.000014591533907497884,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.2.fc1",
+      "elements": 32,
+      "different": 26,
+      "maxAbs": 0.00000762939453125,
+      "meanAbs": 0.000002428889274597168,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.2.fc2",
+      "elements": 64,
+      "different": 51,
+      "maxAbs": 0.000011444091796875,
+      "meanAbs": 0.0000029243528842926025,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.2.spatial_se.0",
+      "elements": 50176,
+      "different": 48124,
+      "maxAbs": 0.00007152557373046875,
+      "meanAbs": 0.0000027290436462131285,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "last_upsample.layer.1",
+      "elements": 6422528,
+      "different": 6003684,
+      "maxAbs": 0.000911712646484375,
+      "meanAbs": 0.000017008591244250035,
+      "thresholdChanges": 2,
+      "nonfinite": 0
+    },
+    {
+      "name": "final.0",
+      "elements": 200704,
+      "different": 174827,
+      "maxAbs": 0.001491546630859375,
+      "meanAbs": 0.00004599922585282688,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-final-sigmoid",
+      "elements": 200704,
+      "different": 19260,
+      "maxAbs": 0.0002135634422302246,
+      "meanAbs": 9.588354614271628e-8,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    }
+  ],
+  "functionalMs": 15862.099999997765,
+  "budgetBytes": 4294967296,
+  "peakAccountedBytes": 452427776,
+  "memoryScope": "Engine reservations including conservative retained WASM heap and streamed parameters; native comparator and browser RSS excluded",
+  "allReservationsReleased": true,
+  "browser": "154.0.8037.58",
+  "sources": {
+    "experiments/d2prl/unet-graph.js": "3fd0ddff414522ba1565d16148b99e4373e52acd95ada60d15093e72394f005e",
+    "experiments/d2prl/neural-math.js": "196fcfba58c44f7500461eac531924196403356554fe25649d6527c1822ecda2",
+    "experiments/d2prl/convolution-general-gpu.js": "e2c8eb2aaae2be5cd1f2d2bce02a9801234ec58876bd6de6070b699203b02d38",
+    "fixtures/d2prl/gemm-layout-unet.json": "09131067ac964736ffd669fce60454e3354b117e796817bb34a497de0ef71107"
+  },
+  "mathBuild": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sources": {
+      "neural-math.cpp": "80948c4d2c5ab281bed5a25fa0c20602635389a16b58a9e1bcc2cbaa77cee920",
+      "feature-math.cpp": "783ee56177651072361971e9b303f822ff9d16ca42de7326d9bd8ea6cda89548",
+      "resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d",
+      "mean.cpp": "412d2558fd3d0152bac9f6f4dde7caca25363387ec9759c1779acb56ee7de72e",
+      "sigmoid.cpp": "3c0ac4c7a75ad0ce0de91b77cfe8ba4f529ca319fa43c027d23a0ea0789eef59",
+      "dlf.cpp": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
+      "reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+    },
+    "files": {
+      "neural-math.js": {
+        "bytes": 8053,
+        "sha256": "9dabd5182d33597ce0dc610cb00249a3cc8836f5a80b4a0ca4781cf07d91e4fb"
+      },
+      "neural-math.wasm": {
+        "bytes": 13419,
+        "sha256": "5a1edcdba280734b6846710dcd6415f96655d2a1f9055f11cffa911ee73a59b0"
+      }
+    }
+  },
+  "graphSha256": "39c6bc93a98b1d33d9411c08b51a7b2b6649663406191bc0242c38e2a6be3c29"
+}

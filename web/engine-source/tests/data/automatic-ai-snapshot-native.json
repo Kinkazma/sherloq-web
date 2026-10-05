@@ -1,0 +1,129 @@
+{
+  "width": 23,
+  "height": 19,
+  "arrays": {
+    "root_results_forgeryscope_map": {
+      "dtype": "<f4",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "a10969e3aa0b96aaf5be13744631cda5964a30e85100bf61e69ea04bc5642fd2"
+    },
+    "root_results_forgeryscope_mask": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "1d6f59f38917f3b57c60b6a50fd6594702cff5fd0d44345010d231f888cb64b3"
+    },
+    "root_results_forgeryscope_candidates": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "460b0684b142f51ed6d8b9ce33c83ff5dbd43d7f9c2e59e8466ecf3206b19935"
+    },
+    "root_results_forgeryscope_analyzed": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "24cf6bdf14f583d7c94f53477be5f0be00b22abf656b6ae2f5547189c825bf67"
+    },
+    "root_results_forgeryscope_geometric": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "1d6f59f38917f3b57c60b6a50fd6594702cff5fd0d44345010d231f888cb64b3"
+    },
+    "root_results_forgeryscope_branch_microscopy": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "460b0684b142f51ed6d8b9ce33c83ff5dbd43d7f9c2e59e8466ecf3206b19935"
+    },
+    "root_results_forgeryscope_branch_blots": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "24cf6bdf14f583d7c94f53477be5f0be00b22abf656b6ae2f5547189c825bf67"
+    },
+    "root_results_forgeryscope_branch_lanes": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "1d6f59f38917f3b57c60b6a50fd6594702cff5fd0d44345010d231f888cb64b3"
+    },
+    "root_results_d2prl_map": {
+      "dtype": "<f4",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "a10969e3aa0b96aaf5be13744631cda5964a30e85100bf61e69ea04bc5642fd2"
+    },
+    "root_results_d2prl_mask": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "1d6f59f38917f3b57c60b6a50fd6594702cff5fd0d44345010d231f888cb64b3"
+    },
+    "root_results_d2prl_candidates": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "460b0684b142f51ed6d8b9ce33c83ff5dbd43d7f9c2e59e8466ecf3206b19935"
+    },
+    "root_results_d2prl_analyzed": {
+      "dtype": "|u1",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "24cf6bdf14f583d7c94f53477be5f0be00b22abf656b6ae2f5547189c825bf67"
+    },
+    "root_results_d2prl_source": {
+      "dtype": "<f4",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "a10969e3aa0b96aaf5be13744631cda5964a30e85100bf61e69ea04bc5642fd2"
+    },
+    "root_results_d2prl_target": {
+      "dtype": "<f4",
+      "shape": [
+        19,
+        23
+      ],
+      "sha256": "a10969e3aa0b96aaf5be13744631cda5964a30e85100bf61e69ea04bc5642fd2"
+    },
+    "root_results_d2prl_raw_probabilities": {
+      "dtype": "<f4",
+      "shape": [
+        2,
+        3,
+        448,
+        448
+      ],
+      "sha256": "43256ae1f55e760e560d63a2c241fa8e77d18c49152b3d5598e75b42cf3b4077"
+    }
+  },
+  "metadataText": "{\"results\":{\"forgeryscope\":{\"map\":{\"array\":\"root_results_forgeryscope_map\"},\"mask\":{\"array\":\"root_results_forgeryscope_mask\"},\"candidates\":{\"array\":\"root_results_forgeryscope_candidates\"},\"analyzed\":{\"array\":\"root_results_forgeryscope_analyzed\"},\"geometric\":{\"array\":\"root_results_forgeryscope_geometric\"},\"branch_microscopy\":{\"array\":\"root_results_forgeryscope_branch_microscopy\"},\"branch_blots\":{\"array\":\"root_results_forgeryscope_branch_blots\"},\"branch_lanes\":{\"array\":\"root_results_forgeryscope_branch_lanes\"},\"metadata\":{\"variant\":\"Forgeryscope Auto\",\"boxes\":[[0,0,23,19]],\"status\":\"ok\"}},\"d2prl\":{\"map\":{\"array\":\"root_results_d2prl_map\"},\"mask\":{\"array\":\"root_results_d2prl_mask\"},\"candidates\":{\"array\":\"root_results_d2prl_candidates\"},\"analyzed\":{\"array\":\"root_results_d2prl_analyzed\"},\"source\":{\"array\":\"root_results_d2prl_source\"},\"target\":{\"array\":\"root_results_d2prl_target\"},\"raw_probabilities\":{\"array\":\"root_results_d2prl_raw_probabilities\"},\"metadata\":{\"variant\":\"D2PRL\",\"boxes\":[[0,0,23,19],[3,2,17,16]],\"analysisId\":\"saved-analysis\",\"resultId\":\"initial-result\",\"min_component\":500}}}}"
+}

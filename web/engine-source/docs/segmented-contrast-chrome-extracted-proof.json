@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual common worker on public12.612623MP JPEG under256MiB. Three native complete-image hashes, all indicator maps, cache ownership, JSON, surfaces and cancellation/reload. Functional timings only.",
+  "originalSha256": "6e1f7631beac461679fa598731c5cc635e8ff112c9912db8a4f25dcb8e083eb0",
+  "nativeSources": {
+    "source/gui/sherloq_app/core/contrast.py": "373cf73beb7a94ff6b5f2a6face118bf3f8e12495ac3c94e3c55f8e7d0008be1"
+  },
+  "dimensions": [
+    4099,
+    3077
+  ],
+  "loadMs": 327.29999999701977,
+  "loadMetrics": {
+    "decodeMs": 218.5,
+    "rowsPerChunk": 341,
+    "encodedWorkingBytes": 11338359,
+    "coefficientAllowanceBytes": 0,
+    "workingReservationBytes": 53279345,
+    "codecHeapCapacityBytes": 16777216,
+    "storage": "memory",
+    "temporaryBackend": null,
+    "temporaryFallback": null,
+    "temporaryBytes": 0,
+    "originalBlobBytes": 11338359,
+    "originalBlobResidency": "browser-managed; not measured as zero RAM",
+    "preparationMs": 278.6000000014901,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 37837869,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 92165790
+    }
+  },
+  "cases": [
+    {
+      "params": {
+        "block": 32,
+        "mode": 0
+      },
+      "fullSha256": "a495c6024b82b9a9855e1bd7f3cafbf142adb86c77c9a9193dd1be623d4cb4f6",
+      "windows": 4,
+      "mapSha256": "0c0502daa50454df9cdac1e8d281426e3f6005a46a7c985508cd4d5eaa625c55",
+      "rpcMs": 702.4000000059605,
+      "metrics": {
+        "totalMs": 701.7999999970198,
+        "analysisMs": 435.5,
+        "renderMs": 265.5,
+        "analysisCacheHit": false,
+        "sourceReads": 97,
+        "storage": "memory",
+        "retainedResultBytes": 37837869,
+        "retainedMapBytes": 152880,
+        "arithmeticHeapCapacityBytes": 67108864,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 75828618,
+          "cacheBytes": 152880,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 163398210
+        }
+      }
+    },
+    {
+      "params": {
+        "block": 64,
+        "mode": 1
+      },
+      "fullSha256": "466b091defaa5ffa4553b534b7576130b5c1976a0dd7f920bc609000be44f426",
+      "windows": 4,
+      "mapSha256": "9403cd43bd847a5adb8fc7f2ed4e91be3fd54e7cde5cb35214a4d662110d754e",
+      "rpcMs": 439.8999999985099,
+      "metrics": {
+        "totalMs": 439.6000000014901,
+        "analysisMs": 168.5,
+        "renderMs": 270.80000000447035,
+        "analysisCacheHit": false,
+        "sourceReads": 49,
+        "storage": "memory",
+        "retainedResultBytes": 37837869,
+        "retainedMapBytes": 39600,
+        "arithmeticHeapCapacityBytes": 67108864,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 113706087,
+          "cacheBytes": 192480,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 201624723
+        }
+      }
+    },
+    {
+      "params": {
+        "block": 256,
+        "mode": 2
+      },
+      "fullSha256": "92a4e268bb2631ea6319a6f00071c91cf3254eb3da315c0ba5851918403b543d",
+      "windows": 4,
+      "mapSha256": "1eafec1aba69c352f008081fb422cf41d0807ac0bf91b967a0665c5809356892",
+      "rpcMs": 362.1000000014901,
+      "metrics": {
+        "totalMs": 361.8999999985099,
+        "analysisMs": 102.79999999701977,
+        "renderMs": 258.79999999701977,
+        "analysisCacheHit": false,
+        "sourceReads": 13,
+        "storage": "memory",
+        "retainedResultBytes": 37837869,
+        "retainedMapBytes": 3024,
+        "arithmeticHeapCapacityBytes": 67108864,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 113556231,
+          "cacheBytes": 195504,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 206337387
+        }
+      }
+    }
+  ],
+  "cache": {
+    "totalMs": 268.70000000298023,
+    "analysisMs": 0,
+    "renderMs": 268.3999999985099,
+    "analysisCacheHit": true,
+    "sourceReads": 0,
+    "storage": "memory",
+    "retainedResultBytes": 37837869,
+    "retainedMapBytes": 3024,
+    "arithmeticHeapCapacityBytes": 67108864,
+    "temporaryBackend": null,
+    "temporaryFallback": null,
+    "workers": 1,
+    "cache": {
+      "result": false
+    },
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 113519655,
+      "cacheBytes": 195504,
+      "activeReservationBytes": 16777216,
+      "peakAccountedBytes": 206337387
+    }
+  },
+  "exportBytes": 14857,
+  "cancellation": "storage-closed-before-worker-termination",
+  "cancellationMs": 6.600000001490116,
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 168267438,
+    "knownHeapCapacityBytes": 83886080
+  },
+  "storageArtifactsRemaining": 0,
+  "engineOptions": {},
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 206337387,
+    "finalWorkerPeakAccountedBytes": 168267438
+  },
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true,
+  "engineSources": {
+    "src/segmented-contrast.js": "6f36036e7882e2ae67387dcc446adf3d9988206291b117bab30de6ec483ca58a",
+    "src/contrast-math.js": "b8d4ba9b5c69690c61047163eb90f3afd363a20b51ef1f02b0f09cf2a5bb58c9",
+    "vendor/contrast/contrast.wasm": "021e60ce9986b4d78c605d06412277d9279596a511923b8f7a27b0ffbb2a9bdf",
+    "src/exports.js": "1e503bd5ccf2f73f899ecc57b1add3a65d1f4a7d2ba8862b15feb4fe75e5525c",
+    "src/index.js": "8420de4365ae84c99b08a90b2870b32054d7b9a624ecc8e9d150b76bfd50fbc9"
+  },
+  "recipeSources": {
+    "scripts/proof-memory.mjs": "8961fbe1092bdcc16c3991e04e9e60118ba28e232ec7a5bac86596fe1942654c",
+    "scripts/generate-large-contrast.py": "27db77d15d19d6e3d9296deb007abb2f17fcf955e90c4734682ae9081bcd556e",
+    "scripts/study-segmented-contrast.mjs": "be274e4caba50b588c2faee54622db1acd4418710ecc7942cf3738ebb6eeb5fb",
+    "tests/segmented-contrast-browser.js": "a8eff5ab23f2b01b2f1d4135f0f60a5098a83eb9be6187f4fe906225e561f1f2"
+  }
+}

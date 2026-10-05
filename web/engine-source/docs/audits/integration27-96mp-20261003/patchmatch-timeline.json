@@ -1,0 +1,2558 @@
+{
+  "source": "44a39f5",
+  "run": ".build/integration/runtime-v2-transactional-96mp-20261003T125106Z",
+  "events": [
+    {
+      "progressJsonlLine": 845,
+      "at": "2026-10-03T12:54:15.364Z",
+      "elapsedMs": 186557.0800000131,
+      "phase": "resource-recovery",
+      "group": "sift",
+      "groupAttempt": 1,
+      "operation": "sift-native-tile",
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at readRect (http://127.0.0.1:51112/src/sift-paged.js:114:64)\n    at http://127.0.0.1:51112/src/sift-paged.js:130:220\n    at http://127.0.0.1:51112/src/sift-checkpoint.js:29:70\n    at http://127.0.0.1:51112/src/sift-paged.js:77:48\n    at runWithResourceRecovery.budget (http://127.0.0.1:51112/src/sift-paged.js:54:25)\n    at async runWithResourceRecovery (http://127.0.0.1:51112/src/resource-recovery.js:101:138)\n    at async SiftPool.execute (http://127.0.0.1:51112/src/sift-paged.js:48:14)\n    at async http://127.0.0.1:51112/src/sift-paged.js:77:21",
+        "details": {
+          "recovery": {
+            "operation": "sift-native-tile",
+            "phase": "prepare",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 17011570756,
+              "activeReservationBytes": 8710673633,
+              "cacheBytes": 0,
+              "availableBytes": 1765126875
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at readRect (http://127.0.0.1:51112/src/sift-paged.js:114:64)\n    at http://127.0.0.1:51112/src/sift-paged.js:130:220\n    at http://127.0.0.1:51112/src/sift-checkpoint.js:29:70\n    at http://127.0.0.1:51112/src/sift-paged.js:77:48\n    at runWithResourceRecovery.budget (http://127.0.0.1:51112/src/sift-paged.js:54:25)\n    at async runWithResourceRecovery (http://127.0.0.1:51112/src/resource-recovery.js:101:138)\n    at async SiftPool.execute (http://127.0.0.1:51112/src/sift-paged.js:48:14)\n    at async http://127.0.0.1:51112/src/sift-paged.js:77:21"
+        }
+      },
+      "domains": {
+        "array-buffer": {
+          "reservedBytes": 9256322142,
+          "materializedBytes": 9256322142,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 2471,
+          "owners": {
+            "unattributed": {
+              "reservedBytes": 313165824,
+              "materializedBytes": 313165824,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "patchmatch": {
+              "reservedBytes": 8455247872,
+              "materializedBytes": 8455247872,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 487908446,
+              "materializedBytes": 487908446,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "wasm": {
+          "reservedBytes": 3616693152,
+          "materializedBytes": 1796603904,
+          "pinnedBytes": 72089600,
+          "reclaimableBytes": 317718528,
+          "backings": 31,
+          "owners": {
+            "d2prl": {
+              "reservedBytes": 675872768,
+              "materializedBytes": 675872768,
+              "pinnedBytes": 72089600,
+              "reclaimableBytes": 317718528
+            },
+            "patchmatch": {
+              "reservedBytes": 524901280,
+              "materializedBytes": 335544320,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 2415919104,
+              "materializedBytes": 785186816,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "gpu": {
+          "reservedBytes": 27263848,
+          "materializedBytes": 27263848,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 2,
+          "owners": {
+            "sift": {
+              "reservedBytes": 27263848,
+              "materializedBytes": 27263848,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "gpu-mapped": {
+          "reservedBytes": 6291456,
+          "materializedBytes": 6291456,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 1,
+          "owners": {
+            "sift": {
+              "reservedBytes": 6291456,
+              "materializedBytes": 6291456,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        }
+      },
+      "lastAllocationReclaim": null
+    },
+    {
+      "progressJsonlLine": 12227,
+      "at": "2026-10-03T13:06:03.972Z",
+      "elapsedMs": 895213.7450000048,
+      "phase": "resource-recovery",
+      "group": "ela",
+      "groupAttempt": 1,
+      "operation": "ghost-quality/42",
+      "error": {
+        "code": "WORKER_MESSAGE_FAILED",
+        "name": "EngineError",
+        "message": "Worker message could not be read (ghost-stream-worker.js: null-data).",
+        "stack": "EngineError: Worker message could not be read (ghost-stream-worker.js: null-data).\n    at workerMessageFailure (http://127.0.0.1:51112/src/worker-message-protocol.js:4:9)\n    at message (http://127.0.0.1:51112/src/worker-message-protocol.js:16:89)",
+        "details": {
+          "transport": {
+            "label": "ghost-stream-worker.js",
+            "event": "message",
+            "reason": "null-data"
+          },
+          "recovery": {
+            "operation": "ghost-quality/42",
+            "phase": "",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 3163080304,
+              "activeReservationBytes": 7169061237,
+              "cacheBytes": 2408448,
+              "availableBytes": 17152821275
+            }
+          }
+        }
+      },
+      "domains": {
+        "array-buffer": {
+          "reservedBytes": 3303906744,
+          "materializedBytes": 3303906744,
+          "pinnedBytes": 1814890944,
+          "reclaimableBytes": 0,
+          "backings": 781,
+          "owners": {
+            "unattributed": {
+              "reservedBytes": 296388608,
+              "materializedBytes": 296388608,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "patchmatch": {
+              "reservedBytes": 2632860952,
+              "materializedBytes": 2632860952,
+              "pinnedBytes": 1814890944,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 374657184,
+              "materializedBytes": 374657184,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "wasm": {
+          "reservedBytes": 2760458176,
+          "materializedBytes": 2283077632,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 450625536,
+          "backings": 27,
+          "owners": {
+            "d2prl": {
+              "reservedBytes": 788201472,
+              "materializedBytes": 788201472,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 450625536
+            },
+            "patchmatch": {
+              "reservedBytes": 1435385792,
+              "materializedBytes": 1323499520,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 536870912,
+              "materializedBytes": 171376640,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "gpu": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu-mapped": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        }
+      },
+      "lastAllocationReclaim": {
+        "kind": "array-buffer",
+        "requestedBytes": 1048576,
+        "targetedReleasedBytes": 0,
+        "otherAccountedBytes": 16777216,
+        "ownersVisited": 46,
+        "completed": true,
+        "owners": [
+          {
+            "owner": "patchmatch",
+            "label": "shared-read-cache",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "dense-eligibility",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "zernike-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "zernike-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "dense-eligibility",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "sift",
+            "label": "sift-gray",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "sift",
+            "label": "sift-base:0",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "sift",
+            "label": "sift-base:1",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "dense-eligibility",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "dense-eligibility",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "dense-eligibility",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "patchmatch",
+            "label": "sift-descriptors",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": "unattributed",
+            "label": "segmented-bank",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": null,
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": null,
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": null,
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": null,
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": null,
+            "retiredBytes": 0,
+            "accountedBytes": 16777216
+          }
+        ]
+      }
+    },
+    {
+      "progressJsonlLine": 22719,
+      "at": "2026-10-03T13:11:08.957Z",
+      "elapsedMs": 1200197.9900000095,
+      "phase": "diagnostic-heartbeat",
+      "execution": {
+        "admitted": 875309,
+        "completed": 875303,
+        "peakCpu": 10,
+        "peakGpu": 1,
+        "peakQueued": 31,
+        "waitMs": 5618998.609985262,
+        "cpuLeaseMs": 11239060.09501174,
+        "gpuLeaseMs": 225214.47500014305,
+        "elasticAdmissions": 12966,
+        "memoryReclaims": 0,
+        "preflightExecutions": 0,
+        "capacity": {
+          "cpu": 10,
+          "gpu": 1
+        },
+        "active": {
+          "cpu": 10,
+          "gpu": 0
+        },
+        "running": 6,
+        "queued": 10,
+        "waiting": {
+          "cpu": 0,
+          "gpu": 0,
+          "memory": 10
+        },
+        "labels": {
+          "dense-regions": {
+            "admitted": 6,
+            "completed": 5,
+            "activeJobs": 1,
+            "activeCpu": 1,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 221703.90000000596,
+            "gpuLeaseMs": 0
+          },
+          "ocr": {
+            "admitted": 64,
+            "completed": 64,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 211415.83500012755,
+            "gpuLeaseMs": 0
+          },
+          "forgeryscope/preparation": {
+            "admitted": 20,
+            "completed": 20,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 59.10999998450279,
+            "gpuLeaseMs": 0
+          },
+          "neural/yolo_panel_extractor": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 22741.470000118017,
+            "gpuLeaseMs": 0
+          },
+          "neural/wblot_overlap_embedder": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 107.22499999403954,
+            "gpuLeaseMs": 107.22499999403954
+          },
+          "neural/similarity": {
+            "admitted": 16,
+            "completed": 16,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 3276.305000066757,
+            "gpuLeaseMs": 0
+          },
+          "neural/wblot_duplicate_embedder": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 65.69999998807907,
+            "gpuLeaseMs": 65.69999998807907
+          },
+          "neural/aliked/first-pool": {
+            "admitted": 6,
+            "completed": 6,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 759.6249999701977,
+            "gpuLeaseMs": 759.6249999701977
+          },
+          "neural/aliked/second": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 605.8100000023842,
+            "gpuLeaseMs": 605.8100000023842
+          },
+          "neural/aliked/b3-c1-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 74.28499999642372,
+            "gpuLeaseMs": 74.28499999642372
+          },
+          "neural/aliked/b3-c1-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 8,
+            "cpuLeaseMs": 3758.520000040531,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/gate": {
+            "admitted": 4,
+            "completed": 4,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 61.44999998807907,
+            "gpuLeaseMs": 61.44999998807907
+          },
+          "neural/aliked/b3-c2-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 93.67999997735023,
+            "gpuLeaseMs": 93.67999997735023
+          },
+          "neural/aliked/b3-c2-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 8,
+            "cpuLeaseMs": 4329.274999976158,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/b3-residual": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 125.61500000953674,
+            "gpuLeaseMs": 125.61500000953674
+          },
+          "neural/aliked/project3": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 76.41499999165535,
+            "gpuLeaseMs": 76.41499999165535
+          },
+          "neural/aliked/pool4": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 72.59999999403954,
+            "gpuLeaseMs": 72.59999999403954
+          },
+          "neural/aliked/b4-c1-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 82.45500001311302,
+            "gpuLeaseMs": 82.45500001311302
+          },
+          "neural/aliked/b4-c1-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 3362.5499999821186,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/b4-c2-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 72,
+            "gpuLeaseMs": 72
+          },
+          "neural/aliked/b4-c2-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 7,
+            "cpuLeaseMs": 3582.0399999916553,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/b4-residual": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 41.20000001788139,
+            "gpuLeaseMs": 41.20000001788139
+          },
+          "neural/aliked/project4": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 45.73999997973442,
+            "gpuLeaseMs": 45.73999997973442
+          },
+          "neural/aliked/first-project": {
+            "admitted": 60,
+            "completed": 60,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 4795.969999879599,
+            "gpuLeaseMs": 4795.969999879599
+          },
+          "neural/aliked/score": {
+            "admitted": 21,
+            "completed": 21,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 1441.0199999809265,
+            "gpuLeaseMs": 1441.0199999809265
+          },
+          "neural/aliked/nms": {
+            "admitted": 6,
+            "completed": 6,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 370.6099999845028,
+            "gpuLeaseMs": 370.6099999845028
+          },
+          "neural/aliked/localize": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 123.26000002026558,
+            "gpuLeaseMs": 123.26000002026558
+          },
+          "neural/aliked/normalize": {
+            "admitted": 39,
+            "completed": 39,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 2777.2400000691414,
+            "gpuLeaseMs": 2777.2400000691414
+          },
+          "neural/aliked/describe-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 107.95999997854233,
+            "gpuLeaseMs": 107.95999997854233
+          },
+          "neural/aliked/describe": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 100.53999999165535,
+            "gpuLeaseMs": 100.53999999165535
+          },
+          "d2prl-gpu-convolution": {
+            "admitted": 197,
+            "completed": 197,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 28040.680000126362
+          },
+          "dense-texture/buffers": {
+            "admitted": 29610,
+            "completed": 29610,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "dense-texture": {
+            "admitted": 29610,
+            "completed": 29610,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 93468.06500184536,
+            "gpuLeaseMs": 0
+          },
+          "dense-zernike/preparation-layout": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "dense-zernike/buffers": {
+            "admitted": 5922,
+            "completed": 5922,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "dense-zernike": {
+            "admitted": 5922,
+            "completed": 5922,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 791274.3950001001,
+            "gpuLeaseMs": 0
+          },
+          "d2prl-evaluator": {
+            "admitted": 77736,
+            "completed": 77736,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 1997958.110001862,
+            "gpuLeaseMs": 0
+          },
+          "neural/lightglue-blot": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 192.88999998569489,
+            "gpuLeaseMs": 192.88999998569489
+          },
+          "sift-input": {
+            "admitted": 11275,
+            "completed": 11275,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-prepare": {
+            "admitted": 768,
+            "completed": 768,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 6,
+            "cpuLeaseMs": 10277.04500001669,
+            "gpuLeaseMs": 0
+          },
+          "sift-gpu": {
+            "admitted": 11259,
+            "completed": 11259,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 184980.50500020385
+          },
+          "sift-cpu": {
+            "admitted": 11259,
+            "completed": 11259,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 7,
+            "cpuLeaseMs": 173123.80000129342,
+            "gpuLeaseMs": 0
+          },
+          "sift-detect": {
+            "admitted": 770,
+            "completed": 770,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 3,
+            "cpuLeaseMs": 3014.9999997913837,
+            "gpuLeaseMs": 0
+          },
+          "ghost-stream-pool": {
+            "admitted": 28088,
+            "completed": 28088,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 4,
+            "cpuLeaseMs": 425124.1050005257,
+            "gpuLeaseMs": 0
+          },
+          "sift-refine-batch": {
+            "admitted": 9638,
+            "completed": 9638,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 4,
+            "cpuLeaseMs": 22469.575001329184,
+            "gpuLeaseMs": 0
+          },
+          "dense-paged-field": {
+            "admitted": 5,
+            "completed": 5,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 2490.609999984503,
+            "gpuLeaseMs": 0
+          },
+          "dense-paged-wavefront": {
+            "admitted": 14120,
+            "completed": 14115,
+            "activeJobs": 5,
+            "activeCpu": 9,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 4088120.290001869,
+            "gpuLeaseMs": 0
+          },
+          "dense-sift/preparation-layout": {
+            "admitted": 3,
+            "completed": 3,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-gradients/buffers": {
+            "admitted": 17776,
+            "completed": 17776,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-gradients": {
+            "admitted": 17776,
+            "completed": 17776,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 353682.7749983072,
+            "gpuLeaseMs": 0
+          },
+          "sift-vertical/buffers": {
+            "admitted": 7810,
+            "completed": 7810,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-vertical": {
+            "admitted": 7810,
+            "completed": 7810,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 67890.48499915004,
+            "gpuLeaseMs": 0
+          },
+          "sift-transpose/buffers": {
+            "admitted": 4539,
+            "completed": 4539,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-transpose": {
+            "admitted": 4525,
+            "completed": 4525,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 219103.94000002742,
+            "gpuLeaseMs": 0
+          },
+          "sift-horizontal/buffers": {
+            "admitted": 8010,
+            "completed": 8010,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-horizontal": {
+            "admitted": 8010,
+            "completed": 8010,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 76784.30499866605,
+            "gpuLeaseMs": 0
+          },
+          "sift-factors/buffers": {
+            "admitted": 281250,
+            "completed": 281250,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-factors": {
+            "admitted": 281250,
+            "completed": 281250,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 2423412.450006813,
+            "gpuLeaseMs": 0
+          },
+          "sift-select": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 102.43500000238419,
+            "gpuLeaseMs": 0
+          },
+          "sift-describe": {
+            "admitted": 87,
+            "completed": 87,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 7,
+            "cpuLeaseMs": 1271.5350000560284,
+            "gpuLeaseMs": 0
+          },
+          "d2prl-roles-bounded": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 2926.4449999928474,
+            "gpuLeaseMs": 0
+          },
+          "d2prl-postprocess": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 142.4350000023842,
+            "gpuLeaseMs": 0
+          }
+        },
+        "phaseDomains": {
+          "array-buffer": 0,
+          "wasm": 0,
+          "gpu": 0,
+          "gpu-mapped": 0
+        },
+        "timingMeaning": "Admitted execution time; not an OS CPU-utilization measurement",
+        "domainMeaning": "New allocation requirements of active phases; separate from policy reservations and materialized backing ownership"
+      },
+      "domains": {
+        "array-buffer": {
+          "reservedBytes": 1862709496,
+          "materializedBytes": 1862709496,
+          "pinnedBytes": 382082304,
+          "reclaimableBytes": 0,
+          "backings": 436,
+          "owners": {
+            "unattributed": {
+              "reservedBytes": 288000000,
+              "materializedBytes": 288000000,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "patchmatch": {
+              "reservedBytes": 1200052312,
+              "materializedBytes": 1200052312,
+              "pinnedBytes": 382082304,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 374657184,
+              "materializedBytes": 374657184,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "wasm": {
+          "reservedBytes": 2379808768,
+          "materializedBytes": 2014314496,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 11,
+          "owners": {
+            "d2prl": {
+              "reservedBytes": 337575936,
+              "materializedBytes": 337575936,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "patchmatch": {
+              "reservedBytes": 1505361920,
+              "materializedBytes": 1505361920,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 536870912,
+              "materializedBytes": 171376640,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "gpu": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu-mapped": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        }
+      },
+      "lastAllocationReclaim": {
+        "kind": "array-buffer",
+        "requestedBytes": 1048576,
+        "targetedReleasedBytes": 8388608,
+        "otherAccountedBytes": 0,
+        "ownersVisited": 2,
+        "completed": true,
+        "owners": [
+          {
+            "owner": "patchmatch",
+            "label": "shared-read-cache",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": "array-buffer",
+            "retiredBytes": 8388608,
+            "accountedBytes": 576002048
+          }
+        ]
+      },
+      "memory": {
+        "budgetBytes": 27487371264,
+        "retainedBytes": 1154269616,
+        "cacheBytes": 0,
+        "activeReservationBytes": 7398899113,
+        "peakAccountedBytes": 27487242910,
+        "activeRecoveries": 8,
+        "allocationRequestedBytes": 1048576,
+        "allocationTargetedReleasedBytes": 8388608,
+        "allocationOtherAccountedBytes": 0,
+        "knownHeapCapacityBytes": 30867456
+      }
+    },
+    {
+      "progressJsonlLine": 22753,
+      "at": "2026-10-03T13:11:31.249Z",
+      "elapsedMs": 1222489.8600000143,
+      "phase": "resource-recovery",
+      "group": "ela",
+      "operation": "ela",
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Pixel window allocation failed.",
+        "stack": "EngineError: Pixel window allocation failed.\n    at Object.readWindow (http://127.0.0.1:51112/src/rgb-surface.js:31:65)\n    at Object.visit (http://127.0.0.1:51112/src/jpeg-rgb-stream.js:39:214)\n    at async serialOne (http://127.0.0.1:51112/src/segmented-ghosts.js:12:83)\n    at async segmentedGhostMaps (http://127.0.0.1:51112/src/segmented-ghosts.js:21:630)\n    at async http://127.0.0.1:51112/src/ela-cell-pipeline.js:68:34\n    at async workspace (http://127.0.0.1:51112/src/ela-cell-pipeline.js:27:65)\n    at async http://127.0.0.1:51112/src/ela-cell-pipeline.js:66:57\n    at async elaCellPipeline (http://127.0.0.1:51112/src/ela-cell-pipeline.js:64:16)\n    at async segmentedElaBiomes (http://127.0.0.1:51112/src/segmented-ela-biomes.js:14:15)\n    at async build (http://127.0.0.1:51112/src/automatic-ela-provider.js:31:19)",
+        "details": {
+          "recovery": {
+            "operation": "ela",
+            "phase": "jpeg-render",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 1154269616,
+              "activeReservationBytes": 7570392281,
+              "cacheBytes": 0,
+              "availableBytes": 18762709367
+            }
+          }
+        }
+      },
+      "domains": {
+        "array-buffer": {
+          "reservedBytes": 1862709496,
+          "materializedBytes": 1862709496,
+          "pinnedBytes": 382082304,
+          "reclaimableBytes": 0,
+          "backings": 436,
+          "owners": {
+            "unattributed": {
+              "reservedBytes": 288000000,
+              "materializedBytes": 288000000,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "patchmatch": {
+              "reservedBytes": 1200052312,
+              "materializedBytes": 1200052312,
+              "pinnedBytes": 382082304,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 374657184,
+              "materializedBytes": 374657184,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "wasm": {
+          "reservedBytes": 2919989248,
+          "materializedBytes": 2349858816,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 21,
+          "owners": {
+            "d2prl": {
+              "reservedBytes": 337575936,
+              "materializedBytes": 337575936,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "patchmatch": {
+              "reservedBytes": 2045542400,
+              "materializedBytes": 1840906240,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 536870912,
+              "materializedBytes": 171376640,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "gpu": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu-mapped": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        }
+      },
+      "lastAllocationReclaim": {
+        "kind": "array-buffer",
+        "requestedBytes": 1048576,
+        "targetedReleasedBytes": 8388608,
+        "otherAccountedBytes": 0,
+        "ownersVisited": 2,
+        "completed": true,
+        "owners": [
+          {
+            "owner": "patchmatch",
+            "label": "shared-read-cache",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": "array-buffer",
+            "retiredBytes": 8388608,
+            "accountedBytes": 576002048
+          }
+        ]
+      }
+    },
+    {
+      "progressJsonlLine": 22755,
+      "at": "2026-10-03T13:11:31.300Z",
+      "elapsedMs": 1222542.175000012,
+      "phase": "dense-texture",
+      "group": "patchmatch",
+      "groupAttempt": 1,
+      "completed": 117,
+      "total": 5922,
+      "execution": {
+        "created": 10,
+        "reclaimed": 0,
+        "peakWorkers": 10,
+        "peakComputing": 5,
+        "computing": 1,
+        "completed": 117,
+        "computeMs": 1280.7700001597404,
+        "preparationMs": 5486.469999969006,
+        "storageMs": 164.65999966859818,
+        "heapBytes": 33554432,
+        "resourceRecoveries": 2,
+        "lastRecovery": {
+          "index": 125,
+          "stage": "prepare",
+          "code": "MEMORY_ALLOCATION",
+          "message": "Pixel window allocation failed.",
+          "consecutiveFailures": 1
+        },
+        "residentWorkers": 10,
+        "residentAllowanceBytes": 540180480,
+        "maximum": 10,
+        "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+      }
+    },
+    {
+      "progressJsonlLine": 22913,
+      "at": "2026-10-03T13:11:35.501Z",
+      "elapsedMs": 1226740.4850000143,
+      "phase": "dense-texture",
+      "group": "patchmatch",
+      "groupAttempt": 1,
+      "completed": 1113,
+      "total": 5922,
+      "execution": {
+        "created": 10,
+        "reclaimed": 0,
+        "peakWorkers": 10,
+        "peakComputing": 7,
+        "computing": 6,
+        "completed": 1113,
+        "computeMs": 4301.4600003659725,
+        "preparationMs": 22254.69499990344,
+        "storageMs": 1299.9499998390675,
+        "heapBytes": 33554432,
+        "resourceRecoveries": 4,
+        "lastRecovery": {
+          "index": 1121,
+          "stage": "prepare",
+          "code": "MEMORY_ALLOCATION",
+          "message": "Pixel window allocation failed.",
+          "consecutiveFailures": 2
+        },
+        "residentWorkers": 10,
+        "residentAllowanceBytes": 540180480,
+        "maximum": 10,
+        "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+      }
+    },
+    {
+      "progressJsonlLine": 22915,
+      "at": "2026-10-03T13:11:35.629Z",
+      "elapsedMs": 1226866.8100000024,
+      "phase": "dense-texture",
+      "group": "patchmatch",
+      "groupAttempt": 1,
+      "completed": 1121,
+      "total": 5922,
+      "execution": {
+        "created": 10,
+        "reclaimed": 0,
+        "peakWorkers": 10,
+        "peakComputing": 7,
+        "computing": 0,
+        "completed": 1121,
+        "computeMs": 4891.460000395775,
+        "preparationMs": 22254.69499990344,
+        "storageMs": 1312.75499984622,
+        "heapBytes": 33554432,
+        "resourceRecoveries": 10,
+        "lastRecovery": {
+          "index": 1129,
+          "stage": "prepare",
+          "code": "MEMORY_ALLOCATION",
+          "message": "Pixel window allocation failed.",
+          "consecutiveFailures": 1
+        },
+        "residentWorkers": 10,
+        "residentAllowanceBytes": 540180480,
+        "maximum": 10,
+        "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+      }
+    },
+    {
+      "progressJsonlLine": 22917,
+      "at": "2026-10-03T13:11:36.609Z",
+      "elapsedMs": 1227851.150000006,
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "failed",
+          "sift": "running",
+          "forgeryscope": "done",
+          "d2prl": "done",
+          "ela": "waiting-memory"
+        },
+        "errors": {
+          "patchmatch": {
+            "code": "MEMORY_ALLOCATION",
+            "name": "EngineError",
+            "message": "Pixel window allocation failed.",
+            "stack": "EngineError: Pixel window allocation failed.\n    at Object.readWindow (http://127.0.0.1:51112/src/rgb-surface.js:31:65)\n    at prepare (http://127.0.0.1:51112/src/dense-paged-regions.js:51:35)\n    at runWithResourceRecovery (http://127.0.0.1:51112/src/elastic-worker-pool.js:37:46)\n    at async runWithResourceRecovery (http://127.0.0.1:51112/src/resource-recovery.js:101:138)\n    at async lane (http://127.0.0.1:51112/src/elastic-worker-pool.js:28:19)",
+            "details": {
+              "recovery": {
+                "operation": "dense-texture/tile/1121",
+                "phase": "prepare",
+                "consecutiveFailures": 5,
+                "totalFailures": 5,
+                "loopDetected": true,
+                "memory": {
+                  "budgetBytes": 27487371264,
+                  "retainedBytes": 1154269616,
+                  "activeReservationBytes": 7554497577,
+                  "cacheBytes": 0,
+                  "availableBytes": 18778604071
+                }
+              }
+            }
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 1,
+          "ela": 1
+        },
+        "completed": [
+          "forgeryscope",
+          "d2prl"
+        ],
+        "running": [
+          "sift"
+        ],
+        "resumable": [
+          "patchmatch"
+        ],
+        "preflightExecutions": 0
+      }
+    },
+    {
+      "progressJsonlLine": 22918,
+      "at": "2026-10-03T13:11:36.610Z",
+      "elapsedMs": 1227851.3100000024,
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "failed",
+          "sift": "running",
+          "forgeryscope": "done",
+          "d2prl": "done",
+          "ela": "running"
+        },
+        "errors": {
+          "patchmatch": {
+            "code": "MEMORY_ALLOCATION",
+            "name": "EngineError",
+            "message": "Pixel window allocation failed.",
+            "stack": "EngineError: Pixel window allocation failed.\n    at Object.readWindow (http://127.0.0.1:51112/src/rgb-surface.js:31:65)\n    at prepare (http://127.0.0.1:51112/src/dense-paged-regions.js:51:35)\n    at runWithResourceRecovery (http://127.0.0.1:51112/src/elastic-worker-pool.js:37:46)\n    at async runWithResourceRecovery (http://127.0.0.1:51112/src/resource-recovery.js:101:138)\n    at async lane (http://127.0.0.1:51112/src/elastic-worker-pool.js:28:19)",
+            "details": {
+              "recovery": {
+                "operation": "dense-texture/tile/1121",
+                "phase": "prepare",
+                "consecutiveFailures": 5,
+                "totalFailures": 5,
+                "loopDetected": true,
+                "memory": {
+                  "budgetBytes": 27487371264,
+                  "retainedBytes": 1154269616,
+                  "activeReservationBytes": 7554497577,
+                  "cacheBytes": 0,
+                  "availableBytes": 18778604071
+                }
+              }
+            }
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 1,
+          "ela": 2
+        },
+        "completed": [
+          "forgeryscope",
+          "d2prl"
+        ],
+        "running": [
+          "sift",
+          "ela"
+        ],
+        "resumable": [
+          "patchmatch"
+        ],
+        "preflightExecutions": 0
+      }
+    },
+    {
+      "progressJsonlLine": 22920,
+      "at": "2026-10-03T13:11:38.942Z",
+      "elapsedMs": 1230183.650000006,
+      "phase": "diagnostic-heartbeat",
+      "execution": {
+        "admitted": 878171,
+        "completed": 878171,
+        "peakCpu": 10,
+        "peakGpu": 1,
+        "peakQueued": 31,
+        "waitMs": 5643266.059985876,
+        "cpuLeaseMs": 11505789.645011991,
+        "gpuLeaseMs": 225214.47500014305,
+        "elasticAdmissions": 13553,
+        "memoryReclaims": 0,
+        "preflightExecutions": 0,
+        "capacity": {
+          "cpu": 10,
+          "gpu": 1
+        },
+        "active": {
+          "cpu": 0,
+          "gpu": 0
+        },
+        "running": 0,
+        "queued": 10,
+        "waiting": {
+          "cpu": 0,
+          "gpu": 0,
+          "memory": 10
+        },
+        "labels": {
+          "dense-regions": {
+            "admitted": 6,
+            "completed": 6,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 243083.30000001192,
+            "gpuLeaseMs": 0
+          },
+          "ocr": {
+            "admitted": 64,
+            "completed": 64,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 211415.83500012755,
+            "gpuLeaseMs": 0
+          },
+          "forgeryscope/preparation": {
+            "admitted": 20,
+            "completed": 20,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 59.10999998450279,
+            "gpuLeaseMs": 0
+          },
+          "neural/yolo_panel_extractor": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 22741.470000118017,
+            "gpuLeaseMs": 0
+          },
+          "neural/wblot_overlap_embedder": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 107.22499999403954,
+            "gpuLeaseMs": 107.22499999403954
+          },
+          "neural/similarity": {
+            "admitted": 16,
+            "completed": 16,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 3276.305000066757,
+            "gpuLeaseMs": 0
+          },
+          "neural/wblot_duplicate_embedder": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 65.69999998807907,
+            "gpuLeaseMs": 65.69999998807907
+          },
+          "neural/aliked/first-pool": {
+            "admitted": 6,
+            "completed": 6,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 759.6249999701977,
+            "gpuLeaseMs": 759.6249999701977
+          },
+          "neural/aliked/second": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 605.8100000023842,
+            "gpuLeaseMs": 605.8100000023842
+          },
+          "neural/aliked/b3-c1-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 74.28499999642372,
+            "gpuLeaseMs": 74.28499999642372
+          },
+          "neural/aliked/b3-c1-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 8,
+            "cpuLeaseMs": 3758.520000040531,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/gate": {
+            "admitted": 4,
+            "completed": 4,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 61.44999998807907,
+            "gpuLeaseMs": 61.44999998807907
+          },
+          "neural/aliked/b3-c2-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 93.67999997735023,
+            "gpuLeaseMs": 93.67999997735023
+          },
+          "neural/aliked/b3-c2-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 8,
+            "cpuLeaseMs": 4329.274999976158,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/b3-residual": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 125.61500000953674,
+            "gpuLeaseMs": 125.61500000953674
+          },
+          "neural/aliked/project3": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 76.41499999165535,
+            "gpuLeaseMs": 76.41499999165535
+          },
+          "neural/aliked/pool4": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 72.59999999403954,
+            "gpuLeaseMs": 72.59999999403954
+          },
+          "neural/aliked/b4-c1-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 82.45500001311302,
+            "gpuLeaseMs": 82.45500001311302
+          },
+          "neural/aliked/b4-c1-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 3362.5499999821186,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/b4-c2-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 72,
+            "gpuLeaseMs": 72
+          },
+          "neural/aliked/b4-c2-deform": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 7,
+            "cpuLeaseMs": 3582.0399999916553,
+            "gpuLeaseMs": 0
+          },
+          "neural/aliked/b4-residual": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 41.20000001788139,
+            "gpuLeaseMs": 41.20000001788139
+          },
+          "neural/aliked/project4": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 45.73999997973442,
+            "gpuLeaseMs": 45.73999997973442
+          },
+          "neural/aliked/first-project": {
+            "admitted": 60,
+            "completed": 60,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 4795.969999879599,
+            "gpuLeaseMs": 4795.969999879599
+          },
+          "neural/aliked/score": {
+            "admitted": 21,
+            "completed": 21,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 1441.0199999809265,
+            "gpuLeaseMs": 1441.0199999809265
+          },
+          "neural/aliked/nms": {
+            "admitted": 6,
+            "completed": 6,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 370.6099999845028,
+            "gpuLeaseMs": 370.6099999845028
+          },
+          "neural/aliked/localize": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 123.26000002026558,
+            "gpuLeaseMs": 123.26000002026558
+          },
+          "neural/aliked/normalize": {
+            "admitted": 39,
+            "completed": 39,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 2777.2400000691414,
+            "gpuLeaseMs": 2777.2400000691414
+          },
+          "neural/aliked/describe-offset": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 107.95999997854233,
+            "gpuLeaseMs": 107.95999997854233
+          },
+          "neural/aliked/describe": {
+            "admitted": 2,
+            "completed": 2,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 100.53999999165535,
+            "gpuLeaseMs": 100.53999999165535
+          },
+          "d2prl-gpu-convolution": {
+            "admitted": 197,
+            "completed": 197,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 28040.680000126362
+          },
+          "dense-texture/buffers": {
+            "admitted": 30764,
+            "completed": 30764,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "dense-texture": {
+            "admitted": 30731,
+            "completed": 30731,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 98375.00000190735,
+            "gpuLeaseMs": 0
+          },
+          "dense-zernike/preparation-layout": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "dense-zernike/buffers": {
+            "admitted": 5922,
+            "completed": 5922,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "dense-zernike": {
+            "admitted": 5922,
+            "completed": 5922,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 791274.3950001001,
+            "gpuLeaseMs": 0
+          },
+          "d2prl-evaluator": {
+            "admitted": 77736,
+            "completed": 77736,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 1997958.110001862,
+            "gpuLeaseMs": 0
+          },
+          "neural/lightglue-blot": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 192.88999998569489,
+            "gpuLeaseMs": 192.88999998569489
+          },
+          "sift-input": {
+            "admitted": 11275,
+            "completed": 11275,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-prepare": {
+            "admitted": 768,
+            "completed": 768,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 6,
+            "cpuLeaseMs": 10277.04500001669,
+            "gpuLeaseMs": 0
+          },
+          "sift-gpu": {
+            "admitted": 11259,
+            "completed": 11259,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 184980.50500020385
+          },
+          "sift-cpu": {
+            "admitted": 11259,
+            "completed": 11259,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 7,
+            "cpuLeaseMs": 173123.80000129342,
+            "gpuLeaseMs": 0
+          },
+          "sift-detect": {
+            "admitted": 770,
+            "completed": 770,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 3,
+            "cpuLeaseMs": 3014.9999997913837,
+            "gpuLeaseMs": 0
+          },
+          "ghost-stream-pool": {
+            "admitted": 28088,
+            "completed": 28088,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 4,
+            "cpuLeaseMs": 425124.1050005257,
+            "gpuLeaseMs": 0
+          },
+          "sift-refine-batch": {
+            "admitted": 9638,
+            "completed": 9638,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 4,
+            "cpuLeaseMs": 22469.575001329184,
+            "gpuLeaseMs": 0
+          },
+          "dense-paged-field": {
+            "admitted": 5,
+            "completed": 5,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 2490.609999984503,
+            "gpuLeaseMs": 0
+          },
+          "dense-paged-wavefront": {
+            "admitted": 14707,
+            "completed": 14707,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 4328563.505002052,
+            "gpuLeaseMs": 0
+          },
+          "dense-sift/preparation-layout": {
+            "admitted": 3,
+            "completed": 3,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-gradients/buffers": {
+            "admitted": 17776,
+            "completed": 17776,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-gradients": {
+            "admitted": 17776,
+            "completed": 17776,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 353682.7749983072,
+            "gpuLeaseMs": 0
+          },
+          "sift-vertical/buffers": {
+            "admitted": 7810,
+            "completed": 7810,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-vertical": {
+            "admitted": 7810,
+            "completed": 7810,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 9,
+            "cpuLeaseMs": 67890.48499915004,
+            "gpuLeaseMs": 0
+          },
+          "sift-transpose/buffers": {
+            "admitted": 4539,
+            "completed": 4539,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-transpose": {
+            "admitted": 4525,
+            "completed": 4525,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 219103.94000002742,
+            "gpuLeaseMs": 0
+          },
+          "sift-horizontal/buffers": {
+            "admitted": 8010,
+            "completed": 8010,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-horizontal": {
+            "admitted": 8010,
+            "completed": 8010,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 76784.30499866605,
+            "gpuLeaseMs": 0
+          },
+          "sift-factors/buffers": {
+            "admitted": 281250,
+            "completed": 281250,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 0,
+            "cpuLeaseMs": 0,
+            "gpuLeaseMs": 0
+          },
+          "sift-factors": {
+            "admitted": 281250,
+            "completed": 281250,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 10,
+            "cpuLeaseMs": 2423412.450006813,
+            "gpuLeaseMs": 0
+          },
+          "sift-select": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 102.43500000238419,
+            "gpuLeaseMs": 0
+          },
+          "sift-describe": {
+            "admitted": 87,
+            "completed": 87,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 7,
+            "cpuLeaseMs": 1271.5350000560284,
+            "gpuLeaseMs": 0
+          },
+          "d2prl-roles-bounded": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 2926.4449999928474,
+            "gpuLeaseMs": 0
+          },
+          "d2prl-postprocess": {
+            "admitted": 1,
+            "completed": 1,
+            "activeJobs": 0,
+            "activeCpu": 0,
+            "activeGpu": 0,
+            "peakCpu": 1,
+            "cpuLeaseMs": 142.4350000023842,
+            "gpuLeaseMs": 0
+          }
+        },
+        "phaseDomains": {
+          "array-buffer": 0,
+          "wasm": 0,
+          "gpu": 0,
+          "gpu-mapped": 0
+        },
+        "timingMeaning": "Admitted execution time; not an OS CPU-utilization measurement",
+        "domainMeaning": "New allocation requirements of active phases; separate from policy reservations and materialized backing ownership"
+      },
+      "domains": {
+        "array-buffer": {
+          "reservedBytes": 1053128096,
+          "materializedBytes": 1053128096,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 433,
+          "owners": {
+            "unattributed": {
+              "reservedBytes": 296388608,
+              "materializedBytes": 296388608,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "patchmatch": {
+              "reservedBytes": 382082304,
+              "materializedBytes": 382082304,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 374657184,
+              "materializedBytes": 374657184,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "wasm": {
+          "reservedBytes": 874446848,
+          "materializedBytes": 508952576,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 6,
+          "owners": {
+            "d2prl": {
+              "reservedBytes": 337575936,
+              "materializedBytes": 337575936,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            },
+            "sift": {
+              "reservedBytes": 536870912,
+              "materializedBytes": 171376640,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0
+            }
+          }
+        },
+        "gpu": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        },
+        "gpu-mapped": {
+          "reservedBytes": 0,
+          "materializedBytes": 0,
+          "pinnedBytes": 0,
+          "reclaimableBytes": 0,
+          "backings": 0,
+          "owners": {}
+        }
+      },
+      "lastAllocationReclaim": {
+        "kind": "array-buffer",
+        "requestedBytes": 1048576,
+        "targetedReleasedBytes": 8388608,
+        "otherAccountedBytes": 0,
+        "ownersVisited": 2,
+        "completed": true,
+        "owners": [
+          {
+            "owner": "patchmatch",
+            "label": "shared-read-cache",
+            "kind": "array-buffer",
+            "retiredBytes": 0,
+            "accountedBytes": 0
+          },
+          {
+            "owner": null,
+            "label": "",
+            "kind": "array-buffer",
+            "retiredBytes": 8388608,
+            "accountedBytes": 576002048
+          }
+        ]
+      },
+      "memory": {
+        "budgetBytes": 27487371264,
+        "retainedBytes": 1730271664,
+        "cacheBytes": 0,
+        "activeReservationBytes": 2186181377,
+        "peakAccountedBytes": 27487242910,
+        "activeRecoveries": 9,
+        "allocationRequestedBytes": 1048576,
+        "allocationTargetedReleasedBytes": 8388608,
+        "allocationOtherAccountedBytes": 0,
+        "knownHeapCapacityBytes": 30867456
+      }
+    },
+    {
+      "progressJsonlLine": 23932,
+      "at": "2026-10-03T13:16:58.635Z",
+      "elapsedMs": 1549874.9950000048,
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "failed",
+          "sift": "running",
+          "forgeryscope": "done",
+          "d2prl": "done",
+          "ela": "done"
+        },
+        "errors": {
+          "patchmatch": {
+            "code": "MEMORY_ALLOCATION",
+            "name": "EngineError",
+            "message": "Pixel window allocation failed.",
+            "stack": "EngineError: Pixel window allocation failed.\n    at Object.readWindow (http://127.0.0.1:51112/src/rgb-surface.js:31:65)\n    at prepare (http://127.0.0.1:51112/src/dense-paged-regions.js:51:35)\n    at runWithResourceRecovery (http://127.0.0.1:51112/src/elastic-worker-pool.js:37:46)\n    at async runWithResourceRecovery (http://127.0.0.1:51112/src/resource-recovery.js:101:138)\n    at async lane (http://127.0.0.1:51112/src/elastic-worker-pool.js:28:19)",
+            "details": {
+              "recovery": {
+                "operation": "dense-texture/tile/1121",
+                "phase": "prepare",
+                "consecutiveFailures": 5,
+                "totalFailures": 5,
+                "loopDetected": true,
+                "memory": {
+                  "budgetBytes": 27487371264,
+                  "retainedBytes": 1154269616,
+                  "activeReservationBytes": 7554497577,
+                  "cacheBytes": 0,
+                  "availableBytes": 18778604071
+                }
+              }
+            }
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 1,
+          "ela": 2
+        },
+        "completed": [
+          "forgeryscope",
+          "d2prl",
+          "ela"
+        ],
+        "running": [
+          "sift"
+        ],
+        "resumable": [
+          "patchmatch"
+        ],
+        "preflightExecutions": 0
+      }
+    }
+  ],
+  "derivedWindowUpperBounds": {
+    "textureWorkerPolicyBytes": 54018048,
+    "formula": "workerBytes=48MiB+area*64",
+    "area": 57600,
+    "maxRgbOutputBytes": 172800,
+    "maxRgbRowBytes": 720,
+    "tileCount": 5922,
+    "maxRepeatedRgbOutputBytes": 1023321600,
+    "elaWidth": 12000,
+    "elaRows": 32,
+    "elaRgbOutputBytes": 1152000,
+    "elaUnusedFullRowScratchBytes": 36000,
+    "qualification": "These are code/plan sizes, not the actually failed allocation. The recorded wrapper discarded cause and stage."
+  }
+}

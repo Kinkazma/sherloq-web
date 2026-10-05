@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native raw-grid composition on1027x1021 with actual D2PRL postprocess worker, all scientific stores forced to OPFS, owned plane/mask reads, streamed NPZ and cancellation. This isolates composition/ownership/export, not full image-to-inference qualification.",
+  "cases": [
+    {
+      "name": "d2prl",
+      "outputs": {
+        "map": "4446972dc33363b40b82cf474ab51f5d19d5252d0558df0b1d76d40f07689838",
+        "target": "f5674cc504c90dfd06d55b732801673a2af221402fb416379c4d3c25356ca6a1",
+        "source": "69a939d8d1964dff9444eb451e226b0dc2346c3fcf273d805345a50ead88e58d",
+        "mask": "db66f3fde66291d46ecf635b9db1ff72a5baa94e76d3a18e74775cf5b8b490b8",
+        "analyzed": "cd5de47a29f74e4a37c234a365b1e00e003dab9c6ae5df905f04a9932930e8bf",
+        "candidates": "e0dae10aaabafa207e1c7f9f14642318da5052d2bdee53841ccd49130aa3a40b"
+      },
+      "metrics": {
+        "totalMs": 357.5,
+        "projectionMs": 104.79999998956919,
+        "compositionMs": 87.00000000745058,
+        "postprocessMs": 203.90000000596046,
+        "blocks": 8,
+        "metadataBytes": 98304,
+        "storage": {
+          "map": "temporary",
+          "mask": "temporary",
+          "target": "temporary",
+          "source": "temporary",
+          "analyzed": "temporary",
+          "candidates": "temporary"
+        },
+        "resultBytes": 15728505
+      },
+      "exportBytes": 15733413,
+      "exportSha256": "9057570708d86d151958ef875363f344a11c20d2b63f7bde42705209358bdfaf",
+      "exportMs": 2760.3000000044703,
+      "memory": {
+        "budgetBytes": 671088640,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 629706683
+      },
+      "cancelled": true,
+      "siblingSurvived": true
+    },
+    {
+      "name": "mgcf-st",
+      "outputs": {
+        "map": "d80e3d37016afc347978a9dc65b3a6a75dc40846c01d2ae5573f067d664a2b2b",
+        "target": "88d72161639432e3a7e3de6d9a001cf6fc603115c3cd793c4814d3ee046aee22",
+        "source": "b1c16de5ddfaa29cde31c577f5aeac72963cbcbf65726a1336c89dce6a60e90c",
+        "mask": "76b95f33e20850a5972ffa41e64263115121dea3512603e9b45c7f2e63fbb134",
+        "analyzed": "8f49a0a400f687ab92bbafb3d298cce9ee8bea4bdc9c275b83a5f7e9f0bbc051",
+        "candidates": "e0dae10aaabafa207e1c7f9f14642318da5052d2bdee53841ccd49130aa3a40b"
+      },
+      "metrics": {
+        "totalMs": 105.29999999701977,
+        "projectionMs": 86.10000000149012,
+        "compositionMs": 58.400000005960464,
+        "postprocessMs": 8.100000008940697,
+        "blocks": 8,
+        "metadataBytes": 81920,
+        "storage": {
+          "map": "temporary",
+          "mask": "temporary",
+          "target": "temporary",
+          "source": "temporary",
+          "analyzed": "temporary",
+          "candidates": "temporary"
+        },
+        "resultBytes": 15728505
+      },
+      "exportBytes": 15732829,
+      "exportSha256": "9c066ea455679e7aafca4e064c460e4075632d8f30bdec91c25cb0e7f0972a93",
+      "exportMs": 2518,
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 80220091
+      },
+      "cancelled": true,
+      "siblingSurvived": true
+    },
+    {
+      "name": "cmseg",
+      "outputs": {
+        "map": "5d8906c4f26bed7efc25c2b9d4b311dc78e0f8c720bde645b01ff4b2547aead4",
+        "mask": "bbd860d929d9bc7ca3b769ddf9c4d8609772634abdd1c3670ca5695e79bbd0d4",
+        "analyzed": "8f49a0a400f687ab92bbafb3d298cce9ee8bea4bdc9c275b83a5f7e9f0bbc051",
+        "candidates": "e0dae10aaabafa207e1c7f9f14642318da5052d2bdee53841ccd49130aa3a40b"
+      },
+      "metrics": {
+        "totalMs": 49.899999998509884,
+        "projectionMs": 37.69999999552965,
+        "compositionMs": 29.69999999552965,
+        "postprocessMs": 8.100000001490116,
+        "blocks": 4,
+        "metadataBytes": 81920,
+        "storage": {
+          "map": "temporary",
+          "mask": "temporary",
+          "analyzed": "temporary",
+          "candidates": "temporary"
+        },
+        "resultBytes": 7339969
+      },
+      "exportBytes": 7343757,
+      "exportSha256": "f0e526189ea66283c1a0425f0c4ef786e7d20343386808ffd36b0dd8944ec70d",
+      "exportMs": 1375.0999999940395,
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 82251707
+      },
+      "cancelled": true,
+      "siblingSurvived": true
+    }
+  ],
+  "opencv": "4.11.0",
+  "storageArtifactsRemaining": 0,
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 629706683,
+    "finalWorkerPeakAccountedBytes": null
+  },
+  "browser": "154.0.8037.58",
+  "extractedRuntime": false,
+  "engineSources": {
+    "src/segmented-neural-projection.js": "bf94e73a6325caf3c3c7aaa14a8d11d3fb6636b718a16f71355050ab508001cc",
+    "src/neural-result-surfaces.js": "d9b8a1414014ad8428f6eccb2dc7f84c321371b239770d9d149735a728c6c0dd",
+    "src/neural-npz-stream.js": "4dcaa02fa1c598282134beb3d671c1ec73a3ae35c8aecc4dd58a982af2cb4816",
+    "src/scientific-npz-stream.js": "5159592040d7645f787a9021128a7a4c3bdec2cafd98a1bd32e6f58b3faf532e",
+    "src/neural-spatial-rows.js": "4ca09395f41fdfd9804fa47731706d35693a0030ed77fd8789c229594d7399be",
+    "src/numeric-surface.js": "bf08b9d1a6529279aa1fc4116ae24c05ce99116e5bfe6d3bf208662a45523e3a",
+    "vendor/segmentation/spatial-bands.wasm": "66ad3a1157ba9c1ff10ecbf395ab9d5fa95c46e62485f4e351c947467ef5021e"
+  },
+  "recipeSources": {
+    "scripts/proof-memory.mjs": "8961fbe1092bdcc16c3991e04e9e60118ba28e232ec7a5bac86596fe1942654c",
+    "scripts/generate-neural-composition.py": "312b295d948473c4b12e30f864fde2ffcf782fe68ed184040192b8819389f476",
+    "scripts/study-neural-composition.mjs": "fce276db8dd0cfe53e41ce78843e3bf3900d7f31893fce87b303c54263bd026b",
+    "tests/neural-composition-browser.js": "7208b7bbd062209afeb5ecf1c2b244675bc9e88c439d12fc679c7002a5ec02d1",
+    "tests/neural-composition-worker.js": "6cc9c691a03c9b295c058caf617308336652c2b07f36784b199f29cd5dc3f3d5"
+  }
+}

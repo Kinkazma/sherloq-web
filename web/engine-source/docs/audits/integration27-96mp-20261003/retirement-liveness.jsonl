@@ -1,0 +1,4 @@
+{"mode":"regular","retiredCollected":true,"ledger":{"reservedBytes":0,"materializedBytes":0,"pinnedBytes":0,"reclaimableBytes":0,"backings":0,"owners":{}},"budget":0}
+{"mode":"adopted","retiredCollected":true,"ledger":{"reservedBytes":0,"materializedBytes":0,"pinnedBytes":0,"reclaimableBytes":0,"backings":0,"owners":{}},"budget":0}
+{"mode":"registry-handle-retained","retiredCollected":false,"ledger":{"reservedBytes":0,"materializedBytes":0,"pinnedBytes":0,"reclaimableBytes":0,"backings":0,"owners":{}}}
+retained control objects 8

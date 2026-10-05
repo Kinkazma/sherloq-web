@@ -1,0 +1,162 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "cpu",
+  "reference": "previous qualified non-paged WASM",
+  "records": [
+    {
+      "name": "SIFT-G2NN/global",
+      "count": 100,
+      "referenceCount": 100,
+      "total": 200,
+      "referenceTotal": 200,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 18631.89999999106,
+      "metadata": {
+        "provider": "cpu",
+        "family": "SIFT-G2NN",
+        "opencv": "4.11.0",
+        "inputLayout": "global-octave-bases",
+        "featurePolicy": "independent_roi_v2",
+        "reflectedPixels": false,
+        "preflightExecutions": 0,
+        "jobs": [
+          {
+            "sourceRows": 176,
+            "sourceReads": 3,
+            "globalCandidates": 18946,
+            "continuationSeeds": 0,
+            "continuationWindows": 0,
+            "octaveBases": [
+              {
+                "width": 1792,
+                "height": 1408,
+                "bytes": 10092544,
+                "storage": "temporary"
+              },
+              {
+                "width": 896,
+                "height": 704,
+                "bytes": 2523136,
+                "storage": "temporary"
+              },
+              {
+                "width": 448,
+                "height": 352,
+                "bytes": 630784,
+                "storage": "temporary"
+              },
+              {
+                "width": 224,
+                "height": 176,
+                "bytes": 157696,
+                "storage": "temporary"
+              },
+              {
+                "width": 112,
+                "height": 88,
+                "bytes": 39424,
+                "storage": "temporary"
+              },
+              {
+                "width": 56,
+                "height": 44,
+                "bytes": 9856,
+                "storage": "temporary"
+              },
+              {
+                "width": 28,
+                "height": 22,
+                "bytes": 2464,
+                "storage": "temporary"
+              },
+              {
+                "width": 14,
+                "height": 11,
+                "bytes": 616,
+                "storage": "temporary"
+              },
+              {
+                "width": 7,
+                "height": 5,
+                "bytes": 140,
+                "storage": "temporary"
+              }
+            ],
+            "preflightExecutions": 0,
+            "grayScale": 4,
+            "coreSize": 1024,
+            "supportHalo": 128,
+            "workers": 2,
+            "peakHeapBytes": 69730304,
+            "executions": 23,
+            "retries": 0,
+            "stages": [
+              {
+                "executions": 17,
+                "retries": 0,
+                "peakHeapBytes": 69730304,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 1,
+                "retries": 0,
+                "peakHeapBytes": 33554432,
+                "workers": 1,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              },
+              {
+                "executions": 5,
+                "retries": 0,
+                "peakHeapBytes": 69730304,
+                "workers": 2,
+                "failures": [],
+                "gaussianProvider": "cpu"
+              }
+            ]
+          }
+        ],
+        "workers": 2,
+        "peakWorkerHeapBytes": 69730304,
+        "executions": 23,
+        "retries": 0,
+        "qualification": "qualified native arithmetic with global paged dependencies",
+        "temporaryRecipe": {
+          "totalMs": 14453,
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 13456660,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": 536870912,
+            "openFiles": 0
+          },
+          "finalMemory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 1196853966
+          }
+        }
+      }
+    }
+  ],
+  "cancelled": true,
+  "peakAccountedBytes": 1196075926,
+  "remainingActiveBytes": 0
+}

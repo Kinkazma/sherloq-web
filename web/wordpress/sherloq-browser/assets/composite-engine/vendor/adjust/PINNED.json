@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "reference": "OpenCV4.11 core/imgproc, existing qualified adjustment/HSV/CLAHE arithmetic, original Otsu histogram order",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/adjust-bands.cpp": {
+      "bytes": 3827,
+      "sha256": "4a75bf6e266f81007a645579faf62d87b56700cfa158afb71ce1c5c6565f28b9"
+    },
+    "native/opencv.cpp": {
+      "bytes": 27099,
+      "sha256": "3f22ebb31a9c8eb3beeabccedd866a4f6f565b62921d7fac266c7245cbc2d7a1"
+    },
+    "native/gamma-lut.h": {
+      "bytes": 48178,
+      "sha256": "8c86b116ec609e82b3ab92c01f867f33f3f0c5c07d7366da428b9dade977a138"
+    },
+    "native/hsv-tables.h": {
+      "bytes": 2700,
+      "sha256": "03507320cf0e0f8ba10dd3d0498382d63b666cb783ff02c5632b09aa6d205a5a"
+    },
+    "scripts/build-adjust-bands.sh": {
+      "bytes": 3208,
+      "sha256": "a5aca9c06428b3e339793ceca7102b12cf79b4547e98fe3609358e17c2867294"
+    },
+    "vendor/adjust/adjust.js": {
+      "bytes": 25606,
+      "sha256": "83f6b4994ec9eaaa84d62d0d755aba773d3958d5371f88f793818c726067d377"
+    },
+    "vendor/adjust/adjust.wasm": {
+      "bytes": 845532,
+      "sha256": "3344196f97f89477ae7e6fd8fbdfd4afc76de7aaa7a31f743e71bb79daf7bba5"
+    },
+    "vendor/adjust/NOTICE-OPENCV-LEGACY.txt": {
+      "bytes": 4363,
+      "sha256": "f240e13b0d89ddc6cb4152e9e0943cc773b49c956857fed7846a62504d3a825c"
+    }
+  },
+  "buildInputs": {
+    ".build/adjust/adjust-reference.h": "3942192a61ab9491b325217985c9eddb30839cb562eec99b2d7f45c93002452e",
+    ".build/cv/lib/libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d",
+    ".build/cv/lib/libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+  }
+}

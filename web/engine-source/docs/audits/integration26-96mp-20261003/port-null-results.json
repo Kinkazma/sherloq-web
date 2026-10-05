@@ -1,0 +1,41 @@
+[
+  {
+    "case": "null-request-to-owner",
+    "markerReply": [
+      41,
+      42,
+      43,
+      44
+    ],
+    "settledAfterMarker": false,
+    "afterDispose": {
+      "settled": true,
+      "outcome": "rejected",
+      "error": {
+        "name": "EngineError",
+        "code": "CANCELLED",
+        "message": "Byte broker reader stopped."
+      }
+    }
+  },
+  {
+    "case": "null-response-to-reader",
+    "exceptions": [
+      {
+        "name": "TypeError",
+        "message": "Cannot read properties of null (reading 'id')",
+        "stack": "TypeError: Cannot read properties of null (reading 'id')\n    at port.onmessage (file:///Users/gaeldauchy/SHERLOQ/web-engine-runtime/src/portable-byte-store.js:56:56)\n    at MessagePort.eventHandler (node:internal/event_target:1128:12)\n    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:843:20)\n    at MessagePort.<anonymous> (node:internal/per_context/messageport:23:28)"
+      }
+    ],
+    "settledAfterMarker": false,
+    "afterDispose": {
+      "settled": true,
+      "outcome": "rejected",
+      "error": {
+        "name": "EngineError",
+        "code": "CANCELLED",
+        "message": "Byte broker reader stopped."
+      }
+    }
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "sourceCommit": "59482ba",
+  "pendingNotifications": 1,
+  "notificationIterations": 101,
+  "reproduced": true,
+  "explanation": "Two queued requests for one operation alternate CPU/GPU state on every resource notification; no resources or work have changed."
+}

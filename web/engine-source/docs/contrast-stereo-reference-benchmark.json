@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "scope": "Sequential synthetic 1 MP RGB8 inputs, no resize. RPC includes copies/transfers; raster presentation measured separately. One main worker; no WordPress or physical-device claim.",
+  "results": [
+    {
+      "operation": "tampering.contrast",
+      "cpuKernel": "single",
+      "samples": [
+        {
+          "loadMs": 34.40000003576279,
+          "rpcMs": 70.5,
+          "displayMs": 4.399999976158142,
+          "pipelineMs": 109.30000001192093,
+          "viewMs": 1.7000000476837158,
+          "metrics": {
+            "totalMs": 70,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 5418,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 123731968,
+              "codecHeapCapacityBytes": 40304640
+            }
+          }
+        },
+        {
+          "loadMs": 3.5,
+          "rpcMs": 26.200000047683716,
+          "displayMs": 3.5,
+          "pipelineMs": 33.200000047683716,
+          "viewMs": 1.899999976158142,
+          "metrics": {
+            "totalMs": 24.900000035762787,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 5418,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 123737386,
+              "codecHeapCapacityBytes": 40304640
+            }
+          }
+        },
+        {
+          "loadMs": 3.299999952316284,
+          "rpcMs": 22,
+          "displayMs": 3.699999988079071,
+          "pipelineMs": 28.999999940395355,
+          "viewMs": 1.800000011920929,
+          "metrics": {
+            "totalMs": 21.900000035762787,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 5418,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 123737386,
+              "codecHeapCapacityBytes": 40304640
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 26.200000047683716,
+      "medianPipelineMs": 33.200000047683716
+    },
+    {
+      "operation": "various.stereogram",
+      "cpuKernel": "single",
+      "samples": [
+        {
+          "loadMs": 29.700000047683716,
+          "rpcMs": 20941.599999964237,
+          "displayMs": 3.300000011920929,
+          "pipelineMs": 20974.600000023842,
+          "viewMs": 25.80000001192093,
+          "metrics": {
+            "totalMs": 20941,
+            "cache": {
+              "result": false,
+              "stages": {
+                "search": false,
+                "pattern": false,
+                "flow": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "stages": {
+              "searchMs": 156.5,
+              "patternMs": 14.5,
+              "flowMs": 20750.80000001192
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 13768770,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 281610302,
+              "codecHeapCapacityBytes": 94633984
+            }
+          }
+        },
+        {
+          "loadMs": 3.300000011920929,
+          "rpcMs": 19764.599999964237,
+          "displayMs": 4.399999976158142,
+          "pipelineMs": 19772.299999952316,
+          "viewMs": 25.30000001192093,
+          "metrics": {
+            "totalMs": 19763.69999998808,
+            "cache": {
+              "result": false,
+              "stages": {
+                "search": false,
+                "pattern": false,
+                "flow": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "stages": {
+              "searchMs": 128.30000001192093,
+              "patternMs": 8,
+              "flowMs": 19617.899999976158
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 13768770,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 288495682,
+              "codecHeapCapacityBytes": 94633984
+            }
+          }
+        },
+        {
+          "loadMs": 3.599999964237213,
+          "rpcMs": 19981.30000001192,
+          "displayMs": 6.5,
+          "pipelineMs": 19991.399999976158,
+          "viewMs": 26.30000001192093,
+          "metrics": {
+            "totalMs": 19979.80000001192,
+            "cache": {
+              "result": false,
+              "stages": {
+                "search": false,
+                "pattern": false,
+                "flow": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "stages": {
+              "searchMs": 128.39999997615814,
+              "patternMs": 8.199999988079071,
+              "flowMs": 19833.399999976158
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 13768770,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 288495682,
+              "codecHeapCapacityBytes": 94633984
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 19981.30000001192,
+      "medianPipelineMs": 19991.399999976158
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

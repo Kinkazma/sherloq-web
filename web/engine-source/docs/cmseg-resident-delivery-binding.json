@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.46",
+  "runtimeFiles": 413,
+  "runtimeManifestSha256": "e2dd4328af5e025dc2fbcaf5c60233a26f92d94e56fca4dae065b7a779387b6d",
+  "scope": "Exact runtime bytes and component/96MP execution sources. Three native-exact complete global resident-input correlation geometries and shared-budget old/new hybrid measurements and real submitted-GPU lifecycle checks. Actual repeated inference against immutable M1.45 with both caches preserved, native corpus, positive96MP source with full plane hashes and independent NPZ readback. Fresh copied auto-GPU API, cached view, actual global-correlation submission cancellation and source reload. Earlier explicit CPU and M1.45 addnoise evidence are reused for unchanged paths, guarded by byte/descriptor and normalized shared-inference checks. No WordPress or universal-device claim.",
+  "comparison": {
+    "baselineMs": [
+      7989.0999999940395,
+      6677.79999999702,
+      6826.70000000298
+    ],
+    "candidateMs": [
+      6706.699999988079,
+      5573.29999999702,
+      5557.5999999940395
+    ],
+    "probabilitySha256": "13e4925c4a2d22c43b5799de9643f116bcd9e652e1a61f156b69cf8db840b8f2",
+    "baselinePeak": 1323240068,
+    "candidatePeak": 1323240068,
+    "timingQualification": "Shared workstation; fresh browser per condition; OS and driver caches not flushed."
+  },
+  "large": {
+    "width": 12000,
+    "height": 8000,
+    "foreground": 935251,
+    "arrays": 4,
+    "exportBytes": 672016516,
+    "exportSha256": "cccd186f65f132e25ee1a1f5117b250a0671b3c690a9b8b9208b8266751feda1",
+    "peakAccountedBytes": 2338438660,
+    "allPlaneHashesEqualToM1_40": true
+  },
+  "copied": {
+    "automaticGpu": true,
+    "cancelled": true,
+    "retry": true
+  },
+  "unchangedFiles": [
+    "experiments/segmentation/cmseg-dot-gpu.js",
+    "experiments/segmentation/cmseg-correlation-gpu.js",
+    "experiments/segmentation/cmseg-correlation-gpu-worker.js",
+    "experiments/segmentation/cmseg-backbone.js",
+    "experiments/segmentation/cmseg-inference-worker.js",
+    "experiments/segmentation/cmseg-correlation.js",
+    "experiments/segmentation/cmseg-correlation-worker.js",
+    "experiments/segmentation/analysis.js",
+    "experiments/segmentation/prepare.js",
+    "src/neural-input.js",
+    "src/neural-projector.js",
+    "src/neural-exports.js",
+    "vendor/segmentation/cmseg-addnoise-correlation-gpu/post.js",
+    "vendor/segmentation/cmseg-addnoise-correlation-gpu/post.wasm",
+    "vendor/segmentation/cmseg-correlation-gpu/post.js",
+    "vendor/segmentation/cmseg-correlation-gpu/post.wasm"
+  ],
+  "addnoiseEvidenceReusedFromM1_45": true
+}

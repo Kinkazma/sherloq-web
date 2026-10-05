@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "file": "median/median-1024.jpg",
+  "originalSha256": "29adee0f8029bf9ab1c8589ae9cf3c34050a10ca83742ae0d43db6ee2ca403b5",
+  "nativeSourceSha256": "beebd027d490ce6fa1b588108571d64602c11af2c81b1bd5aaf9f100240c4b14",
+  "cases": [
+    {
+      "params": {
+        "window": "hanning",
+        "upsample": true,
+        "center": false,
+        "highpass": "simple",
+        "gamma": 4,
+        "rescale": true
+      },
+      "shape": [
+        2048,
+        2048
+      ],
+      "maxAbsolute": 5.684341886080801e-13,
+      "maxScaled": 2.3702562925107252e-15,
+      "differingBytes": 0,
+      "peakChanged": false,
+      "nativeRgbSha256": "314cde54127e59df359520c574e2c21f46478b30090ff4c7be8376336316cbc5",
+      "rpcMs": 2026,
+      "metrics": {
+        "totalMs": 2025,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 350,
+        "fourierTransformMs": 704,
+        "fourierMagnitudeMs": 454,
+        "backend": "cpu",
+        "viewMs": 505,
+        "memory": {
+          "budgetBytes": 1610612736,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 962229627,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      }
+    },
+    {
+      "params": {
+        "window": "radial",
+        "upsample": false,
+        "center": true,
+        "highpass": "radial",
+        "gamma": 0.1,
+        "rescale": false
+      },
+      "shape": [
+        512,
+        512
+      ],
+      "maxAbsolute": 1.1102230246251565e-16,
+      "maxScaled": 1.1102230246251565e-16,
+      "differingBytes": 0,
+      "peakChanged": false,
+      "nativeRgbSha256": "9c21ea903a36ed5440616ad91aabb658a3bae9d2e67598f2a074aff4279ffc9c",
+      "rpcMs": 609,
+      "metrics": {
+        "totalMs": 608,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": true,
+            "spectrum/[[0,0,1024,1024],\"radial\",false]": false,
+            "magnitude/[[0,0,1024,1024],\"radial\",false]/true/radial": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 0,
+        "fourierTransformMs": 385,
+        "fourierMagnitudeMs": 104,
+        "backend": "cpu",
+        "viewMs": 118,
+        "memory": {
+          "budgetBytes": 1610612736,
+          "retainedBytes": 3722797,
+          "cacheBytes": 163589038,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 962229627,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      }
+    },
+    {
+      "params": {
+        "window": "hanning",
+        "upsample": false,
+        "center": false,
+        "highpass": "simple",
+        "gamma": 1,
+        "rescale": true
+      },
+      "shape": [
+        1024,
+        1024
+      ],
+      "maxAbsolute": 0,
+      "maxScaled": 0,
+      "differingBytes": 0,
+      "peakChanged": false,
+      "nativeRgbSha256": "8515c880c81ff0d7c12141170e5fa3d1cfcb32a6f86cc560de33993d3375333a",
+      "rpcMs": 808,
+      "metrics": {
+        "totalMs": 807,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": true,
+            "spectrum/[[0,0,1024,1024],\"hanning\",false]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",false]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 0,
+        "fourierTransformMs": 357,
+        "fourierMagnitudeMs": 215,
+        "backend": "cpu",
+        "viewMs": 233,
+        "memory": {
+          "budgetBytes": 1610612736,
+          "retainedBytes": 3722797,
+          "cacheBytes": 197148960,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 962229627,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      }
+    }
+  ],
+  "cleanup": {
+    "budgetBytes": 1610612736,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 962229627,
+    "knownHeapCapacityBytes": 167903232
+  },
+  "timingMeaning": "Functional execution, not isolated optimization benchmark",
+  "browser": "26.6",
+  "extractedRuntime": false
+}

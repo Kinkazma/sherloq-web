@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8"><title>SHERLOQ — gestes et police</title>
+<style>body{font:16px system-ui;margin:20px}iframe{width:1100px;height:860px;border:1px solid}pre{white-space:pre-wrap}</style>
+<h1>SHERLOQ — gestes et police</h1><button id="run">Vérifier les gestes et Adobe Fonts</button><a id="save" hidden>Télécharger la preuve</a><pre id="out">Prêt</pre>
+<iframe id="app" src="/wp-content/plugins/sherloq-browser/assets/app.html?v=0.3.2&fonts=https%3A%2F%2Fuse.typekit.net%2Fwqp3eph.css#lang=fr"></iframe>
+<script type="module">
+const frame=document.getElementById('app'),run=document.getElementById('run'),out=document.getElementById('out');
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function until(fn){for(let i=0;i<200;i++){if(fn())return;await wait(50);}throw new Error('Timed out');}
+const check=(ok,msg)=>{if(!ok)throw new Error(msg);};
+run.onclick=async()=>{
+ run.disabled=true;const proof={at:new Date().toISOString(),userAgent:navigator.userAgent,method:'Real installed iframe, synthetic DOM wheel/pointer events; not a physical device test',tests:[]};
+ const doc=frame.contentDocument,w=frame.contentWindow,$=id=>doc.getElementById(id),matrices={};
+ for(const id of ['canvas','original-canvas']){const ctx=$(id).getContext('2d'),draw=ctx.drawImage;ctx.drawImage=function(...args){const m=this.getTransform();matrices[id]={a:m.a,d:m.d,e:m.e,f:m.f};return draw.apply(this,args);};}
+ async function test(name,fn){try{const details=await fn();proof.tests.push({name,pass:true,...details});}catch(e){proof.tests.push({name,pass:false,error:e.message});}out.textContent=JSON.stringify(proof,null,2);}
+ const params=()=>['quality','scale','contrast'].map(id=>$(id).value).join('/');
+ const wheel=(view,data)=>{const r=view.getBoundingClientRect();view.dispatchEvent(new w.WheelEvent('wheel',{bubbles:true,cancelable:true,clientX:r.left+100,clientY:r.top+100,...data}));};
+ const dbl=view=>{const r=view.getBoundingClientRect();view.dispatchEvent(new w.MouseEvent('dblclick',{bubbles:true,cancelable:true,button:0,clientX:r.left+100,clientY:r.top+100}));};
+ await test('Adobe Iowan is actually loaded inside isolated app iframe',async()=>{await until(()=>[...doc.fonts].some(f=>f.family.replaceAll('"','')==='iowan-old-style-bt'&&f.status==='loaded'));const family=w.getComputedStyle($('open-file')).fontFamily;check(family.startsWith('"iowan-old-style-bt"')||family.startsWith('iowan-old-style-bt'),'Wrong family');return{kit:doc.getElementById('sherloq-site-fonts').href,family,faces:[...doc.fonts].filter(f=>f.family.includes('iowan')&&f.status==='loaded').map(f=>({family:f.family,weight:f.weight,status:f.status}))};});
+ await test('Real JPEG and ELA load before navigation tests',async()=>{const bytes=await (await fetch('./immediate.jpg')).arrayBuffer(),dt=new w.DataTransfer();dt.items.add(new w.File([bytes],'immediate.jpg',{type:'image/jpeg'}));$('file').files=dt.files;$('file').dispatchEvent(new w.Event('change',{bubbles:true}));await until(()=>!$('run').disabled);$('run').click();await until(()=>!$('export-png').disabled);return{params:params()};});
+ const beforeParams=params();
+ for(const layout of ['tabs','tile','cascade']){
+  $('layout-'+layout).click();await wait(70);
+  for(const [viewID,canvasID] of layout==='tabs'?[['viewport','canvas']]:[['viewport','canvas'],['original-viewport','original-canvas']]){
+   const view=$(viewID),matrix=()=>({...matrices[canvasID]});
+   await test(layout+' '+viewID+': trackpad pans both axes without zoom',async()=>{$('navigation-mode').value='auto';const a=matrix();wheel(view,{deltaX:8.5,deltaY:12.5});const b=matrix();check(a.a===b.a,'Scroll zoomed');check(Math.abs((b.e-a.e)+8.5*w.devicePixelRatio)<.01,'Horizontal pan wrong');check(Math.abs((b.f-a.f)+12.5*w.devicePixelRatio)<.01,'Vertical pan wrong');return{before:a,after:b};});
+   await test(layout+' '+viewID+': pinch zoom and mouse wheel zoom',async()=>{let a=matrix();wheel(view,{ctrlKey:true,deltaY:-10});check(matrix().a>a.a,'Pinch did not zoom');$('navigation-mode').value='mouse';a=matrix();wheel(view,{deltaMode:1,deltaY:3});check(matrix().a<a.a,'Mouse did not zoom');$('navigation-mode').value='auto';});
+   await test(layout+' '+viewID+': double click uses current fit / close view',async()=>{$('fit').click();await wait(20);const fit=matrix().a;dbl(view);check(Math.abs(matrix().a-Math.max(w.devicePixelRatio,fit*2))<.001,'Not close view');dbl(view);check(Math.abs(matrix().a-fit)<.001,'Not fit');$('navigation-mode').value='trackpad';wheel(view,{deltaX:30,deltaY:20});dbl(view);check(Math.abs(matrix().a-fit)<.001,'Panned image zoomed instead of fitting');$('navigation-mode').value='mouse';wheel(view,{deltaY:500});dbl(view);check(Math.abs(matrix().a-fit)<.001,'Undersized image did not fit');$('navigation-mode').value='auto';});
+   await test(layout+' '+viewID+': left drag pans and right drag does not',async()=>{const capture=view.setPointerCapture;view.setPointerCapture=()=>{};try{const a=matrix();for(const [type,x,y,button] of [['pointerdown',100,100,0],['pointermove',130,120,0],['pointerup',130,120,0]])view.dispatchEvent(new w.PointerEvent(type,{bubbles:true,pointerId:91,pointerType:'mouse',button,clientX:x,clientY:y}));const b=matrix();check(b.a===a.a&&Math.abs(b.e-a.e-30*w.devicePixelRatio)<.01,'Drag failed');for(const [type,x] of [['pointerdown',100],['pointermove',200],['pointerup',200]])view.dispatchEvent(new w.PointerEvent(type,{bubbles:true,pointerId:92,pointerType:'mouse',button:2,clientX:x,clientY:100}));check(matrix().e===b.e,'Right drag moved image');}finally{view.setPointerCapture=capture;}});
+  }
+ }
+ await test('Scientific controls are untouched by gestures',async()=>{check(params()===beforeParams,'Parameters changed');return{params:params()};});
+ proof.pass=proof.tests.every(x=>x.pass);out.textContent=JSON.stringify(proof,null,2);const save=document.getElementById('save');save.hidden=false;save.href=URL.createObjectURL(new Blob([out.textContent],{type:'application/json'}));save.download='SHERLOQ-gestures-fonts-0.3.2.json';run.disabled=false;
+};
+</script>

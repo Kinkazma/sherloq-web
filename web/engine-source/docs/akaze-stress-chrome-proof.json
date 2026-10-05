@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "status": "explicit-budget-refusal",
+  "scope": "Browser shared-budget boundary only. Complete native pipeline remains unqualified; no native-outcome equivalence claim.",
+  "budgetBytes": 1073741824,
+  "originalSha256": "474ab21c7b60adaca1e6f30da3a2c5a21fdde5d1148dc54480c3fd17a59fd93e",
+  "error": {
+    "code": "MEMORY_LIMIT",
+    "message": "Matching exceeds the native 256 MiB result budget. Reduce Matching or Response explicitly."
+  },
+  "lastProgress": 0.3282198246797033,
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 3323456,
+    "cacheBytes": 4893620,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 809280344,
+    "knownHeapCapacityBytes": 150994944
+  },
+  "cleanup": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 809280344,
+    "knownHeapCapacityBytes": 150994944
+  },
+  "browser": "154.0.8037.58"
+}

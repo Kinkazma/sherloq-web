@@ -1,0 +1,10 @@
+import {Budget} from '../src/cache.js';import {ResamplingViewPool} from '../src/resampling-view-pool.js';import {resamplingFourierParams,resamplingFourierView} from '../src/resampling-fourier.js';import {ensure} from './resampling-reference.js';
+export async function resamplingPoolBrowserTest(){
+ const data={magnitude:Float64Array.from({length:1024**2},(_,i)=>(i%997)/997),minimumMagnitude:0,maximumMagnitude:1,geometry:{outputSide:1024}},params=resamplingFourierParams(),reference={data:{...data}};await resamplingFourierView(reference,params);
+ const budget=new Budget(36*1024**2),pool=new ResamplingViewPool(budget,{maxWorkers:10});try{
+  const actual=await pool.run(data,params);ensure(actual.metrics.fourierViewWorkers===2,'Shared budget reduces useful pool to two');ensure(actual.metrics.fourierViewScheduling.preflightExecutions===0,'No runtime probe');for(let i=0;i<data.magnitude.length;i++)ensure(Object.is(actual.values[i],reference.data.values[i]),'Binary64 parallel identity');for(let i=0;i<actual.pixels.length;i++)ensure(actual.pixels[i]===reference.pixels.data[i],'Parallel bytes');ensure(!budget.retained,'Worker charge released');
+  const controller=new AbortController(),running=pool.run(data,params,{signal:controller.signal});const timer=setTimeout(()=>controller.abort(),5);let error;try{await running;}catch(e){error=e;}finally{clearTimeout(timer);}ensure(error?.code==='CANCELLED','Useful row groups cancelled');ensure(!budget.retained&&!budget.active&&pool.workers.length===0,'Cancelled row workers released');
+ }finally{pool.dispose();}
+ const small=new Budget(34*1024**2),serial=new ResamplingViewPool(small,{maxWorkers:10});try{const result=await serial.run(data,params);ensure(!result.values&&result.metrics.fourierViewWorkers===1&&!small.retained,'Resource-bound serial choice, no hidden workers');}finally{serial.dispose();}
+ return {status:'passed',bitExact:true,resourceReducedWorkers:2,tooSmallPool:'serial',cancellation:'Active row groups terminated and budget returned',peakAccountedBytes:budget.peak};
+}

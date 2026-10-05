@@ -1,0 +1,27 @@
+[
+  {
+    "score": 7.264762,
+    "sha256": "c7a25bc6211ba172a3de24f1904ad87add129f5018318c1f2ebbfa87cb52a050",
+    "metrics": {
+      "workspace": 52756480,
+      "workers": 1,
+      "paged": true,
+      "reads": 18432,
+      "writes": 10632,
+      "readBytes": 1207959552,
+      "writeBytes": 696778752,
+      "temporaryPeakBytes": 213909504,
+      "heapBytes": 13631488,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 1241205.299999997,
+    "memory": {
+      "budgetBytes": 67108864,
+      "retainedBytes": 6291456,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 59054080
+    }
+  }
+]

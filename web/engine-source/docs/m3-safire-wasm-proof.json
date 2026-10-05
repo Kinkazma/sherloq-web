@@ -1,0 +1,66 @@
+{
+  "provider": "wasm",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "weightSha256": "65bdf6880380162d57f77d71b3fd367c3f16aebca316f942a821da16e9225b12",
+  "graphs": {
+    "encoder": {
+      "file": "safire-encoder.onnx",
+      "bytes": 376517982,
+      "sha256": "b77c5d575bf4b89ed481fa2c73cab44ed05212f7ba0cda29c911bba479c10a0a"
+    },
+    "decoder": {
+      "file": "safire-decoder.onnx",
+      "bytes": 16503379,
+      "sha256": "ba7414738be54de7b05bfe89d873eb0a35f517ca9bf384d7b26ab2679fa51b58"
+    }
+  },
+  "decoder": [
+    {
+      "prompts": 1,
+      "lowMasks": {
+        "values": 65536,
+        "expected": 65536,
+        "differences": 65309,
+        "maximum": 0.000010967254638671875,
+        "signDifferences": 0
+      },
+      "confidence": {
+        "values": 1,
+        "expected": 1,
+        "differences": 1,
+        "maximum": 8.344650268554688e-7,
+        "signDifferences": 0
+      }
+    },
+    {
+      "prompts": 4,
+      "lowMasks": {
+        "values": 262144,
+        "expected": 262144,
+        "differences": 261854,
+        "maximum": 0.00002372264862060547,
+        "signDifferences": 2
+      },
+      "confidence": {
+        "values": 4,
+        "expected": 4,
+        "differences": 4,
+        "maximum": 0.0000020265579223632812,
+        "signDifferences": 0
+      }
+    }
+  ],
+  "encoder": {
+    "values": 1048576,
+    "expected": 1048576,
+    "differences": 1034333,
+    "maximum": 0.00001385807991027832,
+    "signDifferences": 0
+  },
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU WASM",
+  "completed": true
+}

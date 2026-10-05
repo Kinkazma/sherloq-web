@@ -1,0 +1,96 @@
+[
+  {
+    "file": "lapack/getrf/getrf_single.c",
+    "url": "https://raw.githubusercontent.com/xianyi/OpenBLAS/v0.3.23/lapack/getrf/getrf_single.c",
+    "sha256": "bd920cab74a6a18c31aa68edb2e0a5168445ed70d4fb6169488786d1008df4bd"
+  },
+  {
+    "file": "lapack/getrs/getrs_single.c",
+    "url": "https://raw.githubusercontent.com/xianyi/OpenBLAS/v0.3.23/lapack/getrs/getrs_single.c",
+    "sha256": "990a65a796be4f86c11d089759646b892b7eca638f8461d557ea3c0f05449b85"
+  },
+  {
+    "file": "kernel/arm64/KERNEL.ARMV8",
+    "url": "https://raw.githubusercontent.com/xianyi/OpenBLAS/v0.3.23/kernel/arm64/KERNEL.ARMV8",
+    "sha256": "d26a5a4f7182325e1a5ab31ca6d72ac247a855c7193e16e2588ef65916004906"
+  },
+  {
+    "file": "kernel/arm64/dgemm_kernel_4x4.S",
+    "url": "https://raw.githubusercontent.com/xianyi/OpenBLAS/v0.3.23/kernel/arm64/dgemm_kernel_4x4.S",
+    "sha256": "0be0479c733a1339c13cc7978439fd467c2a581948fa23a242fe385bb63c926a"
+  },
+  {
+    "file": "LICENSE",
+    "url": "https://raw.githubusercontent.com/xianyi/OpenBLAS/v0.3.23/LICENSE",
+    "sha256": "190b5a9c8d9723fe958ad33916bd7346d96fab3c5ea90832bb02d854f620fcff"
+  },
+  {
+    "file": "lapack/getf2/getf2_k.c",
+    "sha256": "5591edfa282b84f1821b081582dd5b6aa4e6de69120f3358883926345b0fdeac"
+  },
+  {
+    "file": "kernel/generic/trsm_kernel_LT.c",
+    "sha256": "ec862bc237b43b05ff01a6f645ae8c375426d60a54aaa7d32a41d3e4e412520b"
+  },
+  {
+    "file": "kernel/generic/trsm_kernel_LN.c",
+    "sha256": "cefb58a50e54340f46a8fc96df1553e7d33535ff6b8466e61c2c6b50ba4f20a3"
+  },
+  {
+    "file": "kernel/arm64/dot.S",
+    "sha256": "d9e4db75c65919ee1a57f948f50bc7b2ca0fe2271dc7c3b0595dc8881ba69b2b"
+  },
+  {
+    "file": "kernel/arm64/gemv_t.S",
+    "sha256": "4afb18191142b40385bfd7e77ee2bbac2f0b0b60a43e56a331ef98686a96b210"
+  },
+  {
+    "file": "param.h",
+    "sha256": "5b5d3d223b6ccde6991aac28bc49f79040b919a87c7294edcd7276dabefb7693"
+  },
+  {
+    "file": "kernel/arm64/gemv_n.S",
+    "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.23/kernel/arm64/gemv_n.S",
+    "sha256": "14ae4f9b4715a389a118331691ff64b62d0319cb0b83155926f8dbb441d2483d"
+  },
+  {
+    "file": "driver/level3/gemm.c",
+    "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.23/driver/level3/gemm.c",
+    "sha256": "87ffe7e0aa1259e55f2a9920157299d4e51a227fd92fe6b92f0211fb9b9281dd"
+  },
+  {
+    "file": "driver/level3/level3.c",
+    "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.23/driver/level3/level3.c",
+    "sha256": "55df7653a86ec810f9945f2edc829a095af6ce1afdacca0dc6103ddac0837e49"
+  },
+  {
+    "file": "driver/level3/trsm_L.c",
+    "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.23/driver/level3/trsm_L.c",
+    "sha256": "9ce5f1b689d15c778f0b1dc222fed9025c7cefaca621d31ff9c5bc6fdebe10f4"
+  },
+  {
+    "file": "lapack/getrf/getrf_parallel.c",
+    "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.23/lapack/getrf/getrf_parallel.c",
+    "sha256": "4977bb4285fbe4f21442a992737736ad824d15c44d888108e5feebcfc65f25a4"
+  },
+  {
+    "file": "lapack/getrs/getrs_parallel.c",
+    "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.23/lapack/getrs/getrs_parallel.c",
+    "sha256": "b1d0678f3c154b725cb989ea7e23fdf0927dfaaf95ed877bef430d4e85ce9fa5"
+  },
+  {
+    "file": "kernel/arm64/dgemm_kernel_8x4.S",
+    "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.23/kernel/arm64/dgemm_kernel_8x4.S",
+    "sha256": "d0cb65e0cadd9b3e6583875b2fe981a5bac474fe08415262e76d7cf0a12510bb"
+  },
+  {
+    "file": "driver/level3/level3_thread.c",
+    "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.23/driver/level3/level3_thread.c",
+    "sha256": "21e8bb1634fafb3928bd9b7f0468dcbe579d580575d49333732e2569a76d2d33"
+  },
+  {
+    "file": "interface/gemm.c",
+    "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.23/interface/gemm.c",
+    "sha256": "d093642d3e72ad4851d33df11d64d98cdc78ff7703ea90df9d5b9ec89631145a"
+  }
+]

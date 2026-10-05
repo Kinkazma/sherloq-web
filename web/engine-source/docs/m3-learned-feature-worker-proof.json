@@ -1,0 +1,148 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "backend": "cpu",
+      "id": 0,
+      "points": 100,
+      "expectedPoints": 100,
+      "coordinateDifferences": 0,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "wasm",
+        "execution": "wasm",
+        "threads": 1,
+        "actualHeapBytes": 20185088,
+        "maximumHeapBytes": 201326592,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 0,
+        "workerAdmittedBytes": 302395084
+      }
+    },
+    {
+      "backend": "cpu",
+      "id": 1,
+      "points": 100,
+      "expectedPoints": 100,
+      "coordinateDifferences": 0,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "wasm",
+        "execution": "wasm",
+        "threads": 1,
+        "actualHeapBytes": 20185088,
+        "maximumHeapBytes": 201326592,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 0,
+        "workerAdmittedBytes": 302403464
+      }
+    },
+    {
+      "backend": "cpu",
+      "id": 2,
+      "points": 0,
+      "expectedPoints": 0,
+      "coordinateDifferences": 0,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "wasm",
+        "execution": "wasm",
+        "threads": 1,
+        "actualHeapBytes": 20185088,
+        "maximumHeapBytes": 201326592,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 0,
+        "workerAdmittedBytes": 302231244
+      }
+    },
+    {
+      "backend": "webgpu",
+      "id": 0,
+      "points": 100,
+      "expectedPoints": 100,
+      "coordinateDifferences": 0,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "webgpu",
+        "execution": "webgpu-with-cpu-fallback-nodes",
+        "threads": 1,
+        "actualHeapBytes": 20185088,
+        "maximumHeapBytes": 201326592,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 76546048,
+        "workerAdmittedBytes": 378941132
+      }
+    },
+    {
+      "backend": "webgpu",
+      "id": 1,
+      "points": 100,
+      "expectedPoints": 100,
+      "coordinateDifferences": 0,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "webgpu",
+        "execution": "webgpu-with-cpu-fallback-nodes",
+        "threads": 1,
+        "actualHeapBytes": 20185088,
+        "maximumHeapBytes": 201326592,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 76867840,
+        "workerAdmittedBytes": 379271304
+      }
+    },
+    {
+      "backend": "webgpu",
+      "id": 2,
+      "points": 0,
+      "expectedPoints": 0,
+      "coordinateDifferences": 0,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "webgpu",
+        "execution": "webgpu-with-cpu-fallback-nodes",
+        "threads": 1,
+        "actualHeapBytes": 20185088,
+        "maximumHeapBytes": 201326592,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 70254592,
+        "workerAdmittedBytes": 372485836
+      }
+    }
+  ],
+  "cancelled": true,
+  "admissionRepeatSafe": true,
+  "peakAccountedBytes": 393052930,
+  "activeBytes": 0,
+  "preflightExecutions": 0
+}

@@ -1,0 +1,17 @@
+{
+  "opencv": "4.11.0",
+  "numpy": "1.26.4",
+  "file": "tests/data/tiff-stream/tiles-bigtiff.tiff",
+  "width": 4103,
+  "height": 5401,
+  "cases": [
+    {
+      "quality": 75,
+      "sha256": "60c14a5505d7e6ab9381810a6646b9a38e68d35a7d1ef85afe95b6d22063ce82"
+    },
+    {
+      "quality": 99,
+      "sha256": "2978ac08130790925039ddbc68aee86277c58c274bd37e2824de1ae5d85bdc11"
+    }
+  ]
+}

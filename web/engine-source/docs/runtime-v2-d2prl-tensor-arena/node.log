@@ -1,0 +1,178 @@
+TAP version 13
+# Subtest: D2PRL admits its large workspace only when the shared CPU lane is available
+ok 1 - D2PRL admits its large workspace only when the shared CPU lane is available
+  ---
+  duration_ms: 5.7135
+  type: 'test'
+  ...
+# Subtest: D2PRL cancellation before admission creates no worker and preserves source ownership
+ok 2 - D2PRL cancellation before admission creates no worker and preserves source ownership
+  ---
+  duration_ms: 1.676292
+  type: 'test'
+  ...
+# Subtest: mapped GPU output survives engine disposal without a copied backing and releases idempotently
+ok 3 - mapped GPU output survives engine disposal without a copied backing and releases idempotently
+  ---
+  duration_ms: 4.923917
+  type: 'test'
+  ...
+# Subtest: one owned GPU output feeds another convolution and device lifetime covers every outstanding result
+ok 4 - one owned GPU output feeds another convolution and device lifetime covers every outstanding result
+  ---
+  duration_ms: 0.929625
+  type: 'test'
+  ...
+# Subtest: mapping and range recovery preserve the completed dispatch and release its transient resources before reclaim
+ok 5 - mapping and range recovery preserve the completed dispatch and release its transient resources before reclaim
+  ---
+  duration_ms: 7.758291
+  type: 'test'
+  ...
+# Subtest: cancellation after mapping frees unpublished output and does not keep a device lease
+ok 6 - cancellation after mapping frees unpublished output and does not keep a device lease
+  ---
+  duration_ms: 1.260208
+  type: 'test'
+  ...
+# Subtest: D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+ok 7 - D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+  ---
+  duration_ms: 37.677334
+  type: 'test'
+  ...
+# Subtest: five failures without progress stop locally while more separated incidents remain recoverable
+ok 8 - five failures without progress stop locally while more separated incidents remain recoverable
+  ---
+  duration_ms: 14.088291
+  type: 'test'
+  ...
+# Subtest: feature copy recovery retains completed native work and releases all ownership
+ok 9 - feature copy recovery retains completed native work and releases all ownership
+  ---
+  duration_ms: 4.387875
+  type: 'test'
+  ...
+# Subtest: cancelled local recovery immediately releases pressure and does not retry
+ok 10 - cancelled local recovery immediately releases pressure and does not retry
+  ---
+  duration_ms: 0.326292
+  type: 'test'
+  ...
+# Subtest: two evaluator lanes refusing every useful tile stop without leaking work or pressure
+ok 11 - two evaluator lanes refusing every useful tile stop without leaking work or pressure
+  ---
+  duration_ms: 12.041875
+  type: 'test'
+  ...
+# Subtest: concurrent useful tiles do not combine independent first refusals into a loop
+ok 12 - concurrent useful tiles do not combine independent first refusals into a loop
+  ---
+  duration_ms: 1.760292
+  type: 'test'
+  ...
+# Subtest: guarded stages retain dynamic getters and original method ownership
+ok 13 - guarded stages retain dynamic getters and original method ownership
+  ---
+  duration_ms: 0.288375
+  type: 'test'
+  ...
+# Subtest: a refused optional evaluator preserves the ready pool and grows again after external release
+ok 14 - a refused optional evaluator preserves the ready pool and grows again after external release
+  ---
+  duration_ms: 1.576417
+  type: 'test'
+  ...
+# Subtest: parameter digest recovery retains already fetched useful model bytes
+ok 15 - parameter digest recovery retains already fetched useful model bytes
+  ---
+  duration_ms: 26.186875
+  type: 'test'
+  ...
+# Subtest: cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+ok 16 - cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+  ---
+  duration_ms: 1.082459
+  type: 'test'
+  ...
+# Subtest: D2 waits for independent work without retrying or treating GPU retirement as ArrayBuffer backing
+ok 17 - D2 waits for independent work without retrying or treating GPU retirement as ArrayBuffer backing
+  ---
+  duration_ms: 8.920084
+  type: 'test'
+  ...
+# Subtest: scheduled D2 worker calls carry one owner and cannot be mistaken for an independent producer
+ok 18 - scheduled D2 worker calls carry one owner and cannot be mistaken for an independent producer
+  ---
+  duration_ms: 0.836291
+  type: 'test'
+  ...
+# Subtest: Row preparations preserve all Torch and Pillow native tensor references across arbitrary strips
+ok 19 - Row preparations preserve all Torch and Pillow native tensor references across arbitrary strips
+  ---
+  duration_ms: 4191.660625
+  type: 'test'
+  ...
+# Subtest: Oriented half-open ROI reads match contiguous preparations and retain source bytes
+ok 20 - Oriented half-open ROI reads match contiguous preparations and retain source bytes
+  ---
+  duration_ms: 770.661625
+  type: 'test'
+  ...
+# Subtest: Rows preparation cancellation, malformed reads and memory refusal release windows and allow retry
+ok 21 - Rows preparation cancellation, malformed reads and memory refusal release windows and allow retry
+  ---
+  duration_ms: 50.669958
+  type: 'test'
+  ...
+# Subtest: Wasm tensor leases keep stable views across new banks and owner disposal
+ok 22 - Wasm tensor leases keep stable views across new banks and owner disposal
+  ---
+  duration_ms: 113.971
+  type: 'test'
+  ...
+# Subtest: released ranges coalesce and reused tensors preserve new-array zero semantics
+ok 23 - released ranges coalesce and reused tensors preserve new-array zero semantics
+  ---
+  duration_ms: 1.90375
+  type: 'test'
+  ...
+# Subtest: retirement excludes live tensors and reports only the Wasm domain
+ok 24 - retirement excludes live tensors and reports only the Wasm domain
+  ---
+  duration_ms: 5.388667
+  type: 'test'
+  ...
+# Subtest: allocation refusal and cancellation publish no bank and return reservations
+ok 25 - allocation refusal and cancellation publish no bank and return reservations
+  ---
+  duration_ms: 0.852084
+  type: 'test'
+  ...
+# Subtest: zero:false reuses a dirty range and full output publication overwrites every sentinel
+ok 26 - zero:false reuses a dirty range and full output publication overwrites every sentinel
+  ---
+  duration_ms: 1.059042
+  type: 'test'
+  ...
+# Subtest: one bank is counted once and remains pinned until its final slice is returned
+ok 27 - one bank is counted once and remains pinned until its final slice is returned
+  ---
+  duration_ms: 0.378667
+  type: 'test'
+  ...
+# Subtest: refused standalone helper admission registers no orphaned arena reclaimer
+ok 28 - refused standalone helper admission registers no orphaned arena reclaimer
+  ---
+  duration_ms: 3.976875
+  type: 'test'
+  ...
+1..28
+# tests 28
+# suites 0
+# pass 28
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5117.980042

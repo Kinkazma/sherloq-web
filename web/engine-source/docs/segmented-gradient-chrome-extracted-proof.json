@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Common worker on public96MP JPEG under256MiB; three complete native gradient checksums, owned results/windows, release/unload, cancellation/storage closure and retry. Functional timings, not isolated benchmarks.",
+  "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+  "nativeSources": {
+    "source/gui/sherloq_app/core/gradient.py": "b57df161ae36d42926f03bf370cea66f22faa5f4a622ccee23b9f2abcb7b31c7",
+    "source/gui/sherloq_app/core/gradient_bounded.py": "43326df174628b05c796bd50df6345df75a19e7af4f39389ca70a849a98511ac",
+    "source/gui/sherloq_app/core/utility.py": "4c70b30cfb1f8bebcdae85fa95f39a77d267081bc9509d67b661c9e9600a5fbc"
+  },
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "loadMs": 2525.5,
+  "loadMetrics": {
+    "decodeMs": 2098.7999999970198,
+    "rowsPerChunk": 116,
+    "encodedWorkingBytes": 86050184,
+    "coefficientAllowanceBytes": 0,
+    "workingReservationBytes": 127956616,
+    "codecHeapCapacityBytes": 103546880,
+    "storage": "temporary",
+    "temporaryBackend": "opfs",
+    "temporaryFallback": null,
+    "temporaryBytes": 288000000,
+    "originalBlobBytes": 86050184,
+    "originalBlobResidency": "browser-managed; not measured as zero RAM",
+    "preparationMs": 2484.7999999970198,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 129005192
+    }
+  },
+  "cases": [
+    {
+      "params": {
+        "intensity": 0,
+        "mode": 2,
+        "invert": false,
+        "equalize": false
+      },
+      "fullSha256": "cf90e913f6c6686fe46b70ed64e1ceb77bf6e3046af72c6fa51957a5b7951d27",
+      "windows": 4,
+      "rpcMs": 1759.5,
+      "metrics": {
+        "totalMs": 1759,
+        "derivativesMs": 982.1000000014901,
+        "lengthsMs": 0,
+        "renderMs": 699.5,
+        "toneMs": 0,
+        "blocks": 381,
+        "rowsPerBlock": 21,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "arithmeticHeapCapacityBytes": 67108864,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 175028128
+        }
+      }
+    },
+    {
+      "params": {
+        "intensity": 33,
+        "mode": 3,
+        "invert": true,
+        "equalize": false
+      },
+      "fullSha256": "5f768f1ec977b1e0ca7926bea36b5dc5221fec5c5bf51a9c8a1331e4e0a73b8b",
+      "windows": 4,
+      "rpcMs": 2583.89999999851,
+      "metrics": {
+        "totalMs": 2583.60000000149,
+        "derivativesMs": 973.5,
+        "lengthsMs": 273.29999999701977,
+        "renderMs": 696.7000000029802,
+        "toneMs": 572.8999999985099,
+        "blocks": 381,
+        "rowsPerBlock": 21,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "arithmeticHeapCapacityBytes": 67108864,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 175028128
+        }
+      }
+    },
+    {
+      "params": {
+        "intensity": 95,
+        "mode": 3,
+        "invert": true,
+        "equalize": true
+      },
+      "fullSha256": "369a1539e425f54394001df1f74eee85412617e71c57339cb9362851640b6a78",
+      "windows": 4,
+      "rpcMs": 2458.60000000149,
+      "metrics": {
+        "totalMs": 2458.5,
+        "derivativesMs": 932.2999999970198,
+        "lengthsMs": 263,
+        "renderMs": 678.2999999970198,
+        "toneMs": 524.2000000029802,
+        "blocks": 381,
+        "rowsPerBlock": 21,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "arithmeticHeapCapacityBytes": 67108864,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 175028128
+        }
+      }
+    }
+  ],
+  "cancellation": "storage-closed-before-worker-termination",
+  "cancellationMs": 29,
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 175028128,
+    "knownHeapCapacityBytes": 170655744
+  },
+  "storageArtifactsRemaining": 0,
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true,
+  "engineSources": {
+    "src/segmented-gradient.js": "ca54214d8ab744bba1ab9fdd2c07da2d67983c40c40f36ee03feb2dc42da3ecc",
+    "src/gradient-math.js": "d5a3164a47d0968ce3340f5a97d61e183e133aa9f8e9bc8782348ec625421899",
+    "vendor/gradient/gradient.wasm": "517b7bda132f15931d704d4021c4a75e84a7ac1d23f3f84c4ed156b66f92802c",
+    "src/index.js": "f86907b40abf895d58f3e1508f19021c6bd5d6ff37b8fece29f19dd3dbdb7ff5"
+  },
+  "recipeSources": {
+    "scripts/generate-large-gradient.py": "5b1063d928fb353c5bdab5e507104593c4907428a809157468a6107312c64dd8",
+    "scripts/study-segmented-gradient.mjs": "8c602e7e7486d6f8415fad4b5f3f562efee5a1aee3a8ba8fd3daaee465a20c57",
+    "tests/segmented-gradient-browser.js": "c0d66e706c05191d2c52ccc9e42b30e9b1cb42839e25429ec96ba84d39558989"
+  },
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 175028128,
+    "finalWorkerPeakAccountedBytes": 175028128
+  }
+}

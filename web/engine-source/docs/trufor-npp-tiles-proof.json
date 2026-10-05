@@ -1,0 +1,17 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "tiles": 4,
+      "maxError": 0,
+      "differences": 0
+    },
+    {
+      "case": 1,
+      "tiles": 8,
+      "maxError": 0,
+      "differences": 0
+    }
+  ],
+  "passed": true
+}

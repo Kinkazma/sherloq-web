@@ -1,0 +1,341 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "d2prl",
+  "backend": "webgpu",
+  "requestedBackend": "webgpu",
+  "large": true,
+  "rich": true,
+  "parallel": false,
+  "scope": "Real common-worker inference from original JPEG through bounded source reads, full-resolution numeric/mask planes, cached composition and independently owned paged NPZ. Native tensors are comparison oracles only. No WordPress/device-general claim.",
+  "loadMs": 1807.7999999970198,
+  "loadMetrics": {
+    "decodeMs": 1299.6000000089407,
+    "rowsPerChunk": 116,
+    "encodedWorkingBytes": 22835139,
+    "coefficientAllowanceBytes": 0,
+    "workingReservationBytes": 64741571,
+    "codecHeapCapacityBytes": 27656192,
+    "storage": "memory",
+    "temporaryBackend": null,
+    "temporaryFallback": null,
+    "temporaryBytes": 0,
+    "originalBlobBytes": 22835139,
+    "originalBlobResidency": "browser-managed; not measured as zero RAM",
+    "preparationMs": 1583,
+    "memory": {
+      "budgetBytes": 3221225472,
+      "retainedBytes": 288000000,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 353790147
+    }
+  },
+  "records": [
+    {
+      "name": "detect",
+      "rpcMs": 1645665.900000006,
+      "inferences": 3,
+      "outputs": {
+        "map": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 96000000,
+          "finite": true,
+          "sha256": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+          "accepted": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 68160948,
+          "finite": true,
+          "sha256": "269b592b1396604f87b8556dc888a82ea46c851a47110c8f3c376226c987da7f",
+          "accepted": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 96000000,
+          "finite": true,
+          "sha256": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "accepted": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 0,
+          "finite": true,
+          "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "accepted": true
+        },
+        "target": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 46212896,
+          "finite": true,
+          "sha256": "72d82254deb5d6cd3e8c822b04d05a4bcf72cd03c994e55ecb778749d583051b",
+          "accepted": true
+        },
+        "source": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 36071575,
+          "finite": true,
+          "sha256": "8f635aa7d08fc786af6f3c21869341d104d46264b79e2aa7d0c26b5ff0adad5e",
+          "accepted": true
+        }
+      },
+      "metrics": {
+        "totalMs": 1645664.100000009,
+        "inferences": 3,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 3221225472,
+          "retainedBytes": 1728090112,
+          "cacheBytes": 7225344,
+          "activeReservationBytes": 508011616,
+          "peakAccountedBytes": 2817503200
+        },
+        "projection": {
+          "totalMs": 14975,
+          "projectionMs": 14540.70000000298,
+          "compositionMs": 8383.50000013411,
+          "postprocessMs": 426.90000000596046,
+          "blocks": 884,
+          "metadataBytes": 90112,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 1440000000
+        }
+      }
+    },
+    {
+      "name": "refilter",
+      "rpcMs": 36241.59999999404,
+      "inferences": 0,
+      "outputs": {
+        "map": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 96000000,
+          "finite": true,
+          "sha256": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+          "accepted": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 71635170,
+          "finite": true,
+          "sha256": "a7a7be5bebb651fbaa145cb9ab69068a1f64b9323794c50c84e96fdc9d40201a",
+          "accepted": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 96000000,
+          "finite": true,
+          "sha256": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "accepted": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 0,
+          "finite": true,
+          "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "accepted": true
+        },
+        "target": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 48152079,
+          "finite": true,
+          "sha256": "b3f5738b82008f4aeb8fd186de6ddc47e915daac6d261067ccca0b1bff26ac89",
+          "accepted": true
+        },
+        "source": {
+          "different": 0,
+          "maxAbs": 0,
+          "meanAbs": 0,
+          "nonzero": 39108207,
+          "finite": true,
+          "sha256": "ff815a233ee54fda6d833e81766d47cdbcf55b4d3a26f5296fce5f7bcd96895e",
+          "accepted": true
+        }
+      },
+      "metrics": {
+        "totalMs": 36241,
+        "inferences": 0,
+        "cache": {
+          "rawGrids": 3
+        },
+        "memory": {
+          "budgetBytes": 3221225472,
+          "retainedBytes": 2112180224,
+          "cacheBytes": 7225344,
+          "activeReservationBytes": 508011616,
+          "peakAccountedBytes": 3201593312
+        },
+        "projection": {
+          "totalMs": 36239.79999999702,
+          "projectionMs": 35687.90000000596,
+          "compositionMs": 29535.400000169873,
+          "postprocessMs": 412.5,
+          "blocks": 884,
+          "metadataBytes": 90112,
+          "storage": {
+            "map": "memory",
+            "mask": "temporary",
+            "target": "temporary",
+            "source": "temporary",
+            "analyzed": "temporary",
+            "candidates": "temporary"
+          },
+          "resultBytes": 1440000000
+        }
+      }
+    }
+  ],
+  "checks": {
+    "originalBytes": true,
+    "raw": true,
+    "rawMetrics": [
+      {
+        "maxAbs": 5.662441253662109e-7,
+        "accepted": true
+      },
+      {
+        "maxAbs": 4.470348358154297e-7,
+        "accepted": true
+      },
+      {
+        "maxAbs": 5.960464477539062e-7,
+        "accepted": true
+      }
+    ],
+    "windowOwnership": true,
+    "wrongWindow": true,
+    "staleRevision": true,
+    "priorOwnedResult": true,
+    "npzDirected": true,
+    "releasedPlane": true,
+    "exportSha": true,
+    "exportLimit": true,
+    "releasedExport": true
+  },
+  "exported": {
+    "id": "c477bc65-a763-4bb0-8879-65a20d832ce2",
+    "revision": 1,
+    "mime": "application/zip",
+    "format": "npz",
+    "width": 12000,
+    "height": 8000,
+    "byteLength": 1440016304,
+    "sha256": "074728b0efb1e02b3885a79c95baf13d48b69e22de8fddbaf5c10a51ca34ea5b",
+    "imageId": "image",
+    "sourceSurfaceId": "083bb923-23c5-4e05-b884-ddf802a424aa",
+    "sourceSurfaceRevision": 1,
+    "provenance": {
+      "originalSha256": "03c0b3127e021f2b8f88cbe044545e0de2127fcdae8a62cd36182821180f2ccb",
+      "operation": "ai.clones.d2prl",
+      "coordinates": "full-resolution",
+      "arrays": "Native float32 probability/role planes and uint8 masks; no pickle"
+    },
+    "metrics": {
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "arrays": 8,
+      "assemblyMs": 28492.39999999106,
+      "hashMs": 80857.90000000596,
+      "maximumScalarChunk": 65536,
+      "outputCapacityBytes": 1440016304,
+      "memory": {
+        "budgetBytes": 3221225472,
+        "retainedBytes": 2112180224,
+        "cacheBytes": 7225344,
+        "activeReservationBytes": 502113376,
+        "peakAccountedBytes": 3201593312
+      }
+    }
+  },
+  "exportMs": 109452.30000001192,
+  "exportPages": 1374,
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3201593312,
+    "knownHeapCapacityBytes": 27656192
+  },
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true,
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 3201593312,
+    "finalWorkerPeakAccountedBytes": 3201593312
+  },
+  "sources": {
+    "src/index.js": "258cf3542b27b1b7b6c789abcb2613a4deb98e7d70c9fd1a480c4cb6defb6585",
+    "src/worker.js": "2a8ffe81fd90a6c0bb320e2d9b20c0d967463b42f9823f6283daa655d811047e",
+    "src/worker-client.js": "f69daafba1fde4990180f9f9b3097e463458f73855fa63511a61b071ce05a315",
+    "src/d2prl-adapter.js": "814d77662ef2342a69939f0df1a8a3d2799fdb884acb1b3b5ac7bd6926c111b6",
+    "src/segmentation-adapter.js": "fa1bd69cb6cc078848aa416c008d5f8b9c406d598f82ac37fe9a1cab871f18cb",
+    "src/neural-input.js": "3e146ac8abebb333b9e162539ce4246bd07ad7c0c3a2694439e06fd67599b152",
+    "src/neural-projector.js": "4ac9e00289cc33682d2ae1a8d8eac60036e8335da5baa6b289a36fdcd0dc2dfb",
+    "src/publish-neural-result.js": "0e579cc7247c7f5a1c57c51aecbe769ca57a07e1a687a5efdc6e1c4d888037f2",
+    "src/neural-exports.js": "982cda32dd9d36c43e0d15e4f5c7b468eb3323e7c39e2c1490a09a83573595d8",
+    "experiments/d2prl/model.js": "67986dc9cec08827c14629d2868fbd5323ebae8ee3751710136eba77903b25e5",
+    "experiments/d2prl/analysis.js": "069a9e81c2b96e354c2df3b43b3e42aba6e11a49ab8b8d45bf1d4a0b5a9e1e37",
+    "experiments/segmentation/analysis.js": "c95eaf99af31e153c54a4caa8db2113ffebc64508309fc7bb8ba21b322ab51bb",
+    "experiments/segmentation/zone-scheduler.js": "dc3788bc17863f826094aacd41ca79ebba2436c5c6df3036103f92647049ccc5",
+    "experiments/segmentation/inference.js": "eae812f02caba7668ea462dd2751ba903ff532cedfc378c29c31df86b46d03ab",
+    "experiments/segmentation/backend.js": "34d3dd4f5481ad2757db5179fe6131e9c6844b26dfe0c4fc63bc16b6531677ba",
+    "experiments/segmentation/prepare.js": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "experiments/segmentation/cmseg-correlation.js": "efd9ac635242650138d5a5ccc048a92d1204ac154b71166c2d47de4000b76293",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "experiments/segmentation/cmseg-backbone.js": "9d7a8a5f8de1074bd5a444f6af4b0bb79c1f1d5250e683574e3be2400ee9605e",
+    "experiments/segmentation/cmseg-inference.js": "c0127b82a1b0d7448aac5fab97eaaa2b4cbd04f466cdbdc6284456245d5754fc",
+    "experiments/segmentation/cmseg-inference-worker.js": "eb08d60c167279125fcf54deb3bc22de03788b7af2a6f1d1e9f0c5330fbe490f",
+    "experiments/segmentation/models.js": "4108dcd9c45140ca9071faf3e2405681cccfc2872431026dff6340d61536fe0f",
+    "vendor/segmentation/CMSEG-EXACT-PINNED.json": "59e25760d8ad649f6eec2ef6d283b7c10bfa4b0911a0e2a179c2c88ee380cd9f",
+    "experiments/segmentation/tnt-backbone.js": "ce96cb17e59eaaa21011b0b2a8a32e3640e361d7421428f8b807087896171af7",
+    "experiments/segmentation/tnt-linear.js": "076816da53d56761565f1f718866cb68561c52b1d4d6e8f1258532400554fcd6",
+    "experiments/segmentation/tnt-linear-worker.js": "ad5280f125769fdd254878f9da90beae90837ba386298ac8cfcc50939ab38bfd",
+    "experiments/segmentation/tnt-inference.js": "566a07fc1df900ad7f695a3d10a025b1f90796d4e41ca63a291f1df50de21411",
+    "vendor/segmentation/TNT-PINNED.json": "ff4584f4c13ea3935edbfb3a3c37ce17efc56cfd2495d1d0b1adcc18393f2e1c",
+    "experiments/segmentation/vig-backbone.js": "0df95f0391fff5eef26f45026083da3e09909cf329b98f8b03ccb46a1f520fc0",
+    "experiments/segmentation/vig-convolution.js": "2bfc249b8a6c97d0b563c6a9daf28a2550e36ffa569f5ca101bcdbe27482973a",
+    "experiments/segmentation/vig-convolution-worker.js": "b393e6911f7bacdf2666ce06819ee215e9bf383a08f898d60fe431d4270b5ac5",
+    "experiments/segmentation/vig-inference.js": "6ef8ca4d4b05b5e1e557600e5f0dc15281e2c2d8a2ea146e4ba8f007b2819a98",
+    "vendor/segmentation/VIG-PINNED.json": "0fecccaa1e99269fafdce76e843d9c10d978b03c9705ae13a553e842fb19402c"
+  },
+  "runtimeManifestSha256": "dea349b27266ccd732a52f4183384892110b97dee555c54eaec128ebeae31236",
+  "recipeSources": {
+    "scripts/generate-neural-segmented.py": "4f261ed18908fa245f8c73681aa383596a63c415885352b86cf2a1a0396af660",
+    "scripts/study-neural-segmented.mjs": "66894735da9ebfdede37c595c5801026aed3853ba7f175903999e4a16add9e98",
+    "tests/neural-segmented-browser.js": "8881b647f999bf08ba20d1e421b369d587a6d883bf2abff930889ab3d563a1c2"
+  }
+}

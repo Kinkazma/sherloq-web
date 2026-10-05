@@ -1,0 +1,264 @@
+{
+  "dimensions": [
+    83,
+    71
+  ],
+  "analyzeMs": 195062.5,
+  "totalMs": 195730.10000000894,
+  "fields": {
+    "map": {
+      "length": 5893,
+      "finite": true,
+      "min": 0.0019141543889418244,
+      "max": 0.005471950862556696,
+      "maxError": 2.1886080503463745e-8,
+      "meanError": 6.502723214168328e-9,
+      "thresholdChanges": 0
+    },
+    "native_map": {
+      "length": 396,
+      "finite": true,
+      "min": 0.001891811960376799,
+      "max": 0.005523619242012501,
+      "maxError": 2.3748725652694702e-8,
+      "meanError": 6.660367503310695e-9,
+      "thresholdChanges": 0
+    }
+  },
+  "views": [
+    {
+      "view": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 0,
+      "rect": {
+        "x": 30,
+        "y": 30,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        30,
+        30
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 30,
+        "y": 30,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        30,
+        30
+      ],
+      "bytes": 6519
+    }
+  ],
+  "export": {
+    "bytes": 29516,
+    "descriptor": 29516,
+    "first": [
+      80,
+      75,
+      3,
+      4
+    ],
+    "last": [
+      80,
+      75,
+      5,
+      6
+    ]
+  },
+  "source": {
+    "dimensions": {
+      "id": "db2f4a24-b0d1-4bc9-8a60-4f4f775c43cf",
+      "revision": 1,
+      "width": 83,
+      "height": 71,
+      "format": "rgb8",
+      "sourceWidth": 83,
+      "sourceHeight": 71,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "provenance": {
+      "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+      "format": "png",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        83,
+        71
+      ],
+      "sourceDepth": 8,
+      "analysisDepth": 8,
+      "interlace": 0,
+      "icc": "absent",
+      "alpha": "absent",
+      "interpolation": "none",
+      "frames": "static PNG"
+    },
+    "metrics": {
+      "decodeMs": 18.299999997019768,
+      "rowsPerChunk": 32,
+      "passes": 1,
+      "encodedReadCalls": 1,
+      "encodedReadBytes": 17847,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 33554432,
+      "workingReservationBytes": 41951008,
+      "storage": "memory",
+      "temporaryBackend": null,
+      "temporaryFallback": null,
+      "temporaryBytes": 0,
+      "originalBlobBytes": 17847,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM"
+    }
+  },
+  "provenance": {
+    "originalSourceSha256": "3efdea67921b1ce6d6e030059ad312f9c603bb32ecd0ce3189baad9a696ef403",
+    "sourceSurfaceIdentity": "db2f4a24-b0d1-4bc9-8a60-4f4f775c43cf/1",
+    "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+    "provider": "webgpu",
+    "qualification": "native segmented HRNet; see dimension-specific proof"
+  },
+  "storage": null,
+  "events": [
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-1-branch2",
+      "elapsedMs": 9972.800000011921
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-3-branch1",
+      "elapsedMs": 19984
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-0-branch3",
+      "elapsedMs": 30220.5
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-0-fuse3-2",
+      "elapsedMs": 40500.30000001192
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-1-fuse1-0",
+      "elapsedMs": 51027.5
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-1-fuse3-2",
+      "elapsedMs": 61928.10000000894
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-2-fuse1-3",
+      "elapsedMs": 72168
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-2-fuse3-2",
+      "elapsedMs": 82405.80000001192
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage3-1-branch1",
+      "elapsedMs": 92522.90000000596
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage4-0-branch1",
+      "elapsedMs": 102547.5
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-1-fuse0-1",
+      "elapsedMs": 112701.30000001192
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-transition-0",
+      "elapsedMs": 124114.10000000894
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-branch2",
+      "elapsedMs": 134233
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 145239.10000000894
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-fuse2-0",
+      "elapsedMs": 155710
+    },
+    {
+      "phase": "model-load",
+      "model": "fusion-stage5-0-fuse3-0",
+      "elapsedMs": 166576.5
+    },
+    {
+      "phase": "model-load",
+      "model": "fusion-stage5-0-fuse3-2",
+      "elapsedMs": 177320.40000000596
+    },
+    {
+      "phase": "model-load",
+      "model": "sample",
+      "elapsedMs": 187926
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3209814186,
+    "residentCodecBytes": 0
+  },
+  "cancelled": null,
+  "remainingTemporary": null,
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "off-the-record Playwright context",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

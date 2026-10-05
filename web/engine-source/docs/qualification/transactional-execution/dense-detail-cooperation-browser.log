@@ -1,0 +1,13 @@
+Native detail before started
+{"variant":"before","models":11,"accepted":["identity","translation","mirror","fractional","perspective","six-samples","image-and-tile-boundaries"],"readWindow":66,"totalMilliseconds":29926.935000002384,"scoreMilliseconds":14904.335000008345,"groupMilliseconds":13552.094999998808}
+Native detail after started
+{"variant":"after","models":11,"accepted":["identity","translation","mirror","fractional","perspective","six-samples","image-and-tile-boundaries"],"readWindow":66,"totalMilliseconds":2870.1799999773502,"scoreMilliseconds":950.1849999725819,"groupMilliseconds":947.8100000023842}
+{"variant":"before","delivery":"port","path":"paged","code":"CANCELLED","usefulSamples":1,"readWindow":66,"abortToSettlementMilliseconds":4.805000007152557,"finalAccountedBytes":0}
+{"variant":"before","delivery":"timer","path":"paged","code":"CANCELLED","usefulSamples":1,"readWindow":66,"abortToSettlementMilliseconds":0.29499998688697815,"finalAccountedBytes":0}
+{"variant":"before","delivery":"port","path":"contiguous","code":"CANCELLED","usefulSamples":2,"readWindow":0,"abortToSettlementMilliseconds":0.1899999976158142,"finalAccountedBytes":0}
+{"variant":"before","delivery":"timer","path":"contiguous","code":"CANCELLED","usefulSamples":1,"readWindow":0,"abortToSettlementMilliseconds":0.6000000238418579,"finalAccountedBytes":0}
+{"variant":"after","delivery":"port","path":"paged","code":"CANCELLED","usefulSamples":2,"readWindow":66,"abortToSettlementMilliseconds":6.344999998807907,"finalAccountedBytes":0}
+{"variant":"after","delivery":"timer","path":"paged","code":"CANCELLED","usefulSamples":2,"readWindow":66,"abortToSettlementMilliseconds":1.9600000083446503,"finalAccountedBytes":0}
+{"variant":"after","delivery":"port","path":"contiguous","code":"CANCELLED","usefulSamples":22,"readWindow":0,"abortToSettlementMilliseconds":0.4050000011920929,"finalAccountedBytes":0}
+{"variant":"after","delivery":"timer","path":"contiguous","code":"CANCELLED","usefulSamples":22,"readWindow":0,"abortToSettlementMilliseconds":0.41499999165534973,"finalAccountedBytes":0}
+{"status":"passed","browser":"154.0.8037.93","ratios":{"total":10.42684953565231,"pagedGroups":14.29832455868235},"proof":"/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/dense-detail-cooperation/proof.json"}

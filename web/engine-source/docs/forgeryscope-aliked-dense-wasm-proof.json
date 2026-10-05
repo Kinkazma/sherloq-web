@@ -1,0 +1,55 @@
+{
+  "provider": "wasm",
+  "scope": "ALIKED dense feature/score maps only; no keypoints/descriptors",
+  "modelSha256": "58dc4ff38e930240817844dad3dc45ef8cbcfa7972a545c1eb0bac3a51a87db0",
+  "checkpointSha256": "e9ddeb9e87b96555a6db4a4fbfb5b99b31c36371bf4171765dce8f1f9ef95022",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "nativeTorch": "2.8.0",
+  "records": [
+    {
+      "case": 0,
+      "features": {
+        "maxError": 3.688037395477295e-7,
+        "differences": 1371299,
+        "values": 1572864
+      },
+      "scores": {
+        "maxError": 0.000010669231414794922,
+        "differences": 11194,
+        "values": 12288
+      }
+    },
+    {
+      "case": 1,
+      "features": {
+        "maxError": 5.513429641723633e-7,
+        "differences": 2297514,
+        "values": 2621440
+      },
+      "scores": {
+        "maxError": 0.000013083219528198242,
+        "differences": 18981,
+        "values": 20480
+      }
+    },
+    {
+      "case": 2,
+      "features": {
+        "maxError": 4.153698682785034e-7,
+        "differences": 1413344,
+        "values": 1601664
+      },
+      "scores": {
+        "maxError": 0.000013768672943115234,
+        "differences": 11448,
+        "values": 12513
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM",
+  "passed": true
+}

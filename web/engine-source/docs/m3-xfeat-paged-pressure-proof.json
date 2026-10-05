@@ -1,0 +1,63 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "backend": "cpu",
+      "index": 0,
+      "points": 1000,
+      "expectedPoints": 1000,
+      "coordinateDifferences": 0,
+      "scoreMaximum": 2.4586915969848633e-7,
+      "scoreMean": 1.8305145204067188e-8,
+      "descriptorMaximum": 7.636845111846924e-7,
+      "descriptorMean": 8.05199403952491e-8,
+      "metadata": {
+        "family": "XFeat",
+        "provider": "wasm",
+        "execution": "global-normalization-paged-backbone-global-selection",
+        "executions": 7,
+        "retries": 1,
+        "failures": [
+          {
+            "provider": "wasm",
+            "stage": "useful-work",
+            "code": "MEMORY_LIMIT"
+          }
+        ],
+        "maximumActualHeapBytes": 39190528,
+        "preflightExecutions": 0,
+        "halo": 256,
+        "coreSize": 512,
+        "workers": 2,
+        "workerAdmittedBytes": 977272832,
+        "preparation": {
+          "width": 1312,
+          "height": 768,
+          "mean": 127.53336334228516,
+          "inverseStd": 0.0351768359541893,
+          "reads": 13,
+          "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+        },
+        "storage": {
+          "gray": "memory",
+          "heat": "memory",
+          "dense": "memory",
+          "bytes": 12091392
+        },
+        "concurrencyReductions": 1,
+        "finalWorkers": 1,
+        "globalCandidates": 28289,
+        "postHeapBytes": 16777216,
+        "maskHeapBytes": 33554432
+      }
+    }
+  ],
+  "peakAccountedBytes": 1093552175,
+  "finalMemory": {
+    "budgetBytes": 1258291200,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1093552175
+  }
+}

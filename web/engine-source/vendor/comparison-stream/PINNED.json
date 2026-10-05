@@ -1,0 +1,10 @@
+{
+  "opencv": "4.11.0",
+  "emscripten": "4.0.15",
+  "files": {
+    "butteraugli-reference.o": "3a40c2f66229a988a0dfa9c91b3abf49037e06b60ab70f68858486bcef3a0fee",
+    "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d",
+    "libzlib.a": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+  }
+}

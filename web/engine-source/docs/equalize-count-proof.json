@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Previous full magnifier versus current full magnifier on compact public16777218-pixel histogram oracle. Only module import locations are rewritten for loading the old public source. No timing comparison.",
+  "reference": "OpenCV4.11 equalizeHist on explicit16777218 uint8 samples; grayscale replicated to RGB for the magnifier oracle",
+  "nativeRgbSha256": "06772bea273a534aca545556136446d59507ab28c65dc3f2ef483fedaa54eb89",
+  "baselineSourceSha256": "197b669e46ab8c9c30f577ac6dc7abdeb095a5fd8a5e3bae1deda513a0c34668",
+  "currentSourceSha256": "8c4bc7799f28d18c75488b9f6b6a9713ae6d3d2bfd607289b05643e1a022f8d9",
+  "baselineRgbSha256": "56bec971303f721b7cd994c57350dec1d910d2af2a88094cb169065360e2400a",
+  "currentRgbSha256": "06772bea273a534aca545556136446d59507ab28c65dc3f2ef483fedaa54eb89",
+  "differingRgbComponentsBeforeCorrection": 25165824,
+  "maxByteErrorBeforeCorrection": 1,
+  "differencesAfterCorrection": 0
+}

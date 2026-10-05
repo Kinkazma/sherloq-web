@@ -1,0 +1,456 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native refilter on independent cached448grids; overlaps, exclusions, disjoint regions and component minimums. No neural inference required or claimed.",
+  "records": [
+    {
+      "name": "0-0",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "0-17",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "0-500",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "0-5000",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "1-0",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "1-17",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "1-500",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "1-5000",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "2-0",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "2-17",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "2-500",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "2-5000",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "3-0",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "3-17",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "3-500",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "3-5000",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "4-0",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "4-17",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "4-500",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "4-5000",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "5-0",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "5-17",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "5-500",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "5-5000",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "6-0",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "6-17",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "6-500",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "6-5000",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "7-0",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "7-17",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "7-500",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    },
+    {
+      "name": "7-5000",
+      "outputs": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true
+      },
+      "metadata": true,
+      "emptyCandidates": true
+    }
+  ],
+  "lifecycle": {
+    "entered": true,
+    "busy": true,
+    "cancelled": true,
+    "cancellationReleased": true,
+    "retryExact": true,
+    "retryReleased": true,
+    "inputPreserved": true,
+    "refused": true,
+    "refusalReleased": true,
+    "invalidRejected": true,
+    "released": true
+  },
+  "peakAccountedBytes": 555967267,
+  "browser": "155.0",
+  "sources": {
+    "zones": "df16e465ce61c821807d5b826b828a5e54665db03a097dad84dbba28180fddb3",
+    "postprocess": "9a03158c646b6ae202918d177ff2287f69e4f8b1fb6d07365d5489511508ed6b",
+    "postprocess-worker": "740944cef28c73f8dc98cf881ef96b133418e8bbc9bdcb7ac47c61dd84f0ec95",
+    "spatial": "f4851cdab4e7be26ef0ea1bb943c3a6149ebd35d0bac715b88c2dcf73994cfc7",
+    "spatial-worker": "c2b6847b7b3d6e9ddb70f06ff1296858371e0aa57639e067d0685363611e679c"
+  },
+  "referenceSha256": "49b85e9a3c7fd7eaefac9d8ececc6de57ac6702298856e29bf13e6464d540da7",
+  "builds": {
+    "spatial": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "30d43e9225f6fa21320578c2bed424c5e7eeea08c3d0f791a0990075738aca2d",
+      "objects": {
+        "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+        "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+        "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+      },
+      "files": {
+        "spatial.js": {
+          "bytes": 23738,
+          "sha256": "f3906c052cddc62ab68fa985b6f59b731a50c614b2cca36fad788f3ff617d896"
+        },
+        "spatial.wasm": {
+          "bytes": 556176,
+          "sha256": "d951569ef9f4690c3543e61139778d015ff911c782caf50c7494902584353503"
+        }
+      }
+    },
+    "postprocess": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "d4c04fa19132e2cfad1e67debb42a721928a037d8480d5d1935d7a90956d075a",
+      "objects": {
+        "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+        "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+        "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+      },
+      "files": {
+        "postprocess.js": {
+          "bytes": 26716,
+          "sha256": "d97047b84961cf61c38ae2b879413cc79bef9d123e279ef13fb68f3d0530e6e8"
+        },
+        "postprocess.wasm": {
+          "bytes": 760829,
+          "sha256": "427e23c7d7f63288d2ada235da1b7b26d1e6df6ea52dd9de61ee58301e7d444d"
+        }
+      }
+    }
+  }
+}

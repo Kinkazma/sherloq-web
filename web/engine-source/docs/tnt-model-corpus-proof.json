@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual RGB preparation, lazy checkpoint backbone and unchanged ONNX consistency/decoder through production component; masks are native threshold decisions, no native activation substitution.",
+  "records": [
+    {
+      "name": "structured-copy",
+      "maxWorkers": 10,
+      "workers": 10,
+      "preparationExact": true,
+      "sha256": "9b9f48bffd21db75d85d4f6b293639b51d5c5e1e0d7c2378b1bfe479f60b36fc",
+      "milliseconds": 11607.09999999404,
+      "setupMs": 0,
+      "timings": {
+        "modelLoadMs": 1758.3999999016523,
+        "inferenceMs": 9830.200000092387,
+        "outputCopyMs": 2.2999999970197678,
+        "backboneMs": 9706.900000095367,
+        "parameterLoadMs": 1528.3999999016523,
+        "backboneSetupMs": 2.7999999970197678
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 625597916,
+        "peakAccountedBytes": 1039854956
+      },
+      "probability": {
+        "maxAbs": 0.0000029802322387695312,
+        "different": 64740,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 11990,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1039854956
+      }
+    },
+    {
+      "name": "constant",
+      "maxWorkers": 10,
+      "workers": 10,
+      "preparationExact": true,
+      "sha256": "ae2e3bb75af5c7a20a2a9bfd93d4e34ab6653e77ad46bc5eca27685915c9858d",
+      "milliseconds": 11391.20000000298,
+      "setupMs": 0,
+      "timings": {
+        "modelLoadMs": 1717.0999999791384,
+        "inferenceMs": 9659.10000000894,
+        "outputCopyMs": 1,
+        "backboneMs": 9536.70000000298,
+        "parameterLoadMs": 1504.2999999970198,
+        "backboneSetupMs": 1.7999999970197678
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 625597916,
+        "peakAccountedBytes": 1039854956
+      },
+      "probability": {
+        "maxAbs": 0.000001296401023864746,
+        "different": 65282,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 0,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1039854956
+      }
+    },
+    {
+      "name": "paired-spots",
+      "maxWorkers": 10,
+      "workers": 10,
+      "preparationExact": true,
+      "sha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+      "milliseconds": 11428.09999999404,
+      "setupMs": 0,
+      "timings": {
+        "modelLoadMs": 1716.599999934435,
+        "inferenceMs": 9696.000000089407,
+        "outputCopyMs": 2.3999999910593033,
+        "backboneMs": 9575.900000080466,
+        "parameterLoadMs": 1493.8999999314547,
+        "backboneSetupMs": 1.9000000059604645
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 625597916,
+        "peakAccountedBytes": 1039854956
+      },
+      "probability": {
+        "maxAbs": 0.000003129243850708008,
+        "different": 64569,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 8009,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1039854956
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-tnt-model.mjs": "60277377eb161b9abad6a4fe50b5a58666df47b88255d7c1fdcffdeea886decc",
+    "scripts/export-tnt-backbone.py": "f80e4c9059b0588b286a0781a10557abe8bd24ac07e0981f89d7608cb2ff0d36",
+    "experiments/segmentation/tnt-backbone.js": "7996dd7002884d352a7ba843ddfe473955cbf8b6bfe38be330c91d9f67ebb8e8",
+    "experiments/segmentation/tnt-linear.js": "076816da53d56761565f1f718866cb68561c52b1d4d6e8f1258532400554fcd6",
+    "experiments/segmentation/tnt-linear-worker.js": "ad5280f125769fdd254878f9da90beae90837ba386298ac8cfcc50939ab38bfd",
+    "experiments/segmentation/tnt-inference.js": "653283d44311c3f5c29d5a7f4a6eff65c1c86d4cd99a4076a31741508e302c1c",
+    "experiments/segmentation/tnt-math.cpp": "b14dea22bb3e41b7c247b2536ab547a08622cc6291f246a745e594db0a51a877",
+    "vendor/segmentation/TNT-PINNED.json": "ff4584f4c13ea3935edbfb3a3c37ce17efc56cfd2495d1d0b1adcc18393f2e1c"
+  }
+}

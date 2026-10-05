@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real worker external candidate ordering, exact non-truncated coordinates beyond2^32 keys,100003 records,8MiB engine budget, cancellation and injected write failure. Fixture/oracle outside engine budget; no process RSS or physical quota exhaustion claim.",
+  "runs": [
+    {
+      "status": "passed",
+      "sessionId": "job-07b50905-b78f-43b2-998f-ca6f66df71e0",
+      "backend": "opfs",
+      "count": 100003,
+      "largestKey": 8490990003,
+      "metrics": {
+        "path": "external-radix",
+        "passes": 9,
+        "bucketBytes": 458712,
+        "inputBytes": 1048560,
+        "peakAccountedBytes": 8388336,
+        "storage": {
+          "reservedBytes": 2400072,
+          "peakReservedBytes": 4800144,
+          "estimatedAvailableBytes": 10737418240,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": 33554432,
+          "openFiles": 1
+        }
+      },
+      "cancellation": true,
+      "injectedWriteFailure": true,
+      "accountedBytesAfterCleanup": 0
+    },
+    {
+      "status": "passed",
+      "sessionId": "job-53a7db86-fa64-4334-84ab-0b3b9179d26d",
+      "backend": "indexeddb",
+      "count": 100003,
+      "largestKey": 8490990003,
+      "metrics": {
+        "path": "external-radix",
+        "passes": 9,
+        "bucketBytes": 327648,
+        "inputBytes": 1048560,
+        "peakAccountedBytes": 8388464,
+        "storage": {
+          "reservedBytes": 2400072,
+          "peakReservedBytes": 4800144,
+          "estimatedAvailableBytes": 10737418240,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": 33554432,
+          "openFiles": 0,
+          "arrays": 1,
+          "pageBytes": 1048576,
+          "backend": "indexeddb",
+          "readCacheEnabled": true,
+          "readCachePages": 2,
+          "reads": {
+            "transactions": 63,
+            "cacheHits": 54,
+            "requestedBytes": 45601368
+          }
+        }
+      },
+      "cancellation": true,
+      "injectedWriteFailure": true,
+      "accountedBytesAfterCleanup": 0
+    }
+  ],
+  "storageArtifactsRemaining": 0,
+  "browser": "154.0.8037.58"
+}

@@ -1,0 +1,27 @@
+{
+  "records": {
+    "matmul0": {
+      "seconds": 27.398799999999998,
+      "maxError": 0,
+      "meanError": 0
+    },
+    "syrk1": {
+      "seconds": 0.549199999999999,
+      "maxError": 2.637889906509372e-13,
+      "meanError": 5.568790535770672e-15
+    },
+    "dgemm2": {
+      "seconds": 1.0133999990000007,
+      "maxError": 2.637889906509372e-13,
+      "meanError": 5.568790535770672e-15
+    }
+  },
+  "heap": 266207232,
+  "rows": 12000,
+  "columns": 512,
+  "scope": "Development-only centered covariance on actual native SPAM rows repeated to the source-window shape. No product calibration.",
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "off-the-record Playwright context",
+  "executionNote": "CPU/WASM"
+}

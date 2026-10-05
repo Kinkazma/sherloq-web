@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "budgetBytes": 67108864,
+  "cases": [
+    {
+      "params": {
+        "window": "hanning",
+        "upsample": true,
+        "center": false,
+        "highpass": "simple",
+        "gamma": 4,
+        "rescale": true
+      },
+      "maxScaled": 1.667554982986985e-13,
+      "rgbSha256": "314cde54127e59df359520c574e2c21f46478b30090ff4c7be8376336316cbc5",
+      "metrics": {
+        "workers": 1,
+        "completedStripJobs": 202,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "grayCached": false,
+        "spectrumCached": false,
+        "magnitudeCached": false,
+        "displayCached": false,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 59261.60000000149,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 3145728,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 44145754
+        }
+      }
+    },
+    {
+      "params": {
+        "window": "radial",
+        "upsample": false,
+        "center": true,
+        "highpass": "radial",
+        "gamma": 0.1,
+        "rescale": false
+      },
+      "maxScaled": 8.992806499463768e-15,
+      "rgbSha256": "9c21ea903a36ed5440616ad91aabb658a3bae9d2e67598f2a074aff4279ffc9c",
+      "metrics": {
+        "workers": 1,
+        "completedStripJobs": 32,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "grayCached": true,
+        "spectrumCached": false,
+        "magnitudeCached": false,
+        "displayCached": false,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 7034.29999999702,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 3145728,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 44145754
+        }
+      }
+    },
+    {
+      "params": {
+        "window": "hanning",
+        "upsample": false,
+        "center": false,
+        "highpass": "simple",
+        "gamma": 1,
+        "rescale": true
+      },
+      "maxScaled": 4.717444482550013e-13,
+      "rgbSha256": "8515c880c81ff0d7c12141170e5fa3d1cfcb32a6f86cc560de33993d3375333a",
+      "metrics": {
+        "workers": 1,
+        "completedStripJobs": 32,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "grayCached": true,
+        "spectrumCached": false,
+        "magnitudeCached": false,
+        "displayCached": false,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 7482.20000000298,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 3145728,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 44145754
+        }
+      }
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

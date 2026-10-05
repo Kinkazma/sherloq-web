@@ -1,0 +1,223 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "cpu",
+  "labels": {
+    "values": 4096,
+    "differences": 0
+  },
+  "features": {
+    "values": 1179648,
+    "differences": 1060688,
+    "maximum": 0.0000029206275939941406
+  },
+  "metadata": {
+    "image_shape": [
+      176,
+      448
+    ],
+    "analysis_shape": [
+      1024,
+      1024
+    ],
+    "native_shape": [
+      64,
+      64
+    ],
+    "seed": 123,
+    "clusters": 2,
+    "smallest_region_is_candidate": true,
+    "unused_checkpoint_heads": [
+      "fc.weight",
+      "fc.bias"
+    ],
+    "provider": "wasm",
+    "runs": [
+      {
+        "stage": "embedding",
+        "provider": "wasm",
+        "heapBytes": 83623936,
+        "threads": 2
+      },
+      {
+        "stage": "block-00",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-01",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-02",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-03",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-04",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-05",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-06",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-07",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-08",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-09",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-10",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-11",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-12",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-13",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-14",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-15",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-16",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-17",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-18",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-19",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-20",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-21",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-22",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "block-23",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "neck",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "hrnet",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "fusion",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      },
+      {
+        "stage": "cluster",
+        "provider": "wasm",
+        "heapBytes": 349569024,
+        "threads": 2
+      }
+    ],
+    "failures": [],
+    "attempts": 1,
+    "maximumHeapBytes": 536870912,
+    "gpuEstimatedBytes": 0,
+    "workerAdmittedBytes": 1081683456,
+    "preflightExecutions": 0,
+    "qualification": "native-floating-arithmetic-differences-measured",
+    "result_reused": false
+  },
+  "cacheReused": true,
+  "cancelled": true,
+  "peakAccountedBytes": 1091186176,
+  "activeBytes": 0
+}

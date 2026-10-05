@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.39",
+  "runtimeFiles": 392,
+  "runtimeManifestSha256": "77750dae65a2c97f89f627b067013a7443bda5e6abeda0dd3e21c25d218167aa",
+  "scope": "Exact runtime bytes and component/96MP execution sources. Native-exact random/tied graph distances, neighbor indices and gather, cold/warm pairs and real submitted-GPU lifecycle checks. Actual repeated inference against immutable M1.38 with both caches preserved, native corpus, positive96MP source with full plane hashes and independent NPZ readback. Fresh copied auto-GPU API, cached view, actual graph-distance submission cancellation and source reload. Earlier explicit CPU evidence is reused for its unchanged arithmetic. No WordPress or universal-device claim.",
+  "comparison": {
+    "baselineMs": [
+      7780.79999999702,
+      5897.5,
+      4680.399999991059
+    ],
+    "candidateMs": [
+      7389.9000000059605,
+      5113.79999999702,
+      4019.2000000029802
+    ],
+    "probabilitySha256": "a050434b5773fbf9f8f5faee40c6fb2cb6654e57c0b2d9caa18646bfe5260a55",
+    "baselinePeak": 1183749073,
+    "candidatePeak": 1183749073,
+    "timingQualification": "Shared workstation; fresh browser per condition; OS and driver caches not flushed."
+  },
+  "large": {
+    "width": 12000,
+    "height": 8000,
+    "foreground": 3848796,
+    "arrays": 4,
+    "exportBytes": 672015512,
+    "exportSha256": "c5d6d767e6eb1898a14127114e0b58eca6ae1f6e6979c53639a4d0fcd83212d7",
+    "peakAccountedBytes": 2713889617,
+    "allPlaneHashesEqualToM1_37": true
+  },
+  "copied": {
+    "automaticGpu": true,
+    "cancelled": true,
+    "retry": true
+  }
+}

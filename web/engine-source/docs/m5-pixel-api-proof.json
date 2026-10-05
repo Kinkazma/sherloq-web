@@ -1,0 +1,126 @@
+{
+  "passed": true,
+  "scope": "Merged public worker API: large magnifier fallback, original-coordinate surfaces, global histogram reuse, full temporary PNG hashes after source release. The native 96 MP corpus remains separately pinned to M4.",
+  "version": "0.31.0-integration.10",
+  "width": 6144,
+  "height": 4096,
+  "cases": [
+    {
+      "params": {
+        "mode": "equalize"
+      },
+      "sha256": "1180e4d7f16b7ef756db55a53b5a1e25776095a46f3cfa4167413f795ec878fb",
+      "metrics": {
+        "totalMs": 2604.6000000089407,
+        "analysisCacheHit": false,
+        "sourceReads": 196,
+        "rowsPerBlock": 42,
+        "storage": "memory",
+        "workers": 1
+      },
+      "export": {
+        "id": "bbe79b59-fc82-4045-bfc6-a2f037cadb24",
+        "revision": 1,
+        "mime": "image/png",
+        "format": "png",
+        "width": 6144,
+        "height": 4096,
+        "byteLength": 75525700,
+        "sha256": "49a4278323fde4734bc7d646c69f1e1549d9d57f5721f3dd3fc4bd8f02166761",
+        "imageId": "pixels",
+        "sourceSurfaceId": "62a3af5c-23aa-4f98-8945-b652ddf59bdc",
+        "sourceSurfaceRevision": 1,
+        "sourceFormat": "rgb8",
+        "provenance": {
+          "originalSha256": "2ce0c47be02df692681682081b1cd28b63a2c3c52c5116b4839dec8fb47b4f8f",
+          "coordinates": "full-resolution",
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 0
+        },
+        "metrics": {
+          "storage": "temporary",
+          "temporaryBackend": "opfs",
+          "outputCapacityBytes": 76587038,
+          "encodedWriteCalls": 289,
+          "maxSourceWindowBytes": 589824,
+          "codecHeapCapacityBytes": 16777216,
+          "codecHeapMaximumBytes": 16777216,
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 150994944,
+            "cacheBytes": 4096,
+            "activeReservationBytes": 49676288,
+            "peakAccountedBytes": 201283584
+          }
+        }
+      }
+    },
+    {
+      "params": {
+        "mode": "contrast",
+        "percent": 30
+      },
+      "sha256": "4a774b363e512af2e7d0d4705bdfcf6da636c1fff80d51fd1c57cfb19ad66e04",
+      "metrics": {
+        "totalMs": 1245.2000000029802,
+        "analysisCacheHit": true,
+        "sourceReads": 98,
+        "rowsPerBlock": 42,
+        "storage": "memory",
+        "workers": 1
+      },
+      "export": {
+        "id": "9f44df31-7f9a-4c70-b555-4e2a98fcf158",
+        "revision": 1,
+        "mime": "image/png",
+        "format": "png",
+        "width": 6144,
+        "height": 4096,
+        "byteLength": 75525700,
+        "sha256": "78741eb9a703521be24f8df09c817ec74ed92aebbfc9640565ebfcc3983b129f",
+        "imageId": "pixels",
+        "sourceSurfaceId": "31ddc38f-14e8-4267-b981-869d05f2b891",
+        "sourceSurfaceRevision": 1,
+        "sourceFormat": "rgb8",
+        "provenance": {
+          "originalSha256": "2ce0c47be02df692681682081b1cd28b63a2c3c52c5116b4839dec8fb47b4f8f",
+          "coordinates": "full-resolution",
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 0
+        },
+        "metrics": {
+          "storage": "temporary",
+          "temporaryBackend": "opfs",
+          "outputCapacityBytes": 76587038,
+          "encodedWriteCalls": 289,
+          "maxSourceWindowBytes": 589824,
+          "codecHeapCapacityBytes": 16777216,
+          "codecHeapMaximumBytes": 16777216,
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 150994944,
+            "cacheBytes": 4096,
+            "activeReservationBytes": 49676288,
+            "peakAccountedBytes": 201283584
+          }
+        }
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 201283584,
+    "knownHeapCapacityBytes": 24248320
+  },
+  "elapsedMs": 22375.70000000298,
+  "pinnedM4": "2a9e5e0",
+  "integrationParent": "7d7c40a",
+  "workingTreeTested": true
+}

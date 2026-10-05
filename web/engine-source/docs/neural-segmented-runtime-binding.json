@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "version": "0.30.0-m1.27",
+  "manifestSha256": "08e345767d2add4767212559846517720699d1925871f32adb867a1fa6206f3d",
+  "largeCpuTestedRuntimeManifestSha256": "bc2607c797a2d3f1d6312d613177baf087e1bfc0bd4b43466e580f0f22fe0372",
+  "changedFiles": [
+    "docs/SEGMENTED-NEURAL-API.md",
+    "docs/CMSEG-JPEG-NUMERICAL-LIMIT.md"
+  ],
+  "allExecutableRuntimeFilesIdentical": true,
+  "scope": "Large CPU run used immutable rc1; final runtime differs only in two documentation files recording its results and correcting a diagnostic range. No repeated heavy inference for documentation-only changes. Final runtime additionally exercises real ST/addnoise/MPDN GPU recipes."
+}

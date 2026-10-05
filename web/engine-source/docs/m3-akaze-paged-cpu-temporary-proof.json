@@ -1,0 +1,200 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "cpu",
+  "reference": "previous qualified non-paged WASM",
+  "records": [
+    {
+      "name": "AKAZE/rich-global",
+      "count": 100,
+      "referenceCount": 100,
+      "total": 1971,
+      "referenceTotal": 1971,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 270762.90000000596,
+      "metadata": {
+        "family": "AKAZE",
+        "provider": "cpu",
+        "inputLayout": "global-paged-diffusion",
+        "preflightExecutions": 0,
+        "globalCandidates": 1971,
+        "sourceReads": 5,
+        "coreSize": 96,
+        "stripRows": 13,
+        "levels": [
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "temporary",
+            "smoothStorage": "temporary",
+            "detStorage": "temporary"
+          }
+        ],
+        "stages": [
+          {
+            "executions": 724,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 1,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 24,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          }
+        ],
+        "arithmetic": "relaxed-simd-fma",
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 749,
+        "retries": 0,
+        "temporaryRecipe": {
+          "totalMs": 240644.39999999106,
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 7156536,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": 536870912,
+            "openFiles": 0
+          },
+          "finalMemory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 753659411
+          }
+        }
+      }
+    }
+  ],
+  "cancelled": true,
+  "peakAccountedBytes": 409853991,
+  "remainingActiveBytes": 0
+}

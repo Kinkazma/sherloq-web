@@ -1,0 +1,223 @@
+{
+  "schema": 1,
+  "scope": "Generated LCG values only; no checkpoint, captured model activations or image.",
+  "reference": {
+    "torch": "2.8.0",
+    "threads": 8,
+    "exp": "local reference expf; pinned 128-bin quadratic arithmetic is qualified on this corpus"
+  },
+  "records": [
+    {
+      "kind": "exp",
+      "elements": 524288,
+      "seed": 721,
+      "bitSeed": 913,
+      "output": {
+        "file": "exp.bin",
+        "bytes": 2097152,
+        "sha256": "8b7bc886aadd360f8661073af99fb6f15365b9c7d104443183873ff0f71f7660",
+        "shape": [
+          524288
+        ],
+        "dtype": "float32"
+      }
+    },
+    {
+      "kind": "gelu",
+      "elements": 262144,
+      "seed": 731,
+      "output": {
+        "file": "gelu.bin",
+        "bytes": 1048576,
+        "sha256": "59ab9d77c96351cfbd2134df16e81a2cfbb8a5d1c915cb9f5622968fc35be9aa",
+        "shape": [
+          262144
+        ],
+        "dtype": "float32"
+      }
+    },
+    {
+      "kind": "conv",
+      "name": "stem",
+      "geometry": [
+        3,
+        256,
+        256,
+        80,
+        3,
+        1,
+        2,
+        1
+      ],
+      "seed": 741,
+      "output": {
+        "file": "conv-stem.bin",
+        "bytes": 5242880,
+        "sha256": "940e759f6538b9047d11b04cf0201df9e31f16bfd542e0896d3a94cd622c4fc7",
+        "shape": [
+          1,
+          80,
+          128,
+          128
+        ],
+        "dtype": "float32"
+      }
+    },
+    {
+      "kind": "conv",
+      "name": "grouped",
+      "geometry": [
+        1280,
+        16,
+        16,
+        1280,
+        1,
+        0,
+        1,
+        4
+      ],
+      "seed": 751,
+      "output": {
+        "file": "conv-grouped.bin",
+        "bytes": 1310720,
+        "sha256": "305260430fbae59beb5054c6df988030b95b89fdb260d22048b84a13e7d1999e",
+        "shape": [
+          1,
+          1280,
+          16,
+          16
+        ],
+        "dtype": "float32"
+      }
+    },
+    {
+      "kind": "conv",
+      "name": "ffn",
+      "geometry": [
+        640,
+        16,
+        16,
+        2560,
+        1,
+        0,
+        1,
+        1
+      ],
+      "seed": 761,
+      "output": {
+        "file": "conv-ffn.bin",
+        "bytes": 2621440,
+        "sha256": "edbc6604826186d2b96607d29fe5f285e336c93ca289eb73e77e25e48b613ead",
+        "shape": [
+          1,
+          2560,
+          16,
+          16
+        ],
+        "dtype": "float32"
+      }
+    },
+    {
+      "kind": "graph",
+      "name": "random",
+      "seed": 771,
+      "k": 18,
+      "dilation": 4,
+      "normal": {
+        "file": "random-normal.bin",
+        "bytes": 655360,
+        "sha256": "abf881c2ebe76dc1acb32c519e30a60d199d436d3dd2a9204b0c53a7a5645d0a",
+        "shape": [
+          1,
+          640,
+          256,
+          1
+        ],
+        "dtype": "float32"
+      },
+      "distance": {
+        "file": "random-distance.bin",
+        "bytes": 262144,
+        "sha256": "ceb009ebf9c42a879aa2538f28c34e40c5db3c8e1f3106c089241b307aed9b2f",
+        "shape": [
+          1,
+          256,
+          256
+        ],
+        "dtype": "float32"
+      },
+      "indices": {
+        "file": "random-indices.bin",
+        "bytes": 73728,
+        "sha256": "34696ccc27c13d79af2ec8b0ff67bf40695d210bc2b89a30a5d8f2ed18441456",
+        "shape": [
+          1,
+          256,
+          72
+        ],
+        "dtype": "int32"
+      },
+      "gather": {
+        "file": "random-gather.bin",
+        "bytes": 1310720,
+        "sha256": "fe0af551ad15410eec6a0aea2cd9712705f549d6dbd68cfe77046f36911efb62",
+        "shape": [
+          1280,
+          256
+        ],
+        "dtype": "float32"
+      }
+    },
+    {
+      "kind": "graph",
+      "name": "ties",
+      "seed": 781,
+      "k": 15,
+      "dilation": 3,
+      "normal": {
+        "file": "ties-normal.bin",
+        "bytes": 655360,
+        "sha256": "bda22cc3d942274a632785028921d9e0e77409997a37acf1f9b672d56f20266c",
+        "shape": [
+          1,
+          640,
+          256,
+          1
+        ],
+        "dtype": "float32"
+      },
+      "distance": {
+        "file": "ties-distance.bin",
+        "bytes": 262144,
+        "sha256": "10db05d43755f8ce0d355487b8b984c53e8658dba3e1d06fd881b799ae7deacd",
+        "shape": [
+          1,
+          256,
+          256
+        ],
+        "dtype": "float32"
+      },
+      "indices": {
+        "file": "ties-indices.bin",
+        "bytes": 46080,
+        "sha256": "9919c410e28100b0d9800fc893ebe7495a1d1fd870c0c95ced9f05e77b8db4a3",
+        "shape": [
+          1,
+          256,
+          45
+        ],
+        "dtype": "int32"
+      },
+      "gather": {
+        "file": "ties-gather.bin",
+        "bytes": 1310720,
+        "sha256": "14a6bffa891b9ddb4c60ac5f5f48391c34ecf9aecd536890deca6c95f2f41bef",
+        "shape": [
+          1280,
+          256
+        ],
+        "dtype": "float32"
+      }
+    }
+  ]
+}

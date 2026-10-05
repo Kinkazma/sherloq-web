@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "count": 600003,
+  "svgCircles": 600003,
+  "svgBytes": 86984243,
+  "pngBytes": 277926,
+  "metrics": {
+    "style": {
+      "x": 0,
+      "y": 1,
+      "z": 5,
+      "kind": "2d",
+      "colored": true,
+      "alpha": 1,
+      "size": 1,
+      "grid": true
+    },
+    "camera": {
+      "limits": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "center": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "distance": 3.5,
+      "elevation": 35,
+      "azimuth": 70
+    },
+    "width": 640,
+    "height": 480,
+    "uploads": 1,
+    "uploadedBytes": 86793648,
+    "draws": 8,
+    "points": 600003,
+    "gpuDataBytes": 393216,
+    "storage": "paged"
+  },
+  "memory": {
+    "budgetBytes": 18874368,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 12058624
+  },
+  "cancelPreservesPrevious": true
+}

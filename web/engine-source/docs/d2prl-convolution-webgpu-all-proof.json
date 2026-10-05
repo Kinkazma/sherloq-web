@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Synthetic source, native convolution boundaries from verified D2PRL model; not full feature/model inference; ordered explicit WGSL float32 fma",
+  "records": [
+    {
+      "name": "448-cnn-0",
+      "elements": 13542400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 443.09999999962747
+    },
+    {
+      "name": "448-cnn-3",
+      "elements": 26849792,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 677.4000000003725
+    },
+    {
+      "name": "448-cnn-6",
+      "elements": 26382848,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 1101.0999999996275
+    },
+    {
+      "name": "448-cnn-9",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 801.9000000003725
+    },
+    {
+      "name": "448-cnn-12",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 177.90000000037253
+    },
+    {
+      "name": "448-zm-real",
+      "elements": 2408448,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 84.39999999850988
+    },
+    {
+      "name": "448-zm-imag",
+      "elements": 2408448,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 44.80000000074506
+    },
+    {
+      "name": "298-cnn-0",
+      "elements": 6150400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 73.80000000074506
+    },
+    {
+      "name": "298-cnn-3",
+      "elements": 12142592,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 216.09999999962747
+    },
+    {
+      "name": "298-cnn-6",
+      "elements": 11829248,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 455.19999999925494
+    },
+    {
+      "name": "298-cnn-9",
+      "elements": 5683456,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 325.90000000037253
+    },
+    {
+      "name": "298-cnn-12",
+      "elements": 2841728,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 65.79999999888241
+    },
+    {
+      "name": "298-zm-real",
+      "elements": 1065648,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 37
+    },
+    {
+      "name": "298-zm-imag",
+      "elements": 1065648,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 36.20000000111759
+    },
+    {
+      "name": "597-cnn-0",
+      "elements": 23736384,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 298.2999999988824
+    },
+    {
+      "name": "597-cnn-3",
+      "elements": 47161472,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 870.5
+    },
+    {
+      "name": "597-cnn-6",
+      "elements": 46541952,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 1803.5
+    },
+    {
+      "name": "597-cnn-9",
+      "elements": 22810176,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 1361.199999999255
+    },
+    {
+      "name": "597-cnn-12",
+      "elements": 11405088,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 277.09999999962747
+    },
+    {
+      "name": "597-zm-real",
+      "elements": 4276908,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 114.59999999962747
+    },
+    {
+      "name": "597-zm-imag",
+      "elements": 4276908,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 113
+    }
+  ],
+  "cases": 21,
+  "limits": {
+    "maxStorageBufferBindingSize": 536870912,
+    "maxBufferSize": 536870912
+  },
+  "peakAccountedBytes": 951657984,
+  "lifecycle": {
+    "cancelledAfterSubmission": true,
+    "busy": true,
+    "refused": true,
+    "retry": true,
+    "allReservationsReleased": true
+  },
+  "browser": "154.0.8037.58",
+  "sourceSha256": "814a87ada9acc5ec855a25cd76aa085af6f37456c4b08d31b720e001caefba42",
+  "referenceSha256": "3518547ecbacdce79058fb2e43454237878c6cd08de663cf03fb99bbdc357416"
+}

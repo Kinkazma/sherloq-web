@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "maps": 368,
+  "previewPlanes": 4812,
+  "large": [
+    {
+      "params": {
+        "low": 50,
+        "high": 90,
+        "step": 5,
+        "x": 0,
+        "y": 0
+      },
+      "workers": 4,
+      "metrics": {
+        "totalMs": 233,
+        "cache": {
+          "result": false,
+          "stages": {
+            "blocks/0/0/50": false,
+            "blocks/0/0/55": false,
+            "blocks/0/0/60": false,
+            "blocks/0/0/65": false,
+            "blocks/0/0/70": false,
+            "blocks/0/0/75": false,
+            "blocks/0/0/80": false,
+            "blocks/0/0/85": false,
+            "blocks/0/0/90": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "jpeg-ghost-pool",
+        "workers": 4,
+        "scheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "ghostKernelMs": 232,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3992357,
+          "cacheBytes": 887557,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 387771173,
+          "codecHeapCapacityBytes": 16777216,
+          "hdf5HeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "params": {
+        "low": 50,
+        "high": 90,
+        "step": 5,
+        "x": 1,
+        "y": 1
+      },
+      "workers": 4,
+      "metrics": {
+        "totalMs": 214,
+        "cache": {
+          "result": false,
+          "stages": {
+            "roll/1/1": false,
+            "blocks/1/1/50": false,
+            "blocks/1/1/55": false,
+            "blocks/1/1/60": false,
+            "blocks/1/1/65": false,
+            "blocks/1/1/70": false,
+            "blocks/1/1/75": false,
+            "blocks/1/1/80": false,
+            "blocks/1/1/85": false,
+            "blocks/1/1/90": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "jpeg-ghost-pool",
+        "workers": 4,
+        "scheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 1,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "ghostKernelMs": 194,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3992357,
+          "cacheBytes": 4921100,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 391804716,
+          "codecHeapCapacityBytes": 16777216,
+          "hdf5HeapCapacityBytes": 0
+        }
+      }
+    },
+    {
+      "params": {
+        "low": 50,
+        "high": 90,
+        "step": 5,
+        "x": 7,
+        "y": 3
+      },
+      "workers": 4,
+      "metrics": {
+        "totalMs": 260,
+        "cache": {
+          "result": false,
+          "stages": {
+            "roll/7/3": false,
+            "blocks/7/3/50": false,
+            "blocks/7/3/55": false,
+            "blocks/7/3/60": false,
+            "blocks/7/3/65": false,
+            "blocks/7/3/70": false,
+            "blocks/7/3/75": false,
+            "blocks/7/3/80": false,
+            "blocks/7/3/85": false,
+            "blocks/7/3/90": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "jpeg-ghost-pool",
+        "workers": 4,
+        "scheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 2,
+          "reason": "Aggressive capacity-based start",
+          "taskExecutions": 1,
+          "preflightExecutions": 0,
+          "retry": null
+        },
+        "ghostKernelMs": 223,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3992357,
+          "cacheBytes": 8954643,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 395838259,
+          "codecHeapCapacityBytes": 16777216,
+          "hdf5HeapCapacityBytes": 0
+        }
+      }
+    }
+  ],
+  "limits": [
+    "Synthetic maps and per-plane palettes; native Matplotlib plot layout is not reproduced"
+  ],
+  "cancellation": "Parallel abort and source reload verified",
+  "browser": "155.0"
+}

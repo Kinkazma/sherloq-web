@@ -1,0 +1,18 @@
+{
+  "status": "interrupted-for-exact-optimization",
+  "reason": "Sparse per-pixel patch access replaced by exact byte8x8 global sums; no result qualification claimed.",
+  "progress": {
+    "phase": "noisesniffer-select",
+    "completed": 1227,
+    "total": 9441,
+    "elapsedMs": 2280860.100000009,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 95469360,
+      "peakAccountedBytes": 265406992
+    }
+  },
+  "ownedHarnessPid": 45510
+}

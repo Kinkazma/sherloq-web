@@ -1,0 +1,28 @@
+{
+  "status": "interrupted",
+  "commit": "2cd966b",
+  "reason": "Restart with exact SIMD Gaussian arithmetic; original attempt remains incomplete",
+  "lastProgress": {
+    "phase": "stereo-paged-gaussian",
+    "level": 5,
+    "iteration": 0,
+    "completed": 6173,
+    "total": 16000,
+    "workspaceBytes": 112034816,
+    "reads": 28598,
+    "writes": 22136,
+    "readBytes": 1339670736,
+    "writeBytes": 1038708432,
+    "temporaryPeakBytes": 1512162000,
+    "heapBytes": 0,
+    "preflightExecutions": 0,
+    "elapsedMs": 568631.400000006,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 15960,
+      "cacheBytes": 0,
+      "activeReservationBytes": 122520576,
+      "peakAccountedBytes": 129439291
+    }
+  }
+}

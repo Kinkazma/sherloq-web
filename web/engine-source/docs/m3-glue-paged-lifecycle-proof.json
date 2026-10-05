@@ -1,0 +1,22 @@
+{
+  "browser": "154.0.8037.58",
+  "pairs": 80,
+  "fallbackCPUExact": true,
+  "failureAfterUsefulLayer": [
+    {
+      "zone": 0,
+      "provider": "webgpu",
+      "stage": "useful-work",
+      "code": "LEARNED_INFERENCE_FAILED",
+      "message": "Development injection after a useful learned layer"
+    }
+  ],
+  "cancelledDuringAttention": true,
+  "finalMemory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1218190796
+  }
+}

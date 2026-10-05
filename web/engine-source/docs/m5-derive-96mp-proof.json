@@ -1,0 +1,210 @@
+{
+  "passed": true,
+  "scope": "Original rich96MP public worker derived-byte path; insertion, replacement, deletion and append in original coordinates; complete original unchanged and full derived bytes exact after unload.",
+  "engineSource": {
+    "id": "derive96",
+    "width": 12000,
+    "height": 8000,
+    "format": "rgb8",
+    "surface": {
+      "id": "552e0ddd-d29f-44c0-af03-fa1b65eea9b1",
+      "revision": 1,
+      "width": 12000,
+      "height": 8000,
+      "format": "rgb8",
+      "sourceWidth": 12000,
+      "sourceHeight": 8000,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "temporary"
+    },
+    "sha256": "7a6ac1368fd28adbbf841a88b3b897f791695ac6fe265c7ba6c9a93f36d704ca",
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        12000,
+        8000
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "file": {
+      "name": null,
+      "declaredMimeType": "application/octet-stream",
+      "lastModified": null,
+      "origin": null
+    },
+    "operationConstraints": {
+      "inspection.magnifier": {
+        "workingSet": "bounded-row-windows",
+        "resultLayout": "contiguous-or-surface"
+      }
+    },
+    "availableOperations": [
+      "analysis.complete",
+      "analysis.clones",
+      "metadata.thumbnail",
+      "ela.energy",
+      "jpeg.zero",
+      "jpeg.multiple",
+      "ela.biomes",
+      "jpeg.ghosts",
+      "ela.classic",
+      "metadata.c2pa",
+      "metadata.exiftool",
+      "jpeg.recompression",
+      "jpeg.quality",
+      "various.stereogram",
+      "noise.noisesniffer",
+      "comparison.image",
+      "tampering.resampling",
+      "tampering.resampling.fourier",
+      "noise.prnu",
+      "detail.frequency",
+      "noise.blocking",
+      "detail.wavelets",
+      "colors.pca",
+      "tampering.copyMove.sparse",
+      "ai.sources.safire",
+      "ai.localization.focal",
+      "ai.localization.adaifl",
+      "tampering.copyMove.brisk",
+      "tampering.copyMove.orb",
+      "tampering.copyMove.akaze",
+      "inspection.histogram",
+      "inspection.magnifier",
+      "inspection.adjust",
+      "noise.separation",
+      "various.median",
+      "tampering.contrast",
+      "various.illuminant",
+      "detail.echo",
+      "detail.gradient",
+      "colors.space",
+      "colors.stats",
+      "noise.planes",
+      "noise.minmax",
+      "pixels.defects",
+      "file.hex",
+      "file.digest",
+      "ai.clones.d2prl",
+      "ai.clones.segmentation"
+    ],
+    "metrics": {
+      "decodeMs": 1026.7000000029802,
+      "rowsPerChunk": 116,
+      "encodedWorkingBytes": 21167770,
+      "coefficientAllowanceBytes": 0,
+      "workingReservationBytes": 63074202,
+      "codecHeapCapacityBytes": 30867456,
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "temporaryFallback": null,
+      "temporaryBytes": 288000000,
+      "originalBlobBytes": 21167770,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM",
+      "preparationMs": 1182.8999999910593,
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 64122778
+      }
+    }
+  },
+  "budgetBytes": 268435456,
+  "times": {
+    "loadMs": 1370.9000000059605,
+    "deriveMs": 1.5,
+    "readbackMs": 103.40000000596046
+  },
+  "totalMs": 1738.5999999940395,
+  "derived": {
+    "sizeBytes": 21159609,
+    "sha256": "14e08c50309bbfc23ad2f71daeac4cf1edcf6546ba215b3c304e4fffc5084650",
+    "edits": [
+      {
+        "offset": 2,
+        "deleteCount": 0,
+        "insertedBytes": 10,
+        "outputOffset": 2
+      },
+      {
+        "offset": 65533,
+        "deleteCount": 11,
+        "insertedBytes": 29,
+        "outputOffset": 65543
+      },
+      {
+        "offset": 10583885,
+        "deleteCount": 8193,
+        "insertedBytes": 0,
+        "outputOffset": 10583913
+      },
+      {
+        "offset": 21167770,
+        "deleteCount": 0,
+        "insertedBytes": 4,
+        "outputOffset": 21159605
+      }
+    ],
+    "provenance": {
+      "engine": "0.31.0-integration.14",
+      "imageId": "derive96",
+      "originalSha256": "7a6ac1368fd28adbbf841a88b3b897f791695ac6fe265c7ba6c9a93f36d704ca",
+      "operation": "derive-original",
+      "coordinates": "original-bytes",
+      "sourceUnchanged": true,
+      "semantics": "Explicit byte edits; derived file validity and metadata/signature integrity are not asserted."
+    },
+    "metrics": {
+      "patchCount": 4,
+      "insertedBytes": 43,
+      "sourceCopyBytes": 0,
+      "workingBytes": 5206,
+      "blobResidency": "browser-managed; not measured as zero RAM"
+    },
+    "afterSourceUnload": true
+  },
+  "finalMemory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 64122778,
+    "knownHeapCapacityBytes": 30867456
+  },
+  "storageCleanup": true,
+  "independentDelivery": {
+    "bytes": 21159609,
+    "sha256": "14e08c50309bbfc23ad2f71daeac4cf1edcf6546ba215b3c304e4fffc5084650",
+    "fullRead": true
+  },
+  "engineCommit": "0e9cdfc472edbb9ffef14a146cd9042d3f928b69",
+  "runtime": {
+    "sha256": "bfc753f49e46dccbef3c7f08962c677c1a8fd81926e0f83c3e13234b6a27656e",
+    "files": 1001
+  },
+  "extra": [
+    {
+      "file": "tests/m5-derive-96mp-browser.js",
+      "sha256": "2fc2e0ceb2384a68245e8c9da0a1c55ac1c8b4998edba2f4d72335e7f25f4f80"
+    },
+    {
+      "file": "tests/source-api-browser.js",
+      "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+    },
+    {
+      "file": "docs/m5-derive-96mp-native-reference.json",
+      "sha256": "c9a8a2a46306cc17892db22a87b2d8d78a3745a0347d210664d836f6fd90f545"
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile removed after qualification"
+}

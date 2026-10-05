@@ -1,0 +1,586 @@
+{
+  "records": [
+    {
+      "variant": "Original",
+      "case": "flat",
+      "hybridConvolutions": 22,
+      "milliseconds": 483.30000001192093,
+      "probability": {
+        "max": 3.725290298461914e-9,
+        "mean": 2.3283064365386963e-10
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "Original",
+      "case": "zero",
+      "hybridConvolutions": 22,
+      "milliseconds": 21.5,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "Original",
+      "case": "white",
+      "hybridConvolutions": 22,
+      "milliseconds": 19.600000008940697,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "Original",
+      "case": "noise-small",
+      "hybridConvolutions": 22,
+      "milliseconds": 19.299999997019768,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "Original",
+      "case": "noise",
+      "hybridConvolutions": 22,
+      "milliseconds": 48,
+      "probability": {
+        "max": 1.8440779217507783e-32,
+        "mean": 1.9223495845103562e-34
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "Original",
+      "case": "noise-odd",
+      "hybridConvolutions": 22,
+      "milliseconds": 103.70000000298023,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    },
+    {
+      "variant": "Original",
+      "case": "gradient",
+      "hybridConvolutions": 22,
+      "milliseconds": 111.30000001192093,
+      "probability": {
+        "max": 0.000004246830940246582,
+        "mean": 5.164309584415605e-8
+      },
+      "grid": {
+        "max": 0.0000011026859283447266,
+        "mean": 5.159527063369751e-8
+      },
+      "suspicion": {
+        "max": 0.0000010728836059570312,
+        "mean": 5.3644180297851564e-8
+      },
+      "localDifferences": 0,
+      "best": 3,
+      "nativeBest": 3
+    },
+    {
+      "variant": "Original",
+      "case": "checker",
+      "hybridConvolutions": 22,
+      "milliseconds": 101.29999999701977,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    },
+    {
+      "variant": "Original",
+      "case": "smooth",
+      "hybridConvolutions": 22,
+      "milliseconds": 107.90000000596046,
+      "probability": {
+        "max": 5.2241375669837e-9,
+        "mean": 1.6658151247295195e-11
+      },
+      "grid": {
+        "max": 2.546585164964199e-11,
+        "mean": 3.1832314562052486e-13
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 2,
+      "nativeBest": 2
+    },
+    {
+      "variant": "JPEG 95",
+      "case": "flat",
+      "hybridConvolutions": 22,
+      "milliseconds": 23.299999997019768,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    },
+    {
+      "variant": "JPEG 95",
+      "case": "zero",
+      "hybridConvolutions": 22,
+      "milliseconds": 22.900000005960464,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    },
+    {
+      "variant": "JPEG 95",
+      "case": "white",
+      "hybridConvolutions": 22,
+      "milliseconds": 23.799999997019768,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "JPEG 95",
+      "case": "noise-small",
+      "hybridConvolutions": 22,
+      "milliseconds": 23.900000005960464,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    },
+    {
+      "variant": "JPEG 95",
+      "case": "noise",
+      "hybridConvolutions": 22,
+      "milliseconds": 47,
+      "probability": {
+        "max": 3.5762786865234375e-7,
+        "mean": 8.032144761804805e-9
+      },
+      "grid": {
+        "max": 8.940696716308594e-8,
+        "mean": 8.110267420609793e-9
+      },
+      "suspicion": {
+        "max": 5.960464477539063e-8,
+        "mean": 9.934107462565104e-9
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    },
+    {
+      "variant": "JPEG 95",
+      "case": "noise-odd",
+      "hybridConvolutions": 22,
+      "milliseconds": 105.20000000298023,
+      "probability": {
+        "max": 0.00000622868537902832,
+        "mean": 7.736095713473375e-8
+      },
+      "grid": {
+        "max": 0.0000015497207641601562,
+        "mean": 7.435855877702125e-8
+      },
+      "suspicion": {
+        "max": 0.0000015497207641601562,
+        "mean": 1.043081283569336e-7
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    },
+    {
+      "variant": "JPEG 95",
+      "case": "gradient",
+      "hybridConvolutions": 22,
+      "milliseconds": 115.40000000596046,
+      "probability": {
+        "max": 0.0000011920928955078125,
+        "mean": 1.7685589293048308e-8
+      },
+      "grid": {
+        "max": 4.76837158203125e-7,
+        "mean": 1.713686899051936e-8
+      },
+      "suspicion": {
+        "max": 4.172325134277344e-7,
+        "mean": 2.0861625671386717e-8
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    },
+    {
+      "variant": "JPEG 95",
+      "case": "checker",
+      "hybridConvolutions": 22,
+      "milliseconds": 101.69999998807907,
+      "probability": {
+        "max": 6.591949208711867e-16,
+        "mean": 6.1867709983927725e-18
+      },
+      "grid": {
+        "max": 8.15499205882962e-38,
+        "mean": 1.1089136161077438e-39
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    },
+    {
+      "variant": "JPEG 95",
+      "case": "smooth",
+      "hybridConvolutions": 22,
+      "milliseconds": 112.09999999403954,
+      "probability": {
+        "max": 0.000002384185791015625,
+        "mean": 4.312023520469665e-8
+      },
+      "grid": {
+        "max": 5.960464477539062e-7,
+        "mean": 3.03611159324646e-8
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 3,
+      "nativeBest": 3
+    },
+    {
+      "variant": "Sans JPEG",
+      "case": "flat",
+      "hybridConvolutions": 22,
+      "milliseconds": 19.5,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 3,
+      "nativeBest": 3
+    },
+    {
+      "variant": "Sans JPEG",
+      "case": "zero",
+      "hybridConvolutions": 22,
+      "milliseconds": 20.600000008940697,
+      "probability": {
+        "max": 1.4901161193847656e-8,
+        "mean": 2.7939677238464355e-9
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 2,
+      "nativeBest": 2
+    },
+    {
+      "variant": "Sans JPEG",
+      "case": "white",
+      "hybridConvolutions": 22,
+      "milliseconds": 20.799999997019768,
+      "probability": {
+        "max": 2.9802322387695312e-8,
+        "mean": 6.51925802230835e-9
+      },
+      "grid": {
+        "max": 2.9802322387695312e-8,
+        "mean": 7.450580596923828e-9
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "Sans JPEG",
+      "case": "noise-small",
+      "hybridConvolutions": 22,
+      "milliseconds": 20,
+      "probability": {
+        "max": 0,
+        "mean": 0
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "Sans JPEG",
+      "case": "noise",
+      "hybridConvolutions": 22,
+      "milliseconds": 43.599999994039536,
+      "probability": {
+        "max": 0.000003725290298461914,
+        "mean": 9.08090455714508e-8
+      },
+      "grid": {
+        "max": 0.0000010728836059570312,
+        "mean": 9.018306930859883e-8
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "Sans JPEG",
+      "case": "noise-odd",
+      "hybridConvolutions": 22,
+      "milliseconds": 104.20000000298023,
+      "probability": {
+        "max": 2.1047890186309814e-7,
+        "mean": 1.5319254396957386e-9
+      },
+      "grid": {
+        "max": 5.960464477539063e-8,
+        "mean": 1.4901161193847657e-9
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 3,
+      "nativeBest": 3
+    },
+    {
+      "variant": "Sans JPEG",
+      "case": "gradient",
+      "hybridConvolutions": 22,
+      "milliseconds": 110.5,
+      "probability": {
+        "max": 7.152557373046875e-7,
+        "mean": 1.6810732400562855e-8
+      },
+      "grid": {
+        "max": 1.1920928955078125e-7,
+        "mean": 1.0244548320770264e-8
+      },
+      "suspicion": {
+        "max": 1.1920928955078125e-7,
+        "mean": 8.940696716308593e-9
+      },
+      "localDifferences": 0,
+      "best": 2,
+      "nativeBest": 2
+    },
+    {
+      "variant": "Sans JPEG",
+      "case": "checker",
+      "hybridConvolutions": 22,
+      "milliseconds": 97.29999999701977,
+      "probability": {
+        "max": 7.253220246639103e-11,
+        "mean": 2.2666313791672476e-13
+      },
+      "grid": {
+        "max": 0,
+        "mean": 0
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 0,
+      "nativeBest": 0
+    },
+    {
+      "variant": "Sans JPEG",
+      "case": "smooth",
+      "hybridConvolutions": 22,
+      "milliseconds": 111.79999999701977,
+      "probability": {
+        "max": 5.960464477539062e-7,
+        "mean": 1.909211277961731e-8
+      },
+      "grid": {
+        "max": 2.2351741790771484e-7,
+        "mean": 1.3411045074462891e-8
+      },
+      "suspicion": {
+        "max": 0,
+        "mean": 0
+      },
+      "localDifferences": 0,
+      "best": 1,
+      "nativeBest": 1
+    }
+  ],
+  "timing": {
+    "side": 264,
+    "cpuMs": 2906,
+    "hybridMs": 408.80000001192093,
+    "speedup": 7.108610567307385,
+    "logError": {
+      "max": 0,
+      "mean": 0
+    },
+    "developmentOnly": true
+  },
+  "passed": true,
+  "scope": "Public probabilities [0,1], exact grid decisions; no startup calibration.",
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

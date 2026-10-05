@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "limitedBudget": {
+    "failure": "MEMORY_LIMIT",
+    "reason": "GPU exceeds the shared memory budget.",
+    "memory": {
+      "budgetBytes": 100663296,
+      "retainedBytes": 106038,
+      "cacheBytes": 384774,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 75425532,
+      "codecHeapCapacityBytes": 33554432,
+      "hdf5HeapCapacityBytes": 0
+    }
+  },
+  "gpu": "explicit selection, exactness, separate CPU cache and provenance verified",
+  "browser": "154.0.8037.58"
+}

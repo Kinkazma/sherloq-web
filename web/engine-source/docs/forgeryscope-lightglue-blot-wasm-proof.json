@@ -1,0 +1,29 @@
+{
+  "provider": "wasm",
+  "scope": "blot profile only; native depth/width disabled",
+  "modelSha256": "9b0c29d8ece319c55b8754f94ec5f73198d765d4bb672e841fbaecb4831fb7d4",
+  "checkpointSha256": "e9ddeb9e87b96555a6db4a4fbfb5b99b31c36371bf4171765dce8f1f9ef95022",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "nativeTorch": "2.8.0",
+  "records": [
+    {
+      "case": 0,
+      "scoreError": 1.7881393432617188e-7,
+      "matchDifferences": 0,
+      "matchCount": 16,
+      "ms": 72.5
+    },
+    {
+      "case": 1,
+      "scoreError": 1.7881393432617188e-7,
+      "matchDifferences": 0,
+      "matchCount": 25,
+      "ms": 90.59999999776483
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "passed": true
+}

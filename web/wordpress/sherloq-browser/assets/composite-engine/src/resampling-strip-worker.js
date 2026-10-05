@@ -1,0 +1,2 @@
+import {resamplingStreamMath} from './resampling-stream-math.js';
+self.onmessage=async({data})=>{try{const math=await resamplingStreamMath();let values;if(data.op==='axis')values=math.axis(data.values,data.length,data.lines,data.real);else if(data.op==='pyrup')values=math.pyrup(data.values,data.width,data.height);else throw Error('Unknown resampling strip operation');self.postMessage({result:{values}},[values.buffer]);}catch(error){self.postMessage({error:{code:error.code??'WORKER_FAILED',message:error.message}});}};

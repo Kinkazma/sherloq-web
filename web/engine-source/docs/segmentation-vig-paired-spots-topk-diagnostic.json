@@ -1,0 +1,745 @@
+{
+  "schema": 1,
+  "status": "diagnostic-only",
+  "scope": "Unmodified VIG network intermediate distances/indices versus native; isolated ONNX TopK on exact native inputs distinguishes ordering from upstream drift. No oracle tensors enter the product.",
+  "case": "paired-spots",
+  "sourceModelSha256": "5e402f702152dae3f29f9c461adcaee6e40467f29827e3d425f8d73fd9a8bb6f",
+  "records": [
+    {
+      "index": 0,
+      "node": "/network/visual_feature_extractor/backbone.0/backbone.0.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 9,
+      "actualInput": {
+        "different": 62954,
+        "maxAbs": 0.000004470348358154297,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 2,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 2,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      }
+    },
+    {
+      "index": 1,
+      "node": "/network/visual_feature_extractor/backbone.1/backbone.1.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 9,
+      "actualInput": {
+        "different": 62865,
+        "maxAbs": 0.0000045299530029296875,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      }
+    },
+    {
+      "index": 2,
+      "node": "/network/visual_feature_extractor/backbone.2/backbone.2.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 10,
+      "actualInput": {
+        "different": 62526,
+        "maxAbs": 0.0000040531158447265625,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      }
+    },
+    {
+      "index": 3,
+      "node": "/network/visual_feature_extractor/backbone.3/backbone.3.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 10,
+      "actualInput": {
+        "different": 62742,
+        "maxAbs": 0.00000476837158203125,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      }
+    },
+    {
+      "index": 4,
+      "node": "/network/visual_feature_extractor/backbone.4/backbone.4.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 22,
+      "actualInput": {
+        "different": 62791,
+        "maxAbs": 0.000004887580871582031,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 2,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 2,
+        "rows": 256,
+        "setRows": 1,
+        "missing": 1,
+        "dilation": 2
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 2
+      }
+    },
+    {
+      "index": 5,
+      "node": "/network/visual_feature_extractor/backbone.5/backbone.5.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 24,
+      "actualInput": {
+        "different": 62758,
+        "maxAbs": 0.01613771915435791,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 51,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 51,
+        "rows": 256,
+        "setRows": 18,
+        "missing": 22,
+        "dilation": 2
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 2
+      }
+    },
+    {
+      "index": 6,
+      "node": "/network/visual_feature_extractor/backbone.6/backbone.6.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 24,
+      "actualInput": {
+        "different": 63314,
+        "maxAbs": 0.03864705562591553,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 368,
+        "rows": 256,
+        "setRows": 13,
+        "missing": 13,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 368,
+        "rows": 256,
+        "setRows": 94,
+        "missing": 159,
+        "dilation": 2
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 2
+      }
+    },
+    {
+      "index": 7,
+      "node": "/network/visual_feature_extractor/backbone.7/backbone.7.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 26,
+      "actualInput": {
+        "different": 64964,
+        "maxAbs": 0.18938201665878296,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 1797,
+        "rows": 256,
+        "setRows": 84,
+        "missing": 101,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 1797,
+        "rows": 256,
+        "setRows": 202,
+        "missing": 692,
+        "dilation": 2
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 2
+      }
+    },
+    {
+      "index": 8,
+      "node": "/network/visual_feature_extractor/backbone.8/backbone.8.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 39,
+      "actualInput": {
+        "different": 65490,
+        "maxAbs": 0.28918421268463135,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 5850,
+        "rows": 256,
+        "setRows": 190,
+        "missing": 320,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 5850,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 1594,
+        "dilation": 3
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 3
+      }
+    },
+    {
+      "index": 9,
+      "node": "/network/visual_feature_extractor/backbone.9/backbone.9.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 42,
+      "actualInput": {
+        "different": 65515,
+        "maxAbs": 0.6126656532287598,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 8155,
+        "rows": 256,
+        "setRows": 230,
+        "missing": 609,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 8155,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 2126,
+        "dilation": 3
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 3
+      }
+    },
+    {
+      "index": 10,
+      "node": "/network/visual_feature_extractor/backbone.10/backbone.10.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 45,
+      "actualInput": {
+        "different": 65523,
+        "maxAbs": 0.8029336333274841,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 9342,
+        "rows": 256,
+        "setRows": 248,
+        "missing": 808,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 9342,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 2380,
+        "dilation": 3
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 2,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 2,
+        "rows": 256,
+        "setRows": 1,
+        "missing": 1,
+        "dilation": 3
+      }
+    },
+    {
+      "index": 11,
+      "node": "/network/visual_feature_extractor/backbone.11/backbone.11.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 45,
+      "actualInput": {
+        "different": 65521,
+        "maxAbs": 0.6209210157394409,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 9656,
+        "rows": 256,
+        "setRows": 247,
+        "missing": 905,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 9656,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 2445,
+        "dilation": 3
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 3
+      }
+    },
+    {
+      "index": 12,
+      "node": "/network/visual_feature_extractor/backbone.12/backbone.12.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 64,
+      "actualInput": {
+        "different": 65522,
+        "maxAbs": 0.6125609874725342,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 14277,
+        "rows": 256,
+        "setRows": 253,
+        "missing": 1174,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 14277,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 2905,
+        "dilation": 4
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 4
+      }
+    },
+    {
+      "index": 13,
+      "node": "/network/visual_feature_extractor/backbone.13/backbone.13.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 64,
+      "actualInput": {
+        "different": 65523,
+        "maxAbs": 0.6154820919036865,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 14506,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 1177,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 14506,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 2949,
+        "dilation": 4
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 4
+      }
+    },
+    {
+      "index": 14,
+      "node": "/network/visual_feature_extractor/backbone.14/backbone.14.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 68,
+      "actualInput": {
+        "different": 65518,
+        "maxAbs": 0.623729944229126,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 15566,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 1308,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 15566,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 3114,
+        "dilation": 4
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 4
+      }
+    },
+    {
+      "index": 15,
+      "node": "/network/visual_feature_extractor/backbone.15/backbone.15.0/graph_conv/dilated_knn_graph/TopK",
+      "k": 72,
+      "actualInput": {
+        "different": 65519,
+        "maxAbs": 0.7123265266418457,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 16622,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 1459,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 16622,
+        "rows": 256,
+        "setRows": 256,
+        "missing": 3350,
+        "dilation": 4
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 4
+      }
+    },
+    {
+      "index": 16,
+      "node": "/network/multi_granularity_consistency_module/TopK",
+      "k": 40,
+      "actualInput": {
+        "different": 65536,
+        "maxAbs": 0.000008510576662956737,
+        "finite": true
+      },
+      "actualIndices": {
+        "different": 7576,
+        "rows": 256,
+        "setRows": 234,
+        "missing": 529,
+        "dilation": 1
+      },
+      "actualDilatedNeighbours": {
+        "different": 7576,
+        "rows": 256,
+        "setRows": 234,
+        "missing": 529,
+        "dilation": 1
+      },
+      "oracleInputValues": {
+        "different": 0,
+        "maxAbs": 0,
+        "finite": true
+      },
+      "oracleInputIndices": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      },
+      "oracleDilatedNeighbours": {
+        "different": 0,
+        "rows": 256,
+        "setRows": 0,
+        "missing": 0,
+        "dilation": 1
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/export-segmentation-topk-diagnostics.py": "6205ebeb7119bf1376d924325961126cf59d1521445373892ebe4c2b5e428c67",
+    "scripts/study-segmentation-topk-diagnostics.mjs": "a33f90fd6e05bde330e7917219aa2846bf49bc6aca7856b1e590f53bd448ef6e"
+  }
+}

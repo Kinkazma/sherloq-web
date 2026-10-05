@@ -1,0 +1,130 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "width": 129,
+      "height": 128,
+      "values": 16512,
+      "maxError": 0.0000011920928955078125,
+      "differences": 15945,
+      "meanAbsoluteError": 1.0019073523969643e-7,
+      "executions": [
+        {
+          "rect": [
+            0,
+            0,
+            129,
+            128
+          ],
+          "milliseconds": 1644.9000000059605,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 117440512,
+          "provider": "webgpu",
+          "workers": 1
+        }
+      ],
+      "milliseconds": 1652.4000000059605
+    },
+    {
+      "case": 1,
+      "width": 385,
+      "height": 257,
+      "values": 98945,
+      "maxError": 0.00005283951759338379,
+      "differences": 94718,
+      "meanAbsoluteError": 1.0869407665464244e-7,
+      "executions": [
+        {
+          "rect": [
+            191,
+            0,
+            191,
+            191
+          ],
+          "milliseconds": 294.29999999701977,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 134217728,
+          "provider": "webgpu",
+          "workers": 1
+        },
+        {
+          "rect": [
+            0,
+            0,
+            191,
+            191
+          ],
+          "milliseconds": 297.30000001192093,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 134217728,
+          "provider": "webgpu",
+          "workers": 1
+        },
+        {
+          "rect": [
+            382,
+            0,
+            3,
+            191
+          ],
+          "milliseconds": 48.20000000298023,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 134217728,
+          "provider": "webgpu",
+          "workers": 1
+        },
+        {
+          "rect": [
+            0,
+            191,
+            191,
+            66
+          ],
+          "milliseconds": 104,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 134217728,
+          "provider": "webgpu",
+          "workers": 1
+        },
+        {
+          "rect": [
+            382,
+            191,
+            3,
+            66
+          ],
+          "milliseconds": 34.30000001192093,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 134217728,
+          "provider": "webgpu",
+          "workers": 1
+        },
+        {
+          "rect": [
+            191,
+            191,
+            191,
+            66
+          ],
+          "milliseconds": 92.40000000596046,
+          "preflightExecutions": 0,
+          "memoryMaximumBytes": 134217728,
+          "provider": "webgpu",
+          "workers": 1
+        }
+      ],
+      "milliseconds": 459.79999999701977
+    }
+  ],
+  "memory": {
+    "budgetBytes": 402653184,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 396804672
+  },
+  "scope": "Actual source windows on both axes, native 17-layer residual, CPU reference tensors and unchanged global bias positions.",
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

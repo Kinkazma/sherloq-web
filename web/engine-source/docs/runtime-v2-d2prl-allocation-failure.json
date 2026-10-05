@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "version": "0.31.0-integration.21",
+  "engineCommit": "2b1c8ba5c23dcd433ad8b8f67ff2b023658acfcd",
+  "runDirectory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-recovery-96mp-20261002T234824Z",
+  "outcome": "failed",
+  "wallMs": 362415,
+  "failure": {
+    "id": "complete96",
+    "phase": "automatic-state",
+    "state": {
+      "states": {
+        "patchmatch": "running",
+        "sift": "running",
+        "forgeryscope": "done",
+        "d2prl": "failed",
+        "ela": "running"
+      },
+      "errors": {
+        "d2prl": {
+          "code": "COMPUTE_FAILED",
+          "message": "Array buffer allocation failed"
+        }
+      },
+      "attempts": {
+        "patchmatch": 1,
+        "sift": 1,
+        "forgeryscope": 1,
+        "d2prl": 1,
+        "ela": 1
+      },
+      "completed": [
+        "forgeryscope"
+      ],
+      "running": [
+        "patchmatch",
+        "sift",
+        "ela"
+      ],
+      "preflightExecutions": 0
+    },
+    "elapsedMs": 357278.7700000107
+  },
+  "lastD2prlProgress": {
+    "at": "2026-10-03T00:10:13.128Z",
+    "id": "automatic-d2prl-1",
+    "iteration": 7,
+    "iterations": 40,
+    "branch": "cnn",
+    "phase": "patchmatch",
+    "completed": 40,
+    "total": 198,
+    "fraction": 0.20202020202020202,
+    "stage": "inference",
+    "zone": "automatic-zone-0",
+    "zoneIndex": 0,
+    "completedZones": 0,
+    "totalZones": 1,
+    "revision": 1,
+    "group": "d2prl",
+    "attempt": 1,
+    "elapsedMs": 347524.01000002027
+  },
+  "successfulEarlierRecovery": {
+    "at": "2026-10-03T00:09:15.520Z",
+    "id": "complete96",
+    "phase": "stored-zernike-descriptors",
+    "completed": 92176384,
+    "total": 96000000,
+    "execution": {
+      "created": 10,
+      "reclaimed": 0,
+      "peakWorkers": 10,
+      "peakComputing": 10,
+      "computing": 0,
+      "completed": 5640,
+      "computeMs": 778844.4400005639,
+      "preparationMs": 112039.53000035882,
+      "storageMs": 4127.565000027418,
+      "heapBytes": 33554432,
+      "residentWorkers": 10,
+      "residentAllowanceBytes": 524901280,
+      "maximum": 10,
+      "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+    },
+    "allocationRecoveries": [
+      {
+        "store": 0,
+        "count": 1,
+        "status": "completed",
+        "bytesPreserved": 4483710976,
+        "cause": "A segmented RAM allocation failed: 4194304 bytes, bank 1069, 4608000000 total bytes, 4483710976 allocated bank bytes, shared backing; Array buffer allocation failed"
+      }
+    ],
+    "group": "patchmatch",
+    "attempt": 1,
+    "elapsedMs": 289916.3450000286
+  },
+  "cleanupErrors": [],
+  "facts": [
+    "The first segmented PatchMatch allocation recovery completed and computation advanced into the dense field.",
+    "A later D2PRL ArrayBuffer allocation failure was reported as COMPUTE_FAILED on attempt 1, bypassing the automatic memory-recovery branch.",
+    "The error stack and exact allocating operator were lost before the public automatic-state event. Last D2PRL progress was internal PatchMatch iteration 7, evaluation 40 of 198.",
+    "The prior automatic fallback reduced concurrency monotonically and stopped retrying at concurrency 1. There was no general progress-aware repeated-recovery policy."
+  ],
+  "artifacts": [
+    {
+      "file": "status.json",
+      "sha256": "65966c40aa0bb3c788d996ff57486f3078a2ee1b446301bb8c8a00127c865be3"
+    },
+    {
+      "file": "progress.jsonl",
+      "sha256": "cf986d7db3fb76c6bfbc52eeb9ed62a5340c8fdc970f911cbc145f5ecafc58c8"
+    },
+    {
+      "file": "incomplete.json",
+      "sha256": "1ba456e2d4d48c02489e99a4d73e943483b9db39ea1b59e16ba9c90dcd1e8f99"
+    },
+    {
+      "file": "binding.json",
+      "sha256": "2498aaf101863276159d1117130df2f06f932b1b4e799f63d665104685c55e1f"
+    },
+    {
+      "file": "job.json",
+      "sha256": "0a65cb00d071d1cd723073231d2ca8b7698e3e8b929fb07e2688d4ee62ec7dce"
+    }
+  ]
+}

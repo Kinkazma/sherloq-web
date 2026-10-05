@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Development-only alternating isolated window-read comparison; same decoded96MP source, same budget and storage, same output bytes. Includes storage reads/window allocation; excludes load, hashing, UI transfer and display. Five observations per path, no product preflight.",
+  "backend": "opfs",
+  "cases": [
+    {
+      "rect": {
+        "x": 0,
+        "y": 4000,
+        "width": 12000,
+        "height": 64
+      },
+      "bytes": 2304000,
+      "sha256": "320e2a434a96fa7e09143d7ff68951469ab35d637d43c017bdac332ec056e173",
+      "samples": {
+        "rows": [
+          10.399999976158142,
+          9.5,
+          21.5,
+          20.69999998807907,
+          18.900000035762787
+        ],
+        "spans": [
+          1.2000000476837158,
+          0.800000011920929,
+          6.899999976158142,
+          7,
+          6.800000011920929
+        ]
+      },
+      "medianMs": {
+        "rows": 18.900000035762787,
+        "spans": 6.800000011920929
+      }
+    },
+    {
+      "rect": {
+        "x": 0,
+        "y": 4000,
+        "width": 12000,
+        "height": 512
+      },
+      "bytes": 18432000,
+      "sha256": "442db79e0f8bef4a9754e65491bdf393c68114d2ba8668717194d8edbf6f7c78",
+      "samples": {
+        "rows": [
+          169.30000001192093,
+          169.30000001192093,
+          170.10000002384186,
+          170.0999999642372,
+          162.5999999642372
+        ],
+        "spans": [
+          35.60000002384186,
+          34.30000001192093,
+          34.60000002384186,
+          35.09999996423721,
+          34.59999996423721
+        ]
+      },
+      "medianMs": {
+        "rows": 169.30000001192093,
+        "spans": 34.60000002384186
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 129005192
+  },
+  "browser": "154.0.8037.58"
+}

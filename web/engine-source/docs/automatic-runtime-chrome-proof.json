@@ -1,0 +1,1353 @@
+{
+  "passed": true,
+  "contiguous": {
+    "passed": true,
+    "segmented": false,
+    "scientificHashes": {
+      "root_results_patchmatch_points": {
+        "shape": [
+          7322,
+          7
+        ],
+        "dtype": "<f4",
+        "sha256": "aad42f41c960044d9047ef5ddfea1a35f787b3acabff44d58329d269e4ee9cfd"
+      },
+      "root_results_patchmatch_pairs": {
+        "shape": [
+          4122,
+          4
+        ],
+        "dtype": "<f8",
+        "sha256": "dd3515cd2a306c0c06036d50eeef45c20b78845971337df8d90f935240533911"
+      },
+      "root_results_patchmatch_groups_0": {
+        "shape": [
+          3110
+        ],
+        "dtype": "<i8",
+        "sha256": "cefbb438738dffb10948fb99a7b1549ca752f49de8fbfa13328f7f18e46b2bbc"
+      },
+      "root_results_patchmatch_groups_1": {
+        "shape": [
+          162
+        ],
+        "dtype": "<i8",
+        "sha256": "61dc6d7618cb4e6697be87d73ecb2afea2e1b52f5228a1651782a5251c591052"
+      },
+      "root_results_patchmatch_groups_2": {
+        "shape": [
+          88
+        ],
+        "dtype": "<i8",
+        "sha256": "c4c959070a44c4087e1d84a7f624b6778656ef3bb58ae058b4ec7d050e625999"
+      },
+      "root_results_patchmatch_groups_3": {
+        "shape": [
+          167
+        ],
+        "dtype": "<i8",
+        "sha256": "2ec6815219508be15a293ebfc1fd80b7afeadbf773a61a7311803b02faba8d4d"
+      },
+      "root_results_patchmatch_groups_4": {
+        "shape": [
+          162
+        ],
+        "dtype": "<i8",
+        "sha256": "7f3ef212bf662349ee6d75c274d56262cafdfa3e62465afd4a477bd60218f66b"
+      },
+      "root_results_patchmatch_groups_5": {
+        "shape": [
+          62
+        ],
+        "dtype": "<i8",
+        "sha256": "3c5155ad3cd3a6a15bac39e6b067e21fe3b5363cdb03937139b839403f2ca443"
+      },
+      "root_results_patchmatch_colors": {
+        "shape": [
+          4122,
+          3
+        ],
+        "dtype": "|u1",
+        "sha256": "c85c5a70bff9de553cef19b75c23d901ba7596728078e7e5ecdc23e7f1477934"
+      },
+      "root_results_patchmatch_pair_search_regions": {
+        "shape": [
+          4122
+        ],
+        "dtype": "<i4",
+        "sha256": "adfe25aa0fccc45fd5635f7089be51e6059f1feb236c89ca973150b8f1406edc"
+      },
+      "root_results_patchmatch_pair_algorithms": {
+        "shape": [
+          4122
+        ],
+        "dtype": "|u1",
+        "sha256": "d93b721ee275e658b53c20d016fab0ba34c6b38ccd41669455c995297a908ab5"
+      },
+      "root_results_patchmatch_dense_maps_0_consistent_mask": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "|b1",
+        "sha256": "f49a649068520f28f94cab8e41340bee785627b9b72d67896f6199296b771cf1"
+      },
+      "root_results_patchmatch_dense_maps_0_coherence_error": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<f4",
+        "sha256": "2ed80942b46c10111651143913237988ed35a6021adf8b4d815b806b072dd785"
+      },
+      "root_results_patchmatch_dense_maps_0_targets": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<i4",
+        "sha256": "49f918c55882828a6854f16cfff54e96192c87fe3fcfb899c3b3826d604613de"
+      },
+      "root_results_patchmatch_dense_maps_0_distances_squared": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<f4",
+        "sha256": "21fa194751473704493ac1f0f3ceacb71d061fd8d0803ad366615f3899b576c9"
+      },
+      "root_results_patchmatch_dense_maps_1_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "abfd94645a39c1fb0065cf551f56aa0480eba41b44801c1e1ca9a13161c8bcd3"
+      },
+      "root_results_patchmatch_dense_maps_1_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "a2c75cfe6aa02a4cb6f83884bed4c91ac782b62c19ea6767250987f8240ce96d"
+      },
+      "root_results_patchmatch_dense_maps_1_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "e4fd8dbfe638dfbe42f019e303c2754efe0b2d44a917640ea98512983be309ec"
+      },
+      "root_results_patchmatch_dense_maps_1_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "00f65fdaf2d303420f11a88ddd1846a266f7fcea7c9be871e6801d279603a795"
+      },
+      "root_results_patchmatch_dense_maps_2_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "523862a510945f2c2fd57aab7df19831a15603bd4a0d99c2515a79a90b3813f9"
+      },
+      "root_results_patchmatch_dense_maps_2_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "92e3526074bf8e81011b4d0e3c4f91ae99dddafd62b216c28087afdbee919c34"
+      },
+      "root_results_patchmatch_dense_maps_2_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "321ce2c26307074a6a599b2ab1ccfc0c7234b8df2e855c66cd28920d93a9d6e2"
+      },
+      "root_results_patchmatch_dense_maps_2_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "258d80521346ec303fd91d4e7bf29d67eea573b6d57bb72f4affceee125f3c71"
+      },
+      "root_results_patchmatch_dense_maps_3_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "093cd0c8a616653f0d64bd259d995f41de72f522fb06f7415170a11b76fe9dae"
+      },
+      "root_results_patchmatch_dense_maps_3_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "e01d84d665dbdd3f36c5add228830a802bcffe91e6ead8969a6bc08b6c8c9e8b"
+      },
+      "root_results_patchmatch_dense_maps_3_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "084daaa9cb99fa3952eee4b728716dca1c82f4c6b3fa942c7dfbe54207095e39"
+      },
+      "root_results_patchmatch_dense_maps_3_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "18ea55ea827dedadd0cdc68a85f33d989618d82b23a11c70c241a81a582dfd9c"
+      },
+      "root_results_patchmatch_dense_maps_4_consistent_mask": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "|b1",
+        "sha256": "d6040c85d9cf9af955b53274e81c5608f9b63014cf9c0bebf5bfc1a4c7d68889"
+      },
+      "root_results_patchmatch_dense_maps_4_coherence_error": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<f4",
+        "sha256": "4b567a56b571b657648959cab1499ad124980146402dc878a8522eda8e9d19b4"
+      },
+      "root_results_patchmatch_dense_maps_4_targets": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<i4",
+        "sha256": "c3ea5ccb6c8b275075abbd7ca22ef30969654168d8401983ee52e7af69e31b77"
+      },
+      "root_results_patchmatch_dense_maps_4_distances_squared": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<f4",
+        "sha256": "16e719e2376f3efafcf87231b87d45998bb455ee4d462a12d00dedf19ebe1e50"
+      },
+      "root_results_patchmatch_dense_maps_5_consistent_mask": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "|b1",
+        "sha256": "967eedb2dc77a95e6270119ece23d9f47ca97c3b18ffa7d391d34e461b284f4c"
+      },
+      "root_results_patchmatch_dense_maps_5_coherence_error": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<f4",
+        "sha256": "9202e68fbe5587e30738f2f118e87e10202a6eabd7297e1299978ed53c3a8f46"
+      },
+      "root_results_patchmatch_dense_maps_5_targets": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<i4",
+        "sha256": "05abee64fd7563759a8707b0bbaf183ae99eef30c2f4ce1d62c09ece7f595505"
+      },
+      "root_results_patchmatch_dense_maps_5_distances_squared": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<f4",
+        "sha256": "bbb1aa9e3c31dc63ce744e95aa7dd774515fb9ca8c62747a461c4e49e663ad86"
+      },
+      "root_results_patchmatch_dense_maps_6_consistent_mask": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "|b1",
+        "sha256": "2d07a41ae992770085117e9815300bfd0730745883e60b24aaad5e69dfc087ae"
+      },
+      "root_results_patchmatch_dense_maps_6_coherence_error": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<f4",
+        "sha256": "687dcebbaf642dac68fa232d9eacd51bc3e05e89782799d672a40db281d5cd7d"
+      },
+      "root_results_patchmatch_dense_maps_6_targets": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<i4",
+        "sha256": "3bf866a426d2e2b7c4df1fc49d61fd28c5b5cbddc374ad101863e1de9a90b553"
+      },
+      "root_results_patchmatch_dense_maps_6_distances_squared": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<f4",
+        "sha256": "d023a5813d75aad9ff258066a14c6f970ad114c7598eb9bd0e7736b8d76bb4e5"
+      },
+      "root_results_patchmatch_dense_maps_7_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "523862a510945f2c2fd57aab7df19831a15603bd4a0d99c2515a79a90b3813f9"
+      },
+      "root_results_patchmatch_dense_maps_7_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "92e3526074bf8e81011b4d0e3c4f91ae99dddafd62b216c28087afdbee919c34"
+      },
+      "root_results_patchmatch_dense_maps_7_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "26d08b050d641ec2bc212604a28d3a3ff9add04dad2def6879e9da0007684cb0"
+      },
+      "root_results_patchmatch_dense_maps_7_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "38649a9f034a764809a9291dfd6eecd71bd01612c40490a98b7c7400829b0480"
+      },
+      "root_results_patchmatch_dense_maps_8_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "523862a510945f2c2fd57aab7df19831a15603bd4a0d99c2515a79a90b3813f9"
+      },
+      "root_results_patchmatch_dense_maps_8_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "92e3526074bf8e81011b4d0e3c4f91ae99dddafd62b216c28087afdbee919c34"
+      },
+      "root_results_patchmatch_dense_maps_8_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "06a034e1f12b37b3e7b0be51db3ff629562d8fcbd5426043272b80e826d67157"
+      },
+      "root_results_patchmatch_dense_maps_8_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "76897f681e415866bb8e3bacdc7b3ce4c5fc0ade614e9c6c8e9f830fea14f03a"
+      },
+      "root_results_patchmatch_dense_maps_9_consistent_mask": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "|b1",
+        "sha256": "d6040c85d9cf9af955b53274e81c5608f9b63014cf9c0bebf5bfc1a4c7d68889"
+      },
+      "root_results_patchmatch_dense_maps_9_coherence_error": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<f4",
+        "sha256": "4b567a56b571b657648959cab1499ad124980146402dc878a8522eda8e9d19b4"
+      },
+      "root_results_patchmatch_dense_maps_9_targets": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<i4",
+        "sha256": "f2bea5da0b59b992320307599288c80bc3c39fe7a18c5c103e42ce476fa0ec49"
+      },
+      "root_results_patchmatch_dense_maps_9_distances_squared": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<f4",
+        "sha256": "a03e477244ca68d8083d0c674e147edf8b01505f2fd39abdc4c39765b2431b64"
+      },
+      "root_results_patchmatch_dense_maps_10_consistent_mask": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "|b1",
+        "sha256": "967eedb2dc77a95e6270119ece23d9f47ca97c3b18ffa7d391d34e461b284f4c"
+      },
+      "root_results_patchmatch_dense_maps_10_coherence_error": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<f4",
+        "sha256": "9202e68fbe5587e30738f2f118e87e10202a6eabd7297e1299978ed53c3a8f46"
+      },
+      "root_results_patchmatch_dense_maps_10_targets": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<i4",
+        "sha256": "d7da82b7b3c373e13f86529cdfed5c4dcbadbe358199a484670c60f52ef9f05f"
+      },
+      "root_results_patchmatch_dense_maps_10_distances_squared": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<f4",
+        "sha256": "9b07479ee3abe9bc6011f90669ccccf86eeedf636960ab49afbf535dd238949c"
+      }
+    },
+    "configuredOcr": {
+      "states": {
+        "states": {
+          "patchmatch": "done",
+          "sift": "done",
+          "forgeryscope": "failed",
+          "d2prl": "failed"
+        },
+        "errors": {
+          "forgeryscope": {
+            "code": "MODEL_UNAVAILABLE",
+            "message": "Load Forgeryscope assets and runtime URLs through loadAutomaticModels."
+          },
+          "d2prl": {
+            "code": "MODEL_UNAVAILABLE",
+            "message": "Load the pinned D2PRL manifest through loadD2prlModel."
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 1
+        },
+        "completed": [
+          "patchmatch",
+          "sift"
+        ],
+        "running": [],
+        "preflightExecutions": 0
+      },
+      "sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+      "archiveBytes": 2346293,
+      "finalMemory": {
+        "budgetBytes": 805306368,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 741091700,
+        "knownHeapCapacityBytes": 0
+      }
+    },
+    "states": {
+      "states": {
+        "patchmatch": "done",
+        "sift": "failed",
+        "forgeryscope": "failed",
+        "d2prl": "failed",
+        "ela": "done"
+      },
+      "errors": {
+        "sift": {
+          "code": "MODEL_UNAVAILABLE",
+          "message": "Load verified English OCR weights through loadM3Models({models:{},language}) for SIFT Panels + Text."
+        },
+        "forgeryscope": {
+          "code": "MODEL_UNAVAILABLE",
+          "message": "Load Forgeryscope assets and runtime URLs through loadAutomaticModels."
+        },
+        "d2prl": {
+          "code": "MODEL_UNAVAILABLE",
+          "message": "Load the pinned D2PRL manifest through loadD2prlModel."
+        }
+      },
+      "attempts": {
+        "patchmatch": 1,
+        "sift": 1,
+        "forgeryscope": 1,
+        "d2prl": 1,
+        "ela": 1
+      },
+      "completed": [
+        "ela",
+        "patchmatch"
+      ],
+      "running": [],
+      "preflightExecutions": 0
+    },
+    "selection": {
+      "regions": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            95,
+            0
+          ],
+          [
+            95,
+            95
+          ],
+          [
+            0,
+            95
+          ]
+        ]
+      ],
+      "envelope": [
+        [
+          0,
+          0
+        ],
+        [
+          95,
+          0
+        ],
+        [
+          95,
+          95
+        ],
+        [
+          0,
+          95
+        ]
+      ],
+      "disabled": []
+    },
+    "entries": 6,
+    "stableIds": true,
+    "attemptsUnchanged": true,
+    "corroboration": {
+      "width": 96,
+      "height": 96,
+      "maximum": 2
+    },
+    "archive": {
+      "bytes": 1783130,
+      "arrays": [
+        "root_results_ela_score",
+        "root_results_ela_legacy_score",
+        "root_results_ela_coherent_score",
+        "root_results_ela_quality_scores",
+        "root_results_ela_signed_scores",
+        "root_results_ela_profiles",
+        "root_results_ela_content",
+        "root_results_ela_peer_count",
+        "root_results_ela_supported",
+        "root_results_ela_background_profiles",
+        "root_results_ela_ela",
+        "root_results_ela_labels",
+        "root_results_ela_energy_allowed",
+        "root_results_ela_energy_planes",
+        "root_results_patchmatch_points",
+        "root_results_patchmatch_pairs",
+        "root_results_patchmatch_groups_0",
+        "root_results_patchmatch_groups_1",
+        "root_results_patchmatch_groups_2",
+        "root_results_patchmatch_groups_3",
+        "root_results_patchmatch_groups_4",
+        "root_results_patchmatch_groups_5",
+        "root_results_patchmatch_colors",
+        "root_results_patchmatch_pair_search_regions",
+        "root_results_patchmatch_pair_algorithms",
+        "root_results_patchmatch_dense_maps_0_consistent_mask",
+        "root_results_patchmatch_dense_maps_0_coherence_error",
+        "root_results_patchmatch_dense_maps_0_targets",
+        "root_results_patchmatch_dense_maps_0_distances_squared",
+        "root_results_patchmatch_dense_maps_1_consistent_mask",
+        "root_results_patchmatch_dense_maps_1_coherence_error",
+        "root_results_patchmatch_dense_maps_1_targets",
+        "root_results_patchmatch_dense_maps_1_distances_squared",
+        "root_results_patchmatch_dense_maps_2_consistent_mask",
+        "root_results_patchmatch_dense_maps_2_coherence_error",
+        "root_results_patchmatch_dense_maps_2_targets",
+        "root_results_patchmatch_dense_maps_2_distances_squared",
+        "root_results_patchmatch_dense_maps_3_consistent_mask",
+        "root_results_patchmatch_dense_maps_3_coherence_error",
+        "root_results_patchmatch_dense_maps_3_targets",
+        "root_results_patchmatch_dense_maps_3_distances_squared",
+        "root_results_patchmatch_dense_maps_4_consistent_mask",
+        "root_results_patchmatch_dense_maps_4_coherence_error",
+        "root_results_patchmatch_dense_maps_4_targets",
+        "root_results_patchmatch_dense_maps_4_distances_squared",
+        "root_results_patchmatch_dense_maps_5_consistent_mask",
+        "root_results_patchmatch_dense_maps_5_coherence_error",
+        "root_results_patchmatch_dense_maps_5_targets",
+        "root_results_patchmatch_dense_maps_5_distances_squared",
+        "root_results_patchmatch_dense_maps_6_consistent_mask",
+        "root_results_patchmatch_dense_maps_6_coherence_error",
+        "root_results_patchmatch_dense_maps_6_targets",
+        "root_results_patchmatch_dense_maps_6_distances_squared",
+        "root_results_patchmatch_dense_maps_7_consistent_mask",
+        "root_results_patchmatch_dense_maps_7_coherence_error",
+        "root_results_patchmatch_dense_maps_7_targets",
+        "root_results_patchmatch_dense_maps_7_distances_squared",
+        "root_results_patchmatch_dense_maps_8_consistent_mask",
+        "root_results_patchmatch_dense_maps_8_coherence_error",
+        "root_results_patchmatch_dense_maps_8_targets",
+        "root_results_patchmatch_dense_maps_8_distances_squared",
+        "root_results_patchmatch_dense_maps_9_consistent_mask",
+        "root_results_patchmatch_dense_maps_9_coherence_error",
+        "root_results_patchmatch_dense_maps_9_targets",
+        "root_results_patchmatch_dense_maps_9_distances_squared",
+        "root_results_patchmatch_dense_maps_10_consistent_mask",
+        "root_results_patchmatch_dense_maps_10_coherence_error",
+        "root_results_patchmatch_dense_maps_10_targets",
+        "root_results_patchmatch_dense_maps_10_distances_squared",
+        "root_results_patchmatch_browser_details_dense_fields_0_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_0_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_1_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_1_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_2_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_2_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_3_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_3_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_4_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_4_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_5_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_5_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_6_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_6_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_7_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_7_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_8_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_8_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_9_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_9_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_10_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_10_displayRows",
+        "root_corroboration_counts",
+        "root_corroboration_context_counts",
+        "metadata_json",
+        "browser_provenance_json"
+      ]
+    },
+    "progressEvents": 149,
+    "finalMemory": {
+      "budgetBytes": 805306368,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 337385910,
+      "knownHeapCapacityBytes": 0
+    }
+  },
+  "segmented": {
+    "passed": true,
+    "segmented": true,
+    "scientificHashes": {
+      "root_results_patchmatch_points": {
+        "shape": [
+          7322,
+          7
+        ],
+        "dtype": "<f4",
+        "sha256": "aad42f41c960044d9047ef5ddfea1a35f787b3acabff44d58329d269e4ee9cfd"
+      },
+      "root_results_patchmatch_pairs": {
+        "shape": [
+          4122,
+          4
+        ],
+        "dtype": "<f8",
+        "sha256": "dd3515cd2a306c0c06036d50eeef45c20b78845971337df8d90f935240533911"
+      },
+      "root_results_patchmatch_groups_0": {
+        "shape": [
+          3110
+        ],
+        "dtype": "<i8",
+        "sha256": "cefbb438738dffb10948fb99a7b1549ca752f49de8fbfa13328f7f18e46b2bbc"
+      },
+      "root_results_patchmatch_groups_1": {
+        "shape": [
+          162
+        ],
+        "dtype": "<i8",
+        "sha256": "61dc6d7618cb4e6697be87d73ecb2afea2e1b52f5228a1651782a5251c591052"
+      },
+      "root_results_patchmatch_groups_2": {
+        "shape": [
+          88
+        ],
+        "dtype": "<i8",
+        "sha256": "c4c959070a44c4087e1d84a7f624b6778656ef3bb58ae058b4ec7d050e625999"
+      },
+      "root_results_patchmatch_groups_3": {
+        "shape": [
+          167
+        ],
+        "dtype": "<i8",
+        "sha256": "2ec6815219508be15a293ebfc1fd80b7afeadbf773a61a7311803b02faba8d4d"
+      },
+      "root_results_patchmatch_groups_4": {
+        "shape": [
+          162
+        ],
+        "dtype": "<i8",
+        "sha256": "7f3ef212bf662349ee6d75c274d56262cafdfa3e62465afd4a477bd60218f66b"
+      },
+      "root_results_patchmatch_groups_5": {
+        "shape": [
+          62
+        ],
+        "dtype": "<i8",
+        "sha256": "3c5155ad3cd3a6a15bac39e6b067e21fe3b5363cdb03937139b839403f2ca443"
+      },
+      "root_results_patchmatch_colors": {
+        "shape": [
+          4122,
+          3
+        ],
+        "dtype": "|u1",
+        "sha256": "c85c5a70bff9de553cef19b75c23d901ba7596728078e7e5ecdc23e7f1477934"
+      },
+      "root_results_patchmatch_pair_search_regions": {
+        "shape": [
+          4122
+        ],
+        "dtype": "<i4",
+        "sha256": "adfe25aa0fccc45fd5635f7089be51e6059f1feb236c89ca973150b8f1406edc"
+      },
+      "root_results_patchmatch_pair_algorithms": {
+        "shape": [
+          4122
+        ],
+        "dtype": "|u1",
+        "sha256": "d93b721ee275e658b53c20d016fab0ba34c6b38ccd41669455c995297a908ab5"
+      },
+      "root_results_patchmatch_dense_maps_0_consistent_mask": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "|b1",
+        "sha256": "f49a649068520f28f94cab8e41340bee785627b9b72d67896f6199296b771cf1"
+      },
+      "root_results_patchmatch_dense_maps_0_coherence_error": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<f4",
+        "sha256": "2ed80942b46c10111651143913237988ed35a6021adf8b4d815b806b072dd785"
+      },
+      "root_results_patchmatch_dense_maps_0_targets": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<i4",
+        "sha256": "49f918c55882828a6854f16cfff54e96192c87fe3fcfb899c3b3826d604613de"
+      },
+      "root_results_patchmatch_dense_maps_0_distances_squared": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<f4",
+        "sha256": "21fa194751473704493ac1f0f3ceacb71d061fd8d0803ad366615f3899b576c9"
+      },
+      "root_results_patchmatch_dense_maps_1_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "abfd94645a39c1fb0065cf551f56aa0480eba41b44801c1e1ca9a13161c8bcd3"
+      },
+      "root_results_patchmatch_dense_maps_1_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "a2c75cfe6aa02a4cb6f83884bed4c91ac782b62c19ea6767250987f8240ce96d"
+      },
+      "root_results_patchmatch_dense_maps_1_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "e4fd8dbfe638dfbe42f019e303c2754efe0b2d44a917640ea98512983be309ec"
+      },
+      "root_results_patchmatch_dense_maps_1_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "00f65fdaf2d303420f11a88ddd1846a266f7fcea7c9be871e6801d279603a795"
+      },
+      "root_results_patchmatch_dense_maps_2_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "523862a510945f2c2fd57aab7df19831a15603bd4a0d99c2515a79a90b3813f9"
+      },
+      "root_results_patchmatch_dense_maps_2_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "92e3526074bf8e81011b4d0e3c4f91ae99dddafd62b216c28087afdbee919c34"
+      },
+      "root_results_patchmatch_dense_maps_2_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "321ce2c26307074a6a599b2ab1ccfc0c7234b8df2e855c66cd28920d93a9d6e2"
+      },
+      "root_results_patchmatch_dense_maps_2_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "258d80521346ec303fd91d4e7bf29d67eea573b6d57bb72f4affceee125f3c71"
+      },
+      "root_results_patchmatch_dense_maps_3_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "093cd0c8a616653f0d64bd259d995f41de72f522fb06f7415170a11b76fe9dae"
+      },
+      "root_results_patchmatch_dense_maps_3_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "e01d84d665dbdd3f36c5add228830a802bcffe91e6ead8969a6bc08b6c8c9e8b"
+      },
+      "root_results_patchmatch_dense_maps_3_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "084daaa9cb99fa3952eee4b728716dca1c82f4c6b3fa942c7dfbe54207095e39"
+      },
+      "root_results_patchmatch_dense_maps_3_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "18ea55ea827dedadd0cdc68a85f33d989618d82b23a11c70c241a81a582dfd9c"
+      },
+      "root_results_patchmatch_dense_maps_4_consistent_mask": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "|b1",
+        "sha256": "d6040c85d9cf9af955b53274e81c5608f9b63014cf9c0bebf5bfc1a4c7d68889"
+      },
+      "root_results_patchmatch_dense_maps_4_coherence_error": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<f4",
+        "sha256": "4b567a56b571b657648959cab1499ad124980146402dc878a8522eda8e9d19b4"
+      },
+      "root_results_patchmatch_dense_maps_4_targets": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<i4",
+        "sha256": "c3ea5ccb6c8b275075abbd7ca22ef30969654168d8401983ee52e7af69e31b77"
+      },
+      "root_results_patchmatch_dense_maps_4_distances_squared": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<f4",
+        "sha256": "16e719e2376f3efafcf87231b87d45998bb455ee4d462a12d00dedf19ebe1e50"
+      },
+      "root_results_patchmatch_dense_maps_5_consistent_mask": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "|b1",
+        "sha256": "967eedb2dc77a95e6270119ece23d9f47ca97c3b18ffa7d391d34e461b284f4c"
+      },
+      "root_results_patchmatch_dense_maps_5_coherence_error": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<f4",
+        "sha256": "9202e68fbe5587e30738f2f118e87e10202a6eabd7297e1299978ed53c3a8f46"
+      },
+      "root_results_patchmatch_dense_maps_5_targets": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<i4",
+        "sha256": "05abee64fd7563759a8707b0bbaf183ae99eef30c2f4ce1d62c09ece7f595505"
+      },
+      "root_results_patchmatch_dense_maps_5_distances_squared": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<f4",
+        "sha256": "bbb1aa9e3c31dc63ce744e95aa7dd774515fb9ca8c62747a461c4e49e663ad86"
+      },
+      "root_results_patchmatch_dense_maps_6_consistent_mask": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "|b1",
+        "sha256": "2d07a41ae992770085117e9815300bfd0730745883e60b24aaad5e69dfc087ae"
+      },
+      "root_results_patchmatch_dense_maps_6_coherence_error": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<f4",
+        "sha256": "687dcebbaf642dac68fa232d9eacd51bc3e05e89782799d672a40db281d5cd7d"
+      },
+      "root_results_patchmatch_dense_maps_6_targets": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<i4",
+        "sha256": "3bf866a426d2e2b7c4df1fc49d61fd28c5b5cbddc374ad101863e1de9a90b553"
+      },
+      "root_results_patchmatch_dense_maps_6_distances_squared": {
+        "shape": [
+          96,
+          96
+        ],
+        "dtype": "<f4",
+        "sha256": "d023a5813d75aad9ff258066a14c6f970ad114c7598eb9bd0e7736b8d76bb4e5"
+      },
+      "root_results_patchmatch_dense_maps_7_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "523862a510945f2c2fd57aab7df19831a15603bd4a0d99c2515a79a90b3813f9"
+      },
+      "root_results_patchmatch_dense_maps_7_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "92e3526074bf8e81011b4d0e3c4f91ae99dddafd62b216c28087afdbee919c34"
+      },
+      "root_results_patchmatch_dense_maps_7_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "26d08b050d641ec2bc212604a28d3a3ff9add04dad2def6879e9da0007684cb0"
+      },
+      "root_results_patchmatch_dense_maps_7_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "38649a9f034a764809a9291dfd6eecd71bd01612c40490a98b7c7400829b0480"
+      },
+      "root_results_patchmatch_dense_maps_8_consistent_mask": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "|b1",
+        "sha256": "523862a510945f2c2fd57aab7df19831a15603bd4a0d99c2515a79a90b3813f9"
+      },
+      "root_results_patchmatch_dense_maps_8_coherence_error": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "92e3526074bf8e81011b4d0e3c4f91ae99dddafd62b216c28087afdbee919c34"
+      },
+      "root_results_patchmatch_dense_maps_8_targets": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<i4",
+        "sha256": "06a034e1f12b37b3e7b0be51db3ff629562d8fcbd5426043272b80e826d67157"
+      },
+      "root_results_patchmatch_dense_maps_8_distances_squared": {
+        "shape": [
+          72,
+          72
+        ],
+        "dtype": "<f4",
+        "sha256": "76897f681e415866bb8e3bacdc7b3ce4c5fc0ade614e9c6c8e9f830fea14f03a"
+      },
+      "root_results_patchmatch_dense_maps_9_consistent_mask": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "|b1",
+        "sha256": "d6040c85d9cf9af955b53274e81c5608f9b63014cf9c0bebf5bfc1a4c7d68889"
+      },
+      "root_results_patchmatch_dense_maps_9_coherence_error": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<f4",
+        "sha256": "4b567a56b571b657648959cab1499ad124980146402dc878a8522eda8e9d19b4"
+      },
+      "root_results_patchmatch_dense_maps_9_targets": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<i4",
+        "sha256": "f2bea5da0b59b992320307599288c80bc3c39fe7a18c5c103e42ce476fa0ec49"
+      },
+      "root_results_patchmatch_dense_maps_9_distances_squared": {
+        "shape": [
+          66,
+          66
+        ],
+        "dtype": "<f4",
+        "sha256": "a03e477244ca68d8083d0c674e147edf8b01505f2fd39abdc4c39765b2431b64"
+      },
+      "root_results_patchmatch_dense_maps_10_consistent_mask": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "|b1",
+        "sha256": "967eedb2dc77a95e6270119ece23d9f47ca97c3b18ffa7d391d34e461b284f4c"
+      },
+      "root_results_patchmatch_dense_maps_10_coherence_error": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<f4",
+        "sha256": "9202e68fbe5587e30738f2f118e87e10202a6eabd7297e1299978ed53c3a8f46"
+      },
+      "root_results_patchmatch_dense_maps_10_targets": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<i4",
+        "sha256": "d7da82b7b3c373e13f86529cdfed5c4dcbadbe358199a484670c60f52ef9f05f"
+      },
+      "root_results_patchmatch_dense_maps_10_distances_squared": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "<f4",
+        "sha256": "9b07479ee3abe9bc6011f90669ccccf86eeedf636960ab49afbf535dd238949c"
+      }
+    },
+    "configuredOcr": {
+      "states": {
+        "states": {
+          "patchmatch": "done",
+          "sift": "done",
+          "forgeryscope": "failed",
+          "d2prl": "failed"
+        },
+        "errors": {
+          "forgeryscope": {
+            "code": "MODEL_UNAVAILABLE",
+            "message": "Load Forgeryscope assets and runtime URLs through loadAutomaticModels."
+          },
+          "d2prl": {
+            "code": "MODEL_UNAVAILABLE",
+            "message": "Load the pinned D2PRL manifest through loadD2prlModel."
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 1
+        },
+        "completed": [
+          "patchmatch",
+          "sift"
+        ],
+        "running": [],
+        "preflightExecutions": 0
+      },
+      "sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+      "archiveBytes": 2348473,
+      "finalMemory": {
+        "budgetBytes": 805306368,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 741093728,
+        "knownHeapCapacityBytes": 0
+      }
+    },
+    "states": {
+      "states": {
+        "patchmatch": "done",
+        "sift": "failed",
+        "forgeryscope": "failed",
+        "d2prl": "failed",
+        "ela": "done"
+      },
+      "errors": {
+        "sift": {
+          "code": "MODEL_UNAVAILABLE",
+          "message": "Load verified English OCR weights through loadM3Models({models:{},language}) for SIFT Panels + Text."
+        },
+        "forgeryscope": {
+          "code": "MODEL_UNAVAILABLE",
+          "message": "Load Forgeryscope assets and runtime URLs through loadAutomaticModels."
+        },
+        "d2prl": {
+          "code": "MODEL_UNAVAILABLE",
+          "message": "Load the pinned D2PRL manifest through loadD2prlModel."
+        }
+      },
+      "attempts": {
+        "patchmatch": 1,
+        "sift": 1,
+        "forgeryscope": 1,
+        "d2prl": 1,
+        "ela": 1
+      },
+      "completed": [
+        "ela",
+        "patchmatch"
+      ],
+      "running": [],
+      "preflightExecutions": 0
+    },
+    "selection": {
+      "regions": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            95,
+            0
+          ],
+          [
+            95,
+            95
+          ],
+          [
+            0,
+            95
+          ]
+        ]
+      ],
+      "envelope": [
+        [
+          0,
+          0
+        ],
+        [
+          95,
+          0
+        ],
+        [
+          95,
+          95
+        ],
+        [
+          0,
+          95
+        ]
+      ],
+      "disabled": []
+    },
+    "entries": 6,
+    "stableIds": true,
+    "attemptsUnchanged": true,
+    "corroboration": {
+      "width": 96,
+      "height": 96,
+      "maximum": 2
+    },
+    "archive": {
+      "bytes": 1785258,
+      "arrays": [
+        "root_results_ela_score",
+        "root_results_ela_legacy_score",
+        "root_results_ela_coherent_score",
+        "root_results_ela_quality_scores",
+        "root_results_ela_signed_scores",
+        "root_results_ela_profiles",
+        "root_results_ela_content",
+        "root_results_ela_peer_count",
+        "root_results_ela_supported",
+        "root_results_ela_background_profiles",
+        "root_results_ela_ela",
+        "root_results_ela_labels",
+        "root_results_ela_energy_allowed",
+        "root_results_ela_energy_planes",
+        "root_results_patchmatch_points",
+        "root_results_patchmatch_pairs",
+        "root_results_patchmatch_groups_0",
+        "root_results_patchmatch_groups_1",
+        "root_results_patchmatch_groups_2",
+        "root_results_patchmatch_groups_3",
+        "root_results_patchmatch_groups_4",
+        "root_results_patchmatch_groups_5",
+        "root_results_patchmatch_colors",
+        "root_results_patchmatch_pair_search_regions",
+        "root_results_patchmatch_pair_algorithms",
+        "root_results_patchmatch_dense_maps_0_consistent_mask",
+        "root_results_patchmatch_dense_maps_0_coherence_error",
+        "root_results_patchmatch_dense_maps_0_targets",
+        "root_results_patchmatch_dense_maps_0_distances_squared",
+        "root_results_patchmatch_dense_maps_1_consistent_mask",
+        "root_results_patchmatch_dense_maps_1_coherence_error",
+        "root_results_patchmatch_dense_maps_1_targets",
+        "root_results_patchmatch_dense_maps_1_distances_squared",
+        "root_results_patchmatch_dense_maps_2_consistent_mask",
+        "root_results_patchmatch_dense_maps_2_coherence_error",
+        "root_results_patchmatch_dense_maps_2_targets",
+        "root_results_patchmatch_dense_maps_2_distances_squared",
+        "root_results_patchmatch_dense_maps_3_consistent_mask",
+        "root_results_patchmatch_dense_maps_3_coherence_error",
+        "root_results_patchmatch_dense_maps_3_targets",
+        "root_results_patchmatch_dense_maps_3_distances_squared",
+        "root_results_patchmatch_dense_maps_4_consistent_mask",
+        "root_results_patchmatch_dense_maps_4_coherence_error",
+        "root_results_patchmatch_dense_maps_4_targets",
+        "root_results_patchmatch_dense_maps_4_distances_squared",
+        "root_results_patchmatch_dense_maps_5_consistent_mask",
+        "root_results_patchmatch_dense_maps_5_coherence_error",
+        "root_results_patchmatch_dense_maps_5_targets",
+        "root_results_patchmatch_dense_maps_5_distances_squared",
+        "root_results_patchmatch_dense_maps_6_consistent_mask",
+        "root_results_patchmatch_dense_maps_6_coherence_error",
+        "root_results_patchmatch_dense_maps_6_targets",
+        "root_results_patchmatch_dense_maps_6_distances_squared",
+        "root_results_patchmatch_dense_maps_7_consistent_mask",
+        "root_results_patchmatch_dense_maps_7_coherence_error",
+        "root_results_patchmatch_dense_maps_7_targets",
+        "root_results_patchmatch_dense_maps_7_distances_squared",
+        "root_results_patchmatch_dense_maps_8_consistent_mask",
+        "root_results_patchmatch_dense_maps_8_coherence_error",
+        "root_results_patchmatch_dense_maps_8_targets",
+        "root_results_patchmatch_dense_maps_8_distances_squared",
+        "root_results_patchmatch_dense_maps_9_consistent_mask",
+        "root_results_patchmatch_dense_maps_9_coherence_error",
+        "root_results_patchmatch_dense_maps_9_targets",
+        "root_results_patchmatch_dense_maps_9_distances_squared",
+        "root_results_patchmatch_dense_maps_10_consistent_mask",
+        "root_results_patchmatch_dense_maps_10_coherence_error",
+        "root_results_patchmatch_dense_maps_10_targets",
+        "root_results_patchmatch_dense_maps_10_distances_squared",
+        "root_results_patchmatch_browser_details_dense_fields_0_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_0_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_1_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_1_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_2_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_2_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_3_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_3_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_4_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_4_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_5_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_5_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_6_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_6_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_7_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_7_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_8_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_8_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_9_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_9_displayRows",
+        "root_results_patchmatch_browser_details_dense_fields_10_allowed",
+        "root_results_patchmatch_browser_details_dense_fields_10_displayRows",
+        "root_corroboration_counts",
+        "root_corroboration_context_counts",
+        "metadata_json",
+        "browser_provenance_json"
+      ]
+    },
+    "progressEvents": 151,
+    "finalMemory": {
+      "budgetBytes": 805306368,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 337090998,
+      "knownHeapCapacityBytes": 0
+    }
+  },
+  "exactDenseArrays": true,
+  "browser": "154.0.8037.93"
+}

@@ -1,0 +1,97 @@
+{
+  "result": {
+    "family": "PRNU training",
+    "budgetBytes": 268435456,
+    "database": {
+      "id": "built",
+      "kind": "prnu-database",
+      "sha256": "4df6d037b765ca569308dcd0eedf3baa1280f81f83eb065464fb22bab8e06e6a",
+      "schema": "sherloq-wiener-ncc-1",
+      "legacy": false,
+      "complete": true,
+      "trainingMembershipVerified": true,
+      "cameras": [
+        {
+          "name": "development-camera",
+          "width": 11998,
+          "height": 7998,
+          "nImages": 2,
+          "nUsed": 2,
+          "skippedImages": []
+        }
+      ],
+      "metrics": {
+        "workers": 4,
+        "completedStripJobs": 19240,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "temporaryBackend": "opfs",
+        "encodedLayout": "pages",
+        "encodedBytes": 602245690,
+        "fingerprintLayout": "segmented",
+        "preparationMs": 1856625.900000006,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 12018,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 253203616,
+          "hdf5HeapCapacityBytes": 19333120
+        }
+      }
+    },
+    "export": {
+      "id": "4262bcbc-3179-4c54-b475-5b63af62e24f",
+      "revision": 1,
+      "mime": "application/x-hdf5",
+      "format": "hdf5",
+      "byteLength": 602245690,
+      "sha256": "4df6d037b765ca569308dcd0eedf3baa1280f81f83eb065464fb22bab8e06e6a",
+      "imageId": "built",
+      "provenance": {
+        "originalSha256": "4df6d037b765ca569308dcd0eedf3baa1280f81f83eb065464fb22bab8e06e6a",
+        "operation": "noise.prnu",
+        "coordinates": "full-resolution"
+      },
+      "metrics": {
+        "encodedCapacityBytes": 1568915292,
+        "heapBytes": 19333120,
+        "workingBytes": 69599232,
+        "temporaryBackend": "opfs",
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 12018,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 253203616
+        }
+      }
+    },
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 253203616,
+      "knownHeapCapacityBytes": 132841472
+    },
+    "elapsedMs": 1886837.900000006,
+    "independentReader": {
+      "h5py": "3.16.0",
+      "afterDatabaseAndSourceRelease": true,
+      "shape": [
+        7998,
+        11998
+      ],
+      "maximumAbsoluteError": 0.0,
+      "meanAbsoluteError": 0.0,
+      "differentValues": 0,
+      "trainingManifestExact": true,
+      "chunking": [
+        128,
+        128
+      ],
+      "gzipLevel": 4
+    }
+  }
+}

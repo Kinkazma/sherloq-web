@@ -1,0 +1,7 @@
+export async function batchnormStudy(module,reference,read){const records=[];
+ for(const row of reference.records){const input=await read(row.input),params=await read(row.params),n=input.byteLength/4,channels=row.input.shape[1],plane=n/channels,ip=module._malloc(input.byteLength),pp=module._malloc(params.byteLength+channels*8),op=module._malloc(input.byteLength);if(!ip||!pp||!op)throw Error('BatchNorm allocation');
+  try{module.HEAPU8.set(input,ip);module.HEAPU8.set(params,pp);const ap=pp+params.byteLength,bp=ap+channels*4;if(module._d2prl_batchnorm_parameters(pp,pp+channels*4,pp+channels*8,pp+channels*12,channels,row.epsilon,ap,bp)!==1)throw Error('BatchNorm parameters');
+   for(const relu of[0,1]){if(module._d2prl_affine(ip,ap,bp,channels,plane,relu,op)!==1)throw Error('BatchNorm affine');const expected=await read(relu?row.relu:row.output),actual=module.HEAPF32.slice(op/4,op/4+n),native=new Float32Array(expected.buffer),bits=new Uint32Array(actual.buffer),nativeBits=new Uint32Array(expected.buffer);let different=0,maxAbs=0,nonfinite=0;for(let i=0;i<n;i++){different+=bits[i]!==nativeBits[i];maxAbs=Math.max(maxAbs,Math.abs(actual[i]-native[i]));nonfinite+=!Number.isFinite(actual[i]);}records.push({name:row.name,relu:!!relu,elements:n,different,maxAbs,nonfinite});}
+  }finally{module._free(op);module._free(pp);module._free(ip);}
+ }return{schema:1,status:records.every(r=>!r.different&&!r.nonfinite)?'passed':'rejected',scope:reference.scope,cases:records.length,records};
+}

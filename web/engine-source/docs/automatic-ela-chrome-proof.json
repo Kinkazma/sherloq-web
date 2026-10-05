@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "name": "fractional",
+      "width": 67,
+      "height": 73,
+      "entries": 5,
+      "exactNative": true,
+      "scopeStorage": "opfs",
+      "energyLabelsStorage": "opfs"
+    },
+    {
+      "name": "cross-raster-bands",
+      "width": 83,
+      "height": 517,
+      "entries": 5,
+      "exactNative": true,
+      "scopeStorage": "opfs",
+      "energyLabelsStorage": "opfs"
+    }
+  ],
+  "cancellationCleanup": true,
+  "memory": {
+    "budgetBytes": 167772160,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 88245080
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

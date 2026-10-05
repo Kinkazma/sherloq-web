@@ -1,0 +1,21 @@
+{
+  "policy": "covariance-floor-v1",
+  "date": "2026-10-01",
+  "files": [
+    {
+      "path": "source/gui/noiseprint/post_em.py",
+      "sha256": "077e8ffc07b5cd417da00a86d930988f882e1d9a42df069539131c8a2e6225a7",
+      "bytes": 8511
+    },
+    {
+      "path": "source/gui/noiseprint/utility/gaussianMixture.py",
+      "sha256": "dde56a574d80e2f07b5a97ab08fa1b7109ff4cc8a072a62ed0ac0fc3a90c7356",
+      "bytes": 14911
+    },
+    {
+      "path": "source/gui/noiseprint/utility/stable_covariance.py",
+      "sha256": "53e4f734022907b17a48322e9d4bacb854b5adf39899487cff94eca45d8ea7aa",
+      "bytes": 1724
+    }
+  ]
+}

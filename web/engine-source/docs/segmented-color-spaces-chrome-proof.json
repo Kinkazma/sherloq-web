@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Common worker on public96MP JPEG under256MiB; three complete native color-space checksums, owned results/windows, release/unload, cancellation/storage closure and retry. Functional timings, not isolated benchmarks.",
+  "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+  "nativeSourceSha256": "c144dcde45f3bd60ade82856fc862de2d0eddea1377ff14e9171d76e631a0577",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "loadMs": 2501.2000000029802,
+  "loadMetrics": {
+    "decodeMs": 2071.10000000149,
+    "rowsPerChunk": 116,
+    "encodedWorkingBytes": 86050184,
+    "coefficientAllowanceBytes": 0,
+    "workingReservationBytes": 127956616,
+    "codecHeapCapacityBytes": 103546880,
+    "storage": "temporary",
+    "temporaryBackend": "opfs",
+    "temporaryFallback": null,
+    "temporaryBytes": 288000000,
+    "originalBlobBytes": 86050184,
+    "originalBlobResidency": "browser-managed; not measured as zero RAM",
+    "preparationMs": 2452.2000000029802,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 129005192
+    }
+  },
+  "cases": [
+    {
+      "params": {
+        "space": "hsv",
+        "channel": 0
+      },
+      "fullSha256": "7dbad0bb02f4a4827c286df8956fb96d3548681f2c20af7bd611d946239ab64e",
+      "windows": 4,
+      "rpcMs": 2769,
+      "metrics": {
+        "totalMs": 2768.39999999851,
+        "readMs": 164.79999999701977,
+        "kernelMs": 2235.89999999851,
+        "writeMs": 334.39999997615814,
+        "blocks": 381,
+        "rowsPerBlock": 21,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 154021312
+        }
+      }
+    },
+    {
+      "params": {
+        "space": "hls",
+        "channel": 2
+      },
+      "fullSha256": "942582a973ffa9f8a6388993855df8c7661ea57aa00c0fa2342da436c4a9e11a",
+      "windows": 4,
+      "rpcMs": 3524.7000000029802,
+      "metrics": {
+        "totalMs": 3524.5,
+        "readMs": 153.09999991953373,
+        "kernelMs": 2990.400000013411,
+        "writeMs": 343.90000008791685,
+        "blocks": 381,
+        "rowsPerBlock": 21,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 137101312,
+          "peakAccountedBytes": 187575744
+        }
+      }
+    },
+    {
+      "params": {
+        "space": "luv",
+        "channel": 1
+      },
+      "fullSha256": "fda567adb4b657811a7d1683dc6fe5728b20dd5a57f62b0957f140df7670dc71",
+      "windows": 4,
+      "rpcMs": 2314,
+      "metrics": {
+        "totalMs": 2313.8000000044703,
+        "readMs": 140.09999997913837,
+        "kernelMs": 1835.199999988079,
+        "writeMs": 302.6000000461936,
+        "blocks": 381,
+        "rowsPerBlock": 21,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 137101312,
+          "peakAccountedBytes": 187575744
+        }
+      }
+    }
+  ],
+  "cancellation": "storage-closed-before-worker-termination",
+  "cancellationMs": 14.100000001490116,
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 154021312,
+    "knownHeapCapacityBytes": 137101312
+  },
+  "storageArtifactsRemaining": 0,
+  "browser": "154.0.8037.58",
+  "extractedRuntime": false,
+  "engineSources": {
+    "src/segmented-color-spaces.js": "64e65414fd89c23fbe7d31de6017dcb892dec19f89f89902fe53a5ab68cfbdda",
+    "src/opencv-operations.js": "2fbfaeb139ae36c30180cd5414d0dcb8e43911179f56201308aa29cd2cd0c11c",
+    "src/opencv.js": "e313ee50f57772b71923c9b8f783334fce3937a1edbf2008bd82ba84b66717de",
+    "vendor/opencv/opencv.wasm": "ed39fcf7f06846249fa088575104afc618382e8d1c85f64ea105a9477d2f19e6",
+    "src/index.js": "ee89e42a49f448c588f0e069055f0c23f0b79800745e32c3cafc8473d0e79f45"
+  },
+  "recipeSources": {
+    "scripts/generate-large-color-spaces.py": "5394bfc67a01671aa582fde323ca5327e1a4cc693dba6bb3a636a2a0b64e51f2",
+    "scripts/study-segmented-color-spaces.mjs": "81c761b5a850e306830d5cd2866cdc8825c7dbb31f72bbe90998f11f09b4f1ab",
+    "tests/segmented-color-spaces-browser.js": "8523a65d14efd39d6eb3f6fb6448e059efff2cb2531aca9d65957b67f770cd1f"
+  },
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 187575744,
+    "finalWorkerPeakAccountedBytes": 154021312
+  }
+}

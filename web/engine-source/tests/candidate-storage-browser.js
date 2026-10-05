@@ -1,0 +1,6 @@
+import {removeTerminatedTemporarySession} from '../src/temporary-storage.js';import {storageInventory} from './source-api-browser.js';
+async function run(backend){const worker=new Worker(new URL('./candidate-storage-worker.js',import.meta.url),{type:'module'});let owner;
+ try{return await new Promise((resolve,reject)=>{worker.onerror=e=>reject(Error(e.message));worker.onmessage=({data})=>{if(data.sessionId)owner=data;if(data.done)data.error?reject(Object.assign(Error(data.error.message),{code:data.error.code})):resolve(data.result);};worker.postMessage({backend});});}
+ finally{worker.terminate();if(owner)await removeTerminatedTemporarySession(owner.sessionId,owner.backend);}
+}
+export async function candidateStorageBrowserTest(){const before=await storageInventory(),runs=[];for(const backend of ['auto','indexeddb'])runs.push(await run(backend));const after=await storageInventory();if(JSON.stringify(after)!==JSON.stringify(before))throw Error('Candidate storage remains');return {schema:1,status:'passed',scope:'Real worker external candidate ordering, exact non-truncated coordinates beyond2^32 keys,100003 records,8MiB engine budget, cancellation and injected write failure. Fixture/oracle outside engine budget; no process RSS or physical quota exhaustion claim.',runs,storageArtifactsRemaining:after.length-before.length};}

@@ -1,0 +1,81 @@
+{
+  "sourceSha256": "84d068bc8c1f6c106b69a52a5d5b114b20fc7f603bdffb098739b13d3213e867",
+  "cases": [
+    {
+      "name": "DSCN1234.JPG",
+      "hint": "Nikon Coolpix camera"
+    },
+    {
+      "name": "dsc_0001.jpg",
+      "hint": "Nikon digital camera"
+    },
+    {
+      "name": "FUJI4321.JPG",
+      "hint": "Fujifilm digital camera"
+    },
+    {
+      "name": "IMG_9876.JPG",
+      "hint": "Canon DSLR or iPhone camera"
+    },
+    {
+      "name": "PIC12345.JPG",
+      "hint": "Olympus D-600L camera"
+    },
+    {
+      "name": "IMG_123.JPG",
+      "hint": "Unknown source or manually renamed"
+    },
+    {
+      "name": "PIC1234.JPG",
+      "hint": "Unknown source or manually renamed"
+    },
+    {
+      "name": "IMG_1234.jpeg",
+      "hint": "Unknown source or manually renamed"
+    },
+    {
+      "name": "copy-IMG_1234.JPG",
+      "hint": "Unknown source or manually renamed"
+    },
+    {
+      "name": "IMG_1234.JPG.bak",
+      "hint": "Unknown source or manually renamed"
+    },
+    {
+      "name": "photo.png",
+      "hint": "Unknown source or manually renamed"
+    },
+    {
+      "name": "",
+      "hint": "Unknown source or manually renamed"
+    },
+    {
+      "name": "İMG_1234.JPG",
+      "hint": "Canon DSLR or iPhone camera"
+    },
+    {
+      "name": "ıMG_1234.JPG",
+      "hint": "Canon DSLR or iPhone camera"
+    },
+    {
+      "name": "DſCN1234.JPG",
+      "hint": "Nikon Coolpix camera"
+    },
+    {
+      "name": "IMG_1234.JPG\n",
+      "hint": "Canon DSLR or iPhone camera"
+    },
+    {
+      "name": "IMG_1234.JPG\r",
+      "hint": "Unknown source or manually renamed"
+    },
+    {
+      "name": "IMG_1234.JPG\r\n",
+      "hint": "Unknown source or manually renamed"
+    },
+    {
+      "name": "IMG_１２３４.JPG",
+      "hint": "Unknown source or manually renamed"
+    }
+  ]
+}

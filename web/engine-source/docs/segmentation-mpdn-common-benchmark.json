@@ -1,0 +1,351 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "browser": "154.0.8037.58",
+  "scope": "Four actual common-worker jobs, each three native crops. Cold means a new browser context/engine, not an OS or GPU-driver cache reset. Warm keeps the actual model session and changes one synthetic source pixel outside all crops, forcing three new inferences with identical crop inputs. One observation per condition; no universal speedup or startup calibration. Loopback model/runtime reads; headless mask canvas presentation is not WordPress or physical display latency. The desktop and neighbouring light development remain active.",
+  "cases": [
+    {
+      "backend": "cpu",
+      "status": "passed",
+      "version": "0.30.0-m1.3",
+      "records": [
+        {
+          "temperature": "cold-context",
+          "source": {
+            "file": "source.png",
+            "bytes": 7432,
+            "sha256": "84390528ea4df2caf90e85a89a45ae6db67f72a398f055125b7ded24a0913d98"
+          },
+          "milliseconds": {
+            "sourceAcquisition": 2.100000001490116,
+            "decodeAndLoad": 88.10000000149012,
+            "configure": 5.699999995529652,
+            "analysisRpc": 1317.4000000059605,
+            "presentation": 2.7999999970197678,
+            "rawRead": 0.5,
+            "sourceNpz": 18.100000001490116,
+            "rawNpz": 6.600000001490116,
+            "sourceThroughExports": 1441.3000000044703,
+            "cropMs": 0.3999999985098839,
+            "preparationMs": 22.80000000447035,
+            "neuralRpcMs": 1201.8000000044703,
+            "modelLoadMs": 273.80000000447035,
+            "inferenceMs": 913.2999999970198,
+            "outputCopyMs": 2.7999999970197678,
+            "gpuWriteBytes": 0,
+            "gpuReadBytes": 0,
+            "snapshotAndHashMs": 0.6999999955296516,
+            "projectionMs": 89.5
+          },
+          "execution": {
+            "backend": "cpu",
+            "wasmMaximumBytes": 536870912,
+            "gpuMaximumBytes": 0,
+            "observedHeapBytes": 83296256,
+            "gpuPeakBufferBytes": 0
+          },
+          "inferences": 3,
+          "cacheHits": 0,
+          "outputs": {
+            "map": {
+              "maxAbs": 0.000002562999725341797,
+              "different": 116310,
+              "finite": true
+            },
+            "mask": {
+              "maxAbs": 0,
+              "different": 0,
+              "finite": true
+            },
+            "raw": [
+              {
+                "maxAbs": 0.0000019073486328125,
+                "different": 65284,
+                "finite": true
+              },
+              {
+                "maxAbs": 6.705522537231445e-7,
+                "different": 65223,
+                "finite": true
+              },
+              {
+                "maxAbs": 0.00000260770320892334,
+                "different": 65299,
+                "finite": true
+              }
+            ]
+          },
+          "npzBytes": 2232083,
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 615439,
+            "cacheBytes": 786432,
+            "activeReservationBytes": 643861229,
+            "peakAccountedBytes": 1187579921
+          },
+          "originalExact": true
+        },
+        {
+          "temperature": "warm-session",
+          "source": {
+            "file": "source-warm.png",
+            "bytes": 7444,
+            "sha256": "e04e93299dfa96e101c47aed17d89bf94668272cbfee8385aa7ec118fdf0c37c"
+          },
+          "milliseconds": {
+            "sourceAcquisition": 1.5999999940395355,
+            "decodeAndLoad": 2.4000000059604645,
+            "configure": 0,
+            "analysisRpc": 973.7999999970198,
+            "presentation": 2.2000000029802322,
+            "rawRead": 0.5,
+            "sourceNpz": 43.899999998509884,
+            "rawNpz": 5.299999997019768,
+            "sourceThroughExports": 1029.6999999955297,
+            "cropMs": 0.30000000447034836,
+            "preparationMs": 13.799999997019768,
+            "neuralRpcMs": 872.8999999985099,
+            "modelLoadMs": 0,
+            "inferenceMs": 865.5,
+            "outputCopyMs": 1.8999999910593033,
+            "gpuWriteBytes": 0,
+            "gpuReadBytes": 0,
+            "snapshotAndHashMs": 0.5,
+            "projectionMs": 85.89999999850988
+          },
+          "execution": {
+            "backend": "cpu",
+            "wasmMaximumBytes": 536870912,
+            "gpuMaximumBytes": 0,
+            "observedHeapBytes": 83296256,
+            "gpuPeakBufferBytes": 0
+          },
+          "inferences": 3,
+          "cacheHits": 0,
+          "outputs": {
+            "map": {
+              "maxAbs": 0.000002562999725341797,
+              "different": 116310,
+              "finite": true
+            },
+            "mask": {
+              "maxAbs": 0,
+              "different": 0,
+              "finite": true
+            },
+            "raw": [
+              {
+                "maxAbs": 0.0000019073486328125,
+                "different": 65284,
+                "finite": true
+              },
+              {
+                "maxAbs": 6.705522537231445e-7,
+                "different": 65223,
+                "finite": true
+              },
+              {
+                "maxAbs": 0.00000260770320892334,
+                "different": 65299,
+                "finite": true
+              }
+            ]
+          },
+          "npzBytes": 2231843,
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 1230890,
+            "cacheBytes": 1572864,
+            "activeReservationBytes": 643861229,
+            "peakAccountedBytes": 1188981804
+          },
+          "originalExact": true
+        }
+      ],
+      "finalMemory": {
+        "budgetBytes": 3221225472,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1188981804,
+        "knownHeapCapacityBytes": 33554432
+      }
+    },
+    {
+      "backend": "webgpu",
+      "status": "passed",
+      "version": "0.30.0-m1.3",
+      "records": [
+        {
+          "temperature": "cold-context",
+          "source": {
+            "file": "source.png",
+            "bytes": 7432,
+            "sha256": "84390528ea4df2caf90e85a89a45ae6db67f72a398f055125b7ded24a0913d98"
+          },
+          "milliseconds": {
+            "sourceAcquisition": 1.3000000044703484,
+            "decodeAndLoad": 76.10000000149012,
+            "configure": 8.899999998509884,
+            "analysisRpc": 1022,
+            "presentation": 3.100000001490116,
+            "rawRead": 0.8999999985098839,
+            "sourceNpz": 16.69999999552965,
+            "rawNpz": 6.4000000059604645,
+            "sourceThroughExports": 1135.4000000059605,
+            "cropMs": 0.5000000074505806,
+            "preparationMs": 23.80000000447035,
+            "neuralRpcMs": 881.3999999985099,
+            "modelLoadMs": 657.7999999970198,
+            "inferenceMs": 206.29999999701977,
+            "outputCopyMs": 2.899999998509884,
+            "gpuWriteBytes": 26256832,
+            "gpuReadBytes": 2359296,
+            "snapshotAndHashMs": 0.5,
+            "projectionMs": 114
+          },
+          "execution": {
+            "backend": "webgpu-cpu",
+            "wasmMaximumBytes": 536870912,
+            "gpuMaximumBytes": 536870912,
+            "observedHeapBytes": 84738048,
+            "gpuPeakBufferBytes": 153543360
+          },
+          "inferences": 3,
+          "cacheHits": 0,
+          "outputs": {
+            "map": {
+              "maxAbs": 0.0000021010637283325195,
+              "different": 115096,
+              "finite": true
+            },
+            "mask": {
+              "maxAbs": 0,
+              "different": 0,
+              "finite": true
+            },
+            "raw": [
+              {
+                "maxAbs": 0.0000019073486328125,
+                "different": 65074,
+                "finite": true
+              },
+              {
+                "maxAbs": 0.000001996755599975586,
+                "different": 64473,
+                "finite": true
+              },
+              {
+                "maxAbs": 0.000002130866050720215,
+                "different": 64537,
+                "finite": true
+              }
+            ]
+          },
+          "npzBytes": 2232451,
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 615439,
+            "cacheBytes": 786432,
+            "activeReservationBytes": 1180734058,
+            "peakAccountedBytes": 1724452750
+          },
+          "originalExact": true
+        },
+        {
+          "temperature": "warm-session",
+          "source": {
+            "file": "source-warm.png",
+            "bytes": 7444,
+            "sha256": "e04e93299dfa96e101c47aed17d89bf94668272cbfee8385aa7ec118fdf0c37c"
+          },
+          "milliseconds": {
+            "sourceAcquisition": 2.399999998509884,
+            "decodeAndLoad": 2.899999998509884,
+            "configure": 0,
+            "analysisRpc": 263.30000000447035,
+            "presentation": 2.399999998509884,
+            "rawRead": 0.29999999701976776,
+            "sourceNpz": 45.80000000447035,
+            "rawNpz": 5.299999997019768,
+            "sourceThroughExports": 322.3999999985099,
+            "cropMs": 0.10000000149011612,
+            "preparationMs": 15.100000001490116,
+            "neuralRpcMs": 143.79999999701977,
+            "modelLoadMs": 0.09999999403953552,
+            "inferenceMs": 136.20000000298023,
+            "outputCopyMs": 1.5999999940395355,
+            "gpuWriteBytes": 2614368,
+            "gpuReadBytes": 2359296,
+            "snapshotAndHashMs": 0.3999999985098839,
+            "projectionMs": 103.20000000298023
+          },
+          "execution": {
+            "backend": "webgpu-cpu",
+            "wasmMaximumBytes": 536870912,
+            "gpuMaximumBytes": 536870912,
+            "observedHeapBytes": 84738048,
+            "gpuPeakBufferBytes": 153543360
+          },
+          "inferences": 3,
+          "cacheHits": 0,
+          "outputs": {
+            "map": {
+              "maxAbs": 0.0000021010637283325195,
+              "different": 115096,
+              "finite": true
+            },
+            "mask": {
+              "maxAbs": 0,
+              "different": 0,
+              "finite": true
+            },
+            "raw": [
+              {
+                "maxAbs": 0.0000019073486328125,
+                "different": 65074,
+                "finite": true
+              },
+              {
+                "maxAbs": 0.000001996755599975586,
+                "different": 64473,
+                "finite": true
+              },
+              {
+                "maxAbs": 0.000002130866050720215,
+                "different": 64537,
+                "finite": true
+              }
+            ]
+          },
+          "npzBytes": 2232731,
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 1230890,
+            "cacheBytes": 1572864,
+            "activeReservationBytes": 1180734058,
+            "peakAccountedBytes": 1725854633
+          },
+          "originalExact": true
+        }
+      ],
+      "finalMemory": {
+        "budgetBytes": 3221225472,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1725854633,
+        "knownHeapCapacityBytes": 33554432
+      }
+    }
+  ],
+  "sources": {
+    "scripts/benchmark-segmentation-common.mjs": "373ce40dec1c1d90052ef9a2798aae9c3b255e1b7fdec8fcc1573aefca833966",
+    "src/segmentation-adapter.js": "3d14e61fc8b8de1dba7b327879015fe6843beade88f54162561d40b56b2723f0",
+    "experiments/segmentation/analysis.js": "c489f62756f5cf408bd79500d5566bd0f38a1248d16526f9652daad956ca30e1",
+    "experiments/segmentation/inference.js": "484b3571772d8393066ea93c8d74854a6e8d59b59acdf49f599d8c9ed991efa3",
+    "experiments/segmentation/inference-worker.js": "ffc0c28fe8a1c4a1ceb7afc462946d1e11cffff2bcaa7fcc62fbe677c5892968",
+    "experiments/segmentation/inference-gpu-worker.js": "089b625783e854d9b95b6b3d6dc34a412a1b31ee3264916803a1af8bf27c0646",
+    "experiments/segmentation/gpu-budget.js": "07e390ab086b4ad4af761b0a0fa10b3fda26cc34b41f52dccc6cc45b67195895"
+  }
+}

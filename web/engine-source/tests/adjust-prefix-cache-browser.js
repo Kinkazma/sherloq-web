@@ -1,0 +1,21 @@
+import {createWorkerEngine} from '../src/worker-client.js';import {createSHA256} from '../vendor/hash-wasm/hashes.js';import {storageInventory} from './source-api-browser.js';
+const assert=(v,m)=>{if(!v)throw Error(m);};
+async function whole(engine,surface){const h=await createSHA256();for(let y=0;y<surface.height;y+=64)h.update((await engine.readPixels({surfaceId:surface.id,revision:1,rect:{x:0,y,width:surface.width,height:Math.min(64,surface.height-y)}})).pixels.data);return h.digest('hex');}
+async function code(p,expected){try{await p;}catch(e){assert(e.code===expected,'Expected '+expected);return e;}throw Error('Expected rejection');}
+export async function adjustPrefixCacheBrowser(){
+ const native=await(await fetch('/.build/adjust-large-reference.json')).json(),source=native.sources[1],changed=await(await fetch('/.build/adjust-cache-reference.json')).json(),blob=await(await fetch('/'+source.file)).blob(),before=await storageInventory(),engine=createWorkerEngine({memoryBudgetBytes:256*1024**2}),cases=[];let previous,last;
+ try{
+  const loaded=await engine.loadBlob({id:'source',blob,layout:'segmented'});assert(loaded.sha256===source.originalSha256,'Native source identity');
+  for(const [index,e]of source.cases.entries()){
+   const first=await engine.run({id:'prefix-'+index,imageId:'source',operation:'inspection.adjust',params:e.params});assert(first.metrics.prefixCacheStored,'Complete prefix retained');assert(await whole(engine,first.surface)===e.sha256,'Native cold complete output');cases.push({kind:'cold',params:e.params,sha256:e.sha256,metrics:first.metrics});
+   for(const [j,view]of changed.cases.filter(c=>c.prefixCase===index).entries()){
+    const r=await engine.run({id:'view-'+index+'-'+j,imageId:'source',operation:'inspection.adjust',params:view.params});assert(r.metrics.analysisCacheHit&&r.metrics.workers===0&&r.metrics.sourceReads===0,'Changed view reuses prefix');assert(await whole(engine,r.surface)===view.sha256,'Native changed complete output');cases.push({kind:'cached',params:view.params,sha256:view.sha256,metrics:r.metrics});await engine.releaseSurface(r.surface.id);
+   }
+   assert(await whole(engine,first.surface)===e.sha256,'Original output still independently owned');if(previous)await engine.releaseSurface(previous);previous=first.surface.id;last=first;
+  }
+  const exported=await engine.exportResult(last,{format:'json'}),json=JSON.parse(new TextDecoder().decode(exported.bytes));assert(json.operation==='inspection.adjust'&&json.surface.width===source.width,'JSON surface/parameters');
+  const controller=new AbortController(),cancelled=await code(engine.run({id:'cancel-cached',imageId:'source',operation:'inspection.adjust',params:{...source.cases[1].params,threshold:127}},{signal:controller.signal,onProgress:e=>{if(e.phase==='kernel'&&e.fraction>.1)controller.abort();}}),'CANCELLED');assert(cancelled.imagesCleared&&cancelled.cancellationMode==='storage-closed-before-worker-termination','Cancelled cached render cleared source');assert(JSON.stringify(await storageInventory())===JSON.stringify(before),'Cancelled stores closed');
+  await engine.loadBlob({id:'source',blob,layout:'segmented'});const e=source.cases[1],retry=await engine.run({id:'retry',imageId:'source',operation:'inspection.adjust',params:e.params});assert(await whole(engine,retry.surface)===e.sha256,'Exact reload');await engine.unload('source');const memory=(await engine.capabilities()).memory;assert(memory.retainedBytes===0&&memory.cacheBytes===0&&memory.activeReservationBytes===0,'No retained source/cache/output');await engine.dispose();assert(JSON.stringify(await storageInventory())===JSON.stringify(before),'No storage artifacts');
+  return{schema:1,status:'passed',scope:'Two native12.61MP adjustment prefixes and six changed Otsu/fixed-threshold/inversion views, actual common worker under256MiB. Full RGB hashes, independent owned originals, cached-render cancellation, source reload, JSON and zero resources. Functional recipe, not a timing claim.',nativeSources:{...native.nativeSources,...changed.nativeSource},load:loaded.metrics,cases,exportBytes:exported.bytes.length,cancellation:cancelled.cancellationMode,retry:retry.metrics,memory,storageArtifactsRemaining:0};
+ }finally{await engine.dispose();}
+}

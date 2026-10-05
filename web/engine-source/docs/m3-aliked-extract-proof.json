@@ -1,0 +1,167 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "kind": "aliked-n16",
+      "backend": "cpu",
+      "totalFeatures": 144,
+      "expectedTotal": 144,
+      "metadata": {
+        "family": "ALIKED",
+        "provider": "wasm",
+        "execution": "wasm",
+        "threads": 1,
+        "actualHeapBytes": 325255168,
+        "maximumHeapBytes": 469762048,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 0,
+        "workerAdmittedBytes": 856158048
+      },
+      "points": {
+        "values": 1008,
+        "expected": 1008,
+        "differences": 150,
+        "maximum": 0.00006103515625
+      },
+      "descriptors": {
+        "values": 18432,
+        "expected": 18432,
+        "differences": 18342,
+        "maximum": 0.000004237284883856773
+      },
+      "members": {
+        "values": 144,
+        "expected": 144,
+        "differences": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "kind": "aliked-n16rot",
+      "backend": "cpu",
+      "totalFeatures": 799,
+      "expectedTotal": 799,
+      "metadata": {
+        "family": "ALIKED rotation",
+        "provider": "wasm",
+        "execution": "wasm",
+        "threads": 1,
+        "actualHeapBytes": 325255168,
+        "maximumHeapBytes": 469762048,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 0,
+        "workerAdmittedBytes": 856158048
+      },
+      "points": {
+        "values": 5593,
+        "expected": 5593,
+        "differences": 853,
+        "maximum": 0.00006103515625
+      },
+      "descriptors": {
+        "values": 102272,
+        "expected": 102272,
+        "differences": 101737,
+        "maximum": 0.000004608184099197388
+      },
+      "members": {
+        "values": 799,
+        "expected": 799,
+        "differences": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "kind": "aliked-n16",
+      "backend": "webgpu",
+      "totalFeatures": 144,
+      "expectedTotal": 144,
+      "metadata": {
+        "family": "ALIKED",
+        "provider": "webgpu",
+        "execution": "webgpu-with-cpu-fallback-nodes",
+        "threads": 1,
+        "actualHeapBytes": 67895296,
+        "maximumHeapBytes": 201326592,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 369098752,
+        "workerAdmittedBytes": 956821344
+      },
+      "points": {
+        "values": 1008,
+        "expected": 1008,
+        "differences": 161,
+        "maximum": 0.00006103515625
+      },
+      "descriptors": {
+        "values": 18432,
+        "expected": 18432,
+        "differences": 18330,
+        "maximum": 0.000004380941390991211
+      },
+      "members": {
+        "values": 144,
+        "expected": 144,
+        "differences": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "kind": "aliked-n16rot",
+      "backend": "webgpu",
+      "totalFeatures": 799,
+      "expectedTotal": 799,
+      "metadata": {
+        "family": "ALIKED rotation",
+        "provider": "webgpu",
+        "execution": "webgpu-with-cpu-fallback-nodes",
+        "threads": 1,
+        "actualHeapBytes": 67895296,
+        "maximumHeapBytes": 201326592,
+        "maskHeapBytes": 33554432,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "executions": 1,
+        "retries": 0,
+        "failures": [],
+        "gpuEstimatedBytes": 369098752,
+        "workerAdmittedBytes": 956821344
+      },
+      "points": {
+        "values": 5593,
+        "expected": 5593,
+        "differences": 897,
+        "maximum": 0.00006103515625
+      },
+      "descriptors": {
+        "values": 102272,
+        "expected": 102272,
+        "differences": 101759,
+        "maximum": 0.000011477619409561157
+      },
+      "members": {
+        "values": 799,
+        "expected": 799,
+        "differences": 0,
+        "maximum": 0
+      }
+    }
+  ],
+  "peakAccountedBytes": 971216271,
+  "activeBytes": 0
+}

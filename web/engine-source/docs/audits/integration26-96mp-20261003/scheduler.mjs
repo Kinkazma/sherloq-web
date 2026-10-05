@@ -1,0 +1,22 @@
+import {writeFileSync} from 'node:fs';
+import {fileURLToPath, pathToFileURL} from 'node:url';
+import {resolve} from 'node:path';
+
+const auditedRoot=resolve(process.env.SHERLOQ_AUDIT_ROOT??fileURLToPath(new URL('../../../',import.meta.url)));
+const {Budget}=await import(pathToFileURL(resolve(auditedRoot,'src/cache.js')));
+const {ExecutionScheduler}=await import(pathToFileURL(resolve(auditedRoot,'src/execution-scheduler.js')));
+const scheduler=new ExecutionScheduler(new Budget(1024),{maxWorkers:10,maxGpuJobs:1});
+const abort=new AbortController();
+const active=await scheduler.acquire({cpu:1,gpu:1,label:'active-gpu'});
+let cpuStarted=false;
+const waitingGpu=scheduler.acquire({cpu:1,gpu:1,signal:abort.signal,label:'waiting-gpu'}).then(lease=>lease.release(),error=>error.code);
+const waitingCpu=scheduler.acquire({cpu:1,gpu:0,signal:abort.signal,label:'independent-cpu'}).then(lease=>{cpuStarted=true;lease.release();},error=>error.code);
+await new Promise(resolve=>setImmediate(resolve));
+const diagnostic=scheduler.snapshot();
+const result={independentCpuStarted:cpuStarted,freeCpu:diagnostic.capacity.cpu-diagnostic.active.cpu,active:diagnostic.active,waiting:diagnostic.waiting,queued:diagnostic.queued};
+abort.abort();
+active.release();
+await Promise.all([waitingGpu,waitingCpu]);
+scheduler.dispose();
+writeFileSync(new URL('./scheduler-results.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result));

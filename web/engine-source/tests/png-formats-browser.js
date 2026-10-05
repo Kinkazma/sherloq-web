@@ -1,0 +1,5 @@
+import {createWorkerEngine} from '../src/worker-client.js';
+export async function pngFormatsBrowserTest(){
+ const ref=await(await fetch('/tests/data/png-formats/reference.json')).json(),engine=createWorkerEngine();let cases=0;
+ try{for(const row of ref.cases){const bytes=new Uint8Array(await(await fetch('/tests/data/png-formats/'+row.file)).arrayBuffer()),loaded=await engine.loadBlob({id:'i',blob:new File([bytes],row.file,{type:'image/png'})}),pixels=await engine.imagePixels('i'),digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',pixels.data)),v=>v.toString(16).padStart(2,'0')).join('');if(digest!==row.rgbSha256||loaded.width!==row.width||loaded.height!==row.height||loaded.provenance.sourceDepth!==row.depth||loaded.provenance.orientation!==row.orientation)throw Error(row.file+' differs');cases++;await engine.unload('i');}return {status:'passed',cases,different:0,packedGrayAndPalette:true,adam7:true,pngExifOrientations:8,alphaPolicy:'native IMREAD_COLOR, not retained'};}finally{engine.dispose();}
+}

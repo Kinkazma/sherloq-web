@@ -1,0 +1,73 @@
+{
+  "passed": false,
+  "run": "runtime-v2-live-resources-96mp-20261003T231446Z",
+  "engineCommit": "59482ba459fbf0c82552739b3da839ba27877bd7",
+  "lastUseful": {
+    "at": "2026-10-03T23:17:49.621Z",
+    "id": "automatic-d2prl-1",
+    "iteration": 4,
+    "iterations": 40,
+    "branch": "zm",
+    "phase": "patchmatch",
+    "completed": 24,
+    "total": 198,
+    "fraction": 0.12121212121212122,
+    "stage": "inference",
+    "zone": "automatic-zone-0",
+    "zoneIndex": 0,
+    "completedZones": 0,
+    "totalZones": 1,
+    "revision": 1,
+    "group": "d2prl",
+    "attempt": 1,
+    "groupAttempt": 1,
+    "elapsedMs": 181086.45999997854
+  },
+  "recoveries": [
+    {
+      "at": "2026-10-03T23:15:47.397Z",
+      "phase": "resource-recovery",
+      "operation": "ela",
+      "error": {
+        "code": "MEMORY_LIMIT",
+        "name": "EngineError",
+        "message": "Image or task exceeds the memory budget.",
+        "stack": "EngineError: Image or task exceeds the memory budget.\n    at Budget.room (http://127.0.0.1:50691/src/cache.js:39:43)\n    at Budget.reserve (http://127.0.0.1:50691/src/cache.js:150:8)\n    at reserve (http://127.0.0.1:50691/src/allocation.js:20:83)\n    at allocateOwnedTypedArray (http://127.0.0.1:50691/src/allocation.js:23:22)\n    at Object.readWindow (http://127.0.0.1:50691/src/rgb-surface.js:39:67)\n    at parallelGhostPlanes (http://127.0.0.1:50691/src/ghost-stream-pool.js:37:186)\n    at async Object.cellPlanes (http://127.0.0.1:50691/src/segmented-ela-biomes.js:19:206)\n    at async compute (http://127.0.0.1:50691/src/ela-cell-pipeline.js:35:44)\n    at async Object.memoMany (http://127.0.0.1:50691/src/ela-stage-checkpoint.js:15:118)\n    at async http://127.0.0.1:50691/src/ela-cell-pipeline.js:49:29",
+        "details": {
+          "requestedBytes": 1152000,
+          "availableBytes": 0,
+          "shortfallBytes": 416996055,
+          "budgetBytes": 10605297664,
+          "recovery": {
+            "operation": "ela",
+            "phase": "ela-cell-ghost-workers-render",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 10605297664,
+              "retainedBytes": 667602616,
+              "activeReservationBytes": 8526654495,
+              "cacheBytes": 0,
+              "requestedBytes": 1152000,
+              "availableBytes": 1411040553
+            }
+          }
+        }
+      }
+    }
+  ],
+  "controlledStop": {
+    "supervisorPid": 70394,
+    "runnerPid": 70396,
+    "caffeinatePid": 70397,
+    "startedAt": "2026-10-03T23:14:46.495252+00:00",
+    "timeoutSeconds": 86400,
+    "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-live-resources-96mp-20261003T231446Z",
+    "exitCode": 1,
+    "timedOut": false,
+    "stoppedAt": "2026-10-03T23:48:11.576750+00:00",
+    "orphanBrowserPids": []
+  },
+  "interpretation": "The ELA event is a policy-budget refusal, not a Chromium backing-allocation failure. The root worker later became unresponsive. An independently reproduced scheduler notification loop is consistent with that symptom; the OS sample did not identify the exact JavaScript function. A one-shot fault-only CPU profile is now available for subsequent unresponsive runs. No complete 96 MP result was obtained."
+}

@@ -1,0 +1,122 @@
+{
+  "file": "tests/data/tiff-stream/tiles-bigtiff.tiff",
+  "width": 4103,
+  "height": 5401,
+  "block": 40,
+  "rows": 135,
+  "cols": 102,
+  "params": {
+    "block": 32,
+    "quality": 0,
+    "ghost": false,
+    "background": true
+  },
+  "fields": {
+    "content": {
+      "offset": 0,
+      "bytes": 330480,
+      "dtype": "<f4",
+      "sha256": "8b2d4a9324ceafc983fd3b4842d4e588e9b8ae58d742f1e38874f6a406a58008"
+    },
+    "profiles": {
+      "offset": 330480,
+      "bytes": 826200,
+      "dtype": "<f4",
+      "sha256": "e0a958739ef8b572fc87cffa3e883acd00beed201e835798371d0b90a4eb6736"
+    },
+    "quality_scores": {
+      "offset": 1156680,
+      "bytes": 165240,
+      "dtype": "<f4",
+      "sha256": "ff37928e720e5edfc219d7e36549085169646648ddde042453e57353bb7502a1"
+    },
+    "signed_scores": {
+      "offset": 1321920,
+      "bytes": 826200,
+      "dtype": "<f4",
+      "sha256": "8949edca70eb2ac7653495b8fdbb3a638e9c981a929e079b83d542b8fb91465d"
+    },
+    "peer_count": {
+      "offset": 2148120,
+      "bytes": 55080,
+      "dtype": "<i4",
+      "sha256": "0cf44961a6c4f120bd62109136567c229b8edb0d6ef361d6c7551fc9d75d95cf"
+    },
+    "supported": {
+      "offset": 2203200,
+      "bytes": 13770,
+      "dtype": "u1",
+      "sha256": "324b41e396ae68571d6104f7e23e14b7e078dd94764493219c002fcb60699123"
+    },
+    "legacy_score": {
+      "offset": 2216972,
+      "bytes": 55080,
+      "dtype": "<f4",
+      "sha256": "c53d7836aa2e1afb2a0904048996294d467866f915e86dcf72f2d509bf9b971a"
+    },
+    "coherent_score": {
+      "offset": 2272052,
+      "bytes": 55080,
+      "dtype": "<f4",
+      "sha256": "42ba7a0e19e0fbad964c3b38b0b83d67e229fd3220c224ff7b89fdd182a379be"
+    },
+    "score": {
+      "offset": 2327132,
+      "bytes": 55080,
+      "dtype": "<f4",
+      "sha256": "dcbc36485ac72622220ae77901e81ece7699660c82aa650ad75e141a0a1b6619"
+    },
+    "background_score": {
+      "offset": 2382212,
+      "bytes": 55080,
+      "dtype": "<f4",
+      "sha256": "19402641637d910998c1632daf8c11b28e722fa3fa7959f9443705a6097a0e2d"
+    },
+    "background_quality_scores": {
+      "offset": 2437292,
+      "bytes": 165240,
+      "dtype": "<f4",
+      "sha256": "d252b171a18dcc1182b9240341cbf8ad7e946c46be7c8a77f86f54d58cd8cc31"
+    },
+    "background_signed_scores": {
+      "offset": 2602532,
+      "bytes": 495720,
+      "dtype": "<f4",
+      "sha256": "18dc7dcd58a2ec71927510ee7f971e42f2ead71b7a3f6724cd4f9b39ae3d6336"
+    },
+    "background_reference": {
+      "offset": 3098252,
+      "bytes": 495720,
+      "dtype": "<f4",
+      "sha256": "67380f1d0a7a8a53f9e8d8499fef9d7cc3b45545499c0eb7849d759dadace0d5"
+    },
+    "background_peer_count": {
+      "offset": 3593972,
+      "bytes": 55080,
+      "dtype": "<i4",
+      "sha256": "a3f44b20985c80f486b7e11ebd9fac2266535eb1f2918551ec1fc47bebf8b3bf"
+    },
+    "background_supported": {
+      "offset": 3649052,
+      "bytes": 13770,
+      "dtype": "u1",
+      "sha256": "324b41e396ae68571d6104f7e23e14b7e078dd94764493219c002fcb60699123"
+    },
+    "pre_background_score": {
+      "offset": 3662824,
+      "bytes": 55080,
+      "dtype": "<f4",
+      "sha256": "25d3ef434a369af8462a7e5c30726d0a65e4616f9bb1abbef5ed7dda299cc2e5"
+    },
+    "labels": {
+      "offset": 3717904,
+      "bytes": 55080,
+      "dtype": "<i4",
+      "sha256": "72b0810eaa7b1bde5656ea4145a1f80b8c059fda4aa621ce42d91e99337d811c"
+    }
+  },
+  "regions": [],
+  "payloadSha256": "333220d57c15319057fd00dbe2439ecb915ed1af610199de18e4955b20c3ef67",
+  "opencv": "4.11.0",
+  "numpy": "1.26.4"
+}

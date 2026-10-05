@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native BatchNorm/ReLU boundaries on three synthetic D2PRL input scales; no full-model parity",
+  "cases": 24,
+  "records": [
+    {
+      "name": "448-cnn-0",
+      "relu": false,
+      "elements": 13542400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448-cnn-0",
+      "relu": true,
+      "elements": 13542400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448-cnn-3",
+      "relu": false,
+      "elements": 26849792,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448-cnn-3",
+      "relu": true,
+      "elements": 26849792,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448-cnn-6",
+      "relu": false,
+      "elements": 26382848,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448-cnn-6",
+      "relu": true,
+      "elements": 26382848,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448-cnn-9",
+      "relu": false,
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448-cnn-9",
+      "relu": true,
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "298-cnn-0",
+      "relu": false,
+      "elements": 6150400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "298-cnn-0",
+      "relu": true,
+      "elements": 6150400,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "298-cnn-3",
+      "relu": false,
+      "elements": 12142592,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "298-cnn-3",
+      "relu": true,
+      "elements": 12142592,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "298-cnn-6",
+      "relu": false,
+      "elements": 11829248,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "298-cnn-6",
+      "relu": true,
+      "elements": 11829248,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "298-cnn-9",
+      "relu": false,
+      "elements": 5683456,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "298-cnn-9",
+      "relu": true,
+      "elements": 5683456,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "597-cnn-0",
+      "relu": false,
+      "elements": 23736384,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "597-cnn-0",
+      "relu": true,
+      "elements": 23736384,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "597-cnn-3",
+      "relu": false,
+      "elements": 47161472,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "597-cnn-3",
+      "relu": true,
+      "elements": 47161472,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "597-cnn-6",
+      "relu": false,
+      "elements": 46541952,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "597-cnn-6",
+      "relu": true,
+      "elements": 46541952,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "597-cnn-9",
+      "relu": false,
+      "elements": 22810176,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "597-cnn-9",
+      "relu": true,
+      "elements": 22810176,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    }
+  ],
+  "browser": "155.0",
+  "referenceSha256": "b08a6d1b9e678ac415ceb85a7fcca54ab909b0f0d8579c7e9b7595c93602055b",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d",
+    "files": {
+      "resize.js": {
+        "bytes": 7629,
+        "sha256": "58a4a91937f65664e7349e083d56b017c581afdc0ff894d13f07bf6660cbd6e6"
+      },
+      "resize.wasm": {
+        "bytes": 8325,
+        "sha256": "4a2e890de413a10f1b612be6a8fb6886f2ac09c9e0373fd1777649c48ecf0312"
+      }
+    }
+  }
+}

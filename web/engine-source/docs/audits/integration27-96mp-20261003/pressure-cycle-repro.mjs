@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {writeFile} from 'node:fs/promises';
+import {Budget} from '../../../src/cache.js';
+import {ExecutionScheduler} from '../../../src/execution-scheduler.js';
+import {SiftPool} from '../../../src/sift-paged.js';
+import {EngineError} from '../../../src/errors.js';
+const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+const budget=new Budget(4096),owner={profile:{maxWorkers:2},workers:new Set()},stop=new AbortController(),events=[];
+const pool=new SiftPool(owner,{budget,heap:64,cost:()=>256,inputBytes:64,provider:'cpu',backend:'cpu',signal:stop.signal,onProgress:event=>events.push(event)});
+await pool.open(2);
+const scheduler=pool.scheduler,peer=budget.beginOperation({owner:'peer',id:'real-compute-holder'}),lease=await scheduler.acquire({cpu:1,operation:peer,resourceOwner:'peer'});
+const banks=Array.from({length:2},()=>({data:new Uint8Array(64),credit:budget.reserve(64),backing:budget.registerBacking('array-buffer',64,{owner:'fixture-cache',reclaimable:true})}));
+const unregister=budget.registerAsyncReclaimer(async()=>{const bank=banks.pop();if(!bank)return 0;bank.data=null;bank.backing();bank.credit();budget.notifyBackingRelease('array-buffer',64);return 64;},{allocationKind:'array-buffer',priority:100});
+let start;const together=new Promise(resolve=>start=resolve),calls=[0,0];
+const work=pool.records.map((rec,index)=>pool.execute(rec,async()=>{calls[index]++;if(calls.reduce((a,b)=>a+b,0)===2)start();await together;throw new EngineError('MEMORY_ALLOCATION','Fixture real backing refusal',{details:{allocationKind:'array-buffer',requestedBytes:32}});}));
+const drained=Promise.allSettled(work);await delay(60);
+const before=budget.resourceSnapshot(),beforeScheduler=scheduler.snapshot();
+assert.equal(before.pressures.length,2);assert.equal(beforeScheduler.queued,2);assert.deepEqual(calls,[1,1]);
+lease.release();peer.release();await delay(30);
+const stalled=budget.resourceSnapshot(),stalledScheduler=scheduler.snapshot(),graph=pool.records.map(rec=>budget.resourceProgressSnapshot('sift','array-buffer',rec.operation));
+assert.equal(stalledScheduler.running,0);assert.equal(stalledScheduler.queued,2);assert.equal(stalledScheduler.active.cpu,0);assert.equal(stalledScheduler.active.gpu,0);
+assert.deepEqual(calls,[1,1]);assert(graph.every(value=>value.independentProducers===0));
+const operations=stalled.operations;assert.equal(operations.length,2);assert.equal(operations[0].dependencies[0],operations[1].key);assert.equal(operations[1].dependencies[0],operations[0].key);
+// The reclaim mutex is idle even though the scheduler is still deadlocked.
+let reclaimed=false;await budget.reclaim(0);reclaimed=true;
+const failureCounts=events.filter(e=>e.phase==='resource-recovery').map(e=>e.decision.totalFailures);
+stop.abort();const outcomes=(await drained).map(result=>({status:result.status,code:result.reason?.code}));pool.close();unregister();scheduler.dispose();
+for(const bank of banks){bank.data=null;bank.backing();bank.credit();}
+const result={source:'44a39f5178704a081e3c077666eace2ceeebadce',scope:'Real SiftPool.execute, Budget, recovery, scheduler; injected 32-byte allocation refusal; two actual 64-byte cache banks retired. No browser/native image.',calls,failureCounts,before:{operations:before.operations,pressures:before.pressures,execution:{running:beforeScheduler.running,queued:beforeScheduler.queued}},stalled:{operations,pressures:stalled.pressures,execution:{running:stalledScheduler.running,queued:stalledScheduler.queued,active:stalledScheduler.active},independentProducers:graph.map(s=>s.independentProducers)},reclaimMutexResponsive:reclaimed,outcomes,after:{budget:budget.total(),operations:budget.resourceSnapshot().operations.length,pressures:budget.resourceSnapshot().pressures.length}};
+assert.equal(result.after.budget,0);assert.equal(result.after.operations,0);assert.equal(result.after.pressures,0);
+await writeFile(new URL('./pressure-cycle-result.json',import.meta.url),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));

@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Large-output contiguous NCHW float32 align_corners=True only; no antialias, small-output or channels-last claim; ONNX Float64 emulation candidate",
+  "ort": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "cases": 24,
+  "records": [
+    {
+      "name": "3-448x448-298x298-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-298x298-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-298x298-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-597x597-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-597x597-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "3-448x448-597x597-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "12-298x298-448x448-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "12-298x298-448x448-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "12-298x298-448x448-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "32-597x597-448x448-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "32-597x597-448x448-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "32-597x597-448x448-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-56x56-448x448-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-56x56-448x448-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-56x56-448x448-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "64-56x56-112x112-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "64-56x56-112x112-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "64-56x56-112x112-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-2x3-65x66-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-2x3-65x66-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1-2x3-65x66-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "8-33x65-67x129-noise",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "8-33x65-67x129-signed",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "8-33x65-67x129-steps",
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    }
+  ],
+  "browser": "155.0",
+  "referenceSha256": "c96d3114544b0c767088cf57c26ca650597c614dd3ed780451bfc33ab4a9b5bf",
+  "rewriterSha256": "939cf373ccb8b53a599848a4fde37d6e477df3ca2363b0523ea8e4a3303bf9ab"
+}

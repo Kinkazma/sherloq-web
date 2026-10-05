@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "status": "completed-diagnostic",
+  "scope": "Same prepared paired-spots RGB and same CPU encoder tensors passed to CPU/GPU heads. Additional existing outputs identify first divergence; no substitution or native expected tensor feeds. Development diagnostic, not memory/performance qualification or runtime routing.",
+  "records": [
+    {
+      "name": "logits",
+      "shape": [
+        1,
+        3,
+        256,
+        256
+      ],
+      "maxAbs": 11.103228569030762,
+      "meanAbs": 3.1833762571378834,
+      "different": 196608,
+      "finite": true,
+      "largest": {
+        "index": 62050,
+        "cpu": -15.013854026794434,
+        "gpu": -26.117082595825195
+      }
+    },
+    {
+      "name": "probability",
+      "shape": [
+        1,
+        3,
+        256,
+        256
+      ],
+      "maxAbs": 0.7066266741603613,
+      "meanAbs": 0.00144554209734922,
+      "different": 173628,
+      "finite": true,
+      "largest": {
+        "index": 80745,
+        "cpu": 0.007859209552407265,
+        "gpu": 0.7144858837127686
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/MatMul_output_0",
+      "shape": [
+        1,
+        1600,
+        1600
+      ],
+      "maxAbs": 0.0000020265579223632812,
+      "meanAbs": 2.027024806011468e-7,
+      "different": 2387689,
+      "finite": true,
+      "largest": {
+        "index": 1284202,
+        "cpu": 0.9502381086349487,
+        "gpu": 0.9502360820770264
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/Mul_4_output_0",
+      "shape": [
+        1,
+        1600,
+        1600
+      ],
+      "maxAbs": 0.00003147125244140625,
+      "meanAbs": 0.0000031286222860217096,
+      "different": 2380952,
+      "finite": true,
+      "largest": {
+        "index": 1284202,
+        "cpu": 14.341965675354004,
+        "gpu": 14.341934204101562
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/TopK_output_0",
+      "shape": [
+        1,
+        40,
+        40,
+        40
+      ],
+      "maxAbs": 9.872019290924072e-7,
+      "meanAbs": 3.418508849328816e-9,
+      "different": 63800,
+      "finite": true,
+      "largest": {
+        "index": 451,
+        "cpu": 0.02537703514099121,
+        "gpu": 0.02537604793906212
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/aspp/Concat_output_0",
+      "shape": [
+        1,
+        1280,
+        40,
+        40
+      ],
+      "maxAbs": 0.32132965326309204,
+      "meanAbs": 0.003986505554793579,
+      "different": 231444,
+      "finite": true,
+      "largest": {
+        "index": 1688000,
+        "cpu": 0.3010272979736328,
+        "gpu": 0.6223569512367249
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/MatMul_1_output_0",
+      "shape": [
+        1,
+        256,
+        1600
+      ],
+      "maxAbs": 0.09512592852115631,
+      "meanAbs": 0.002425027483029913,
+      "different": 395200,
+      "finite": true,
+      "largest": {
+        "index": 364464,
+        "cpu": 0.09174346923828125,
+        "gpu": 0.18686939775943756
+      }
+    },
+    {
+      "name": "/network/multi_granularity_consistency_module/Concat_11_output_0",
+      "shape": [
+        1,
+        592,
+        40,
+        40
+      ],
+      "maxAbs": 3.481635570526123,
+      "meanAbs": 0.020746040778227216,
+      "different": 581118,
+      "finite": true,
+      "largest": {
+        "index": 893951,
+        "cpu": 0,
+        "gpu": 3.481635570526123
+      }
+    },
+    {
+      "name": "/network/decode_head/decode_head.0/Conv_output_0",
+      "shape": [
+        1,
+        512,
+        40,
+        40
+      ],
+      "maxAbs": 15.087163209915161,
+      "meanAbs": 1.4201749758658255,
+      "different": 819200,
+      "finite": true,
+      "largest": {
+        "index": 325559,
+        "cpu": -12.626051902770996,
+        "gpu": 2.461111307144165
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1699617747
+  },
+  "gpu": {
+    "allocations": 339,
+    "writeBufferBytes": 33546096,
+    "readMappingBytes": 49191584,
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 225898176,
+    "devices": 1,
+    "errors": []
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-mgcf-head-diagnostics.mjs": "351a7a938676827ac5b60c3576ff153b26ff0093f6b8b6e1aae7b84f9b2128cf",
+    "scripts/export-mgcf-head-diagnostics.py": "4073f6acf28f513663943b2a10973503ecd639e27ed5cbb49bdd669a9cc283ac",
+    ".build/segmentation-models/mgcfdn-st/gpu-head-diagnostic.json": "ad57bf66df08bb4d620173b5e264a1509197a2d249efd3835905f3d8812f083d",
+    ".build/segmentation-ort-gpu-bounded-cache/build.json": "f3154fc4fa48af034bc8a8677063805e258538d405f5ea0359f3553363ff70be"
+  }
+}

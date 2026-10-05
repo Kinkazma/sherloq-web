@@ -1,0 +1,7 @@
+from pathlib import Path
+import os,subprocess,json,hashlib
+root=Path(__file__).resolve().parents[1];out=root/'vendor/xfeat-paged';out.mkdir(exist_ok=True);compiler=Path(os.environ['EMSDK'])/'upstream/emscripten/em++'
+subprocess.run([str(compiler),str(root/'native/xfeat-paged-post.cpp'),'-O3','-ffp-contract=off','-fexceptions','-sDISABLE_EXCEPTION_CATCHING=0','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sALLOW_MEMORY_GROWTH=1','-sIMPORTED_MEMORY=1','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY=2147483648','-sFILESYSTEM=0','-sABORTING_MALLOC=0','-sEXPORTED_FUNCTIONS=["_malloc","_free","_xfeat_candidates","_xfeat_order","_xfeat_sample_location","_xfeat_sample","_xfeat_source_row","_xfeat_gray_row"]','-sEXPORTED_RUNTIME_METHODS=["HEAPU8","HEAP32","HEAPF32"]','-o',str(out/'post.js')],check=True)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();files={name:dict(bytes=(out/name).stat().st_size,sha256=sha(out/name)) for name in ['post.js','post.wasm']};(out/'PINNED.json').write_text(json.dumps(dict(source=sha(root/'native/xfeat-paged-post.cpp'),files=files),indent=2)+'\n')
+(out/'PYTORCH-LICENSE.txt').write_bytes((root/'vendor/d2prl/PYTORCH-LICENSE.txt').read_bytes())
+(root/'src/xfeat-paged-assets.js').write_text('export const XFEAT_PAGED_POST='+json.dumps(files['post.wasm'])+';\nexport const XFEAT_PAGED_MODEL='+json.dumps({k:v for k,v in json.loads((root/'docs/m3-xfeat-local-study.json').read_text()).items() if k in ['weightSha256','file','bytes','sha256']})+';\n')

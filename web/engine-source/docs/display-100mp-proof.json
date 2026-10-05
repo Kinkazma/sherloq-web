@@ -1,0 +1,386 @@
+{
+  "date": "2026-10-05T13:05:16.047Z",
+  "engineBase": "7e34e5208c83b292d6106c1f7fbfd3f4ded2e64c",
+  "uiBase": "0fcee0c550925f100f2d42bad47b07d0fabe05e7",
+  "scope": "100 MP synthetic RGB already computed; includes worker reads, transfers, RGB-to-RGBA conversion and canvas presentation. Excludes analysis computation and image decoding.",
+  "browsers": [
+    {
+      "name": "chrome",
+      "version": "154.0.8037.93",
+      "results": [
+        {
+          "mode": "before",
+          "kind": "result",
+          "pass": 0,
+          "requests": 25,
+          "completeMs": 128.39000004529953,
+          "firstMs": 8.125,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "result",
+          "pass": 1,
+          "requests": 25,
+          "completeMs": 125.81000000238419,
+          "firstMs": 6.964999973773956,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "result",
+          "pass": 2,
+          "requests": 25,
+          "completeMs": 118.37000000476837,
+          "firstMs": 14.050000011920929,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "after",
+          "kind": "result",
+          "pass": 0,
+          "requests": 1,
+          "completeMs": 34.34999996423721,
+          "firstMs": 27.25499999523163,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "result",
+          "pass": 1,
+          "requests": 1,
+          "completeMs": 32.214999973773956,
+          "firstMs": 26.74500000476837,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "result",
+          "pass": 2,
+          "requests": 1,
+          "completeMs": 31.375,
+          "firstMs": 25.87000000476837,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "before",
+          "kind": "source",
+          "pass": 0,
+          "requests": 25,
+          "completeMs": 8388.45499998331,
+          "firstMs": 308.2300000190735,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "source",
+          "pass": 1,
+          "requests": 25,
+          "completeMs": 8278.049999952316,
+          "firstMs": 331.56999999284744,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "source",
+          "pass": 2,
+          "requests": 25,
+          "completeMs": 8545.615000009537,
+          "firstMs": 318.75,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "after",
+          "kind": "source",
+          "pass": 0,
+          "requests": 1,
+          "completeMs": 35.68000000715256,
+          "firstMs": 30.274999976158142,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "source",
+          "pass": 1,
+          "requests": 1,
+          "completeMs": 32.185000002384186,
+          "firstMs": 26.464999973773956,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "source",
+          "pass": 2,
+          "requests": 1,
+          "completeMs": 30.855000019073486,
+          "firstMs": 25.37999999523163,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        }
+      ]
+    },
+    {
+      "name": "firefox",
+      "version": "155.0",
+      "results": [
+        {
+          "mode": "before",
+          "kind": "result",
+          "pass": 0,
+          "requests": 25,
+          "completeMs": 95.09999999999997,
+          "firstMs": 9.539999999999964,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "result",
+          "pass": 1,
+          "requests": 25,
+          "completeMs": 81.17999999999995,
+          "firstMs": 12.639999999999986,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "result",
+          "pass": 2,
+          "requests": 25,
+          "completeMs": 85.72000000000003,
+          "firstMs": 8.32000000000005,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "after",
+          "kind": "result",
+          "pass": 0,
+          "requests": 1,
+          "completeMs": 22.980000000000018,
+          "firstMs": 21.800000000000068,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "result",
+          "pass": 1,
+          "requests": 1,
+          "completeMs": 22.25999999999999,
+          "firstMs": 21.039999999999964,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "result",
+          "pass": 2,
+          "requests": 1,
+          "completeMs": 23.399999999999977,
+          "firstMs": 22.159999999999968,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "before",
+          "kind": "source",
+          "pass": 0,
+          "requests": 25,
+          "completeMs": 8714.56,
+          "firstMs": 323.6400000000001,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "source",
+          "pass": 1,
+          "requests": 25,
+          "completeMs": 8960.359999999999,
+          "firstMs": 338.7600000000002,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "source",
+          "pass": 2,
+          "requests": 25,
+          "completeMs": 8755.579999999998,
+          "firstMs": 343.2599999999984,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "after",
+          "kind": "source",
+          "pass": 0,
+          "requests": 1,
+          "completeMs": 25.099999999998545,
+          "firstMs": 23.81999999999971,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "source",
+          "pass": 1,
+          "requests": 1,
+          "completeMs": 23.599999999998545,
+          "firstMs": 22.520000000000437,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "source",
+          "pass": 2,
+          "requests": 1,
+          "completeMs": 23.419999999998254,
+          "firstMs": 22.339999999996508,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        }
+      ]
+    },
+    {
+      "name": "webkit",
+      "version": "26.6",
+      "results": [
+        {
+          "mode": "before",
+          "kind": "result",
+          "pass": 0,
+          "requests": 25,
+          "completeMs": 146.76000000000005,
+          "firstMs": 26.160000000000025,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "result",
+          "pass": 1,
+          "requests": 25,
+          "completeMs": 126.41999999999996,
+          "firstMs": 7,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "result",
+          "pass": 2,
+          "requests": 25,
+          "completeMs": 112.32000000000005,
+          "firstMs": 9.400000000000091,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "after",
+          "kind": "result",
+          "pass": 0,
+          "requests": 1,
+          "completeMs": 24.680000000000064,
+          "firstMs": 19.82000000000005,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "result",
+          "pass": 1,
+          "requests": 1,
+          "completeMs": 24.37999999999988,
+          "firstMs": 20.440000000000055,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "result",
+          "pass": 2,
+          "requests": 1,
+          "completeMs": 30.659999999999854,
+          "firstMs": 26.419999999999845,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "before",
+          "kind": "source",
+          "pass": 0,
+          "requests": 25,
+          "completeMs": 8424.380000000001,
+          "firstMs": 293,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "source",
+          "pass": 1,
+          "requests": 25,
+          "completeMs": 8259.560000000001,
+          "firstMs": 292.28000000000065,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "before",
+          "kind": "source",
+          "pass": 2,
+          "requests": 25,
+          "completeMs": 8217.880000000001,
+          "firstMs": 286.2800000000025,
+          "outboundBytes": 4747692,
+          "canvasBytes": 6330256
+        },
+        {
+          "mode": "after",
+          "kind": "source",
+          "pass": 0,
+          "requests": 1,
+          "completeMs": 40.06000000000131,
+          "firstMs": 35.63999999999942,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "source",
+          "pass": 1,
+          "requests": 1,
+          "completeMs": 38.56000000000131,
+          "firstMs": 34.70000000000073,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        },
+        {
+          "mode": "after",
+          "kind": "source",
+          "pass": 2,
+          "requests": 1,
+          "completeMs": 35.97999999999956,
+          "firstMs": 32.2599999999984,
+          "outboundBytes": 4687500,
+          "canvasBytes": 6250000
+        }
+      ]
+    }
+  ]
+}

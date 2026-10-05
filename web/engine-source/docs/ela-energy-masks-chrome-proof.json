@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "scope": "Standalone actual browser numerical primitives on generated public fixtures, no full ELA API or WordPress claim",
+  "result": {
+    "preparationCases": 84,
+    "segmentationCases": 624,
+    "colorCases": 512,
+    "cooperativeCancellation": true
+  },
+  "browser": "154.0.8037.58",
+  "engine": "0.28.0",
+  "sources": {
+    "src/energy-prepare.js": "b08c82622ecab0bec7b87cb458dd271ae0fe2f8ef2807fd4f0c7055d73b5768f",
+    "src/energy-segment.js": "4b058e639667d08867f5e6e6bfc04922cca886577cd1bcc939bb7c886bc72663",
+    "src/energy-log-reference.js": "f0433cc1ca2ee56b11355f544466cbd4eb7b6c239c9e9e84a2cfabcdb4ba7a38",
+    "fixtures/ela-energy/preparation.json": "cfccf7ac4372dfe2b1bc50c2182ac3132cdaa5e94f7169f800c307692d260322",
+    "fixtures/ela-energy/segmentation.json": "3e3437089b76ca24725bd56c6306bc8b440227454bbef98f28a259e5eee04833",
+    "fixtures/ela-energy/log-domain.json": "0241c79b956efcf84dbfd67d8bd70f7d1e4239ad40eb02f5f9ccc21bf6386813"
+  }
+}

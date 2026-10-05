@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Qualified common JPEG loader, actual OPFS and oriented RGB row-source preparation in a browser worker; full96MP and actual92MP ROI, native Torch448 and Pillow256/512 tensor SHA exact. Preparation only, no model inference or public segmented AI claim.",
+  "loadMs": 2443,
+  "cases": [
+    {
+      "bounds": [
+        0,
+        0,
+        12000,
+        8000
+      ],
+      "d2prl": {
+        "sha256": "6ff388c45a4a8b643e40d5f3682e9c1aa893964ea86797563cbf1b2703026b6a",
+        "metrics": {
+          "totalMs": 6636.39999999851,
+          "readMs": 2413.500000037253,
+          "normalizeMs": 2347.0000000298023,
+          "horizontalMs": 1775.699999935925,
+          "verticalMs": 99.19999999552965,
+          "sourceReads": 381,
+          "rowsPerRead": 21,
+          "horizontalBytes": 43008000,
+          "heapCapacityBytes": 63766528,
+          "admittedHeapBytes": 67108864
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 173064192,
+          "peakAccountedBytes": 174612192
+        }
+      },
+      "segmentation": [
+        {
+          "side": 256,
+          "rgbSha256": "1577c8e9cfac060f1a6c00bf0aa7199e3d392ef15f0b4609495fb0b1f95e7f30",
+          "tensorSha256": "9c9f5a0116cde7890c0fcbceb8c8b6a3b7924d16b4680de1f2b3f13f33c48632",
+          "metrics": {
+            "totalMs": 6635.20000000298,
+            "readMs": 2501.1999999806285,
+            "sourceReads": 381,
+            "rowsPerRead": 21
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 171638784,
+            "peakAccountedBytes": 174612192
+          }
+        },
+        {
+          "side": 512,
+          "rgbSha256": "46f8cee2197c0ab7fd4165a5e82ebadb9c38bc6c7d203097bc819845e90dce9b",
+          "tensorSha256": "6349df28a46424813fe33587223cbfb24dd6b6d17543e384d0f259ad6ae7a928",
+          "metrics": {
+            "totalMs": 6879.10000000149,
+            "readMs": 2499.299999937415,
+            "sourceReads": 381,
+            "rowsPerRead": 21
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 174587904,
+            "peakAccountedBytes": 176363376
+          }
+        }
+      ]
+    },
+    {
+      "bounds": [
+        137,
+        83,
+        11903,
+        7919
+      ],
+      "d2prl": {
+        "sha256": "8fe7b281c1b02ee5a0dfefbb34d6d6899086abd4f2e3e2f05e085594322a68c5",
+        "metrics": {
+          "totalMs": 7309.60000000149,
+          "readMs": 3383.6000000983477,
+          "normalizeMs": 2240.199999935925,
+          "horizontalMs": 1595.5999999642372,
+          "verticalMs": 89.29999999701977,
+          "sourceReads": 357,
+          "rowsPerRead": 22,
+          "horizontalBytes": 42126336,
+          "heapCapacityBytes": 63766528,
+          "admittedHeapBytes": 67108864
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 173064192,
+          "peakAccountedBytes": 176363376
+        }
+      },
+      "segmentation": [
+        {
+          "side": 256,
+          "rgbSha256": "ca7cc16b6b92f50fa2b3101be518993f7b49debdd8985bbc899b1ae64c185562",
+          "tensorSha256": "48cd4488d35d2db8ccd010e2ef0c9a2838fcfc1de8ba6ac226052574613822a0",
+          "metrics": {
+            "totalMs": 6783.19999999553,
+            "readMs": 3379.0000000298023,
+            "sourceReads": 357,
+            "rowsPerRead": 22
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 171638784,
+            "peakAccountedBytes": 176363376
+          }
+        },
+        {
+          "side": 512,
+          "rgbSha256": "d8fa7a218a02445003ac11f18c56f83da28be35f66ece6a61b95226778e7451e",
+          "tensorSha256": "65dc02832d84926a4cd88e50055e13dc55a83124f2a3c9cd58a1b211c05553cb",
+          "metrics": {
+            "totalMs": 7023.89999999851,
+            "readMs": 3428.699999988079,
+            "sourceReads": 357,
+            "rowsPerRead": 22
+          },
+          "memory": {
+            "budgetBytes": 268435456,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 174587904,
+            "peakAccountedBytes": 176399674
+          }
+        }
+      ]
+    }
+  ],
+  "cancellationAndRetry": true,
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 176399674
+  },
+  "nativeSources": {
+    "source/gui/sherloq_app/core/clone_models.py": "7d1dc44e7e361472e51673dce488428e8d5d6a6508637d0e008d2eb55cf49630"
+  },
+  "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+  "storageArtifactsRemaining": 0,
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 176399674,
+    "finalWorkerPeakAccountedBytes": 176399674
+  },
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true,
+  "engineSources": {
+    "src/rgb-row-source.js": "daf9fdd0f65811ab3296c528d0110b19b5991098c8bbafaea8d02910179e24df",
+    "src/image-sources.js": "990c21c4462607a1982de5a57a9283804794013b1e507bf0fd18800c43d82e68",
+    "src/rgb-surface.js": "147a1060291d7273071f3a9c49bffc1c345c885be26828bd198eb307c7cfcb70",
+    "experiments/d2prl/prepare.js": "1ff0e7176ed64ca433e823b95a0be2c6c53d60780306d24e0411fb5ec3429c24",
+    "experiments/segmentation/prepare.js": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+    "vendor/d2prl/prepare.wasm": "135ef5bdc0c79775b1c15b7fb0f52c137de662f9538a0454cec50ae94567a746"
+  },
+  "recipeSources": {
+    "scripts/proof-memory.mjs": "8961fbe1092bdcc16c3991e04e9e60118ba28e232ec7a5bac86596fe1942654c",
+    "scripts/generate-large-neural-prepare.py": "71a0e5b9628e4500b5e5ec3e783903d7681501ab92a2d8001c9f51bdd1ff701e",
+    "scripts/study-neural-rows-prepare.mjs": "dd2fcb4d20290f6e4858182d10235c4f71b4c5930a20a906dd1d92204b6afa70",
+    "tests/neural-rows-prepare-browser.js": "a255fa2364e5ad8051d4e2ef5270242d6b29555b01b076da66b0f70af864946a",
+    "tests/neural-rows-prepare-worker.js": "e698be10e3daa61471183c524964aace8afa149c3def09c9e4b96088eba328b4"
+  }
+}

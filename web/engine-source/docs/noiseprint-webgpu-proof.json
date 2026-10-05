@@ -1,0 +1,45 @@
+{
+  "provider": "webgpu",
+  "records": [
+    {
+      "quality": 51,
+      "values": 3233,
+      "maxError": 0.000019073486328125,
+      "differences": 3183
+    },
+    {
+      "quality": 90,
+      "values": 3233,
+      "maxError": 0.00003814697265625,
+      "differences": 3176
+    },
+    {
+      "quality": 95,
+      "values": 3233,
+      "maxError": 0.000011444091796875,
+      "differences": 3125
+    },
+    {
+      "quality": 100,
+      "values": 3233,
+      "maxError": 0.00000762939453125,
+      "differences": 3132
+    },
+    {
+      "quality": 101,
+      "values": 3233,
+      "maxError": 0.0000152587890625,
+      "differences": 3185
+    }
+  ],
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 624188742
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

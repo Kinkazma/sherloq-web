@@ -1,0 +1,247 @@
+{
+  "schema": 1,
+  "scope": "LCG1664525/1013904223 seeded public floats; native operation references, no checkpoint or image data.",
+  "torch": "2.8.0",
+  "records": [
+    {
+      "kind": "patch",
+      "output": {
+        "file": "patch.bin",
+        "shape": [
+          256,
+          16,
+          40
+        ],
+        "bytes": 655360,
+        "sha256": "be47af195ff2aec9dfa45c881c98018d33f542dbb0e32a740d0feaa9ac4c304e"
+      }
+    },
+    {
+      "kind": "linear",
+      "rows": 4096,
+      "ci": 40,
+      "co": 40,
+      "bias": true,
+      "seed": 301,
+      "output": {
+        "file": "linear-0.bin",
+        "shape": [
+          4096,
+          40
+        ],
+        "bytes": 655360,
+        "sha256": "5549e1f00035dbac7bce271200961e27c8b2a990faa9a3a74306ce638b18e1dd"
+      }
+    },
+    {
+      "kind": "linear",
+      "rows": 4096,
+      "ci": 160,
+      "co": 40,
+      "bias": true,
+      "seed": 304,
+      "output": {
+        "file": "linear-1.bin",
+        "shape": [
+          4096,
+          40
+        ],
+        "bytes": 655360,
+        "sha256": "aa48df41c673480e98bf018a48f61b74dbe1905816ad7c322ecefb46448de725"
+      }
+    },
+    {
+      "kind": "linear",
+      "rows": 256,
+      "ci": 640,
+      "co": 640,
+      "bias": true,
+      "seed": 307,
+      "output": {
+        "file": "linear-2.bin",
+        "shape": [
+          256,
+          640
+        ],
+        "bytes": 655360,
+        "sha256": "e4f49a964d8b5471c0b7316030ef27d2d0daca0011d6d37bce52436d44bb497d"
+      }
+    },
+    {
+      "kind": "linear",
+      "rows": 257,
+      "ci": 640,
+      "co": 1280,
+      "bias": false,
+      "seed": 310,
+      "output": {
+        "file": "linear-3.bin",
+        "shape": [
+          257,
+          1280
+        ],
+        "bytes": 1315840,
+        "sha256": "bf0f788b3edbcde2ab11de53d6c3dd71eced9ac556464b7c2e884ef7f9fabe61"
+      }
+    },
+    {
+      "kind": "linear",
+      "rows": 257,
+      "ci": 2560,
+      "co": 640,
+      "bias": true,
+      "seed": 313,
+      "output": {
+        "file": "linear-4.bin",
+        "shape": [
+          257,
+          640
+        ],
+        "bytes": 657920,
+        "sha256": "37a34785a74c9e4a1121529e3c8a6712746e018c53e751208c7d93e402ad10ad"
+      }
+    },
+    {
+      "kind": "norm",
+      "width": 40,
+      "rows": 8,
+      "output": {
+        "file": "norm-40.bin",
+        "shape": [
+          8,
+          40
+        ],
+        "bytes": 1280,
+        "sha256": "0045b6ae8e20ef7cd96f88b243b14858a9a15a60e705fe674b830a224f0c4e24"
+      }
+    },
+    {
+      "kind": "norm",
+      "width": 640,
+      "rows": 8,
+      "output": {
+        "file": "norm-640.bin",
+        "shape": [
+          8,
+          640
+        ],
+        "bytes": 20480,
+        "sha256": "6de87ccbe19bf87229541674bed3c1613cc76324b5b907e275692a9f246024eb"
+      }
+    },
+    {
+      "kind": "attention",
+      "batch": 256,
+      "heads": 4,
+      "n": 16,
+      "d": 10,
+      "scores": {
+        "file": "scores-16.bin",
+        "shape": [
+          256,
+          4,
+          16,
+          16
+        ],
+        "bytes": 1048576,
+        "sha256": "257d0af7d9614844e3687571dca024563da5b500daba98bf9d5186271a0a3a2c"
+      },
+      "scaled": {
+        "file": "scaled-16.bin",
+        "shape": [
+          256,
+          4,
+          16,
+          16
+        ],
+        "bytes": 1048576,
+        "sha256": "a9411727823e2f10c6fa3551aa1921b992815ebe8107caa1768d658cd0d2b84e"
+      },
+      "probability": {
+        "file": "probability-16.bin",
+        "shape": [
+          256,
+          4,
+          16,
+          16
+        ],
+        "bytes": 1048576,
+        "sha256": "8c142191e6dd883c926d43abc2333713f377f93967868e9550d4829d11bab620"
+      },
+      "context": {
+        "file": "context-16.bin",
+        "shape": [
+          256,
+          4,
+          16,
+          10
+        ],
+        "bytes": 655360,
+        "sha256": "d05a02b9ff208f04a527b14934da5225f4b2dd06b73fb079369a52ac65c2eacd"
+      }
+    },
+    {
+      "kind": "attention",
+      "batch": 1,
+      "heads": 10,
+      "n": 257,
+      "d": 64,
+      "scores": {
+        "file": "scores-257.bin",
+        "shape": [
+          1,
+          10,
+          257,
+          257
+        ],
+        "bytes": 2641960,
+        "sha256": "83e4c56e22faf6e1a557be397391ce5a17c74a20deed132991983c4192769e76"
+      },
+      "scaled": {
+        "file": "scaled-257.bin",
+        "shape": [
+          1,
+          10,
+          257,
+          257
+        ],
+        "bytes": 2641960,
+        "sha256": "b8ce6bf54d3f201652f54552983742169f1905db882c9818d1c490e9e26658ca"
+      },
+      "probability": {
+        "file": "probability-257.bin",
+        "shape": [
+          1,
+          10,
+          257,
+          257
+        ],
+        "bytes": 2641960,
+        "sha256": "66fd592b724dd909989d4254773e5ebb34b856fcc56171867996f0b25aa9afc0"
+      },
+      "context": {
+        "file": "context-257.bin",
+        "shape": [
+          1,
+          10,
+          257,
+          64
+        ],
+        "bytes": 657920,
+        "sha256": "29a35dac71fd79b8b14ee5d0b8f7f53afcc9c22718e71f4d30b8b3d0b0d6f679"
+      }
+    },
+    {
+      "kind": "gelu",
+      "elements": 16384,
+      "output": {
+        "file": "gelu.bin",
+        "shape": [
+          16384
+        ],
+        "bytes": 65536,
+        "sha256": "89dec9493a44aa4bc36714407b756fe6a02006e357814b2118aabe21f9a771de"
+      }
+    }
+  ]
+}

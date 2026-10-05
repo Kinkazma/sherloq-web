@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Export-only comparison of six full96MP D2PRL CPU planes already qualified bit-for-bit. Same arrays, metadata, ZIP bytes,2GiB budget and forced OPFS output. Does not rerun neural inference or measure source-to-analysis speed.",
+  "sourceLoadMs": 10533.29999999702,
+  "sourceIdentities": {
+    "map": {
+      "file": "detect-map.bin",
+      "shape": [
+        8000,
+        12000
+      ],
+      "dtype": "float32",
+      "bytes": 384000000,
+      "sha256": "0a0bb53bcca6904df492a27557df17d591ef9e24779bf238500179b24957723a"
+    },
+    "mask": {
+      "file": "detect-mask.bin",
+      "shape": [
+        8000,
+        12000
+      ],
+      "dtype": "uint8",
+      "bytes": 96000000,
+      "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+    },
+    "analyzed": {
+      "file": "detect-analyzed.bin",
+      "shape": [
+        8000,
+        12000
+      ],
+      "dtype": "uint8",
+      "bytes": 96000000,
+      "sha256": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca"
+    },
+    "candidates": {
+      "file": "detect-candidates.bin",
+      "shape": [
+        8000,
+        12000
+      ],
+      "dtype": "uint8",
+      "bytes": 96000000,
+      "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+    },
+    "target": {
+      "file": "detect-target.bin",
+      "shape": [
+        8000,
+        12000
+      ],
+      "dtype": "float32",
+      "bytes": 384000000,
+      "sha256": "244800ebba4408ba63e8ecc4339c1f2e214991d18508fd53910134cc816f3d4a"
+    },
+    "source": {
+      "file": "detect-source.bin",
+      "shape": [
+        8000,
+        12000
+      ],
+      "dtype": "float32",
+      "bytes": 384000000,
+      "sha256": "244800ebba4408ba63e8ecc4339c1f2e214991d18508fd53910134cc816f3d4a"
+    }
+  },
+  "records": [
+    {
+      "strategy": "baseline",
+      "milliseconds": 236749.1000000015,
+      "sha256": "fb3efc3dcc5989ff7416eb67a3fe21ccb6940e6721779d334a20998433e00ddb",
+      "byteLength": 1440003200,
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "arrays": 8,
+        "maximumScalarChunk": 65536,
+        "outputCapacityBytes": 1440003200
+      },
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 1440000000,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1444194304
+      }
+    },
+    {
+      "strategy": "write-cooperative",
+      "milliseconds": 175780.29999999702,
+      "sha256": "fb3efc3dcc5989ff7416eb67a3fe21ccb6940e6721779d334a20998433e00ddb",
+      "byteLength": 1440003200,
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "arrays": 8,
+        "maximumScalarChunk": 65536,
+        "outputCapacityBytes": 1440003200
+      },
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 1440000000,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1444194304
+      }
+    },
+    {
+      "strategy": "cooperative",
+      "milliseconds": 25400.19999999553,
+      "sha256": "fb3efc3dcc5989ff7416eb67a3fe21ccb6940e6721779d334a20998433e00ddb",
+      "byteLength": 1440003200,
+      "metrics": {
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "arrays": 8,
+        "assemblyMs": 10670.29999999702,
+        "hashMs": 14623,
+        "maximumScalarChunk": 65536,
+        "outputCapacityBytes": 1440003200
+      },
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 1440000000,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1444194304
+      },
+      "saveMs": 65325.30000000447,
+      "pages": 1374
+    }
+  ],
+  "cancellation": [
+    {
+      "phase": "scientific-npz",
+      "afterReceivedMs": 13.299999997019768,
+      "sourceBytesPreserved": 1440000000
+    },
+    {
+      "phase": "scientific-npz-hash",
+      "afterReceivedMs": 12.5,
+      "sourceBytesPreserved": 1440000000
+    }
+  ],
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1444194304
+  },
+  "storageArtifactsRemaining": 0,
+  "browser": "154.0.8037.58",
+  "sources": {
+    ".build/segmentation-runtime-0.30.0-m1.28/src/scientific-npz-stream.js": "5159592040d7645f787a9021128a7a4c3bdec2cafd98a1bd32e6f58b3faf532e",
+    "experiments/exports/scientific-npz-write-cooperative.js": "59d1d91dd86a8003970b96ae550c108aa14296d529e7bc092290372621d628bb",
+    "src/scientific-npz-stream.js": "55d2ba67e332f794a7616fd325cdf1e8bba8f00e3b1b7984767434bfbf0b586c",
+    "scripts/study-neural-export-throughput.mjs": "e7c0b00c27698d1e8086c714887a8966b4be3719f8fac9b8192528afcaffcb64",
+    "tests/neural-export-throughput-worker.js": "3f44769ee57fe1122176058ea4b8ae296d2a1134a6d23f45529caa1e51b61815",
+    "src/segmented-bytes.js": "95841305545ea89d6c55ef0970ffec72012ad049849016c99f0a23f8d38569be",
+    "src/temporary-storage.js": "f1c01e4718e2d44298adcc341947b23ace4dc15248a99528dd271f911277ee41"
+  },
+  "originalInferenceProof": {
+    "file": "docs/neural-segmented-d2prl-large-cpu-extracted-proof.json",
+    "sha256": "65e9040aa2b9e05b38d1d73de1824cb75507f096400ebb90b96c6d69b14ffffa"
+  }
+}

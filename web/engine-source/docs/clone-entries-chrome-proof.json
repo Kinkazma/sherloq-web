@@ -1,0 +1,244 @@
+{
+  "passed": true,
+  "width": 1003,
+  "height": 1031,
+  "regions": 4,
+  "checkedPixels": 1034093,
+  "entries": [
+    {
+      "id": "d2prl-a9e82441de5c26f2710bf50f",
+      "source": "D2PRL",
+      "label": "D2PRL",
+      "count": 77200,
+      "count_kind": "pixels",
+      "color": [
+        230,
+        170,
+        30
+      ],
+      "pixel_mask": {
+        "width": 980,
+        "height": 990,
+        "sha256": "1605c07bc719d7587c6da9392d1eac77fa4d0a33b45ac783f2e11af64d451aea"
+      },
+      "origin": [
+        10,
+        10
+      ],
+      "polygons": [
+        [
+          [
+            10,
+            10
+          ],
+          [
+            10,
+            999
+          ],
+          [
+            989,
+            999
+          ],
+          [
+            989,
+            10
+          ]
+        ]
+      ],
+      "search_context": "d2prl-selected-zones",
+      "provenance": {
+        "min_component": 500,
+        "native_grid": [
+          448,
+          448
+        ],
+        "evidence": "segmentation",
+        "boxes": [
+          [
+            0,
+            0,
+            1003,
+            1031
+          ]
+        ]
+      }
+    },
+    {
+      "id": "d2prl-c07d70df06cbee5f34e1333f",
+      "source": "D2PRL",
+      "label": "D2PRL",
+      "count": 97500,
+      "count_kind": "pixels",
+      "color": [
+        230,
+        170,
+        30
+      ],
+      "pixel_mask": {
+        "width": 400,
+        "height": 400,
+        "sha256": "648b904ee3b4e499ceb9ca90a12c1761fadd11fadb3e44fdce18afdb0376a2cd"
+      },
+      "origin": [
+        100,
+        100
+      ],
+      "polygons": [
+        [
+          [
+            100,
+            100
+          ],
+          [
+            100,
+            499
+          ],
+          [
+            499,
+            499
+          ],
+          [
+            499,
+            100
+          ]
+        ]
+      ],
+      "search_context": "d2prl-selected-zones",
+      "provenance": {
+        "min_component": 500,
+        "native_grid": [
+          448,
+          448
+        ],
+        "evidence": "segmentation",
+        "boxes": [
+          [
+            0,
+            0,
+            1003,
+            1031
+          ]
+        ]
+      }
+    },
+    {
+      "id": "d2prl-4cf050ea4edad9af3946d092",
+      "source": "D2PRL",
+      "label": "D2PRL",
+      "count": 57500,
+      "count_kind": "pixels",
+      "color": [
+        230,
+        170,
+        30
+      ],
+      "pixel_mask": {
+        "width": 350,
+        "height": 200,
+        "sha256": "10b4ac825fc70fec282a60c6a92ae92b925ec108d725cc964c0477700b8ca3cd"
+      },
+      "origin": [
+        550,
+        550
+      ],
+      "polygons": [
+        [
+          [
+            550,
+            550
+          ],
+          [
+            550,
+            749
+          ],
+          [
+            899,
+            749
+          ],
+          [
+            899,
+            550
+          ]
+        ]
+      ],
+      "search_context": "d2prl-selected-zones",
+      "provenance": {
+        "min_component": 500,
+        "native_grid": [
+          448,
+          448
+        ],
+        "evidence": "segmentation",
+        "boxes": [
+          [
+            0,
+            0,
+            1003,
+            1031
+          ]
+        ]
+      }
+    },
+    {
+      "id": "d2prl-97de2ecc3645d59b7997c76f",
+      "source": "D2PRL",
+      "label": "D2PRL",
+      "count": 1003,
+      "count_kind": "pixels",
+      "color": [
+        230,
+        170,
+        30
+      ],
+      "pixel_mask": {
+        "width": 1003,
+        "height": 1,
+        "sha256": "cd6a25c2ca3f53fdbbb4beb357ec3b82ec0b4a2abb5eacb93bdc0d2ddc21aa10"
+      },
+      "origin": [
+        0,
+        1029
+      ],
+      "polygons": [
+        [
+          [
+            0,
+            1029
+          ],
+          [
+            1002,
+            1029
+          ]
+        ]
+      ],
+      "search_context": "d2prl-selected-zones",
+      "provenance": {
+        "min_component": 500,
+        "native_grid": [
+          448,
+          448
+        ],
+        "evidence": "segmentation",
+        "boxes": [
+          [
+            0,
+            0,
+            1003,
+            1031
+          ]
+        ]
+      }
+    }
+  ],
+  "exactNativeForgeryscopeEntries": 1,
+  "duplicateD2prlVotes": 1,
+  "holesPreserved": true,
+  "memory": {
+    "budgetBytes": 201326592,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 105030728
+  },
+  "browser": "154.0.8037.58"
+}

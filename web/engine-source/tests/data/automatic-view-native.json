@@ -1,0 +1,662 @@
+{
+  "native": {
+    "automatic_clones.py": "4d6b7f08b3af9fe8e7084e0dbadde5fb53d8f0a1fdecb8f22298ba3fe6d8f0b7",
+    "complete_analysis.py": "a9b530951136f91288194dd1c833ea3080450002d7faa734ba0e1e7f18137d4b"
+  },
+  "entries": [
+    {
+      "id": "within",
+      "source": "PatchMatch Zernike",
+      "relation": "within"
+    },
+    {
+      "id": "between",
+      "source": "PatchMatch SIFT",
+      "relation": "between"
+    },
+    {
+      "id": "microscopy",
+      "source": "Forgeryscope Auto",
+      "provenance": {
+        "branch": "microscopy"
+      }
+    },
+    {
+      "id": "blots",
+      "source": "Forgeryscope Auto",
+      "provenance": {
+        "branch": "blots"
+      }
+    },
+    {
+      "id": "lanes",
+      "source": "Forgeryscope Auto",
+      "provenance": {
+        "branch": "lanes"
+      }
+    },
+    {
+      "id": "d2",
+      "source": "D2PRL"
+    },
+    {
+      "id": "cell",
+      "source": "ELA biomes"
+    },
+    {
+      "id": "low",
+      "source": "ELA biomes",
+      "kind": "low"
+    },
+    {
+      "id": "high",
+      "source": "ELA biomes",
+      "kind": "high"
+    }
+  ],
+  "cases": [
+    {
+      "name": "mode-0",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 0,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2",
+        "cell",
+        "low",
+        "high"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "mode-1",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 1,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2",
+        "cell",
+        "low",
+        "high"
+      ],
+      "mode": 1,
+      "corroborating": false
+    },
+    {
+      "name": "mode-2",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 2,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [],
+      "mode": 2,
+      "corroborating": false
+    },
+    {
+      "name": "mode-3",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 3,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2",
+        "low"
+      ],
+      "mode": 3,
+      "corroborating": false
+    },
+    {
+      "name": "mode-4",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 4,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2",
+        "high"
+      ],
+      "mode": 4,
+      "corroborating": false
+    },
+    {
+      "name": "map-suppresses-ela",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "map",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 4,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2"
+      ],
+      "mode": 0,
+      "corroborating": true
+    },
+    {
+      "name": "within",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "within",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 0,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2",
+        "cell",
+        "low",
+        "high"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "between",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "between",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 0,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2",
+        "cell",
+        "low",
+        "high"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "branch",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 0,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": "blots"
+      },
+      "expected": [
+        "within",
+        "between",
+        "blots",
+        "d2",
+        "cell",
+        "low",
+        "high"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "energy-off",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 0,
+          "biomes": true
+        },
+        "elaEnergy": false,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2",
+        "cell"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "legacy-off",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 0,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": false,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2",
+        "low",
+        "high"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "ela-disabled",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 2,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "d2"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "d2-tab-ignores-ela-only",
+      "view": {
+        "complete": true,
+        "tab": "D2PRL",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 2,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "d2"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "ela-tab",
+      "view": {
+        "complete": true,
+        "tab": "ELA biomes",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 3,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "low"
+      ],
+      "mode": 3,
+      "corroborating": false
+    },
+    {
+      "name": "hidden",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [
+          "d2",
+          "cell",
+          "low"
+        ],
+        "focused": null,
+        "ela": {
+          "background": 0,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "within",
+        "between",
+        "microscopy",
+        "blots",
+        "lanes",
+        "high"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "focused",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "Forgeryscope Auto",
+          "PatchMatch Zernike",
+          "PatchMatch SIFT",
+          "SIFT + G2NN + RANSAC + Panels + Text",
+          "D2PRL",
+          "ELA biomes"
+        ],
+        "hidden": [],
+        "focused": "blots",
+        "ela": {
+          "background": 0,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "blots"
+      ],
+      "mode": 0,
+      "corroborating": false
+    },
+    {
+      "name": "disabled-source",
+      "view": {
+        "complete": true,
+        "tab": "overlay",
+        "presentation": "biomes",
+        "relation": "all",
+        "enabledSources": [
+          "ELA biomes",
+          "D2PRL"
+        ],
+        "hidden": [],
+        "focused": null,
+        "ela": {
+          "background": 0,
+          "biomes": true
+        },
+        "elaEnergy": true,
+        "elaLegacy": true,
+        "forgeryscopeBranch": ""
+      },
+      "expected": [
+        "d2",
+        "cell",
+        "low",
+        "high"
+      ],
+      "mode": 0,
+      "corroborating": false
+    }
+  ]
+}

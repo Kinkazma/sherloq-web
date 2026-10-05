@@ -1,0 +1,232 @@
+{
+  "passed": true,
+  "scope": "Real M2 Forgeryscope provider in the common automatic analyzer, 2008x1444 source; three other detector groups explicitly unavailable. This does not qualify 96MP or five-engine composition.",
+  "sourceSha256": "43ebe5fbe0c5786280753926ff3fe4f355c791f527ba48fa767df20b01bb0e6d",
+  "dimensions": [
+    2008,
+    1444
+  ],
+  "state": {
+    "states": {
+      "patchmatch": "failed",
+      "sift": "failed",
+      "forgeryscope": "done",
+      "d2prl": "failed"
+    },
+    "errors": {
+      "patchmatch": {
+        "code": "ENGINE_UNAVAILABLE",
+        "message": "Real automatic provider unavailable: patchmatch"
+      },
+      "sift": {
+        "code": "ENGINE_UNAVAILABLE",
+        "message": "Real automatic provider unavailable: sift"
+      },
+      "d2prl": {
+        "code": "ENGINE_UNAVAILABLE",
+        "message": "Real automatic provider unavailable: d2prl"
+      }
+    },
+    "attempts": {
+      "patchmatch": 1,
+      "sift": 1,
+      "forgeryscope": 1,
+      "d2prl": 1
+    },
+    "completed": [
+      "forgeryscope"
+    ],
+    "running": [],
+    "preflightExecutions": 0
+  },
+  "fields": {
+    "mask": {
+      "byteLength": 2899552,
+      "sha256": "78a3603c95e58ce86b6044ca605f6054d56a69df7b9eaf5144b8050a42d16d08",
+      "nativeExact": true
+    },
+    "map": {
+      "byteLength": 11598208,
+      "sha256": "6103fc861352965e2ac4e49b352296574a9850f93e7c74dbb187307ef587ee26",
+      "nativeExact": true
+    },
+    "candidates": {
+      "byteLength": 2899552,
+      "sha256": "23de6636aed859ff3d3f84b8390ba914dc4a78aa6893015bb3d1a5492ef5391e",
+      "nativeExact": true
+    },
+    "geometric": {
+      "byteLength": 2899552,
+      "sha256": "78a3603c95e58ce86b6044ca605f6054d56a69df7b9eaf5144b8050a42d16d08",
+      "nativeExact": true
+    },
+    "branch_microscopy": {
+      "byteLength": 2899552,
+      "sha256": "23de6636aed859ff3d3f84b8390ba914dc4a78aa6893015bb3d1a5492ef5391e",
+      "nativeExact": true
+    },
+    "branch_blots": {
+      "byteLength": 2899552,
+      "sha256": "78a3603c95e58ce86b6044ca605f6054d56a69df7b9eaf5144b8050a42d16d08",
+      "nativeExact": true
+    },
+    "branch_lanes": {
+      "byteLength": 2899552,
+      "sha256": "23de6636aed859ff3d3f84b8390ba914dc4a78aa6893015bb3d1a5492ef5391e",
+      "nativeExact": true
+    }
+  },
+  "differences": [
+    {
+      "scoreAbsoluteError": 1.7285346984863281e-06,
+      "polygonMaxPixels": 6.103515625e-05,
+      "inliers": 272,
+      "accepted": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "61b99f8647ddf23cdd2cef28",
+      "source": "Forgeryscope Auto",
+      "polygons": [
+        [
+          [
+            791.8955078125,
+            1409.847900390625
+          ],
+          [
+            305.8955383300781,
+            1409.73291015625
+          ],
+          [
+            305.8955383300781,
+            1321.806640625
+          ],
+          [
+            791.8955078125,
+            1321.9215087890625
+          ]
+        ],
+        [
+          [
+            312.3782653808594,
+            286.1158142089844
+          ],
+          [
+            783.7490234375,
+            286.1158142089844
+          ],
+          [
+            784.673095703125,
+            362.1158142089844
+          ],
+          [
+            313.30230712890625,
+            362.1158142089844
+          ]
+        ]
+      ],
+      "count": 272,
+      "color": [
+        105,
+        242,
+        48
+      ],
+      "provenance": {
+        "zone": 0,
+        "comparison": 0,
+        "score": 0.7529157996177673,
+        "branch": "blots",
+        "evidence": "geometry",
+        "accepted": true
+      },
+      "label": "Forgeryscope Auto \u00b7 Western blots \u00b7 Geometry",
+      "center_distance_px": 1041.7114910604396,
+      "search_context": "forgeryscope-zone:0",
+      "relation": "within",
+      "endpoint_zones": [
+        0,
+        0
+      ],
+      "heat_eligible": true,
+      "search_label": "Enclosing zone",
+      "from_enclosing_search": false,
+      "biome_fill_alpha": [
+        0.25,
+        0.25
+      ]
+    }
+  ],
+  "metrics": {
+    "zones": [
+      {
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 4294967296,
+          "retainedBytes": 3880017049,
+          "cacheBytes": 0,
+          "activeReservationBytes": 25932610,
+          "peakAccountedBytes": 4277611091
+        },
+        "preflightExecutions": 0,
+        "segmented": true
+      }
+    ],
+    "preflightExecutions": 0,
+    "memory": {
+      "budgetBytes": 4294967296,
+      "retainedBytes": 3880017049,
+      "cacheBytes": 0,
+      "activeReservationBytes": 25988670,
+      "peakAccountedBytes": 4277611091
+    }
+  },
+  "times": {
+    "loadMs": 209.30000001192093,
+    "analysisMs": 134597.20000000298,
+    "exportMs": 1291.7999999970198
+  },
+  "totalMs": 137261.79999999702,
+  "archive": {
+    "byteLength": 46458112,
+    "sha256": "c074a98a1824686eec377ba8b99afe3f539af1f6b29643af999cded9cc85a60d",
+    "verified": [
+      "root_results_forgeryscope_mask",
+      "root_results_forgeryscope_map",
+      "root_results_forgeryscope_candidates",
+      "root_results_forgeryscope_geometric",
+      "root_results_forgeryscope_branch_microscopy",
+      "root_results_forgeryscope_branch_blots",
+      "root_results_forgeryscope_branch_lanes",
+      "root_results_forgeryscope_analyzed"
+    ],
+    "arrays": [
+      "root_results_forgeryscope_map",
+      "root_results_forgeryscope_mask",
+      "root_results_forgeryscope_candidates",
+      "root_results_forgeryscope_analyzed",
+      "root_results_forgeryscope_geometric",
+      "root_results_forgeryscope_branch_microscopy",
+      "root_results_forgeryscope_branch_blots",
+      "root_results_forgeryscope_branch_lanes",
+      "root_corroboration_counts",
+      "root_corroboration_context_counts",
+      "metadata_json",
+      "browser_provenance_json"
+    ]
+  },
+  "memory": {
+    "budgetBytes": 4294967296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 4277611091
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile removed after qualification",
+  "engineCommit": "44b2237",
+  "timingScope": "Shared host load; complete browser recipe including native comparisons and export readback, not isolated speed or OS RSS."
+}

@@ -1,0 +1,273 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Regression of26 previously qualified feature/union convolutions with generalized grouped/strided kernel",
+  "zeroOnly": false,
+  "records": [
+    {
+      "name": "448-cnn-0",
+      "elements": 13542400,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-3",
+      "elements": 26849792,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-6",
+      "elements": 26382848,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-9",
+      "elements": 12845056,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-cnn-12",
+      "elements": 6422528,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-zm-real",
+      "elements": 2408448,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "448-zm-imag",
+      "elements": 2408448,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-0",
+      "elements": 6150400,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-3",
+      "elements": 12142592,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-6",
+      "elements": 11829248,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-9",
+      "elements": 5683456,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-cnn-12",
+      "elements": 2841728,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-zm-real",
+      "elements": 1065648,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "298-zm-imag",
+      "elements": 1065648,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-0",
+      "elements": 23736384,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-3",
+      "elements": 47161472,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-6",
+      "elements": 46541952,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-9",
+      "elements": 22810176,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-cnn-12",
+      "elements": 11405088,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-zm-real",
+      "elements": 4276908,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "597-zm-imag",
+      "elements": 4276908,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "union-0",
+      "elements": 12845056,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "union-3",
+      "elements": 25690112,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "union-6",
+      "elements": 12845056,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "union-9",
+      "elements": 3211264,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "union-12",
+      "elements": 200704,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    }
+  ],
+  "cases": 26,
+  "peakAccountedBytes": 951657984,
+  "allReservationsReleased": true,
+  "browser": "154.0.8037.58",
+  "sourceSha256": "9243f33d578bd337ddb5109667ae7641f33b275077b0cc18473cf5398fefe504"
+}

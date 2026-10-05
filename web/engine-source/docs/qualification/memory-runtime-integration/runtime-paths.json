@@ -1,0 +1,8 @@
+{
+  "references": 2337,
+  "baseDirectories": 92,
+  "missing": [],
+  "outsideRuntimeManifest": [],
+  "manifestSha256": "15edf791b30131b068e009b8193a6bdbd666aa68ee71a350a93d1db59ef51f53",
+  "scope": "Literal ESM imports and URL paths in all manifested JavaScript; dynamic paths require the browser proofs."
+}

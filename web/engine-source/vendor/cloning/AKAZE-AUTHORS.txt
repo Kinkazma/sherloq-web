@@ -1,0 +1,64 @@
+/**
+ * @file AKAZEFeatures.cpp
+ * @brief Main class for detecting and describing binary features in an
+ * accelerated nonlinear scale space
+ * @date Sep 15, 2013
+ * @author Pablo F. Alcantarilla, Jesus Nuevo
+ */
+
+
+//=============================================================================
+//
+// nldiffusion_functions.cpp
+// Author: Pablo F. Alcantarilla
+// Institution: University d'Auvergne
+// Address: Clermont Ferrand, France
+// Date: 27/12/2011
+// Email: pablofdezalc@gmail.com
+//
+// KAZE Features Copyright 2012, Pablo F. Alcantarilla
+// All Rights Reserved
+// See LICENSE for the license information
+//=============================================================================
+
+/**
+ * @file nldiffusion_functions.cpp
+ * @brief Functions for non-linear diffusion applications:
+ * 2D Gaussian Derivatives
+ * Perona and Malik conductivity equations
+ * Perona and Malik evolution
+ * @date Dec 27, 2011
+ * @author Pablo F. Alcantarilla
+ */
+
+
+//=============================================================================
+//
+// fed.cpp
+// Authors: Pablo F. Alcantarilla (1), Jesus Nuevo (2)
+// Institutions: Georgia Institute of Technology (1)
+//               TrueVision Solutions (2)
+// Date: 15/09/2013
+// Email: pablofdezalc@gmail.com
+//
+// AKAZE Features Copyright 2013, Pablo F. Alcantarilla, Jesus Nuevo
+// All Rights Reserved
+// See LICENSE for the license information
+//=============================================================================
+
+/**
+ * @file fed.cpp
+ * @brief Functions for performing Fast Explicit Diffusion and building the
+ * nonlinear scale space
+ * @date Sep 15, 2013
+ * @author Pablo F. Alcantarilla, Jesus Nuevo
+ * @note This code is derived from FED/FJ library from Grewenig et al.,
+ * The FED/FJ library allows solving more advanced problems
+ * Please look at the following papers for more information about FED:
+ * [1] S. Grewenig, J. Weickert, C. Schroers, A. Bruhn. Cyclic Schemes for
+ * PDE-Based Image Analysis. Technical Report No. 327, Department of Mathematics,
+ * Saarland University, Saarbrücken, Germany, March 2013
+ * [2] S. Grewenig, J. Weickert, A. Bruhn. From box filtering to fast explicit diffusion.
+ * DAGM, 2010
+ *
+*/

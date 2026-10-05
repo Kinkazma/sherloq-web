@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "corpus": {
+    "cases": 32
+  },
+  "results": [
+    {
+      "dimensions": [
+        4000,
+        5500
+      ],
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "passes": 1,
+      "codecHeapMaximumBytes": 33554432,
+      "codecHeapCapacityBytes": 16777216,
+      "rowsPerChunk": 32,
+      "encodedReadCalls": 2,
+      "fullNativeRgbSha": "dee7b43f00ca3aa3f0f3ffa094197c2ae770b520fba128ccb13f54524ecfb49d",
+      "sixPerceptualHashes": true,
+      "peakAccountedBytes": 92742688
+    },
+    {
+      "dimensions": [
+        1025,
+        769
+      ],
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "passes": 7,
+      "codecHeapMaximumBytes": 33554432,
+      "codecHeapCapacityBytes": 16777216,
+      "rowsPerChunk": 32,
+      "encodedReadCalls": 9,
+      "fullNativeRgbSha": "eed41d89264b15fefda5355760362b3f8e8d1b40ec144f914d03aa4b8bd6b6d0",
+      "sixPerceptualHashes": false,
+      "peakAccountedBytes": 42303584,
+      "cancellationMode": "storage-closed-before-worker-termination"
+    }
+  ],
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

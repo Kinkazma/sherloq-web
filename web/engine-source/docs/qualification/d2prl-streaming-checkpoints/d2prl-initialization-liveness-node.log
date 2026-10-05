@@ -1,0 +1,132 @@
+TAP version 13
+# (node:97939) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: adapter-owned projected outputs and raw grid copies survive adapter disposal
+ok 1 - adapter-owned projected outputs and raw grid copies survive adapter disposal
+  ---
+  duration_ms: 358.620708
+  type: 'test'
+  ...
+# Subtest: weights stream to stable Wasm, reuse retained parameters, release exact ownership
+ok 2 - weights stream to stable Wasm, reuse retained parameters, release exact ownership
+  ---
+  duration_ms: 168.036458
+  type: 'test'
+  ...
+# Subtest: two network refusals preserve hashed prefix with validated Range
+ok 3 - two network refusals preserve hashed prefix with validated Range
+  ---
+  duration_ms: 377.344
+  type: 'test'
+  ...
+# Subtest: two network refusals preserve hashed prefix with 200 fallback
+ok 4 - two network refusals preserve hashed prefix with 200 fallback
+  ---
+  duration_ms: 328.274917
+  type: 'test'
+  ...
+# Subtest: allocation retry does not re-read committed data; terminal keeps prefix for explicit resume
+ok 5 - allocation retry does not re-read committed data; terminal keeps prefix for explicit resume
+  ---
+  duration_ms: 383.971958
+  type: 'test'
+  ...
+# Subtest: wrong size/hash/range never publish a parameter and cancellation clears incomplete banks
+ok 6 - wrong size/hash/range never publish a parameter and cancellation clears incomplete banks
+  ---
+  duration_ms: 430.649583
+  type: 'test'
+  ...
+# Subtest: initial Wasm refusal is retried without fetching and int64 offsets stay exact
+ok 7 - initial Wasm refusal is retried without fetching and int64 offsets stay exact
+  ---
+  duration_ms: 28.196042
+  type: 'test'
+  ...
+# Subtest: different live parameter extents share one bank and one SHA instance without whole-heap views
+ok 8 - different live parameter extents share one bank and one SHA instance without whole-heap views
+  ---
+  duration_ms: 2.098375
+  type: 'test'
+  ...
+# Subtest: an EOF network fault resumes at the final byte without hashing the prefix twice
+ok 9 - an EOF network fault resumes at the final byte without hashing the prefix twice
+  ---
+  duration_ms: 223.53375
+  type: 'test'
+  ...
+# Subtest: chunk admission refusal holds the received bytes and retries admission without reopening HTTP
+ok 10 - chunk admission refusal holds the received bytes and retries admission without reopening HTTP
+  ---
+  duration_ms: 121.188125
+  type: 'test'
+  ...
+# Subtest: large interrupted responses continue in bounded closed ranges accepted by the production host
+ok 11 - large interrupted responses continue in bounded closed ranges accepted by the production host
+  ---
+  duration_ms: 517.945042
+  type: 'test'
+  ...
+# Subtest: autonomous initialization retains its ticket until owned success settles
+ok 12 - autonomous initialization retains its ticket until owned success settles
+  ---
+  duration_ms: 1.351625
+  type: 'test'
+  ...
+# Subtest: autonomous initialization retains its ticket until rejection settles
+ok 13 - autonomous initialization retains its ticket until rejection settles
+  ---
+  duration_ms: 0.330875
+  type: 'test'
+  ...
+# Subtest: real D2 model factory is visible during deferred native initialization and releases after failure
+ok 14 - real D2 model factory is visible during deferred native initialization and releases after failure
+  ---
+  duration_ms: 1.030625
+  type: 'test'
+  ...
+# Subtest: deferred SHA initialization is a productive child until publication
+ok 15 - deferred SHA initialization is a productive child until publication
+  ---
+  duration_ms: 42.05225
+  type: 'test'
+  ...
+# Subtest: deferred SHA initialization is a productive child until cancellation settles
+ok 16 - deferred SHA initialization is a productive child until cancellation settles
+  ---
+  duration_ms: 1.107042
+  type: 'test'
+  ...
+# Subtest: parameter fetch remains visible until bytes arrive
+ok 17 - parameter fetch remains visible until bytes arrive
+  ---
+  duration_ms: 3.695708
+  type: 'test'
+  ...
+# Subtest: parameter fetch remains visible until cancelled IO settles
+ok 18 - parameter fetch remains visible until cancelled IO settles
+  ---
+  duration_ms: 1.175166
+  type: 'test'
+  ...
+# Subtest: parameter read remains visible until bytes arrive
+ok 19 - parameter read remains visible until bytes arrive
+  ---
+  duration_ms: 1.355792
+  type: 'test'
+  ...
+# Subtest: parameter read remains visible until cancelled IO settles
+ok 20 - parameter read remains visible until cancelled IO settles
+  ---
+  duration_ms: 7.783791
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2696.073084

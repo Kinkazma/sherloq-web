@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "width": 42,
+  "height": 285,
+  "arrays": 10,
+  "exactNative": true,
+  "scratchAndArchiveStorage": "opfs",
+  "outputBytes": 82374,
+  "cancellationCleanup": true,
+  "memory": {
+    "budgetBytes": 100663296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 69259776
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

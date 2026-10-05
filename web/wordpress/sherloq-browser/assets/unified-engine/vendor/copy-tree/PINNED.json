@@ -1,0 +1,14 @@
+{
+  "scipy": "1.17.1",
+  "emscripten": "4.0.15",
+  "files": {
+    "copy-tree.js": {
+      "bytes": 7513,
+      "sha256": "9a5daa62e9f24f91892a53dcbe6418b901eaf888b15715c31d367ed09adff47d"
+    },
+    "copy-tree.wasm": {
+      "bytes": 9518,
+      "sha256": "cb721cd10bac54dde502081d14e67d219609437cfd59093c15e4b564b60c131e"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "scope": "Sequential 1 MP Wiener residual extraction in one browser realm; pinned seeds preloaded; independent output copy included; every float64 bit compared outside timing.",
+  "experiments": [
+    {
+      "fast": false,
+      "coldMs": 1110.6000000238419,
+      "samples": [
+        1077.199999988079,
+        1082.3999999761581,
+        1073.699999988079
+      ],
+      "medianMs": 1077.199999988079
+    },
+    {
+      "fast": true,
+      "coldMs": 406.30000001192093,
+      "samples": [
+        405.2999999523163,
+        405.19999998807907,
+        405.30000001192093
+      ],
+      "medianMs": 405.2999999523163
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

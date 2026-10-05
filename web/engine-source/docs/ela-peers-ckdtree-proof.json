@@ -1,0 +1,38 @@
+[
+  {
+    "n": 17,
+    "mode": "random",
+    "indicesChanged": 0,
+    "maxDistanceError": 2.220446049250313e-16
+  },
+  {
+    "n": 129,
+    "mode": "random",
+    "indicesChanged": 0,
+    "maxDistanceError": 2.220446049250313e-16
+  },
+  {
+    "n": 257,
+    "mode": "random",
+    "indicesChanged": 0,
+    "maxDistanceError": 2.220446049250313e-16
+  },
+  {
+    "n": 257,
+    "mode": "identical",
+    "indicesChanged": 0,
+    "maxDistanceError": 0
+  },
+  {
+    "n": 513,
+    "mode": "duplicates",
+    "indicesChanged": 0,
+    "maxDistanceError": 0
+  },
+  {
+    "n": 257,
+    "mode": "grid",
+    "indicesChanged": 0,
+    "maxDistanceError": 0
+  }
+]

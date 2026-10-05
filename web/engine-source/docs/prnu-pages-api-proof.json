@@ -1,0 +1,117 @@
+{
+  "sessions": [
+    {
+      "mode": "bytes",
+      "metrics": {
+        "fingerprintLayout": "segmented",
+        "encodedLayout": "bytes",
+        "temporaryBackend": "opfs",
+        "preparationMs": 8078.70000000298,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 84671,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 101455197,
+          "hdf5HeapCapacityBytes": 19333120
+        }
+      },
+      "afterUnload": true
+    },
+    {
+      "mode": "blob",
+      "metrics": {
+        "fingerprintLayout": "segmented",
+        "encodedLayout": "blob",
+        "originalBlobBytes": 79737,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "temporaryBackend": "opfs",
+        "preparationMs": 7671.79999999702,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 4934,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 101455197,
+          "hdf5HeapCapacityBytes": 19333120
+        }
+      },
+      "afterUnload": true
+    }
+  ],
+  "built": {
+    "id": "new",
+    "kind": "prnu-database",
+    "sha256": "773c8a51577b3310fdfec169db0158eeb48dcf2b2f7ff89fad2e165d0f2b93ab",
+    "schema": "sherloq-wiener-ncc-1",
+    "legacy": false,
+    "complete": true,
+    "trainingMembershipVerified": true,
+    "cameras": [
+      {
+        "name": "camera_alpha",
+        "width": 85,
+        "height": 87,
+        "nImages": 3,
+        "nUsed": 3,
+        "skippedImages": []
+      },
+      {
+        "name": "camera_beta",
+        "width": 87,
+        "height": 89,
+        "nImages": 2,
+        "nUsed": 2,
+        "skippedImages": []
+      }
+    ],
+    "metrics": {
+      "workers": 1,
+      "completedStripJobs": 30,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "temporaryBackend": "opfs",
+      "encodedLayout": "pages",
+      "encodedBytes": 53327,
+      "fingerprintLayout": "segmented",
+      "preparationMs": 29931.70000000298,
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 29643,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 124619177,
+        "hdf5HeapCapacityBytes": 19333120
+      }
+    }
+  },
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 124619177,
+    "knownHeapCapacityBytes": 52887552
+  },
+  "exportAfterUnload": true,
+  "independentLeases": true,
+  "byteAndBlobReadProgress": true,
+  "byteAndPagedWriteProgress": true,
+  "progress": {
+    "prnu-hdf5-read": {
+      "phase": "prnu-hdf5-read",
+      "completed": 15138,
+      "total": 15138,
+      "camera": "camera_beta"
+    },
+    "prnu-hdf5-write": {
+      "phase": "prnu-hdf5-write",
+      "completed": 15138,
+      "total": 15138,
+      "camera": "camera_beta"
+    }
+  },
+  "integrationVersion": "0.31.0-integration.10",
+  "pinnedM4": "6a2e0e6",
+  "runtimeManifestSha256": "766d2f14c333eb07ed15b04ceb3a943c149daa79daa0f73cc84534622492561b"
+}

@@ -1,0 +1,98 @@
+{
+  "status": "passed",
+  "dimensions": [
+    4103,
+    5401
+  ],
+  "nativeEmbeddedAndBothPlanes": true,
+  "metrics": {
+    "extraction": {
+      "wasmHeapBytes": 38600704,
+      "wasmMaximumBytes": 134217728,
+      "outputBytes": 1293,
+      "sourceReads": {
+        "count": 12,
+        "totalBytes": 76420,
+        "maximumBytes": 8192
+      },
+      "reservationBytes": 570635650,
+      "sourceCopyBytes": 0,
+      "workers": 1,
+      "pixelDecode": false,
+      "cache": {
+        "result": false
+      }
+    },
+    "decode": {
+      "heapBytes": 16777216
+    },
+    "kernel": "native-lanczos4-segmented-comparison",
+    "codecHeapCapacityBytes": 83427328,
+    "codecHeapMaximumBytes": 117440512,
+    "workspaceBytes": 126632367,
+    "maxSourceWindowBytes": 393888,
+    "resizedStorage": "memory",
+    "differenceStorage": "memory",
+    "cache": {
+      "analysis": false,
+      "result": false
+    },
+    "temporaryBackend": null,
+    "totalMs": 2794.89999999851,
+    "memory": {
+      "budgetBytes": 671088640,
+      "retainedBytes": 199453793,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 637116559
+    }
+  },
+  "png": {
+    "id": "c3b94fde-0f29-446f-b65c-c57ddf2bb0c0",
+    "revision": 1,
+    "mime": "image/png",
+    "format": "png",
+    "width": 4103,
+    "height": 5401,
+    "byteLength": 15011163,
+    "sha256": "5147fd2c9f054ffcccda451d8d786e048ef3ef79f5ee9c52e1c4a3269636361e",
+    "imageId": "large",
+    "sourceSurfaceId": "836078d7-55fc-464c-b173-e8980cff0a9f",
+    "sourceSurfaceRevision": 1,
+    "sourceFormat": "rgb8",
+    "provenance": {
+      "originalSha256": "eac4e260a3d16bc045cfc5d22b3bd563dbd0bb9df3fa0016677a956d21b8d4d2",
+      "coordinates": "full-resolution",
+      "pixels": "exact surface bytes",
+      "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+      "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+      "compression": 6
+    },
+    "metrics": {
+      "storage": "memory",
+      "temporaryBackend": null,
+      "outputCapacityBytes": 67567373,
+      "encodedWriteCalls": 58,
+      "maxSourceWindowBytes": 393888,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 16777216,
+      "memory": {
+        "budgetBytes": 671088640,
+        "retainedBytes": 267021166,
+        "cacheBytes": 0,
+        "activeReservationBytes": 25427968,
+        "peakAccountedBytes": 637116559
+      }
+    }
+  },
+  "memory": {
+    "budgetBytes": 671088640,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 637116559,
+    "knownHeapCapacityBytes": 0
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

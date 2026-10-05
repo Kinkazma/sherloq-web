@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "sourceCommit": "3fe9f5a8bf5f39f7eb304a440bcc7c7d73866e69",
+  "command": "FORGERYSCOPE_PREPARATION_MODULE=/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/forgeryscope/prepare.mjs node --test tests/preparation-lifecycle.test.mjs",
+  "tests": 7,
+  "pass": 7,
+  "fail": 0,
+  "skipped": 0,
+  "log": "docs/qualification/forgeryscope-preparation/preparation-admission-node.log",
+  "logSha256": "cd18e9423e832fa7f65ce8c66de527edfc7542cfc6a81efaf0ea530218042ead",
+  "nativeFixture": [
+    {
+      "path": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/forgeryscope/prepare.mjs",
+      "sha256": "afd9f6b45d9b0cd77037ba44d438b0e645c0db493ead35a3102d3ee311af6f1d"
+    },
+    {
+      "path": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/forgeryscope/prepare.wasm",
+      "sha256": "2193f57450cb04ca5aa18886720aa67e93ad6cf0fee6d12981f623bfec7a2c82"
+    }
+  ],
+  "coverage": [
+    "Factory IO is visible while pending and consumes no CPU lease. Native work waits behind an occupied CPU, then owns CPU1 until its pointers are freed.",
+    "Cancellation while the factory is unresolved preserves activity and heap accounting until settlement. Abort/dispose while queued retire only this request; native failure frees pointers and CPU.",
+    "The real native embedding kernel is invoked through the production preparation wrapper. Its output bytes match a direct invocation of the same unchanged native kernel; this is wrapper parity, not an additional external scientific oracle.",
+    "CAT-Net inherits admission with its own explicit resource owner. Every test finishes with zero tracked operations and budget."
+  ],
+  "limits": [
+    "No browser, 96 MP calculation, calibration, capacity probe, numerical change or worker/memory limit change.",
+    "CPU admission is a scheduler guarantee, not a measurement of physical CPU usage. Native compilation/initialization is visible IO without holding an application CPU slot."
+  ]
+}

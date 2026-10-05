@@ -1,0 +1,143 @@
+{
+  "browser": "154.0.8037.58",
+  "algorithm": "XFeat + LighterGlue",
+  "backend": "webgpu",
+  "source": {
+    "file": "m3-96mp-noise-copy.jpg",
+    "width": 12000,
+    "height": 8000,
+    "description": "Public deterministic full-resolution RGB noise (seed130014); entire6000x8000 left half copied at dx6000 before JPEG90 encoding.",
+    "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+    "bytes": 80426021
+  },
+  "loadMs": 4269.70000000298,
+  "totalMs": 65266.40000000596,
+  "points": 6000,
+  "pairs": 23,
+  "groups": 1,
+  "metadata": {
+    "extraction": {
+      "family": "XFeat",
+      "provider": "webgpu",
+      "execution": "global-normalization-paged-backbone-global-selection",
+      "executions": 96,
+      "retries": 0,
+      "failures": [],
+      "maximumActualHeapBytes": 62324736,
+      "preflightExecutions": 0,
+      "halo": 256,
+      "coreSize": 1024,
+      "workers": 2,
+      "workerAdmittedBytes": 2864709632,
+      "preparation": {
+        "width": 12000,
+        "height": 8000,
+        "mean": 127.49307250976562,
+        "inverseStd": 0.020488599315285683,
+        "reads": 127,
+        "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+      },
+      "storage": {
+        "gray": "memory",
+        "heat": "memory",
+        "dense": "memory",
+        "bytes": 1152000000
+      },
+      "finalWorkers": 2,
+      "globalCandidates": 2711345,
+      "postHeapBytes": 43515904,
+      "maskHeapBytes": 96862208
+    },
+    "matching": {
+      "kind": "xfeat",
+      "runs": [
+        {
+          "provider": "webgpu",
+          "execution": "native-layers-global-csr-row-pages",
+          "actualHeapBytes": 29097984,
+          "attentionHeapBytes": 16777216,
+          "maximumHeapBytes": 536870912,
+          "threads": 1,
+          "totalMs": 27438.90000000596,
+          "maximumConfidence": 0.6479222178459167,
+          "above": {
+            "point1": 142,
+            "point3": 46,
+            "point7": 0,
+            "point9": 0
+          },
+          "attentionPages": 564,
+          "assignmentPages": 550,
+          "maximumPageEdges": 767862,
+          "preflightExecutions": 0,
+          "zone": 0,
+          "candidates": 35992512,
+          "gpuEstimatedBytes": 536870912
+        }
+      ],
+      "failures": [],
+      "preflightExecutions": 0
+    },
+    "stageCache": {
+      "features": false,
+      "matches": false,
+      "groups": false
+    },
+    "counts": {
+      "detections": 1,
+      "matchings": 1,
+      "groupings": 1,
+      "ocr": 0
+    },
+    "preflightExecutions": 0,
+    "coordinates": "original-pixel-centres",
+    "colorOrder": "BGR",
+    "qualification": "native-arithmetic-differences-unresolved",
+    "method": "sparse"
+  },
+  "params": {
+    "algorithm": "XFeat + LighterGlue",
+    "reflections": false,
+    "radius": 20000,
+    "minimum": 5,
+    "threshold": 0.7,
+    "tolerance": 300,
+    "geometricMinimum": 4
+  },
+  "exports": [
+    {
+      "format": "npz",
+      "bytes": 1370147
+    },
+    {
+      "format": "png",
+      "bytes": 144425342,
+      "sha256": "0786869974739630e9a9dc1d04c5bf445d5124691bf2c5414ec554e23e02b7cc",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 289197244,
+        "encodedWriteCalls": 551,
+        "maxSourceWindowBytes": 1152000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 865198256,
+          "cacheBytes": 8987512,
+          "activeReservationBytes": 122159104,
+          "peakAccountedBytes": 4797999968
+        }
+      }
+    }
+  ],
+  "output": "xfeat-lighterglue",
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 4797999968,
+    "knownHeapCapacityBytes": 96731136
+  }
+}

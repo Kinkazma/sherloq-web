@@ -1,0 +1,11 @@
+{
+  "command": "node --experimental-test-module-mocks --test tests/*.test.mjs",
+  "passed": 1393,
+  "failed": 0,
+  "skipped": 0,
+  "durationMs": 661804.660541,
+  "additionalTargetedTests": {
+    "schedulerAfterGraphPublicationMove": 44
+  },
+  "scope": "Development regression suite; the scheduler graph publication order was changed during this run and then its 44 relevant tests were rerun successfully. Not a 96 MP performance result."
+}

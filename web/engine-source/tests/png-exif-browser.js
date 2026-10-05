@@ -1,0 +1,2 @@
+import {createWorkerEngine} from '../src/worker-client.js';import {checkPngExif} from './png-exif-fixture.js';
+export async function pngExifBrowserTest(){const engine=createWorkerEngine(),root='/tests/data/png-exif/',ref=await(await fetch(root+'reference.json')).json();try{return await checkPngExif(engine,async name=>new Uint8Array(await(await fetch(root+name)).arrayBuffer()),async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join(''),ref);}finally{engine.dispose();}}

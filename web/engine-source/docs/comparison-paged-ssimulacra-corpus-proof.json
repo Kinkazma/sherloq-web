@@ -1,0 +1,926 @@
+[
+  {
+    "name": "tiny",
+    "width": 1,
+    "height": 1,
+    "values": [
+      null
+    ],
+    "native": [
+      null
+    ],
+    "absoluteErrors": [
+      null
+    ],
+    "metrics": {
+      "workspace": 33554832,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 0,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 11.370666
+  },
+  {
+    "name": "small",
+    "width": 3,
+    "height": 5,
+    "values": [
+      null
+    ],
+    "native": [
+      null
+    ],
+    "absoluteErrors": [
+      null
+    ],
+    "metrics": {
+      "workspace": 33556592,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 0,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 2.7063339999999982
+  },
+  {
+    "name": "zero",
+    "width": 16,
+    "height": 16,
+    "values": [
+      0
+    ],
+    "native": [
+      0
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33580032,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 12288,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 95.783583
+  },
+  {
+    "name": "constant",
+    "width": 32,
+    "height": 32,
+    "values": [
+      0.0002103
+    ],
+    "native": [
+      0.0002103
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33626112,
+      "workers": 1,
+      "paged": true,
+      "reads": 656,
+      "writes": 368,
+      "readBytes": 83968,
+      "writeBytes": 47104,
+      "temporaryPeakBytes": 49152,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 144.72325
+  },
+  {
+    "name": "same",
+    "width": 47,
+    "height": 49,
+    "values": [
+      1e-08
+    ],
+    "native": [
+      1e-08
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33659712,
+      "workers": 1,
+      "paged": true,
+      "reads": 2006,
+      "writes": 1127,
+      "readBytes": 377128,
+      "writeBytes": 211876,
+      "temporaryPeakBytes": 110544,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 214.53108399999996
+  },
+  {
+    "name": "shift",
+    "width": 65,
+    "height": 63,
+    "values": [
+      0.78985177
+    ],
+    "native": [
+      0.78985177
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33700032,
+      "workers": 1,
+      "paged": true,
+      "reads": 3127,
+      "writes": 1801,
+      "readBytes": 741212,
+      "writeBytes": 421796,
+      "temporaryPeakBytes": 196560,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 271.225417
+  },
+  {
+    "name": "brightness",
+    "width": 97,
+    "height": 99,
+    "values": [
+      0.00369563
+    ],
+    "native": [
+      0.00369563
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33771712,
+      "workers": 1,
+      "paged": true,
+      "reads": 5824,
+      "writes": 3423,
+      "readBytes": 1907340,
+      "writeBytes": 1099092,
+      "temporaryPeakBytes": 460944,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 366.792541
+  },
+  {
+    "name": "noise",
+    "width": 131,
+    "height": 127,
+    "values": [
+      0.00421847
+    ],
+    "native": [
+      0.00421847
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33847872,
+      "workers": 1,
+      "paged": true,
+      "reads": 7943,
+      "writes": 4697,
+      "readBytes": 3376852,
+      "writeBytes": 1950892,
+      "temporaryPeakBytes": 798576,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 532.868209
+  },
+  {
+    "name": "random",
+    "width": 192,
+    "height": 192,
+    "values": [
+      0.98559593
+    ],
+    "native": [
+      0.98559593
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33984512,
+      "workers": 1,
+      "paged": true,
+      "reads": 12816,
+      "writes": 7632,
+      "readBytes": 7621632,
+      "writeBytes": 4414464,
+      "temporaryPeakBytes": 1769472,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 705.231458
+  },
+  {
+    "name": "gamma",
+    "width": 257,
+    "height": 259,
+    "values": [
+      0.0031431
+    ],
+    "native": [
+      0.0031431
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 34130112,
+      "workers": 1,
+      "paged": true,
+      "reads": 17869,
+      "writes": 10680,
+      "readBytes": 13831660,
+      "writeBytes": 8017940,
+      "temporaryPeakBytes": 3195024,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 1024.216875
+  },
+  {
+    "name": "large",
+    "width": 512,
+    "height": 512,
+    "values": [
+      0.14961426
+    ],
+    "native": [
+      0.14961426
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 34701312,
+      "workers": 1,
+      "paged": true,
+      "reads": 36976,
+      "writes": 22192,
+      "readBytes": 54843392,
+      "writeBytes": 31815680,
+      "temporaryPeakBytes": 12582912,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 2955.7287080000006
+  },
+  {
+    "name": "row",
+    "width": 33,
+    "height": 1,
+    "values": [
+      null
+    ],
+    "native": [
+      null
+    ],
+    "absoluteErrors": [
+      null
+    ],
+    "metrics": {
+      "workspace": 33567632,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 0,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 5.835917000000336
+  },
+  {
+    "name": "column",
+    "width": 1,
+    "height": 33,
+    "values": [
+      null
+    ],
+    "native": [
+      null
+    ],
+    "absoluteErrors": [
+      null
+    ],
+    "metrics": {
+      "workspace": 33556672,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 0,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 12.240415999999641
+  },
+  {
+    "name": "narrow",
+    "width": 17,
+    "height": 3,
+    "values": [
+      null
+    ],
+    "native": [
+      null
+    ],
+    "absoluteErrors": [
+      null
+    ],
+    "metrics": {
+      "workspace": 33563952,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 0,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 4.265416000000187
+  },
+  {
+    "name": "inverse",
+    "width": 129,
+    "height": 127,
+    "values": [
+      1
+    ],
+    "native": [
+      1
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33843392,
+      "workers": 1,
+      "paged": true,
+      "reads": 7943,
+      "writes": 4697,
+      "readBytes": 3315548,
+      "writeBytes": 1914788,
+      "temporaryPeakBytes": 786384,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 567.1144589999994
+  },
+  {
+    "name": "impulse",
+    "width": 33,
+    "height": 31,
+    "values": [
+      0.12765306
+    ],
+    "native": [
+      0.12765306
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33628352,
+      "workers": 1,
+      "paged": true,
+      "reads": 574,
+      "writes": 322,
+      "readBytes": 75768,
+      "writeBytes": 42504,
+      "temporaryPeakBytes": 49104,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 127.95420899999954
+  },
+  {
+    "name": "gradient",
+    "width": 95,
+    "height": 97,
+    "values": [
+      0.27221767
+    ],
+    "native": [
+      0.27221767
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33767232,
+      "workers": 1,
+      "paged": true,
+      "reads": 5606,
+      "writes": 3287,
+      "readBytes": 1823464,
+      "writeBytes": 1050532,
+      "temporaryPeakBytes": 442320,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 437.74804099999983
+  },
+  {
+    "name": "checker",
+    "width": 66,
+    "height": 68,
+    "values": [
+      1
+    ],
+    "native": [
+      1
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33702272,
+      "workers": 1,
+      "paged": true,
+      "reads": 3466,
+      "writes": 2004,
+      "readBytes": 825528,
+      "writeBytes": 470976,
+      "temporaryPeakBytes": 215424,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 343.0383330000004
+  },
+  {
+    "name": "saturated",
+    "width": 47,
+    "height": 51,
+    "values": [
+      0.84607237
+    ],
+    "native": [
+      0.84607237
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33659712,
+      "workers": 1,
+      "paged": true,
+      "reads": 2225,
+      "writes": 1261,
+      "readBytes": 405972,
+      "writeBytes": 228972,
+      "temporaryPeakBytes": 115056,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 232.7337090000001
+  },
+  {
+    "name": "edge8",
+    "width": 8,
+    "height": 9,
+    "values": [
+      0.03636244
+    ],
+    "native": [
+      0.03636244
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33562752,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 3456,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 51.553624999999556
+  },
+  {
+    "name": "edge9",
+    "width": 9,
+    "height": 10,
+    "values": [
+      0.02995501
+    ],
+    "native": [
+      0.02995501
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33564512,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 4320,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 45.14145800000006
+  },
+  {
+    "name": "edge10",
+    "width": 10,
+    "height": 11,
+    "values": [
+      0.04646506
+    ],
+    "native": [
+      0.04646506
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33566432,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 5280,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 53.94116700000086
+  },
+  {
+    "name": "edge11",
+    "width": 11,
+    "height": 12,
+    "values": [
+      0.04707002
+    ],
+    "native": [
+      0.04707002
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33568512,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 6336,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 63.494667000000845
+  },
+  {
+    "name": "edge17",
+    "width": 17,
+    "height": 18,
+    "values": [
+      0.05045156
+    ],
+    "native": [
+      0.05045156
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33584352,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 14688,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 79.87162499999977
+  },
+  {
+    "name": "edge31",
+    "width": 31,
+    "height": 32,
+    "values": [
+      0.04946414
+    ],
+    "native": [
+      0.04946414
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33623872,
+      "workers": 1,
+      "paged": true,
+      "reads": 656,
+      "writes": 368,
+      "readBytes": 81344,
+      "writeBytes": 45632,
+      "temporaryPeakBytes": 47616,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 147.75066700000025
+  },
+  {
+    "name": "edge33",
+    "width": 33,
+    "height": 34,
+    "values": [
+      0.04121118
+    ],
+    "native": [
+      0.04121118
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33628352,
+      "workers": 1,
+      "paged": true,
+      "reads": 818,
+      "writes": 460,
+      "readBytes": 107976,
+      "writeBytes": 60720,
+      "temporaryPeakBytes": 53856,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 153.77808299999924
+  },
+  {
+    "name": "edge79",
+    "width": 79,
+    "height": 80,
+    "values": [
+      0.04034175
+    ],
+    "native": [
+      0.04034175
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33731392,
+      "workers": 1,
+      "paged": true,
+      "reads": 4368,
+      "writes": 2544,
+      "readBytes": 1210560,
+      "writeBytes": 694080,
+      "temporaryPeakBytes": 303360,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 358.25833299999977
+  },
+  {
+    "name": "edge80",
+    "width": 80,
+    "height": 81,
+    "values": [
+      0.03840838
+    ],
+    "native": [
+      0.03840838
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33733632,
+      "workers": 1,
+      "paged": true,
+      "reads": 4406,
+      "writes": 2567,
+      "readBytes": 1235840,
+      "writeBytes": 708800,
+      "temporaryPeakBytes": 311040,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 373.5262500000008
+  },
+  {
+    "name": "edge81",
+    "width": 81,
+    "height": 82,
+    "values": [
+      0.04035416
+    ],
+    "native": [
+      0.04035416
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33735872,
+      "workers": 1,
+      "paged": true,
+      "reads": 4513,
+      "writes": 2634,
+      "readBytes": 1273120,
+      "writeBytes": 730744,
+      "temporaryPeakBytes": 318816,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 322.25695799999994
+  },
+  {
+    "name": "edge175",
+    "width": 175,
+    "height": 176,
+    "values": [
+      0.03835829
+    ],
+    "native": [
+      0.03835829
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33946432,
+      "workers": 1,
+      "paged": true,
+      "reads": 11608,
+      "writes": 6904,
+      "readBytes": 6350784,
+      "writeBytes": 3676992,
+      "temporaryPeakBytes": 1478400,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 673.1439590000009
+  },
+  {
+    "name": "edge176",
+    "width": 176,
+    "height": 177,
+    "values": [
+      0.03762769
+    ],
+    "native": [
+      0.03762769
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33948672,
+      "workers": 1,
+      "paged": true,
+      "reads": 11646,
+      "writes": 6927,
+      "readBytes": 6406400,
+      "writeBytes": 3709376,
+      "temporaryPeakBytes": 1495296,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 697.7392910000017
+  },
+  {
+    "name": "edge177",
+    "width": 177,
+    "height": 178,
+    "values": [
+      0.03765437
+    ],
+    "native": [
+      0.03765437
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 33950912,
+      "workers": 1,
+      "paged": true,
+      "reads": 11719,
+      "writes": 6972,
+      "readBytes": 6476064,
+      "writeBytes": 3749688,
+      "temporaryPeakBytes": 1512288,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 721.666792
+  },
+  {
+    "name": "megapixel",
+    "width": 1024,
+    "height": 1024,
+    "values": [
+      0.14805845
+    ],
+    "native": [
+      0.14805845
+    ],
+    "absoluteErrors": [
+      0
+    ],
+    "metrics": {
+      "workspace": 35848192,
+      "workers": 1,
+      "paged": true,
+      "reads": 75600,
+      "writes": 45488,
+      "readBytes": 219727872,
+      "writeBytes": 127498240,
+      "temporaryPeakBytes": 50331648,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 4756.599666000002
+  }
+]

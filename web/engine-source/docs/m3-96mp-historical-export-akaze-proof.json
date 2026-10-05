@@ -1,0 +1,19 @@
+{
+  "algorithm": "akaze",
+  "sourceSize": [
+    12000,
+    8000
+  ],
+  "stats": {
+    "total": 175544,
+    "filtered": 72,
+    "matches": 72,
+    "clusters": 26,
+    "regions": 2
+  },
+  "comparedBytes": 288000000,
+  "differentBytes": 0,
+  "maximumError": 0,
+  "seconds": 2.381404161453247,
+  "scope": "Native historical drawing of exported browser arrays; extraction and matching are independently qualified on smaller corpora."
+}

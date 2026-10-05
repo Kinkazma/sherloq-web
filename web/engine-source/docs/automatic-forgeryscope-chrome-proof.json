@@ -1,0 +1,202 @@
+{
+  "passed": false,
+  "arrayParity": true,
+  "width": 2068,
+  "height": 1514,
+  "source": [
+    2008,
+    1444
+  ],
+  "origin": [
+    23,
+    31
+  ],
+  "sourceSha256": "d744ad3e776d520f7d2cdd8e423e2ab80262aa742b8d2a4acac0a5a2656e16b3",
+  "provider": "CPU/WASM actual M2 models",
+  "fields": {
+    "mask": {
+      "values": 2899552,
+      "differences": 0,
+      "outsideNonzero": 0
+    },
+    "map": {
+      "values": 2899552,
+      "differences": 0,
+      "outsideNonzero": 0
+    },
+    "candidates": {
+      "values": 2899552,
+      "differences": 0,
+      "outsideNonzero": 0
+    },
+    "geometric": {
+      "values": 2899552,
+      "differences": 0,
+      "outsideNonzero": 0
+    },
+    "branch_microscopy": {
+      "values": 2899552,
+      "differences": 0,
+      "outsideNonzero": 0
+    },
+    "branch_blots": {
+      "values": 2899552,
+      "differences": 0,
+      "outsideNonzero": 0
+    },
+    "branch_lanes": {
+      "values": 2899552,
+      "differences": 0,
+      "outsideNonzero": 0
+    }
+  },
+  "panels": 8,
+  "positivePixels": 78640,
+  "entryParity": {
+    "passed": false,
+    "actual": [
+      {
+        "id": "9e3d03eeb5c34b31015b4f38",
+        "source": "Forgeryscope Auto",
+        "polygons": [
+          [
+            [
+              814.8975219726562,
+              1440.703125
+            ],
+            [
+              328.89752197265625,
+              1440.611328125
+            ],
+            [
+              328.89752197265625,
+              1352.8280029296875
+            ],
+            [
+              814.8975219726562,
+              1352.9197998046875
+            ]
+          ],
+          [
+            [
+              335.2997741699219,
+              317.11456298828125
+            ],
+            [
+              806.6337280273438,
+              317.11456298828125
+            ],
+            [
+              807.65478515625,
+              393.11456298828125
+            ],
+            [
+              336.32086181640625,
+              393.11456298828125
+            ]
+          ]
+        ],
+        "count": 280,
+        "color": [
+          242,
+          105,
+          48
+        ],
+        "provenance": {
+          "zone": 0,
+          "comparison": 0,
+          "score": 0.758003830909729,
+          "branch": "blots",
+          "evidence": "geometry",
+          "accepted": true
+        },
+        "label": "Forgeryscope Auto · Western blots · Geometry",
+        "center_distance_px": 1041.6510861545514,
+        "search_context": "forgeryscope-zone:0"
+      }
+    ],
+    "expected": [
+      {
+        "id": "e19917d7dc8626deb5c36fc4",
+        "source": "Forgeryscope Auto",
+        "polygons": [
+          [
+            [
+              814.8975219726562,
+              1440.70458984375
+            ],
+            [
+              328.89752197265625,
+              1440.611083984375
+            ],
+            [
+              328.89752197265625,
+              1352.8262939453125
+            ],
+            [
+              814.8975219726562,
+              1352.9197998046875
+            ]
+          ],
+          [
+            [
+              335.29742431640625,
+              317.114501953125
+            ],
+            [
+              806.678955078125,
+              317.114501953125
+            ],
+            [
+              807.6646728515625,
+              393.114501953125
+            ],
+            [
+              336.28314208984375,
+              393.114501953125
+            ]
+          ]
+        ],
+        "count": 280,
+        "color": [
+          187,
+          48,
+          242
+        ],
+        "provenance": {
+          "zone": 0,
+          "comparison": 0,
+          "score": 0.7565723061561584,
+          "branch": "blots",
+          "evidence": "geometry",
+          "accepted": true
+        },
+        "label": "Forgeryscope Auto · Western blots · Geometry",
+        "center_distance_px": 1041.6510231986995,
+        "search_context": "forgeryscope-zone:0"
+      }
+    ]
+  },
+  "cache": true,
+  "independentResults": true,
+  "elapsedMs": 16458.39999999851,
+  "phases": [
+    "panels",
+    "model-load",
+    "inference",
+    "embedding:wblot_overlap_embedder",
+    "embedding:wblot_duplicate_embedder",
+    "geometry",
+    "complete",
+    "zone-complete"
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3162205370
+  },
+  "browser": "154.0.8037.58",
+  "m2Commit": "e80889b8c719ad6530ca896167d489a99df05463"
+}

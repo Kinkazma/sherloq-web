@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "nativeCases": 7,
+  "exactOutputs": 28,
+  "fullGroupedNumericDump": true,
+  "htmlExactAfterVirtualPathNormalization": true,
+  "thumbnailBytesExact": true,
+  "xmpOnlyGpsMatchesNativeAbsence": true,
+  "noPixelDecode": true,
+  "maximumObservedHeapBytes": 43122688,
+  "wasmMaximumBytes": 134217728,
+  "peakAccountedBytes": 570444656,
+  "sourceReadMaximumBytes": 8192,
+  "largeBlobBytes": 33562235,
+  "largeBlobReads": {
+    "count": 3,
+    "totalBytes": 16448,
+    "maximumBytes": 8192
+  },
+  "directCancellationPreservesSource": true,
+  "hardCancellationAndRecovery": true,
+  "budgetRefusal": true,
+  "oversizedOutputRefused": true,
+  "recoveryAfterOutputFailure": true,
+  "jsonExport": true,
+  "networkRequestsOutsideTestOrigin": [],
+  "browser": "154.0.8037.58"
+}

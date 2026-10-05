@@ -1,0 +1,23 @@
+{
+  "qualification": "Development octave-support study; not a paged runtime or96MP qualification",
+  "records": [
+    {
+      "width": 93,
+      "height": 77,
+      "layers": 3,
+      "contrast": 0.04,
+      "octaves": 6,
+      "windows": 9,
+      "rawPoints": 133,
+      "points": 133,
+      "expectedPoints": 133,
+      "pointDiff": 0,
+      "pointMax": 0,
+      "descriptorDiff": 0,
+      "descriptorMax": 0,
+      "escapes": 180,
+      "totalMs": 8722.253999999999,
+      "heapBytes": 33554432
+    }
+  ]
+}

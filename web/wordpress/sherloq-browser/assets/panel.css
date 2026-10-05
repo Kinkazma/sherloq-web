@@ -1,0 +1,58 @@
+:host{display:block;min-width:0;min-height:0;height:100%;color:var(--ink);font:inherit}
+#app.embedded-panel{height:100%;min-height:0}
+.embedded-panel>.app-toolbar,.embedded-panel>.window-actions,.embedded-panel #toolbox,.embedded-panel .tabs,.embedded-panel .viewer-toolbar,.embedded-panel #legend,.embedded-panel .statusbar{display:none!important}
+.embedded-panel #original-window,.embedded-panel .window-title{display:none!important}
+.embedded-panel #analysis-window{border:0!important}
+.embedded-panel .image-pane{padding:0}.embedded-panel #viewport{border:0}
+.embedded-panel .parameter-bar,.embedded-panel .preset-bar{gap:6px;padding:4px 7px}.embedded-panel .parameter-bar button,.embedded-panel .parameter-bar input,.embedded-panel .parameter-bar select{min-height:25px;padding:3px 6px}
+.embedded-panel #automatic-controls>p{display:none}.embedded-panel .automatic-progress{padding:3px 7px;max-height:9rem}
+.embedded-panel #tool-controls{padding:4px 7px}.embedded-panel .tool-fields{padding:4px 0;max-height:105px;gap:5px 10px}
+.embedded-panel #inspector{position:absolute;right:8px;top:8px;bottom:8px;width:280px;max-width:90%;z-index:8;box-shadow:0 4px 15px #0005;border:1px solid var(--line)}
+.embedded-panel #inspector>.dock-title,.embedded-panel #inspector section:not(:first-of-type){display:none}.embedded-panel #inspector section{padding:9px}
+.embedded-panel .image-area{position:relative}
+.panel-actions{display:flex;gap:5px;align-items:center;padding:3px 7px}.panel-actions button{font-size:11px;min-height:25px}
+.embedded-panel .parameter-bar .panel-actions{padding:0}
+.embedded-panel.original-mode #tool-controls,.embedded-panel.original-mode #analysis-controls,.embedded-panel.original-mode #composite-controls,.embedded-panel.original-mode #automatic-controls{display:none!important}
+.embedded-panel #energy-presentation{padding:3px 8px}
+
+/* Shared flow for every tool: parameters first, secondary actions at the end.
+   A narrow document wraps naturally; no template introduces a full-width row. */
+.embedded-panel #tool-controls,.embedded-panel #analysis-controls,.embedded-panel #energy-controls,.embedded-panel #automatic-controls{display:flex;flex-wrap:wrap;align-items:center;gap:5px 10px;padding:5px 7px;flex:none;border-bottom:1px solid var(--line);max-height:45%;overflow:auto}
+.embedded-panel #tool-form,.embedded-panel .tool-fields,.embedded-panel .tool-attachments,.embedded-panel #classic-controls{display:contents}
+.embedded-panel #tool-controls>.parameter-bar,.embedded-panel #classic-controls>.parameter-bar,.embedded-panel #automatic-controls>.parameter-bar{display:contents}
+.embedded-panel #tool-controls>.parameter-bar>strong{display:none}
+.embedded-panel .tool-actions{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-left:auto}
+.embedded-panel .tool-exports{display:contents}
+.embedded-panel .tool-fields label,.embedded-panel .tool-attachments label{white-space:nowrap}
+.embedded-panel .tool-fields input[type=number]{width:60px}.embedded-panel .tool-fields select{max-width:165px}
+.embedded-panel .preset-bar{border:0;padding:0;margin-left:auto;background:transparent}
+.embedded-panel .preset-bar>.toolbar-spacer{display:none}
+.embedded-panel #analysis-controls .badge{display:none}
+.embedded-panel .ela-mode{padding:0;border:0;flex:none}.ela-tabs{display:flex;gap:0}.ela-tabs button{border-radius:0;font-size:11px;padding:4px 7px}.ela-tabs button:first-child{border-radius:4px 0 0 4px}.ela-tabs button:last-child{border-radius:0 4px 4px 0}.ela-tabs button[aria-selected=true]{background:var(--selected);box-shadow:inset 0 -2px var(--accent)}
+.embedded-panel #energy-controls{display:contents}
+.embedded-panel .energy-four{display:contents}.embedded-panel .energy-four>label{display:flex;align-items:center;gap:4px;font-size:11px}.embedded-panel .energy-four output{display:none}.embedded-panel .energy-pair input[type=range]{width:65px}.embedded-panel .energy-pair input[type=number]{width:48px}
+.embedded-panel #energy-presentation{padding:0}.embedded-panel .automatic-progress{padding:3px 0;border:0;margin-left:auto}.embedded-panel .automatic-progress[open]{flex-basis:100%;max-height:10rem}
+.embedded-panel #composite-controls{flex:none}.embedded-panel #composite-controls .parameter-bar{padding:5px 7px}.embedded-panel #composite-detail:empty{display:none}
+.embedded-panel #window-desk{min-height:0}.embedded-panel #viewport{cursor:default;touch-action:auto}.embedded-panel #canvas{touch-action:none;cursor:grab}
+.embedded-panel .energy-extra>div{position:static;width:auto;box-shadow:none;padding:5px;border:0}.embedded-panel .energy-extra>div>p{max-width:300px}
+
+/* Main task actions occupy the same leading position in every document. */
+.embedded-panel .panel-actions{position:sticky;top:0;z-index:5;background:var(--panel);padding:0;flex-wrap:wrap;flex:none;align-self:flex-start;gap:5px}
+.embedded-panel .panel-actions .primary{color:#fff;background:#236bc5;border-color:#2c7ada;box-shadow:0 0 0 1px #579ef044,0 1px 5px #277dda33;font-weight:650}
+.embedded-panel .panel-actions .primary:hover:enabled{background:#287cdd}
+.embedded-panel .panel-actions .primary:disabled{opacity:.5}
+.embedded-panel #run,.embedded-panel #energy-run,.embedded-panel #automatic-run,.embedded-panel #composite-run,.embedded-panel #tool-run{display:none}
+.embedded-panel #task-zones{border-color:#3c83c6}
+.embedded-panel #task-zones[aria-pressed=true]{background:var(--selected);box-shadow:inset 0 0 0 1px var(--accent)}
+.embedded-panel #viewport.drawing,.embedded-panel #viewport.drawing #canvas{cursor:crosshair}
+.embedded-panel .sparse-filters{display:flex;align-items:center;flex-wrap:wrap;gap:5px 10px;flex-basis:100%;order:2;padding:0;border:0;background:transparent}
+.embedded-panel .sparse-filters label{display:inline-flex;align-items:center;gap:4px;font-size:11px;margin:0}
+.embedded-panel .sparse-filters input[type=number]{width:64px}
+.embedded-panel #sparse-biomes-only[aria-pressed=true]{background:var(--selected);box-shadow:inset 0 0 0 1px var(--accent)}
+.embedded-panel .highlight-new-features option[data-new-feature],.embedded-panel.highlight-new-features option[data-new-feature]{background:color-mix(in srgb,var(--novelty-color) 20%,var(--panel));color:var(--ink)}
+
+.error-diagnostic{width:min(900px,90vw);max-height:85vh;overflow:auto}.error-diagnostic pre{max-height:55vh;user-select:text}.error-diagnostic button{margin-right:8px}
+.embedded-panel #tool-param-algorithm{max-width:min(400px,55vw)}
+
+:host,.embedded-panel,.embedded-panel button,.embedded-panel input,.embedded-panel select,.embedded-panel textarea{font-family:var(--ui-font,"Iowan Old Style",Georgia,serif)}
+.embedded-panel input[type=range]{width:clamp(160px,18vw,240px)!important;max-width:100%;flex-shrink:1;min-width:140px}

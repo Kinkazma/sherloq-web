@@ -1,0 +1,54 @@
+{
+  "source": "44a39f5",
+  "scope": "Actual createRgbSurface and resource recovery; deterministic injected errors only, with no real memory pressure.",
+  "records": [
+    {
+      "fault": "output-allocation",
+      "injectedName": "RangeError",
+      "injectedMessage": "Array buffer allocation failed",
+      "windowBytes": 300,
+      "rowBytes": 30,
+      "reportedCode": "MEMORY_ALLOCATION",
+      "reportedMessage": "Pixel window allocation failed.",
+      "causeKept": false,
+      "allocationKind": null,
+      "requestedBytes": null,
+      "attempts": 5,
+      "typedReclaims": 0,
+      "ordinaryReclaims": [
+        9437184,
+        9437184,
+        9437184,
+        9437184
+      ],
+      "waits": 4,
+      "readCalls": 0,
+      "loopDetected": true,
+      "finalBudgetBytes": 0
+    },
+    {
+      "fault": "storage-bounds",
+      "injectedName": "RangeError",
+      "injectedMessage": "offset is out of bounds",
+      "windowBytes": 300,
+      "rowBytes": 30,
+      "reportedCode": "MEMORY_ALLOCATION",
+      "reportedMessage": "Pixel window allocation failed.",
+      "causeKept": false,
+      "allocationKind": null,
+      "requestedBytes": null,
+      "attempts": 5,
+      "typedReclaims": 0,
+      "ordinaryReclaims": [
+        9437184,
+        9437184,
+        9437184,
+        9437184
+      ],
+      "waits": 4,
+      "readCalls": 5,
+      "loopDetected": true,
+      "finalBudgetBytes": 0
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "error": {
+    "message": "A complete PRNU training snapshot is required.",
+    "code": "INVALID_INPUT",
+    "stack": "EngineError: A complete PRNU training snapshot is required.\n    at requireValue (http://127.0.0.1:57452/src/errors.js:4:60)\n    at writePrnuDatabase (http://127.0.0.1:57452/src/prnu-hdf5.js:48:2)\n    at writePrnuHdf5Pages (http://127.0.0.1:57452/src/prnu-hdf5-pages.js:12:22)\n    at async self.onmessage (http://127.0.0.1:57452/tests/prnu-96mp-worker.js:8:354)"
+  },
+  "partial": {
+    "family": "PRNU",
+    "budgetBytes": 268435456,
+    "cases": [
+      {
+        "data": {
+          "databaseId": "two-cameras",
+          "scores": [
+            {
+              "camera": "same",
+              "score": 1,
+              "rank": 1,
+              "scoreText": "1.00000",
+              "gapText": "0.99993"
+            },
+            {
+              "camera": "shifted",
+              "score": 0.00007371887800723797,
+              "rank": 2,
+              "scoreText": "0.00007",
+              "gapText": ""
+            }
+          ],
+          "threshold": 0.005,
+          "reachesExperimentalThreshold": true,
+          "highestCandidate": "same",
+          "scoreGap": 0.9999262811219928,
+          "gapAboveHistoricalDisplayCutoff": true,
+          "legacy": true,
+          "trainingMembershipVerified": false,
+          "residualMethod": "fft",
+          "noisePower": 0.0336582355362334,
+          "semantics": "Historical Wiener-residual NCC, with an uncalibrated experimental threshold. The highest candidate is not a calibrated camera identification or an authenticity verdict."
+        },
+        "metrics": {
+          "workers": 5,
+          "completedStripJobs": 9620,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "residualCached": false
+        },
+        "ms": 1319330.299999997
+      },
+      {
+        "data": {
+          "databaseId": "two-cameras",
+          "scores": [
+            {
+              "camera": "same",
+              "score": 1,
+              "rank": 1,
+              "scoreText": "1.00000",
+              "gapText": "0.99993"
+            },
+            {
+              "camera": "shifted",
+              "score": 0.00007371887800723797,
+              "rank": 2,
+              "scoreText": "0.00007",
+              "gapText": ""
+            }
+          ],
+          "threshold": 0.005,
+          "reachesExperimentalThreshold": true,
+          "highestCandidate": "same",
+          "scoreGap": 0.9999262811219928,
+          "gapAboveHistoricalDisplayCutoff": true,
+          "legacy": true,
+          "trainingMembershipVerified": false,
+          "residualMethod": "fft",
+          "noisePower": 0.0336582355362334,
+          "semantics": "Historical Wiener-residual NCC, with an uncalibrated experimental threshold. The highest candidate is not a calibrated camera identification or an authenticity verdict."
+        },
+        "metrics": {
+          "workers": 1,
+          "completedStripJobs": 0,
+          "preflightExecutions": 0,
+          "policy": "immediate-useful-work",
+          "residualCached": true
+        },
+        "ms": 246350
+      }
+    ],
+    "source": {
+      "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+      "shape": {
+        "id": "19bfa13f-d57a-44b8-ba65-2ac125b87db2",
+        "revision": 1,
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "sourceWidth": 12000,
+        "sourceHeight": 8000,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "temporary"
+      },
+      "metrics": {
+        "decodeMs": 21832.30000001192,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 80426021,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 122332453,
+        "codecHeapCapacityBytes": 96731136,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 80426021,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      }
+    },
+    "residualSha256": "27f61bf9cc4c7baec11d7b2a9aeb7cb816d4adb252cb56721676f171c1be038f",
+    "residualExport": {
+      "sha256": "2b0368ae9fe8b6603bd53a7356edfb545498f6ad98470fe6603531a99c604b46",
+      "byteLength": 767681230
+    }
+  }
+}

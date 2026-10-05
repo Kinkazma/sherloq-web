@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "status": "passed-corpus-tolerance",
+  "scope": "Actual CPU model on two ROI plus envelope, native raw probabilities and source outputs; continuous tensors are not bit exact. Cache-only removal/restoration, defensive raw copies and explicit misses. No common runtime or WordPress claim.",
+  "records": [
+    {
+      "name": "three-real-zones",
+      "inferences": 3,
+      "cacheHits": 0,
+      "outputs": {
+        "map": {
+          "different": 116310,
+          "maxAbs": 0.000002562999725341797,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        }
+      },
+      "foreground": 561
+    },
+    {
+      "name": "envelope-off",
+      "inferences": 0,
+      "cacheHits": 2,
+      "outputs": {
+        "map": {
+          "different": 96155,
+          "maxAbs": 0.0000019073486328125,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "name": "envelope-restored",
+      "inferences": 0,
+      "cacheHits": 3,
+      "outputs": {
+        "map": {
+          "different": 116310,
+          "maxAbs": 0.000002562999725341797,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "name": "explicit-analysis-cached",
+      "inferences": 0,
+      "cacheHits": 3,
+      "outputs": {
+        "map": {
+          "different": 116310,
+          "maxAbs": 0.000002562999725341797,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        }
+      }
+    }
+  ],
+  "rawErrors": [
+    {
+      "different": 65284,
+      "maxAbs": 0.0000019073486328125,
+      "finite": true
+    },
+    {
+      "different": 65223,
+      "maxAbs": 6.705522537231445e-7,
+      "finite": true
+    },
+    {
+      "different": 65299,
+      "maxAbs": 0.00000260770320892334,
+      "finite": true
+    }
+  ],
+  "exports": [
+    {
+      "name": "source",
+      "bytes": 1424563,
+      "sha256": "6dadcd855464180af792ed640bd01d7e8d91c39d54c8163046684f8765c1f207"
+    },
+    {
+      "name": "raw",
+      "bytes": 791756,
+      "sha256": "72962961fd3cbeed5b62b55beb23e30139e69cd87f01d5d36b19245540ebc119"
+    }
+  ],
+  "cacheMiss": true,
+  "rawMiss": true,
+  "sourcePreserved": true,
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1157666099
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-segmentation-zones.mjs": "a8d45b4c152e858ba8aa1c0abbecb5db43f242e2b18f6e08b9f23d43e507e320",
+    "experiments/segmentation/analysis.js": "8cf7d877c76dc740e6c3b5a84ed541bdb840ebc399cb4394e861de3a24f6d763",
+    "experiments/segmentation/npz.js": "d0c889f3af015be6216d61382d9e2f62f2e32aa22650ef0a0fd716f846c9b57d",
+    "experiments/segmentation/inference.js": "d4127287a2f1dac519b8bda342d80a10f14c3515e9d25784ea2304a51a5fc020",
+    "experiments/segmentation/inference-worker.js": "9ed4217e1e61f464bddf30bbd45d6a01b2f51d0fd43b6934f372b506d48208fd",
+    "experiments/segmentation/prepare.js": "d0cfb6c73cce88bca17ef41c3382bea4f816c8227a5f3ab2a460aff9e85ca688",
+    "experiments/segmentation/probabilities.js": "c052c8a40f6a5285f86b7e150ca8e85bc8badc94e0b900e8be20e2a248b9aa99",
+    "experiments/segmentation/zones.js": "9c5f8a9109caa2f6697a6696c850e4a5ebc7591f064cfeeb5cdce79d3963da5a"
+  }
+}

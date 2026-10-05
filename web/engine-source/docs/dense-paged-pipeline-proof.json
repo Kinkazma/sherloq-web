@@ -1,0 +1,77 @@
+[
+  {
+    "profile": "PatchMatch Zernike",
+    "groups": 1,
+    "points": 482,
+    "pairs": 241,
+    "denseCount": 4584,
+    "consistentCount": 241,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 1,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 65196,
+        "cacheBytes": 0,
+        "activeReservationBytes": 95771,
+        "peakAccountedBytes": 277461632
+      }
+    }
+  },
+  {
+    "profile": "PatchMatch SIFT",
+    "groups": 1,
+    "points": 130,
+    "pairs": 65,
+    "denseCount": 470,
+    "consistentCount": 65,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 1,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 43660,
+        "cacheBytes": 0,
+        "activeReservationBytes": 31883,
+        "peakAccountedBytes": 277461632
+      }
+    }
+  },
+  {
+    "profile": "PatchMatch Zernike + PatchMatch SIFT",
+    "groups": 2,
+    "points": 612,
+    "pairs": 306,
+    "denseCount": 5054,
+    "consistentCount": 306,
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 2,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 536870912,
+        "retainedBytes": 108856,
+        "cacheBytes": 0,
+        "activeReservationBytes": 123558,
+        "peakAccountedBytes": 277555472
+      }
+    }
+  }
+]

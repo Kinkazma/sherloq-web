@@ -1,0 +1,214 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "variant": "mgcfdn-st",
+  "scope": "Original PNG through common worker API and bounded CPU segmentation model; three native crops, cache-only views, original/raw/NPZ/JSON, cooperative cancellation and lifecycle. Continuous maps are not bit exact; UI and GPU not claimed.",
+  "version": "0.30.0-m1.2",
+  "records": [
+    {
+      "name": "original-png-three-zones",
+      "inferences": 3,
+      "outputs": {
+        "map": {
+          "different": 114537,
+          "maxAbs": 0.00007519125938415527,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "target": {
+          "different": 114587,
+          "maxAbs": 0.00007578730583190918,
+          "finite": true
+        },
+        "source": {
+          "different": 116401,
+          "maxAbs": 0.00005602836608886719,
+          "finite": true
+        }
+      }
+    },
+    {
+      "name": "envelope-off",
+      "inferences": 0,
+      "outputs": {
+        "map": {
+          "different": 94000,
+          "maxAbs": 0.00003007054328918457,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "target": {
+          "different": 92509,
+          "maxAbs": 0.000029414892196655273,
+          "finite": true
+        },
+        "source": {
+          "different": 94932,
+          "maxAbs": 0.000008851289749145508,
+          "finite": true
+        }
+      }
+    },
+    {
+      "name": "envelope-restored",
+      "inferences": 0,
+      "outputs": {
+        "map": {
+          "different": 114537,
+          "maxAbs": 0.00007519125938415527,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "target": {
+          "different": 114587,
+          "maxAbs": 0.00007578730583190918,
+          "finite": true
+        },
+        "source": {
+          "different": 116401,
+          "maxAbs": 0.00005602836608886719,
+          "finite": true
+        }
+      }
+    },
+    {
+      "name": "after-cancel-original-cached",
+      "inferences": 0,
+      "outputs": {
+        "map": {
+          "different": 114537,
+          "maxAbs": 0.00007519125938415527,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "target": {
+          "different": 114587,
+          "maxAbs": 0.00007578730583190918,
+          "finite": true
+        },
+        "source": {
+          "different": 116401,
+          "maxAbs": 0.00005602836608886719,
+          "finite": true
+        }
+      }
+    }
+  ],
+  "rawErrors": [
+    {
+      "different": 141572,
+      "maxAbs": 0.00000947713851928711,
+      "finite": true
+    },
+    {
+      "different": 151333,
+      "maxAbs": 0.000054955482482910156,
+      "finite": true
+    },
+    {
+      "different": 161131,
+      "maxAbs": 0.0001697242259979248,
+      "finite": true
+    }
+  ],
+  "exports": [
+    {
+      "name": "source",
+      "bytes": 3051767,
+      "sha256": "c94e7fa076fdfa0c398b75e755c44515320dcaa5080ada2a194f5fab5cbc359b"
+    },
+    {
+      "name": "raw",
+      "bytes": 2370164,
+      "sha256": "a1dedf013710d5b35501db15b8c8c59197b8378fea31de15a5d8992d061d5008"
+    }
+  ],
+  "missingRefused": true,
+  "lazy": true,
+  "decodeExact": true,
+  "jsonExact": true,
+  "smallJsonBudgetRefused": true,
+  "cancelled": true,
+  "imagesPreserved": true,
+  "originalPreserved": true,
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1389697492,
+    "knownHeapCapacityBytes": 33554432
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "src/index.js": "9f92d5fc1a2fcef6d26efb58a170ab44bab8e88373569fd6ab6747c8ff71f1bc",
+    "src/worker.js": "22a562f5974d0a089ae5f52672664b988d2ec3b0129448dae83265c384ee545a",
+    "src/worker-client.js": "11930fdeba0ba6207a0280df6ee201b41808b662573470eb39ed9ff308746b65",
+    "src/segmentation-adapter.js": "3a8ba153e4b065c6f40cdb8065176e27c1c55125cf99f35c8941ea395ee4a9f8",
+    "src/exports.js": "e2e12df8c12563ccf438bef6172a3da76790cda5e3bb2a49f8c8d46beea57199",
+    "experiments/segmentation/inference.js": "a67b29a4dbd17cc6b4bff9fa3cf3674feef5be833ba18e5c3a4c6671afa0156d",
+    "experiments/segmentation/analysis.js": "8cf7d877c76dc740e6c3b5a84ed541bdb840ebc399cb4394e861de3a24f6d763",
+    "experiments/segmentation/npz.js": "d0c889f3af015be6216d61382d9e2f62f2e32aa22650ef0a0fd716f846c9b57d",
+    "scripts/study-segmentation-common-worker.mjs": "404236d3d458bdce282e6040d8cebf8dea0ba8b099795b00569071ad7888960c"
+  },
+  "modelRequests": 1,
+  "runtime": {
+    "kind": "live-development"
+  }
+}

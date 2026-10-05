@@ -1,0 +1,23 @@
+{
+  "qualification": "Global-coordinate orientation and native MLDB support-window study; no96MP qualification",
+  "records": [
+    {
+      "width": 397,
+      "height": 281,
+      "points": 1971,
+      "windows": 36,
+      "pointDifferences": 0,
+      "pointMaximum": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "width": 640,
+      "height": 480,
+      "points": 6378,
+      "windows": 101,
+      "pointDifferences": 0,
+      "pointMaximum": 0,
+      "descriptorDifferences": 0
+    }
+  ]
+}

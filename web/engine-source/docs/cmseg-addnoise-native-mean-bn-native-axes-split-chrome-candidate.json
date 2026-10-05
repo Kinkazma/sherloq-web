@@ -1,0 +1,390 @@
+{
+  "schema": 1,
+  "status": "passed-split-corpus",
+  "scope": "Real native512 CMSeg encoder/decoder ONNX CPU with bounded global SIMD-WASM correlation; all pair comparisons retained, no approximate neighbour pruning or resize. No common API, source projection, cancellation or UI qualification yet.",
+  "variant": "addnoise",
+  "weights": {
+    "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/addnoise.pth": "0f549f213e67712791e2778f4df005532dabd563a9fea3bafc851d4d449fb1ba"
+  },
+  "graphs": {
+    "encoder": {
+      "file": "encoder-native-mean-bn.onnx",
+      "bytes": 9308459,
+      "sha256": "f207d80af93d9541af6e50baff5ef70d9e1a4ae9b24916d790f3fc78a91ac461",
+      "meanNodes": 1,
+      "batchnormNodes": 59
+    },
+    "decoder": {
+      "file": "decoder-native-mean-bn.onnx",
+      "bytes": 11935456,
+      "sha256": "64120818740235c22fa1ed17d2e38626168fb9db75442353ae6a7dbbbfdd1902",
+      "meanNodes": 3,
+      "batchnormNodes": 33
+    }
+  },
+  "records": [
+    {
+      "diagnostics": [],
+      "name": "structured-copy",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.000060558319091796875,
+          "different": 715708,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000010848045349121094,
+          "different": 380887,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00000667572021484375,
+          "different": 126282,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.0000050067901611328125,
+          "different": 94904,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00001049041748046875,
+          "different": 180157,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 2839.5,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 1.1459633242338896e-10,
+            "different": 386228,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 263.40000000596046,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 5.3660187404602766e-11,
+            "different": 128145,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 82.60000000149012,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 1.5825207810848951e-10,
+            "different": 96498,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 1.8360768905267832e-7,
+        "different": 262142,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0002155303955078125,
+        "different": 259114,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 0,
+        "nativeForeground": 0
+      },
+      "heapBytes": 514719744,
+      "milliseconds": 4055
+    },
+    {
+      "diagnostics": [],
+      "name": "constant",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.000010460615158081055,
+          "different": 724897,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.0000073909759521484375,
+          "different": 392719,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000009015202522277832,
+          "different": 130716,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000007748603820800781,
+          "different": 97605,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00005626678466796875,
+          "different": 162544,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 2868.2999999970198,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 5.638867150992155e-11,
+            "different": 255253,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 272.70000000298023,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 1.6541434888495132e-11,
+            "different": 128262,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 82.39999999850988,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 2.764863893389702e-10,
+            "different": 97252,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 1.8391714462495656e-7,
+        "different": 262143,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.00025844573974609375,
+        "different": 258944,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 0,
+        "nativeForeground": 0
+      },
+      "heapBytes": 514719744,
+      "milliseconds": 3998.2000000029802
+    },
+    {
+      "diagnostics": [],
+      "name": "paired-spots",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.00002956390380859375,
+          "different": 781592,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000019669532775878906,
+          "different": 391868,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00003319978713989258,
+          "different": 130689,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00001728534698486328,
+          "different": 97634,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00014862418174743652,
+          "different": 169808,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 2872.2999999970198,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 1.2119016901124269e-9,
+            "different": 390411,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 282.8999999985099,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 6.810296326875687e-9,
+            "different": 129963,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 85.70000000298023,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 1.1496013030409813e-9,
+            "different": 97643,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 1.7942215180255516e-7,
+        "different": 262140,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.00031566619873046875,
+        "different": 259634,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 0,
+        "nativeForeground": 0
+      },
+      "heapBytes": 514719744,
+      "milliseconds": 4032.5
+    },
+    {
+      "diagnostics": [],
+      "name": "blobs-copy",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.000028371810913085938,
+          "different": 771423,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000014543533325195312,
+          "different": 379531,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000033974647521972656,
+          "different": 130607,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00004178285598754883,
+          "different": 97843,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00011396408081054688,
+          "different": 132461,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 2983.2999999970198,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 1.8553691916167736e-8,
+            "different": 301070,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 301.6000000014901,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 1.3737007975578308e-8,
+            "different": 130038,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 100.30000000447035,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 3.6088749766349792e-9,
+            "different": 97837,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 0.00006312131881713867,
+        "different": 262132,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0006799697875976562,
+        "different": 259113,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 245,
+        "nativeForeground": 245
+      },
+      "heapBytes": 514719744,
+      "milliseconds": 4190
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1341413409
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-cmseg-split.mjs": "af8c807f95f22a59c0c1617a3eec4cd1d692382b1666f02692bccfd0bec94497",
+    "experiments/segmentation/cmseg-correlation.cpp": "8f65a246e8aabd069e4ff6c29c4d704b01d7c8717039b95e988269fd375aae54",
+    "experiments/segmentation/cmseg-correlation.js": "473ba0002d53980ef7034d81c032fa6f72d0187d52de49f260e8a2c89a9f7888",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "scripts/export-cmseg-split.py": "285fa3a567e63a2d786a8cc800cf646b08d41a267fee355ec3bdb4ee2ddfb88a"
+  }
+}

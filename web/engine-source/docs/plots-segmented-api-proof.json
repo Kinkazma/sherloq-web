@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "orientation": 6,
+  "table": {
+    "id": "3fbe7a7b-db9b-4a79-a9f5-bd5f5a3b0091",
+    "revision": 1,
+    "format": "float32-table",
+    "rowCount": 3072,
+    "columns": [
+      "Red",
+      "Green",
+      "Blue",
+      "Hue",
+      "Saturation",
+      "Value"
+    ],
+    "order": "row,column",
+    "coordinates": "native-pyrDown-level",
+    "scale": 0,
+    "gridWidth": 48,
+    "gridHeight": 64,
+    "storage": "temporary"
+  },
+  "cache": true,
+  "scale": 1,
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 67130560,
+    "knownHeapCapacityBytes": 58720256
+  },
+  "checks": [
+    "native float32 values",
+    "CSV",
+    "cache on axes and colors",
+    "old table survives scale change",
+    "source unload invalidates handles"
+  ]
+}

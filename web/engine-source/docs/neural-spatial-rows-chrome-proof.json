@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Three native whole96MP synthetic grid projections in actual OPFS, fixed64MiB kernel and128MiB shared budget. Owned float32 windows and whole SHA, mutation isolation, cancellation/consumer failure/retry/disposal. This proves projection only, not neural inference or complete detector masks.",
+  "cases": [
+    {
+      "side": 448,
+      "width": 12000,
+      "height": 8000,
+      "nearest": false,
+      "sha256": "c378928df940e546965857a3283467756ed724793a3c41c56fe29d3e1bf195cf",
+      "metrics": {
+        "totalMs": 1333.0999999940395,
+        "computeMs": 379.0000000074506,
+        "consumerMs": 453.5000000074506,
+        "blocks": 92,
+        "rowsPerBlock": 87,
+        "heapCapacityBytes": 67108864
+      },
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 68714496,
+        "peakAccountedBytes": 73709696
+      },
+      "windows": 3
+    },
+    {
+      "side": 256,
+      "width": 12000,
+      "height": 8000,
+      "nearest": true,
+      "sha256": "d38f923cde951a1f3457e1d9133782bafdad78758b112fd4390ec8b27448f6b9",
+      "metrics": {
+        "totalMs": 1033.5999999940395,
+        "computeMs": 130.79999996721745,
+        "consumerMs": 384.3000000268221,
+        "blocks": 92,
+        "rowsPerBlock": 87,
+        "heapCapacityBytes": 67108864
+      },
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 67633152,
+        "peakAccountedBytes": 73709696
+      },
+      "windows": 3
+    },
+    {
+      "side": 512,
+      "width": 12003,
+      "height": 8003,
+      "nearest": false,
+      "sha256": "9ad1b0322a892a3c64287de75b120ae9c165638ed21c7dd2232dee6a701747bd",
+      "metrics": {
+        "totalMs": 1247.1000000014901,
+        "computeMs": 381.1000000163913,
+        "consumerMs": 352.99999997764826,
+        "blocks": 92,
+        "rowsPerBlock": 87,
+        "heapCapacityBytes": 67108864
+      },
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 69206016,
+        "peakAccountedBytes": 74448020
+      },
+      "windows": 3
+    }
+  ],
+  "memory": {
+    "budgetBytes": 134217728,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 74448020
+  },
+  "cancellationAndRetry": true,
+  "opencv": "4.11.0",
+  "storageArtifactsRemaining": 0,
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 74448020,
+    "finalWorkerPeakAccountedBytes": 74448020
+  },
+  "browser": "154.0.8037.58",
+  "extractedRuntime": false,
+  "engineSources": {
+    "src/neural-spatial-rows.js": "4ca09395f41fdfd9804fa47731706d35693a0030ed77fd8789c229594d7399be",
+    "src/numeric-surface.js": "bf08b9d1a6529279aa1fc4116ae24c05ce99116e5bfe6d3bf208662a45523e3a",
+    "vendor/segmentation/spatial-bands.wasm": "66ad3a1157ba9c1ff10ecbf395ab9d5fa95c46e62485f4e351c947467ef5021e"
+  },
+  "recipeSources": {
+    "scripts/proof-memory.mjs": "8961fbe1092bdcc16c3991e04e9e60118ba28e232ec7a5bac86596fe1942654c",
+    "scripts/generate-large-neural-spatial.py": "23147d16495c4e35dcfcf7ac3b6010a09de753ec434b250121fe6612ad422076",
+    "scripts/study-neural-spatial-rows.mjs": "d8911dc60211bec3096bcc9b61f9d17679d4e8c0995f4ba494a585ab9b19db8e",
+    "tests/neural-spatial-rows-browser.js": "8b82c809ab4c8543f5dc0b508a8f6b0d6841c718b0d93eb2084d6cf8f30e6caa",
+    "tests/neural-spatial-rows-worker.js": "585fa9eebd5453a6bd91cdedaf986719227786403cdd34cb868485fb9ac2f169"
+  }
+}

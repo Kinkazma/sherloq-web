@@ -1,0 +1,26 @@
+{
+  "schema": "sherloq.runtime-source-increment/1",
+  "baseCommit": "588b6d137fcf940e0bf5703aeb650b53a570e03d",
+  "baseReceiptSha256": "e19fbc4e3d3bc24c91661a3980ebaab3796593c1aba2a2cb9baf57afb34b66d6",
+  "engineCommit": "71e43c69b9616033f63e66aaa3c5bd96a0dd0b70",
+  "engineVersion": "0.33.2-export.1",
+  "files": {
+    "docs/clone-panel-api.md": "5b74318c72a53cee8b6eee86df3bb156f2b545695a11e398baba876eb7eb0a72",
+    "docs/export-100mp-browser-proof.json": "b54313fd4e00f562692fa7a2879a8fe73f867dc62ffc4263a1eadc45bac918dc",
+    "docs/export-100mp-verified-proof.json": "304e0e3eaa71a93846175ed95535d3138af83a7a7ddc7fee0da1e5614891d3dd",
+    "docs/export-100mp.md": "45d11e5551d986e20dd0d662eb74a4808365711f4499134331ff8844af4684b8",
+    "src/automatic-npz-stream.js": "bb16e16184b40cfb3380e74d92a8ee7f62274c1e662dc4f28b411556411d4277",
+    "src/dense-adapter.js": "6cf2c4bacf633ad6f7fc1f1860cd175eb24d2c178edd517cf2d603a0fd6d8619",
+    "src/dense-npz-stream.js": "d2a958415f8d7d86b52ed112c6025b51be4ed389c841dffd475462bc4583347a",
+    "src/dense-pool.js": "77a3de1223258078f36b3df96811931963bf5ec09c2ee6ef10a195c6500801fb",
+    "src/index.d.ts": "cec9dd0f64cf659776d23e13055a1fa15a83a4b0bfa649abd6caf522b9e2f1f9",
+    "src/index.js": "17b51dd0c40178e876c7e4e986c5a224e687b14a4cc710c9c0663c82779385eb",
+    "src/raster-export.js": "82949c0371b3aba5bad45928ebcea19692b20d91081bcb24c203f4c9614b4956",
+    "src/sparse-extract-errors.js": "e6771dbbe4c85c8301e1b1f3c2c8d91a88dcf00b9fc2cd7be88f6026a009c568",
+    "src/sparse-extract-worker.js": "a0a55119562b3454f7c6cb11059b869c2c8191e909fe80019b689227960f09c1",
+    "src/sparse-extract.js": "a3e8d80c56e9634a2fedca4875913756894b8dee970951510b0981562453a081"
+  },
+  "scope": "Cumulative committed source-only clone panel API, sparse allocation recovery, automatic archive optional metadata fix and synthetic 100 MP export proof; all binaries and models unchanged.",
+  "previousEngineCommit": "343c89f2cfd54816085fc7a8af69e530805a7742",
+  "previousIncrementSha256": "aa96f94ed616003b6b6eae00ff1c4daa47b72eab984c5619781013da510fc233"
+}

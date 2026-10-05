@@ -1,0 +1,7 @@
+{
+  "emscripten": "4.0.15",
+  "source": "Emscripten system/lib/libc/musl/src/math/fma.c",
+  "sha256": "1e0c6bacd92cbbadb32d1f83defd52cd863fd766b7938efabafcef9f067d5860",
+  "heapBytes": 131072,
+  "weightsBundled": false
+}

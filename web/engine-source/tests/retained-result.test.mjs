@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {Budget} from '../src/cache.js';import {createSegmentedBytes} from '../src/segmented-bytes.js';import {createRgbSurface} from '../src/rgb-surface.js';import {retainResult} from '../src/retained-result.js';
+test('cache eviction and independent result leases preserve pixels and shared budget ownership',async()=>{
+ const budget=new Budget(1024),store=await createSegmentedBytes(18,{budget});await store.write(Uint8Array.from({length:18},(_,i)=>i));const retained=retainResult(createRgbSurface(store,{width:3,height:2,budget})),a=retained.lease(),b=retained.lease();assert.notEqual(a.descriptor.id,b.descriptor.id);await retained.dispose();assert.equal(budget.total(),18);
+ const row=await a.readWindow({x:0,y:1,width:3,height:1});assert.equal(row.surfaceId,a.descriptor.id);assert.deepEqual(row.pixels.data,Uint8Array.from({length:9},(_,i)=>i+9));row.release();await a.dispose();await a.dispose();assert.equal(budget.total(),18);await assert.rejects(a.readWindow(),{code:'DISPOSED'});await b.dispose();assert.equal(budget.total(),0);assert.throws(()=>retained.lease());
+});

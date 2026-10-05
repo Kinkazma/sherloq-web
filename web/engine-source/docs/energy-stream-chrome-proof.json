@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "dimensions": [
+    4103,
+    5401
+  ],
+  "results": [
+    {
+      "quality": 75,
+      "sha256": "60c14a5505d7e6ab9381810a6646b9a38e68d35a7d1ef85afe95b6d22063ce82",
+      "metrics": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-scanlines",
+        "recompressedCache": false,
+        "recompressions": 1,
+        "sourcePasses": 2,
+        "encodedBytes": 4709345,
+        "encodedCapacityBytes": 133428224,
+        "encodedStorage": "temporary",
+        "cacheEntries": 1,
+        "rowsPerChunk": 32,
+        "maxSourceWindowBytes": 393888,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "energyWorkspaceBytes": 804188,
+        "energyBytes": 88641212,
+        "energyStorage": "temporary"
+      }
+    },
+    {
+      "quality": 99,
+      "sha256": "2978ac08130790925039ddbc68aee86277c58c274bd37e2824de1ae5d85bdc11",
+      "metrics": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-scanlines",
+        "recompressedCache": false,
+        "recompressions": 1,
+        "sourcePasses": 2,
+        "encodedBytes": 17722409,
+        "encodedCapacityBytes": 133428224,
+        "encodedStorage": "temporary",
+        "cacheEntries": 2,
+        "rowsPerChunk": 32,
+        "maxSourceWindowBytes": 393888,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "energyWorkspaceBytes": 804188,
+        "energyBytes": 88641212,
+        "energyStorage": "temporary"
+      }
+    }
+  ],
+  "cancelledPlaneRemoved": true,
+  "retryNativeAndEncodedReuse": true,
+  "memory": {
+    "budgetBytes": 50331648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 43780736
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

@@ -1,0 +1,66 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "metadata": {
+        "source_shape": [
+          64,
+          96
+        ],
+        "padded_shape": [
+          64,
+          96
+        ],
+        "orientation": 1
+      },
+      "outputs": {
+        "image": {
+          "values": 147456,
+          "maxError": 0,
+          "differences": 0
+        },
+        "table": {
+          "values": 64,
+          "maxError": 0,
+          "differences": 0
+        }
+      }
+    },
+    {
+      "case": 1,
+      "metadata": {
+        "source_shape": [
+          97,
+          131
+        ],
+        "padded_shape": [
+          104,
+          136
+        ],
+        "orientation": 1
+      },
+      "outputs": {
+        "image": {
+          "values": 339456,
+          "maxError": 0,
+          "differences": 0
+        },
+        "table": {
+          "values": 64,
+          "maxError": 0,
+          "differences": 0
+        }
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 18294822
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

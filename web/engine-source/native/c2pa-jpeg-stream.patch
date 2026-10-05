@@ -1,0 +1,76 @@
+--- a/src/asset_handlers/jpeg_io.rs
++++ b/src/asset_handlers/jpeg_io.rs
+@@ -16 +16 @@
+-    io::{BufReader, Cursor, Write},
++    io::{BufReader, Cursor, Read, Seek, SeekFrom, Write},
+@@ -146,0 +147,45 @@
++// SHERLOQ: retain the same img-parts 0.4.0 marker/header parser input while
++// omitting the entropy tail it only retains as opaque Bytes. Verification still
++// hashes the ORIGINAL input stream. No C2PA/COSE/hash/trust code is changed.
++fn read_jpeg_header(input: &mut dyn ReadSeek) -> Result<Vec<u8>> {
++    let mut reader = BufReader::with_capacity(64 * 1024, input);
++    let mut header = Vec::new();
++    let mut signature = [0u8; 2];
++    reader.read_exact(&mut signature)?;
++    header.extend_from_slice(&signature);
++    if signature != [markers::P, markers::SOI] {
++        return Ok(header);
++    }
++    loop {
++        let first = reader.read_u8()?;
++        if first != markers::P { continue; }
++        let marker = loop {
++            let value = reader.read_u8()?;
++            if value != markers::P { break value; }
++        };
++        header.extend_from_slice(&[markers::P, marker]);
++        if marker == markers::EOI { break; }
++        // Deliberately identical to img-parts 0.4.0 markers::has_length.
++        if matches!(marker, RST0..=RST7 | APP0..=APP15 | SOF0..=SOF15 | SOS | COM | DQT | DRI) {
++            let length = reader.read_u16::<BigEndian>()?;
++            if length < 2 { return Err(Error::InvalidAsset("Could not parse input JPEG".to_owned())); }
++            let payload = (length - 2) as usize;
++            header.try_reserve(payload + 2).map_err(|_| Error::IoError(std::io::ErrorKind::OutOfMemory.into()))?;
++            header.extend_from_slice(&length.to_be_bytes());
++            let offset = header.len();
++            header.resize(offset + payload, 0);
++            reader.read_exact(&mut header[offset..])?;
++        }
++        if marker == SOS {
++            // img-parts considers the segment terminal only when its opaque
++            // entropy Bytes is non-empty. Retain ONE actual original byte;
++            // the remaining encoded scan is never used by metadata extraction.
++            header.push(reader.read_u8()?);
++            break;
++        }
++    }
++    // The previous read_to_end leaves the underlying stream at EOF as well.
++    reader.seek(SeekFrom::End(0))?;
++    Ok(header)
++}
++
+@@ -155,3 +199,0 @@
+-        // load the bytes
+-        let mut buf: Vec<u8> = Vec::new();
+-
+@@ -159 +201 @@
+-        input_stream.read_to_end(&mut buf).map_err(Error::IoError)?;
++        let buf = read_jpeg_header(input_stream)?;
+@@ -240,6 +282 @@
+-        // load the bytes
+-        let mut buf: Vec<u8> = Vec::new();
+-        match input_stream.read_to_end(&mut buf) {
+-            Ok(_) => xmp_from_bytes(&buf),
+-            Err(_) => None,
+-        }
++        read_jpeg_header(input_stream).ok().and_then(|buf| xmp_from_bytes(&buf))
+--- a/src/utils/hash_utils.rs
++++ b/src/utils/hash_utils.rs
+@@ -30 +30,6 @@
+-const MAX_HASH_BUF: usize = 256 * 1024 * 1024; // cap memory usage to 256MB
++// SHERLOQ: keep sequential digest updates and exact range/exclusion semantics,
++// but bound WASM input and BlobStream duplicate staging to 1 MiB per chunk.
++#[cfg(target_arch = "wasm32")]
++const MAX_HASH_BUF: usize = 1024 * 1024;
++#[cfg(not(target_arch = "wasm32"))]
++const MAX_HASH_BUF: usize = 256 * 1024 * 1024;

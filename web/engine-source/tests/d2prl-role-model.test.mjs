@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {loadRoleModel,roleModelWorkspaceBytes} from '../experiments/d2prl/role-model.js';
+import {isWasmTensorView} from '../src/wasm-tensor-arena.js';
+const bytes=Uint8Array.from({length:1024**2+7},(_,i)=>i&255),sha=createHash('sha256').update(bytes).digest('hex');
+test('opaque role model is verified in a bounded owned Wasm byte view with symmetric child ledger',async()=>{const events=[];let attempts=0;const model=await loadRoleModel({modelUrl:'https://model/roles.onnx',modelBytes:bytes.length,modelSha256:sha,onBacking:e=>events.push(e),fetchAsset:async()=>{if(++attempts===1)throw new TypeError('NetworkError');return new Response(bytes);}});assert.ok(isWasmTensorView(model.data));assert.equal(model.data.byteLength,bytes.length);assert.ok(model.data.buffer.byteLength>model.byteLength);assert.deepEqual(model.data,bytes);assert.equal(attempts,2);assert.ok(roleModelWorkspaceBytes(bytes.length)>model.byteLength);model.release();model.release();assert.throws(()=>model.data,{code:'INVALID_INPUT'});const live=new Set();for(const e of events){if(e.action==='allocate')live.add(e.id);else assert.ok(live.delete(e.id));}assert.equal(live.size,0);});
+test('model identity rejection releases every announced backing',async()=>{const events=[];await assert.rejects(loadRoleModel({modelUrl:'https://model/roles.onnx',modelBytes:bytes.length,modelSha256:'0'.repeat(64),onBacking:e=>events.push(e),fetchAsset:async()=>new Response(bytes)}),{code:'MODEL_IDENTITY'});const live=new Set();for(const e of events)e.action==='allocate'?live.add(e.id):live.delete(e.id);assert.equal(live.size,0);});

@@ -1,0 +1,233 @@
+{
+  "opencv": "4.11.0",
+  "cases": [
+    {
+      "file": "fixtures/odd.jpg",
+      "width": 31,
+      "height": 17,
+      "expected": [
+        {
+          "params": {
+            "quality": 75,
+            "scale": 50,
+            "contrast": 20,
+            "linear": false,
+            "grayscale": false
+          },
+          "sha256": "78500e2688f51a7452105782a1bbbf6ae454f8e31b308f58e88a7d762925970e"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 37,
+            "contrast": 59,
+            "linear": false,
+            "grayscale": true
+          },
+          "sha256": "790e68e45db79988872279a6084f59dde031f9fe3dfbfd54c8505908a7d0362f"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 1,
+            "contrast": 0,
+            "linear": true,
+            "grayscale": false
+          },
+          "sha256": "a77ea093da682ac9b6d35e1ca8352aafbf502c866d5ef5e127fbe11caa63235e"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 100,
+            "contrast": 100,
+            "linear": true,
+            "grayscale": true
+          },
+          "sha256": "1a74096d54897a3db42da463d8fc8c8215003bb8006bcd4b00a8e86a59d9a977"
+        },
+        {
+          "params": {
+            "quality": 1,
+            "scale": 100,
+            "contrast": 0,
+            "linear": false,
+            "grayscale": false
+          },
+          "sha256": "1fb435888ee500c0b345f852c4a6ed12f913dfbff0ca5e4c613d98ec55dbf1af"
+        },
+        {
+          "params": {
+            "quality": 100,
+            "scale": 20,
+            "contrast": 0,
+            "linear": false,
+            "grayscale": true
+          },
+          "sha256": "8df93a643d3c5c479641c576b19e43264aa65ea87ff80dd0e147fa1a77eaa8dc"
+        }
+      ]
+    },
+    {
+      "file": "fixtures/exif-6-le.jpg",
+      "width": 48,
+      "height": 64,
+      "expected": [
+        {
+          "params": {
+            "quality": 75,
+            "scale": 50,
+            "contrast": 20,
+            "linear": false,
+            "grayscale": false
+          },
+          "sha256": "468859e1e85cd8d07462aab553da93a5c492e37a0647a21325ec0c80830abdd7"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 37,
+            "contrast": 59,
+            "linear": false,
+            "grayscale": true
+          },
+          "sha256": "9f36c37832437e59082c89de52c8621a62ac1bb2573f9f5d6ce9a49d89a56554"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 1,
+            "contrast": 0,
+            "linear": true,
+            "grayscale": false
+          },
+          "sha256": "cb29a9539d8b05090e18ef747ab1245e66746d3aa475c4c36c2254adba7c1f2a"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 100,
+            "contrast": 100,
+            "linear": true,
+            "grayscale": true
+          },
+          "sha256": "9b40d3d1d59e2e6086ec5d76370216a20077bd0352e53d0d888a29aeee682e1d"
+        },
+        {
+          "params": {
+            "quality": 1,
+            "scale": 100,
+            "contrast": 0,
+            "linear": false,
+            "grayscale": false
+          },
+          "sha256": "25a5c18e01418b0ed6b911e6ef691b6819d7072ce518e3cbec6ddbec0d32cc5c"
+        },
+        {
+          "params": {
+            "quality": 100,
+            "scale": 20,
+            "contrast": 0,
+            "linear": false,
+            "grayscale": true
+          },
+          "sha256": "4792f42ce8b1902a304c189bb33355cf9def99ce97b77b41c2df128fd45fa6bd"
+        }
+      ]
+    },
+    {
+      "file": "tests/data/digest-downsample.png",
+      "width": 531,
+      "height": 517,
+      "expected": [
+        {
+          "params": {
+            "quality": 75,
+            "scale": 50,
+            "contrast": 20,
+            "linear": false,
+            "grayscale": false
+          },
+          "sha256": "7be11738c4f454aff3e5ffc53fb5c56d43aa0e013bf1141c5d1e55872618b288"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 37,
+            "contrast": 59,
+            "linear": false,
+            "grayscale": true
+          },
+          "sha256": "77aa6ad797c38cdfbe6ba47fd882b3ff295f10ee20f26d230097a8e6a19ea4cf"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 1,
+            "contrast": 0,
+            "linear": true,
+            "grayscale": false
+          },
+          "sha256": "492f2862abb3ec8dfc19ffc91017c65ac7a7fb35506921515b6e6c50d403917a"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 100,
+            "contrast": 100,
+            "linear": true,
+            "grayscale": true
+          },
+          "sha256": "72653577b8829ac03b9654babe7edf3e327c51cc4ae948c9f2080687eb272b5c"
+        },
+        {
+          "params": {
+            "quality": 1,
+            "scale": 100,
+            "contrast": 0,
+            "linear": false,
+            "grayscale": false
+          },
+          "sha256": "00d7e31995c80ec2f8134ba1f741d5bd19a9c0f585aa75cfaa372d163045eab1"
+        },
+        {
+          "params": {
+            "quality": 100,
+            "scale": 20,
+            "contrast": 0,
+            "linear": false,
+            "grayscale": true
+          },
+          "sha256": "ce6b563a69f1cba1e33ad86651b9c30cd9b5b81c7c1645cd2eb816beea045320"
+        }
+      ]
+    },
+    {
+      "file": "tests/data/tiff-stream/tiles-bigtiff.tiff",
+      "width": 4103,
+      "height": 5401,
+      "expected": [
+        {
+          "params": {
+            "quality": 75,
+            "scale": 50,
+            "contrast": 20,
+            "linear": false,
+            "grayscale": false
+          },
+          "sha256": "4606509585a06af98bc11630cc21e7e343c7a0e612debc9070f72c6d3663e5d6"
+        },
+        {
+          "params": {
+            "quality": 75,
+            "scale": 37,
+            "contrast": 59,
+            "linear": false,
+            "grayscale": true
+          },
+          "sha256": "578f85b66acd8104ae90ba2c3378872c08aeefb33e320b87531094a0001d6023"
+        }
+      ]
+    }
+  ]
+}

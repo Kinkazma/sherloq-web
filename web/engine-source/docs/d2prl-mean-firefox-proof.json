@@ -1,0 +1,1183 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native UNet54 global-average boundaries and18 synthetic reductions; native prepared source and actual weights, no complete inference claim; portable C++/WASM and ONNX reduction with explicit native rounding order",
+  "ort": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "cases": 72,
+  "records": [
+    {
+      "name": "encoder_stages.1.1.0.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.avg_pool",
+      "backend": "cpp",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.avg_pool",
+      "backend": "onnx",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.2.avg_pool",
+      "backend": "cpp",
+      "elements": 384,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.2.avg_pool",
+      "backend": "onnx",
+      "elements": 384,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.2.avg_pool",
+      "backend": "cpp",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.2.avg_pool",
+      "backend": "onnx",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.2.avg_pool",
+      "backend": "cpp",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.2.avg_pool",
+      "backend": "onnx",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.2.avg_pool",
+      "backend": "cpp",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.2.avg_pool",
+      "backend": "onnx",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-2-7-noise",
+      "backend": "cpp",
+      "elements": 2,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-2-7-noise",
+      "backend": "onnx",
+      "elements": 2,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-2-7-signed",
+      "backend": "cpp",
+      "elements": 2,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-2-7-signed",
+      "backend": "onnx",
+      "elements": 2,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-2-7-steps",
+      "backend": "cpp",
+      "elements": 2,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-2-7-steps",
+      "backend": "onnx",
+      "elements": 2,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-17-14-noise",
+      "backend": "cpp",
+      "elements": 17,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-17-14-noise",
+      "backend": "onnx",
+      "elements": 17,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-17-14-signed",
+      "backend": "cpp",
+      "elements": 17,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-17-14-signed",
+      "backend": "onnx",
+      "elements": 17,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-17-14-steps",
+      "backend": "cpp",
+      "elements": 17,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-17-14-steps",
+      "backend": "onnx",
+      "elements": 17,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-28-noise",
+      "backend": "cpp",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-28-noise",
+      "backend": "onnx",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-28-signed",
+      "backend": "cpp",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-28-signed",
+      "backend": "onnx",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-28-steps",
+      "backend": "cpp",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-28-steps",
+      "backend": "onnx",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-128-56-noise",
+      "backend": "cpp",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-128-56-noise",
+      "backend": "onnx",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-128-56-signed",
+      "backend": "cpp",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-128-56-signed",
+      "backend": "onnx",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-128-56-steps",
+      "backend": "cpp",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-128-56-steps",
+      "backend": "onnx",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-112-noise",
+      "backend": "cpp",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-112-noise",
+      "backend": "onnx",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-112-signed",
+      "backend": "cpp",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-112-signed",
+      "backend": "onnx",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-112-steps",
+      "backend": "cpp",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-64-112-steps",
+      "backend": "onnx",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-16-224-noise",
+      "backend": "cpp",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-16-224-noise",
+      "backend": "onnx",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-16-224-signed",
+      "backend": "cpp",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-16-224-signed",
+      "backend": "onnx",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-16-224-steps",
+      "backend": "cpp",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "generated-16-224-steps",
+      "backend": "onnx",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    }
+  ],
+  "browser": "155.0",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "412d2558fd3d0152bac9f6f4dde7caca25363387ec9759c1779acb56ee7de72e",
+    "referenceSumSha256": "ed0af1f8d99378801ec0ff5b66c4ebff8c9ca37dd33187b6f15a9c909de5637c",
+    "files": {
+      "mean.js": {
+        "bytes": 7442,
+        "sha256": "28b8b259a0d3fd091621bd27e9a0d9837870253a71a50abe9719608588855564"
+      },
+      "mean.wasm": {
+        "bytes": 9373,
+        "sha256": "837c46bcbc1d45d98b18f8bc0ff69f69e1627e0067401544d15c5170b5152abf"
+      }
+    }
+  },
+  "referenceSha256": "fee6a76c95e52b51e4712223ae85c0327f5c232dc1bb216b2d703069077bea16",
+  "rewriterSha256": "0e26fec5c9a87649d3b2e722f017a39a2aed7debec045b8024af0f56fda65dbc"
+}

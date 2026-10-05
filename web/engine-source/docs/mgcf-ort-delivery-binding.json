@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.41",
+  "runtimeFiles": 399,
+  "runtimeManifestSha256": "5b98599dae5605a63898ed8db04add6005e312683c5f625856cb5fe7260d3274",
+  "scope": "Exact copied runtime and execution-source binding; same-asset MGCF16 and repaired EffNet CPU/GPU workers, cold/warm native corpus, declared threshold decision and components, fresh auto-GPU common-worker API/full NPZ/cancellation/reload for both. Actual rich96MP MGCF16 covers the larger-model-byte sigmoid hybrid memory path; EffNet96MP is shared adapter coverage, not a new96MP network run. Unchanged CPU96MP evidence reused. No WordPress cohabitation or universal-device/speed claim.",
+  "variants": [
+    {
+      "variant": "mgcfdn-16",
+      "modelSha256": "81efce16baa78f0383fa822918fd51f0a3843163756c6d16421065175c1d7a90",
+      "checkpointSha256": "d2657fac0191c54da090b8d0e44e24519bd9722b5b2b4b18fbe17cf00a7e4e65",
+      "cpuMs": [
+        1013.8000000119209,
+        490,
+        488.8999999910593
+      ],
+      "hybridMs": [
+        1652.8999999910593,
+        113,
+        100.80000001192093
+      ],
+      "cpuPeak": 1346552999,
+      "hybridPeak": 1883423911,
+      "declaredMaskDifferences": 0,
+      "probabilityMax": 0.0000033080577850341797,
+      "probabilityMaxMean": 2.0782368892469094e-7,
+      "copiedApiMs": 1341.0999999940395,
+      "cachedViewMs": 10.200000002980232,
+      "npzPreparationMs": 60,
+      "copiedPeak": 1451815226,
+      "copiedForeground": 3555,
+      "npzSha256": "3fa677c4935c44febab1fbac1e9b503db40f14fbb16b61fd9fa56113572dbbaa",
+      "cancelled": true,
+      "reloaded": true
+    },
+    {
+      "variant": "mgcfdn-effnet",
+      "modelSha256": "e132aa38d8c2726e1e6bc4a2e2a9760b24901757b938580f00742ea25ce569fe",
+      "checkpointSha256": "98b7fc9dbe935c7840799acd8273bec6f27dd7d7f33761b5090918e2be988773",
+      "cpuMs": [
+        1329.800000011921,
+        465.59999999403954,
+        463
+      ],
+      "hybridMs": [
+        1748,
+        128.20000000298023,
+        132.69999998807907
+      ],
+      "cpuPeak": 1302031502,
+      "hybridPeak": 1838902414,
+      "declaredMaskDifferences": 1,
+      "probabilityMax": 0.000004172325134277344,
+      "probabilityMaxMean": 3.66798521334033e-7,
+      "copiedApiMs": 2027.5999999940395,
+      "cachedViewMs": 9,
+      "npzPreparationMs": 64,
+      "copiedPeak": 1407293729,
+      "copiedForeground": 8759,
+      "npzSha256": "162104085d74fbbd0d7a361b840c4b6d944259b71b057e904105f558c42c8021",
+      "cancelled": true,
+      "reloaded": true
+    }
+  ],
+  "large": {
+    "width": 12000,
+    "height": 8000,
+    "arrays": 4,
+    "foreground": 2400483,
+    "map": {
+      "different": 95186744,
+      "maxAbs": 0.0000019371509552001953,
+      "meanAbs": 3.8393267971948755e-8,
+      "nonzero": 96000000,
+      "finite": true,
+      "sha256": "53a5855c811398029e08263d2ae7b780b1e34b3b8f53a49e62775ddb3c6a66a8",
+      "accepted": true
+    },
+    "peakBytes": 3088028932,
+    "budgetBytes": 3221225472,
+    "exportBytes": 672012768,
+    "exportSha256": "7f4415a9faafb062ebe7be21b2fff73545fe97d8e695e366467a1959540eb1ff"
+  },
+  "refused": [
+    {
+      "variant": "mgcfdn",
+      "peakGpuBytes": 529068000,
+      "ceilingBytes": 536870912,
+      "reason": "GPU buffer admission refusal before complete inference",
+      "qualified": false
+    },
+    {
+      "variant": "mgcfdn-st",
+      "peakGpuBytes": 534608464,
+      "ceilingBytes": 536870912,
+      "reason": "GPU buffer admission refusal before complete inference",
+      "qualified": false
+    }
+  ]
+}

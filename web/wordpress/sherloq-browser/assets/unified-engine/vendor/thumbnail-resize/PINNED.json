@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "opencv": "4.11.0",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "sourceSha256": "9f19b40381ba080a395378abfe90601f908a3e33caa2f5566e92aa03283dc053",
+  "libraries": {
+    "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+  },
+  "method": "Unchanged cv::resize INTER_LANCZOS4 on RGB8; full native output, streamed delivery",
+  "files": {
+    "thumbnail-resize.js": {
+      "bytes": 24272,
+      "sha256": "1ba10207d450247bb0f98a61607b3bf5853599b949a43ecd292dc6f66e921f43"
+    },
+    "thumbnail-resize.wasm": {
+      "bytes": 554554,
+      "sha256": "fb45ddae038e995a462fbac73551c7ef206008e5eb70ffbc30bd0d0872b75273"
+    }
+  }
+}

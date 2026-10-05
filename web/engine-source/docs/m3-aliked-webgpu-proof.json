@@ -1,0 +1,504 @@
+{
+  "provider": "webgpu",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "models": [
+    {
+      "kind": "aliked-n16",
+      "weightSha256": "5be8704840ed662d9d8c561bf7279c222092674e7eb05fd0feab94899e9d82f2",
+      "graphs": {
+        "detect": {
+          "file": "aliked-n16-detect.onnx",
+          "bytes": 2356,
+          "sha256": "e3152832e89d0b1d68d8e73ab332bca6392509e9f79f7ef6f57b92d988f37794"
+        },
+        "localize": {
+          "file": "aliked-n16-localize.onnx",
+          "bytes": 7624,
+          "sha256": "abdaec69ec32bcd02a3c7a71f82330667c44c53ce925585e87db5a3de26d9062"
+        },
+        "describe": {
+          "file": "aliked-n16-describe.onnx",
+          "bytes": 1286066,
+          "sha256": "6c1a44432ede86805bde0765d946dbd7a0981c288f30eb421eeb817c87657a26"
+        },
+        "dense": {
+          "schema": 1,
+          "torch": "2.8.0",
+          "checkpointSha256": "5be8704840ed662d9d8c561bf7279c222092674e7eb05fd0feab94899e9d82f2",
+          "file": "aliked-n16-dense.onnx",
+          "bytes": 1477750,
+          "sha256": "9222e14a38497e44b01be7685b37a8985661befd6537df2d4dffb7c75075436d",
+          "cases": [
+            {
+              "id": 0,
+              "files": {
+                "input": {
+                  "file": "aliked-n16-dense-0-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    96,
+                    128
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16-dense-0-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    96,
+                    128
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16-dense-0-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    96,
+                    128
+                  ]
+                }
+              }
+            },
+            {
+              "id": 1,
+              "files": {
+                "input": {
+                  "file": "aliked-n16-dense-1-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    160,
+                    128
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16-dense-1-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    160,
+                    128
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16-dense-1-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    160,
+                    128
+                  ]
+                }
+              }
+            },
+            {
+              "id": 2,
+              "files": {
+                "input": {
+                  "file": "aliked-n16-dense-2-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    97,
+                    129
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16-dense-2-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    97,
+                    129
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16-dense-2-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    97,
+                    129
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "cases": [
+        {
+          "id": 0,
+          "indices": {
+            "values": 13,
+            "expected": 13,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 26,
+            "expected": 26,
+            "differences": 6,
+            "maximum": 1.1920928955078125e-7
+          },
+          "confidence": {
+            "values": 13,
+            "expected": 13,
+            "differences": 13,
+            "maximum": 0.0000011324882507324219
+          },
+          "dispersion": {
+            "values": 13,
+            "expected": 13,
+            "differences": 13,
+            "maximum": 0.000001817941665649414
+          },
+          "descriptors": {
+            "values": 1664,
+            "expected": 1664,
+            "differences": 1644,
+            "maximum": 9.98377799987793e-7
+          },
+          "offset": {
+            "values": 416,
+            "expected": 416,
+            "differences": 350,
+            "maximum": 0.0000152587890625
+          }
+        },
+        {
+          "id": 1,
+          "indices": {
+            "values": 24,
+            "expected": 24,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 48,
+            "expected": 48,
+            "differences": 6,
+            "maximum": 1.1920928955078125e-7
+          },
+          "confidence": {
+            "values": 24,
+            "expected": 24,
+            "differences": 24,
+            "maximum": 0.0000030994415283203125
+          },
+          "dispersion": {
+            "values": 24,
+            "expected": 24,
+            "differences": 24,
+            "maximum": 0.0000016689300537109375
+          },
+          "descriptors": {
+            "values": 3072,
+            "expected": 3072,
+            "differences": 3055,
+            "maximum": 0.0000018030405044555664
+          },
+          "offset": {
+            "values": 768,
+            "expected": 768,
+            "differences": 713,
+            "maximum": 0.000030517578125
+          }
+        },
+        {
+          "id": 2,
+          "indices": {
+            "values": 42,
+            "expected": 42,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 84,
+            "expected": 84,
+            "differences": 15,
+            "maximum": 1.1920928955078125e-7
+          },
+          "confidence": {
+            "values": 42,
+            "expected": 42,
+            "differences": 40,
+            "maximum": 0.0000027120113372802734
+          },
+          "dispersion": {
+            "values": 42,
+            "expected": 42,
+            "differences": 42,
+            "maximum": 0.0000015497207641601562
+          },
+          "descriptors": {
+            "values": 5376,
+            "expected": 5376,
+            "differences": 5325,
+            "maximum": 0.0000013452954590320587
+          },
+          "offset": {
+            "values": 1344,
+            "expected": 1344,
+            "differences": 1147,
+            "maximum": 0.000034809112548828125
+          }
+        }
+      ]
+    },
+    {
+      "kind": "aliked-n16rot",
+      "weightSha256": "ddf3abbf38e86f6a74540d214e1a9712c54b2d8551abc864542199f2347d7332",
+      "graphs": {
+        "detect": {
+          "file": "aliked-n16rot-detect.onnx",
+          "bytes": 2356,
+          "sha256": "e3152832e89d0b1d68d8e73ab332bca6392509e9f79f7ef6f57b92d988f37794"
+        },
+        "localize": {
+          "file": "aliked-n16rot-localize.onnx",
+          "bytes": 7624,
+          "sha256": "abdaec69ec32bcd02a3c7a71f82330667c44c53ce925585e87db5a3de26d9062"
+        },
+        "describe": {
+          "file": "aliked-n16rot-describe.onnx",
+          "bytes": 1286066,
+          "sha256": "7858b66e66646513c1794851cc6a949fdb3e539638c5f0e28af945eb9812416e"
+        },
+        "dense": {
+          "schema": 1,
+          "torch": "2.8.0",
+          "checkpointSha256": "ddf3abbf38e86f6a74540d214e1a9712c54b2d8551abc864542199f2347d7332",
+          "file": "aliked-n16rot-dense.onnx",
+          "bytes": 1477750,
+          "sha256": "5a1388b8e2a339c69b6e4bb46e2f58cefb0f3d8f4a4d2a199068a6b07fdedebc",
+          "cases": [
+            {
+              "id": 0,
+              "files": {
+                "input": {
+                  "file": "aliked-n16rot-dense-0-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    96,
+                    128
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16rot-dense-0-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    96,
+                    128
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16rot-dense-0-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    96,
+                    128
+                  ]
+                }
+              }
+            },
+            {
+              "id": 1,
+              "files": {
+                "input": {
+                  "file": "aliked-n16rot-dense-1-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    160,
+                    128
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16rot-dense-1-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    160,
+                    128
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16rot-dense-1-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    160,
+                    128
+                  ]
+                }
+              }
+            },
+            {
+              "id": 2,
+              "files": {
+                "input": {
+                  "file": "aliked-n16rot-dense-2-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    97,
+                    129
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16rot-dense-2-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    97,
+                    129
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16rot-dense-2-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    97,
+                    129
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "cases": [
+        {
+          "id": 0,
+          "indices": {
+            "values": 35,
+            "expected": 35,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 70,
+            "expected": 70,
+            "differences": 31,
+            "maximum": 2.384185791015625e-7
+          },
+          "confidence": {
+            "values": 35,
+            "expected": 35,
+            "differences": 33,
+            "maximum": 0.000005185604095458984
+          },
+          "dispersion": {
+            "values": 35,
+            "expected": 35,
+            "differences": 35,
+            "maximum": 0.0000018775463104248047
+          },
+          "descriptors": {
+            "values": 4480,
+            "expected": 4480,
+            "differences": 4448,
+            "maximum": 0.0000017881393432617188
+          },
+          "offset": {
+            "values": 1120,
+            "expected": 1120,
+            "differences": 969,
+            "maximum": 0.000064849853515625
+          }
+        },
+        {
+          "id": 1,
+          "indices": {
+            "values": 67,
+            "expected": 67,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 134,
+            "expected": 134,
+            "differences": 49,
+            "maximum": 2.384185791015625e-7
+          },
+          "confidence": {
+            "values": 67,
+            "expected": 67,
+            "differences": 67,
+            "maximum": 0.000006079673767089844
+          },
+          "dispersion": {
+            "values": 67,
+            "expected": 67,
+            "differences": 67,
+            "maximum": 0.000003993511199951172
+          },
+          "descriptors": {
+            "values": 8576,
+            "expected": 8576,
+            "differences": 8511,
+            "maximum": 0.0000033229589462280273
+          },
+          "offset": {
+            "values": 2144,
+            "expected": 2144,
+            "differences": 1936,
+            "maximum": 0.00006103515625
+          }
+        },
+        {
+          "id": 2,
+          "indices": {
+            "values": 43,
+            "expected": 43,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 86,
+            "expected": 86,
+            "differences": 20,
+            "maximum": 1.1920928955078125e-7
+          },
+          "confidence": {
+            "values": 43,
+            "expected": 43,
+            "differences": 41,
+            "maximum": 0.0000027418136596679688
+          },
+          "dispersion": {
+            "values": 43,
+            "expected": 43,
+            "differences": 42,
+            "maximum": 0.0000019073486328125
+          },
+          "descriptors": {
+            "values": 5504,
+            "expected": 5504,
+            "differences": 5455,
+            "maximum": 0.0000018440186977386475
+          },
+          "offset": {
+            "values": 1376,
+            "expected": 1376,
+            "differences": 1149,
+            "maximum": 0.000049591064453125
+          }
+        }
+      ]
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT can assign unsupported nodes to CPU.",
+  "selectionsMatch": true
+}

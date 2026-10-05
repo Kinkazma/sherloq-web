@@ -1,0 +1,626 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "cpu",
+  "reference": "previous qualified non-paged WASM",
+  "records": [
+    {
+      "name": "AKAZE/global",
+      "count": 41,
+      "referenceCount": 41,
+      "total": 41,
+      "referenceTotal": 41,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 10664.5,
+      "metadata": {
+        "family": "AKAZE",
+        "provider": "cpu",
+        "inputLayout": "global-paged-diffusion",
+        "preflightExecutions": 0,
+        "globalCandidates": 41,
+        "sourceReads": 3,
+        "coreSize": 96,
+        "stripRows": 13,
+        "levels": [
+          {
+            "width": 224,
+            "height": 176,
+            "contrast": 1.4666966199874878,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 224,
+            "height": 176,
+            "contrast": 1.4666966199874878,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 224,
+            "height": 176,
+            "contrast": 1.4666966199874878,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 224,
+            "height": 176,
+            "contrast": 1.4666966199874878,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 112,
+            "height": 88,
+            "contrast": 1.1000224351882935,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 112,
+            "height": 88,
+            "contrast": 1.1000224351882935,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 112,
+            "height": 88,
+            "contrast": 1.1000224351882935,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 112,
+            "height": 88,
+            "contrast": 1.1000224351882935,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          }
+        ],
+        "stages": [
+          {
+            "executions": 363,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 1,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 6,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          }
+        ],
+        "arithmetic": "relaxed-simd-fma",
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 370,
+        "retries": 0
+      }
+    },
+    {
+      "name": "AKAZE/masked",
+      "count": 13,
+      "referenceCount": 13,
+      "total": 13,
+      "referenceTotal": 13,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 7426.5999999940395,
+      "metadata": {
+        "family": "AKAZE",
+        "provider": "cpu",
+        "inputLayout": "global-paged-diffusion",
+        "preflightExecutions": 0,
+        "globalCandidates": 41,
+        "sourceReads": 3,
+        "coreSize": 96,
+        "stripRows": 13,
+        "levels": [
+          {
+            "width": 224,
+            "height": 176,
+            "contrast": 1.4666966199874878,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 224,
+            "height": 176,
+            "contrast": 1.4666966199874878,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 224,
+            "height": 176,
+            "contrast": 1.4666966199874878,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 224,
+            "height": 176,
+            "contrast": 1.4666966199874878,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 112,
+            "height": 88,
+            "contrast": 1.1000224351882935,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 112,
+            "height": 88,
+            "contrast": 1.1000224351882935,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 112,
+            "height": 88,
+            "contrast": 1.1000224351882935,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 112,
+            "height": 88,
+            "contrast": 1.1000224351882935,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          }
+        ],
+        "stages": [
+          {
+            "executions": 363,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 1,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 3,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          }
+        ],
+        "arithmetic": "relaxed-simd-fma",
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 367,
+        "retries": 0
+      }
+    },
+    {
+      "name": "AKAZE/rich-global",
+      "count": 100,
+      "referenceCount": 100,
+      "total": 1971,
+      "referenceTotal": 1971,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 9110.29999999702,
+      "metadata": {
+        "family": "AKAZE",
+        "provider": "cpu",
+        "inputLayout": "global-paged-diffusion",
+        "preflightExecutions": 0,
+        "globalCandidates": 1971,
+        "sourceReads": 5,
+        "coreSize": 96,
+        "stripRows": 13,
+        "levels": [
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          }
+        ],
+        "stages": [
+          {
+            "executions": 724,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 1,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 24,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          }
+        ],
+        "arithmetic": "relaxed-simd-fma",
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 749,
+        "retries": 0
+      }
+    },
+    {
+      "name": "AKAZE/rich-masked",
+      "count": 100,
+      "referenceCount": 100,
+      "total": 1576,
+      "referenceTotal": 1576,
+      "pointFieldDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMetadata": 0,
+      "descriptorDifferences": 0,
+      "descriptorMax": 0,
+      "membersEqual": true,
+      "milliseconds": 15606.5,
+      "metadata": {
+        "family": "AKAZE",
+        "provider": "cpu",
+        "inputLayout": "global-paged-diffusion",
+        "preflightExecutions": 0,
+        "globalCandidates": 1971,
+        "sourceReads": 5,
+        "coreSize": 96,
+        "stripRows": 13,
+        "levels": [
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 397,
+            "height": 281,
+            "contrast": 3.683194160461426,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 198,
+            "height": 140,
+            "contrast": 2.7623956203460693,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          },
+          {
+            "width": 99,
+            "height": 70,
+            "contrast": 2.0717966556549072,
+            "halo": 128,
+            "ltStorage": "memory",
+            "smoothStorage": "memory",
+            "detStorage": "memory"
+          }
+        ],
+        "stages": [
+          {
+            "executions": 724,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 1,
+            "retries": 0,
+            "workers": 1,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          },
+          {
+            "executions": 25,
+            "retries": 0,
+            "workers": 2,
+            "peakWorkerHeapBytes": 33554432,
+            "preflightExecutions": 0,
+            "failures": []
+          }
+        ],
+        "arithmetic": "relaxed-simd-fma",
+        "workers": 2,
+        "peakWorkerHeapBytes": 33554432,
+        "executions": 750,
+        "retries": 0
+      }
+    }
+  ],
+  "cancelled": true,
+  "peakAccountedBytes": 760760759,
+  "remainingActiveBytes": 0
+}

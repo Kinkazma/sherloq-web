@@ -1,0 +1,465 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-10-03T07:50:29.752976+00:00",
+  "sourceCommit": "8fa9774ea212cdf7fd7def5f70d035daf44da1a1",
+  "scope": "Functional qualification of active immutable descriptor migration; no 96MP run, preflight, calibration or performance claim.",
+  "commands": [
+    "node --test --test-timeout=30000 tests/dense-input-migration.test.mjs tests/dense-field-resource-rpc.test.mjs tests/dense-shared-field.test.mjs tests/portable-byte-store.test.mjs tests/segmented-bytes.test.mjs tests/segmented-allocation.test.mjs tests/segmented-allocation-recovery.test.mjs tests/segmented-backing-bytes.test.mjs tests/segmented-lifecycle.test.mjs tests/dense-field-parallel.test.mjs tests/dense-page-memory.test.mjs tests/dense-preparation-admission.test.mjs",
+    "node tests/dense-input-migration-browser.mjs",
+    "BROWSER=firefox node tests/dense-input-migration-browser.mjs",
+    "BROWSER=webkit node tests/dense-input-migration-browser.mjs"
+  ],
+  "node": {
+    "passed": 77,
+    "failed": 0,
+    "cancelled": 0,
+    "liveness": {
+      "method": "Node --expose-gc with WeakRef observations while retired publication envelopes and reader objects remain reachable",
+      "retainedEnvelopes": 4,
+      "clearedBankWeakRefs": 9,
+      "policyBytesAtEnd": 0
+    }
+  },
+  "nativeCorpus": {
+    "width": 149,
+    "height": 127,
+    "dimensions": 12,
+    "iterations": 8,
+    "minimum": 2,
+    "radius": 41,
+    "seed": 729,
+    "fieldsPerScenario": 2,
+    "comparisonsPerField": "1881479",
+    "oracle": "Same native sequential field; bitwise targets and distancesSquared equality, equal comparison count and monotonic native progress asserted for every migrated field.",
+    "defaultBudgetMiB": 384,
+    "tightIndexedDBBudgetMiB": 80,
+    "browsers": {
+      "chromium": {
+        "isolated": true,
+        "reports": [
+          {
+            "mode": "success",
+            "backend": "opfs",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": null,
+            "afterMigrationProgress": [
+              24,
+              24
+            ],
+            "peakKernels": [
+              4,
+              4
+            ],
+            "transports": [
+              [
+                "opfs-readonly",
+                "shared"
+              ],
+              [
+                "opfs-readonly",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "io-failure",
+            "backend": "opfs",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": "STORAGE_IO",
+            "afterMigrationProgress": [
+              24,
+              24
+            ],
+            "peakKernels": [
+              4,
+              4
+            ],
+            "transports": [
+              [
+                "shared",
+                "shared"
+              ],
+              [
+                "shared",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "cancel-migration",
+            "backend": "opfs",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": "CANCELLED",
+            "afterMigrationProgress": [
+              24,
+              24
+            ],
+            "peakKernels": [
+              4,
+              4
+            ],
+            "transports": [
+              [
+                "shared",
+                "shared"
+              ],
+              [
+                "shared",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "completion",
+            "backend": "opfs",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": null,
+            "afterMigrationProgress": [
+              2,
+              0
+            ],
+            "peakKernels": [
+              4,
+              3
+            ],
+            "transports": [
+              [
+                "opfs-readonly",
+                "shared"
+              ],
+              [
+                "opfs-readonly",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "tight-idb",
+            "backend": "indexeddb",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": null,
+            "afterMigrationProgress": [
+              40,
+              40
+            ],
+            "peakKernels": [
+              1,
+              1
+            ],
+            "transports": [
+              [
+                "broker",
+                "shared"
+              ],
+              [
+                "broker",
+                "shared"
+              ]
+            ]
+          }
+        ]
+      },
+      "firefox": {
+        "isolated": true,
+        "reports": [
+          {
+            "mode": "success",
+            "backend": "opfs",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": null,
+            "afterMigrationProgress": [
+              40,
+              43
+            ],
+            "peakKernels": [
+              4,
+              4
+            ],
+            "transports": [
+              [
+                "broker",
+                "shared"
+              ],
+              [
+                "broker",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "io-failure",
+            "backend": "opfs",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": "STORAGE_IO",
+            "afterMigrationProgress": [
+              46,
+              50
+            ],
+            "peakKernels": [
+              4,
+              4
+            ],
+            "transports": [
+              [
+                "shared",
+                "shared"
+              ],
+              [
+                "shared",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "cancel-migration",
+            "backend": "opfs",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": "CANCELLED",
+            "afterMigrationProgress": [
+              24,
+              24
+            ],
+            "peakKernels": [
+              4,
+              4
+            ],
+            "transports": [
+              [
+                "shared",
+                "shared"
+              ],
+              [
+                "shared",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "completion",
+            "backend": "opfs",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": null,
+            "afterMigrationProgress": [
+              0,
+              0
+            ],
+            "peakKernels": [
+              3,
+              3
+            ],
+            "transports": [
+              [
+                "broker",
+                "shared"
+              ],
+              [
+                "broker",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "tight-idb",
+            "backend": "indexeddb",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": null,
+            "afterMigrationProgress": [
+              40,
+              40
+            ],
+            "peakKernels": [
+              1,
+              1
+            ],
+            "transports": [
+              [
+                "broker",
+                "shared"
+              ],
+              [
+                "broker",
+                "shared"
+              ]
+            ]
+          }
+        ]
+      },
+      "webkit": {
+        "isolated": true,
+        "reports": [
+          {
+            "mode": "success",
+            "backend": "indexeddb",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": null,
+            "afterMigrationProgress": [
+              35,
+              35
+            ],
+            "peakKernels": [
+              4,
+              4
+            ],
+            "transports": [
+              [
+                "broker",
+                "shared"
+              ],
+              [
+                "broker",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "io-failure",
+            "backend": "indexeddb",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": "STORAGE_IO",
+            "afterMigrationProgress": [
+              36,
+              35
+            ],
+            "peakKernels": [
+              4,
+              4
+            ],
+            "transports": [
+              [
+                "shared",
+                "shared"
+              ],
+              [
+                "shared",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "cancel-migration",
+            "backend": "indexeddb",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": "CANCELLED",
+            "afterMigrationProgress": [
+              32,
+              35
+            ],
+            "peakKernels": [
+              4,
+              4
+            ],
+            "transports": [
+              [
+                "shared",
+                "shared"
+              ],
+              [
+                "shared",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "completion",
+            "backend": "indexeddb",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": null,
+            "afterMigrationProgress": [
+              0,
+              18
+            ],
+            "peakKernels": [
+              3,
+              4
+            ],
+            "transports": [
+              [
+                "broker",
+                "shared"
+              ],
+              [
+                "broker",
+                "shared"
+              ]
+            ]
+          },
+          {
+            "mode": "tight-idb",
+            "backend": "indexeddb",
+            "compares": "1881479",
+            "fields": 2,
+            "recoveryCode": null,
+            "afterMigrationProgress": [
+              40,
+              40
+            ],
+            "peakKernels": [
+              2,
+              1
+            ],
+            "transports": [
+              [
+                "broker",
+                "shared"
+              ],
+              [
+                "broker",
+                "shared"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "guaranteesTested": [
+    "Every live reader acknowledges retirement before the old descriptor backing is retired.",
+    "Migration preserves completed work, RNG history, targets, distances, active native contexts and existing task queues.",
+    "Two fields share a descriptor owner; migration pauses both at a safe boundary and restores them without restarting.",
+    "Temporary write/flush failure or cancellation retains the old authoritative RAM banks and republishes all readers.",
+    "Final result publication waits for an overlapping migration.",
+    "Queued CPU admission and serialized reclaim expose safe idle boundaries instead of retaining a circular dependency.",
+    "Future broker staging is prefunded in the coordinator and kernels; IndexedDB migration completes at 80 MiB.",
+    "Actual banks and native heaps appear in the allocation-domain registry without adding policy credits; adopted SAB outputs transfer ownership without double counting.",
+    "Automatic storage selection follows current array-buffer pressure and becomes resident again after the recovery token is released."
+  ],
+  "limits": [
+    "The experimental dense GPU distance hook, already disabled by default, retains non-revocable descriptor pins to avoid a queued GPU/reclaim cycle; this patch does not change its activation setting.",
+    "Native arithmetic and C++ kernels are unchanged. Equality is demonstrated for this finite corpus, not every possible image.",
+    "The 80 MiB case admits two concurrent fields with one or two kernels each according to available memory; it does not promise four kernels within that envelope.",
+    "Backing retirement and WeakRef collection establish reference eligibility/collection in the test; production runtime does not force garbage collection or claim immediate physical RSS return.",
+    "These functional browser runs may overlap other functional tests; their durations are not performance measurements."
+  ],
+  "rawLogs": {
+    "webkit.log": {
+      "sha256": "62e7da8356c2e580941cb8b7fd87ce4a65ba35142c85e605d9ac1b040572f7ca",
+      "bytes": 1066
+    },
+    "firefox.log": {
+      "sha256": "aacf5353c6bf8f59890415d10d1a0f1807742beadefc332b3ad18c244dca39d1",
+      "bytes": 1045
+    },
+    "node.log": {
+      "sha256": "f8ad7e0e471ec1aed19370e74923a730d7782c1044ad437452ee7a03ea4672f3",
+      "bytes": 18261
+    },
+    "chromium.log": {
+      "sha256": "6631aca7751be30ed987609293c9f050992ea00efd5a0fe2834eafa84fd952f0",
+      "bytes": 1152
+    }
+  }
+}

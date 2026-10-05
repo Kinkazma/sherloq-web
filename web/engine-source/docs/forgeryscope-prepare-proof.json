@@ -1,0 +1,109 @@
+{
+  "scope": "uint8 resize/padding/float32 normalization on native synthetic crops",
+  "passed": true,
+  "build": {
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "0c152f1b84ac4fb9da95fd704a303dc36142254d7e067cfd30f039359f70ad83",
+    "objects": {
+      "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+      "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+      "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    "files": {
+      "prepare.mjs": {
+        "bytes": 23847,
+        "sha256": "845b5c394ae4824dba7f1eb9c4a2f0c6a74e421221db581756a8279b3438c6ea"
+      },
+      "prepare.wasm": {
+        "bytes": 566351,
+        "sha256": "94d877ffc9836aebff89933c8d8afc28837f0c7f0ac8db3ed3a53f37adc8a11b"
+      }
+    }
+  },
+  "records": [
+    {
+      "model": "wblot_duplicate_embedder",
+      "case": "wblot_duplicate_embedder-0",
+      "values": 61440,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "case": "wblot_duplicate_embedder-1",
+      "values": 61440,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "wblot_duplicate_embedder",
+      "case": "wblot_duplicate_embedder-2",
+      "values": 61440,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "case": "wblot_overlap_embedder-0",
+      "values": 61440,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "case": "wblot_overlap_embedder-1",
+      "values": 61440,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "wblot_overlap_embedder",
+      "case": "wblot_overlap_embedder-2",
+      "values": 61440,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "case": "wblot_lane_embedder-0",
+      "values": 49152,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "case": "wblot_lane_embedder-1",
+      "values": 49152,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "wblot_lane_embedder",
+      "case": "wblot_lane_embedder-2",
+      "values": 49152,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "case": "micro_overlap_embedder-0",
+      "values": 150528,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "case": "micro_overlap_embedder-1",
+      "values": 150528,
+      "differences": 0,
+      "maxError": 0
+    },
+    {
+      "model": "micro_overlap_embedder",
+      "case": "micro_overlap_embedder-2",
+      "values": 150528,
+      "differences": 0,
+      "maxError": 0
+    }
+  ]
+}

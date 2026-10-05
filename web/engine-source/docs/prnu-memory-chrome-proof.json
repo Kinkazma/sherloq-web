@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "width": 4096,
+  "height": 2048,
+  "scoresExact": true,
+  "metrics": {
+    "totalMs": 3993.199999988079,
+    "cache": {
+      "result": false,
+      "stages": {
+        "residual": false
+      }
+    },
+    "kernel": "cpu-pinned-prnu-simd",
+    "workers": 1,
+    "stages": {
+      "residualMs": 3989.900000035763,
+      "matchingMs": 2.899999976158142
+    },
+    "memory": {
+      "budgetBytes": 3221225472,
+      "retainedBytes": 50536295,
+      "cacheBytes": 67014030,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 1938232199,
+      "codecHeapCapacityBytes": 838336512,
+      "hdf5HeapCapacityBytes": 19333120
+    }
+  },
+  "cancellation": "Uncached 8 MP job terminated after 30 ms request; both sources reloaded and exact small query recovered",
+  "released": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 169694716
+  },
+  "browser": "154.0.8037.58"
+}

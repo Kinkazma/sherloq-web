@@ -1,0 +1,5 @@
+import {storageInventory} from './source-api-browser.js';
+export async function energyStreamBrowserTest(){
+ const before=await storageInventory(),result=await new Promise((resolve,reject)=>{const worker=new Worker(new URL('./energy-stream-worker.js',import.meta.url),{type:'module'});worker.onmessage=({data})=>{worker.terminate();data.error?reject(Error(data.error)):resolve(data);};worker.onerror=e=>{worker.terminate();reject(Error(e.message));};worker.postMessage({});});
+ if(JSON.stringify(before)!==JSON.stringify(await storageInventory()))throw Error('Energy temporary storage leak');return {...result,storageCleanup:true};
+}

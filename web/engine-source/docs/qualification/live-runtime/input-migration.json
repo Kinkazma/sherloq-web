@@ -1,0 +1,184 @@
+[
+  {
+    "isolated": true,
+    "reports": [
+      {
+        "mode": "gpu-success",
+        "backend": "opfs",
+        "compares": "1621943",
+        "fields": 2,
+        "recoveryCode": null,
+        "afterMigrationProgress": [
+          26,
+          25
+        ],
+        "peakKernels": [
+          4,
+          4
+        ],
+        "transports": [
+          [
+            "opfs-readonly",
+            "shared",
+            "shared"
+          ],
+          [
+            "opfs-readonly",
+            "shared",
+            "shared"
+          ]
+        ]
+      },
+      {
+        "mode": "success",
+        "backend": "opfs",
+        "compares": "1881479",
+        "fields": 2,
+        "recoveryCode": null,
+        "afterMigrationProgress": [
+          25,
+          24
+        ],
+        "peakKernels": [
+          4,
+          4
+        ],
+        "transports": [
+          [
+            "opfs-readonly",
+            "shared"
+          ],
+          [
+            "opfs-readonly",
+            "shared"
+          ]
+        ]
+      },
+      {
+        "mode": "io-failure",
+        "backend": "opfs",
+        "compares": "1881479",
+        "fields": 2,
+        "recoveryCode": "STORAGE_IO",
+        "afterMigrationProgress": [
+          24,
+          24
+        ],
+        "peakKernels": [
+          4,
+          4
+        ],
+        "transports": [
+          [
+            "shared",
+            "shared"
+          ],
+          [
+            "shared",
+            "shared"
+          ]
+        ]
+      },
+      {
+        "mode": "cancel-migration",
+        "backend": "opfs",
+        "compares": "1881479",
+        "fields": 2,
+        "recoveryCode": "CANCELLED",
+        "afterMigrationProgress": [
+          24,
+          25
+        ],
+        "peakKernels": [
+          4,
+          4
+        ],
+        "transports": [
+          [
+            "shared",
+            "shared"
+          ],
+          [
+            "shared",
+            "shared"
+          ]
+        ]
+      },
+      {
+        "mode": "completion",
+        "backend": "opfs",
+        "compares": "1881479",
+        "fields": 2,
+        "recoveryCode": null,
+        "afterMigrationProgress": [
+          0,
+          8
+        ],
+        "peakKernels": [
+          3,
+          4
+        ],
+        "transports": [
+          [
+            "opfs-readonly",
+            "shared"
+          ],
+          [
+            "opfs-readonly",
+            "shared"
+          ]
+        ]
+      },
+      {
+        "mode": "tight-idb",
+        "backend": "indexeddb",
+        "compares": "1881479",
+        "fields": 2,
+        "recoveryCode": null,
+        "afterMigrationProgress": [
+          40,
+          40
+        ],
+        "peakKernels": [
+          2,
+          1
+        ],
+        "transports": [
+          [
+            "broker",
+            "shared"
+          ],
+          [
+            "broker",
+            "shared"
+          ]
+        ]
+      },
+      {
+        "mode": "pressure-self",
+        "backend": "opfs",
+        "compares": "1881479",
+        "fields": 2,
+        "recoveryCode": null,
+        "afterMigrationProgress": [
+          24,
+          25
+        ],
+        "peakKernels": [
+          4,
+          4
+        ],
+        "transports": [
+          [
+            "opfs-readonly",
+            "shared"
+          ],
+          [
+            "opfs-readonly",
+            "shared"
+          ]
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native PIL RGB8 Resize then ToTensor only; no codec or model qualification",
+  "node": "v22.22.2",
+  "reference": "a22b35342b2cdfef1bea7fd8618fbfe1dc9174a1983beaa5f4c9edf2d740f2d6",
+  "source": "d0cfb6c73cce88bca17ef41c3382bea4f816c8227a5f3ab2a460aff9e85ca688",
+  "pillow": "12.2.0",
+  "torch": "2.8.0",
+  "records": [
+    {
+      "name": "1x1-to-256",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "1x1-to-512",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "1x29-to-256",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "1x29-to-512",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "31x1-to-256",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "31x1-to-512",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "8x8-to-256",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "8x8-to-512",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "257x255-to-256",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "257x255-to-512",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "389x521-to-256",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "389x521-to-512",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "512x512-to-256",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "512x512-to-512",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "769x1031-to-256",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "769x1031-to-512",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "17x4097-to-256",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    },
+    {
+      "name": "17x4097-to-512",
+      "differentRgb": 0,
+      "differentTensor": 0,
+      "maxAbs": 0,
+      "clean": true
+    }
+  ]
+}

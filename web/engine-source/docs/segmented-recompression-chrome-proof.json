@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "nativeValues": 101,
+  "dimensions": [
+    1600,
+    1100
+  ],
+  "sourceLayout": "segmented-scanlines",
+  "storage": "memory",
+  "codecHeapMaximumBytes": 50331648,
+  "codecHeapCapacityBytes": 16777216,
+  "cacheReuseBothPanels": true,
+  "tableEstimate": 85,
+  "csvRows": 102,
+  "peakAccountedBytes": 73641568,
+  "browser": "154.0.8037.58"
+}

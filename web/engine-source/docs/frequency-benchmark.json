@@ -1,0 +1,562 @@
+{
+  "schema": 1,
+  "fixture": "frequency-1024x1024",
+  "params": {
+    "split": 50,
+    "smooth": 100,
+    "threshold": 37,
+    "filter": 0
+  },
+  "scope": "Isolated sequential 1 MP synthetic trials, full resolution. Worker RPC, source copies, mask, DFT/reconstruction, four output transfers and raster presentation measured; WordPress UI is separate. GPU driver overhead is estimated, not physical RSS.",
+  "results": [
+    {
+      "backend": "cpu",
+      "samples": [
+        {
+          "repeat": 0,
+          "cold": true,
+          "loadMs": 3.5,
+          "runRpcMs": 22690.69999998808,
+          "rendering": {
+            "uploadMs": 7.899999976158142,
+            "throughTwoAnimationFramesMs": 14.399999976158142
+          },
+          "pipelineMs": 22708.899999976158,
+          "changedThresholdMs": 166.19999998807907,
+          "changedFilterMs": 385.0999999642372,
+          "exact": true,
+          "metrics": {
+            "totalMs": 22688.5,
+            "cache": {
+              "result": false,
+              "stages": {
+                "dft": false,
+                "mask/cpu/50/100": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "backend": "cpu",
+            "maskTotalMs": 22119.099999964237,
+            "reconstructionMs": 438.60000002384186,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291462,
+              "cacheBytes": 37755286,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 295698976,
+              "codecHeapCapacityBytes": 83689472
+            }
+          },
+          "thresholdCache": {
+            "result": false,
+            "stages": {
+              "dft": true,
+              "mask/cpu/50/100": true
+            },
+            "analysis": false,
+            "view": false
+          },
+          "filterCache": {
+            "result": true,
+            "analysis": true,
+            "view": false
+          }
+        },
+        {
+          "repeat": 1,
+          "cold": false,
+          "loadMs": 4.700000047683716,
+          "runRpcMs": 21604.899999976158,
+          "rendering": {
+            "uploadMs": 5.599999964237213,
+            "throughTwoAnimationFramesMs": 17.799999952316284
+          },
+          "pipelineMs": 21627.600000023842,
+          "changedThresholdMs": 150.60000002384186,
+          "changedFilterMs": 365.5,
+          "exact": true,
+          "metrics": {
+            "totalMs": 21604.400000035763,
+            "cache": {
+              "result": false,
+              "stages": {
+                "dft": false,
+                "mask/cpu/50/100": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "backend": "cpu",
+            "maskTotalMs": 21389.900000035763,
+            "reconstructionMs": 143.89999997615814,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291462,
+              "cacheBytes": 37755286,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 329265432,
+              "codecHeapCapacityBytes": 83689472
+            }
+          },
+          "thresholdCache": {
+            "result": false,
+            "stages": {
+              "dft": true,
+              "mask/cpu/50/100": true
+            },
+            "analysis": false,
+            "view": false
+          },
+          "filterCache": {
+            "result": true,
+            "analysis": true,
+            "view": false
+          }
+        },
+        {
+          "repeat": 2,
+          "cold": false,
+          "loadMs": 3.800000011920929,
+          "runRpcMs": 21444,
+          "rendering": {
+            "uploadMs": 5.699999988079071,
+            "throughTwoAnimationFramesMs": 6.5
+          },
+          "pipelineMs": 21454.30000001192,
+          "changedThresholdMs": 152.20000004768372,
+          "changedFilterMs": 370.30000001192093,
+          "exact": true,
+          "metrics": {
+            "totalMs": 21443.600000023842,
+            "cache": {
+              "result": false,
+              "stages": {
+                "dft": false,
+                "mask/cpu/50/100": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "backend": "cpu",
+            "maskTotalMs": 21230.700000047684,
+            "reconstructionMs": 144.69999998807907,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291462,
+              "cacheBytes": 37755286,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 329265432,
+              "codecHeapCapacityBytes": 83689472
+            }
+          },
+          "thresholdCache": {
+            "result": false,
+            "stages": {
+              "dft": true,
+              "mask/cpu/50/100": true
+            },
+            "analysis": false,
+            "view": false
+          },
+          "filterCache": {
+            "result": true,
+            "analysis": true,
+            "view": false
+          }
+        }
+      ],
+      "medianRunRpcMs": 21604.899999976158,
+      "medianPipelineMs": 21627.600000023842
+    },
+    {
+      "backend": "webgpu",
+      "samples": [
+        {
+          "repeat": 0,
+          "cold": true,
+          "loadMs": 3.400000035762787,
+          "runRpcMs": 485.89999997615814,
+          "rendering": {
+            "uploadMs": 4.699999988079071,
+            "throughTwoAnimationFramesMs": 5.399999976158142
+          },
+          "pipelineMs": 494.69999998807907,
+          "changedThresholdMs": 157.30000001192093,
+          "changedFilterMs": 371.39999997615814,
+          "exact": true,
+          "metrics": {
+            "totalMs": 485.10000002384186,
+            "cache": {
+              "result": false,
+              "stages": {
+                "dft": false,
+                "mask/webgpu/50/100": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "frequency-gpu-mask+cpu-dft",
+            "workers": 1,
+            "backend": "webgpu",
+            "gpu": {
+              "preparationMs": 1.899999976158142,
+              "uploadMs": 0.800000011920929,
+              "dispatchAndReadbackMs": 62.80000001192093,
+              "totalMs": 64.70000004768372,
+              "accountedGpuBufferBytes": 16783044,
+              "qualification": {
+                "exact": true,
+                "probes": [
+                  {
+                    "width": 1,
+                    "height": 17,
+                    "split": 15,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 0.30000001192092896,
+                    "gpuMs": 2.5
+                  },
+                  {
+                    "width": 19,
+                    "height": 1,
+                    "split": 50,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 0.10000002384185791,
+                    "gpuMs": 0.7999999523162842
+                  },
+                  {
+                    "width": 17,
+                    "height": 19,
+                    "split": 15,
+                    "smooth": 25,
+                    "exact": true,
+                    "cpuMs": 0.5,
+                    "gpuMs": 1.100000023841858
+                  },
+                  {
+                    "width": 36,
+                    "height": 40,
+                    "split": 50,
+                    "smooth": 25,
+                    "exact": true,
+                    "cpuMs": 0.5,
+                    "gpuMs": 1
+                  },
+                  {
+                    "width": 67,
+                    "height": 71,
+                    "split": 0,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 2.5,
+                    "gpuMs": 1.7000000476837158
+                  },
+                  {
+                    "width": 95,
+                    "height": 91,
+                    "split": 50,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 20.099999964237213,
+                    "gpuMs": 1.7000000476837158
+                  }
+                ],
+                "cpuMedianMs": 19.400000035762787,
+                "gpuMedianMs": 1.699999988079071,
+                "useful": true,
+                "initMs": 6.300000011920929,
+                "totalMs": 82.5,
+                "scope": "Six capability/rounding probes plus three large-probe repetitions; full native corpus recorded separately. Not universal GPU parity."
+              }
+            },
+            "maskTotalMs": 158.30000001192093,
+            "reconstructionMs": 194.30000001192093,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 39845894,
+              "cacheBytes": 37763650,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 346036124,
+              "codecHeapCapacityBytes": 83689472
+            }
+          },
+          "thresholdCache": {
+            "result": false,
+            "stages": {
+              "dft": true,
+              "mask/webgpu/50/100": true
+            },
+            "analysis": false,
+            "view": false
+          },
+          "filterCache": {
+            "result": true,
+            "analysis": true,
+            "view": false
+          }
+        },
+        {
+          "repeat": 1,
+          "cold": false,
+          "loadMs": 3.399999976158142,
+          "runRpcMs": 301.5,
+          "rendering": {
+            "uploadMs": 3.600000023841858,
+            "throughTwoAnimationFramesMs": 10.900000035762787
+          },
+          "pipelineMs": 315.80000001192093,
+          "changedThresholdMs": 153.5,
+          "changedFilterMs": 367.5,
+          "exact": true,
+          "metrics": {
+            "totalMs": 301,
+            "cache": {
+              "result": false,
+              "stages": {
+                "dft": false,
+                "mask/webgpu/50/100": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "frequency-gpu-mask+cpu-dft",
+            "workers": 1,
+            "backend": "webgpu",
+            "gpu": {
+              "preparationMs": 1.199999988079071,
+              "uploadMs": 0.5999999642372131,
+              "dispatchAndReadbackMs": 76.80000001192093,
+              "totalMs": 78.59999996423721,
+              "accountedGpuBufferBytes": 16783044,
+              "qualification": {
+                "exact": true,
+                "probes": [
+                  {
+                    "width": 1,
+                    "height": 17,
+                    "split": 15,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 0.30000001192092896,
+                    "gpuMs": 2.5
+                  },
+                  {
+                    "width": 19,
+                    "height": 1,
+                    "split": 50,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 0.10000002384185791,
+                    "gpuMs": 0.7999999523162842
+                  },
+                  {
+                    "width": 17,
+                    "height": 19,
+                    "split": 15,
+                    "smooth": 25,
+                    "exact": true,
+                    "cpuMs": 0.5,
+                    "gpuMs": 1.100000023841858
+                  },
+                  {
+                    "width": 36,
+                    "height": 40,
+                    "split": 50,
+                    "smooth": 25,
+                    "exact": true,
+                    "cpuMs": 0.5,
+                    "gpuMs": 1
+                  },
+                  {
+                    "width": 67,
+                    "height": 71,
+                    "split": 0,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 2.5,
+                    "gpuMs": 1.7000000476837158
+                  },
+                  {
+                    "width": 95,
+                    "height": 91,
+                    "split": 50,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 20.099999964237213,
+                    "gpuMs": 1.7000000476837158
+                  }
+                ],
+                "cpuMedianMs": 19.400000035762787,
+                "gpuMedianMs": 1.699999988079071,
+                "useful": true,
+                "initMs": 6.300000011920929,
+                "totalMs": 82.5,
+                "scope": "Six capability/rounding probes plus three large-probe repetitions; full native corpus recorded separately. Not universal GPU parity."
+              }
+            },
+            "maskTotalMs": 88.29999995231628,
+            "reconstructionMs": 146.30000001192093,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 39845894,
+              "cacheBytes": 37763650,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 362832410,
+              "codecHeapCapacityBytes": 83689472
+            }
+          },
+          "thresholdCache": {
+            "result": false,
+            "stages": {
+              "dft": true,
+              "mask/webgpu/50/100": true
+            },
+            "analysis": false,
+            "view": false
+          },
+          "filterCache": {
+            "result": true,
+            "analysis": true,
+            "view": false
+          }
+        },
+        {
+          "repeat": 2,
+          "cold": false,
+          "loadMs": 3.300000011920929,
+          "runRpcMs": 299.60000002384186,
+          "rendering": {
+            "uploadMs": 4.099999964237213,
+            "throughTwoAnimationFramesMs": 7.699999988079071
+          },
+          "pipelineMs": 310.69999998807907,
+          "changedThresholdMs": 153.89999997615814,
+          "changedFilterMs": 365.4000000357628,
+          "exact": true,
+          "metrics": {
+            "totalMs": 299.19999998807907,
+            "cache": {
+              "result": false,
+              "stages": {
+                "dft": false,
+                "mask/webgpu/50/100": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "frequency-gpu-mask+cpu-dft",
+            "workers": 1,
+            "backend": "webgpu",
+            "gpu": {
+              "preparationMs": 1.100000023841858,
+              "uploadMs": 0.19999998807907104,
+              "dispatchAndReadbackMs": 77.30000001192093,
+              "totalMs": 78.09999996423721,
+              "accountedGpuBufferBytes": 16783044,
+              "qualification": {
+                "exact": true,
+                "probes": [
+                  {
+                    "width": 1,
+                    "height": 17,
+                    "split": 15,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 0.30000001192092896,
+                    "gpuMs": 2.5
+                  },
+                  {
+                    "width": 19,
+                    "height": 1,
+                    "split": 50,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 0.10000002384185791,
+                    "gpuMs": 0.7999999523162842
+                  },
+                  {
+                    "width": 17,
+                    "height": 19,
+                    "split": 15,
+                    "smooth": 25,
+                    "exact": true,
+                    "cpuMs": 0.5,
+                    "gpuMs": 1.100000023841858
+                  },
+                  {
+                    "width": 36,
+                    "height": 40,
+                    "split": 50,
+                    "smooth": 25,
+                    "exact": true,
+                    "cpuMs": 0.5,
+                    "gpuMs": 1
+                  },
+                  {
+                    "width": 67,
+                    "height": 71,
+                    "split": 0,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 2.5,
+                    "gpuMs": 1.7000000476837158
+                  },
+                  {
+                    "width": 95,
+                    "height": 91,
+                    "split": 50,
+                    "smooth": 100,
+                    "exact": true,
+                    "cpuMs": 20.099999964237213,
+                    "gpuMs": 1.7000000476837158
+                  }
+                ],
+                "cpuMedianMs": 19.400000035762787,
+                "gpuMedianMs": 1.699999988079071,
+                "useful": true,
+                "initMs": 6.300000011920929,
+                "totalMs": 82.5,
+                "scope": "Six capability/rounding probes plus three large-probe repetitions; full native corpus recorded separately. Not universal GPU parity."
+              }
+            },
+            "maskTotalMs": 87.30000001192093,
+            "reconstructionMs": 145.80000001192093,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 39845894,
+              "cacheBytes": 37763650,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 362832410,
+              "codecHeapCapacityBytes": 83689472
+            }
+          },
+          "thresholdCache": {
+            "result": false,
+            "stages": {
+              "dft": true,
+              "mask/webgpu/50/100": true
+            },
+            "analysis": false,
+            "view": false
+          },
+          "filterCache": {
+            "result": true,
+            "analysis": true,
+            "view": false
+          }
+        }
+      ],
+      "medianRunRpcMs": 301.5,
+      "medianPipelineMs": 315.80000001192093
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

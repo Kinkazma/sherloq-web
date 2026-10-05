@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "width": 4096,
+  "height": 2048,
+  "rpcPipelineMs": 17212.600000023842,
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 25165825,
+    "cacheBytes": 369104446,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1702887425,
+    "codecHeapCapacityBytes": 579010560
+  },
+  "released": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1702887425
+  },
+  "limits": [
+    "Analytical uniform-image invariants, not a new native 8 MP parity corpus",
+    "Accounted bytes and WASM heap capacity are not process RSS; worker disposal releases the runtime"
+  ],
+  "browser": "154.0.8037.58"
+}

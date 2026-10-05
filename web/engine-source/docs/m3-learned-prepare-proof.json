@@ -1,0 +1,33 @@
+{
+  "records": [
+    {
+      "id": 0,
+      "differences": 0,
+      "maximum": 0,
+      "values": 2095104
+    },
+    {
+      "id": 1,
+      "differences": 0,
+      "maximum": 0,
+      "values": 2328576
+    },
+    {
+      "id": 2,
+      "differences": 0,
+      "maximum": 0,
+      "values": 2107392
+    },
+    {
+      "id": 3,
+      "differences": 0,
+      "maximum": 0,
+      "values": 3145728
+    }
+  ],
+  "sort": {
+    "count": 20000,
+    "expected": 20000,
+    "differences": 0
+  }
+}

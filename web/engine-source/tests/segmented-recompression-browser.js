@@ -1,0 +1,2 @@
+import {createWorkerEngine} from '../src/worker-client.js';import {checkSegmentedRecompression} from './segmented-recompression-fixture.js';
+export async function segmentedRecompressionBrowserTest(){const engine=createWorkerEngine({memoryBudgetBytes:72*1024**2,cpuKernel:'single'}),root='/tests/data/',ref=await(await fetch(root+'recompression-segmented-native.json')).json();try{return await checkSegmentedRecompression(engine,await(await fetch(root+ref.file)).blob(),ref);}finally{engine.dispose();}}

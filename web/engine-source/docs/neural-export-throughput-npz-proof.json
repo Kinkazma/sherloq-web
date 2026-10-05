@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Complete independent NumPy read, no pickle, ZIP CRC and SHA, six exact96MP original scientific planes after export scheduling changes.",
+  "bytes": 1440003200,
+  "sha256": "fb3efc3dcc5989ff7416eb67a3fe21ccb6940e6721779d334a20998433e00ddb",
+  "records": [
+    {
+      "array": "map",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "sha256": "0a0bb53bcca6904df492a27557df17d591ef9e24779bf238500179b24957723a",
+      "bitExact": true
+    },
+    {
+      "array": "mask",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+      "bitExact": true
+    },
+    {
+      "array": "analyzed",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "sha256": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+      "bitExact": true
+    },
+    {
+      "array": "candidates",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+      "bitExact": true
+    },
+    {
+      "array": "target",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "sha256": "244800ebba4408ba63e8ecc4339c1f2e214991d18508fd53910134cc816f3d4a",
+      "bitExact": true
+    },
+    {
+      "array": "source",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "sha256": "244800ebba4408ba63e8ecc4339c1f2e214991d18508fd53910134cc816f3d4a",
+      "bitExact": true
+    }
+  ],
+  "numpy": "1.26.4"
+}

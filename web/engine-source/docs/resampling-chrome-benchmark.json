@@ -1,0 +1,829 @@
+{
+  "schema": 1,
+  "scope": "Three alternating CPU single/auto samples, fresh engine cold and useful image reload warm. Worker startup included, no discarded warm-up. Original decode + calculation RPC + example Canvas display; not WordPress. Accounted memory is not RSS; RPC-minus-engine is a transport/scheduling envelope.",
+  "samples": [
+    {
+      "sample": 0,
+      "cpuKernel": "single",
+      "imageLoadMs": 66.59999996423721,
+      "rpcMs": 626.9000000357628,
+      "presentationMs": 15.600000023841858,
+      "pipelineMs": 709.1000000238419,
+      "transportSchedulingMs": 1.1000000834465027,
+      "gammaReuseRpcMs": 283.19999998807907,
+      "warmLoadMs": 15.300000011920929,
+      "warmRpcMs": 587.0999999642372,
+      "metrics": {
+        "totalMs": 625.7999999523163,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 42.80000001192093,
+        "fourierTransformMs": 213.4000000357628,
+        "fourierMagnitudeMs": 86.69999998807907,
+        "backend": "cpu",
+        "viewMs": 275.60000002384186,
+        "fourierViewWorkers": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 962229627,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "gammaMetrics": {
+        "totalMs": 282.5,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 277.10000002384186,
+        "fourierViewWorkers": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1012564163,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 586.6999999880791,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 17.900000035762787,
+        "fourierTransformMs": 181.5,
+        "fourierMagnitudeMs": 107,
+        "backend": "cpu",
+        "viewMs": 273.89999997615814,
+        "fourierViewWorkers": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1012564163,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1012564163,
+        "knownHeapCapacityBytes": 167903232
+      }
+    },
+    {
+      "sample": 0,
+      "cpuKernel": "auto",
+      "imageLoadMs": 59,
+      "rpcMs": 428.60000002384186,
+      "presentationMs": 15.5,
+      "pipelineMs": 503.10000002384186,
+      "transportSchedulingMs": 1.100000023841858,
+      "gammaReuseRpcMs": 87.70000004768372,
+      "warmLoadMs": 16.600000023841858,
+      "warmRpcMs": 417.30000001192093,
+      "metrics": {
+        "totalMs": 427.5,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 40.89999997615814,
+        "fourierTransformMs": 209.5,
+        "fourierMagnitudeMs": 85.5,
+        "backend": "cpu",
+        "viewMs": 84.59999996423721,
+        "fourierViewWorkers": 10,
+        "fourierViewKernelMs": 84,
+        "fourierViewScheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "completedGroups": 10,
+          "workerReservationBytes": 155189248
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 67113100,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1041919947,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "gammaMetrics": {
+        "totalMs": 87.09999996423721,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 81.39999997615814,
+        "fourierViewWorkers": 10,
+        "fourierViewKernelMs": 81.30000001192093,
+        "fourierViewScheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "completedGroups": 10,
+          "workerReservationBytes": 155189248
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 33557320,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1058698703,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 416.89999997615814,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 17.899999976158142,
+        "fourierTransformMs": 180.89999997615814,
+        "fourierMagnitudeMs": 127.80000001192093,
+        "backend": "cpu",
+        "viewMs": 83.60000002384186,
+        "fourierViewWorkers": 10,
+        "fourierViewKernelMs": 83.40000003576279,
+        "fourierViewScheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "completedGroups": 10,
+          "workerReservationBytes": 155189248
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 67113100,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1058698703,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1058698703,
+        "knownHeapCapacityBytes": 167903232
+      }
+    },
+    {
+      "sample": 1,
+      "cpuKernel": "auto",
+      "imageLoadMs": 59,
+      "rpcMs": 422.4000000357628,
+      "presentationMs": 18,
+      "pipelineMs": 499.4000000357628,
+      "transportSchedulingMs": 1.0000000596046448,
+      "gammaReuseRpcMs": 84,
+      "warmLoadMs": 15.300000011920929,
+      "warmRpcMs": 410.39999997615814,
+      "metrics": {
+        "totalMs": 421.39999997615814,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 43.59999996423721,
+        "fourierTransformMs": 209.60000002384186,
+        "fourierMagnitudeMs": 84.69999998807907,
+        "backend": "cpu",
+        "viewMs": 76.79999995231628,
+        "fourierViewWorkers": 10,
+        "fourierViewKernelMs": 76.20000004768372,
+        "fourierViewScheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "completedGroups": 10,
+          "workerReservationBytes": 155189248
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 67113100,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1041919947,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "gammaMetrics": {
+        "totalMs": 83.5,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 77.70000004768372,
+        "fourierViewWorkers": 10,
+        "fourierViewKernelMs": 77.5,
+        "fourierViewScheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "completedGroups": 10,
+          "workerReservationBytes": 155189248
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 33557320,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1058698703,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 409.89999997615814,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 17.900000035762787,
+        "fourierTransformMs": 181.69999998807907,
+        "fourierMagnitudeMs": 128.69999998807907,
+        "backend": "cpu",
+        "viewMs": 75.09999996423721,
+        "fourierViewWorkers": 10,
+        "fourierViewKernelMs": 75,
+        "fourierViewScheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "completedGroups": 10,
+          "workerReservationBytes": 155189248
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 67113100,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1058698703,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1058698703,
+        "knownHeapCapacityBytes": 167903232
+      }
+    },
+    {
+      "sample": 1,
+      "cpuKernel": "single",
+      "imageLoadMs": 66.69999998807907,
+      "rpcMs": 625.3000000119209,
+      "presentationMs": 18.099999964237213,
+      "pipelineMs": 710.0999999642372,
+      "transportSchedulingMs": 0.9000000357627869,
+      "gammaReuseRpcMs": 281.69999998807907,
+      "warmLoadMs": 15.399999976158142,
+      "warmRpcMs": 586.5,
+      "metrics": {
+        "totalMs": 624.3999999761581,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 42.69999998807907,
+        "fourierTransformMs": 211.80000001192093,
+        "fourierMagnitudeMs": 87.60000002384186,
+        "backend": "cpu",
+        "viewMs": 275.80000001192093,
+        "fourierViewWorkers": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 962229627,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "gammaMetrics": {
+        "totalMs": 281.0999999642372,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 275.5,
+        "fourierViewWorkers": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1012564163,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 586,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 17.899999976158142,
+        "fourierTransformMs": 181.39999997615814,
+        "fourierMagnitudeMs": 106.10000002384186,
+        "backend": "cpu",
+        "viewMs": 274.5,
+        "fourierViewWorkers": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1012564163,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1012564163,
+        "knownHeapCapacityBytes": 167903232
+      }
+    },
+    {
+      "sample": 2,
+      "cpuKernel": "single",
+      "imageLoadMs": 61.80000001192093,
+      "rpcMs": 625.1000000238419,
+      "presentationMs": 15,
+      "pipelineMs": 701.9000000357628,
+      "transportSchedulingMs": 0.9000000357627869,
+      "gammaReuseRpcMs": 282.9000000357628,
+      "warmLoadMs": 14.299999952316284,
+      "warmRpcMs": 596.3000000119209,
+      "metrics": {
+        "totalMs": 624.1999999880791,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 45.700000047683716,
+        "fourierTransformMs": 212,
+        "fourierMagnitudeMs": 86.19999998807907,
+        "backend": "cpu",
+        "viewMs": 273.9000000357628,
+        "fourierViewWorkers": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 962229627,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "gammaMetrics": {
+        "totalMs": 281,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 275.5,
+        "fourierViewWorkers": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1012564163,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 595.9000000357628,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 28.80000001192093,
+        "fourierTransformMs": 180.60000002384186,
+        "fourierMagnitudeMs": 106.5,
+        "backend": "cpu",
+        "viewMs": 273.69999998807907,
+        "fourierViewWorkers": 1,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 142612028,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1012564163,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1012564163,
+        "knownHeapCapacityBytes": 167903232
+      }
+    },
+    {
+      "sample": 2,
+      "cpuKernel": "auto",
+      "imageLoadMs": 65.5,
+      "rpcMs": 413.10000002384186,
+      "presentationMs": 15.300000011920929,
+      "pipelineMs": 493.9000000357628,
+      "transportSchedulingMs": 1.100000023841858,
+      "gammaReuseRpcMs": 85.09999996423721,
+      "warmLoadMs": 16.399999976158142,
+      "warmRpcMs": 388.2000000476837,
+      "metrics": {
+        "totalMs": 412,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 40.40000003576279,
+        "fourierTransformMs": 205.89999997615814,
+        "fourierMagnitudeMs": 84.30000001192093,
+        "backend": "cpu",
+        "viewMs": 75.10000002384186,
+        "fourierViewWorkers": 10,
+        "fourierViewKernelMs": 74.69999998807907,
+        "fourierViewScheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "completedGroups": 10,
+          "workerReservationBytes": 155189248
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 67113100,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1041919947,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "gammaMetrics": {
+        "totalMs": 84.5,
+        "cache": {
+          "result": true,
+          "analysis": true,
+          "view": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "viewMs": 79.10000002384186,
+        "fourierViewWorkers": 10,
+        "fourierViewKernelMs": 79,
+        "fourierViewScheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "completedGroups": 10,
+          "workerReservationBytes": 155189248
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 33557320,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1058698703,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "warmMetrics": {
+        "totalMs": 387.9000000357628,
+        "cache": {
+          "result": false,
+          "stages": {
+            "normalized-gray": false,
+            "spectrum/[[0,0,1024,1024],\"hanning\",true]": false,
+            "magnitude/[[0,0,1024,1024],\"hanning\",true]/false/simple": false
+          },
+          "analysis": false,
+          "view": false
+        },
+        "kernel": "resampling-numpy-fft-cpu",
+        "workers": 1,
+        "fourierPreparationMs": 17.69999998807907,
+        "fourierTransformMs": 181.60000002384186,
+        "fourierMagnitudeMs": 106.19999998807907,
+        "backend": "cpu",
+        "viewMs": 76,
+        "fourierViewWorkers": 10,
+        "fourierViewKernelMs": 75.90000003576279,
+        "fourierViewScheduling": {
+          "count": 10,
+          "maximum": 10,
+          "ceiling": 10,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "completedGroups": 10,
+          "workerReservationBytes": 155189248
+        },
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 3722797,
+          "cacheBytes": 67113100,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1058698703,
+          "codecHeapCapacityBytes": 50331648,
+          "hdf5HeapCapacityBytes": 0,
+          "medianHeapCapacityBytes": 0,
+          "qualityHeapCapacityBytes": 0,
+          "resamplingHeapCapacityBytes": 117571584
+        }
+      },
+      "cleanup": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1058698703,
+        "knownHeapCapacityBytes": 167903232
+      }
+    }
+  ],
+  "summary": [
+    {
+      "cpuKernel": "single",
+      "medianImageLoadMs": 66.59999996423721,
+      "medianRpcMs": 625.3000000119209,
+      "medianWarmRpcMs": 587.0999999642372,
+      "medianPipelineMs": 709.1000000238419,
+      "medianPresentationMs": 15.600000023841858,
+      "medianTransportSchedulingMs": 0.9000000357627869,
+      "medianGammaReuseRpcMs": 282.9000000357628,
+      "workers": [
+        1,
+        1,
+        1
+      ],
+      "peakAccountedBytes": 1012564163
+    },
+    {
+      "cpuKernel": "auto",
+      "medianImageLoadMs": 59,
+      "medianRpcMs": 422.4000000357628,
+      "medianWarmRpcMs": 410.39999997615814,
+      "medianPipelineMs": 499.4000000357628,
+      "medianPresentationMs": 15.5,
+      "medianTransportSchedulingMs": 1.100000023841858,
+      "medianGammaReuseRpcMs": 85.09999996423721,
+      "workers": [
+        10,
+        10,
+        10
+      ],
+      "peakAccountedBytes": 1058698703
+    }
+  ],
+  "binary64Sha256": "d7633468a31dfba6ad7a822c400e28a5665e6a7346c22435886338c125e86ce7",
+  "nativeRgbSha256": "314cde54127e59df359520c574e2c21f46478b30090ff4c7be8376336316cbc5",
+  "browser": "154.0.8037.58"
+}

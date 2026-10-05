@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Generated RGB uint8 HWC to float32 NCHW antialiased bilinear448; no decoder, orientation, alpha or ICC equivalence claimed",
+  "records": [
+    {
+      "name": "1x1-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1x23-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "29x1-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "2x3-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "11x17-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "11x17-edges",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "389x521-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "389x521-edges",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-edges",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x997-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x997-edges",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "997x448-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "997x448-edges",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "449x451-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "449x451-edges",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "607x809-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "607x809-edges",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1025x997-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1025x997-edges",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "17x4097-random",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "17x4097-edges",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "actual-synthetic-model-source",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    }
+  ],
+  "lifecycle": {
+    "busy": true,
+    "cancelled": true,
+    "retryExact": true,
+    "retryReleased": true,
+    "inputPreserved": true,
+    "refused": true,
+    "refusalReleased": true,
+    "released": true
+  },
+  "peakAccountedBytes": 55805871,
+  "browser": "155.0",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "8035cc819ffa4623c15d932a337dc345fb4056c9cd28550732526c098ef849a0",
+    "files": {
+      "prepare.js": {
+        "bytes": 7639,
+        "sha256": "21c44144ae950bd5f337f5fc88444de37031383f3fbc9114509b8ce539bd3579"
+      },
+      "prepare.wasm": {
+        "bytes": 9386,
+        "sha256": "64b560b642e5057610ac21b769d5a5336ba40491bd744c6ef9b9d16223a7c8eb"
+      }
+    }
+  },
+  "wrapperSha256": "19b18c7cc2169789583f708c47cf030c086cc9ecdc8787725b47378aee9db5f7",
+  "referenceSha256": "66fa9055bf7044cdcfdf46bea589565420b6d8db32e5fd071e9fc81366b567ab"
+}

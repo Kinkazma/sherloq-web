@@ -1,0 +1,14 @@
+{
+  "independentCpuStarted": false,
+  "freeCpu": 9,
+  "active": {
+    "cpu": 1,
+    "gpu": 1
+  },
+  "waiting": {
+    "cpu": 1,
+    "gpu": 1,
+    "memory": 0
+  },
+  "queued": 2
+}

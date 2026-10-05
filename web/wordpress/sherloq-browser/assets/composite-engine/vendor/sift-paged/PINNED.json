@@ -1,0 +1,19 @@
+{
+  "opencv": "4.11.0",
+  "emscripten": "4.0.15",
+  "build": "scripts/build-sift-paged-study.py --runtime",
+  "sources": {
+    "sift.dispatch.cpp": "a028b8352689a818bcf044f9e40575bad56e51c5a5d2fe3c8fd0c0a88a34c816",
+    "sift.simd.hpp": "3e9a3f1e403c5f2e7685e0ca48cc020af43c1ad6320e03ed4213ba259560220e"
+  },
+  "files": {
+    "sift-paged.js": {
+      "bytes": 29885,
+      "sha256": "70c8e9d954c6fe2f59da93db4a48d8b6d0ef0b09968018fe655a1da6c1c95037"
+    },
+    "sift-paged.wasm": {
+      "bytes": 1379380,
+      "sha256": "523bfdbc89410d09acd73e89a7a2053795b222aebdb5dcf832f8c6c03a69b576"
+    }
+  }
+}

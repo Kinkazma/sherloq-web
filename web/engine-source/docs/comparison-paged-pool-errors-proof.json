@@ -1,0 +1,38 @@
+[
+  {
+    "test": "read",
+    "code": "SOURCE_TEST",
+    "memory": {
+      "budgetBytes": 134217728,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 39567680
+    },
+    "remainingSessions": 0
+  },
+  {
+    "test": "write",
+    "code": "OUTPUT_TEST",
+    "memory": {
+      "budgetBytes": 134217728,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 39568262
+    },
+    "remainingSessions": 0
+  },
+  {
+    "test": "cancel",
+    "code": "CANCELLED",
+    "memory": {
+      "budgetBytes": 134217728,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 39568262
+    },
+    "remainingSessions": 0
+  }
+]

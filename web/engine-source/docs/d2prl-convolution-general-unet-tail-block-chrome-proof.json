@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native UNet convolution boundaries on one generated source; no full browser model parity",
+  "zeroOnly": false,
+  "records": [
+    {
+      "name": "encoder_stages.3.0.downsample.0",
+      "elements": 802816,
+      "stride": 2,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "encoder_stages.4.0.downsample.0",
+      "elements": 401408,
+      "stride": 2,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "decoder_stages.3.layer.1",
+      "elements": 301056,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    },
+    {
+      "name": "bottlenecks.0.seq.0",
+      "elements": 301056,
+      "stride": 1,
+      "groups": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "first": []
+    }
+  ],
+  "cases": 4,
+  "peakAccountedBytes": 166447104,
+  "allReservationsReleased": true,
+  "browser": "154.0.8037.58",
+  "sourceSha256": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30"
+}

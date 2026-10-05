@@ -1,0 +1,302 @@
+{
+  "passed": true,
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "sourceSha256": "34d34b92c7648fd11d51ffa6916c5c3be8c0ddf8c985a61f50c19a3efd3fb512",
+  "sourceBytes": 108755781,
+  "complexity": "Rich texture with distant1500x1200 copied region, JPEG95, embedded thumbnail and signed synthetic C2PA claim",
+  "signingCredentials": "Public c2patool upstream sample only; no timestamp/network; fixture not a real provenance assertion",
+  "results": {
+    "exiftool": {
+      "metrics": {
+        "wasmHeapBytes": 40501248,
+        "wasmMaximumBytes": 134217728,
+        "outputBytes": 3309,
+        "sourceReads": {
+          "count": 13,
+          "totalBytes": 98368,
+          "maximumBytes": 8192
+        },
+        "reservationBytes": 787936906,
+        "sourceCopyBytes": 0,
+        "workers": 1,
+        "pixelDecode": false,
+        "cache": {
+          "result": false
+        },
+        "totalMs": 794.4000000059605,
+        "memory": {
+          "budgetBytes": 1342177280,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 130744320,
+          "peakAccountedBytes": 1206681226
+        }
+      },
+      "metadataKeys": 63,
+      "jsonBytes": 9801
+    },
+    "location": {
+      "metrics": {
+        "wasmHeapBytes": 40501248,
+        "wasmMaximumBytes": 134217728,
+        "outputBytes": 99,
+        "sourceReads": {
+          "count": 13,
+          "totalBytes": 98368,
+          "maximumBytes": 8192
+        },
+        "reservationBytes": 787936906,
+        "sourceCopyBytes": 0,
+        "workers": 1,
+        "pixelDecode": false,
+        "cache": {
+          "result": false
+        },
+        "totalMs": 665.7999999970198,
+        "memory": {
+          "budgetBytes": 1342177280,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 130744320,
+          "peakAccountedBytes": 1206681226
+        }
+      }
+    },
+    "headers": {
+      "metrics": {
+        "wasmHeapBytes": 41287680,
+        "wasmMaximumBytes": 134217728,
+        "outputBytes": 24329,
+        "sourceReads": {
+          "count": 13324,
+          "totalBytes": 109119954,
+          "maximumBytes": 8192
+        },
+        "reservationBytes": 787936906,
+        "sourceCopyBytes": 0,
+        "workers": 1,
+        "pixelDecode": false,
+        "cache": {
+          "result": false
+        },
+        "totalMs": 9183.29999999702,
+        "memory": {
+          "budgetBytes": 1342177280,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 130744320,
+          "peakAccountedBytes": 1206681226
+        }
+      },
+      "htmlBytes": 24329,
+      "jsonBytes": 26374
+    },
+    "c2pa": {
+      "states": {
+        "manifest": "present",
+        "integrity": "valid",
+        "signature": "valid",
+        "trust": "not_configured"
+      },
+      "metrics": {
+        "heapCapacityBytes": 71172096,
+        "heapMaximumBytes": 134217728,
+        "blockedNetworkRequests": 0,
+        "sourceReads": {
+          "calls": 129,
+          "totalBytes": 142359271,
+          "maximumBytes": 16777216
+        },
+        "reservationBytes": 452984832,
+        "sourceCopyBytes": 0,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "totalMs": 744.5,
+        "memory": {
+          "budgetBytes": 1342177280,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 130744320,
+          "peakAccountedBytes": 1206681226
+        }
+      },
+      "jsonBytes": 4349
+    },
+    "thumbnail": {
+      "metrics": {
+        "extraction": {
+          "wasmHeapBytes": 40828928,
+          "wasmMaximumBytes": 134217728,
+          "outputBytes": 1221,
+          "sourceReads": {
+            "count": 13,
+            "totalBytes": 98368,
+            "maximumBytes": 8192
+          },
+          "reservationBytes": 787936906,
+          "sourceCopyBytes": 0,
+          "workers": 1,
+          "pixelDecode": false,
+          "cache": {
+            "result": false
+          }
+        },
+        "decode": {
+          "heapBytes": 16777216
+        },
+        "kernel": "native-lanczos4-segmented-comparison",
+        "codecHeapCapacityBytes": 305004544,
+        "codecHeapMaximumBytes": 335544320,
+        "workspaceBytes": 346375648,
+        "maxSourceWindowBytes": 1152000,
+        "resizedStorage": "memory",
+        "differenceStorage": "temporary",
+        "cache": {
+          "analysis": false,
+          "result": false
+        },
+        "temporaryBackend": "opfs",
+        "totalMs": 4716,
+        "memory": {
+          "budgetBytes": 1342177280,
+          "retainedBytes": 576060773,
+          "cacheBytes": 0,
+          "activeReservationBytes": 130744320,
+          "peakAccountedBytes": 1206681226
+        }
+      },
+      "nativeHashes": {
+        "thumbnailSha256": "130e6247f25e1efff8df4095261ff26db580978c55b5be43012ff8c985366e9f",
+        "thumbnailBytes": 1221,
+        "resizedSha256": "e409153876e4ddbe2469642b05e41cb2544f37e8a09d165df2706e5dfa870176",
+        "differenceSha256": "b027b49c6303c3a39c33d1d8054c75d0d92f31449236e36994705089bb08f944"
+      },
+      "exportMs": 5477.79999999702,
+      "archive": {
+        "id": "b4ad7478-aae4-4986-a84e-85dceb0103cf",
+        "revision": 1,
+        "mime": "image/png",
+        "format": "png",
+        "width": 12000,
+        "height": 8000,
+        "byteLength": 288100808,
+        "sha256": "0745170a0f527190ab9dcad9901299eccc567b8fcde3f25d78d8e2850562c349",
+        "imageId": "source",
+        "sourceSurfaceId": "5b537e6b-73da-4b8a-b79b-2019abe7a7a9",
+        "sourceSurfaceRevision": 1,
+        "sourceFormat": "rgb8",
+        "provenance": {
+          "originalSha256": "34d34b92c7648fd11d51ffa6916c5c3be8c0ddf8c985a61f50c19a3efd3fb512",
+          "coordinates": "full-resolution",
+          "pixels": "exact surface bytes",
+          "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+          "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+          "compression": 0
+        },
+        "metrics": {
+          "storage": "memory",
+          "temporaryBackend": null,
+          "outputCapacityBytes": 289197244,
+          "encodedWriteCalls": 1100,
+          "maxSourceWindowBytes": 1152000,
+          "codecHeapCapacityBytes": 16777216,
+          "codecHeapMaximumBytes": 16777216,
+          "memory": {
+            "budgetBytes": 1342177280,
+            "retainedBytes": 865258017,
+            "cacheBytes": 0,
+            "activeReservationBytes": 156172288,
+            "peakAccountedBytes": 1206681226
+          }
+        }
+      }
+    },
+    "alteredC2pa": [
+      {
+        "file": "altered.jpg",
+        "states": {
+          "manifest": "present",
+          "integrity": "invalid",
+          "signature": "valid",
+          "trust": "not_configured"
+        },
+        "metrics": {
+          "heapCapacityBytes": 71172096,
+          "heapMaximumBytes": 134217728,
+          "blockedNetworkRequests": 0,
+          "sourceReads": {
+            "calls": 129,
+            "totalBytes": 142359271,
+            "maximumBytes": 16777216
+          },
+          "reservationBytes": 452984832,
+          "sourceCopyBytes": 0,
+          "workers": 1,
+          "cache": {
+            "result": false
+          },
+          "totalMs": 978.5,
+          "memory": {
+            "budgetBytes": 1342177280,
+            "retainedBytes": 288000000,
+            "cacheBytes": 0,
+            "activeReservationBytes": 130744320,
+            "peakAccountedBytes": 1206681226
+          }
+        },
+        "jsonBytes": 4920
+      },
+      {
+        "file": "altered-tail.jpg",
+        "states": {
+          "manifest": "present",
+          "integrity": "invalid",
+          "signature": "valid",
+          "trust": "not_configured"
+        },
+        "metrics": {
+          "heapCapacityBytes": 71172096,
+          "heapMaximumBytes": 134217728,
+          "blockedNetworkRequests": 0,
+          "sourceReads": {
+            "calls": 129,
+            "totalBytes": 142359271,
+            "maximumBytes": 16777216
+          },
+          "reservationBytes": 452984832,
+          "sourceCopyBytes": 0,
+          "workers": 1,
+          "cache": {
+            "result": false
+          },
+          "totalMs": 771.7000000029802,
+          "memory": {
+            "budgetBytes": 1342177280,
+            "retainedBytes": 288000000,
+            "cacheBytes": 0,
+            "activeReservationBytes": 130744320,
+            "peakAccountedBytes": 1206681226
+          }
+        },
+        "jsonBytes": 4932
+      }
+    ]
+  },
+  "totalMs": 38302.40000000596,
+  "finalMemory": {
+    "budgetBytes": 1342177280,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1206681226,
+    "knownHeapCapacityBytes": 130744320
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile, removed after qualification"
+}

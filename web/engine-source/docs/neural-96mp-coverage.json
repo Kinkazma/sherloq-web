@@ -1,0 +1,907 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual12000x8000 JPEG source paths and complete native-coordinate arrays/NPZ. Shared adapter reuse is explicit per row. Functional times on a shared workstation, accounted capacities not RSS, no claim that every model or device has been independently run.",
+  "records": [
+    {
+      "family": "D2PRL CPU",
+      "version": "M1.37",
+      "coverage": "Rich positive source, two large ROI plus full envelope; native448, complete CPU graph and six source-coordinate planes, cached refilter.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "cpu",
+      "inferences": 3,
+      "foreground": 68160948,
+      "map": {
+        "different": 0,
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+          "mask": "269b592b1396604f87b8556dc888a82ea46c851a47110c8f3c376226c987da7f",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "target": "72d82254deb5d6cd3e8c822b04d05a4bcf72cd03c994e55ecb778749d583051b",
+          "source": "8f635aa7d08fc786af6f3c21869341d104d46264b79e2aa7d0c26b5ff0adad5e"
+        },
+        {
+          "map": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+          "mask": "a7a7be5bebb651fbaa145cb9ab69068a1f64b9323794c50c84e96fdc9d40201a",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "target": "b3f5738b82008f4aeb8fd186de6ddc47e915daac6d261067ccca0b1bff26ac89",
+          "source": "ff815a233ee54fda6d833e81766d47cdbcf55b4d3a26f5296fce5f7bcd96895e"
+        }
+      ],
+      "loadMs": 2330.7000000029802,
+      "analysisMs": 2667013.200000003,
+      "cacheMs": 23264.40000000596,
+      "exportMs": 61778.30000001192,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 3221007456,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "target": "memory",
+          "source": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "temporary",
+          "target": "temporary",
+          "source": "temporary",
+          "analyzed": "temporary",
+          "candidates": "temporary"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 1440016372,
+      "exportSha256": "dd7201c71b22f735fb754c5c59c2227170feef505a420d12840b05bf8c3e9346",
+      "arrays": 6,
+      "proofFile": "neural-segmented-d2prl-large-rich-cpu-m1-37-extracted-proof.json",
+      "npzFile": "neural-segmented-d2prl-large-rich-cpu-m1-37-extracted-npz-proof.json",
+      "proofSha256": "5f698d6cc21ecebabb72d39457626abcb57b3b3ebf45bab0476c6071d754fa08",
+      "runtimeManifestSha256": "dea349b27266ccd732a52f4183384892110b97dee555c54eaec128ebeae31236"
+    },
+    {
+      "family": "D2PRL GPU",
+      "version": "M1.37",
+      "coverage": "The identical rich source and three zones, ordered GPU convolutions with CPU auxiliaries, shared budget, full six-plane refilter/export.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "webgpu",
+      "inferences": 3,
+      "foreground": 68160948,
+      "map": {
+        "different": 0,
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+          "mask": "269b592b1396604f87b8556dc888a82ea46c851a47110c8f3c376226c987da7f",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "target": "72d82254deb5d6cd3e8c822b04d05a4bcf72cd03c994e55ecb778749d583051b",
+          "source": "8f635aa7d08fc786af6f3c21869341d104d46264b79e2aa7d0c26b5ff0adad5e"
+        },
+        {
+          "map": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+          "mask": "a7a7be5bebb651fbaa145cb9ab69068a1f64b9323794c50c84e96fdc9d40201a",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "target": "b3f5738b82008f4aeb8fd186de6ddc47e915daac6d261067ccca0b1bff26ac89",
+          "source": "ff815a233ee54fda6d833e81766d47cdbcf55b4d3a26f5296fce5f7bcd96895e"
+        }
+      ],
+      "loadMs": 1807.7999999970198,
+      "analysisMs": 1645665.900000006,
+      "cacheMs": 36241.59999999404,
+      "exportMs": 109452.30000001192,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 3201593312,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "target": "memory",
+          "source": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "temporary",
+          "target": "temporary",
+          "source": "temporary",
+          "analyzed": "temporary",
+          "candidates": "temporary"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 1440016304,
+      "exportSha256": "074728b0efb1e02b3885a79c95baf13d48b69e22de8fddbaf5c10a51ca34ea5b",
+      "arrays": 6,
+      "proofFile": "neural-segmented-d2prl-large-rich-webgpu-m1-37-extracted-proof.json",
+      "npzFile": "neural-segmented-d2prl-large-rich-webgpu-m1-37-extracted-npz-proof.json",
+      "proofSha256": "5fbb7ad7996b933075d6cce23a1d4aabcbeaa708c887208ccab72d8b2bb9b371",
+      "runtimeManifestSha256": "dea349b27266ccd732a52f4183384892110b97dee555c54eaec128ebeae31236"
+    },
+    {
+      "family": "MGCF ST CPU",
+      "version": "M1.32",
+      "coverage": "Common independent single-thread ONNX source/preparation/projection path for base,16,MPDN,EffNet and ST; ST is the six-plane and largest-model-byte case. This is shared memory-path evidence, not five newly executed96MP networks.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "cpu",
+      "inferences": 3,
+      "foreground": 3370950,
+      "map": {
+        "different": 94340283,
+        "maxAbs": 0.00001728534698486328,
+        "meanAbs": 1.2625132519654362e-7,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "ba6dbc611b5e35b6aa1ec3d8447c9e8a4470fc6ec2e571c1e54ea803c8982363",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "ba6dbc611b5e35b6aa1ec3d8447c9e8a4470fc6ec2e571c1e54ea803c8982363",
+          "mask": "bcdfc54d75f11a35ec8f0ea644e7857fd8aea768ab5af3160f80c2e68dbbc7aa",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "target": "4e3d580af4f1fd7c6c7baba84a8a39f8fc19c94a7869bcd4c450435da6d30ce3",
+          "source": "4bcf7743e39afbd0cbdce726cd88c9f1601134b169fc7aee336322d05b9bc439"
+        },
+        {
+          "map": "fe3de9f6b8492f62664ada5e07649349c0b11ec512db07ec1ee1d67a7e0df7bc",
+          "mask": "bcdfc54d75f11a35ec8f0ea644e7857fd8aea768ab5af3160f80c2e68dbbc7aa",
+          "analyzed": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "target": "5068099a83f4008b9fc725efc619d509d9375112ecbd785de3a07f920f2196ab",
+          "source": "d37d5943ff1b3b99166f0bd42fcb5a8da9478b9645fd34f8f92a1b94ab4807c7"
+        }
+      ],
+      "loadMs": 1200.0999999940395,
+      "analysisMs": 20580.20000000298,
+      "cacheMs": 5682.79999999702,
+      "exportMs": 49502.5,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 3191856000,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "target": "memory",
+          "source": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "target": "memory",
+          "source": "memory",
+          "analyzed": "memory",
+          "candidates": "temporary"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 1440012552,
+      "exportSha256": "90beeccb4ed1200cf13008341ec97921da01bef6b4d7a99aabcad806a5421201",
+      "arrays": 6,
+      "proofFile": "neural-segmented-mgcfdn-st-large-rich-cpu-projection-retention-proof.json",
+      "npzFile": "neural-segmented-mgcfdn-st-large-rich-cpu-projection-retention-npz-proof.json",
+      "proofSha256": "4c925209c42c0f808ca9d99e5f4e5c063173438fc06e50204dc8dc8acb66e079",
+      "runtimeManifestSha256": null
+    },
+    {
+      "family": "MGCF MPDN GPU",
+      "version": "M1.34",
+      "coverage": "Separate ONNX WebGPU/CPU session and buffer accounting.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "webgpu",
+      "inferences": 3,
+      "foreground": 411442,
+      "map": {
+        "different": 94952606,
+        "maxAbs": 0.000002771615982055664,
+        "meanAbs": 8.138906000973141e-8,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "2230ed9a6c98014a45f1be4812bc349e064ab445a76fdc36efc2c59fea028056",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "2230ed9a6c98014a45f1be4812bc349e064ab445a76fdc36efc2c59fea028056",
+          "mask": "2c7fffcb5c19b8d42d960cad9f6d204b127b9d8f2aef1042dbdf3195f89c16c3",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "f0bb470ea81567f69ee7d5009ec9534bf31461be2a9824afd9221e1184ecf28f",
+          "mask": "c06767e501ff0fa61a73bbce288e0b1cbb358dfb1d6423984c06447eb48e0636",
+          "analyzed": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1227.5,
+      "analysisMs": 18682.5,
+      "cacheMs": 2861,
+      "exportMs": 12483.59999999404,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 2892898351,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672012868,
+      "exportSha256": "59946e6ea43d160640818efde780468a0b4d51c1440117e6aecdb24fd41c51c7",
+      "arrays": 4,
+      "proofFile": "neural-segmented-mgcfdn-mpdn-large-rich-webgpu-m1-34-extracted-proof.json",
+      "npzFile": "neural-segmented-mgcfdn-mpdn-large-rich-webgpu-m1-34-extracted-npz-proof.json",
+      "proofSha256": "3cec3ee6507b2489aa7963dbb91962dc10303c8c16ac0e436783c2fe45c07ff0",
+      "runtimeManifestSha256": "87e4841bc4e29a728eb6f7a4d892c343a54365f2a5adef61d1a7b1138d3c79fc"
+    },
+    {
+      "family": "MGCF16 GPU",
+      "version": "M1.41",
+      "coverage": "Larger-model-byte representative of the shared bounded sigmoid ONNX WebGPU/WASM adapter for MPDN/16/EffNet. EffNet memory-path reuse is explicit, not a separately executed96MP EffNet network; its small positive corpus has one declared threshold-mask difference. See MGCF-ORT-GPU.md.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "webgpu",
+      "inferences": 3,
+      "foreground": 2400483,
+      "map": {
+        "different": 95186744,
+        "maxAbs": 0.0000019371509552001953,
+        "meanAbs": 3.8393267971948755e-8,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "53a5855c811398029e08263d2ae7b780b1e34b3b8f53a49e62775ddb3c6a66a8",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "53a5855c811398029e08263d2ae7b780b1e34b3b8f53a49e62775ddb3c6a66a8",
+          "mask": "5e19cc609a74e38902e5234a0bf7bd170cf2a8b5097a0bc0e30416274c322686",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "87ba1e2020fa838179b95f5ddb9dd5c4f2e2039309378be43fc5a2d1eff936c4",
+          "mask": "43164c544a81d2e58403190892f38ab45d764711ebc39afb74735da1b3bbeb57",
+          "analyzed": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1380.3999999910593,
+      "analysisMs": 21166.70000000298,
+      "cacheMs": 2865.3999999910593,
+      "exportMs": 16065.59999999404,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 3088028932,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672012768,
+      "exportSha256": "7f4415a9faafb062ebe7be21b2fff73545fe97d8e695e366467a1959540eb1ff",
+      "arrays": 4,
+      "proofFile": "neural-segmented-mgcfdn-16-large-rich-webgpu-m1-41-candidate-proof.json",
+      "npzFile": "neural-segmented-mgcfdn-16-large-rich-webgpu-m1-41-candidate-npz-proof.json",
+      "proofSha256": "b70d67aaa90a0f6f18177bee627f9351c6db01eea3ad719bf0b774913435b6ca",
+      "runtimeManifestSha256": null
+    },
+    {
+      "family": "MGCF ST split GPU",
+      "version": "M1.43",
+      "coverage": "Bounded two-session GPU encoder/CPU head path, larger split-model assets and six full output planes. M1.43 retires idle hybrid residency before large projections; all full output hashes equal M1.42, cached view uses five RAM planes and one temporary plane. Base uses the same split-session memory adapter with four planes; its96MP qualification reuses this representative path, not a newly executed base network. GPU ST head remains rejected; continuous CPU/GPU planes can differ while native masks are exact. See MGCF-SPLIT-GPU.md.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "webgpu",
+      "inferences": 3,
+      "foreground": 3370950,
+      "map": {
+        "different": 94233477,
+        "maxAbs": 0.000011444091796875,
+        "meanAbs": 1.1170482863238823e-7,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "dea908b978db54c7ea0a1511bc2e1a2581069733252646cd73266d7ee7806f53",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "dea908b978db54c7ea0a1511bc2e1a2581069733252646cd73266d7ee7806f53",
+          "mask": "bcdfc54d75f11a35ec8f0ea644e7857fd8aea768ab5af3160f80c2e68dbbc7aa",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "target": "6ba3bbb75a562bc74b28a740c5f13f2d81e9ef7a116225db8aaa15306060a6ff",
+          "source": "7b920eaa3307d5021ba764f3930baa1a9106b5f88b8e40bca87007ad26914456"
+        },
+        {
+          "map": "4e7a32ed9ad0f6425d0af50d38990577c25600d6602784e07ef62e9729b454ef",
+          "mask": "bcdfc54d75f11a35ec8f0ea644e7857fd8aea768ab5af3160f80c2e68dbbc7aa",
+          "analyzed": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+          "target": "c9e1f9296b508c032437280ac07b0135af92fe4dd7a89e64857681e97f659ba0",
+          "source": "1515d84b2c83bb056f2a035d4fa0b62528a492cf45ff0e2bc34d42c8bf95ee43"
+        }
+      ],
+      "loadMs": 1226.7999999970198,
+      "analysisMs": 28259.90000000596,
+      "cacheMs": 5671.899999991059,
+      "exportMs": 30708.79999999702,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 3191856000,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "target": "memory",
+          "source": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "target": "memory",
+          "source": "memory",
+          "analyzed": "memory",
+          "candidates": "temporary"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 1440014924,
+      "exportSha256": "cd4a45f3ffae97fcaec5b8029782a198a960483331d490a2732f86ba46f63946",
+      "arrays": 6,
+      "proofFile": "neural-segmented-mgcfdn-st-large-rich-webgpu-m1-43-candidate-proof.json",
+      "npzFile": "neural-segmented-mgcfdn-st-large-rich-webgpu-m1-43-candidate-npz-proof.json",
+      "proofSha256": "54261bc87cd0cb429f70ef3df1140fc7087b1fd22615e585c4f93f61ac6159b1",
+      "runtimeManifestSha256": null
+    },
+    {
+      "family": "CMSeg generalization CPU",
+      "version": "M1.33",
+      "coverage": "Native512, CPU convolution and Winograd backbone plus three global correlations.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "cpu",
+      "inferences": 3,
+      "foreground": 935251,
+      "map": {
+        "different": 95860117,
+        "maxAbs": 0.000014603137969970703,
+        "meanAbs": 5.980451104596677e-8,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "dff3b82fc408fc43e76e402e1edaba2dee97e8b675db5fd777717f7882e57783",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "dff3b82fc408fc43e76e402e1edaba2dee97e8b675db5fd777717f7882e57783",
+          "mask": "b42a0b34c70aca836d454723a58939ee198dcb11a3d1cbbee66f1fb852c1353a",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "6f4b23e57ed9f1599356e856cb48862ce6454ce492042ff6632a7deaa157cb3d",
+          "mask": "1f2c972be9f075c83bf25b9b91d89c4b05797c88397a3877b332488966c62710",
+          "analyzed": "058f71ef5f2c1f276b4eb3d955f1dfbccf397381292595a2a5a78c65141c1515",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1190.7999999970198,
+      "analysisMs": 46548.39999999106,
+      "cacheMs": 3602.5,
+      "exportMs": 13759.10000000894,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 3200872430,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672013940,
+      "exportSha256": "7420c730c45ee5e54e0be6d28684e02bf661a9e85b8d85306d72df729485bee0",
+      "arrays": 4,
+      "proofFile": "neural-segmented-cmseg-generalization-large-rich-cpu-m1-33-extracted-proof.json",
+      "npzFile": "neural-segmented-cmseg-generalization-large-rich-cpu-m1-33-extracted-npz-proof.json",
+      "proofSha256": "fdc1e9e2dc2bdf141ae0f964b8596e5d5d78f14dad1dab887abf4987c84566a9",
+      "runtimeManifestSha256": "9b85447cc1bd97f5dd0eb074ffa2ad81e4f53b2ef85c08eae20c777ce5980465"
+    },
+    {
+      "family": "CMSeg generalization GPU",
+      "version": "M1.46",
+      "coverage": "Ordered GPU convolutions and resident-input streamed dot rows for the128x128 global correlation; CPU normalization/Gaussian/softmax/TopK, smaller correlations and Winograd retained.32MiB postprocess workers and parameter/session reuse. New96MP path retains all M1.40 plane hashes; exact binding in cmseg-resident-delivery-binding.json.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "webgpu",
+      "inferences": 3,
+      "foreground": 935251,
+      "map": {
+        "different": 95860117,
+        "maxAbs": 0.000014603137969970703,
+        "meanAbs": 5.980451104596677e-8,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "dff3b82fc408fc43e76e402e1edaba2dee97e8b675db5fd777717f7882e57783",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "dff3b82fc408fc43e76e402e1edaba2dee97e8b675db5fd777717f7882e57783",
+          "mask": "b42a0b34c70aca836d454723a58939ee198dcb11a3d1cbbee66f1fb852c1353a",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "6f4b23e57ed9f1599356e856cb48862ce6454ce492042ff6632a7deaa157cb3d",
+          "mask": "1f2c972be9f075c83bf25b9b91d89c4b05797c88397a3877b332488966c62710",
+          "analyzed": "058f71ef5f2c1f276b4eb3d955f1dfbccf397381292595a2a5a78c65141c1515",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1208.4000000059605,
+      "analysisMs": 39078.79999999702,
+      "cacheMs": 3979.6000000089407,
+      "exportMs": 15005.10000000894,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 2338438660,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672016516,
+      "exportSha256": "cccd186f65f132e25ee1a1f5117b250a0671b3c690a9b8b9208b8266751feda1",
+      "arrays": 4,
+      "proofFile": "neural-segmented-cmseg-generalization-large-rich-webgpu-m1-46-candidate-proof.json",
+      "npzFile": "neural-segmented-cmseg-generalization-large-rich-webgpu-m1-46-candidate-npz-proof.json",
+      "proofSha256": "06f9b8c53f4328ac1730acb406254c610f57b6f7768ee58fdfd0b4fcb088b477",
+      "runtimeManifestSha256": null
+    },
+    {
+      "family": "CMSeg addnoise CPU",
+      "version": "M1.34",
+      "coverage": "Native512 ONNX encoder with the distinct qualified correlation arithmetic.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "cpu",
+      "inferences": 3,
+      "foreground": 216407,
+      "map": {
+        "different": 95991380,
+        "maxAbs": 0.0000355839729309082,
+        "meanAbs": 6.191980185318043e-8,
+        "nonzero": 95995520,
+        "finite": true,
+        "sha256": "f4b14f7058806a7c14d6a0350ff47148fd05c33e4d1254e11f3ede0353f42df0",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "f4b14f7058806a7c14d6a0350ff47148fd05c33e4d1254e11f3ede0353f42df0",
+          "mask": "67c174a99d6774d0289aa6015c42514232ae72657769267334f3b771c5828e81",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "a13efc49206353ccef0e13283999e0293b078f19ba31e0afc1aa1b3a972dd9b7",
+          "mask": "51cdc56bcec558d8f9f7002018e17605a06cad45cf93f44dc44c4fb4c9a8c140",
+          "analyzed": "058f71ef5f2c1f276b4eb3d955f1dfbccf397381292595a2a5a78c65141c1515",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1175.3999999910593,
+      "analysisMs": 32079.10000000894,
+      "cacheMs": 3600.7000000029802,
+      "exportMs": 15778.09999999404,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 2355803954,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672013256,
+      "exportSha256": "72a7b28bd863e80bd7d65a00e23bacfec9c3c2eb1f95854602934a2fea32a5ad",
+      "arrays": 4,
+      "proofFile": "neural-segmented-cmseg-addnoise-large-rich-cpu-m1-34-extracted-proof.json",
+      "npzFile": "neural-segmented-cmseg-addnoise-large-rich-cpu-m1-34-extracted-npz-proof.json",
+      "proofSha256": "c74cccd60e7c2003101b1c418228c06b07ca85a1acdd3d9a932fb87fd6eb4eaf",
+      "runtimeManifestSha256": "87e4841bc4e29a728eb6f7a4d892c343a54365f2a5adef61d1a7b1138d3c79fc"
+    },
+    {
+      "family": "CMSeg addnoise GPU",
+      "version": "M1.45",
+      "coverage": "Original CPU ONNX encoder/decoder with resident-input ordered GPU dot rows for the largest full-global correlation. Separate addnoise CPU normalization and all Gaussian/softmax/TopK, two smaller correlations and thresholds unchanged. New distinct96MP path; native masks exact, continuous CPU/GPU planes differ. See CMSEG-ADDNOISE-GPU.md.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "webgpu",
+      "inferences": 3,
+      "foreground": 216407,
+      "map": {
+        "different": 95991274,
+        "maxAbs": 0.000035881996154785156,
+        "meanAbs": 6.1530308184375e-8,
+        "nonzero": 95995215,
+        "finite": true,
+        "sha256": "3ffdf1f44fd4080667b1e791ead462b9e73a7d19b488063f36d4a5d0615e90d5",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "3ffdf1f44fd4080667b1e791ead462b9e73a7d19b488063f36d4a5d0615e90d5",
+          "mask": "67c174a99d6774d0289aa6015c42514232ae72657769267334f3b771c5828e81",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "a956bca6285fdbffafd5f586eecc34e67b4a21f37c1a108a3fa8cd66a2488114",
+          "mask": "51cdc56bcec558d8f9f7002018e17605a06cad45cf93f44dc44c4fb4c9a8c140",
+          "analyzed": "058f71ef5f2c1f276b4eb3d955f1dfbccf397381292595a2a5a78c65141c1515",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1706.1000000089407,
+      "analysisMs": 37666.40000000596,
+      "cacheMs": 3658.5,
+      "exportMs": 13645.5,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 2355803954,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672015276,
+      "exportSha256": "7f2fd3590328e5605a79c38585d441c772df1b9db35368af01e1a7ce6e5f25ea",
+      "arrays": 4,
+      "proofFile": "neural-segmented-cmseg-addnoise-large-rich-webgpu-m1-45-candidate-proof.json",
+      "npzFile": "neural-segmented-cmseg-addnoise-large-rich-webgpu-m1-45-candidate-npz-proof.json",
+      "proofSha256": "bd028381d6dfb102a1728087dd4ecd214503bde81b77def6b71e88dcf241466d",
+      "runtimeManifestSha256": null
+    },
+    {
+      "family": "MGCF VIG CPU",
+      "version": "M1.34",
+      "coverage": "Native-order graph backbone with bounded useful CPU convolution workers.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "cpu",
+      "inferences": 3,
+      "foreground": 3848796,
+      "map": {
+        "different": 95576207,
+        "maxAbs": 0.00003236532211303711,
+        "meanAbs": 3.054464762202193e-7,
+        "nonzero": 95320780,
+        "finite": true,
+        "sha256": "85d76e81bc23e8978984305ca5ba43c54407e7ccac6527e4eeed762672ab41af",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "85d76e81bc23e8978984305ca5ba43c54407e7ccac6527e4eeed762672ab41af",
+          "mask": "465df33abbde81423e17d694378f3d4267713b8d0980716d2ec5a3e2265a8f3a",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "e152ff7997cfd7a51fbb81756ccf075e6b2783c4530829f4640e61aab3e1d2ac",
+          "mask": "f32ab33c7407e415b1a0f922f486ab01bf5ca03cac9c5fda5b49c9ae0652c689",
+          "analyzed": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1203.2000000029802,
+      "analysisMs": 65719.29999999702,
+      "cacheMs": 2735.5,
+      "exportMs": 23998.89999999106,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 2372219601,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672014112,
+      "exportSha256": "03202b726bb4ad653db625fedeb68c19bdc745b0148fd648388680d01979fcf1",
+      "arrays": 4,
+      "proofFile": "neural-segmented-mgcfdn-vig-large-rich-cpu-m1-34-extracted-proof.json",
+      "npzFile": "neural-segmented-mgcfdn-vig-large-rich-cpu-m1-34-extracted-npz-proof.json",
+      "proofSha256": "4d403450ba8461f118dec166f2975714e61cd6f2ac2659230ed10bb34ccbeec5",
+      "runtimeManifestSha256": "87e4841bc4e29a728eb6f7a4d892c343a54365f2a5adef61d1a7b1138d3c79fc"
+    },
+    {
+      "family": "MGCF VIG GPU",
+      "version": "M1.39",
+      "coverage": "Ordered GPU convolutions and graph dot products; native normalization/TopK/dilation/gather unchanged, with parameter/session reuse; exact delivery binding in vig-distance-delivery-binding.json.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "webgpu",
+      "inferences": 3,
+      "foreground": 3848796,
+      "map": {
+        "different": 95576207,
+        "maxAbs": 0.00003236532211303711,
+        "meanAbs": 3.054464762202193e-7,
+        "nonzero": 95320780,
+        "finite": true,
+        "sha256": "85d76e81bc23e8978984305ca5ba43c54407e7ccac6527e4eeed762672ab41af",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "85d76e81bc23e8978984305ca5ba43c54407e7ccac6527e4eeed762672ab41af",
+          "mask": "465df33abbde81423e17d694378f3d4267713b8d0980716d2ec5a3e2265a8f3a",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "e152ff7997cfd7a51fbb81756ccf075e6b2783c4530829f4640e61aab3e1d2ac",
+          "mask": "f32ab33c7407e415b1a0f922f486ab01bf5ca03cac9c5fda5b49c9ae0652c689",
+          "analyzed": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1461.9000000059605,
+      "analysisMs": 37332.29999999702,
+      "cacheMs": 2774.4000000059605,
+      "exportMs": 25371.70000000298,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 2713889617,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672015512,
+      "exportSha256": "c5d6d767e6eb1898a14127114e0b58eca6ae1f6e6979c53639a4d0fcd83212d7",
+      "arrays": 4,
+      "proofFile": "neural-segmented-mgcfdn-vig-large-rich-webgpu-m1-39-candidate-proof.json",
+      "npzFile": "neural-segmented-mgcfdn-vig-large-rich-webgpu-m1-39-candidate-npz-proof.json",
+      "proofSha256": "c06358ccdb4515d4bda2c289ea3097d8119dfa0fecae1bd928b596138196e7f7",
+      "runtimeManifestSha256": null
+    },
+    {
+      "family": "MGCF TNT CPU",
+      "version": "M1.34",
+      "coverage": "Native-order attention backbone with bounded useful CPU linear workers.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "cpu",
+      "inferences": 3,
+      "foreground": 4949629,
+      "map": {
+        "different": 95430270,
+        "maxAbs": 0.000003039836883544922,
+        "meanAbs": 8.608047143434305e-8,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "f7ec30a0bcdf12ba2a2b171488efa4f75b9af88453aceffab5f2bd6774afe015",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "f7ec30a0bcdf12ba2a2b171488efa4f75b9af88453aceffab5f2bd6774afe015",
+          "mask": "64ee674eb297c19dec3414e4023f1c97712e6c9bf9807736ed0151c08c772340",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "d3e0f47acae315bf313e4ae6c225e5e44d3bede0b33cf414f2038ada395a8c83",
+          "mask": "06f55797ac2b212584d9cf67c72e055c5b2a0dbec75605fe26b84291eb439dae",
+          "analyzed": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1147.3999999910593,
+      "analysisMs": 57063.5,
+      "cacheMs": 2564,
+      "exportMs": 14836.09999999404,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 2371490140,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672013188,
+      "exportSha256": "0ece3678ef8e6c78eaa5dab68b48bacad6e5433697c74e824eff885aea489a77",
+      "arrays": 4,
+      "proofFile": "neural-segmented-mgcfdn-tnt-large-rich-cpu-m1-34-extracted-proof.json",
+      "npzFile": "neural-segmented-mgcfdn-tnt-large-rich-cpu-m1-34-extracted-npz-proof.json",
+      "proofSha256": "12de2c5b935d0143185e2eb4ee5469a49d1031346ea768b19b2fb7c2e58b8c51",
+      "runtimeManifestSha256": "87e4841bc4e29a728eb6f7a4d892c343a54365f2a5adef61d1a7b1138d3c79fc"
+    },
+    {
+      "family": "MGCF TNT GPU",
+      "version": "M1.38",
+      "coverage": "Ordered GPU linear layers and outer attention, CPU inner attention/norm/softmax; parameter/session reuse, exact delivery binding in tnt-attention-delivery-binding.json.",
+      "width": 12000,
+      "height": 8000,
+      "rich": true,
+      "backend": "webgpu",
+      "inferences": 3,
+      "foreground": 4949629,
+      "map": {
+        "different": 95430270,
+        "maxAbs": 0.000003039836883544922,
+        "meanAbs": 8.608047143434305e-8,
+        "nonzero": 96000000,
+        "finite": true,
+        "sha256": "f7ec30a0bcdf12ba2a2b171488efa4f75b9af88453aceffab5f2bd6774afe015",
+        "accepted": true
+      },
+      "planeSha256": [
+        {
+          "map": "f7ec30a0bcdf12ba2a2b171488efa4f75b9af88453aceffab5f2bd6774afe015",
+          "mask": "64ee674eb297c19dec3414e4023f1c97712e6c9bf9807736ed0151c08c772340",
+          "analyzed": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        },
+        {
+          "map": "d3e0f47acae315bf313e4ae6c225e5e44d3bede0b33cf414f2038ada395a8c83",
+          "mask": "06f55797ac2b212584d9cf67c72e055c5b2a0dbec75605fe26b84291eb439dae",
+          "analyzed": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+          "candidates": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501"
+        }
+      ],
+      "loadMs": 1371.699999988079,
+      "analysisMs": 30451.20000000298,
+      "cacheMs": 2852.2000000029802,
+      "exportMs": 73612.79999999702,
+      "budgetBytes": 3221225472,
+      "peakAccountedBytes": 2630886876,
+      "storage": [
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        }
+      ],
+      "exportStorage": "opfs",
+      "exportBytes": 672015440,
+      "exportSha256": "c0d5083d329f5b866369a0c3bba81df146612c47ef6f3c4e3f66eb0b41d417fb",
+      "arrays": 4,
+      "proofFile": "neural-segmented-mgcfdn-tnt-large-rich-webgpu-m1-38-candidate-proof.json",
+      "npzFile": "neural-segmented-mgcfdn-tnt-large-rich-webgpu-m1-38-candidate-npz-proof.json",
+      "proofSha256": "1f783356cbdd70df06e04b8873131385ba3e3b88e463302906d95e078cfaf69c",
+      "runtimeManifestSha256": null
+    }
+  ]
+}

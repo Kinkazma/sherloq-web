@@ -1,0 +1,215 @@
+{
+  "schema": 1,
+  "fixture": "bench-1024.jpg",
+  "loaded": {
+    "id": "i",
+    "width": 1024,
+    "height": 1024,
+    "format": "rgb8",
+    "sha256": "8a67ae2bc3f3c60caa1ae9bad37fbe693e527c743b28964dbfb36218320bb899",
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "orientation": "identity (APP1 refused)",
+      "icc": "not applied (APP2 refused)",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "metrics": {
+      "preparationMs": 22.899999976158142,
+      "memory": {
+        "budgetBytes": 3296722944,
+        "retainedBytes": 3992357,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 61260143
+      }
+    }
+  },
+  "loadRpcMs": 40,
+  "results": [
+    {
+      "operation": "inspection.histogram",
+      "coldRpcMs": 6.199999988079071,
+      "warmRpcMs": 0.20000004768371582,
+      "cold": {
+        "totalMs": 5.699999988079071,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 18274,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "warm": {
+        "totalMs": 0.20000004768371582,
+        "cache": {
+          "result": true
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 18274,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      }
+    },
+    {
+      "operation": "colors.stats",
+      "coldRpcMs": 8.599999964237213,
+      "warmRpcMs": 1.199999988079071,
+      "cold": {
+        "totalMs": 8.100000023841858,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 3164544,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "warm": {
+        "totalMs": 0.8999999761581421,
+        "cache": {
+          "result": true
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 3164544,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      }
+    },
+    {
+      "operation": "noise.planes",
+      "coldRpcMs": 9.5,
+      "warmRpcMs": 2,
+      "cold": {
+        "totalMs": 9.300000011920929,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 7360210,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      },
+      "warm": {
+        "totalMs": 1.7000000476837158,
+        "cache": {
+          "result": true
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 7360210,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 61260143
+        }
+      }
+    },
+    {
+      "operation": "noise.minmax",
+      "coldRpcMs": 23.600000023841858,
+      "warmRpcMs": 2.899999976158142,
+      "cold": {
+        "totalMs": 23.30000001192093,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 12605076,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 82655735
+        }
+      },
+      "warm": {
+        "totalMs": 1.300000011920929,
+        "cache": {
+          "result": true
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 12605076,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 87900601
+        }
+      }
+    },
+    {
+      "operation": "pixels.defects",
+      "coldRpcMs": 95.19999998807907,
+      "warmRpcMs": 8.900000035762787,
+      "cold": {
+        "totalMs": 95,
+        "cache": {
+          "result": false
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 19947592,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 238895545
+        }
+      },
+      "warm": {
+        "totalMs": 4,
+        "cache": {
+          "result": true
+        },
+        "kernel": "cpu-reference",
+        "workers": 1,
+        "memory": {
+          "budgetBytes": 3296722944,
+          "retainedBytes": 3992357,
+          "cacheBytes": 19947592,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 246238061
+        }
+      }
+    }
+  ],
+  "cancellation": "Hard abort and reload verified",
+  "limits": [
+    "One run per state; smoke measurements only",
+    "No CPU/GPU or worker-count comparison yet",
+    "Cold engine/cache, not cold OS; display excluded",
+    "Correctness reference suite uses separate raw synthetic images"
+  ],
+  "browser": "154.0.8037.58"
+}

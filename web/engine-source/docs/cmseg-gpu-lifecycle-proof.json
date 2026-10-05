@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual CMSeg backbone cancellation after ordered GPU submission, pipeline reuse, pre-abort, memory refusal and constructor rollback; every owned reservation released. Full numeric inference and API retry have separate recipes.",
+  "checks": {
+    "cancelAfterSubmit0": true,
+    "residentAfterFirst": 85983232,
+    "cancelAfterSubmit1": true,
+    "preAbort": true,
+    "memory": true,
+    "disposed": true,
+    "constructorRollback": true
+  },
+  "memory": {
+    "budgetBytes": 33554432,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 120599040
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-cmseg-gpu-lifecycle.mjs": "224baacd84999cb9e01f4c2fac893a2e8241dea9c81ed443c2de0d98ffe20ff2",
+    "tests/cmseg-gpu-browser.js": "7b7d546e44f2aa54d0b42b195761fb77887ac49342d54148210e49d10e526a3c",
+    "experiments/segmentation/cmseg-backbone.js": "9d7a8a5f8de1074bd5a444f6af4b0bb79c1f1d5250e683574e3be2400ee9605e",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30"
+  }
+}

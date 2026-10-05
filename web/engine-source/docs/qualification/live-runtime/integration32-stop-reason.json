@@ -1,0 +1,6 @@
+{
+  "at": "2026-10-04T00:43:34.059340+00:00",
+  "reason": "Coordinator CPU profile captures a self-waking budget-admission loop: Budget.changed -> scheduler.pump -> Budget.room -> idle ForgeryscopePreparation.clear -> retained -= 0. No useful progress after about 637 seconds. Stop this stalled run under the existing authorization; preserve profile and all logs.",
+  "runnerPid": 84524,
+  "profile": "coordinator-cpu-profile.json"
+}

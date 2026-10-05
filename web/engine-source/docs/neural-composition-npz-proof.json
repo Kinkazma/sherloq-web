@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Browser streamed NPZ reopened with NumPy allow_pickle=False; ZIP CRC, names, shapes, dtypes, complete native array hashes and Unicode metadata.",
+  "numpy": "1.26.4",
+  "records": [
+    {
+      "name": "d2prl",
+      "arrays": [
+        "map",
+        "mask",
+        "analyzed",
+        "candidates",
+        "target",
+        "source"
+      ],
+      "bytes": 15733413,
+      "sha256": "9057570708d86d151958ef875363f344a11c20d2b63f7bde42705209358bdfaf"
+    },
+    {
+      "name": "mgcf-st",
+      "arrays": [
+        "map",
+        "mask",
+        "analyzed",
+        "candidates",
+        "target",
+        "source"
+      ],
+      "bytes": 15732829,
+      "sha256": "9c066ea455679e7aafca4e064c460e4075632d8f30bdec91c25cb0e7f0972a93"
+    },
+    {
+      "name": "cmseg",
+      "arrays": [
+        "map",
+        "mask",
+        "analyzed",
+        "candidates"
+      ],
+      "bytes": 7343757,
+      "sha256": "f0e526189ea66283c1a0425f0c4ef786e7d20343386808ffd36b0dd8944ec70d"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "provider": "wasm",
+  "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+  "graphSha256": "96cb8ee7496f74d6eb01613b3debb5338e7abbfafb88b6e5111cc2570f0e7de3",
+  "records": [
+    {
+      "case": 0,
+      "outputs": {
+        "native_map": {
+          "values": 384,
+          "maxError": 1.341104507446289e-7,
+          "differences": 352
+        },
+        "padded_map": {
+          "values": 6144,
+          "maxError": 1.1175870895385742e-7,
+          "differences": 5876
+        }
+      },
+      "metrics": {
+        "milliseconds": 1933.8999999985099,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "wasm",
+        "workers": 1
+      }
+    },
+    {
+      "case": 1,
+      "outputs": {
+        "native_map": {
+          "values": 884,
+          "maxError": 9.238719940185547e-7,
+          "differences": 858
+        },
+        "padded_map": {
+          "values": 14144,
+          "maxError": 8.940696716308594e-7,
+          "differences": 13965
+        }
+      },
+      "metrics": {
+        "milliseconds": 501.6000000014901,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "wasm",
+        "workers": 1
+      }
+    },
+    {
+      "case": 2,
+      "outputs": {
+        "native_map": {
+          "values": 1056,
+          "maxError": 2.980232238769531e-7,
+          "differences": 964
+        },
+        "padded_map": {
+          "values": 16896,
+          "maxError": 2.7567148208618164e-7,
+          "differences": 16264
+        }
+      },
+      "metrics": {
+        "milliseconds": 618.3000000044703,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "wasm",
+        "workers": 1
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 4294967296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2178999668
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

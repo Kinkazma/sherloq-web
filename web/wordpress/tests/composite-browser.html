@@ -1,0 +1,45 @@
+<!doctype html><meta charset="utf-8"><title>SHERLOQ — Composite WordPress</title>
+<h1>Composite · recette du plugin WordPress installé</h1><button id="start">Vérifier Composite</button> <a id="proof" hidden>Télécharger la preuve</a> <a id="npz" hidden>Télécharger le NPZ vérifié</a><p id="status">Prêt</p><pre id="log"></pre>
+<iframe id="app" style="width:100%;height:950px" src="/wp-content/plugins/sherloq-browser/assets/app.html?v=0.4.2-composite-final#lang=fr"></iframe>
+<script type="module">
+const frame=document.querySelector('#app'),log=document.querySelector('#log'),status=document.querySelector('#status');
+const wait=async(predicate,timeout=180000)=>{const end=Date.now()+timeout;while(Date.now()<end){if(predicate())return;await new Promise(r=>setTimeout(r,100));}throw Error('Timed out: '+frame.contentDocument?.querySelector('#status')?.textContent);};
+document.querySelector('#start').onclick=async()=>{
+ document.querySelector('#start').disabled=true;const report={date:new Date().toISOString(),userAgent:navigator.userAgent,tests:[],errors:[]};
+ const check=(name,pass,details={})=>{report.tests.push({name,pass,...details});log.textContent=JSON.stringify(report,null,2);if(!pass)throw Error(name);};
+ try{
+  await wait(()=>frame.contentDocument?.querySelector('#tab-composite')?.onclick);const w=frame.contentWindow,d=w.document,$=id=>d.getElementById(id),downloads=[];
+  w.addEventListener('error',e=>report.errors.push(e.message));w.addEventListener('unhandledrejection',e=>report.errors.push(String(e.reason)));
+  const originalURL=w.URL.createObjectURL.bind(w.URL);w.URL.createObjectURL=blob=>{downloads.push(blob);return originalURL(blob);};
+  $('composite-quality').value='95';$('composite-stage').value='map';$('composite-quality').dispatchEvent(new w.Event('change',{bubbles:true}));
+  const tool=[...d.querySelectorAll('#tool-tree button')].find(b=>b.textContent==='Détection de montage');check('Retouches tool enabled',tool&&!tool.disabled);tool.click();
+  const file=new w.File([await(await fetch('./composite-source.jpg')).blob()],'composite-source.jpg',{type:'image/jpeg'}),transfer=new w.DataTransfer();transfer.items.add(file);$('file').files=transfer.files;$('file').dispatchEvent(new w.Event('change',{bubbles:true}));
+  status.textContent='Calcul réel Composite…';await wait(()=>!$('export-report').disabled,240000);
+  const meta=JSON.parse($('provenance').textContent);report.metadata=meta;
+  check('Automatic actual Composite, full original 512²',meta.ui.operation==='composite'&&meta.width===512&&meta.height===512&&!meta.mapError,{fields:Object.keys(meta.fields),model:meta.model});
+  check('Loaded covariance-floor-v1 package',meta.provenance.statisticsPolicy==='covariance-floor-v1'&&meta.provenance.statisticsSourceSha256==='d3f5386ec00efb11cb27d1a7be1b78b6a35b1399341f95f76f9bd5bcd7250899',{policy:meta.metadata.statistics_policy});
+  const before=JSON.stringify($('canvas').getContext('2d').getTransform());
+  const renders=[];
+  for(const mode of ['tile','cascade','tabs'])$('layout-'+mode).click();
+  for(const corner of ['top-left','bottom-right'])for(const view of ['noise','map']){
+   $('fit').click();$('zoom-in').click();$('zoom-in').click();const viewport=$('viewport'),r=viewport.getBoundingClientRect(),direction=corner==='top-left'?1:-1;viewport.dispatchEvent(new w.WheelEvent('wheel',{deltaX:direction*100,deltaY:direction*100,deltaMode:0,bubbles:true,cancelable:true}));$('composite-view').value=view;$('composite-view').dispatchEvent(new w.Event('change',{bubbles:true}));
+   await new Promise(r=>setTimeout(r,700));
+   await wait(()=>{const c=$('canvas'),a=c.getContext('2d').getImageData(0,0,c.width,c.height).data;return a.some((x,i)=>i%4!==3&&x!==0);});
+   const c=$('canvas'),bytes=c.getContext('2d').getImageData(0,0,c.width,c.height).data;
+   renders.push({corner,view,sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('')});
+   await new Promise(r=>setTimeout(r,500));
+  }
+  check('Four source-window views rendered',new Set(renders.map(v=>v.sha256)).size===4,{renders});
+  const zoom=$('zoom').value;$('zoom-in').click();const camera=$('zoom').value;$('composite-view').value='noise';$('composite-view').dispatchEvent(new w.Event('change',{bubbles:true}));check('View switch preserves zoom',camera!==zoom&&$('zoom').value===camera);
+  $('composite-view').value='map';$('composite-view').dispatchEvent(new w.Event('change',{bubbles:true}));
+  status.textContent='Export NPZ réel…';const count=downloads.length;$('composite-npz').click();await wait(()=>downloads.length>count,180000);const archive=downloads.at(-1);report.export={bytes:archive.size,sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',await archive.arrayBuffer()))].map(x=>x.toString(16).padStart(2,'0')).join('')};
+  check('Complete NPZ exported by UI',archive.size>4000000,{bytes:archive.size});const npz=document.querySelector('#npz');npz.href=URL.createObjectURL(archive);npz.download='SHERLOQ-composite-wordpress-proof.npz';npz.hidden=false;
+  await wait(()=>!$('composite-run').disabled);$('composite-run').click();await wait(()=>!$('composite-cancel').disabled);$('composite-cancel').click();await wait(()=>!$('composite-run').disabled);
+  check('Cancellation returns controls',!$('composite-run').disabled&&$('status').textContent.includes('annulé'));
+  $('tab-ela').click();$('ela-mode').value='classic';$('ela-mode').dispatchEvent(new w.Event('change',{bubbles:true}));await wait(()=>!$('export-report').disabled);
+  check('Classic ELA still works after Composite disposal',JSON.parse($('provenance').textContent).operation==='ela.classic');
+  check('No unhandled browser errors',report.errors.length===0);
+ }catch(error){report.failure=String(error);}
+ report.pass=!report.failure&&report.tests.every(t=>t.pass);status.textContent=(report.pass?'PASS':'FAIL')+' · '+report.tests.length+' checks';log.textContent=JSON.stringify(report,null,2);const proof=document.querySelector('#proof');proof.href=URL.createObjectURL(new Blob([log.textContent],{type:'application/json'}));proof.download='SHERLOQ-composite-wordpress-final.json';proof.hidden=false;
+};
+</script>

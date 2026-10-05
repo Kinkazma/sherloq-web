@@ -1,0 +1,53 @@
+{
+  "sourceSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+  "shape": [
+    8000,
+    12000,
+    3
+  ],
+  "scope": "Supplemental detail sampler and model corroboration on a full decoded96MP source; not a second global matcher",
+  "samples": 2592,
+  "allSamplesNativeExact": true,
+  "scores": [
+    {
+      "name": "translation",
+      "accepted": true,
+      "ncc": 1,
+      "samples": 32
+    },
+    {
+      "name": "reflection",
+      "accepted": false,
+      "ncc": 0.19836191833019257,
+      "samples": 32
+    },
+    {
+      "name": "scale",
+      "accepted": false,
+      "ncc": 0.20984899252653122,
+      "samples": 32
+    }
+  ],
+  "sourceWindowReads": 2590,
+  "cachedSampleReads": 0,
+  "nativeSeconds": 1.1435109580052085,
+  "export": {
+    "byteLength": 12350,
+    "sha256": "8e7bbc37fd00111572954ca5ed80eea4ea1e6436393b888faca069b01b7e324f"
+  },
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 123381029
+  },
+  "elapsedMs": 122546.59999999404,
+  "independentReader": {
+    "numpy": "1.26.4",
+    "sha256Checked": true,
+    "allEntriesCrcChecked": true,
+    "allSamplesAndScoresNativeExact": true,
+    "afterSourceRelease": true
+  }
+}

@@ -1,0 +1,5 @@
+import {readFile,writeFile} from 'node:fs/promises';import {createEngine} from '../src/index.js';
+// Generate the flat3072x2304PNG with OpenCV and confirm BRISK detects zero points
+// in the native environment before invoking this public API integration check.
+const base=new URL('../.build/m3/',import.meta.url),expected=JSON.parse(await readFile(new URL('brisk-large-flat-native.json',base))),engine=createEngine({memoryBudgetBytes:2048*1024**2,cpuKernel:'single'});
+try{await engine.loadBlob({id:'large',blob:new Blob([await readFile(new URL('brisk-large-flat.png',base))])});const r=await engine.run({id:'brisk',imageId:'large',operation:'tampering.copyMove.brisk',backend:'cpu'});if(r.data.stats.total!==expected.keypoints||r.pixels.data.some(v=>v!==127))throw Error('large flat mismatch');const report={width:r.pixels.width,height:r.pixels.height,stats:r.data.stats,memory:engine.capabilities().memory};engine.unload('large');report.finalMemory=engine.capabilities().memory;await writeFile(new URL('../docs/m3-brisk-large-flat-proof.json',import.meta.url),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));}finally{engine.dispose();}

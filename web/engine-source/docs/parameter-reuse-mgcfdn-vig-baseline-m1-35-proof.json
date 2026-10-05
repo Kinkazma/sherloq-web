@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "mgcfdn-vig",
+  "pressure": false,
+  "scope": "Repeated actual GPU inference through the production component, never an analysis/raw-grid cache. Same pinned positive RGB, preparation, model and1GiB budget. Only parameter retention changes versus immutable M1.35. Fresh browser per condition, OS/driver caches not flushed. HTTP parameter requests/bytes counted by the local fixture server. Optional final run follows an actual6MiB idle-budget pressure and re-admission.",
+  "records": [
+    {
+      "run": 0,
+      "kind": "cold",
+      "milliseconds": 15694,
+      "sha256": "a050434b5773fbf9f8f5faee40c6fb2cb6654e57c0b2d9caa18646bfe5260a55",
+      "parameterRequests": 511,
+      "parameterBytes": 341539200,
+      "timings": {
+        "modelLoadMs": 10751.000000044703,
+        "inferenceMs": 4905.299999967217,
+        "outputCopyMs": 3.2000000029802322,
+        "gpuWriteBytes": 455646904,
+        "gpuReadBytes": 104857600,
+        "backboneMs": 4739.399999961257,
+        "parameterLoadMs": 10360.600000038743,
+        "backboneSetupMs": 20.799999997019768
+      },
+      "workers": 0,
+      "probability": {
+        "maxAbs": 0.000007808208465576172,
+        "meanAbs": 2.8543736096875905e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 7256,
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 626327377,
+        "peakAccountedBytes": 631045969
+      }
+    },
+    {
+      "run": 1,
+      "kind": "warm",
+      "milliseconds": 11031.5,
+      "sha256": "a050434b5773fbf9f8f5faee40c6fb2cb6654e57c0b2d9caa18646bfe5260a55",
+      "parameterRequests": 511,
+      "parameterBytes": 341539200,
+      "timings": {
+        "modelLoadMs": 6229.000000029802,
+        "inferenceMs": 4776.199999973178,
+        "outputCopyMs": 1.5,
+        "gpuWriteBytes": 455646904,
+        "gpuReadBytes": 104857600,
+        "backboneMs": 4616.499999970198,
+        "parameterLoadMs": 5841.000000029802,
+        "backboneSetupMs": 7.200000002980232
+      },
+      "workers": 0,
+      "probability": {
+        "maxAbs": 0.000007808208465576172,
+        "meanAbs": 2.8543736096875905e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 7256,
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 626327377,
+        "peakAccountedBytes": 631045969
+      }
+    },
+    {
+      "run": 2,
+      "kind": "warm",
+      "milliseconds": 10244,
+      "sha256": "a050434b5773fbf9f8f5faee40c6fb2cb6654e57c0b2d9caa18646bfe5260a55",
+      "parameterRequests": 511,
+      "parameterBytes": 341539200,
+      "timings": {
+        "modelLoadMs": 4255.700000017881,
+        "inferenceMs": 5965.499999985099,
+        "outputCopyMs": 3.5999999940395355,
+        "gpuWriteBytes": 455646904,
+        "gpuReadBytes": 104857600,
+        "backboneMs": 5819.999999985099,
+        "parameterLoadMs": 3913.600000023842,
+        "backboneSetupMs": 10
+      },
+      "workers": 0,
+      "probability": {
+        "maxAbs": 0.000007808208465576172,
+        "meanAbs": 2.8543736096875905e-7,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 7256,
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 626327377,
+        "peakAccountedBytes": 631045969
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 631045969
+  },
+  "browser": "154.0.8037.58",
+  "label": "baseline-m1-35",
+  "extractedRuntime": true,
+  "sources": {
+    "experiments/segmentation/vig-inference.js": "eb3d96c1ba9fd583d48b90ce540190ab6b6cd24a16948b2cb20d3b465623ee27",
+    "experiments/segmentation/cmseg-correlation.js": "473ba0002d53980ef7034d81c032fa6f72d0187d52de49f260e8a2c89a9f7888",
+    "experiments/segmentation/inference.js": "eae812f02caba7668ea462dd2751ba903ff532cedfc378c29c31df86b46d03ab",
+    "experiments/segmentation/models.js": "4108dcd9c45140ca9071faf3e2405681cccfc2872431026dff6340d61536fe0f"
+  },
+  "recipeSha256": "986bd7d680342a794275cb7bb29842f72f58a8890bbf6be9ee3257bbd4bc7491",
+  "runtimeManifestSha256": "9d732bf8f3fe428eeb10baa49362cb839abc21c4d80a3d6ea89dbdb250fb67bf"
+}

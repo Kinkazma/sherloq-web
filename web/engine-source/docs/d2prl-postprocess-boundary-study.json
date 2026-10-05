@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "scope": "Native filter2D versus exact box summation; this is not a browser inference or detector accuracy result",
+  "opencv": "4.11.0",
+  "numpy": "1.26.4",
+  "nativeSourceSha256": "e4399429d5723031ee1df6a50aa096482b337608f2e20d6f477945b665381764",
+  "cases": [
+    {
+      "width": 35,
+      "height": 32,
+      "mode": "horizontal",
+      "maxFilterError": 5.316404326320689e-13,
+      "changedRolePixels": 384,
+      "nonzeroAtExactZero": 665
+    },
+    {
+      "width": 35,
+      "height": 32,
+      "mode": "vertical",
+      "maxFilterError": 7.345822626396437e-13,
+      "changedRolePixels": 2,
+      "nonzeroAtExactZero": 32
+    },
+    {
+      "width": 35,
+      "height": 32,
+      "mode": "checker",
+      "maxFilterError": 3.259088013568903e-14,
+      "changedRolePixels": 468,
+      "nonzeroAtExactZero": 945
+    },
+    {
+      "width": 35,
+      "height": 32,
+      "mode": "random",
+      "maxFilterError": 9.631411743453097e-14,
+      "changedRolePixels": 27,
+      "nonzeroAtExactZero": 121
+    },
+    {
+      "width": 35,
+      "height": 32,
+      "mode": "holes",
+      "maxFilterError": 3.053721555137945e-13,
+      "changedRolePixels": 0,
+      "nonzeroAtExactZero": 64
+    },
+    {
+      "width": 35,
+      "height": 32,
+      "mode": "thin",
+      "maxFilterError": 0.0,
+      "changedRolePixels": 0,
+      "nonzeroAtExactZero": 0
+    },
+    {
+      "width": 35,
+      "height": 32,
+      "mode": "diagonal",
+      "maxFilterError": 0.0,
+      "changedRolePixels": 0,
+      "nonzeroAtExactZero": 0
+    },
+    {
+      "width": 131,
+      "height": 77,
+      "mode": "horizontal",
+      "maxFilterError": 2.4940102066883796e-12,
+      "changedRolePixels": 85,
+      "nonzeroAtExactZero": 131
+    },
+    {
+      "width": 131,
+      "height": 77,
+      "mode": "vertical",
+      "maxFilterError": 3.637978807091713e-12,
+      "changedRolePixels": 31,
+      "nonzeroAtExactZero": 74
+    },
+    {
+      "width": 131,
+      "height": 77,
+      "mode": "checker",
+      "maxFilterError": 7.256039302391826e-14,
+      "changedRolePixels": 3867,
+      "nonzeroAtExactZero": 9459
+    },
+    {
+      "width": 131,
+      "height": 77,
+      "mode": "random",
+      "maxFilterError": 5.810660654893829e-13,
+      "changedRolePixels": 124,
+      "nonzeroAtExactZero": 182
+    },
+    {
+      "width": 131,
+      "height": 77,
+      "mode": "holes",
+      "maxFilterError": 4.446418548024328e-13,
+      "changedRolePixels": 631,
+      "nonzeroAtExactZero": 1251
+    },
+    {
+      "width": 131,
+      "height": 77,
+      "mode": "thin",
+      "maxFilterError": 4.395891203129443e-12,
+      "changedRolePixels": 124,
+      "nonzeroAtExactZero": 2457
+    },
+    {
+      "width": 131,
+      "height": 77,
+      "mode": "diagonal",
+      "maxFilterError": 3.708717360995095e-12,
+      "changedRolePixels": 5,
+      "nonzeroAtExactZero": 7
+    },
+    {
+      "width": 448,
+      "height": 448,
+      "mode": "horizontal",
+      "maxFilterError": 4.427160027464794e-11,
+      "changedRolePixels": 433,
+      "nonzeroAtExactZero": 448
+    },
+    {
+      "width": 448,
+      "height": 448,
+      "mode": "vertical",
+      "maxFilterError": 7.042408323165716e-11,
+      "changedRolePixels": 436,
+      "nonzeroAtExactZero": 448
+    },
+    {
+      "width": 448,
+      "height": 448,
+      "mode": "checker",
+      "maxFilterError": 2.8683178336826043e-13,
+      "changedRolePixels": 80498,
+      "nonzeroAtExactZero": 200065
+    },
+    {
+      "width": 448,
+      "height": 448,
+      "mode": "random",
+      "maxFilterError": 4.755197537814615e-12,
+      "changedRolePixels": 1645,
+      "nonzeroAtExactZero": 3089
+    },
+    {
+      "width": 448,
+      "height": 448,
+      "mode": "holes",
+      "maxFilterError": 2.583260211644345e-12,
+      "changedRolePixels": 15752,
+      "nonzeroAtExactZero": 31377
+    },
+    {
+      "width": 448,
+      "height": 448,
+      "mode": "thin",
+      "maxFilterError": 1.4764059766414483e-11,
+      "changedRolePixels": 39491,
+      "nonzeroAtExactZero": 89576
+    },
+    {
+      "width": 448,
+      "height": 448,
+      "mode": "diagonal",
+      "maxFilterError": 3.5571347950513754e-11,
+      "changedRolePixels": 25,
+      "nonzeroAtExactZero": 49
+    }
+  ],
+  "conclusion": "Do not replace filter2D with a mathematically exact majority sum without an explicitly reviewed change: tiny zero residuals change role masks."
+}

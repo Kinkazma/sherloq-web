@@ -1,0 +1,472 @@
+{
+  "schema": 1,
+  "mode": "Offline development benchmark; no runtime probes",
+  "profile": {
+    "id": "maximum",
+    "label": "Maximum utile",
+    "memoryBudgetBytes": 3736076288,
+    "maxWorkers": 10,
+    "minimumBenefit": 0.05,
+    "hints": {
+      "deviceMemoryGiB": 32,
+      "heapLimitBytes": 4395630592,
+      "hardwareConcurrency": 10
+    },
+    "memoryPolicy": "One shared engine budget; approximate browser hints; no fixed global ceiling; per-allocation limits remain independent; no eager allocation",
+    "gpuPolicy": "High-performance adapter for offline-qualified kernels within API limits; no startup benchmark; CPU retained"
+  },
+  "records": [
+    {
+      "side": 512,
+      "params": {
+        "rect": null,
+        "window": "hanning",
+        "upsample": false,
+        "center": true,
+        "highpass": "simple",
+        "gamma": 4,
+        "rescale": true
+      },
+      "runs": [
+        {
+          "parallel": false,
+          "repetition": 0,
+          "ms": 17.69999998807907,
+          "metrics": {
+            "fourierViewWorkers": 1
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 88875868,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 88875868
+          }
+        },
+        {
+          "parallel": true,
+          "repetition": 0,
+          "ms": 30.700000047683716,
+          "metrics": {
+            "fourierViewWorkers": 10,
+            "fourierViewKernelMs": 30.5,
+            "fourierViewScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedGroups": 10,
+              "workerReservationBytes": 29360128
+            }
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 88875868,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 118235996
+          }
+        },
+        {
+          "parallel": true,
+          "repetition": 1,
+          "ms": 32.10000002384186,
+          "metrics": {
+            "fourierViewWorkers": 10,
+            "fourierViewKernelMs": 31.900000035762787,
+            "fourierViewScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 1,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedGroups": 10,
+              "workerReservationBytes": 29360128
+            }
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 88875868,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 118235996
+          }
+        },
+        {
+          "parallel": false,
+          "repetition": 1,
+          "ms": 18.399999976158142,
+          "metrics": {
+            "fourierViewWorkers": 1
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 88875868,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 118235996
+          }
+        },
+        {
+          "parallel": false,
+          "repetition": 2,
+          "ms": 18.69999998807907,
+          "metrics": {
+            "fourierViewWorkers": 1
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 88875868,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 118235996
+          }
+        },
+        {
+          "parallel": true,
+          "repetition": 2,
+          "ms": 28.100000023841858,
+          "metrics": {
+            "fourierViewWorkers": 10,
+            "fourierViewKernelMs": 28,
+            "fourierViewScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 2,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedGroups": 10,
+              "workerReservationBytes": 29360128
+            }
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 88875868,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 118235996
+          }
+        }
+      ],
+      "medianSerialMs": 18.399999976158142,
+      "medianParallelMs": 30.700000047683716,
+      "speedup": 0.5993485324944292,
+      "bitExact": true
+    },
+    {
+      "side": 1024,
+      "params": {
+        "rect": null,
+        "window": "hanning",
+        "upsample": false,
+        "center": false,
+        "highpass": "simple",
+        "gamma": 4,
+        "rescale": true
+      },
+      "runs": [
+        {
+          "parallel": false,
+          "repetition": 0,
+          "ms": 71.39999997615814,
+          "metrics": {
+            "fourierViewWorkers": 1
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 103818078,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 103818078
+          }
+        },
+        {
+          "parallel": true,
+          "repetition": 0,
+          "ms": 44.19999998807907,
+          "metrics": {
+            "fourierViewWorkers": 10,
+            "fourierViewKernelMs": 44.09999996423721,
+            "fourierViewScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedGroups": 10,
+              "workerReservationBytes": 54525952
+            }
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 103818078,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 158344030
+          }
+        },
+        {
+          "parallel": true,
+          "repetition": 1,
+          "ms": 44.09999996423721,
+          "metrics": {
+            "fourierViewWorkers": 10,
+            "fourierViewKernelMs": 44,
+            "fourierViewScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 1,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedGroups": 10,
+              "workerReservationBytes": 54525952
+            }
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 103818078,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 158344030
+          }
+        },
+        {
+          "parallel": false,
+          "repetition": 1,
+          "ms": 72.39999997615814,
+          "metrics": {
+            "fourierViewWorkers": 1
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 103818078,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 158344030
+          }
+        },
+        {
+          "parallel": false,
+          "repetition": 2,
+          "ms": 70.80000001192093,
+          "metrics": {
+            "fourierViewWorkers": 1
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 103818078,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 158344030
+          }
+        },
+        {
+          "parallel": true,
+          "repetition": 2,
+          "ms": 42.80000001192093,
+          "metrics": {
+            "fourierViewWorkers": 10,
+            "fourierViewKernelMs": 42.69999998807907,
+            "fourierViewScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 2,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedGroups": 10,
+              "workerReservationBytes": 54525952
+            }
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 103818078,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 158344030
+          }
+        }
+      ],
+      "medianSerialMs": 71.39999997615814,
+      "medianParallelMs": 44.09999996423721,
+      "speedup": 1.6190476198199502,
+      "bitExact": true
+    },
+    {
+      "side": 2048,
+      "params": {
+        "rect": null,
+        "window": "hanning",
+        "upsample": true,
+        "center": false,
+        "highpass": "simple",
+        "gamma": 4,
+        "rescale": true
+      },
+      "runs": [
+        {
+          "parallel": false,
+          "repetition": 0,
+          "ms": 275.5,
+          "metrics": {
+            "fourierViewWorkers": 1
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 247604058,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 247604058
+          }
+        },
+        {
+          "parallel": true,
+          "repetition": 0,
+          "ms": 84.39999997615814,
+          "metrics": {
+            "fourierViewWorkers": 10,
+            "fourierViewKernelMs": 84.30000001192093,
+            "fourierViewScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedGroups": 10,
+              "workerReservationBytes": 155189248
+            }
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 247604058,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 402793306
+          }
+        },
+        {
+          "parallel": true,
+          "repetition": 1,
+          "ms": 77.90000003576279,
+          "metrics": {
+            "fourierViewWorkers": 10,
+            "fourierViewKernelMs": 77.80000001192093,
+            "fourierViewScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 1,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedGroups": 10,
+              "workerReservationBytes": 155189248
+            }
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 247604058,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 402793306
+          }
+        },
+        {
+          "parallel": false,
+          "repetition": 1,
+          "ms": 273.39999997615814,
+          "metrics": {
+            "fourierViewWorkers": 1
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 247604058,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 402793306
+          }
+        },
+        {
+          "parallel": false,
+          "repetition": 2,
+          "ms": 275,
+          "metrics": {
+            "fourierViewWorkers": 1
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 247604058,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 402793306
+          }
+        },
+        {
+          "parallel": true,
+          "repetition": 2,
+          "ms": 75.89999997615814,
+          "metrics": {
+            "fourierViewWorkers": 10,
+            "fourierViewKernelMs": 75.79999995231628,
+            "fourierViewScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 2,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedGroups": 10,
+              "workerReservationBytes": 155189248
+            }
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "retainedBytes": 247604058,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 402793306
+          }
+        }
+      ],
+      "medianSerialMs": 275,
+      "medianParallelMs": 77.90000003576279,
+      "speedup": 3.530166878995525,
+      "bitExact": true
+    }
+  ],
+  "scope": "Presentation only, including worker startup/dispatch/copies; same complete useful magnitude, no FFT speedup claimed. Accounted memory is not RSS.",
+  "browser": "154.0.8037.58"
+}

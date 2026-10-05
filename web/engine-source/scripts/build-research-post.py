@@ -1,0 +1,7 @@
+from pathlib import Path
+import os,subprocess,json,hashlib,shutil
+root=Path(__file__).resolve().parents[1];out=root/'vendor/research-post';out.mkdir(exist_ok=True);compiler=Path(os.environ['EMSDK'])/'upstream/emscripten/em++'
+subprocess.run([str(compiler),str(root/'native/research-post.cpp'),'-O3','-ffp-contract=off','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sALLOW_MEMORY_GROWTH=1','-sIMPORTED_MEMORY=1','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY=2147483648','-sFILESYSTEM=0','-sABORTING_MALLOC=0','-sEXPORTED_FUNCTIONS=["_malloc","_free","_safire_proposal","_safire_maps","_safire_initial","_safire_kmeans","_safire_dbscan"]','-sEXPORTED_RUNTIME_METHODS=["HEAPU8","HEAPU32","HEAP32","HEAPF32"]','-o',str(out/'post.js')],check=True)
+for name in ['SLEEF-LICENSE.txt','SLEEF-PINNED.json','PYTORCH-LICENSE.txt']:shutil.copyfile(root/'vendor/d2prl'/name,out/name)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();files={p.name:dict(bytes=p.stat().st_size,sha256=sha(p)) for p in out.iterdir() if p.name!='PINNED.json'}
+(out/'PINNED.json').write_text(json.dumps(dict(schema=1,sources={str(p.relative_to(root)):sha(p) for p in [root/'native/research-post.cpp',root/'experiments/d2prl/sum.cpp',root/'experiments/d2prl/dlf.cpp',root/'experiments/d2prl/reference-exp.h']},files=files),indent=2)+'\n');(root/'src/research-post-assets.js').write_text('export const RESEARCH_POST_WASM=Object.freeze('+json.dumps(files['post.wasm'])+');\n')

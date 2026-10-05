@@ -1,0 +1,173 @@
+{
+  "passed": false,
+  "status": "failed-sift-storage-context",
+  "engineCommit": "fc27217257f3725519fdfcca5ca29542057b5f98",
+  "binding": {
+    "engineCommit": "fc27217257f3725519fdfcca5ca29542057b5f98",
+    "runtimeManifestSha256": "b441fcb2b66364bcd6c38b3d3923a2d7e23718bc849354170613d011612dc7b8",
+    "runtime": {
+      "sha256": "6fe3c6eba5ddba1798d8ec9abd861109e38fd10b6e0dd579498e51dce6cd7d28",
+      "files": 985
+    },
+    "extra": [
+      {
+        "file": "tests/m5-complete-96mp-browser.js",
+        "bytes": 8840,
+        "sha256": "4e41854e4f5df1dbf5141bcd45721dac6b1a95ad943943ff68d40a409dea906a"
+      },
+      {
+        "file": "tests/verify-stored-npz.mjs",
+        "bytes": 4040,
+        "sha256": "f787a70c9f74a288e064e25261a1c9c21e155ef5171e6f290feecbe8284e5579"
+      },
+      {
+        "file": "tests/source-api-browser.js",
+        "bytes": 6532,
+        "sha256": "70fd7795fb5d57be950b773190c587b46be0b7393ade0d6612153ac8b35d5134"
+      },
+      {
+        "file": ".build/forgeryscope/prepare.mjs",
+        "bytes": 39108,
+        "sha256": "afd9f6b45d9b0cd77037ba44d438b0e645c0db493ead35a3102d3ee311af6f1d"
+      },
+      {
+        "file": ".build/forgeryscope/prepare.wasm",
+        "bytes": 1829422,
+        "sha256": "2193f57450cb04ca5aa18886720aa67e93ad6cf0fee6d12981f623bfec7a2c82"
+      },
+      {
+        "file": ".build/forgeryscope/sift.mjs",
+        "bytes": 28362,
+        "sha256": "36bf7f751cf8518010ffe2af3e39f743a1c197ef6eca3b47c778d75a7090c187"
+      },
+      {
+        "file": ".build/forgeryscope/sift.wasm",
+        "bytes": 1346688,
+        "sha256": "05ec0786aa9b7961c34f242d73915b8f72bdb43cf7597f6a71da0fa998e1cc6f"
+      }
+    ]
+  },
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "budgetBytes": 6442450944,
+  "deliveredArchiveBytes": 0,
+  "latestProgress": {
+    "decode": {
+      "id": "original",
+      "phase": "decode",
+      "fraction": 0.0145,
+      "elapsedMs": 596.5999999940395
+    },
+    "original-sha256": {
+      "id": "original",
+      "phase": "original-sha256",
+      "fraction": 0.049536441486278435,
+      "elapsedMs": 1588.5999999940395
+    },
+    "automatic-state": {
+      "id": "complete96",
+      "phase": "automatic-state",
+      "state": {
+        "states": {
+          "patchmatch": "running",
+          "sift": "failed",
+          "forgeryscope": "done",
+          "d2prl": "running",
+          "ela": "running"
+        },
+        "errors": {
+          "sift": {
+            "code": "STORAGE_UNAVAILABLE",
+            "message": "Temporary storage is required for this execution plan."
+          }
+        },
+        "attempts": {
+          "patchmatch": 1,
+          "sift": 1,
+          "forgeryscope": 1,
+          "d2prl": 1,
+          "ela": 1
+        },
+        "completed": [
+          "forgeryscope"
+        ],
+        "running": [
+          "patchmatch",
+          "d2prl",
+          "ela"
+        ],
+        "preflightExecutions": 0
+      },
+      "elapsedMs": 207658.69999998808
+    },
+    "d2prl": {
+      "id": "automatic-d2prl-1",
+      "iteration": 0,
+      "iterations": 40,
+      "branch": "cnn",
+      "phase": "patchmatch",
+      "completed": 5,
+      "total": 198,
+      "fraction": 0.025252525252525252,
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "attempt": 1,
+      "elapsedMs": 214989.5
+    },
+    "ela": {
+      "id": "complete96",
+      "phase": "ghost-workers-encode",
+      "fraction": 0.4001142857142857,
+      "qualities": [
+        58,
+        59,
+        60,
+        61
+      ],
+      "x": 0,
+      "y": 0,
+      "group": "ela",
+      "attempt": 1,
+      "elapsedMs": 237078.39999999106
+    },
+    "forgeryscope": {
+      "id": "complete96",
+      "completed": 1,
+      "total": 1,
+      "group": "forgeryscope",
+      "phase": "zone-complete",
+      "fraction": 1,
+      "attempt": 1,
+      "elapsedMs": 207388.29999999702
+    },
+    "sift": {
+      "id": "complete96",
+      "completed": 54,
+      "total": 54,
+      "phase": "ocr",
+      "fraction": 0.1,
+      "group": "sift",
+      "attempt": 1,
+      "elapsedMs": 167913.39999999106
+    },
+    "patchmatch": {
+      "id": "complete96",
+      "phase": "stored-zernike-descriptors",
+      "completed": 15572992,
+      "total": 96000000,
+      "group": "patchmatch",
+      "attempt": 1,
+      "elapsedMs": 226544.19999998808
+    }
+  },
+  "reason": "The common automatic adapter passed its admitted RGB object to SparseCopyEngine but omitted the original source storageContext required by paged SIFT. Actual Forge completed; no complete-analysis success is inferred.",
+  "repair": "Forward the original lazy temporary session to both SIFT passes; provide an analysis-owned lazy fallback for contiguous inputs. Keep the native paged extractor, global domain, parameters and budget unchanged.",
+  "scope": "Incomplete real combined attempt, interrupted after the terminal SIFT group error. Fresh private browser profile removed by the harness."
+}

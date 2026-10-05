@@ -1,0 +1,278 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "limitMiB": 128,
+      "size": 3,
+      "regions": 1,
+      "metrics": {
+        "workers": 1,
+        "completedRegions": 1,
+        "completedStripJobs": 256,
+        "preflightExecutions": 0,
+        "scheduling": {
+          "count": 1,
+          "maximum": 1,
+          "ceiling": 1,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "grayCached": false,
+        "analysisCached": false,
+        "stage": "probability",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 4695.60000000149,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 27217964,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 63275040
+        }
+      },
+      "fourierMetrics": {
+        "workers": 2,
+        "completedRegions": 1,
+        "completedStripJobs": 256,
+        "preflightExecutions": 0,
+        "scheduling": {
+          "count": 1,
+          "maximum": 1,
+          "ceiling": 1,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "grayCached": true,
+        "analysisCached": true,
+        "stage": "fourier",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 6471.10000000149,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 36393004,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 121589804
+        }
+      },
+      "compositeSha256": "d60a9f01f2cfb101f513f81ec143dddaa0ed18d1613204207f604a7ddd57a075"
+    },
+    {
+      "limitMiB": 128,
+      "size": 5,
+      "regions": 2,
+      "metrics": {
+        "workers": 2,
+        "completedRegions": 2,
+        "completedStripJobs": 108,
+        "preflightExecutions": 0,
+        "scheduling": {
+          "count": 2,
+          "maximum": 2,
+          "ceiling": 2,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "grayCached": true,
+        "analysisCached": false,
+        "stage": "probability",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 6567.20000000298,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 16066912,
+          "cacheBytes": 0,
+          "activeReservationBytes": 25165824,
+          "peakAccountedBytes": 121589804
+        }
+      },
+      "fourierMetrics": {
+        "workers": 2,
+        "completedRegions": 2,
+        "completedStripJobs": 108,
+        "preflightExecutions": 0,
+        "scheduling": {
+          "count": 2,
+          "maximum": 2,
+          "ceiling": 2,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "grayCached": true,
+        "analysisCached": true,
+        "stage": "fourier",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 372.8999999985099,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 26318272,
+          "cacheBytes": 0,
+          "activeReservationBytes": 25165824,
+          "peakAccountedBytes": 121589804
+        }
+      },
+      "compositeSha256": "895855c7cc2f069f40edce2883c9061bbbf93294862b5365881fdabb984f49fa"
+    },
+    {
+      "limitMiB": 64,
+      "size": 3,
+      "regions": 1,
+      "metrics": {
+        "workers": 1,
+        "completedRegions": 1,
+        "completedStripJobs": 256,
+        "preflightExecutions": 0,
+        "scheduling": {
+          "count": 1,
+          "maximum": 1,
+          "ceiling": 1,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "grayCached": false,
+        "analysisCached": false,
+        "stage": "probability",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 4772.70000000298,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 27217964,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 63275040
+        }
+      },
+      "fourierMetrics": {
+        "workers": 1,
+        "completedRegions": 1,
+        "completedStripJobs": 256,
+        "preflightExecutions": 0,
+        "scheduling": {
+          "count": 1,
+          "maximum": 1,
+          "ceiling": 1,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "grayCached": true,
+        "analysisCached": true,
+        "stage": "fourier",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 12212.89999999851,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 27217964,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 63275040
+        }
+      },
+      "compositeSha256": "d60a9f01f2cfb101f513f81ec143dddaa0ed18d1613204207f604a7ddd57a075"
+    },
+    {
+      "limitMiB": 64,
+      "size": 5,
+      "regions": 2,
+      "metrics": {
+        "workers": 1,
+        "completedRegions": 2,
+        "completedStripJobs": 108,
+        "preflightExecutions": 0,
+        "scheduling": {
+          "count": 1,
+          "maximum": 2,
+          "ceiling": 2,
+          "resourceReduced": true,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "grayCached": true,
+        "analysisCached": false,
+        "stage": "probability",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 9384.39999999851,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 16066912,
+          "cacheBytes": 0,
+          "activeReservationBytes": 25165824,
+          "peakAccountedBytes": 63553792
+        }
+      },
+      "fourierMetrics": {
+        "workers": 1,
+        "completedRegions": 2,
+        "completedStripJobs": 108,
+        "preflightExecutions": 0,
+        "scheduling": {
+          "count": 1,
+          "maximum": 2,
+          "ceiling": 2,
+          "resourceReduced": true,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start"
+        },
+        "grayCached": true,
+        "analysisCached": true,
+        "stage": "fourier",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 1486.3999999985099,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 17143232,
+          "cacheBytes": 0,
+          "activeReservationBytes": 25165824,
+          "peakAccountedBytes": 63553792
+        }
+      },
+      "compositeSha256": "895855c7cc2f069f40edce2883c9061bbbf93294862b5365881fdabb984f49fa"
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

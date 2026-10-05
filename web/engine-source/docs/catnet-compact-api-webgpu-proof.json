@@ -1,0 +1,22 @@
+{
+  "provider": "webgpu",
+  "raw": {
+    "values": 884,
+    "maxError": 8.940696716308594e-7,
+    "differences": 851
+  },
+  "cacheIsolated": true,
+  "rejectsEditedJpeg": true,
+  "renderBytes": 38121,
+  "npzBytes": 57780,
+  "memory": {
+    "budgetBytes": 4294967296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3190764539
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

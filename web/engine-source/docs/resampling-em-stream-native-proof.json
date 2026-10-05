@@ -1,0 +1,17 @@
+{
+  "cases": 190,
+  "accepted": 104,
+  "rejected": 86,
+  "validityDifferences": 0,
+  "maximumProbabilityError": 0,
+  "maximumFourierScaledError": 1.4626896369227082e-14,
+  "streaming": {
+    "accepted": 104,
+    "rejected": 86,
+    "pages": 1525,
+    "heapBytes": 8388608,
+    "probabilityBits": "exact",
+    "iterations": "exact"
+  },
+  "scope": "Native corpus plus separate arithmetic domain probes. No universal cross-platform libm identity claimed."
+}

@@ -1,0 +1,172 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "nativeViews": 5,
+  "nativeBinaryMasks": 4,
+  "sourceTrailingPaddingBytes": 16777216,
+  "metrics": {
+    "kernel": "zero-global-segmented",
+    "workers": 2,
+    "original": {
+      "workers": 2,
+      "scheduling": {
+        "count": 2,
+        "maximum": 4,
+        "ceiling": 4,
+        "resourceReduced": true,
+        "policy": "immediate-useful-work",
+        "priorUsefulSamples": 0,
+        "reason": "Aggressive capacity-based start",
+        "preflightExecutions": 0,
+        "retry": null,
+        "completedBandsPreserved": 0
+      },
+      "heapCapacityBytes": 16777216,
+      "totalWorkerHeapMaximumBytes": 33554432,
+      "kernel": "zero-native-overlapping-bands",
+      "rowsPerChunk": 64,
+      "haloRows": 7,
+      "heapMaximumBytes": 16777216,
+      "thresholdFallbacks": 25657,
+      "luminanceStorage": "memory",
+      "voteStorage": "memory",
+      "retainedPlaneBytes": 2097152
+    },
+    "jpeg99": {
+      "workers": 2,
+      "scheduling": {
+        "count": 2,
+        "maximum": 4,
+        "ceiling": 4,
+        "resourceReduced": true,
+        "policy": "immediate-useful-work",
+        "priorUsefulSamples": 1,
+        "reason": "Aggressive capacity-based start",
+        "preflightExecutions": 0,
+        "retry": null,
+        "completedBandsPreserved": 0
+      },
+      "heapCapacityBytes": 16777216,
+      "totalWorkerHeapMaximumBytes": 33554432,
+      "kernel": "zero-native-overlapping-bands",
+      "rowsPerChunk": 64,
+      "haloRows": 7,
+      "heapMaximumBytes": 16777216,
+      "thresholdFallbacks": 28542,
+      "luminanceStorage": "memory",
+      "voteStorage": "memory",
+      "retainedPlaneBytes": 2097152,
+      "jpeg99": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-scanlines",
+        "sampling": "444",
+        "recompressedCache": false,
+        "recompressions": 1,
+        "sourcePasses": 2,
+        "encodedBytes": 2465611,
+        "encodedCapacityBytes": 6293504,
+        "encodedStorage": "memory",
+        "cacheEntries": 1,
+        "rowsPerChunk": 32,
+        "maxSourceWindowBytes": 98304,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216
+      }
+    },
+    "foreign": {
+      "components": 29695,
+      "visited": 432730,
+      "rowsPerClosingChunk": 64,
+      "closingHaloRows": 9,
+      "heapMaximumBytes": 16777216,
+      "heapCapacityBytes": 16777216,
+      "maskStorage": "memory",
+      "regularizedStorage": "memory"
+    },
+    "missing": {
+      "components": 37,
+      "visited": 133208,
+      "rowsPerClosingChunk": 64,
+      "closingHaloRows": 9,
+      "heapMaximumBytes": 16777216,
+      "heapCapacityBytes": 16777216,
+      "maskStorage": "memory",
+      "regularizedStorage": "memory"
+    },
+    "cache": {
+      "analysis": false,
+      "result": false
+    },
+    "temporaryBackend": null,
+    "totalMs": 4699.5,
+    "memory": {
+      "budgetBytes": 100663296,
+      "retainedBytes": 17827840,
+      "cacheBytes": 0,
+      "activeReservationBytes": 24249088,
+      "peakAccountedBytes": 92727296
+    }
+  },
+  "npz": {
+    "id": "30c876dd-65c9-496b-a7cc-cd6359152058",
+    "revision": 1,
+    "mime": "application/zip",
+    "format": "npz",
+    "width": 1024,
+    "height": 1024,
+    "byteLength": 41950734,
+    "sha256": "570ab23fdc65e93ebead41ca7c89f65ef091fc0e219d10588617f2845f4243b4",
+    "imageId": "source",
+    "sourceSurfaceId": "d7a92d76-dad5-4560-bedb-4a3dc01be0c6",
+    "sourceSurfaceRevision": 1,
+    "provenance": {
+      "originalSha256": "0b790fc58dacd720c8fbb306b5e79f0688ea4ae1fc65be08a541cc41f325b8e6",
+      "operation": "jpeg.zero",
+      "coordinates": "full-resolution",
+      "arrays": "Native float64 luminance/NFA and int32 votes/masks; no pickle"
+    },
+    "metrics": {
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "arrays": 11,
+      "maximumScalarChunk": 65536,
+      "outputCapacityBytes": 41950734,
+      "memory": {
+        "budgetBytes": 100663296,
+        "retainedBytes": 17827840,
+        "cacheBytes": 0,
+        "activeReservationBytes": 24249088,
+        "peakAccountedBytes": 92727296
+      }
+    },
+    "arrays": [
+      "luminance",
+      "luminance_jpeg",
+      "votes",
+      "votes_jpeg",
+      "mask_f",
+      "mask_f_reg",
+      "mask_m",
+      "mask_m_reg",
+      "grid_log10_nfa",
+      "metadata_json",
+      "browser_provenance_json"
+    ]
+  },
+  "cacheAndOwnership": true,
+  "cancellation": "storage-closed-before-worker-termination",
+  "reloadExact": true,
+  "finalMemory": {
+    "budgetBytes": 100663296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 92727296,
+    "knownHeapCapacityBytes": 24248320
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

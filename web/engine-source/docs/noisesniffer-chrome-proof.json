@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "status": "core-parity-passed",
+  "statistics": 36,
+  "analyses": 120,
+  "positiveAnalyses": 3,
+  "views": 360,
+  "regional": 24,
+  "sorts": 96,
+  "tails": 796,
+  "maxTailLogError": 9.094947017729282e-13,
+  "maxLogNfaError": 4.547473508864641e-13,
+  "lifecycle": {
+    "status": "passed",
+    "npzBytes": 285320,
+    "memory": {
+      "budgetBytes": 3296722944,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 116345472
+    },
+    "checks": "Public native positive result; owned inputs/results; view and statistics caches; parameter validation; same-byte/different-pixel reload; JSON/NPZ limits; originals and unload"
+  },
+  "hardCancellation": "Worker terminated during uncached statistics, source reloaded, analysis recovered",
+  "browser": "154.0.8037.58"
+}

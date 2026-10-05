@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-05T18:27:23.640Z",
+  "browser": "154.0.8037.93",
+  "startup": {
+    "appBytes": 2363985,
+    "remoteBytes": 0,
+    "remoteRequests": 0
+  },
+  "online": {
+    "appBytes": 6572554,
+    "remoteBytes": 217309297,
+    "remoteRequests": 10
+  },
+  "largeModelRange": {
+    "file": "individual-assets/m3/safire-encoder-bounded.onnx",
+    "chunksFetched": 2,
+    "exact": true
+  },
+  "standardTar": true,
+  "offlineLocalLibrary": {
+    "ordinaryFile": "jpeg.wasm",
+    "size": 531241,
+    "mode": "remembered-folder"
+  },
+  "transport": {
+    "type": "application/wasm",
+    "rangeStatus": 206,
+    "rangeExact": true
+  },
+  "pixels": {
+    "exactPixels": true,
+    "webpBytes": 666,
+    "version": "0.35.0-export.1"
+  },
+  "errors": [],
+  "scope": "Fresh automated browser, synthetic 67×65 pixels; no user image or existing application tab touched. Two local origins simulate published raw GitHub assets. Ordinary local file reused offline; standard TAR verified independently by Python."
+}

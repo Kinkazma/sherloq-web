@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual RGB preparation, lazy checkpoint backbone and unchanged ONNX consistency/decoder through production component; masks are native threshold decisions, no native activation substitution.",
+  "records": [
+    {
+      "name": "paired-spots",
+      "backend": "cpu",
+      "maxWorkers": 10,
+      "workers": 10,
+      "preparationExact": true,
+      "sha256": "a050434b5773fbf9f8f5faee40c6fb2cb6654e57c0b2d9caa18646bfe5260a55",
+      "milliseconds": 13347.5,
+      "setupMs": 0,
+      "timings": {
+        "modelLoadMs": 2812.0000000447035,
+        "inferenceMs": 10499.899999931455,
+        "outputCopyMs": 2.5,
+        "gpuWriteBytes": 0,
+        "gpuReadBytes": 0,
+        "backboneMs": 10371.799999937415,
+        "parameterLoadMs": 2544.8000000566244,
+        "backboneSetupMs": 4.700000002980232
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 626327377,
+        "peakAccountedBytes": 1073048298
+      },
+      "probability": {
+        "maxAbs": 0.000007808208465576172,
+        "meanAbs": 2.8543736096875905e-7,
+        "different": 64842,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 7256,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1073048298
+      }
+    },
+    {
+      "name": "paired-spots",
+      "backend": "webgpu",
+      "gpu": {
+        "devices": 1,
+        "allocations": 602,
+        "peakAccountedBytes": 16714312,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "maxWorkers": 10,
+      "workers": 0,
+      "preparationExact": true,
+      "sha256": "a050434b5773fbf9f8f5faee40c6fb2cb6654e57c0b2d9caa18646bfe5260a55",
+      "milliseconds": 8389,
+      "setupMs": 0,
+      "timings": {
+        "modelLoadMs": 2827.899999767542,
+        "inferenceMs": 5533.300000220537,
+        "outputCopyMs": 2.800000011920929,
+        "gpuWriteBytes": 455646904,
+        "gpuReadBytes": 104857600,
+        "backboneMs": 5400.100000232458,
+        "parameterLoadMs": 2532.099999770522,
+        "backboneSetupMs": 8.100000008940697
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 626327377,
+        "peakAccountedBytes": 631045969
+      },
+      "probability": {
+        "maxAbs": 0.000007808208465576172,
+        "meanAbs": 2.8543736096875905e-7,
+        "different": 64842,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 7256,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 631045969
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-vig-model.mjs": "e6253267a1cc73e9e0130cc30543447a6197a1f5152dd99c7d181468bf707478",
+    "scripts/export-vig-backbone.py": "04c77e31dd9689d595305772bbdc4da9d34e3a04b6d410d3cff1d374058d4bd7",
+    "experiments/segmentation/vig-backbone.js": "0df95f0391fff5eef26f45026083da3e09909cf329b98f8b03ccb46a1f520fc0",
+    "experiments/segmentation/vig-convolution.js": "2bfc249b8a6c97d0b563c6a9daf28a2550e36ffa569f5ca101bcdbe27482973a",
+    "experiments/segmentation/vig-convolution-worker.js": "b393e6911f7bacdf2666ce06819ee215e9bf383a08f898d60fe431d4270b5ac5",
+    "experiments/segmentation/vig-convolution-gpu.js": "a853af2900dbfc21cd0b62caa4245b98963d2b7fd5a62e0f28294f35dbc54a9a",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "experiments/segmentation/vig-inference.js": "eb3d96c1ba9fd583d48b90ce540190ab6b6cd24a16948b2cb20d3b465623ee27",
+    "experiments/segmentation/vig-math.cpp": "e2552034f4b2f370ff3d1103b7a55dacb0b882d2ffa862dda8a2be2dbca87a7b",
+    "experiments/segmentation/vig-exp.h": "fd0e1684e6c2ada4a8044f2f2f43b81fcaed1bc63b1c1dad9e3275f8abb22f06",
+    "experiments/segmentation/vig-exp-table.h": "836ee95bb30123b5d442b50e015fbf14c9fe5a8a2c45b908f7928f47059d66cf",
+    "vendor/segmentation/VIG-PINNED.json": "0fecccaa1e99269fafdce76e843d9c10d978b03c9705ae13a553e842fb19402c"
+  }
+}

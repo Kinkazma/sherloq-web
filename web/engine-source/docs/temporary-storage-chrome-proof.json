@@ -1,0 +1,127 @@
+{
+  "schema": 2,
+  "status": "passed",
+  "runs": [
+    {
+      "requestedBackend": "auto",
+      "normal": {
+        "status": "passed",
+        "backend": "opfs",
+        "fallback": null,
+        "capability": {
+          "available": true,
+          "opfs": {
+            "available": true,
+            "requiresDedicatedWorker": true,
+            "quotaBytes": 10737418240,
+            "usageBytes": 0,
+            "estimateIsReservation": false
+          },
+          "indexeddb": true,
+          "estimateIsReservation": false
+        },
+        "bytes": 67108977,
+        "chunkBytes": 1048593,
+        "writeMs": 681.2999999970198,
+        "readMs": 693.3000000119209,
+        "peakRamAccountedBytes": 1048593,
+        "storage": {
+          "reservedBytes": 67108977,
+          "peakReservedBytes": 67108977,
+          "estimatedAvailableBytes": 10737418240,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": 100663296,
+          "openFiles": 1,
+          "physicalFiles": 1,
+          "maximumPhysicalFileBytes": 1073741824
+        },
+        "sessionId": "job-c0fd03f6-566f-4052-8be4-8e43f35f4a17",
+        "quotaAdmission": true,
+        "impreciseUsageAdmission": true,
+        "concurrentAdmission": true,
+        "overlappingPageWrites": true,
+        "idempotentCleanup": true,
+        "disposeDuringCreate": true,
+        "randomSeams": 4,
+        "cancellation": true,
+        "cacheChecks": null
+      },
+      "verifiedAbsent": true,
+      "terminated": {
+        "status": "passed",
+        "sessionId": "job-dedb9754-383d-4011-a9fe-f893eccf8f84",
+        "backend": "opfs",
+        "verifiedAbsent": true,
+        "cleanup": "owned job only"
+      }
+    },
+    {
+      "requestedBackend": "indexeddb",
+      "normal": {
+        "status": "passed",
+        "backend": "indexeddb",
+        "fallback": null,
+        "capability": {
+          "available": true,
+          "opfs": {
+            "available": true,
+            "requiresDedicatedWorker": true,
+            "quotaBytes": 10737418426,
+            "usageBytes": 186,
+            "estimateIsReservation": false
+          },
+          "indexeddb": true,
+          "estimateIsReservation": false
+        },
+        "bytes": 67108977,
+        "chunkBytes": 1048593,
+        "writeMs": 488.1000000089407,
+        "readMs": 250.59999999403954,
+        "peakRamAccountedBytes": 8388608,
+        "storage": {
+          "reservedBytes": 67108977,
+          "peakReservedBytes": 67108977,
+          "estimatedAvailableBytes": 10737418240,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": 100663296,
+          "openFiles": 0,
+          "arrays": 1,
+          "pageBytes": 1048576,
+          "backend": "indexeddb",
+          "readCacheEnabled": true,
+          "readCachePages": 2,
+          "reads": {
+            "transactions": 75,
+            "cacheHits": 65,
+            "requestedBytes": 67109480
+          }
+        },
+        "sessionId": "job-bd5a110f-64b9-4b80-84ed-5a1d0537fa62",
+        "quotaAdmission": true,
+        "impreciseUsageAdmission": true,
+        "concurrentAdmission": true,
+        "overlappingPageWrites": true,
+        "idempotentCleanup": true,
+        "disposeDuringCreate": true,
+        "randomSeams": 4,
+        "cancellation": true,
+        "cacheChecks": {
+          "reuse": true,
+          "overlappingWriteInvalidation": true,
+          "failedWriteInvalidation": true,
+          "sharedBudgetEviction": true
+        }
+      },
+      "verifiedAbsent": true,
+      "terminated": {
+        "status": "passed",
+        "sessionId": "job-e3c73962-4e7c-41f8-bc59-8cd90537967f",
+        "backend": "indexeddb",
+        "verifiedAbsent": true,
+        "cleanup": "owned job only"
+      }
+    }
+  ],
+  "scope": "Real dedicated-worker OPFS or IndexedDB; bounded 64 MiB segmented array, exact sequential/random byte checks, explicit quota rejection, cancellation and terminated-worker cleanup. IndexedDB backing medium is browser-managed. Not an image-engine adapter or isolated performance benchmark.",
+  "browser": "154.0.8037.58"
+}

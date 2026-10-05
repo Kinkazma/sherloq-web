@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "exact": true,
+  "workers": 4,
+  "metrics": {
+    "totalMs": 968,
+    "cache": {
+      "result": false
+    },
+    "kernel": "jpeg-quality-pool",
+    "workers": 4,
+    "scheduling": {
+      "count": 4,
+      "maximum": 4,
+      "ceiling": 4,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "taskExecutions": 1,
+      "preflightExecutions": 0,
+      "retry": null
+    },
+    "qualityKernelMs": 850,
+    "memory": {
+      "budgetBytes": 1073741824,
+      "retainedBytes": 3992357,
+      "cacheBytes": 11028,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 238873381,
+      "codecHeapCapacityBytes": 16777216,
+      "hdf5HeapCapacityBytes": 0
+    }
+  },
+  "cancellation": "Parallel abort and reload verified",
+  "cache": "No repeat recompressions",
+  "limits": [
+    "One generated 1 MP image; four-core candidate cap for this lifecycle test"
+  ],
+  "browser": "26.6"
+}

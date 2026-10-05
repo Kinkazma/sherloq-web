@@ -1,0 +1,113 @@
+{
+  "referenceCommit": "ed5418c",
+  "referenceProof": "dense-lazy-target-proof.json",
+  "cases": [
+    {
+      "mirror": false,
+      "records": [
+        {
+          "kind": "bound",
+          "milliseconds": 99482.5,
+          "sha256": "bf3146e1bfe483450ba2b6e922a040a173e3199dcaf177f17160f31285de6320",
+          "comparisons": "197146",
+          "metrics": {
+            "workspaceBytes": 27479532,
+            "initialBatchPixels": 4096,
+            "batchBytes": 10584064,
+            "residentPool": true,
+            "residentPoolBytes": 3176,
+            "residentSiftBoundsBytes": 49028,
+            "pagedSiftBounds": true,
+            "cacheBytes": 66048,
+            "pageBytes": 4096,
+            "cachePages": 2,
+            "reads": 356576,
+            "writes": 8355,
+            "readBytes": 1460968165,
+            "writeBytes": 34137140,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 120803
+          }
+        }
+      ],
+      "reference": {
+        "kind": "lazy",
+        "milliseconds": 108835.90000000596,
+        "sha256": "bf3146e1bfe483450ba2b6e922a040a173e3199dcaf177f17160f31285de6320",
+        "comparisons": "197146",
+        "metrics": {
+          "workspaceBytes": 27426376,
+          "initialBatchPixels": 4096,
+          "batchBytes": 10584064,
+          "residentPool": true,
+          "residentPoolBytes": 3176,
+          "cacheBytes": 61920,
+          "pageBytes": 4096,
+          "cachePages": 2,
+          "reads": 615289,
+          "writes": 8355,
+          "readBytes": 2519919141,
+          "writeBytes": 34137140,
+          "heapBytes": 8388608
+        }
+      }
+    },
+    {
+      "mirror": true,
+      "records": [
+        {
+          "kind": "bound",
+          "milliseconds": 91705.29999999702,
+          "sha256": "c921f332fe84e455bac45aa1978742a4d9084942bdc052ccb6221ccdced06aa0",
+          "comparisons": "170272",
+          "metrics": {
+            "workspaceBytes": 27474020,
+            "initialBatchPixels": 4096,
+            "batchBytes": 10584064,
+            "residentPool": true,
+            "residentPoolBytes": 2848,
+            "residentSiftBoundsBytes": 43844,
+            "pagedSiftBounds": true,
+            "cacheBytes": 66048,
+            "pageBytes": 4096,
+            "cachePages": 2,
+            "reads": 601673,
+            "writes": 3978,
+            "readBytes": 2459749697,
+            "writeBytes": 15826056,
+            "heapBytes": 8388608,
+            "siftBoundRejections": 115024
+          }
+        }
+      ],
+      "reference": {
+        "kind": "lazy",
+        "milliseconds": 209809.29999999702,
+        "sha256": "c921f332fe84e455bac45aa1978742a4d9084942bdc052ccb6221ccdced06aa0",
+        "comparisons": "170272",
+        "metrics": {
+          "workspaceBytes": 27426048,
+          "initialBatchPixels": 4096,
+          "batchBytes": 10584064,
+          "residentPool": true,
+          "residentPoolBytes": 2848,
+          "cacheBytes": 61920,
+          "pageBytes": 4096,
+          "cachePages": 2,
+          "reads": 1298929,
+          "writes": 3978,
+          "readBytes": 5302751375,
+          "writeBytes": 15826056,
+          "heapBytes": 8388608
+        }
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 134217728,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 27479532
+  }
+}

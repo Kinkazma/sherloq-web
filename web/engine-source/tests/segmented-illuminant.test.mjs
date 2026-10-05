@@ -1,0 +1,23 @@
+import {exportAnalysis} from '../src/exports.js';
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';
+import {Budget} from '../src/cache.js';import {createSegmentedBytes} from '../src/segmented-bytes.js';import {createRgbSurface} from '../src/rgb-surface.js';import {orientRgb} from '../src/image-headers.js';
+import {illuminant,illuminantParams} from '../src/illuminant.js';import {segmentedIlluminant} from '../src/segmented-illuminant.js';
+const hash=b=>createHash('sha256').update(b).digest('hex'),reference=JSON.parse(await readFile(new URL('../fixtures/illuminant-reference.json',import.meta.url)));
+async function source(pixels,{orientation=1,limit=32*1024**2}={}){const budget=new Budget(limit),store=await createSegmentedBytes(pixels.data.length,{budget,chunkBytes:113});await store.write(pixels.data);return{budget,image:{store,surface:createRgbSurface(store,{...pixels,budget,orientation})}};}
+function arrays(actual,expected){for(const key of ['counts','areas','valid'])assert.deepEqual(Array.from(actual[key]),Array.from(expected[key]));for(const key of ['rgb','globalRGB','angles'])for(let i=0;i<expected[key].length;i++)assert.ok(Math.abs(actual[key][i]-expected[key][i])<=1e-12,key+': '+i);}
+test('All native illuminant methods/transfers/exclusions/cells/views preserve global statistics and compact mode cache',async()=>{
+ let outputs=0;for(const f of reference.cases){const pixels={width:f.width,height:f.height,format:'rgb8',data:new Uint8Array(await readFile(new URL('../fixtures/'+f.file,import.meta.url)))},{budget,image}=await source(pixels);
+  for(const e of f.expected){const result=await segmentedIlluminant(image,illuminantParams(e.params),{budget,rowsPerBlock:7,cacheKey:'source\0illum/'}),window=await result.surface.readWindow();assert.equal(hash(window.pixels.data),e.sha256,`${f.name} ${JSON.stringify(e.params)}`);arrays(result.data,e);window.release();if(e.params.mode>0){assert.equal(result.metrics.analysisCacheHit,true);assert.equal(result.metrics.sourceReads,0);}await result.surface.dispose();assert.equal(budget.active,0);assert.equal(budget.retained,pixels.data.length);outputs++;}
+  await image.surface.dispose();budget.clear();assert.equal(budget.total(),0);
+ }assert.equal(outputs,1440);
+});
+test('Illuminant cache ownership, eight orientations, partial cells and cancellation preserve live sources',async()=>{
+ const pixels={width:67,height:71,format:'rgb8',data:Uint8Array.from({length:67*71*3},(_,i)=>i*37^(i>>>7))};
+ for(let orientation=1;orientation<=8;orientation++){
+  const {budget,image}=await source(pixels,{orientation}),oriented=await orientRgb(pixels,orientation),p=illuminantParams({block:32,method:orientation%3,mode:orientation%3,linear:orientation%2===0,exclude:true});
+  const expected=await illuminant(oriented,p),first=await segmentedIlluminant(image,p,{budget,rowsPerBlock:3,cacheKey:'source\0illum/'}),window=await first.surface.readWindow();assert.deepEqual(window.pixels,expected.pixels);arrays(first.data,expected.data);window.release();const common={status:'ok',operation:'various.illuminant',provenance:{params:p}};assert.deepEqual(exportAnalysis({...common,data:first.data,surface:first.surface.descriptor},{format:'csv'}).bytes,exportAnalysis({...common,...expected},{format:'csv'}).bytes);first.data.rgb.fill(123);first.data.counts.fill(999);
+  const second=await segmentedIlluminant(image,p,{budget,rowsPerBlock:5,cacheKey:'source\0illum/'});arrays(second.data,expected.data);assert.equal(second.metrics.sourceReads,0);await first.surface.dispose();await second.surface.dispose();await image.surface.dispose();budget.clear();assert.equal(budget.total(),0);
+ }
+ for(const threshold of [.1,.8,1]){const {budget,image}=await source(pixels),controller=new AbortController();await assert.rejects(segmentedIlluminant(image,illuminantParams(),{budget,rowsPerBlock:3,cacheKey:'source\0illum/',signal:controller.signal,onProgress:f=>{if(f>=threshold)controller.abort();}}),{code:'CANCELLED'});assert.equal(budget.active,0);assert.equal(budget.cacheBytes,0);assert.equal(budget.retained,pixels.data.length);const result=await segmentedIlluminant(image,illuminantParams(),{budget});await result.surface.dispose();await image.surface.dispose();assert.equal(budget.total(),0);}
+ const budget=new Budget(1024),virtual={surface:{descriptor:{width:10000,height:10000},readWindow(){assert.fail('Read before admission');}}};await assert.rejects(segmentedIlluminant(virtual,illuminantParams(),{budget}),{code:'MEMORY_LIMIT'});assert.equal(budget.total(),0);
+});

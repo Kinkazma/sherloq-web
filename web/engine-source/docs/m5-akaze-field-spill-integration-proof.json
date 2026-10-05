@@ -1,0 +1,23 @@
+{
+  "browser": "154.0.8037.58",
+  "comparedFloats": 110342,
+  "allExact": true,
+  "retainedBefore": 374692,
+  "finalMemory": {
+    "budgetBytes": 67108864,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 374692
+  },
+  "storage": {
+    "reservedBytes": 0,
+    "peakReservedBytes": 374692,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 16777216,
+    "openFiles": 0,
+    "physicalFiles": 0,
+    "maximumPhysicalFileBytes": 1073741824
+  }
+}

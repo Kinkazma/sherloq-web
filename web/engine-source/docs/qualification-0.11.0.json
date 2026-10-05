@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "version": "0.11.0",
+  "status": "passed",
+  "node": {
+    "regression": {
+      "tests": 78,
+      "passed": 78,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 125997.495208,
+      "concurrency": 2
+    },
+    "finalPrnuAfterFilenameFix": {
+      "tests": 10,
+      "passed": 10,
+      "failed": 0,
+      "durationMs": 10088.919125
+    },
+    "note": "One filename test was added after the 78-test global regression. Final PRNU suite includes it; no claim of a global 79-test run."
+  },
+  "prnu": {
+    "validResidualsBitExact": 30,
+    "rejectedDimensions": 3,
+    "nccPairsBitExact": 25,
+    "hdf5Cases": 14,
+    "cameraMeansBitExact": 2,
+    "largeResidualBitExact": "4096x2048 native SHA256",
+    "nativeHdf5Readback": "prnu-native-readback.json",
+    "scalarFmaChecks": 30073152,
+    "simdFmaChecks": 24097152,
+    "browsers": [
+      "154.0.8037.58",
+      "155.0",
+      "26.6"
+    ],
+    "publicWorkerLifecycle": "passed all three browsers",
+    "largeWorkerBudgetBytes": 3221225472
+  },
+  "runtimeSmoke": {
+    "status": "passed",
+    "operations": 31,
+    "source": "extracted immutable 0.11.0 runtime"
+  },
+  "wasmSha256": "a43c202f967d4a0ad1824b864a38f23eb732b1969824a43997f21654b146946e",
+  "twiddlesSha256": "6ea04149284b8570d089557529464dabb14f5e99f071aac6d339fa3eeaa4db18",
+  "benchmarkScope": "Isolated sequential Chrome synthetic fixtures, separate from functional acceptance",
+  "limits": [
+    "WordPress integration pending",
+    "Physical devices untested",
+    "PRNU CPU only; no GPU or multicore speedup claimed",
+    "HDF5 membership is declarative and is not database authentication",
+    "Other unavailable families remain explicitly unavailable"
+  ]
+}

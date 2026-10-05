@@ -1,0 +1,39 @@
+{
+  "schema": 2,
+  "status": "passed",
+  "cases": 33,
+  "views": 528,
+  "maximumScoreErrors": {
+    "rmse": 0,
+    "sam": 0,
+    "ergas": 0,
+    "mb": 0,
+    "pfe": 0,
+    "ssim": 0,
+    "scc": 1.1102230246251565e-16,
+    "vifp": 4.285460875053104e-14,
+    "hist_0": 0,
+    "hist_1": 0,
+    "hist_4": 0,
+    "hist_2": 0,
+    "hist_3": 0,
+    "hist_5": 0,
+    "msssim": 1.6653345369377348e-15,
+    "rase": 2.2737367544323206e-13,
+    "uqi": 2.220446049250313e-16,
+    "psnr": 0
+  },
+  "arithmeticChecks": {
+    "scalar": 2048768,
+    "simd": 1664768
+  },
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 308680140
+  },
+  "lifecycle": "Two source buffers and provenance, cache ownership/invalidation on either image, same-byte reference reload, hard cancellation, JSON/CSV exports, budget admission, unload and recovery verified",
+  "browser": "26.6"
+}

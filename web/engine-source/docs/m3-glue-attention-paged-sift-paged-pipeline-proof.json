@@ -1,0 +1,333 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "backend": "cpu",
+      "name": "SIFT + LightGlue/compare",
+      "points": 274,
+      "pointDifferences": 202,
+      "scoreMax": 0,
+      "pairs": 132,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.000004112720489501953,
+      "groups": 1,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "provider": "cpu",
+          "family": "SIFT-LightGlue",
+          "opencv": "4.11.0",
+          "inputLayout": "global-octave-bases",
+          "featurePolicy": "global",
+          "reflectedPixels": false,
+          "preflightExecutions": 0,
+          "jobs": [
+            {
+              "sourceRows": 176,
+              "sourceReads": 3,
+              "globalCandidates": 404,
+              "continuationSeeds": 0,
+              "continuationWindows": 0,
+              "octaveBases": [
+                {
+                  "width": 896,
+                  "height": 352,
+                  "bytes": 1261568,
+                  "storage": "memory"
+                },
+                {
+                  "width": 448,
+                  "height": 176,
+                  "bytes": 315392,
+                  "storage": "memory"
+                },
+                {
+                  "width": 224,
+                  "height": 88,
+                  "bytes": 78848,
+                  "storage": "memory"
+                },
+                {
+                  "width": 112,
+                  "height": 44,
+                  "bytes": 19712,
+                  "storage": "memory"
+                },
+                {
+                  "width": 56,
+                  "height": 22,
+                  "bytes": 4928,
+                  "storage": "memory"
+                },
+                {
+                  "width": 28,
+                  "height": 11,
+                  "bytes": 1232,
+                  "storage": "memory"
+                },
+                {
+                  "width": 14,
+                  "height": 5,
+                  "bytes": 280,
+                  "storage": "memory"
+                }
+              ],
+              "preflightExecutions": 0,
+              "grayScale": 1,
+              "coreSize": 1024,
+              "supportHalo": 128,
+              "workers": 2,
+              "peakHeapBytes": 33554432,
+              "executions": 13,
+              "retries": 0,
+              "stages": [
+                {
+                  "executions": 8,
+                  "retries": 0,
+                  "peakHeapBytes": 33554432,
+                  "workers": 1,
+                  "failures": [],
+                  "gaussianProvider": "cpu"
+                },
+                {
+                  "executions": 1,
+                  "retries": 0,
+                  "peakHeapBytes": 33554432,
+                  "workers": 1,
+                  "failures": [],
+                  "gaussianProvider": "cpu"
+                },
+                {
+                  "executions": 4,
+                  "retries": 0,
+                  "peakHeapBytes": 33554432,
+                  "workers": 2,
+                  "failures": [],
+                  "gaussianProvider": "cpu"
+                }
+              ]
+            }
+          ],
+          "workers": 2,
+          "peakWorkerHeapBytes": 33554432,
+          "executions": 13,
+          "retries": 0,
+          "qualification": "qualified native arithmetic with global paged dependencies"
+        },
+        "matching": {
+          "kind": "sift",
+          "runs": [
+            {
+              "provider": "wasm",
+              "execution": "native-layers-global-csr-row-pages",
+              "actualHeapBytes": 24248320,
+              "attentionHeapBytes": 16777216,
+              "maximumHeapBytes": 536870912,
+              "threads": 1,
+              "totalMs": 1802.199999988079,
+              "maximumConfidence": 0.9889950752258301,
+              "above": {
+                "point1": 132,
+                "point3": 132,
+                "point7": 129,
+                "point9": 108
+              },
+              "attentionPages": 36,
+              "assignmentPages": 1,
+              "maximumPageEdges": 18176,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 18744,
+              "gpuEstimatedBytes": 536870912
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    },
+    {
+      "backend": "webgpu",
+      "name": "SIFT + LightGlue/compare",
+      "points": 274,
+      "pointDifferences": 202,
+      "scoreMax": 0,
+      "pairs": 132,
+      "pairsEqual": true,
+      "ownersEqual": true,
+      "pairScoreMax": 0.000035881996154785156,
+      "groups": 1,
+      "groupsEqual": true,
+      "renderDifferences": 0,
+      "metadata": {
+        "extraction": {
+          "provider": "webgpu",
+          "family": "SIFT-LightGlue",
+          "opencv": "4.11.0",
+          "inputLayout": "global-octave-bases",
+          "featurePolicy": "global",
+          "reflectedPixels": false,
+          "preflightExecutions": 0,
+          "jobs": [
+            {
+              "sourceRows": 176,
+              "sourceReads": 3,
+              "globalCandidates": 404,
+              "continuationSeeds": 0,
+              "continuationWindows": 0,
+              "octaveBases": [
+                {
+                  "width": 896,
+                  "height": 352,
+                  "bytes": 1261568,
+                  "storage": "memory"
+                },
+                {
+                  "width": 448,
+                  "height": 176,
+                  "bytes": 315392,
+                  "storage": "memory"
+                },
+                {
+                  "width": 224,
+                  "height": 88,
+                  "bytes": 78848,
+                  "storage": "memory"
+                },
+                {
+                  "width": 112,
+                  "height": 44,
+                  "bytes": 19712,
+                  "storage": "memory"
+                },
+                {
+                  "width": 56,
+                  "height": 22,
+                  "bytes": 4928,
+                  "storage": "memory"
+                },
+                {
+                  "width": 28,
+                  "height": 11,
+                  "bytes": 1232,
+                  "storage": "memory"
+                },
+                {
+                  "width": 14,
+                  "height": 5,
+                  "bytes": 280,
+                  "storage": "memory"
+                }
+              ],
+              "preflightExecutions": 0,
+              "grayScale": 1,
+              "coreSize": 1024,
+              "supportHalo": 128,
+              "workers": 2,
+              "peakHeapBytes": 33554432,
+              "executions": 13,
+              "retries": 0,
+              "stages": [
+                {
+                  "executions": 8,
+                  "retries": 0,
+                  "peakHeapBytes": 33554432,
+                  "workers": 1,
+                  "failures": [],
+                  "gaussianProvider": "webgpu"
+                },
+                {
+                  "executions": 1,
+                  "retries": 0,
+                  "peakHeapBytes": 33554432,
+                  "workers": 1,
+                  "failures": [],
+                  "gaussianProvider": "cpu"
+                },
+                {
+                  "executions": 4,
+                  "retries": 0,
+                  "peakHeapBytes": 33554432,
+                  "workers": 2,
+                  "failures": [],
+                  "gaussianProvider": "webgpu"
+                }
+              ]
+            }
+          ],
+          "workers": 2,
+          "peakWorkerHeapBytes": 33554432,
+          "executions": 13,
+          "retries": 0,
+          "qualification": "qualified native arithmetic with global paged dependencies"
+        },
+        "matching": {
+          "kind": "sift",
+          "runs": [
+            {
+              "provider": "webgpu",
+              "execution": "native-layers-global-csr-row-pages",
+              "actualHeapBytes": 20185088,
+              "attentionHeapBytes": 16777216,
+              "maximumHeapBytes": 536870912,
+              "threads": 1,
+              "totalMs": 4268.9000000059605,
+              "maximumConfidence": 0.9889957904815674,
+              "above": {
+                "point1": 132,
+                "point3": 132,
+                "point7": 129,
+                "point9": 108
+              },
+              "attentionPages": 36,
+              "assignmentPages": 1,
+              "maximumPageEdges": 18176,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 18744,
+              "gpuEstimatedBytes": 536870912
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-arithmetic-differences-unresolved"
+      }
+    }
+  ],
+  "cacheReused": true,
+  "disposalCancels": true,
+  "peakAccountedBytes": 1302314912,
+  "activeBytes": 0
+}

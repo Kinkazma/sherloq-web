@@ -1,0 +1,268 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "dimensions": [
+    4096,
+    4096
+  ],
+  "sourceBytes": 50331648,
+  "backend": "indexeddb-forced",
+  "scope": "Development-only alternating5-sample cache-disabled/enabled comparison on identical raw synthetic RGB stores. Each measured read starts with empty engine page cache. Includes window allocation/storage/yields; excludes store fill, hash, UI transfer and display. Browser storage cache is not flushed; no product calibration.",
+  "cases": [
+    {
+      "name": "upright-whole-rows",
+      "orientation": 1,
+      "rect": {
+        "x": 0,
+        "y": 512,
+        "width": 4096,
+        "height": 512
+      },
+      "bytes": 6291456,
+      "sha256": "50041a260cebcb5b4d0d9ba1df806252f5dc1b3d006225254d44d9eda9ac0c1a",
+      "samples": {
+        "uncached": [
+          {
+            "elapsedMs": 4.5,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          },
+          {
+            "elapsedMs": 3.699999988079071,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          },
+          {
+            "elapsedMs": 5.5,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          },
+          {
+            "elapsedMs": 3.899999976158142,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          },
+          {
+            "elapsedMs": 5.399999976158142,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          }
+        ],
+        "cached": [
+          {
+            "elapsedMs": 5.900000035762787,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          },
+          {
+            "elapsedMs": 4,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          },
+          {
+            "elapsedMs": 3.699999988079071,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          },
+          {
+            "elapsedMs": 4,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          },
+          {
+            "elapsedMs": 3.899999976158142,
+            "transactions": 6,
+            "cacheHits": 0,
+            "requestedBytes": 6291456
+          }
+        ]
+      },
+      "medianMs": {
+        "uncached": 4.5,
+        "cached": 4
+      }
+    },
+    {
+      "name": "upright-tile",
+      "orientation": 1,
+      "rect": {
+        "x": 137,
+        "y": 281,
+        "width": 256,
+        "height": 256
+      },
+      "bytes": 196608,
+      "sha256": "fb7eb21e8d3add97bc533bf38ddc835f7c0a8661a89e5e58cd55cf7aa69d71f4",
+      "samples": {
+        "uncached": [
+          {
+            "elapsedMs": 138.30000001192093,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608
+          },
+          {
+            "elapsedMs": 143,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608
+          },
+          {
+            "elapsedMs": 138.10000002384186,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608
+          },
+          {
+            "elapsedMs": 140.19999998807907,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608
+          },
+          {
+            "elapsedMs": 131.79999995231628,
+            "transactions": 256,
+            "cacheHits": 0,
+            "requestedBytes": 196608
+          }
+        ],
+        "cached": [
+          {
+            "elapsedMs": 5.300000011920929,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608
+          },
+          {
+            "elapsedMs": 2.199999988079071,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608
+          },
+          {
+            "elapsedMs": 4.800000011920929,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608
+          },
+          {
+            "elapsedMs": 2.400000035762787,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608
+          },
+          {
+            "elapsedMs": 4.5,
+            "transactions": 4,
+            "cacheHits": 252,
+            "requestedBytes": 196608
+          }
+        ]
+      },
+      "medianMs": {
+        "uncached": 138.30000001192093,
+        "cached": 4.5
+      }
+    },
+    {
+      "name": "rotated-whole-rows",
+      "orientation": 6,
+      "rect": {
+        "x": 0,
+        "y": 281,
+        "width": 4096,
+        "height": 32
+      },
+      "bytes": 393216,
+      "sha256": "41a0c6940ea9ad8d449a84de1132549a74ba5fc650d9b85f11450647a1d656fd",
+      "samples": {
+        "uncached": [
+          {
+            "elapsedMs": 2187.099999964237,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216
+          },
+          {
+            "elapsedMs": 2230.599999964237,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216
+          },
+          {
+            "elapsedMs": 2208.300000011921,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216
+          },
+          {
+            "elapsedMs": 2225.5,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216
+          },
+          {
+            "elapsedMs": 2247.800000011921,
+            "transactions": 4096,
+            "cacheHits": 0,
+            "requestedBytes": 393216
+          }
+        ],
+        "cached": [
+          {
+            "elapsedMs": 30.599999964237213,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216
+          },
+          {
+            "elapsedMs": 32.39999997615814,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216
+          },
+          {
+            "elapsedMs": 30.19999998807907,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216
+          },
+          {
+            "elapsedMs": 30.899999976158142,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216
+          },
+          {
+            "elapsedMs": 32.30000001192093,
+            "transactions": 48,
+            "cacheHits": 4048,
+            "requestedBytes": 393216
+          }
+        ]
+      },
+      "medianMs": {
+        "uncached": 2225.5,
+        "cached": 30.899999976158142
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 33554432,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 32899168
+  },
+  "browser": "154.0.8037.58",
+  "variant": "Initial per-array unbounded LRU, still bounded by shared32MiB; superseded by bounded-page comparison"
+}

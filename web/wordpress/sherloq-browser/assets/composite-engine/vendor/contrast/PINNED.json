@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "reference": "OpenCV4.11 core/imgproc single-thread libraries; existing explicit-FMA DFT object",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "vendor/contrast/NOTICE-OPENCV-LEGACY.txt": {
+      "bytes": 4383,
+      "sha256": "426618a259d3468d5e85676beaa571291241500959cb5f5286c7c3ff65ff4020"
+    },
+    "native/contrast-bands.cpp": {
+      "bytes": 2704,
+      "sha256": "203cd23713ac283d7fd26b7d14b96081390314c6378c4f5b03816a2d01345e67"
+    },
+    "native/contrast.h": {
+      "bytes": 4026,
+      "sha256": "eca364fe8a4951346e563778ccf7cc5a7ab2199d25549550592c1551e412baca"
+    },
+    "native/contrast-window.h": {
+      "bytes": 5713,
+      "sha256": "e5046606aecc66243b05565cfe2c4888a450cd0655f0d21dc0a17ba32e76cc6a"
+    },
+    "scripts/build-contrast.sh": {
+      "bytes": 2856,
+      "sha256": "1b6f500963cc42e41e157e0b468bea29bf9cbbde347c647230d99c9e5abf035e"
+    },
+    "scripts/build-dft-reference.py": {
+      "bytes": 1257,
+      "sha256": "8cb3b8d83470280c57aa85b151ead697d082768cd4c5052d029ccd3c9a923450"
+    },
+    "vendor/contrast/contrast.js": {
+      "bytes": 22706,
+      "sha256": "394fef131b34e88e5fdb1835d84e36eb43d771dde4085e9d02643e7088e32287"
+    },
+    "vendor/contrast/contrast.wasm": {
+      "bytes": 712884,
+      "sha256": "021e60ce9986b4d78c605d06412277d9279596a511923b8f7a27b0ffbb2a9bdf"
+    }
+  },
+  "buildInputs": {
+    ".build/dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+    ".build/cv/lib/libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d",
+    ".build/cv/lib/libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+  }
+}

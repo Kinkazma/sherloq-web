@@ -1,0 +1,172 @@
+{
+  "records": [
+    {
+      "splitValueCalls": 3978,
+      "case": 0,
+      "outputs": {
+        "map": {
+          "values": 6305,
+          "maxError": 6.705522537231445e-7,
+          "differences": 6052,
+          "meanAbsoluteError": 1.2020191250104548e-7,
+          "thresholdChanges": 0
+        },
+        "confidence": {
+          "values": 6305,
+          "maxError": 5.364418029785156e-7,
+          "differences": 4462,
+          "meanAbsoluteError": 9.811841524564302e-8,
+          "thresholdChanges": 0
+        },
+        "score": {
+          "values": 1,
+          "maxError": 1.043081283569336e-7,
+          "differences": 1
+        }
+      },
+      "features": [
+        {
+          "stage": 1,
+          "dims": [
+            1,
+            64,
+            17,
+            25
+          ],
+          "values": 27200,
+          "maxError": 0.0000040531158447265625,
+          "differences": 26065
+        },
+        {
+          "stage": 2,
+          "dims": [
+            1,
+            128,
+            9,
+            13
+          ],
+          "values": 14976,
+          "maxError": 0.000010013580322265625,
+          "differences": 14747
+        },
+        {
+          "stage": 3,
+          "dims": [
+            1,
+            320,
+            5,
+            7
+          ],
+          "values": 11200,
+          "maxError": 0.000008881092071533203,
+          "differences": 11047
+        },
+        {
+          "stage": 4,
+          "dims": [
+            1,
+            512,
+            3,
+            4
+          ],
+          "values": 6144,
+          "maxError": 0.000008046627044677734,
+          "differences": 6036
+        }
+      ],
+      "ms": 379749.5,
+      "operations": 4644,
+      "reusedInputBytes": 23027712
+    },
+    {
+      "splitValueCalls": 11320,
+      "case": 1,
+      "outputs": {
+        "map": {
+          "values": 20480,
+          "maxError": 6.854534149169922e-7,
+          "differences": 19699,
+          "meanAbsoluteError": 1.3668541214428843e-7,
+          "thresholdChanges": 0
+        },
+        "confidence": {
+          "values": 20480,
+          "maxError": 5.960464477539062e-7,
+          "differences": 13514,
+          "meanAbsoluteError": 9.249488357454538e-8,
+          "thresholdChanges": 0
+        },
+        "score": {
+          "values": 1,
+          "maxError": 1.4901161193847656e-8,
+          "differences": 1
+        }
+      },
+      "features": [
+        {
+          "stage": 1,
+          "dims": [
+            1,
+            64,
+            32,
+            40
+          ],
+          "values": 81920,
+          "maxError": 0.0000040531158447265625,
+          "differences": 78618
+        },
+        {
+          "stage": 2,
+          "dims": [
+            1,
+            128,
+            16,
+            20
+          ],
+          "values": 40960,
+          "maxError": 0.000010848045349121094,
+          "differences": 40455
+        },
+        {
+          "stage": 3,
+          "dims": [
+            1,
+            320,
+            8,
+            10
+          ],
+          "values": 25600,
+          "maxError": 0.000012636184692382812,
+          "differences": 25293
+        },
+        {
+          "stage": 4,
+          "dims": [
+            1,
+            512,
+            4,
+            5
+          ],
+          "values": 10240,
+          "maxError": 0.000008940696716308594,
+          "differences": 10097
+        }
+      ],
+      "ms": 159141.40000000596,
+      "operations": 12492,
+      "reusedInputBytes": 188723200
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3191967883
+  },
+  "scope": "Complete native encoder, global attention across query windows and global FRM/FFM statistics. Forced small row/query windows. Both decoder heads and global image score included. Input uses native precomputed NPP; source/NPP/96MP are separate pending qualifications.",
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "off-the-record Playwright context",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

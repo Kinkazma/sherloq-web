@@ -1,0 +1,470 @@
+{
+  "schema": 1,
+  "scope": "Sequential full-resolution 1 MP synthetic JPEG, nine qualities, three distinct phase rolls. Cold includes worker calibration. No graph/WordPress composite benchmark.",
+  "results": [
+    {
+      "cpuKernel": "single",
+      "samples": [
+        {
+          "params": {
+            "low": 50,
+            "high": 90,
+            "step": 5,
+            "x": 0,
+            "y": 0
+          },
+          "rpcMs": 306.39999997615814,
+          "viewChangeMs": 2.199999988079071,
+          "viewReusedAnalysis": true,
+          "metrics": {
+            "totalMs": 305.0999999642372,
+            "cache": {
+              "result": false,
+              "stages": {
+                "blocks/0/0/50": false,
+                "blocks/0/0/55": false,
+                "blocks/0/0/60": false,
+                "blocks/0/0/65": false,
+                "blocks/0/0/70": false,
+                "blocks/0/0/75": false,
+                "blocks/0/0/80": false,
+                "blocks/0/0/85": false,
+                "blocks/0/0/90": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "jpeg-ghost-serial",
+            "workers": 1,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 886687,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 128019237,
+              "codecHeapCapacityBytes": 16777216
+            }
+          }
+        },
+        {
+          "params": {
+            "low": 50,
+            "high": 90,
+            "step": 5,
+            "x": 1,
+            "y": 1
+          },
+          "rpcMs": 335.4000000357628,
+          "viewChangeMs": 1.100000023841858,
+          "viewReusedAnalysis": true,
+          "metrics": {
+            "totalMs": 335.10000002384186,
+            "cache": {
+              "result": false,
+              "stages": {
+                "roll/1/1": false,
+                "blocks/1/1/50": false,
+                "blocks/1/1/55": false,
+                "blocks/1/1/60": false,
+                "blocks/1/1/65": false,
+                "blocks/1/1/70": false,
+                "blocks/1/1/75": false,
+                "blocks/1/1/80": false,
+                "blocks/1/1/85": false,
+                "blocks/1/1/90": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "jpeg-ghost-serial",
+            "workers": 1,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 4919360,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 132051910,
+              "codecHeapCapacityBytes": 16777216
+            }
+          }
+        },
+        {
+          "params": {
+            "low": 50,
+            "high": 90,
+            "step": 5,
+            "x": 7,
+            "y": 3
+          },
+          "rpcMs": 331.10000002384186,
+          "viewChangeMs": 0.5,
+          "viewReusedAnalysis": true,
+          "metrics": {
+            "totalMs": 330.69999998807907,
+            "cache": {
+              "result": false,
+              "stages": {
+                "roll/7/3": false,
+                "blocks/7/3/50": false,
+                "blocks/7/3/55": false,
+                "blocks/7/3/60": false,
+                "blocks/7/3/65": false,
+                "blocks/7/3/70": false,
+                "blocks/7/3/75": false,
+                "blocks/7/3/80": false,
+                "blocks/7/3/85": false,
+                "blocks/7/3/90": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "jpeg-ghost-serial",
+            "workers": 1,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 8952033,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 136084583,
+              "codecHeapCapacityBytes": 16777216
+            }
+          }
+        }
+      ],
+      "loadMs": 51.10000002384186
+    },
+    {
+      "cpuKernel": "auto",
+      "samples": [
+        {
+          "params": {
+            "low": 50,
+            "high": 90,
+            "step": 5,
+            "x": 0,
+            "y": 0
+          },
+          "rpcMs": 3315.399999976158,
+          "viewChangeMs": 3.100000023841858,
+          "viewReusedAnalysis": true,
+          "metrics": {
+            "totalMs": 3314.300000011921,
+            "cache": {
+              "result": false,
+              "stages": {
+                "blocks/0/0/50": false,
+                "blocks/0/0/55": false,
+                "blocks/0/0/60": false,
+                "blocks/0/0/65": false,
+                "blocks/0/0/70": false,
+                "blocks/0/0/75": false,
+                "blocks/0/0/80": false,
+                "blocks/0/0/85": false,
+                "blocks/0/0/90": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "jpeg-ghost-pool",
+            "workers": 9,
+            "calibration": {
+              "mode": "ghost",
+              "pixels": 3145728,
+              "qualities": [
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90
+              ],
+              "selectedWorkers": 9,
+              "measurements": [
+                {
+                  "workers": 1,
+                  "medianMs": 290.30000001192093,
+                  "samplesMs": [
+                    298.89999997615814,
+                    290.30000001192093,
+                    287.89999997615814
+                  ]
+                },
+                {
+                  "workers": 2,
+                  "medianMs": 211.4000000357628,
+                  "samplesMs": [
+                    190.10000002384186,
+                    211.4000000357628,
+                    275.4000000357628
+                  ]
+                },
+                {
+                  "workers": 4,
+                  "medianMs": 138.60000002384186,
+                  "samplesMs": [
+                    138.60000002384186,
+                    141.10000002384186,
+                    130.5
+                  ]
+                },
+                {
+                  "workers": 8,
+                  "medianMs": 134.5,
+                  "samplesMs": [
+                    145.89999997615814,
+                    134.5,
+                    130.4000000357628
+                  ]
+                },
+                {
+                  "workers": 9,
+                  "medianMs": 126.5,
+                  "samplesMs": [
+                    131.4000000357628,
+                    126.5,
+                    116
+                  ]
+                }
+              ],
+              "totalMs": 3249.5,
+              "includesWorkerStartup": true,
+              "rule": "All admitted worker-count candidates; >=5% median gain including full-resolution input copies; one JPEG thread per worker; Ghost samples include fresh worker/codec startup"
+            },
+            "ghostKernelMs": 57.59999996423721,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 890409,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 712829733,
+              "codecHeapCapacityBytes": 16777216
+            }
+          }
+        },
+        {
+          "params": {
+            "low": 50,
+            "high": 90,
+            "step": 5,
+            "x": 1,
+            "y": 1
+          },
+          "rpcMs": 189,
+          "viewChangeMs": 3.800000011920929,
+          "viewReusedAnalysis": true,
+          "metrics": {
+            "totalMs": 188.79999995231628,
+            "cache": {
+              "result": false,
+              "stages": {
+                "roll/1/1": false,
+                "blocks/1/1/50": false,
+                "blocks/1/1/55": false,
+                "blocks/1/1/60": false,
+                "blocks/1/1/65": false,
+                "blocks/1/1/70": false,
+                "blocks/1/1/75": false,
+                "blocks/1/1/80": false,
+                "blocks/1/1/85": false,
+                "blocks/1/1/90": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "jpeg-ghost-pool",
+            "workers": 9,
+            "calibration": {
+              "mode": "ghost",
+              "pixels": 3145728,
+              "qualities": [
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90
+              ],
+              "selectedWorkers": 9,
+              "measurements": [
+                {
+                  "workers": 1,
+                  "medianMs": 290.30000001192093,
+                  "samplesMs": [
+                    298.89999997615814,
+                    290.30000001192093,
+                    287.89999997615814
+                  ]
+                },
+                {
+                  "workers": 2,
+                  "medianMs": 211.4000000357628,
+                  "samplesMs": [
+                    190.10000002384186,
+                    211.4000000357628,
+                    275.4000000357628
+                  ]
+                },
+                {
+                  "workers": 4,
+                  "medianMs": 138.60000002384186,
+                  "samplesMs": [
+                    138.60000002384186,
+                    141.10000002384186,
+                    130.5
+                  ]
+                },
+                {
+                  "workers": 8,
+                  "medianMs": 134.5,
+                  "samplesMs": [
+                    145.89999997615814,
+                    134.5,
+                    130.4000000357628
+                  ]
+                },
+                {
+                  "workers": 9,
+                  "medianMs": 126.5,
+                  "samplesMs": [
+                    131.4000000357628,
+                    126.5,
+                    116
+                  ]
+                }
+              ],
+              "totalMs": 3249.5,
+              "includesWorkerStartup": true,
+              "rule": "All admitted worker-count candidates; >=5% median gain including full-resolution input copies; one JPEG thread per worker; Ghost samples include fresh worker/codec startup"
+            },
+            "ghostKernelMs": 141.10000002384186,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 4926804,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 716866128,
+              "codecHeapCapacityBytes": 16777216
+            }
+          }
+        },
+        {
+          "params": {
+            "low": 50,
+            "high": 90,
+            "step": 5,
+            "x": 7,
+            "y": 3
+          },
+          "rpcMs": 176,
+          "viewChangeMs": 0.5999999642372131,
+          "viewReusedAnalysis": true,
+          "metrics": {
+            "totalMs": 175.5,
+            "cache": {
+              "result": false,
+              "stages": {
+                "roll/7/3": false,
+                "blocks/7/3/50": false,
+                "blocks/7/3/55": false,
+                "blocks/7/3/60": false,
+                "blocks/7/3/65": false,
+                "blocks/7/3/70": false,
+                "blocks/7/3/75": false,
+                "blocks/7/3/80": false,
+                "blocks/7/3/85": false,
+                "blocks/7/3/90": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "jpeg-ghost-pool",
+            "workers": 9,
+            "calibration": {
+              "mode": "ghost",
+              "pixels": 3145728,
+              "qualities": [
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90
+              ],
+              "selectedWorkers": 9,
+              "measurements": [
+                {
+                  "workers": 1,
+                  "medianMs": 290.30000001192093,
+                  "samplesMs": [
+                    298.89999997615814,
+                    290.30000001192093,
+                    287.89999997615814
+                  ]
+                },
+                {
+                  "workers": 2,
+                  "medianMs": 211.4000000357628,
+                  "samplesMs": [
+                    190.10000002384186,
+                    211.4000000357628,
+                    275.4000000357628
+                  ]
+                },
+                {
+                  "workers": 4,
+                  "medianMs": 138.60000002384186,
+                  "samplesMs": [
+                    138.60000002384186,
+                    141.10000002384186,
+                    130.5
+                  ]
+                },
+                {
+                  "workers": 8,
+                  "medianMs": 134.5,
+                  "samplesMs": [
+                    145.89999997615814,
+                    134.5,
+                    130.4000000357628
+                  ]
+                },
+                {
+                  "workers": 9,
+                  "medianMs": 126.5,
+                  "samplesMs": [
+                    131.4000000357628,
+                    126.5,
+                    116
+                  ]
+                }
+              ],
+              "totalMs": 3249.5,
+              "includesWorkerStartup": true,
+              "rule": "All admitted worker-count candidates; >=5% median gain including full-resolution input copies; one JPEG thread per worker; Ghost samples include fresh worker/codec startup"
+            },
+            "ghostKernelMs": 134.4000000357628,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 3992357,
+              "cacheBytes": 8963199,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 720902523,
+              "codecHeapCapacityBytes": 16777216
+            }
+          }
+        }
+      ],
+      "loadMs": 52
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

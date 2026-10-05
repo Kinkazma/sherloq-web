@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "images": 4368,
+  "backends": {
+    "cpu": 1092
+  },
+  "cases": [
+    "random-odd",
+    "ties",
+    "black",
+    "white",
+    "flat",
+    "row",
+    "column",
+    "two",
+    "defects",
+    "texture",
+    "frequency-257x261",
+    "frequency-625x625",
+    "frequency-1024x1024"
+  ],
+  "qualification": null,
+  "cancellation": "Worker termination and reload verified",
+  "browser": "155.0"
+}

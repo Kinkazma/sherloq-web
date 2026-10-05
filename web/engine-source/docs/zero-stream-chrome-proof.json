@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "original": {
+    "workers": 1,
+    "kernel": "zero-native-overlapping-bands",
+    "rowsPerChunk": 64,
+    "haloRows": 7,
+    "heapCapacityBytes": 16777216,
+    "heapMaximumBytes": 16777216,
+    "thresholdFallbacks": 25657,
+    "luminanceStorage": "temporary",
+    "voteStorage": "temporary",
+    "retainedPlaneBytes": 2097152
+  },
+  "jpeg99": {
+    "workers": 1,
+    "kernel": "zero-native-overlapping-bands",
+    "rowsPerChunk": 64,
+    "haloRows": 7,
+    "heapCapacityBytes": 16777216,
+    "heapMaximumBytes": 16777216,
+    "thresholdFallbacks": 28542,
+    "luminanceStorage": "temporary",
+    "voteStorage": "temporary",
+    "retainedPlaneBytes": 2097152,
+    "jpeg99": {
+      "workers": 1,
+      "kernel": "global-rgb-jpeg-scanlines",
+      "sampling": "444",
+      "recompressedCache": false,
+      "recompressions": 1,
+      "sourcePasses": 2,
+      "encodedBytes": 2465611,
+      "encodedCapacityBytes": 6293504,
+      "encodedStorage": "memory",
+      "cacheEntries": 1,
+      "rowsPerChunk": 32,
+      "maxSourceWindowBytes": 98304,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 16777216
+    }
+  },
+  "nativeLuminanceAndVotes": true,
+  "mainGrid": 0,
+  "cancellationRemovesPlanes": true,
+  "memory": {
+    "budgetBytes": 100663296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 76911616
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

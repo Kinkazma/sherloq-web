@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "Native UNet convolution boundaries on one generated source; no full browser model parity",
+  "zeroOnly": false,
+  "records": [
+    {
+      "name": "encoder_stages.3.0.downsample.0",
+      "elements": 802816,
+      "stride": 2,
+      "groups": 1,
+      "different": 14052,
+      "maxAbs": 0.0000209808349609375,
+      "nonfinite": 0,
+      "first": [
+        {
+          "index": 769,
+          "actual": -20.501970291137695,
+          "expected": -20.501968383789062
+        },
+        {
+          "index": 770,
+          "actual": -17.399845123291016,
+          "expected": -17.39984893798828
+        },
+        {
+          "index": 771,
+          "actual": -0.8440356254577637,
+          "expected": -0.8440349102020264
+        },
+        {
+          "index": 775,
+          "actual": -6.475521087646484,
+          "expected": -6.475520610809326
+        },
+        {
+          "index": 776,
+          "actual": -27.597997665405273,
+          "expected": -27.59799575805664
+        },
+        {
+          "index": 778,
+          "actual": -11.28924560546875,
+          "expected": -11.289244651794434
+        },
+        {
+          "index": 780,
+          "actual": -16.97687530517578,
+          "expected": -16.976877212524414
+        },
+        {
+          "index": 781,
+          "actual": 1.176396369934082,
+          "expected": 1.176395297050476
+        }
+      ]
+    },
+    {
+      "name": "encoder_stages.4.0.downsample.0",
+      "elements": 401408,
+      "stride": 2,
+      "groups": 1,
+      "different": 6982,
+      "maxAbs": 0.0000152587890625,
+      "nonfinite": 0,
+      "first": [
+        {
+          "index": 192,
+          "actual": -1.839261531829834,
+          "expected": -1.8392605781555176
+        },
+        {
+          "index": 193,
+          "actual": -2.3464226722717285,
+          "expected": -2.346423387527466
+        },
+        {
+          "index": 194,
+          "actual": -2.8844804763793945,
+          "expected": -2.8844807147979736
+        },
+        {
+          "index": 195,
+          "actual": -2.252026081085205,
+          "expected": -2.252025604248047
+        },
+        {
+          "index": 388,
+          "actual": -9.346673965454102,
+          "expected": -9.346672058105469
+        },
+        {
+          "index": 389,
+          "actual": -2.219855785369873,
+          "expected": -2.2198543548583984
+        },
+        {
+          "index": 390,
+          "actual": -4.466029167175293,
+          "expected": -4.466032028198242
+        },
+        {
+          "index": 584,
+          "actual": 6.6086249351501465,
+          "expected": 6.608623504638672
+        }
+      ]
+    },
+    {
+      "name": "decoder_stages.3.layer.1",
+      "elements": 301056,
+      "stride": 1,
+      "groups": 1,
+      "different": 3747,
+      "maxAbs": 0.0000011920928955078125,
+      "nonfinite": 0,
+      "first": [
+        {
+          "index": 768,
+          "actual": -1.9239684343338013,
+          "expected": -1.9239686727523804
+        },
+        {
+          "index": 769,
+          "actual": -1.5693581104278564,
+          "expected": -1.569358229637146
+        },
+        {
+          "index": 772,
+          "actual": -1.4187495708465576,
+          "expected": -1.418749451637268
+        },
+        {
+          "index": 773,
+          "actual": -1.5537549257278442,
+          "expected": -1.5537550449371338
+        },
+        {
+          "index": 775,
+          "actual": -1.6370341777801514,
+          "expected": -1.637034296989441
+        },
+        {
+          "index": 776,
+          "actual": -1.63506019115448,
+          "expected": -1.6350603103637695
+        },
+        {
+          "index": 779,
+          "actual": -1.8101117610931396,
+          "expected": -1.8101119995117188
+        },
+        {
+          "index": 780,
+          "actual": -2.354200839996338,
+          "expected": -2.354201078414917
+        }
+      ]
+    },
+    {
+      "name": "bottlenecks.0.seq.0",
+      "elements": 301056,
+      "stride": 1,
+      "groups": 1,
+      "different": 4764,
+      "maxAbs": 0.0000152587890625,
+      "nonfinite": 0,
+      "first": [
+        {
+          "index": 768,
+          "actual": -9.85002326965332,
+          "expected": -9.850025177001953
+        },
+        {
+          "index": 769,
+          "actual": -8.58242130279541,
+          "expected": -8.582422256469727
+        },
+        {
+          "index": 770,
+          "actual": -6.732181549072266,
+          "expected": -6.732182502746582
+        },
+        {
+          "index": 771,
+          "actual": -13.685070037841797,
+          "expected": -13.68506908416748
+        },
+        {
+          "index": 772,
+          "actual": -20.50067901611328,
+          "expected": -20.50067138671875
+        },
+        {
+          "index": 773,
+          "actual": -17.03554344177246,
+          "expected": -17.035545349121094
+        },
+        {
+          "index": 774,
+          "actual": -16.959529876708984,
+          "expected": -16.95952606201172
+        },
+        {
+          "index": 777,
+          "actual": -16.37024688720703,
+          "expected": -16.370250701904297
+        }
+      ]
+    }
+  ],
+  "cases": 4,
+  "peakAccountedBytes": 166447104,
+  "allReservationsReleased": true,
+  "browser": "154.0.8037.58",
+  "sourceSha256": "9243f33d578bd337ddb5109667ae7641f33b275077b0cc18473cf5398fefe504"
+}

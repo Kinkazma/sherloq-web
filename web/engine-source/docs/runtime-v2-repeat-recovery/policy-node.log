@@ -1,0 +1,250 @@
+TAP version 13
+# Subtest: memory retry resumes after a peer releases its workspace while the long group still runs
+ok 1 - memory retry resumes after a peer releases its workspace while the long group still runs
+  ---
+  duration_ms: 31.508083
+  type: 'test'
+  ...
+# Subtest: persistent memory failure waits for peers and stops after five comparable failures even when alone
+ok 2 - persistent memory failure waits for peers and stops after five comparable failures even when alone
+  ---
+  duration_ms: 262.2235
+  type: 'test'
+  ...
+# Subtest: real allocation failure waits for a peer and retains already completed scientific results
+ok 3 - real allocation failure waits for a peer and retains already completed scientific results
+  ---
+  duration_ms: 28.960792
+  type: 'test'
+  ...
+# Subtest: persistent allocator refusal stops after bounded peer-settlement retries and preserves its cause
+ok 4 - persistent allocator refusal stops after bounded peer-settlement retries and preserves its cause
+  ---
+  duration_ms: 257.727792
+  type: 'test'
+  ...
+# Subtest: useful parallel admission retries only failed groups; independent view caches retain owned frames
+ok 5 - useful parallel admission retries only failed groups; independent view caches retain owned frames
+  ---
+  duration_ms: 34.644208
+  type: 'test'
+  ...
+# Subtest: cancel retains completed groups and disposes late provider results; partial inspection remains available
+ok 6 - cancel retains completed groups and disposes late provider results; partial inspection remains available
+  ---
+  duration_ms: 6.084167
+  type: 'test'
+  ...
+# Subtest: disabled selections invoke no providers; missing engines stay explicit failures
+ok 7 - disabled selections invoke no providers; missing engines stay explicit failures
+  ---
+  duration_ms: 1.0725
+  type: 'test'
+  ...
+# Subtest: disposing during an asynchronous entry preparation disposes its late owner
+ok 8 - disposing during an asynchronous entry preparation disposes its late owner
+  ---
+  duration_ms: 0.644
+  type: 'test'
+  ...
+# Subtest: real selected ELA composition stays alive through cached frames and session disposal
+ok 9 - real selected ELA composition stays alive through cached frames and session disposal
+  ---
+  duration_ms: 289.6545
+  type: 'test'
+  ...
+# Subtest: scientific snapshot holds raw and prepared owners and excludes concurrent refilters
+ok 10 - scientific snapshot holds raw and prepared owners and excludes concurrent refilters
+  ---
+  duration_ms: 1.460416
+  type: 'test'
+  ...
+# Subtest: disposal cancels the snapshot consumer and waits for all of its owners
+ok 11 - disposal cancels the snapshot consumer and waits for all of its owners
+  ---
+  duration_ms: 1.346042
+  type: 'test'
+  ...
+# Subtest: completed raw planes release RAM under pressure without rerunning their provider or losing export ownership
+ok 12 - completed raw planes release RAM under pressure without rerunning their provider or losing export ownership
+  ---
+  duration_ms: 4.464208
+  type: 'test'
+  ...
+# Subtest: a lone raw allocator failure resumes at full configured capacity and preserves its output
+ok 13 - a lone raw allocator failure resumes at full configured capacity and preserves its output
+  ---
+  duration_ms: 27.543708
+  type: 'test'
+  ...
+# Subtest: more than five successive incidents with committed high-water progress can finish without a lifetime cap
+ok 14 - more than five successive incidents with committed high-water progress can finish without a lifetime cap
+  ---
+  duration_ms: 211.235708
+  type: 'test'
+  ...
+# Subtest: replayed provider progress does not evade the five-failure guard and keeps original diagnostics
+ok 15 - replayed provider progress does not evade the five-failure guard and keeps original diagnostics
+  ---
+  duration_ms: 255.8475
+  type: 'test'
+  ...
+# Subtest: an exhausted inner recovery loop is terminal to the session instead of five fresh provider starts
+ok 16 - an exhausted inner recovery loop is terminal to the session instead of five fresh provider starts
+  ---
+  duration_ms: 1.208875
+  type: 'test'
+  ...
+# Subtest: recovery does not lower admission of other useful providers or replay their completed results
+ok 17 - recovery does not lower admission of other useful providers or replay their completed results
+  ---
+  duration_ms: 27.875958
+  type: 'test'
+  ...
+# Subtest: cancelling a recovery delay releases pressure and never launches the next attempt
+ok 18 - cancelling a recovery delay releases pressure and never launches the next attempt
+  ---
+  duration_ms: 1.081375
+  type: 'test'
+  ...
+# Subtest: entry preparation retries preserve scientific raw and the previous display owner until successful replacement
+ok 19 - entry preparation retries preserve scientific raw and the previous display owner until successful replacement
+  ---
+  duration_ms: 26.268458
+  type: 'test'
+  ...
+# Subtest: a reclaimer allocation failure stays within the same five-failure guard without replaying the provider
+ok 20 - a reclaimer allocation failure stays within the same five-failure guard without replaying the provider
+  ---
+  duration_ms: 228.878375
+  type: 'test'
+  ...
+# Subtest: unrelated provider defects are terminal immediately with their original stack preserved
+ok 21 - unrelated provider defects are terminal immediately with their original stack preserved
+  ---
+  duration_ms: 0.574458
+  type: 'test'
+  ...
+# Subtest: recovery tokens are concurrent, reentrant, idempotent, and leave the policy budget unchanged
+ok 22 - recovery tokens are concurrent, reentrant, idempotent, and leave the policy budget unchanged
+  ---
+  duration_ms: 3.918625
+  type: 'test'
+  ...
+# Subtest: a cancelled asynchronous reclaim releases its recovery token in finally
+ok 23 - a cancelled asynchronous reclaim releases its recovery token in finally
+  ---
+  duration_ms: 0.558208
+  type: 'test'
+  ...
+# Subtest: shared pages remain readable while concurrent recovery protects reclaimed RAM for a useful retry
+ok 24 - shared pages remain readable while concurrent recovery protects reclaimed RAM for a useful retry
+  ---
+  duration_ms: 31.634666
+  type: 'test'
+  ...
+# Subtest: new optional cache metadata is deferred during recovery and a later reader can connect
+ok 25 - new optional cache metadata is deferred during recovery and a later reader can connect
+  ---
+  duration_ms: 0.736542
+  type: 'test'
+  ...
+# Subtest: allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+ok 26 - allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+  ---
+  duration_ms: 2.010958
+  type: 'test'
+  ...
+# Subtest: normalization and wire errors preserve original stack, nested cause and details
+ok 27 - normalization and wire errors preserve original stack, nested cause and details
+  ---
+  duration_ms: 1.189417
+  type: 'test'
+  ...
+# Subtest: five failures with small memory jitter form one obstruction
+ok 28 - five failures with small memory jitter form one obstruction
+  ---
+  duration_ms: 0.4245
+  type: 'test'
+  ...
+# Subtest: distinct recoveries have no lifetime limit and committed progress resets the streak
+ok 29 - distinct recoveries have no lifetime limit and committed progress resets the streak
+  ---
+  duration_ms: 1.019208
+  type: 'test'
+  ...
+# Subtest: replayed checkpoints and attempt numbers cannot reset the high-water mark
+ok 30 - replayed checkpoints and attempt numbers cannot reset the high-water mark
+  ---
+  duration_ms: 0.164834
+  type: 'test'
+  ...
+# Subtest: different useful operations and substantially different capacity start a new streak
+ok 31 - different useful operations and substantially different capacity start a new streak
+  ---
+  duration_ms: 0.215375
+  type: 'test'
+  ...
+# Subtest: recovery pressure protects reclaim through the successful useful retry and is released once
+ok 32 - recovery pressure protects reclaim through the successful useful retry and is released once
+  ---
+  duration_ms: 0.226333
+  type: 'test'
+  ...
+# Subtest: terminal unrelated errors and cancellation release recovery pressure without another operation
+ok 33 - terminal unrelated errors and cancellation release recovery pressure without another operation
+  ---
+  duration_ms: 0.511541
+  type: 'test'
+  ...
+# Subtest: five stable failures yield between retries and stop without an outer restart
+ok 34 - five stable failures yield between retries and stop without an outer restart
+  ---
+  duration_ms: 5.756
+  type: 'test'
+  ...
+# Subtest: generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+ok 35 - generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+  ---
+  duration_ms: 0.457833
+  type: 'test'
+  ...
+# Subtest: public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+ok 36 - public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+  ---
+  duration_ms: 0.246875
+  type: 'test'
+  ...
+# Subtest: a successful owned result survives a cancellation race for caller cleanup
+ok 37 - a successful owned result survives a cancellation race for caller cleanup
+  ---
+  duration_ms: 0.088333
+  type: 'test'
+  ...
+# Subtest: allocator failures in reclaim share the suspended operation guard and keep pressure held
+ok 38 - allocator failures in reclaim share the suspended operation guard and keep pressure held
+  ---
+  duration_ms: 0.375667
+  type: 'test'
+  ...
+# Subtest: storage failures during reclaim remain terminal without replaying useful work
+ok 39 - storage failures during reclaim remain terminal without replaying useful work
+  ---
+  duration_ms: 0.126958
+  type: 'test'
+  ...
+# Subtest: alternating startup and compute phases cannot hide the same stalled operation
+ok 40 - alternating startup and compute phases cannot hide the same stalled operation
+  ---
+  duration_ms: 0.156292
+  type: 'test'
+  ...
+1..40
+# tests 40
+# suites 0
+# pass 40
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1812.502708

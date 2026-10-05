@@ -1,0 +1,30 @@
+{
+  "checkpointSha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+  "records": [
+    {
+      "case": 0,
+      "width": 35,
+      "height": 29,
+      "maxError": 0.0000279843807220459,
+      "differences": 971,
+      "milliseconds": 1069.4630419999999
+    },
+    {
+      "case": 1,
+      "width": 96,
+      "height": 64,
+      "maxError": 0.0000010728836059570312,
+      "differences": 5840,
+      "milliseconds": 6162.9775
+    },
+    {
+      "case": 2,
+      "width": 65,
+      "height": 97,
+      "maxError": 0.000027686357498168945,
+      "differences": 5966,
+      "milliseconds": 6394.229332999999
+    }
+  ],
+  "passed": true
+}

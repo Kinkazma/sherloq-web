@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "dimensions": [
+    4103,
+    5401
+  ],
+  "metrics": {
+    "workers": 3,
+    "kernel": "global-rgb-jpeg-ghost-worker-pool",
+    "recompressions": 3,
+    "qualityPlanesComputed": 3,
+    "encodedCacheHits": 0,
+    "codecHeapCapacityBytes": 16777216,
+    "codecHeapMaximumBytes": 16777216,
+    "totalCodecHeapMaximumBytes": 50331648,
+    "maxSourceWindowBytes": 393888,
+    "sourcePasses": 2,
+    "encodedStorage": "temporary",
+    "maximumEncodedBytes": 20464249,
+    "scheduling": {
+      "count": 3,
+      "maximum": 3,
+      "ceiling": 3,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "taskExecutions": 1,
+      "retry": null
+    },
+    "stages": {
+      "60": false,
+      "80": false,
+      "100": false
+    },
+    "cache": {
+      "analysis": false,
+      "result": false,
+      "view": false,
+      "stages": {
+        "60": false,
+        "80": false,
+        "100": false
+      }
+    },
+    "totalMs": 1322,
+    "memory": {
+      "budgetBytes": 201326592,
+      "retainedBytes": 66480909,
+      "cacheBytes": 6215395,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 160852941
+    }
+  },
+  "cancellation": "storage-closed-before-worker-termination",
+  "reload": true,
+  "failure": {
+    "status": "passed",
+    "metrics": {
+      "workers": 1,
+      "kernel": "global-rgb-jpeg-ghost-scanlines",
+      "recompressions": 9,
+      "qualityPlanesComputed": 9,
+      "encodedCacheHits": 0,
+      "sourcePasses": 14,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 16777216,
+      "maxSourceWindowBytes": 98304,
+      "encodedStorage": "memory",
+      "scheduling": {
+        "count": 3,
+        "maximum": 3,
+        "ceiling": 3,
+        "resourceReduced": false,
+        "policy": "immediate-useful-work",
+        "priorUsefulSamples": 0,
+        "reason": "Aggressive capacity-based start",
+        "preflightExecutions": 0,
+        "taskExecutions": 2,
+        "retry": {
+          "code": "MEMORY_LIMIT",
+          "failedWorkers": 3,
+          "remainingQualities": 6
+        }
+      },
+      "stages": {
+        "50": false,
+        "55": false,
+        "60": false,
+        "65": false,
+        "70": false,
+        "75": false,
+        "80": false,
+        "85": false,
+        "90": false
+      }
+    },
+    "completedQualitiesNotRepeated": 3,
+    "nativeRawAndMaps": true
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

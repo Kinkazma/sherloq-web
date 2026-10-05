@@ -1,0 +1,835 @@
+{
+  "qualification": "Development finite-support evolution study only; not a complete detector or96MP qualification",
+  "records": [
+    {
+      "width": 397,
+      "height": 281,
+      "windows": 107,
+      "levels": [
+        {
+          "level": 0,
+          "w": 397,
+          "h": 281,
+          "steps": 0,
+          "contrast": 3.683194160461426,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 1,
+          "w": 397,
+          "h": 281,
+          "steps": 3,
+          "contrast": 3.683194160461426,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "w": 397,
+          "h": 281,
+          "steps": 3,
+          "contrast": 3.683194160461426,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "w": 397,
+          "h": 281,
+          "steps": 4,
+          "contrast": 3.683194160461426,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "w": 198,
+          "h": 140,
+          "steps": 4,
+          "contrast": 2.7623956203460693,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "w": 198,
+          "h": 140,
+          "steps": 5,
+          "contrast": 2.7623956203460693,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "w": 198,
+          "h": 140,
+          "steps": 6,
+          "contrast": 2.7623956203460693,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "w": 198,
+          "h": 140,
+          "steps": 7,
+          "contrast": 2.7623956203460693,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "w": 99,
+          "h": 70,
+          "steps": 8,
+          "contrast": 2.0717966556549072,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "w": 99,
+          "h": 70,
+          "steps": 10,
+          "contrast": 2.0717966556549072,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "w": 99,
+          "h": 70,
+          "steps": 12,
+          "contrast": 2.0717966556549072,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "w": 99,
+          "h": 70,
+          "steps": 14,
+          "contrast": 2.0717966556549072,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        }
+      ],
+      "totalMs": 444624.357959,
+      "heapBytes": 33554432
+    },
+    {
+      "width": 640,
+      "height": 480,
+      "windows": 243,
+      "levels": [
+        {
+          "level": 0,
+          "w": 640,
+          "h": 480,
+          "steps": 0,
+          "contrast": 3.701993465423584,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 1,
+          "w": 640,
+          "h": 480,
+          "steps": 3,
+          "contrast": 3.701993465423584,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "w": 640,
+          "h": 480,
+          "steps": 3,
+          "contrast": 3.701993465423584,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "w": 640,
+          "h": 480,
+          "steps": 4,
+          "contrast": 3.701993465423584,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "w": 320,
+          "h": 240,
+          "steps": 4,
+          "contrast": 2.7764949798583984,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "w": 320,
+          "h": 240,
+          "steps": 5,
+          "contrast": 2.7764949798583984,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "w": 320,
+          "h": 240,
+          "steps": 6,
+          "contrast": 2.7764949798583984,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "w": 320,
+          "h": 240,
+          "steps": 7,
+          "contrast": 2.7764949798583984,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "w": 160,
+          "h": 120,
+          "steps": 8,
+          "contrast": 2.082371234893799,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "w": 160,
+          "h": 120,
+          "steps": 10,
+          "contrast": 2.082371234893799,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "w": 160,
+          "h": 120,
+          "steps": 12,
+          "contrast": 2.082371234893799,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "w": 160,
+          "h": 120,
+          "steps": 14,
+          "contrast": 2.082371234893799,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "w": 80,
+          "h": 60,
+          "steps": 17,
+          "contrast": 1.5617784261703491,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 13,
+          "w": 80,
+          "h": 60,
+          "steps": 20,
+          "contrast": 1.5617784261703491,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 14,
+          "w": 80,
+          "h": 60,
+          "steps": 24,
+          "contrast": 1.5617784261703491,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "level": 15,
+          "w": 80,
+          "h": 60,
+          "steps": 29,
+          "contrast": 1.5617784261703491,
+          "fields": [
+            {
+              "field": "Lt",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ldet",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Lx",
+              "differences": 0,
+              "max": 0
+            },
+            {
+              "field": "Ly",
+              "differences": 0,
+              "max": 0
+            }
+          ]
+        }
+      ],
+      "totalMs": 950157.2666249999,
+      "heapBytes": 40304640
+    }
+  ]
+}

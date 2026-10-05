@@ -1,0 +1,14 @@
+{
+  "SCIPY-LICENSE.txt": {
+    "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/LICENSE.txt",
+    "sha256": "221e59f5e910fd7f94e44f0dac77436a11338c285c6346232e4a850a50da0e94"
+  },
+  "build.cxx": {
+    "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/build.cxx",
+    "sha256": "4fbc3c1e830c958f3f2a1eaaac063691eb1eb10936d1ac6740d425acdd25f30b"
+  },
+  "query_ball_point.cxx": {
+    "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/query_ball_point.cxx",
+    "sha256": "0c936dfa89b52a32c1ddec74536d97d1026216bee5126ca48112de89d3f0d862"
+  }
+}

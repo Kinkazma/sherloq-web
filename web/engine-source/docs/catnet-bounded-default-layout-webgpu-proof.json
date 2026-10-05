@@ -1,0 +1,83 @@
+{
+  "provider": "webgpu",
+  "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+  "graphSha256": "96cb8ee7496f74d6eb01613b3debb5338e7abbfafb88b6e5111cc2570f0e7de3",
+  "records": [
+    {
+      "case": 0,
+      "outputs": {
+        "native_map": {
+          "values": 384,
+          "maxError": 0.09264759672805667,
+          "differences": 384
+        },
+        "padded_map": {
+          "values": 6144,
+          "maxError": 0.09202370885759592,
+          "differences": 6144
+        }
+      },
+      "metrics": {
+        "milliseconds": 3013.5,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "webgpu",
+        "workers": 1
+      }
+    },
+    {
+      "case": 1,
+      "outputs": {
+        "native_map": {
+          "values": 884,
+          "maxError": 0.6706189843825996,
+          "differences": 884
+        },
+        "padded_map": {
+          "values": 14144,
+          "maxError": 0.6671726605854928,
+          "differences": 14144
+        }
+      },
+      "metrics": {
+        "milliseconds": 209.20000000298023,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "webgpu",
+        "workers": 1
+      }
+    },
+    {
+      "case": 2,
+      "outputs": {
+        "native_map": {
+          "values": 1056,
+          "maxError": 0.12362966034561396,
+          "differences": 1056
+        },
+        "padded_map": {
+          "values": 16896,
+          "maxError": 0.12152993865311146,
+          "differences": 16896
+        }
+      },
+      "metrics": {
+        "milliseconds": 147.39999999850988,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "webgpu",
+        "workers": 1
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 4294967296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2904745902
+  },
+  "passed": false,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "engineCommit": "ab675126b4c5384508f8dee43f54ac334720a7be",
+  "statisticsPolicy": "covariance-floor-v1",
+  "assetsBase": "./composite-assets/",
+  "runtimeBase": "./composite-engine/"
+}

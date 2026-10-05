@@ -1,0 +1,16 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "license": "AGPL-3.0-or-later",
+  "source": {
+    "vendor/zero/zero.c": "f4fa0091e17cb292414b2bb451e3720c24f4d5227d918ff3730fea4de48f3d36",
+    "native/zero-fast.c": "95692da9c7aa509fdc68b539d72f30176e17c8d427903d24d2d1a1455913dfcc",
+    "native/zero-stream.c": "17b8a8c39544bc922f3afb961feb8b3cf0f430b67015df228ae870c6db71fcd2",
+    "native/zero-cosines.h": "73d175fb473a14f5dfa641f572c3bbeff824301055489df79dd8b0fbeaf853af"
+  },
+  "arithmetic": "Original FMA contraction explicit; existing separated-threshold vote filter unchanged",
+  "files": {
+    "zero-stream.js": "3ca473fcdcf382355ea7d833aa7533374dde7738b16ea3d15b184529b11a9c16",
+    "zero-stream.wasm": "bc3e24572ed5ac7ee55ea8b160489d431b2b78ee5b985829b6eefc56a6249ab8",
+    "LICENSE": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+  }
+}

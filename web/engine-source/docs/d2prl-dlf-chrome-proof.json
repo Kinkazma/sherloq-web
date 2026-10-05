@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "DLF7/9/11 ordered arithmetic on six synthetic coordinate inputs, weights remain outside delivery",
+  "cases": 18,
+  "records": [
+    {
+      "name": "7-native-zm",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 172.40000000037253
+    },
+    {
+      "name": "7-native-cnn",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 167.89999999850988
+    },
+    {
+      "name": "7-plane",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 156.09999999962747
+    },
+    {
+      "name": "7-constant",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 157.19999999925494
+    },
+    {
+      "name": "7-noise",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 165.2999999988824
+    },
+    {
+      "name": "7-diagonal",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 163.5
+    },
+    {
+      "name": "9-native-zm",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 254.5
+    },
+    {
+      "name": "9-native-cnn",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 254.19999999925494
+    },
+    {
+      "name": "9-plane",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 238.19999999925494
+    },
+    {
+      "name": "9-constant",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 247.39999999850988
+    },
+    {
+      "name": "9-noise",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 251.2000000011176
+    },
+    {
+      "name": "9-diagonal",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 258.2000000011176
+    },
+    {
+      "name": "11-native-zm",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 362.09999999962747
+    },
+    {
+      "name": "11-native-cnn",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 362.2000000011176
+    },
+    {
+      "name": "11-plane",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 340.3999999985099
+    },
+    {
+      "name": "11-constant",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 349.5
+    },
+    {
+      "name": "11-noise",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 359.40000000037253
+    },
+    {
+      "name": "11-diagonal",
+      "rawDifferent": 0,
+      "scoreDifferent": 0,
+      "maxRawError": 0,
+      "maxScoreError": 0,
+      "nonfinite": 0,
+      "functionalMs": 372.09999999962747
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
+    "referenceExpSha256": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+    "files": {
+      "dlf.js": {
+        "bytes": 7514,
+        "sha256": "cabc6b8e47cb47810df72537660134c55793de8bf5f37d1f7229f0c46ecf9048"
+      },
+      "dlf.wasm": {
+        "bytes": 7963,
+        "sha256": "f9234954d2463339e1745cb1e4449e434e084b9c69dbbdd202dd13b635f3888c"
+      }
+    }
+  },
+  "sources": {
+    "experiments/d2prl/dlf.cpp": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
+    "experiments/d2prl/reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+    "scripts/generate-d2prl-dlf-reference.py": "ccee274b265250a4ff496545795671b43ab21c9258c286d9e25a25dc2a857aff"
+  },
+  "referenceSha256": "2fc4deb34241326cce76d490a8bc84f04cc36764aac315258ab86e6b9217dd18"
+}

@@ -1,0 +1,37 @@
+{
+  "provider": "webgpu",
+  "records": [
+    {
+      "case": "two-useful-jobs",
+      "same": true,
+      "slots": 2,
+      "heaps": [
+        16777216,
+        16777216
+      ],
+      "preflightExecutions": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "cancel-real-inference",
+      "cancelled": true,
+      "activeBytes": 0
+    },
+    {
+      "case": "resume",
+      "values": 12288
+    }
+  ],
+  "memory": {
+    "budgetBytes": 268435456,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 92583752
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

@@ -1,0 +1,92 @@
+{
+  "browser": "154.0.8037.58",
+  "scope": "Stored JSON contract using scientific-shaped arrays; not a detector qualification",
+  "records": [
+    {
+      "storage": "memory",
+      "file": {
+        "id": "cc856675-9bf8-43c4-8703-f972243f46ee",
+        "revision": 1,
+        "mime": "application/json",
+        "format": "json",
+        "width": 12000,
+        "height": 8000,
+        "byteLength": 1338043,
+        "sha256": "99464953feb1b86368c18377a17d26c24bbb35525300f0daae8828db5a9e3794",
+        "imageId": "large",
+        "provenance": {
+          "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+          "operation": "tampering.copyMove.orb",
+          "coordinates": "full-resolution"
+        },
+        "metrics": {
+          "storage": "memory",
+          "temporaryBackend": null,
+          "outputCapacityBytes": 6664734,
+          "encodedWriteCalls": 6,
+          "maxEncodedChunkBytes": 262144,
+          "memory": {
+            "budgetBytes": 134217728,
+            "retainedBytes": 6664734,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1014496,
+            "peakAccountedBytes": 16075384
+          }
+        }
+      },
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 16075384,
+        "knownHeapCapacityBytes": 0
+      }
+    },
+    {
+      "storage": "temporary",
+      "file": {
+        "id": "32357487-9941-45a7-8b9f-2c97301b9d94",
+        "revision": 1,
+        "mime": "application/json",
+        "format": "json",
+        "width": 12000,
+        "height": 8000,
+        "byteLength": 1338043,
+        "sha256": "99464953feb1b86368c18377a17d26c24bbb35525300f0daae8828db5a9e3794",
+        "imageId": "large",
+        "provenance": {
+          "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+          "operation": "tampering.copyMove.orb",
+          "coordinates": "full-resolution"
+        },
+        "metrics": {
+          "storage": "temporary",
+          "temporaryBackend": "opfs",
+          "outputCapacityBytes": 6664734,
+          "encodedWriteCalls": 6,
+          "maxEncodedChunkBytes": 262144,
+          "memory": {
+            "budgetBytes": 134217728,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1014496,
+            "peakAccountedBytes": 16075384
+          }
+        }
+      },
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 16075384,
+        "knownHeapCapacityBytes": 0
+      }
+    },
+    {
+      "limited": true,
+      "cancelled": true
+    }
+  ]
+}

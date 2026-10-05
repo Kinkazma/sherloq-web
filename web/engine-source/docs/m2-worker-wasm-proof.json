@@ -1,0 +1,36 @@
+{
+  "decisions": true,
+  "isolatedCopy": true,
+  "busy": true,
+  "cancelled": true,
+  "exportCancelled": true,
+  "pinnedMemory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 2326355,
+    "peakAccountedBytes": 107449311,
+    "residentCodecBytes": 0
+  },
+  "pinnedSignature": "80,75,3,4",
+  "metadataMethod": "adaptive_cfa",
+  "rasterBytes": 22464,
+  "zipBytes": 4622,
+  "signature": "80,75,3,4",
+  "events": [
+    "model-load",
+    "inference",
+    "cfa-tiles"
+  ],
+  "memory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 107449311,
+    "residentCodecBytes": 0
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

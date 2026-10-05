@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Generated scalar exponential and non-last-dimension half-softmax tensor references; no full model or final masks",
+  "layout": "Each65536-element spatial plane and both native thread chunks align to8 half lanes; scalar tails are not qualified by this corpus",
+  "records": [
+    {
+      "kind": "exponential",
+      "candidates": null,
+      "elements": 2097160,
+      "different": 0,
+      "maxAbs": 0,
+      "first": []
+    },
+    {
+      "kind": "softmax",
+      "candidates": 1,
+      "elements": 65536,
+      "different": 0,
+      "maxAbs": 0,
+      "first": []
+    },
+    {
+      "kind": "softmax",
+      "candidates": 2,
+      "elements": 131072,
+      "different": 0,
+      "maxAbs": 0,
+      "first": []
+    },
+    {
+      "kind": "softmax",
+      "candidates": 3,
+      "elements": 196608,
+      "different": 0,
+      "maxAbs": 0,
+      "first": []
+    },
+    {
+      "kind": "softmax",
+      "candidates": 5,
+      "elements": 327680,
+      "different": 0,
+      "maxAbs": 0,
+      "first": []
+    },
+    {
+      "kind": "softmax",
+      "candidates": 8,
+      "elements": 524288,
+      "different": 0,
+      "maxAbs": 0,
+      "first": []
+    },
+    {
+      "kind": "softmax",
+      "candidates": 9,
+      "elements": 589824,
+      "different": 0,
+      "maxAbs": 0,
+      "first": []
+    },
+    {
+      "kind": "softmax",
+      "candidates": 13,
+      "elements": 851968,
+      "different": 0,
+      "maxAbs": 0,
+      "first": []
+    }
+  ],
+  "fixtureSha256": "bccef5d002b09dc00bb600b56051a5dbffff95c3920fc34d1e35cb207b87e03b",
+  "browser": "26.6",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "696035917385acf5eae7faaeafc88dcc26c34950ba695eb6ef439a3cc0c008d5",
+    "referenceExpSha256": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+    "files": {
+      "evaluator.js": {
+        "bytes": 7725,
+        "sha256": "383c8540ef5388c500a8d9b51e7f0cb9e72d0c8d31b9f5ccd63d472567d8fd56"
+      },
+      "evaluator.wasm": {
+        "bytes": 16029,
+        "sha256": "72e2ce40f994c443d494f00392425c361eac10f66caddde35c63c7b15f7d959c"
+      }
+    }
+  }
+}

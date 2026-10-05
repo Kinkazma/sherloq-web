@@ -1,0 +1,21 @@
+{
+  "version": "0.31.0-integration.30",
+  "coreCommit": "31cb055",
+  "command": "node --experimental-test-module-mocks --test tests/*.test.mjs",
+  "counts": {
+    "tests": 1372,
+    "pass": 1372,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "durationMs": 274753.662959,
+  "logSha256": "74bc4008d139bcb003f28a3cbac0832928300662f495e6f7d3856ce13a252563",
+  "additionalDomainTransitionRegression": {
+    "command": "node --test tests/resource-recovery.test.mjs tests/resource-registry.test.mjs tests/resource-opportunity.test.mjs tests/execution-scheduler.test.mjs",
+    "tests": 59,
+    "passed": 59,
+    "failed": 0,
+    "scope": "Includes one additional distinct-domain regression, failing before the correction and passing after it; other cases overlap with the full suite."
+  }
+}

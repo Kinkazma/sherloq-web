@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.44",
+  "runtimeFiles": 407,
+  "runtimeManifestSha256": "332f14c57a57ab5b345abfbc73607798a10f25e0b2c9e3220865ff731baf64c7",
+  "scope": "Exact delivery bound to actual automatic2/3GiB work with both mirrors, stable warm backend/session reuse, and copied JPEG CPU3lane API/cache/full NumPy export/cancel-after-two-workers/reload. All model identities unchanged except resource-preference metadata. CPU/hybrid96MP proofs explicitly reused for identical numerical/source/projection/export modules; controller changes are limited to automatic selection, own-idle getter and shared equivalent capacity formula. No new96MP run, WordPress or universal-device speed claim.",
+  "normalizations": [
+    "Model annotation preferCpuAtConcurrentZones:3 only; remaining complete model descriptors equal M1.43.",
+    "Analysis differs only by readonly idleInferenceBytes getter.",
+    "Adapter differs only in arguments supplied to its existing selection call.",
+    "CPU capacity formula extracted with ownIdleBytes renamed and optional extraReservedBytes defaulting to0; actual scheduler tail byte-identical."
+  ],
+  "unchanged": [
+    {
+      "file": "experiments/segmentation/inference-worker.js",
+      "sha256": "380edb97a6639b12be45165e552a53c6f94c58f382400ab4f74f46ea208e50b5",
+      "reusedFrom": [
+        "M1.32 CPU96MP",
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "experiments/segmentation/prepare.js",
+      "sha256": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+      "reusedFrom": [
+        "M1.32 CPU96MP",
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "src/neural-input.js",
+      "sha256": "3e146ac8abebb333b9e162539ce4246bd07ad7c0c3a2694439e06fd67599b152",
+      "reusedFrom": [
+        "M1.32 CPU96MP",
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "src/neural-projector.js",
+      "sha256": "4ac9e00289cc33682d2ae1a8d8eac60036e8335da5baa6b289a36fdcd0dc2dfb",
+      "reusedFrom": [
+        "M1.32 CPU96MP",
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "src/segmented-neural-projection.js",
+      "sha256": "bf94e73a6325caf3c3c7aaa14a8d11d3fb6636b718a16f71355050ab508001cc",
+      "reusedFrom": [
+        "M1.32 CPU96MP",
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "src/segmented-bytes.js",
+      "sha256": "95841305545ea89d6c55ef0970ffec72012ad049849016c99f0a23f8d38569be",
+      "reusedFrom": [
+        "M1.32 CPU96MP",
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "src/neural-exports.js",
+      "sha256": "982cda32dd9d36c43e0d15e4f5c7b468eb3323e7c39e2c1490a09a83573595d8",
+      "reusedFrom": [
+        "M1.32 CPU96MP",
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "experiments/segmentation/inference.js",
+      "sha256": "f371ded70891ffb48fea958e95006318af765cc17d330d941c070864ece0155a",
+      "reusedFrom": [
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "experiments/segmentation/inference-split-gpu-worker.js",
+      "sha256": "760fd4ea0d4e40d46ac536ef0ce1f70514c659d23ed50c13796958e8fab7d98f",
+      "reusedFrom": [
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "experiments/segmentation/split-model.js",
+      "sha256": "e10ee05e7c04e39b0e56e70950d2620dd1df90c321c0c7a7eda0e1c2152add7e",
+      "reusedFrom": [
+        "M1.43 hybrid96MP"
+      ]
+    },
+    {
+      "file": "vendor/segmentation/ort.bounded-cache.min.mjs",
+      "sha256": "7d310c76aac719959f1b7ddfacd696d40d7b9a811d0ced1a68fb44a038a77cf4",
+      "reusedFrom": [
+        "M1.43 hybrid96MP"
+      ]
+    }
+  ],
+  "largePaths": [
+    {
+      "proof": "mgcfdn-st-large-rich-cpu-projection-retention",
+      "arrays": 6,
+      "foreground": 3370950,
+      "peakBytes": 3191856000,
+      "exportBytes": 1440012552,
+      "exportSha256": "90beeccb4ed1200cf13008341ec97921da01bef6b4d7a99aabcad806a5421201",
+      "newlyExecuted": false
+    },
+    {
+      "proof": "mgcfdn-st-large-rich-webgpu-m1-43-candidate",
+      "arrays": 6,
+      "foreground": 3370950,
+      "peakBytes": 3191856000,
+      "exportBytes": 1440014924,
+      "exportSha256": "cd4a45f3ffae97fcaec5b8029782a198a960483331d490a2732f86ba46f63946",
+      "newlyExecuted": false
+    }
+  ],
+  "automatic": [
+    {
+      "budgetGiB": 2,
+      "backend": "webgpu-cpu",
+      "lanes": 1,
+      "analysisMs": [
+        4941.20000000298,
+        3099.9000000059605,
+        2924.300000011921
+      ],
+      "peakBytes": 1947467373
+    },
+    {
+      "budgetGiB": 3,
+      "backend": "cpu",
+      "lanes": 3,
+      "analysisMs": [
+        3562.7000000029802,
+        1779.4000000059605,
+        1716.2000000029802
+      ],
+      "peakBytes": 3008696732
+    }
+  ],
+  "copiedApi": {
+    "analysisMs": 2652.7000000029802,
+    "cachedViewMs": 27.899999991059303,
+    "peakBytes": 2535830882,
+    "foreground": [
+      5115,
+      4347
+    ],
+    "cancelStartedZones": 2,
+    "npzSha256": "9eb0e379932b23d8dd0ee0172ddac1af990851042b9b6f29a31d35ed0bab62a8"
+  },
+  "proofHashes": {
+    "mgcf-st-auto-placement-m1-44-candidate-proof": "4754c43f96507e28ae07949c3525160ba34aabe12c4f8c9eb6687cf2b01ab167",
+    "neural-segmented-mgcfdn-st-cpu-m1-44-extracted-proof": "1e733fd2c50c6f4b2d47833e519be6b1c9826700a82b601a42da5d45fb7f1c84",
+    "neural-segmented-mgcfdn-st-cpu-m1-44-extracted-npz-proof": "6b5dee79f02fd3fdddda3d7b8a0b9e465ad7bb1192e0677f6c4c8cdd87947758",
+    "neural-segmented-mgcfdn-st-large-rich-cpu-projection-retention-proof": "4c925209c42c0f808ca9d99e5f4e5c063173438fc06e50204dc8dc8acb66e079",
+    "neural-segmented-mgcfdn-st-large-rich-cpu-projection-retention-npz-proof": "087cd6e27fa244a1a983965dc23a902c8f795a7690c62354cd98d5898b449b5d",
+    "neural-segmented-mgcfdn-st-large-rich-webgpu-m1-43-candidate-proof": "54261bc87cd0cb429f70ef3df1140fc7087b1fd22615e585c4f93f61ac6159b1",
+    "neural-segmented-mgcfdn-st-large-rich-webgpu-m1-43-candidate-npz-proof": "468a6c95b2558daa19dc1b9888b38a6fdf22bdbec15043fcc2e10ec161028582"
+  }
+}

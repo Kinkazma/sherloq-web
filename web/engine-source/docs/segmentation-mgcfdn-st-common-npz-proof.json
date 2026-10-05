@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "status": "passed-corpus-tolerance",
+  "scope": "Actual browser NPZ, independent NumPy allow_pickle=False; continuous values differ from native within reported errors, integer masks exact; Unicode metadata preserved",
+  "records": [
+    {
+      "export": "source",
+      "array": "map",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "float32",
+      "different": 114037,
+      "maxAbs": 1.1593103408813477e-05,
+      "finite": true
+    },
+    {
+      "export": "source",
+      "array": "mask",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "uint8",
+      "different": 0,
+      "maxAbs": 0.0,
+      "finite": true
+    },
+    {
+      "export": "source",
+      "array": "candidates",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "uint8",
+      "different": 0,
+      "maxAbs": 0.0,
+      "finite": true
+    },
+    {
+      "export": "source",
+      "array": "analyzed",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "uint8",
+      "different": 0,
+      "maxAbs": 0.0,
+      "finite": true
+    },
+    {
+      "export": "source",
+      "array": "target",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "float32",
+      "different": 113384,
+      "maxAbs": 1.1593103408813477e-05,
+      "finite": true
+    },
+    {
+      "export": "source",
+      "array": "source",
+      "shape": [
+        389,
+        521
+      ],
+      "dtype": "float32",
+      "different": 115482,
+      "maxAbs": 6.198883056640625e-06,
+      "finite": true
+    },
+    {
+      "export": "raw",
+      "array": "raw_probabilities",
+      "shape": [
+        3,
+        3,
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "different": 423248,
+      "maxAbs": 1.1682510375976562e-05,
+      "finite": true
+    }
+  ],
+  "exports": [
+    {
+      "name": "source",
+      "bytes": 3053783,
+      "sha256": "415be633acb85b1a65baa34e95a409fb5c856d1a49fd76bf8fb3d2c43756105e"
+    },
+    {
+      "name": "raw",
+      "bytes": 2372180,
+      "sha256": "93e96137b8da5b61d690a50acf30cd3e1c57b3fd8b37f39b48c82529ef283559"
+    }
+  ]
+}

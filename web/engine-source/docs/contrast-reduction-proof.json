@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Independent native257x257 regression, block256. Corrected map is bit-exact; pre-fix binary is optional evidence only. NumPy reduction combines8192-element partial sums, each in the existing128/8-lane pairwise order. No tolerance, threshold, codec or display change.",
+  "numpy": "1.26.4",
+  "bufferElements": 8192,
+  "nativeSources": {
+    "source/gui/sherloq_app/core/contrast.py": "373cf73beb7a94ff6b5f2a6face118bf3f8e12495ac3c94e3c55f8e7d0008be1"
+  },
+  "records": [
+    {
+      "label": "pre-fix",
+      "wasmSha256": "ed39fcf7f06846249fa088575104afc618382e8d1c85f64ea105a9477d2f19e6",
+      "inputSha256": "8347bffdeb66afb908395f37e656eab4240e44324f8010ca70f1dbca6ac78b97",
+      "dimensions": [
+        257,
+        257
+      ],
+      "block": 256,
+      "mapSha256": "caa98507c6120be67eb0b968ce5907f98f8d20f3128f374db1165a9a4b728897",
+      "nativeMapSha256": "6734ec755d2cb43467babe7e793c429461c68ac0413a270d419e3e55d95f1d95",
+      "differences": 2,
+      "maxAbsoluteError": 1.1920928955078125e-7
+    },
+    {
+      "label": "corrected",
+      "wasmSha256": "94dc46c31c39039008a2942baa1a4db00ac3fdf03dc140be5d062004ae20a7c7",
+      "inputSha256": "8347bffdeb66afb908395f37e656eab4240e44324f8010ca70f1dbca6ac78b97",
+      "dimensions": [
+        257,
+        257
+      ],
+      "block": 256,
+      "mapSha256": "6734ec755d2cb43467babe7e793c429461c68ac0413a270d419e3e55d95f1d95",
+      "nativeMapSha256": "6734ec755d2cb43467babe7e793c429461c68ac0413a270d419e3e55d95f1d95",
+      "differences": 0,
+      "maxAbsoluteError": 0
+    }
+  ],
+  "sources": {
+    "native/contrast.h": "eca364fe8a4951346e563778ccf7cc5a7ab2199d25549550592c1551e412baca",
+    "scripts/study-contrast-reduction.mjs": "fd8311d613cb00b9b70a6b524b9679ba48967fa95684c30a4e861c6fa7ccfe3f",
+    "scripts/generate-contrast-reduction-reference.py": "5d126e4eaa4246b01131a3e45446b2ce962611080d1d2808d95b380a9cb6f243",
+    "fixtures/contrast-reduction-reference.json": "f7b7fa025534fb2c9286ee5f3eaa009adfd51f1e468f563ad7665f49657f1826"
+  }
+}

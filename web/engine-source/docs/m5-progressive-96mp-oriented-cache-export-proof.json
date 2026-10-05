@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scope": "Independent OpenCV decode of every delivered PNG pixel after source unload; oriented native RGB hash exact.",
+  "bytes": 288097528,
+  "sha256": "da3f41d7740f1a646b3dd4cdfe899a9abb7983b6fec368604ced3793a4464268",
+  "rgbSha256": "3568329dc15320abc71e5e6ee5a11d4e4290aa86ab0735439f9d5b3d441de256",
+  "dimensions": [
+    8000,
+    12000
+  ],
+  "engineCommit": "282bf6f7c2fb60620977a3d66ec62c6f81e3576e",
+  "seconds": 1.0003830829955405
+}

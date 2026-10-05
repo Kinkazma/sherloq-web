@@ -1,0 +1,504 @@
+{
+  "provider": "wasm",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "models": [
+    {
+      "kind": "aliked-n16",
+      "weightSha256": "5be8704840ed662d9d8c561bf7279c222092674e7eb05fd0feab94899e9d82f2",
+      "graphs": {
+        "detect": {
+          "file": "aliked-n16-detect.onnx",
+          "bytes": 2356,
+          "sha256": "e3152832e89d0b1d68d8e73ab332bca6392509e9f79f7ef6f57b92d988f37794"
+        },
+        "localize": {
+          "file": "aliked-n16-localize.onnx",
+          "bytes": 7624,
+          "sha256": "abdaec69ec32bcd02a3c7a71f82330667c44c53ce925585e87db5a3de26d9062"
+        },
+        "describe": {
+          "file": "aliked-n16-describe.onnx",
+          "bytes": 1286066,
+          "sha256": "6c1a44432ede86805bde0765d946dbd7a0981c288f30eb421eeb817c87657a26"
+        },
+        "dense": {
+          "schema": 1,
+          "torch": "2.8.0",
+          "checkpointSha256": "5be8704840ed662d9d8c561bf7279c222092674e7eb05fd0feab94899e9d82f2",
+          "file": "aliked-n16-dense.onnx",
+          "bytes": 1477750,
+          "sha256": "9222e14a38497e44b01be7685b37a8985661befd6537df2d4dffb7c75075436d",
+          "cases": [
+            {
+              "id": 0,
+              "files": {
+                "input": {
+                  "file": "aliked-n16-dense-0-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    96,
+                    128
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16-dense-0-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    96,
+                    128
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16-dense-0-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    96,
+                    128
+                  ]
+                }
+              }
+            },
+            {
+              "id": 1,
+              "files": {
+                "input": {
+                  "file": "aliked-n16-dense-1-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    160,
+                    128
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16-dense-1-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    160,
+                    128
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16-dense-1-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    160,
+                    128
+                  ]
+                }
+              }
+            },
+            {
+              "id": 2,
+              "files": {
+                "input": {
+                  "file": "aliked-n16-dense-2-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    97,
+                    129
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16-dense-2-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    97,
+                    129
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16-dense-2-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    97,
+                    129
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "cases": [
+        {
+          "id": 0,
+          "indices": {
+            "values": 13,
+            "expected": 13,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 26,
+            "expected": 26,
+            "differences": 3,
+            "maximum": 1.1920928955078125e-7
+          },
+          "confidence": {
+            "values": 13,
+            "expected": 13,
+            "differences": 13,
+            "maximum": 0.000001430511474609375
+          },
+          "dispersion": {
+            "values": 13,
+            "expected": 13,
+            "differences": 13,
+            "maximum": 0.0000026226043701171875
+          },
+          "descriptors": {
+            "values": 1664,
+            "expected": 1664,
+            "differences": 1652,
+            "maximum": 0.0000012367963790893555
+          },
+          "offset": {
+            "values": 416,
+            "expected": 416,
+            "differences": 344,
+            "maximum": 0.0000133514404296875
+          }
+        },
+        {
+          "id": 1,
+          "indices": {
+            "values": 24,
+            "expected": 24,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 48,
+            "expected": 48,
+            "differences": 1,
+            "maximum": 5.960464477539063e-8
+          },
+          "confidence": {
+            "values": 24,
+            "expected": 24,
+            "differences": 24,
+            "maximum": 8.344650268554688e-7
+          },
+          "dispersion": {
+            "values": 24,
+            "expected": 24,
+            "differences": 24,
+            "maximum": 0.0000021457672119140625
+          },
+          "descriptors": {
+            "values": 3072,
+            "expected": 3072,
+            "differences": 3052,
+            "maximum": 0.0000014156103134155273
+          },
+          "offset": {
+            "values": 768,
+            "expected": 768,
+            "differences": 718,
+            "maximum": 0.000034332275390625
+          }
+        },
+        {
+          "id": 2,
+          "indices": {
+            "values": 42,
+            "expected": 42,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 84,
+            "expected": 84,
+            "differences": 7,
+            "maximum": 1.1920928955078125e-7
+          },
+          "confidence": {
+            "values": 42,
+            "expected": 42,
+            "differences": 42,
+            "maximum": 7.450580596923828e-7
+          },
+          "dispersion": {
+            "values": 42,
+            "expected": 42,
+            "differences": 40,
+            "maximum": 0.000002086162567138672
+          },
+          "descriptors": {
+            "values": 5376,
+            "expected": 5376,
+            "differences": 5329,
+            "maximum": 0.0000013709068298339844
+          },
+          "offset": {
+            "values": 1344,
+            "expected": 1344,
+            "differences": 1143,
+            "maximum": 0.000026702880859375
+          }
+        }
+      ]
+    },
+    {
+      "kind": "aliked-n16rot",
+      "weightSha256": "ddf3abbf38e86f6a74540d214e1a9712c54b2d8551abc864542199f2347d7332",
+      "graphs": {
+        "detect": {
+          "file": "aliked-n16rot-detect.onnx",
+          "bytes": 2356,
+          "sha256": "e3152832e89d0b1d68d8e73ab332bca6392509e9f79f7ef6f57b92d988f37794"
+        },
+        "localize": {
+          "file": "aliked-n16rot-localize.onnx",
+          "bytes": 7624,
+          "sha256": "abdaec69ec32bcd02a3c7a71f82330667c44c53ce925585e87db5a3de26d9062"
+        },
+        "describe": {
+          "file": "aliked-n16rot-describe.onnx",
+          "bytes": 1286066,
+          "sha256": "7858b66e66646513c1794851cc6a949fdb3e539638c5f0e28af945eb9812416e"
+        },
+        "dense": {
+          "schema": 1,
+          "torch": "2.8.0",
+          "checkpointSha256": "ddf3abbf38e86f6a74540d214e1a9712c54b2d8551abc864542199f2347d7332",
+          "file": "aliked-n16rot-dense.onnx",
+          "bytes": 1477750,
+          "sha256": "5a1388b8e2a339c69b6e4bb46e2f58cefb0f3d8f4a4d2a199068a6b07fdedebc",
+          "cases": [
+            {
+              "id": 0,
+              "files": {
+                "input": {
+                  "file": "aliked-n16rot-dense-0-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    96,
+                    128
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16rot-dense-0-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    96,
+                    128
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16rot-dense-0-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    96,
+                    128
+                  ]
+                }
+              }
+            },
+            {
+              "id": 1,
+              "files": {
+                "input": {
+                  "file": "aliked-n16rot-dense-1-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    160,
+                    128
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16rot-dense-1-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    160,
+                    128
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16rot-dense-1-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    160,
+                    128
+                  ]
+                }
+              }
+            },
+            {
+              "id": 2,
+              "files": {
+                "input": {
+                  "file": "aliked-n16rot-dense-2-input.f32",
+                  "shape": [
+                    1,
+                    3,
+                    97,
+                    129
+                  ]
+                },
+                "features": {
+                  "file": "aliked-n16rot-dense-2-features.f32",
+                  "shape": [
+                    1,
+                    128,
+                    97,
+                    129
+                  ]
+                },
+                "scores": {
+                  "file": "aliked-n16rot-dense-2-scores.f32",
+                  "shape": [
+                    1,
+                    1,
+                    97,
+                    129
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "cases": [
+        {
+          "id": 0,
+          "indices": {
+            "values": 35,
+            "expected": 35,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 70,
+            "expected": 70,
+            "differences": 13,
+            "maximum": 1.1920928955078125e-7
+          },
+          "confidence": {
+            "values": 35,
+            "expected": 35,
+            "differences": 33,
+            "maximum": 0.0000032782554626464844
+          },
+          "dispersion": {
+            "values": 35,
+            "expected": 35,
+            "differences": 33,
+            "maximum": 0.000002384185791015625
+          },
+          "descriptors": {
+            "values": 4480,
+            "expected": 4480,
+            "differences": 4449,
+            "maximum": 0.00000216066837310791
+          },
+          "offset": {
+            "values": 1120,
+            "expected": 1120,
+            "differences": 956,
+            "maximum": 0.0000667572021484375
+          }
+        },
+        {
+          "id": 1,
+          "indices": {
+            "values": 67,
+            "expected": 67,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 134,
+            "expected": 134,
+            "differences": 16,
+            "maximum": 1.1920928955078125e-7
+          },
+          "confidence": {
+            "values": 67,
+            "expected": 67,
+            "differences": 66,
+            "maximum": 0.0000030994415283203125
+          },
+          "dispersion": {
+            "values": 67,
+            "expected": 67,
+            "differences": 65,
+            "maximum": 0.0000022649765014648438
+          },
+          "descriptors": {
+            "values": 8576,
+            "expected": 8576,
+            "differences": 8498,
+            "maximum": 0.0000015050172805786133
+          },
+          "offset": {
+            "values": 2144,
+            "expected": 2144,
+            "differences": 1925,
+            "maximum": 0.00006103515625
+          }
+        },
+        {
+          "id": 2,
+          "indices": {
+            "values": 43,
+            "expected": 43,
+            "differences": 0,
+            "maximum": 0
+          },
+          "keypoints": {
+            "values": 86,
+            "expected": 86,
+            "differences": 8,
+            "maximum": 1.1920928955078125e-7
+          },
+          "confidence": {
+            "values": 43,
+            "expected": 43,
+            "differences": 41,
+            "maximum": 0.000002086162567138672
+          },
+          "dispersion": {
+            "values": 43,
+            "expected": 43,
+            "differences": 43,
+            "maximum": 0.0000016689300537109375
+          },
+          "descriptors": {
+            "values": 5504,
+            "expected": 5504,
+            "differences": 5453,
+            "maximum": 0.0000018719583749771118
+          },
+          "offset": {
+            "values": 1376,
+            "expected": 1376,
+            "differences": 1139,
+            "maximum": 0.00005340576171875
+          }
+        }
+      ]
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU WASM",
+  "selectionsMatch": true
+}

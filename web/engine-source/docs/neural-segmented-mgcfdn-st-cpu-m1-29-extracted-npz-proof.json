@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "mgcfdn-st",
+  "backend": "cpu",
+  "large": false,
+  "extracted": true,
+  "scope": "Actual paged common-worker NPZ read with NumPy allow_pickle=False; ZIP CRC, owned export SHA, names/dtypes/shapes, canonical source identity, all native array values and browser window hashes.",
+  "bytes": 3051895,
+  "sha256": "a871a358c6b59b66e8578b74975324cdee28f5c414b0a3e7e26e896c13402301",
+  "numpy": "1.26.4",
+  "records": [
+    {
+      "array": "map",
+      "dtype": "float32",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 1.4036893844604492e-05,
+      "different": 93818,
+      "sha256": "56bfdeb54fa8e234ab40e633ed3915fff3e3576d9d57fa68fdeb1c796bb9b666",
+      "accepted": true
+    },
+    {
+      "array": "mask",
+      "dtype": "uint8",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "8fb4a796d370d02000c6d4adf51f15ffe76c18f92921a770f0dfb0bcdab78016",
+      "accepted": true
+    },
+    {
+      "array": "analyzed",
+      "dtype": "uint8",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "8f975e7c8a983040f919189e7c3e3a393939a7a7ffcc0eb30d6eab2cd0105ed9",
+      "accepted": true
+    },
+    {
+      "array": "candidates",
+      "dtype": "uint8",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "8e9114ef0f50c81b3fcb56f73ae8a773163ed868938db02c0214bfdc05d27582",
+      "accepted": true
+    },
+    {
+      "array": "target",
+      "dtype": "float32",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 1.4036893844604492e-05,
+      "different": 92373,
+      "sha256": "0b67f06b2698dd3b2123b930971a72175b17e37531d0b5d05d3398f1bc785d15",
+      "accepted": true
+    },
+    {
+      "array": "source",
+      "dtype": "float32",
+      "shape": [
+        389,
+        521
+      ],
+      "maxAbs": 1.1116266250610352e-05,
+      "different": 92789,
+      "sha256": "6fbbf7dc35e1e197ca50b01c4f239453cceddace49ed4b2c26da656db1f35342",
+      "accepted": true
+    }
+  ]
+}

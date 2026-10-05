@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "dimensions": [
+    4103,
+    5401
+  ],
+  "nativeCellAndBackground": true,
+  "largeGhostScope": "Execution, complete71-quality curves, cache and cleanup; full native Ghost-biome oracle is the separate small64-phase corpus",
+  "metrics": {
+    "workers": 2,
+    "kernel": "ela-native-cells-segmented",
+    "cellRecompressions": 3,
+    "ghostPhasesComputed": 1,
+    "ghostScheduling": {
+      "count": 2,
+      "maximum": 2,
+      "ceiling": 2,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "taskExecutions": 1,
+      "retry": null
+    },
+    "cache": {
+      "result": false,
+      "stages": {
+        "cells/40/75": false,
+        "cell-plane/40/70": false,
+        "cell-plane/40/75": false,
+        "cell-plane/40/80": false,
+        "cell-ghost/40/75/0": false,
+        "cell-background/40/75": false
+      }
+    },
+    "totalMs": 86255.19999999553,
+    "memory": {
+      "budgetBytes": 536870912,
+      "retainedBytes": 66480909,
+      "cacheBytes": 68033918,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 514689491
+    }
+  },
+  "regions": 0,
+  "thresholdRecomputations": [
+    0,
+    0
+  ],
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

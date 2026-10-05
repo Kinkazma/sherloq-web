@@ -1,0 +1,249 @@
+{
+  "source": "SHERLOQ native patchmatch, snapshot 2026-10-01",
+  "files": [
+    {
+      "file": "bridge.cpp",
+      "sha256": "c88109e032d1e35e0c4d78298da7a6724ca77046f5f505b6cd148450a83c3a15"
+    },
+    {
+      "file": "candidate_pool.h",
+      "sha256": "e469ab4e80c596483ed0b6e06dee6651b6aebac84d6cfd51de6713bcb8a41e12"
+    },
+    {
+      "file": "compact_sift.h",
+      "sha256": "864a07af49edea66bf19a49bd04a8da8a4de326dd9207502f77439ae7e54402b"
+    },
+    {
+      "file": "GPLv3.txt",
+      "sha256": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2"
+    },
+    {
+      "file": "UPSTREAM.txt",
+      "sha256": "76bd64e52775d0f0828ea31f25677ef879e902f274a9c36c170134199a8f9077"
+    },
+    {
+      "file": "src/Utilities/FeatManager/siftManager.cpp",
+      "sha256": "61ba9678c1ba2199c56de5a607cb13c6f40d0aaec9ac19b21a2b79a5c569ecd1"
+    },
+    {
+      "file": "src/Utilities/FeatManager/featManager.h",
+      "sha256": "0fd81f27f6a753b3a80ab280d7629106491660f88974cfc42ba376de81491bdc"
+    },
+    {
+      "file": "src/Utilities/FeatManager/zMManager.cpp",
+      "sha256": "a95792b3cf65426ce692ef3b2909bf01b7037bcfdbfb78e5e83b1fb733d33e98"
+    },
+    {
+      "file": "src/Utilities/FeatManager/zMManager.h",
+      "sha256": "f5bb062125aa0a6a2d758880b19dac84edeb315931887ed43c8231c088335e6e"
+    },
+    {
+      "file": "src/Utilities/FeatManager/siftManager.h",
+      "sha256": "07652aa1a1cf39f41facbf751fe267be27cee923cff11d3d786e5615717c83ee"
+    },
+    {
+      "file": "src/Utilities/parameters.h",
+      "sha256": "4a9d1562428d1e129a5c414cae34010aca6ca01ae01e7e554b3279e018733364"
+    },
+    {
+      "file": "src/Utilities/LibImages.h",
+      "sha256": "ba717b05c13fd2600ce3662d0b80fb9c4f6b3e7e11d54e68bdd5537d5b88ac98"
+    },
+    {
+      "file": "src/Utilities/parallel.h",
+      "sha256": "6da4216a7e874f3bc553b955a7846e14b9a3d06aac9a1fc27bcc1b0a2fd55ed5"
+    },
+    {
+      "file": "src/vlfeat/COPYING",
+      "sha256": "33b9f7703327199088d74f884b19997a0084180f984724720095a7cb412c4d89"
+    },
+    {
+      "file": "src/vlfeat/vl/scalespace.c",
+      "sha256": "de5a7995f923ce428dc6a5079ec4de1a41b0fd60b0f0dce02494327d9780d5a9"
+    },
+    {
+      "file": "src/vlfeat/vl/generic.h",
+      "sha256": "60699fa611a82b6248fe3cc30fb87a92aac9e8c3eddc843e9226b36fdf2e6f58"
+    },
+    {
+      "file": "src/vlfeat/vl/qsort-def.h",
+      "sha256": "7151255fa1b4c1ae52abd8c364fd34fef65ea6efc048acd3c158be5a261ab599"
+    },
+    {
+      "file": "src/vlfeat/vl/imopv.c",
+      "sha256": "32aa3d53a1faf4186b6b208609d655f53ddd1f00f2a762fc9934143c9b94f896"
+    },
+    {
+      "file": "src/vlfeat/vl/shuffle-def.h",
+      "sha256": "71ae3f4638bf43a5385fd0d2a00b72cd21e78bd8d9d8e8ac7b4b4b9de45981a6"
+    },
+    {
+      "file": "src/vlfeat/vl/kdtree.h",
+      "sha256": "fe45bab07c9b7519ece921648ae88c212410035fe0dcbc3f61e14f9c3e43dbff"
+    },
+    {
+      "file": "src/vlfeat/vl/mathop_sse2.h",
+      "sha256": "3d7bf6e2897684842075415529ca304c1061eea405d2fa8ebaa8e31431e6dd16"
+    },
+    {
+      "file": "src/vlfeat/vl/dsift.c",
+      "sha256": "a461f50f1a161982caa7dfa03ac4acf3492d5ec0250bce0768f3997449cca746"
+    },
+    {
+      "file": "src/vlfeat/vl/host.h",
+      "sha256": "ecc07b5b966225b3b622888eaf74eb4c36771f3618a78c609bbb0192513b579f"
+    },
+    {
+      "file": "src/vlfeat/vl/heap-def.h",
+      "sha256": "f21d1d7629a813a54ba3cb7f87d12199794a99f80683f975072b5c1833b72960"
+    },
+    {
+      "file": "src/vlfeat/vl/imopv_sse2.h",
+      "sha256": "3d62c1fe804dd21c0b4fc6246aca1d7d2396f41cd1346b0bfa56c919be3a068b"
+    },
+    {
+      "file": "src/vlfeat/vl/kmeans.h",
+      "sha256": "84e24fef6ebdfb9bae8f4d223f45450d862a4c441e512f072236cc29173a6708"
+    },
+    {
+      "file": "src/vlfeat/vl/covdet.h",
+      "sha256": "c130ce7ddefe0a68dab96b41ed49b181e54babc9c20ce07de430935fa8592736"
+    },
+    {
+      "file": "src/vlfeat/vl/random.c",
+      "sha256": "779d9074d39ccc6af6c82d8384c5b9a87bd544133c80f34d30f8722fed011541"
+    },
+    {
+      "file": "src/vlfeat/vl/svm.h",
+      "sha256": "115cd3f71bd24be5457af55f5744f3b2d9b2117404651f382e6a5d489d0b1cfd"
+    },
+    {
+      "file": "src/vlfeat/vl/fisher.h",
+      "sha256": "a51dace3138b29cebf6c45c16a4040f23e383e0178d2b01869b5fddf4fff922c"
+    },
+    {
+      "file": "src/vlfeat/vl/aib.h",
+      "sha256": "5b28b7c0cd5f9424b89d1c127a724ced285d9274ff9703fa526204fb311510c4"
+    },
+    {
+      "file": "src/vlfeat/vl/sift.h",
+      "sha256": "a34d887347ae4bf8d6f96cbcd021da26ae292601966e361ac149ab570728c16f"
+    },
+    {
+      "file": "src/vlfeat/vl/mser.h",
+      "sha256": "29c62eed9d441da598f996dfd51730d7853bd8ae112de0c7ad94b30430ec1cc0"
+    },
+    {
+      "file": "src/vlfeat/vl/imopv.h",
+      "sha256": "e8f1bd04e685f99e8ce705647170d7c06705d4896b8114e8ae87722ae3a093bd"
+    },
+    {
+      "file": "src/vlfeat/vl/homkermap.h",
+      "sha256": "fe1ebcc561a9a126cebd69cf3176860ed54361180019cf850a1df2f044437066"
+    },
+    {
+      "file": "src/vlfeat/vl/liop.h",
+      "sha256": "53d0285493bb94558509f2268f58f08ba6970191ab811adeab6e013d5f435a6d"
+    },
+    {
+      "file": "src/vlfeat/vl/quickshift.h",
+      "sha256": "1701f44a61be1c9bd92e7f9dd4a66f678822977f0f3264c2d36307c0d18d3644"
+    },
+    {
+      "file": "src/vlfeat/vl/gmm.h",
+      "sha256": "2b3a9a83a9e4edeb12597590f4ff2ea574ed2b092340e7b34eeee5d4ea05b9a3"
+    },
+    {
+      "file": "src/vlfeat/vl/scalespace.h",
+      "sha256": "80ae40aff6857493990197222d82cc158c36df5f9909c7bdf5cea5cfffd99485"
+    },
+    {
+      "file": "src/vlfeat/vl/generic.c",
+      "sha256": "971b2c5a1b952cf6fcd1a8516f362d0d6341b461cd91ab2c63b54e7effd5f80b"
+    },
+    {
+      "file": "src/vlfeat/vl/ikmeans.h",
+      "sha256": "2a52d5683884691625bc49fe03ee32600dd7b278cb82af7ee26e1bc216a7b953"
+    },
+    {
+      "file": "src/vlfeat/vl/getopt_long.h",
+      "sha256": "1988dc902f01d624717c1dc19f8ec63cd809454796a45a3d7df742bb7c41a4c7"
+    },
+    {
+      "file": "src/vlfeat/vl/hog.h",
+      "sha256": "d911c99874e48725f23ca09bca25e756b3b0f6148d074628d07c5d5fc7676402"
+    },
+    {
+      "file": "src/vlfeat/vl/host.c",
+      "sha256": "37c47db3db9dac33968802070335eab8aabf11eacf1e79d1c54457496547ad19"
+    },
+    {
+      "file": "src/vlfeat/vl/array.h",
+      "sha256": "cf6fdf209f6bbab5df7da4c392b51439853481dd9e6e68b2b1755d537b42cd50"
+    },
+    {
+      "file": "src/vlfeat/vl/dsift.h",
+      "sha256": "be9e5435148b619f9ae459d8a10b8c3726433dcc94dd791ce5855e33b0a83839"
+    },
+    {
+      "file": "src/vlfeat/vl/mathop_avx.h",
+      "sha256": "0ec2aa2c9c767d64c80b390d31e7f8a8ecc2ff37d6c1864f770fb96fd9f88d11"
+    },
+    {
+      "file": "src/vlfeat/vl/hikmeans.h",
+      "sha256": "a4f0ce6276d5d5dad0d4a6ea680a3c7276ba7b5c527e1e8e46052e512fee115d"
+    },
+    {
+      "file": "src/vlfeat/vl/vlad.h",
+      "sha256": "a2acbe2e2f7a66f9c3ab7b07cf3b0705591234c09f9906a4fbc1e4afe15adf56"
+    },
+    {
+      "file": "src/vlfeat/vl/imopv_sse2.c",
+      "sha256": "d2537ff3648fc02cffbfaa736382bf95d398cddd807a1309c1fabefcb6298720"
+    },
+    {
+      "file": "src/vlfeat/vl/pgm.h",
+      "sha256": "943090052a9e1861e265ff171afefc8e0d81923ce10c535b0e5dc6e5490e0e19"
+    },
+    {
+      "file": "src/vlfeat/vl/mathop.h",
+      "sha256": "6144652d313275f03b5e39159614ca9152f94a07d40b43f23d97608ac715bcee"
+    },
+    {
+      "file": "src/vlfeat/vl/rodrigues.h",
+      "sha256": "c6aa58076a46bc9c1839bee566b24c2773a8a45fd55fbead3b091f35eaef8119"
+    },
+    {
+      "file": "src/vlfeat/vl/lbp.h",
+      "sha256": "f11479181de09bfe10e6b4e095e8431613cbe20143f3f1de3f99a2bea9287125"
+    },
+    {
+      "file": "src/vlfeat/vl/svmdataset.h",
+      "sha256": "4bb71687dbbe9392934ea9ca89d48c472d86a2d8f47c74c07aa905c5805fed9a"
+    },
+    {
+      "file": "src/vlfeat/vl/slic.h",
+      "sha256": "0e9443f036977813d473a7b9b6aafb952b11787d4b302cc3580adc5f12b86126"
+    },
+    {
+      "file": "src/vlfeat/vl/sift.c",
+      "sha256": "1e2df9fc8ed9bc19d845e869592b400de15a0aa7a90923fd16786aeebe1be839"
+    },
+    {
+      "file": "src/vlfeat/vl/random.h",
+      "sha256": "3317cfd9dfba543a3d88b36bb1ddb6ad8364d6ce9d9591a2e659a10e5c74e24c"
+    },
+    {
+      "file": "src/vlfeat/vl/stringop.h",
+      "sha256": "1ff9ecf4c71348167c16593cd5de35ef0ff16d39de0a742eaf716c250a20333f"
+    },
+    {
+      "file": "src/vlfeat/vl/float.th",
+      "sha256": "dcf2f74d6dca72e55cf6db3b899bdf74d13954d9247606c0210ad379e893d875"
+    },
+    {
+      "file": "dsift_gpu.c",
+      "sha256": "54bce761544eea6bec4697f93c35692722e10da37bdd7799eb01eceda352bfff"
+    }
+  ]
+}

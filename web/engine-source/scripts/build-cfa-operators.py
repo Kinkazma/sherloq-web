@@ -1,0 +1,8 @@
+from pathlib import Path
+import argparse,subprocess,os,json,hashlib
+p=argparse.ArgumentParser();p.add_argument('--sleef',type=Path,required=True);p.add_argument('--emsdk',type=Path,required=True);a=p.parse_args();root=Path(__file__).resolve().parents[1];out=root/'.build/cfa-m2';out.mkdir(parents=True,exist_ok=True)
+compiler=str(a.emsdk/'upstream/emscripten/emcc');version=subprocess.check_output([compiler,'--version'],text=True).splitlines()[0];assert '4.0.15' in version
+assert '3.8' in (a.sleef/'CMakeLists.txt').read_text()
+cmd=[str(a.emsdk/'upstream/emscripten/emcc'),str(root/'native/cfa-operators.c'),str(a.sleef/'src/libm/sleefsimdsp.c'),str(a.sleef/'src/libm/rempitab.c'),*[f'-I{a.sleef}/src/{x}' for x in ['common','arch','libm','quad']],'-DENABLE_PURECFMA_SCALAR=1','-DFP_FAST_FMAF=1','-DFP_FAST_FMA=1','-O3','-msimd128','-ffp-contract=off','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sIMPORTED_MEMORY=1','-sALLOW_MEMORY_GROWTH=1','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY=2147483648','-sFILESYSTEM=0','-sEXPORTED_FUNCTIONS=["_malloc","_free","_cfa_conv","_cfa_conv_global","_cfa_conv_window","_cfa_activate","_cfa_pool","_cfa_logsoftmax","_cfa_slice"]','-sEXPORTED_RUNTIME_METHODS=["HEAPU8","HEAPF32","HEAP32"]','-o',str(out/'operators.mjs')]
+subprocess.run(cmd,check=True,env={**os.environ,'EM_FROZEN_CACHE':'1'})
+(out/'operators-build.json').write_text(json.dumps(dict(compiler=version,files={p.name:dict(bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in [out/'operators.mjs',out/'operators.wasm']},sourceSha256=hashlib.sha256((root/'native/cfa-operators.c').read_bytes()).hexdigest(),sleefSha256=hashlib.sha256((a.sleef/'src/libm/sleefsimdsp.c').read_bytes()).hexdigest()),indent=2)+'\n')

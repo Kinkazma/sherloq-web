@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "scope": "Finite binary32 inputs, host system fmaf oracle; all output bits including signed zero, subnormals and infinity. Synthetic random and targeted double-rounding cases; no universal proof or model inference.",
+  "status": "passed",
+  "values": 2638464,
+  "records": [
+    {
+      "name": "finite-bits-0",
+      "count": 524288,
+      "different": 0,
+      "fallbackLanes": 66495,
+      "samples": []
+    },
+    {
+      "name": "finite-bits-1",
+      "count": 524288,
+      "different": 0,
+      "fallbackLanes": 66388,
+      "samples": []
+    },
+    {
+      "name": "finite-bits-2",
+      "count": 524288,
+      "different": 0,
+      "fallbackLanes": 66395,
+      "samples": []
+    },
+    {
+      "name": "finite-bits-3",
+      "count": 524288,
+      "different": 0,
+      "fallbackLanes": 66208,
+      "samples": []
+    },
+    {
+      "name": "model-scale",
+      "count": 262144,
+      "different": 0,
+      "fallbackLanes": 0,
+      "samples": []
+    },
+    {
+      "name": "product-cancellation",
+      "count": 262144,
+      "different": 0,
+      "fallbackLanes": 0,
+      "samples": []
+    },
+    {
+      "name": "double-rounding-midpoints",
+      "count": 12928,
+      "different": 0,
+      "fallbackLanes": 12928,
+      "samples": []
+    },
+    {
+      "name": "zero-subnormal-overflow",
+      "count": 4096,
+      "different": 0,
+      "fallbackLanes": 1268,
+      "samples": []
+    }
+  ],
+  "browser": "26.6",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sources": {
+      "fma-study.cpp": "866a2c70685566f2be88acd6536137fd70f56f83c96c7d96539a1730e5b3dc34",
+      "fma-simd.h": "fee2445e13b8321920d0672ebc568eb6c3a04a12ae7b702cc5fda928b36e31b2"
+    },
+    "files": {
+      "fma.js": {
+        "bytes": 7436,
+        "sha256": "e4bac2a4ab68f5f4d9c8cfedc2fc87921ed5684f1e76eebbd873dcd7e4eea2f5"
+      },
+      "fma.wasm": {
+        "bytes": 7489,
+        "sha256": "2d1df03cbe1c1238d164cf4cc4eeb3482df0b526e554a48478f9cf760d4b01a7"
+      }
+    }
+  },
+  "referenceSha256": "756eed1048398ab55b4256c32f4f512741d96d6be8e44bc39ff82b71fe64c159"
+}

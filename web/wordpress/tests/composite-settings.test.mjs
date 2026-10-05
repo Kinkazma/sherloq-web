@@ -1,0 +1,6 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {validateSettings,defaults} from '../sherloq-browser/assets/settings.js';
+const bundle=()=>({schema:'sherloq.settings/1',profiles:[],activeProfile:'native',current:{...defaults},preferences:{theme:'dark',language:'fr',layout:'tabs',computeProfile:'aggressive',regionMode:'whole',favorite:false,showZones:true,toolsVisible:true,inspectorVisible:false},composite:{quality:95,stage:'map',view:'noise'}});
+test('Composite settings round-trip alongside classic profiles and ignore unknown fields',()=>{const input=bundle();input.composite.image='must not persist';assert.deepEqual(validateSettings(input).composite,{quality:95,stage:'map',view:'noise'});assert.deepEqual(validateSettings(input).current,defaults);});
+test('Composite rejects unsupported quality and unknown views; old settings remain compatible',()=>{for(const value of [-1,1,50,102,95.5]){const input=bundle();input.composite.quality=value;assert.throws(()=>validateSettings(input));}for(const quality of [0,51,95,101]){const input=bundle();input.composite.quality=quality;assert.equal(validateSettings(input).composite.quality,quality);}const old=bundle();delete old.composite;assert.equal(validateSettings(old).composite,undefined);const bad=bundle();bad.composite.view='probability';assert.throws(()=>validateSettings(bad));});

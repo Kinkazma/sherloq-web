@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "scope": "Public257x257 crop preserves the first full256x256 block and its actual neighbor halo from the public JPEG.",
+  "sourceSha256": "6e1f7631beac461679fa598731c5cc635e8ff112c9912db8a4f25dcb8e083eb0",
+  "crop": {
+    "x": 0,
+    "y": 0,
+    "width": 257,
+    "height": 257
+  },
+  "numpy": "1.26.4",
+  "bufferElements": 8192,
+  "means": {
+    "tri": {
+      "nativeMean": 37.19231033325195,
+      "bufferedMean": 37.19231033325195
+    },
+    "avg": {
+      "nativeMean": 80.60655975341797,
+      "bufferedMean": 80.60655975341797
+    }
+  },
+  "nativeSources": {
+    "source/gui/sherloq_app/core/contrast.py": "373cf73beb7a94ff6b5f2a6face118bf3f8e12495ac3c94e3c55f8e7d0008be1"
+  },
+  "cases": [
+    {
+      "name": "buffered-mean",
+      "file": "contrast-buffered-mean-input.rgb",
+      "width": 257,
+      "height": 257,
+      "inputSha256": "8347bffdeb66afb908395f37e656eab4240e44324f8010ca70f1dbca6ac78b97",
+      "expected": [
+        {
+          "block": 256,
+          "shape": [
+            3,
+            3,
+            3
+          ],
+          "values": [
+            0.30497947335243225,
+            0.6152073740959167,
+            0.18762560188770294,
+            1.095445156097412,
+            0.7741456627845764,
+            0.8480340838432312,
+            0.0,
+            0.0,
+            0.0,
+            1.2247449159622192,
+            0.6955851912498474,
+            0.8519143462181091,
+            1.0,
+            0.3588588535785675,
+            0.3588588535785675,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sha256": "6734ec755d2cb43467babe7e793c429461c68ac0413a270d419e3e55d95f1d95",
+          "views": [
+            "2a7bbeac72844285bcb976b81241b937e1164c79c555f670b4d1384277684719",
+            "5c185cc6cf717d95c75647d3964ef567b0edc779843591e3f70fd2d104d1c0b1",
+            "4ef61b3eb64256ddb9befa7654faf68e5803c13be868d340a7f5c407ce2b7338"
+          ]
+        }
+      ]
+    }
+  ]
+}

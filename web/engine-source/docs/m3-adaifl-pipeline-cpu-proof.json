@@ -1,0 +1,128 @@
+{
+  "browser": "154.0.8037.58",
+  "backend": "cpu",
+  "map": {
+    "values": 4096,
+    "differences": 4075,
+    "maximum": 0.00004464387893676758,
+    "mean": 0.000006375946213665884
+  },
+  "maskDifferences": 1,
+  "metadata": {
+    "image_shape": [
+      176,
+      448
+    ],
+    "analysis_shape": [
+      1024,
+      1024
+    ],
+    "native_shape": [
+      64,
+      64
+    ],
+    "seed": 1701,
+    "threshold": 0.5,
+    "dynamic_regions": true,
+    "dynamic_experts": true,
+    "provider": "wasm",
+    "runs": [
+      {
+        "stage": "embedding",
+        "provider": "wasm",
+        "heapBytes": 93847552,
+        "threads": 1
+      },
+      {
+        "stage": "block-00",
+        "provider": "wasm",
+        "heapBytes": 336723968,
+        "threads": 1
+      },
+      {
+        "stage": "block-01",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-02",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-03",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-04",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-05",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-06",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-07",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-08",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-09",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-10",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "block-11",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      },
+      {
+        "stage": "decoder",
+        "provider": "wasm",
+        "heapBytes": 404094976,
+        "threads": 1
+      }
+    ],
+    "failures": [],
+    "attempts": 1,
+    "maximumHeapBytes": 805306368,
+    "gpuEstimatedBytes": 0,
+    "workerAdmittedBytes": 1220303014,
+    "preflightExecutions": 0,
+    "qualification": "native-floating-arithmetic-differences-measured",
+    "result_reused": false
+  },
+  "cacheReused": true,
+  "cancelled": true,
+  "peakAccountedBytes": 1220376742,
+  "activeBytes": 0
+}

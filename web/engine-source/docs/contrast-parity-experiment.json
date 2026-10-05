@@ -1,0 +1,785 @@
+{
+  "schema": 1,
+  "rows": [
+    {
+      "name": "tiny",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "tiny",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "tiny",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "tiny",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "flat",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "flat",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "flat",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "flat",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "odd",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "odd",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "odd",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "odd",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "divisible",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "divisible",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "divisible",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "divisible",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "gradient",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "gradient",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "gradient",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "gradient",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "texture",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "texture",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "texture",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "texture",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "checker",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "checker",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "checker",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "checker",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "white",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "white",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "white",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "white",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "correlated",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "correlated",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "correlated",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "correlated",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "quantized",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "quantized",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "quantized",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "quantized",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "gamma",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "gamma",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "gamma",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "gamma",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "monochrome",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "monochrome",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "monochrome",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "monochrome",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "large",
+      "block": 32,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "large",
+      "block": 64,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "large",
+      "block": 128,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "large",
+      "block": 256,
+      "exact": true,
+      "errors": [
+        0,
+        0,
+        0
+      ],
+      "views": [
+        true,
+        true,
+        true
+      ]
+    }
+  ]
+}

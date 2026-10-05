@@ -1,0 +1,12 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+const enabled=process.execArgv.includes('--experimental-test-module-mocks'),turn=()=>new Promise(resolve=>setImmediate(resolve));
+test('memory observations cross the busy worker control channel without replacing its task or controller',{skip:!enabled},async t=>{
+ const oldWorker=Object.getOwnPropertyDescriptor(globalThis,'Worker'),oldSelf=Object.getOwnPropertyDescriptor(globalThis,'self');let finish,entered,signal,updates=[],reads=0,worker;
+ const running=new Promise(resolve=>{entered=resolve;});
+ t.mock.module('../src/index.js',{namedExports:{createEngine:()=>({capabilities:()=>({updates:updates.length}),updateResourceHints:hints=>{updates.push(hints);return {accepted:true};},async run(task,hooks){signal=hooks.signal;entered();return await new Promise(resolve=>{finish=resolve;});}})}});
+ class Bridge{constructor(){worker=this;const target={postMessage:data=>queueMicrotask(()=>{if(!this.dead)this.onmessage?.({data:structuredClone(data)});})};this.target=target;Object.defineProperty(globalThis,'self',{value:target,configurable:true});this.ready=import('../src/worker.js?live-memory');}postMessage(data){const copy=structuredClone(data);this.ready.then(()=>{if(!this.dead)this.target.onmessage({data:copy});});}terminate(){this.dead=true;}}
+ Object.defineProperty(globalThis,'Worker',{value:Bridge,configurable:true});t.after(()=>{if(oldWorker)Object.defineProperty(globalThis,'Worker',oldWorker);else delete globalThis.Worker;if(oldSelf)Object.defineProperty(globalThis,'self',oldSelf);else delete globalThis.self;});t.mock.timers.enable({apis:['setTimeout']});
+ const {createWorkerEngine}=await import('../src/worker-client.js'),engine=createWorkerEngine({memoryHintProvider:async()=>({systemMemoryObservedAt:++reads})}),pending=engine.run({operation:'analysis.complete'});await running;await turn();assert.equal(updates.length,1);assert.equal(signal.aborted,false);
+ t.mock.timers.tick(2001);await turn();assert.equal(updates.length,2);assert.equal(signal.aborted,false);assert.deepEqual(await engine.capabilities(),{updates:2});
+ await engine.updateResourceHints({systemMemoryObservedAt:100});assert.equal(updates.length,3);finish({completed:true});assert.deepEqual(await pending,{completed:true});t.mock.timers.tick(6000);await turn();assert.equal(reads,2);await engine.dispose();assert.equal(worker.dead,true);
+});

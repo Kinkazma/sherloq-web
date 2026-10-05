@@ -1,0 +1,14 @@
+import {createWorkerEngine} from '../src/worker-client.js';import {storageInventory} from './source-api-browser.js';import {readPrnuDatabase} from '../src/prnu-hdf5.js';import {createSHA256} from '../vendor/hash-wasm/hashes.js';
+const assert=(x,m)=>{if(!x)throw Error(m);};
+export async function prnuBuildStreamBrowserTest(){
+ const before=await storageInventory(),ref=await(await fetch('/.build/prnu-build-stream-reference/reference.json')).json(),original=await(await fetch('/fixtures/prnu-reference.json')).json(),files=[];for(const f of ref.files)files.push({name:f.name,blob:await(await fetch('/.build/prnu-build-stream-reference/'+f.name)).blob()});
+ const engine=createWorkerEngine({memoryBudgetBytes:256*1024**2,resourceHints:{hardwareConcurrency:4}});let metrics;
+ try{await engine.loadBlob({id:'q',blob:await(await fetch('/fixtures/'+original.query.file)).blob(),layout:'segmented'});const phases=[],r=await engine.buildPrnuDatabase({id:'new',queryImageId:'q',files,fingerprintStorage:'temporary'},{onProgress:p=>phases.push(p.phase)});metrics=r.metrics;assert(r.cameras.length===2&&metrics.temporaryBackend==='opfs','Two stored camera means');assert(phases.includes('prnu-fft-columns')&&phases.includes('fingerprints'),'Useful stage and file progress');const exported=await engine.exportPrnuDatabase('new'),database=await readPrnuDatabase(exported.bytes,{maxWorkingBytes:256*1024**2});
+  for(const [i,c]of database.cameras.entries()){const expected=ref.cameras[i],sha=await createSHA256();sha.update(new Uint8Array(c.fingerprint.values.buffer));assert(c.name===expected.name&&c.fingerprint.width===expected.width&&c.fingerprint.height===expected.height&&sha.digest('hex')===expected.sha256,'Exact large cropped running mean');assert(c.nUsed===2&&c.trainingManifest.every(m=>ref.files.some(f=>f.name===m.name&&f.sha256===m.sha256)),'Native training manifests');}
+  await engine.unload('new');await engine.unload('q');assert((await engine.capabilities()).memory.retainedBytes===0,'Stored snapshot released');
+ }finally{await engine.dispose();}
+ const cancel=createWorkerEngine({memoryBudgetBytes:256*1024**2});let mode;
+ try{await cancel.loadBlob({id:'q',blob:await(await fetch('/fixtures/'+original.query.file)).blob(),layout:'segmented'});const stop=new AbortController();let error;try{await cancel.buildPrnuDatabase({id:'aborted',queryImageId:'q',files:files.slice(2),fingerprintStorage:'temporary'},{signal:stop.signal,onProgress:p=>{if(p.phase==='fingerprints')stop.abort();}});}catch(e){error=e;}assert(error?.code==='CANCELLED','Cancellation during stored snapshot');mode=error.cancellationMode;}
+ finally{await cancel.dispose();}
+ const after=await storageInventory();assert(JSON.stringify(before)===JSON.stringify(after),'Stored snapshot/cancellation cleanup');return {status:'passed',budgetBytes:256*1024**2,cameras:ref.cameras,metrics,cancellationMode:mode,storageArtifactsRemaining:after.length-before.length};
+}

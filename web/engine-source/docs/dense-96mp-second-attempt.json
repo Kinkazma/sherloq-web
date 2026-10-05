@@ -1,0 +1,31 @@
+{
+  "status": "interrupted",
+  "reason": "Restart with independently validated exact batched initialization; not a completed 96MP proof",
+  "commit": "6545d28",
+  "lastProgress": {
+    "elapsedMs": 1155547.200000003,
+    "phase": "global-patchmatch",
+    "stage": "initialization",
+    "iteration": null,
+    "completed": 65003520,
+    "total": 96000000,
+    "workspaceBytes": 81766968,
+    "residentPool": true,
+    "residentPoolBytes": 24750008,
+    "cacheBytes": 40239744,
+    "pageBytes": 4096,
+    "cachePages": 4096,
+    "reads": 66374632,
+    "writes": 313438,
+    "readBytes": 271870490624,
+    "writeBytes": 1283842048,
+    "heapBytes": 0,
+    "memory": {
+      "budgetBytes": 1073741824,
+      "retainedBytes": 288000000,
+      "cacheBytes": 0,
+      "activeReservationBytes": 81766968,
+      "peakAccountedBytes": 813029880
+    }
+  }
+}

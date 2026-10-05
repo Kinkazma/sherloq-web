@@ -1,0 +1,36 @@
+{
+  "status": "interrupted-not-qualified",
+  "commit": "fd799db",
+  "reason": "Qualification scope reduced per REPRISE-LIMITES: one complete large-source journey per distinct memory adapter, reusing native mirror/scale/quarter-turn variant proofs. No numeric or resource failure observed in this attempt. Replace redundant seven-pass recipe with the two-pass full Zernike + compact SIFT journey, keeping full original source, global search, budget and full export.",
+  "lastProgress": {
+    "elapsedMs": 774719.799999997,
+    "phase": "global-patchmatch",
+    "stage": "propagation",
+    "iteration": 0,
+    "completed": 7004160,
+    "total": 96000000,
+    "workspaceBytes": 392145464,
+    "initialBatchPixels": 4194304,
+    "batchBytes": 310378496,
+    "residentPool": true,
+    "residentPoolBytes": 24750008,
+    "residentSiftBoundsBytes": 0,
+    "pagedSiftBounds": false,
+    "cacheBytes": 40239744,
+    "pageBytes": 4096,
+    "cachePages": 4096,
+    "reads": 95753325,
+    "writes": 387660,
+    "readBytes": 502365571072,
+    "writeBytes": 1587855360,
+    "heapBytes": 0,
+    "memory": {
+      "budgetBytes": 1610612736,
+      "retainedBytes": 288000000,
+      "cacheBytes": 0,
+      "activeReservationBytes": 392145464,
+      "peakAccountedBytes": 805996600
+    }
+  },
+  "runtimeSnapshotFile": ".build/dense-sift-96mp/runtime-lock-fourth-attempt.json"
+}

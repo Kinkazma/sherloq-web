@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "nativeCases": 6,
+  "predecodeHeaders": true,
+  "exactLargeScalarStrings": true,
+  "peakAccountedBytes": 92343142,
+  "hugeFilesQualified": false,
+  "browser": "154.0.8037.58"
+}

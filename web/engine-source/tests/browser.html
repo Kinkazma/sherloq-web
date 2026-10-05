@@ -1,0 +1,14 @@
+<!doctype html><html lang="fr"><meta charset="utf-8"><title>SHERLOQ — moteur ELA, recette synthétique</title><style>body{font:16px system-ui;max-width:1000px;margin:3rem auto;background:#101921;color:#e4eef6}canvas{image-rendering:pixelated;width:384px;border:1px solid #546}pre{white-space:pre-wrap}button{font:inherit;padding:.6rem}</style><h1>ELA — recette synthétique</h1><p>Fichier public généré mathématiquement. Calcul local CPU, sans Canvas dans l’analyse.</p><button id="run">Exécuter les tests</button><p id="state">Prêt</p><canvas id="view" width="64" height="48"></canvas><pre id="results"></pre><script type="module">
+import {runExtendedBrowserTests} from './extended-browser-suite.js';window.runExtendedBrowserTests=runExtendedBrowserTests;
+import {runtimeSmoke} from './runtime-smoke.js';window.runtimeSmoke=runtimeSmoke;
+import {interactiveBenchmark} from '../experiments/interactive-benchmark.js';window.interactiveBenchmark=interactiveBenchmark;
+import {qualityPoolBenchmark} from '../experiments/quality-pool-benchmark.js';window.qualityPoolBenchmark=qualityPoolBenchmark;
+import {qualityPoolBrowserTest} from './quality-pool-browser.js';window.qualityPoolBrowserTest=qualityPoolBrowserTest;
+import {runBrowserTests} from './browser-suite.js';
+import {runPixelBrowserTests,runPixelSmokeMeasurements} from './pixel-browser-suite.js';window.runPixelBrowserTests=runPixelBrowserTests;window.runPixelSmokeMeasurements=runPixelSmokeMeasurements;
+import {benchmark} from '../experiments/benchmark.js';window.runBenchmark=benchmark;
+import {poolBenchmark} from '../experiments/pool-benchmark.js';window.runPoolBenchmark=poolBenchmark;
+import {pipelineBenchmark} from '../experiments/pipeline-benchmark.js';window.runPipelineBenchmark=pipelineBenchmark;
+window.runBrowserTests=async()=>{document.querySelector('#state').textContent='Calcul…';try{const r=await runBrowserTests(document.querySelector('#view'));document.querySelector('#results').textContent=JSON.stringify(r,null,2);document.querySelector('#state').textContent='Tests réussis';return r;}catch(e){document.querySelector('#state').textContent='Échec : '+e.message;throw e;}};
+document.querySelector('#run').onclick=window.runBrowserTests;
+</script></html>

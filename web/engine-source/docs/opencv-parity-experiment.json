@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "outputs": 4020,
+  "operations": {
+    "colors.space": {
+      "outputs": 290,
+      "mismatchingOutputs": 0,
+      "differentBytes": 0,
+      "maxError": 0
+    },
+    "detail.gradient": {
+      "outputs": 640,
+      "mismatchingOutputs": 0,
+      "differentBytes": 0,
+      "maxError": 0
+    },
+    "detail.echo": {
+      "outputs": 900,
+      "mismatchingOutputs": 0,
+      "differentBytes": 0,
+      "maxError": 0
+    },
+    "noise.separation": {
+      "outputs": 1680,
+      "mismatchingOutputs": 0,
+      "differentBytes": 0,
+      "maxError": 0
+    },
+    "inspection.adjust": {
+      "outputs": 510,
+      "mismatchingOutputs": 0,
+      "differentBytes": 0,
+      "maxError": 0
+    }
+  },
+  "mismatches": []
+}

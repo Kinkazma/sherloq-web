@@ -1,0 +1,1309 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "browser": "chromium",
+      "version": "154.0.8037.93",
+      "records": [
+        {
+          "kind": "zernike",
+          "mode": "temporary",
+          "storageKind": "temporary",
+          "budgetBytes": 36854880,
+          "peakAccountedBytes": 36854880,
+          "hashes": {
+            "first": "d852a0c10ab29b8ebb462909c5013c04cc1c6368a656e33cafd77cb77f152b77"
+          },
+          "storage": {
+            "reservedBytes": 52224,
+            "peakReservedBytes": 52224,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 2,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 2,
+              "cacheHits": 0,
+              "requestedBytes": 52224
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 18.895000010728836,
+            "preparationMs": 2.1050000190734863,
+            "storageMs": 21.055000007152557,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 34754560,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "zernike",
+          "mode": "auto-tight",
+          "storageKind": "temporary",
+          "budgetBytes": 36907104,
+          "peakAccountedBytes": 36857952,
+          "hashes": {
+            "first": "d852a0c10ab29b8ebb462909c5013c04cc1c6368a656e33cafd77cb77f152b77"
+          },
+          "storage": {
+            "reservedBytes": 49152,
+            "peakReservedBytes": 49152,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 1,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 1,
+              "cacheHits": 0,
+              "requestedBytes": 49152
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 17.50499999523163,
+            "preparationMs": 0.09000000357627869,
+            "storageMs": 17.525000005960464,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 34754560,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "zernike",
+          "mode": "auto-funded",
+          "storageKind": "memory",
+          "budgetBytes": 37005408,
+          "peakAccountedBytes": 37005408,
+          "hashes": {
+            "first": "d852a0c10ab29b8ebb462909c5013c04cc1c6368a656e33cafd77cb77f152b77"
+          },
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 0,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 0,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 0,
+              "cacheHits": 0,
+              "requestedBytes": 0
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 18.564999997615814,
+            "preparationMs": 0.09000000357627869,
+            "storageMs": 0.12000000476837158,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 34754560,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "sift",
+          "mode": "temporary",
+          "storageKind": "temporary",
+          "budgetBytes": 18992224,
+          "peakAccountedBytes": 18992224,
+          "hashes": {
+            "hist": "bfd37b10c91060fe04037f17ac7e3d135007f69330f938103ee2a01c4a214ad8",
+            "norms": "54fd97e361b2034edbd8bd818cf4c985a717391cb2e115bba67b1ba1a410533b",
+            "turns": "ea9cd812aed7ad66496864148759635bc0f88e3aed09e130a005bc0dea29157c",
+            "diverse": "61cc12f5bebac25c8c70c5cfef2a2053a00aa9386140e9789da75f748dd45d92",
+            "boundSamples": "5aa44cf72234f2fef521e2091a6066a8a05de49b3655773d33529af604837e6b"
+          },
+          "storage": {
+            "reservedBytes": 45362,
+            "peakReservedBytes": 78130,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 6,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 72,
+              "cacheHits": 0,
+              "requestedBytes": 176434
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 5,
+            "computeMs": 17.900000005960464,
+            "preparationMs": 14.180000007152557,
+            "storageMs": 47.95999997854233,
+            "heapBytes": 8388608,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 16891899,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "sift",
+          "mode": "auto-tight",
+          "storageKind": "temporary",
+          "budgetBytes": 19070354,
+          "peakAccountedBytes": 19050282,
+          "hashes": {
+            "hist": "bfd37b10c91060fe04037f17ac7e3d135007f69330f938103ee2a01c4a214ad8",
+            "norms": "54fd97e361b2034edbd8bd818cf4c985a717391cb2e115bba67b1ba1a410533b",
+            "turns": "ea9cd812aed7ad66496864148759635bc0f88e3aed09e130a005bc0dea29157c",
+            "diverse": "61cc12f5bebac25c8c70c5cfef2a2053a00aa9386140e9789da75f748dd45d92",
+            "boundSamples": "5aa44cf72234f2fef521e2091a6066a8a05de49b3655773d33529af604837e6b"
+          },
+          "storage": {
+            "reservedBytes": 32768,
+            "peakReservedBytes": 65536,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 1,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 4,
+              "cacheHits": 63,
+              "requestedBytes": 163840
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 5,
+            "computeMs": 15.2950000166893,
+            "preparationMs": 1.2649999856948853,
+            "storageMs": 24.155000001192093,
+            "heapBytes": 8388608,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 16891899,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "sift",
+          "mode": "auto-funded",
+          "storageKind": "memory",
+          "budgetBytes": 19135890,
+          "peakAccountedBytes": 19135890,
+          "hashes": {
+            "hist": "bfd37b10c91060fe04037f17ac7e3d135007f69330f938103ee2a01c4a214ad8",
+            "norms": "54fd97e361b2034edbd8bd818cf4c985a717391cb2e115bba67b1ba1a410533b",
+            "turns": "ea9cd812aed7ad66496864148759635bc0f88e3aed09e130a005bc0dea29157c",
+            "diverse": "61cc12f5bebac25c8c70c5cfef2a2053a00aa9386140e9789da75f748dd45d92",
+            "boundSamples": "5aa44cf72234f2fef521e2091a6066a8a05de49b3655773d33529af604837e6b"
+          },
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 0,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 0,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 0,
+              "cacheHits": 0,
+              "requestedBytes": 0
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 5,
+            "computeMs": 14.214999973773956,
+            "preparationMs": 0.14500001072883606,
+            "storageMs": 0.20499995350837708,
+            "heapBytes": 8388608,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 16891899,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "texture",
+          "mode": "temporary",
+          "storageKind": "temporary",
+          "budgetBytes": 52514017,
+          "peakAccountedBytes": 52514017,
+          "hashes": {
+            "mask": "5a648d8015900d89664e00e125df179636301a2d8fa191c1aa2bd9358ea53a69"
+          },
+          "storage": {
+            "reservedBytes": 4096,
+            "peakReservedBytes": 4096,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 2,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 35,
+              "cacheHits": 0,
+              "requestedBytes": 6144
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 18.729999989271164,
+            "preparationMs": 0.3400000035762787,
+            "storageMs": 10.91499999165535,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 50416864,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "texture",
+          "mode": "auto-tight",
+          "storageKind": "temporary",
+          "budgetBytes": 52518113,
+          "peakAccountedBytes": 52518113,
+          "hashes": {
+            "mask": "5a648d8015900d89664e00e125df179636301a2d8fa191c1aa2bd9358ea53a69"
+          },
+          "storage": {
+            "reservedBytes": 1024,
+            "peakReservedBytes": 1024,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 1,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 34,
+              "cacheHits": 0,
+              "requestedBytes": 3072
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 18.360000014305115,
+            "preparationMs": 0.03999999165534973,
+            "storageMs": 12.300000011920929,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 50416864,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "texture",
+          "mode": "auto-funded",
+          "storageKind": "memory",
+          "budgetBytes": 52520161,
+          "peakAccountedBytes": 52520161,
+          "hashes": {
+            "mask": "5a648d8015900d89664e00e125df179636301a2d8fa191c1aa2bd9358ea53a69"
+          },
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 0,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 0,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 0,
+              "cacheHits": 0,
+              "requestedBytes": 0
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 18.03499999642372,
+            "preparationMs": 0.03999999165534973,
+            "storageMs": 0.07999998331069946,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 50416864,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        }
+      ]
+    },
+    {
+      "browser": "firefox",
+      "version": "155.0",
+      "records": [
+        {
+          "kind": "zernike",
+          "mode": "temporary",
+          "storageKind": "temporary",
+          "budgetBytes": 36854880,
+          "peakAccountedBytes": 36854880,
+          "hashes": {
+            "first": "d852a0c10ab29b8ebb462909c5013c04cc1c6368a656e33cafd77cb77f152b77"
+          },
+          "storage": {
+            "reservedBytes": 52224,
+            "peakReservedBytes": 52224,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 2,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 2,
+              "cacheHits": 0,
+              "requestedBytes": 52224
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 46.380000000000024,
+            "preparationMs": 0.5199999999999818,
+            "storageMs": 19.839999999999975,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 34754560,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "zernike",
+          "mode": "auto-tight",
+          "storageKind": "temporary",
+          "budgetBytes": 36907104,
+          "peakAccountedBytes": 36857952,
+          "hashes": {
+            "first": "d852a0c10ab29b8ebb462909c5013c04cc1c6368a656e33cafd77cb77f152b77"
+          },
+          "storage": {
+            "reservedBytes": 49152,
+            "peakReservedBytes": 49152,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 1,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 1,
+              "cacheHits": 0,
+              "requestedBytes": 49152
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 24.079999999999984,
+            "preparationMs": 0.20000000000004547,
+            "storageMs": 15.879999999999995,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 34754560,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "zernike",
+          "mode": "auto-funded",
+          "storageKind": "memory",
+          "budgetBytes": 37005408,
+          "peakAccountedBytes": 37005408,
+          "hashes": {
+            "first": "d852a0c10ab29b8ebb462909c5013c04cc1c6368a656e33cafd77cb77f152b77"
+          },
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 0,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 0,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 0,
+              "cacheHits": 0,
+              "requestedBytes": 0
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 21.139999999999986,
+            "preparationMs": 0.10000000000002274,
+            "storageMs": 0.28000000000002956,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 34754560,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "sift",
+          "mode": "temporary",
+          "storageKind": "temporary",
+          "budgetBytes": 18992224,
+          "peakAccountedBytes": 18992224,
+          "hashes": {
+            "hist": "bfd37b10c91060fe04037f17ac7e3d135007f69330f938103ee2a01c4a214ad8",
+            "norms": "54fd97e361b2034edbd8bd818cf4c985a717391cb2e115bba67b1ba1a410533b",
+            "turns": "ea9cd812aed7ad66496864148759635bc0f88e3aed09e130a005bc0dea29157c",
+            "diverse": "61cc12f5bebac25c8c70c5cfef2a2053a00aa9386140e9789da75f748dd45d92",
+            "boundSamples": "5aa44cf72234f2fef521e2091a6066a8a05de49b3655773d33529af604837e6b"
+          },
+          "storage": {
+            "reservedBytes": 45362,
+            "peakReservedBytes": 78130,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 6,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 72,
+              "cacheHits": 0,
+              "requestedBytes": 176434
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 5,
+            "computeMs": 19.340000000000032,
+            "preparationMs": 12.740000000000009,
+            "storageMs": 46.06,
+            "heapBytes": 8388608,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 16891899,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "sift",
+          "mode": "auto-tight",
+          "storageKind": "temporary",
+          "budgetBytes": 19070354,
+          "peakAccountedBytes": 19050282,
+          "hashes": {
+            "hist": "bfd37b10c91060fe04037f17ac7e3d135007f69330f938103ee2a01c4a214ad8",
+            "norms": "54fd97e361b2034edbd8bd818cf4c985a717391cb2e115bba67b1ba1a410533b",
+            "turns": "ea9cd812aed7ad66496864148759635bc0f88e3aed09e130a005bc0dea29157c",
+            "diverse": "61cc12f5bebac25c8c70c5cfef2a2053a00aa9386140e9789da75f748dd45d92",
+            "boundSamples": "5aa44cf72234f2fef521e2091a6066a8a05de49b3655773d33529af604837e6b"
+          },
+          "storage": {
+            "reservedBytes": 32768,
+            "peakReservedBytes": 65536,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 1,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 4,
+              "cacheHits": 63,
+              "requestedBytes": 163840
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 5,
+            "computeMs": 19.780000000000086,
+            "preparationMs": 1.7400000000001228,
+            "storageMs": 23.57999999999987,
+            "heapBytes": 8388608,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 16891899,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "sift",
+          "mode": "auto-funded",
+          "storageKind": "memory",
+          "budgetBytes": 19135890,
+          "peakAccountedBytes": 19135890,
+          "hashes": {
+            "hist": "bfd37b10c91060fe04037f17ac7e3d135007f69330f938103ee2a01c4a214ad8",
+            "norms": "54fd97e361b2034edbd8bd818cf4c985a717391cb2e115bba67b1ba1a410533b",
+            "turns": "ea9cd812aed7ad66496864148759635bc0f88e3aed09e130a005bc0dea29157c",
+            "diverse": "61cc12f5bebac25c8c70c5cfef2a2053a00aa9386140e9789da75f748dd45d92",
+            "boundSamples": "5aa44cf72234f2fef521e2091a6066a8a05de49b3655773d33529af604837e6b"
+          },
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 0,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 0,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 0,
+              "cacheHits": 0,
+              "requestedBytes": 0
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 5,
+            "computeMs": 18.93999999999994,
+            "preparationMs": 0.34000000000003183,
+            "storageMs": 1.1199999999998909,
+            "heapBytes": 8388608,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 16891899,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "texture",
+          "mode": "temporary",
+          "storageKind": "temporary",
+          "budgetBytes": 52514017,
+          "peakAccountedBytes": 52514017,
+          "hashes": {
+            "mask": "5a648d8015900d89664e00e125df179636301a2d8fa191c1aa2bd9358ea53a69"
+          },
+          "storage": {
+            "reservedBytes": 4096,
+            "peakReservedBytes": 4096,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 2,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 35,
+              "cacheHits": 0,
+              "requestedBytes": 6144
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 25.32000000000005,
+            "preparationMs": 0.2799999999999727,
+            "storageMs": 14.479999999999905,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 50416864,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "texture",
+          "mode": "auto-tight",
+          "storageKind": "temporary",
+          "budgetBytes": 52518113,
+          "peakAccountedBytes": 52518113,
+          "hashes": {
+            "mask": "5a648d8015900d89664e00e125df179636301a2d8fa191c1aa2bd9358ea53a69"
+          },
+          "storage": {
+            "reservedBytes": 1024,
+            "peakReservedBytes": 1024,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 1,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 34,
+              "cacheHits": 0,
+              "requestedBytes": 3072
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 34.5,
+            "preparationMs": 0.08000000000004093,
+            "storageMs": 27,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 50416864,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "texture",
+          "mode": "auto-funded",
+          "storageKind": "memory",
+          "budgetBytes": 52520161,
+          "peakAccountedBytes": 52520161,
+          "hashes": {
+            "mask": "5a648d8015900d89664e00e125df179636301a2d8fa191c1aa2bd9358ea53a69"
+          },
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 0,
+            "estimatedAvailableBytes": 10737418240,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 0,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 0,
+              "cacheHits": 0,
+              "requestedBytes": 0
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 32.34000000000003,
+            "preparationMs": 0.12000000000000455,
+            "storageMs": 0.10000000000002274,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 50416864,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "version": "26.6",
+      "records": [
+        {
+          "kind": "zernike",
+          "mode": "temporary",
+          "storageKind": "temporary",
+          "budgetBytes": 36854880,
+          "peakAccountedBytes": 36854880,
+          "hashes": {
+            "first": "d852a0c10ab29b8ebb462909c5013c04cc1c6368a656e33cafd77cb77f152b77"
+          },
+          "storage": {
+            "reservedBytes": 52224,
+            "peakReservedBytes": 52224,
+            "estimatedAvailableBytes": 1048576000,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 2,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 2,
+              "cacheHits": 0,
+              "requestedBytes": 52224
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 30.680000000000007,
+            "preparationMs": 3.5400000000000205,
+            "storageMs": 15.039999999999964,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 34754560,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "zernike",
+          "mode": "auto-tight",
+          "storageKind": "temporary",
+          "budgetBytes": 36907104,
+          "peakAccountedBytes": 36857952,
+          "hashes": {
+            "first": "d852a0c10ab29b8ebb462909c5013c04cc1c6368a656e33cafd77cb77f152b77"
+          },
+          "storage": {
+            "reservedBytes": 49152,
+            "peakReservedBytes": 49152,
+            "estimatedAvailableBytes": 1046998363,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 1,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 1,
+              "cacheHits": 0,
+              "requestedBytes": 49152
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 21.75999999999999,
+            "preparationMs": 0.13999999999998636,
+            "storageMs": 21.779999999999973,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 34754560,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "zernike",
+          "mode": "auto-funded",
+          "storageKind": "memory",
+          "budgetBytes": 37005408,
+          "peakAccountedBytes": 37005408,
+          "hashes": {
+            "first": "d852a0c10ab29b8ebb462909c5013c04cc1c6368a656e33cafd77cb77f152b77"
+          },
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 0,
+            "estimatedAvailableBytes": 1045423849,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 0,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 0,
+              "cacheHits": 0,
+              "requestedBytes": 0
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 26.460000000000036,
+            "preparationMs": 0.1400000000000432,
+            "storageMs": 0.1199999999999477,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 34754560,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "sift",
+          "mode": "temporary",
+          "storageKind": "temporary",
+          "budgetBytes": 18992224,
+          "peakAccountedBytes": 18992224,
+          "hashes": {
+            "hist": "bfd37b10c91060fe04037f17ac7e3d135007f69330f938103ee2a01c4a214ad8",
+            "norms": "54fd97e361b2034edbd8bd818cf4c985a717391cb2e115bba67b1ba1a410533b",
+            "turns": "ea9cd812aed7ad66496864148759635bc0f88e3aed09e130a005bc0dea29157c",
+            "diverse": "61cc12f5bebac25c8c70c5cfef2a2053a00aa9386140e9789da75f748dd45d92",
+            "boundSamples": "5aa44cf72234f2fef521e2091a6066a8a05de49b3655773d33529af604837e6b"
+          },
+          "storage": {
+            "reservedBytes": 45362,
+            "peakReservedBytes": 78130,
+            "estimatedAvailableBytes": 1045423831,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 6,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 72,
+              "cacheHits": 0,
+              "requestedBytes": 176434
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 5,
+            "computeMs": 23.69999999999999,
+            "preparationMs": 27.099999999999795,
+            "storageMs": 134.09999999999997,
+            "heapBytes": 8388608,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 16891899,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "sift",
+          "mode": "auto-tight",
+          "storageKind": "temporary",
+          "budgetBytes": 19070354,
+          "peakAccountedBytes": 19050282,
+          "hashes": {
+            "hist": "bfd37b10c91060fe04037f17ac7e3d135007f69330f938103ee2a01c4a214ad8",
+            "norms": "54fd97e361b2034edbd8bd818cf4c985a717391cb2e115bba67b1ba1a410533b",
+            "turns": "ea9cd812aed7ad66496864148759635bc0f88e3aed09e130a005bc0dea29157c",
+            "diverse": "61cc12f5bebac25c8c70c5cfef2a2053a00aa9386140e9789da75f748dd45d92",
+            "boundSamples": "5aa44cf72234f2fef521e2091a6066a8a05de49b3655773d33529af604837e6b"
+          },
+          "storage": {
+            "reservedBytes": 32768,
+            "peakReservedBytes": 65536,
+            "estimatedAvailableBytes": 1043030938,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 1,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 4,
+              "cacheHits": 63,
+              "requestedBytes": 163840
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 5,
+            "computeMs": 23.039999999999964,
+            "preparationMs": 1.580000000000041,
+            "storageMs": 29.559999999999945,
+            "heapBytes": 8388608,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 16891899,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "sift",
+          "mode": "auto-funded",
+          "storageKind": "memory",
+          "budgetBytes": 19135890,
+          "peakAccountedBytes": 19135890,
+          "hashes": {
+            "hist": "bfd37b10c91060fe04037f17ac7e3d135007f69330f938103ee2a01c4a214ad8",
+            "norms": "54fd97e361b2034edbd8bd818cf4c985a717391cb2e115bba67b1ba1a410533b",
+            "turns": "ea9cd812aed7ad66496864148759635bc0f88e3aed09e130a005bc0dea29157c",
+            "diverse": "61cc12f5bebac25c8c70c5cfef2a2053a00aa9386140e9789da75f748dd45d92",
+            "boundSamples": "5aa44cf72234f2fef521e2091a6066a8a05de49b3655773d33529af604837e6b"
+          },
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 0,
+            "estimatedAvailableBytes": 1040864866,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 0,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 0,
+              "cacheHits": 0,
+              "requestedBytes": 0
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 5,
+            "computeMs": 26.379999999999995,
+            "preparationMs": 0.18000000000006366,
+            "storageMs": 0.1999999999999318,
+            "heapBytes": 8388608,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 16891899,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "texture",
+          "mode": "temporary",
+          "storageKind": "temporary",
+          "budgetBytes": 52514017,
+          "peakAccountedBytes": 52514017,
+          "hashes": {
+            "mask": "5a648d8015900d89664e00e125df179636301a2d8fa191c1aa2bd9358ea53a69"
+          },
+          "storage": {
+            "reservedBytes": 4096,
+            "peakReservedBytes": 4096,
+            "estimatedAvailableBytes": 1040864848,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 2,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 35,
+              "cacheHits": 0,
+              "requestedBytes": 6144
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 23.460000000000036,
+            "preparationMs": 0.9800000000000182,
+            "storageMs": 24.32000000000005,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 50416864,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "texture",
+          "mode": "auto-tight",
+          "storageKind": "temporary",
+          "budgetBytes": 52518113,
+          "peakAccountedBytes": 52518113,
+          "hashes": {
+            "mask": "5a648d8015900d89664e00e125df179636301a2d8fa191c1aa2bd9358ea53a69"
+          },
+          "storage": {
+            "reservedBytes": 1024,
+            "peakReservedBytes": 1024,
+            "estimatedAvailableBytes": 1040826232,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 1,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 34,
+              "cacheHits": 0,
+              "requestedBytes": 3072
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 22.959999999999923,
+            "preparationMs": 0.07999999999992724,
+            "storageMs": 21.600000000000023,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 50416864,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        },
+        {
+          "kind": "texture",
+          "mode": "auto-funded",
+          "storageKind": "memory",
+          "budgetBytes": 52520161,
+          "peakAccountedBytes": 52520161,
+          "hashes": {
+            "mask": "5a648d8015900d89664e00e125df179636301a2d8fa191c1aa2bd9358ea53a69"
+          },
+          "storage": {
+            "reservedBytes": 0,
+            "peakReservedBytes": 0,
+            "estimatedAvailableBytes": 1040790739,
+            "estimateIsAdmissionLimit": false,
+            "logicalLimitBytes": null,
+            "openFiles": 0,
+            "arrays": 0,
+            "pageBytes": 1048576,
+            "backend": "indexeddb",
+            "readCacheEnabled": true,
+            "readCachePages": 2,
+            "reads": {
+              "transactions": 0,
+              "cacheHits": 0,
+              "requestedBytes": 0
+            }
+          },
+          "execution": {
+            "created": 1,
+            "reclaimed": 0,
+            "peakWorkers": 1,
+            "peakComputing": 1,
+            "computing": 0,
+            "completed": 1,
+            "computeMs": 22.440000000000055,
+            "preparationMs": 0.07999999999992724,
+            "storageMs": 0.06000000000005912,
+            "heapBytes": 33554432,
+            "resourceRecoveries": 0,
+            "residentWorkers": 1,
+            "residentAllowanceBytes": 50416864,
+            "maximum": 4,
+            "policy": "per-useful-tile CPU admission; reclaimable persistent workers"
+          },
+          "remainingBudgetBytes": 0
+        }
+      ]
+    },
+    {
+      "passed": true,
+      "browsers": [
+        "chromium",
+        "firefox",
+        "webkit"
+      ]
+    }
+  ]
+}

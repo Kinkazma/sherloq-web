@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "nativeValues": 6,
+  "workers": 2,
+  "sourcePasses": 6,
+  "preflightExecutions": 0,
+  "workerHeapMaximumBytes": 33554432,
+  "lastBandCancellation": true,
+  "realSerialResourceFallback": true,
+  "capacityReductionRetained": true,
+  "peakAccountedBytes": 123775808,
+  "publicAPI": {
+    "status": "passed",
+    "workers": 2,
+    "preflightExecutions": 0,
+    "nativeValues": 101,
+    "dimensions": [
+      1600,
+      2200
+    ],
+    "sourceLayout": "segmented-scanlines",
+    "storage": "memory",
+    "codecHeapMaximumBytes": 16777216,
+    "codecHeapCapacityBytes": 16777216,
+    "cacheReuseBothPanels": true,
+    "tableEstimate": 85,
+    "csvRows": 102,
+    "peakAccountedBytes": 93771728
+  },
+  "browser": "154.0.8037.58"
+}

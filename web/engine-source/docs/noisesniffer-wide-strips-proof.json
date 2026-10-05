@@ -1,0 +1,40 @@
+[
+  {
+    "maxWorkers": 1,
+    "sha256": "75598d70bf189a43010d673bd75f88abcfa275633a0d70d87c765c65fa056841",
+    "ms": 3226.5,
+    "metrics": {
+      "workers": 1,
+      "completedStripJobs": 62,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "stripRows": 2
+    },
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 11537266,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 132008642
+    }
+  },
+  {
+    "maxWorkers": 8,
+    "sha256": "75598d70bf189a43010d673bd75f88abcfa275633a0d70d87c765c65fa056841",
+    "ms": 1729.6000000089407,
+    "metrics": {
+      "workers": 6,
+      "completedStripJobs": 62,
+      "preflightExecutions": 0,
+      "policy": "immediate-useful-work",
+      "stripRows": 2
+    },
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 11537266,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 251342570
+    }
+  }
+]

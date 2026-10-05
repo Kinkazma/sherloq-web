@@ -1,0 +1,184 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "cases": [
+    {
+      "limitMiB": 512,
+      "view": "regions",
+      "sha256": "b4c132a90a3aa779fcc16571334b9535408bdb468998c69e9ab1184f314e4d6d",
+      "metrics": {
+        "workers": 4,
+        "completedStripJobs": 57,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "stripRows": 32,
+        "statisticsCached": false,
+        "analysisCached": false,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 10879.20000000298,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 74612014,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 291473150
+        }
+      }
+    },
+    {
+      "limitMiB": 512,
+      "view": "mask",
+      "sha256": "bc5f867f6d601511ec37601a9617aa9e4ef445a59afcd4673ebd500b65497789",
+      "metrics": {
+        "workers": 4,
+        "completedStripJobs": 57,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "stripRows": 32,
+        "statisticsCached": true,
+        "analysisCached": true,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 374.70000000298023,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 74612014,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 291473150
+        }
+      }
+    },
+    {
+      "limitMiB": 512,
+      "view": "distribution",
+      "sha256": "839d396f64be0ac7271cd575590d9c76f228afd5eea882a322cf425fa2b10c96",
+      "metrics": {
+        "workers": 4,
+        "completedStripJobs": 57,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "stripRows": 32,
+        "statisticsCached": true,
+        "analysisCached": true,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 0.10000000149011612,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 71466286,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 291473150
+        }
+      }
+    },
+    {
+      "limitMiB": 512,
+      "npzPages": 52,
+      "npzBytes": 13512640,
+      "npzSha256": "c6e48f1ab8402a4f118e50202a702688f55a6166706fd3836e93c1707c9122bc"
+    },
+    {
+      "limitMiB": 128,
+      "view": "regions",
+      "sha256": "b4c132a90a3aa779fcc16571334b9535408bdb468998c69e9ab1184f314e4d6d",
+      "metrics": {
+        "workers": 1,
+        "completedStripJobs": 57,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "stripRows": 32,
+        "statisticsCached": false,
+        "analysisCached": false,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 15919.70000000298,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 48764005,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 107543514
+        }
+      }
+    },
+    {
+      "limitMiB": 128,
+      "view": "mask",
+      "sha256": "bc5f867f6d601511ec37601a9617aa9e4ef445a59afcd4673ebd500b65497789",
+      "metrics": {
+        "workers": 1,
+        "completedStripJobs": 57,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "stripRows": 32,
+        "statisticsCached": true,
+        "analysisCached": true,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 349.79999999701977,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 48764005,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 107543514
+        }
+      }
+    },
+    {
+      "limitMiB": 128,
+      "view": "distribution",
+      "sha256": "839d396f64be0ac7271cd575590d9c76f228afd5eea882a322cf425fa2b10c96",
+      "metrics": {
+        "workers": 1,
+        "completedStripJobs": 57,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "stripRows": 32,
+        "statisticsCached": true,
+        "analysisCached": true,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 0.10000000149011612,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 134217728,
+          "retainedBytes": 45618277,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 107543514
+        }
+      }
+    },
+    {
+      "limitMiB": 128,
+      "npzPages": 52,
+      "npzBytes": 13512640,
+      "npzSha256": "c6e48f1ab8402a4f118e50202a702688f55a6166706fd3836e93c1707c9122bc"
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

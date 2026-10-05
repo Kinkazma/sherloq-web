@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "scope": "Isolated Sewar WASM calls, synthetic top-left 512x512 crop at original pixel resolution. Separate from full 1 MP worker/RPC benchmark. Sequential experiments; same per-pixel operations. Each score compared bit-for-bit to software FMA.",
+  "experiments": [
+    {
+      "name": "original",
+      "samplesMs": [
+        10016.700000047684,
+        9957.900000035763,
+        9918.099999964237
+      ],
+      "firstMs": 10054.900000035763,
+      "medianMs": 9957.900000035763
+    },
+    {
+      "name": "contiguous-software-fma",
+      "samplesMs": [
+        8990.299999952316,
+        9016,
+        9052.600000023842
+      ],
+      "firstMs": 8946.600000023842,
+      "medianMs": 9016
+    },
+    {
+      "name": "contiguous-guarded-simd",
+      "samplesMs": [
+        3404,
+        3407.199999988079,
+        3384.7999999523163
+      ],
+      "firstMs": 3395,
+      "medianMs": 3404
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

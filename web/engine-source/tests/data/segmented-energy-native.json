@@ -1,0 +1,642 @@
+{
+  "source": {
+    "name": "large-panels",
+    "file": "originals/large-panels.png",
+    "width": 1031,
+    "height": 1024,
+    "sha256": "d2067eee8e78583bd6c34bdc2c05dcea12a77df8605587587d768c20e7a49f1e"
+  },
+  "cases": [
+    {
+      "name": "large-panels-0",
+      "source": "large-panels",
+      "params": {
+        "quality": 0,
+        "block": 16,
+        "minimum": 3,
+        "profile": "standard",
+        "histogramLow": 10,
+        "histogramHigh": 990,
+        "shadow": 50,
+        "highlight": 50
+      },
+      "summary": [
+        {
+          "id": 1,
+          "bbox": [
+            5,
+            5,
+            512,
+            1019
+          ],
+          "probes": [
+            {
+              "q10": 1.0,
+              "q90": 47.16209098815918,
+              "central_mean": 19.764711380004883,
+              "central_variance": 329.5144348144531,
+              "low_mean": 0.9999854564666748,
+              "low_variance": 2.982154114761215e-07,
+              "high_mean": 48.50257110595703,
+              "high_variance": 1.4798054695129395
+            },
+            {
+              "q10": 0.0,
+              "q90": 46.55320648193359,
+              "central_mean": 19.180593490600586,
+              "central_variance": 328.6788024902344,
+              "low_mean": 0.0,
+              "low_variance": 0.0,
+              "high_mean": 47.91456985473633,
+              "high_variance": 1.5211182832717896
+            },
+            {
+              "q10": 0.0,
+              "q90": 46.086315612792966,
+              "central_mean": 18.803098678588867,
+              "central_variance": 323.4270935058594,
+              "low_mean": 0.0,
+              "low_variance": 0.0,
+              "high_mean": 47.41688919067383,
+              "high_variance": 1.4508696794509888
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "bbox": [
+            518,
+            5,
+            1026,
+            1019
+          ],
+          "probes": [
+            {
+              "q10": 3.831708877086639,
+              "q90": 47.76133304595947,
+              "central_mean": 28.85868263244629,
+              "central_variance": 269.1453857421875,
+              "low_mean": 3.5820538997650146,
+              "low_variance": 0.044171810150146484,
+              "high_mean": 49.02418899536133,
+              "high_variance": 1.2689114809036255
+            },
+            {
+              "q10": 3.6502633929252624,
+              "q90": 47.19711170196532,
+              "central_mean": 28.361637115478516,
+              "central_variance": 263.9407958984375,
+              "low_mean": 3.391895294189453,
+              "low_variance": 0.048435162752866745,
+              "high_mean": 48.451297760009766,
+              "high_variance": 1.271809697151184
+            },
+            {
+              "q10": 3.356373155117035,
+              "q90": 46.70150703430175,
+              "central_mean": 27.88246726989746,
+              "central_variance": 262.489990234375,
+              "low_mean": 3.13167142868042,
+              "low_variance": 0.03439723327755928,
+              "high_mean": 47.97995376586914,
+              "high_variance": 1.3586926460266113
+            }
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": 1,
+          "kind": "low",
+          "energy_region": 1,
+          "components": 1,
+          "cells": 1107,
+          "pixels": 283266,
+          "bbox": [
+            5,
+            5,
+            507,
+            1014
+          ],
+          "score": 7.1543378829956055,
+          "strong_pixels": 273796,
+          "dominant_descriptor": "energy_low",
+          "sources": [
+            "Low ELA energy"
+          ]
+        },
+        {
+          "id": 2,
+          "kind": "low",
+          "energy_region": 2,
+          "components": 1,
+          "cells": 663,
+          "pixels": 169660,
+          "bbox": [
+            518,
+            5,
+            170,
+            1014
+          ],
+          "score": 8.329506874084473,
+          "strong_pixels": 168244,
+          "dominant_descriptor": "energy_low",
+          "sources": [
+            "Low ELA energy"
+          ]
+        }
+      ],
+      "metadata": {
+        "quality": 75,
+        "quality_origin": "fallback_no_usable_jpeg_tables",
+        "table_deviation": null,
+        "qualities": [
+          70,
+          75,
+          80
+        ],
+        "requested_block": 16,
+        "block": 16,
+        "image_shape": [
+          1024,
+          1031
+        ],
+        "valid_shape": [
+          1024,
+          1024
+        ]
+      },
+      "automatic": null,
+      "quantiles": [
+        0.01,
+        0.99
+      ],
+      "thresholds": [
+        5.0,
+        5.0
+      ],
+      "arrays": {
+        "energy_planes": {
+          "sha256": "2d8ec0655f28050b2a669b93cf56407254d20a358fd92ee7361d69694cbb8256",
+          "bytes": 12668928,
+          "planes": [
+            "551a9c726a87dee9c753a14b7e872ceb09a5e0c88215cc807301822c4e5df9bb",
+            "dc5cf5e087c874757a1c24068672f9d2a6d6d070c1e20933a7ed279e9377abea",
+            "0a40674cba28b96b08e4e58a5a71c4498478637701a1afe1e21972aec4456642"
+          ]
+        },
+        "energy_low_score": {
+          "sha256": "c811e861474bdc157fcd214a23f9b7abfe6a2fd80ba0fd70e9f930883fe36441",
+          "bytes": 4222976
+        },
+        "energy_high_score": {
+          "sha256": "3b5f063c23d2792ba4b69b489d65c826aa911b861daf081fbd8819738ea9d0e0",
+          "bytes": 4222976
+        },
+        "energy_scope": {
+          "sha256": "9cc51a3385b49b84608b19cc10878e27df9c12305d7bc352dd23bc68ab114c71",
+          "bytes": 4222976
+        },
+        "energy_labels": {
+          "sha256": "8a6ad06b013b3e625a6f176b2fb2a895d3c7c47f65961ef1374f02eb896c1543",
+          "bytes": 4222976
+        }
+      }
+    },
+    {
+      "name": "large-panels-1",
+      "source": "large-panels",
+      "params": {
+        "quality": 75,
+        "block": 16,
+        "minimum": 1,
+        "profile": "manual",
+        "histogramLow": 100,
+        "histogramHigh": 900,
+        "shadow": 20,
+        "highlight": 20
+      },
+      "summary": [
+        {
+          "id": 1,
+          "bbox": [
+            5,
+            5,
+            512,
+            1019
+          ],
+          "probes": [
+            {
+              "q10": 1.0,
+              "q90": 42.861690521240234,
+              "central_mean": 17.296667098999023,
+              "central_variance": 295.3605651855469,
+              "low_mean": 0.9999854564666748,
+              "low_variance": 2.982154114761215e-07,
+              "high_mean": 44.84488296508789,
+              "high_variance": 2.7793521881103516
+            },
+            {
+              "q10": 0.0,
+              "q90": 42.26129837036133,
+              "central_mean": 16.713764190673828,
+              "central_variance": 294.48193359375,
+              "low_mean": 0.0,
+              "low_variance": 0.0,
+              "high_mean": 44.25520706176758,
+              "high_variance": 2.792947292327881
+            },
+            {
+              "q10": 0.0,
+              "q90": 41.766936492919925,
+              "central_mean": 16.347171783447266,
+              "central_variance": 289.2939758300781,
+              "low_mean": 0.0,
+              "low_variance": 0.0,
+              "high_mean": 43.76757049560547,
+              "high_variance": 2.789799690246582
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "bbox": [
+            518,
+            5,
+            1026,
+            1019
+          ],
+          "probes": [
+            {
+              "q10": 4.923657178878784,
+              "q90": 43.79627151489258,
+              "central_mean": 29.76056671142578,
+              "central_variance": 231.81932067871094,
+              "low_mean": 4.394168376922607,
+              "low_variance": 0.1541733592748642,
+              "high_mean": 45.59709167480469,
+              "high_variance": 2.4030017852783203
+            },
+            {
+              "q10": 4.699369525909424,
+              "q90": 43.229194259643556,
+              "central_mean": 29.237882614135742,
+              "central_variance": 227.3338623046875,
+              "low_mean": 4.19228982925415,
+              "low_variance": 0.14741721749305725,
+              "high_mean": 45.03315353393555,
+              "high_variance": 2.396632671356201
+            },
+            {
+              "q10": 4.368777418136597,
+              "q90": 42.73258743286133,
+              "central_mean": 28.742761611938477,
+              "central_variance": 226.5659942626953,
+              "low_mean": 3.884042263031006,
+              "low_variance": 0.13274343311786652,
+              "high_mean": 44.53331756591797,
+              "high_variance": 2.4302642345428467
+            }
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": 1,
+          "kind": "low",
+          "energy_region": 1,
+          "components": 1,
+          "cells": 1109,
+          "pixels": 283852,
+          "bbox": [
+            5,
+            5,
+            507,
+            1014
+          ],
+          "score": 6.473421096801758,
+          "strong_pixels": 283142,
+          "dominant_descriptor": "energy_low",
+          "sources": [
+            "Low ELA energy"
+          ]
+        },
+        {
+          "id": 2,
+          "kind": "high",
+          "energy_region": 1,
+          "components": 2,
+          "cells": 893,
+          "pixels": 228416,
+          "bbox": [
+            5,
+            5,
+            340,
+            1014
+          ],
+          "score": 4.270748138427734,
+          "strong_pixels": 226669,
+          "dominant_descriptor": "energy_high",
+          "sources": [
+            "High ELA energy"
+          ]
+        },
+        {
+          "id": 3,
+          "kind": "low",
+          "energy_region": 2,
+          "components": 1,
+          "cells": 669,
+          "pixels": 171150,
+          "bbox": [
+            518,
+            5,
+            173,
+            1014
+          ],
+          "score": 8.471221923828125,
+          "strong_pixels": 170221,
+          "dominant_descriptor": "energy_low",
+          "sources": [
+            "Low ELA energy"
+          ]
+        },
+        {
+          "id": 4,
+          "kind": "high",
+          "energy_region": 2,
+          "components": 1,
+          "cells": 1192,
+          "pixels": 305028,
+          "bbox": [
+            687,
+            6,
+            338,
+            1012
+          ],
+          "score": 1.5800085067749023,
+          "strong_pixels": 39929,
+          "dominant_descriptor": "energy_high",
+          "sources": [
+            "High ELA energy"
+          ]
+        }
+      ],
+      "metadata": {
+        "quality": 75,
+        "quality_origin": "manual",
+        "table_deviation": null,
+        "qualities": [
+          70,
+          75,
+          80
+        ],
+        "requested_block": 16,
+        "block": 16,
+        "image_shape": [
+          1024,
+          1031
+        ],
+        "valid_shape": [
+          1024,
+          1024
+        ]
+      },
+      "automatic": null,
+      "quantiles": [
+        0.1,
+        0.9
+      ],
+      "thresholds": [
+        2.0,
+        2.0
+      ],
+      "arrays": {
+        "energy_planes": {
+          "sha256": "2d8ec0655f28050b2a669b93cf56407254d20a358fd92ee7361d69694cbb8256",
+          "bytes": 12668928,
+          "planes": [
+            "551a9c726a87dee9c753a14b7e872ceb09a5e0c88215cc807301822c4e5df9bb",
+            "dc5cf5e087c874757a1c24068672f9d2a6d6d070c1e20933a7ed279e9377abea",
+            "0a40674cba28b96b08e4e58a5a71c4498478637701a1afe1e21972aec4456642"
+          ]
+        },
+        "energy_low_score": {
+          "sha256": "a616549742da985c181e78d9710edf2201b6d13398d4e6e2ba8b076fbad37092",
+          "bytes": 4222976
+        },
+        "energy_high_score": {
+          "sha256": "c9101555ca02ab1aab1fbdc3ac632a32b24f3b3597f9124a50992a7834450dfb",
+          "bytes": 4222976
+        },
+        "energy_scope": {
+          "sha256": "9cc51a3385b49b84608b19cc10878e27df9c12305d7bc352dd23bc68ab114c71",
+          "bytes": 4222976
+        },
+        "energy_labels": {
+          "sha256": "0ec47d9ebc595554f0633f6164c5cb69cfa85c70585e501e25e2e006b3a82e01",
+          "bytes": 4222976
+        }
+      }
+    },
+    {
+      "name": "large-panels-2",
+      "source": "large-panels",
+      "params": {
+        "quality": 0,
+        "block": 32,
+        "minimum": 1,
+        "profile": "conservative",
+        "histogramLow": 10,
+        "histogramHigh": 990,
+        "shadow": 50,
+        "highlight": 50
+      },
+      "summary": [
+        {
+          "id": 1,
+          "bbox": [
+            5,
+            5,
+            512,
+            1019
+          ],
+          "probes": [
+            {
+              "q10": 1.0,
+              "q90": 48.833165191650394,
+              "central_mean": 19.961936950683594,
+              "central_variance": 332.7035217285156,
+              "low_mean": 0.9999854564666748,
+              "low_variance": 2.982154114761215e-07,
+              "high_mean": 50.014976501464844,
+              "high_variance": 1.1423097848892212
+            },
+            {
+              "q10": 0.0,
+              "q90": 48.2544068374634,
+              "central_mean": 19.377674102783203,
+              "central_variance": 331.8670959472656,
+              "low_mean": 0.0,
+              "low_variance": 0.0,
+              "high_mean": 49.452972412109375,
+              "high_variance": 1.1585830450057983
+            },
+            {
+              "q10": 0.0,
+              "q90": 47.72720193481446,
+              "central_mean": 18.999481201171875,
+              "central_variance": 326.6129455566406,
+              "low_mean": 0.0,
+              "low_variance": 0.0,
+              "high_mean": 48.90855026245117,
+              "high_variance": 1.1626191139221191
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "bbox": [
+            518,
+            5,
+            1026,
+            1019
+          ],
+          "probes": [
+            {
+              "q10": 4.068469524383545,
+              "q90": 49.34697641372683,
+              "central_mean": 29.253538131713867,
+              "central_variance": 266.2153625488281,
+              "low_mean": 3.7718560695648193,
+              "low_variance": 0.06040636822581291,
+              "high_mean": 50.43398666381836,
+              "high_variance": 0.9235801100730896
+            },
+            {
+              "q10": 3.8762003660202025,
+              "q90": 48.76135374832154,
+              "central_mean": 28.752914428710938,
+              "central_variance": 261.13043212890625,
+              "low_mean": 3.581698417663574,
+              "low_variance": 0.06233353167772293,
+              "high_mean": 49.86012268066406,
+              "high_variance": 0.9635878205299377
+            },
+            {
+              "q10": 3.576220874786377,
+              "q90": 48.3028720855713,
+              "central_mean": 28.27180290222168,
+              "central_variance": 259.7660827636719,
+              "low_mean": 3.3035268783569336,
+              "low_variance": 0.04868786036968231,
+              "high_mean": 49.42856979370117,
+              "high_variance": 1.0517429113388062
+            }
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": 1,
+          "kind": "low",
+          "energy_region": 1,
+          "components": 1,
+          "cells": 108,
+          "pixels": 109612,
+          "bbox": [
+            5,
+            345,
+            341,
+            334
+          ],
+          "score": 21.71889305114746,
+          "strong_pixels": 101683,
+          "dominant_descriptor": "energy_low",
+          "sources": [
+            "Low ELA energy"
+          ]
+        }
+      ],
+      "metadata": {
+        "quality": 75,
+        "quality_origin": "fallback_no_usable_jpeg_tables",
+        "table_deviation": null,
+        "qualities": [
+          70,
+          75,
+          80
+        ],
+        "requested_block": 32,
+        "block": 32,
+        "image_shape": [
+          1024,
+          1031
+        ],
+        "valid_shape": [
+          1024,
+          1024
+        ]
+      },
+      "automatic": {
+        "quantiles": [
+          0.02,
+          0.997
+        ],
+        "thresholds": [
+          16.4,
+          5.9
+        ],
+        "method": "quantile_tail_knees_one_sided_otsu_v1",
+        "status": "estimated",
+        "sample_count": 114352,
+        "tail_prominence": [
+          0.0,
+          0.4545277863090076
+        ],
+        "profile": "conservative",
+        "calibration": {
+          "tail_factor": 0.2,
+          "shadow_gain": 2.05,
+          "highlight_gain": 2.47
+        }
+      },
+      "quantiles": [
+        0.02,
+        0.997
+      ],
+      "thresholds": [
+        16.4,
+        5.9
+      ],
+      "arrays": {
+        "energy_planes": {
+          "sha256": "2d8ec0655f28050b2a669b93cf56407254d20a358fd92ee7361d69694cbb8256",
+          "bytes": 12668928,
+          "planes": [
+            "551a9c726a87dee9c753a14b7e872ceb09a5e0c88215cc807301822c4e5df9bb",
+            "dc5cf5e087c874757a1c24068672f9d2a6d6d070c1e20933a7ed279e9377abea",
+            "0a40674cba28b96b08e4e58a5a71c4498478637701a1afe1e21972aec4456642"
+          ]
+        },
+        "energy_low_score": {
+          "sha256": "1ee7e9a9cffea0d8c633c9fc3f7fab8d96ea54abd779cf9783a9be7f7dbc1063",
+          "bytes": 4222976
+        },
+        "energy_high_score": {
+          "sha256": "ab314741c8484d08c5849c4f1b6865aea6b77f3df93385c2aa31a3c966478087",
+          "bytes": 4222976
+        },
+        "energy_scope": {
+          "sha256": "9cc51a3385b49b84608b19cc10878e27df9c12305d7bc352dd23bc68ab114c71",
+          "bytes": 4222976
+        },
+        "energy_labels": {
+          "sha256": "3ee5b1e839c273f8a641ecb6bb797954c0a8e1795948ab32be82772dff2beac6",
+          "bytes": 4222976
+        }
+      }
+    }
+  ],
+  "origin": "Existing native ela-energy/pipeline.json and verified payload; no regeneration of shared fixtures"
+}

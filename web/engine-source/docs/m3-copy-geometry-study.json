@@ -1,0 +1,88 @@
+{
+  "opencv": "4.11.0",
+  "reference": {
+    "copy_geometry.py": "48976e59a08c1c19d1dac6477841b6e5cd1fe872b44474847f0264a124bc19be",
+    "copy_subbiomes.py": "31cd01f2e65bd1bdbfc7dab490ea0a1474eb5994aaffd9d4c5fa47f2bb508e04",
+    "copy_overlap.py": "c22bc1d85e7f36d8577695ec4d19633b01f21b54fb607ea4d1864cd9b89014b5",
+    "cloning2.py": "54f0f38376cb394d5a0ecbbf720355a2363df2f8a0ae0f265fff2cad4a3bb12b"
+  },
+  "cases": [
+    {
+      "name": "translation",
+      "models": 1,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    },
+    {
+      "name": "similarity",
+      "models": 1,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    },
+    {
+      "name": "reflection",
+      "models": 1,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    },
+    {
+      "name": "two-models",
+      "models": 2,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    },
+    {
+      "name": "outliers",
+      "models": 1,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    },
+    {
+      "name": "homography",
+      "models": 1,
+      "matrixMax": 7.389644451905042e-13,
+      "matrixValues": 8,
+      "errorMax": 2.842170943040401e-14
+    },
+    {
+      "name": "insufficient-centres",
+      "models": 0,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    },
+    {
+      "name": "self-overlap",
+      "models": 1,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    },
+    {
+      "name": "near-identity",
+      "models": 1,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    },
+    {
+      "name": "none",
+      "models": 0,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    },
+    {
+      "name": "independent-groups",
+      "models": 2,
+      "matrixMax": 0,
+      "matrixValues": 0,
+      "errorMax": 0
+    }
+  ]
+}

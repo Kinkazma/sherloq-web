@@ -1,0 +1,85 @@
+{
+  "error": {
+    "message": "Global stereo flow differs",
+    "stack": "Error: Global stereo flow differs\n    at self.onmessage (http://127.0.0.1:49620/tests/stereo-96mp-worker.js:8:391)"
+  },
+  "partial": {
+    "family": "Stereo",
+    "budgetBytes": 268435456,
+    "cases": [
+      {
+        "params": {
+          "mode": 2
+        },
+        "sha256": "347bef51ac2239d2bc57b2fdf1cc543d6ac7bf2ae4ab4519edaecf8affd73cf6",
+        "export": {
+          "id": "6df124e2-4eb7-4d10-a64e-6e01d78af9e4",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 11808,
+          "height": 8000,
+          "byteLength": 283491956,
+          "sha256": "7e64c7646cbcf080a7fbfd299cc53526f354057f1a721c3d496da0815c687c1b",
+          "sourceSurfaceId": "ecaf1d82-7c15-414f-823a-2f4565f7baf9",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "c1529a955ee77b28d196d20551d4abe2b2c04c8825e4ba6f14108468fb6fa70d",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 284586998,
+            "encodedWriteCalls": 1082,
+            "maxSourceWindowBytes": 1133568,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 15960,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 129439291
+            }
+          }
+        }
+      }
+    ],
+    "settings": [],
+    "source": {
+      "sha256": "c1529a955ee77b28d196d20551d4abe2b2c04c8825e4ba6f14108468fb6fa70d",
+      "shape": {
+        "id": "6ddf0812-e370-4dfc-9290-a6ebfbd41554",
+        "revision": 1,
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "sourceWidth": 12000,
+        "sourceHeight": 8000,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "temporary"
+      },
+      "metrics": {
+        "decodeMs": 3587.5999999940395,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86484283,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 128390715,
+        "codecHeapCapacityBytes": 104005632,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 86484283,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      }
+    }
+  }
+}

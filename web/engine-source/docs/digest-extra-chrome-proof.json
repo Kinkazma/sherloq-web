@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "cases": 11,
+  "values": 2190,
+  "different": 0,
+  "visualAlgorithms": 6,
+  "includesOriginalByte1MP": true,
+  "cacheOwnership": true,
+  "browser": "154.0.8037.58"
+}

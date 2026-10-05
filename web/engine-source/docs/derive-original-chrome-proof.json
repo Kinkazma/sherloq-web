@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "realWorker": true,
+  "insertOverwriteAppend": true,
+  "originalUnchanged": true,
+  "derivedBlobSurvivesUnload": true,
+  "hardAbortAndReload": true,
+  "bytes": 81,
+  "browser": "154.0.8037.58"
+}

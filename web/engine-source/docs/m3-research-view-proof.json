@@ -1,0 +1,75 @@
+{
+  "records": [
+    {
+      "method": "focal",
+      "mode": "overlay",
+      "differences": 0
+    },
+    {
+      "method": "focal",
+      "mode": "map",
+      "differences": 0
+    },
+    {
+      "method": "adaifl",
+      "mode": "overlay",
+      "differences": 0
+    },
+    {
+      "method": "adaifl",
+      "mode": "map",
+      "differences": 0
+    },
+    {
+      "method": "adaifl",
+      "mode": "mask",
+      "differences": 0
+    },
+    {
+      "method": "safire",
+      "mode": "overlay",
+      "differences": 0
+    },
+    {
+      "method": "safire",
+      "mode": "map",
+      "differences": 0
+    },
+    {
+      "method": "safire",
+      "mode": "confidence",
+      "differences": 0
+    }
+  ],
+  "prepares": [
+    {
+      "width": 1,
+      "height": 29,
+      "prefix": "adaifl-prepare-1-29",
+      "values": 3145728,
+      "differences": 0
+    },
+    {
+      "width": 1537,
+      "height": 1031,
+      "prefix": "adaifl-prepare-1537-1031",
+      "values": 3145728,
+      "differences": 0
+    },
+    {
+      "width": 1024,
+      "height": 1024,
+      "prefix": "adaifl-prepare-1024-1024",
+      "values": 3145728,
+      "differences": 0
+    },
+    {
+      "width": 17,
+      "height": 4097,
+      "prefix": "adaifl-prepare-17-4097",
+      "values": 3145728,
+      "differences": 0
+    }
+  ],
+  "remaining": 0
+}

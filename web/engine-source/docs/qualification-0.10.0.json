@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "version": "0.10.0",
+  "status": "passed",
+  "node": {
+    "tests": 69,
+    "passed": 69,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 128567.575417,
+    "concurrency": 2
+  },
+  "comparison": {
+    "cases": 33,
+    "views": 528,
+    "scalarFmaChecks": 30073152,
+    "simdFmaChecks": 24097152,
+    "sewarOriginalVsSimd": "all 33 pairs bit-identical",
+    "browsers": [
+      "154.0.8037.58",
+      "155.0",
+      "26.6"
+    ],
+    "histogramCountCases": 3
+  },
+  "wasmSha256": "f4d13bd27cce6bea62c00fa79a588f0946cab4c3740d59719d6c6db80baf3d36",
+  "benchmarkScope": "Isolated sequential Chrome synthetic fixtures, separate from concurrent functional acceptance",
+  "limits": [
+    "WordPress integration pending",
+    "Physical devices untested",
+    "Other unavailable families remain explicitly unavailable"
+  ]
+}

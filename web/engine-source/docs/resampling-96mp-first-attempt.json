@@ -1,0 +1,506 @@
+{
+  "error": {
+    "message": "JPEG encoded input/coefficient/scanline buffers exceed available RAM or the current codec WASM limit.",
+    "code": "MEMORY_LIMIT",
+    "stack": "EngineError: JPEG encoded input/coefficient/scanline buffers exceed available RAM or the current codec WASM limit.\n    at decodeJpegGrayRows (http://127.0.0.1:60449/src/jpeg-gray-rows.js:11:51)\n    at segmentedResamplingFourier (http://127.0.0.1:60449/src/segmented-resampling.js:24:153)\n    at async self.onmessage (http://127.0.0.1:60449/tests/resampling-96mp-worker.js:16:224)"
+  },
+  "partial": {
+    "family": "Resampling",
+    "budgetBytes": 268435456,
+    "cases": [
+      {
+        "path": "em",
+        "params": {
+          "size": 3,
+          "stage": "probability"
+        },
+        "shape": [
+          8000,
+          12000
+        ],
+        "data": {
+          "size": 3,
+          "regions": [
+            [
+              0,
+              0,
+              12000,
+              8000
+            ]
+          ],
+          "grayNormalization": {
+            "minimum": 0,
+            "maximum": 255,
+            "scope": "whole decoded original grayscale image"
+          },
+          "maps": [
+            {
+              "id": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "width": 11998,
+              "height": 7998,
+              "iterations": 1,
+              "converged": true,
+              "table": "probability0"
+            }
+          ],
+          "fourier": []
+        },
+        "metrics": {
+          "workers": 1,
+          "completedRegions": 1,
+          "completedStripJobs": 23428,
+          "preflightExecutions": 0,
+          "scheduling": {
+            "count": 1,
+            "maximum": 1,
+            "ceiling": 1,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start"
+          },
+          "grayCached": false,
+          "analysisCached": false,
+          "stage": "probability"
+        },
+        "sha256": "45a63d45be351b427d83ac1ea0311b2223d62f83c6683df85ad13126375d192c",
+        "export": {
+          "id": "7f38b6e0-c30f-4caf-b75a-36423b46927b",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 12000,
+          "height": 8000,
+          "byteLength": 288100808,
+          "sha256": "2384504514360ec8bb2215fb921420416fba962a32d21558e1fea90d9e1a32bc",
+          "sourceSurfaceId": "21d83641-49dd-4d95-9603-8eda14bd4f44",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 1100,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 123381029
+            }
+          }
+        },
+        "valuesSha256": "c61917d9456dcc5c007cb30c6d5e0a7d018a8f43bbe40c54f4ff92461f091c30",
+        "valuesExport": {
+          "sha256": "34898481d9ce8c6cca7fcdd707ed19d326e045aa2f0aa8ef4ba85bab4bc5ca19",
+          "byteLength": 767681334,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 3,
+            "zip64": false,
+            "assemblyMs": 11962.5,
+            "hashMs": 7193,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 767681334
+          }
+        },
+        "ms": 641266.3999999911
+      },
+      {
+        "path": "em",
+        "params": {
+          "size": 3,
+          "stage": "fourier",
+          "fourier": {
+            "upsample": false,
+            "gamma": 2,
+            "rescale": false
+          }
+        },
+        "shape": [
+          7998,
+          7998
+        ],
+        "data": {
+          "size": 3,
+          "regions": [
+            [
+              0,
+              0,
+              12000,
+              8000
+            ]
+          ],
+          "grayNormalization": {
+            "minimum": 0,
+            "maximum": 255,
+            "scope": "whole decoded original grayscale image"
+          },
+          "maps": [
+            {
+              "id": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "width": 11998,
+              "height": 7998,
+              "iterations": 1,
+              "converged": true,
+              "table": "probability0"
+            }
+          ],
+          "fourier": [
+            {
+              "id": "fourier0",
+              "source": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "geometry": {
+                "selected": [
+                  0,
+                  0,
+                  11998,
+                  7998
+                ],
+                "spatialSquare": [
+                  2000,
+                  0,
+                  9998,
+                  7998
+                ],
+                "spatialSide": 7998,
+                "fftSide": 7998,
+                "outputSide": 7998,
+                "fftOffset": 0,
+                "upsample": 1,
+                "domain": "fftshift complex spectrum; output is not an image-coordinate mask"
+              },
+              "minimumMagnitude": 0,
+              "maximumMagnitude": 4887.948121077755,
+              "metrics": {
+                "workers": 8,
+                "completedStripJobs": 2000,
+                "preflightExecutions": 0,
+                "policy": "immediate-useful-work",
+                "grayCached": false,
+                "spectrumCached": false,
+                "magnitudeCached": false,
+                "displayCached": false
+              }
+            }
+          ]
+        },
+        "metrics": {
+          "workers": 8,
+          "completedRegions": 1,
+          "completedStripJobs": 23428,
+          "preflightExecutions": 0,
+          "scheduling": {
+            "count": 1,
+            "maximum": 1,
+            "ceiling": 1,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start"
+          },
+          "grayCached": true,
+          "analysisCached": true,
+          "stage": "fourier"
+        },
+        "sha256": "2cac2a90e4f9df3228cac61f79e2be452d50c4f2630f1e60ee84c55763c26371",
+        "export": {
+          "id": "126b8dde-4640-4e7a-9962-e9f0db148451",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 7998,
+          "height": 7998,
+          "byteLength": 191968939,
+          "sha256": "e1734f8b68f9568b916e22130d3adf7d7adc8c549a847e2c33018e06169bda6f",
+          "sourceSurfaceId": "4aa40a88-8b5e-4b88-8fd9-b7edf0988f39",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "memory",
+            "temporaryBackend": null,
+            "outputCapacityBytes": 193054333,
+            "encodedWriteCalls": 733,
+            "maxSourceWindowBytes": 767808,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 193054333,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 219914240
+            }
+          }
+        },
+        "valuesSha256": "f3efeeeb4af0f50b197c368de620c7fdd51987a2da82f2e2907c3af98bbb41ca",
+        "valuesExport": {
+          "sha256": "544113074d9aab7c567f283e94adb85ee39daf95f3073b1320e1228c38321382",
+          "byteLength": 511745538,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 3,
+            "zip64": false,
+            "assemblyMs": 6686.29999999702,
+            "hashMs": 3474.2000000029802,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 511745538
+          }
+        },
+        "ms": 1058094.299999997
+      },
+      {
+        "path": "em",
+        "params": {
+          "size": 3,
+          "stage": "fourier",
+          "fourier": {
+            "upsample": false,
+            "gamma": 3,
+            "rescale": false
+          }
+        },
+        "shape": [
+          7998,
+          7998
+        ],
+        "data": {
+          "size": 3,
+          "regions": [
+            [
+              0,
+              0,
+              12000,
+              8000
+            ]
+          ],
+          "grayNormalization": {
+            "minimum": 0,
+            "maximum": 255,
+            "scope": "whole decoded original grayscale image"
+          },
+          "maps": [
+            {
+              "id": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "width": 11998,
+              "height": 7998,
+              "iterations": 1,
+              "converged": true,
+              "table": "probability0"
+            }
+          ],
+          "fourier": [
+            {
+              "id": "fourier0",
+              "source": "probability0",
+              "rect": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "origin": [
+                1,
+                1
+              ],
+              "geometry": {
+                "selected": [
+                  0,
+                  0,
+                  11998,
+                  7998
+                ],
+                "spatialSquare": [
+                  2000,
+                  0,
+                  9998,
+                  7998
+                ],
+                "spatialSide": 7998,
+                "fftSide": 7998,
+                "outputSide": 7998,
+                "fftOffset": 0,
+                "upsample": 1,
+                "domain": "fftshift complex spectrum; output is not an image-coordinate mask"
+              },
+              "minimumMagnitude": 0,
+              "maximumMagnitude": 4887.948121077755,
+              "metrics": {
+                "workers": 1,
+                "completedStripJobs": 0,
+                "preflightExecutions": 0,
+                "policy": "immediate-useful-work",
+                "grayCached": true,
+                "spectrumCached": true,
+                "magnitudeCached": true,
+                "displayCached": false
+              }
+            }
+          ]
+        },
+        "metrics": {
+          "workers": 1,
+          "completedRegions": 1,
+          "completedStripJobs": 23428,
+          "preflightExecutions": 0,
+          "scheduling": {
+            "count": 1,
+            "maximum": 1,
+            "ceiling": 1,
+            "resourceReduced": false,
+            "policy": "immediate-useful-work",
+            "priorUsefulSamples": 0,
+            "reason": "Aggressive capacity-based start"
+          },
+          "grayCached": true,
+          "analysisCached": true,
+          "stage": "fourier"
+        },
+        "sha256": "e3d2a82772892d1baa9eaed64b62f55b2ded4e21cb2260a942ab36be6a9459a7",
+        "export": {
+          "id": "980c12c1-d193-4cb4-a721-e365f7104696",
+          "revision": 1,
+          "mime": "image/png",
+          "format": "png",
+          "width": 7998,
+          "height": 7998,
+          "byteLength": 191968939,
+          "sha256": "7122da6870efb588028685d182ca655008a1cea3183b1ca950c51cb7c205ba79",
+          "sourceSurfaceId": "baef2ad6-0d54-4bf8-b224-9685c94bba29",
+          "sourceSurfaceRevision": 1,
+          "sourceFormat": "rgb8",
+          "provenance": {
+            "originalSha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+            "coordinates": "full-resolution",
+            "pixels": "exact surface bytes",
+            "metadata": "No original EXIF, ICC, alpha or authenticity assertions are copied.",
+            "encoder": "libpng-1.6.43/emscripten-4.0.15/rows-v1",
+            "compression": 0
+          },
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "outputCapacityBytes": 193054333,
+            "encodedWriteCalls": 733,
+            "maxSourceWindowBytes": 767808,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 193054333,
+              "cacheBytes": 0,
+              "activeReservationBytes": 25427968,
+              "peakAccountedBytes": 219914240
+            }
+          }
+        },
+        "valuesSha256": "dbd2251787528d50a8d3671e7f02593182478ad8dfcb83f3aa0f7d71b4439ee2",
+        "valuesExport": {
+          "sha256": "88df3331a0814b7549ec3a423ccf1ab54cae95eca5605673961d69b806e795e0",
+          "byteLength": 511745538,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 3,
+            "zip64": false,
+            "assemblyMs": 8055.4000000059605,
+            "hashMs": 4794.70000000298,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 511745538
+          }
+        },
+        "ms": 31492.29999999702
+      }
+    ],
+    "source": {
+      "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+      "shape": {
+        "id": "4004798b-2197-4a53-a2c2-21790a75410b",
+        "revision": 1,
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "sourceWidth": 12000,
+        "sourceHeight": 8000,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "temporary"
+      },
+      "metrics": {
+        "decodeMs": 2603.0999999940395,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 80426021,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 122332453,
+        "codecHeapCapacityBytes": 96731136,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 80426021,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      }
+    }
+  }
+}

@@ -1,0 +1,362 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "method": "focal",
+      "width": 12000,
+      "height": 8000,
+      "params": {},
+      "backend": "webgpu",
+      "preparation": {
+        "sourceReads": 2048,
+        "sourceLayout": "rows",
+        "verticalFirst": false,
+        "preparedShape": [
+          1,
+          3,
+          1024,
+          1024
+        ],
+        "sha256": "b718d63f78c294cb1092b93786b338b45854036a483ee9773c1c081d45f32203",
+        "workspacePeakBytes": 12749984,
+        "exact": true
+      },
+      "sourceStorage": "memory",
+      "elapsedMs": 53159.40000000596,
+      "loadMs": 2643.7999999970198,
+      "cache": {
+        "result": true,
+        "proposals": false
+      },
+      "shape": [
+        64,
+        64
+      ],
+      "metadata": {
+        "image_shape": [
+          8000,
+          12000
+        ],
+        "analysis_shape": [
+          1024,
+          1024
+        ],
+        "native_shape": [
+          64,
+          64
+        ],
+        "seed": 123,
+        "clusters": 2,
+        "smallest_region_is_candidate": true,
+        "unused_checkpoint_heads": [
+          "fc.weight",
+          "fc.bias"
+        ],
+        "provider": "webgpu",
+        "runs": [
+          {
+            "stage": "embedding",
+            "provider": "webgpu",
+            "heapBytes": 84082688,
+            "threads": 1
+          },
+          {
+            "stage": "block-00",
+            "provider": "webgpu",
+            "heapBytes": 169607168,
+            "threads": 1
+          },
+          {
+            "stage": "block-01",
+            "provider": "webgpu",
+            "heapBytes": 169607168,
+            "threads": 1
+          },
+          {
+            "stage": "block-02",
+            "provider": "webgpu",
+            "heapBytes": 169607168,
+            "threads": 1
+          },
+          {
+            "stage": "block-03",
+            "provider": "webgpu",
+            "heapBytes": 169607168,
+            "threads": 1
+          },
+          {
+            "stage": "block-04",
+            "provider": "webgpu",
+            "heapBytes": 169607168,
+            "threads": 1
+          },
+          {
+            "stage": "block-05",
+            "provider": "webgpu",
+            "heapBytes": 169607168,
+            "threads": 1
+          },
+          {
+            "stage": "block-06",
+            "provider": "webgpu",
+            "heapBytes": 169607168,
+            "threads": 1
+          },
+          {
+            "stage": "block-07",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-08",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-09",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-10",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-11",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-12",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-13",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-14",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-15",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-16",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-17",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-18",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-19",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-20",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-21",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-22",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "block-23",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "neck",
+            "provider": "webgpu",
+            "heapBytes": 203554816,
+            "threads": 1
+          },
+          {
+            "stage": "hrnet",
+            "provider": "webgpu",
+            "heapBytes": 293208064,
+            "threads": 1
+          },
+          {
+            "stage": "fusion",
+            "provider": "wasm",
+            "heapBytes": 293208064,
+            "threads": 1
+          },
+          {
+            "stage": "cluster",
+            "provider": "wasm",
+            "heapBytes": 165543936,
+            "threads": 1
+          }
+        ],
+        "failures": [],
+        "attempts": 1,
+        "maximumHeapBytes": 536870912,
+        "gpuEstimatedBytes": 805306368,
+        "workerAdmittedBytes": 1877865984,
+        "preflightExecutions": 0,
+        "qualification": "native-floating-arithmetic-differences-measured",
+        "result_reused": false,
+        "method": "focal"
+      },
+      "exports": [
+        {
+          "format": "npz",
+          "bytes": 4748704,
+          "sha256": "ce9ad5ae27cb663760d635e84573703c0bf42dda62c1a713e04f02231c5ae061",
+          "milliseconds": 361.20000000298023,
+          "metrics": {
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "arrays": 4,
+            "assemblyMs": 50.099999994039536,
+            "hashMs": 33.1000000089407,
+            "maximumScalarChunk": 65536,
+            "outputCapacityBytes": 4748704,
+            "memory": {
+              "budgetBytes": 6442450944,
+              "retainedBytes": 292773648,
+              "cacheBytes": 4751360,
+              "activeReservationBytes": 96731136,
+              "peakAccountedBytes": 2284701484
+            }
+          }
+        },
+        {
+          "format": "png",
+          "bytes": 246745070,
+          "sha256": "d27b8ab94714a601a381295394bd8493524879bcfcb4b008412a28fed29390e7",
+          "milliseconds": 31769.59999999404,
+          "metrics": {
+            "storage": "memory",
+            "temporaryBackend": null,
+            "outputCapacityBytes": 289197244,
+            "encodedWriteCalls": 942,
+            "maxSourceWindowBytes": 1152000,
+            "codecHeapCapacityBytes": 16777216,
+            "codecHeapMaximumBytes": 16777216,
+            "memory": {
+              "budgetBytes": 6442450944,
+              "retainedBytes": 581970892,
+              "cacheBytes": 4751360,
+              "activeReservationBytes": 122159104,
+              "peakAccountedBytes": 2284701484
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 6442450944,
+        "retainedBytes": 288018732,
+        "cacheBytes": 4751360,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 2284701484,
+        "knownHeapCapacityBytes": 96731136
+      }
+    }
+  ],
+  "source": {
+    "width": 12000,
+    "height": 8000,
+    "file": "m3-96mp-rich.jpg",
+    "source": "Existing public seed130014 noisy JPEG, then two distant patches (one mirrored) before JPEG90 encoding.",
+    "originalSha256": "2bd5607e72a4ccc8f6a40cc19d55f68e898722eb0421b8d2f4b03807a7e62f79",
+    "bytes": 80424459,
+    "windows": [
+      {
+        "x": 0,
+        "y": 0,
+        "width": 17,
+        "height": 19,
+        "sha256": "c0130727b2d01d2cfa5aa512b6804cfe4ee4fae2e77d562e174aef4cf7905138"
+      },
+      {
+        "x": 512,
+        "y": 512,
+        "width": 31,
+        "height": 29,
+        "sha256": "d9d6187da18c80d18b7cd6b982cf0a2d1278024212e990a200d9994a5910a9b8"
+      },
+      {
+        "x": 10240,
+        "y": 6144,
+        "width": 31,
+        "height": 29,
+        "sha256": "169b38574d21879bf61fbeb06f02845a11bdbe0c476d080aaf2bf165ddd05226"
+      },
+      {
+        "x": 11963,
+        "y": 7971,
+        "width": 37,
+        "height": 29,
+        "sha256": "01d03a21d1f721bdad8aa13d591cd5e68ac959e7f3bad41934aab3bf3670b69b"
+      }
+    ],
+    "preparations": [
+      {
+        "method": "focal",
+        "file": "m3-96mp-focal-prepared.bin",
+        "sha256": "b718d63f78c294cb1092b93786b338b45854036a483ee9773c1c081d45f32203"
+      },
+      {
+        "method": "safire",
+        "file": "m3-96mp-safire-prepared.bin",
+        "sha256": "71f5f73b0e3ea4a93fe0e5c3cf3d459eacf6cf79489889e0ace6d86623c7f561"
+      },
+      {
+        "method": "adaifl",
+        "file": "m3-96mp-adaifl-prepared.bin",
+        "sha256": "4c44cacb9d7355410f670164ea33276d93630218b633176bee516e1449d01de9"
+      }
+    ]
+  },
+  "totalMs": 55805,
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2284701484,
+    "knownHeapCapacityBytes": 96731136
+  }
+}

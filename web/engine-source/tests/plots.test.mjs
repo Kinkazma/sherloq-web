@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {initCvWasm} from '../src/opencv.js';import {createEngine} from '../src/index.js';
+test('RGB/HSV plot values, axes, color and alpha match native; view changes reuse analysis',async()=>{
+ await initCvWasm({wasmBinary:await readFile(new URL('../vendor/opencv/opencv.wasm',import.meta.url))});const ref=JSON.parse(await readFile(new URL('../fixtures/plots-reference.json',import.meta.url))),engine=createEngine(),hash=x=>createHash('sha256').update(new Uint8Array(x.buffer,x.byteOffset,x.byteLength)).digest('hex');
+ try{for(const f of ref.cases){const data=new Uint8Array(await readFile(new URL('../fixtures/'+f.file,import.meta.url)));await engine.load({id:'i',bytes:data,pixels:{width:f.width,height:f.height,format:'rgb8',data}});let last=-1;
+  for(const e of f.expected){const r=await engine.run({id:'t',imageId:'i',operation:'colors.plots',params:e.params});assert.equal(r.metrics.cache.result,last===e.params.scale);last=e.params.scale;assert.deepEqual(Array.from(r.data.values),f.values[e.params.scale]);assert.equal(hash(r.data.positions),e.positions);if(e.params.colored)assert.equal(hash(r.data.colors),e.colors);else assert.deepEqual(r.data.colors,e.colors);r.data.values.fill(0);}
+  engine.unload('i');}}finally{engine.dispose();}
+});

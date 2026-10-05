@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Same backbone, staging, float32 arithmetic, checkpoint, input and 1GiB budget; only useful-worker ceiling changes. Serial runs in one development browser, fresh helpers each time; OS caches not flushed. Preparation excluded, setup/parameter reads separate, no decoder/export/UI speed claim.",
+  "records": [
+    {
+      "name": "structured-copy",
+      "maxWorkers": 1,
+      "workers": 1,
+      "preparationExact": true,
+      "sha256": "cdc531da4c27e6f92a736eca490db7614d1eb18346a65357159c8f616c93ccd9",
+      "milliseconds": 26478.70000000298,
+      "setupMs": 5.5,
+      "timings": {
+        "parameterLoadMs": 1539.800000026822,
+        "executionMs": 24931.599999964237
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 135856128,
+        "peakAccountedBytes": 264769632
+      },
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 264769632
+      }
+    },
+    {
+      "name": "structured-copy",
+      "maxWorkers": 10,
+      "workers": 10,
+      "preparationExact": true,
+      "sha256": "cdc531da4c27e6f92a736eca490db7614d1eb18346a65357159c8f616c93ccd9",
+      "milliseconds": 11014.79999999702,
+      "setupMs": 4.200000002980232,
+      "timings": {
+        "parameterLoadMs": 1511.400000050664,
+        "executionMs": 9497.699999943376
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 739835904,
+        "peakAccountedBytes": 1034389440
+      },
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1034389440
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-tnt-model.mjs": "60277377eb161b9abad6a4fe50b5a58666df47b88255d7c1fdcffdeea886decc",
+    "scripts/export-tnt-backbone.py": "f80e4c9059b0588b286a0781a10557abe8bd24ac07e0981f89d7608cb2ff0d36",
+    "experiments/segmentation/tnt-backbone.js": "7996dd7002884d352a7ba843ddfe473955cbf8b6bfe38be330c91d9f67ebb8e8",
+    "experiments/segmentation/tnt-linear.js": "076816da53d56761565f1f718866cb68561c52b1d4d6e8f1258532400554fcd6",
+    "experiments/segmentation/tnt-linear-worker.js": "ad5280f125769fdd254878f9da90beae90837ba386298ac8cfcc50939ab38bfd",
+    "experiments/segmentation/tnt-inference.js": "653283d44311c3f5c29d5a7f4a6eff65c1c86d4cd99a4076a31741508e302c1c",
+    "experiments/segmentation/tnt-math.cpp": "b14dea22bb3e41b7c247b2536ab547a08622cc6291f246a745e594db0a51a877",
+    "vendor/segmentation/TNT-PINNED.json": "ff4584f4c13ea3935edbfb3a3c37ce17efc56cfd2495d1d0b1adcc18393f2e1c"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "numpy": "1.26.4",
+  "arrays": 9,
+  "shape": [
+    160,
+    192
+  ],
+  "crc": "all members verified",
+  "allow_pickle": false,
+  "unicode": "accent and non-BMP roundtrip",
+  "maxSignificanceError": 1.1368683772161603e-13,
+  "bytes": 1236042
+}

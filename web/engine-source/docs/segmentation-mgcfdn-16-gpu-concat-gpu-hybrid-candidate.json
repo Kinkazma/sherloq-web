@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "status": "passed-hybrid-corpus",
+  "scope": "Actual ORT WebGPU + CPU (including unsupported TopK), float32 model,512MiB WASM ceiling and individually admitted GPU buffers capped512MiB under one3GiB budget. Functional study with profiling; no speedup claim or product startup probe. Fixtures/oracles and server copies are outside model admission. Driver/compiler overhead is not RSS-accounted.",
+  "variant": "mgcfdn-16",
+  "model": {
+    "file": "gpu-concat.onnx",
+    "bytes": 89049900,
+    "sha256": "81efce16baa78f0383fa822918fd51f0a3843163756c6d16421065175c1d7a90"
+  },
+  "weights": {
+    "models/external/clone_detectors/04_mgcfdn/weight/MGCFDN_16x16.pth": "d2657fac0191c54da090b8d0e44e24519bd9722b5b2b4b18fbe17cf00a7e4e65"
+  },
+  "sessionMs": 599,
+  "records": [
+    {
+      "name": "structured-copy",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 0.000002175569534301758,
+        "different": 64637,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.000011682510375976562,
+        "different": 63864,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 0.0000021457672119140625,
+        "different": 200262,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 0,
+      "preparationMs": 25,
+      "runMs": 431.90000000596046,
+      "projectionMs": 54.79999999701977,
+      "heapBytes": 205258752,
+      "gpuLiveBytes": 335054656
+    },
+    {
+      "name": "constant",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 3.5762786865234375e-7,
+        "different": 64356,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.000011444091796875,
+        "different": 62162,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 3.129243850708008e-7,
+        "different": 14410,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 0,
+      "preparationMs": 11.900000005960464,
+      "runMs": 94.09999999403954,
+      "projectionMs": 40.599999994039536,
+      "heapBytes": 205258752,
+      "gpuLiveBytes": 389349936
+    },
+    {
+      "name": "paired-spots",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 0.0000033080577850341797,
+        "different": 64915,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0000400543212890625,
+        "different": 63330,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 0.0000033080577850341797,
+        "different": 64915,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 2892,
+      "preparationMs": 8.5,
+      "runMs": 94.6000000089407,
+      "projectionMs": 45.900000005960464,
+      "heapBytes": 205258752,
+      "gpuLiveBytes": 389362848
+    }
+  ],
+  "gpu": {
+    "limitBytes": 536870912,
+    "liveBytes": 0,
+    "peakBytes": 389887136,
+    "allocations": 1330,
+    "writeBufferBytes": 91273408,
+    "readMappingBytes": 2401376,
+    "dispatchedProfiles": 2630,
+    "kernelTypes": {
+      "Pow": 12,
+      "Mul": 471,
+      "Transpose": 57,
+      "Conv": 842,
+      "BatchNormalization": 390,
+      "Sigmoid": 456,
+      "GlobalAveragePool": 123,
+      "Add": 102,
+      "Resize": 18,
+      "Concat": 15,
+      "Relu": 57,
+      "ReduceL2": 6,
+      "Clip": 3,
+      "Expand": 18,
+      "Div": 12,
+      "MatMul": 6,
+      "Sub": 9,
+      "Neg": 6,
+      "Exp": 6,
+      "Cast": 3,
+      "Softmax": 12,
+      "ReduceSum": 6
+    }
+  },
+  "gpuErrors": [],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1733596708
+  },
+  "adapter": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "maxStorageBuffersPerShaderStage": 10,
+    "maxBufferSize": 4294967292,
+    "maxStorageBufferBindingSize": 4294967292
+  },
+  "browser": "154.0.8037.58",
+  "providerMessages": [
+    "\u001b[0;93m2026-10-01 17:05:00.131300 [W:onnxruntime:, session_state.cc:1397 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.\u001b[m",
+    "\u001b[0;93m2026-10-01 17:05:00.132699 [W:onnxruntime:, session_state.cc:1399 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.\u001b[m"
+  ],
+  "sources": {
+    "scripts/study-segmentation-gpu.mjs": "77003ee91e24f9768d46fa46b69ab7efa3efcf967566d033cca83f502f8405b7",
+    ".build/segmentation-ort-gpu/runtime.json": "5d70f153f4d999d24491dfc8abb1d6286d65286749e544c9ff3bb4e42bb1637a",
+    ".build/ort130/package/dist/ort.all.min.mjs": "2e4a0eae53c3f246e26423aaca493d3bfc22ce524894f27519a9ec4a14e6397a"
+  }
+}

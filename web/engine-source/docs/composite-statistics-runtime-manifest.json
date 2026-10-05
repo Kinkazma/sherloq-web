@@ -1,0 +1,113 @@
+{
+  "schema": 2,
+  "statisticsPolicy": "covariance-floor-v1",
+  "pyodide": "0.26.4",
+  "packages": {
+    "numpy": "1.26.4",
+    "openblas": "0.3.26",
+    "opencv-python": "4.9.0.80",
+    "pillow": "10.2.0",
+    "scipy": "1.12.0"
+  },
+  "files": [
+    {
+      "file": "pyodide.mjs",
+      "bytes": 13779,
+      "sha256": "7f24c6655a79eacf0061d3d4e6a60dc0b1938812d15c52d7ff8b37d9e0689e51"
+    },
+    {
+      "file": "pyodide.asm.js",
+      "bytes": 1229120,
+      "sha256": "7ac81fc7c1341c3112637600fff87732431d5db7b9621bdced27a6853372e4db",
+      "originalSha256": "919560652ed3dad3707cb3a394785da1e046fb13dc0defa162058ff230cb7eed"
+    },
+    {
+      "file": "pyodide.asm.wasm",
+      "bytes": 10088051,
+      "sha256": "b7e66a19427a55010ac3367c1b6c64b893f9826f783412945fdf0c3337f3bc94"
+    },
+    {
+      "file": "python_stdlib.zip",
+      "bytes": 2341872,
+      "sha256": "72894522b791858b9d613ac786b951d8b5094035dcf376313ea24a466810f336"
+    },
+    {
+      "file": "pyodide-lock.json",
+      "bytes": 106335,
+      "sha256": "cd50b49de944c579045e122fe8628b31f9ce446379f032f36c05e273d38766e0"
+    },
+    {
+      "file": "numpy-1.26.4-cp312-cp312-pyodide_2024_0_wasm32.whl",
+      "bytes": 11959269,
+      "sha256": "4a2f5303a88a0747c5e6c80701e0ff4ff5667e487c0c9f9c73875e4d88f4cf9a"
+    },
+    {
+      "file": "openblas-0.3.26.zip",
+      "bytes": 6117592,
+      "sha256": "3c0afcaaabec774f5fa739b908ae08672eacf3c8fe265328da2d632a04ba3cd3"
+    },
+    {
+      "file": "opencv_python-4.9.0.80-cp312-cp312-pyodide_2024_0_wasm32.whl",
+      "bytes": 49454547,
+      "sha256": "9bd855a5d8975cc8619e4bd5d7fe4c36e7483748f3aaa9d129b20f69573e9791"
+    },
+    {
+      "file": "pillow-10.2.0-cp312-cp312-pyodide_2024_0_wasm32.whl",
+      "bytes": 3042026,
+      "sha256": "9f3ae58c481ade2a88f794a5aa130b9514d315ef549f254e474f9593a73428cf"
+    },
+    {
+      "file": "scipy-1.12.0-cp312-cp312-pyodide_2024_0_wasm32.whl",
+      "bytes": 47107789,
+      "sha256": "1a081410432367ee43f52a280961df4ba7e9bb65d8b9862b3cd2e3727e84d873"
+    },
+    {
+      "file": "noiseprint-statistics.zip",
+      "bytes": 47155,
+      "sha256": "d3f5386ec00efb11cb27d1a7be1b78b6a35b1399341f95f76f9bd5bcd7250899"
+    }
+  ],
+  "nativeSources": [
+    {
+      "file": "post_em.py",
+      "sourceSha256": "077e8ffc07b5cd417da00a86d930988f882e1d9a42df069539131c8a2e6225a7",
+      "browserSha256": "077e8ffc07b5cd417da00a86d930988f882e1d9a42df069539131c8a2e6225a7"
+    },
+    {
+      "file": "noiseprint_blind.py",
+      "sourceSha256": "8d6316851ecabda393296dd83d5c0e33293555930b795e9949eba5df117c8d97",
+      "browserSha256": "8d6316851ecabda393296dd83d5c0e33293555930b795e9949eba5df117c8d97"
+    },
+    {
+      "file": "feat_spam/spam_np_opt.py",
+      "sourceSha256": "24ed6a12f3db0bc2dd22bed5b3dab3a0d6bf3403466dc7cdf9ae60263eb4570b",
+      "browserSha256": "0788e379091f9c2aa2a15d4aa10ccd463ea7bf1be1f7cb45e6103cd4666f30e3"
+    },
+    {
+      "file": "feat_spam/residue.py",
+      "sourceSha256": "5b0ec10aa76c2f6e5badb03336d978dbbd71e535b8d063e92bb7b7f5b4e6a813",
+      "browserSha256": "5b0ec10aa76c2f6e5badb03336d978dbbd71e535b8d063e92bb7b7f5b4e6a813"
+    },
+    {
+      "file": "feat_spam/mapping.py",
+      "sourceSha256": "d36e71d2e095ccb0f0b7662b8f1a075971b9c5ca76584fd2993804a8b18d8e29",
+      "browserSha256": "d36e71d2e095ccb0f0b7662b8f1a075971b9c5ca76584fd2993804a8b18d8e29"
+    },
+    {
+      "file": "utility/gaussianMixture.py",
+      "sourceSha256": "dde56a574d80e2f07b5a97ab08fa1b7109ff4cc8a072a62ed0ac0fc3a90c7356",
+      "browserSha256": "dde56a574d80e2f07b5a97ab08fa1b7109ff4cc8a072a62ed0ac0fc3a90c7356"
+    },
+    {
+      "file": "utility/stable_covariance.py",
+      "sourceSha256": "53e4f734022907b17a48322e9d4bacb854b5adf39899487cff94eca45d8ea7aa",
+      "browserSha256": "53e4f734022907b17a48322e9d4bacb854b5adf39899487cff94eca45d8ea7aa"
+    },
+    {
+      "file": "utility/utilityRead.py",
+      "sourceSha256": "ceb0c55135b54611a2554bed3eb9d555787c1cb8154a2fdb286db61efd489d45",
+      "browserSha256": "ceb0c55135b54611a2554bed3eb9d555787c1cb8154a2fdb286db61efd489d45"
+    }
+  ],
+  "memory": "Actual WebAssembly maximum provided by worker admission; unchanged WASM binary"
+}

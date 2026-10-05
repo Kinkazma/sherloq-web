@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "note": "Suites overlap; do not sum their case counts. Final complete suite with --experimental-test-module-mocks: 1360 cases, 1358 passed and 2 initially skipped for absent local ROI/EM oracles. Existing native references were then found in the M4 worktree, their complete file hashes recorded, and linked read-only into runtime and integration .build directories. Both skipped cases passed in the supplemental 3-case run (one overlapping case). All 1360 distinct full-suite cases are covered; no reference data or tolerance was regenerated or relaxed.",
+  "suites": [
+    {
+      "log": ".build/integration29-full-node-final.tap",
+      "sha256": "640250728f9c6aab1695f005d6883e87bea7f39a5c7bf7fb1dc04f3553feb02e",
+      "tests": 1340,
+      "pass": 1320,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 20,
+      "durationMs": 260691.289917
+    },
+    {
+      "log": ".build/integration29-module-mocks.tap",
+      "sha256": "815350cd033c9233d30e7492f328ad0cec4e7109eaaa555a27a4beb7a32a40d0",
+      "tests": 34,
+      "pass": 34,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 422.473584
+    },
+    {
+      "log": ".build/integration29-retry-parent-final.tap",
+      "sha256": "79700522ae97f09957b508d1651a687a8394ddf3bb08a3185db4f1f87d480cbe",
+      "tests": 30,
+      "pass": 30,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 512.481667
+    },
+    {
+      "log": ".build/integration29-parent-admission.tap",
+      "sha256": "5e9b74b886b3541de5a0eeb96e1204afae2d501f5af0b62e151f5148c816cb86",
+      "tests": 51,
+      "pass": 51,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 5978.808083
+    },
+    {
+      "log": ".build/integration29-native-gpu-contracts.tap",
+      "sha256": "81bc894cdd8db5418a173785c51b389f27f1a503824042816187ee6d6c090442",
+      "tests": 31,
+      "pass": 31,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 115.46475
+    },
+    {
+      "log": ".build/integration29-cache-liveness-final.tap",
+      "sha256": "d7120d94e55c11824b6179083037f184178474ac808e4e955a91a0e948bd8a40",
+      "tests": 28,
+      "pass": 28,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 298.080333
+    },
+    {
+      "log": ".build/integration29-retirement-diagnostics.tap",
+      "sha256": "1ad7e9fcb1f90e8726c12d8911724dc70ec90208e510b3385509ae65f4521e61",
+      "tests": 15,
+      "pass": 15,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 435.580583
+    },
+    {
+      "log": ".build/integration29-final-node-with-mocks.tap",
+      "sha256": "73465022306d948ba589609559ad254b782982163e3b4992cc2f112d311510f0",
+      "tests": 1360,
+      "pass": 1358,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 2,
+      "durationMs": 260566.77925
+    },
+    {
+      "log": ".build/integration29-native-status-boundaries.tap",
+      "sha256": "f8df1f92322f06188af5a8f8fcac671a910a518585c569f5d0c0440d188acb17",
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 268.662125
+    },
+    {
+      "log": ".build/integration29-restored-native-oracles.tap",
+      "sha256": "c68a011e2366b724fc7d26d302cabd0f76d6d350c4d4997d720cfa3c8085fc5c",
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 152844.041458
+    }
+  ],
+  "distinctCompleteSuiteCases": 1360,
+  "unresolvedSkippedCases": 0
+}

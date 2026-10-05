@@ -1,0 +1,74 @@
+{
+  "package": "h5wasm",
+  "version": "0.10.3",
+  "archive": "https://registry.npmjs.org/h5wasm/-/h5wasm-0.10.3.tgz",
+  "integrity": "sha512-W4Jy5ExtX/VNbyD8GdOBckDuj6AL16TemppVNxZsV3rJZEWCv2sxlCzOttZLer3zkMttbDYsWHl0qt1z3Bln+Q==",
+  "upstream": "https://github.com/usnistgov/h5wasm/tree/v0.10.3",
+  "build": "Unmodified ESM distribution, embedded HDF5 2.0.0 WASM; CMake pins static library SHA256 and Emscripten 4.0.23. No node/NODERAWFS or plugin modules shipped.",
+  "files": [
+    {
+      "file": "CMakeLists.txt",
+      "sha256": "c325cdce7263c0bfb002ab352551d1dc46cb2521d524d03b0c384cae0835bca6"
+    },
+    {
+      "file": "Makefile",
+      "sha256": "58977f9d595de060e8efa08df27fb4c81b195a80a862fa43c13ac110d33ecd90"
+    },
+    {
+      "file": "DEVELOPER.md",
+      "sha256": "f02bbd9f0c442224c9774f8c3c1071c87872294cfb7ba8e02ee871de75006e8b"
+    },
+    {
+      "file": "hdf5_hl.js",
+      "sha256": "fe46fdd39690a348a61561d627f7d9feb81b92d805cde992cfa23866f1c1a8e1"
+    },
+    {
+      "file": "README.md",
+      "sha256": "6bea5b88f179c407db5d6cd4da72cda1712afc569ccc0b7e2d7603b45d52e27c"
+    },
+    {
+      "file": "package.json",
+      "sha256": "96f06edf3a8a6fe7ab3bf2c02f8a0cb5c211d252c167eb812bef28fefa81f62b"
+    },
+    {
+      "file": "hdf5_util.js",
+      "sha256": "c41874d94e9523f4c7d498c951d7707f278f62040155ee8525aafce46ce1e2c8"
+    },
+    {
+      "file": "LICENSE.txt",
+      "sha256": "f3ba6b8afe2a0d6f482f29a46672f88668ae02b16dfc4a2e878fd50a4f34fa6a"
+    },
+    {
+      "file": "src/hdf5_util.d.ts",
+      "sha256": "0e1e54a7776bb8a9c8ed2fde54943473060e7bc95e5718f772326e9d33a7f803"
+    },
+    {
+      "file": "src/hdf5_hl.ts",
+      "sha256": "9d64505d2dbd8a735c77d183ded3b2862ea239ebeb40a0a6b15f88949a2727f1"
+    },
+    {
+      "file": "src/node_esm_shim.js",
+      "sha256": "778cbcb27fb390bce68211288b1c22f1f995b9ea1b4d7c6b20de6c66f24c4e69"
+    },
+    {
+      "file": "src/hdf5_util.cc",
+      "sha256": "2768a3d5a23b6c9062a8f98dff467d75a9d581407f056b9fe9dd5b6d11ea311f"
+    },
+    {
+      "file": "src/file_handlers.ts",
+      "sha256": "58d6dec161227d10e8aa53459ebd9d6a6d6a33b06f3295ae48caa5110cf13e06"
+    },
+    {
+      "file": "src/hdf5_util_helpers.d.ts",
+      "sha256": "1e2c9f5240f552bca9583c503422414dcb4e594e84bdf7934b974d3b212f6004"
+    },
+    {
+      "file": "src/hdf5_hl.d.ts",
+      "sha256": "24c119da056b31abd0bc6b3c8db2ee425dfe959ddee1a5a39ea60a8474fc7c35"
+    },
+    {
+      "file": "src/emscripten.d.ts",
+      "sha256": "fcea6715debbb2186f6e660a76793a99cf7df17cd12c81653a1c2e19d0017aae"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+TAP version 13
+# Subtest: Segmented D2PRL composition preserves every native raw-grid refilter, mask, overlap and exclusion
+ok 1 - Segmented D2PRL composition preserves every native raw-grid refilter, mask, overlap and exclusion
+  ---
+  duration_ms: 4562.993084
+  type: 'test'
+  ...
+# Subtest: Segmented CMSeg and all qualified MGCF variants preserve native maximum/OR composition and envelope removal
+ok 2 - Segmented CMSeg and all qualified MGCF variants preserve native maximum/OR composition and envelope removal
+  ---
+  duration_ms: 309.568334
+  type: 'test'
+  ...
+# Subtest: Partial neural composition cancels, rejects invalid modes and protects completed owned stores
+ok 3 - Partial neural composition cancels, rejects invalid modes and protects completed owned stores
+  ---
+  duration_ms: 27.248542
+  type: 'test'
+  ...
+# {"i":0,"grayMax":0.0000457763671875,"normalizedMax":0.0000019073486328125,"stats":{"width":1312,"height":768,"mean":127.53336334228516,"inverseStd":0.0351768359541893,"reads":13,"normalization":"one global InstanceNorm; float64 moment reduction, float32 tensor"}}
+# Subtest: XFeat native global preparation 1317x789
+ok 4 - XFeat native global preparation 1317x789
+  ---
+  duration_ms: 51.976625
+  type: 'test'
+  ...
+# {"i":1,"grayMax":0,"normalizedMax":3.5762786865234375e-7,"stats":{"width":128,"height":96,"mean":127.01543426513672,"inverseStd":0.023393873125314713,"reads":2,"normalization":"one global InstanceNorm; float64 moment reduction, float32 tensor"}}
+# Subtest: XFeat native global preparation 128x96
+ok 5 - XFeat native global preparation 128x96
+  ---
+  duration_ms: 3.049459
+  type: 'test'
+  ...
+# {"i":2,"grayMax":0.000030517578125,"normalizedMax":0.0000014603137969970703,"stats":{"width":96,"height":128,"mean":126.6103286743164,"inverseStd":0.03513143211603165,"reads":3,"normalization":"one global InstanceNorm; float64 moment reduction, float32 tensor"}}
+# Subtest: XFeat native global preparation 97x131
+ok 6 - XFeat native global preparation 97x131
+  ---
+  duration_ms: 2.575583
+  type: 'test'
+  ...
+# Subtest: XFeat preparation releases native allocations after source failure
+ok 7 - XFeat preparation releases native allocations after source failure
+  ---
+  duration_ms: 2.719417
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5003.93725

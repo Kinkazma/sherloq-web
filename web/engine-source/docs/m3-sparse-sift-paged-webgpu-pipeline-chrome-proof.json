@@ -1,0 +1,234 @@
+{
+  "browser": "154.0.8037.58",
+  "records": [
+    {
+      "name": "SIFT/masked/None",
+      "matrixMax": 0,
+      "pairs": 0,
+      "groups": 0,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": false,
+        "normalized": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "SIFT/masked/Affine",
+      "matrixMax": 0,
+      "pairs": 0,
+      "groups": 0,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": true,
+        "normalized": true,
+        "matches": true,
+        "groups": true
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "SIFT-G2NN/global/None",
+      "matrixMax": 0,
+      "pairs": 3,
+      "groups": 1,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "SIFT-G2NN/global/Affine",
+      "matrixMax": 0,
+      "pairs": 3,
+      "groups": 0,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": true,
+        "matches": true,
+        "groups": true
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "SIFT-G2NN/masked/None",
+      "matrixMax": 0,
+      "pairs": 3,
+      "groups": 1,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "SIFT-G2NN/masked/Affine",
+      "matrixMax": 0,
+      "pairs": 3,
+      "groups": 0,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": true,
+        "matches": true,
+        "groups": true
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "SIFT/positive/Affine",
+      "matrixMax": 4.121147867408581e-13,
+      "pairs": 144,
+      "groups": 5,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": false,
+        "normalized": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "RootSIFT/positive/Affine",
+      "matrixMax": 1.8474111129762605e-13,
+      "pairs": 152,
+      "groups": 5,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": false,
+        "normalized": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "SIFT + G2NN + RANSAC/positive/Affine",
+      "matrixMax": 2.2737367544323206e-13,
+      "pairs": 543,
+      "groups": 5,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "features": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    },
+    {
+      "name": "Panels-Text/reflected/Affine",
+      "matrixMax": 1.4210854715202004e-13,
+      "pairs": 697,
+      "groups": 5,
+      "pairsEqual": true,
+      "groupsEqual": true,
+      "colorsEqual": true,
+      "ownersEqual": true,
+      "countsEqual": true,
+      "cache": {
+        "text": false,
+        "features": false,
+        "matches": false,
+        "groups": false
+      },
+      "render": {
+        "differences": 0,
+        "max": 0,
+        "visibleEqual": true,
+        "legendEqual": true
+      }
+    }
+  ],
+  "cacheReused": true,
+  "cancelled": true,
+  "peakAccountedBytes": 1926855956,
+  "remainingActiveBytes": 0
+}

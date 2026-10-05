@@ -1,0 +1,70 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "keypoints": {
+        "values": 82,
+        "maxError": 0,
+        "differences": 0
+      },
+      "descriptors": {
+        "values": 5248,
+        "maxError": 2.9802322387695312e-8,
+        "differences": 3691
+      },
+      "keypoint_scores": {
+        "values": 41,
+        "maxError": 0,
+        "differences": 0
+      },
+      "scales": {
+        "values": 41,
+        "maxError": 0,
+        "differences": 0
+      },
+      "oris": {
+        "values": 41,
+        "maxError": 0,
+        "differences": 0
+      }
+    },
+    {
+      "case": 1,
+      "keypoints": {
+        "values": 158,
+        "maxError": 0,
+        "differences": 0
+      },
+      "descriptors": {
+        "values": 10112,
+        "maxError": 5.960464477539063e-8,
+        "differences": 6839
+      },
+      "keypoint_scores": {
+        "values": 79,
+        "maxError": 0,
+        "differences": 0
+      },
+      "scales": {
+        "values": 79,
+        "maxError": 0,
+        "differences": 0
+      },
+      "oris": {
+        "values": 79,
+        "maxError": 9.5367431640625e-7,
+        "differences": 4
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 123937864
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

@@ -1,0 +1,278 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real96MP segmented extrema and two raw-mask handles; all six filter settings/four native windows each; complete filter1 display and both mask checksums; release/unload/cancel/dispose. Functional timings, not isolated benchmarks.",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+  "nativeSourceSha256": "d05512c99fc355d5e00baa5d5d4a28e1ba09584e6bd4d8b38240225a58367ea7",
+  "cases": [
+    {
+      "params": {
+        "channel": 0,
+        "minimum": 1,
+        "maximum": 0,
+        "filter": 0
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 7518,
+      "metrics": {
+        "stageMs": {
+          "admission": 6,
+          "extremaAndMaskWrites": 7509,
+          "densityCounts": 0,
+          "globalNormalization": 0,
+          "displayWrites": 0
+        },
+        "blocks": 223,
+        "rowsPerBlock": 36,
+        "densityCells": 0,
+        "densityGridBytes": 0,
+        "storage": "temporary",
+        "maskStorage": {
+          "minimum": "memory",
+          "maximum": "temporary"
+        },
+        "retainedResultBytes": 480000000,
+        "totalMs": 7517,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 207935488
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 0,
+        "minimum": 1,
+        "maximum": 0,
+        "filter": 1
+      },
+      "windows": 4,
+      "fullRgbSha256": "bdb4a882cde4a578f6b009f99bc76c887c099d6821c7560e63284a8c35d14087",
+      "fullMaskSha256": {
+        "minimum": "7e5e2829a82e4a207becf87fcc967dc83e8a9944965213a54e0b6f6441580c49",
+        "maximum": "d3d0689639f753baa20bb3114d0124bcbdbc89b2706003555a74d9a6f3459b7e"
+      },
+      "computeMs": 7528,
+      "metrics": {
+        "stageMs": {
+          "admission": 5,
+          "extremaAndMaskWrites": 5224,
+          "densityCounts": 610,
+          "globalNormalization": 435,
+          "displayWrites": 1253
+        },
+        "blocks": 223,
+        "rowsPerBlock": 36,
+        "densityCells": 1185926,
+        "densityGridBytes": 19054816,
+        "storage": "temporary",
+        "maskStorage": {
+          "minimum": "memory",
+          "maximum": "temporary"
+        },
+        "retainedResultBytes": 480000000,
+        "totalMs": 7528,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 226990304
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 1,
+        "minimum": 3,
+        "maximum": 3,
+        "filter": 2
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 7658,
+      "metrics": {
+        "stageMs": {
+          "admission": 6,
+          "extremaAndMaskWrites": 5022,
+          "densityCounts": 616,
+          "globalNormalization": 347,
+          "displayWrites": 1667
+        },
+        "blocks": 223,
+        "rowsPerBlock": 36,
+        "densityCells": 794248,
+        "densityGridBytes": 12787968,
+        "storage": "temporary",
+        "maskStorage": {
+          "minimum": "memory",
+          "maximum": "temporary"
+        },
+        "retainedResultBytes": 480000000,
+        "totalMs": 7658,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 226990304
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 2,
+        "minimum": 4,
+        "maximum": 3,
+        "filter": 3
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 7460,
+      "metrics": {
+        "stageMs": {
+          "admission": 9,
+          "extremaAndMaskWrites": 5245,
+          "densityCounts": 603,
+          "globalNormalization": 301,
+          "displayWrites": 1300
+        },
+        "blocks": 223,
+        "rowsPerBlock": 36,
+        "densityCells": 569184,
+        "densityGridBytes": 9186944,
+        "storage": "temporary",
+        "maskStorage": {
+          "minimum": "memory",
+          "maximum": "temporary"
+        },
+        "retainedResultBytes": 480000000,
+        "totalMs": 7459,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 226990304
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 3,
+        "minimum": 3,
+        "maximum": 4,
+        "filter": 4
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 7089,
+      "metrics": {
+        "stageMs": {
+          "admission": 7,
+          "extremaAndMaskWrites": 4970,
+          "densityCounts": 620,
+          "globalNormalization": 256,
+          "displayWrites": 1235
+        },
+        "blocks": 223,
+        "rowsPerBlock": 36,
+        "densityCells": 427200,
+        "densityGridBytes": 6915200,
+        "storage": "temporary",
+        "maskStorage": {
+          "minimum": "memory",
+          "maximum": "temporary"
+        },
+        "retainedResultBytes": 480000000,
+        "totalMs": 7088,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 226990304
+        }
+      }
+    },
+    {
+      "params": {
+        "channel": 4,
+        "minimum": 2,
+        "maximum": 0,
+        "filter": 5
+      },
+      "windows": 4,
+      "fullRgbSha256": null,
+      "fullMaskSha256": null,
+      "computeMs": 7073,
+      "metrics": {
+        "stageMs": {
+          "admission": 5,
+          "extremaAndMaskWrites": 5104,
+          "densityCounts": 608,
+          "globalNormalization": 208,
+          "displayWrites": 1146
+        },
+        "blocks": 223,
+        "rowsPerBlock": 36,
+        "densityCells": 332526,
+        "densityGridBytes": 5400416,
+        "storage": "temporary",
+        "maskStorage": {
+          "minimum": "memory",
+          "maximum": "temporary"
+        },
+        "retainedResultBytes": 480000000,
+        "totalMs": 7072,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 96000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 226990304
+        }
+      }
+    }
+  ],
+  "cancellationMs": 34,
+  "cancellation": "storage-closed-before-worker-termination",
+  "storageArtifactsRemaining": 0,
+  "browser": "155.0"
+}

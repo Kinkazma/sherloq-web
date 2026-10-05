@@ -1,0 +1,121 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "outputs": {
+        "map": {
+          "values": 16512,
+          "maxError": 9.238719940185547e-7,
+          "differences": 16017
+        },
+        "confidence": {
+          "values": 16512,
+          "maxError": 5.364418029785156e-7,
+          "differences": 12083
+        },
+        "score": {
+          "values": 1,
+          "maxError": 1.1920928955078125e-7,
+          "differences": 1
+        },
+        "noiseprint_pp": {
+          "values": 16512,
+          "maxError": 0.0000011920928955078125,
+          "differences": 15945
+        }
+      },
+      "execution": {
+        "milliseconds": 3253.0999999940395,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 973078528,
+        "provider": "webgpu",
+        "workers": 1,
+        "noiseprint": [
+          {
+            "top": 0,
+            "rows": 128,
+            "milliseconds": 148.39999999850988,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 117440512,
+            "provider": "webgpu",
+            "workers": 1
+          }
+        ],
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 3221225472,
+          "retainedBytes": 2301638059,
+          "cacheBytes": 206336,
+          "activeReservationBytes": 520064,
+          "peakAccountedBytes": 2302818627
+        }
+      }
+    },
+    {
+      "case": 1,
+      "outputs": {
+        "map": {
+          "values": 98945,
+          "maxError": 0.000003933906555175781,
+          "differences": 97504
+        },
+        "confidence": {
+          "values": 98945,
+          "maxError": 0.000002562999725341797,
+          "differences": 71653
+        },
+        "score": {
+          "values": 1,
+          "maxError": 1.1920928955078125e-7,
+          "differences": 1
+        },
+        "noiseprint_pp": {
+          "values": 98945,
+          "maxError": 0.00005283951759338379,
+          "differences": 94718
+        }
+      },
+      "execution": {
+        "milliseconds": 3351.39999999851,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1006632960,
+        "provider": "webgpu",
+        "workers": 1,
+        "noiseprint": [
+          {
+            "top": 0,
+            "rows": 257,
+            "milliseconds": 372.20000000298023,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 167772160,
+            "provider": "webgpu",
+            "workers": 1
+          }
+        ],
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 3221225472,
+          "retainedBytes": 2493676235,
+          "cacheBytes": 1195532,
+          "activeReservationBytes": 3075487,
+          "peakAccountedBytes": 2500709546
+        }
+      }
+    }
+  ],
+  "graphSha256": "0f49671771488c4311b0e75ddd9bd6ef61af39734f6723f3bba6d7286e290e7d",
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2500709546
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

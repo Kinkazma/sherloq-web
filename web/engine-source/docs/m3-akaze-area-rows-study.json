@@ -1,0 +1,41 @@
+{
+  "qualification": "Global-phase INTER_AREA row-strip study; no detector qualification",
+  "records": [
+    {
+      "w": 398,
+      "h": 282,
+      "nw": 199,
+      "nh": 141,
+      "strips": 21,
+      "differences": 0,
+      "maximum": 0
+    },
+    {
+      "w": 397,
+      "h": 281,
+      "nw": 198,
+      "nh": 140,
+      "strips": 20,
+      "differences": 0,
+      "maximum": 0
+    },
+    {
+      "w": 642,
+      "h": 480,
+      "nw": 321,
+      "nh": 240,
+      "strips": 35,
+      "differences": 0,
+      "maximum": 0
+    },
+    {
+      "w": 643,
+      "h": 481,
+      "nw": 321,
+      "nh": 240,
+      "strips": 35,
+      "differences": 0,
+      "maximum": 0
+    }
+  ]
+}

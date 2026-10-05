@@ -1,0 +1,9 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import createModule from '../.build/cfa-m2/operators.mjs';
+const module=await createModule({wasmBinary:await fs.readFile(new URL('../.build/cfa-m2/operators.wasm',import.meta.url)),wasmMemory:new WebAssembly.Memory({initial:256,maximum:32768})}),records=[];
+for(const [height,width,co]of [[32,64,1],[32,64,64],[65,77,1],[65,77,64]]){
+ const ci=3,source=Float32Array.from({length:ci*height*width},(_,i)=>Math.sin(i*1.77)*4),weights=Float32Array.from({length:co*ci*9},(_,i)=>Math.cos(i*2.31)),bias=Float32Array.from({length:co},(_,i)=>Math.sin(i+1));
+ const pointers=[],alloc=data=>{const p=module._malloc(data.byteLength);pointers.push(p);module.HEAPF32.set(data,p/4);return p;},wp=alloc(weights),bp=alloc(bias);
+ function run(x,y,w,h,window){const padded=new Float32Array(ci*(h+2)*(w+2));for(let c=0;c<ci;c++)for(let yy=0;yy<h+2;yy++)for(let xx=0;xx<w+2;xx++){const gy=y+yy-1,gx=x+xx-1;if(gy>=0&&gx>=0&&gy<height&&gx<width)padded[(c*(h+2)+yy)*(w+2)+xx]=source[(c*height+gy)*width+gx];}const xp=alloc(padded),op=alloc(new Float32Array(co*w*h));if(window)module._cfa_conv_window(xp,wp,bp,op,ci,h+2,w+2,co,height,width,y,x);else module._cfa_conv_global(xp,wp,bp,op,ci,h+2,w+2,co,height,0);const data=module.HEAPF32.slice(op/4,op/4+co*w*h);return data;}
+ try{const full=run(0,0,width,height,false);let checked=0;for(let y=0;y<height;y+=13)for(let x=0;x<width;x+=19){const w=Math.min(19,width-x),h=Math.min(13,height-y),part=run(x,y,w,h,true);for(let c=0;c<co;c++)for(let yy=0;yy<h;yy++)for(let xx=0;xx<w;xx++){assert.equal(part[(c*h+yy)*w+xx],full[(c*height+y+yy)*width+x+xx]);checked++;}}records.push({height,width,co,checked,exact:true});}finally{for(const p of pointers)module._free(p);}
+}
+await fs.writeFile(new URL('../docs/cfa-window-kernel-proof.json',import.meta.url),JSON.stringify({records,passed:true},null,2)+'\n');console.log(JSON.stringify({records,passed:true}));

@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "corpus": {
+    "cases": 49,
+    "refused": 1
+  },
+  "results": [
+    {
+      "dimensions": [
+        4103,
+        5401
+      ],
+      "orientation": 1,
+      "bigTiff": false,
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "blocks": 85,
+      "blockSize": [
+        4103,
+        64
+      ],
+      "codecHeapMaximumBytes": 33554432,
+      "codecHeapCapacityBytes": 16777216,
+      "encodedReadCalls": 1,
+      "fullNativeRgbSha": "84b956f5dd7421e824f9951327eb2edb26f2d98c6bafce67ba95a130a62c8170",
+      "sixPerceptualHashes": true,
+      "peakAccountedBytes": 92754739
+    },
+    {
+      "dimensions": [
+        4103,
+        5401
+      ],
+      "orientation": 3,
+      "bigTiff": true,
+      "storage": "temporary",
+      "temporaryBackend": "opfs",
+      "blocks": 1419,
+      "blockSize": [
+        128,
+        128
+      ],
+      "codecHeapMaximumBytes": 33554432,
+      "codecHeapCapacityBytes": 16777216,
+      "encodedReadCalls": 5,
+      "fullNativeRgbSha": "efe7cc7f274c2b8bf39b2d243139e4b541a015edd976b629248ad697a1e2d8c1",
+      "sixPerceptualHashes": true,
+      "peakAccountedBytes": 92754739,
+      "cancellationMode": "storage-closed-before-worker-termination",
+      "digestCancellationMode": "storage-closed-before-worker-termination"
+    }
+  ],
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

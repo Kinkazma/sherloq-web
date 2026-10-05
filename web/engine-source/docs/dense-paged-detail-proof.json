@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "detailCases": [
+    {
+      "samples": 2592,
+      "maximumError": 0,
+      "meanError": 0,
+      "cacheBytes": 341088
+    },
+    {
+      "samples": 2592,
+      "maximumError": 0,
+      "meanError": 0,
+      "cacheBytes": 341088
+    }
+  ],
+  "guideCases": 16,
+  "peakAccountedBytes": 50682636
+}

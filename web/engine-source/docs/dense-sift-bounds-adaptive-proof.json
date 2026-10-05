@@ -1,0 +1,64 @@
+[
+  {
+    "boundReads": 504,
+    "coherence": {
+      "workspaceBytes": 16858000,
+      "pageBytes": 4096,
+      "cachePages": 1032,
+      "cacheBytes": 78432,
+      "reads": 10,
+      "writes": 4,
+      "readBytes": 28665,
+      "writeBytes": 11025,
+      "heapBytes": 8388608
+    },
+    "patch": 3,
+    "target": 5,
+    "support": 5,
+    "mirror": true,
+    "quarter": true,
+    "milliseconds": 17378.70000000298,
+    "metrics": {
+      "workspaceBytes": 25370216,
+      "initialBatchPixels": 257,
+      "batchBytes": 8526360,
+      "residentPool": true,
+      "residentPoolBytes": 592,
+      "residentSiftBoundsBytes": 0,
+      "pagedSiftBounds": false,
+      "cacheBytes": 66048,
+      "pageBytes": 4096,
+      "cachePages": 2,
+      "reads": 266933,
+      "writes": 567,
+      "readBytes": 1085625985,
+      "writeBytes": 1753680,
+      "heapBytes": 8388608,
+      "siftBoundsReadTiming": {
+        "boundSamples": 32,
+        "descriptorSamples": 140,
+        "boundReadMeanMs": 28.478124999441206,
+        "descriptorReadMeanMs": 0.000714285671710968
+      },
+      "siftBoundsFallback": {
+        "reason": "slow-bound-reads",
+        "boundReadMeanMs": 28.478124999441206,
+        "descriptorReadMeanMs": 0.000714285671710968,
+        "boundSamples": 32,
+        "descriptorSamples": 140
+      },
+      "siftBoundRejections": 342
+    },
+    "preparation": {
+      "workers": 1,
+      "workspaceBytes": 17207296,
+      "heapBytes": 8388608,
+      "boundsFallback": null,
+      "fullBounds": true,
+      "storedBytes": 532410
+    },
+    "comparisons": "61355",
+    "peakAccountedBytes": 26367281,
+    "bitExact": true
+  }
+]

@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-03",
+  "base": "57015d3",
+  "scope": "D2PRL GPU convolution owned readback, tested independently of the full learned model and 96 MP workload.",
+  "failureEvidence": {
+    "run": "runtime-v2-backing-recovery-96mp-20261003T043319Z",
+    "phase": "convolution:readback-copy after all 198 PatchMatch evaluations",
+    "failedAllocationBytes": 51380224,
+    "calculatedGpuOutputWasAlreadyMapped": true
+  },
+  "change": {
+    "output": "The mapped staging view is returned with release(); no Float32Array.slice or equivalent output backing copy.",
+    "ownership": "release unmaps/destroys and releases the reservation exactly once. Engine disposal defers device destruction until every returned result is released. Input and intermediate GPU buffers are destroyed before mapping recovery.",
+    "budget": "Two output extents cover staging plus a separate host mapping. Initial total reservation is unchanged; no global resource ceiling is reduced.",
+    "transferContract": "Mapped WebGPU ArrayBuffers are not transferable. Current D2PRL callers consume these views synchronously or await downstream useful copying before releasing them; progress callbacks expose no mapped buffers.",
+    "specification": "https://gpuweb.github.io/gpuweb/#buffer-mapping"
+  },
+  "node": {
+    "passed": 14,
+    "failed": 0,
+    "coverage": [
+      "owned output survives engine disposal",
+      "two outstanding outputs and mapped input to a later convolution",
+      "mapping plus range refusal retry one completed dispatch only",
+      "cancellation after mapping releases unpublished output",
+      "prior D2PRL local recovery regressions"
+    ]
+  },
+  "browsers": {
+    "chromium": {
+      "status": "passed",
+      "nativeHash": "d0150a01bfad99d391b73f8cad8a04a0d1517a527f6257d8bbf7d414c349235e",
+      "gpuHash": "d0150a01bfad99d391b73f8cad8a04a0d1517a527f6257d8bbf7d414c349235e",
+      "halfHash": "8574895849fb72e5f85dfc05c4cf007c3b67566e0fad22037a5aa2266fa886bb",
+      "largeOutput": {
+        "bytes": 51380224,
+        "sha256": "6c74cd1f2e3213395493460c6680be8b256adb6a2ac52ebdae81b70074fe1525",
+        "all12845056ValuesExact": true,
+        "sliceCalls": 0,
+        "reservedAfterDispose": 102760448
+      },
+      "heldBytes": 106954752,
+      "budgetFinal": 0,
+      "deviceDisposalPreservesOwnedOutput": true
+    },
+    "firefox": {
+      "status": "unavailable",
+      "reason": "No WebGPU adapter"
+    },
+    "webkit": {
+      "status": "passed",
+      "nativeHash": "d0150a01bfad99d391b73f8cad8a04a0d1517a527f6257d8bbf7d414c349235e",
+      "gpuHash": "d0150a01bfad99d391b73f8cad8a04a0d1517a527f6257d8bbf7d414c349235e",
+      "halfHash": "8574895849fb72e5f85dfc05c4cf007c3b67566e0fad22037a5aa2266fa886bb",
+      "largeOutput": {
+        "bytes": 51380224,
+        "sha256": "6c74cd1f2e3213395493460c6680be8b256adb6a2ac52ebdae81b70074fe1525",
+        "all12845056ValuesExact": true,
+        "sliceCalls": 0,
+        "reservedAfterDispose": 102760448
+      },
+      "heldBytes": 106954752,
+      "budgetFinal": 0,
+      "deviceDisposalPreservesOwnedOutput": true
+    }
+  },
+  "logs": [
+    {
+      "path": "docs/runtime-v2-d2prl-gpu-owned-output/node.log",
+      "command": "node --test tests/d2prl-gpu-owned-output.test.mjs tests/d2prl-recovery.test.mjs",
+      "sha256": "19c6296cd7f6ef98f5b27c268d6a69454e90eee70a5e336b520352aea689f858"
+    },
+    {
+      "path": "docs/runtime-v2-d2prl-gpu-owned-output/chromium.log",
+      "command": "node tests/d2prl-gpu-owned-browser.mjs",
+      "sha256": "63736e7eba5a6b0c93e91969a15ef4109f958d3343336a3fcf25cf38e68f7e1d"
+    },
+    {
+      "path": "docs/runtime-v2-d2prl-gpu-owned-output/firefox.log",
+      "command": "BROWSER=firefox node tests/d2prl-gpu-owned-browser.mjs",
+      "sha256": "bd8f6fd9137ff597106c0b16586e2ca06b876c01f16088b6758c9ddf3191e7b8"
+    },
+    {
+      "path": "docs/runtime-v2-d2prl-gpu-owned-output/webkit.log",
+      "command": "BROWSER=webkit node tests/d2prl-gpu-owned-browser.mjs",
+      "sha256": "ea58ab83d76b64f1de7479c0a3e84b5afc89dff59f351cee0ec52d7d114ba7f3"
+    },
+    {
+      "path": "docs/runtime-v2-d2prl-gpu-owned-output/ownership-node.log",
+      "command": "node --test tests/d2prl-resource-wait.test.mjs tests/d2prl-gpu-owned-output.test.mjs tests/d2prl-recovery.test.mjs tests/d2prl-execution-admission.test.mjs",
+      "sha256": "3994e23195d0c961c41b71a3c95f750c42c88e13dac6f8da5717c60efa655989"
+    }
+  ],
+  "resourceOpportunityIntegration": {
+    "coreDependency": "cfbff0a",
+    "passed": 18,
+    "failed": 0,
+    "scope": "Resource-owner and backing-release hooks only; the already qualified GPU arithmetic and mapped-output contract are unchanged.",
+    "owner": "d2prl",
+    "coverage": [
+      "waits for real independent useful work after insufficient reclaim without another allocation attempt",
+      "GPU retirement cannot wake an ArrayBuffer-domain wait",
+      "exact ArrayBuffer retirement permits the suspended useful operation to resume",
+      "worker scheduler forwards the D2PRL owner so its own concurrent lanes do not count as independent producers",
+      "mapped output emits GPU retirement only and still releases idempotently"
+    ],
+    "backingDomain": "GPU buffer destruction reports gpu only. A host-visible WebGPU mapped view is not evidence that its backing belongs to Chromium's ordinary ArrayBuffer allocator."
+  }
+}

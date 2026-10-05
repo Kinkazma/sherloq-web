@@ -1,0 +1,1242 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "mgcfdn-st",
+  "browser": "154.0.8037.58",
+  "scope": "Actual production CPU and WebGPU/WASM workers, fixed float32 network input and same 2GiB budget. Two unchanged ONNX sessions for the candidate: GPU encoder, base hybrid head or ST CPU head. CPU reference retains its single full graph. Idle JSEP caches bounded. One positive cold/two warm useful inferences then remaining synthetic corpus; exact preparation, continuous max/mean and projected mask/component differences. No profiler. GPU512MiB and WASM512MiB bounded, parameters loaded once. Fresh page per backend, shared host and OS/driver caches retained. Development fixture/oracle and comparison arrays outside product budget; no RSS claim. Not common API or 96MP qualification.",
+  "conditions": [
+    {
+      "backend": "cpu",
+      "status": "passed-declared-corpus",
+      "records": [
+        {
+          "name": "multiscale-copy",
+          "run": 0,
+          "kind": "cold",
+          "preparationExact": true,
+          "preparationMs": 5.100000008940697,
+          "inferenceMs": 2483.2000000029802,
+          "projectionMs": 76.40000000596046,
+          "totalMs": 2564.7000000178814,
+          "modelRequests": 1,
+          "modelBytes": 89592572,
+          "probability": {
+            "maxAbs": 0.000011593103408813477,
+            "meanAbs": 1.4381020630577484e-7,
+            "different": 140598,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000011593103408813477,
+            "meanAbs": 2.1519038439387532e-7,
+            "different": 62821,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              4601,
+              1851,
+              24
+            ],
+            "browser": [
+              4601,
+              1851,
+              24
+            ]
+          },
+          "foreground": 6476,
+          "rawSha256": "4042dd9334575b3edd07922cb2725de03264e4aab7f0495f58ad7c5771074b7c",
+          "heapBytes": 246349824,
+          "timings": {
+            "modelLoadMs": 1020.1000000089407,
+            "inferenceMs": 1449.2000000029802,
+            "outputCopyMs": 2.2999999970197678
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 808401140,
+            "peakAccountedBytes": 1348221172
+          },
+          "target": {
+            "maxAbs": 0.000011593103408813477,
+            "meanAbs": 1.213335473811833e-7,
+            "different": 60339,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 0.000008285045623779297,
+            "meanAbs": 9.493924267719393e-8,
+            "different": 62937,
+            "finite": true
+          }
+        },
+        {
+          "name": "multiscale-copy",
+          "run": 1,
+          "kind": "warm",
+          "preparationExact": true,
+          "preparationMs": 4.5,
+          "inferenceMs": 1408,
+          "projectionMs": 68.70000000298023,
+          "totalMs": 1481.2000000029802,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000011593103408813477,
+            "meanAbs": 1.4381020630577484e-7,
+            "different": 140598,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000011593103408813477,
+            "meanAbs": 2.1519038439387532e-7,
+            "different": 62821,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              4601,
+              1851,
+              24
+            ],
+            "browser": [
+              4601,
+              1851,
+              24
+            ]
+          },
+          "foreground": 6476,
+          "rawSha256": "4042dd9334575b3edd07922cb2725de03264e4aab7f0495f58ad7c5771074b7c",
+          "heapBytes": 246349824,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1403.800000011921,
+            "outputCopyMs": 2.199999988079071
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 808401140,
+            "peakAccountedBytes": 1348221172
+          },
+          "target": {
+            "maxAbs": 0.000011593103408813477,
+            "meanAbs": 1.213335473811833e-7,
+            "different": 60339,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 0.000008285045623779297,
+            "meanAbs": 9.493924267719393e-8,
+            "different": 62937,
+            "finite": true
+          }
+        },
+        {
+          "name": "multiscale-copy",
+          "run": 2,
+          "kind": "warm",
+          "preparationExact": true,
+          "preparationMs": 4.399999991059303,
+          "inferenceMs": 1342.9000000059605,
+          "projectionMs": 71.80000001192093,
+          "totalMs": 1419.1000000089407,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000011593103408813477,
+            "meanAbs": 1.4381020630577484e-7,
+            "different": 140598,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000011593103408813477,
+            "meanAbs": 2.1519038439387532e-7,
+            "different": 62821,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              4601,
+              1851,
+              24
+            ],
+            "browser": [
+              4601,
+              1851,
+              24
+            ]
+          },
+          "foreground": 6476,
+          "rawSha256": "4042dd9334575b3edd07922cb2725de03264e4aab7f0495f58ad7c5771074b7c",
+          "heapBytes": 246349824,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1339.5999999940395,
+            "outputCopyMs": 1.5999999940395355
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 808401140,
+            "peakAccountedBytes": 1348221172
+          },
+          "target": {
+            "maxAbs": 0.000011593103408813477,
+            "meanAbs": 1.213335473811833e-7,
+            "different": 60339,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 0.000008285045623779297,
+            "meanAbs": 9.493924267719393e-8,
+            "different": 62937,
+            "finite": true
+          }
+        },
+        {
+          "name": "structured-copy",
+          "run": 3,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 15,
+          "inferenceMs": 1411.7000000029802,
+          "projectionMs": 103.30000001192093,
+          "totalMs": 1530.0000000149012,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 2.60770320892334e-7,
+            "meanAbs": 7.774959459701222e-10,
+            "different": 124390,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 2.4493783712387085e-7,
+            "meanAbs": 1.1274566455044499e-9,
+            "different": 201602,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [],
+            "browser": []
+          },
+          "foreground": 0,
+          "rawSha256": "16e17c1b2236f3ce85fd606433885b37ef10bcca9d0ee4d4dc3a329fc5ed8851",
+          "heapBytes": 246349824,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1407.3999999910593,
+            "outputCopyMs": 1.9000000059604645
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 810458135,
+            "peakAccountedBytes": 1351375231
+          },
+          "target": {
+            "maxAbs": 1.4901161193847656e-7,
+            "meanAbs": 3.410712072640969e-10,
+            "different": 201229,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 2.4400651454925537e-7,
+            "meanAbs": 8.048430969466883e-10,
+            "different": 201227,
+            "finite": true
+          }
+        },
+        {
+          "name": "constant",
+          "run": 4,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 4.200000002980232,
+          "inferenceMs": 1355.2999999970198,
+          "projectionMs": 60.6000000089407,
+          "totalMs": 1420.1000000089407,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 1.1920928955078125e-7,
+            "meanAbs": 6.039628074343842e-10,
+            "different": 121428,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 4.330649971961975e-8,
+            "meanAbs": 8.962963140817575e-10,
+            "different": 14512,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [],
+            "browser": []
+          },
+          "foreground": 0,
+          "rawSha256": "3a400b90465e8883d005ccaf6e7e53c932e87a9015173a4fd193f006d59ef07f",
+          "heapBytes": 246349824,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1351.300000011921,
+            "outputCopyMs": 1.7999999970197678
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 807637805,
+            "peakAccountedBytes": 1351375231
+          },
+          "target": {
+            "maxAbs": 1.8044374883174896e-8,
+            "meanAbs": 1.0751813150777172e-10,
+            "different": 14472,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 4.330649971961975e-8,
+            "meanAbs": 7.927133832029518e-10,
+            "different": 14479,
+            "finite": true
+          }
+        },
+        {
+          "name": "paired-spots",
+          "run": 5,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 2.199999988079071,
+          "inferenceMs": 1362.699999988079,
+          "projectionMs": 61.3999999910593,
+          "totalMs": 1426.2999999672174,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 3.5762786865234375e-7,
+            "meanAbs": 2.6223433672207155e-9,
+            "different": 126938,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 2.682209014892578e-7,
+            "meanAbs": 3.832042986208057e-9,
+            "different": 64397,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [],
+            "browser": []
+          },
+          "foreground": 0,
+          "rawSha256": "c8d270f0c9de6f787b127d17cee53ef3556c9e2cb5dc63db20e7ebb6ee86ef7b",
+          "heapBytes": 246349824,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1359.0999999940395,
+            "outputCopyMs": 1.7000000029802322
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 808401140,
+            "peakAccountedBytes": 1351375231
+          },
+          "target": {
+            "maxAbs": 2.7567148208618164e-7,
+            "meanAbs": 3.7269515311338825e-9,
+            "different": 62773,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 1.8812716007232666e-7,
+            "meanAbs": 3.847749469078434e-10,
+            "different": 62215,
+            "finite": true
+          }
+        },
+        {
+          "name": "partial-copy",
+          "run": 6,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 2.0999999940395355,
+          "inferenceMs": 1397.1000000089407,
+          "projectionMs": 59.29999999701977,
+          "totalMs": 1458.5,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000007152557373046875,
+            "meanAbs": 4.7459390138569316e-8,
+            "different": 137557,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000007152557373046875,
+            "meanAbs": 7.052378798159895e-8,
+            "different": 64451,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              30
+            ],
+            "browser": [
+              30
+            ]
+          },
+          "foreground": 30,
+          "rawSha256": "c458944590b3d9d0297bc2f38f51ff2b24f4c9eb8a69ad8117c254e4d1d97747",
+          "heapBytes": 246349824,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1393.7000000029802,
+            "outputCopyMs": 1.5999999940395355
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 808401140,
+            "peakAccountedBytes": 1351375231
+          },
+          "target": {
+            "maxAbs": 0.0000070035457611083984,
+            "meanAbs": 5.8002087711833046e-8,
+            "different": 63338,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 7.338821887969971e-7,
+            "meanAbs": 1.3615121169186647e-8,
+            "different": 63359,
+            "finite": true
+          }
+        },
+        {
+          "name": "envelope-copy",
+          "run": 7,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 6.5,
+          "inferenceMs": 1370.4000000059605,
+          "projectionMs": 61.900000005960464,
+          "totalMs": 1438.800000011921,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000011682510375976562,
+            "meanAbs": 1.2724579185593358e-7,
+            "different": 145093,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.00001138448715209961,
+            "meanAbs": 1.885406151382749e-7,
+            "different": 116419,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              3303,
+              2070
+            ],
+            "browser": [
+              3303,
+              2070
+            ]
+          },
+          "foreground": 5373,
+          "rawSha256": "b273b089e83c407d5507112e3a5f3bb73bb3aba1a985102d0a5158836c25d073",
+          "heapBytes": 246349824,
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1366.800000011921,
+            "outputCopyMs": 1.699999988079071
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 809171060,
+            "peakAccountedBytes": 1351375231
+          },
+          "target": {
+            "maxAbs": 0.000011444091796875,
+            "meanAbs": 1.2431932555340628e-7,
+            "different": 116423,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 0.0000045299530029296875,
+            "meanAbs": 6.730906070739115e-8,
+            "different": 116442,
+            "finite": true
+          }
+        }
+      ],
+      "modelLoads": 1,
+      "inferences": 8,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1351375231
+      }
+    },
+    {
+      "backend": "webgpu",
+      "status": "passed-declared-corpus",
+      "records": [
+        {
+          "name": "multiscale-copy",
+          "run": 0,
+          "kind": "cold",
+          "preparationExact": true,
+          "preparationMs": 7.200000002980232,
+          "inferenceMs": 2955.3999999910593,
+          "projectionMs": 70.5,
+          "totalMs": 3033.0999999940395,
+          "modelRequests": 3,
+          "modelBytes": 89897161,
+          "probability": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 1.2201161246803204e-7,
+            "different": 139595,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 1.823483925403953e-7,
+            "different": 62911,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              4601,
+              1851,
+              24
+            ],
+            "browser": [
+              4601,
+              1851,
+              24
+            ]
+          },
+          "foreground": 6476,
+          "rawSha256": "64bd3301584f73c313928e247bf8503bd59587a55cc1d5b4612db1a9fb2ccd29",
+          "heapBytes": 212140032,
+          "gpu": {
+            "allocations": 2559,
+            "writeBufferBytes": 73674128,
+            "readMappingBytes": 4207552,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 228436416,
+            "peakAccountedBytes": 255602944,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 1610.5,
+            "inferenceMs": 1330.4000000059605,
+            "encoderMs": 422.40000000596046,
+            "headMs": 907.9000000059605,
+            "outputCopyMs": 3.3999999910593033,
+            "gpuWriteBytes": 73674128,
+            "gpuReadBytes": 4207552
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1358469037,
+            "peakAccountedBytes": 1898289069
+          },
+          "target": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 9.654505305938855e-8,
+            "different": 61366,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 0.000007152557373046875,
+            "meanAbs": 8.705787854057078e-8,
+            "different": 62160,
+            "finite": true
+          }
+        },
+        {
+          "name": "multiscale-copy",
+          "run": 1,
+          "kind": "warm",
+          "preparationExact": true,
+          "preparationMs": 4.0999999940395355,
+          "inferenceMs": 1125.7999999970198,
+          "projectionMs": 78.79999999701977,
+          "totalMs": 1208.699999988079,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 1.2201161246803204e-7,
+            "different": 139595,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 1.823483925403953e-7,
+            "different": 62911,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              4601,
+              1851,
+              24
+            ],
+            "browser": [
+              4601,
+              1851,
+              24
+            ]
+          },
+          "foreground": 6476,
+          "rawSha256": "64bd3301584f73c313928e247bf8503bd59587a55cc1d5b4612db1a9fb2ccd29",
+          "heapBytes": 212140032,
+          "gpu": {
+            "allocations": 2741,
+            "writeBufferBytes": 87452240,
+            "readMappingBytes": 8415104,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 233466368,
+            "peakAccountedBytes": 295563584,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1121.7999999970198,
+            "encoderMs": 290.70000000298023,
+            "headMs": 831,
+            "outputCopyMs": 1.9000000059604645,
+            "gpuWriteBytes": 13778112,
+            "gpuReadBytes": 4207552
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1358469037,
+            "peakAccountedBytes": 1898289069
+          },
+          "target": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 9.654505305938855e-8,
+            "different": 61366,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 0.000007152557373046875,
+            "meanAbs": 8.705787854057078e-8,
+            "different": 62160,
+            "finite": true
+          }
+        },
+        {
+          "name": "multiscale-copy",
+          "run": 2,
+          "kind": "warm",
+          "preparationExact": true,
+          "preparationMs": 4,
+          "inferenceMs": 1233.7999999970198,
+          "projectionMs": 90.1000000089407,
+          "totalMs": 1327.9000000059605,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 1.2201161246803204e-7,
+            "different": 139595,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 1.823483925403953e-7,
+            "different": 62911,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              4601,
+              1851,
+              24
+            ],
+            "browser": [
+              4601,
+              1851,
+              24
+            ]
+          },
+          "foreground": 6476,
+          "rawSha256": "64bd3301584f73c313928e247bf8503bd59587a55cc1d5b4612db1a9fb2ccd29",
+          "heapBytes": 212140032,
+          "gpu": {
+            "allocations": 2890,
+            "writeBufferBytes": 101230352,
+            "readMappingBytes": 12622656,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 233466368,
+            "peakAccountedBytes": 297692544,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1229.7000000029802,
+            "encoderMs": 297.79999999701977,
+            "headMs": 931.7999999970198,
+            "outputCopyMs": 2.2000000029802322,
+            "gpuWriteBytes": 13778112,
+            "gpuReadBytes": 4207552
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1358469037,
+            "peakAccountedBytes": 1898289069
+          },
+          "target": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 9.654505305938855e-8,
+            "different": 61366,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 0.000007152557373046875,
+            "meanAbs": 8.705787854057078e-8,
+            "different": 62160,
+            "finite": true
+          }
+        },
+        {
+          "name": "structured-copy",
+          "run": 3,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 16.099999994039536,
+          "inferenceMs": 1145.2999999970198,
+          "projectionMs": 79,
+          "totalMs": 1240.3999999910593,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 3.5762786865234375e-7,
+            "meanAbs": 1.307925721732504e-9,
+            "different": 126077,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 2.849847078323364e-7,
+            "meanAbs": 1.9430456158659996e-9,
+            "different": 201854,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [],
+            "browser": []
+          },
+          "foreground": 0,
+          "rawSha256": "a97209420415cd249a862e675da80dedc2c8487525299ea49c1c02e27c4098f1",
+          "heapBytes": 212140032,
+          "gpu": {
+            "allocations": 3039,
+            "writeBufferBytes": 115008464,
+            "readMappingBytes": 16830208,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 233466368,
+            "peakAccountedBytes": 297692544,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1140.2000000029802,
+            "encoderMs": 301.5,
+            "headMs": 838.7000000029802,
+            "outputCopyMs": 2.9000000059604645,
+            "gpuWriteBytes": 13778112,
+            "gpuReadBytes": 4207552
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1360526032,
+            "peakAccountedBytes": 1901443128
+          },
+          "target": {
+            "maxAbs": 2.849847078323364e-7,
+            "meanAbs": 8.466246464008636e-10,
+            "different": 201554,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 2.8312206268310547e-7,
+            "meanAbs": 1.1111024979878703e-9,
+            "different": 201710,
+            "finite": true
+          }
+        },
+        {
+          "name": "constant",
+          "run": 4,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 4.0999999940395355,
+          "inferenceMs": 1110.1000000089407,
+          "projectionMs": 73.5,
+          "totalMs": 1187.7000000029802,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 1.1920928955078125e-7,
+            "meanAbs": 1.5270790940736426e-9,
+            "different": 127988,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 4.98257577419281e-8,
+            "meanAbs": 2.2403105920773653e-9,
+            "different": 14584,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [],
+            "browser": []
+          },
+          "foreground": 0,
+          "rawSha256": "6568ac52006bcbf61ce7a7614d3aee2cd2327b4fd50f8d5bf6747d70077b334c",
+          "heapBytes": 212140032,
+          "gpu": {
+            "allocations": 3188,
+            "writeBufferBytes": 128786576,
+            "readMappingBytes": 21037760,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 233466368,
+            "peakAccountedBytes": 297692544,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1106.2000000029802,
+            "encoderMs": 292.70000000298023,
+            "headMs": 813.5,
+            "outputCopyMs": 2,
+            "gpuWriteBytes": 13778112,
+            "gpuReadBytes": 4207552
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1357705702,
+            "peakAccountedBytes": 1901443128
+          },
+          "target": {
+            "maxAbs": 9.66247171163559e-9,
+            "meanAbs": 4.999816139388499e-11,
+            "different": 14592,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 4.98257577419281e-8,
+            "meanAbs": 2.2173840979734076e-9,
+            "different": 14557,
+            "finite": true
+          }
+        },
+        {
+          "name": "paired-spots",
+          "run": 5,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 2.0999999940395355,
+          "inferenceMs": 1282.800000011921,
+          "projectionMs": 70,
+          "totalMs": 1354.9000000059605,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 3.5762786865234375e-7,
+            "meanAbs": 3.707590368547967e-9,
+            "different": 127091,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 3.3620744943618774e-7,
+            "meanAbs": 5.476237021468439e-9,
+            "different": 64150,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [],
+            "browser": []
+          },
+          "foreground": 0,
+          "rawSha256": "9d9de3299f6db4724129fb08d7d1324f59dd061e95809ed6ba2034198678ae21",
+          "heapBytes": 212140032,
+          "gpu": {
+            "allocations": 3337,
+            "writeBufferBytes": 142564688,
+            "readMappingBytes": 25245312,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 233466368,
+            "peakAccountedBytes": 297692544,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1279.3999999910593,
+            "encoderMs": 268.79999999701977,
+            "headMs": 1010.5999999940395,
+            "outputCopyMs": 1.6000000089406967,
+            "gpuWriteBytes": 13778112,
+            "gpuReadBytes": 4207552
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1358469037,
+            "peakAccountedBytes": 1901443128
+          },
+          "target": {
+            "maxAbs": 3.3620744943618774e-7,
+            "meanAbs": 5.302284941412311e-9,
+            "different": 62384,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 8.568167686462402e-8,
+            "meanAbs": 3.689749218046581e-10,
+            "different": 62096,
+            "finite": true
+          }
+        },
+        {
+          "name": "partial-copy",
+          "run": 6,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 2.1000000089406967,
+          "inferenceMs": 1068.6000000089407,
+          "projectionMs": 70.79999999701977,
+          "totalMs": 1141.5000000149012,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 6.323404662409331e-8,
+            "different": 138873,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000010669231414794922,
+            "meanAbs": 9.419266541742065e-8,
+            "different": 64588,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              30
+            ],
+            "browser": [
+              30
+            ]
+          },
+          "foreground": 30,
+          "rawSha256": "27304aea4fed1ca562507581456b301d41a03d7a45366af03560a2c5973f2435",
+          "heapBytes": 212140032,
+          "gpu": {
+            "allocations": 3486,
+            "writeBufferBytes": 156342800,
+            "readMappingBytes": 29452864,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 233466368,
+            "peakAccountedBytes": 297692544,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1064.3999999910593,
+            "encoderMs": 283.20000000298023,
+            "headMs": 781.0999999940395,
+            "outputCopyMs": 2,
+            "gpuWriteBytes": 13778112,
+            "gpuReadBytes": 4207552
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1358469037,
+            "peakAccountedBytes": 1901443128
+          },
+          "target": {
+            "maxAbs": 0.00001049041748046875,
+            "meanAbs": 7.995047416786054e-8,
+            "different": 63581,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 6.92903995513916e-7,
+            "meanAbs": 1.5459802498111043e-8,
+            "different": 63436,
+            "finite": true
+          }
+        },
+        {
+          "name": "envelope-copy",
+          "run": 7,
+          "kind": "corpus",
+          "preparationExact": true,
+          "preparationMs": 6.4000000059604645,
+          "inferenceMs": 1070.7999999970198,
+          "projectionMs": 68.29999999701977,
+          "totalMs": 1145.5,
+          "modelRequests": 0,
+          "modelBytes": 0,
+          "probability": {
+            "maxAbs": 0.00001615285873413086,
+            "meanAbs": 1.2966798646234287e-7,
+            "different": 141566,
+            "finite": true
+          },
+          "map": {
+            "maxAbs": 0.000015914440155029297,
+            "meanAbs": 1.9256911045565183e-7,
+            "different": 116322,
+            "finite": true
+          },
+          "mask": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0,
+            "finite": true
+          },
+          "maskTransitions": [],
+          "components8": {
+            "native": [
+              3303,
+              2070
+            ],
+            "browser": [
+              3303,
+              2070
+            ]
+          },
+          "foreground": 5373,
+          "rawSha256": "6ccf4d6e99cba3f6ca342a1efac642f21285f307bcae32abd8399f6f13202191",
+          "heapBytes": 212140032,
+          "gpu": {
+            "allocations": 3635,
+            "writeBufferBytes": 170120912,
+            "readMappingBytes": 33660416,
+            "budgetBytes": 536870912,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 233466368,
+            "peakAccountedBytes": 297692544,
+            "devices": 1,
+            "errors": []
+          },
+          "timings": {
+            "modelLoadMs": 0,
+            "inferenceMs": 1067.4000000059605,
+            "encoderMs": 274.29999999701977,
+            "headMs": 793,
+            "outputCopyMs": 1.5,
+            "gpuWriteBytes": 13778112,
+            "gpuReadBytes": 4207552
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 1359238957,
+            "peakAccountedBytes": 1901443128
+          },
+          "target": {
+            "maxAbs": 0.000015854835510253906,
+            "meanAbs": 1.468737077893962e-7,
+            "different": 116288,
+            "finite": true
+          },
+          "source": {
+            "maxAbs": 0.000003129243850708008,
+            "meanAbs": 4.782365457749527e-8,
+            "different": 116220,
+            "finite": true
+          }
+        }
+      ],
+      "modelLoads": 1,
+      "inferences": 8,
+      "memory": {
+        "budgetBytes": 2147483648,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1901443128
+      }
+    }
+  ],
+  "sources": {
+    "scripts/study-mgcf-split-workers.mjs": "dc22833d806755e2aab418aad7ce0a3b0a95708899de993d0fa380092d8a967b",
+    "experiments/segmentation/inference-split-gpu-worker.js": "760fd4ea0d4e40d46ac536ef0ce1f70514c659d23ed50c13796958e8fab7d98f",
+    "experiments/segmentation/split-model.js": "e10ee05e7c04e39b0e56e70950d2620dd1df90c321c0c7a7eda0e1c2152add7e",
+    "vendor/segmentation/GPU-CACHE-PINNED.json": "8a023e53dd2547484748d027c2f8da729e0dd86003f289279bab1e4b5b2f58a6",
+    "experiments/segmentation/models.js": "cf5d6dd4d1c568088a0afc9af4f00938e65361ba57e4e3291c7a6a87567461e2",
+    "experiments/segmentation/inference.js": "f371ded70891ffb48fea958e95006318af765cc17d330d941c070864ece0155a",
+    "experiments/segmentation/inference-worker.js": "380edb97a6639b12be45165e552a53c6f94c58f382400ab4f74f46ea208e50b5",
+    "experiments/segmentation/inference-gpu-worker.js": "089b625783e854d9b95b6b3d6dc34a412a1b31ee3264916803a1af8bf27c0646",
+    "experiments/segmentation/gpu-budget.js": "a0d19ddc23efa2aa43ffc7363e21b8aa7b69c5608d7c6c028ac1abeeaaa724bf",
+    "experiments/segmentation/prepare.js": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+    "experiments/segmentation/zones.js": "9c5f8a9109caa2f6697a6696c850e4a5ebc7591f064cfeeb5cdce79d3963da5a",
+    "vendor/segmentation/PINNED.json": "d04c2a4038d5d94f89366fb3e0d9d83ea8ee5d40b0b570a8cdfb006a906393ec",
+    "vendor/d2prl/PINNED.json": "7ef2fd5413369b988b694625a8a62cb63a9ee85335fbffbc1a79e51314cfc3e2"
+  }
+}

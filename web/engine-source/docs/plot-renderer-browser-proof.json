@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "pointCount": 100003,
+  "svgPointCount": 100003,
+  "pngBytes": 388124,
+  "metrics": {
+    "style": {
+      "x": 0,
+      "y": 1,
+      "z": 5,
+      "kind": "2d",
+      "colored": true,
+      "alpha": 0.8,
+      "size": 1,
+      "grid": true
+    },
+    "camera": {
+      "limits": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "center": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "distance": 3.5,
+      "elevation": 35,
+      "azimuth": 70
+    },
+    "width": 640,
+    "height": 480,
+    "uploads": 1,
+    "uploadedBytes": 2400072,
+    "draws": 10,
+    "points": 100003,
+    "gpuDataBytes": 2400072,
+    "storage": "persistent"
+  },
+  "peakAccountedBytes": 10878976,
+  "remainingBytes": 0,
+  "checks": [
+    "persistent native Nx6 buffer",
+    "2D/3D camera without upload",
+    "complete vector export",
+    "real GPU nonempty PNG",
+    "cancelled replacement preserves cloud",
+    "SVG cancellation",
+    "admission and disposal"
+  ]
+}

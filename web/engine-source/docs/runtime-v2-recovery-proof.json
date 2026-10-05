@@ -1,0 +1,221 @@
+{
+  "schema": 1,
+  "version": "0.31.0-integration.21",
+  "scope": "Local recovery from useful allocation failure with exact retained results; no startup probe, global policy reduction or scientific simplification. These injected failure tests do not establish completion or time of the 96 MP run.",
+  "prior96mpFailure": "runtime-v2-96mp-allocation-failure.json",
+  "storageBrowser": {
+    "provenance": {
+      "kind": "Transcription of observed tool stdout; no additional browser run",
+      "chromium": {
+        "toolChunkId": "494485",
+        "command": "node tests/segmented-allocation-recovery-browser.mjs",
+        "exitCode": 0
+      },
+      "firefox": {
+        "toolChunkId": "905caa",
+        "command": "TEST_BROWSER=firefox node tests/segmented-allocation-recovery-browser.mjs",
+        "exitCode": 0
+      },
+      "webkit": {
+        "toolChunkId": "1fd9c0",
+        "command": "TEST_BROWSER=webkit node tests/segmented-allocation-recovery-browser.mjs",
+        "exitCode": 0
+      },
+      "limits": "Injected backing allocation failure on small useful data; confirms transaction, transport and cleanup, not completion or duration of the 96 MP recipe."
+    },
+    "cases": [
+      {
+        "browser": "chromium",
+        "backend": "opfs",
+        "passed": true,
+        "concurrentWriters": 11,
+        "immutableReaders": 2,
+        "transports": [
+          "opfs-readonly",
+          "opfs-readonly"
+        ],
+        "allocationAttempts": 1,
+        "recovery": {
+          "count": 1,
+          "status": "completed",
+          "bytesPreserved": 65536,
+          "cause": "A segmented RAM allocation failed: 65536 bytes, bank 1, 262144 total bytes, 65536 allocated bank bytes, shared backing; injected browser backing-pool failure"
+        },
+        "cancellationPreserved": true,
+        "budgetFinal": 0
+      },
+      {
+        "browser": "chromium",
+        "backend": "indexeddb",
+        "passed": true,
+        "concurrentWriters": 11,
+        "immutableReaders": 2,
+        "transports": [
+          "broker",
+          "broker"
+        ],
+        "allocationAttempts": 1,
+        "recovery": {
+          "count": 1,
+          "status": "completed",
+          "bytesPreserved": 65536,
+          "cause": "A segmented RAM allocation failed: 65536 bytes, bank 1, 262144 total bytes, 65536 allocated bank bytes, shared backing; injected browser backing-pool failure"
+        },
+        "cancellationPreserved": true,
+        "budgetFinal": 0
+      },
+      {
+        "browser": "firefox",
+        "backend": "indexeddb",
+        "passed": true,
+        "concurrentWriters": 11,
+        "immutableReaders": 2,
+        "transports": [
+          "broker",
+          "broker"
+        ],
+        "allocationAttempts": 1,
+        "recovery": {
+          "count": 1,
+          "status": "completed",
+          "bytesPreserved": 65536,
+          "cause": "A segmented RAM allocation failed: 65536 bytes, bank 1, 262144 total bytes, 65536 allocated bank bytes, shared backing; injected browser backing-pool failure"
+        },
+        "cancellationPreserved": true,
+        "budgetFinal": 0
+      },
+      {
+        "browser": "webkit",
+        "backend": "indexeddb",
+        "passed": true,
+        "concurrentWriters": 11,
+        "immutableReaders": 2,
+        "transports": [
+          "broker",
+          "broker"
+        ],
+        "allocationAttempts": 1,
+        "recovery": {
+          "count": 1,
+          "status": "completed",
+          "bytesPreserved": 65536,
+          "cause": "A segmented RAM allocation failed: 65536 bytes, bank 1, 262144 total bytes, 65536 allocated bank bytes, shared backing; injected browser backing-pool failure"
+        },
+        "cancellationPreserved": true,
+        "budgetFinal": 0
+      }
+    ]
+  },
+  "cacheGrowth": {
+    "kind": "Summary of observed tool stdout; no additional test run",
+    "commit": "52c0e38",
+    "toolChunkId": "4d613f",
+    "command": "node --test tests/portable-byte-store.test.mjs",
+    "tests": 14,
+    "pass": 14,
+    "fail": 0,
+    "exitCode": 0,
+    "checks": [
+      "Optional shared metadata failure keeps direct transport available",
+      "Own failed reserve/release notifications do not retry growth",
+      "Four transient 16 KiB scopes do not rearm a failed 4 MiB bank",
+      "A true 16 KiB release is insufficient",
+      "The remaining competing 32 MiB allowance restores growth",
+      "Final zero memory ownership"
+    ]
+  },
+  "nativeZernikeRecovery": {
+    "provenance": "Captured successful stdout from node tests/dense-preparation-allocation-recovery-browser.mjs; not replayed for this artifact. Development-only injected allocation refusal.",
+    "browser": "Chromium",
+    "width": 384,
+    "height": 256,
+    "pixels": 98304,
+    "workers": 4,
+    "referenceTiles": 6,
+    "recoveredTiles": 6,
+    "refusals": 1,
+    "bytesPreserved": 4194304,
+    "status": "completed",
+    "recoveryProgressEvents": 3,
+    "referenceStorage": [
+      "memory",
+      "memory"
+    ],
+    "recoveredStorage": [
+      "temporary",
+      "memory"
+    ],
+    "temporaryBackend": "opfs",
+    "sha256": [
+      "1f636d58a85faf76cb6d63be5bb1c1a5478d2fadc933e511b9eb267acf6d0268",
+      "a4d7c5fa61904672bbc97eef2d1ece4edc853ec93a1e1044ef431a7e44253546"
+    ],
+    "exactBytes": true,
+    "finalAccountedBytes": 0
+  },
+  "denseQualificationLogs": [
+    {
+      "file": "runtime-v2-allocation-recovery/allocation-recovery-chromium.log",
+      "sha256": "2862ecf9c8ec3f9f8f2aa247e3c30a9f8bc5f5ba93ddc7adbbc28d0caf0a4c89",
+      "bytes": 9437,
+      "kind": "Captured test stdout"
+    },
+    {
+      "file": "runtime-v2-allocation-recovery/allocation-recovery-firefox.log",
+      "sha256": "4e8b9f496ef7e229317e2a006bc8d9a8ce3b7b8b46de39a23c53e6ec683e2b83",
+      "bytes": 9341,
+      "kind": "Captured test stdout"
+    },
+    {
+      "file": "runtime-v2-allocation-recovery/allocation-recovery-node.log",
+      "sha256": "4a74c97cf0586be9cedc8ebd2d6a36654bbe4f1c4f7e8069f576cb90f08f82d5",
+      "bytes": 11292,
+      "kind": "Captured test stdout"
+    },
+    {
+      "file": "runtime-v2-allocation-recovery/allocation-recovery-runtime.log",
+      "sha256": "c44a9ddc7a5f8ef2bbce5879a2142cbb763752a9d4f6f41dfabf5886142b29aa",
+      "bytes": 1186,
+      "kind": "Captured test stdout"
+    },
+    {
+      "file": "runtime-v2-allocation-recovery/allocation-recovery-webkit.log",
+      "sha256": "439c621632fc37a81b1797361679a9b74768acb23b5e03c0edcef5ea0a8c6dca",
+      "bytes": 9365,
+      "kind": "Captured test stdout"
+    }
+  ],
+  "commands": [
+    "node --test tests/segmented-allocation-recovery.test.mjs tests/portable-byte-store.test.mjs tests/automatic-analysis-session.test.mjs",
+    "node tests/segmented-allocation-recovery-browser.mjs",
+    "TEST_BROWSER=firefox node tests/segmented-allocation-recovery-browser.mjs",
+    "TEST_BROWSER=webkit node tests/segmented-allocation-recovery-browser.mjs",
+    "node --test tests/dense-native-allocation-recovery.test.mjs tests/dense-page-heap.test.mjs tests/dense-field-parallel.test.mjs tests/dense-field-resource-rpc.test.mjs",
+    "node tests/dense-preparation-allocation-recovery-browser.mjs"
+  ],
+  "finalNodeSuite": {
+    "command": "npm test",
+    "baseCommit": "bfe3cd5756d4477b9505d0a393de546c3b63eb19",
+    "testedWorkingVersion": "0.31.0-integration.21",
+    "runtimeSourceDigestSha256": "8c1234bbbeab9d811ab3f2097d5f7f49b95a8633bd323e89abb0559711cb5f41",
+    "digestRecipe": "SHA256 of sorted tracked src/native/vendor/experiments paths, NUL, SHA256(file), newline",
+    "tests": 891,
+    "passed": 888,
+    "failed": 0,
+    "skipped": 3,
+    "durationMs": 241319.015375,
+    "logFile": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/runtime-v2-recovery-node-tests-final.log",
+    "logSha256": "a7e8902d3eae10bb2b587cbc4777a7bdf1de696ab7fc4a6827084a9ee7880730",
+    "skipReasons": [
+      "D2PRL ownership requires experimental module mocks and passed separately below",
+      "Global native ROI integration oracle not locally generated",
+      "Streaming EM native oracle not locally generated"
+    ]
+  },
+  "additionalOwnership": {
+    "command": "node --experimental-test-module-mocks --test tests/d2prl-owned.test.mjs",
+    "passed": 1,
+    "failed": 0,
+    "logSha256": "4e49b268572130929a35f82bc3aff75373e91fc64deac27be7705826179c70aa"
+  }
+}

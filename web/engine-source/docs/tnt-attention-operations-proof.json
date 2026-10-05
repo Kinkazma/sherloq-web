@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "measureCpu": true,
+  "timingQualification": "paired-operation-observation",
+  "scope": "Four real TNT attention matrix geometries from public seeded native fixtures. Expected arrays fetched only for comparison after computation; GPU scores feed unchanged native WASM scaling/softmax and then GPU context. Complete zero-initialized FMA reductions with partitioned independent heads. CPU timings include WASM staging and cooperative chunks; GPU timings include layout, transfers and readback. Actual submitted-GPU cancellation, invalid geometry, pre-abort, memory refusal, exact retry and final ownership.",
+  "records": [
+    {
+      "kind": "scores",
+      "batch": 1024,
+      "rows": 16,
+      "k": 10,
+      "n": 16,
+      "cpuMs": 7.5,
+      "gpuMs": 118.8999999910593,
+      "warm": [
+        {
+          "run": 1,
+          "order": "gpu-cpu",
+          "gpuMs": 11.799999997019768,
+          "cpuMs": 5.399999991059303
+        },
+        {
+          "run": 2,
+          "order": "cpu-gpu",
+          "cpuMs": 5.300000011920929,
+          "gpuMs": 13.800000011920929
+        }
+      ],
+      "sha256": "257d0af7d9614844e3687571dca024563da5b500daba98bf9d5186271a0a3a2c",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 28,
+        "peakAccountedBytes": 868424,
+        "accounting": "explicit GPU buffers; shared device with linear layers, excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 1376544,
+        "gpuReadBytes": 1048576
+      }
+    },
+    {
+      "kind": "context",
+      "batch": 1024,
+      "rows": 16,
+      "k": 16,
+      "n": 10,
+      "cpuMs": 5.5,
+      "gpuMs": 22.299999997019768,
+      "warm": [
+        {
+          "run": 1,
+          "order": "gpu-cpu",
+          "gpuMs": 9.100000008940697,
+          "cpuMs": 5.299999997019768
+        },
+        {
+          "run": 2,
+          "order": "cpu-gpu",
+          "cpuMs": 5.5,
+          "gpuMs": 9.799999997019768
+        }
+      ],
+      "sha256": "d05a02b9ff208f04a527b14934da5225f4b2dd06b73fb079369a52ac65c2eacd",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 28,
+        "peakAccountedBytes": 763976,
+        "accounting": "explicit GPU buffers; shared device with linear layers, excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 1745184,
+        "gpuReadBytes": 655360
+      }
+    },
+    {
+      "kind": "scores",
+      "batch": 10,
+      "rows": 257,
+      "k": 64,
+      "n": 257,
+      "cpuMs": 126.29999999701977,
+      "gpuMs": 23.400000005960464,
+      "warm": [
+        {
+          "run": 1,
+          "order": "gpu-cpu",
+          "gpuMs": 10.700000002980232,
+          "cpuMs": 126
+        },
+        {
+          "run": 2,
+          "order": "cpu-gpu",
+          "cpuMs": 152.29999999701977,
+          "gpuMs": 6.700000002980232
+        }
+      ],
+      "sha256": "83e4c56e22faf6e1a557be397391ce5a17c74a20deed132991983c4192769e76",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 7,
+        "peakAccountedBytes": 6610112,
+        "accounting": "explicit GPU buffers; shared device with linear layers, excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 1326192,
+        "gpuReadBytes": 2641960
+      }
+    },
+    {
+      "kind": "context",
+      "batch": 10,
+      "rows": 257,
+      "k": 257,
+      "n": 64,
+      "cpuMs": 141.29999999701977,
+      "gpuMs": 33.6000000089407,
+      "warm": [
+        {
+          "run": 1,
+          "order": "gpu-cpu",
+          "gpuMs": 9.100000008940697,
+          "cpuMs": 141.30000001192093
+        },
+        {
+          "run": 2,
+          "order": "cpu-gpu",
+          "cpuMs": 168.6000000089407,
+          "gpuMs": 8.899999991059303
+        }
+      ],
+      "sha256": "29a35dac71fd79b8b14ee5d0b8f7f53afcc9c22718e71f4d30b8b3d0b0d6f679",
+      "nativeExact": true,
+      "gpu": {
+        "devices": 1,
+        "allocations": 7,
+        "peakAccountedBytes": 4618352,
+        "accounting": "explicit GPU buffers; shared device with linear layers, excludes driver/compiler residency",
+        "errors": []
+      },
+      "timings": {
+        "gpuWriteBytes": 3302512,
+        "gpuReadBytes": 657920
+      }
+    }
+  ],
+  "checks": {
+    "cancelAfterSubmit": true,
+    "preAbort": true,
+    "geometry": true,
+    "memory": true,
+    "retry": true
+  },
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 89932608
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-tnt-attention.mjs": "37aa92fd6670a4cd319d5152bbbcecb1a634338d051b83eb12b221f50f2268d5",
+    "tests/tnt-attention-gpu-browser.js": "5a8d08fbc841c82474df22741abe1906d1796d862434aa58cf66c394d9c2718e",
+    "experiments/segmentation/tnt-linear-gpu.js": "0ec7b75470442c5e6473d66d7a7c351757375ac8eaff6f9d082edd2de59ddbcc",
+    "experiments/segmentation/tnt-attention-gpu.js": "1a26c5c78017a4294339f367d2d2094f2da4aea820c07d8e4003ffaad069b104",
+    "vendor/segmentation/tnt-math.js": "47f4e839c6158cab74f6bd9db4b674c827b0bf64b1b444eb85b52beba222ab22",
+    "vendor/segmentation/tnt-math.wasm": "17827f6398f8fc9ff6413146f59f333588194d3a53eeaf6200462ce9eaa03a36",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "opencv": "4.11.0",
+  "source": "13f9f0404b18a6ea27f792c8e168394f8508909462eb24b34fc9ff2e9dae8a16",
+  "files": {
+    "LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "prepare.wasm": {
+      "bytes": 554556,
+      "sha256": "d3c2a52e04afe4fcd9111b52b90e13a85aa1cf790bfe2743b2efe6a1e0804846"
+    },
+    "prepare.js": {
+      "bytes": 23911,
+      "sha256": "a67c5fa8d76630326877e01e7f97aefd99baa5967fb0f3be31f2ccc6fec895a4"
+    }
+  }
+}

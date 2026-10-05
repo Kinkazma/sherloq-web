@@ -1,0 +1,617 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Offline developer comparison only; one cold and one warm requested 96 MP task per condition, one main CPU worker, 256 MiB shared admission. Flags0=baseline,1=length display lookup,3=plus direction lookup,7=plus integer squared-length extrema. No runtime calibration. Small257x63 derived Canvas presentation is not WordPress/full-image display; Blob fetch and final complete-image verification are outside timed chain.",
+  "browser": "154.0.8037.58",
+  "cases": [
+    {
+      "flags": 0,
+      "identity": {
+        "schema": 1,
+        "compiler": "Emscripten 4.0.15",
+        "optimizations": 0,
+        "arithmetic": "-O3 -ffp-contract=off; explicit musl std::fma for native float64 normalization",
+        "memory": {
+          "initialBytes": 67108864,
+          "maximumBytes": 67108864,
+          "growth": false
+        },
+        "files": {
+          "native/gradient.cpp": {
+            "bytes": 4611,
+            "sha256": "7ddcd0ae0ed77840b97b1fe06acd6d40ff695467305ffb1b62499ff8f2bb23d2"
+          },
+          "scripts/build-gradient.sh": {
+            "bytes": 1737,
+            "sha256": "93507f9c052a210641f8df943573971aadaaf37633e4f7472756de43850ac61a"
+          },
+          ".build/gradient-candidates/0/gradient.js": {
+            "bytes": 10645,
+            "sha256": "e8a7e69fb6e5266e81210eb859cfe5814e73a6a9df9229d5453d5e863663f0fb"
+          },
+          ".build/gradient-candidates/0/gradient.wasm": {
+            "bytes": 16415,
+            "sha256": "0e7930a0c12711b154c63f05dabfc9417c6a7a20f6b489b54effd1a6c8bd240d"
+          },
+          "vendor/quality/musl-fma.c": {
+            "bytes": 3764,
+            "sha256": "1e0c6bacd92cbbadb32d1f83defd52cd863fd766b7938efabafcef9f067d5860"
+          }
+        }
+      },
+      "nativeCases": 640,
+      "sourceSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+      "outputSha256": "5f768f1ec977b1e0ca7926bea36b5dc5221fec5c5bf51a9c8a1331e4e0a73b8b",
+      "params": {
+        "intensity": 33,
+        "mode": 3,
+        "invert": true,
+        "equalize": false
+      },
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "loadMs": 2712,
+      "loadMetrics": {
+        "decodeMs": 2184.2000000029802,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 2638.10000000149,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "samples": [
+        {
+          "temperature": "cold",
+          "rpcMs": 4781.80000000447,
+          "transferMs": 7.399999998509884,
+          "canvasFramesMs": 9.5,
+          "exportMs": 0.8000000044703484,
+          "chainMs": 7511.500000007451,
+          "exportBytes": 1756,
+          "metrics": {
+            "totalMs": 4781.30000000447,
+            "derivativesMs": 1396.3999999985099,
+            "lengthsMs": 506.59999999403954,
+            "renderMs": 2263,
+            "toneMs": 543.4000000059605,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 175028128
+            }
+          }
+        },
+        {
+          "temperature": "warm",
+          "rpcMs": 4208.10000000149,
+          "transferMs": 6.299999997019768,
+          "canvasFramesMs": 17.600000001490116,
+          "exportMs": 0.29999999701976776,
+          "chainMs": 4232.29999999702,
+          "exportBytes": 1766,
+          "metrics": {
+            "totalMs": 4207.89999999851,
+            "derivativesMs": 964.8999999985099,
+            "lengthsMs": 470.6000000014901,
+            "renderMs": 2148.89999999851,
+            "toneMs": 566.7999999970198,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 175028128
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 175028128,
+        "knownHeapCapacityBytes": 170655744
+      }
+    },
+    {
+      "flags": 1,
+      "identity": {
+        "schema": 1,
+        "compiler": "Emscripten 4.0.15",
+        "optimizations": 1,
+        "arithmetic": "-O3 -ffp-contract=off; explicit musl std::fma for native float64 normalization",
+        "memory": {
+          "initialBytes": 67108864,
+          "maximumBytes": 67108864,
+          "growth": false
+        },
+        "files": {
+          "native/gradient.cpp": {
+            "bytes": 4611,
+            "sha256": "7ddcd0ae0ed77840b97b1fe06acd6d40ff695467305ffb1b62499ff8f2bb23d2"
+          },
+          "scripts/build-gradient.sh": {
+            "bytes": 1737,
+            "sha256": "93507f9c052a210641f8df943573971aadaaf37633e4f7472756de43850ac61a"
+          },
+          ".build/gradient-candidates/1/gradient.js": {
+            "bytes": 10645,
+            "sha256": "e8a7e69fb6e5266e81210eb859cfe5814e73a6a9df9229d5453d5e863663f0fb"
+          },
+          ".build/gradient-candidates/1/gradient.wasm": {
+            "bytes": 16990,
+            "sha256": "b9d34c5a2b4abba5c4ac7dae86a5c9a4a079a6adbdf79eaf1ca6c6d93893059b"
+          },
+          "vendor/quality/musl-fma.c": {
+            "bytes": 3764,
+            "sha256": "1e0c6bacd92cbbadb32d1f83defd52cd863fd766b7938efabafcef9f067d5860"
+          }
+        }
+      },
+      "nativeCases": 640,
+      "sourceSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+      "outputSha256": "5f768f1ec977b1e0ca7926bea36b5dc5221fec5c5bf51a9c8a1331e4e0a73b8b",
+      "params": {
+        "intensity": 33,
+        "mode": 3,
+        "invert": true,
+        "equalize": false
+      },
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "loadMs": 2516.2000000029802,
+      "loadMetrics": {
+        "decodeMs": 2081.60000000149,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 2473.60000000149,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "samples": [
+        {
+          "temperature": "cold",
+          "rpcMs": 3000.39999999851,
+          "transferMs": 7,
+          "canvasFramesMs": 5.100000001490116,
+          "exportMs": 0.7000000029802322,
+          "chainMs": 5529.4000000059605,
+          "exportBytes": 1770,
+          "metrics": {
+            "totalMs": 2999.7999999970198,
+            "derivativesMs": 1010.4000000059605,
+            "lengthsMs": 482.8999999985099,
+            "renderMs": 901.7999999970198,
+            "toneMs": 547.7999999970198,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 175028128
+            }
+          }
+        },
+        {
+          "temperature": "warm",
+          "rpcMs": 2911.6999999955297,
+          "transferMs": 11.800000004470348,
+          "canvasFramesMs": 6.699999995529652,
+          "exportMs": 0.30000000447034836,
+          "chainMs": 2930.5,
+          "exportBytes": 1768,
+          "metrics": {
+            "totalMs": 2911.60000000149,
+            "derivativesMs": 968.1999999955297,
+            "lengthsMs": 453.40000000596046,
+            "renderMs": 815.0999999940395,
+            "toneMs": 617.9000000059605,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 175028128
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 175028128,
+        "knownHeapCapacityBytes": 170655744
+      }
+    },
+    {
+      "flags": 3,
+      "identity": {
+        "schema": 1,
+        "compiler": "Emscripten 4.0.15",
+        "optimizations": 3,
+        "arithmetic": "-O3 -ffp-contract=off; explicit musl std::fma for native float64 normalization",
+        "memory": {
+          "initialBytes": 67108864,
+          "maximumBytes": 67108864,
+          "growth": false
+        },
+        "files": {
+          "native/gradient.cpp": {
+            "bytes": 4611,
+            "sha256": "7ddcd0ae0ed77840b97b1fe06acd6d40ff695467305ffb1b62499ff8f2bb23d2"
+          },
+          "scripts/build-gradient.sh": {
+            "bytes": 1737,
+            "sha256": "93507f9c052a210641f8df943573971aadaaf37633e4f7472756de43850ac61a"
+          },
+          ".build/gradient-candidates/3/gradient.js": {
+            "bytes": 10645,
+            "sha256": "e8a7e69fb6e5266e81210eb859cfe5814e73a6a9df9229d5453d5e863663f0fb"
+          },
+          ".build/gradient-candidates/3/gradient.wasm": {
+            "bytes": 17094,
+            "sha256": "517b7bda132f15931d704d4021c4a75e84a7ac1d23f3f84c4ed156b66f92802c"
+          },
+          "vendor/quality/musl-fma.c": {
+            "bytes": 3764,
+            "sha256": "1e0c6bacd92cbbadb32d1f83defd52cd863fd766b7938efabafcef9f067d5860"
+          }
+        }
+      },
+      "nativeCases": 640,
+      "sourceSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+      "outputSha256": "5f768f1ec977b1e0ca7926bea36b5dc5221fec5c5bf51a9c8a1331e4e0a73b8b",
+      "params": {
+        "intensity": 33,
+        "mode": 3,
+        "invert": true,
+        "equalize": false
+      },
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "loadMs": 2550.89999999851,
+      "loadMetrics": {
+        "decodeMs": 2106.5,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 2489.1999999955297,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "samples": [
+        {
+          "temperature": "cold",
+          "rpcMs": 2468.39999999851,
+          "transferMs": 6.200000002980232,
+          "canvasFramesMs": 5.300000004470348,
+          "exportMs": 0.6000000014901161,
+          "chainMs": 5031.4000000059605,
+          "exportBytes": 1744,
+          "metrics": {
+            "totalMs": 2468,
+            "derivativesMs": 941.5,
+            "lengthsMs": 263.8999999985099,
+            "renderMs": 704.3999999985099,
+            "toneMs": 503.40000000596046,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 175028128
+            }
+          }
+        },
+        {
+          "temperature": "warm",
+          "rpcMs": 2454,
+          "transferMs": 5.9000000059604645,
+          "canvasFramesMs": 2.899999998509884,
+          "exportMs": 0.20000000298023224,
+          "chainMs": 2463.0000000074506,
+          "exportBytes": 1745,
+          "metrics": {
+            "totalMs": 2453.8000000044703,
+            "derivativesMs": 937.3999999985099,
+            "lengthsMs": 266.5,
+            "renderMs": 686.5,
+            "toneMs": 508.6000000014901,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 175028128
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 175028128,
+        "knownHeapCapacityBytes": 170655744
+      }
+    },
+    {
+      "flags": 7,
+      "identity": {
+        "schema": 1,
+        "compiler": "Emscripten 4.0.15",
+        "optimizations": 7,
+        "arithmetic": "-O3 -ffp-contract=off; explicit musl std::fma for native float64 normalization",
+        "memory": {
+          "initialBytes": 67108864,
+          "maximumBytes": 67108864,
+          "growth": false
+        },
+        "files": {
+          "native/gradient.cpp": {
+            "bytes": 4611,
+            "sha256": "7ddcd0ae0ed77840b97b1fe06acd6d40ff695467305ffb1b62499ff8f2bb23d2"
+          },
+          "scripts/build-gradient.sh": {
+            "bytes": 1737,
+            "sha256": "93507f9c052a210641f8df943573971aadaaf37633e4f7472756de43850ac61a"
+          },
+          ".build/gradient-candidates/7/gradient.js": {
+            "bytes": 10645,
+            "sha256": "e8a7e69fb6e5266e81210eb859cfe5814e73a6a9df9229d5453d5e863663f0fb"
+          },
+          ".build/gradient-candidates/7/gradient.wasm": {
+            "bytes": 17108,
+            "sha256": "e8036162eacdccd779dfc9274c925c44956464cbcbb0f778f96ba8abe8bfe96c"
+          },
+          "vendor/quality/musl-fma.c": {
+            "bytes": 3764,
+            "sha256": "1e0c6bacd92cbbadb32d1f83defd52cd863fd766b7938efabafcef9f067d5860"
+          }
+        }
+      },
+      "nativeCases": 640,
+      "sourceSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+      "outputSha256": "5f768f1ec977b1e0ca7926bea36b5dc5221fec5c5bf51a9c8a1331e4e0a73b8b",
+      "params": {
+        "intensity": 33,
+        "mode": 3,
+        "invert": true,
+        "equalize": false
+      },
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "loadMs": 2539,
+      "loadMetrics": {
+        "decodeMs": 2111.1999999955297,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 2496,
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 129005192
+        }
+      },
+      "samples": [
+        {
+          "temperature": "cold",
+          "rpcMs": 2533.2000000029802,
+          "transferMs": 7.199999995529652,
+          "canvasFramesMs": 12.699999995529652,
+          "exportMs": 0.7000000029802322,
+          "chainMs": 5092.79999999702,
+          "exportBytes": 1756,
+          "metrics": {
+            "totalMs": 2532.7000000029802,
+            "derivativesMs": 939.8999999985099,
+            "lengthsMs": 274.29999999701977,
+            "renderMs": 735.4000000059605,
+            "toneMs": 527,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 175028128
+            }
+          }
+        },
+        {
+          "temperature": "warm",
+          "rpcMs": 2491.6999999955297,
+          "transferMs": 6.100000001490116,
+          "canvasFramesMs": 18.700000002980232,
+          "exportMs": 0.3999999985098839,
+          "chainMs": 2516.89999999851,
+          "exportBytes": 1745,
+          "metrics": {
+            "totalMs": 2491.5999999940395,
+            "derivativesMs": 960.6999999955297,
+            "lengthsMs": 264.5,
+            "renderMs": 703.7000000029802,
+            "toneMs": 506.5,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 268435456,
+              "retainedBytes": 0,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 175028128
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 268435456,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 175028128,
+        "knownHeapCapacityBytes": 170655744
+      }
+    }
+  ],
+  "sources": {
+    "native/gradient.cpp": "7ddcd0ae0ed77840b97b1fe06acd6d40ff695467305ffb1b62499ff8f2bb23d2",
+    "scripts/build-gradient.sh": "93507f9c052a210641f8df943573971aadaaf37633e4f7472756de43850ac61a",
+    "scripts/study-gradient-optimizations.mjs": "15783319c25d59d430c43c6ea74db4819ba201b8e99d58fe9b8403304da77410",
+    "tests/gradient-optimization-browser.js": "41af100cad425948418dade5226d337e087ef692efdad2020617c584573fe4e6",
+    "src/gradient-math.js": "d5a3164a47d0968ce3340f5a97d61e183e133aa9f8e9bc8782348ec625421899",
+    "src/segmented-gradient.js": "ca54214d8ab744bba1ab9fdd2c07da2d67983c40c40f36ee03feb2dc42da3ecc",
+    "src/index.js": "7a3c3918d0dd270b300591e45827059a0bc7d778dc8fdde92e16a400ce867578"
+  }
+}

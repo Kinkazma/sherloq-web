@@ -1,0 +1,41 @@
+{
+  "error": {
+    "code": "MEMORY_LIMIT",
+    "message": "Image or task exceeds the memory budget.",
+    "stack": "EngineError: Image or task exceeds the memory budget.\n    at Budget.room (http://127.0.0.1:59310/src/cache.js:8:43)\n    at Budget.reserve (http://127.0.0.1:59310/src/cache.js:11:23)\n    at Object.readWindow (http://127.0.0.1:59310/src/rgb-surface.js:15:275)\n    at prepare (http://127.0.0.1:59310/src/segmented-noisesniffer-statistics.js:25:100)\n    at task (http://127.0.0.1:59310/src/wavelet-strip-pool.js:13:152)\n    at Array.from (<anonymous>)\n    at WaveletStripPool.run (http://127.0.0.1:59310/src/wavelet-strip-pool.js:14:25)\n    at segmentedNoisesnifferStatistics (http://127.0.0.1:59310/src/segmented-noisesniffer-statistics.js:24:14)\n    at async segmentedNoisesniffer (http://127.0.0.1:59310/src/segmented-noisesniffer.js:16:26)\n    at async self.onmessage (http://127.0.0.1:59310/tests/noisesniffer-96mp-worker.js:6:85)"
+  },
+  "partial": {
+    "family": "Noisesniffer",
+    "budgetBytes": 268435456,
+    "cases": [],
+    "source": {
+      "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+      "shape": {
+        "id": "de3823c1-4661-4fbe-9edf-fe53b467fe19",
+        "revision": 1,
+        "width": 12000,
+        "height": 8000,
+        "format": "rgb8",
+        "sourceWidth": 12000,
+        "sourceHeight": 8000,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "temporary"
+      },
+      "metrics": {
+        "decodeMs": 2751.2999999970198,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 80426021,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 122332453,
+        "codecHeapCapacityBytes": 96731136,
+        "storage": "temporary",
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "temporaryBytes": 288000000,
+        "originalBlobBytes": 80426021,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      }
+    }
+  }
+}

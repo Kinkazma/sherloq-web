@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.43",
+  "runtimeFiles": 406,
+  "runtimeManifestSha256": "721e49a3c2db5d8a1f08e07c11755334e2ee1b2d87537cebbc52ff33494aa008",
+  "scope": "Exact runtime and changed-controller binding. Numerical workers remain byte-identical to M1.42 components. Actual rich96MP hybrid ST plus cache-only second view/full independent NPZ: every complete output plane SHA equals M1.42, reservation retirement and storage consequence verified. Fresh copied API preserves small-output warm residency, output hashes, cancellation and source reload. Independent M1.42 CPU/hybrid zone comparisons bind to their original runtime. No automatic placement change, WordPress or universal-speed claim.",
+  "large": {
+    "width": 12000,
+    "height": 8000,
+    "arrays": 6,
+    "foreground": 3370950,
+    "allTwelvePlaneHashesUnchanged": true,
+    "releasedSessionBytes": 1355716525,
+    "beforeSecondViewStorage": {
+      "map": "temporary",
+      "mask": "temporary",
+      "target": "temporary",
+      "source": "temporary",
+      "analyzed": "temporary",
+      "candidates": "temporary"
+    },
+    "afterSecondViewStorage": {
+      "map": "memory",
+      "mask": "memory",
+      "target": "memory",
+      "source": "memory",
+      "analyzed": "memory",
+      "candidates": "temporary"
+    },
+    "loadMs": 1226.7999999970198,
+    "analysisMs": 28259.90000000596,
+    "cachedViewMs": 5671.899999991059,
+    "npzPreparationMs": 30708.79999999702,
+    "peakBytes": 3191856000,
+    "exportBytes": 1440014924,
+    "exportSha256": "cd4a45f3ffae97fcaec5b8029782a198a960483331d490a2732f86ba46f63946"
+  },
+  "copiedApi": {
+    "analysisMs": 4534.70000000298,
+    "cachedViewMs": 31.599999994039536,
+    "peakBytes": 1474601523,
+    "npzSha256": "ad106d90374a9a57381581d3a4463b6e3be86ba5ff70f856b3cb786eca70a8ea",
+    "cancelled": true,
+    "reloaded": true
+  },
+  "comparisons": [
+    {
+      "variant": "mgcfdn",
+      "conditions": [
+        {
+          "backend": "cpu",
+          "budgetGiB": 2,
+          "analysisMs": [
+            3397,
+            2744.1000000089407,
+            2771.7000000029802
+          ],
+          "peakBytes": 1654660729,
+          "modelRequests": [
+            3,
+            1,
+            1
+          ]
+        },
+        {
+          "backend": "webgpu",
+          "budgetGiB": 2,
+          "analysisMs": [
+            1790.2999999970198,
+            623.1000000089407,
+            618.9000000059605
+          ],
+          "peakBytes": 1935073991,
+          "modelRequests": [
+            3,
+            0,
+            0
+          ]
+        },
+        {
+          "backend": "cpu",
+          "budgetGiB": 3,
+          "analysisMs": [
+            2152.4000000059605,
+            1461.6000000089407,
+            1445.6000000089407
+          ],
+          "peakBytes": 2993655946,
+          "modelRequests": [
+            4,
+            0,
+            0
+          ]
+        },
+        {
+          "backend": "webgpu",
+          "budgetGiB": 3,
+          "analysisMs": [
+            1475.2999999970198,
+            493.5,
+            492.5
+          ],
+          "peakBytes": 1935073991,
+          "modelRequests": [
+            3,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "variant": "mgcfdn-st",
+      "conditions": [
+        {
+          "backend": "cpu",
+          "budgetGiB": 2,
+          "analysisMs": [
+            4080.8999999910593,
+            3009.5,
+            3086.7000000029802
+          ],
+          "peakBytes": 1665436421,
+          "modelRequests": [
+            3,
+            1,
+            1
+          ]
+        },
+        {
+          "backend": "webgpu",
+          "budgetGiB": 2,
+          "analysisMs": [
+            4687.79999999702,
+            2872.9000000059605,
+            2828.7000000029802
+          ],
+          "peakBytes": 1947467373,
+          "modelRequests": [
+            3,
+            0,
+            0
+          ]
+        },
+        {
+          "backend": "cpu",
+          "budgetGiB": 3,
+          "analysisMs": [
+            2759.6000000089407,
+            1540.5999999940395,
+            1722.199999988079
+          ],
+          "peakBytes": 3008696732,
+          "modelRequests": [
+            4,
+            0,
+            0
+          ]
+        },
+        {
+          "backend": "webgpu",
+          "budgetGiB": 3,
+          "analysisMs": [
+            5598,
+            3423.4000000059605,
+            3334.3999999910593
+          ],
+          "peakBytes": 1947467373,
+          "modelRequests": [
+            3,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "proofHashes": {
+    "neural-segmented-mgcfdn-st-large-rich-webgpu-m1-42-candidate-proof": "3839e039a6f7388bbf4fb0f8c23c151b972c2ac86ea9d4dde25d720a910b194a",
+    "neural-segmented-mgcfdn-st-large-rich-webgpu-m1-43-candidate-proof": "54261bc87cd0cb429f70ef3df1140fc7087b1fd22615e585c4f93f61ac6159b1",
+    "neural-segmented-mgcfdn-st-large-rich-webgpu-m1-43-candidate-npz-proof": "468a6c95b2558daa19dc1b9888b38a6fdf22bdbec15043fcc2e10ec161028582",
+    "neural-segmented-mgcfdn-st-webgpu-m1-43-extracted-proof": "8acfbe027d1a9eeaaa579895ea639eec6d2db250114056bd1ed0d358e5d961f0",
+    "neural-segmented-mgcfdn-st-webgpu-m1-43-extracted-npz-proof": "c7f21fae8e2a93f661192b84d68c34f2dde577780d5c0b767ad606a6e15d7798",
+    "neural-segmented-mgcfdn-st-webgpu-m1-42-extracted-proof": "cefe078e7c31f20053c298afd2666f5d238464960e0ad7e48368b3fefd57ea08",
+    "mgcf-split-mgcfdn-workers-proof": "ff16e50ea184fab3b130db8d901b283144a5a74f96deb17a09b8eb5f5da5af37",
+    "mgcf-split-mgcfdn-st-workers-proof": "1dc75499af07cc0ef2e19d7592d78a796a2b09449e5ad0b96b5012ddadf2372d",
+    "mgcf-mgcfdn-zones-m1-42-proof": "e2db5d46d78e602762e85dffefefc2db8ff7d1ec4d9a9d972f337e36b5279ab9",
+    "mgcf-mgcfdn-st-zones-m1-42-proof": "3ed7c56167aaec5764d993d4fa76a6c101d1a6fe34937e9d8219c133ce293db8"
+  }
+}

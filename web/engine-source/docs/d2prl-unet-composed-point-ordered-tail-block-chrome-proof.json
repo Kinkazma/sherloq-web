@@ -1,0 +1,3135 @@
+{
+  "schema": 1,
+  "status": "passed-corpus-exact-experimental",
+  "scope": "Actual checkpoint parameters, generated prepared RGB448, complete UNet graph; exploratory unresolved reductions retained explicitly; no final D2PRL detection or universal parity claim",
+  "final": {
+    "name": "unet-final-sigmoid",
+    "elements": 200704,
+    "different": 0,
+    "maxAbs": 0,
+    "meanAbs": 0,
+    "thresholdChanges": 0,
+    "nonfinite": 0
+  },
+  "studyRoutes": [
+    {
+      "name": "encoder_stages.1.1.0.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.1.1.0.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "encoder_stages.3.0.downsample.0",
+      "reason": "tail-convolution-reference-order-study",
+      "mode": "block1024"
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.4.0.downsample.0",
+      "reason": "tail-convolution-reference-order-study",
+      "mode": "block1024"
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "decoder_stages.3.layer.1",
+      "reason": "tail-convolution-reference-order-study",
+      "mode": "block1024"
+    },
+    {
+      "name": "bottlenecks.0.seq.0",
+      "reason": "tail-convolution-reference-order-study",
+      "mode": "block1024"
+    },
+    {
+      "name": "bottlenecks.0.seq.2.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "bottlenecks.0.seq.2.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "bottlenecks.1.seq.2.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "bottlenecks.1.seq.2.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "bottlenecks.2.seq.2.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 2
+    },
+    {
+      "name": "bottlenecks.2.seq.2.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "bottlenecks.3.seq.2.fc1",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    },
+    {
+      "name": "bottlenecks.3.seq.2.fc2",
+      "reason": "point-convolution-reference-order-study",
+      "mode": 1
+    }
+  ],
+  "records": [
+    {
+      "name": "encoder_stages.0.conv1",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.0.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.0.conv3",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.conv1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.conv3",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.downsample.0",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.se_module.fc1",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.0.se_module.fc2",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.conv1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.conv3",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.fc1",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.1.se_module.fc2",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.conv1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.conv3",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.fc1",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.1.1.2.se_module.fc2",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.conv1",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.downsample.0",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.0.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.1.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.2.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.3.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.4.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.5.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.6.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.2.7.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.conv1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.downsample.0",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.0.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.1.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.2.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.3.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.4.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.5.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.6.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.7.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.8.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.9.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.10.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.11.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.12.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.13.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.14.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.15.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.16.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.17.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.18.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.19.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.20.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.21.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.22.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.23.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.24.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.25.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.26.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.27.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.28.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.29.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.30.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.31.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.32.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.33.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.34.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.3.35.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.conv2",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.conv3",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.downsample.0",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.fc1",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.0.se_module.fc2",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.conv1",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.conv2",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.conv3",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.fc1",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.1.se_module.fc2",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.conv1",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.conv2",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.conv3",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.fc1",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "encoder_stages.4.2.se_module.fc2",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "decoder_stages.3.layer.1",
+      "elements": 301056,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.0",
+      "elements": 301056,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.2.fc1",
+      "elements": 192,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.2.fc2",
+      "elements": 384,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.0.seq.2.spatial_se.0",
+      "elements": 784,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "decoder_stages.2.layer.1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.0",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.2.fc1",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.2.fc2",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.1.seq.2.spatial_se.0",
+      "elements": 3136,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "decoder_stages.1.layer.1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.0",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.2.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.2.fc2",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.2.seq.2.spatial_se.0",
+      "elements": 12544,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "decoder_stages.0.layer.1",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.0",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.2.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.2.fc2",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "bottlenecks.3.seq.2.spatial_se.0",
+      "elements": 50176,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "last_upsample.layer.1",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "final.0",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-final-sigmoid",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "thresholdChanges": 0,
+      "nonfinite": 0
+    }
+  ],
+  "functionalMs": 17594.199999999255,
+  "budgetBytes": 4294967296,
+  "peakAccountedBytes": 452427776,
+  "memoryScope": "Engine reservations including conservative retained WASM heap and streamed parameters; native comparator and browser RSS excluded",
+  "allReservationsReleased": true,
+  "browser": "154.0.8037.58",
+  "sources": {
+    "experiments/d2prl/unet-graph.js": "7f3e811a85bfb0128e0da20c623205c6f27139e9d9e6ad3611626c5d0137f973",
+    "experiments/d2prl/neural-math.js": "92f864648131b529099d7352e07892749755c6b3a0c132b69830e8e0fb12f931",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "fixtures/d2prl/gemm-layout-unet.json": "09131067ac964736ffd669fce60454e3354b117e796817bb34a497de0ef71107",
+    "fixtures/d2prl/point-reduction-layout.json": "e2eaeba315a78c00f4b1c944a864c38ae428b54d7592b45f4c032ca9a91faa53"
+  },
+  "mathBuild": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sources": {
+      "neural-math.cpp": "778b1e5392db88a12d69f13fe3251ca3875158e44856ed4372b15d14c61fe010",
+      "feature-math.cpp": "783ee56177651072361971e9b303f822ff9d16ca42de7326d9bd8ea6cda89548",
+      "resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d",
+      "mean.cpp": "412d2558fd3d0152bac9f6f4dde7caca25363387ec9759c1779acb56ee7de72e",
+      "sigmoid.cpp": "3c0ac4c7a75ad0ce0de91b77cfe8ba4f529ca319fa43c027d23a0ea0789eef59",
+      "dlf.cpp": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
+      "reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+    },
+    "files": {
+      "neural-math.js": {
+        "bytes": 8149,
+        "sha256": "066e82a6112969cd37a85b8fbcfb87c8f2264b2bab5c514502968a20317ac2fe"
+      },
+      "neural-math.wasm": {
+        "bytes": 14268,
+        "sha256": "ccbe9224fdabef8f76db5138e8eae9019e81d1eb7e2487bcadc1c460628172ab"
+      }
+    }
+  },
+  "graphSha256": "39c6bc93a98b1d33d9411c08b51a7b2b6649663406191bc0242c38e2a6be3c29"
+}

@@ -1,0 +1,521 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "Synthetic source, native convolution boundaries from verified D2PRL model; not full feature/model inference; ordered explicit WGSL float32 fma",
+  "records": [
+    {
+      "name": "448-cnn-0",
+      "elements": 13542400,
+      "different": 579,
+      "maxAbs": 4.76837158203125e-7,
+      "nonfinite": 0,
+      "firstDifferences": [
+        {
+          "index": 105793,
+          "spatial": 105793,
+          "actual": -2.6233270168304443,
+          "expected": -2.6233267784118652
+        },
+        {
+          "index": 105796,
+          "spatial": 105796,
+          "actual": -2.129330635070801,
+          "expected": -2.12933087348938
+        },
+        {
+          "index": 105797,
+          "spatial": 105797,
+          "actual": -2.0309197902679443,
+          "expected": -2.0309195518493652
+        },
+        {
+          "index": 105804,
+          "spatial": 105804,
+          "actual": -3.3540501594543457,
+          "expected": -3.354050397872925
+        },
+        {
+          "index": 105807,
+          "spatial": 105807,
+          "actual": -3.3425629138946533,
+          "expected": -3.342562675476074
+        },
+        {
+          "index": 317392,
+          "spatial": 105792,
+          "actual": -0.5105005502700806,
+          "expected": -0.510500431060791
+        },
+        {
+          "index": 317393,
+          "spatial": 105793,
+          "actual": -0.49791809916496277,
+          "expected": -0.4979180097579956
+        },
+        {
+          "index": 317395,
+          "spatial": 105795,
+          "actual": -0.4528910219669342,
+          "expected": -0.4528909921646118
+        },
+        {
+          "index": 317396,
+          "spatial": 105796,
+          "actual": -0.3671029210090637,
+          "expected": -0.36710286140441895
+        },
+        {
+          "index": 317397,
+          "spatial": 105797,
+          "actual": -0.3519691824913025,
+          "expected": -0.3519691228866577
+        },
+        {
+          "index": 317398,
+          "spatial": 105798,
+          "actual": -0.23889607191085815,
+          "expected": -0.23889605700969696
+        },
+        {
+          "index": 317399,
+          "spatial": 105799,
+          "actual": -0.272630900144577,
+          "expected": -0.27263087034225464
+        },
+        {
+          "index": 317400,
+          "spatial": 105800,
+          "actual": -0.18795672059059143,
+          "expected": -0.187956765294075
+        },
+        {
+          "index": 317402,
+          "spatial": 105802,
+          "actual": 0.00874317530542612,
+          "expected": 0.008743107318878174
+        },
+        {
+          "index": 317403,
+          "spatial": 105803,
+          "actual": 0.053707897663116455,
+          "expected": 0.05370793491601944
+        },
+        {
+          "index": 317404,
+          "spatial": 105804,
+          "actual": 0.06416983902454376,
+          "expected": 0.0641697347164154
+        },
+        {
+          "index": 317405,
+          "spatial": 105805,
+          "actual": 0.154683917760849,
+          "expected": 0.1546839028596878
+        },
+        {
+          "index": 317406,
+          "spatial": 105806,
+          "actual": 0.09456343948841095,
+          "expected": 0.09456348419189453
+        },
+        {
+          "index": 317407,
+          "spatial": 105807,
+          "actual": 0.21723002195358276,
+          "expected": 0.21722999215126038
+        },
+        {
+          "index": 528992,
+          "spatial": 105792,
+          "actual": -0.4336322247982025,
+          "expected": -0.4336322546005249
+        },
+        {
+          "index": 528993,
+          "spatial": 105793,
+          "actual": -0.34675174951553345,
+          "expected": -0.34675168991088867
+        },
+        {
+          "index": 528994,
+          "spatial": 105794,
+          "actual": -0.4018436074256897,
+          "expected": -0.4018436670303345
+        },
+        {
+          "index": 528995,
+          "spatial": 105795,
+          "actual": -0.24972522258758545,
+          "expected": -0.24972514808177948
+        },
+        {
+          "index": 528996,
+          "spatial": 105796,
+          "actual": -0.24230560660362244,
+          "expected": -0.24230559170246124
+        }
+      ],
+      "functionalMs": 412.90000000037253
+    },
+    {
+      "name": "448-cnn-3",
+      "elements": 26849792,
+      "different": 205,
+      "maxAbs": 0.00000762939453125,
+      "nonfinite": 0,
+      "firstDifferences": [
+        {
+          "index": 419525,
+          "spatial": 209761,
+          "actual": 39.1261100769043,
+          "expected": 39.12610626220703
+        },
+        {
+          "index": 419526,
+          "spatial": 209762,
+          "actual": 37.908790588378906,
+          "expected": 37.90878677368164
+        },
+        {
+          "index": 629290,
+          "spatial": 209762,
+          "actual": -16.857023239135742,
+          "expected": -16.85702133178711
+        },
+        {
+          "index": 629291,
+          "spatial": 209763,
+          "actual": -19.121028900146484,
+          "expected": -19.12102699279785
+        },
+        {
+          "index": 1048817,
+          "spatial": 209761,
+          "actual": -10.80376148223877,
+          "expected": -10.803762435913086
+        },
+        {
+          "index": 1048819,
+          "spatial": 209763,
+          "actual": -12.063549995422363,
+          "expected": -12.06355094909668
+        },
+        {
+          "index": 1678108,
+          "spatial": 209760,
+          "actual": 3.56526517868042,
+          "expected": 3.565265655517578
+        },
+        {
+          "index": 1678110,
+          "spatial": 209762,
+          "actual": 3.6224312782287598,
+          "expected": 3.6224308013916016
+        },
+        {
+          "index": 1678111,
+          "spatial": 209763,
+          "actual": 3.5061893463134766,
+          "expected": 3.5061895847320557
+        },
+        {
+          "index": 2097639,
+          "spatial": 209763,
+          "actual": 22.930574417114258,
+          "expected": 22.93057632446289
+        },
+        {
+          "index": 2517165,
+          "spatial": 209761,
+          "actual": -15.646300315856934,
+          "expected": -15.64630126953125
+        },
+        {
+          "index": 2726928,
+          "spatial": 209760,
+          "actual": -0.5817575454711914,
+          "expected": -0.5817578434944153
+        },
+        {
+          "index": 2726929,
+          "spatial": 209761,
+          "actual": 3.991753101348877,
+          "expected": 3.991753339767456
+        },
+        {
+          "index": 2726930,
+          "spatial": 209762,
+          "actual": 9.457199096679688,
+          "expected": 9.457198143005371
+        },
+        {
+          "index": 2936692,
+          "spatial": 209760,
+          "actual": 1.7169618606567383,
+          "expected": 1.716962218284607
+        },
+        {
+          "index": 2936693,
+          "spatial": 209761,
+          "actual": 0.06732985377311707,
+          "expected": 0.0673297643661499
+        },
+        {
+          "index": 2936694,
+          "spatial": 209762,
+          "actual": -1.5187090635299683,
+          "expected": -1.5187091827392578
+        },
+        {
+          "index": 3356222,
+          "spatial": 209762,
+          "actual": -31.080955505371094,
+          "expected": -31.08095359802246
+        },
+        {
+          "index": 3356223,
+          "spatial": 209763,
+          "actual": -30.09790802001953,
+          "expected": -30.0979061126709
+        },
+        {
+          "index": 3565985,
+          "spatial": 209761,
+          "actual": -2.9059832096099854,
+          "expected": -2.905982732772827
+        },
+        {
+          "index": 3565986,
+          "spatial": 209762,
+          "actual": -2.443403959274292,
+          "expected": -2.443404197692871
+        },
+        {
+          "index": 3565987,
+          "spatial": 209763,
+          "actual": 0.22708818316459656,
+          "expected": 0.22708894312381744
+        },
+        {
+          "index": 3985512,
+          "spatial": 209760,
+          "actual": 14.630033493041992,
+          "expected": 14.630034446716309
+        },
+        {
+          "index": 3985515,
+          "spatial": 209763,
+          "actual": 20.023197174072266,
+          "expected": 20.023195266723633
+        }
+      ],
+      "functionalMs": 748.4000000003725
+    },
+    {
+      "name": "448-cnn-6",
+      "elements": 26382848,
+      "different": 207,
+      "maxAbs": 0.000030517578125,
+      "nonfinite": 0,
+      "firstDifferences": [
+        {
+          "index": 206113,
+          "spatial": 206113,
+          "actual": -135.80136108398438,
+          "expected": -135.80137634277344
+        },
+        {
+          "index": 206114,
+          "spatial": 206114,
+          "actual": -125.21041107177734,
+          "expected": -125.21040344238281
+        },
+        {
+          "index": 206115,
+          "spatial": 206115,
+          "actual": -117.74158477783203,
+          "expected": -117.74159240722656
+        },
+        {
+          "index": 412231,
+          "spatial": 206115,
+          "actual": -201.05165100097656,
+          "expected": -201.05166625976562
+        },
+        {
+          "index": 824461,
+          "spatial": 206113,
+          "actual": -97.97718811035156,
+          "expected": -97.9771957397461
+        },
+        {
+          "index": 824463,
+          "spatial": 206115,
+          "actual": -115.6611557006836,
+          "expected": -115.66116333007812
+        },
+        {
+          "index": 1030577,
+          "spatial": 206113,
+          "actual": 225.89828491210938,
+          "expected": 225.8982696533203
+        },
+        {
+          "index": 1030578,
+          "spatial": 206114,
+          "actual": 207.54063415527344,
+          "expected": 207.54061889648438
+        },
+        {
+          "index": 1236693,
+          "spatial": 206113,
+          "actual": 23.687406539916992,
+          "expected": 23.68740463256836
+        },
+        {
+          "index": 1236694,
+          "spatial": 206114,
+          "actual": 28.294889450073242,
+          "expected": 28.29488754272461
+        },
+        {
+          "index": 1236695,
+          "spatial": 206115,
+          "actual": 30.774324417114258,
+          "expected": 30.774322509765625
+        },
+        {
+          "index": 1442808,
+          "spatial": 206112,
+          "actual": -341.6085510253906,
+          "expected": -341.6085205078125
+        },
+        {
+          "index": 1442809,
+          "spatial": 206113,
+          "actual": -334.668212890625,
+          "expected": -334.6681823730469
+        },
+        {
+          "index": 1442810,
+          "spatial": 206114,
+          "actual": -322.7577209472656,
+          "expected": -322.7576904296875
+        },
+        {
+          "index": 1648924,
+          "spatial": 206112,
+          "actual": 53.511474609375,
+          "expected": 53.511470794677734
+        },
+        {
+          "index": 1648927,
+          "spatial": 206115,
+          "actual": 9.7228422164917,
+          "expected": 9.722843170166016
+        },
+        {
+          "index": 1855040,
+          "spatial": 206112,
+          "actual": -112.32005310058594,
+          "expected": -112.3200454711914
+        },
+        {
+          "index": 1855041,
+          "spatial": 206113,
+          "actual": -113.90889739990234,
+          "expected": -113.90890502929688
+        },
+        {
+          "index": 1855042,
+          "spatial": 206114,
+          "actual": -119.4723892211914,
+          "expected": -119.47238159179688
+        },
+        {
+          "index": 1855043,
+          "spatial": 206115,
+          "actual": -127.12896728515625,
+          "expected": -127.12897491455078
+        },
+        {
+          "index": 2267272,
+          "spatial": 206112,
+          "actual": 48.30555725097656,
+          "expected": 48.305564880371094
+        },
+        {
+          "index": 2473388,
+          "spatial": 206112,
+          "actual": -29.027904510498047,
+          "expected": -29.027902603149414
+        },
+        {
+          "index": 2473389,
+          "spatial": 206113,
+          "actual": -31.154048919677734,
+          "expected": -31.154050827026367
+        },
+        {
+          "index": 2473390,
+          "spatial": 206114,
+          "actual": -33.721702575683594,
+          "expected": -33.72170639038086
+        }
+      ],
+      "functionalMs": 1163.5999999996275
+    },
+    {
+      "name": "448-cnn-9",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 976.3000000007451
+    },
+    {
+      "name": "448-cnn-12",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 330.69999999925494
+    },
+    {
+      "name": "448-zm-real",
+      "elements": 2408448,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 116
+    },
+    {
+      "name": "448-zm-imag",
+      "elements": 2408448,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0,
+      "firstDifferences": [],
+      "functionalMs": 86.20000000111759
+    }
+  ],
+  "cases": 7,
+  "limits": {
+    "maxStorageBufferBindingSize": 536870912,
+    "maxBufferSize": 536870912
+  },
+  "peakAccountedBytes": 540961824,
+  "lifecycle": {
+    "cancelledAfterSubmission": true,
+    "busy": true,
+    "refused": true,
+    "retry": true,
+    "allReservationsReleased": true
+  },
+  "browser": "154.0.8037.58",
+  "sourceSha256": "74df3ffacb4d9eeb27e57095611cc22fc4ff21ba226044e98df9bfe17162d1b9",
+  "referenceSha256": "775e13a52c15798b66cb7e081255cc26a314f2e253b54da55259f47ca87e18c4"
+}

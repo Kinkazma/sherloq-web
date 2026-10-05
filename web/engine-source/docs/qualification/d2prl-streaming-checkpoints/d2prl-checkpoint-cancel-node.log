@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: UNet terminal preserves validated nodes; explicit resume does not replay them
+ok 1 - UNet terminal preserves validated nodes; explicit resume does not replay them
+  ---
+  duration_ms: 25.973667
+  type: 'test'
+  ...
+# Subtest: changing a checkpoint identity discards prior owned graph values
+ok 2 - changing a checkpoint identity discards prior owned graph values
+  ---
+  duration_ms: 13.436333
+  type: 'test'
+  ...
+# Subtest: PatchMatch terminal at evaluation keeps exact candidate/RNG cursor and completed evaluations
+ok 3 - PatchMatch terminal at evaluation keeps exact candidate/RNG cursor and completed evaluations
+  ---
+  duration_ms: 742.85775
+  type: 'test'
+  ...
+# Subtest: analysis retains completed zones through terminal resume and releases the active pipeline key
+ok 4 - analysis retains completed zones through terminal resume and releases the active pipeline key
+  ---
+  duration_ms: 132.188334
+  type: 'test'
+  ...
+# Subtest: cancellation discards checkpoints rather than retaining cancelled output
+ok 5 - cancellation discards checkpoints rather than retaining cancelled output
+  ---
+  duration_ms: 9.827875
+  type: 'test'
+  ...
+# Subtest: descriptor checkpoint preserves previously completed convolutions and descriptor planes
+ok 6 - descriptor checkpoint preserves previously completed convolutions and descriptor planes
+  ---
+  duration_ms: 4375.581917
+  type: 'test'
+  ...
+# Subtest: union checkpoint keeps completed DLF/convolutions and held weights at refusal
+ok 7 - union checkpoint keeps completed DLF/convolutions and held weights at refusal
+  ---
+  duration_ms: 470.225792
+  type: 'test'
+  ...
+# Subtest: a changed RNG identity invalidates the previous PatchMatch checkpoint
+ok 8 - a changed RNG identity invalidates the previous PatchMatch checkpoint
+  ---
+  duration_ms: 13.253333
+  type: 'test'
+  ...
+# Subtest: an already cancelled explicit graph resume discards the retained checkpoint
+ok 9 - an already cancelled explicit graph resume discards the retained checkpoint
+  ---
+  duration_ms: 9.370333
+  type: 'test'
+  ...
+# Subtest: cancelled queued analysis releases the preceding terminal checkpoint
+ok 10 - cancelled queued analysis releases the preceding terminal checkpoint
+  ---
+  duration_ms: 4.381917
+  type: 'test'
+  ...
+# Subtest: cancelled queued analysis preserves the following resume checkpoint
+ok 11 - cancelled queued analysis preserves the following resume checkpoint
+  ---
+  duration_ms: 2.600125
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6927.723833

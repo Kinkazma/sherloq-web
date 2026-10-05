@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real worker external candidate ordering, exact non-truncated coordinates beyond2^32 keys,100003 records,8MiB engine budget, cancellation and injected write failure. Fixture/oracle outside engine budget; no process RSS or physical quota exhaustion claim.",
+  "runs": [
+    {
+      "status": "passed",
+      "sessionId": "job-fbe0d7d8-2a8a-42d2-a166-a9945a5b16bb",
+      "backend": "indexeddb",
+      "count": 100003,
+      "largestKey": 8490990003,
+      "metrics": {
+        "path": "external-radix",
+        "passes": 9,
+        "bucketBytes": 327648,
+        "inputBytes": 1048560,
+        "peakAccountedBytes": 8388464,
+        "storage": {
+          "reservedBytes": 2400072,
+          "peakReservedBytes": 4800144,
+          "estimatedAvailableBytes": 519404338,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": 33554432,
+          "openFiles": 0,
+          "arrays": 1,
+          "pageBytes": 1048576,
+          "backend": "indexeddb",
+          "readCacheEnabled": true,
+          "readCachePages": 2,
+          "reads": {
+            "transactions": 63,
+            "cacheHits": 54,
+            "requestedBytes": 45601368
+          }
+        }
+      },
+      "cancellation": true,
+      "injectedWriteFailure": true,
+      "accountedBytesAfterCleanup": 0
+    },
+    {
+      "status": "passed",
+      "sessionId": "job-cebd142a-b0f9-4f2c-8dcc-8112fe417d75",
+      "backend": "indexeddb",
+      "count": 100003,
+      "largestKey": 8490990003,
+      "metrics": {
+        "path": "external-radix",
+        "passes": 9,
+        "bucketBytes": 327648,
+        "inputBytes": 1048560,
+        "peakAccountedBytes": 8388464,
+        "storage": {
+          "reservedBytes": 2400072,
+          "peakReservedBytes": 4800144,
+          "estimatedAvailableBytes": 346426407,
+          "estimateIsAdmissionLimit": false,
+          "logicalLimitBytes": 33554432,
+          "openFiles": 0,
+          "arrays": 1,
+          "pageBytes": 1048576,
+          "backend": "indexeddb",
+          "readCacheEnabled": true,
+          "readCachePages": 2,
+          "reads": {
+            "transactions": 63,
+            "cacheHits": 54,
+            "requestedBytes": 45601368
+          }
+        }
+      },
+      "cancellation": true,
+      "injectedWriteFailure": true,
+      "accountedBytesAfterCleanup": 0
+    }
+  ],
+  "storageArtifactsRemaining": 0,
+  "browser": "26.6"
+}

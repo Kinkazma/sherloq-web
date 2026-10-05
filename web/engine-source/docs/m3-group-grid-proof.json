@@ -1,0 +1,12 @@
+{
+  "scope": "Historical grouping predicate and ordered index storage; borrowed inputs excluded from workspace accounting",
+  "validation": "All native geometry primitives and direct comparisons with reverse pairs, duplicates and floating boundaries agree",
+  "correspondences": 100000,
+  "outputIndices": 199900,
+  "candidateRows": 149800,
+  "unindexedCandidateRows": 4999950000,
+  "workspacePeakBytes": 64861424,
+  "borrowedInputBytes": 13600000,
+  "outputTruncated": false,
+  "runtimePreflightExecutions": 0
+}

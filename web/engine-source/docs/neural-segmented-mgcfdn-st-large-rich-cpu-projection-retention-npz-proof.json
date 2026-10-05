@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "mgcfdn-st",
+  "backend": "cpu",
+  "large": true,
+  "rich": true,
+  "extracted": false,
+  "scope": "Actual paged common-worker NPZ read with NumPy allow_pickle=False; ZIP CRC, owned export SHA, names/dtypes/shapes, canonical source identity, all native array values and browser window hashes.",
+  "bytes": 1440012552,
+  "sha256": "90beeccb4ed1200cf13008341ec97921da01bef6b4d7a99aabcad806a5421201",
+  "numpy": "1.26.4",
+  "records": [
+    {
+      "array": "map",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 1.728534698486328e-05,
+      "meanAbs": 8.315974176819354e-08,
+      "nonzero": 45748471,
+      "different": 44609615,
+      "sha256": "fe3de9f6b8492f62664ada5e07649349c0b11ec512db07ec1ee1d67a7e0df7bc",
+      "accepted": true
+    },
+    {
+      "array": "mask",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "nonzero": 3370950,
+      "different": 0,
+      "sha256": "bcdfc54d75f11a35ec8f0ea644e7857fd8aea768ab5af3160f80c2e68dbbc7aa",
+      "accepted": true
+    },
+    {
+      "array": "analyzed",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "nonzero": 45748471,
+      "different": 0,
+      "sha256": "99c7d5340384818f99ff6e2e5c63b23b9cd029e60336d70e49851ee929e89559",
+      "accepted": true
+    },
+    {
+      "array": "candidates",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "meanAbs": 0.0,
+      "nonzero": 0,
+      "different": 0,
+      "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+      "accepted": true
+    },
+    {
+      "array": "target",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 1.728534698486328e-05,
+      "meanAbs": 4.502780338224887e-08,
+      "nonzero": 45748471,
+      "different": 44578333,
+      "sha256": "5068099a83f4008b9fc725efc619d509d9375112ecbd785de3a07f920f2196ab",
+      "accepted": true
+    },
+    {
+      "array": "source",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 1.1354684829711914e-05,
+      "meanAbs": 3.879236796891246e-08,
+      "nonzero": 45748471,
+      "different": 45500498,
+      "sha256": "d37d5943ff1b3b99166f0bd42fcb5a8da9478b9645fd34f8f92a1b94ab4807c7",
+      "accepted": true
+    }
+  ]
+}

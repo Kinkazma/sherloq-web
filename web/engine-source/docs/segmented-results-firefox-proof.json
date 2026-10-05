@@ -1,0 +1,173 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real96MP result surfaces; six native rank variants/four windows each; complete RGB checksum for min/strict; owned results, metadata export, release/unload/cancel/dispose. Functional timings, not isolated benchmarks.",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "originalSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+  "nativeSourceSha256": "5e9273adc10b1442e9e6d8c0137401b93f3350a5754f240d6f10cb9a90b87890",
+  "cases": [
+    {
+      "params": {
+        "mode": "min",
+        "inclusive": false
+      },
+      "windows": 4,
+      "fullSha256": "9b1573b4098afe04b64ad6f570067aeed50e3f293993b0d31851691fd0d0ac77",
+      "computeMs": 1814,
+      "metrics": {
+        "blocks": 69,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "totalMs": 1813,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "mode": "min",
+        "inclusive": true
+      },
+      "windows": 4,
+      "fullSha256": null,
+      "computeMs": 1647,
+      "metrics": {
+        "blocks": 69,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "totalMs": 1647,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 18396,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "mode": "avg",
+        "inclusive": false
+      },
+      "windows": 4,
+      "fullSha256": null,
+      "computeMs": 2081,
+      "metrics": {
+        "blocks": 69,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "totalMs": 2080,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 18396,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "mode": "avg",
+        "inclusive": true
+      },
+      "windows": 4,
+      "fullSha256": null,
+      "computeMs": 2314,
+      "metrics": {
+        "blocks": 69,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "totalMs": 2314,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 18396,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "mode": "max",
+        "inclusive": false
+      },
+      "windows": 4,
+      "fullSha256": null,
+      "computeMs": 2051,
+      "metrics": {
+        "blocks": 69,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "totalMs": 2050,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 18396,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    },
+    {
+      "params": {
+        "mode": "max",
+        "inclusive": true
+      },
+      "windows": 4,
+      "fullSha256": null,
+      "computeMs": 1764,
+      "metrics": {
+        "blocks": 69,
+        "storage": "temporary",
+        "retainedResultBytes": 288000000,
+        "totalMs": 1763,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 268435456,
+          "retainedBytes": 0,
+          "cacheBytes": 18396,
+          "activeReservationBytes": 103546880,
+          "peakAccountedBytes": 129005192
+        }
+      }
+    }
+  ],
+  "cancellationMs": 67,
+  "cancellation": "storage-closed-before-worker-termination",
+  "storageArtifactsRemaining": 0,
+  "browser": "155.0"
+}

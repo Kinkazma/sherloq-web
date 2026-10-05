@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {initCvWasm} from '../src/opencv.js';import {initJpegWasm} from '../src/jpeg.js';import {initWaveletWasm} from '../src/wavelets.js';import {createEngine} from '../src/index.js';
+test('Wavelet blocking preserves original-file grayscale, exact 1094 noise maps/displays and cache ownership',async()=>{
+ await initCvWasm({wasmBinary:await readFile(new URL('../vendor/opencv/opencv.wasm',import.meta.url))});await initJpegWasm({wasmBinary:await readFile(new URL('../vendor/libjpeg/jpeg.wasm',import.meta.url))});await initWaveletWasm({wasmBinary:await readFile(new URL('../vendor/pywt/pywt.wasm',import.meta.url))});const ref=JSON.parse(await readFile(new URL('../fixtures/blocking-reference.json',import.meta.url))),engine=createEngine();let total=0;
+ try{for(const f of ref.cases){const bytes=new Uint8Array(await readFile(new URL('../fixtures/'+f.file,import.meta.url)));await engine.load({id:'i',bytes,...(f.encoded?{}:{pixels:{width:f.width,height:f.height,format:'rgb8',data:bytes}})});let first=true;
+ for(const e of f.expected){const r=await engine.run({id:'b',imageId:'i',operation:'noise.blocking',params:e.params});assert.equal(r.metrics.cache.analysis,!first);first=false;assert.equal(createHash('sha256').update(r.pixels.data).digest('hex'),e.sha256,`${f.name} ${e.params.block}`);assert.deepEqual(Array.from(r.data.noise),e.noise);assert.equal(r.data.sourceMode,f.sourceMode);assert.equal(r.data.rows,e.rows);assert.equal(r.data.cols,e.cols);r.data.noise.fill(99);r.pixels.data.fill(255);total++;}
+ await assert.rejects(engine.run({id:'b',imageId:'i',operation:'noise.blocking',params:{block:101}}),{code:'INVALID_INPUT'});engine.unload('i');assert.equal(engine.capabilities().memory.cacheBytes,0);}
+ assert.equal(total,1094);
+ }finally{engine.dispose();}
+});

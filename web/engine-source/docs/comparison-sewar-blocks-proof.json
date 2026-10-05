@@ -1,0 +1,92 @@
+[
+  {
+    "arithmetic": "native",
+    "values": [
+      0.9674590439872294,
+      400.026552066782,
+      0.8706636105720993,
+      0.9850423895233865,
+      0.8853745063989924
+    ],
+    "native": [
+      0.9674590439872295,
+      400.0265520667819,
+      0.8706636105720995,
+      0.9850423895233869,
+      0.8853745063989927
+    ],
+    "absoluteErrors": [
+      1.1102230246251565e-16,
+      1.1368683772161603e-13,
+      2.220446049250313e-16,
+      3.3306690738754696e-16,
+      3.3306690738754696e-16
+    ],
+    "metrics": {
+      "workspace": 44367872,
+      "workers": 1,
+      "paged": true,
+      "reads": 8982,
+      "writes": 3604,
+      "readBytes": 1866523728,
+      "writeBytes": 748957008,
+      "temporaryPeakBytes": 109051904,
+      "heapBytes": 8388608,
+      "arithmetic": "native",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 86944.60000000894,
+    "memory": {
+      "budgetBytes": 67108864,
+      "retainedBytes": 6291456,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 50665472
+    }
+  },
+  {
+    "arithmetic": "separated",
+    "values": [
+      0.9674590439872294,
+      400.026552066782,
+      0.8706636105720993,
+      0.9850423895233865,
+      0.8853745063989923
+    ],
+    "native": [
+      0.9674590439872295,
+      400.0265520667819,
+      0.8706636105720995,
+      0.9850423895233869,
+      0.8853745063989927
+    ],
+    "absoluteErrors": [
+      1.1102230246251565e-16,
+      1.1368683772161603e-13,
+      2.220446049250313e-16,
+      3.3306690738754696e-16,
+      4.440892098500626e-16
+    ],
+    "metrics": {
+      "workspace": 44367872,
+      "workers": 1,
+      "paged": true,
+      "reads": 8982,
+      "writes": 3604,
+      "readBytes": 1866523728,
+      "writeBytes": 748957008,
+      "temporaryPeakBytes": 109051904,
+      "heapBytes": 8388608,
+      "arithmetic": "separated",
+      "preflightExecutions": 0
+    },
+    "milliseconds": 87865.20000000298,
+    "memory": {
+      "budgetBytes": 67108864,
+      "retainedBytes": 6291456,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 50665472
+    }
+  }
+]

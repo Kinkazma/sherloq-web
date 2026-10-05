@@ -1,0 +1,93 @@
+{
+  "scope": "Eight generated cases to exercise source/target positive decisions. Selection is for branch coverage, not model training, threshold tuning or an accuracy benchmark.",
+  "records": [
+    {
+      "name": "multiscale-71",
+      "target": 2364,
+      "source": 0,
+      "union": 2364,
+      "maxima": [
+        0.9932416677474976,
+        0.39796146750450134,
+        1.0
+      ]
+    },
+    {
+      "name": "multiscale-192",
+      "target": 4625,
+      "source": 1851,
+      "union": 6476,
+      "maxima": [
+        0.9999699592590332,
+        0.9989738464355469,
+        1.0
+      ]
+    },
+    {
+      "name": "smooth-71",
+      "target": 4762,
+      "source": 90,
+      "union": 4852,
+      "maxima": [
+        0.990803599357605,
+        0.7982841730117798,
+        1.0
+      ]
+    },
+    {
+      "name": "smooth-192",
+      "target": 1002,
+      "source": 574,
+      "union": 1576,
+      "maxima": [
+        0.9320883750915527,
+        0.8896884322166443,
+        0.9999994039535522
+      ]
+    },
+    {
+      "name": "bands-71",
+      "target": 1211,
+      "source": 1377,
+      "union": 2588,
+      "maxima": [
+        0.9765325784683228,
+        0.9260945320129395,
+        0.9999990463256836
+      ]
+    },
+    {
+      "name": "bands-192",
+      "target": 705,
+      "source": 2534,
+      "union": 3239,
+      "maxima": [
+        0.9104697704315186,
+        0.9638218283653259,
+        0.9999990463256836
+      ]
+    },
+    {
+      "name": "blobs-71",
+      "target": 1921,
+      "source": 2163,
+      "union": 4084,
+      "maxima": [
+        0.9995812773704529,
+        0.9991334080696106,
+        1.0
+      ]
+    },
+    {
+      "name": "blobs-192",
+      "target": 517,
+      "source": 3,
+      "union": 520,
+      "maxima": [
+        0.9912051558494568,
+        0.5460029244422913,
+        1.0
+      ]
+    }
+  ]
+}

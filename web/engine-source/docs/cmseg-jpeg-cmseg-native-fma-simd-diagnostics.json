@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "Real native512 CMSeg encoder/decoder ONNX CPU with bounded global SIMD-WASM correlation; all pair comparisons retained, no approximate neighbour pruning or resize. No common API, source projection, cancellation or UI qualification yet.",
+  "variant": "generalization",
+  "weights": {
+    "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/generalization.pth": "a3351ae664fca9780c3ca56db708fe3fdc74878c07327dfdd6ed75f14537454b"
+  },
+  "graphs": {
+    "encoder": {
+      "file": "../segmentation-models/cmseg-generalization/encoder-native-mean-bn.onnx",
+      "bytes": 9308459,
+      "sha256": "49cac28c14f8421deba55b4cf9eb9411bb98293eb1acc37a9a319c164eeb6c91",
+      "meanNodes": 1,
+      "batchnormNodes": 59
+    },
+    "decoder": {
+      "file": "../segmentation-models/cmseg-generalization/decoder-native-mean-bn.onnx",
+      "bytes": 11935456,
+      "sha256": "123f113286258c98b732605f854d8f08e2fa6253e2cb9bccc0491a181587dea6",
+      "meanNodes": 3,
+      "batchnormNodes": 33
+    }
+  },
+  "records": [
+    {
+      "diagnostics": [
+        {
+          "name": "native-head",
+          "oracleInputsOnlyForLocalization": true,
+          "probability": {
+            "maxAbs": 0.000013053417205810547,
+            "different": 262083,
+            "finite": true
+          },
+          "maskChanges": 0
+        },
+        {
+          "name": "native-correlations",
+          "oracleInputsOnlyForLocalization": true,
+          "probability": {
+            "maxAbs": 0.000027447938919067383,
+            "different": 262088,
+            "finite": true
+          },
+          "maskChanges": 0
+        },
+        {
+          "name": "native-bypass-features",
+          "oracleInputsOnlyForLocalization": true,
+          "probability": {
+            "maxAbs": 0.00014454126358032227,
+            "different": 262090,
+            "finite": true
+          },
+          "maskChanges": 0
+        }
+      ],
+      "name": "jpeg-roi-b",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.000035762786865234375,
+          "different": 696671,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000015735626220703125,
+          "different": 383753,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000031888484954833984,
+          "different": 130509,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00004172325134277344,
+          "different": 97544,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.0001239776611328125,
+          "different": 167320,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 4004.89999999851,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 7.87986209616065e-9,
+            "different": 386006,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 361,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 2.1245796233415604e-9,
+            "different": 130714,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 98.69999999552965,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 4.336470738053322e-9,
+            "different": 97587,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 0.00015476346015930176,
+        "different": 262095,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0008999109268188477,
+        "different": 260026,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 75,
+        "nativeForeground": 75
+      },
+      "heapBytes": 514719744,
+      "milliseconds": 6823
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1341413409
+  },
+  "browser": "154.0.8037.58",
+  "kernel": {
+    "path": "/.build/cmseg-native-fma-simd/correlation.js",
+    "sha256": "f63cdb108d09a16903854d30563bcbc6d9c1ba8f4b80d494d730a964d6282eec",
+    "wasmSha256": "fe3a44357907b250fb00d82c5c6f9474de732e56340ffbfa694cca858efad39b"
+  },
+  "sources": {
+    "scripts/study-cmseg-jpeg.mjs": "87331eed2172b9f249f754072e1799d6e0774c7bcbdca4d8a1c683ac918b745c",
+    "experiments/segmentation/cmseg-correlation.cpp": "8f65a246e8aabd069e4ff6c29c4d704b01d7c8717039b95e988269fd375aae54",
+    "experiments/segmentation/cmseg-correlation.js": "473ba0002d53980ef7034d81c032fa6f72d0187d52de49f260e8a2c89a9f7888",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "scripts/export-cmseg-split.py": "285fa3a567e63a2d786a8cc800cf646b08d41a267fee355ec3bdb4ee2ddfb88a"
+  }
+}

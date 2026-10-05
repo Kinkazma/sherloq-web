@@ -1,0 +1,1289 @@
+[
+  {
+    "name": "tiny",
+    "width": 1,
+    "height": 1,
+    "values": [
+      null,
+      null,
+      0,
+      null,
+      0.9999999999706047
+    ],
+    "native": [
+      null,
+      null,
+      0,
+      null,
+      0.9999999999706047
+    ],
+    "absoluteErrors": [
+      null,
+      null,
+      0,
+      null,
+      0
+    ],
+    "metrics": {
+      "workspace": 33554912,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 20824,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 566.3689159999999
+  },
+  {
+    "name": "small",
+    "width": 3,
+    "height": 5,
+    "values": [
+      null,
+      null,
+      1,
+      null,
+      0.9999999999909054
+    ],
+    "native": [
+      null,
+      null,
+      1,
+      null,
+      0.9999999999909054
+    ],
+    "absoluteErrors": [
+      null,
+      null,
+      0,
+      null,
+      0
+    ],
+    "metrics": {
+      "workspace": 33557792,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 15032,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 771.856
+  },
+  {
+    "name": "zero",
+    "width": 16,
+    "height": 16,
+    "values": [
+      1,
+      0,
+      0,
+      1,
+      null
+    ],
+    "native": [
+      1,
+      0,
+      0,
+      1,
+      null
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      null
+    ],
+    "metrics": {
+      "workspace": 33600512,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 26624,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 508.7325000000001
+  },
+  {
+    "name": "constant",
+    "width": 32,
+    "height": 32,
+    "values": [
+      0.9999221852256105,
+      151.1811023622047,
+      0,
+      0.99945509862213,
+      1.0073489715118336
+    ],
+    "native": [
+      0.9999221852256105,
+      151.1811023622047,
+      0,
+      0.99945509862213,
+      1.0073489715118336
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "workspace": 33687552,
+      "workers": 1,
+      "paged": true,
+      "reads": 1256,
+      "writes": 784,
+      "readBytes": 321536,
+      "writeBytes": 200704,
+      "temporaryPeakBytes": 106496,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 1765.3412909999997
+  },
+  {
+    "name": "same",
+    "width": 47,
+    "height": 49,
+    "values": [
+      1,
+      0,
+      1,
+      1,
+      0.9999999999922761
+    ],
+    "native": [
+      1,
+      0,
+      1,
+      1,
+      0.9999999999922761
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "workspace": 33749952,
+      "workers": 1,
+      "paged": true,
+      "reads": 4745,
+      "writes": 3084,
+      "readBytes": 1700936,
+      "writeBytes": 1094192,
+      "temporaryPeakBytes": 239512,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 1662.00875
+  },
+  {
+    "name": "shift",
+    "width": 65,
+    "height": 63,
+    "values": [
+      0.6512931066514894,
+      3573.095471815885,
+      -0.1791115020191607,
+      0.8618290664788634,
+      0.04165558980182443
+    ],
+    "native": [
+      0.6512931066514893,
+      3573.095471815885,
+      -0.1791115020191607,
+      0.8618290664788634,
+      0.04165558980182429
+    ],
+    "absoluteErrors": [
+      1.1102230246251565e-16,
+      0,
+      0,
+      0,
+      1.457167719820518e-16
+    ],
+    "metrics": {
+      "workspace": 33824832,
+      "workers": 1,
+      "paged": true,
+      "reads": 6984,
+      "writes": 4622,
+      "readBytes": 3385008,
+      "writeBytes": 2224176,
+      "temporaryPeakBytes": 425880,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 3236.7207909999997
+  },
+  {
+    "name": "brightness",
+    "width": 97,
+    "height": 99,
+    "values": [
+      0.9983249561510018,
+      736.5400578410902,
+      0.9996319186426745,
+      0.9889323566370101,
+      0.9171716501355582
+    ],
+    "native": [
+      0.9983249561510018,
+      736.5400578410902,
+      0.9996319186426746,
+      0.9889323566370101,
+      0.9171716501355605
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      1.1102230246251565e-16,
+      0,
+      2.220446049250313e-15
+    ],
+    "metrics": {
+      "workspace": 33957952,
+      "workers": 1,
+      "paged": true,
+      "reads": 12969,
+      "writes": 8697,
+      "readBytes": 8820088,
+      "writeBytes": 5872648,
+      "temporaryPeakBytes": 998712,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 2430.287457999999
+  },
+  {
+    "name": "noise",
+    "width": 131,
+    "height": 127,
+    "values": [
+      0.9984621931571183,
+      163.24983553026493,
+      0.9977932284252127,
+      0.9997056070291166,
+      0.7661233280990234
+    ],
+    "native": [
+      0.9984621931571186,
+      163.24983553026493,
+      0.9977932284252127,
+      0.9997056070291166,
+      0.766123328099023
+    ],
+    "absoluteErrors": [
+      3.3306690738754696e-16,
+      0,
+      0,
+      0,
+      4.440892098500626e-16
+    ],
+    "metrics": {
+      "workspace": 34099392,
+      "workers": 1,
+      "paged": true,
+      "reads": 17545,
+      "writes": 11833,
+      "readBytes": 15862264,
+      "writeBytes": 10636760,
+      "temporaryPeakBytes": 1730248,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 7722.576250000002
+  },
+  {
+    "name": "random",
+    "width": 192,
+    "height": 192,
+    "values": [
+      0.16311301657672572,
+      3498.3418809260215,
+      0.0038660500401704306,
+      0.8656977613010927,
+      0.001960679228286778
+    ],
+    "native": [
+      0.16311301657672603,
+      3498.3418809260215,
+      0.0038660500401704293,
+      0.8656977613010928,
+      0.0019606792282867978
+    ],
+    "absoluteErrors": [
+      3.0531133177191805e-16,
+      0,
+      1.3010426069826053e-18,
+      1.1102230246251565e-16,
+      1.9949319973733282e-17
+    ],
+    "metrics": {
+      "workspace": 34353152,
+      "workers": 1,
+      "paged": true,
+      "reads": 28532,
+      "writes": 19382,
+      "readBytes": 36476096,
+      "writeBytes": 24631520,
+      "temporaryPeakBytes": 3833856,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 11665.977417000002
+  },
+  {
+    "name": "gamma",
+    "width": 257,
+    "height": 259,
+    "values": [
+      0.9993438920407715,
+      339.52061112545294,
+      0.9994594783773568,
+      0.9973346987158873,
+      0.897449401306387
+    ],
+    "native": [
+      0.9993438920407719,
+      339.5206111254529,
+      0.9994594783773568,
+      0.9973346987158871,
+      0.897449401306388
+    ],
+    "absoluteErrors": [
+      4.440892098500626e-16,
+      5.684341886080802e-14,
+      0,
+      2.220446049250313e-16,
+      9.992007221626409e-16
+    ],
+    "metrics": {
+      "workspace": 34623552,
+      "workers": 1,
+      "paged": true,
+      "reads": 39887,
+      "writes": 27200,
+      "readBytes": 67195192,
+      "writeBytes": 45546784,
+      "temporaryPeakBytes": 6922552,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 21003.262666000002
+  },
+  {
+    "name": "large",
+    "width": 512,
+    "height": 512,
+    "values": [
+      0.965647287158494,
+      414.74880900614914,
+      0.8698123072350326,
+      0.9846726449250678,
+      0.8734284532807621
+    ],
+    "native": [
+      0.9656472871584939,
+      414.74880900614914,
+      0.8698123072350327,
+      0.9846726449250678,
+      0.8734284532807622
+    ],
+    "absoluteErrors": [
+      1.1102230246251565e-16,
+      0,
+      1.1102230246251565e-16,
+      0,
+      1.1102230246251565e-16
+    ],
+    "metrics": {
+      "workspace": 35684352,
+      "workers": 1,
+      "paged": true,
+      "reads": 82344,
+      "writes": 56464,
+      "readBytes": 270834784,
+      "writeBytes": 184565200,
+      "temporaryPeakBytes": 27262976,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 97015.54762499998
+  },
+  {
+    "name": "row",
+    "width": 33,
+    "height": 1,
+    "values": [
+      null,
+      null,
+      0.91867435701602,
+      null,
+      null
+    ],
+    "native": [
+      null,
+      null,
+      0.91867435701602,
+      null,
+      null
+    ],
+    "absoluteErrors": [
+      null,
+      null,
+      0,
+      null,
+      null
+    ],
+    "metrics": {
+      "workspace": 33570272,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 3432,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 552.600208000018
+  },
+  {
+    "name": "column",
+    "width": 1,
+    "height": 33,
+    "values": [
+      null,
+      null,
+      0.9268421890054053,
+      null,
+      null
+    ],
+    "native": [
+      null,
+      null,
+      0.9268421890054053,
+      null,
+      null
+    ],
+    "absoluteErrors": [
+      null,
+      null,
+      0,
+      null,
+      null
+    ],
+    "metrics": {
+      "workspace": 33558592,
+      "workers": 1,
+      "paged": true,
+      "reads": 954,
+      "writes": 702,
+      "readBytes": 7632,
+      "writeBytes": 5616,
+      "temporaryPeakBytes": 3432,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 4798.950540999998
+  },
+  {
+    "name": "narrow",
+    "width": 17,
+    "height": 3,
+    "values": [
+      null,
+      null,
+      0.9537704205834737,
+      null,
+      null
+    ],
+    "native": [
+      null,
+      null,
+      0.9537704205834737,
+      null,
+      null
+    ],
+    "absoluteErrors": [
+      null,
+      null,
+      0,
+      null,
+      null
+    ],
+    "metrics": {
+      "workspace": 33568032,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 5304,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 1168.5630419999943
+  },
+  {
+    "name": "inverse",
+    "width": 129,
+    "height": 127,
+    "values": [
+      -0.5593427627681923,
+      4932.282518798396,
+      -0.9999999775643587,
+      0.7325737982678651,
+      0
+    ],
+    "native": [
+      -0.5593427627681921,
+      4932.282518798396,
+      -0.9999999775643587,
+      0.7325737982678652,
+      0
+    ],
+    "absoluteErrors": [
+      2.220446049250313e-16,
+      0,
+      0,
+      1.1102230246251565e-16,
+      0
+    ],
+    "metrics": {
+      "workspace": 34091072,
+      "workers": 1,
+      "paged": true,
+      "reads": 17545,
+      "writes": 11833,
+      "readBytes": 15613080,
+      "writeBytes": 10468456,
+      "temporaryPeakBytes": 1703832,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 28676.831250000017
+  },
+  {
+    "name": "impulse",
+    "width": 33,
+    "height": 31,
+    "values": [
+      0.7251443470133413,
+      7764.2315235411115,
+      -0.004703632835591344,
+      0.8747588257153475,
+      0.021574000668800813
+    ],
+    "native": [
+      0.7251443470133413,
+      7764.2315235411115,
+      -0.004703632835591344,
+      0.8747588257153475,
+      0.021574000668800813
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "workspace": 33691712,
+      "workers": 1,
+      "paged": true,
+      "reads": 1100,
+      "writes": 686,
+      "readBytes": 290400,
+      "writeBytes": 181104,
+      "temporaryPeakBytes": 106392,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 3071.508415999997
+  },
+  {
+    "name": "gradient",
+    "width": 95,
+    "height": 97,
+    "values": [
+      0.9922281973453175,
+      927.6423553722393,
+      0.0025351933345976107,
+      0.9857151077395201,
+      0.9899552409073711
+    ],
+    "native": [
+      0.9922281973453192,
+      927.6423553722393,
+      0.0025351933345976103,
+      0.9857151077395201,
+      0.9899552409074139
+    ],
+    "absoluteErrors": [
+      1.6653345369377348e-15,
+      0,
+      4.336808689942018e-19,
+      0,
+      4.285460875053104e-14
+    ],
+    "metrics": {
+      "workspace": 33949632,
+      "workers": 1,
+      "paged": true,
+      "reads": 12644,
+      "writes": 8472,
+      "readBytes": 8433512,
+      "writeBytes": 5611288,
+      "temporaryPeakBytes": 958360,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 7682.566750000027
+  },
+  {
+    "name": "checker",
+    "width": 66,
+    "height": 68,
+    "values": [
+      0.989944598798339,
+      12800,
+      -1,
+      -0.007874015748031496,
+      0
+    ],
+    "native": [
+      0.989944598798339,
+      12800,
+      -1,
+      -0.007874015748031496,
+      0
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "workspace": 33828992,
+      "workers": 1,
+      "paged": true,
+      "reads": 7666,
+      "writes": 5080,
+      "readBytes": 3750784,
+      "writeBytes": 2469280,
+      "temporaryPeakBytes": 466752,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 6768.558708000026
+  },
+  {
+    "name": "saturated",
+    "width": 47,
+    "height": 51,
+    "values": [
+      0.06303575624611006,
+      6400,
+      0,
+      0,
+      null
+    ],
+    "native": [
+      0.06303575624611006,
+      6400,
+      0,
+      0,
+      null
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      null
+    ],
+    "metrics": {
+      "workspace": 33749952,
+      "workers": 1,
+      "paged": true,
+      "reads": 5067,
+      "writes": 3310,
+      "readBytes": 1803848,
+      "writeBytes": 1165344,
+      "temporaryPeakBytes": 249288,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 5380.394374999974
+  },
+  {
+    "name": "edge8",
+    "width": 8,
+    "height": 9,
+    "values": [
+      null,
+      null,
+      0.9613503970605959,
+      null,
+      0.691576399097502
+    ],
+    "native": [
+      null,
+      null,
+      0.9613503970605959,
+      null,
+      0.6915763990975022
+    ],
+    "absoluteErrors": [
+      null,
+      null,
+      0,
+      null,
+      2.220446049250313e-16
+    ],
+    "metrics": {
+      "workspace": 33568512,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 9224,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 641.7233750000014
+  },
+  {
+    "name": "edge9",
+    "width": 9,
+    "height": 10,
+    "values": [
+      null,
+      661.0584751629592,
+      0.9660930419099742,
+      0.9954523226481139,
+      0.6915138947249746
+    ],
+    "native": [
+      null,
+      661.0584751629592,
+      0.9660930419099742,
+      0.9954523226481139,
+      0.6915138947249748
+    ],
+    "absoluteErrors": [
+      null,
+      0,
+      0,
+      0,
+      2.220446049250313e-16
+    ],
+    "metrics": {
+      "workspace": 33571712,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 9360,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 427.751082999981
+  },
+  {
+    "name": "edge10",
+    "width": 10,
+    "height": 11,
+    "values": [
+      null,
+      729.5892039693717,
+      0.9516157970152118,
+      0.9941420821036373,
+      0.7104225553290422
+    ],
+    "native": [
+      null,
+      729.5892039693717,
+      0.9516157970152118,
+      0.9941420821036373,
+      0.7104225553290422
+    ],
+    "absoluteErrors": [
+      null,
+      0,
+      0,
+      0,
+      0
+    ],
+    "metrics": {
+      "workspace": 33575232,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 11440,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 819.7293329999957
+  },
+  {
+    "name": "edge11",
+    "width": 11,
+    "height": 12,
+    "values": [
+      0.9971229950243938,
+      682.6731112050567,
+      0.9469668494234118,
+      0.9945037260961915,
+      0.7649837229992636
+    ],
+    "native": [
+      0.9971229950243938,
+      682.6731112050567,
+      0.9469668494234118,
+      0.9945037260961915,
+      0.7649837229992645
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      8.881784197001252e-16
+    ],
+    "metrics": {
+      "workspace": 33579072,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 13728,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 1009.2871250000026
+  },
+  {
+    "name": "edge17",
+    "width": 17,
+    "height": 18,
+    "values": [
+      0.9979655745143494,
+      730.2469356975214,
+      0.9523018518585831,
+      0.9941257971005064,
+      0.9404158838178853
+    ],
+    "native": [
+      0.9979655745143494,
+      730.2469356975214,
+      0.9523018518585831,
+      0.9941257971005064,
+      0.9404158838178757
+    ],
+    "absoluteErrors": [
+      0,
+      0,
+      0,
+      0,
+      9.658940314238862e-15
+    ],
+    "metrics": {
+      "workspace": 33608832,
+      "workers": 1,
+      "paged": true,
+      "reads": 0,
+      "writes": 0,
+      "readBytes": 0,
+      "writeBytes": 0,
+      "temporaryPeakBytes": 31824,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 925.1685409999918
+  },
+  {
+    "name": "edge31",
+    "width": 31,
+    "height": 32,
+    "values": [
+      0.9879948110343192,
+      732.2433784124321,
+      0.9526119299468434,
+      0.9939494398213199,
+      0.3855909000478894
+    ],
+    "native": [
+      0.9879948110343191,
+      732.2433784124321,
+      0.9526119299468434,
+      0.9939494398213199,
+      0.38559090004789126
+    ],
+    "absoluteErrors": [
+      1.1102230246251565e-16,
+      0,
+      0,
+      0,
+      1.887379141862766e-15
+    ],
+    "metrics": {
+      "workspace": 33683392,
+      "workers": 1,
+      "paged": true,
+      "reads": 1256,
+      "writes": 784,
+      "readBytes": 311488,
+      "writeBytes": 194432,
+      "temporaryPeakBytes": 103168,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 1269.404125000001
+  },
+  {
+    "name": "edge33",
+    "width": 33,
+    "height": 34,
+    "values": [
+      0.9882242550512449,
+      750.7692972681847,
+      0.9571714673885007,
+      0.9938674405380953,
+      0.3735906269123859
+    ],
+    "native": [
+      0.988224255051245,
+      750.7692972681847,
+      0.9571714673885007,
+      0.9938674405380953,
+      0.3735906269123853
+    ],
+    "absoluteErrors": [
+      1.1102230246251565e-16,
+      0,
+      0,
+      0,
+      6.106226635438361e-16
+    ],
+    "metrics": {
+      "workspace": 33691712,
+      "workers": 1,
+      "paged": true,
+      "reads": 1580,
+      "writes": 988,
+      "readBytes": 416864,
+      "writeBytes": 260448,
+      "temporaryPeakBytes": 116688,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 2480.7318340000056
+  },
+  {
+    "name": "edge79",
+    "width": 79,
+    "height": 80,
+    "values": [
+      0.970354162612924,
+      756.4088467415129,
+      0.9552876446893266,
+      0.9937027073128659,
+      0.3713192454725467
+    ],
+    "native": [
+      0.9703541626129241,
+      756.4088467415129,
+      0.9552876446893266,
+      0.9937027073128659,
+      0.3713192454725472
+    ],
+    "absoluteErrors": [
+      1.1102230246251565e-16,
+      0,
+      0,
+      0,
+      4.996003610813204e-16
+    ],
+    "metrics": {
+      "workspace": 33883072,
+      "workers": 1,
+      "paged": true,
+      "reads": 9658,
+      "writes": 6432,
+      "readBytes": 5515632,
+      "writeBytes": 3649600,
+      "temporaryPeakBytes": 657280,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 4896.653458000015
+  },
+  {
+    "name": "edge80",
+    "width": 80,
+    "height": 81,
+    "values": [
+      0.9734421837619032,
+      745.0064029375977,
+      0.9560343715435071,
+      0.9939221406892295,
+      0.37736673150830097
+    ],
+    "native": [
+      0.9734421837619034,
+      745.0064029375977,
+      0.9560343715435071,
+      0.9939221406892295,
+      0.3773667315083012
+    ],
+    "absoluteErrors": [
+      2.220446049250313e-16,
+      0,
+      0,
+      0,
+      2.220446049250313e-16
+    ],
+    "metrics": {
+      "workspace": 33887232,
+      "workers": 1,
+      "paged": true,
+      "reads": 9893,
+      "writes": 6591,
+      "readBytes": 5686512,
+      "writeBytes": 3763520,
+      "temporaryPeakBytes": 673920,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 7905.513082999998
+  },
+  {
+    "name": "edge81",
+    "width": 81,
+    "height": 82,
+    "values": [
+      0.9696108646701139,
+      749.7429318686538,
+      0.9555480478155011,
+      0.9938335352591682,
+      0.3772093046922731
+    ],
+    "native": [
+      0.9696108646701137,
+      749.7429318686538,
+      0.9555480478155011,
+      0.9938335352591682,
+      0.37720930469227126
+    ],
+    "absoluteErrors": [
+      2.220446049250313e-16,
+      0,
+      0,
+      0,
+      1.8318679906315083e-15
+    ],
+    "metrics": {
+      "workspace": 33891392,
+      "workers": 1,
+      "paged": true,
+      "reads": 10004,
+      "writes": 6668,
+      "readBytes": 5834304,
+      "writeBytes": 3863392,
+      "temporaryPeakBytes": 690768,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 4353.792916999984
+  },
+  {
+    "name": "edge175",
+    "width": 175,
+    "height": 176,
+    "values": [
+      0.9671196825944683,
+      754.3800890182182,
+      0.9536219580357443,
+      0.9937431786692716,
+      0.37843150659062225
+    ],
+    "native": [
+      0.9671196825944682,
+      754.3800890182184,
+      0.9536219580357442,
+      0.9937431786692716,
+      0.37843150659062236
+    ],
+    "absoluteErrors": [
+      1.1102230246251565e-16,
+      2.2737367544323206e-13,
+      1.1102230246251565e-16,
+      0,
+      1.1102230246251565e-16
+    ],
+    "metrics": {
+      "workspace": 34282432,
+      "workers": 1,
+      "paged": true,
+      "reads": 25796,
+      "writes": 17502,
+      "readBytes": 30266320,
+      "writeBytes": 20411936,
+      "temporaryPeakBytes": 3203200,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 16916.465832999995
+  },
+  {
+    "name": "edge176",
+    "width": 176,
+    "height": 177,
+    "values": [
+      0.966630469307228,
+      751.092356885306,
+      0.9540866204284149,
+      0.9937872336244903,
+      0.37958730587845096
+    ],
+    "native": [
+      0.9666304693072276,
+      751.092356885306,
+      0.9540866204284149,
+      0.9937872336244904,
+      0.37958730587845063
+    ],
+    "absoluteErrors": [
+      3.3306690738754696e-16,
+      0,
+      0,
+      1.1102230246251565e-16,
+      3.3306690738754696e-16
+    ],
+    "metrics": {
+      "workspace": 34286592,
+      "workers": 1,
+      "paged": true,
+      "reads": 26091,
+      "writes": 17702,
+      "readBytes": 30656128,
+      "writeBytes": 20674016,
+      "temporaryPeakBytes": 3239808,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 13988.916583000013
+  },
+  {
+    "name": "edge177",
+    "width": 177,
+    "height": 178,
+    "values": [
+      0.9676707010535349,
+      749.263078303965,
+      0.9547079104526991,
+      0.993828143773091,
+      0.38411432755421127
+    ],
+    "native": [
+      0.9676707010535354,
+      749.263078303965,
+      0.9547079104526991,
+      0.993828143773091,
+      0.3841143275542117
+    ],
+    "absoluteErrors": [
+      4.440892098500626e-16,
+      0,
+      0,
+      0,
+      4.440892098500626e-16
+    ],
+    "metrics": {
+      "workspace": 34290752,
+      "workers": 1,
+      "paged": true,
+      "reads": 26202,
+      "writes": 17779,
+      "readBytes": 31018752,
+      "writeBytes": 20921912,
+      "temporaryPeakBytes": 3276624,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 5885.508749999979
+  },
+  {
+    "name": "megapixel",
+    "width": 1024,
+    "height": 1024,
+    "values": [
+      0.9674709635153772,
+      399.09936926850304,
+      0.8706758803512998,
+      0.9850635449286549,
+      0.8856081405760949
+    ],
+    "native": [
+      0.9674709635153772,
+      399.09936926850315,
+      0.8706758803513,
+      0.9850635449286549,
+      0.8856081405760953
+    ],
+    "absoluteErrors": [
+      0,
+      1.1368683772161603e-13,
+      1.1102230246251565e-16,
+      0,
+      3.3306690738754696e-16
+    ],
+    "metrics": {
+      "workspace": 37814272,
+      "workers": 1,
+      "paged": true,
+      "reads": 167342,
+      "writes": 115016,
+      "readBytes": 1095752064,
+      "writeBytes": 748692304,
+      "temporaryPeakBytes": 109051904,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 21361.868707999995
+  }
+]

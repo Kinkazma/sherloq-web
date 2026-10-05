@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {initEchoWasm,echoDerivatives,echoRender,echoHeapBytes,ECHO_HEAP_BYTES} from '../src/echo-math.js';
+await initEchoWasm({wasmBinary:await readFile(process.env.ECHO_WASM??new URL('../vendor/echo/echo.wasm',import.meta.url))});
+test('Staged Echo arithmetic preserves all 900 native radius/contrast/gray outputs',async()=>{
+ const reference=JSON.parse(await readFile(new URL('../fixtures/opencv-reference.json',import.meta.url))),rawReference=JSON.parse(await readFile(new URL('../fixtures/echo-derivatives-reference.json',import.meta.url)));let count=0;
+ for(const f of reference.cases){const image={width:f.width,height:f.height,format:'rgb8',data:new Uint8Array(await readFile(new URL('../fixtures/'+f.file,import.meta.url)))},byRadius=new Map();
+  for(const e of f.expected.filter(e=>e.operation==='detail.echo')){let raw=byRadius.get(e.params.radius);if(!raw){raw=await echoDerivatives(image,0,image.height,e.params.radius);byRadius.set(e.params.radius,raw);const native=rawReference.cases.find(x=>x.name===f.name).expected.find(x=>x.radius===e.params.radius);assert.equal(native.float32StorageExact,true);assert.equal(createHash('sha256').update(raw.bytes).digest('hex'),native.sha256,`${f.name} radius=${e.params.radius} raw`);assert.deepEqual(Array.from(raw.limits),native.limits);}const bytes=await echoRender(raw.bytes,raw.limits,e.params,image.width*image.height);assert.equal(createHash('sha256').update(bytes).digest('hex'),e.sha256,`${f.name} ${JSON.stringify(e.params)}`);count++;}
+ }assert.equal(count,900);assert.equal(echoHeapBytes(),ECHO_HEAP_BYTES);
+});

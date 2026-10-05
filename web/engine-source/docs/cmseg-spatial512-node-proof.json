@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "status": "passed-bit-exact",
+  "scope": "Native OpenCV4.11 source projection512 extension with unchanged default448 binary. Nearest masks and bilinear probabilities including native CMSeg positive input.",
+  "records": [
+    {
+      "name": "1x1-0",
+      "bytes": 4,
+      "exact": true
+    },
+    {
+      "name": "1x1-1",
+      "bytes": 4,
+      "exact": true
+    },
+    {
+      "name": "31x1-0",
+      "bytes": 124,
+      "exact": true
+    },
+    {
+      "name": "31x1-1",
+      "bytes": 124,
+      "exact": true
+    },
+    {
+      "name": "1x29-0",
+      "bytes": 116,
+      "exact": true
+    },
+    {
+      "name": "1x29-1",
+      "bytes": 116,
+      "exact": true
+    },
+    {
+      "name": "11x7-0",
+      "bytes": 308,
+      "exact": true
+    },
+    {
+      "name": "11x7-1",
+      "bytes": 308,
+      "exact": true
+    },
+    {
+      "name": "256x256-0",
+      "bytes": 262144,
+      "exact": true
+    },
+    {
+      "name": "256x256-1",
+      "bytes": 262144,
+      "exact": true
+    },
+    {
+      "name": "512x512-0",
+      "bytes": 1048576,
+      "exact": true
+    },
+    {
+      "name": "512x512-1",
+      "bytes": 1048576,
+      "exact": true
+    },
+    {
+      "name": "389x521-0",
+      "bytes": 810676,
+      "exact": true
+    },
+    {
+      "name": "389x521-1",
+      "bytes": 810676,
+      "exact": true
+    },
+    {
+      "name": "607x809-0",
+      "bytes": 1964252,
+      "exact": true
+    },
+    {
+      "name": "607x809-1",
+      "bytes": 1964252,
+      "exact": true
+    },
+    {
+      "name": "actual-score",
+      "bytes": 810676,
+      "exact": true
+    },
+    {
+      "name": "actual-mask",
+      "bytes": 810676,
+      "exact": true
+    }
+  ],
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "maxInputSide": 512,
+    "sourceSha256": "e677ce48c8ea4e1822e9be7f6132c46ee3b996d96ac09b9d0e80b703e54fab43",
+    "objects": {
+      "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+      "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+      "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    "files": {
+      "spatial512.js": {
+        "bytes": 23638,
+        "sha256": "754831d82f7c303ed0101a23f8baafd22b57bdd369dd83275f12e3f954391426"
+      },
+      "spatial512.wasm": {
+        "bytes": 556018,
+        "sha256": "78042186f957381ecc003dfdfae385e20ddc7d14ef899069c542e699001dea22"
+      }
+    }
+  }
+}

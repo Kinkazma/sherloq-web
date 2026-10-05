@@ -1,0 +1,1983 @@
+{
+  "schemaVersion": 1,
+  "kind": "consolidated-development-evidence",
+  "title": "Exécution transactionnelle : six corrections, checkpoints et regroupement SIFT",
+  "date": "2026-10-03",
+  "generatedAtUtc": "2026-10-03T12:49:08.598695+00:00",
+  "status": "implemented_and_qualified_small_cold_96mp_pending",
+  "source": {
+    "reviewedRootCommit": "b39d5459e86fa6990a2e9d88d2143feb2ad733ff",
+    "reviewedTree": "229505e76e988e239cd2f45d57db6c1c3e99f4ca",
+    "baselineAuditCommit": "77562789b0004e88be9ccd81fac3c5b8f4203816",
+    "auditArtifact": "audit-integration26",
+    "scope": "Six architectural corrections, public worker cancellation, exact SIFT continuation reuse, and dense useful-work cooperation integrated. Complete cold five-group Chromium fixture passed with verified export and exact scientific archive comparison. Autonomous 96 MP outcome remains pending.",
+    "uncommittedReleaseManifestExcluded": true,
+    "postSnapshotQualifiedCommits": [
+      {
+        "commit": "192d209e17345db0b8d7078abb1ad02f16ec0207",
+        "title": "Track SIFT admission rollback without counting retained outputs"
+      },
+      {
+        "commit": "18cad2d4f4f8a2b4e66ae27dd8657b0f0efe7192",
+        "title": "Align queued workspace test with atomic admission semantics"
+      },
+      {
+        "commit": "919b757bff1c51794d6dd5a1f184af7ff0fa1a09",
+        "title": "Preserve D2 recovery operation graph in public diagnostics"
+      },
+      {
+        "commit": "3ff62842326fa4ae7c7bcffd81b361169be4ad10",
+        "title": "Expose pending D2 GPU readback as useful IO until settlement"
+      },
+      {
+        "commit": "70562199cb4eb75e88ff16e68b64624ffb676f7f",
+        "title": "Expose dense resident lanes to recovery and retire their memory independently"
+      },
+      {
+        "commit": "4fc38f0027064de3e049d2475dc8f0924b40e652",
+        "title": "Include native Wasm growth capacity in resident admission plans"
+      },
+      {
+        "commit": "975f252e5bdfea0c966c31371db642a65216d570",
+        "title": "Track autonomous D2 initialization through actual settlement"
+      },
+      {
+        "commit": "6db487414b5d2a674611d0aea50ee0b38aa32140",
+        "title": "Settle neural worker transport failures and release execution ownership"
+      },
+      {
+        "commit": "3db1ee2dcce6a41b09099509c522d0dd743fb85d",
+        "title": "Treat absent role-worker recovery parent as an independent activity"
+      },
+      {
+        "commit": "0f6a434725f1f6dc236a03b89670e8d6ac4634d0",
+        "title": "Preserve automatic checkpoints across public cancellation and resume"
+      },
+      {
+        "commit": "92084fd65ef29e6b089a91e0f941fd32ebd25fa5",
+        "title": "Admit native Forgeryscope preparation and expose initialization IO"
+      },
+      {
+        "commit": "b4433cb20f69810db91360d28b72ac8bf7cf2a84",
+        "title": "Admit dense geometry CPU phases with durable operation ownership"
+      }
+    ],
+    "artifactCommitMeaning": "associatedCommit associates evidence with a feature or correction; it is not an assertion of the exact checkout at execution. sourceCommit is supplied only when recorded in the source proof or a companion commit file.",
+    "finalRuntimeCodeCommit": "2a52867361b4288ac8109c10c697867a6e13404e"
+  },
+  "summary": {
+    "sixImplementationSteps": "Six corrections intégrées et qualifiées, dernier parcours complet Chrome et comparaison scientifique exacts.",
+    "siftOptimization": "Parité scientifique ciblée et baisse du nombre de pyramides démontrées ; gain de temps total non mesuré.",
+    "complete96mpSuccessEstablished": false,
+    "newProductionPreflights": 0,
+    "persistentHistoryRequired": false,
+    "testCountPolicy": "Les suites successives se recouvrent. Ne pas additionner leurs comptes pour annoncer un nombre de tests distincts.",
+    "measuredSmallTotalMs": 346637.0300000012,
+    "measuredSmallReductionPercent": 27.36810269480904
+  },
+  "steps": [
+    {
+      "order": 1,
+      "name": "Contrat commun de propriété et de plage mémoire",
+      "addresses": [
+        "MEMORY-LIFETIME",
+        "IPC-COVERAGE"
+      ],
+      "status": "implemented_targeted_qualification_available",
+      "commits": [
+        {
+          "commit": "adae6a28802653bcfe88b4518c31b402356bfbf9",
+          "title": "Define renewable byte ranges for asynchronous Wasm I/O"
+        },
+        {
+          "commit": "a02cf73f04440662ea80ee7724e17a998c1bff7b",
+          "title": "fix(memory): renew native IO ranges and settle byte broker failures"
+        }
+      ],
+      "changes": [
+        "wasmRange conserve propriétaire, pointeur et longueur fixe ; chaque copie renouvelle sa vue sur le tas après attente. Fermeture du propriétaire et quantités exactes sont vérifiées.",
+        "Raccords dense, cohérence, liens, régions, tri NumPy, JPEG et comparaisons ; lecteurs RAM/SAB, OPFS, IndexedDB, cache partagé et broker acceptent ces plages. Les chemins synchrones restent synchrones.",
+        "Les deux extrémités MessagePort du broker rejettent les enveloppes nulles ou invalides, messageerror, id ou tailles incohérents et fermeture explicite ; toutes les promesses pendantes sont soldées."
+      ],
+      "tests": [
+        "tests/memory-range.test.mjs",
+        "tests/memory-range-io.test.mjs",
+        "tests/portable-byte-store-protocol.test.mjs",
+        "tests/memory-range-browser.mjs"
+      ],
+      "evidence": [
+        "dense-io-node",
+        "dense-io-chromium",
+        "dense-io-firefox",
+        "dense-io-webkit",
+        "dense-parallel-chromium",
+        "dense-parallel-firefox",
+        "dense-parallel-webkit"
+      ],
+      "results": {
+        "targetedNodePassed": 75,
+        "actualAsyncifyGrowth": true,
+        "nativeFixture": "Champ 8×8 ; croissance du tas depuis allocateData du module Asyncify livré pendant la première IO utile.",
+        "multiBlockComparedBytes": 2097929,
+        "exact": [
+          "targets",
+          "distancesSquared",
+          "comparison counts",
+          "full read/write extent"
+        ],
+        "storageByBrowser": {
+          "chromium": [
+            "OPFS",
+            "IndexedDB"
+          ],
+          "firefox": [
+            "IndexedDB"
+          ],
+          "webkit": [
+            "IndexedDB"
+          ]
+        },
+        "accountedBytesAtEnd": 0
+      },
+      "limits": [
+        "Le caller doit garder le malloc vivant et exclusif jusqu’au règlement de toute IO ; la plage ne détecte pas un free/réemploi arbitraire du même pointeur tant que le module reste ouvert.",
+        "La fermeture brutale d’un pair MessagePort nu n’a pas de signal universel fiable ; sa terminaison reste coordonnée par le cycle de vie du worker. Aucun heartbeat synthétique ajouté.",
+        "Le défaut mécanique Asyncify est reproduit ; l’événement memory.grow individuel du 96 MP .26 n’a pas été enregistré. La troncature d’écriture a été démontrée en fixture seulement."
+      ]
+    },
+    {
+      "order": 2,
+      "name": "Admission par phase et domaine mémoire",
+      "addresses": [
+        "ADMISSION-DOMAINS",
+        "OBSERVABILITY"
+      ],
+      "status": "implemented_scoped_coverage_opaque_allocators_explicit",
+      "commits": [
+        {
+          "commit": "154330085eb1e28a88e9fc98d01c6700bbaf8ec2",
+          "title": "Admit useful CPU backfill and require causal memory recovery opportunities"
+        },
+        {
+          "commit": "9f1aca709eeb018995a65d3ea385ea38b8e7b663",
+          "title": "Keep recovery child phases runnable and forward worker allocation domains"
+        },
+        {
+          "commit": "990d8a27726f5cb038b16b9771c7c1aea5914612",
+          "title": "Run SIFT tiles with phase resources and direct owned GPU readback"
+        },
+        {
+          "commit": "55667e97b4ffb7b5cdc8f7fdc3c59c70091f1de2",
+          "title": "Stream role ONNX inputs through owned Wasm and relay child backings"
+        },
+        {
+          "commit": "d4aabc7336ddb0ce7c21e87be39ed79dbcffbe6f",
+          "title": "Admit complete Forgeryscope and export working envelopes atomically"
+        },
+        {
+          "commit": "9a61500fbccef48fd15a4cd295cded3aeba2122f",
+          "title": "Admit complete D2 operation peaks before splitting buffer ownership"
+        },
+        {
+          "commit": "18315e34d79fa9139644632adf8ff26c46bbded3",
+          "title": "Split D2 projection and worker outputs from complete admitted peaks"
+        },
+        {
+          "commit": "d7e56659d3b51005b084ee7e222bc7f5f73e254a",
+          "title": "Track owned rollback credit across transactional admission retries"
+        },
+        {
+          "commit": "b39d5459e86fa6990a2e9d88d2143feb2ad733ff",
+          "title": "Preserve true retry admission peaks across D2 CPU rollback"
+        },
+        {
+          "commit": "70562199cb4eb75e88ff16e68b64624ffb676f7f",
+          "title": "Expose dense resident lanes to recovery and retire their memory independently"
+        },
+        {
+          "commit": "4fc38f0027064de3e049d2475dc8f0924b40e652",
+          "title": "Include native Wasm growth capacity in resident admission plans"
+        }
+      ],
+      "changes": [
+        "Le registre de backings compte domaines, propriétaire, génération, alias et capacité matérialisée sans deuxième débit du budget de politique. Les états d’opérations survivent aux transitions de baux.",
+        "SIFT relaie tas de sous-workers, réserves transitoires, GPU/readback et sorties ; les rôles D2 relayent l’ownership enfant dans leur enveloppe parente.",
+        "Les ensembles simultanés connus sont admis en une réserve, puis divisés avec split selon leurs durées de vie (D2, ForgeryScope, export).",
+        "Les transactions dynamiques suivent leurs propres réserves, y compris retainMemory du scheduler. Le rollback exact enrichit le besoin du retry ; la libération d’un peer ne compte jamais comme rollback local.",
+        "Les lanes denses résidentes déclarent leur capacité Wasm réservée et leur taille matérialisée rapportée ; le crédit de chaque lane est rendu à sa propre terminaison."
+      ],
+      "tests": [
+        "tests/resource-registry.test.mjs",
+        "tests/execution-scheduler.test.mjs",
+        "tests/sift-resource-phases.test.mjs",
+        "tests/reservation-transaction.test.mjs",
+        "tests/wasm-tensor-arena.test.mjs"
+      ],
+      "evidence": [
+        "transaction-node",
+        "sift-phases-node",
+        "sift-phase-browser",
+        "atomic-envelopes",
+        "d2-summary",
+        "sift-rollback-node",
+        "resident-liveness-node",
+        "resident-native-admission-node"
+      ],
+      "results": {
+        "transactionalCoreTestsPassed": 157,
+        "testSetsOverlap": true,
+        "localAllowanceDistinguished": true,
+        "replayPeakRegression": {
+          "prefixBytes": 379129856,
+          "failedRequestedBytes": 377291776,
+          "availableAtFailure": 260279696,
+          "availableAfterOwnCleanup": 639409552,
+          "requiredRetryCredit": 756421632,
+          "attemptsBeforeRealPeerRelease": 1,
+          "totalAttempts": 2
+        }
+      },
+      "limits": [
+        "25,6 Gio reste une politique totale et non une garantie d’espace libre dans chaque allocateur.",
+        "Les allocations internes ORT ne sont pas entièrement visibles ; une réserve d’enveloppe et les tas observés ne constituent pas une mesure exhaustive RSS/VRAM.",
+        "Une opportunité logique n’est pas une réservation atomique ; les ensembles connus emploient réserve+split. Le suivi dynamique exige track, capture avant cleanup et close après cleanup."
+      ]
+    },
+    {
+      "order": 3,
+      "name": "Réduire les copies structurelles",
+      "addresses": [
+        "RECOMPUTATION",
+        "ADMISSION-DOMAINS"
+      ],
+      "status": "implemented_targeted_native_parity_available",
+      "commits": [
+        {
+          "commit": "990d8a27726f5cb038b16b9771c7c1aea5914612",
+          "title": "Run SIFT tiles with phase resources and direct owned GPU readback"
+        },
+        {
+          "commit": "205e1be7f0d3bffa5c4b8f0680e7da65a8e4f3b2",
+          "title": "Stream D2 parameters into owned Wasm banks and retain explicit resume checkpoints"
+        },
+        {
+          "commit": "55667e97b4ffb7b5cdc8f7fdc3c59c70091f1de2",
+          "title": "Stream role ONNX inputs through owned Wasm and relay child backings"
+        }
+      ],
+      "changes": [
+        "SIFT copie le readback GPU directement vers la destination Wasm préallouée par une vue renouvelée, sans ArrayBuffer.slice intermédiaire.",
+        "D2 charge les poids par fenêtres vers des banques Wasm fixes et réutilisables ; SHA256 incrémental et validation complète précèdent la publication du paramètre. Les préfixes validés restent disponibles après reprise.",
+        "Le modèle de rôles ONNX est transmis comme sous-vue de sa plage possédée ; aucune copie du heap complet."
+      ],
+      "evidence": [
+        "sift-phase-browser",
+        "sift-phase-protocol-browser",
+        "d2-summary"
+      ],
+      "results": {
+        "siftCPUAndGPUFixtureExact": true,
+        "d2ParameterBytes": 75497472,
+        "d2ParameterSha256": "8586552fcc7dea54cff555f55004dced32c42e5c4fc2a215ade835588faa1340",
+        "d2ParameterGetRequests": 1,
+        "d2ParameterWasmBanks": 1,
+        "d2ParameterAllBytesExactOn": [
+          "chromium",
+          "firefox",
+          "webkit"
+        ],
+        "d2RolePathsCompared": [
+          "legacy direct",
+          "owned direct",
+          "bounded production worker"
+        ]
+      },
+      "limits": [
+        "Le streaming réduit les copies contrôlées par le moteur, pas les copies privées éventuelles d’ORT ou du navigateur.",
+        "La fenêtre de copie bornée ne borne pas la taille d’un chunk reçu de fetch ; WebKit a fourni jusqu’à 20 561 452 octets dans la fixture.",
+        "Aucun gain de temps total n’est déduit de la seule suppression d’une copie."
+      ]
+    },
+    {
+      "order": 4,
+      "name": "Ordonnancement du travail réellement prêt",
+      "addresses": [
+        "CPU-GPU-HEAD-OF-LINE",
+        "OBSERVABILITY"
+      ],
+      "status": "implemented_targeted_scheduling_tests_available",
+      "commits": [
+        {
+          "commit": "154330085eb1e28a88e9fc98d01c6700bbaf8ec2",
+          "title": "Admit useful CPU backfill and require causal memory recovery opportunities"
+        },
+        {
+          "commit": "9f1aca709eeb018995a65d3ea385ea38b8e7b663",
+          "title": "Keep recovery child phases runnable and forward worker allocation domains"
+        },
+        {
+          "commit": "990d8a27726f5cb038b16b9771c7c1aea5914612",
+          "title": "Run SIFT tiles with phase resources and direct owned GPU readback"
+        },
+        {
+          "commit": "bf9b09308bc045949ee206507be44c49b9eaf6bc",
+          "title": "Retain SIFT publication checkpoints and pipeline useful CPU preparation"
+        },
+        {
+          "commit": "cee16367f7874b69bc01f1de5391c4343f9c93dc",
+          "title": "Keep live child dependencies when wrapping an existing transaction"
+        },
+        {
+          "commit": "70562199cb4eb75e88ff16e68b64624ffb676f7f",
+          "title": "Expose dense resident lanes to recovery and retire their memory independently"
+        },
+        {
+          "commit": "3ff62842326fa4ae7c7bcffd81b361169be4ad10",
+          "title": "Expose pending D2 GPU readback as useful IO until settlement"
+        }
+      ],
+      "changes": [
+        "Le scheduler autorise le travail CPU indépendant derrière une attente GPU et garde la place nécessaire au prochain travail GPU admissible.",
+        "Les phases SIFT passent CPU→GPU→CPU en relâchant le bail précédent ; une préparation CPU utile peut avancer pendant le calcul GPU.",
+        "Les dépendances parent/enfant et les opérations en attente de mémoire restent explicites. Une file ou un cycle sans producteur réellement exécutable ne vaut pas progrès futur.",
+        "Les lanes résidentes ont un ticket durable par lane et un parent run ; elles restent visibles pour la récupération entre hypothèses. Le readback GPU D2 reste visible comme IO pendant mapAsync."
+      ],
+      "tests": [
+        "tests/execution-scheduler.test.mjs",
+        "tests/resource-registry.test.mjs",
+        "tests/sift-resource-phases.test.mjs"
+      ],
+      "evidence": [
+        "transaction-node",
+        "child-state",
+        "sift-phases-node",
+        "sift-phase-browser",
+        "sift-phase-protocol-browser",
+        "resident-liveness-node"
+      ],
+      "limits": [
+        "Les slots, tâches en vol et durées de baux mesurent l’admission, pas 100 % physique de chaque cœur ni l’occupation réelle du GPU.",
+        "La concurrence de la campagne complète et son temps total restent à valider sur le dernier assemblage."
+      ]
+    },
+    {
+      "order": 5,
+      "name": "Récupération causale au niveau de la transaction utile",
+      "addresses": [
+        "RECOVERY-CAUSALITY",
+        "ADMISSION-DOMAINS"
+      ],
+      "status": "implemented_targeted_recovery_and_cycles_qualified",
+      "commits": [
+        {
+          "commit": "154330085eb1e28a88e9fc98d01c6700bbaf8ec2",
+          "title": "Admit useful CPU backfill and require causal memory recovery opportunities"
+        },
+        {
+          "commit": "e8737c216e257502676a570e2e4877cad4cf6bff",
+          "title": "Carry precise operation ownership through memory reclamation"
+        },
+        {
+          "commit": "e8e0ef6aeb2341b4322bb543fe11cdc0da49082a",
+          "title": "Reclaim immutable dense inputs only at negotiated safe boundaries"
+        },
+        {
+          "commit": "d2616063888b07748a75f8d3efc13715e21f0b34",
+          "title": "Wake memory recovery only for usable ranges in the failed allocator"
+        },
+        {
+          "commit": "45f6672f576c132ebc0055d3ebf37a6e61447031",
+          "title": "Wait for causal admission credit and resume nested reclamation safely"
+        },
+        {
+          "commit": "d7e56659d3b51005b084ee7e222bc7f5f73e254a",
+          "title": "Track owned rollback credit across transactional admission retries"
+        },
+        {
+          "commit": "b39d5459e86fa6990a2e9d88d2143feb2ad733ff",
+          "title": "Preserve true retry admission peaks across D2 CPU rollback"
+        },
+        {
+          "commit": "70562199cb4eb75e88ff16e68b64624ffb676f7f",
+          "title": "Expose dense resident lanes to recovery and retire their memory independently"
+        }
+      ],
+      "changes": [
+        "Aucun réveil sur simple commit d’un peer : refus physique attend retrait pertinent ou plage contiguë utilisable dans le même allocateur ; MEMORY_LIMIT attend son besoin d’admission utile.",
+        "Un refus pendant reclaim retargete domaine et taille dans la même garde. Le reclaim initial doit réussir avant de relancer le calcul utile.",
+        "Les entrées dense immuables ne migrent qu’après négociation immédiate d’un point sûr ; ACK/rebind avant retrait, ancien store autoritaire si IO ou annulation échoue.",
+        "Les opérations réellement bloquées ne se maintiennent pas en vie par dépendance circulaire ; cinq échecs comparables sans progrès propre restent terminaux.",
+        "Le pic du retry inclut ses seuls crédits rendus pendant cleanup. Les enveloppes locales fixes sont distinguées du crédit global."
+      ],
+      "evidence": [
+        "policy-node",
+        "transaction-node",
+        "operation-reclaim",
+        "allocator-reuse",
+        "scoped-reclaim",
+        "dense-migration-browser",
+        "small-failure-diagnostics",
+        "d2-summary",
+        "small-resident-liveness-failure",
+        "resident-liveness-node"
+      ],
+      "results": {
+        "physicalAndPolicyDomainsSeparate": true,
+        "sameAllocatorContiguousReuseRequired": true,
+        "reclaimRetargetAndCancellationCovered": true,
+        "twoDenseFieldsMigratedWithoutLostState": true,
+        "migrationCases": [
+          "OPFS success",
+          "IO failure rollback",
+          "cancel rollback",
+          "completion boundary",
+          "tight IndexedDB broker",
+          "same-owner pressure"
+        ],
+        "noGlobalCpuOrMemoryDowngrade": true
+      },
+      "limits": [
+        "Retirer des références ne force pas le GC. La réussite d’une nouvelle allocation physique reste à constater.",
+        "Le helper ne peut inférer le rollback d’une réservation non rattachée à la transaction ; aucun delta global n’est utilisé pour le deviner.",
+        "Les trois petits essais publics sont des échecs de développement ; les correctifs ciblés ne remplacent pas le prochain parcours cinq groupes."
+      ]
+    },
+    {
+      "order": 6,
+      "name": "Publication transactionnelle et checkpoints",
+      "addresses": [
+        "RESUME-GRANULARITY",
+        "RECOVERY-CAUSALITY"
+      ],
+      "status": "implemented_live_checkpoint_resume_qualified",
+      "commits": [
+        {
+          "commit": "54992d1099158c13f43a232d7b7d710dd2703b87",
+          "title": "Preserve automatic checkpoint identity and expose explicit incomplete-group resume"
+        },
+        {
+          "commit": "7630de9ade3a5a76eafe8fb827c9f7e6787be9a2",
+          "title": "Preserve validated dense checkpoints across explicit resume and worker failure"
+        },
+        {
+          "commit": "bf9b09308bc045949ee206507be44c49b9eaf6bc",
+          "title": "Retain SIFT publication checkpoints and pipeline useful CPU preparation"
+        },
+        {
+          "commit": "205e1be7f0d3bffa5c4b8f0680e7da65a8e4f3b2",
+          "title": "Stream D2 parameters into owned Wasm banks and retain explicit resume checkpoints"
+        },
+        {
+          "commit": "66e423364bf309d9dad5f21d1aa32526bea8899a",
+          "title": "Release terminal D2 checkpoint when queued resume is cancelled"
+        },
+        {
+          "commit": "095301722d4bf59691bbb4417377ec7039d8843c",
+          "title": "Verify public resume dispatch and completed-group preservation"
+        }
+      ],
+      "changes": [
+        "checkpointKey reste stable par session/groupe ; reprise explicite des groupes incomplets, sans rejouer ceux terminés. Identité inclut entrées, recette et backend pertinent. clear/dispose draine puis rend les owners.",
+        "Dense conserve descripteurs, masques, champs validés et preuves filtrées ; une panne de cold-store ne recalcule pas le champ déjà produit.",
+        "SIFT conserve source, bases, continuations et publications validées ; publication des nouveaux groupes dans l’ordre original.",
+        "D2 conserve paramètres validés, étapes de graphe, candidats/évaluations PatchMatch, RNG et zones validées à leurs frontières."
+      ],
+      "evidence": [
+        "dense-checkpoint-node",
+        "dense-checkpoint-chromium",
+        "dense-checkpoint-firefox",
+        "dense-checkpoint-webkit",
+        "dense-eleven-fields",
+        "sift-checkpoint-node",
+        "sift-ownership-node",
+        "sift-phase-browser",
+        "d2-summary",
+        "transaction-node"
+      ],
+      "results": {
+        "dense": {
+          "fields": 4,
+          "completedBeforeInterruption": [
+            0
+          ],
+          "resumedHypotheses": [
+            2,
+            1,
+            3
+          ],
+          "exact": [
+            "targets",
+            "distancesSquared",
+            "allowed",
+            "selected",
+            "display rows",
+            "comparisons",
+            "unique links"
+          ],
+          "finalAccountedBytes": 0
+        },
+        "d2": {
+          "nativePatchMatchSide": 16,
+          "iterations": 4,
+          "validatedEvaluationsBeforeFailure": 7,
+          "injectedConsecutiveRefusals": 5,
+          "explicitResumeExactHashes": 8,
+          "rngStateWordsCompared": 624,
+          "traceExact": true,
+          "validatedTilesReplayed": 0,
+          "graphFixtureNodes": 7,
+          "graphCommittedBeforeFailure": 4
+        },
+        "sift": {
+          "fixtureWidth": 600,
+          "fixtureHeight": 120,
+          "points": 100,
+          "CPUAndGPUExact": true,
+          "preparationCallsAfterExplicitResume": 2
+        }
+      },
+      "limits": [
+        "Checkpoints vivants seulement : ils ne garantissent aucune reprise après fermeture du navigateur ou perte du processus. Une archive partielle n’est pas un checkpoint durable complet.",
+        "Une hypothèse dense incomplète reprend avec sorties neuves et graine initiale ; aucune promesse de reprendre une propagation native arbitraire au scalaire exact.",
+        "La géométrie dense conserve les preuves filtrées complètes ; les ajustements locaux partiellement faits ne sont pas sérialisés.",
+        "Les rôles ORT sont opaques et leur étape peut être rejouée ; le graphe natif testé à 7 nœuds ne qualifie pas le réseau appris complet à 892 nœuds.",
+        "Firefox/WebKit dense checkpoint ont été qualifiés avant le dernier raccord de métadonnées parent-ticket ; Chromium a été rejoué après."
+      ]
+    }
+  ],
+  "siftOptimization": {
+    "name": "SIFT : réutilisation exacte et regroupement des continuations",
+    "status": "implemented_targeted_parity_available_total_speedup_unmeasured",
+    "commits": [
+      {
+        "commit": "efbc2583e3784663335d019b0142c211ffa56438",
+        "title": "Reuse exact immutable SIFT pyramids within admitted workers"
+      },
+      {
+        "commit": "fdb7b51caa34c9dc7aa67b82cdf85f00cbdb7898",
+        "title": "Batch exact SIFT continuation windows with ordered checkpoint publication"
+      }
+    ],
+    "qualifiedFollowup": {
+      "commit": "29e51feace3aa5780e139f3d8fa0cd92557a8ef3",
+      "title": "Track SIFT admission rollback without counting retained outputs"
+    },
+    "changes": [
+      "Réutilisation de pyramides immuables identiques dans un worker admis ; cache rendu avec le worker ou sur reclaim.",
+      "Regroupement de graines compatibles sur une fenêtre couverte par le halo existant ; état et orientation exacts, publication à l’ordre scientifique original.",
+      "Dépendances gaussiennes+orientation bornées à 57 ou 60 pixels dans les cas qualifiés, halo 128 ; les sorties qui nécessitent un autre contexte gardent leur chemin de continuation."
+    ],
+    "evidence": [
+      "sift-cache-node",
+      "sift-cache-browser",
+      "sift-batch-node",
+      "sift-native-oracle",
+      "sift-batch-browser",
+      "sift-pipeline-browser",
+      "sift-batch-design",
+      "sift-rollback-node"
+    ],
+    "results": {
+      "cacheFixture": {
+        "sequence": "A,A,B,B",
+        "beforePyramids": 4,
+        "afterPyramids": 2,
+        "CPUAndWebGPUExact": true
+      },
+      "nativeOracleCases": 4,
+      "nativeCoverage": {
+        "dimensions": [
+          [
+            600,
+            440
+          ],
+          [
+            603,
+            439
+          ],
+          [
+            517,
+            515
+          ]
+        ],
+        "layers": [
+          3,
+          4
+        ],
+        "seeds": [
+          100,
+          112
+        ],
+        "rounds": [
+          3,
+          5
+        ],
+        "includes": [
+          "borders",
+          "corners",
+          "all layers",
+          "odd pitch",
+          "orientations",
+          "continuation state",
+          "global ranking",
+          "descriptors",
+          "G2NN pairs"
+        ]
+      },
+      "pyramidCounts": {
+        "legacyMinimum": 97,
+        "legacyMaximum": 100,
+        "batchedMinimum": 5,
+        "batchedMaximum": 10
+      },
+      "chromiumCPUAndGPUExact": true,
+      "checkpointClearDisposeAccountedBytesAtEnd": 0
+    },
+    "limits": [
+      "Les comptes de pyramides supprimées ne sont pas un benchmark de latence globale.",
+      "Le logger Chromium ancien affiche un nombre G2NN divisé par 5 au lieu de 4 ; les tableaux comparés sont exacts, ce scalaire de log n’est pas utilisé comme preuve. Le logger source et le dernier oracle Node sont corrigés.",
+      "Le raccord rollback SIFT 29e51fe est qualifié séparément ; il est postérieur au snapshot b39d545 demandé pour cette consolidation."
+    ]
+  },
+  "historicalValidation": {
+    "rootCoreSuite": {
+      "artifact": "core-historical",
+      "passed": 1079,
+      "failed": 0,
+      "skipped": 6,
+      "qualification": "Ancien snapshot ; skips non convertis en succès et non preuve finale."
+    },
+    "olderAssembledSuite": {
+      "artifact": "assembled-historical",
+      "passed": 1148,
+      "failed": 1,
+      "skipped": 2,
+      "failure": "tests/d2prl-owned.test.mjs attendait ancien cycle de disposal ; fixture adaptée dans 7a5a07f. Deux oracles globaux absents restaient skip.",
+      "qualification": "Journal conservé comme historique négatif ; non présenté comme suite finale verte."
+    },
+    "failedPublicSmallRuns": {
+      "artifact": "small-failure-diagnostics",
+      "count": 3,
+      "scope": "Trois parcours cinq groupes de diagnostic arrêtés après D2 terminal. Deux ont exposé le besoin logique et le rollback d’admission ; le troisième a exposé des workers résidents CPU absents du registre des producteurs. Aucun des trois ne démontre un parcours complet.",
+      "additionalEvidence": [
+        "small-resident-liveness-failure",
+        "small-resident-liveness-log"
+      ]
+    },
+    "rootSuiteAtB39d545": {
+      "artifact": "root-suite-b39d545",
+      "sourceCommit": "b39d5459e86fa6990a2e9d88d2143feb2ad733ff",
+      "tests": 1200,
+      "passed": 1197,
+      "failed": 1,
+      "skipped": 2,
+      "milliseconds": 239774.459333,
+      "failure": "Assertion historique attendait une réservation output de 36 octets avant admission atomique ; la nouvelle valeur correcte est zéro. Assertion corrigée dans 18cad2d.",
+      "skipReason": "Oracles globaux ROI et EM non générés.",
+      "qualification": "Échec conservé comme preuve négative ; ce journal ne vaut pas validation verte finale."
+    },
+    "rootLivenessSuiteAt82cc526": {
+      "artifact": "root-liveness-suite-82cc526",
+      "sourceCommit": "82cc5263022010a87a8685a11c145785a33fe183",
+      "tests": 1217,
+      "passed": 1215,
+      "failed": 0,
+      "skipped": 2,
+      "secondsReportedByRoot": 245.24,
+      "skipReason": "Oracles globaux ROI et EM non générés.",
+      "qualification": "Suite complète verte sur ce snapshot ; les ultimes followups et le parcours public restent à qualifier sur le dernier assemblage."
+    },
+    "rootFollowupsAt18cad2d": {
+      "artifact": "root-followups-18cad2d",
+      "sourceCommit": "18cad2d4f4f8a2b4e66ae27dd8657b0f0efe7192",
+      "tests": 91,
+      "passed": 91,
+      "failed": 0,
+      "skipped": 0,
+      "milliseconds": 20453.174708,
+      "qualification": "Suite ciblée des followups CPU, SIFT, recovery, transaction et D2 ; ne remplace pas une suite complète sur le prochain assemblage."
+    },
+    "residentLivenessRegression": {
+      "featureCommits": [
+        {
+          "commit": "70562199cb4eb75e88ff16e68b64624ffb676f7f",
+          "title": "Expose dense resident lanes to recovery and retire their memory independently"
+        },
+        {
+          "commit": "4fc38f0027064de3e049d2475dc8f0924b40e652",
+          "title": "Include native Wasm growth capacity in resident admission plans"
+        }
+      ],
+      "evidence": [
+        "resident-liveness-node",
+        "resident-native-admission-node"
+      ],
+      "productionFailure": {
+        "requestedBytes": 758518784,
+        "availableBytesAfterFirstRefusal": 639409552,
+        "guardFailures": 5,
+        "resourceWaitObserved": false,
+        "denseResidentActiveLanesAtFirstHeartbeat": 9,
+        "denseResidentTicketsAtFirstHeartbeat": 0
+      },
+      "fix": [
+        "Tickets run et lane durables, conservés entre hypothèses ; autres admissions dense explicitement attribuées.",
+        "Réservations split par lane rendues immédiatement après terminaison de ce worker.",
+        "Capacité Wasm réservée alignée sur les pages et le pas de croissance natif, matérialisation uniquement sur heapBytes rapporté."
+      ],
+      "targetedSuites": [
+        {
+          "passed": 55,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "passed": 22,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "exactRegression": "Le véritable DenseFieldPool garde D2 à une tentative pendant huit commits sans crédit, puis D2 reprend après restitution de la première lane avant la fin de la seconde. Annulation et IPC défaillant drainent les owners.",
+      "nativeOracle": {
+        "width": 192,
+        "height": 160,
+        "method": "full SIFT descriptors",
+        "iterations": 1,
+        "actualWasmGrowthBeyondBytes": 33554432,
+        "exact": [
+          "targets",
+          "distancesSquared",
+          "comparisons"
+        ],
+        "accountedBytesAtEnd": 0
+      },
+      "qualification": "Contrôles ciblés Node avec protocole réel du pool et oracle natif en worker. Ces suites se recouvrent ; aucun nouveau navigateur ni résultat 96 MP."
+    },
+    "roleParentFailure": {
+      "id": "public-small-visible-workers-before-role-parent-fix",
+      "sourceCommit": "6db487414b5d2a674611d0aea50ee0b38aa32140",
+      "status": "failed_then_stopped",
+      "path": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/complete-small-visible-workers.log",
+      "sha256": "402fb771726d68a42c7b81398bd7074d3f70a47abd5a01d782c989fbe59dbae5",
+      "failure": {
+        "code": "INVALID_INPUT",
+        "message": "Invalid parent operation.",
+        "elapsedMs": 282472.895,
+        "site": "withD2prlActivity called by role model unscoped recovery supplies parent:null"
+      },
+      "confirmed": [
+        "D2 policy refusal waited and resumed on actual admission credit, without five-attempt burst.",
+        "ELA, Forgeryscope and SIFT completed; D2 reached role model loading after descriptor/PatchMatch/UNet/heads."
+      ],
+      "fixCommit": "3db1ee2dcce6a41b09099509c522d0dd743fb85d",
+      "successClaimed": false
+    },
+    "successfulPublicSmallBaseline": {
+      "id": "public-small-five-groups",
+      "status": "passed_before_detail_cooperation_optimization",
+      "owner": "root",
+      "sourceCommit": "c5ceaecbab51048e22b2e97b3ae4abb5ffd2c29a",
+      "result": {
+        "passed": true,
+        "totalMs": 477251.79000002146,
+        "times": {
+          "modelConfigurationMs": 127.97500002384186,
+          "loadMs": 42.73499998450279,
+          "analysisMs": 427102.71000000834,
+          "exportMs": 20850.969999998808,
+          "readbackMs": 28514.694999992847
+        },
+        "groups": {
+          "states": {
+            "patchmatch": "done",
+            "sift": "done",
+            "forgeryscope": "done",
+            "d2prl": "done",
+            "ela": "done"
+          },
+          "errors": {},
+          "attempts": {
+            "patchmatch": 1,
+            "sift": 1,
+            "forgeryscope": 1,
+            "d2prl": 1,
+            "ela": 1
+          },
+          "completed": [
+            "forgeryscope",
+            "sift",
+            "ela",
+            "d2prl",
+            "patchmatch"
+          ],
+          "running": [],
+          "resumable": [],
+          "preflightExecutions": 0
+        },
+        "archiveBytes": 638339234,
+        "archiveSha256": "cec5925ed3262fd73034cb37f5d26341ad1eac9b3cc827123f68810d32a3664b",
+        "diskArchiveIndependentlyHashed": true,
+        "finalMemory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 27371811402,
+          "activeRecoveries": 0,
+          "knownHeapCapacityBytes": 16777216
+        },
+        "storageCleanup": true,
+        "proof": "docs/qualification/transactional-execution/complete-small-c5ceaec.json",
+        "archivePath": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/m5-complete-small-positive-c5ceaec.npz"
+      },
+      "required": "Dernier assemblage : cinq groupes, reprise publique, résultats/owners/export et cleanup vérifiés.",
+      "detailPhaseCpuLeaseMs": 325959.0
+    }
+  },
+  "finalValidations": [
+    {
+      "id": "integrated-node-suite",
+      "status": "passed_with_documented_skips_and_targeted_followups",
+      "owner": "root",
+      "sourceCommit": "031ad32dfe79bb97207a1e37f9d598b3573fbdb2",
+      "command": "node --experimental-test-module-mocks --test tests/*.test.mjs",
+      "result": {
+        "tests": 1258,
+        "passed": 1256,
+        "failed": 0,
+        "skipped": 2,
+        "log": "docs/qualification/transactional-execution/final-assembly-suite.log",
+        "sha256": "2eb3de2709c41b2908cdb2aff4ad1aed2dbfbceead9764fe144676159e2fa66d"
+      },
+      "required": "Frozen broad suite plus identified targeted followups for later code. Two unavailable local native oracles remain explicitly skipped."
+    },
+    {
+      "id": "public-small-five-groups",
+      "status": "passed",
+      "owner": "root",
+      "sourceCommit": "2a52867361b4288ac8109c10c697867a6e13404e",
+      "result": {
+        "passed": true,
+        "totalMs": 346637.0300000012,
+        "times": {
+          "modelConfigurationMs": 119.0750000178814,
+          "loadMs": 42.12999999523163,
+          "analysisMs": 294975.25499999523,
+          "exportMs": 23064.919999986887,
+          "readbackMs": 27888.530000001192
+        },
+        "groups": {
+          "states": {
+            "patchmatch": "done",
+            "sift": "done",
+            "forgeryscope": "done",
+            "d2prl": "done",
+            "ela": "done"
+          },
+          "errors": {},
+          "attempts": {
+            "patchmatch": 1,
+            "sift": 1,
+            "forgeryscope": 1,
+            "d2prl": 1,
+            "ela": 1
+          },
+          "completed": [
+            "forgeryscope",
+            "sift",
+            "ela",
+            "patchmatch",
+            "d2prl"
+          ],
+          "running": [],
+          "resumable": [],
+          "preflightExecutions": 0
+        },
+        "archiveBytes": 638339190,
+        "archiveSha256": "794b79c0d66da47c5aac5d57484372c222eeb1e8330784cab3afc56aa602cfdc",
+        "diskArchiveIndependentlyHashed": true,
+        "finalMemory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 0,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 27371811402,
+          "activeRecoveries": 0,
+          "knownHeapCapacityBytes": 16777216
+        },
+        "storageCleanup": true,
+        "proof": "docs/m5-complete-small-positive-proof.json",
+        "scientificComparison": {
+          "file": "docs/qualification/transactional-execution/complete-small-scientific-comparison.json",
+          "sha256": "f8203180c37b97d572a746504abd3e163555b5b27faa8cab06f20e8e8e016486",
+          "arrays": 746,
+          "rootResultsArrays": 699,
+          "payloadBytesCompared": 630040316,
+          "differenceCount": 0,
+          "runtimeExclusionsChanged": 8
+        }
+      },
+      "required": "Cold five-group public analysis, render/export and cleanup validated. Public interruption/resume separately covered by lifecycle regressions, since this successful run required no recovery."
+    },
+    {
+      "id": "cold-autonomous-96mp",
+      "status": "pending",
+      "owner": "root",
+      "sourceCommit": null,
+      "runDirectory": null,
+      "result": null,
+      "required": "Un seul lancement à froid autonome, sans canary ni préparation hors temps total, cinq groupes terminés, result.json et archive finale vérifiés."
+    },
+    {
+      "id": "end-to-end-performance",
+      "status": "small_pair_measured_96mp_pending",
+      "owner": "root",
+      "result": {
+        "baselineCommit": "c5ceaecbab51048e22b2e97b3ae4abb5ffd2c29a",
+        "candidateCommit": "2a52867361b4288ac8109c10c697867a6e13404e",
+        "baselineTotalMs": 477251.79000002146,
+        "candidateTotalMs": 346637.0300000012,
+        "reductionPercent": 27.36810269480904,
+        "measurementScope": "API fixture clock includes model setup, source loading, useful calculation, export and verification. Harness runtime freeze and browser startup are outside this small-fixture clock; the autonomous 96 MP runner separately records whole-run wallMs.",
+        "scientificParity": "docs/qualification/transactional-execution/complete-small-scientific-comparison.json",
+        "limits": "One cold run per revision on one 2008x1444 image; not a universal speedup or measurement of SIFT batching alone. CPU/GPU leases are not physical utilization."
+      },
+      "required": "Temps total incluant IO, transferts, compilation utile, reprises, export et vérification. SlotsCPU/GPU ne prouvent pas utilisation physique."
+    }
+  ],
+  "limits": [
+    "Aucun 96 MP complet réussi n’est établi par ce document.",
+    "Les backings possédés, les réservations de politique et la mémoire physique sont trois mesures différentes ; la capacité exacte des pools Chromium et leur fragmentation ne sont pas inférées.",
+    "La fidélité scientifique est établie sur les oracles et fixtures nommés, pas extrapolée à tout modèle ni toute dimension.",
+    "Aucun niveau de parallélisme global, qualité, precision ou nombre d’itérations scientifique n’est réduit par ces corrections.",
+    "Les petites reproductions de développement ne sont jamais exécutées comme prétests du produit.",
+    "Les journaux .build référencés sont des preuves locales hashées et ne sont pas tous versionnés ; le propriétaire de la livraison peut les copier dans son dossier consolidé.",
+    "Le succès historique c6b6954 du petit parcours M5 ne qualifie pas cet assemblage et n’est pas réutilisé comme preuve positive.",
+    "Les checkpoints conservent les résultats dans le moteur vivant ; ils ne fournissent pas une reprise après destruction du navigateur/processus. Une archive NPZ partielle n’est pas un checkpoint de redémarrage."
+  ],
+  "artifacts": [
+    {
+      "id": "audit-integration26",
+      "kind": "audit",
+      "path": "docs/audits/integration26-96mp-20261003/analysis.json",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/docs/audits/integration26-96mp-20261003/analysis.json",
+      "sha256": "7469217eaeb965d09cc8abe04fefcbe3132ce9ba2fd4ff580e18d42e4c1801e2",
+      "bytes": 14307,
+      "associatedCommit": "77562789b0004e88be9ccd81fac3c5b8f4203816"
+    },
+    {
+      "id": "dense-summary",
+      "kind": "agent-proof",
+      "path": ".build/renewable-memory-checkpoint-proof.json",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/renewable-memory-checkpoint-proof.json",
+      "sha256": "2ab4274e531dc4dae157213a2649957a9056981b1cd844e2d133885ccca0a1df",
+      "bytes": 3002
+    },
+    {
+      "id": "policy-transaction-summary",
+      "kind": "agent-proof",
+      "path": ".build/policy-recovery/proof.json",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/policy-recovery/proof.json",
+      "sha256": "64749026d6f21372194f0760228c3cb70fa3046b095dadfa5fdcab9b05e58951",
+      "bytes": 5482,
+      "associatedCommit": "9e095e3caa888c4263c7453f52981f19383a81c7"
+    },
+    {
+      "id": "dense-io-node",
+      "kind": "raw-log",
+      "path": ".build/memory-range-targeted-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/memory-range-targeted-node.log",
+      "sha256": "345f51be9a45425e2fce656e1df9579e309f56e128727e9b7114915e76ded0f1",
+      "bytes": 17354,
+      "associatedCommit": "6bb96880c71314a0bb4c314f588edc12583f7c04",
+      "tapCounts": {
+        "tests": 75,
+        "pass": 75,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "dense-checkpoint-node",
+      "kind": "raw-log",
+      "path": ".build/dense-checkpoint-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/dense-checkpoint-node.log",
+      "sha256": "790436d257983c407db8b4cb2792787592722e6b26767729ec7a21da75293fbb",
+      "bytes": 6268,
+      "associatedCommit": "caa029d53b4f02de4d491e421a3c8b6991ff0f42",
+      "tapCounts": {
+        "tests": 23,
+        "pass": 23,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "policy-node",
+      "kind": "raw-log",
+      "path": ".build/policy-recovery/node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/policy-recovery/node.log",
+      "sha256": "53dd9e6ef9cc2bf1b91a187b502f4ea3f06e4ec99f41533c14a45b30a7b75cde",
+      "bytes": 31238,
+      "associatedCommit": "ae72b1b00bbc72284511fb8d31afa41281eb2786",
+      "tapCounts": {
+        "tests": 130,
+        "pass": 130,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "transaction-node",
+      "kind": "raw-log",
+      "path": ".build/transactional-admission/node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/transactional-admission/node.log",
+      "sha256": "d72c4ad91838cef9afeea1dd339852c11ec011b9b970371f5fbd0807614bc9c2",
+      "bytes": 37806,
+      "associatedCommit": "9e095e3caa888c4263c7453f52981f19383a81c7",
+      "tapCounts": {
+        "tests": 157,
+        "pass": 157,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "dense-io-chromium",
+      "kind": "raw-log",
+      "path": ".build/memory-range-browser-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/memory-range-browser-chromium.log",
+      "sha256": "919f4f015685fd7d47418371ca2ceb57dd44e481ed752b054f37d2be504b312e",
+      "bytes": 323,
+      "associatedCommit": "6bb96880c71314a0bb4c314f588edc12583f7c04"
+    },
+    {
+      "id": "dense-parallel-chromium",
+      "kind": "raw-log",
+      "path": ".build/memory-range-dense-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/memory-range-dense-chromium.log",
+      "sha256": "6ba8643a92e0f4b955809470e7ef9f4c6820e3de54763013db69832ecc491513",
+      "bytes": 9645,
+      "associatedCommit": "6bb96880c71314a0bb4c314f588edc12583f7c04"
+    },
+    {
+      "id": "dense-checkpoint-chromium",
+      "kind": "raw-log",
+      "path": ".build/dense-checkpoint-browser-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/dense-checkpoint-browser-chromium.log",
+      "sha256": "9b95afb2aa0105d63c74d6c3bef0feac0c7dcc0017b7d74848a937e6ef2d938b",
+      "bytes": 213,
+      "associatedCommit": "caa029d53b4f02de4d491e421a3c8b6991ff0f42"
+    },
+    {
+      "id": "dense-io-firefox",
+      "kind": "raw-log",
+      "path": ".build/memory-range-browser-firefox.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/memory-range-browser-firefox.log",
+      "sha256": "a914a0bcc133d179042978e7d39de07169f006391d594813363c94ec6facd038",
+      "bytes": 163,
+      "associatedCommit": "6bb96880c71314a0bb4c314f588edc12583f7c04"
+    },
+    {
+      "id": "dense-parallel-firefox",
+      "kind": "raw-log",
+      "path": ".build/memory-range-dense-firefox.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/memory-range-dense-firefox.log",
+      "sha256": "bcdb5a80b3f08f9b0d3e760f6b29c8f4c2b09959c8fba5ed7616a389433985d1",
+      "bytes": 9557,
+      "associatedCommit": "6bb96880c71314a0bb4c314f588edc12583f7c04"
+    },
+    {
+      "id": "dense-checkpoint-firefox",
+      "kind": "raw-log",
+      "path": ".build/dense-checkpoint-browser-firefox.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/dense-checkpoint-browser-firefox.log",
+      "sha256": "405642d475edfea2a66848102ae15bc5231c2479032231a6e06f064266c44a05",
+      "bytes": 134
+    },
+    {
+      "id": "dense-io-webkit",
+      "kind": "raw-log",
+      "path": ".build/memory-range-browser-webkit.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/memory-range-browser-webkit.log",
+      "sha256": "5092e09b3eb220db72d18ec694e4980a7371e8500e32c31072b1632ce765d3b2",
+      "bytes": 162,
+      "associatedCommit": "6bb96880c71314a0bb4c314f588edc12583f7c04"
+    },
+    {
+      "id": "dense-parallel-webkit",
+      "kind": "raw-log",
+      "path": ".build/memory-range-dense-webkit.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/memory-range-dense-webkit.log",
+      "sha256": "74189415f18466881fba47ee72b4bf314290accb4de49f803c1da9a003c094fd",
+      "bytes": 9571,
+      "associatedCommit": "6bb96880c71314a0bb4c314f588edc12583f7c04"
+    },
+    {
+      "id": "dense-checkpoint-webkit",
+      "kind": "raw-log",
+      "path": ".build/dense-checkpoint-browser-webkit.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/dense-checkpoint-browser-webkit.log",
+      "sha256": "405642d475edfea2a66848102ae15bc5231c2479032231a6e06f064266c44a05",
+      "bytes": 134
+    },
+    {
+      "id": "dense-eleven-fields",
+      "kind": "raw-log",
+      "path": ".build/dense-checkpoint-normal-browser.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/dense-checkpoint-normal-browser.log",
+      "sha256": "68856ec755350baa828c7fc3e19626cc20c5b23f33fcb888a793e53a2566564c",
+      "bytes": 1231,
+      "associatedCommit": "caa029d53b4f02de4d491e421a3c8b6991ff0f42"
+    },
+    {
+      "id": "core-historical",
+      "kind": "raw-log",
+      "path": ".build/transactional-execution/core-tests.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/core-tests.log",
+      "sha256": "88504c5a6ba30c42ab05bf8474dafe3054ff44325fd213ffaa133d945d4f55db",
+      "bytes": 255029,
+      "associatedCommit": "154330085eb1e28a88e9fc98d01c6700bbaf8ec2",
+      "tapCounts": {
+        "tests": 1085,
+        "pass": 1079,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 6
+      }
+    },
+    {
+      "id": "scoped-reclaim",
+      "kind": "raw-log",
+      "path": ".build/transactional-execution/scoped-reclaim-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/scoped-reclaim-node.log",
+      "sha256": "3a56d69f8be2c62395ff3c6d33ed4f2a63280e573201aff1f8fdc723f0e10a8a",
+      "bytes": 22025,
+      "associatedCommit": "e8e0ef6aeb2341b4322bb543fe11cdc0da49082a",
+      "tapCounts": {
+        "tests": 90,
+        "pass": 90,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "operation-reclaim",
+      "kind": "raw-log",
+      "path": ".build/transactional-execution/reclaim-operation.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/reclaim-operation.log",
+      "sha256": "c262c7299f1b3d34b6944aba3ec0ee14832187ae61bddc71bff423f3a56cf736",
+      "bytes": 11660,
+      "associatedCommit": "e8737c216e257502676a570e2e4877cad4cf6bff",
+      "tapCounts": {
+        "tests": 48,
+        "pass": 48,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "allocator-reuse",
+      "kind": "raw-log",
+      "path": ".build/transactional-execution/reuse-scope.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/reuse-scope.log",
+      "sha256": "e7c1084cbc42d3cad0807dd86836f2e4c0d427064361ff761f65ac555e328dfd",
+      "bytes": 10472,
+      "associatedCommit": "d2616063888b07748a75f8d3efc13715e21f0b34",
+      "tapCounts": {
+        "tests": 45,
+        "pass": 45,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "child-state",
+      "kind": "raw-log",
+      "path": ".build/transactional-execution/child-recovery.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/child-recovery.log",
+      "sha256": "224d35ad132c03c7b616091954a9c9cd1219a497e283a76b5c69fde2949c937f",
+      "bytes": 5943,
+      "associatedCommit": "cee16367f7874b69bc01f1de5391c4343f9c93dc",
+      "tapCounts": {
+        "tests": 25,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "atomic-envelopes",
+      "kind": "raw-log",
+      "path": ".build/transactional-execution/atomic-envelope.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/atomic-envelope.log",
+      "sha256": "639894826e2dd2abc68de74b76f7ddc9b5bdf32c76f5f158592204294d66e7e0",
+      "bytes": 1593,
+      "associatedCommit": "d4aabc7336ddb0ce7c21e87be39ed79dbcffbe6f",
+      "tapCounts": {
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "dense-migration-browser",
+      "kind": "raw-log",
+      "path": ".build/transactional-execution/immediate-migration-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/immediate-migration-chromium.log",
+      "sha256": "ef6acc3ff7659c8e7fb2725e99560258eab2784c1fe3280742ad061463a5f56d",
+      "bytes": 1368,
+      "associatedCommit": "e8e0ef6aeb2341b4322bb543fe11cdc0da49082a"
+    },
+    {
+      "id": "small-failure-diagnostics",
+      "kind": "failed-development-runs",
+      "path": ".build/transactional-execution/small-admission-diagnostics.json",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/small-admission-diagnostics.json",
+      "sha256": "f076e3ca5b545965bb08b07df0e7362c01d7b73c430c7d81b5c4eeea3fdcac6d",
+      "bytes": 24490
+    },
+    {
+      "id": "sift-phases-node",
+      "kind": "raw-log",
+      "path": ".build/sift-phase-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-phase-node.log",
+      "sha256": "fe2029109b41d74881302762f8549d1032055ce06a13d97139e8c84221f5d7ef",
+      "bytes": 5538,
+      "associatedCommit": "2f967a27d8a242bcb982f33698a3cb220b4eeeaa",
+      "tapCounts": {
+        "tests": 25,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "sift-checkpoint-node",
+      "kind": "raw-log",
+      "path": ".build/sift-checkpoint-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-checkpoint-node.log",
+      "sha256": "03a480129874e94e7fcf1a8acce4a4bbdfa652cd8b632428e5214c7cc5d1653d",
+      "bytes": 6439,
+      "associatedCommit": "2a87a85763281639aeb0f9aa149c843a93237dc6",
+      "tapCounts": {
+        "tests": 29,
+        "pass": 29,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "sift-ownership-node",
+      "kind": "raw-log",
+      "path": ".build/sift-checkpoint-cache-ownership-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-checkpoint-cache-ownership-node.log",
+      "sha256": "c841a6bb4fefddb3bbf577b2d2cce3df67ff010ff4919122e4d32ffb339aa344",
+      "bytes": 2969,
+      "tapCounts": {
+        "tests": 12,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "sift-phase-browser",
+      "kind": "raw-log",
+      "path": ".build/sift-phase-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-phase-chromium.log",
+      "sha256": "bb9f3a803a5d31a28c2670d2b63a8567e1f547f64b9ac168df6272ee4a2958e0",
+      "bytes": 2926,
+      "associatedCommit": "2a87a85763281639aeb0f9aa149c843a93237dc6"
+    },
+    {
+      "id": "sift-phase-protocol-browser",
+      "kind": "raw-log",
+      "path": ".build/sift-phase-protocol-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-phase-protocol-chromium.log",
+      "sha256": "e1c29d3b072f0d9513970f8fb07bcb3e524f7bd2e717ddb5e771aa883ba22f9a",
+      "bytes": 1164
+    },
+    {
+      "id": "sift-cache-node",
+      "kind": "raw-log",
+      "path": ".build/sift-exact-cache-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-exact-cache-node.log",
+      "sha256": "6fceca8de2f78f5a46ba894c2a671b076ca3e8335100e6ee874c9190bf54ef41",
+      "bytes": 6442,
+      "tapCounts": {
+        "tests": 29,
+        "pass": 29,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "sift-cache-browser",
+      "kind": "raw-log",
+      "path": ".build/sift-exact-cache-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-exact-cache-chromium.log",
+      "sha256": "98e9215fb96de111a6c0992e5a67204766512714b9420c828d7c3b619024cef4",
+      "bytes": 3198
+    },
+    {
+      "id": "sift-batch-node",
+      "kind": "raw-log",
+      "path": ".build/sift-batch-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-batch-node.log",
+      "sha256": "9effb032d7aa608ad3140c75bbaec024257c958ab6db70d8706144e7fb2a59fb",
+      "bytes": 5535,
+      "associatedCommit": "24327ff4c1e8eda6fd361c155679ca27bc174952",
+      "tapCounts": {
+        "tests": 25,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "sift-native-oracle",
+      "kind": "raw-log",
+      "path": ".build/sift-continuations-native.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-continuations-native.log",
+      "sha256": "317c3ba4dafde259351b8953407441fb56ad811e6492201ada97c47c801e0c45",
+      "bytes": 2122,
+      "associatedCommit": "24327ff4c1e8eda6fd361c155679ca27bc174952",
+      "tapCounts": {
+        "tests": 4,
+        "pass": 4,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "sift-batch-browser",
+      "kind": "raw-log",
+      "path": ".build/sift-continuations-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-continuations-chromium.log",
+      "sha256": "558d9febc8c4b3df2c0e2dee075ce0c3b5e68a23ae3e7ae4993db1a03b1ed382",
+      "bytes": 1020,
+      "associatedCommit": "24327ff4c1e8eda6fd361c155679ca27bc174952"
+    },
+    {
+      "id": "sift-pipeline-browser",
+      "kind": "raw-log",
+      "path": ".build/sift-batched-pipeline-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-batched-pipeline-chromium.log",
+      "sha256": "98e9215fb96de111a6c0992e5a67204766512714b9420c828d7c3b619024cef4",
+      "bytes": 3198,
+      "associatedCommit": "24327ff4c1e8eda6fd361c155679ca27bc174952"
+    },
+    {
+      "id": "sift-rollback-node",
+      "kind": "raw-log",
+      "path": ".build/sift-reservation-recovery.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/.build/sift-reservation-recovery.log",
+      "sha256": "0787104b539d07b0af2d46e211bffaa23dc8705aa5e0ec6536aea4d02b29182e",
+      "bytes": 2948,
+      "associatedCommit": "29e51feace3aa5780e139f3d8fa0cd92557a8ef3",
+      "tapCounts": {
+        "tests": 12,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "sift-batch-design",
+      "kind": "design",
+      "path": "docs/sift-continuation-batching.md",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-storage/docs/sift-continuation-batching.md",
+      "sha256": "92dea4dd94d51ea3aaa283fc7cea31eb9411917683b2247a384a3095c38d5729",
+      "bytes": 4278,
+      "associatedCommit": "24327ff4c1e8eda6fd361c155679ca27bc174952"
+    },
+    {
+      "id": "d2-summary",
+      "kind": "agent-proof",
+      "path": "docs/runtime-v2-d2prl-streaming-checkpoint-proof.json",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/runtime-v2-d2prl-streaming-checkpoint-proof.json",
+      "sha256": "ec7401b46b6abbad2afa55d63c85ec14b055410968a0ca56ae072eefbcc833be",
+      "bytes": 28477,
+      "associatedCommit": "02e5aeec0b41a4c10ef4846094874d4df15ffbf7"
+    },
+    {
+      "id": "d2-log-1",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-parameter-checkpoint-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-parameter-checkpoint-chromium.log",
+      "sha256": "3419712b74b82830d72e9718e0a93c04a26bb8511e82121c514e50f889d6a2b7",
+      "bytes": 17423,
+      "associatedCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "command": "BROWSER=chromium node tests/d2prl-parameter-checkpoint-browser.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3"
+    },
+    {
+      "id": "d2-log-2",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-role-model-chromium.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-role-model-chromium.log",
+      "sha256": "794a26ffe4ac0c79c93299e3b1ca203225b7d0f989165e60e718f24208b07a68",
+      "bytes": 1233,
+      "associatedCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "command": "BROWSER=chromium node tests/d2prl-role-model-browser.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3"
+    },
+    {
+      "id": "d2-log-3",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-parameter-checkpoint-firefox.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-parameter-checkpoint-firefox.log",
+      "sha256": "267eacc3642283bba4edef6b4f7c3dc0494faadd18573d4f3212aba602cff662",
+      "bytes": 17420,
+      "associatedCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "command": "BROWSER=firefox node tests/d2prl-parameter-checkpoint-browser.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3"
+    },
+    {
+      "id": "d2-log-4",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-role-model-firefox.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-role-model-firefox.log",
+      "sha256": "4ac02141c2d231c7db5b6a2c22854838b08b90394a99fc4fb8ea0d69b7b9deb4",
+      "bytes": 1228,
+      "associatedCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "command": "BROWSER=firefox node tests/d2prl-role-model-browser.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3"
+    },
+    {
+      "id": "d2-log-5",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-parameter-checkpoint-webkit.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-parameter-checkpoint-webkit.log",
+      "sha256": "2c9731b34d508f6dc87047dc905b50fb67e9cc6ce2e57e1505813b4e6d6f70dc",
+      "bytes": 17422,
+      "associatedCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "command": "BROWSER=webkit node tests/d2prl-parameter-checkpoint-browser.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3"
+    },
+    {
+      "id": "d2-log-6",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-role-model-webkit.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-role-model-webkit.log",
+      "sha256": "1d8b6b376dad84e3f6d1e1715e9905465138d9264aeb3f3d44ee973437a3b495",
+      "bytes": 1233,
+      "associatedCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "command": "BROWSER=webkit node tests/d2prl-role-model-browser.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3"
+    },
+    {
+      "id": "d2-log-7",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-parameters-checkpoints-final-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-parameters-checkpoints-final-node.log",
+      "sha256": "4fb10d965eaf8cbfd61dc2b60a51634041a13ab7ec5f59aeb58c393ae4dbbaac",
+      "bytes": 14455,
+      "associatedCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3",
+      "tapCounts": {
+        "tests": 61,
+        "pass": 61,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "command": "node --experimental-test-module-mocks --test tests/d2prl-checkpoint.test.mjs tests/d2prl-parameter-store.test.mjs tests/d2prl-recovery.test.mjs tests/wasm-tensor-arena.test.mjs tests/d2prl-cache.test.mjs tests/neural-input-session.test.mjs tests/d2prl-role-model.test.mjs tests/d2prl-worker-protocol.test.mjs tests/d2prl-owned.test.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "f87e482e9cd069db6d5bf82faa35736efbfe85c3"
+    },
+    {
+      "id": "d2-log-8",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-policy-reclaim-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-policy-reclaim-node.log",
+      "sha256": "83efe49d236a1becfde60c7f8fa90e2673519b2c1e306c4f7c7fda98ec8905d7",
+      "bytes": 2704,
+      "associatedCommit": "605b5cc1c43e5a69ef82442a052b1ab94828f246",
+      "tapCounts": {
+        "tests": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "command": "node --test tests/d2prl-recovery.test.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "605b5cc1c43e5a69ef82442a052b1ab94828f246"
+    },
+    {
+      "id": "d2-log-9",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-checkpoint-cancel-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-checkpoint-cancel-node.log",
+      "sha256": "862c41d87c116f2d35f02011fc91366cf444100575b5a857eeed6b641ce7c5b6",
+      "bytes": 2599,
+      "associatedCommit": "7a4750dbb4ddf09b0e0a52e995f7be58e777eda6",
+      "tapCounts": {
+        "tests": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "command": "node --test tests/d2prl-checkpoint.test.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "7a4750dbb4ddf09b0e0a52e995f7be58e777eda6"
+    },
+    {
+      "id": "d2-log-10",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-atomic-admission-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-atomic-admission-node.log",
+      "sha256": "65723e16a79efaf4203a8cac0fd21ec8af084e2f1dbab0f723d099660783200c",
+      "bytes": 11936,
+      "associatedCommit": "f23e4a77eb799dbe37aebe17ebd19d6d155caf0e",
+      "tapCounts": {
+        "tests": 51,
+        "pass": 51,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "command": "node --test tests/d2prl-gpu-owned-output.test.mjs tests/d2prl-recovery.test.mjs tests/d2prl-checkpoint.test.mjs tests/d2prl-role-model.test.mjs tests/d2prl-worker-protocol.test.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "f23e4a77eb799dbe37aebe17ebd19d6d155caf0e"
+    },
+    {
+      "id": "d2-log-11",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-output-admission-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-output-admission-node.log",
+      "sha256": "dad1e2c2dff5e20e39a74e1fd35e828ebebb26115d7ff127ece3b8c28b430d30",
+      "bytes": 8216,
+      "associatedCommit": "38322764be38dcecc0559ef76b9317c10efb274c",
+      "tapCounts": {
+        "tests": 35,
+        "pass": 35,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "command": "node --test tests/d2prl-worker-protocol.test.mjs tests/d2prl-resource-wait.test.mjs tests/d2prl-cache.test.mjs tests/d2prl-checkpoint.test.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "38322764be38dcecc0559ef76b9317c10efb274c"
+    },
+    {
+      "id": "d2-log-12",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-scoped-admission-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-scoped-admission-node.log",
+      "sha256": "ccaf56a7809ff86d8c39adf1589dc75249dab304a48ccd64b614c63a2c67d06d",
+      "bytes": 9785,
+      "associatedCommit": "d376dae0b6579fc93f37a48fa9cc588946a4ab55",
+      "tapCounts": {
+        "tests": 41,
+        "pass": 41,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "command": "node --test tests/d2prl-worker-protocol.test.mjs tests/d2prl-recovery.test.mjs tests/d2prl-gpu-owned-output.test.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "d376dae0b6579fc93f37a48fa9cc588946a4ab55"
+    },
+    {
+      "id": "d2-log-13",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-liveness-diagnostics-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-liveness-diagnostics-node.log",
+      "sha256": "b99511bbd0e6d7a4bc0657f5592d4b8dd953047142ae14eeb70ff8a54d5ff92e",
+      "bytes": 5812,
+      "associatedCommit": "89dec68cfe3c733c3c1b24f676622a1002c74f62",
+      "tapCounts": {
+        "tests": 24,
+        "pass": 24,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "command": "node --test tests/d2prl-gpu-owned-output.test.mjs tests/d2prl-recovery.test.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "89dec68cfe3c733c3c1b24f676622a1002c74f62"
+    },
+    {
+      "id": "d2-log-14",
+      "kind": "raw-log",
+      "path": "docs/qualification/d2prl-streaming-checkpoints/d2prl-initialization-liveness-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-gpu/docs/qualification/d2prl-streaming-checkpoints/d2prl-initialization-liveness-node.log",
+      "sha256": "a33c45a917305115069b9a7649107f450b8868c09a62431d142e2009329e97d3",
+      "bytes": 4730,
+      "associatedCommit": "975f252e5bdfea0c966c31371db642a65216d570",
+      "tapCounts": {
+        "tests": 20,
+        "pass": 20,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "command": "node --experimental-test-module-mocks --test tests/d2prl-resource-activity.test.mjs tests/d2prl-parameter-store.test.mjs tests/d2prl-owned.test.mjs",
+      "reportedExitCode": 0,
+      "sourceCommit": "975f252e5bdfea0c966c31371db642a65216d570"
+    },
+    {
+      "id": "root-liveness-suite-82cc526",
+      "kind": "historical-nonfinal-suite",
+      "path": ".build/transactional-execution/liveness-suite.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/liveness-suite.log",
+      "sha256": "b82d697d20e2dcb1b87c9816d31df80703aab8724b5f8697690af73cec4651f9",
+      "bytes": 287834,
+      "associatedCommit": "82cc5263022010a87a8685a11c145785a33fe183",
+      "tapCounts": {
+        "tests": 1217,
+        "pass": 1215,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 2
+      },
+      "sourceCommit": "82cc5263022010a87a8685a11c145785a33fe183"
+    },
+    {
+      "id": "root-suite-b39d545",
+      "kind": "historical-nonfinal-suite",
+      "path": ".build/transactional-execution/final-suite.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/final-suite.log",
+      "sha256": "835f9dd6a730149760ea32110a4aaddf48be557b4000fb16e890b82ac5742273",
+      "bytes": 284375,
+      "associatedCommit": "b39d5459e86fa6990a2e9d88d2143feb2ad733ff",
+      "tapCounts": {
+        "tests": 1200,
+        "pass": 1197,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 2
+      },
+      "sourceCommit": "b39d5459e86fa6990a2e9d88d2143feb2ad733ff"
+    },
+    {
+      "id": "root-followups-18cad2d",
+      "kind": "raw-log",
+      "path": ".build/transactional-execution/final-followups.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/final-followups.log",
+      "sha256": "7a0254a98a0ee072a3b2b7ae3328ab7f2bc0a5a99fe3fb5a02d05dc542d0c1dc",
+      "bytes": 21684,
+      "associatedCommit": "18cad2d4f4f8a2b4e66ae27dd8657b0f0efe7192",
+      "tapCounts": {
+        "tests": 91,
+        "pass": 91,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceCommit": "18cad2d4f4f8a2b4e66ae27dd8657b0f0efe7192"
+    },
+    {
+      "id": "small-resident-liveness-failure",
+      "kind": "failed-development-run",
+      "path": ".build/transactional-execution/small-resident-liveness-failure.json",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/small-resident-liveness-failure.json",
+      "sha256": "fcbe32c49f8a7eafa369ede6188875dc325f05c7771c8d04eb2b3684ec9913b6",
+      "bytes": 15449
+    },
+    {
+      "id": "small-resident-liveness-log",
+      "kind": "failed-development-run",
+      "path": ".build/transactional-execution/complete-small-transactional.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/complete-small-transactional.log",
+      "sha256": "7ec8dd48792c7d8d9423cdba831333242f6191e62b69799e36afe22902ed2769",
+      "bytes": 237273
+    },
+    {
+      "id": "resident-liveness-node",
+      "kind": "raw-log",
+      "path": ".build/dense-resident-liveness-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/dense-resident-liveness-node.log",
+      "sha256": "42ad800ba3fe73bb762bfcfa2aeffff7d90381e3fdbc3b0b765a275986f6cc65",
+      "bytes": 12948,
+      "associatedCommit": "70562199cb4eb75e88ff16e68b64624ffb676f7f",
+      "tapCounts": {
+        "tests": 55,
+        "pass": 55,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "resident-native-admission-node",
+      "kind": "raw-log",
+      "path": ".build/dense-resident-native-admission-node.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime-dense/.build/dense-resident-native-admission-node.log",
+      "sha256": "57c581dff28700f62c2e5aa59abc4ee77f3a51e2aaf4b7b20d4e64411587c12c",
+      "bytes": 5496,
+      "associatedCommit": "4fc38f0027064de3e049d2475dc8f0924b40e652",
+      "tapCounts": {
+        "tests": 22,
+        "pass": 22,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "assembled-historical",
+      "kind": "historical-nonfinal-suite",
+      "path": ".build/transactional-execution/assembled-tests.log",
+      "sourceWorktree": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime",
+      "absolutePath": "/Users/gaeldauchy/SHERLOQ/web-engine-runtime/.build/transactional-execution/assembled-tests.log",
+      "sha256": "8dcde4dab0a306197394cca99cbef3e8c39b1daa659a779f5e1fcfc9ed4b5136",
+      "bytes": 271458,
+      "tapCounts": {
+        "tests": 1151,
+        "pass": 1148,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 2
+      }
+    }
+  ],
+  "relatedAgentProofs": {
+    "dense": "dense-summary",
+    "policyAndTransactions": "policy-transaction-summary",
+    "d2": "d2-summary"
+  },
+  "finalValidationUpdates": [
+    {
+      "id": "root-liveness-and-native-followups",
+      "results": [
+        {
+          "file": "docs/qualification/transactional-execution/liveness-suite.log",
+          "sha256": "b82d697d20e2dcb1b87c9816d31df80703aab8724b5f8697690af73cec4651f9",
+          "sourceCommit": "82cc5263022010a87a8685a11c145785a33fe183",
+          "tests": 1217,
+          "passed": 1215,
+          "failed": 0,
+          "skipped": 2
+        },
+        {
+          "file": "docs/qualification/transactional-execution/liveness-followups.log",
+          "sha256": "b6fa9ee8fbb4b0828129a36e0a657f605b7e55618d2836f600256ff62a62b199",
+          "sourceCommit": "9f11589cbd2541612552f1cc40fee4e267e3e2bb",
+          "tests": 36,
+          "passed": 36,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "file": "docs/qualification/transactional-execution/dense-final.log",
+          "sha256": "cecf3e3fee7bc925f2544a2511b89d7d9c8aea8c954ba9e222729c63d0d8c294",
+          "sourceCommit": "9d5593c0173c1f8ec1903875b739289590ae8087",
+          "tests": 111,
+          "passed": 111,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "status": "passed_with_documented_skips",
+      "notes": [
+        "Broad suite: missing generated local native ROI/composites/Fourier and EM oracles are skipped, not passed.",
+        "Followup suites overlap the broad suite; their counts must not be summed.",
+        "Final neural IPC integration and public Chrome qualification are still pending."
+      ]
+    },
+    {
+      "id": "transport-and-optional-recovery-parent",
+      "status": "targeted_passed",
+      "results": [
+        {
+          "file": "docs/qualification/transactional-execution/neural-transport-final.log",
+          "sha256": "b4f8e6f9f447f95eb60f4d95bc50b6aa154cccc469a2f92758bf0fb7cdba3000",
+          "associatedCommit": "6db487414b5d2a674611d0aea50ee0b38aa32140",
+          "tests": 32,
+          "passed": 32,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "file": "docs/qualification/transactional-execution/d2-all-after-role-parent.log",
+          "sha256": "2cc3512f75876ebcfc6b4a6e634bf99e6e91ce03c67164ae518b7928a7c8ae52",
+          "associatedCommit": "3db1ee2dcce6a41b09099509c522d0dd743fb85d",
+          "tests": 97,
+          "passed": 97,
+          "failed": 0,
+          "skipped": 0
+        }
+      ]
+    },
+    {
+      "id": "assembled-node-and-phase-admission",
+      "status": "passed_with_documented_skips",
+      "results": [
+        {
+          "file": "docs/qualification/transactional-execution/final-assembly-suite.log",
+          "sha256": "2eb3de2709c41b2908cdb2aff4ad1aed2dbfbceead9764fe144676159e2fa66d",
+          "sourceCommit": "031ad32dfe79bb97207a1e37f9d598b3573fbdb2",
+          "tests": 1258,
+          "passed": 1256,
+          "failed": 0,
+          "skipped": 2
+        },
+        {
+          "file": "docs/qualification/transactional-execution/final-resource-phases.log",
+          "sha256": "95aaa72cfab776b6090f64f2f7521ef7f4d2761d0c2a35bf525c38271e90316d",
+          "sourceCommit": "b4433cb20f69810db91360d28b72ac8bf7cf2a84",
+          "tests": 126,
+          "passed": 126,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "notes": [
+        "Broad test suite includes D2 role model regression, native preparation and cancelled automatic analysis ownership.",
+        "Later public worker cancellation contract is qualified by the public-worker-cancellation entry below."
+      ]
+    },
+    {
+      "id": "public-worker-cancellation",
+      "status": "passed",
+      "results": [
+        {
+          "file": "docs/qualification/transactional-execution/final-public-lifecycle.log",
+          "sha256": "264e9e5273336b9f81290a24a37e6d5588bf7446004ffee3446ca148ccfcd38d",
+          "sourceCommit": "138083d41af43c27afd8f807602198b0baa202fa",
+          "tests": 94,
+          "passed": 94,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "file": "docs/qualification/transactional-execution/final-automatic-cancellation.log",
+          "sha256": "fd6054d88bc55f92f9232332d5a40592d2e7d1d68f14aa149b62599ab78b8810",
+          "sourceCommit": "c5ceaecbab51048e22b2e97b3ae4abb5ffd2c29a",
+          "tests": 23,
+          "passed": 23,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "notes": [
+        "Automatic run/resume/update/render/export cooperate even with owned temporary storage; elapsed cancellation time does not destroy the engine.",
+        "A successful result that wins the cancellation race remains an owned success. Explicit disposal and actual transport death still invalidate checkpoints.",
+        "Tests exercise actual worker.js dispatch with mocked detector engine, including deferred settlement, storage cleanup and concurrent dispose."
+      ]
+    },
+    {
+      "id": "dense-useful-work-cooperation",
+      "status": "targeted_passed",
+      "results": [
+        {
+          "file": "docs/qualification/transactional-execution/final-dense-cooperation.log",
+          "sha256": "744bee5fd01b53a32a3e54390ea2aeeae18029fd5b7a32da333864f3cdf4ba18",
+          "sourceCommit": "2a52867361b4288ac8109c10c697867a6e13404e",
+          "tests": 122,
+          "passed": 122,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "file": "docs/qualification/transactional-execution/dense-detail-cooperation-browser.json",
+          "sha256": "b4f384f18235b4628fbd37ce71832c5b0012719d47c698a2190bb0b60b9f0336",
+          "associatedCommit": "a47e4f4",
+          "exactSourceHashesVerified": true
+        },
+        {
+          "file": "docs/qualification/transactional-execution/dense-detail-cooperation-browser.log",
+          "sha256": "6d655f4e4ea774f40323c594499eadba68e97b4748f9647c41cd7fb225b50928",
+          "associatedCommit": "a47e4f4"
+        }
+      ],
+      "notes": [
+        "Only cooperation scheduling changed; arithmetic, point order, tile reads and native samplers are identical. Shared 8 ms useful-work deadlines replace unconditional timers for each model/offset/tile.",
+        "Chromium A/B: 11 models, bit-exact NCC and accepted groups, 66 reads unchanged. Native contiguous oracle also exact. Case total 29926.94 ms to 2870.18 ms; this is not a whole-engine speedup.",
+        "Eight real queued MessagePort/timer cancellations settled and released the sampler; timing begins at signal handling, not message dispatch."
+      ]
+    },
+    {
+      "id": "final-readonly-review",
+      "status": "no_new_blocking_defect_confirmed",
+      "scope": "Review of .26 to 2a52867 dense cooperation, SIFT ordered checkpoint publication, renewal of Wasm views, reservation rollback and causal recovery. No execution or new 96 MP evidence."
+    }
+  ]
+}

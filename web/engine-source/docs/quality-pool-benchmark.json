@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "fixture": "bench-1024.jpg",
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "exact": true,
+  "serialMs": 1222,
+  "coldMs": 1374.199999988079,
+  "warmMs": 287.0999999642372,
+  "selectedWorkers": 10,
+  "calibration": {
+    "pixels": 1048576,
+    "selectedWorkers": 10,
+    "measurements": [
+      {
+        "workers": 1,
+        "medianMs": 124.5,
+        "samplesMs": [
+          125.19999998807907,
+          123.30000001192093,
+          124.5
+        ]
+      },
+      {
+        "workers": 2,
+        "medianMs": 66,
+        "samplesMs": [
+          67.80000001192093,
+          66,
+          65.5
+        ]
+      },
+      {
+        "workers": 4,
+        "medianMs": 44.69999998807907,
+        "samplesMs": [
+          44.40000003576279,
+          44.69999998807907,
+          47.30000001192093
+        ]
+      },
+      {
+        "workers": 8,
+        "medianMs": 34.10000002384186,
+        "samplesMs": [
+          38.89999997615814,
+          34.10000002384186,
+          32.59999996423721
+        ]
+      },
+      {
+        "workers": 10,
+        "medianMs": 30.399999976158142,
+        "samplesMs": [
+          30.19999998807907,
+          30.600000023841858,
+          30.399999976158142
+        ]
+      }
+    ],
+    "totalMs": 1190.5,
+    "rule": "All admitted worker-count candidates; >=5% median gain including full-resolution input copies; one JPEG thread per worker"
+  },
+  "budget": {
+    "budgetBytes": 3736076288,
+    "retainedBytes": 1048576,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 441450496
+  },
+  "limits": [
+    "One 1 MP generated image, one full-curve run per state",
+    "Candidate medians include input copies and worker messages",
+    "Calibration cost included in coldMs; workers destroyed after every job",
+    "No display time; shared host load may affect candidate choice"
+  ],
+  "browser": "154.0.8037.58"
+}

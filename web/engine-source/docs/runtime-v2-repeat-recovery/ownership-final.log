@@ -1,0 +1,26 @@
+TAP version 13
+# (node:12442) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: adapter-owned projected outputs and raw grid copies survive adapter disposal
+ok 1 - adapter-owned projected outputs and raw grid copies survive adapter disposal
+  ---
+  duration_ms: 442.770708
+  type: 'test'
+  ...
+# (node:12443) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: field recovery retains completed hypotheses and descriptors, and retries storage without recomputing the field
+ok 2 - field recovery retains completed hypotheses and descriptors, and retries storage without recomputing the field
+  ---
+  duration_ms: 189.145708
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 620.612292

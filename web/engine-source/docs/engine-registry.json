@@ -1,0 +1,1259 @@
+{
+  "schema": 1,
+  "panels": [
+    {
+      "nativeId": "0:0",
+      "panel": "Original Image",
+      "variants": "Decoded reference display; full-resolution pixels; zoom/export visualization",
+      "sources": [
+        "source/gui/sherloq_app/tools/general/original.py",
+        "source/gui/sherloq_app/core/image_io.py"
+      ],
+      "status": "partial",
+      "cpu": "Existing original accessor plus immutable Blob load, exact oriented surface windows and bounded original byte reads; segmented JPEG scanlines; packed/palette PNG and Adam7 with EXIF1\u20138 qualified; classic TIFF bilevel/CCITT, palette8, whitezero8/16 and planar/alpha subset; mapped TIFF tile adapter; bounded BigTIFF containers",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "25 JPEG fixtures x3 row-group sizes; eight EXIF orientations;96MP synthetic source and full nativeRGB SHA",
+      "reference": "metadata-reference + image-codec-reference",
+      "errors": "Exact fullRGB SHA and four windows; stale IDs/revisions refused, oversized window rejected before copy, cancellation/disposal remove owned storage",
+      "measurements": "docs/jpeg-rows-*-proof.json and source-api-*-proof.json, accounted working peak129/130MB plus browser-managed86MBBlob separately; not RSS or isolated speedup",
+      "integration": "Original accessor already integrated by B; new PNG variants use the same load/loadBlob API; source-depth/Adam7 presentation documented in PNG-FORMATS.md; TIFF-FORMATS.md",
+      "deviceLimits": "JPEG scanline adapter only; PNG/TIFF remain full-memory;512MiB JPEG module limit; global broker/crash-orphan recovery open; TIFF tiled input uses a bounded mapped worker; TIFF source storage still full-memory; BigTIFF source size remains subject to full-memory limits",
+      "tests": "source-surface.test.mjs, jpeg-rows.test.mjs, source-api.test.mjs and real-worker browser tests; png-formats.test.mjs and32-case real worker proof; tiff-formats.test.mjs and44case real-worker corpus (43 exact,1 native float refusal),18 native tiled grayscale hashes; six BigTIFF RGB/grayscale native cases and malformed 64-bit field checks",
+      "operation": "imagePixels",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Immutable Blob, segmented JPEG and exact oriented windows; PNG/TIFF stay full-memory"
+      }
+    },
+    {
+      "nativeId": "0:1",
+      "panel": "File Digest",
+      "variants": "MD5; SHA1; SHA2 224/256/384/512; SHA3 224/256/384/512; average/block-mean/color-moment/Marr-Hildreth/pHash/radial-variance; filename ballistics",
+      "sources": [
+        "source/gui/sherloq_app/tools/general/digest.py",
+        "source/gui/sherloq_app/core/digest.py"
+      ],
+      "status": "partial",
+      "cpu": "Ten original-byte digests and six native perceptual hashes; supplied file properties and native naming hints",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "Public synthetic86MB JPEG/96MP source; small boundary/EOF/streaming fixtures",
+      "reference": "Independent Node crypto and Python/hashlib; native image-hash-reference for four visual hashes",
+      "errors": "Color moments42 floats and Marr72 bytes exact across11 declared source cases; old four hashes unchanged; signature/filename references exact",
+      "measurements": "docs/digest-extra-chrome-proof.json; docs/source-file-chrome-proof.json",
+      "integration": "Byte and File load inputs retain optional basename, declared MIME and lastModified; digest supplies native naming hints and signature MIME separately. B physical-file table pending.",
+      "deviceLimits": "Chrome154/Firefox155/WebKit26.6; loaded images only; segmented JPEG decode constraints; physical devices untested",
+      "tests": "source-byte-operations.test.mjs plus existing digest/metadata/perceptual fixtures; actual three-browser86MB byte tests; source-file.test.mjs,19-case native naming oracle,source-file-chrome-proof.json; digest-extra.test.mjs,digest-extra-browser.js",
+      "operation": "file.digest",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Original Blob chunks/windows; docs/ORIGINAL-BYTE-ENGINES.md; imageHashes:true rejected on segmented layout"
+      }
+    },
+    {
+      "nativeId": "0:2",
+      "panel": "Hex Editor",
+      "variants": "External hex editor of original bytes; web byte viewer/editor requires explicit new output",
+      "sources": [
+        "source/gui/sherloq_app/tools/general/editor.py",
+        "source/gui/sherloq_app/core/metadata.py"
+      ],
+      "status": "partial",
+      "cpu": "Read-only original-byte window on contiguous/Blob sources,1..65536bytes; editing remains unavailable",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "Public synthetic86MB JPEG/96MP source; small boundary/EOF/streaming fixtures",
+      "reference": "Original-byte slices and independent SHA256 window checks",
+      "errors": "Exact byte windows including seams, clipped ends and EOF; invalid offset rejected",
+      "measurements": "source-byte-operations-*-proof.json: functional RPC/stage/cancel observations,138149888 accounted peak plus opaque original Blob; not RSS",
+      "integration": "Portable worker API qualified; WordPress controls pending with B",
+      "deviceLimits": "Chrome154/Firefox155/WebKit26.6; loaded images only; segmented JPEG decode constraints; physical devices untested",
+      "tests": "source-byte-operations.test.mjs plus existing digest/metadata/perceptual fixtures; actual three-browser86MB byte tests",
+      "operation": "file.hex",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Original Blob chunks/windows; docs/ORIGINAL-BYTE-ENGINES.md"
+      }
+    },
+    {
+      "nativeId": "0:3",
+      "panel": "Similarity Search",
+      "variants": "Links to external similarity search services; network/user-consent integration, not a local detector",
+      "sources": [
+        "source/gui/sherloq_app/tools/general/reverse.py",
+        "source/gui/sherloq_app/core/metadata.py"
+      ],
+      "status": "unavailable",
+      "cpu": "not ported",
+      "gpu": "not validated",
+      "data": "reference fixture pending",
+      "reference": "native modules listed",
+      "errors": "unmeasured",
+      "measurements": "unmeasured",
+      "integration": "not integrated",
+      "deviceLimits": "No native macOS library can be loaded in browser; per-module build/operator audit required",
+      "tests": "see native-inventory.json for all static functions/choices; static inventory is not runtime validation",
+      "memoryLayout": {
+        "status": "unavailable",
+        "detail": "No callable browser engine for this panel; a memory primitive does not supply the missing algorithm"
+      }
+    },
+    {
+      "nativeId": "1:0",
+      "panel": "Header Structure",
+      "variants": "ExifTool HTML structural header dump; original bytes",
+      "sources": [
+        "source/gui/sherloq_app/tools/metadata/header.py",
+        "source/gui/sherloq_app/core/metadata.py"
+      ],
+      "status": "partial",
+      "cpu": "Native -htmldump0 HTML plus existing inexpensive structural parser; separate JS tree API pending",
+      "gpu": "Not needed for metadata parsing",
+      "data": "Seven authored JPEG/PNG/TIFF cases, EXIF/IPTC/XMP/Unicode/lists/compressed PNG/zero GPS",
+      "reference": "Native ExifTool 13.55 exact command outputs",
+      "errors": "Complete grouped numeric dump, explicit composite request, HTML hash after path normalization and thumbnail bytes match native on corpus",
+      "measurements": "docs/exiftool-chrome-proof.json; conservative admission distinct from observed heap/RSS",
+      "integration": "inspectMetadata before decode and metadata.exiftool on loaded sources; B rendering/search/export pending",
+      "deviceLimits": "WASM128MiB, stdout8MiB, timeout60s; optional Perl extensions and formats outside corpus unqualified",
+      "tests": "tests/exiftool.test.mjs and real Chrome worker, cancellation/recovery/budget/no-network/32MiB Blob",
+      "operation": "metadata.exiftool",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Original Blob requested byte ranges without pixel decode; shared budget with disposable interpreter worker"
+      }
+    },
+    {
+      "nativeId": "1:1",
+      "panel": "EXIF Full Dump",
+      "variants": "ExifTool full metadata extraction and text/structured export",
+      "sources": [
+        "source/gui/sherloq_app/tools/metadata/exif.py",
+        "source/gui/sherloq_app/core/metadata.py"
+      ],
+      "status": "partial",
+      "cpu": "Actual ExifTool13.55 -G -n -j, typed native-order/filter rows and JSON export",
+      "gpu": "Not needed for metadata parsing",
+      "data": "Seven authored JPEG/PNG/TIFF cases, EXIF/IPTC/XMP/Unicode/lists/compressed PNG/zero GPS",
+      "reference": "Native ExifTool 13.55 exact command outputs",
+      "errors": "Complete grouped numeric dump, explicit composite request, HTML hash after path normalization and thumbnail bytes match native on corpus",
+      "measurements": "docs/exiftool-chrome-proof.json; conservative admission distinct from observed heap/RSS",
+      "integration": "inspectMetadata before decode and metadata.exiftool on loaded sources; B rendering/search/export pending",
+      "deviceLimits": "WASM128MiB, stdout8MiB, timeout60s; optional Perl extensions and formats outside corpus unqualified",
+      "tests": "tests/exiftool.test.mjs and real Chrome worker, cancellation/recovery/budget/no-network/32MiB Blob",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Original Blob requested byte ranges without pixel decode; shared budget with disposable interpreter worker"
+      },
+      "operation": "metadata.exiftool"
+    },
+    {
+      "nativeId": "1:2",
+      "panel": "Thumbnail Analysis",
+      "variants": "Embedded JPEG thumbnail extraction; original/thumbnail comparison and resize semantics",
+      "sources": [
+        "source/gui/sherloq_app/tools/metadata/thumbnail.py",
+        "source/gui/sherloq_app/core/thumbnail.py"
+      ],
+      "status": "partial",
+      "cpu": "Supported embedded JPEG thumbnail; ExifTool13.55 exact binary ThumbnailImage extraction before decode",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "Synthetic publicable fixtures only",
+      "reference": "exif-tools-reference",
+      "errors": "Embedded bytes, Lanczos4 resize and difference exact",
+      "measurements": "docs/extended-browser-*-proof.json: correctness RPC totals, not isolated benchmarks",
+      "integration": "Portable worker validated; WordPress controls/rendering pending; connecting broad extracted formats to resize/difference remains pending",
+      "deviceLimits": "Browser memory admission; single-thread WASM; physical mobile and native Safari not tested",
+      "tests": "44 Node tests plus extended real-worker browser corpus; see EXTENDED-ENGINES.md; tests/exiftool.test.mjs and Chrome7case binary extraction",
+      "operation": "metadata.thumbnail",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "1:3",
+      "panel": "Geolocation data",
+      "variants": "GPS extraction; map links/geolocation view; no invented location",
+      "sources": [
+        "source/gui/sherloq_app/tools/metadata/location.py",
+        "source/gui/sherloq_app/core/location.py"
+      ],
+      "status": "partial",
+      "cpu": "Native explicit Composite:GPSLatitude/Longitude request and map URL policy; no automatic network request",
+      "gpu": "Not needed for metadata parsing",
+      "data": "Seven authored JPEG/PNG/TIFF cases, EXIF/IPTC/XMP/Unicode/lists/compressed PNG/zero GPS",
+      "reference": "Native ExifTool 13.55 exact command outputs",
+      "errors": "Complete grouped numeric dump, explicit composite request, HTML hash after path normalization and thumbnail bytes match native on corpus",
+      "measurements": "docs/exiftool-chrome-proof.json; conservative admission distinct from observed heap/RSS",
+      "integration": "inspectMetadata before decode and metadata.exiftool on loaded sources; B rendering/search/export pending",
+      "deviceLimits": "WASM128MiB, stdout8MiB, timeout60s; optional Perl extensions and formats outside corpus unqualified",
+      "tests": "tests/exiftool.test.mjs and real Chrome worker, cancellation/recovery/budget/no-network/32MiB Blob",
+      "operation": "metadata.exiftool",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Original Blob requested byte ranges without pixel decode; shared budget with disposable interpreter worker"
+      }
+    },
+    {
+      "nativeId": "1:4",
+      "panel": "C2PA Validation",
+      "variants": "c2patool signed provenance; integrity; certificate trust/offline policy; manifest export",
+      "sources": [
+        "source/gui/sherloq_app/tools/metadata/c2pa.py",
+        "source/gui/sherloq_app/core/c2pa.py"
+      ],
+      "status": "unavailable",
+      "cpu": "not ported",
+      "gpu": "not validated",
+      "data": "reference fixture pending",
+      "reference": "native modules listed",
+      "errors": "unmeasured",
+      "measurements": "unmeasured",
+      "integration": "not integrated",
+      "deviceLimits": "No native macOS library can be loaded in browser; per-module build/operator audit required",
+      "tests": "see native-inventory.json for all static functions/choices; static inventory is not runtime validation",
+      "memoryLayout": {
+        "status": "unavailable",
+        "detail": "No callable browser engine for this panel; a memory primitive does not supply the missing algorithm"
+      }
+    },
+    {
+      "nativeId": "2:0",
+      "panel": "Enhancing Magnifier",
+      "variants": "Region enhancement and equalization; interpolation/zoom separate from input",
+      "sources": [
+        "source/gui/sherloq_app/tools/inspection/magnifier.py",
+        "source/gui/sherloq_app/core/magnifier.py"
+      ],
+      "status": "partial",
+      "cpu": "Native ROI equalization/auto contrast on contiguous or exact oriented segmented windows; bounded ROI and result caches",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "440 native ROI outputs; eight orientations; virtual100000x90000 source exact65x67 read; real96MP JPEG",
+      "reference": "magnifier-reference",
+      "errors": "ROI output hashes exact; clipped bounds, cache ownership, cancellation and memory refusal verified Large-population float32 count casts corrected: public16777218-pixel native oracle, old25165824 RGB components off by1, current whole image exact; existing440 cases preserved.",
+      "measurements": "docs/segmented-magnifier-chrome-proof.json: functional timings; max recorded admission161475132B under256MiB, not a speed comparison",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Admitted full oriented rows/ROI and temporary storage where needed; transposed large-image I/O may be slow; physical mobile and native Safari not tested",
+      "tests": "magnifier and segmented-magnifier tests; real and copied-runtime Chrome proof",
+      "operation": "inspection.magnifier",
+      "memoryLayout": {
+        "status": "segmented-roi",
+        "detail": "Reads only the selected oriented ROI; its contiguous working set must fit the budget; full-image selection can explicitly refuse; exact origin and bounds"
+      }
+    },
+    {
+      "nativeId": "2:1",
+      "panel": "Channel Histogram",
+      "variants": "Exact channels histogram; cumulative/log scales; moments",
+      "sources": [
+        "source/gui/sherloq_app/tools/inspection/histogram.py",
+        "source/gui/sherloq_app/core/histogram.py"
+      ],
+      "status": "partial",
+      "cpu": "Native full-memory histogram and exact segmented global accumulation with RGB/luminance bins, cumulative counts, unique colors and range cache",
+      "gpu": "not measured; CPU remains selectable",
+      "data": "144 synthetic native cases with113-byte chunks; independent noisy96MP JPEG/native reference",
+      "reference": "native source SHA256 and OpenCV/NumPy versions pinned in fixture",
+      "errors": "Exact bins, unique colors and native rounded range summaries;96MP uniqueColors1637956 and uniqueRatio1.71",
+      "measurements": "docs/source-api-*-proof.json: functional non-isolated load/RPC/accounted memory, not a speedup benchmark",
+      "integration": "dedicated browser worker verified; WordPress integration pending with B",
+      "deviceLimits": "Chrome154/Firefox155 OPFS, WebKit26.6 IndexedDB; qualified JPEG512MiB WASM module; compressed input/progressive coefficients still contiguous; physical devices and WordPress pending",
+      "tests": "segmented-histogram.test.mjs, source-api.test.mjs, three-browser source-api proofs; existing histogram corpus retained",
+      "operation": "inspection.histogram",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Global integer histogram, unique colors and range cache; docs/SEGMENTED-SOURCES.md"
+      }
+    },
+    {
+      "nativeId": "2:2",
+      "panel": "Global Adjustments",
+      "variants": "Brightness/saturation/hue/gamma; shadow/highlight LUT; sweep/width; sharpen; threshold/auto; invert; histogram EQ; CLAHE L1\u2013L4",
+      "sources": [
+        "source/gui/sherloq_app/tools/inspection/adjust.py",
+        "source/gui/sherloq_app/core/adjust.py"
+      ],
+      "status": "partial",
+      "cpu": "All native adjustment controls in original order; bounded full-width rows, global equalization/CLAHE8x8 and Otsu, fixed64MiB arithmetic; optional private pre-threshold prefix/global gray histogram cache; useful bounded row workers, global-coordinate integer CLAHE counts, ordered I/O, resource-only serial retry",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "510 complete native fixture outputs;48 orientation/combined CLAHE/Otsu cases;96MP and12.61MP public whole-image references",
+      "reference": "opencv-reference",
+      "errors": "All complete RGB hashes exact; native global Otsu thresholds127/162 exact; no local/tile threshold or normalization",
+      "measurements": "Chrome192MiB functional RPC15.264/105.249/2.569/0.647s; maximum recorded180090874bytes across worker lifetimes. No speed comparison. Radius25 sharpening remains slow serially. Isolated256MiB12.61MP prefix cache: cold2.459/2.392s,warm2.402/0.144s (16.69x);37839309B cache,203708967B peak. No cold speed claim. Isolated512MiB12.61MP single/4workers warm2.385/1.359s (1.75x), both source reloads included in chain; peak478467781B. Four native96MP/12.61MP pool outputs exact under768MiB, max743959488B.",
+      "integration": "Actual common worker and exact runtime copy; owned temporary/RAM surfaces, JSON, cancellation/reload and cleanup. WordPress remains B.",
+      "deviceLimits": "One full oriented row plus sharp halo must fit fixed64MiB heap; shared source/codec/output/staging budget. Native histogram domain <=2147483647pixels. Useful filter workers bounded by32/profile/budget/row jobs; each64MiB and existing parent heap charged. Cache hits skip refiltering; earlier controls recompute. GPU remains unqualified.",
+      "tests": "segmented-adjust.test.mjs; native large generator, real-browser/extracted recipes and fixed WASM section verification;24 cached native views; two real prefixes/six changed complete views, source/cache/output lifetimes and copied runtime;510 scalar outputs preserved; six-mode row-worker fault/admission tests, real four-worker native recipes and copied runtime; shared separation transport regressions",
+      "operation": "inspection.adjust",
+      "memoryLayout": {
+        "status": "segmented",
+        "detail": "True local halos and source-wide HSV value/CLAHE tile/Otsu histograms; absolute-coordinate interpolation; ordered in-place internal HSV/RGB storage, publish complete RGB only."
+      }
+    },
+    {
+      "nativeId": "2:3",
+      "panel": "Reference Comparison",
+      "variants": "Reference; difference; SSIM map; Butteraugli; image quality metrics and external ssimulacra",
+      "sources": [
+        "source/gui/sherloq_app/tools/inspection/comparison.py",
+        "source/gui/sherloq_app/core/comparison.py",
+        "source/gui/sherloq_app/core/comparison_metric_worker.py"
+      ],
+      "status": "partial",
+      "cpu": "All 20 scores, four displays, eq/gray rendering; pinned float64 Sewar, SSIM, histogram semantics, SSIMULACRA and Butteraugli; two-image stage caches",
+      "gpu": "Not selected; no qualified GPU or extra-worker path",
+      "data": "Synthetic publicable fixtures only; 33 image pairs including 1 MP and three 4097-square histogram count cases",
+      "reference": "fixtures/comparison-reference.json, comparison-count-reference.json; native source and helper binary hashes pinned",
+      "errors": "528 displays exact; helper printed scores exact; other finite scores within absolute/relative 1e-12; undefined outcomes equal; historical histogram correlation flagged with separate full-bin result",
+      "measurements": "docs/comparison-benchmark.json; baseline, rejected scalar arithmetic attempt and isolated contiguous/SIMD experiment retained separately",
+      "integration": "Portable worker, two source lifetimes, ownership, cancellation, cache invalidation, JSON/CSV qualified; WordPress controls/rendering pending",
+      "deviceLimits": "WebAssembly SIMD; one main CPU worker; conservative 1900 MiB working limit under global budget; physical Safari/mobile untested",
+      "tests": "tests/comparison.test.mjs, comparison-counts.test.mjs; comparison-{chrome,firefox,webkit}-proof.json; COMPARISON.md and COMPARISON-ARITHMETIC.md",
+      "operation": "comparison.image",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "3:0",
+      "panel": "Luminance Gradient",
+      "variants": "Luminance gradient; direction/magnitude visualization; blue channel variants",
+      "sources": [
+        "source/gui/sherloq_app/tools/detail/gradient.py",
+        "source/gui/sherloq_app/core/gradient.py"
+      ],
+      "status": "partial",
+      "cpu": "All native gradient views/parameters with exact halos, global extrema/histograms, selected finite-domain lookup tables and optional private Sobel-pair cache",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "640 primitive and640segmented native outputs, eight orientations;96MP three complete native hashes",
+      "reference": "opencv-reference",
+      "errors": "Exact complete output hashes and seam/border/orientation comparisons on declared corpus Global equalization count casts above2^24 corrected with two native histogram oracles;640 complete views preserved. See gradient-counts-proof.json.",
+      "measurements": "docs/gradient-optimizations-chrome-proof.json: lookup warm4208.1\u21922454.0ms under256MiB. Separate derivative-cache proof: same1GiB96MP warm1690.2\u21921209.5ms, cold unchanged, peak849127056B; one cold/warm per condition, no universal claim",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Admitted full oriented rows/ROI and temporary storage where needed; transposed large-image I/O may be slow; physical mobile and native Safari not tested",
+      "tests": "gradient-math, segmented-gradient and gradient-cache tests; 640 cached native views and real/copied-runtime 96MP Chrome cache proof",
+      "operation": "detail.gradient",
+      "memoryLayout": {
+        "status": "segmented-qualified",
+        "detail": "Fixed64MiB arithmetic, raw derivatives4B/pixel and RGB3B/pixel in admitted RAM or temporary storage; global statistics; int32 native histogram range explicitly bounded"
+      }
+    },
+    {
+      "nativeId": "3:1",
+      "panel": "Echo Edge Filter",
+      "variants": "Echo edge convolution; contrast/gain visualization",
+      "sources": [
+        "source/gui/sherloq_app/tools/detail/echo.py",
+        "source/gui/sherloq_app/core/interactive.py"
+      ],
+      "status": "partial",
+      "cpu": "All radii1\u201315, contrast and gray; exact horizontal integer-domain FMA, segmented row workers with ordered storage and global normalization",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "900 native outputs/150raw derivative hashes; eight orientations;12.61MP JPEG radii4/5/15 complete native hashes",
+      "reference": "opencv-reference",
+      "errors": "Declared raw derivatives, extrema and final RGB exact; ownership/cancellation/reload and resource-only retry verified",
+      "measurements": "docs/echo-pool-chrome-proof.json: warm6865.4\u21923779.1ms under256MiB (1\u21922workers),6651.7\u21922344.1ms under352MiB (1\u21924workers); one cold/warm sample each",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Admitted full oriented rows/ROI and temporary storage where needed; transposed large-image I/O may be slow; physical mobile and native Safari not tested",
+      "tests": "echo-math, segmented-echo and echo-workers tests; actual common Chrome workers and copied-runtime recipe",
+      "operation": "detail.echo",
+      "memoryLayout": {
+        "status": "segmented-qualified",
+        "detail": "Each arithmetic worker64MiB fixed, shared admission; raw12B/pixel and RGB3B/pixel RAM/temporary; ordered I/O, global extrema, exact oriented halos; no derivative cache yet"
+      },
+      "benchmarks": "echo-optimizations-chrome-proof.json; echo-optimizations-selected-chrome-proof.json: single-worker warm RPC12822.7\u21926768.3ms on12.612623MP, one cold/warm sample each; no universal claim"
+    },
+    {
+      "nativeId": "3:2",
+      "panel": "Wavelet Threshold",
+      "variants": "Daubechies db1\u201320; Symlets sym2\u201320; Coiflets coif1\u20135; Biorthogonal listed families; Soft/Hard/Garrote/Greater/Less; decomposition levels",
+      "sources": [
+        "source/gui/sherloq_app/tools/detail/wavelets.py",
+        "source/gui/sherloq_app/core/interactive.py",
+        "source/gui/sherloq_app/core/wavelet_threshold.py"
+      ],
+      "status": "partial",
+      "cpu": "All 59 UI wavelets, five thresholds, levels, float64 symmetric reconstruction; decomposition cache",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "Synthetic publicable fixtures only",
+      "reference": "wavelet-reference",
+      "errors": "3380 outputs exact",
+      "measurements": "docs/extended-browser-*-proof.json: correctness RPC totals, not isolated benchmarks",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Browser memory admission; single-thread WASM; physical mobile and native Safari not tested",
+      "tests": "44 Node tests plus extended real-worker browser corpus; see EXTENDED-ENGINES.md",
+      "operation": "detail.wavelets",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "3:3",
+      "panel": "Frequency Split",
+      "variants": "FFT frequency split; mask; low/high components; reconstruction",
+      "sources": [
+        "source/gui/sherloq_app/tools/detail/frequency.py",
+        "source/gui/sherloq_app/core/frequency_mask.py",
+        "source/gui/sherloq_app/core/interactive.py"
+      ],
+      "status": "partial",
+      "cpu": "DFT, split/smooth/threshold, four views, display filter; base/mask/analysis caches",
+      "gpu": "Gaussian mask only; offline-qualified development corpus, immediate requested dispatch, no runtime probes; CPU override retained, other adapters unverified",
+      "data": "Synthetic publicable fixtures only",
+      "reference": "frequency-reference + frequency-large-reference",
+      "errors": "4368 images and base float32 values exact; 132 GPU masks exact",
+      "measurements": "frequency-benchmark.json: 1 MP RPC median 21604.9 ms CPU / 301.5 ms hybrid; exact recorded outputs",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "GPU implementation qualification required; Firefox test uses CPU; physical mobile/Safari untested",
+      "tests": "44 Node tests; 4368 images under Chrome/Firefox/WebKit; frequency lifecycle and GPU corpus",
+      "operation": "detail.frequency",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "4:0",
+      "panel": "RGB/HSV Plots",
+      "variants": "RGB/HSV 2D/3D distributions; channels/axes; fast OpenGL versus Matplotlib render paths",
+      "sources": [
+        "source/gui/sherloq_app/tools/colors/plots.py",
+        "source/gui/sherloq_app/core/pixel_stats.py"
+      ],
+      "status": "partial",
+      "cpu": "Native pyrDown and RGB/HSV points; graph UI and vector export pending",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "Synthetic publicable fixtures only",
+      "reference": "plots-reference",
+      "errors": "1674 views exact, all values/axes/colors/alpha",
+      "measurements": "docs/extended-browser-*-proof.json: correctness RPC totals, not isolated benchmarks",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Browser memory admission; single-thread WASM; physical mobile and native Safari not tested",
+      "tests": "44 Node tests plus extended real-worker browser corpus; see EXTENDED-ENGINES.md",
+      "operation": "colors.plots",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "4:1",
+      "panel": "Space Conversion",
+      "variants": "RGB; CMYK; gray lightness/luminance/average/perceptual; HSV; HLS; YCrCb; XYZ; Lab; Luv",
+      "sources": [
+        "source/gui/sherloq_app/tools/colors/space.py",
+        "source/gui/sherloq_app/core/color_spaces.py"
+      ],
+      "status": "partial",
+      "cpu": "Nine color-space families and29channels on contiguous or full-oriented-row segmented sources",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "580 native row-group comparisons and232oriented comparisons;96MP JPEG three complete native hashes",
+      "reference": "opencv-reference",
+      "errors": "Native RGB bytes exact on declared corpus including HSV/HLS vector prefixes and scalar tails",
+      "measurements": "docs/segmented-color-spaces-chrome-proof.json: functional timings; max recorded admission187575744B under256MiB",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Admitted full oriented rows/ROI and temporary storage where needed; transposed large-image I/O may be slow; physical mobile and native Safari not tested",
+      "tests": "segmented-color-spaces tests and real/copied-runtime Chrome proof",
+      "operation": "colors.space",
+      "memoryLayout": {
+        "status": "segmented-qualified",
+        "detail": "Owned RGB surface in RAM or temporary storage, full oriented rows preserve native conversion; one row and admitted OpenCV staging must fit"
+      }
+    },
+    {
+      "nativeId": "4:2",
+      "panel": "PCA Projection",
+      "variants": "PCA components 1/2/3; eigenvector sign/centering/normalization",
+      "sources": [
+        "source/gui/sherloq_app/tools/colors/pca.py",
+        "source/gui/sherloq_app/core/pca.py"
+      ],
+      "status": "partial",
+      "cpu": "All three components/modes/invert/equalize; shared float64 basis",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "Synthetic publicable fixtures only",
+      "reference": "pca-reference",
+      "errors": "360 displays and all model values exact",
+      "measurements": "docs/extended-browser-*-proof.json: correctness RPC totals, not isolated benchmarks",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Browser memory admission; single-thread WASM; physical mobile and native Safari not tested",
+      "tests": "44 Node tests plus extended real-worker browser corpus; see EXTENDED-ENGINES.md",
+      "operation": "colors.pca",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "4:3",
+      "panel": "Pixel Statistics",
+      "variants": "Channel rank min/middle/max; strict/inclusive; ties prefer red then green then blue",
+      "sources": [
+        "source/gui/sherloq_app/tools/colors/stats.py",
+        "source/gui/sherloq_app/core/pixel_stats.py"
+      ],
+      "status": "partial",
+      "cpu": "Native channel rank variants; pixel-independent segmented batches and owned exact result windows, all six strict/inclusive min/middle/max settings",
+      "gpu": "Not selected; no measured GPU or multicore path",
+      "data": "Nine native RGB fixtures x6variants x3storage chunk sizes; deterministic96MP JPEG and native StatsEngine references",
+      "reference": "native source SHA256 and OpenCV/NumPy versions pinned in fixture",
+      "errors": "162 native outputs exact; eight orientations;96MP six variants/four windows each and complete min/strict RGB checksum exact",
+      "measurements": "segmented-results-*-proof.json: functional, non-isolated timing;129/130MB accounted peak plus originalBlob separately; result288MB in local storage",
+      "integration": "Portable worker API qualified; WordPress surface rendering/export integration pending with B",
+      "deviceLimits": "Chrome154/Firefox155 OPFS, WebKit26.6 IndexedDB; JPEG segmented sources only; deferred result storage for RAM sources qualified; physical devices pending",
+      "tests": "segmented-results.test.mjs, source-api.test.mjs, real browser source/result lifecycle;105-test global regression",
+      "operation": "colors.stats",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Pixel-independent channel rank, owned RGB surface; docs/SEGMENTED-RESULTS.md; RAM source result spill: docs/LAZY-RESULT-STORAGE.md (0.18)"
+      }
+    },
+    {
+      "nativeId": "5:0",
+      "panel": "Signal Separation",
+      "variants": "Median/Gaussian/BoxBlur/Bilateral/NonLocal; residual separation; grayscale/equalization",
+      "sources": [
+        "source/gui/sherloq_app/tools/noise/noise.py",
+        "source/gui/sherloq_app/core/noise.py"
+      ],
+      "status": "partial",
+      "cpu": "All five native filters on contiguous or exact full-width row windows with real halos; fixed64MiB arithmetic, global residual equalization, owned RGB RAM/temporary surface; aggressive bounded single-thread row workers, ordered I/O and resource-only serial retry; optional private RAM raw filter/residual bases reuse display levels with zero source reads/workers",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "420 denoised and1680 full native outputs;8 orientations; public96MP Median/Gaussian/Box and1MP Bilateral/NLM-gray/NLM-color",
+      "reference": "opencv-reference",
+      "errors": "1680 full segmented RGB outputs and six large whole-image SHA exact; no precision, threshold, resolution or NLM-window change",
+      "measurements": "Functional Chrome192MiB:96MP median9.914s/Gaussian21.610s/box1.999s;1MP bilateral2.968s/colorNLM3.450s/grayNLM0.957s. Maximum recorded183862272bytes across worker lifetimes; final93946880bytes is later. No speed-comparison claim. Isolated same768MiB96MP Gaussian single/4workers cold20.845/8.087s,warm20.737/8.021s (2.59x); one observation each, output RAM/OPFS included. Peaks752963584/671084448bytes. Cache isolated1GiB/hint4: cold7.470\u21928.123s,warm7.434\u21921.144s (6.50x);288007504B cache, peak971765071B. Both whole native SHA exact; cold storage tradeoff included.",
+      "integration": "Common Chrome worker and copied runtime; owned OPFS/RAM outputs, JSON parameters/provenance, cancellation during global display/reload and zero residue. WordPress integration remains B.",
+      "deviceLimits": "Full oriented row plus halo must fit fixed64MiB arithmetic heap; source/output/temp/codec shared budget. Native signed histogram domain <=2147483647pixels. Useful workers bounded by profile,32 and shared admission; each64MiB. RAM cache is optional after worker admission; denoised/residual toggles use distinct bases. GPU remains open.",
+      "tests": "separation-bands/segmented-separation.test.mjs; large native generator and common-worker/extracted-runtime recipes; fixed WASM section proof; separation-workers.test.mjs; real six-case worker recipe and isolated separation-pool measurement;60 complete cached native outputs; six real whole-source hashes plus six cache hashes, cancellation/ownership/pressure and exact copied runtime",
+      "operation": "noise.separation",
+      "memoryLayout": {
+        "status": "segmented",
+        "detail": "Full-width core row groups plus native halos; complete residual histograms before global display; owned RAM/temporary output. NLM halo13 retains7x7/21x21 semantics."
+      }
+    },
+    {
+      "nativeId": "5:1",
+      "panel": "Min/Max Deviation",
+      "variants": "Channel local minima/maxima deviation; color labels and neighborhood",
+      "sources": [
+        "source/gui/sherloq_app/tools/noise/minmax.py",
+        "source/gui/sherloq_app/core/minmax.py"
+      ],
+      "status": "partial",
+      "cpu": "All five channels, native mask colors and six display filters; exact row halos, compact oriented density cells and global normalization; owned RGB and two raw-mask surfaces",
+      "gpu": "Not selected; no measured GPU or multicore path",
+      "data": "2754 native corpus comparisons across three band sizes;1200 oriented/small-border cases; public synthetic96MP MinMaxEngine reference",
+      "reference": "native source SHA256 and OpenCV/NumPy versions pinned in fixture",
+      "errors": "Native RGB and both masks exact;96MP six settings/four windows each; complete filter1 RGB and two-mask checksums exact",
+      "measurements": "segmented-minmax-*-proof.json: non-isolated stage/RPC times;226990304/229087456 accounted peak plus browser-managed86MB Blob separately; not RSS",
+      "integration": "Portable worker API qualified; WordPress result/mask windows and exports pending with B",
+      "deviceLimits": "Chrome154/Firefox155 OPFS and WebKit26.6 IndexedDB; JPEG512MiB module limit, compact grid admission, deferred result storage qualified, physical devices pending",
+      "tests": "segmented-minmax.test.mjs; source-api.test.mjs; full native pixel-tools corpus; actual three-browser96MP lifecycle",
+      "operation": "noise.minmax",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Exact extrema/two masks and globally normalized oriented density cells; docs/SEGMENTED-MINMAX.md; RAM source result spill: docs/LAZY-RESULT-STORAGE.md (0.18)"
+      }
+    },
+    {
+      "nativeId": "5:2",
+      "panel": "Bit Plane Values",
+      "variants": "Channel/bit-plane 0\u20137; filter variants; binary pixel masks",
+      "sources": [
+        "source/gui/sherloq_app/tools/noise/planes.py",
+        "source/gui/sherloq_app/core/bit_planes.py"
+      ],
+      "status": "partial",
+      "cpu": "Five channel modes, eight bits, direct/median/Gaussian views; exact segmented one-row halos; owned RGB and raw0/1 mask surfaces",
+      "gpu": "Not selected; no measured GPU or multicore path",
+      "data": "3240 native corpus cases with three row-group sizes; eight orientations; public synthetic96MP and native PlanesEngine",
+      "reference": "native source SHA256 and OpenCV/NumPy versions pinned in fixture",
+      "errors": "All native pixels and raw masks exact;96MP nine settings/four windows each; complete Gaussian display and raw-mask hashes exact",
+      "measurements": "segmented-planes-*-proof.json: non-isolated functional timings;207935488/210032640 accounted peak, plus browser-managed86MB Blob separately; not RSS",
+      "integration": "Portable worker API qualified; WordPress raw-mask/result-window controls and exports pending with B",
+      "deviceLimits": "Chrome154/Firefox155 OPFS and WebKit26.6 IndexedDB; original JPEG512MiB module limit, deferred result storage qualified, physical devices pending",
+      "tests": "108-test global regression; segmented-planes.test.mjs and source-api.test.mjs; real three-browser mask/RGB lifecycle",
+      "operation": "noise.planes",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Exact neighborhood display and independent raw mask; docs/SEGMENTED-PLANES.md; RAM source result spill: docs/LAZY-RESULT-STORAGE.md (0.18)"
+      }
+    },
+    {
+      "nativeId": "5:3",
+      "panel": "Wavelet Blocking",
+      "variants": "Wavelet blocking and estimated noise; border/block parameters",
+      "sources": [
+        "source/gui/sherloq_app/tools/noise/noise_estimmation.py",
+        "source/gui/sherloq_app/core/wavelet_blocking.py"
+      ],
+      "status": "partial",
+      "cpu": "Original-file grayscale, block median / 0.6745, native normalization and nearest display",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "Synthetic publicable fixtures only",
+      "reference": "blocking-reference",
+      "errors": "1094 displays/noise maps exact; grayscale and db8 details exact",
+      "measurements": "docs/extended-browser-*-proof.json: correctness RPC totals, not isolated benchmarks",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Browser memory admission; single-thread WASM; physical mobile and native Safari not tested",
+      "tests": "44 Node tests plus extended real-worker browser corpus; see EXTENDED-ENGINES.md",
+      "operation": "noise.blocking",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "5:4",
+      "panel": "PRNU Identification",
+      "variants": "Residual extraction; camera references; NCC; database HDF5 build/read/validation; multi-image ingestion",
+      "sources": [
+        "source/gui/sherloq_app/tools/noise/prnu.py",
+        "source/gui/sherloq_app/core/prnu.py"
+      ],
+      "status": "partial",
+      "cpu": "Native float64 direct/FFT Wiener residual, buffered NCC, stable ranking, original/guarded SIMD FMA, typed HDF5 import and ordered streaming JPEG snapshot build",
+      "gpu": "No qualified GPU or additional-worker path; one main worker, SIMD optimization measured separately",
+      "data": "Public synthetic fixtures only; 30 valid residuals/3 invalid sizes, 25 NCC probes, two JPEG camera means, 14 databases; additional 4096x2048 recipe",
+      "reference": "fixtures/prnu-reference.json and prnu-large-reference.json; unchanged core/prnu.py, SciPy 1.17.1 pocketfft and pinned binary64 trigonometric seeds",
+      "errors": "Residual/NCC float64 bits, raw thresholds, five-decimal ties-to-even display, rankings and JPEG means exact; 8 MP residual SHA exact in Node and scores exact in Chrome; explicit NUMERIC_RANGE for undefined NCC",
+      "measurements": "docs/prnu-benchmark.json: 1 MP RPC median 1038.8 ms original / 405.5 ms SIMD; cold 539.1 ms, chain 409 ms; prnu-kernel-benchmark.json isolates arithmetic",
+      "integration": "Worker and direct API, original database bytes, two source lifetimes, residual/result caches, query exclusion, memory admission, cancellation, JSON/CSV/HDF5 qualified; WordPress pending",
+      "deviceLimits": "WASM SIMD; padded FFT lengths <=2^21; geometric admission and 1900 MiB working cap; 8 MP Chrome probe uses explicit 3 GiB budget; physical devices untested",
+      "tests": "tests/prnu.test.mjs; prnu-{chrome,firefox,webkit}-proof.json; prnu-native-readback.json; prnu-memory-chrome-proof.json; docs/PRNU.md",
+      "operation": "noise.prnu",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "5:5",
+      "panel": "Noisesniffer",
+      "variants": "Noise inconsistency; block size 3/5/7/8; cells; regions/mask/block distribution; NPZ",
+      "sources": [
+        "source/gui/sherloq_app/tools/noise/noisesniffer.py",
+        "source/gui/sherloq_app/core/noisesniffer.py"
+      ],
+      "status": "partial",
+      "cpu": "Corrected IPOL statistics, pinned DCT-II, native unstable NumPy selection, float64 binomial survival and region growth; guarded exact FMA and immediate DCT-band workers with session-only useful-task observations",
+      "gpu": "No GPU path qualified; full-image means/extrema stay on CPU, no independent tiled FFT substitute",
+      "data": "Synthetic public corpus: 36 statistics, 120 analyses/360 views, 24 regional cases, 96 sorts, 796 tail probes; two 1 MP recipes and 90 large-tail probes",
+      "reference": "fixtures/noisesniffer-reference.json and noisesniffer-large-reference.json; unchanged core/noisesniffer.py; SciPy 1.17.1 pocketfft/Boost.Math and NumPy 1.26.4",
+      "errors": "Statistic bits, selections, masks, cell memberships and views exact on corpus and 1 MP; corpus log10 NFA max error 4.55e-13, log-tail 9.10e-13; significance within 1e-9 of zero explicitly unavailable",
+      "measurements": "Chrome1MP first useful RPC 2380.4ms (3x3),1817ms (8x8); 10 active workers, no preflight, exact native arrays; subsequent medians2208.4/1726.6ms. Historical calibration measurements retained separately.",
+      "integration": "Direct/worker API, native positive result, typed NPZ/JSON, native NPZ readback, cached statistics/views, budget, reload and nested-worker cancellation verified in three browsers; WordPress pending",
+      "deviceLimits": "WASM SIMD and current 2 GiB module; shared admission 320 bytes/pixel plus 64 MiB; 1 MP qualified, not all photo sizes; segmented/storage-backed paths and physical devices pending",
+      "tests": "93-test global regression then targeted lifecycle/scheduling checks; three-browser corpus, 1MP output and nested-worker cancellation; immediate-pools.test.mjs, adaptive-concurrency.test.mjs; docs/IMMEDIATE-COMPUTE.md",
+      "operation": "noise.noisesniffer",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "6:0",
+      "panel": "Quality Estimation",
+      "variants": "JPEG quantization-table estimate;100 gray recompressions; native normalization/minimum; optional local100-feature regression for non-JPEG; table priority; raw score/one-decimal display; JSON/CSV",
+      "sources": [
+        "source/gui/sherloq_app/tools/jpeg/quality.py",
+        "source/gui/sherloq_app/core/jpeg_quality.py",
+        "source/gui/sherloq_app/core/jpeg_curve.py",
+        "source/gui/sherloq_app/core/jpeg.py"
+      ],
+      "status": "partial",
+      "cpu": "Controlled codec and numeric XGBoost regression, explicit local model; useful codec workers under shared budget",
+      "gpu": "not qualified; CPU selected; no ONNX conversion or GPU gain asserted",
+      "data": "Six public JPEG fixtures and eleven synthetic PNG/TIFF images, including1MP, plus523 native arithmetic vectors (split-derived inputs excluded)",
+      "reference": "Pinned native QualityEngine, OpenCV4.11.0, NumPy1.26.4 and XGBoost2.0.3; model identities in JPEG-QUALITY.md",
+      "errors": "1700 raw/normalized binary64 values, table estimates, minima and eleven full-pipeline float32 scores exact;523 additional scores/one-decimal labels exact; no authenticity mask",
+      "measurements": "quality-model-chrome-benchmark.json:3 alternating samples;1190.3/263.5ms calculation RPC,1274.5/346.9ms chain; account-only memory, not RSS",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Full-memory source/curve; optional local model; Chrome154/Firefox155/WebKit26.6 tested, physical mobile/Safari and WordPress pending",
+      "tests": "quality*.test.mjs; quality-model-*-proof.json; quality-arithmetic-proof.json; JPEG-QUALITY.md",
+      "operation": "jpeg.quality",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "6:1",
+      "panel": "Error Level Analysis",
+      "variants": "Classic absolute/sqrt residual; gain; LUT contrast; grayscale; Biomes; energy; Ghost evidence; profiles; exports",
+      "sources": [
+        "source/gui/sherloq_app/tools/jpeg/ela.py",
+        "source/gui/sherloq_app/core/ela.py",
+        "source/gui/sherloq_app/core/ela_biomes.py",
+        "source/gui/sherloq_app/core/ela_energy.py",
+        "source/gui/sherloq_app/core/ela_energy_auto.py",
+        "source/gui/sherloq_app/core/ela_background.py",
+        "source/gui/sherloq_app/core/ela_ghosts.py"
+      ],
+      "status": "partial",
+      "cpu": "Classic, pixel-energy and native cell ELA; segmented classic and cell/background/Ghost providers; pixel-energy segmented preparation primitive only",
+      "gpu": "experiment byte-exact; default rejected after transfer-inclusive comparison",
+      "data": "synthetic fixtures only",
+      "reference": "OpenCV 4.11.0 + libjpeg-turbo 3.0.3",
+      "errors": "Cell/content/profile/scoring/regions exact on declared corrected corpus, including22MP native cells/background; complete64-phase Ghost equality on small corpus. Existing energy qualification retained.",
+      "measurements": "docs/ela-describe-chrome-proof.json; docs/ela-pipeline-chrome-proof.json; tests/ela-pipeline.test.mjs",
+      "integration": "Engine/worker callable, JSON/NPZ and source-coordinate cell layers. WordPress rendering, selection views and combined automatic analysis remain pending.",
+      "deviceLimits": "No native macOS library can be loaded in browser; per-module build/operator audit required",
+      "tests": "27 original-RGB preparations,9 score groups,27 cell region cases;4 complete API configurations including64 Ghost phases; two useful Chrome workers/cache/cancellation; existing51 energy pipelines retained; corrected halo/log1p27 preparations/9 scoring groups/27 segmentations, segmented4 native pipelines incl64phases, public Chrome22MP cells/background exact/cache/NPZ/cancellation",
+      "memoryLayout": {
+        "status": "segmented-classic-and-cells-qualified",
+        "detail": "Global JPEG streams and bounded cell halos; peer/scientific cell arrays and71-quality Ghost cubes remain RAM-admitted. Complete pixel-energy segmentation remains contiguous."
+      },
+      "operation": "ela.classic",
+      "additionalOperations": [
+        "ela.energy",
+        "ela.biomes"
+      ]
+    },
+    {
+      "nativeId": "6:2",
+      "panel": "Multiple Compression",
+      "variants": "Historical 101-quality grayscale recompression curve (0\u2013100), raw loss and CSV; separate aligned double-JPEG DCT evidence",
+      "sources": [
+        "source/gui/sherloq_app/tools/jpeg/multiple.py",
+        "source/gui/sherloq_app/core/double_jpeg.py",
+        "source/gui/sherloq_app/core/jpeg_curve.py"
+      ],
+      "status": "partial",
+      "cpu": "Original JPEG luminance DCT extraction; aligned-lattice histogram evidence; native historical raw curve with shared quality-worker/cache reuse",
+      "gpu": "Not selected; no qualified GPU kernel for this operation",
+      "data": "13 synthetic JPEGs and 335 controlled histograms",
+      "reference": "fixtures/double-jpeg-reference.json and histogram corpus; pinned native coefficient/SciPy oracle",
+      "errors": "Counts, steps, candidates and decisions exact; file scores exact; maximum synthetic histogram score error 3.34e-16",
+      "measurements": "docs/double-jpeg-*-proof.json: correctness and lifecycle, no isolated speed claim",
+      "integration": "Both operations callable through engine/worker; WordPress plot tabs and plot PNG export pending",
+      "deviceLimits": "Shared memory admission; CPU override; Chrome 154, Firefox 155 and WebKit 26.6 tested; physical Safari/mobile untested",
+      "tests": "tests/double-jpeg.test.mjs and tests/double-jpeg-browser.js; recompression.test.mjs; recompression-chrome-proof.json; JPEG-RECOMPRESSION.md",
+      "operation": "jpeg.multiple",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      },
+      "additionalOperations": [
+        "jpeg.recompression"
+      ]
+    },
+    {
+      "nativeId": "6:3",
+      "panel": "JPEG Ghost Maps",
+      "variants": "JPEG Ghost maps quality curves; grid offsets; normalized maps; visualization",
+      "sources": [
+        "source/gui/sherloq_app/tools/jpeg/ghostmmaps.py",
+        "source/gui/sherloq_app/core/ghost_maps.py"
+      ],
+      "status": "partial",
+      "cpu": "Full-resolution circular roll, global JPEG roundtrips, float64 16x16 block errors; contiguous and segmented adaptive quality workers, native per-cell normalization",
+      "gpu": "Not selected; no qualified GPU kernel for this operation",
+      "data": "368 synthetic map cubes / 4812 preview planes and three 1 MP cases",
+      "reference": "fixtures/ghost-reference.json and ghost-large-reference.json; native ghost_maps.py",
+      "errors": "Raw block means, normalized cubes and gray/viridis preview bytes exact",
+      "measurements": "docs/immediate-benchmark.json: three fresh1MP engines, no preflight; historical ghost-benchmark.json retained as pre-0.13 evidence; docs/segmented-ghost-chrome-proof.json and ghost-stream-pool-chrome-proof.json",
+      "integration": "Portable worker qualified; WordPress controls/plot composition pending",
+      "deviceLimits": "Shared memory admission; CPU override; Chrome 154, Firefox 155 and WebKit 26.6 tested; physical Safari/mobile untested",
+      "tests": "tests/ghost.test.mjs, tests/ghost-browser.js and quality pool lifecycle across three browsers; segmented368-case native corpus and Chrome22MP serial/three-worker exactness, second-batch resource retry, cancellation and storage cleanup",
+      "operation": "jpeg.ghosts",
+      "memoryLayout": {
+        "status": "segmented-qualified-corpus",
+        "detail": "JPEG/PNG/TIFF source bands and parent-owned temporary JPEG streams; raw/maps grids remain in RAM with explicit admission. Borrowed originalSurface for segmented includeOriginal."
+      }
+    },
+    {
+      "nativeId": "6:4",
+      "panel": "ZERO JPEG Grids",
+      "variants": "ZERO grid votes; JPEG99 votes; 64 phase origins; differing/missing grids; regions",
+      "sources": [
+        "source/gui/sherloq_app/tools/jpeg/zero.py",
+        "source/gui/sherloq_app/core/zero.py"
+      ],
+      "status": "partial",
+      "cpu": "Original-order and qualified float64 threshold filter; native JPEG99 4:4:4 companion; bounded workers with global-phase correction",
+      "gpu": "Unavailable; no qualified GPU substitute for float64 threshold decisions",
+      "data": "76 synthetic images with missing-grid analysis off/on; 1 MP worker case; full RGB8 color domain; 413 significance boundaries",
+      "reference": "Pinned ZERO 2021 C/native library; zero-reference, zero-large-reference and zero-luminance-reference fixtures",
+      "errors": "Votes/masks/regions/760 views exact; maximum global log10 NFA error 1.27e-11; tested decisions unchanged",
+      "measurements": "docs/immediate-benchmark.json: fresh1MP first-use RPCs, each scientific vote pass once; zero-memory-proof.json; historical pre-0.13 measurements retained",
+      "integration": "Portable worker and NPZ qualified; WordPress controls/legend/PNG still separate",
+      "deviceLimits": "Global memory admission and growing 2 GiB ZERO WASM ceiling; analytical uniform 8 MP test; physical Safari/mobile untested",
+      "tests": "tests/zero.test.mjs; Chrome/Firefox/WebKit zero-*-proof.json; independent NumPy NPZ readback",
+      "operation": "jpeg.zero",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    },
+    {
+      "nativeId": "7:0",
+      "panel": "Contrast Enhancement",
+      "variants": "Contrast-enhancement histogram analysis and derived maps",
+      "sources": [
+        "source/gui/sherloq_app/tools/tampering/contrast.py",
+        "source/gui/sherloq_app/core/contrast.py"
+      ],
+      "status": "partial",
+      "cpu": "Four block sizes and three indicators on contiguous/segmented sources, exact halos and global median grid; private map cache and corrected NumPy8192-element reduction order",
+      "gpu": "Not selected; no qualified GPU or extra-worker path",
+      "data": "53 native maps and159views, eight orientations; public12.61MP JPEG three complete RGB/map hashes",
+      "reference": "contrast-reference.json",
+      "errors": "Float32 maps and RGB outputs exact; pre-existing block256 reduction difference corrected in both layouts; no widened tolerance",
+      "measurements": "docs/segmented-contrast-chrome-proof.json: functional timings only; max recorded accounting206337387B under256MiB; cached render reads zero source windows",
+      "integration": "Portable main worker and exports qualified; WordPress controls/rendering pending",
+      "deviceLimits": "Shared memory admission and single-thread WASM; physical Safari/mobile untested",
+      "tests": "contrast.test.mjs, contrast-bands.test.mjs, segmented-contrast.test.mjs; small before/after reduction proof and actual/copy common-worker recipe",
+      "operation": "tampering.contrast",
+      "memoryLayout": {
+        "status": "segmented-qualified",
+        "detail": "Fixed64MiB arithmetic heap; one padded block row+halo and global compact map must fit; output RAM/temporary, retained owned maps, private mode cache; JSON remains bounded"
+      }
+    },
+    {
+      "nativeId": "7:1",
+      "panel": "Copy-Move Forgery",
+      "variants": "BRISK default; ORB; AKAZE; response normalization; ordered radius Hamming; displacement/proximity groups; binary1 detection mask; minimum count; seeded kmeans regions; points/lines/JSON",
+      "sources": [
+        "source/gui/sherloq_app/tools/tampering/cloning.py",
+        "source/gui/sherloq_app/core/cloning.py"
+      ],
+      "status": "native-arithmetic-differences-measured",
+      "cpu": "All three native detectors, native ordered matches, masks, grouping/counting and renderer. BRISK uses distributable corrected pyramid/FMA and portable atan2f.",
+      "gpu": "Exact integer Hamming in bounded64-row GPU batches, native CPU tie sorter; auto fallback on useful-work failure.",
+      "data": "Generated synthetic PNG sources/masks and original progressive/oriented JPEG, RGB/gray16-bit TIFF and alpha; no private photos or trained weights",
+      "reference": "core/cloning.py SHA161d3b3589383740fafd97cd9871f531c7ee2313db55ac5620a8c9770637db27; NumPy1.26.4/OpenCV4.11.0; public fixture and prototype manifests",
+      "errors": "BRISK6whole-pipeline recipes: matches/groups/stats/RGB exact, angles maximum3.05e-5degrees. Arbitrary descriptor parity is not claimed: synthetic boundary vectors can change bins. ORB/AKAZE prior evidence retained;8targeted regressions pass after relinking.",
+      "measurements": "ORB: cloning-kernel-chrome-benchmark.json and cloning-chrome-benchmark.json. AKAZE: akaze-chrome-benchmark.json, 3 alternating cold useful runs with startup, warm reload, caches, illustrative display and accounting; auto medians6860.4ms/31555.9ms for512x384/1MP, one grouping worker useful in both modes, no parallel speedup claimed. Guarded FMA rejected as1.5-2%slower in akaze-fma-chrome-benchmark.json. Memory is not RSS.",
+      "integration": "Public worker operations, explicit detector/mask choices, cache, JSON, cancellation; WordPress assembly belongs to B.",
+      "deviceLimits": "Full-memory only; lazy32MiB to1GiB WASM heap and shared dynamic admission;16-row grouping workers without detector heaps; no segmentation; physical Safari/mobile/non-Apple hardware untested",
+      "tests": "docs/m3-brisk-*-proof.json; docs/m3-hamming-webgpu-proof.json; BRISK-STUDY.md; historical ORB/AKAZE proofs",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "ORB pyramid or AKAZE nonlinear evolution; detector-specific heap admission plus dynamic matches/groups/results and grouping workers under the same budget; no segmentation or hidden scientific changes"
+      },
+      "operation": "tampering.copyMove.orb",
+      "operations": [
+        "tampering.copyMove.brisk",
+        "tampering.copyMove.orb",
+        "tampering.copyMove.akaze"
+      ]
+    },
+    {
+      "nativeId": "7:2",
+      "panel": "Composite Splicing",
+      "variants": "Noiseprint learned residual; splicing map and scores; TensorFlow/native subprocess",
+      "sources": [
+        "source/gui/sherloq_app/tools/tampering/splicing.py",
+        "source/gui/sherloq_app/core/splicing.py",
+        "source/gui/sherloq_app/core/noiseprint_mps.py"
+      ],
+      "status": "unavailable",
+      "cpu": "not ported",
+      "gpu": "not validated",
+      "data": "reference fixture pending",
+      "reference": "native modules listed",
+      "errors": "unmeasured",
+      "measurements": "unmeasured",
+      "integration": "not integrated",
+      "deviceLimits": "No native macOS library can be loaded in browser; per-module build/operator audit required",
+      "tests": "see native-inventory.json for all static functions/choices; static inventory is not runtime validation",
+      "memoryLayout": {
+        "status": "unavailable",
+        "detail": "No callable browser engine for this panel; a memory primitive does not supply the missing algorithm"
+      }
+    },
+    {
+      "nativeId": "7:3",
+      "panel": "Image Resampling",
+      "variants": "Resampling probability and spectral evidence; ROI/FFT",
+      "sources": [
+        "source/gui/sherloq_app/tools/tampering/resampling.py",
+        "source/gui/sherloq_app/core/resampling.py"
+      ],
+      "status": "partial",
+      "cpu": "Original-byte grayscale + global normalization; ROI, exact NumPy FFT and native-order pyrUp; Hanning/radial windows; center/highpass; gamma/rescale; bounded parallel presentation. Probability EM remains unavailable: both LU candidates rejected on190 cases, including changed valid/refused outcomes. See RESAMPLING-EM-STUDY.md.",
+      "gpu": "Not selected; no qualified GPU Fourier/probability path",
+      "data": "Public synthetic fields, nine original JPEG/PNG/TIFF images including16-bit/orientation and a1MP JPEG",
+      "reference": "core/resampling.py SHA and full native arrays recorded by generate-resampling-reference.py and generate-resampling-large-reference.py",
+      "errors": "16 primitives bit exact;992 small Fourier views+180 original-image views with exact native gray byte output; scalar abs/max(1,abs(native))<=1e-8. Equal/near-equal first-argmax changes20/24/24, no native classifier.1MP three cases per browser verified.",
+      "measurements": "docs/resampling-chrome-benchmark.json and resampling-view-chrome-benchmark.json; CPU presentation3.53x at2048\u00b2, complete example chain1.42x, no native Mac gain inferred",
+      "integration": "Portable worker API, caches, JSON and hard cancellation/reload verified. WordPress controls and native figure composition pending.",
+      "deviceLimits": "Full-memory only, growing FFT WASM32\u2013512MiB and shared admission; CPU retained; physical Safari/mobile/non-Apple hardware untested",
+      "tests": "tests/resampling.test.mjs; Chrome154/Firefox155/WebKit26.6 kernel/original/large/parallel/pool qualification; docs/RESAMPLING.md",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Whole-source grayscale and frequency-grid output; shared budget and bounded workers, segmented adapter unavailable"
+      },
+      "operation": "tampering.resampling.fourier"
+    },
+    {
+      "nativeId": "7:4",
+      "panel": "Copy-Move Forgery 2",
+      "variants": "SIFT; RootSIFT; AKAZE; BRISK; ORB; PatchMatch Zernike/SIFT; XFeat; ALIKED; rotation; LighterGlue/LightGlue; combined/extended/mirror; G2NN/RANSAC",
+      "sources": [
+        "source/gui/sherloq_app/tools/tampering/cloning2.py",
+        "source/gui/sherloq_app/core/cloning2.py",
+        "source/gui/sherloq_app/core/dense_copy.py",
+        "source/gui/sherloq_app/core/copy_detail.py",
+        "source/gui/sherloq_app/core/copy_mirror.py",
+        "source/gui/sherloq_app/core/copy_geometry.py",
+        "source/gui/sherloq_app/core/copy_overlap.py",
+        "source/gui/sherloq_app/core/learned_copy.py",
+        "source/gui/sherloq_app/core/sift_g2nn.py"
+      ],
+      "status": "partial",
+      "cpu": "All14M3sparse profiles: native classical extraction, independent ROI, G2NN/RANSAC, automatic panels/text, actual reflected extraction, biome subdivision, XFeat/ALIKED/rotation and spatial LightGlue/LighterGlue.",
+      "gpu": "Learned extraction/matching and exact quantized G2NN distance batches; spatial geometry and native floating reductions stay on CPU.",
+      "data": "Generated images, masks, ROI/overlap/compare/mirror and positive text/panels; external pinned model graphs.",
+      "reference": "native modules listed",
+      "errors": "22classical chains agree in pairs/groups/render.12Glue recipes agree in pairs/groups; one XFeat CPU recipe has289RGBcomponent differences. SIFT/BRISK angles and learned floating arithmetic retain documented limits. OCR native and browser Tesseract versions differ.",
+      "measurements": "M3 proof files report admitted bytes and useful workers; no benchmark or calibration in the user path.",
+      "integration": "Public worker operation,14algorithm choices, polygon/compare/mirror/compact settings, independent view and cache, native-shaped NPZ/JSON. Six dense profiles belong to M4 integration.",
+      "deviceLimits": "Native hard correspondence limits retained, segmented source materializes through oriented surface leases when full-resolution RGB and native workspace fit; WebGPU and isolated WASM threading depend on browser capabilities. No private native library.",
+      "tests": "M3-SPARSE-DELIVERY.md; m3-sparse-pipeline-chrome-proof.json; m3-panels-text-pipeline-proof.json; m3-api-chrome-proof.json;82targeted tests",
+      "memoryLayout": {
+        "status": "bounded-stages",
+        "detail": "Shared budget, adaptive ROI workers, bounded GPU batches and attention, cache lifetimes and cancellation. No scientific downscale beyond the native methods."
+      },
+      "operation": "tampering.copyMove.sparse",
+      "availableSparseAlgorithms": [
+        "SIFT",
+        "RootSIFT",
+        "AKAZE",
+        "BRISK",
+        "ORB",
+        "XFeat",
+        "XFeat + LighterGlue",
+        "ALIKED",
+        "ALIKED rotation",
+        "ALIKED + LightGlue",
+        "ALIKED rotation + LightGlue",
+        "SIFT + LightGlue",
+        "SIFT + G2NN + RANSAC",
+        "SIFT + G2NN + RANSAC + Panels + Text"
+      ]
+    },
+    {
+      "nativeId": "7:5",
+      "panel": "Adaptive CFA",
+      "variants": "Adaptive CFA statistical mosaic consistency; masks and significance",
+      "sources": [
+        "source/gui/sherloq_app/tools/tampering/adaptive_cfa.py",
+        "source/gui/sherloq_app/core/adaptive_cfa.py"
+      ],
+      "status": "unavailable",
+      "cpu": "ONNX conversion executable but WASM inference parity rejected; browser detector remains unavailable",
+      "gpu": "WebGPU default and NCHW mixed-provider candidates rejected for changed final grid decisions; no gain asserted",
+      "data": "Three present checkpoints, nine generated inputs each, block32; no weights bundled",
+      "reference": "Native torch2.8.0 CPU and NumPy1.26.4; pinned checkpoint SHA in cfa-conversion-rejection.json",
+      "errors": "WASM max probability error2.980232238769531e-4,5local/4global decisions changed per27cases; suspiciondiff0.2611052393913269. Postprocessing of native probabilities exact.",
+      "measurements": "Correctness experiments only; no performance or memory qualification",
+      "integration": "Unavailable; never activated in UI/runtime",
+      "deviceLimits": "Chrome154 development experiment only; no callable CFA operation, no other block/device qualification",
+      "tests": "CFA-CONVERSION-STUDY.md and cfa-conversion-rejection.json; 108WASM plus108mixedGPU candidate runs,28layer probes",
+      "memoryLayout": {
+        "status": "unavailable",
+        "detail": "No callable browser engine for this panel; a memory primitive does not supply the missing algorithm"
+      }
+    },
+    {
+      "nativeId": "7:6",
+      "panel": "Clone Detectors",
+      "variants": "CMSeg-Net generalization/addnoise; MGCFDN 7 variants; Forgeryscope 4 public pipelines; original/ROI masks and semantic source/target; D2PRL448/40, union probability and target/source residuals >0",
+      "sources": [
+        "source/gui/sherloq_app/tools/tampering/clone_detectors.py",
+        "source/gui/sherloq_app/core/clone_detectors.py",
+        "source/gui/sherloq_app/core/clone_models.py",
+        "source/gui/sherloq_app/core/forgeryscope_adapter.py",
+        "source/gui/sherloq_app/core/d2prl.py",
+        "source/gui/sherloq_app/core/d2prl_ops.py"
+      ],
+      "status": "partial",
+      "cpu": "D2PRL complete CPU chain and segmented-source adapter; seven MGCF variants (base,16,MPDN,EffNet,ST,TNT,VIG) and both CMSeg variants through actual common-worker inference. CMSeg generalization v2 uses native-order checkpoint backbone plus FMA all-pairs correlation; former v1 identity rejected. TNT now uses the native-order v1 backbone bundle; its original ONNX identity remains rejected. VIG uses its native-order v1 backbone bundle, with original ONNX identity rejected. M1.32 schedules distinct CPU MGCF base/16/MPDN/EffNet/ST zones concurrently under one budget; other internal pools remain unmultiplied. M1.44 ST auto prefers three independent CPU lanes when three distinct zones and shared memory/cores admit them. This is a measured model-specific resource policy; other models and explicit choices are unchanged.",
+      "gpu": "D2PRL WebGPU convolutions with CPU/WASM auxiliaries; MPDN measured WebGPU/CPU hybrid. Explicit CPU retained, no device-brand selection. New three-zone D2PRL JPEG outputs bit-exact against native. VIG now uses ordered WebGPU convolutions and graph dot products, with unchanged CPU normalization/TopK/dilation/gather/decoder, same verified bundle and automatic capability/budget selection. CMSeg generalization now uses ordered WebGPU ordinary convolutions with shared assets; Winograd and decoder stay CPU; in M1.40 the128x128 global correlation streams ordered GPU dot rows with CPU normalization/Gaussian/softmax/TopK, while both smaller correlations retain CPU. TNT uses ordered GPU linear layers and, in M1.38, outer attention matrices with identical CPU probability hashes; inner attention, norm, softmax and GELU remain CPU. Small inner GPU matrices were measured and rejected for higher complete cost. Same bundle, automatic capability/budget selection and explicit CPU. M1.36 retains verified GPU parameters only after useful reads, under reclaimable shared-budget reservations; CPU parameter retention remains disabled. M1.37 keeps downstream ONNX workers warm during independent GPU backbone work when the shared budget permits; idle workers are reclaimable, active dependent stages hold an explicit lease. M1.41 enables MGCF16 and repaired EffNet in the existing bounded ONNX hybrid worker with identical shared CPU assets. M1.42 enables separate complete-graph split mirrors for base (WebGPU/WASM encoder and head) and ST (WebGPU/WASM encoder, WASM head); bounded idle JSEP retention and a real readback boundary keep GPU512MiB. Original full-GPU refusals and divergent ST GPU head remain documented; CPU is explicit. M1.45 adds CMSeg addnoise GPU ordered dot rows with resident normalized input, original CPU ONNX encoder/decoder, CPU addnoise normalization/Gaussian/softmax/TopK and both smaller correlations; same shared CPU bundle, explicit CPU retained. M1.46 enables resident normalized GPU input for generalization largest correlation too; its own FMA normalization, CPU smaller correlations and all assets remain unchanged.",
+      "data": "Strict local checkpoints; public generated PNG/JPEG corpora, immutable original bytes and fully hashed oriented decoded RGB. Actual native models generate expected arrays; no oracle arrays enter product inference. Weights and captures remain outside the source/runtime delivery.",
+      "reference": "Pinned Torch2.8 CPU/OpenMP8 model448/40/seed22; native OpenCV4.11 postprocess and source-coordinate resize; same checkpoint SHA2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36.",
+      "errors": "D2PRL JPEG maps/masks/roles exact; MGCF JPEG source probability maximum1.94907e-5 and CMSeg addnoise7.68006e-5, masks exact. Repaired CMSeg generalization JPEG probability maximum1.361966e-5 and exact masks; old positive corpus maximum1.639128e-5 including2611 native foreground pixels. Backbone x2-x5 and all correlation tensors bit-exact on these cases. Continuous probability metrics are not logits or intermediate-tensor bounds; historical v1 failure retained. TNT repaired corpus maximum probability3.129244e-6 and exact masks; three-zone JPEG source map1.996756e-6 and exact mask/analyzed/candidates. GELU is not bit-exact; native synthetic maximum1.192093e-7. Original rejected TNT and LayerNorm-only studies retained. VIG corpus probability maximum7.808209e-6; JPEG3zones source map1.764298e-5; masks/analyzed/candidates exact. Full paired-spots backbone and generated arithmetic fixtures are exact; the ONNX tail is not bit-exact. M1.38 TNT corpus and96MP full plane SHA equal prior CPU/GPU; D2PRL rich96MP CPU/GPU six planes are native-exact in both views, with raw residual maxima below5.961e-7 declared separately. M1.39 VIG random/tied distances, neighbor indices and gather are native-exact; all three model probability hashes equal the prior CPU corpus. M1.40 CMSeg streamed correlations are CPU/native bit-exact on all three complete feature geometries, all four full-model probability hashes unchanged; masks remain native-exact.32MiB is a compiled postprocess heap ceiling, not a precision or resolution change. M1.41 MGCF16 GPU probability max3.308058e-6 with exact native corpus masks. EffNet max4.172325e-6 changes one paired-spots threshold pixel (7373 to7372 positive, component areas4241/3132 to4241/3131); declared in model/result/NPZ provenance, explicit CPU retained. The earlier strict-mask rejection is preserved. M1.42 base continuous probability max1.3643503e-4, maximum mean5.775505e-6, declared1e-3 verification tolerance and exact corpus masks/components. ST encoder-GPU/head-CPU max1.6152859e-5, maximum mean1.2966799e-7, masks exact across six cases; GPU head rejected after up to3293 changed pixels. No binary decision uses float tolerance. M1.45 addnoise corpus max/mean native probability error6.00815e-5/1.03946e-7,245 exact positive mask pixels;96MP map max3.58820e-5/mean6.15303e-8 and216407 then65705 exact mask positives. CPU/GPU continuous bytes differ.",
+      "measurements": "New D2PRL three-zone WebGPU JPEG:642.6s RPC and319.5ms cached refilter; accounted peak2337061735B under3GiB. Five CPU MGCF JPEG recipes below1GiB; addnoise1042805682B. Single functional observations, not new isolated speedup or RSS claims. Complete96MP/copy observations in versioned neural-segmented reports. Copied CPU96MP:461.031s analysis,7.845s projection included,237.553s NPZ preparation,3218800736B peak under3GiB; six source arrays bit-exact and1440011540-byte export NumPy-verified. Source/results RAM, export OPFS in this run. Copied MPDN GPU peak1256684645B under2GiB; exact masks and continuous max2.622605e-6 including cached view. M1.29 export-only96MP comparison on the same six qualified D2PRL planes:236.749s baseline,175.780s cooperative writing only,25.400s cooperative writing/hash. Complete1440003200-byte NPZ SHA identical, NumPy full arrays exact, peak1444194304B under2GiB; writing/hash control-message cancellation cleans in13.3/12.5ms after receipt and preserves sources. No new inference or universal performance claim. TNT unextracted JPEG:34.916s three-zone analysis,6.9ms cached view, accounted peak1036492211B under1GiB. Useful-worker-only backbone comparison is recorded separately, not an end-to-end application gain. VIG unextracted JPEG34.433s, cached view7.1ms, peak1065241201B under1GiB; four-array NPZ independently NumPy-verified. MPDN same3GiB cold/warm three-zone RPC1.2605/0.9715s to0.7879/0.4057s, identical grid/map/mask SHA. Positive96MP ST3large zones:20.5802s analysis,5.6828s cached projection,49.5025s NPZ,3,191,856,000B accounted peak; six full planes NumPy-verified,3,370,950 exact foreground pixels, max probability1.728535e-5 and mean map1.262513e-7. Idle-session release improves projection locally; export is not faster in that observation. VIG same1GiB CPU/GPU comparison13.3475\u21928.3890s (1.59\u00d7), probability SHA identical, accounted peak1,073,048,298\u2192631,045,969B. Actual96MP VIG GPU three-zone path38.3671s analysis,2.5434s cached view,15.3944s NPZ,peak2,372,219,601B under3GiB;4 full planes NumPy-verified with3,848,796 exact foreground pixels, max map3.236533e-5/mean3.054465e-7. CMSeg positive same1GiB pair: total9.7420\u21929.2367s, backbone2.0191\u21921.4125s, identical probability SHA; GPU buffers54,532,552B peak. Actual CMSeg CPU/GPU96MP:46.5484/41.1425s analysis,3.6025/3.5439s cached view,13.7591/14.7624s NPZ,3,200,872,430/2,329,340,164B accounted peaks under3GiB. Four complete plane hashes identical,935,251 exact native foreground pixels; map max1.460314e-5/mean5.980451e-8. Large-path timings are functional observations. TNT repeated same1GiB CPU/GPU pair13.1126\u21928.5405s (1.535\u00d7), backbone10.8275\u21926.1391s, identical probability SHA, peak1,039,854,956\u2192630,316,508B. Earlier25.8065/8.8985s pair is retained as a load-variable observation, not the selected speedup. Positive96MP TNT CPU/GPU plane SHA identical,4,949,629 exact foreground pixels, map max3.039837e-6/mean8.608047e-8; CPU/GPU analysis57.0635/45.1989s, cache2.5640/2.6123s, NPZ14.8361/15.6960s; both peaks2,371,490,140B under3GiB. MPDN GPU, VIG CPU and addnoise CPU96MP also complete; see NEURAL-96MP-COVERAGE.md for all actual proof versions and mean errors. M1.36 repeated actual GPU inference: warm VIG/TNT/CMSeg parameter requests511/361/260 become0, eliminating341539200/259304320/9031936B of reads per inference. Probability SHA and native masks unchanged, CMSeg retains6workers. Candidate component peaks972715985/889713244/1064741508B under1GiB; actual6MiB idle pressure and re-admission preserve outputs. Shared-load timing observations and costs are detailed in NEURAL-PARAMETER-REUSE.md; no stable speedup claimed from outliers. M1.36 VIG96MP new cache path: all four plane SHA equal M1.33 in both views,3848796 native-positive pixels;1022 parameter hits avoid683078400B of rereads across three real zones. Analysis39.6971s, cached projection2.8822s, NPZ15.6638s; peak2713889617B under3GiB, complete export672014984B. This memory-path observation is not an isolated total-time comparison. M1.37 same2GiB baseline/candidate: warm ONNX requests VIG/TNT1 and CMSeg2 become0, eliminating28780877/28780560/12010557B of repeated model reads and initialization. Warm model-load time237.7-251.4/237.1-247.8/317.9-329.9ms becomes2.2/1.9-2.4/0.9ms, same probability SHA/masks. Peaks VIG972715985 to1183749073B, TNT889713244 to1088214620B, CMSeg1346857604B unchanged; CMSeg10workers. Full timing observations remain load-sensitive, including one slower CMSeg candidate. Real1GiB VIG useful work evicts and recreates the idle session while preserving parameter cache, peak1039169489B. New VIG96MP lifecycle path: one session creation/two reuses, four planes SHA identical .36, analysis37.0844s/cache2.8963s/NPZ27.6139s,peak2713889617B under3GiB; export672015296B fully checked by NumPy. M1.38 TNT same2GiB warm complete inference7.8113/7.6279s to2.8851/4.3349s (observed warm means7.7196 to3.6100s), identical probabilities and8009 native mask pixels. Peak1088214620 to1092408924B (+4MiB). Inner products CPU5.3\u20135.5ms versus GPU9.1\u201313.8ms rejected; outer products CPU126\u2013168.6ms versus GPU6.7\u201310.7ms retained, layout/transfers included. New TNT96MP analysis30.4512s/cache2.8522s/NPZ preparation73.6128s, peak2630886876B under3GiB; four full planes match prior proofs,4949629 positives. Export is a slower functional observation, not a new gain. D2PRL rich96MP unchanged .37: CPU/GPU analysis2667.0132/1645.6659s, cached refilter23.2644/36.2416s, NPZ preparation61.7783/109.4523s; peaks3221007456/3201593312B under3GiB. Six planes exact in both views,68160948 then71635170 positives; both1.44GB archives independently checked. Shared-load observations, not isolated D2 speed claims. M1.39 same2GiB complete VIG cold/warm/warm:7.7808/5.8975/4.6804s to7.3899/5.1138/4.0192s, peak1183749073B unchanged. Graph operator CPU49.2-51.3ms versus GPU4.6-18.2ms including layout/transfers; same final probabilities and7256 native positives. Shared-load observations, no universal speed claim. New VIG96MP autoGPU three-zone route:load1.4619s,analysis37.3323s(projection6.1689s),cache2.7744s,NPZ preparation25.3717s; peak2713889617B unchanged under3GiB. Both views retain all four prior plane hashes,3848796 then3589606 native positives; map max3.236532e-5/mean3.054465e-7 unchanged. Full672015512B NPZ independently checked, final ownership0. No96MP speed gain claimed against prior shared-load timing. M1.40 selected largest correlation CPU9.3383s/hybrid5.1532s, operator peak708698112/475411200B,2GiB;2GiB readback cost retained. Complete same2GiB baseline11.9112/10.0236/11.5793s to8.0857/11.9955/7.6950s, peak1346857604 to1323240068B. One slower warm candidate remains documented; load-sensitive observations. Actual1GiB four-case corpus uses9workers,peak1068469636B; old64MiB prototype and256-row alternative are superseded. New96MP source:load1.3211/analysis49.1865(projection6.82)/cache3.9095/NPZ preparation16.7025s; peak2338438660B under3GiB, four plane hashes unchanged,935251 then522005 native positives. Full672016264B NPZ checked; no96MP speed gain claimed against earlier41.1425s run. M1.41 same2GiB actual worker CPU/GPU warm means: MGCF16 489.45/106.9ms, EffNet464.3/130.45ms; GPU cold is slower and reserves more memory. Positive96MP MGCF16 three-zone analysis21.1667s, cached view2.8654s, NPZ preparation16.0656s, peak3088028932B<3GiB; full4-plane export672012768B,2400483 exact foreground pixels, max map1.937151e-6/mean3.839327e-8. Functional96MP times are not a paired speed comparison. M1.42 same2GiB cold/warm/warm base CPU4213.5/1807.3/1805.5ms versus hybrid6079.6/218.5/173.5ms; ST2483.2/1408/1342.9 versus2955.4/1125.8/1233.8ms. GPU cold slower, memory higher; zero warm model HTTP. ST96MP load1.2696s/analysis29.4794s/cache9.2045s/NPZ preparation36.7979s, peak3205063469B<3GiB;6planes/1440014924B independently checked,3370950 exact mask positives. No large-path total gain against historical CPU20.5802s claimed. M1.43 same ST96MP outputs: analysis28.2599s/cache5.6719s/NPZ preparation30.7088s, peak3191856000B<3GiB. Retires1355716525B idle hybrid session before projection; second-view RAM/temporary planes0/6 to5/1, all twelve full plane SHA unchanged. Timing observations are shared-host, not universal. Separate three-zone M1.42 comparison: ST at3GiB three CPU workers warm1540.6/1722.2ms beat one hybrid3423.4/3334.4ms; automatic policy remains unchanged in .43 to isolate residency. M1.44 actual automatic18inferences with both mirrors configured:2GiB hybrid4941.2/3099.9/2924.3ms,3GiB CPU3lanes3562.7/1779.4/1716.2ms; exact native masks, stable per-backend hashes, zero warm model reads. Shared-host observations, not universal ranking. M1.45 addnoise complete warm means under1GiB CPU5.6762s/hybrid4.4414s;2GiB CPU4.49295s/hybrid4.4919s (no meaningful speed gain), peak1356227506/1332609970B. Resident input writes808620032 to1581056B, four GPU allocations, readback2147483648B unchanged.96MP load1.7061/analysis37.6664/cache3.6585/NPZ preparation13.6455s, peak2355803954B, full672015276B four-plane NPZ verified. M1.46 isolated same2GiB old/new hybrid: cold7.9891/6.7067s, warm means6.75225/5.56545s (17.58% less), same peak1323240068B, writes920522488 to113483512B, allocations3857 to277, readback unchanged. New96MP all eight plane hashes identical to M1.40; load1.2084/analysis39.0788/cache3.9796/NPZ15.0051s, peak2338438660B, full672016516B NPZ independently checked. Shared-host observations, not universal.",
+      "integration": "M1.28 repairs generalization within the M1.27 actual segmented common-worker path, owned planes, numeric windows and independent paged NPZ. WordPress integration and shared export-manager merge remain coordinated. M1.30 connects the repaired TNT bundle through the same actual segmented API, cancellation during linear work and independently owned NumPy-verified NPZ. M1.31 connects VIG through the same API, including cancellation during convolution and reload. M1.34 CMSeg GPU through real common API, auto/shared assets, GPU-submission cancellation and paged NPZ. M1.35 TNT GPU through common API/auto/provenance/NPZ with cancellation after GPU submission; complete CPU/GPU96MP proofs and copied runtime binding. M1.36 parameter-cache work counts follow actual inference into execution/provenance/NPZ; duplicate zones and cached views do not recount previous reads. Copied API and largest-cache96MP coverage are bound in parameter-reuse-delivery-binding.json. M1.37 model-worker creation/reuse/pressure-eviction counts follow actual work into execution/provenance/NPZ, zero on cached views. Copied VIG auto-GPU and TNT explicit-CPU API/cancellation/export qualifications and exact source binding are recorded in session-reuse-delivery-binding.json. M1.38 attentionBackend and attentionMatmulMs expose outer-GPU/inner-CPU execution and full matrix cost; cached projection performs no new attention. Copied API attention-submission cancellation, source reload, NPZ metadata and byte-exact runtime/source binding are covered by tnt-attention-delivery-binding.json. M1.39 graphDistanceBackend and graphDistanceMs declare ordered GPU dot products with CPU postprocessing; copied common-worker cancellation targets the actual distance submission, cached views perform no distance work, NPZ carries the same provenance. See vig-distance-delivery-binding.json. M1.40 correlationBackend identifies the largest hybrid stage; correlationGpuMs includes CPU postprocess and transfers. Common-worker auto/cached-view/NPZ provenance and cancellation after actual global-correlation GPU submission are bound in cmseg-correlation-delivery-binding.json. Backbone/correlation GPU devices are sequential, maximum one active. M1.41 shared-model automatic capability/budget selection for MGCF16/EffNet, with threshold-difference provenance. Copied API/NPZ/cancel/reload binding: mgcf-ort-delivery-binding.json. EffNet reuses the larger MGCF16 sigmoid96MP memory-path proof; no new96MP EffNet network claim. M1.42 separate GPU manifest/children, stage backend and intermediate-size provenance, encoder/head timings, cached views, cancellation after useful encoder completion and copied API/NPZ binding for both variants in mgcf-split-delivery-binding.json. New ST96MP covers the distinct two-session adapter with larger assets and six planes; base four-plane96MP path reuses this evidence explicitly. M1.43 extends projectionReleasedSessionBytes to generic hybrid idle workers without changing scientific outputs, model selection or CPU behavior. Exact96MP and fresh copied API binding in projection-residency-delivery-binding.json. M1.44 backendSelection can be parallel-cpu-zones-fit-preference; selection/scheduler share capacity and reclaim only own idle inference reservations. Cached views preserve backend. Copied CPU3lane JPEG/API/NPZ/cancellation with GPU mirror configured is bound in st-placement-delivery-binding.json; existing CPU/hybrid96MP paths reused explicitly.",
+      "deviceLimits": "Chrome154 reference workstation; no universal physical mobile/GPU claim. Qualified segmented source codec here remains JPEG; source/weights/heap admission can refuse. Native448/256/512 model input unchanged. Stored ZIP32 exports fail explicitly above their byte limit.",
+      "tests": "SEGMENTED-NEURAL-API.md; CMSEG-JPEG-NUMERICAL-LIMIT.md; neural-segmented-*-proof.json; corresponding independent NumPy NPZ checks;16 targeted ownership/input/cache/admission tests. Previous D2PRL-WEB-STUDY.md and segmented preparation/projection/composition proofs retained. CMSEG-BACKBONE-REPAIR.md; cmseg-backbone-legacy-proof.json; Winograd native fixtures; constructor rollback and rejected old-identity tests. SCIENTIFIC-EXPORT-SCHEDULING.md; neural-export-throughput and independent NumPy proofs; copied MGCF-ST API and hash binding; float64/int32/Unicode export regression. TNT-NUMERICAL-REPAIR.md; tnt-model-corpus-proof.json; tnt-useful-workers-proof.json;11 native synthetic operation fixtures; math/admission/identity tests; copied TNT and MGCF-ST API recipes. VIG-NUMERICAL-REPAIR.md, vig-model-corpus-proof.json, vig-useful-workers-proof.json, seven generated arithmetic cases and15 targeted tests; copied VIG API/NPZ recipe. NEURAL-INDEPENDENT-ZONES.md; six scheduler/lifecycle tests, eight admission tests; actual positive96MP ST and complete NPZ proofs; runtime binding and copied concurrent MPDN cancellation. VIG-GPU.md; native seeded GPU operators and post-submission cancellation/retry; actual model corpus, paired CPU/GPU comparison and positive96MP GPU API/NPZ proof. CMSEG-GPU.md; cmseg-gpu lifecycle/corpus/comparison/delivery-binding proofs; CPU/GPU96MP full native and NumPy checks;19 targeted admission/rollback/scheduler tests. TNT-GPU.md; five exact seeded native GPU linear fixtures, actual submit cancellation/refusal/retry; three complete model cases, paired/repeated backend measurements, full CPU/GPU96MP and NumPy proofs;14 targeted Node admission/rollback tests. NEURAL-96MP-COVERAGE.md and report-neural-96mp.mjs audit11 actual positive memory paths without reexecuting unchanged networks. NEURAL-PARAMETER-REUSE.md; six actual parameter-reuse component/pressure proofs,21 targeted tests, largest-cache VIG96MP/API/full NumPy/copy binding. ONNX session lifetime unchanged for this increment. NEURAL-SESSION-REUSE.md; seven actual component/pressure proofs,24 targeted admission/cache/scheduler/lifetime tests, new VIG96MP full export readback and copied GPU/CPU API bindings. TNT-ATTENTION-GPU.md; four native-exact matrix geometries with cold/warm pairs and lifecycle checks, same-cache M1.37 comparison, three model cases,28 targeted Node tests, new positive96MP/API/NumPy binding. D2PRL-96MP-RICH.md and both complete copied CPU/GPU proofs replace the empty-mask case in current coverage while retaining its history. VIG-DISTANCE-GPU.md; native random/tied graph operators and lifecycle, immutable M1.38 component comparison, three model cases,31 targeted Node tests; new96MP/copy/full NPZ evidence bound to exact runtime bytes. CMSEG-CORRELATION-GPU.md; three complete native-exact correlation geometries, cancellation/refusal/64MiB single-worker retry;30 targeted tests including actual32MiB WASM maximum and largest tile layouts; immutable M1.39 comparison, four-model-case corpus, new96MP/copy/full NumPy/source binding. MGCF-ORT-GPU.md; four initial GPU candidates with failures retained, actual CPU/GPU worker corpus and repeated inference comparisons, lazy identity/admission tests, new rich96MP MGCF16/NumPy and copied16/EffNet API/NPZ recipes. MGCF-SPLIT-GPU.md; reproducible bounded-cache transformation and graph extraction, retained rejected placements/diagnostics, both production worker native corpora and cold/warm measurements, split manifest/integrity/lazy admission tests, new ST96MP full NumPy export and copied API recipes. Current coverage audits13 positive memory paths. NEURAL-PROJECTION-RESIDENCY.md; keep-warm/retire-for-cached-view/reload lifecycle test, unchanged twelve full96MP plane hashes and complete NumPy export; MGCF-ZONE-COSTS.md reports72 real common-worker inferences across base/ST and2/3GiB, with source/hash/oracle checks. ST-AUTOMATIC-PLACEMENT.md; capacity/source/ownership/distinct-zone/core-count/explicit-backend tests and actual automatic cold/warm recipes; existing numerical model identities unchanged. M1.45 resident operator/corpus/budgeted warm reuse/pressure reload, new96MP and copied API/NPZ/correlation-submit cancellation; CMSEG-ADDNOISE-GPU.md and cmseg-addnoise-delivery-binding.json. M1.46 exact three-geometry correlation/full four-image model corpus, old/new repeated work, full96MP planes/NPZ and copied API/cancel/reload; CMSEG-RESIDENT-CORRELATION.md.",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Immutable oriented row producers avoid full neural RGB snapshots/crops. Shared budget includes model heaps, admitted useful workers, raw caches, output planes and paged exports. Source/result/export storage may use temporary stores; neither source streaming nor a helper proves universal model fit. Public large-image status follows actual96MP inference reports, not helper-only tests."
+      },
+      "experimentalStatus": "M1.46-CMSeg-resident-global-GPU-correlation; WordPress-cohabitation-and-other-devices-pending"
+    },
+    {
+      "nativeId": "7:7",
+      "panel": "Automatic Clone Search",
+      "variants": "Extended normal+mirror PatchMatch Zernike/SIFT and Forgeryscope microscopy; independent evidence; zone exclusions; overlap limits",
+      "sources": [
+        "source/gui/sherloq_app/tools/tampering/automatic_clones.py",
+        "source/gui/sherloq_app/core/automatic_clones.py",
+        "source/gui/sherloq_app/core/cloning2.py"
+      ],
+      "status": "partial",
+      "cpu": "Actual common-worker PatchMatch, SIFT Panels+Text, Forgeryscope and D2PRL providers; complete adds native global ELA. Explicit model loaders and per-group states.",
+      "gpu": "Existing detector backends retained; CPU reference selectable; no synthetic calibration.",
+      "data": "Real public Chrome positive repeated texture, PM/ELA and configured OCR/SIFT; source-coordinate entries/counts and native scientific NPZ.",
+      "reference": "native modules listed",
+      "errors": "Known M2 polygon/score discrepancy remains documented; full >=94 MP composition not yet qualified.",
+      "measurements": "docs/automatic-runtime-chrome-proof.json",
+      "integration": "analysis.complete / analysis.clones, model loaders, filters, layers, owned paged exports; WordPress recipe documented, not deployed.",
+      "deviceLimits": "Automatic PM/SIFT and D2 entry composition still materialize original RGB; M2 scientific assembly remains contiguous. >=94 MP extensions pending.",
+      "tests": "automatic-runtime.test.mjs and automatic-runtime-browser.js; separate per-engine arithmetic proofs retained.",
+      "memoryLayout": {
+        "status": "shared-budget-partial-segmented",
+        "detail": "Paged input, ELA, layers and ZIP64 scientific archives; dense detector outputs and entry adapters remain constrained."
+      },
+      "operations": [
+        "analysis.clones"
+      ]
+    },
+    {
+      "nativeId": "7:8",
+      "panel": "Complete Automatic Analysis",
+      "variants": "Original/cached ELA inputs; independent clone+ELA branches; per-layer provenance; visibility; exact-cell masks; exclusions; exports",
+      "sources": [
+        "source/gui/sherloq_app/tools/tampering/complete_analysis.py",
+        "source/gui/sherloq_app/core/complete_analysis.py",
+        "source/gui/sherloq_app/core/automatic_clones.py",
+        "source/gui/sherloq_app/core/ela_biomes.py",
+        "source/gui/sherloq_app/core/auto_zones.py"
+      ],
+      "status": "partial",
+      "cpu": "Actual common-worker PatchMatch, SIFT Panels+Text, Forgeryscope and D2PRL providers; complete adds native global ELA. Explicit model loaders and per-group states.",
+      "gpu": "Existing detector backends retained; CPU reference selectable; no synthetic calibration.",
+      "data": "Real public Chrome positive repeated texture, PM/ELA and configured OCR/SIFT; source-coordinate entries/counts and native scientific NPZ.",
+      "reference": "core/auto_zones.py:detect_panels; pinned NumPy1.26.4/OpenCV4.11.0; hashes in fixtures/auto-zones/reference.json",
+      "errors": "Known M2 polygon/score discrepancy remains documented; full >=94 MP composition not yet qualified.",
+      "measurements": "docs/automatic-runtime-chrome-proof.json",
+      "integration": "analysis.complete / analysis.clones, model loaders, filters, layers, owned paged exports; WordPress recipe documented, not deployed.",
+      "deviceLimits": "Automatic PM/SIFT and D2 entry composition still materialize original RGB; M2 scientific assembly remains contiguous. >=94 MP extensions pending.",
+      "tests": "automatic-runtime.test.mjs and automatic-runtime-browser.js; separate per-engine arithmetic proofs retained.",
+      "memoryLayout": {
+        "status": "shared-budget-partial-segmented",
+        "detail": "Paged input, ELA, layers and ZIP64 scientific archives; dense detector outputs and entry adapters remain constrained."
+      },
+      "operations": [
+        "analysis.complete"
+      ]
+    },
+    {
+      "nativeId": "8:0",
+      "panel": "TruFor",
+      "variants": "TruFor localization; confidence; Noiseprint++; detection score; confidence is not a binary mask",
+      "sources": [
+        "source/gui/sherloq_app/tools/various/trufor.py",
+        "source/gui/sherloq_app/core/trufor.py"
+      ],
+      "status": "unavailable",
+      "cpu": "not ported",
+      "gpu": "not validated",
+      "data": "reference fixture pending",
+      "reference": "native modules listed",
+      "errors": "unmeasured",
+      "measurements": "unmeasured",
+      "integration": "not integrated",
+      "deviceLimits": "No native macOS library can be loaded in browser; per-module build/operator audit required",
+      "tests": "see native-inventory.json for all static functions/choices; static inventory is not runtime validation",
+      "memoryLayout": {
+        "status": "unavailable",
+        "detail": "No callable browser engine for this panel; a memory primitive does not supply the missing algorithm"
+      }
+    },
+    {
+      "nativeId": "8:1",
+      "panel": "CAT-Net v2",
+      "variants": "CAT-Net v2 RGB/DCT branches; JPEG quantization input; probability/mask",
+      "sources": [
+        "source/gui/sherloq_app/tools/various/catnet.py",
+        "source/gui/sherloq_app/core/catnet.py"
+      ],
+      "status": "unavailable",
+      "cpu": "not ported",
+      "gpu": "not validated",
+      "data": "reference fixture pending",
+      "reference": "native modules listed",
+      "errors": "unmeasured",
+      "measurements": "unmeasured",
+      "integration": "not integrated",
+      "deviceLimits": "No native macOS library can be loaded in browser; per-module build/operator audit required",
+      "tests": "see native-inventory.json for all static functions/choices; static inventory is not runtime validation",
+      "memoryLayout": {
+        "status": "unavailable",
+        "detail": "No callable browser engine for this panel; a memory primitive does not supply the missing algorithm"
+      }
+    },
+    {
+      "nativeId": "8:2",
+      "panel": "SAFIRE",
+      "variants": "SAFIRE/SAM; source clustering; confidence; grid 16/32; group count; epsilon/minimum",
+      "sources": [
+        "source/gui/sherloq_app/tools/various/safire.py",
+        "source/gui/sherloq_app/core/safire.py"
+      ],
+      "status": "native-arithmetic-differences-measured",
+      "cpu": "Full SAM/adaptor features, all prompt proposals, kmeans/DBSCAN, confidence/source maps; proposal cache across regrouping.",
+      "gpu": "Full neural stages use WebGPU, with supported CPU nodes; FOCAL clustering uses the full CPU WASM distribution. No simplified network.",
+      "data": "Pinned external native weights and ONNX graphs; generated reference image and intermediate oracles, no bundled weights.",
+      "reference": "Pinned native module, strict checkpoint load, browser CPU/WebGPU proof files.",
+      "errors": "CPU/GPU same clusters/prompts in3cases; floating maps max8.74e-6/4.39e-6 and up to8label pixels differ per1024\u00b2.",
+      "measurements": "Admitted heap/host/GPU estimates and actual WASM heaps in m3-safire-pipeline proofs; cache/cancellation zero residual reservations. Not RSS or a speedup claim.",
+      "integration": "Public worker API, explicit pinned models/URLs, view without repeat inference, native-shaped raw NPZ arrays and metadata; B owns WordPress UI.",
+      "deviceLimits": "Modern browser Worker/WASM; WebGPU selected within budget, auto useful-work fallback. Segmented sources use admitted oriented RGB leases; global source and native workspace must fit. No runtime benchmark. Floating arithmetic may change borderline decisions.",
+      "tests": "m3-safire-pipeline-*-proof.json; m3-api-chrome-proof.json; m3-research-view-proof.json; m3-npz-proof.json",
+      "memoryLayout": {
+        "status": "bounded-stages",
+        "detail": "Shared budget, bounded attention, staged model lifetime, retained GPU tensors with producing session, adaptive heap only on useful failure, cancellation/cache/release."
+      },
+      "operation": "ai.sources.safire"
+    },
+    {
+      "nativeId": "8:3",
+      "panel": "FOCAL",
+      "variants": "FOCAL HRNet and ViT features; clustering/localization; no automatic ONNX equivalence",
+      "sources": [
+        "source/gui/sherloq_app/tools/various/focal.py",
+        "source/gui/sherloq_app/core/focal.py"
+      ],
+      "status": "native-arithmetic-differences-measured",
+      "cpu": "ViT-L24blocks+HRNet, normalized feature fusion, exact eight-restart clustering algorithm, native stopping and minority candidate.",
+      "gpu": "Full neural stages use WebGPU, with supported CPU nodes; FOCAL clustering uses the full CPU WASM distribution. No simplified network.",
+      "data": "Pinned external native weights and ONNX graphs; generated reference image and intermediate oracles, no bundled weights.",
+      "reference": "Pinned native module, strict checkpoint load, browser CPU/WebGPU proof files.",
+      "errors": "4096labels agree CPU/GPU on recipe; feature maximum2.93e-6/1.73e-6.",
+      "measurements": "Admitted heap/host/GPU estimates and actual WASM heaps in m3-focal-pipeline proofs; cache/cancellation zero residual reservations. Not RSS or a speedup claim.",
+      "integration": "Public worker API, explicit pinned models/URLs, view without repeat inference, native-shaped raw NPZ arrays and metadata; B owns WordPress UI.",
+      "deviceLimits": "Modern browser Worker/WASM; WebGPU selected within budget, auto useful-work fallback. Segmented sources use admitted oriented RGB leases; global source and native workspace must fit. No runtime benchmark. Floating arithmetic may change borderline decisions.",
+      "tests": "m3-focal-pipeline-*-proof.json; m3-api-chrome-proof.json; m3-research-view-proof.json; m3-npz-proof.json",
+      "memoryLayout": {
+        "status": "bounded-stages",
+        "detail": "Shared budget, bounded attention, staged model lifetime, retained GPU tensors with producing session, adaptive heap only on useful failure, cancellation/cache/release."
+      },
+      "operation": "ai.localization.focal"
+    },
+    {
+      "nativeId": "8:4",
+      "panel": "AdaIFL",
+      "variants": "AdaIFL dynamic decoder/MoE; localization; thresholds and scale",
+      "sources": [
+        "source/gui/sherloq_app/tools/various/adaifl.py",
+        "source/gui/sherloq_app/core/adaifl.py"
+      ],
+      "status": "native-arithmetic-differences-measured",
+      "cpu": "Dynamic region sizes/DPC-KNN, selected FIA/MoE experts and dynamic decoder; native seed1701 and threshold.",
+      "gpu": "Full neural stages use WebGPU, with supported CPU nodes; FOCAL clustering uses the full CPU WASM distribution. No simplified network.",
+      "data": "Pinned external native weights and ONNX graphs; generated reference image and intermediate oracles, no bundled weights.",
+      "reference": "Pinned native module, strict checkpoint load, browser CPU/WebGPU proof files.",
+      "errors": "CPU map max4.465e-5,1mask pixel differs/4096; GPU max7.242e-6 and identical mask. No threshold adjustment.",
+      "measurements": "Admitted heap/host/GPU estimates and actual WASM heaps in m3-adaifl-pipeline proofs; cache/cancellation zero residual reservations. Not RSS or a speedup claim.",
+      "integration": "Public worker API, explicit pinned models/URLs, view without repeat inference, native-shaped raw NPZ arrays and metadata; B owns WordPress UI.",
+      "deviceLimits": "Modern browser Worker/WASM; WebGPU selected within budget, auto useful-work fallback. Segmented sources use admitted oriented RGB leases; global source and native workspace must fit. No runtime benchmark. Floating arithmetic may change borderline decisions.",
+      "tests": "m3-adaifl-pipeline-*-proof.json; m3-api-chrome-proof.json; m3-research-view-proof.json; m3-npz-proof.json",
+      "memoryLayout": {
+        "status": "bounded-stages",
+        "detail": "Shared budget, bounded attention, staged model lifetime, retained GPU tensors with producing session, adaptive heap only on useful failure, cancellation/cache/release."
+      },
+      "operation": "ai.localization.adaifl"
+    },
+    {
+      "nativeId": "9:0",
+      "panel": "Median Filtering",
+      "variants": "Numeric XGBoost formats8/24/96/128; median3/5/7/9 by1/4 levels; eight feature metrics; black64 padding + zero grid border; variance/threshold; speckle3; score/classes; interpolatedRGB and raw grid decisions; explicit model lifecycle and exports",
+      "sources": [
+        "source/gui/sherloq_app/tools/various/median.py",
+        "source/gui/sherloq_app/core/median.py"
+      ],
+      "status": "partial",
+      "cpu": "Pinned native64x64 features and numeric XGBoost inference; bounded useful workers, contiguous or segmented oriented source, global grids, native interpolated row output and private source/model cache",
+      "gpu": "not selected: no qualified float64 feature or model backend; CPU retained; no ONNX conversion claimed",
+      "data": "36 synthetic blocks x4 feature formats;5 RGB pipelines and4 boundary grids;3252 native renders per browser; existing checkpoint supplied locally, not bundled; segmented95 native views/8 orientations; public4099x3077 native whole RGB/margins/variances/grid decisions, including1562 positive cells",
+      "reference": "core/median.py SHA and OpenCV4.11/NumPy1.26.4/XGBoost2.0.3 pinned in median fixtures",
+      "errors": "9216 float32 feature inputs exact;float64 relative <=1e-13; exact tested image margins/scores/RGB/masks. Separate2084-vector expf probe:4 probabilities differ <=3.73e-9, zero decisions differ at101 UI thresholds. Not arbitrary-threshold universal parity. New segmented12.61MP probability maximum9.095e-13 and mean5.690e-16 under existing1e-7; full RGB and grid masks exact.",
+      "measurements": "docs/median-chrome-benchmark.json: three alternating1MP samples, single/10-worker median calculation RPC50377.9/7857.4ms (6.41x); full chain51257.7/8742.3ms.269400639 accounted bytes at dispatch; overall981137236 dominated by JSON load, not RSS. Native outputs exact on fixture. Segmented functional Chrome:10 useful workers,317443407 bytes accounted at dispatch,82.875s RPC; cached views1.19s/zero source reads. Holding24 additional views exercises exact OPFS output; overall1058359390 bytes under1GiB. No new speed-comparison claim.",
+      "integration": "Real main and nested browser workers verified in Chrome154/Firefox155/WebKit26.6; WordPress integration pending with B; segmented common worker and copied runtime qualified separately in Chrome154, JSON raw masks preserved",
+      "deviceLimits": "Existing local JSON checkpoint still requires about1GiB budget at import. Fixed16MiB per feature worker; compact global grids and a display row must fit. Source/RGB output use RAM or temporary storage. No new physical mobile/Safari qualification.",
+      "tests": "median-model/features/pipeline/api/pool.test.mjs and median-browser.js; native fixture generators; lifecycle/cache/cancellation/memory admission; segmented-median.test.mjs, segmented-median-browser.js, generate-large-median.py and study-segmented-median.mjs",
+      "memoryLayout": {
+        "status": "segmented",
+        "detail": "At most32 native blocks per batch, global score grids, owned interpolated RGB RAM/temporary surface and independent raw grid masks; shared worker/window/model budget. Import parser bound remains."
+      },
+      "operation": "various.median"
+    },
+    {
+      "nativeId": "9:1",
+      "panel": "Illuminant Map",
+      "variants": "Gray World; Shades of Gray p=6; White Patch; blocks 32/64/128/256; illuminant/difference/valid pixels",
+      "sources": [
+        "source/gui/sherloq_app/tools/various/illuminant.py",
+        "source/gui/sherloq_app/core/illuminant.py"
+      ],
+      "status": "partial",
+      "cpu": "Three estimators, four cell sizes, transfer/exclusion switches and all views on contiguous or segmented sources; global bins and one cell-row histogram workspace; compact mode cache",
+      "gpu": "not selected; no speedup measured for this operation",
+      "data": "1440 native views and arrays, eight orientations; public96MP three complete output hashes and cell arrays",
+      "reference": "illuminant-reference",
+      "errors": "Pixels and integer arrays exact; float64 scalar errors within existing1e-12 tolerance (96MP observed max8.882e-16)",
+      "measurements": "docs/segmented-illuminant-chrome-proof.json: functional timings only; max recorded accounting129005192B under256MiB; histogram workspace1152000B instead of288000000B at32px cells",
+      "integration": "Portable worker validated; WordPress controls/rendering pending",
+      "deviceLimits": "Browser memory admission; single-thread WASM; physical mobile and native Safari not tested",
+      "tests": "illuminant.test.mjs, segmented-illuminant.test.mjs; common and copied-runtime Chrome96MP, CSV/ownership/cache/cancel/retry",
+      "operation": "various.illuminant",
+      "memoryLayout": {
+        "status": "segmented-qualified",
+        "detail": "Global exact bins, local histograms one cell row; compact cell arrays must fit; owned RGB RAM/temporary, private bounded estimate cache; JSON/CSV remain bounded in memory"
+      }
+    },
+    {
+      "nativeId": "9:2",
+      "panel": "Dead/Hot Pixels",
+      "variants": "Hot/dead candidates; radius 3\u00d73/5\u00d75; overlay/mask/correction preview; correction is derivative only",
+      "sources": [
+        "source/gui/sherloq_app/tools/various/defect_pixels.py",
+        "source/gui/sherloq_app/core/defect_pixels.py"
+      ],
+      "status": "partial",
+      "cpu": "Exact existing parameters on contiguous/segmented sources; display, pixel mask, RGB flags and native-order candidate table; paged CSV",
+      "gpu": "CPU retained; no GPU implementation or speedup qualified",
+      "data": "1458 native full raster/flag/mask/count/CSV comparisons;144 oriented variants; public96MP JPEG with five settings including EXIF6",
+      "reference": "Native DefectEngine._compute and export_csv; source hash and NumPy/OpenCV versions pinned in independent recipe",
+      "errors": "Zero corpus/large candidate and CSV differences; full first-case96MP raster hashes exact; no candidate truncation",
+      "measurements": "segmented-defects-*-proof.json and candidate-storage-*-proof.json;166914640 maximum accounted bytes plus12070078-byte original Blob, not RSS; timings functional only",
+      "integration": "Portable worker readFlags/readTable/readTableCsv/releaseTable verified; WordPress pending with B",
+      "deviceLimits": "Chrome154/Firefox155/WebKit26.6; segmented JPEG only; real quota/dense table limits, one compute worker, physical devices untested",
+      "tests": "segmented-defects/candidate-table/source-api/segmented-allocation Node tests; three-browser96MP and external-sort lifecycle",
+      "operation": "pixels.defects",
+      "memoryLayout": {
+        "status": "qualified-subset",
+        "detail": "Owned RGB, mask0..3, RGB flags and exact-sized candidate table; native y,x,BGR order after EXIF; shared-budget RAM/external radix and paged CSV. docs/SEGMENTED-DEFECTS.md"
+      }
+    },
+    {
+      "nativeId": "9:3",
+      "panel": "Stereogram Decoder",
+      "variants": "Stereogram disparity decoding and visualization",
+      "sources": [
+        "source/gui/sherloq_app/tools/various/stereogram.py",
+        "source/gui/sherloq_app/core/stereogram.py"
+      ],
+      "status": "partial",
+      "cpu": "Offset search, four views, absent-period outcome; separate search/pattern/lazy-flow caches",
+      "gpu": "Not selected; no qualified GPU or extra-worker path",
+      "data": "Synthetic publicable fixtures only",
+      "reference": "stereo-reference.json",
+      "errors": "28 searches, 25 float32 flows and 100 views exact, including 1 MP",
+      "measurements": "docs/contrast-stereo-benchmark.json; original and arithmetic-only experiments retained separately",
+      "integration": "Portable main worker and exports qualified; WordPress controls/rendering pending",
+      "deviceLimits": "Shared memory admission and single-thread WASM; physical Safari/mobile untested",
+      "tests": "63 Node tests; complete new corpus and lifecycle in Chrome154, Firefox155, WebKit26.6; CONTRAST-STEREOGRAM.md",
+      "operation": "various.stereogram",
+      "memoryLayout": {
+        "status": "full-memory-only",
+        "detail": "Existing shared admission/caches; no qualified segmented adapter; source layout rejection is explicit"
+      }
+    }
+  ]
+}

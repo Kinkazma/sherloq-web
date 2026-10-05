@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "scope": "provider forwarding and native saved-result postprocessing; no new detector inference",
+  "m3Commit": "938fe74cc0ff165d6cae268243681e0c07f70264",
+  "records": [
+    {
+      "case": "dense-split",
+      "group": "patchmatch",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 68254760
+    },
+    {
+      "case": "filtered-stable",
+      "group": "patchmatch",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 68240246
+    },
+    {
+      "case": "sift-colors",
+      "group": "sift",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 68233256
+    },
+    {
+      "case": "source-panels",
+      "group": "patchmatch",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 68233256
+    },
+    {
+      "case": "compare",
+      "group": "sift",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 68221298
+    },
+    {
+      "case": "unknown-owner",
+      "group": "patchmatch",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 68242412
+    },
+    {
+      "case": "unspecified",
+      "group": "patchmatch",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 68242412
+    },
+    {
+      "case": "self-policy",
+      "group": "patchmatch",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 68202848
+    },
+    {
+      "case": "no-groups",
+      "group": "sift",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 23904
+    },
+    {
+      "case": "float32",
+      "group": "patchmatch",
+      "exactNativeEntries": true,
+      "parameterForwarding": true,
+      "peakBytes": 68254760
+    },
+    {
+      "case": "native-forge-0",
+      "group": "forgeryscope",
+      "exactNativeEntries": true,
+      "peakBytes": 68204102
+    },
+    {
+      "case": "native-forge-1",
+      "group": "forgeryscope",
+      "exactNativeEntries": true,
+      "peakBytes": 68192432
+    },
+    {
+      "case": "native-forge-2",
+      "group": "forgeryscope",
+      "exactNativeEntries": true,
+      "peakBytes": 68169110
+    },
+    {
+      "case": "native-forge-3",
+      "group": "forgeryscope",
+      "exactNativeEntries": true,
+      "peakBytes": 68215772
+    },
+    {
+      "case": "native-forge-4",
+      "group": "forgeryscope",
+      "exactNativeEntries": true,
+      "peakBytes": 68169868
+    }
+  ],
+  "finalBudgetZero": true
+}

@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: D2PRL rejects unqualified identities and relative URLs before fetching or reserving
+ok 1 - D2PRL rejects unqualified identities and relative URLs before fetching or reserving
+  ---
+  duration_ms: 1.745042
+  type: 'test'
+  ...
+# Subtest: D2PRL verifies actual manifest bytes and releases failed admissions for retry
+ok 2 - D2PRL verifies actual manifest bytes and releases failed admissions for retry
+  ---
+  duration_ms: 30.739709
+  type: 'test'
+  ...
+# Subtest: D2PRL manifest respects the shared budget before any network allocation
+ok 3 - D2PRL manifest respects the shared budget before any network allocation
+  ---
+  duration_ms: 0.234166
+  type: 'test'
+  ...
+# Subtest: An evicted D2PRL raw grid cannot trigger inference through refilter or raw export
+ok 4 - An evicted D2PRL raw grid cannot trigger inference through refilter or raw export
+  ---
+  duration_ms: 9.280958
+  type: 'test'
+  ...
+# Subtest: Memory pressure reclaims idle helper heaps before cached scientific results
+ok 5 - Memory pressure reclaims idle helper heaps before cached scientific results
+  ---
+  duration_ms: 0.240375
+  type: 'test'
+  ...
+# Subtest: D2PRL admits its large workspace only when the shared CPU lane is available
+ok 6 - D2PRL admits its large workspace only when the shared CPU lane is available
+  ---
+  duration_ms: 4.782958
+  type: 'test'
+  ...
+# Subtest: D2PRL cancellation before admission creates no worker and preserves source ownership
+ok 7 - D2PRL cancellation before admission creates no worker and preserves source ownership
+  ---
+  duration_ms: 1.796917
+  type: 'test'
+  ...
+# Subtest: D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+ok 8 - D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+  ---
+  duration_ms: 34.1005
+  type: 'test'
+  ...
+# Subtest: five failures without progress stop locally while more separated incidents remain recoverable
+ok 9 - five failures without progress stop locally while more separated incidents remain recoverable
+  ---
+  duration_ms: 13.7275
+  type: 'test'
+  ...
+# Subtest: feature copy recovery retains completed native work and releases all ownership
+ok 10 - feature copy recovery retains completed native work and releases all ownership
+  ---
+  duration_ms: 3.168667
+  type: 'test'
+  ...
+# Subtest: cancelled local recovery immediately releases pressure and does not retry
+ok 11 - cancelled local recovery immediately releases pressure and does not retry
+  ---
+  duration_ms: 0.217292
+  type: 'test'
+  ...
+# Subtest: two evaluator lanes refusing every useful tile stop without leaking work or pressure
+ok 12 - two evaluator lanes refusing every useful tile stop without leaking work or pressure
+  ---
+  duration_ms: 10.692334
+  type: 'test'
+  ...
+# Subtest: concurrent useful tiles do not combine independent first refusals into a loop
+ok 13 - concurrent useful tiles do not combine independent first refusals into a loop
+  ---
+  duration_ms: 1.667916
+  type: 'test'
+  ...
+# Subtest: guarded stages retain dynamic getters and original method ownership
+ok 14 - guarded stages retain dynamic getters and original method ownership
+  ---
+  duration_ms: 0.301667
+  type: 'test'
+  ...
+# Subtest: a refused optional evaluator preserves the ready pool and grows again after external release
+ok 15 - a refused optional evaluator preserves the ready pool and grows again after external release
+  ---
+  duration_ms: 1.574792
+  type: 'test'
+  ...
+# Subtest: parameter digest recovery retains already fetched useful model bytes
+ok 16 - parameter digest recovery retains already fetched useful model bytes
+  ---
+  duration_ms: 25.804041
+  type: 'test'
+  ...
+# Subtest: cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+ok 17 - cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+  ---
+  duration_ms: 0.99725
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 196.261583

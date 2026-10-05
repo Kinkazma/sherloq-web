@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Bounded actual model-asset loader, identity/refusal/cancellation; tiny synthetic payload only.",
+  "node": "v22.22.2",
+  "sourceSha256": "e9fbc85605a73a1e48e434c7fdeb41b0c91da3c4a672eef8cb41d1452d183e12",
+  "records": [
+    {
+      "name": "verified",
+      "passed": true
+    },
+    {
+      "name": "long",
+      "passed": true
+    },
+    {
+      "name": "short",
+      "passed": true
+    },
+    {
+      "name": "corrupt",
+      "passed": true
+    },
+    {
+      "name": "absent",
+      "passed": true
+    },
+    {
+      "name": "stream-cancelled",
+      "passed": true
+    },
+    {
+      "name": "retry",
+      "passed": true
+    }
+  ]
+}

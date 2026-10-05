@@ -1,0 +1,9 @@
+{
+  "explanation": "Generic broker contract test: growth between its first transfer and its reply; no native or production source changes.",
+  "requestedBytes": 131072,
+  "sourceLengthAfterGrowth": 0,
+  "writes": 1,
+  "bytesCorrect": 65536,
+  "resolvedSuccessfully": true,
+  "error": null
+}

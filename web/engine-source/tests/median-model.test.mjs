@@ -1,0 +1,22 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {Budget} from '../src/cache.js';import {compileMedianModel,medianSigmoid} from '../src/median-model.js';
+const tree=(feature=0,value=.5,low=-.25,high=1)=>({tree_param:{num_nodes:'3',num_feature:'8',num_deleted:'0',size_leaf_vector:'0'},left_children:[1,-1,-1],right_children:[2,-1,-1],split_indices:[feature,0,0],split_conditions:[value,low,high],default_left:[1,0,0],split_type:[0,0,0],categories:[],categories_nodes:[],categories_segments:[],categories_sizes:[]});
+function saved(trees=[tree(),tree(1,-1,-2,.125)]){return {version:[1,6,2],learner:{learner_model_param:{base_score:'5E-1',num_class:'0',num_feature:'8',num_target:'1'},objective:{name:'binary:logistic'},gradient_booster:{name:'gbtree',model:{gbtree_model_param:{num_trees:String(trees.length),num_parallel_tree:'1',size_leaf_vector:'0'},trees,tree_info:trees.map(()=>0)}}}};}
+const encoded=object=>new TextEncoder().encode(JSON.stringify(object));
+test('Strict numeric model preserves float32 inputs, missing directions, sequential margins and owned scores',async()=>{
+ const budget=new Budget(4*1024**2),object=saved();object.learner.gradient_booster.model.trees[1].default_left[0]=0;
+ const model=await compileMedianModel(encoded(object),{budget}),rows=new Float64Array(32);rows.set([.5,0],0);rows.set([.49,-2],8);rows.set([NaN,NaN],16);rows.set([.5-2**-26,0],24);
+ const result=await model.predict(rows);assert.deepEqual(Array.from(result.margins),[1.125,-2.25,-.125,1.125]);for(let i=0;i<4;i++)assert.equal(result.scores[i],medianSigmoid(result.margins[i]));result.scores.fill(99);result.release();const again=await model.predict(rows);assert.ok(again.scores.every(x=>x<1));again.release();
+ await assert.rejects(model.predict(new Float64Array(1)),{code:'INVALID_INPUT'});rows[0]=Infinity;await assert.rejects(model.predict(rows),{code:'INVALID_INPUT'});assert.equal(budget.active,0);model.dispose();assert.equal(budget.total(),0);await assert.rejects(model.predict(rows),{code:'DISPOSED'});
+ const leaves=[16777216,1,-16777216].map(value=>({...tree(),tree_param:{num_nodes:'1',num_feature:'8',num_deleted:'0',size_leaf_vector:'0'},left_children:[-1],right_children:[-1],split_indices:[0],split_conditions:[value],default_left:[0],split_type:[0]}));const sequential=await compileMedianModel(encoded(saved(leaves)),{budget}),sum=await sequential.predict(new Float64Array(8));assert.equal(sum.margins[0],0);sum.release();sequential.dispose();assert.equal(budget.total(),0);
+});
+test('Invalid topology, layouts and byte budgets fail before a model is retained',async()=>{
+ const changes=[j=>{j.learner.gradient_booster.model.trees[0].left_children[0]=0;},j=>{j.learner.gradient_booster.model.trees[0].right_children[0]=1;},j=>{j.learner.gradient_booster.model.trees[0].left_children[0]=-1;},j=>{j.learner.gradient_booster.model.trees[0].split_indices[0]=8;},j=>{j.learner.gradient_booster.model.trees[0].split_type[0]=1;},j=>{j.learner.gradient_booster.model.trees[0].split_conditions[0]=Infinity;},j=>{j.learner.gradient_booster.model.trees[0].tree_param.num_nodes='1000001';},j=>{j.learner.learner_model_param.base_score='.4';},j=>{j.learner.objective.name='multi:softprob';},j=>{j.version=[3,1,0];}];
+ for(const change of changes){const object=saved(),budget=new Budget(4*1024**2);change(object);await assert.rejects(compileMedianModel(encoded(object),{budget}),{code:'UNSUPPORTED_MODEL'});assert.equal(budget.total(),0);}
+ const budget=new Budget(1024);await assert.rejects(compileMedianModel(encoded(saved()),{budget}),{code:'MEMORY_LIMIT'});assert.equal(budget.total(),0);
+});
+test('Cancellation and disposal during useful model work release every counted buffer',async()=>{
+ const budget=new Budget(4*1024**2),controller=new AbortController();await assert.rejects(compileMedianModel(encoded(saved()),{budget,signal:controller.signal,onProgress:()=>controller.abort()}),{code:'CANCELLED'});assert.equal(budget.total(),0);
+ const model=await compileMedianModel(encoded(saved()),{budget}),abort=new AbortController();await assert.rejects(model.predict(new Float64Array(256),{signal:abort.signal,onProgress:()=>abort.abort()}),{code:'CANCELLED'});assert.equal(budget.active,0);assert.equal(budget.retained,model.metadata.retainedBytes);
+ await assert.rejects(model.predict(new Float64Array(256),{onProgress:()=>model.dispose()}),{code:'DISPOSED'});assert.equal(budget.total(),0);model.dispose();
+});

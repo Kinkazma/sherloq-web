@@ -1,0 +1,599 @@
+{
+  "schema": 1,
+  "version": "0.31.0-integration.23",
+  "engineCommit": "57015d3cf8832bd3834e78f132b259ffc480240f",
+  "scope": "Failed cold complete96MP; all D2PRL PatchMatch evaluations completed before GPU readback-copy allocation failed.",
+  "runDirectory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-backing-recovery-96mp-20261003T043319Z",
+  "startedAt": "2026-10-03T04:48:42.198Z",
+  "finishedAt": "2026-10-03T05:05:31.525Z",
+  "wallMs": 1009571,
+  "lastD2prlPatchMatch": {
+    "at": "2026-10-03T05:05:23.326Z",
+    "id": "automatic-d2prl-1",
+    "iteration": 39,
+    "iterations": 40,
+    "branch": "cnn",
+    "phase": "patchmatch",
+    "completed": 198,
+    "total": 198,
+    "fraction": 1,
+    "stage": "inference",
+    "zone": "automatic-zone-0",
+    "zoneIndex": 0,
+    "completedZones": 0,
+    "totalZones": 1,
+    "revision": 1,
+    "group": "d2prl",
+    "attempt": 1,
+    "elapsedMs": 999323.3949999809
+  },
+  "lastDense": {
+    "at": "2026-10-03T05:05:27.255Z",
+    "id": "complete96",
+    "phase": "global-patchmatch",
+    "stage": "propagation",
+    "iteration": 1,
+    "completed": 56871933,
+    "total": 96000000,
+    "parallel": {
+      "coordinator": "control-and-storage-only",
+      "workers": 9,
+      "peakActiveKernels": 9,
+      "tasks": 224855,
+      "cpuGrants": [
+        5,
+        4,
+        5,
+        4,
+        5,
+        7,
+        2,
+        5,
+        4,
+        2,
+        5,
+        1,
+        8,
+        7,
+        6,
+        8,
+        6,
+        8,
+        7,
+        8,
+        6,
+        8,
+        6,
+        8,
+        7,
+        9,
+        8,
+        9,
+        8,
+        9,
+        8,
+        9
+      ],
+      "cpuGrantChanges": 5041,
+      "wavefront": "ordered-row-segments",
+      "reverse": "parallel-proposals-ordered-commit",
+      "cacheReconfigurations": 0,
+      "allocationRecoveries": 0
+    },
+    "workers": 9,
+    "sharedReadCache": {
+      "bytes": 0,
+      "banks": 0,
+      "hits": 0,
+      "misses": 0,
+      "fills": 0,
+      "collisions": 0
+    },
+    "group": "patchmatch",
+    "attempt": 1,
+    "elapsedMs": 1003248.2699999809
+  },
+  "finalDetectorError": {
+    "code": "MEMORY_ALLOCATION",
+    "name": "EngineError",
+    "message": "Array buffer allocation failed",
+    "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)",
+    "details": {
+      "requestedBytes": 51380224,
+      "recovery": {
+        "operation": "convolution:readback-copy",
+        "phase": "convolution:readback-copy",
+        "consecutiveFailures": 5,
+        "totalFailures": 7,
+        "loopDetected": true,
+        "memory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 10651004528,
+          "activeReservationBytes": 10192151713,
+          "cacheBytes": 0,
+          "requestedBytes": 51380224,
+          "availableBytes": 6644215023
+        }
+      }
+    },
+    "cause": {
+      "code": "COMPUTE_FAILED",
+      "name": "RangeError",
+      "message": "Array buffer allocation failed",
+      "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)"
+    }
+  },
+  "recoveryEvents": [
+    {
+      "at": "2026-10-03T05:05:26.864Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-recovery",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:22)\n    at operation (http://127.0.0.1:57760/experiments/d2prl/model.js:38:50)\n    at Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:459)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)",
+        "details": {
+          "requestedBytes": 51380224,
+          "recovery": {
+            "operation": "convolution:readback-copy",
+            "phase": "convolution:readback-copy",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 11803008624,
+              "activeReservationBytes": 10193339713,
+              "cacheBytes": 0,
+              "requestedBytes": 51380224,
+              "availableBytes": 5491022927
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:22)\n    at operation (http://127.0.0.1:57760/experiments/d2prl/model.js:38:50)\n    at Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:459)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)"
+        }
+      },
+      "consecutiveFailures": 1,
+      "totalFailures": 1,
+      "completedOperations": 79269,
+      "recoveries": 1,
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1002861.5
+    },
+    {
+      "at": "2026-10-03T05:05:26.867Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-reclaimed",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "reclamation": {
+        "kind": "array-buffer",
+        "requestedBytes": 51380224,
+        "targetedReleasedBytes": 0,
+        "otherAccountedBytes": 576002048,
+        "ownersVisited": 34,
+        "completed": true
+      },
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1002863.1699999869
+    },
+    {
+      "at": "2026-10-03T05:05:26.883Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-recovery",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)",
+        "details": {
+          "requestedBytes": 51380224,
+          "recovery": {
+            "operation": "convolution:readback-copy",
+            "phase": "convolution:readback-copy",
+            "consecutiveFailures": 2,
+            "totalFailures": 2,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 11227006576,
+              "activeReservationBytes": 10193339713,
+              "cacheBytes": 0,
+              "requestedBytes": 51380224,
+              "availableBytes": 6067024975
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)"
+        }
+      },
+      "consecutiveFailures": 2,
+      "totalFailures": 2,
+      "completedOperations": 79269,
+      "recoveries": 2,
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1002880.5349999964
+    },
+    {
+      "at": "2026-10-03T05:05:26.891Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-reclaimed",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "reclamation": {
+        "kind": "array-buffer",
+        "requestedBytes": 51380224,
+        "targetedReleasedBytes": 0,
+        "otherAccountedBytes": 576002048,
+        "ownersVisited": 33,
+        "completed": true
+      },
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1002888.3549999893
+    },
+    {
+      "at": "2026-10-03T05:05:26.906Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-recovery",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)",
+        "details": {
+          "requestedBytes": 51380224,
+          "recovery": {
+            "operation": "convolution:readback-copy",
+            "phase": "convolution:readback-copy",
+            "consecutiveFailures": 1,
+            "totalFailures": 3,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10651004528,
+              "activeReservationBytes": 10192151713,
+              "cacheBytes": 0,
+              "requestedBytes": 51380224,
+              "availableBytes": 6644215023
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)"
+        }
+      },
+      "consecutiveFailures": 1,
+      "totalFailures": 3,
+      "completedOperations": 79269,
+      "recoveries": 3,
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1002903.8049999774
+    },
+    {
+      "at": "2026-10-03T05:05:26.936Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-reclaimed",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "reclamation": {
+        "kind": "array-buffer",
+        "requestedBytes": 51380224,
+        "targetedReleasedBytes": 0,
+        "otherAccountedBytes": 0,
+        "ownersVisited": 32,
+        "completed": true
+      },
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1002930.2899999917
+    },
+    {
+      "at": "2026-10-03T05:05:26.954Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-recovery",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)",
+        "details": {
+          "requestedBytes": 51380224,
+          "recovery": {
+            "operation": "convolution:readback-copy",
+            "phase": "convolution:readback-copy",
+            "consecutiveFailures": 2,
+            "totalFailures": 4,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10651004528,
+              "activeReservationBytes": 10192151713,
+              "cacheBytes": 0,
+              "requestedBytes": 51380224,
+              "availableBytes": 6644215023
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)"
+        }
+      },
+      "consecutiveFailures": 2,
+      "totalFailures": 4,
+      "completedOperations": 79269,
+      "recoveries": 4,
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1002951.0299999714
+    },
+    {
+      "at": "2026-10-03T05:05:27.013Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-reclaimed",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "reclamation": {
+        "kind": "array-buffer",
+        "requestedBytes": 51380224,
+        "targetedReleasedBytes": 0,
+        "otherAccountedBytes": 0,
+        "ownersVisited": 32,
+        "completed": true
+      },
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1003007.2649999857
+    },
+    {
+      "at": "2026-10-03T05:05:27.028Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-recovery",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)",
+        "details": {
+          "requestedBytes": 51380224,
+          "recovery": {
+            "operation": "convolution:readback-copy",
+            "phase": "convolution:readback-copy",
+            "consecutiveFailures": 3,
+            "totalFailures": 5,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10651004528,
+              "activeReservationBytes": 10193339713,
+              "cacheBytes": 0,
+              "requestedBytes": 51380224,
+              "availableBytes": 6643027023
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)"
+        }
+      },
+      "consecutiveFailures": 3,
+      "totalFailures": 5,
+      "completedOperations": 79269,
+      "recoveries": 5,
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1003025.4649999738
+    },
+    {
+      "at": "2026-10-03T05:05:27.111Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-reclaimed",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "reclamation": {
+        "kind": "array-buffer",
+        "requestedBytes": 51380224,
+        "targetedReleasedBytes": 0,
+        "otherAccountedBytes": 0,
+        "ownersVisited": 32,
+        "completed": true
+      },
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1003104.1799999774
+    },
+    {
+      "at": "2026-10-03T05:05:27.129Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-recovery",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)",
+        "details": {
+          "requestedBytes": 51380224,
+          "recovery": {
+            "operation": "convolution:readback-copy",
+            "phase": "convolution:readback-copy",
+            "consecutiveFailures": 4,
+            "totalFailures": 6,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10651004528,
+              "activeReservationBytes": 10193339713,
+              "cacheBytes": 0,
+              "requestedBytes": 51380224,
+              "availableBytes": 6643027023
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at Float32Array.slice (<anonymous>)\n    at operation.bytes (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:508)\n    at attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:50)\n    at runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:44)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:57760/experiments/d2prl/convolution-general-gpu.js:39:453)\n    at async attempt (http://127.0.0.1:57760/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:57760/src/resource-recovery.js:68:38)\n    at async operation (http://127.0.0.1:57760/experiments/d2prl/recovery.js:14:16)"
+        }
+      },
+      "consecutiveFailures": 4,
+      "totalFailures": 6,
+      "completedOperations": 79269,
+      "recoveries": 6,
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1003126.4699999988
+    },
+    {
+      "at": "2026-10-03T05:05:27.235Z",
+      "id": "automatic-d2prl-1",
+      "phase": "resource-reclaimed",
+      "operation": "convolution:readback-copy",
+      "attempt": 1,
+      "reclamation": {
+        "kind": "array-buffer",
+        "requestedBytes": 51380224,
+        "targetedReleasedBytes": 0,
+        "otherAccountedBytes": 0,
+        "ownersVisited": 32,
+        "completed": true
+      },
+      "stage": "inference",
+      "zone": "automatic-zone-0",
+      "zoneIndex": 0,
+      "completedZones": 0,
+      "totalZones": 1,
+      "revision": 1,
+      "group": "d2prl",
+      "elapsedMs": 1003229.3199999928
+    }
+  ],
+  "job": {
+    "supervisorPid": 30302,
+    "runnerPid": 30303,
+    "caffeinatePid": 30304,
+    "startedAt": "2026-10-03T04:48:41.895639+00:00",
+    "timeoutSeconds": 86400,
+    "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-backing-recovery-96mp-20261003T043319Z",
+    "exitCode": 1,
+    "timedOut": false,
+    "stoppedAt": "2026-10-03T05:05:31.834822+00:00"
+  },
+  "archiveBytes": 0,
+  "evidence": [
+    {
+      "file": "status.json",
+      "bytes": 5143,
+      "sha256": "628084c79079d7af7800567881575b6bd41cf5f13c0cef24a938b6da4855ebf6"
+    },
+    {
+      "file": "progress.jsonl",
+      "bytes": 8565936,
+      "sha256": "28b6e8497bf7e9ae5611906a4679d47217c162bd62065367c8578cf3245731a6"
+    },
+    {
+      "file": "job.json",
+      "bytes": 380,
+      "sha256": "650e04146401b22371bac3e4876ce36548fa846f9913c374ef7f5c34b341abd1"
+    },
+    {
+      "file": "incomplete.json",
+      "bytes": 5162,
+      "sha256": "3f5e57f478c50aabe32451c6168d88bcc94a735ef007486f62daf9f4da35aa3d"
+    },
+    {
+      "file": "binding.json",
+      "bytes": 1664,
+      "sha256": "ed933760f46c54acbb54d8745137f90c7c55b84110fede3651de98c27d4bc613"
+    }
+  ]
+}

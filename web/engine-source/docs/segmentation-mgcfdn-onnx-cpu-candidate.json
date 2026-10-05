@@ -1,0 +1,295 @@
+{
+  "schema": 1,
+  "status": "candidate-comparison",
+  "scope": "Generated RGB inputs including paired synthetic spots through native PIL-compatible preparation and unchanged model ONNX CPU candidate, model-grid decisions and source projection where supported. No common-worker lifecycle or UI qualification. Oracle arrays are outside measured model admission.",
+  "variant": "MGCFDN",
+  "reference": "8badcf67565d829966daa041678c3b15b68fe7bef20bc18f3103518661fe2521",
+  "model": {
+    "file": "unfolded.onnx",
+    "bytes": 89060850,
+    "sha256": "8b99302269be19e214139b533e198f85169c3821a637a89ff93f6ab0c720b44e"
+  },
+  "weights": {
+    "models/external/clone_detectors/04_mgcfdn/weight/MGCFDN.pth": "53920b1cefe1e8c1e8c78dfe2f43e80251529d9e5ccc7be31f899a636357f563"
+  },
+  "graphOptimizationLevel": "disabled",
+  "ortThreads": 1,
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1346651385
+  },
+  "records": [
+    {
+      "name": "structured-copy",
+      "preparationExact": true,
+      "logits": {
+        "elements": 65536,
+        "different": 63880,
+        "maxAbs": 0.000039577484130859375,
+        "meanAbs": 0.000004896468453807756,
+        "nonfinite": 0
+      },
+      "probability": {
+        "elements": 65536,
+        "different": 65193,
+        "maxAbs": 0.0000057220458984375,
+        "meanAbs": 1.9479256163634773e-7,
+        "nonfinite": 0
+      },
+      "mask": {
+        "pixels": 65536,
+        "changed": 0,
+        "nativeForeground": 0,
+        "browserForeground": 0,
+        "rule": "probability>0.5"
+      },
+      "projection": {
+        "gridMap": {
+          "elements": 65536,
+          "different": 65193,
+          "maxAbs": 0.0000057220458984375,
+          "meanAbs": 1.9479256163634773e-7,
+          "nonfinite": 0
+        },
+        "gridMaskChanges": 0,
+        "sourceMap": {
+          "elements": 202669,
+          "different": 201383,
+          "maxAbs": 0.000005662441253662109,
+          "meanAbs": 1.9098632539387707e-7,
+          "nonfinite": 0
+        },
+        "sourceMaskChanges": 0,
+        "analyzedExact": true,
+        "candidatesExact": true,
+        "metadata": {
+          "boxes": [
+            [
+              0,
+              0,
+              521,
+              389
+            ]
+          ],
+          "zones": [
+            {
+              "id": "whole",
+              "bounds": [
+                0,
+                0,
+                521,
+                389
+              ],
+              "origin": [
+                0,
+                0
+              ],
+              "analysis_shape": [
+                1,
+                256,
+                256
+              ],
+              "status": "empty"
+            }
+          ],
+          "status": "empty",
+          "channel_order": [
+            "union_probability"
+          ],
+          "threshold": 0.5,
+          "threshold_rule": "probability>0.5",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "inference_performed": false,
+          "raw_filter_applied": false
+        }
+      },
+      "heapBytes": 204275712
+    },
+    {
+      "name": "constant",
+      "preparationExact": true,
+      "logits": {
+        "elements": 65536,
+        "different": 65300,
+        "maxAbs": 0.00009489059448242188,
+        "meanAbs": 0.00002647690416779369,
+        "nonfinite": 0
+      },
+      "probability": {
+        "elements": 65536,
+        "different": 65459,
+        "maxAbs": 0.000004537403583526611,
+        "meanAbs": 6.388241516538939e-7,
+        "nonfinite": 0
+      },
+      "mask": {
+        "pixels": 65536,
+        "changed": 0,
+        "nativeForeground": 0,
+        "browserForeground": 0,
+        "rule": "probability>0.5"
+      },
+      "projection": {
+        "gridMap": {
+          "elements": 65536,
+          "different": 65459,
+          "maxAbs": 0.000004537403583526611,
+          "meanAbs": 6.388241516538939e-7,
+          "nonfinite": 0
+        },
+        "gridMaskChanges": 0,
+        "sourceMap": {
+          "elements": 14647,
+          "different": 14635,
+          "maxAbs": 0.000004231929779052734,
+          "meanAbs": 6.375961560480848e-7,
+          "nonfinite": 0
+        },
+        "sourceMaskChanges": 0,
+        "analyzedExact": true,
+        "candidatesExact": true,
+        "metadata": {
+          "boxes": [
+            [
+              0,
+              0,
+              151,
+              97
+            ]
+          ],
+          "zones": [
+            {
+              "id": "whole",
+              "bounds": [
+                0,
+                0,
+                151,
+                97
+              ],
+              "origin": [
+                0,
+                0
+              ],
+              "analysis_shape": [
+                1,
+                256,
+                256
+              ],
+              "status": "empty"
+            }
+          ],
+          "status": "empty",
+          "channel_order": [
+            "union_probability"
+          ],
+          "threshold": 0.5,
+          "threshold_rule": "probability>0.5",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "inference_performed": false,
+          "raw_filter_applied": false
+        }
+      },
+      "heapBytes": 204275712
+    },
+    {
+      "name": "paired-spots",
+      "preparationExact": true,
+      "logits": {
+        "elements": 65536,
+        "different": 65457,
+        "maxAbs": 0.00016307830810546875,
+        "meanAbs": 0.000039051810568402345,
+        "nonfinite": 0
+      },
+      "probability": {
+        "elements": 65536,
+        "different": 65394,
+        "maxAbs": 0.000018924474716186523,
+        "meanAbs": 7.967322842878516e-7,
+        "nonfinite": 0
+      },
+      "mask": {
+        "pixels": 65536,
+        "changed": 0,
+        "nativeForeground": 9409,
+        "browserForeground": 9409,
+        "rule": "probability>0.5"
+      },
+      "projection": {
+        "gridMap": {
+          "elements": 65536,
+          "different": 65394,
+          "maxAbs": 0.000018924474716186523,
+          "meanAbs": 7.967322842878516e-7,
+          "nonfinite": 0
+        },
+        "gridMaskChanges": 0,
+        "sourceMap": {
+          "elements": 65536,
+          "different": 65394,
+          "maxAbs": 0.000018924474716186523,
+          "meanAbs": 7.967322842878516e-7,
+          "nonfinite": 0
+        },
+        "sourceMaskChanges": 0,
+        "analyzedExact": true,
+        "candidatesExact": true,
+        "metadata": {
+          "boxes": [
+            [
+              0,
+              0,
+              256,
+              256
+            ]
+          ],
+          "zones": [
+            {
+              "id": "whole",
+              "bounds": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "origin": [
+                0,
+                0
+              ],
+              "analysis_shape": [
+                1,
+                256,
+                256
+              ],
+              "status": "ok"
+            }
+          ],
+          "status": "ok",
+          "channel_order": [
+            "union_probability"
+          ],
+          "threshold": 0.5,
+          "threshold_rule": "probability>0.5",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "inference_performed": false,
+          "raw_filter_applied": false
+        }
+      },
+      "heapBytes": 204275712
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-segmentation-model.mjs": "72f51ac2036123d1a51994116a3ea47d4cfb71169b5ea077828684c45b286236",
+    "experiments/segmentation/prepare.js": "d0cfb6c73cce88bca17ef41c3382bea4f816c8227a5f3ab2a460aff9e85ca688",
+    "experiments/segmentation/probabilities.js": "c052c8a40f6a5285f86b7e150ca8e85bc8badc94e0b900e8be20e2a248b9aa99",
+    "experiments/segmentation/zones.js": "9c5f8a9109caa2f6697a6696c850e4a5ebc7591f064cfeeb5cdce79d3963da5a",
+    "vendor/d2prl/PINNED.json": "032df3b4319c9dc22aadad627252cf174fae05d5f1f29cb6128a3073253ac54b"
+  }
+}

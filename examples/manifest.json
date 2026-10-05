@@ -1,0 +1,56 @@
+{
+  "examples/spiral/original.png": {
+    "source_repository": "Kinkazma/sherloq",
+    "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
+    "source_path": "screenshots/fork/texture-original.png",
+    "sha256": "8c20ac9ab35b2eb22adb50a8b926392652f3ea9455fe7193aa363586c250767b"
+  },
+  "examples/spiral/edited.png": {
+    "source_repository": "Kinkazma/sherloq",
+    "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
+    "source_path": "examples/advanced/texture-edited.png",
+    "sha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f"
+  },
+  "examples/spiral/edit-reference.png": {
+    "source_repository": "Kinkazma/sherloq",
+    "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
+    "source_path": "examples/spiral/spiral-reference.png",
+    "sha256": "e83682aee9507916870a33542f1034a403bfe7f577ca73eafa2ce0bc307fd9c0"
+  },
+  "examples/street/original.jpg": {
+    "source_repository": "Kinkazma/sherloq",
+    "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
+    "source_path": "examples/street/street-original.jpg",
+    "sha256": "9b97fa1e07b6c74c20a2151c0998a100b3eb04864a8b6e3349b354486853262d"
+  },
+  "examples/street/edited.png": {
+    "source_repository": "Kinkazma/sherloq",
+    "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
+    "source_path": "examples/street/street-edited.png",
+    "sha256": "288e77d27432932a42c5c34550dc1e6ab2f98c173e706bc704b5338ea4daf70d"
+  },
+  "examples/street/edit-reference.jpg": {
+    "source_repository": "Kinkazma/sherloq",
+    "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
+    "source_path": "examples/street/street-reference.jpg",
+    "sha256": "efac7ac4c308ab7ef5add7b9ab0b8c1d5ebad511c2ac5af7021e7a378b958386"
+  },
+  "examples/street/original-preview.jpg": {
+    "source_repository": "Kinkazma/sherloq",
+    "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
+    "source_path": "examples/street/street-original-preview.jpg",
+    "sha256": "dfc1447ba98047c609770a0f3fae50248d1fb383641216aa0820a71d5c977fa0"
+  },
+  "examples/street/edited-preview.png": {
+    "source_repository": "Kinkazma/sherloq",
+    "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
+    "source_path": "examples/street/street-edited-preview.png",
+    "sha256": "d94f43fcb07c28ffde6bb27ef818450f3bc03c7e0a53c2b58051151ac4d57242"
+  },
+  "examples/street/edit-reference-preview.jpg": {
+    "source_repository": "Kinkazma/sherloq",
+    "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
+    "source_path": "examples/street/street-reference-preview.jpg",
+    "sha256": "f364b91442e7cfb81c09042b12732406f5ad568134da83ea69eea3215c39b16e"
+  }
+}

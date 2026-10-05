@@ -1,0 +1,3591 @@
+{
+  "schema": 1,
+  "status": "passed-corpus-tolerance-experimental",
+  "scope": "Generated encoded file through qualified original-byte decoder -> native AA preparation -> all descriptors -> complete40-iteration pooled PatchMatch -> DLF -> dedicated union and complete UNet -> computed union decision -> actual ONNX role heads -> native postprocess at4component thresholds. No native activation injection. See fromFile for decoder and source-coordinate coverage; independent zones, more sources/devices and runtime registration remain open.",
+  "records": [
+    {
+      "name": "source-decoded-rgb8",
+      "elements": 608007,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "prepared-rgb448",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "descriptors-zm-half",
+      "elements": 7225344,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "descriptors-cnn-half",
+      "elements": 19267584,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "patchmatch-0",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "patchmatch-1",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "patchmatch-2",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "patchmatch-3",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "patchmatch-4",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "patchmatch-5",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "patchmatch-6",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "patchmatch-7",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "dlf-7-zm",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "dlf-7-cnn",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "dlf-9-zm",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "dlf-9-cnn",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "dlf-11-zm",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "dlf-11-cnn",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-input",
+      "elements": 2007040,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-0",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-0-relu",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-3",
+      "elements": 25690112,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-3-relu",
+      "elements": 25690112,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-6",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-6-relu",
+      "elements": 12845056,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-9",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-9-relu",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-12",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "union-sigmoid",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.0.conv1",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.0.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.0.conv3",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.0.conv1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.0.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.0.conv3",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.0.downsample.0",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.0.se_module.fc1",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.0.se_module.fc2",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.1.conv1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.1.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.1.conv3",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.1.se_module.fc1",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.1.se_module.fc2",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.2.conv1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.2.conv2",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.2.conv3",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.2.se_module.fc1",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.1.1.2.se_module.fc2",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.0.conv1",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.0.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.0.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.0.downsample.0",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.0.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.0.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.1.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.1.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.1.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.1.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.1.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.2.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.2.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.2.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.2.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.2.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.3.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.3.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.3.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.3.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.3.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.4.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.4.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.4.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.4.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.4.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.5.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.5.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.5.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.5.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.5.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.6.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.6.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.6.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.6.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.6.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.7.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.7.conv2",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.7.conv3",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.7.se_module.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.2.7.se_module.fc2",
+      "elements": 512,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.0.conv1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.0.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.0.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.0.downsample.0",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.0.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.0.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.1.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.1.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.1.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.1.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.1.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.2.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.2.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.2.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.2.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.2.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.3.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.3.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.3.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.3.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.3.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.4.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.4.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.4.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.4.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.4.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.5.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.5.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.5.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.5.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.5.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.6.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.6.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.6.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.6.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.6.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.7.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.7.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.7.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.7.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.7.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.8.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.8.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.8.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.8.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.8.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.9.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.9.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.9.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.9.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.9.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.10.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.10.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.10.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.10.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.10.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.11.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.11.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.11.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.11.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.11.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.12.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.12.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.12.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.12.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.12.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.13.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.13.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.13.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.13.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.13.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.14.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.14.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.14.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.14.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.14.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.15.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.15.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.15.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.15.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.15.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.16.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.16.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.16.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.16.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.16.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.17.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.17.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.17.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.17.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.17.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.18.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.18.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.18.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.18.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.18.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.19.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.19.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.19.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.19.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.19.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.20.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.20.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.20.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.20.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.20.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.21.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.21.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.21.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.21.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.21.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.22.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.22.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.22.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.22.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.22.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.23.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.23.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.23.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.23.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.23.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.24.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.24.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.24.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.24.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.24.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.25.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.25.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.25.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.25.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.25.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.26.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.26.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.26.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.26.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.26.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.27.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.27.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.27.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.27.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.27.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.28.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.28.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.28.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.28.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.28.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.29.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.29.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.29.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.29.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.29.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.30.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.30.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.30.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.30.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.30.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.31.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.31.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.31.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.31.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.31.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.32.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.32.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.32.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.32.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.32.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.33.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.33.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.33.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.33.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.33.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.34.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.34.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.34.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.34.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.34.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.35.conv1",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.35.conv2",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.35.conv3",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.35.se_module.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.3.35.se_module.fc2",
+      "elements": 1024,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.0.conv1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.0.conv2",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.0.conv3",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.0.downsample.0",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.0.se_module.fc1",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.0.se_module.fc2",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.1.conv1",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.1.conv2",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.1.conv3",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.1.se_module.fc1",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.1.se_module.fc2",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.2.conv1",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.2.conv2",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.2.conv3",
+      "elements": 401408,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.2.se_module.fc1",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-encoder_stages.4.2.se_module.fc2",
+      "elements": 2048,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-decoder_stages.3.layer.1",
+      "elements": 301056,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.0.seq.0",
+      "elements": 301056,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.0.seq.2.fc1",
+      "elements": 192,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.0.seq.2.fc2",
+      "elements": 384,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.0.seq.2.spatial_se.0",
+      "elements": 784,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-decoder_stages.2.layer.1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.1.seq.0",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.1.seq.2.fc1",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.1.seq.2.fc2",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.1.seq.2.spatial_se.0",
+      "elements": 3136,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-decoder_stages.1.layer.1",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.2.seq.0",
+      "elements": 1605632,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.2.seq.2.fc1",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.2.seq.2.fc2",
+      "elements": 128,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.2.seq.2.spatial_se.0",
+      "elements": 12544,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-decoder_stages.0.layer.1",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.3.seq.0",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.3.seq.2.fc1",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.3.seq.2.fc2",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-bottlenecks.3.seq.2.spatial_se.0",
+      "elements": 50176,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-last_upsample.layer.1",
+      "elements": 6422528,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-final.0",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "unet-sigmoid",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "combined-union",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "target",
+      "elements": 200704,
+      "different": 66364,
+      "maxAbs": 4.172325134277344e-7,
+      "meanAbs": 2.872941561746506e-8,
+      "threshold": 0,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source",
+      "elements": 200704,
+      "different": 53993,
+      "maxAbs": 4.76837158203125e-7,
+      "meanAbs": 2.324341782083621e-8,
+      "threshold": 0,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-continuous-map",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": null,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "masks-min-0",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-0-0",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-0-1",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-0-2",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "masks-min-17",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-17-0",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-17-1",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-17-2",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "masks-min-500",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-500-0",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-500-1",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-500-2",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "masks-min-5000",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-5000-0",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-5000-1",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "source-masks-min-5000-2",
+      "elements": 202669,
+      "different": 0,
+      "maxAbs": 0,
+      "meanAbs": 0,
+      "threshold": 0.5,
+      "thresholdChanged": 0,
+      "nonfinite": 0
+    }
+  ],
+  "decision": {
+    "overlap": 38161.30078125,
+    "threshold": 28291.060546875,
+    "combineMaximum": true
+  },
+  "decisionExact": true,
+  "fromFile": true,
+  "caseName": null,
+  "boundedOrt": true,
+  "cpu": true,
+  "roleRuntimeMeasured": {
+    "heapCapacityBytes": 170524672,
+    "ort": {
+      "common": "1.30.0",
+      "web": "1.30.0"
+    }
+  },
+  "sourceDescriptor": {
+    "id": "d2prl-source",
+    "width": 521,
+    "height": 389,
+    "format": "rgb8",
+    "sha256": "a49d384b21e357114e799c084c69318d3dd63d1264473a15035f35a84f6acd98",
+    "provenance": {
+      "decoder": "opencv-4.11.0/emscripten-4.0.15",
+      "format": "png",
+      "sourceSize": [
+        521,
+        389
+      ],
+      "sourceDepth": 8,
+      "analysisDepth": 8,
+      "orientation": 1,
+      "orientationApplied": true,
+      "icc": "absent",
+      "alpha": "absent",
+      "interpolation": "none",
+      "frames": "first image only"
+    },
+    "surface": {
+      "id": "b68d8d6e-cf91-4080-8cf3-a24e1b403fd5",
+      "revision": 1,
+      "width": 521,
+      "height": 389,
+      "format": "rgb8",
+      "sourceWidth": 521,
+      "sourceHeight": 389,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "metrics": {
+      "preparationMs": 47.600000001490116,
+      "memory": {
+        "budgetBytes": 2187484540,
+        "retainedBytes": 1135475,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 40000892
+      }
+    }
+  },
+  "functionalMs": 446005.30000000075,
+  "functionalStageMs": {
+    "preparation": 7.099999997764826,
+    "descriptors": 130229.19999999925,
+    "patchmatch": 229427.19999999925,
+    "heads": 84756.80000000075,
+    "postprocess": 761.6999999992549
+  },
+  "performanceQualification": "Functional execution under ambient load; no isolated speed claim",
+  "peakAccountedBytes": 5463148083,
+  "budgetBytes": 8589934592,
+  "memoryScope": "Engine reservations include entire pinned ORT512MiB maximum heap and postprocess512MiB maximum, plus conservative staging. Not measured RSS. Native comparator excluded.",
+  "pool": {
+    "peakWorkers": 10,
+    "tiles": 77616,
+    "descriptorUploads": 20,
+    "activeWorkers": 0,
+    "tileSize": 512
+  },
+  "allReservationsReleased": true,
+  "boundedRuntime": {
+    "schema": 1,
+    "runtimeId": "ort130-wasm-512mib",
+    "upstreamVersion": "1.30.0",
+    "memoryMaximumBytes": 536870912,
+    "scope": "Only instantiated linear-memory maximum reduced4GiB->512MiB. WASM bytes untouched; allocation refusal remains explicit. Factory exposes actual heap capacity after useful inference, not RSS.",
+    "upstreamFactorySha256": "e13f7f94fc51b4ca72b12faeb1ee95f4ace6dfbc8939bc718aabdc0a27c4299b",
+    "wasmSha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2",
+    "factory": "factory.mjs",
+    "files": {
+      "ort-wasm-simd-threaded.mjs": {
+        "bytes": 24380,
+        "sha256": "7ec2e1087a815e79222ade487a3dfa738aa0c606df4ca2314bd90d1735a8a420"
+      },
+      "factory.mjs": {
+        "bytes": 221,
+        "sha256": "85a4d82bcb5311dc399ee4c1d0e86b8514ac94220c92a41f8e84d14be7c78415"
+      }
+    }
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "experiments/d2prl/composed-study.js": "e6f9423615cad4153aadb749e7ae41f29e2bfef45d0f70fcfe4f6a98505f1aaf",
+    "experiments/d2prl/heads.js": "d2ce0cf787324be2902c32448c17c97afabffc89fdf22002958eb6e660096421",
+    "experiments/d2prl/union-head.js": "39b304d4edc6c8317c82ff2bb51ad927594d52b09c4121e156fe2ef19566606e",
+    "experiments/d2prl/unet-graph.js": "7f3e811a85bfb0128e0da20c623205c6f27139e9d9e6ad3611626c5d0137f973",
+    "experiments/d2prl/roles.js": "0519ac51121959c4bae48257452445a105248c233458a3e95aca0ac4e6a68ff6",
+    "experiments/d2prl/roles-worker.js": "5df4ae1d845f7ae2aa8be77ec8a5d0c9c442d043179acbf948601e257656a368",
+    "experiments/d2prl/postprocess.js": "9a03158c646b6ae202918d177ff2287f69e4f8b1fb6d07365d5489511508ed6b",
+    "experiments/d2prl/postprocess-worker.js": "740944cef28c73f8dc98cf881ef96b133418e8bbc9bdcb7ac47c61dd84f0ec95",
+    "experiments/d2prl/dlf.js": "3018da53de6af6b2ffba762261b111fd4ea8688f75a6622511dd949e63546e9e",
+    "experiments/d2prl/neural-math.js": "1fc02af5897eb0e270033c48281309994fdd8dd3e4d741e3a8fd4559b0170048",
+    "experiments/d2prl/feature-math.js": "dd76aae8bd36085357c62ed356061702a3afc901f4027ac02fb1239f394181ff",
+    "experiments/d2prl/convolution-gpu.js": "814a87ada9acc5ec855a25cd76aa085af6f37456c4b08d31b720e001caefba42",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "experiments/d2prl/prepare.js": "19b18c7cc2169789583f708c47cf030c086cc9ecdc8787725b47378aee9db5f7",
+    "experiments/d2prl/descriptors.js": "7763494b4bf0ae9f41bc419aef46f9c4f087fdc11e562cb81bbb284f50a1476e",
+    "experiments/d2prl/patchmatch.js": "8082b6e5770482d3cdd7cd8f15362a28e81ba9a17f4eec5f5ca5882aae9a0286",
+    "experiments/d2prl/evaluator-pool.js": "7600135d47f9e4961ca9b21c8e36c81901e22217962471c44bbfb1a375a460f1",
+    "experiments/d2prl/evaluator-worker.js": "9898019890e58926a65135b8eee93896b8bc1a64f052265cd7713e24be7f65ff",
+    "experiments/d2prl/candidates.js": "5f3323322148f474abbbebfbcacea8b211b20be6cf914a6c1904a2765b02de14",
+    "experiments/d2prl/random.js": "a36a0fc45f61e0081df4af49caadcf04757007ef3fb53ae81838412a36470b37",
+    "experiments/d2prl/source.js": "95627deb02c9e37c7a9e322658cc4f51c383e58afb43cf6ade563b25bdd2e298",
+    "experiments/d2prl/spatial.js": "f4851cdab4e7be26ef0ea1bb943c3a6149ebd35d0bac715b88c2dcf73994cfc7",
+    "experiments/d2prl/spatial-worker.js": "c2b6847b7b3d6e9ddb70f06ff1296858371e0aa57639e067d0685363611e679c",
+    "experiments/d2prl/roles-bounded.js": "eb5e7961ec5d817c3fc5d88c1bd0d64a2b79279bdc6a064d13125a58ce597533",
+    "experiments/d2prl/roles-bounded-worker.js": "b3d7c7dde1436edf369c6d90dd04aa2142ab641d2a023912674c6eeb18c170ba",
+    "experiments/d2prl/convolution-cpu.js": "3968f7faaf22cf5a0f02eff74f99eab4af68e6064bb0a46aabff7894b57c69e9",
+    "experiments/d2prl/convolution-cpu-worker.js": "b996618dd6c3c13dbee3d35327abe26ac48314f645051b925036c29ace682944"
+  },
+  "builds": {
+    "neural-math": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sources": {
+        "neural-math.cpp": "c80a9b3ee54ff3e0cb6192ff705b5c28dda6ff7e3dc601c26415a29417698cbe",
+        "feature-math.cpp": "783ee56177651072361971e9b303f822ff9d16ca42de7326d9bd8ea6cda89548",
+        "resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d",
+        "mean.cpp": "412d2558fd3d0152bac9f6f4dde7caca25363387ec9759c1779acb56ee7de72e",
+        "sum.cpp": "cfdeb89413564462516320f964ea7a8ad0334fa981591b77134f0a62cf05fba7",
+        "sigmoid.cpp": "3c0ac4c7a75ad0ce0de91b77cfe8ba4f529ca319fa43c027d23a0ea0789eef59",
+        "dlf.cpp": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
+        "reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+      },
+      "files": {
+        "neural-math.js": {
+          "bytes": 8221,
+          "sha256": "5a91c4b590eb2935263481ff15ba85097123ff57558aa30cc079983d6f64fe59"
+        },
+        "neural-math.wasm": {
+          "bytes": 16718,
+          "sha256": "b3dbf2d834b62b9a1ad05632756a361add03a19913355b3f80741464cc6c9324"
+        }
+      }
+    },
+    "feature-math": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sources": {
+        "feature-math.cpp": "783ee56177651072361971e9b303f822ff9d16ca42de7326d9bd8ea6cda89548",
+        "resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d"
+      },
+      "files": {
+        "feature-math.js": {
+          "bytes": 7869,
+          "sha256": "bd7ba0e57605fba924c05cec583b4683efec0d17e78029368baa678645640717"
+        },
+        "feature-math.wasm": {
+          "bytes": 9735,
+          "sha256": "7a6f800fa4ae9762ab4c50b7cefbf9b8984799b478926ddac7db62bc22832d13"
+        }
+      }
+    },
+    "dlf": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
+      "referenceExpSha256": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+      "files": {
+        "dlf.js": {
+          "bytes": 7514,
+          "sha256": "cabc6b8e47cb47810df72537660134c55793de8bf5f37d1f7229f0c46ecf9048"
+        },
+        "dlf.wasm": {
+          "bytes": 7963,
+          "sha256": "f9234954d2463339e1745cb1e4449e434e084b9c69dbbdd202dd13b635f3888c"
+        }
+      }
+    },
+    "postprocess": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "d4c04fa19132e2cfad1e67debb42a721928a037d8480d5d1935d7a90956d075a",
+      "objects": {
+        "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+        "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+        "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+      },
+      "files": {
+        "postprocess.js": {
+          "bytes": 26716,
+          "sha256": "d97047b84961cf61c38ae2b879413cc79bef9d123e279ef13fb68f3d0530e6e8"
+        },
+        "postprocess.wasm": {
+          "bytes": 760829,
+          "sha256": "427e23c7d7f63288d2ada235da1b7b26d1e6df6ea52dd9de61ee58301e7d444d"
+        }
+      }
+    },
+    "prepare": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "8035cc819ffa4623c15d932a337dc345fb4056c9cd28550732526c098ef849a0",
+      "files": {
+        "prepare.js": {
+          "bytes": 7639,
+          "sha256": "21c44144ae950bd5f337f5fc88444de37031383f3fbc9114509b8ce539bd3579"
+        },
+        "prepare.wasm": {
+          "bytes": 9386,
+          "sha256": "64b560b642e5057610ac21b769d5a5336ba40491bd744c6ef9b9d16223a7c8eb"
+        }
+      }
+    },
+    "evaluator-tiled": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sources": {
+        "evaluator-tiled.cpp": "f1d89ef902cdd517d1eae45bf3b873231d3f2440fcd2bb107b96b59f7637b255",
+        "evaluator.cpp": "e53d58085d325bd2a741202407b44f819b02cbcc1efee4fe67e1b27f265bdf1d",
+        "reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+      },
+      "files": {
+        "evaluator-tiled.js": {
+          "bytes": 7839,
+          "sha256": "9dd63733d7e78b2834b9afc8ccf8f07d853dd191181e739a6b4ca1ef3141467a"
+        },
+        "evaluator-tiled.wasm": {
+          "bytes": 16172,
+          "sha256": "41165efcd4e56bdad5e1cefe9806cf61a9eec24af600d76ba468c8ed3a4dfa98"
+        }
+      }
+    },
+    "spatial": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "30d43e9225f6fa21320578c2bed424c5e7eeea08c3d0f791a0990075738aca2d",
+      "objects": {
+        "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+        "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+        "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+      },
+      "files": {
+        "spatial.js": {
+          "bytes": 23738,
+          "sha256": "f3906c052cddc62ab68fa985b6f59b731a50c614b2cca36fad788f3ff617d896"
+        },
+        "spatial.wasm": {
+          "bytes": 556176,
+          "sha256": "d951569ef9f4690c3543e61139778d015ff911c782caf50c7494902584353503"
+        }
+      }
+    },
+    "convolution-cpu": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "memoryMaximumBytes": 268435456,
+      "threads": 1,
+      "sources": {
+        "convolution-cpu.cpp": "6a2f8107272e7363a3b6ffb1c4934f4b83e4653dac0c0c8c611ba2cab7bf51fe",
+        "fma-simd.h": "fee2445e13b8321920d0672ebc568eb6c3a04a12ae7b702cc5fda928b36e31b2"
+      },
+      "files": {
+        "convolution.js": {
+          "bytes": 7491,
+          "sha256": "46b5404857b9f855e2dd1743040b3a6575ef5384e038941ba9baf7c61ad8c8a2"
+        },
+        "convolution.wasm": {
+          "bytes": 12677,
+          "sha256": "ad15173f57becc35c489be555c566a3120dd94ada11cfc39d12b2e0bb2ec9eab"
+        }
+      }
+    }
+  },
+  "references": {
+    ".build/d2prl-model/reference.json": "5b208a2f3d6268cfba11efe02f7b47de76e3d19c65b5db9766502503d63e0ed6",
+    ".build/d2prl-model/masks-reference.json": "96125c51d4e186389e0459f7eb2f2976816004544af3b28a10187f256b3289c8",
+    ".build/d2prl-unet-graph/graph.json": "39c6bc93a98b1d33d9411c08b51a7b2b6649663406191bc0242c38e2a6be3c29",
+    ".build/d2prl-model/roles-native-resize-batchnorm-model.json": "f308e1a7e2402d5686287d2e52f3583269fe7b5c5be8b0c1d76e68ff5d61d194",
+    ".build/ort130/package/dist/ort-wasm-simd-threaded.mjs": "e13f7f94fc51b4ca72b12faeb1ee95f4ace6dfbc8939bc718aabdc0a27c4299b",
+    ".build/ort130/package/dist/ort-wasm-simd-threaded.wasm": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2"
+  }
+}

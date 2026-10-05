@@ -1,0 +1,23 @@
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'ioReply')
+    at self.onmessage (http://127.0.0.1:57313/src/ghost-stream-worker.js:6:10) {
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'kind')
+    at self.onmessage (http://127.0.0.1:57313/src/text-ocr-worker.js:6:11) {
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'kind')
+    at self.onmessage (http://127.0.0.1:57313/src/text-ocr-worker.js:6:11) {
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'kind')
+    at self.onmessage (http://127.0.0.1:57313/src/text-ocr-worker.js:6:11) {
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'kind')
+    at self.onmessage (http://127.0.0.1:57313/src/text-ocr-worker.js:6:11) {
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'kind')
+    at self.onmessage (http://127.0.0.1:57313/src/text-ocr-worker.js:6:11) {
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'kind')
+    at self.onmessage (http://127.0.0.1:57313/src/text-ocr-worker.js:6:11) {
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'kind')
+    at self.onmessage (http://127.0.0.1:57313/src/text-ocr-worker.js:6:11) {
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'kind')
+    at self.onmessage (http://127.0.0.1:57313/src/text-ocr-worker.js:6:11) {
+PAGEERROR PlaywrightError [TypeError]: Cannot read properties of null (reading 'kind')
+    at self.onmessage (http://127.0.0.1:57313/src/text-ocr-worker.js:6:11) {
+  throw new ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING();
+TypeError [ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING]: A dynamic import callback was not specified.
+  code: 'ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING'

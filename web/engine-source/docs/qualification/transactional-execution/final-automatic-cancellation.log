@@ -1,0 +1,155 @@
+TAP version 13
+# (node:9502) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: public cancellation preserves real session checkpoints until explicit resume or destruction
+    # Subtest: before-first
+    ok 1 - before-first
+      ---
+      duration_ms: 7.763583
+      type: 'test'
+      ...
+    # Subtest: after-done
+    ok 2 - after-done
+      ---
+      duration_ms: 1.208666
+      type: 'test'
+      ...
+    # Subtest: frame-prepare
+    ok 3 - frame-prepare
+      ---
+      duration_ms: 1.130583
+      type: 'test'
+      ...
+    # Subtest: frame-owned
+    ok 4 - frame-owned
+      ---
+      duration_ms: 1.444
+      type: 'test'
+      ...
+    # Subtest: frame-release
+    ok 5 - frame-release
+      ---
+      duration_ms: 1.329625
+      type: 'test'
+      ...
+    # Subtest: explicit dispose during a useful run drains and destroys its checkpoint
+    ok 6 - explicit dispose during a useful run drains and destroys its checkpoint
+      ---
+      duration_ms: 0.526625
+      type: 'test'
+      ...
+    # Subtest: new scope explicitly replaces a cancelled analysis and releases old checkpoints
+    ok 7 - new scope explicitly replaces a cancelled analysis and releases old checkpoints
+      ---
+      duration_ms: 1.012792
+      type: 'test'
+      ...
+    # Subtest: already cancelled calls create no analysis or checkpoint
+    ok 8 - already cancelled calls create no analysis or checkpoint
+      ---
+      duration_ms: 1.834083
+      type: 'test'
+      ...
+    1..8
+ok 1 - public cancellation preserves real session checkpoints until explicit resume or destruction
+  ---
+  duration_ms: 105.330875
+  type: 'test'
+  ...
+# Subtest: global automatic archive adds native method/context counts, deduplicated pairs and exact mask/cell arrays
+ok 2 - global automatic archive adds native method/context counts, deduplicated pairs and exact mask/cell arrays
+  ---
+  duration_ms: 84.843541
+  type: 'test'
+  ...
+# Subtest: corroboration-stage abort, output-stage abort and metadata failures clean all owned scratch data
+ok 3 - corroboration-stage abort, output-stage abort and metadata failures clean all owned scratch data
+  ---
+  duration_ms: 126.808
+  type: 'test'
+  ...
+# Subtest: export admission reports its full scratch envelope without leaving a partial reservation
+ok 4 - export admission reports its full scratch envelope without leaving a partial reservation
+  ---
+  duration_ms: 0.295208
+  type: 'test'
+  ...
+# Subtest: partial automatic archive records unavailable engines and real original BGR identity without fabricating results
+ok 5 - partial automatic archive records unavailable engines and real original BGR identity without fabricating results
+  ---
+  duration_ms: 33.480125
+  type: 'test'
+  ...
+# Subtest: export refuses inconsistent view filters and cleans snapshot owners after missing source
+ok 6 - export refuses inconsistent view filters and cleans snapshot owners after missing source
+  ---
+  duration_ms: 1.308459
+  type: 'test'
+  ...
+# (node:9505) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:9505) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+# Subtest: public worker automatic cancellation retains segmented storage and relays settled checkpoint ownership
+    # Subtest: run waits past five seconds and preserves exact retainedAnalysis
+    ok 1 - run waits past five seconds and preserves exact retainedAnalysis
+      ---
+      duration_ms: 9.204542
+      type: 'test'
+      ...
+    # Subtest: resumeAutomatic waits past five seconds and preserves exact retainedAnalysis
+    ok 2 - resumeAutomatic waits past five seconds and preserves exact retainedAnalysis
+      ---
+      duration_ms: 3.04825
+      type: 'test'
+      ...
+    # Subtest: updateAutomatic waits past five seconds and preserves exact retainedAnalysis
+    ok 3 - updateAutomatic waits past five seconds and preserves exact retainedAnalysis
+      ---
+      duration_ms: 2.505125
+      type: 'test'
+      ...
+    # Subtest: renderAutomatic waits past five seconds and preserves exact retainedAnalysis
+    ok 4 - renderAutomatic waits past five seconds and preserves exact retainedAnalysis
+      ---
+      duration_ms: 3.161625
+      type: 'test'
+      ...
+    # Subtest: exportAutomatic waits past five seconds and preserves exact retainedAnalysis
+    ok 5 - exportAutomatic waits past five seconds and preserves exact retainedAnalysis
+      ---
+      duration_ms: 2.099291
+      type: 'test'
+      ...
+    # Subtest: explicit dispose during cooperative cancellation drains and closes source ownership
+    ok 6 - explicit dispose during cooperative cancellation drains and closes source ownership
+      ---
+      duration_ms: 1.998959
+      type: 'test'
+      ...
+    # Subtest: explicit forced shutdown reports cleared images and cleans terminated temporary storage
+    ok 7 - explicit forced shutdown reports cleared images and cleans terminated temporary storage
+      ---
+      duration_ms: 2.492666
+      type: 'test'
+      ...
+    1..7
+ok 7 - public worker automatic cancellation retains segmented storage and relays settled checkpoint ownership
+  ---
+  duration_ms: 52.985917
+  type: 'test'
+  ...
+# Subtest: a completed automatic reply winning cancellation returns its owned success
+ok 8 - a completed automatic reply winning cancellation returns its owned success
+  ---
+  duration_ms: 1.185375
+  type: 'test'
+  ...
+1..8
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 308.214167

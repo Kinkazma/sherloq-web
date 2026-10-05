@@ -1,0 +1,131 @@
+{
+  "errors": {
+    "map": {
+      "values": 1440,
+      "maxError": 1.0913936421275139e-10,
+      "differences": 1429
+    },
+    "valid": {
+      "values": 1440,
+      "maxError": 0,
+      "differences": 0
+    },
+    "L": {
+      "values": 16384,
+      "maxError": 3.488320743372242e-13,
+      "differences": 16260
+    },
+    "eigs": {
+      "values": 512,
+      "maxError": 2.0816681711721685e-17,
+      "differences": 511
+    },
+    "Sigma": {
+      "values": 1024,
+      "maxError": 2.2648549702353193e-14,
+      "differences": 1016
+    },
+    "mu": {
+      "values": 64,
+      "maxError": 1.9539925233402755e-13,
+      "differences": 64
+    },
+    "outliersProb": {
+      "values": 1,
+      "maxError": 0,
+      "differences": 0
+    }
+  },
+  "execution": {
+    "featureRows": 32,
+    "globalPca": true,
+    "globalEm": true,
+    "fitWorkers": 2,
+    "bestReplicate": 2,
+    "replicates": [
+      {
+        "score": -39.06031078286265,
+        "exit": [
+          0,
+          17
+        ]
+      },
+      {
+        "score": -39.973137037260976,
+        "exit": [
+          0,
+          4
+        ]
+      },
+      {
+        "score": -35.79956813863424,
+        "exit": [
+          0,
+          83
+        ]
+      },
+      {
+        "score": -39.86424045130767,
+        "exit": [
+          0,
+          3
+        ]
+      },
+      {
+        "score": -39.57750833842618,
+        "exit": [
+          0,
+          5
+        ]
+      },
+      {
+        "score": -39.588767928069934,
+        "exit": [
+          0,
+          8
+        ]
+      },
+      {
+        "score": -39.607864043920564,
+        "exit": [
+          0,
+          3
+        ]
+      },
+      {
+        "score": -39.51651797077199,
+        "exit": [
+          0,
+          4
+        ]
+      },
+      {
+        "score": -40.037738833357906,
+        "exit": [
+          0,
+          3
+        ]
+      },
+      {
+        "score": -35.79956828140046,
+        "exit": [
+          0,
+          68
+        ]
+      }
+    ],
+    "validCells": 1440,
+    "featureStorage": "memory"
+  },
+  "memory": {
+    "budgetBytes": 2147483648,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1155424056
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "off-the-record Playwright context",
+  "executionNote": "CPU/WASM"
+}

@@ -1,0 +1,8 @@
+import {parameters} from './pixel-utils.js';import {requireValue} from './errors.js';import {resamplingFourierParams} from './resampling-fourier.js';
+export function resamplingAnalysisParams(input={}){
+ const p=parameters(input,{stage:'probability',size:3,regions:null,fourierRegions:[],fourier:{}});requireValue(['probability','fourier'].includes(p.stage)&&[3,5].includes(p.size),'Invalid resampling stage or interpolation neighborhood.');
+ const rects=v=>Array.isArray(v)&&v.every(r=>Array.isArray(r)&&r.length===4&&r.every(Number.isSafeInteger));requireValue((p.regions===null||rects(p.regions))&&rects(p.fourierRegions),'Resampling rectangles must be half-open integer coordinates.');p.regions=p.regions?.map(r=>r.slice())??null;p.fourierRegions=p.fourierRegions.map(r=>r.slice());p.fourier=resamplingFourierParams(p.fourier);requireValue(p.fourier.rect===null,'Use fourierRegions for composite selections.');return p;
+}
+export function resamplingAnalysisRegions(p,width,height){
+ const regions=p.regions??[[0,0,width,height]],check=(r,minimum)=>requireValue(r[0]>=0&&r[1]>=0&&r[2]<=width&&r[3]<=height&&r[2]-r[0]>=minimum&&r[3]-r[1]>=minimum,'Selected resampling region is outside the image or too small.');regions.forEach(r=>check(r,p.size));p.fourierRegions.forEach(r=>check(r,2));for(let i=0;i<regions.length;i++)for(let j=i+1;j<regions.length;j++){const a=regions[i],b=regions[j];requireValue(Math.max(a[0],b[0])>=Math.min(a[2],b[2])||Math.max(a[1],b[1])>=Math.min(a[3],b[3]),'Probability regions must not overlap.');}requireValue(p.stage!=='fourier'||regions.length+p.fourierRegions.length>0,'Calculate a probability map or select a Fourier region first.');return regions;
+}

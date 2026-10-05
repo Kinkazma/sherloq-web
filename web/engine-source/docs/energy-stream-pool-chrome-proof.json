@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1031,
+    1024
+  ],
+  "nativePlanesExact": 3,
+  "parallel": {
+    "workers": 3,
+    "kernel": "global-rgb-jpeg-energy-worker-pool",
+    "energyRecompressions": 3,
+    "energyQualityPlanesComputed": 3,
+    "sourcePasses": 2,
+    "codecHeapCapacityBytes": 16777216,
+    "totalCodecHeapMaximumBytes": 50331648,
+    "scheduling": {
+      "count": 3,
+      "maximum": 3,
+      "ceiling": 3,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "taskExecutions": 1,
+      "retry": null
+    }
+  },
+  "stores": [
+    "memory",
+    "memory",
+    "temporary"
+  ],
+  "retried": {
+    "workers": 3,
+    "kernel": "ela-energy-segmented",
+    "energyRecompressions": 3,
+    "energyQualityPlanesComputed": 3,
+    "sourcePasses": 4,
+    "codecHeapCapacityBytes": 16777216,
+    "totalCodecHeapMaximumBytes": 50331648,
+    "scheduling": {
+      "count": 3,
+      "maximum": 3,
+      "ceiling": 3,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start",
+      "preflightExecutions": 0,
+      "taskExecutions": 2,
+      "retry": {
+        "code": "MEMORY_LIMIT",
+        "failedWorkers": 3,
+        "completedQualitiesPreserved": 2,
+        "remainingQualities": 1
+      }
+    }
+  },
+  "adaptiveCeilingAfterFailure": 1,
+  "cancellationCleanup": true,
+  "memory": {
+    "budgetBytes": 100663296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 94674857
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

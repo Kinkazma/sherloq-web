@@ -1,0 +1,236 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "productionSelected": false,
+  "rowsPerJob": 64,
+  "scope": "Three full-global native feature geometries24x128x128,32x64x64,96x32x32. CPU uses existing qualified FMA and10 bounded workers; hybrid retains the complete normalized tensor on one ordered GPU and up to10 CPU postprocess workers. Every complete comparison row is computed twice, no distant pair excluded. Native Gaussian/softmax axes/TopK retained, exact comparison to CPU and continuous errors against independent native correlations. Each timing includes setup, normalization, staging/transfers/readback and postprocessing. Shared host, single observation per condition; no production or universal gain claim.",
+  "records": [
+    {
+      "name": "corr96",
+      "pair": [
+        {
+          "backend": "cpu",
+          "milliseconds": 137.90000000596046,
+          "workers": 10,
+          "sha256": "43af5964e436aa27e56662dfba06419c2a63daf9b0018ae3f09c1b54ecd7de0d",
+          "shape": [
+            1,
+            96,
+            32,
+            32
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 680411136
+          }
+        },
+        {
+          "backend": "gpu",
+          "milliseconds": 87.20000000298023,
+          "workers": 10,
+          "sha256": "43af5964e436aa27e56662dfba06419c2a63daf9b0018ae3f09c1b54ecd7de0d",
+          "shape": [
+            1,
+            96,
+            32,
+            32
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "gpu": {
+            "devices": 1,
+            "allocations": 4,
+            "peakAccountedBytes": 917520,
+            "accounting": "explicit GPU buffers, excludes driver/compiler residency",
+            "errors": []
+          },
+          "timings": {
+            "gpuWriteBytes": 393728,
+            "gpuReadBytes": 8388608
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 354427200
+          }
+        }
+      ],
+      "exactCpu": true
+    },
+    {
+      "name": "corr32",
+      "pair": [
+        {
+          "backend": "cpu",
+          "milliseconds": 492.5,
+          "workers": 10,
+          "sha256": "2389cd1677be8c5adbc0cda297e68fd9349bd6aa43071cccc8660b3a47df0fff",
+          "shape": [
+            1,
+            32,
+            64,
+            64
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 683507712
+          }
+        },
+        {
+          "backend": "gpu",
+          "milliseconds": 354.3999999910593,
+          "workers": 10,
+          "sha256": "2389cd1677be8c5adbc0cda297e68fd9349bd6aa43071cccc8660b3a47df0fff",
+          "shape": [
+            1,
+            32,
+            64,
+            64
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "gpu": {
+            "devices": 1,
+            "allocations": 4,
+            "peakAccountedBytes": 2621456,
+            "accounting": "explicit GPU buffers, excludes driver/compiler residency",
+            "errors": []
+          },
+          "timings": {
+            "gpuWriteBytes": 526336,
+            "gpuReadBytes": 134217728
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 375628096
+          }
+        }
+      ],
+      "exactCpu": true
+    },
+    {
+      "name": "corr24",
+      "pair": [
+        {
+          "backend": "cpu",
+          "milliseconds": 6071.0999999940395,
+          "workers": 10,
+          "sha256": "f1fd51bb52d949ee99d8a89851f308123998c167b443bd97b218f2ce0bc3a275",
+          "shape": [
+            1,
+            24,
+            128,
+            128
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 708698112
+          }
+        },
+        {
+          "backend": "gpu",
+          "milliseconds": 3454.8999999910593,
+          "workers": 10,
+          "sha256": "f1fd51bb52d949ee99d8a89851f308123998c167b443bd97b218f2ce0bc3a275",
+          "shape": [
+            1,
+            24,
+            128,
+            128
+          ],
+          "probability": {
+            "maxAbs": 0,
+            "meanAbs": 0,
+            "different": 0
+          },
+          "gpu": {
+            "devices": 1,
+            "allocations": 4,
+            "peakAccountedBytes": 9961488,
+            "accounting": "explicit GPU buffers, excludes driver/compiler residency",
+            "errors": []
+          },
+          "timings": {
+            "gpuWriteBytes": 1581056,
+            "gpuReadBytes": 2147483648
+          },
+          "memory": {
+            "budgetBytes": 2147483648,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 475396416
+          }
+        }
+      ],
+      "exactCpu": true
+    }
+  ],
+  "checks": {
+    "cancelAfterSubmit": true,
+    "preAbort": true,
+    "geometry": true,
+    "memory": true,
+    "retry": true,
+    "pressureWorkers": true
+  },
+  "memory": {
+    "budgetBytes": 67108864,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 375628096
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "experiments/segmentation/cmseg-dot-gpu.js": "13b9f9eaa2aa1488f14c36fd3ef8cdaa22ca1962c0235a13cfa0bce29381cf33",
+    "vendor/segmentation/cmseg-correlation-gpu/post.js": "308ac75e9eeec1ab800c7f76138a2db61f02867dc980c75d711326faf981c699",
+    "vendor/segmentation/cmseg-correlation-gpu/post.wasm": "8ad628ecb2bc6bb288a382f0ff9eb446abfcddf957db1926f677cead57f3bfe0",
+    "scripts/study-cmseg-resident-correlation-gpu.mjs": "6e2a0f2ed313ebb19264f00131b2a8fc888d9af18631a9dfadb15d28e7ac46a3",
+    "scripts/build-cmseg-correlation-gpu-post.py": "962d2415a6abaf0b1d54fd8259e780fc4ab1ead8a7d4beae13df4cb4374b7f8b",
+    "experiments/segmentation/cmseg-correlation-gpu.js": "1792b114939830970fbab8494a0b333b8c3d0b7c121f208cebc96d4a30e412ef",
+    "experiments/segmentation/cmseg-correlation-gpu-worker.js": "245270f340794489637bae42b7356a73ca717621c6d58cbecc4a935319f74c12",
+    "experiments/segmentation/cmseg-correlation.js": "efd9ac635242650138d5a5ccc048a92d1204ac154b71166c2d47de4000b76293",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "experiments/segmentation/cmseg-correlation.cpp": "8f65a246e8aabd069e4ff6c29c4d704b01d7c8717039b95e988269fd375aae54",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "vendor/segmentation/correlation-fma.js": "3aec9e00d6364701d73fbe2eaa894f0c76c4b103b458471513b02d208cd47fbf",
+    "vendor/segmentation/correlation-fma.wasm": "fe3a44357907b250fb00d82c5c6f9474de732e56340ffbfa694cca858efad39b",
+    ".build/cmseg-correlation-gpu-post-32m/build.json": "fe74d621af345fe293b3b6d87d8809be677c79882b88cbd9b90e6bee7c34f9fd"
+  }
+}

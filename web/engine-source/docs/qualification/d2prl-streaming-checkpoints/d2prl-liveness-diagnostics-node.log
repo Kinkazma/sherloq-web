@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: general GPU convolution admits its entire useful peak before splitting ownership
+ok 1 - general GPU convolution admits its entire useful peak before splitting ownership
+  ---
+  duration_ms: 5.662917
+  type: 'test'
+  ...
+# Subtest: ordered GPU convolution admits its entire useful peak before splitting ownership
+ok 2 - ordered GPU convolution admits its entire useful peak before splitting ownership
+  ---
+  duration_ms: 0.886334
+  type: 'test'
+  ...
+# Subtest: mapped GPU output survives engine disposal without a copied backing and releases idempotently
+ok 3 - mapped GPU output survives engine disposal without a copied backing and releases idempotently
+  ---
+  duration_ms: 0.651
+  type: 'test'
+  ...
+# Subtest: one owned GPU output feeds another convolution and device lifetime covers every outstanding result
+ok 4 - one owned GPU output feeds another convolution and device lifetime covers every outstanding result
+  ---
+  duration_ms: 1.673417
+  type: 'test'
+  ...
+# Subtest: mapping and range recovery preserve the completed dispatch and release its transient resources before reclaim
+ok 5 - mapping and range recovery preserve the completed dispatch and release its transient resources before reclaim
+  ---
+  duration_ms: 7.877125
+  type: 'test'
+  ...
+# Subtest: cancellation after mapping frees unpublished output and does not keep a device lease
+ok 6 - cancellation after mapping frees unpublished output and does not keep a device lease
+  ---
+  duration_ms: 0.61275
+  type: 'test'
+  ...
+# Subtest: pending GPU readback stays visible until its useful mapping completes
+ok 7 - pending GPU readback stays visible until its useful mapping completes
+  ---
+  duration_ms: 0.570709
+  type: 'test'
+  ...
+# Subtest: pending GPU readback stays visible until cancelled mapping settles
+ok 8 - pending GPU readback stays visible until cancelled mapping settles
+  ---
+  duration_ms: 0.461667
+  type: 'test'
+  ...
+# Subtest: D2 recovery forwards the real operation graph and recovery stage as serializable diagnostics
+ok 9 - D2 recovery forwards the real operation graph and recovery stage as serializable diagnostics
+  ---
+  duration_ms: 4.977416
+  type: 'test'
+  ...
+# Subtest: D2 policy refusal requests admission credit with 0 bytes of its own returned prefix
+ok 10 - D2 policy refusal requests admission credit with 0 bytes of its own returned prefix
+  ---
+  duration_ms: 3.332458
+  type: 'test'
+  ...
+# Subtest: D2 policy refusal requests admission credit with 128 bytes of its own returned prefix
+ok 11 - D2 policy refusal requests admission credit with 128 bytes of its own returned prefix
+  ---
+  duration_ms: 1.721791
+  type: 'test'
+  ...
+# Subtest: feature admission includes borrowed inputs and native heap growth atomically
+ok 12 - feature admission includes borrowed inputs and native heap growth atomically
+  ---
+  duration_ms: 1.111375
+  type: 'test'
+  ...
+# Subtest: neural admission includes borrowed inputs and native heap growth atomically
+ok 13 - neural admission includes borrowed inputs and native heap growth atomically
+  ---
+  duration_ms: 2.210042
+  type: 'test'
+  ...
+# Subtest: prepare admission includes borrowed inputs and native heap growth atomically
+ok 14 - prepare admission includes borrowed inputs and native heap growth atomically
+  ---
+  duration_ms: 0.55475
+  type: 'test'
+  ...
+# Subtest: D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+ok 15 - D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+  ---
+  duration_ms: 32.942042
+  type: 'test'
+  ...
+# Subtest: five failures without progress stop locally while more separated incidents remain recoverable
+ok 16 - five failures without progress stop locally while more separated incidents remain recoverable
+  ---
+  duration_ms: 16.424
+  type: 'test'
+  ...
+# Subtest: feature copy recovery retains completed native work and releases all ownership
+ok 17 - feature copy recovery retains completed native work and releases all ownership
+  ---
+  duration_ms: 5.380166
+  type: 'test'
+  ...
+# Subtest: cancelled local recovery immediately releases pressure and does not retry
+ok 18 - cancelled local recovery immediately releases pressure and does not retry
+  ---
+  duration_ms: 0.54325
+  type: 'test'
+  ...
+# Subtest: two evaluator lanes refusing every useful tile stop without leaking work or pressure
+ok 19 - two evaluator lanes refusing every useful tile stop without leaking work or pressure
+  ---
+  duration_ms: 10.623333
+  type: 'test'
+  ...
+# Subtest: concurrent useful tiles do not combine independent first refusals into a loop
+ok 20 - concurrent useful tiles do not combine independent first refusals into a loop
+  ---
+  duration_ms: 1.895167
+  type: 'test'
+  ...
+# Subtest: guarded stages retain dynamic getters and original method ownership
+ok 21 - guarded stages retain dynamic getters and original method ownership
+  ---
+  duration_ms: 0.195583
+  type: 'test'
+  ...
+# Subtest: a refused optional evaluator preserves the ready pool and grows again after external release
+ok 22 - a refused optional evaluator preserves the ready pool and grows again after external release
+  ---
+  duration_ms: 1.653292
+  type: 'test'
+  ...
+# Subtest: parameter digest recovery retains already fetched useful model bytes
+ok 23 - parameter digest recovery retains already fetched useful model bytes
+  ---
+  duration_ms: 25.849334
+  type: 'test'
+  ...
+# Subtest: cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+ok 24 - cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+  ---
+  duration_ms: 0.806916
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 212.543333

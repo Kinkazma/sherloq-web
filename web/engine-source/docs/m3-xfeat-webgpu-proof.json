@@ -1,0 +1,203 @@
+{
+  "provider": "webgpu",
+  "modelSha256": "b7c5ba6f2f007d2b7462f32ffc9f537e4d78918d6e5ea8dd39de2caef6426319",
+  "weightSha256": "0f5187fd7bedd26c7fe6acc9685444493a165a35ecc087b33c2db3627f3ea10b",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "cases": [
+    {
+      "id": 0,
+      "mode": "pattern",
+      "sourceAligned": {
+        "keypoints": {
+          "differences": 0,
+          "maximum": 0
+        },
+        "scores": {
+          "differences": 99,
+          "maximum": 3.986060619354248e-7
+        },
+        "descriptors": {
+          "differences": 6147,
+          "maximum": 4.3585896492004395e-7
+        }
+      },
+      "keypoints": {
+        "shape": [
+          100,
+          2
+        ],
+        "expectedShape": [
+          100,
+          2
+        ],
+        "values": 200,
+        "expectedValues": 200,
+        "differences": 0,
+        "maximum": 0
+      },
+      "sourceOrder": {
+        "coordinateDifferences": 0,
+        "coordinateMaximum": 0,
+        "gridDifferences": 0
+      },
+      "scores": {
+        "shape": [
+          100
+        ],
+        "expectedShape": [
+          100
+        ],
+        "values": 100,
+        "expectedValues": 100,
+        "differences": 99,
+        "maximum": 3.986060619354248e-7
+      },
+      "descriptors": {
+        "shape": [
+          100,
+          64
+        ],
+        "expectedShape": [
+          100,
+          64
+        ],
+        "values": 6400,
+        "expectedValues": 6400,
+        "differences": 6147,
+        "maximum": 4.3585896492004395e-7
+      }
+    },
+    {
+      "id": 1,
+      "mode": "noise",
+      "sourceAligned": {
+        "keypoints": {
+          "differences": 0,
+          "maximum": 0
+        },
+        "scores": {
+          "differences": 100,
+          "maximum": 6.034970283508301e-7
+        },
+        "descriptors": {
+          "differences": 6377,
+          "maximum": 0.0000048317015171051025
+        }
+      },
+      "keypoints": {
+        "shape": [
+          100,
+          2
+        ],
+        "expectedShape": [
+          100,
+          2
+        ],
+        "values": 200,
+        "expectedValues": 200,
+        "differences": 4,
+        "maximum": 54.2421875
+      },
+      "sourceOrder": {
+        "coordinateDifferences": 0,
+        "coordinateMaximum": 0,
+        "gridDifferences": 0
+      },
+      "scores": {
+        "shape": [
+          100
+        ],
+        "expectedShape": [
+          100
+        ],
+        "values": 100,
+        "expectedValues": 100,
+        "differences": 100,
+        "maximum": 6.034970283508301e-7
+      },
+      "descriptors": {
+        "shape": [
+          100,
+          64
+        ],
+        "expectedShape": [
+          100,
+          64
+        ],
+        "values": 6400,
+        "expectedValues": 6400,
+        "differences": 6378,
+        "maximum": 0.33238930255174637
+      }
+    },
+    {
+      "id": 2,
+      "mode": "zero",
+      "sourceAligned": {
+        "keypoints": {
+          "differences": 0,
+          "maximum": 0
+        },
+        "scores": {
+          "differences": 0,
+          "maximum": 0
+        },
+        "descriptors": {
+          "differences": 0,
+          "maximum": 0
+        }
+      },
+      "keypoints": {
+        "shape": [
+          0,
+          2
+        ],
+        "expectedShape": [
+          0,
+          2
+        ],
+        "values": 0,
+        "expectedValues": 0,
+        "differences": 0,
+        "maximum": 0
+      },
+      "sourceOrder": {
+        "coordinateDifferences": 0,
+        "coordinateMaximum": 0,
+        "gridDifferences": 0
+      },
+      "scores": {
+        "shape": [
+          0
+        ],
+        "expectedShape": [
+          0
+        ],
+        "values": 0,
+        "expectedValues": 0,
+        "differences": 0,
+        "maximum": 0
+      },
+      "descriptors": {
+        "shape": [
+          0,
+          64
+        ],
+        "expectedShape": [
+          0,
+          64
+        ],
+        "values": 0,
+        "expectedValues": 0,
+        "differences": 0,
+        "maximum": 0
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT can assign unsupported nodes to CPU.",
+  "decisionsMatch": true
+}

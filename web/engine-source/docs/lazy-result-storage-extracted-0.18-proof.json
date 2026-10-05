@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real1MP RAM-backed segmented JPEG,48MiB budget, multiple owned results and exact baseline CPU windows; lazy storage for ranks/bitplanes/extrema, preserved first result, unload/cancel/dispose and no speculative storage. Functional timings, not isolated benchmarks.",
+  "cases": [
+    {
+      "operation": "colors.stats",
+      "params": {
+        "mode": "avg",
+        "inclusive": true
+      },
+      "resultsUntilSpill": 7,
+      "backend": "opfs",
+      "transitionMetrics": {
+        "blocks": 1,
+        "storage": "temporary",
+        "retainedResultBytes": 3145728,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 23.5,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 50331648,
+          "retainedBytes": 22020096,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 47185920
+        }
+      },
+      "firstSurfaceStorage": "memory",
+      "cancellationMs": 1.4000000357627869,
+      "cancellation": "storage-closed-before-worker-termination",
+      "sequenceMs": 599.3999999761581
+    },
+    {
+      "operation": "noise.planes",
+      "params": {
+        "channel": 4,
+        "bit": 3,
+        "filter": 2
+      },
+      "resultsUntilSpill": 5,
+      "backend": "opfs",
+      "transitionMetrics": {
+        "blocks": 2,
+        "rowsPerBlock": 1022,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 4194304,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 48.30000001192093,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 50331648,
+          "retainedBytes": 20971520,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 44684874
+        }
+      },
+      "firstSurfaceStorage": "memory",
+      "cancellationMs": 28.899999976158142,
+      "cancellation": "storage-closed-before-worker-termination",
+      "sequenceMs": 766.3000000119209
+    },
+    {
+      "operation": "noise.minmax",
+      "params": {
+        "channel": 4,
+        "minimum": 1,
+        "maximum": 0,
+        "filter": 1
+      },
+      "resultsUntilSpill": 4,
+      "backend": "opfs",
+      "transitionMetrics": {
+        "stageMs": {
+          "admission": 2.5,
+          "extremaAndMaskWrites": 18.399999976158142,
+          "densityCounts": 2.800000011920929,
+          "globalNormalization": 19.30000001192093,
+          "displayWrites": 16.299999952316284
+        },
+        "blocks": 3,
+        "rowsPerBlock": 453,
+        "densityCells": 12996,
+        "densityGridBytes": 216128,
+        "storage": "temporary",
+        "maskStorage": {
+          "minimum": "memory",
+          "maximum": "memory"
+        },
+        "retainedResultBytes": 5242880,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 59.39999997615814,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 50331648,
+          "retainedBytes": 20971520,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 48450624
+        }
+      },
+      "firstSurfaceStorage": "memory",
+      "cancellationMs": 10.100000023841858,
+      "cancellation": "storage-closed-before-worker-termination",
+      "sequenceMs": 979.8000000119209
+    }
+  ],
+  "storageArtifactsRemaining": 0,
+  "browser": "154.0.8037.58",
+  "extractedRuntime": true,
+  "version": "0.18.0"
+}

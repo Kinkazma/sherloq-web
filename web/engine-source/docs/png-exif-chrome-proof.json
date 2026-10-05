@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "cases": 2,
+  "exactNativeThumbnail": true,
+  "gpsAndDirectories": true,
+  "exifBeforeAndAfterIdat": true,
+  "browser": "154.0.8037.58"
+}

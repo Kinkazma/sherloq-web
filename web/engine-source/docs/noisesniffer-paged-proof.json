@@ -1,0 +1,140 @@
+[
+  {
+    "name": "constant-8",
+    "selected": 0,
+    "low": 0,
+    "metrics": {
+      "sorts": [],
+      "layout": "paged-global",
+      "membershipStorage": "packed-two-bit",
+      "membershipPackedBytes": 182,
+      "standardDeviation": {
+        "milliseconds": 2.3999999910593033,
+        "method": "exact-byte-8x8-integer-box",
+        "storedBytes": 17472
+      }
+    },
+    "memory": {
+      "budgetBytes": 134217728,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 21225177
+    }
+  },
+  {
+    "name": "ties-3",
+    "selected": 0,
+    "low": 0,
+    "metrics": {
+      "sorts": [],
+      "layout": "paged-global",
+      "membershipStorage": "packed-two-bit",
+      "membershipPackedBytes": 361,
+      "standardDeviation": {
+        "method": "native-patch-sums"
+      }
+    },
+    "memory": {
+      "budgetBytes": 134217728,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 21225177
+    }
+  },
+  {
+    "name": "patch-3",
+    "selected": 4320,
+    "low": 2160,
+    "metrics": {
+      "sorts": [
+        {
+          "workspaceBytes": 16958848,
+          "reads": 44,
+          "writes": 44,
+          "readBytes": 173208,
+          "writeBytes": 173208,
+          "heapBytes": 8388608
+        },
+        {
+          "workspaceBytes": 16958848,
+          "reads": 44,
+          "writes": 44,
+          "readBytes": 173208,
+          "writeBytes": 173208,
+          "heapBytes": 8388608
+        },
+        {
+          "workspaceBytes": 16958848,
+          "reads": 44,
+          "writes": 44,
+          "readBytes": 173208,
+          "writeBytes": 173208,
+          "heapBytes": 8388608
+        }
+      ],
+      "layout": "paged-global",
+      "membershipStorage": "packed-two-bit",
+      "membershipPackedBytes": 4354,
+      "standardDeviation": {
+        "method": "native-patch-sums"
+      }
+    },
+    "memory": {
+      "budgetBytes": 134217728,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 38550660
+    }
+  },
+  {
+    "name": "patch-8",
+    "selected": 2490,
+    "low": 1245,
+    "metrics": {
+      "sorts": [
+        {
+          "workspaceBytes": 16884544,
+          "reads": 26,
+          "writes": 26,
+          "readBytes": 99648,
+          "writeBytes": 99648,
+          "heapBytes": 8388608
+        },
+        {
+          "workspaceBytes": 16884544,
+          "reads": 26,
+          "writes": 26,
+          "readBytes": 99648,
+          "writeBytes": 99648,
+          "heapBytes": 8388608
+        },
+        {
+          "workspaceBytes": 16884544,
+          "reads": 26,
+          "writes": 26,
+          "readBytes": 99648,
+          "writeBytes": 99648,
+          "heapBytes": 8388608
+        }
+      ],
+      "layout": "paged-global",
+      "membershipStorage": "packed-two-bit",
+      "membershipPackedBytes": 4030,
+      "standardDeviation": {
+        "milliseconds": 39.8999999910593,
+        "method": "exact-byte-8x8-integer-box",
+        "storedBytes": 386880
+      }
+    },
+    "memory": {
+      "budgetBytes": 134217728,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 38550660
+    }
+  }
+]

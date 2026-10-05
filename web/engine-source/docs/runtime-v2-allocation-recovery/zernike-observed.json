@@ -1,0 +1,29 @@
+{
+  "provenance": "Captured successful stdout from node tests/dense-preparation-allocation-recovery-browser.mjs; not replayed for this artifact. Development-only injected allocation refusal.",
+  "browser": "Chromium",
+  "width": 384,
+  "height": 256,
+  "pixels": 98304,
+  "workers": 4,
+  "referenceTiles": 6,
+  "recoveredTiles": 6,
+  "refusals": 1,
+  "bytesPreserved": 4194304,
+  "status": "completed",
+  "recoveryProgressEvents": 3,
+  "referenceStorage": [
+    "memory",
+    "memory"
+  ],
+  "recoveredStorage": [
+    "temporary",
+    "memory"
+  ],
+  "temporaryBackend": "opfs",
+  "sha256": [
+    "1f636d58a85faf76cb6d63be5bb1c1a5478d2fadc933e511b9eb267acf6d0268",
+    "a4d7c5fa61904672bbc97eef2d1ece4edc853ec93a1e1044ef431a7e44253546"
+  ],
+  "exactBytes": true,
+  "finalAccountedBytes": 0
+}

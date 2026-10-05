@@ -1,0 +1,104 @@
+[
+  {
+    "profile": "PatchMatch Zernike",
+    "refilter": false,
+    "fields": 1,
+    "links": [
+      0
+    ],
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 1,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 168266,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 51149297
+      }
+    }
+  },
+  {
+    "profile": "PatchMatch Zernike",
+    "refilter": true,
+    "fields": 1,
+    "links": [
+      11054
+    ],
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 1,
+      "stored": true,
+      "cache": {
+        "field": true,
+        "refilter": true
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 180645,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 51149297
+      }
+    }
+  },
+  {
+    "profile": "PatchMatch Zernike + PatchMatch SIFT",
+    "refilter": false,
+    "fields": 2,
+    "links": [
+      0,
+      0
+    ],
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 2,
+      "stored": true,
+      "cache": {
+        "field": false,
+        "refilter": false
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 391226,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 52527138
+      }
+    }
+  },
+  {
+    "profile": "PatchMatch Zernike + PatchMatch SIFT",
+    "refilter": true,
+    "fields": 2,
+    "links": [
+      11054,
+      0
+    ],
+    "metrics": {
+      "preflightExecutions": 0,
+      "completedJobs": 2,
+      "stored": true,
+      "cache": {
+        "field": true,
+        "refilter": true
+      },
+      "generation": 0,
+      "memory": {
+        "budgetBytes": 134217728,
+        "retainedBytes": 290370,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 52527138
+      }
+    }
+  }
+]

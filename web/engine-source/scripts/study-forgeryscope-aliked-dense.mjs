@@ -1,0 +1,18 @@
+// Dense ALIKED graph with actual deformable convolutions; not full extractor.
+import {chromium} from 'playwright';import {createServer} from 'node:http';import {readFile,writeFile} from 'node:fs/promises';import {fileURLToPath} from 'node:url';import path from 'node:path';
+const root=fileURLToPath(new URL('../',import.meta.url)),ortRoot=process.env.FORGERYSCOPE_ORT_DIST;if(!ortRoot)throw Error('Set FORGERYSCOPE_ORT_DIST.');const provider=process.argv.includes('--gpu')?'webgpu':'wasm';
+const server=createServer(async(req,res)=>{try{const name=new URL(req.url,'http://localhost').pathname;if(name==='/'){res.setHeader('Content-Type','text/html');res.end('<!doctype html><title>ALIKED dense study</title>');return;}const base=path.resolve(name.startsWith('/ort/')?ortRoot:root),file=path.resolve(base,'.'+(name.startsWith('/ort/')?name.slice(4):name));if(!file.startsWith(base+path.sep))throw Error('path');res.setHeader('Content-Type',/\.(m?js)$/.test(file)?'text/javascript':file.endsWith('.wasm')?'application/wasm':'application/octet-stream');res.end(await readFile(file));}catch{res.statusCode=404;res.end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
+try{
+ browser=await chromium.launch({channel:'chrome',headless:true});const page=await browser.newPage();page.on('console',x=>{if(x.type()==='error')console.log(x.text());});await page.goto(`http://127.0.0.1:${server.address().port}`);
+ const report=await page.evaluate(async provider=>{
+  const ort=await import('/ort/'+(provider==='wasm'?'ort.wasm.min.mjs':'ort.webgpu.min.mjs'));ort.env.wasm.numThreads=1;ort.env.wasm.wasmPaths='/ort/';
+  const base='/.build/forgeryscope/',ref=await(await fetch(base+'aliked-blot-dense-reference.json')).json(),records=[];
+  const bytes=new Uint8Array(await(await fetch(base+ref.file)).arrayBuffer()),digest=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');if(digest!==ref.sha256)throw Error('Model identity');
+  const report={provider,scope:'ALIKED dense feature/score maps only; no keypoints/descriptors',modelSha256:ref.sha256,checkpointSha256:ref.checkpointSha256,runtime:ort.env.versions,nativeTorch:ref.torch,records};let session;
+  try{session=await ort.InferenceSession.create(bytes,{executionProviders:[provider],graphOptimizationLevel:'all'});
+   for(const c of ref.cases){const input=new ort.Tensor('float32',new Float32Array(await(await fetch(base+c.files.input.file)).arrayBuffer()),c.files.input.shape),output=await session.run({image:input});
+    try{const record={case:c.id};for(const name of ['features','scores']){const expected=new Float32Array(await(await fetch(base+c.files[name].file)).arrayBuffer()),actual=output[name].data;if(actual.length!==expected.length)throw Error('Shape mismatch');let maxError=0,differences=0;for(let i=0;i<actual.length;i++){maxError=Math.max(maxError,Math.abs(actual[i]-expected[i]));differences+=actual[i]!==expected[i];}record[name]={maxError,differences,values:actual.length};}records.push(record);}finally{input.dispose();for(const t of Object.values(output))t.dispose();}
+   }
+  }catch(error){report.error=String(error);}finally{await session?.release();}return report;
+ },provider);report.browser=browser.version();report.executionNote=provider==='webgpu'?'WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim.':'CPU/WASM';report.passed=!report.error&&report.records.every(r=>r.features.maxError<=1e-4&&r.scores.maxError<=1e-4);await writeFile(path.join(root,`docs/forgeryscope-aliked-dense-${provider}-proof.json`),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));if(!report.passed)process.exitCode=1;
+}finally{await browser?.close();await new Promise(r=>server.close(r));}

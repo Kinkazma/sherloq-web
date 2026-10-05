@@ -1,0 +1,140 @@
+{
+  "counts": [
+    2481,
+    2964,
+    1102,
+    2918
+  ],
+  "expectedCounts": [
+    2481,
+    2964,
+    1102,
+    2918
+  ],
+  "means": {
+    "values": 1024,
+    "differences": 0,
+    "maximum": 0
+  },
+  "areas": {
+    "values": 4,
+    "differences": 0,
+    "maximum": 0
+  },
+  "cases": [
+    {
+      "channels": 1,
+      "binary": false,
+      "probabilities": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      },
+      "map": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      },
+      "labels": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "channels": 1,
+      "binary": true,
+      "probabilities": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      },
+      "map": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      },
+      "labels": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "channels": 2,
+      "binary": false,
+      "probabilities": {
+        "values": 2097152,
+        "differences": 0,
+        "maximum": 0
+      },
+      "map": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      },
+      "labels": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "channels": 2,
+      "binary": true,
+      "probabilities": {
+        "values": 2097152,
+        "differences": 0,
+        "maximum": 0
+      },
+      "map": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      },
+      "labels": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "channels": 4,
+      "binary": false,
+      "probabilities": {
+        "values": 4194304,
+        "differences": 0,
+        "maximum": 0
+      },
+      "map": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      },
+      "labels": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "channels": 4,
+      "binary": true,
+      "probabilities": {
+        "values": 4194304,
+        "differences": 0,
+        "maximum": 0
+      },
+      "map": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      },
+      "labels": {
+        "values": 1048576,
+        "differences": 0,
+        "maximum": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "numpy": "1.26.4",
+  "opencv": "4.11.0",
+  "emscripten": "4.0.15",
+  "source": {
+    "version": "1.26.4",
+    "source": "https://files.pythonhosted.org/packages/65/6e/09db70a523a96d25e115e71cc56a6f9031e7b8cd166c1ac8438307c14058/numpy-1.26.4.tar.gz",
+    "archiveSha256": "2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010",
+    "files": [
+      {
+        "file": "LICENSE.txt",
+        "bytes": 1543,
+        "sha256": "263223390c43a9d4a0841e0209265fd927a198f8e89c8eee809b7437d7e5e8c2"
+      },
+      {
+        "file": "_pocketfft.c",
+        "bytes": 68211,
+        "sha256": "5261950f4b8fdf0f12071178abbbb00ffeddc4dfec002446638f248b51faa63a"
+      },
+      {
+        "file": "LICENSES_bundled.txt",
+        "bytes": 952,
+        "sha256": "37ce73ee1f411de26fecc349fccba81480de4e6ee8213fa56895fa37c193cd84"
+      },
+      {
+        "file": "LICENSE-POCKETFFT.md",
+        "bytes": 1498,
+        "sha256": "c254b2b5fd30ae3c89d36ba061730563b9760fca04f1b746a1b2c3157da2c789"
+      }
+    ],
+    "pocketfftLicenseSource": "https://raw.githubusercontent.com/mreineck/pocketfft/81d171a6d5562e3aaa2c73489b70f564c633ff81/LICENSE.md"
+  }
+}

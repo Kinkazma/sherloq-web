@@ -1,0 +1,352 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Generated finite float32 UNet helper inputs, signed zeros, broadcast order, channelwise cancellation boundaries; no model parity claim",
+  "records": [
+    {
+      "name": "relu-signed-zero-7",
+      "elements": 7,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "maximum-signed-zero-7",
+      "elements": 7,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "relu-signed-zero-8",
+      "elements": 8,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "maximum-signed-zero-8",
+      "elements": 8,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "relu-signed-zero-9",
+      "elements": 9,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "maximum-signed-zero-9",
+      "elements": 9,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "relu-signed-zero-16",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "maximum-signed-zero-16",
+      "elements": 16,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "relu-signed-zero-17",
+      "elements": 17,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "maximum-signed-zero-17",
+      "elements": 17,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "relu-signed-zero-196",
+      "elements": 196,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "maximum-signed-zero-196",
+      "elements": 196,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "relu-signed-zero-784",
+      "elements": 784,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "maximum-signed-zero-784",
+      "elements": 784,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "add-1x8x14x14",
+      "elements": 1568,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "multiply-1x8x14x14-1x8x1x1",
+      "elements": 1568,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "reverse-multiply-1x8x14x14-1x8x1x1",
+      "elements": 1568,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "multiply-1x8x14x14-1x1x14x14",
+      "elements": 1568,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "reverse-multiply-1x8x14x14-1x1x14x14",
+      "elements": 1568,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "nearest-1x8x14x14",
+      "elements": 6272,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "pool-1x8x14x14",
+      "elements": 392,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "sigmoid-1x8x14x14",
+      "elements": 1568,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "mean-1x8x14x14",
+      "elements": 8,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "batchnorm-1x8x14x14",
+      "elements": 1568,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "add-1x32x28x28",
+      "elements": 25088,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "multiply-1x32x28x28-1x32x1x1",
+      "elements": 25088,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "reverse-multiply-1x32x28x28-1x32x1x1",
+      "elements": 25088,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "multiply-1x32x28x28-1x1x28x28",
+      "elements": 25088,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "reverse-multiply-1x32x28x28-1x1x28x28",
+      "elements": 25088,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "nearest-1x32x28x28",
+      "elements": 100352,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "pool-1x32x28x28",
+      "elements": 6272,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "sigmoid-1x32x28x28",
+      "elements": 25088,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "mean-1x32x28x28",
+      "elements": 32,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "batchnorm-1x32x28x28",
+      "elements": 25088,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "add-1x64x112x112",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "multiply-1x64x112x112-1x64x1x1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "reverse-multiply-1x64x112x112-1x64x1x1",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "multiply-1x64x112x112-1x1x112x112",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "reverse-multiply-1x64x112x112-1x1x112x112",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "nearest-1x64x112x112",
+      "elements": 3211264,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "pool-1x64x112x112",
+      "elements": 200704,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "sigmoid-1x64x112x112",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "mean-1x64x112x112",
+      "elements": 64,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "batchnorm-1x64x112x112",
+      "elements": 802816,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    }
+  ],
+  "lifecycle": {
+    "busy": true,
+    "cancelled": true,
+    "retryExact": true,
+    "retryReleased": true,
+    "inputPreserved": true,
+    "refused": true,
+    "refusalReleased": true,
+    "released": true
+  },
+  "peakAccountedBytes": 49610752,
+  "browser": "26.6",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sources": {
+      "neural-math.cpp": "cb022aeb47591356745b047ce2c1d7acb7b239476121099c902735be388bfb8b",
+      "feature-math.cpp": "783ee56177651072361971e9b303f822ff9d16ca42de7326d9bd8ea6cda89548",
+      "resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d",
+      "mean.cpp": "412d2558fd3d0152bac9f6f4dde7caca25363387ec9759c1779acb56ee7de72e",
+      "sigmoid.cpp": "3c0ac4c7a75ad0ce0de91b77cfe8ba4f529ca319fa43c027d23a0ea0789eef59",
+      "dlf.cpp": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
+      "reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+    },
+    "files": {
+      "neural-math.js": {
+        "bytes": 8053,
+        "sha256": "9dabd5182d33597ce0dc610cb00249a3cc8836f5a80b4a0ca4781cf07d91e4fb"
+      },
+      "neural-math.wasm": {
+        "bytes": 13500,
+        "sha256": "1665fed0278897f4e9f97e6b5a967284b91a4e859959f01880db769946a9b847"
+      }
+    }
+  },
+  "wrapperSha256": "d7ac3818718122f177fe8e82128187583694c45fceb69bb6207af5d70a3610c3",
+  "referenceSha256": "83def2a63d30a073f2a673dc739b5d8e4f3ed547779ed3913cb557c35868de39"
+}

@@ -1,0 +1,97 @@
+{
+  "status": "passed",
+  "dimensions": [
+    4103,
+    5401
+  ],
+  "results": [
+    {
+      "params": {
+        "quality": 75,
+        "scale": 50,
+        "contrast": 20,
+        "linear": false,
+        "grayscale": false
+      },
+      "rgbSha256": "4606509585a06af98bc11630cc21e7e343c7a0e612debc9070f72c6d3663e5d6",
+      "metrics": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-scanlines",
+        "recompressedCache": false,
+        "recompressions": 1,
+        "sourcePasses": 2,
+        "encodedBytes": 4709345,
+        "encodedCapacityBytes": 133428224,
+        "encodedStorage": "temporary",
+        "cacheEntries": 1,
+        "rowsPerChunk": 32,
+        "maxSourceWindowBytes": 393888,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "storage": "temporary",
+        "tableCached": false,
+        "retainedResultBytes": 66480909,
+        "cache": {
+          "recompressed": false,
+          "table": false,
+          "result": false
+        },
+        "temporaryBackend": "opfs",
+        "totalMs": 2880.7000000029802,
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 0,
+          "cacheBytes": 65536,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 43780736
+        }
+      }
+    },
+    {
+      "params": {
+        "quality": 75,
+        "scale": 37,
+        "contrast": 59,
+        "linear": false,
+        "grayscale": true
+      },
+      "rgbSha256": "578f85b66acd8104ae90ba2c3378872c08aeefb33e320b87531094a0001d6023",
+      "metrics": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-scanlines",
+        "recompressedCache": true,
+        "recompressions": 0,
+        "sourcePasses": 1,
+        "encodedBytes": 4709345,
+        "encodedCapacityBytes": 133428224,
+        "encodedStorage": "temporary",
+        "cacheEntries": 1,
+        "rowsPerChunk": 32,
+        "maxSourceWindowBytes": 393888,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "storage": "temporary",
+        "tableCached": false,
+        "retainedResultBytes": 66480909,
+        "cache": {
+          "recompressed": true,
+          "table": false,
+          "result": false
+        },
+        "temporaryBackend": "opfs",
+        "totalMs": 434.5,
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 0,
+          "cacheBytes": 131072,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 43780736
+        }
+      }
+    }
+  ],
+  "cancellation": "storage-closed-before-worker-termination",
+  "reloadExact": true,
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

@@ -1,0 +1,2428 @@
+{
+  "schema": 1,
+  "scope": "Offline detector, all seven point fields and complete descriptors; product qualification is separate",
+  "nativeSourceSha256": "161d3b3589383740fafd97cd9871f531c7ee2313db55ac5620a8c9770637db27",
+  "prototypeWasmSha256": "a2762616aa91407b194de92bdafc81bd950bfc64ff3fac38400586988a7ca991",
+  "cases": 128,
+  "nativeKeypoints": 78626,
+  "differentCounts": 0,
+  "differentFields": 0,
+  "differentDescriptorBytes": 0,
+  "sourceHashes": {
+    "scripts/build-akaze-study.py": "3898b9d6646f1c45108aeab138e384f107fc2fa92ac52631f8867533a06a0dda",
+    "experiments/cloning/akaze-angles.cpp": "10d52e76d3d8c92147e126726f0c4c80fae36278a88e90c778d57388dfb7f892",
+    "experiments/cloning/akaze-filters.cpp": "1857edc2227aadf414114ac90ba6c5d22bb3c029e9ca6536226d7572046823c1",
+    "experiments/cloning/akaze-separable.cpp": "da9c38048c47fd14af39a70c5836dbe919700ad6875b3b832d76df3d9c927f42",
+    "experiments/cloning/akaze-area.cpp": "70f1fec819bd4339b4f1a9f90b7e77926ed42014d4cd6d0a61debce12d3eaf62"
+  },
+  "records": [
+    {
+      "image": "flat",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "flat",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "flat",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "flat",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "tiny",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "tiny",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "tiny",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "tiny",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-37-32",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-37-32",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-37-32",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-37-32",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-80-64",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-80-64",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-80-64",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-80-64",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-193-127",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 23,
+      "actualCount": 23,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "noise-193-127",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-193-127",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 15,
+      "actualCount": 15,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "noise-193-127",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 3,
+      "actualCount": 3,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "clone-193-127",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 12,
+      "actualCount": 12,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "clone-193-127",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "clone-193-127",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 8,
+      "actualCount": 8,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "clone-193-127",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 1,
+      "actualCount": 1,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "noise-320-256",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 78,
+      "actualCount": 78,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "noise-320-256",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-320-256",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 42,
+      "actualCount": 42,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "noise-320-256",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 16,
+      "actualCount": 16,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "clone-320-256",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 27,
+      "actualCount": 27,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "clone-320-256",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "clone-320-256",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 11,
+      "actualCount": 11,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "clone-320-256",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 5,
+      "actualCount": 5,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "noise-512-384",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 258,
+      "actualCount": 258,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "noise-512-384",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "noise-512-384",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 123,
+      "actualCount": 123,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "noise-512-384",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 45,
+      "actualCount": 45,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "clone-512-384",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 110,
+      "actualCount": 110,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "clone-512-384",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "clone-512-384",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 52,
+      "actualCount": 52,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "clone-512-384",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 17,
+      "actualCount": 17,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "checker",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 1128,
+      "actualCount": 1128,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "checker",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "checker",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 552,
+      "actualCount": 552,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "checker",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 186,
+      "actualCount": 186,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "shapes",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 391,
+      "actualCount": 391,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "shapes",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "shapes",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 193,
+      "actualCount": 193,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "shapes",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 52,
+      "actualCount": 52,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-noise",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 1764,
+      "actualCount": 1764,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-noise",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "large-noise",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 894,
+      "actualCount": 894,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-noise",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 295,
+      "actualCount": 295,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-clone",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 693,
+      "actualCount": 693,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-clone",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "large-clone",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 371,
+      "actualCount": 371,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-clone",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 108,
+      "actualCount": 108,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-rotated",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 694,
+      "actualCount": 694,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-rotated",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "large-rotated",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 371,
+      "actualCount": 371,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-rotated",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 115,
+      "actualCount": 115,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-checker",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 20934,
+      "actualCount": 20934,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-checker",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "large-checker",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 10549,
+      "actualCount": 10549,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "large-checker",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 3498,
+      "actualCount": 3498,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-0",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-0",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-0",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-0",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-0",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-0",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-0",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-0",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-1",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-1",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-1",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-1",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-1",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-1",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-1",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-1",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-2",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 39,
+      "actualCount": 39,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-2",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-2",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 19,
+      "actualCount": 19,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-2",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 3,
+      "actualCount": 3,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-2",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 39,
+      "actualCount": 39,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-2",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-2",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 19,
+      "actualCount": 19,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-2",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 3,
+      "actualCount": 3,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-3",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 417,
+      "actualCount": 417,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-3",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-3",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 209,
+      "actualCount": 209,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-3",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 72,
+      "actualCount": 72,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-3",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 410,
+      "actualCount": 410,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-3",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-3",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 209,
+      "actualCount": 209,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-3",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 67,
+      "actualCount": 67,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-4",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 1371,
+      "actualCount": 1371,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-4",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-4",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 674,
+      "actualCount": 674,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-4",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 243,
+      "actualCount": 243,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-4",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 1380,
+      "actualCount": 1380,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-4",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-4",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 674,
+      "actualCount": 674,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-4",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 236,
+      "actualCount": 236,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-5",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 1502,
+      "actualCount": 1502,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-5",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-5",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 744,
+      "actualCount": 744,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-5",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 266,
+      "actualCount": 266,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-5",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 1503,
+      "actualCount": 1503,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-5",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-5",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 744,
+      "actualCount": 744,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-5",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 266,
+      "actualCount": 266,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-6",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 697,
+      "actualCount": 697,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-6",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-6",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 342,
+      "actualCount": 342,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-6",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 101,
+      "actualCount": 101,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-6",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 699,
+      "actualCount": 699,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-6",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-6",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 342,
+      "actualCount": 342,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-6",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 102,
+      "actualCount": 102,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-7",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 6505,
+      "actualCount": 6505,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-7",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-7",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 3224,
+      "actualCount": 3224,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-7",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 1084,
+      "actualCount": 1084,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-7",
+      "algorithm": 2,
+      "mask": "all",
+      "nativeCount": 6491,
+      "actualCount": 6491,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-7",
+      "algorithm": 2,
+      "mask": "empty",
+      "nativeCount": 0,
+      "actualCount": 0
+    },
+    {
+      "image": "extra-rotated-7",
+      "algorithm": 2,
+      "mask": "half",
+      "nativeCount": 3224,
+      "actualCount": 3224,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    },
+    {
+      "image": "extra-rotated-7",
+      "algorithm": 2,
+      "mask": "sparse",
+      "nativeCount": 1072,
+      "actualCount": 1072,
+      "errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeDescriptorSize": 61,
+      "actualDescriptorSize": 61,
+      "descriptorDifferences": 0
+    }
+  ]
+}

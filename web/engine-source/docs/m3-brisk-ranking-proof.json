@@ -1,0 +1,37 @@
+{
+  "referenceCommit": "0aaf98a",
+  "records": [
+    {
+      "limit": 100,
+      "masked": false,
+      "count": 100,
+      "total": 2669,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "limit": 100,
+      "masked": true,
+      "count": 100,
+      "total": 1308,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "limit": 20000,
+      "masked": false,
+      "count": 2669,
+      "total": 2669,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    },
+    {
+      "limit": 20000,
+      "masked": true,
+      "count": 1308,
+      "total": 1308,
+      "pointDifferences": 0,
+      "descriptorDifferences": 0
+    }
+  ]
+}

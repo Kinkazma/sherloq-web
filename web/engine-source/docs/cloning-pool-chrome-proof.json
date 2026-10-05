@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "nativeGroupIndices": 339844,
+  "resourceReducedWorkers": 2,
+  "peakAccountedBytes": 10989292,
+  "budgetBytes": 10989292,
+  "cancellation": "Active workers terminated; all charges released",
+  "resourceFailure": "Useful worker outputs release before explicit serial retry",
+  "tooSmallPool": "serial without worker construction",
+  "preflightExecutions": 0,
+  "browser": "154.0.8037.58"
+}

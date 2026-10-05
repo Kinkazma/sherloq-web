@@ -1,0 +1,34 @@
+[
+  {
+    "method": "adaifl",
+    "arrays": {
+      "map": {
+        "shape": [
+          64,
+          64
+        ],
+        "dtype": "float32"
+      },
+      "mask": {
+        "shape": [
+          64,
+          64
+        ],
+        "dtype": "uint8"
+      },
+      "metadata_json": {
+        "shape": [],
+        "dtype": "<U1482"
+      },
+      "browser_provenance_json": {
+        "shape": [],
+        "dtype": "<U565"
+      }
+    },
+    "sourceSize": [
+      8000,
+      12000
+    ],
+    "seconds": 0.004155158996582031
+  }
+]

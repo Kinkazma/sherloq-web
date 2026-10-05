@@ -1,0 +1,82 @@
+{
+  "engineCommit": "7bff369bea0a35b5f039021702cd328c879d4bec",
+  "evidence": "evidence.json",
+  "status": "Incomplete architecture qualification; no full96MP success",
+  "methodFailure": "Previous qualification established several local mechanisms and scientific parity on a resident small case, but did not establish complete allocation/ownership/recovery contracts across all five groups and worker boundaries. In particular, the healthy-looking running status can hide a pending terminal preparation rejection while a peer field is saved; previous status reports did not distinguish that state.",
+  "confirmed": [
+    {
+      "id": "d2-lost-cause",
+      "finding": "Projection replaces any RangeError with a generic allocation error and drops cause, domain and extent. Five failures occur in 602ms. Generic reclaim reduces D2 Wasm banks; the 8.463GB reclaimable ArrayBuffer L2 stays unchanged in the four recovery snapshots. Raw inference cache is reused; projection progress is not checkpointed.",
+      "source": "src/segmented-neural-projection.js:59",
+      "limit": "The original failing constructor cannot be identified retrospectively. RangeError alone does not prove physical allocation failure."
+    },
+    {
+      "id": "ela-checkpoint",
+      "finding": "First failure after all71Ghost qualities is the curves allocation of8520000bytes. The second attempt repeats all three cell qualities then fails allocating the213000000byte Ghost cube. Automatic provider omits available memo and plane checkpoint hooks.",
+      "source": "src/automatic-ela-provider.js:31",
+      "additionalSimultaneousAggregationBytes": 11545008
+    },
+    {
+      "id": "missing-extents",
+      "finding": "The two ELA constructors do not annotate requestedBytes; recovery uses1048576bytes. The same missing extent occurs in dense SIFT transpose failures. This is not an estimate of their real requirement."
+    },
+    {
+      "id": "cache-composition",
+      "finding": "A physical allocation failure retires all8606646272L2bytes, acknowledged by workers and descendants. No durable SAB alias leak was established in that protocol. Cache growth remains blocked while ELA recovery pressure stays active.",
+      "limit": "Known reference retirement is not proof of physical garbage collection; no comparable performance measurement establishes the slowdown caused by losing L2."
+    },
+    {
+      "id": "latent-rpc",
+      "finding": "dense-field-parallel reduces a qualified allocation error to bytes; dense-paged-field-worker forwards bytes only; parent performs generic reclaim.",
+      "observedInCurrentFailure": false,
+      "evidenceLimit": "Current active dense field reports allocationRecoveries0."
+    },
+    {
+      "id": "incomplete-admission",
+      "finding": "Neural spatial projection and ELA aggregation/scoring have global reservations or run CPU work without the complete domain/backing/ticket contract. Domain ledger is descriptive; global available credit is not allocator capacity."
+    }
+  ],
+  "missingEvidence": [
+    "D2 original exception, allocation constructor, exact requested extent, logical operation and stage.",
+    "Reconciliation of all materialized backings and simultaneous borrowed/owned phase inputs, output and scratch; distinguish global policy credit, useful persistent data and optional caches.",
+    "Whether retired references have actually been collected and why the browser allocator refused at that instant. Current logs do not establish a fixed allocator ceiling, fragmentation or a particular memory leak.",
+    "Explicit checkpoint/commit identity and any pending terminal error while active peer fields drain.",
+    "Marginal benefit/cost of optional cache growth using useful-work observations, not a calibration workload.",
+    "A verified complete96MP result and archive."
+  ],
+  "proposedArchitecture": [
+    "Require cause, domain, exact size, owner and lifecycle at allocation and transport boundaries. Preserve ordinary range/bounds errors as such; record failures and state transitions without per-pixel logging.",
+    "For every phase declare its minimum useful working set, simultaneous live buffers and next publication boundary. Admit parallel units dynamically with this envelope; optional caches use remaining capacity.",
+    "Materialize actual reusable completion buffers as part of useful preparation, so a late small allocation cannot discard already-completed expensive work. Prefer same-slot reuse over retire/reallocate.",
+    "Keep authoritative ELA cell and per-quality Ghost checkpoints separately from disposable acceleration caches. Publication must await storage acknowledgement and update a compact bitmap. Preserve numeric order; no resolution/parameter reduction.",
+    "Offer resident and paged paths for Ghost data. Aggregation can use extrema6000000 + one plane3000000 + integral3010008 + curves8520000bytes rather than requiring a resident213MBcube.",
+    "Checkpoint D2 postprocessed masks and projection zone/plane/band; retry only the uncommitted band while retaining raw inference.",
+    "Reclaim optional cache in relevant increments with acknowledgement; restore useful acceleration when the failed request is satisfied rather than keeping a global freeze across an entire provider lifetime.",
+    "Validate end-to-end allocation failures through real worker boundaries and scientific output parity, then use a cold96MP result as the full-run qualification. Keep aggressive parallelism; no permanent arbitrary global CPU/RAM reduction.",
+    "Expose terminal-preparation-error/draining as soon as decided, including original cause, active fields retained, completed checkpoints and missing work. Do not report a generic running state as overall healthy advancement."
+  ],
+  "nonClaims": [
+    "No exact browser RAM limit has been measured.",
+    "No physical cause is invented for D2.",
+    "No confirmed shared-cache alias leak.",
+    "No general deadlock established while PatchMatch computes.",
+    "No new engine code or running process changed during this audit."
+  ],
+  "externalReference": {
+    "url": "https://v8.github.io/api/head/classv8_1_1ArrayBuffer_1_1Allocator.html",
+    "scope": "Allocator failure and per-allocation constraints are independent of the application policy budget; this API documentation does not diagnose this run."
+  },
+  "strongInferences": [
+    {
+      "id": "patchmatch-draining-after-preparation-error",
+      "finding": "Last transpose publication is49/1504 at14:45:25.240Z. By14:45:36 and14:46:06, only65transpose calls have been admitted and completed; none is active or waiting. A single dense field continues. The source propagates a preparation rejection only after awaiting pending fields and pool.drain in finally. These observations strongly indicate that preparation has already failed and PatchMatch is draining its useful existing field.",
+      "limit": "The exact terminal exception is not emitted before drain, so its code and sixth-failure path remain inferred. Continued field progress does not establish healthy overall PatchMatch progress.",
+      "sources": [
+        "src/dense-paged-image.js:100",
+        "src/dense-paged-image.js:101",
+        "src/dense-paged-sift.js:83",
+        "src/resource-recovery.js:103"
+      ]
+    }
+  ]
+}

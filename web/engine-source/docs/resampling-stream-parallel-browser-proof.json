@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "budgetBytes": 536870912,
+  "cases": [
+    {
+      "params": {
+        "window": "hanning",
+        "upsample": true,
+        "center": false,
+        "highpass": "simple",
+        "gamma": 4,
+        "rescale": true
+      },
+      "maxScaled": 1.667554982986985e-13,
+      "rgbSha256": "314cde54127e59df359520c574e2c21f46478b30090ff4c7be8376336316cbc5",
+      "metrics": {
+        "workers": 4,
+        "completedStripJobs": 202,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "grayCached": false,
+        "spectrumCached": false,
+        "magnitudeCached": false,
+        "displayCached": false,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 6021.0999999940395,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 150994944,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 243269632
+        }
+      }
+    },
+    {
+      "params": {
+        "window": "radial",
+        "upsample": false,
+        "center": true,
+        "highpass": "radial",
+        "gamma": 0.1,
+        "rescale": false
+      },
+      "maxScaled": 8.992806499463768e-15,
+      "rgbSha256": "9c21ea903a36ed5440616ad91aabb658a3bae9d2e67598f2a074aff4279ffc9c",
+      "metrics": {
+        "workers": 4,
+        "completedStripJobs": 32,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "grayCached": true,
+        "spectrumCached": false,
+        "magnitudeCached": false,
+        "displayCached": false,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 614.8999999985099,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 25952256,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 314572800
+        }
+      }
+    },
+    {
+      "params": {
+        "window": "hanning",
+        "upsample": false,
+        "center": false,
+        "highpass": "simple",
+        "gamma": 1,
+        "rescale": true
+      },
+      "maxScaled": 4.717444482550013e-13,
+      "rgbSha256": "8515c880c81ff0d7c12141170e5fa3d1cfcb32a6f86cc560de33993d3375333a",
+      "metrics": {
+        "workers": 4,
+        "completedStripJobs": 32,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "grayCached": true,
+        "spectrumCached": false,
+        "magnitudeCached": false,
+        "displayCached": false,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 1177.3999999985099,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 40894464,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 314572800
+        }
+      }
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

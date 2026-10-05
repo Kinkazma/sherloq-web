@@ -1,0 +1,10 @@
+"""Link the unchanged OpenCV Lanczos4 resize; shared SDK/library inputs are read-only."""
+from pathlib import Path
+import os,subprocess,hashlib,json
+root=Path(__file__).resolve().parents[1];build=Path(os.environ['OPENCV_BUILD_ROOT']);compiler=Path(os.environ['EMSDK'])/'upstream/emscripten/em++'
+env={**os.environ,'EM_FROZEN_CACHE':'1','EMCC_CORES':'1'};version=subprocess.check_output([str(compiler),'--version'],env=env,text=True).splitlines()[0];assert '4.0.15' in version
+out=root/'vendor/thumbnail-resize';out.mkdir(parents=True,exist_ok=True);source=root/'native/thumbnail-resize.cpp';objects=[build/'cv/lib/libopencv_imgproc.a',build/'cv/lib/libopencv_core.a']
+subprocess.run([str(compiler),str(source),*map(str,objects),*['-I'+str(build/'opencv-4.11.0/modules'/name/'include')for name in ['core','imgproc']],'-I'+str(build/'cv'),'-O3','-fexceptions','-ffp-contract=off','-ffile-prefix-map='+str(root)+'/=','-ffile-prefix-map='+str(build)+'/=','-sDISABLE_EXCEPTION_CATCHING=0','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sFILESYSTEM=0','-sALLOW_MEMORY_GROWTH=1','-sIMPORTED_MEMORY=1','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY=2147483648','-sMEMORY_GROWTH_LINEAR_STEP=16777216','-sABORTING_MALLOC=0','-sEXPORTED_FUNCTIONS=["_malloc","_free","_thumbnail_resize","_thumbnail_data","_thumbnail_size","_thumbnail_error","_thumbnail_close"]','-sEXPORTED_RUNTIME_METHODS=["HEAPU8"]','-o',str(out/'thumbnail-resize.js')],env=env,check=True)
+(out/'LICENSE').write_bytes((root/'vendor/opencv/LICENSE').read_bytes());sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+(out/'PINNED.json').write_text(json.dumps(dict(schema=1,opencv='4.11.0',compiler=version,sourceSha256=sha(source),libraries={p.name:sha(p)for p in objects},method='Unchanged cv::resize INTER_LANCZOS4 on RGB8; full native output, streamed delivery',files={p.name:dict(bytes=p.stat().st_size,sha256=sha(p))for p in [out/'thumbnail-resize.js',out/'thumbnail-resize.wasm']}),indent=2)+'\n')
+print('Bounded thumbnail resize built')

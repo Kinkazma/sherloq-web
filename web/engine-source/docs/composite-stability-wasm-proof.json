@@ -1,0 +1,420 @@
+{
+  "policy": "covariance-floor-v1",
+  "statisticsSourceSha256": "d3f5386ec00efb11cb27d1a7be1b78b6a35b1399341f95f76f9bd5bcd7250899",
+  "records": [
+    {
+      "case": "singular-small",
+      "path": "contiguous",
+      "rawMaxError": 1.514796793460846,
+      "globalRelativeError": 2.387997810856012e-9,
+      "pointwiseRelativeError": 5.265375571027249e-9,
+      "normalizedMaxError": 3.864246589380116e-9,
+      "rasterMaxError": 0,
+      "rasterDifferences": 0,
+      "validExact": true,
+      "covarianceRegularizations": 3,
+      "pcaRegularizedComponents": 0,
+      "ms": 3462.7000000029802
+    },
+    {
+      "case": "singular-small",
+      "path": "stream",
+      "rawMaxError": 2.555218458175659,
+      "globalRelativeError": 4.028168075561791e-9,
+      "pointwiseRelativeError": 6.1940795561215845e-9,
+      "normalizedMaxError": 3.922112079557394e-9,
+      "rasterMaxError": 0,
+      "rasterDifferences": 0,
+      "validExact": true,
+      "covarianceRegularizations": 3,
+      "pcaRegularizedComponents": 0,
+      "referenceScale": 1.0000000000000024,
+      "execution": {
+        "featureRows": 32,
+        "featureChunks": 1,
+        "replicates": 10,
+        "fitWorkers": 2,
+        "bestReplicate": 3,
+        "globalPca": true,
+        "globalEm": true
+      },
+      "ms": 9450.90000000596
+    },
+    {
+      "case": "singular-small",
+      "path": "banked",
+      "rawMaxError": 2.5024330615997314,
+      "globalRelativeError": 3.94495466237487e-9,
+      "pointwiseRelativeError": 7.299049456654096e-9,
+      "normalizedMaxError": 4.0234477971523575e-9,
+      "rasterMaxError": 0,
+      "rasterDifferences": 0,
+      "validExact": true,
+      "covarianceRegularizations": 3,
+      "pcaRegularizedComponents": 0,
+      "referenceScale": 1.0000000000000024,
+      "execution": {
+        "featureRows": 32,
+        "globalPca": true,
+        "globalEm": true,
+        "fitWorkers": 2,
+        "bestReplicate": 3,
+        "replicates": [
+          {
+            "score": -29.345943193429857,
+            "exit": [
+              0,
+              4
+            ]
+          },
+          {
+            "score": -30.6500954156544,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -33.2923284229888,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -28.042941083835,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -36.403099299678466,
+            "exit": [
+              0,
+              2
+            ]
+          },
+          {
+            "score": -31.139630913837046,
+            "exit": [
+              0,
+              2
+            ]
+          },
+          {
+            "score": -31.324655205943788,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -29.08349308235292,
+            "exit": [
+              0,
+              2
+            ]
+          },
+          {
+            "score": -33.191680141255596,
+            "exit": [
+              0,
+              2
+            ]
+          },
+          {
+            "score": -30.292966371839903,
+            "exit": [
+              0,
+              2
+            ]
+          }
+        ],
+        "validCells": 168,
+        "featureStorage": "memory"
+      },
+      "ms": 15273.10000000894
+    },
+    {
+      "case": "singular-chain",
+      "path": "contiguous",
+      "rawMaxError": 1.9138430953025818,
+      "globalRelativeError": 3.7047105127118414e-9,
+      "pointwiseRelativeError": 7.6845217241747e-9,
+      "normalizedMaxError": 4.526241270674802e-9,
+      "rasterMaxError": 0,
+      "rasterDifferences": 0,
+      "validExact": true,
+      "covarianceRegularizations": 3,
+      "pcaRegularizedComponents": 0,
+      "ms": 3511.5
+    },
+    {
+      "case": "singular-chain",
+      "path": "stream",
+      "rawMaxError": 3.5198886394500732,
+      "globalRelativeError": 6.813603726529104e-9,
+      "pointwiseRelativeError": 1.5577429529603356e-8,
+      "normalizedMaxError": 6.42143233031689e-9,
+      "rasterMaxError": 0,
+      "rasterDifferences": 0,
+      "validExact": true,
+      "covarianceRegularizations": 3,
+      "pcaRegularizedComponents": 0,
+      "referenceScale": 1.0000000000000033,
+      "execution": {
+        "featureRows": 32,
+        "featureChunks": 1,
+        "replicates": 10,
+        "fitWorkers": 2,
+        "bestReplicate": 3,
+        "globalPca": true,
+        "globalEm": true
+      },
+      "ms": 12398.70000000298
+    },
+    {
+      "case": "singular-chain",
+      "path": "banked",
+      "rawMaxError": 2.0485414266586304,
+      "globalRelativeError": 3.96545201521239e-9,
+      "pointwiseRelativeError": 8.438088230655013e-9,
+      "normalizedMaxError": 4.46881698312751e-9,
+      "rasterMaxError": 0,
+      "rasterDifferences": 0,
+      "validExact": true,
+      "covarianceRegularizations": 3,
+      "pcaRegularizedComponents": 0,
+      "referenceScale": 1.0000000000000033,
+      "execution": {
+        "featureRows": 32,
+        "globalPca": true,
+        "globalEm": true,
+        "fitWorkers": 2,
+        "bestReplicate": 3,
+        "replicates": [
+          {
+            "score": -38.27758740700179,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -37.95104159600568,
+            "exit": [
+              0,
+              2
+            ]
+          },
+          {
+            "score": -37.65943856102765,
+            "exit": [
+              0,
+              2
+            ]
+          },
+          {
+            "score": -36.20477901801085,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -37.62784927490467,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -38.001721973819585,
+            "exit": [
+              0,
+              2
+            ]
+          },
+          {
+            "score": -37.00869770978433,
+            "exit": [
+              0,
+              2
+            ]
+          },
+          {
+            "score": -36.271918480289706,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -36.26312594131453,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -36.553440282717716,
+            "exit": [
+              0,
+              3
+            ]
+          }
+        ],
+        "validCells": 446,
+        "featureStorage": "memory"
+      },
+      "ms": 18424.79999999702
+    },
+    {
+      "case": "well-conditioned",
+      "path": "contiguous",
+      "rawMaxError": 7.526068657170981e-11,
+      "globalRelativeError": 3.6937958986462995e-14,
+      "pointwiseRelativeError": 4.04098728119034e-14,
+      "normalizedMaxError": 3.652633751016765e-14,
+      "rasterMaxError": 0,
+      "rasterDifferences": 0,
+      "validExact": true,
+      "covarianceRegularizations": 0,
+      "pcaRegularizedComponents": 0,
+      "ms": 4787.4000000059605
+    },
+    {
+      "case": "well-conditioned",
+      "path": "stream",
+      "rawMaxError": 9.276845958083868e-11,
+      "globalRelativeError": 4.553077724011149e-14,
+      "pointwiseRelativeError": 5.151391054146917e-14,
+      "normalizedMaxError": 3.275157922644212e-14,
+      "rasterMaxError": 0,
+      "rasterDifferences": 0,
+      "validExact": true,
+      "covarianceRegularizations": 0,
+      "pcaRegularizedComponents": 0,
+      "referenceScale": 1.000000000000004,
+      "execution": {
+        "featureRows": 32,
+        "featureChunks": 2,
+        "replicates": 10,
+        "fitWorkers": 2,
+        "bestReplicate": 2,
+        "globalPca": true,
+        "globalEm": true
+      },
+      "ms": 12050.90000000596
+    },
+    {
+      "case": "well-conditioned",
+      "path": "banked",
+      "rawMaxError": 2.5920599000528455e-11,
+      "globalRelativeError": 1.2721834817089974e-14,
+      "pointwiseRelativeError": 1.8802904071706968e-14,
+      "normalizedMaxError": 1.1213252548714081e-14,
+      "rasterMaxError": 0,
+      "rasterDifferences": 0,
+      "validExact": true,
+      "covarianceRegularizations": 0,
+      "pcaRegularizedComponents": 0,
+      "referenceScale": 1.000000000000004,
+      "execution": {
+        "featureRows": 32,
+        "globalPca": true,
+        "globalEm": true,
+        "fitWorkers": 2,
+        "bestReplicate": 2,
+        "replicates": [
+          {
+            "score": -39.06031078286265,
+            "exit": [
+              0,
+              17
+            ]
+          },
+          {
+            "score": -39.973137037260976,
+            "exit": [
+              0,
+              4
+            ]
+          },
+          {
+            "score": -35.79956813863425,
+            "exit": [
+              0,
+              83
+            ]
+          },
+          {
+            "score": -39.86424045130767,
+            "exit": [
+              0,
+              4
+            ]
+          },
+          {
+            "score": -39.57750833842618,
+            "exit": [
+              0,
+              5
+            ]
+          },
+          {
+            "score": -39.588767928069934,
+            "exit": [
+              0,
+              8
+            ]
+          },
+          {
+            "score": -39.607864043920564,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -39.51651797077199,
+            "exit": [
+              0,
+              4
+            ]
+          },
+          {
+            "score": -40.037738833357906,
+            "exit": [
+              0,
+              3
+            ]
+          },
+          {
+            "score": -35.799568281400454,
+            "exit": [
+              0,
+              68
+            ]
+          }
+        ],
+        "validCells": 1440,
+        "featureStorage": "memory"
+      },
+      "ms": 18681.19999998808
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1204067044
+  },
+  "passed": true,
+  "scope": "Two frozen native degenerate fixtures and well-conditioned control; actual contiguous/stream/banked PCA32 and ten global EM replicates. Raw unbounded distances distinguished from normalized/raster errors. Unchanged exact native residuals reused.",
+  "browser": "154.0.8037.58",
+  "browserContext": "off-the-record Playwright context",
+  "executionNote": "CPU/WASM"
+}

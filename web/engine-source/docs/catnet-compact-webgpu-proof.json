@@ -1,0 +1,83 @@
+{
+  "provider": "webgpu",
+  "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+  "graphSha256": "5c0a28385289e3fe5cc40c7bed90599ec200753f03ae357659ae1225ce97dc18",
+  "records": [
+    {
+      "case": 0,
+      "outputs": {
+        "native_map": {
+          "values": 384,
+          "maxError": 2.3469328880310059e-7,
+          "differences": 367
+        },
+        "padded_map": {
+          "values": 6144,
+          "maxError": 2.0489096641540527e-7,
+          "differences": 6016
+        }
+      },
+      "metrics": {
+        "milliseconds": 2496.2999999970198,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "webgpu",
+        "workers": 1
+      }
+    },
+    {
+      "case": 1,
+      "outputs": {
+        "native_map": {
+          "values": 884,
+          "maxError": 8.940696716308594e-7,
+          "differences": 851
+        },
+        "padded_map": {
+          "values": 14144,
+          "maxError": 8.940696716308594e-7,
+          "differences": 13677
+        }
+      },
+      "metrics": {
+        "milliseconds": 250.30000000447035,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "webgpu",
+        "workers": 1
+      }
+    },
+    {
+      "case": 2,
+      "outputs": {
+        "native_map": {
+          "values": 1056,
+          "maxError": 6.034970283508301e-7,
+          "differences": 1007
+        },
+        "padded_map": {
+          "values": 16896,
+          "maxError": 5.811452865600586e-7,
+          "differences": 16632
+        }
+      },
+      "metrics": {
+        "milliseconds": 249.69999999552965,
+        "preflightExecutions": 0,
+        "memoryMaximumBytes": 1258291200,
+        "provider": "webgpu",
+        "workers": 1
+      }
+    }
+  ],
+  "memory": {
+    "budgetBytes": 4294967296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2903350943
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real model API from generated original file through source pixels, independent neural zone inference, source-coordinate composition, cached refilter and numeric NPZ export. No expected tensors enter the model. WordPress integration remains separate.",
+  "backend": "cpu",
+  "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+  "records": [
+    {
+      "name": "detect-500",
+      "checks": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true,
+        "candidates": true
+      },
+      "inferenceCount": true
+    },
+    {
+      "name": "refilter-0",
+      "checks": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true,
+        "candidates": true
+      },
+      "inferenceCount": true
+    },
+    {
+      "name": "refilter-17",
+      "checks": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true,
+        "candidates": true
+      },
+      "inferenceCount": true
+    },
+    {
+      "name": "refilter-5000",
+      "checks": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true,
+        "candidates": true
+      },
+      "inferenceCount": true
+    }
+  ],
+  "actualInferences": 1,
+  "metadata": {
+    "boxes": [
+      [
+        0,
+        0,
+        521,
+        389
+      ]
+    ],
+    "zones": [
+      {
+        "id": "whole-image",
+        "bounds": [
+          0,
+          0,
+          521,
+          389
+        ],
+        "origin": [
+          0,
+          0
+        ],
+        "analysis_shape": [
+          3,
+          448,
+          448
+        ],
+        "status": "ok",
+        "input_side": 448,
+        "patchmatch_iterations": 40,
+        "seed": 22,
+        "min_component": 5000,
+        "role_filter": 50,
+        "kind": "whole-image",
+        "decision": {
+          "overlap": 38161.30078125,
+          "threshold": 28291.060546875,
+          "combineMaximum": true
+        },
+        "execution": {
+          "convolution": "wasm-simd-workers",
+          "patchmatch": "wasm-workers",
+          "roles": "onnxruntime-wasm",
+          "workerCeiling": 10,
+          "referenceThreads": 8,
+          "roleRuntime": {
+            "heapCapacityBytes": 170524672,
+            "ort": {
+              "common": "1.30.0",
+              "web": "1.30.0"
+            }
+          }
+        }
+      }
+    ],
+    "exclusions": [],
+    "min_component": 5000,
+    "status": "ok",
+    "probability_interpolation": "bilinear",
+    "mask_interpolation": "nearest",
+    "exclusion_policy": "output-only-native-d2prl",
+    "inference_performed": false,
+    "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+    "backend": "cpu",
+    "pixelSha256": "1238856164fe1cde39f48ca43729fc0d5c2058eaab31502712a5762cc6ed41fd",
+    "resultId": "d2prl-session-1:4",
+    "revision": 4,
+    "sourceProvenance": {
+      "id": "d2prl-source",
+      "width": 521,
+      "height": 389,
+      "format": "rgb8",
+      "sha256": "a49d384b21e357114e799c084c69318d3dd63d1264473a15035f35a84f6acd98",
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          521,
+          389
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      },
+      "surface": {
+        "id": "b785d7e5-9067-403e-820e-978e96ea7320",
+        "revision": 1,
+        "width": 521,
+        "height": 389,
+        "format": "rgb8",
+        "sourceWidth": 521,
+        "sourceHeight": 389,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "metrics": {
+        "preparationMs": 38.599999997764826,
+        "memory": {
+          "budgetBytes": 2187484540,
+          "retainedBytes": 1135475,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40000892
+        }
+      }
+    },
+    "vote_policy": "one-model-union",
+    "inferences": 0,
+    "cache_hits": 1
+  },
+  "exported": {
+    "bytes": 3053299,
+    "sha256": "4cb7b5f3a4f00b2ea198e0b3fcb38e08e4f068e94124182f26b996238ece2ecd",
+    "minimum": 5000,
+    "envelope": true
+  },
+  "originalPreserved": true,
+  "progressEvents": 1161,
+  "allReservationsReleased": true,
+  "peakAccountedBytes": 5505468591,
+  "memoryScope": "Conservative engine reservations, not RSS; reference comparator excluded.",
+  "browser": "154.0.8037.58",
+  "package": {
+    "schema": 1,
+    "file": "model.json",
+    "bytes": 1173784,
+    "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+    "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+    "assets": 1062,
+    "assetBytes": 541513527,
+    "scope": "Private model parameters and configuration only; no native expected images/activations, no distribution permission inferred."
+  },
+  "sources": {
+    "model": "e9fbc85605a73a1e48e434c7fdeb41b0c91da3c4a672eef8cb41d1452d183e12",
+    "analysis": "6e4869fbb1ef3a3a513cc6846b4ce62f8afb16a9ca2fc7ad783e90ae621c4fa4",
+    "descriptors": "dbdd97c4f46d75fdb79c9595158cf019f65916dd8447370294310b85b8ca0863",
+    "zones": "df16e465ce61c821807d5b826b828a5e54665db03a097dad84dbba28180fddb3",
+    "export": "f5bb7377fda7d7e34a25e71b167bde9b52c9cbaa161a1e7fe68b781c25385279"
+  }
+}

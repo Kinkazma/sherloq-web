@@ -1,0 +1,290 @@
+{
+  "schema": 1,
+  "status": "core-parity-passed",
+  "rows": [
+    {
+      "name": "tiny",
+      "rejected": true
+    },
+    {
+      "name": "small",
+      "method": "direct",
+      "values": 3,
+      "exact": true
+    },
+    {
+      "name": "zero",
+      "method": "direct",
+      "values": 196,
+      "exact": true
+    },
+    {
+      "name": "constant",
+      "method": "direct",
+      "values": 900,
+      "exact": true
+    },
+    {
+      "name": "same",
+      "method": "fft",
+      "values": 2115,
+      "exact": true
+    },
+    {
+      "name": "shift",
+      "method": "fft",
+      "values": 3843,
+      "exact": true
+    },
+    {
+      "name": "brightness",
+      "method": "fft",
+      "values": 9215,
+      "exact": true
+    },
+    {
+      "name": "noise",
+      "method": "fft",
+      "values": 16125,
+      "exact": true
+    },
+    {
+      "name": "random",
+      "method": "fft",
+      "values": 36100,
+      "exact": true
+    },
+    {
+      "name": "gamma",
+      "method": "fft",
+      "values": 65535,
+      "exact": true
+    },
+    {
+      "name": "large",
+      "method": "fft",
+      "values": 260100,
+      "exact": true
+    },
+    {
+      "name": "row",
+      "rejected": true
+    },
+    {
+      "name": "column",
+      "rejected": true
+    },
+    {
+      "name": "narrow",
+      "method": "direct",
+      "values": 15,
+      "exact": true
+    },
+    {
+      "name": "inverse",
+      "method": "fft",
+      "values": 15875,
+      "exact": true
+    },
+    {
+      "name": "impulse",
+      "method": "direct",
+      "values": 899,
+      "exact": true
+    },
+    {
+      "name": "gradient",
+      "method": "fft",
+      "values": 8835,
+      "exact": true
+    },
+    {
+      "name": "checker",
+      "method": "fft",
+      "values": 4224,
+      "exact": true
+    },
+    {
+      "name": "saturated",
+      "method": "fft",
+      "values": 2205,
+      "exact": true
+    },
+    {
+      "name": "edge8",
+      "method": "direct",
+      "values": 42,
+      "exact": true
+    },
+    {
+      "name": "edge9",
+      "method": "direct",
+      "values": 56,
+      "exact": true
+    },
+    {
+      "name": "edge10",
+      "method": "direct",
+      "values": 72,
+      "exact": true
+    },
+    {
+      "name": "edge11",
+      "method": "direct",
+      "values": 90,
+      "exact": true
+    },
+    {
+      "name": "edge17",
+      "method": "direct",
+      "values": 240,
+      "exact": true
+    },
+    {
+      "name": "edge31",
+      "method": "direct",
+      "values": 870,
+      "exact": true
+    },
+    {
+      "name": "edge33",
+      "method": "fft",
+      "values": 992,
+      "exact": true
+    },
+    {
+      "name": "edge79",
+      "method": "fft",
+      "values": 6006,
+      "exact": true
+    },
+    {
+      "name": "edge80",
+      "method": "fft",
+      "values": 6162,
+      "exact": true
+    },
+    {
+      "name": "edge81",
+      "method": "fft",
+      "values": 6320,
+      "exact": true
+    },
+    {
+      "name": "edge175",
+      "method": "fft",
+      "values": 30102,
+      "exact": true
+    },
+    {
+      "name": "edge176",
+      "method": "fft",
+      "values": 30450,
+      "exact": true
+    },
+    {
+      "name": "edge177",
+      "method": "fft",
+      "values": 30800,
+      "exact": true
+    },
+    {
+      "name": "megapixel",
+      "method": "fft",
+      "values": 1044484,
+      "exact": true
+    }
+  ],
+  "nccPairs": 17,
+  "nccLargePairs": 8,
+  "databases": [
+    {
+      "name": "native-snapshot",
+      "exact": true
+    },
+    {
+      "name": "legacy",
+      "exact": true
+    },
+    {
+      "name": "incomplete",
+      "rejected": true
+    },
+    {
+      "name": "unknown-schema",
+      "rejected": true
+    },
+    {
+      "name": "empty",
+      "rejected": true
+    },
+    {
+      "name": "float32",
+      "rejected": true
+    },
+    {
+      "name": "vector",
+      "rejected": true
+    },
+    {
+      "name": "nonfinite",
+      "rejected": true
+    },
+    {
+      "name": "query-in-training",
+      "rejected": true
+    },
+    {
+      "name": "missing-fingerprint",
+      "rejected": true
+    },
+    {
+      "name": "legacy-untracked",
+      "exact": true
+    },
+    {
+      "name": "complete-without-manifest",
+      "exact": true
+    },
+    {
+      "name": "same-score-order",
+      "exact": true
+    },
+    {
+      "name": "negative-score",
+      "exact": true
+    }
+  ],
+  "fingerprints": [
+    {
+      "camera": "camera_alpha",
+      "values": 7395,
+      "exact": true
+    },
+    {
+      "camera": "camera_beta",
+      "values": 7743,
+      "exact": true
+    }
+  ],
+  "exportBytes": 53327,
+  "arithmeticChecks": {
+    "scalar": 2048768,
+    "simd": 1664768
+  },
+  "lifecycle": {
+    "status": "passed",
+    "originalSha256": "257087d633d60c729b0f54f0c29c916d0f8b9e968708cd87ad569105069d0ab2",
+    "newSnapshotBytes": 53327,
+    "memory": {
+      "budgetBytes": 3296722944,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 203631279
+    },
+    "checks": "Exact public scores, source/result ownership, wrong-kind rejection, dual-source invalidation, imported training exclusion, ordered streaming Blob build, corrupt JPEG accounting, no overwrite/partial snapshot, JSON/CSV/HDF5 and release"
+  },
+  "hardCancellation": "Worker terminated during snapshot build; both sources reloaded and exact identification recovered",
+  "browser": "154.0.8037.58"
+}

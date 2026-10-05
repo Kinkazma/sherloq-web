@@ -1,0 +1,3591 @@
+{
+  "schema": 1,
+  "status": "unavailable",
+  "scope": "offline detector only; no pipeline/runtime/WordPress claim",
+  "hashes": {
+    "experiments/cloning/brisk-area.cpp": "77380e8deb693d1566a5dc709a1c8f8f975763ce00816d40a6b6fc00f944a52f",
+    "scripts/build-cloning-study.py": "f37196446329e6ea0cf49285fbddd36ea400c09b2df39dde6e53d86607ac5ada",
+    ".build/cloning-features-brisk-area.mjs": "0d0e901e75dd04f4c6db8576eda821e373185cac5f258025aaf0e7f10f99dc8a",
+    ".build/cloning-features-brisk-area.wasm": "9bd83c1e666c04c8b79ded1122f2d6541190b1ded41e571970e15b633bd3d1c5"
+  },
+  "sets": {
+    "initial": {
+      "cases": 48,
+      "countMismatches": 0,
+      "nativeKeypoints": 55399,
+      "differingFields": {
+        "x": 0,
+        "y": 0,
+        "size": 0,
+        "angle": 5836,
+        "response": 0,
+        "octave": 0,
+        "classId": 0
+      },
+      "maxDegrees": 3.0517578125e-05,
+      "descriptorBytesDifferent": 0,
+      "records": [
+        {
+          "image": "flat",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "flat",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "flat",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "flat",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "tiny",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "tiny",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "tiny",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "tiny",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-37-32",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 1,
+          "actualCount": 1,
+          "errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-37-32",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-37-32",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-37-32",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-80-64",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 147,
+          "actualCount": 147,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            14,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-80-64",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-80-64",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 67,
+          "actualCount": 67,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            7,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-80-64",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 21,
+          "actualCount": 21,
+          "errors": [
+            0,
+            0,
+            0,
+            3.814697265625e-06,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-193-127",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 1421,
+          "actualCount": 1421,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            142,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-193-127",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-193-127",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 719,
+          "actualCount": 719,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            75,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-193-127",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 255,
+          "actualCount": 255,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            31,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-193-127",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 393,
+          "actualCount": 393,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            42,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-193-127",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "clone-193-127",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 202,
+          "actualCount": 202,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            24,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-193-127",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 64,
+          "actualCount": 64,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            10,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-320-256",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 6278,
+          "actualCount": 6278,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            660,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-320-256",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-320-256",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 3094,
+          "actualCount": 3094,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            342,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-320-256",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 1027,
+          "actualCount": 1027,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            101,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-320-256",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 1743,
+          "actualCount": 1743,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            167,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-320-256",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "clone-320-256",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 857,
+          "actualCount": 857,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            83,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-320-256",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 270,
+          "actualCount": 270,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            19,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-512-384",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 16867,
+          "actualCount": 16867,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1785,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-512-384",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-512-384",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 8210,
+          "actualCount": 8210,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            852,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-512-384",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 2741,
+          "actualCount": 2741,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            307,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-512-384",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 4757,
+          "actualCount": 4757,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            533,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-512-384",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "clone-512-384",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 2286,
+          "actualCount": 2286,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            263,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-512-384",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 832,
+          "actualCount": 832,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            76,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "checker",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 1274,
+          "actualCount": 1274,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            135,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "checker",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "checker",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 627,
+          "actualCount": 627,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            65,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "checker",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 196,
+          "actualCount": 196,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            19,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "shapes",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 653,
+          "actualCount": 653,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            58,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "shapes",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "shapes",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 303,
+          "actualCount": 303,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            20,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "shapes",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 94,
+          "actualCount": 94,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            4,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        }
+      ]
+    },
+    "expanded": {
+      "cases": 128,
+      "countMismatches": 0,
+      "nativeKeypoints": 684817,
+      "differingFields": {
+        "x": 0,
+        "y": 0,
+        "size": 0,
+        "angle": 70592,
+        "response": 0,
+        "octave": 0,
+        "classId": 0
+      },
+      "maxDegrees": 3.0517578125e-05,
+      "descriptorBytesDifferent": 0,
+      "records": [
+        {
+          "image": "flat",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "flat",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "flat",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "flat",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "tiny",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "tiny",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "tiny",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "tiny",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-37-32",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 1,
+          "actualCount": 1,
+          "errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-37-32",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-37-32",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-37-32",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-80-64",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 147,
+          "actualCount": 147,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            14,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-80-64",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-80-64",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 67,
+          "actualCount": 67,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            7,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-80-64",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 21,
+          "actualCount": 21,
+          "errors": [
+            0,
+            0,
+            0,
+            3.814697265625e-06,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-193-127",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 1421,
+          "actualCount": 1421,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            142,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-193-127",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-193-127",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 719,
+          "actualCount": 719,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            75,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-193-127",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 255,
+          "actualCount": 255,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            31,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-193-127",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 393,
+          "actualCount": 393,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            42,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-193-127",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "clone-193-127",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 202,
+          "actualCount": 202,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            24,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-193-127",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 64,
+          "actualCount": 64,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            10,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-320-256",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 6278,
+          "actualCount": 6278,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            660,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-320-256",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-320-256",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 3094,
+          "actualCount": 3094,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            342,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-320-256",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 1027,
+          "actualCount": 1027,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            101,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-320-256",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 1743,
+          "actualCount": 1743,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            167,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-320-256",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "clone-320-256",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 857,
+          "actualCount": 857,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            83,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-320-256",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 270,
+          "actualCount": 270,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            19,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-512-384",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 16867,
+          "actualCount": 16867,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1785,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-512-384",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "noise-512-384",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 8210,
+          "actualCount": 8210,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            852,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "noise-512-384",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 2741,
+          "actualCount": 2741,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            307,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-512-384",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 4757,
+          "actualCount": 4757,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            533,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-512-384",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "clone-512-384",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 2286,
+          "actualCount": 2286,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            263,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "clone-512-384",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 832,
+          "actualCount": 832,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            76,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "checker",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 1274,
+          "actualCount": 1274,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            135,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "checker",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "checker",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 627,
+          "actualCount": 627,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            65,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "checker",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 196,
+          "actualCount": 196,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            19,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "shapes",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 653,
+          "actualCount": 653,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            58,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "shapes",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "shapes",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 303,
+          "actualCount": 303,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            20,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "shapes",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 94,
+          "actualCount": 94,
+          "errors": [
+            0,
+            0,
+            0,
+            1.52587890625e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            4,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-noise",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 97197,
+          "actualCount": 97197,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            10095,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-noise",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "large-noise",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 47960,
+          "actualCount": 47960,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            4918,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-noise",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 16079,
+          "actualCount": 16079,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1685,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-clone",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 28501,
+          "actualCount": 28501,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            2926,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-clone",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "large-clone",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 14007,
+          "actualCount": 14007,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1446,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-clone",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 4708,
+          "actualCount": 4708,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            458,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-rotated",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 28501,
+          "actualCount": 28501,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            2888,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-rotated",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "large-rotated",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 14007,
+          "actualCount": 14007,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1446,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-rotated",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 4704,
+          "actualCount": 4704,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            468,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-checker",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 29156,
+          "actualCount": 29156,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            2914,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-checker",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "large-checker",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 14456,
+          "actualCount": 14456,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1447,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "large-checker",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 4529,
+          "actualCount": 4529,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            478,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-0",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 10,
+          "actualCount": 10,
+          "errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-0",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-0",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 1,
+          "actualCount": 1,
+          "errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-0",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 3,
+          "actualCount": 3,
+          "errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-0",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 10,
+          "actualCount": 10,
+          "errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-0",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-0",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 1,
+          "actualCount": 1,
+          "errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-0",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 3,
+          "actualCount": 3,
+          "errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-1",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-1",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-1",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-1",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-1",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-1",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-1",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-1",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-2",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 130,
+          "actualCount": 130,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            10,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-2",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-2",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 61,
+          "actualCount": 61,
+          "errors": [
+            0,
+            0,
+            0,
+            7.62939453125e-06,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-2",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 19,
+          "actualCount": 19,
+          "errors": [
+            0,
+            0,
+            0,
+            7.62939453125e-06,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            3,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-2",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 129,
+          "actualCount": 129,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            9,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-2",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-2",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 61,
+          "actualCount": 61,
+          "errors": [
+            0,
+            0,
+            0,
+            7.62939453125e-06,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            4,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-2",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 20,
+          "actualCount": 20,
+          "errors": [
+            0,
+            0,
+            0,
+            7.62939453125e-06,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-3",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 5878,
+          "actualCount": 5878,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            623,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-3",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-3",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 2906,
+          "actualCount": 2906,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            318,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-3",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 919,
+          "actualCount": 919,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            86,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-3",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 5887,
+          "actualCount": 5887,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            626,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-3",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-3",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 2906,
+          "actualCount": 2906,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            318,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-3",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 923,
+          "actualCount": 923,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            82,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-4",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 14075,
+          "actualCount": 14075,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1499,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-4",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-4",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 6986,
+          "actualCount": 6986,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            718,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-4",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 2357,
+          "actualCount": 2357,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            249,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-4",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 14067,
+          "actualCount": 14067,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1491,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-4",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-4",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 6986,
+          "actualCount": 6986,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            718,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-4",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 2344,
+          "actualCount": 2344,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            259,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-5",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 4491,
+          "actualCount": 4491,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            483,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-5",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-5",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 2185,
+          "actualCount": 2185,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            219,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-5",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 602,
+          "actualCount": 602,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            70,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-5",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 4494,
+          "actualCount": 4494,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            488,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-5",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-5",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 2185,
+          "actualCount": 2185,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            219,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-5",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 598,
+          "actualCount": 598,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            67,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-6",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 10592,
+          "actualCount": 10592,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1129,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-6",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-6",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 5161,
+          "actualCount": 5161,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            542,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-6",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 1715,
+          "actualCount": 1715,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            178,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-6",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 10583,
+          "actualCount": 10583,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1122,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-6",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-6",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 5161,
+          "actualCount": 5161,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            540,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-6",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 1707,
+          "actualCount": 1707,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            174,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-7",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 63095,
+          "actualCount": 63095,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            6452,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-7",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-7",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 31154,
+          "actualCount": 31154,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            3167,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-7",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 10508,
+          "actualCount": 10508,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1075,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-7",
+          "algorithm": 0,
+          "mask": "all",
+          "nativeCount": 63098,
+          "actualCount": 63098,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            6412,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-7",
+          "algorithm": 0,
+          "mask": "empty",
+          "nativeCount": 0,
+          "actualCount": 0
+        },
+        {
+          "image": "extra-rotated-7",
+          "algorithm": 0,
+          "mask": "half",
+          "nativeCount": 31154,
+          "actualCount": 31154,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            3167,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        },
+        {
+          "image": "extra-rotated-7",
+          "algorithm": 0,
+          "mask": "sparse",
+          "nativeCount": 10448,
+          "actualCount": 10448,
+          "errors": [
+            0,
+            0,
+            0,
+            3.0517578125e-05,
+            0,
+            0,
+            0
+          ],
+          "differences": [
+            0,
+            0,
+            0,
+            1063,
+            0,
+            0,
+            0
+          ],
+          "nativeDescriptorSize": 64,
+          "actualDescriptorSize": 64,
+          "descriptorDifferences": 0
+        }
+      ]
+    }
+  }
+}

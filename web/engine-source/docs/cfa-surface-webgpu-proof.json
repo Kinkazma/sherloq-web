@@ -1,0 +1,27 @@
+{
+  "sourceExact": true,
+  "case": "noise",
+  "cacheIsolated": true,
+  "cancelled": true,
+  "localDifferences": 0,
+  "maxSuspicionError": 0,
+  "renderBytes": 22464,
+  "npzBytes": 4630,
+  "events": [
+    "model-load",
+    "inference",
+    "cfa-tiles"
+  ],
+  "memory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 135725468
+  },
+  "provider": "webgpu",
+  "scope": "Actual requested component lifecycle; public decision corpus separately reported.",
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

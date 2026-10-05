@@ -1,0 +1,160 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "Real native512 CMSeg encoder/decoder ONNX CPU with bounded global SIMD-WASM correlation; all pair comparisons retained, no approximate neighbour pruning or resize. No common API, source projection, cancellation or UI qualification yet.",
+  "variant": "generalization",
+  "weights": {
+    "models/external/clone_detectors/03_cmsegnet/predict_folder/weight/generalization.pth": "a3351ae664fca9780c3ca56db708fe3fdc74878c07327dfdd6ed75f14537454b"
+  },
+  "graphs": {
+    "encoder": {
+      "file": "encoder-native-mean-bn.onnx",
+      "bytes": 9308459,
+      "sha256": "49cac28c14f8421deba55b4cf9eb9411bb98293eb1acc37a9a319c164eeb6c91",
+      "meanNodes": 1,
+      "batchnormNodes": 59
+    },
+    "decoder": {
+      "file": "decoder-native-mean-bn.onnx",
+      "bytes": 11935456,
+      "sha256": "123f113286258c98b732605f854d8f08e2fa6253e2cb9bccc0491a181587dea6",
+      "meanNodes": 3,
+      "batchnormNodes": 33
+    }
+  },
+  "records": [
+    {
+      "diagnostics": [
+        {
+          "name": "native-head",
+          "oracleInputsOnlyForLocalization": true,
+          "probability": {
+            "maxAbs": 0.000017464160919189453,
+            "different": 261865,
+            "finite": true
+          },
+          "maskChanges": 0
+        },
+        {
+          "name": "native-correlations",
+          "oracleInputsOnlyForLocalization": true,
+          "probability": {
+            "maxAbs": 0.000022172927856445312,
+            "different": 261983,
+            "finite": true
+          },
+          "maskChanges": 0
+        },
+        {
+          "name": "native-bypass-features",
+          "oracleInputsOnlyForLocalization": true,
+          "probability": {
+            "maxAbs": 0.00017514824867248535,
+            "different": 262081,
+            "finite": true
+          },
+          "maskChanges": 0
+        }
+      ],
+      "name": "blobs-copy",
+      "preparationExact": true,
+      "featureErrors": [
+        {
+          "maxAbs": 0.00007605552673339844,
+          "different": 705470,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000014156103134155273,
+          "different": 379981,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00003802776336669922,
+          "different": 130816,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.000035703182220458984,
+          "different": 97655,
+          "finite": true
+        },
+        {
+          "maxAbs": 0.00018674135208129883,
+          "different": 173126,
+          "finite": true
+        }
+      ],
+      "stages": [
+        {
+          "name": "corr24",
+          "milliseconds": 2810.3000000044703,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 2.4898326955735683e-8,
+            "different": 393168,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr32",
+          "milliseconds": 267.5,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 2.200249582529068e-8,
+            "different": 130802,
+            "finite": true
+          }
+        },
+        {
+          "name": "corr96",
+          "milliseconds": 85.89999999850988,
+          "workers": 10,
+          "heapMaximumBytes": 67108864,
+          "observedHeapBytes": 16777216,
+          "errors": {
+            "maxAbs": 2.60770320892334e-8,
+            "different": 97499,
+            "finite": true
+          }
+        }
+      ],
+      "probability": {
+        "maxAbs": 0.00016817450523376465,
+        "different": 262087,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0011568069458007812,
+        "different": 260250,
+        "finite": true
+      },
+      "mask": {
+        "changes": 0,
+        "foreground": 2611,
+        "nativeForeground": 2611
+      },
+      "heapBytes": 514719744,
+      "milliseconds": 5611.19999999553
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1341413409
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-cmseg-split.mjs": "b760d2e74fe0ed9b16a1800d9278d42b453c56d4e630c78c235e039e86469be4",
+    "experiments/segmentation/cmseg-correlation.cpp": "b8b359097cc47e0159a1322c56ed952b26c3050d20a0ba4fa82c8554172fe6aa",
+    "experiments/segmentation/cmseg-correlation.js": "904e07fc56ec471c14edc5f5d4dee75b85bdfbcdc68f494a6076157335c1fae9",
+    "experiments/segmentation/cmseg-correlation-worker.js": "0978dc61da8198b6c664050567bd255ef34eb3f9c1898eab4c7daf42e8211122",
+    "scripts/export-cmseg-split.py": "285fa3a567e63a2d786a8cc800cf646b08d41a267fee355ec3bdb4ee2ddfb88a"
+  }
+}

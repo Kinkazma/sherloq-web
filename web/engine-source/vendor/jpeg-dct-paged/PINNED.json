@@ -1,0 +1,13 @@
+{
+  "libjpeg": "3.0.3",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "sourceSha256": "033ab0040a27d8cf60bb1abdb419fab8422b7af4a235e8de6c040309b3b2fd91",
+  "linkedLibrarySha256": "0248633cf951dea335b69972e420c6d2b623a5e8e386cd8cf2f50006d47130de",
+  "memory": "Imported64MiB maximum;8MiB libjpeg virtual-array cache; original encoded input read in64KiB windows and global coefficients in external backing stores.",
+  "files": {
+    "jpeg-dct-paged.js": "e9bff4bbd203e9261789bbd8d36ad065a93dc1b78826ab625895cfc58bb921bd",
+    "jpeg-dct-paged.wasm": "3230105a3216462d4382fcacc08243838fef5ea702ade4d66aa1d29d1e85129d",
+    "LICENSE.md": "e548c96c0c09397c94b5c5531836c02ff2c403f1f2b130cad8e3ec9439b5a7cc",
+    "README.ijg": "5c1f9094835d21f66ee0e9ce81c57264d2dd50801b19832d6723dc8cdbda080e"
+  }
+}

@@ -1,0 +1,7659 @@
+{
+  "schema": 1,
+  "method": "AST enumeration; runtime parity remains separate",
+  "modules": [
+    {
+      "path": "source/gui/sherloq_app/core/adaifl.py",
+      "sha256": "ee44726ebe4b41ff9aef2dbad8bea459da38a822ce90880d5ee90df77a3ebc47",
+      "functions": [
+        {
+          "name": "load",
+          "line": 6
+        },
+        {
+          "name": "predict",
+          "line": 12
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]"
+      },
+      "choices": [],
+      "imports": [
+        "..vendor.adaifl.models.net",
+        "numpy",
+        "pathlib",
+        "torch",
+        "torchvision"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/adaptive_cfa.py",
+      "sha256": "c4e56c2eda643c26a4cbc339fb2c5a95a4dcee878228af8e35050bb592d834fc",
+      "functions": [
+        {
+          "name": "load",
+          "line": 8
+        },
+        {
+          "name": "predict",
+          "line": 16
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]",
+        "WEIGHTS": "{'Original':'pretrained.pt','JPEG 95':'adapted_to_j95_database.pt','Sans JPEG':'adapted_to_nojpeg_database.pt'}"
+      },
+      "choices": [],
+      "imports": [
+        "..vendor.adaptive_cfa.structure",
+        "numpy",
+        "pathlib",
+        "torch"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/adjust.py",
+      "sha256": "22ec57d31a06e7b2285bc020cd182bf6a3fa74f9176653fa5b62a18b1cc9d299",
+      "functions": [
+        {
+          "name": "adjustment_lut",
+          "line": 10
+        },
+        {
+          "name": "__init__",
+          "line": 25
+        },
+        {
+          "name": "compute",
+          "line": 29
+        },
+        {
+          "name": "_compute",
+          "line": 42
+        },
+        {
+          "name": "adapted",
+          "line": 35
+        },
+        {
+          "name": "stage",
+          "line": 64
+        },
+        {
+          "name": "sharpen",
+          "line": 70
+        },
+        {
+          "name": "hsv",
+          "line": 75
+        },
+        {
+          "name": "equalization",
+          "line": 93
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".adjust_bounded",
+        ".interactive",
+        ".memory_resources",
+        ".utility",
+        "cv2",
+        "functools",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/adjust_bounded.py",
+      "sha256": "9403f7c8b266961c923243455b4aa89d194fb79170e73702ce2f67645bee7c8e",
+      "functions": [
+        {
+          "name": "reflect_indices",
+          "line": 8
+        },
+        {
+          "name": "clahe",
+          "line": 14
+        },
+        {
+          "name": "compute",
+          "line": 31
+        },
+        {
+          "name": "sharpen",
+          "line": 39
+        },
+        {
+          "name": "finish",
+          "line": 63
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".adjust",
+        ".bounded_ops",
+        ".memory_resources",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/auto_zones.py",
+      "sha256": "b603fd91384d597b81632c6c25f8f5c37c01267cb8ef3df99a525c23a6c2482e",
+      "functions": [
+        {
+          "name": "detect_panels",
+          "line": 7
+        },
+        {
+          "name": "enclosing",
+          "line": 51
+        },
+        {
+          "name": "diagonal",
+          "line": 57
+        },
+        {
+          "name": "gap_vector",
+          "line": 61
+        },
+        {
+          "name": "distance_policy",
+          "line": 70
+        },
+        {
+          "name": "compact_axes",
+          "line": 81
+        },
+        {
+          "name": "compact_points",
+          "line": 96
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".cloning",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/automatic_clones.py",
+      "sha256": "35fb23a5cadcc898b0ad46748c8c3efbc9ff568d749e25fd655e002e060f0318",
+      "functions": [
+        {
+          "name": "parameters",
+          "line": 20
+        },
+        {
+          "name": "_entry",
+          "line": 34
+        },
+        {
+          "name": "entries",
+          "line": 50
+        },
+        {
+          "name": "visible",
+          "line": 90
+        },
+        {
+          "name": "render",
+          "line": 95
+        },
+        {
+          "name": "export",
+          "line": 118
+        },
+        {
+          "name": "encode",
+          "line": 122
+        }
+      ],
+      "constants": {
+        "SOURCES": "('Forgeryscope microscopy', 'PatchMatch Zernike', 'PatchMatch SIFT')"
+      },
+      "choices": [],
+      "imports": [
+        ".auto_zones",
+        ".cloning2",
+        ".copy_overlap",
+        "colorsys",
+        "cv2",
+        "hashlib",
+        "json",
+        "math",
+        "numpy",
+        "os",
+        "pathlib",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/bit_planes.py",
+      "sha256": "3adcc94a4ef29afb583d06e29d2f4df9f3bee513994e0f1cc483e2d42931b7fe",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 12
+        },
+        {
+          "name": "channel",
+          "line": 18
+        },
+        {
+          "name": "compute",
+          "line": 35
+        },
+        {
+          "name": "_compute",
+          "line": 46
+        },
+        {
+          "name": "bounded",
+          "line": 39
+        }
+      ],
+      "constants": {
+        "_SQUARES": "np.arange(256, dtype=np.uint32)**2",
+        "_NORM": "cv.sqrt(np.arange(3*255**2+1, dtype=np.float64)).ravel().astype(np.uint8)"
+      },
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".interactive",
+        ".memory_resources",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/bounded_ops.py",
+      "sha256": "9c2866923b5e66b790680e9b78d5f2f5274b8dd705024294e583b0a087250d67",
+      "functions": [
+        {
+          "name": "map_local",
+          "line": 11
+        },
+        {
+          "name": "extrema",
+          "line": 23
+        },
+        {
+          "name": "normalize_u8",
+          "line": 32
+        },
+        {
+          "name": "equalization_lut",
+          "line": 47
+        },
+        {
+          "name": "equalize_u8",
+          "line": 60
+        },
+        {
+          "name": "local_result",
+          "line": 76
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".cloning",
+        ".memory_resources",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/bounded_wavelets.py",
+      "sha256": "5323d3008f42a230016ef0cd87042c1cdfe28191462d1cc12b0c5e5a6417896d",
+      "functions": [
+        {
+          "name": "oriented",
+          "line": 10
+        },
+        {
+          "name": "axis_transform",
+          "line": 17
+        },
+        {
+          "name": "decompose",
+          "line": 37
+        },
+        {
+          "name": "reconstruct",
+          "line": 48
+        },
+        {
+          "name": "compute",
+          "line": 75
+        },
+        {
+          "name": "allocate",
+          "line": 22
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".memory_resources",
+        ".wavelet_threshold",
+        "cv2",
+        "numpy",
+        "pywt"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/c2pa.py",
+      "sha256": "f6c61d081872779e7df6e8021cc8e6ba0fc3a9cd48eae4eed4677eff8e90a97b",
+      "functions": [
+        {
+          "name": "snapshot",
+          "line": 9
+        },
+        {
+          "name": "prepare",
+          "line": 18
+        },
+        {
+          "name": "summarize",
+          "line": 32
+        },
+        {
+          "name": "parse",
+          "line": 43
+        },
+        {
+          "name": "export",
+          "line": 56
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]",
+        "BINARY": "ROOT/'native/c2pa/c2patool'",
+        "SETTINGS": "dict(core=dict(allowed_network_hosts=[],allow_redirects=False),verify=dict(verify_after_reading=True,verify_trust=True,verify_timestamp_trust=True,ocsp_fetch=False,remote_manifest_fetch=False),trust=dict(anchors=[]))"
+      },
+      "choices": [],
+      "imports": [
+        "hashlib",
+        "json",
+        "os",
+        "pathlib",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/cache_budget.py",
+      "sha256": "529bd0423447065ac49f10d1def5ddcb072b59d7d2d4ea5d6b3838f86e8f903b",
+      "functions": [
+        {
+          "name": "default_limit",
+          "line": 13
+        },
+        {
+          "name": "__init__",
+          "line": 22
+        },
+        {
+          "name": "register",
+          "line": 30
+        },
+        {
+          "name": "remove",
+          "line": 38
+        },
+        {
+          "name": "reserve",
+          "line": 41
+        },
+        {
+          "name": "trim",
+          "line": 53
+        },
+        {
+          "name": "snapshot",
+          "line": 64
+        },
+        {
+          "name": "clear",
+          "line": 69
+        },
+        {
+          "name": "__init__",
+          "line": 83
+        },
+        {
+          "name": "size",
+          "line": 93
+        },
+        {
+          "name": "_remove_local",
+          "line": 119
+        },
+        {
+          "name": "_remove",
+          "line": 123
+        },
+        {
+          "name": "get",
+          "line": 127
+        },
+        {
+          "name": "reserve",
+          "line": 136
+        },
+        {
+          "name": "put",
+          "line": 143
+        },
+        {
+          "name": "clear",
+          "line": 159
+        },
+        {
+          "name": "gone",
+          "line": 31
+        },
+        {
+          "name": "count",
+          "line": 98
+        }
+      ],
+      "constants": {
+        "GLOBAL_CACHE_BUDGET": "CacheBudget(default_limit())"
+      },
+      "choices": [],
+      "imports": [
+        ".memory_resources",
+        "collections",
+        "numpy",
+        "os",
+        "threading",
+        "weakref"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/catnet.py",
+      "sha256": "d4504384f252599c8575ed8772a089ccc1c2a9d769b8046e4db76d63e6b1fdf5",
+      "functions": [
+        {
+          "name": "source_for",
+          "line": 6
+        },
+        {
+          "name": "load",
+          "line": 21
+        },
+        {
+          "name": "bounded_dct",
+          "line": 36
+        },
+        {
+          "name": "bounded_head",
+          "line": 44
+        },
+        {
+          "name": "prepare",
+          "line": 63
+        },
+        {
+          "name": "orient",
+          "line": 82
+        },
+        {
+          "name": "predict",
+          "line": 92
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]"
+      },
+      "choices": [],
+      "imports": [
+        "..vendor.catnet.config",
+        "..vendor.catnet.network_CAT",
+        "PIL",
+        "cv2",
+        "hashlib",
+        "jpeglib",
+        "numpy",
+        "pathlib",
+        "torch",
+        "torch.nn.functional"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/clone_detector_worker.py",
+      "sha256": "f79ea762fe7106e013f8c708b725eae010354026e228bd8a4944ffe5375af073",
+      "functions": [
+        {
+          "name": "no_network",
+          "line": 7
+        },
+        {
+          "name": "run",
+          "line": 13
+        },
+        {
+          "name": "main",
+          "line": 27
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]"
+      },
+      "choices": [],
+      "imports": [
+        "gc",
+        "gui.sherloq_app.core.clone_detectors",
+        "gui.sherloq_app.core.image_buffers",
+        "gui.sherloq_app.core.macos_activity",
+        "hashlib",
+        "json",
+        "numpy",
+        "os",
+        "pathlib",
+        "socket",
+        "sys",
+        "time",
+        "torch"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/clone_detectors.py",
+      "sha256": "b465f6d3ecc4634cd92b58fa20da83fb3690858fe2d5231e046609133f9e4616",
+      "functions": [
+        {
+          "name": "boxes_for",
+          "line": 10
+        },
+        {
+          "name": "analyze",
+          "line": 47
+        },
+        {
+          "name": "__init__",
+          "line": 24
+        },
+        {
+          "name": "clear",
+          "line": 25
+        },
+        {
+          "name": "get",
+          "line": 29
+        }
+      ],
+      "constants": {
+        "SEGMENTERS": "('CMSeg-Net generalization','CMSeg-Net addnoise','MGCFDN','MGCFDN source/cible','MGCFDN 16×16','MGCFDN EffNet 16×16','MGCFDN MPDN 16×16','MGCFDN TNT 16×16','MGCFDN VIG 16×16','D2PRL')",
+        "FORGERYSCOPE": "('Forgeryscope microscopie','Forgeryscope blots complets','Forgeryscope chevauchements','Forgeryscope pistes')",
+        "VARIANTS": "SEGMENTERS+FORGERYSCOPE"
+      },
+      "choices": [],
+      "imports": [
+        ".clone_models",
+        ".d2prl",
+        ".forgeryscope_adapter",
+        "cv2",
+        "gc",
+        "numpy",
+        "time",
+        "torch"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/clone_models.py",
+      "sha256": "e040b3ba23cf0f368a69c7fc0500c33fa7bde13027aabd66e88285cd4f25ead6",
+      "functions": [
+        {
+          "name": "inventory",
+          "line": 9
+        },
+        {
+          "name": "verified",
+          "line": 10
+        },
+        {
+          "name": "runtime",
+          "line": 19
+        },
+        {
+          "name": "load_segmentation",
+          "line": 24
+        },
+        {
+          "name": "segment",
+          "line": 44
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]",
+        "BASE": "ROOT/'integration/clone_detectors'",
+        "WEIGHTS": "ROOT/'models/external/clone_detectors'"
+      },
+      "choices": [],
+      "imports": [
+        "PIL",
+        "cv2",
+        "functools",
+        "hashlib",
+        "importlib",
+        "json",
+        "pathlib",
+        "sherloq_clone_models.cmsegnet.model",
+        "sys",
+        "torch",
+        "torchvision"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/cloning.py",
+      "sha256": "161d3b3589383740fafd97cd9871f531c7ee2313db55ac5620a8c9770637db27",
+      "functions": [
+        {
+          "name": "check",
+          "line": 11
+        },
+        {
+          "name": "pack_keypoints",
+          "line": 16
+        },
+        {
+          "name": "ordered_matches",
+          "line": 21
+        },
+        {
+          "name": "cluster_matches",
+          "line": 41
+        },
+        {
+          "name": "render",
+          "line": 83
+        },
+        {
+          "name": "region_count",
+          "line": 105
+        },
+        {
+          "name": "__init__",
+          "line": 119
+        },
+        {
+          "name": "detect",
+          "line": 129
+        },
+        {
+          "name": "analyze",
+          "line": 143
+        }
+      ],
+      "constants": {
+        "MATCH_BUDGET": "256*1024*1024",
+        "CLUSTER_INDEX_BUDGET": "128*1024*1024"
+      },
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".jpeg_curve",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/cloning2.py",
+      "sha256": "3fc14d9ce6d6708ffcbdd5ddf539fed3f7be3d32f19bbdd66b19829093e648e5",
+      "functions": [
+        {
+          "name": "polygon_mask",
+          "line": 23
+        },
+        {
+          "name": "memberships",
+          "line": 33
+        },
+        {
+          "name": "spatial_matches",
+          "line": 43
+        },
+        {
+          "name": "biomes",
+          "line": 81
+        },
+        {
+          "name": "regional_biomes",
+          "line": 114
+        },
+        {
+          "name": "biome_sides",
+          "line": 133
+        },
+        {
+          "name": "palette",
+          "line": 142
+        },
+        {
+          "name": "supported_selection",
+          "line": 154
+        },
+        {
+          "name": "render",
+          "line": 171
+        },
+        {
+          "name": "__init__",
+          "line": 202
+        },
+        {
+          "name": "analyze",
+          "line": 206
+        },
+        {
+          "name": "analyze_dense",
+          "line": 303
+        },
+        {
+          "name": "analyze_combined",
+          "line": 331
+        },
+        {
+          "name": "analyze_extended",
+          "line": 377
+        },
+        {
+          "name": "run",
+          "line": 339
+        },
+        {
+          "name": "run",
+          "line": 408
+        },
+        {
+          "name": "update",
+          "line": 340
+        },
+        {
+          "name": "update",
+          "line": 412
+        }
+      ],
+      "constants": {
+        "POPCOUNT": "np.unpackbits(np.arange(256,dtype=np.uint8)[:,None],axis=1).sum(axis=1)",
+        "ALGORITHMS": "(*ALGORITHMS,COMBINED,'SIFT + G2NN + RANSAC',EXTENDED,SYMMETRIC,EXTENDED_SYMMETRIC)",
+        "COMBINED": "'PatchMatch Zernike + PatchMatch SIFT'",
+        "EXTENDED": "'Extended: '+COMBINED",
+        "SYMMETRIC": "COMBINED+' + Mirror'",
+        "EXTENDED_SYMMETRIC": "'Extended: '+SYMMETRIC",
+        "MAX_PAIRS": "100_000"
+      },
+      "choices": [],
+      "imports": [
+        ".auto_zones",
+        ".cloning",
+        ".copy_detail",
+        ".copy_geometry",
+        ".copy_mirror",
+        ".copy_overlap",
+        ".dense_copy",
+        ".interactive",
+        ".learned_copy",
+        ".metal_dense",
+        ".sift_frames",
+        ".sift_g2nn",
+        "collections",
+        "colorsys",
+        "concurrent.futures",
+        "cv2",
+        "numpy",
+        "scipy.spatial",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/color_spaces.py",
+      "sha256": "c144dcde45f3bd60ade82856fc862de2d0eddea1377ff14e9171d76e631a0577",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 11
+        },
+        {
+          "name": "normalized",
+          "line": 17
+        },
+        {
+          "name": "channel",
+          "line": 25
+        },
+        {
+          "name": "compute",
+          "line": 75
+        },
+        {
+          "name": "_compute",
+          "line": 86
+        },
+        {
+          "name": "bounded",
+          "line": 79
+        }
+      ],
+      "constants": {
+        "CODES": "{'ycrcb': cv.COLOR_BGR2YCrCb, 'xyz': cv.COLOR_BGR2XYZ,\n             'lab': cv.COLOR_BGR2Lab, 'luv': cv.COLOR_BGR2Luv}"
+      },
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".interactive",
+        ".memory_resources",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/comparison.py",
+      "sha256": "df2386146f4346fb9abb50bbd1e3f33f3e6910fbc585a3bcb85bc821606a265b",
+      "functions": [
+        {
+          "name": "rmse",
+          "line": 15
+        },
+        {
+          "name": "mb",
+          "line": 18
+        },
+        {
+          "name": "pfe",
+          "line": 23
+        },
+        {
+          "name": "ssim",
+          "line": 26
+        },
+        {
+          "name": "corr",
+          "line": 62
+        },
+        {
+          "name": "psnr",
+          "line": 65
+        },
+        {
+          "name": "helper_inputs",
+          "line": 77
+        },
+        {
+          "name": "helper",
+          "line": 84
+        },
+        {
+          "name": "butter",
+          "line": 116
+        },
+        {
+          "name": "ssimul",
+          "line": 121
+        },
+        {
+          "name": "__init__",
+          "line": 133
+        },
+        {
+          "name": "compare",
+          "line": 151
+        },
+        {
+          "name": "__init__",
+          "line": 177
+        },
+        {
+          "name": "display",
+          "line": 191
+        },
+        {
+          "name": "compute",
+          "line": 212
+        },
+        {
+          "name": "_check_cancelled",
+          "line": 272
+        }
+      ],
+      "constants": {
+        "METRICS": "('rmse', 'sam', 'ergas', 'mb', 'pfe', 'psnr', 'ssim', 'msssim',\n           'rase', 'scc', 'uqi', 'vifp', 'ssimul', 'butter',\n           'hist_0', 'hist_1', 'hist_4', 'hist_2', 'hist_3', 'hist_5')"
+      },
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".utility",
+        "contextlib",
+        "cv2",
+        "math",
+        "numpy",
+        "pathlib",
+        "sewar",
+        "subprocess",
+        "tempfile",
+        "threading",
+        "time",
+        "warnings"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/comparison_metric_worker.py",
+      "sha256": "c9434d5c65232e117a57c4b3f1aeba5d61780ab51839aa01587f0ffb0b8d7d90",
+      "functions": [],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "json",
+        "numpy",
+        "os",
+        "sewar",
+        "sys"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/comparison_worker.py",
+      "sha256": "97fbfaf946a537fba759a6772d1624a255d6257c6e4fb71d61374c9bc2670d76",
+      "functions": [
+        {
+          "name": "main",
+          "line": 17
+        },
+        {
+          "name": "save",
+          "line": 29
+        },
+        {
+          "name": "independent",
+          "line": 63
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "cv2",
+        "gui.sherloq_app.core.comparison",
+        "json",
+        "numpy",
+        "os",
+        "pathlib",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/complete_analysis.py",
+      "sha256": "8992b3bc606c96e932c5629077608d34515442b479fb09b0e141ec78737370a1",
+      "functions": [
+        {
+          "name": "ela_entries",
+          "line": 14
+        },
+        {
+          "name": "prepare",
+          "line": 54
+        },
+        {
+          "name": "render",
+          "line": 88
+        },
+        {
+          "name": "__init__",
+          "line": 68
+        },
+        {
+          "name": "__call__",
+          "line": 72
+        }
+      ],
+      "constants": {
+        "ELA_SOURCE": "'ELA biomes'",
+        "SOURCES": "(*CLONE_SOURCES, ELA_SOURCE)"
+      },
+      "choices": [],
+      "imports": [
+        ".automatic_clones",
+        ".ela_biomes",
+        ".ela_energy",
+        "colorsys",
+        "cv2",
+        "hashlib",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/contrast.py",
+      "sha256": "373cf73beb7a94ff6b5f2a6face118bf3f8e12495ac3c94e3c55f8e7d0008be1",
+      "functions": [
+        {
+          "name": "histogram_error",
+          "line": 15
+        },
+        {
+          "name": "__init__",
+          "line": 34
+        },
+        {
+          "name": "prepare",
+          "line": 42
+        },
+        {
+          "name": "analyze",
+          "line": 76
+        },
+        {
+          "name": "render",
+          "line": 115
+        },
+        {
+          "name": "compute",
+          "line": 128
+        },
+        {
+          "name": "_compute",
+          "line": 136
+        },
+        {
+          "name": "bounded",
+          "line": 130
+        }
+      ],
+      "constants": {
+        "_WINDOW": "np.arange(256).astype(np.float32)",
+        "_WEIGHT": "((np.arange(256)-128)/128)**2"
+      },
+      "choices": [],
+      "imports": [
+        ".contrast_bounded",
+        ".interactive",
+        ".jpeg_curve",
+        ".memory_resources",
+        ".utility",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/contrast_bounded.py",
+      "sha256": "6f96d4705c1aca2a4a7de50dfb3e73d19a351b82cad08b6030636cfd7aa4eb1d",
+      "functions": [
+        {
+          "name": "compute",
+          "line": 10
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".cloning",
+        ".contrast",
+        ".memory_resources",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/copy_detail.py",
+      "sha256": "87e496112051d0b43162ef51deae4716f20b65e596333929fd69dd048b537576",
+      "functions": [
+        {
+          "name": "detail_image",
+          "line": 17
+        },
+        {
+          "name": "corroborate",
+          "line": 24
+        },
+        {
+          "name": "corroborated_groups",
+          "line": 76
+        },
+        {
+          "name": "sample",
+          "line": 51
+        }
+      ],
+      "constants": {
+        "DETAIL_POLICY": "dict(minimum_ncc=.8, minimum_samples=6, maximum_samples=32,\n                     patch_width=9, alignment_radius=1., alignment_step=.5,\n                     highpass_sigma=1.2)"
+      },
+      "choices": [],
+      "imports": [
+        ".cloning",
+        ".copy_geometry",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/copy_geometry.py",
+      "sha256": "48976e59a08c1c19d1dac6477841b6e5cd1fe872b44474847f0264a124bc19be",
+      "functions": [
+        {
+          "name": "project",
+          "line": 13
+        },
+        {
+          "name": "fit",
+          "line": 22
+        },
+        {
+          "name": "verify",
+          "line": 41
+        }
+      ],
+      "constants": {
+        "MODELS": "('None','Similarity','Affine','Homography')"
+      },
+      "choices": [],
+      "imports": [
+        ".cloning",
+        ".cloning2",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/copy_mirror.py",
+      "sha256": "f44628022c031ea5f568ab4a54e7e757f666ffdbec581a17ae8d80400c8ac7e1",
+      "functions": [
+        {
+          "name": "coalesce_global",
+          "line": 10
+        },
+        {
+          "name": "analyze",
+          "line": 49
+        },
+        {
+          "name": "run",
+          "line": 80
+        },
+        {
+          "name": "update",
+          "line": 87
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".cloning",
+        ".cloning2",
+        ".copy_detail",
+        ".copy_geometry",
+        ".sift_frames",
+        "concurrent.futures",
+        "numpy",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/copy_overlap.py",
+      "sha256": "c22bc1d85e7f36d8577695ec4d19633b01f21b54fb607ea4d1864cd9b89014b5",
+      "functions": [
+        {
+          "name": "overlap",
+          "line": 15
+        },
+        {
+          "name": "reject_self",
+          "line": 22
+        }
+      ],
+      "constants": {
+        "GUARDED": "('XFeat','XFeat + LighterGlue','ALIKED','ALIKED rotation',\n         'ALIKED + LightGlue','ALIKED rotation + LightGlue')",
+        "MAX_OVERLAP": ".8"
+      },
+      "choices": [],
+      "imports": [
+        ".cloning",
+        ".cloning2",
+        ".copy_geometry",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/d2prl.py",
+      "sha256": "e4399429d5723031ee1df6a50aa096482b337608f2e20d6f477945b665381764",
+      "functions": [
+        {
+          "name": "load",
+          "line": 15
+        },
+        {
+          "name": "postprocess",
+          "line": 50
+        },
+        {
+          "name": "predict",
+          "line": 66
+        },
+        {
+          "name": "step",
+          "line": 73
+        }
+      ],
+      "constants": {
+        "SIDE": "448",
+        "ITERATIONS": "40",
+        "SEED": "22"
+      },
+      "choices": [],
+      "imports": [
+        ".clone_models",
+        ".d2prl_ops",
+        "cv2",
+        "numpy",
+        "pathlib",
+        "sherloq_clone_models.d2prl.models_D2PRL",
+        "skimage.morphology",
+        "torch",
+        "torchvision",
+        "types"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/d2prl_ops.py",
+      "sha256": "474be45e4d8d4665fdd46b82b355d59cbf0fbcc303a4f46077dbe738f87efca5",
+      "functions": [
+        {
+          "name": "sample_half",
+          "line": 2
+        },
+        {
+          "name": "evaluate_batched",
+          "line": 12
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "torch",
+        "torch.nn.functional"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/defect_pixels.py",
+      "sha256": "fa932eb01781bf03a2cc621b474dfa8cd3cd015e21e5becb78d42272ce4ab517",
+      "functions": [
+        {
+          "name": "export_csv",
+          "line": 127
+        },
+        {
+          "name": "__init__",
+          "line": 16
+        },
+        {
+          "name": "prepare",
+          "line": 23
+        },
+        {
+          "name": "analyze",
+          "line": 47
+        },
+        {
+          "name": "pixels",
+          "line": 69
+        },
+        {
+          "name": "render",
+          "line": 75
+        },
+        {
+          "name": "compute",
+          "line": 95
+        },
+        {
+          "name": "_compute",
+          "line": 112
+        },
+        {
+          "name": "compute",
+          "line": 30
+        },
+        {
+          "name": "bounded",
+          "line": 97
+        },
+        {
+          "name": "one",
+          "line": 100
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".interactive",
+        ".jpeg_curve",
+        ".memory_resources",
+        "collections",
+        "csv",
+        "cv2",
+        "numpy",
+        "os",
+        "pathlib",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/dense_copy.py",
+      "sha256": "888cbde965b937b45b72b77855e47d3d9b0f440b4ecac831abc5f6900aff6df8",
+      "functions": [
+        {
+          "name": "library",
+          "line": 19
+        },
+        {
+          "name": "ptr",
+          "line": 35
+        },
+        {
+          "name": "features",
+          "line": 38
+        },
+        {
+          "name": "field",
+          "line": 55
+        },
+        {
+          "name": "integer_sum_filter",
+          "line": 67
+        },
+        {
+          "name": "coherent_mask",
+          "line": 77
+        },
+        {
+          "name": "__init__",
+          "line": 107
+        },
+        {
+          "name": "analyze",
+          "line": 110
+        }
+      ],
+      "constants": {
+        "METHODS": "('PatchMatch Zernike','PatchMatch SIFT')",
+        "CALLBACK": "ct.CFUNCTYPE(ct.c_int)",
+        "_LIB": "lib"
+      },
+      "choices": [],
+      "imports": [
+        ".auto_zones",
+        ".cloning",
+        ".cloning2",
+        ".dense_links",
+        ".dense_parallel",
+        ".dense_streaming",
+        ".interactive",
+        ".jpeg_curve",
+        ".memory_resources",
+        ".metal_dense",
+        ".sift_frames",
+        "ctypes",
+        "cv2",
+        "numpy",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/dense_links.py",
+      "sha256": "54807c09baf6e6a2b5f063931d15ceadec8fba77fd13b7fb6a82815ccf0883d2",
+      "functions": [
+        {
+          "name": "sample_unique_links",
+          "line": 6
+        },
+        {
+          "name": "accepted",
+          "line": 14
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".cloning",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/dense_memory.py",
+      "sha256": "a9ad6cef65fed00209147d2c2c257aaf9420ea058ffb064a2ad5edeefef1b00c",
+      "functions": [
+        {
+          "name": "normalize_inplace",
+          "line": 5
+        },
+        {
+          "name": "mirror_inplace",
+          "line": 14
+        },
+        {
+          "name": "compact_inplace",
+          "line": 20
+        },
+        {
+          "name": "workspace_bytes",
+          "line": 29
+        },
+        {
+          "name": "field_bytes",
+          "line": 38
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/dense_parallel.py",
+      "sha256": "81a8d6e07b6d0ade9fe8c1aab2c94da3a9433beeac66c9c1d27ebd8206cca581",
+      "functions": [
+        {
+          "name": "_job_shape",
+          "line": 32
+        },
+        {
+          "name": "_plans",
+          "line": 40
+        },
+        {
+          "name": "_admission",
+          "line": 51
+        },
+        {
+          "name": "serial_fields",
+          "line": 64
+        },
+        {
+          "name": "parallel_fields",
+          "line": 69
+        },
+        {
+          "name": "__init__",
+          "line": 11
+        },
+        {
+          "name": "claim",
+          "line": 18
+        },
+        {
+          "name": "task",
+          "line": 79
+        },
+        {
+          "name": "updated",
+          "line": 82
+        }
+      ],
+      "constants": {
+        "BUDGET": "WorkspaceBudget()"
+      },
+      "choices": [],
+      "imports": [
+        ".cloning",
+        ".dense_copy",
+        ".dense_streaming",
+        ".memory_resources",
+        "concurrent.futures",
+        "contextlib",
+        "numpy",
+        "os",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/dense_streaming.py",
+      "sha256": "969733d49340cac8e2550bb49cae7ac83ec71307e9dd5eba21fb6d7d3215c8e9",
+      "functions": [
+        {
+          "name": "native",
+          "line": 29
+        },
+        {
+          "name": "stripe",
+          "line": 46
+        },
+        {
+          "name": "prepare_sift",
+          "line": 54
+        },
+        {
+          "name": "prepare_zernike",
+          "line": 111
+        },
+        {
+          "name": "descriptors",
+          "line": 123
+        },
+        {
+          "name": "field",
+          "line": 131
+        },
+        {
+          "name": "coherence",
+          "line": 154
+        },
+        {
+          "name": "allowed_mask",
+          "line": 187
+        },
+        {
+          "name": "memory_plan",
+          "line": 214
+        },
+        {
+          "name": "shape",
+          "line": 22
+        },
+        {
+          "name": "diversity",
+          "line": 23
+        },
+        {
+          "name": "checkpoint",
+          "line": 136
+        },
+        {
+          "name": "checkpoint",
+          "line": 174
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".",
+        ".cloning",
+        ".dense_copy",
+        ".dense_memory",
+        ".dense_parallel",
+        ".jpeg_curve",
+        ".memory_resources",
+        "ctypes",
+        "cv2",
+        "functools",
+        "gc",
+        "gui.sherloq_app.core.cloning",
+        "math",
+        "numpy",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/digest.py",
+      "sha256": "84d068bc8c1f6c106b69a52a5d5b114b20fc7f603bdffb098739b13d3213e867",
+      "functions": [
+        {
+          "name": "tr",
+          "line": 24
+        },
+        {
+          "name": "identity",
+          "line": 28
+        },
+        {
+          "name": "ballistics",
+          "line": 34
+        },
+        {
+          "name": "physical_rows",
+          "line": 48
+        },
+        {
+          "name": "__init__",
+          "line": 105
+        },
+        {
+          "name": "compute",
+          "line": 111
+        }
+      ],
+      "constants": {
+        "HASHES": "(('MD5', 'md5'), ('SHA-1', 'sha1'), ('SHA2-224', 'sha224'),\n          ('SHA2-256', 'sha256'), ('SHA2-384', 'sha384'), ('SHA2-512', 'sha512'),\n          ('SHA3-224', 'sha3_224'), ('SHA3-256', 'sha3_256'),\n          ('SHA3-384', 'sha3_384'), ('SHA3-512', 'sha3_512'))",
+        "IMAGE_HASHES": "(('Average', cv.img_hash.averageHash),\n               ('Block mean', cv.img_hash.blockMeanHash),\n               ('Color moments', cv.img_hash.colorMomentHash),\n               ('Marr-Hildreth', cv.img_hash.marrHildrethHash),\n               ('Perceptual', cv.img_hash.pHash),\n               ('Radial variance', cv.img_hash.radialVarianceHash))",
+        "CHUNK_BYTES": "1024 * 1024"
+      },
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "cv2",
+        "gui.sherloq_app.core.utility",
+        "hashlib",
+        "magic",
+        "os",
+        "re",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/double_jpeg.py",
+      "sha256": "5e5a6c93fc3b89f5d856c968311797b8ca8539c72fa8be9e17e887bbae245659",
+      "functions": [
+        {
+          "name": "lattice",
+          "line": 27
+        },
+        {
+          "name": "histogram_evidence",
+          "line": 40
+        },
+        {
+          "name": "analyze",
+          "line": 67
+        }
+      ],
+      "constants": {
+        "FREQUENCIES": "((0,1),(1,0),(1,1),(0,2),(2,0),(1,2),(2,1),(0,3),(3,0))",
+        "THRESHOLD": ".8",
+        "MIN_VOTES": "3",
+        "VERSION": "'aligned-lattice-v1'",
+        "LIMITATIONS": "'Experimental global detector for aligned JPEG grids and sufficiently separated quantization steps. '\n               'Equal qualities, a coarser last compression, cropping, resampling, small or smooth images can hide traces. '\n               'Periodic or synthetic content can imitate traces. A detected trace does not establish malicious editing; '\n               'an inconclusive result does not establish a single compression.'"
+      },
+      "choices": [],
+      "imports": [
+        "PIL",
+        "contextlib",
+        "hashlib",
+        "jpeglib",
+        "json",
+        "numpy",
+        "pathlib",
+        "scipy.ndimage",
+        "sys",
+        "tempfile",
+        "time"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/echo_bounded.py",
+      "sha256": "181300fbfb0d4fb98ba5be2d33c826049a6117ac5a5140c241724146caf258c9",
+      "functions": [
+        {
+          "name": "compute",
+          "line": 9
+        },
+        {
+          "name": "display",
+          "line": 22
+        },
+        {
+          "name": "one",
+          "line": 14
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".memory_resources",
+        ".utility",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/ela.py",
+      "sha256": "9705aa0b08344457bf2439e972b114e31f401ed4653e3d6d78cb9df106803acf",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 10
+        },
+        {
+          "name": "recompressed",
+          "line": 17
+        },
+        {
+          "name": "base",
+          "line": 24
+        },
+        {
+          "name": "compute",
+          "line": 44
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".jpeg",
+        ".utility",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/ela_background.py",
+      "sha256": "eefdd293dff7d5f399c30bb3acfd458365f1214ebe77a56e00a5750b4b0bb45d",
+      "functions": [
+        {
+          "name": "mid_profile",
+          "line": 15
+        },
+        {
+          "name": "score_background",
+          "line": 34
+        }
+      ],
+      "constants": {
+        "TRIM": "(.1, .9)",
+        "MAXIMUM_CONTENT_DISTANCE": ".4",
+        "LOG_FLOOR": ".1"
+      },
+      "choices": [],
+      "imports": [
+        ".ela_biomes",
+        "numpy",
+        "scipy.spatial"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/ela_biomes.py",
+      "sha256": "717d361b3a1393a84e1df08c61d52365f1786eaff5993cd838e6ec655c666900",
+      "functions": [
+        {
+          "name": "check",
+          "line": 29
+        },
+        {
+          "name": "reference_quality",
+          "line": 34
+        },
+        {
+          "name": "qualities",
+          "line": 53
+        },
+        {
+          "name": "tiles",
+          "line": 57
+        },
+        {
+          "name": "describe",
+          "line": 61
+        },
+        {
+          "name": "peer_scores",
+          "line": 115
+        },
+        {
+          "name": "coherent_scores",
+          "line": 149
+        },
+        {
+          "name": "segment",
+          "line": 305
+        },
+        {
+          "name": "__init__",
+          "line": 169
+        },
+        {
+          "name": "prepare",
+          "line": 179
+        },
+        {
+          "name": "_with_ghost",
+          "line": 241
+        },
+        {
+          "name": "_prepare_profiles",
+          "line": 253
+        }
+      ],
+      "constants": {
+        "DEFAULT_BLOCK": "32",
+        "DEFAULT_THRESHOLD": "2.0",
+        "DEFAULT_MINIMUM_CELLS": "3",
+        "PROFILE_NAMES": "['luminance', 'chroma_red', 'chroma_blue', 'grain_1px', 'grain_2px']"
+      },
+      "choices": [],
+      "imports": [
+        ".cache_budget",
+        ".ela_background",
+        ".ela_energy",
+        ".ela_energy_auto",
+        ".ela_ghosts",
+        ".jpeg",
+        ".jpeg_quality",
+        ".utility",
+        "cv2",
+        "hashlib",
+        "numpy",
+        "scipy.ndimage",
+        "scipy.spatial",
+        "time"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/ela_energy.py",
+      "sha256": "ae24f9eef8e38ecb42cf807d25a92d132be76473328a03e9f0d1e04a7d85b992",
+      "functions": [
+        {
+          "name": "describe_energy",
+          "line": 15
+        },
+        {
+          "name": "prepare_energy",
+          "line": 20
+        },
+        {
+          "name": "segment_energy",
+          "line": 77
+        },
+        {
+          "name": "energy_color",
+          "line": 123
+        }
+      ],
+      "constants": {
+        "LOG_SCALE": ".2",
+        "ENERGY_FLOOR": ".25",
+        "WINDOW": "7"
+      },
+      "choices": [],
+      "imports": [
+        ".auto_zones",
+        ".ela_biomes",
+        ".jpeg_curve",
+        "colorsys",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/ela_energy_auto.py",
+      "sha256": "90dcaf350aed6ca133a1973f214d8cceba39f5078d3fbfc38cce900e69a7e815",
+      "functions": [
+        {
+          "name": "estimate",
+          "line": 10
+        },
+        {
+          "name": "deviations",
+          "line": 48
+        },
+        {
+          "name": "knee",
+          "line": 32
+        }
+      ],
+      "constants": {
+        "CONSERVATIVE_TAIL_FACTOR": ".2",
+        "CONSERVATIVE_SHADOW_GAIN": "2.05",
+        "CONSERVATIVE_HIGHLIGHT_GAIN": "2.47"
+      },
+      "choices": [],
+      "imports": [
+        ".ela_biomes",
+        ".ela_energy",
+        "numpy",
+        "skimage.filters"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/ela_ghosts.py",
+      "sha256": "18f655dc51ccaaf2f8795b2028fed52a71f9645e07a6c3489217ce953fec8c44",
+      "functions": [
+        {
+          "name": "score_curves",
+          "line": 8
+        },
+        {
+          "name": "aggregate",
+          "line": 42
+        },
+        {
+          "name": "__init__",
+          "line": 65
+        },
+        {
+          "name": "compute",
+          "line": 70
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".cache_budget",
+        ".ela_biomes",
+        ".ghost_maps",
+        ".jpeg_curve",
+        "numpy",
+        "scipy.ndimage",
+        "scipy.spatial"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/focal.py",
+      "sha256": "ae757c7f31a6c60fa896c84e7d85ee08b915a23d58189cff8ef597c184aad416",
+      "functions": [
+        {
+          "name": "load",
+          "line": 6
+        },
+        {
+          "name": "predict",
+          "line": 22
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]"
+      },
+      "choices": [],
+      "imports": [
+        "..vendor.focal.models.hrnet",
+        "..vendor.focal.models.vit",
+        ".image_buffers",
+        "cv2",
+        "numpy",
+        "pathlib",
+        "torch",
+        "torch.nn.functional",
+        "torch_kmeans",
+        "torch_kmeans.utils.distances"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/forgeryscope_adapter.py",
+      "sha256": "3ec6faea3ef312cfcefe7e0f715891c10be02e4559f2def6fc7adc3025a9ad5d",
+      "functions": [
+        {
+          "name": "local_yolo",
+          "line": 7
+        },
+        {
+          "name": "local_lightglue",
+          "line": 28
+        },
+        {
+          "name": "load",
+          "line": 71
+        },
+        {
+          "name": "predict",
+          "line": 98
+        },
+        {
+          "name": "__init__",
+          "line": 40
+        },
+        {
+          "name": "extract",
+          "line": 48
+        },
+        {
+          "name": "touches",
+          "line": 117
+        },
+        {
+          "name": "matches",
+          "line": 147
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "..vendor.lightglue.lightglue",
+        "..vendor.lightglue.utils",
+        ".clone_models",
+        "collections",
+        "hashlib",
+        "importlib",
+        "json",
+        "numpy",
+        "os",
+        "pandas",
+        "pathlib",
+        "sherloq_clone_models.forgeryscope",
+        "sherloq_clone_models.forgeryscope.matcher.geometry",
+        "sherloq_clone_models.forgeryscope.matcher.lane",
+        "sherloq_clone_models.forgeryscope.matcher.lightglue",
+        "tempfile",
+        "torch",
+        "ultralytics",
+        "yaml"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/frequency_mask.py",
+      "sha256": "28bd80adf77c8ea87b2b454f5a7a046483b65c92e3a669b6cd5866e2ee7d8943",
+      "functions": [
+        {
+          "name": "circular_mask",
+          "line": 10
+        },
+        {
+          "name": "vertical",
+          "line": 36
+        }
+      ],
+      "constants": {
+        "_COLUMN_POOL": "ThreadPoolExecutor(max_workers=4, thread_name_prefix=\"sherloq-frequency\")"
+      },
+      "choices": [],
+      "imports": [
+        "concurrent.futures",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/ghost_maps.py",
+      "sha256": "112286a411b88d7270220170632f76c21318044bfb08e9988f35a563d6daad98",
+      "functions": [
+        {
+          "name": "_check",
+          "line": 15
+        },
+        {
+          "name": "block_error",
+          "line": 20
+        },
+        {
+          "name": "__init__",
+          "line": 48
+        },
+        {
+          "name": "shifted_image",
+          "line": 55
+        },
+        {
+          "name": "validate",
+          "line": 65
+        },
+        {
+          "name": "maps",
+          "line": 73
+        },
+        {
+          "name": "render",
+          "line": 119
+        },
+        {
+          "name": "compute",
+          "line": 145
+        },
+        {
+          "name": "one",
+          "line": 94
+        }
+      ],
+      "constants": {
+        "_RENDER_LOCK": "RLock()"
+      },
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".jpeg_curve",
+        "concurrent.futures",
+        "cv2",
+        "math",
+        "matplotlib.backends.backend_agg",
+        "matplotlib.figure",
+        "numpy",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/gradient.py",
+      "sha256": "b57df161ae36d42926f03bf370cea66f22faa5f4a622ccee23b9f2abcb7b31c7",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 9
+        },
+        {
+          "name": "prepare",
+          "line": 15
+        },
+        {
+          "name": "compute",
+          "line": 41
+        },
+        {
+          "name": "_compute",
+          "line": 49
+        },
+        {
+          "name": "channel",
+          "line": 30
+        },
+        {
+          "name": "bounded",
+          "line": 43
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".gradient_bounded",
+        ".interactive",
+        ".memory_resources",
+        ".utility",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/gradient_bounded.py",
+      "sha256": "43326df174628b05c796bd50df6345df75a19e7af4f39389ca70a849a98511ac",
+      "functions": [
+        {
+          "name": "channels",
+          "line": 9
+        },
+        {
+          "name": "compute",
+          "line": 26
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".memory_resources",
+        ".utility",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/histogram.py",
+      "sha256": "c6fd4798ecd3583b22af19f9a0fdc807aa648a49f49f4febae43b77ab6d8a0f6",
+      "functions": [
+        {
+          "name": "exact_channel_histogram",
+          "line": 8
+        },
+        {
+          "name": "analyze_histogram",
+          "line": 21
+        }
+      ],
+      "constants": {
+        "CHUNK_PIXELS": "1 << 20"
+      },
+      "choices": [],
+      "imports": [
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/illuminant.py",
+      "sha256": "1d8eb3a94484831d2c63deb142b3d880b307150618229d06546baf3df3253a02",
+      "functions": [
+        {
+          "name": "transfer_table",
+          "line": 17
+        },
+        {
+          "name": "estimate",
+          "line": 22
+        },
+        {
+          "name": "export_csv",
+          "line": 122
+        },
+        {
+          "name": "__init__",
+          "line": 38
+        },
+        {
+          "name": "histogram",
+          "line": 46
+        },
+        {
+          "name": "analyze",
+          "line": 67
+        },
+        {
+          "name": "render",
+          "line": 86
+        },
+        {
+          "name": "compute",
+          "line": 106
+        },
+        {
+          "name": "_compute",
+          "line": 114
+        },
+        {
+          "name": "bounded",
+          "line": 108
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".illuminant_bounded",
+        ".interactive",
+        ".jpeg_curve",
+        ".memory_resources",
+        "csv",
+        "cv2",
+        "numpy",
+        "os",
+        "pathlib",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/illuminant_bounded.py",
+      "sha256": "3827e658c21bcf1e3f4ab876b3b3578ff96ef37c50970852582c58a95b25ca21",
+      "functions": [
+        {
+          "name": "compute",
+          "line": 13
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".cloning",
+        ".illuminant",
+        ".memory_resources",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/image_buffers.py",
+      "sha256": "b565c6f4d4ee4fd837f90d03e6a883ff8aad383acf103d9d4c1225b096d039cd",
+      "functions": [
+        {
+          "name": "resize_rgb",
+          "line": 8
+        },
+        {
+          "name": "image_sha256",
+          "line": 14
+        },
+        {
+          "name": "all_finite",
+          "line": 35
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".memory_resources",
+        "cv2",
+        "hashlib",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/image_decode_worker.py",
+      "sha256": "6d079cabed300f1ed10b6751e41dcb7e835b2da1ed39cabac5cb66abffc7c2a6",
+      "functions": [
+        {
+          "name": "main",
+          "line": 13
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "json",
+        "numpy",
+        "pathlib",
+        "sherloq_app.core.image_io",
+        "sys"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/image_io.py",
+      "sha256": "bd2fabd62887b0cb9986a955cf7693d448659a7f3b69d900fc88681d25c6b41b",
+      "functions": [
+        {
+          "name": "image_metadata",
+          "line": 11
+        },
+        {
+          "name": "decode_image",
+          "line": 31
+        },
+        {
+          "name": "save_image",
+          "line": 58
+        },
+        {
+          "name": "decode_image_isolated",
+          "line": 71
+        }
+      ],
+      "constants": {
+        "RAW_EXTENSIONS": "{'arw','cr2','cr3','crw','dcr','dng','erf','fff','kdc','mos','mrw','nef','nrw','orf','pef','raf','raw','rw2','rwl','sr2','srf','srw','x3f'}"
+      },
+      "choices": [],
+      "imports": [
+        ".jpeg_curve",
+        "PIL",
+        "cv2",
+        "json",
+        "numpy",
+        "os",
+        "pathlib",
+        "rawpy",
+        "struct",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "time"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/interactive.py",
+      "sha256": "5b1e48444582a5073f768728ae9222d2549b39fc120225b4847f73f274ba9c42",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 19
+        },
+        {
+          "name": "prepare",
+          "line": 26
+        },
+        {
+          "name": "compute",
+          "line": 42
+        },
+        {
+          "name": "__init__",
+          "line": 81
+        },
+        {
+          "name": "compute",
+          "line": 87
+        },
+        {
+          "name": "_compute",
+          "line": 100
+        },
+        {
+          "name": "__init__",
+          "line": 136
+        },
+        {
+          "name": "compute",
+          "line": 143
+        },
+        {
+          "name": "_compute",
+          "line": 155
+        },
+        {
+          "name": "__init__",
+          "line": 192
+        },
+        {
+          "name": "compute",
+          "line": 198
+        },
+        {
+          "name": "prepare_plot",
+          "line": 212
+        },
+        {
+          "name": "bounded",
+          "line": 93
+        },
+        {
+          "name": "bounded",
+          "line": 147
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".bounded_wavelets",
+        ".cache_budget",
+        ".echo_bounded",
+        ".frequency_mask",
+        ".memory_resources",
+        ".utility",
+        ".wavelet_threshold",
+        "collections",
+        "cv2",
+        "numpy",
+        "pywt"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/jpeg.py",
+      "sha256": "9a54842c777d9b81cea7a3dff46f68e1157d143974057ba05d8b7837addf235a",
+      "functions": [
+        {
+          "name": "compress_jpg",
+          "line": 74
+        },
+        {
+          "name": "loss_curve",
+          "line": 79
+        },
+        {
+          "name": "estimate_qf",
+          "line": 89
+        },
+        {
+          "name": "get_tables",
+          "line": 93
+        }
+      ],
+      "constants": {
+        "DCT_SIZE": "8",
+        "TABLE_SIZE": "DCT_SIZE ** 2",
+        "ZIG_ZAG": "[\n    [0, 0],\n    [0, 1],\n    [1, 0],\n    [2, 0],\n    [1, 1],\n    [0, 2],\n    [0, 3],\n    [1, 2],\n    [2, 1],\n    [3, 0],\n    [4, 0],\n    [3, 1],\n    [2, 2],\n    [1, 3],\n    [0, 4],\n    [0, 5],\n    [1, 4],\n    [2, 3],\n    [3, 2],\n    [4, 1],\n    [5, 0],\n    [6, 0],\n    [5, 1],\n    [4, 2],\n    [3, 3],\n    [2, 4],\n    [1, 5],\n    [0, 6],\n    [0, 7],\n    [1, 6],\n    [2, 5],\n    [3, 4],\n    [4, 3],\n    [5, 2],\n    [6, 1],\n    [7, 0],\n    [7, 1],\n    [6, 2],\n    [5, 3],\n    [4, 4],\n    [3, 5],\n    [2, 6],\n    [1, 7],\n    [2, 7],\n    [3, 6],\n    [4, 5],\n    [5, 4],\n    [6, 3],\n    [7, 2],\n    [7, 3],\n    [6, 4],\n    [5, 5],\n    [4, 6],\n    [3, 7],\n    [4, 7],\n    [5, 6],\n    [6, 5],\n    [7, 4],\n    [7, 5],\n    [6, 6],\n    [5, 7],\n    [6, 7],\n    [7, 6],\n    [7, 7],\n]"
+      },
+      "choices": [],
+      "imports": [
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/jpeg_curve.py",
+      "sha256": "3721e306decf88d0524bfd583202f1a18cd7d7f383877cf9edffabf5db25c0ff",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 13
+        },
+        {
+          "name": "compute",
+          "line": 17
+        },
+        {
+          "name": "one",
+          "line": 25
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".jpeg",
+        "concurrent.futures",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/jpeg_quality.py",
+      "sha256": "d2e11df7514a9ca97b85de5f6c9a540d526229cfae8b793fa14b262bc94a83cd",
+      "functions": [
+        {
+          "name": "read_quantization",
+          "line": 11
+        },
+        {
+          "name": "standard_tables",
+          "line": 27
+        },
+        {
+          "name": "table_estimate",
+          "line": 35
+        },
+        {
+          "name": "quality_booster",
+          "line": 58
+        },
+        {
+          "name": "predict_quality",
+          "line": 69
+        },
+        {
+          "name": "__init__",
+          "line": 77
+        },
+        {
+          "name": "compute",
+          "line": 84
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "..paths",
+        ".jpeg",
+        ".jpeg_curve",
+        "PIL",
+        "cv2",
+        "functools",
+        "joblib",
+        "numpy",
+        "xgboost"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/learned_copy.py",
+      "sha256": "07de3b942b850e04ac380ca57a274bb1e0e8930fc32dcff3603aceb68a7db54c",
+      "functions": [
+        {
+          "name": "inference_thread",
+          "line": 18
+        },
+        {
+          "name": "device_for",
+          "line": 26
+        },
+        {
+          "name": "xfeat_model",
+          "line": 31
+        },
+        {
+          "name": "extract",
+          "line": 40
+        },
+        {
+          "name": "lighter_model",
+          "line": 53
+        },
+        {
+          "name": "extract_lightglue",
+          "line": 74
+        },
+        {
+          "name": "lightglue_model",
+          "line": 113
+        },
+        {
+          "name": "edge_logits",
+          "line": 126
+        },
+        {
+          "name": "reduction_plan",
+          "line": 136
+        },
+        {
+          "name": "grouped_log_softmax",
+          "line": 149
+        },
+        {
+          "name": "accumulate",
+          "line": 159
+        },
+        {
+          "name": "sparse_cross",
+          "line": 172
+        },
+        {
+          "name": "scores",
+          "line": 183
+        },
+        {
+          "name": "match",
+          "line": 204
+        },
+        {
+          "name": "call",
+          "line": 21
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]",
+        "LOCK": "RLock()",
+        "MODELS": "{}",
+        "INFERENCE": "ThreadPoolExecutor(max_workers=1,thread_name_prefix='sherloq-learned')"
+      },
+      "choices": [],
+      "imports": [
+        "..vendor.lightglue.aliked",
+        "..vendor.lightglue.lightglue",
+        "..vendor.lightglue.sift",
+        "..vendor.lightglue.utils",
+        "..vendor.xfeat.modules.model",
+        "..vendor.xfeat.modules.xfeat",
+        ".auto_zones",
+        ".cloning",
+        ".cloning2",
+        "concurrent.futures",
+        "functools",
+        "numpy",
+        "pathlib",
+        "scipy.spatial",
+        "threading",
+        "torch",
+        "torch.nn.functional"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/location.py",
+      "sha256": "db67cb89fb22c0683bdd03fa2ee99fc593b293fc26d81185e3caef4dcb44c142",
+      "functions": [
+        {
+          "name": "parse_location",
+          "line": 6
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "json",
+        "math"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/macos_activity.py",
+      "sha256": "6ea10e301c412654363b801729922c6f60f4e13baf8016d4d1c475e3702efe25",
+      "functions": [
+        {
+          "name": "_runtime",
+          "line": 10
+        },
+        {
+          "name": "user_activity",
+          "line": 25
+        },
+        {
+          "name": "send",
+          "line": 19
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "contextlib",
+        "ctypes",
+        "functools",
+        "logging",
+        "sys"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/magnifier.py",
+      "sha256": "2f6f5f5d27531305456ee6a4b3284b0574386b5ebbc30c976c76c241101691a1",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 8
+        },
+        {
+          "name": "bounds",
+          "line": 12
+        },
+        {
+          "name": "compute",
+          "line": 18
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".utility",
+        "cv2"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/median.py",
+      "sha256": "d71fc54a2a0091fa1fea6b8b7a2bb7dddc460b9dff9fcf104f5f2320454f3eb6",
+      "functions": [
+        {
+          "name": "_statistics",
+          "line": 14
+        },
+        {
+          "name": "_metrics",
+          "line": 22
+        },
+        {
+          "name": "get_features",
+          "line": 43
+        },
+        {
+          "name": "__init__",
+          "line": 61
+        },
+        {
+          "name": "_prepare",
+          "line": 69
+        },
+        {
+          "name": "analyze",
+          "line": 92
+        },
+        {
+          "name": "render",
+          "line": 123
+        },
+        {
+          "name": "compute",
+          "line": 148
+        },
+        {
+          "name": "one",
+          "line": 98
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".jpeg_curve",
+        ".utility",
+        "concurrent.futures",
+        "cv2",
+        "numpy",
+        "xgboost"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/memory_resources.py",
+      "sha256": "43cf0297454a08fce85e62ec9ad599a0c4cf379fd57df90504f1c2edd94dc2e4",
+      "functions": [
+        {
+          "name": "physical_memory",
+          "line": 32
+        },
+        {
+          "name": "_system",
+          "line": 38
+        },
+        {
+          "name": "available_memory",
+          "line": 47
+        },
+        {
+          "name": "resident_memory",
+          "line": 61
+        },
+        {
+          "name": "require_disk_space",
+          "line": 168
+        },
+        {
+          "name": "tiles",
+          "line": 265
+        },
+        {
+          "name": "release_idle_caches_under_pressure",
+          "line": 279
+        },
+        {
+          "name": "__init__",
+          "line": 88
+        },
+        {
+          "name": "capacity",
+          "line": 91
+        },
+        {
+          "name": "plan",
+          "line": 94
+        },
+        {
+          "name": "claim",
+          "line": 104
+        },
+        {
+          "name": "execute",
+          "line": 128
+        },
+        {
+          "name": "__init__",
+          "line": 185
+        },
+        {
+          "name": "array",
+          "line": 189
+        },
+        {
+          "name": "watch",
+          "line": 216
+        },
+        {
+          "name": "checkpoint",
+          "line": 238
+        },
+        {
+          "name": "with_page_allowance",
+          "line": 136
+        },
+        {
+          "name": "run_bounded",
+          "line": 140
+        },
+        {
+          "name": "released",
+          "line": 206
+        },
+        {
+          "name": "visit",
+          "line": 222
+        }
+      ],
+      "constants": {
+        "_PAGE_ALLOWANCE": "ContextVar('sherloq_page_allowance',default=0)",
+        "MEMORY": "MemoryCoordinator()"
+      },
+      "choices": [],
+      "imports": [
+        ".cache_budget",
+        ".cloning",
+        "contextlib",
+        "contextvars",
+        "ctypes",
+        "cv2",
+        "dataclasses",
+        "functools",
+        "gc",
+        "math",
+        "mmap",
+        "numpy",
+        "os",
+        "pathlib",
+        "shutil",
+        "sys",
+        "tempfile",
+        "threading",
+        "time",
+        "weakref"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/metadata.py",
+      "sha256": "9d421ddba4a6f000404a1d405fe7bd4bb64170e1d77f0b5f386d54df0078ac4a",
+      "functions": [
+        {
+          "name": "metadata_rows",
+          "line": 11
+        },
+        {
+          "name": "parse_metadata",
+          "line": 28
+        }
+      ],
+      "constants": {
+        "IGNORED_TAGS": "('SourceFile', 'ExifTool:ExifTool', 'File:FileName',\n                'File:Directory', 'File:FileSize', 'File:FileModifyDate',\n                'File:FileInodeChangeDate', 'File:FileAccessDate',\n                'File:FileType', 'File:FilePermissions',\n                'File:FileTypeExtension', 'File:MIMEType')"
+      },
+      "choices": [],
+      "imports": [
+        "json"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/metal_dense.py",
+      "sha256": "6e017c6d919901978fdd31dc1034599fed963c94c80eab1d502fd2d11c8ebb7f",
+      "functions": [
+        {
+          "name": "available",
+          "line": 15
+        },
+        {
+          "name": "sift_enabled",
+          "line": 20
+        },
+        {
+          "name": "coefficients",
+          "line": 27
+        },
+        {
+          "name": "features",
+          "line": 33
+        },
+        {
+          "name": "features_sift",
+          "line": 51
+        },
+        {
+          "name": "paired_sift",
+          "line": 78
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".dense_copy",
+        ".dense_memory",
+        ".dense_parallel",
+        "ctypes",
+        "functools",
+        "mmap",
+        "numpy",
+        "os",
+        "sys"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/minmax.py",
+      "sha256": "d05512c99fc355d5e00baa5d5d4a28e1ba09584e6bd4d8b38240225a58367ea7",
+      "functions": [
+        {
+          "name": "_std_table",
+          "line": 16
+        },
+        {
+          "name": "block_density",
+          "line": 27
+        },
+        {
+          "name": "__init__",
+          "line": 49
+        },
+        {
+          "name": "extrema",
+          "line": 55
+        },
+        {
+          "name": "compute",
+          "line": 77
+        },
+        {
+          "name": "_compute",
+          "line": 91
+        },
+        {
+          "name": "bounded",
+          "line": 83
+        }
+      ],
+      "constants": {
+        "_NEIGHBORS": "np.ones((3, 3), np.uint8)",
+        "_COLORS": "np.array([[0, 0, 255], [0, 255, 0], [255, 0, 0],\n                    [255, 255, 255], [0, 0, 0]], np.uint8)"
+      },
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".memory_resources",
+        ".minmax_bounded",
+        ".utility",
+        "cv2",
+        "functools",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/minmax_bounded.py",
+      "sha256": "5553db8f9c6c34b8bc852aef842cdd4a5fca8669632b76b016b48a04bd58230b",
+      "functions": [
+        {
+          "name": "density",
+          "line": 9
+        },
+        {
+          "name": "compute",
+          "line": 35
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".memory_resources",
+        ".minmax",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/noise.py",
+      "sha256": "41d5ef6bdd4e8df1b2e4635c3be5c0954fb6324f6b9cd533b1809cb632ae24d6",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 8
+        },
+        {
+          "name": "parameters",
+          "line": 18
+        },
+        {
+          "name": "source",
+          "line": 22
+        },
+        {
+          "name": "denoise",
+          "line": 30
+        },
+        {
+          "name": "compute",
+          "line": 60
+        },
+        {
+          "name": "_compute",
+          "line": 72
+        },
+        {
+          "name": "bounded",
+          "line": 65
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".memory_resources",
+        ".noise_bounded",
+        ".utility",
+        "cv2"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/noise_bounded.py",
+      "sha256": "620e739bee597e7d770f1d71cc6f2d4150977a40fae40a3b897af0386368a57a",
+      "functions": [
+        {
+          "name": "compute",
+          "line": 9
+        },
+        {
+          "name": "one",
+          "line": 17
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".memory_resources",
+        ".utility",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/noiseprint_mps.py",
+      "sha256": "12b5a41876e43e9d93fb76d4ddd51e330dde4bd96374b136459fe92321051f09",
+      "functions": [
+        {
+          "name": "load_weights",
+          "line": 14
+        },
+        {
+          "name": "gen_noise_mps",
+          "line": 53
+        },
+        {
+          "name": "infer",
+          "line": 65
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "hashlib",
+        "numpy",
+        "os",
+        "pathlib",
+        "sys",
+        "tempfile",
+        "tensorflow",
+        "torch"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/noisesniffer.py",
+      "sha256": "64a7f2a1f762efa4654dfe2bd93bb53dfc42d3b3e00d6f105c6945a911197e27",
+      "functions": [
+        {
+          "name": "save_array",
+          "line": 20
+        },
+        {
+          "name": "statistics",
+          "line": 24
+        },
+        {
+          "name": "select",
+          "line": 49
+        },
+        {
+          "name": "counts",
+          "line": 66
+        },
+        {
+          "name": "log_tail",
+          "line": 74
+        },
+        {
+          "name": "regions",
+          "line": 91
+        },
+        {
+          "name": "distribution",
+          "line": 118
+        },
+        {
+          "name": "analyze",
+          "line": 129
+        },
+        {
+          "name": "main",
+          "line": 139
+        },
+        {
+          "name": "histogram",
+          "line": 68
+        },
+        {
+          "name": "neighbours",
+          "line": 94
+        }
+      ],
+      "constants": {
+        "V": "[]",
+        "S": "[]",
+        "N": "all_blocks[y,x]",
+        "K": "red_blocks[y,x]",
+        "R": "len(cells)"
+      },
+      "choices": [],
+      "imports": [
+        "cv2",
+        "functools",
+        "gui.sherloq_app.vendor.noisesniffer",
+        "hashlib",
+        "json",
+        "math",
+        "numpy",
+        "numpy.lib.stride_tricks",
+        "pathlib",
+        "scipy.special",
+        "scipy.stats",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/pca.py",
+      "sha256": "b77d4b6f6bcc950b79855854056eee56bb43d8bdca15ccaa2efd0646816388ae",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 9
+        },
+        {
+          "name": "prepare",
+          "line": 17
+        },
+        {
+          "name": "cross_plane",
+          "line": 32
+        },
+        {
+          "name": "base",
+          "line": 36
+        },
+        {
+          "name": "compute",
+          "line": 72
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".utility",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/pixel_stats.py",
+      "sha256": "5e9273adc10b1442e9e6d8c0137401b93f3350a5754f240d6f10cb9a90b87890",
+      "functions": [
+        {
+          "name": "_tables",
+          "line": 8
+        },
+        {
+          "name": "__init__",
+          "line": 36
+        },
+        {
+          "name": "ranking",
+          "line": 41
+        },
+        {
+          "name": "compute",
+          "line": 55
+        },
+        {
+          "name": "_compute",
+          "line": 66
+        },
+        {
+          "name": "bounded",
+          "line": 59
+        }
+      ],
+      "constants": {
+        "TABLES": "_tables()"
+      },
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".interactive",
+        ".memory_resources",
+        "cv2",
+        "itertools",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/prnu.py",
+      "sha256": "1e6e4c764bccc52cc64ea7cd53143e554a18b1b9ed65f7e26bc6a1f4d9451fb4",
+      "functions": [
+        {
+          "name": "parse_camera_label",
+          "line": 22
+        },
+        {
+          "name": "scan_dataset",
+          "line": 28
+        },
+        {
+          "name": "extract_residual",
+          "line": 43
+        },
+        {
+          "name": "load_image_gray",
+          "line": 55
+        },
+        {
+          "name": "ncc",
+          "line": 62
+        },
+        {
+          "name": "check_cancel",
+          "line": 76
+        },
+        {
+          "name": "file_digest",
+          "line": 81
+        },
+        {
+          "name": "image_identity",
+          "line": 89
+        },
+        {
+          "name": "camera_images",
+          "line": 94
+        },
+        {
+          "name": "validate_database",
+          "line": 104
+        },
+        {
+          "name": "build_database",
+          "line": 121
+        },
+        {
+          "name": "__init__",
+          "line": 185
+        },
+        {
+          "name": "residual",
+          "line": 192
+        },
+        {
+          "name": "identify",
+          "line": 199
+        }
+      ],
+      "constants": {
+        "WIENER_SIZE": "3",
+        "NCC_THRESHOLD": "0.005",
+        "SCHEMA": "\"sherloq-wiener-ncc-1\""
+      },
+      "choices": [],
+      "imports": [
+        ".interactive",
+        "collections",
+        "cv2",
+        "h5py",
+        "hashlib",
+        "json",
+        "numpy",
+        "os",
+        "pathlib",
+        "scipy.signal",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/resampling.py",
+      "sha256": "beebd027d490ce6fa1b588108571d64602c11af2c81b1bd5aaf9f100240c4b14",
+      "functions": [
+        {
+          "name": "check",
+          "line": 8
+        },
+        {
+          "name": "normalize_gray",
+          "line": 13
+        },
+        {
+          "name": "matrices",
+          "line": 19
+        },
+        {
+          "name": "radial_window",
+          "line": 37
+        },
+        {
+          "name": "__init__",
+          "line": 57
+        },
+        {
+          "name": "probability",
+          "line": 69
+        },
+        {
+          "name": "fourier",
+          "line": 135
+        }
+      ],
+      "constants": {
+        "F": "np.empty((rows, size * size - 1), np.float64)"
+      },
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".jpeg_curve",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/research_worker.py",
+      "sha256": "a29473a357c58c21d3f6a2c59799f4f2cb18fca380b088a462c996a1c91b25b6",
+      "functions": [
+        {
+          "name": "run",
+          "line": 38
+        },
+        {
+          "name": "main",
+          "line": 74
+        },
+        {
+          "name": "__init__",
+          "line": 9
+        },
+        {
+          "name": "clear",
+          "line": 10
+        },
+        {
+          "name": "get",
+          "line": 13
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]"
+      },
+      "choices": [],
+      "imports": [
+        "gc",
+        "gui.sherloq_app.core.adaifl",
+        "gui.sherloq_app.core.adaptive_cfa",
+        "gui.sherloq_app.core.catnet",
+        "gui.sherloq_app.core.focal",
+        "gui.sherloq_app.core.image_buffers",
+        "gui.sherloq_app.core.safire",
+        "hashlib",
+        "importlib",
+        "json",
+        "numpy",
+        "pathlib",
+        "sys",
+        "time",
+        "torch"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/safire.py",
+      "sha256": "84dba2cce7f126f4c8e1020ac00d007d59ab293bd0fdcf876733f6735fdf41c6",
+      "functions": [
+        {
+          "name": "load",
+          "line": 6
+        },
+        {
+          "name": "cluster",
+          "line": 16
+        },
+        {
+          "name": "predict",
+          "line": 34
+        }
+      ],
+      "constants": {
+        "ROOT": "Path(__file__).resolve().parents[4]"
+      },
+      "choices": [],
+      "imports": [
+        "..vendor.safire.networks.safire_model",
+        "..vendor.safire.segment_anything",
+        "..vendor.safire.segment_anything.predictor_safire",
+        "..vendor.safire.segment_anything.utils.amg",
+        ".image_buffers",
+        "cv2",
+        "numpy",
+        "pathlib",
+        "sklearn.cluster",
+        "torch",
+        "torch.nn.functional"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/sift_frames.py",
+      "sha256": "9924025352642284fccceb800b47a6856675b6905fff71be3a52aa308943b79d",
+      "functions": [
+        {
+          "name": "transformed_groups",
+          "line": 10
+        },
+        {
+          "name": "orientation_diversity",
+          "line": 36
+        },
+        {
+          "name": "quarter_turn_frame",
+          "line": 53
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".cloning",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/sift_g2nn.py",
+      "sha256": "587e07d0d206f59f1c57e1d2b790a38d1efcd6e84e0d5e074de022893e0137e3",
+      "functions": [
+        {
+          "name": "matching_backend",
+          "line": 16
+        },
+        {
+          "name": "_extract_global",
+          "line": 29
+        },
+        {
+          "name": "extract",
+          "line": 45
+        },
+        {
+          "name": "exact_mps_eligible",
+          "line": 94
+        },
+        {
+          "name": "match",
+          "line": 100
+        },
+        {
+          "name": "filter_models",
+          "line": 156
+        },
+        {
+          "name": "__init__",
+          "line": 75
+        },
+        {
+          "name": "query",
+          "line": 81
+        }
+      ],
+      "constants": {
+        "NAME": "'SIFT + G2NN + RANSAC'"
+      },
+      "choices": [],
+      "imports": [
+        ".auto_zones",
+        ".cloning",
+        ".cloning2",
+        ".learned_copy",
+        "cv2",
+        "numpy",
+        "os",
+        "scipy.spatial",
+        "torch"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/splicing.py",
+      "sha256": "67be2086b5f0677f9cfc5b6a3420cbc085c0122d99ec2e17dd62218d8b2ca9c2",
+      "functions": [
+        {
+          "name": "estimate_model",
+          "line": 8
+        },
+        {
+          "name": "noise_display",
+          "line": 17
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".jpeg_curve",
+        ".utility",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/splicing_worker.py",
+      "sha256": "44b7d687896043944e44cf344d50647a847e88137885e62eb138ef54c418848c",
+      "functions": [
+        {
+          "name": "save",
+          "line": 19
+        },
+        {
+          "name": "write_json",
+          "line": 25
+        },
+        {
+          "name": "main",
+          "line": 31
+        },
+        {
+          "name": "progress",
+          "line": 35
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "cv2",
+        "gui.noiseprint.noiseprint",
+        "gui.noiseprint.noiseprint_blind",
+        "gui.noiseprint.post_em",
+        "gui.sherloq_app.core.noiseprint_mps",
+        "gui.sherloq_app.core.splicing",
+        "json",
+        "numpy",
+        "os",
+        "pathlib",
+        "sys",
+        "threading",
+        "traceback"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/stereogram.py",
+      "sha256": "5f87078854ada10dcc7e18928c26fbb518f1d3b9a513beb3c43793cee4d2a309",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 11
+        },
+        {
+          "name": "search",
+          "line": 16
+        },
+        {
+          "name": "pattern",
+          "line": 49
+        },
+        {
+          "name": "optical_flow",
+          "line": 58
+        },
+        {
+          "name": "compute",
+          "line": 69
+        },
+        {
+          "name": "one",
+          "line": 25
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".jpeg_curve",
+        ".utility",
+        "concurrent.futures",
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/thumbnail.py",
+      "sha256": "e4a9fcb2d0be8c2816eeb46b73f8b7acba99997043f2c7156a53ba3c9bacdb4a",
+      "functions": [
+        {
+          "name": "analyze_thumbnail",
+          "line": 6
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "cv2",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/trufor.py",
+      "sha256": "6f63499f6c011be4502080d06bc4004acf38d9a4919245ee703f40c3549ffaa6",
+      "functions": [
+        {
+          "name": "export_npz",
+          "line": 44
+        },
+        {
+          "name": "__init__",
+          "line": 12
+        },
+        {
+          "name": "render",
+          "line": 17
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".jpeg_curve",
+        "cv2",
+        "matplotlib",
+        "numpy",
+        "os",
+        "pathlib",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/trufor_worker.py",
+      "sha256": "ff3d58a9922dd6f4e740d12dc6b47421a6d808441057242143c74e7836aaf942",
+      "functions": [
+        {
+          "name": "run",
+          "line": 55
+        },
+        {
+          "name": "main",
+          "line": 138
+        },
+        {
+          "name": "__init__",
+          "line": 12
+        },
+        {
+          "name": "clear",
+          "line": 16
+        },
+        {
+          "name": "get",
+          "line": 26
+        },
+        {
+          "name": "stage_finished",
+          "line": 81
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PIL",
+        "argparse",
+        "config",
+        "gc",
+        "hashlib",
+        "json",
+        "models.cmx.builder_np_conf",
+        "models.cmx.encoders.dual_segformer",
+        "numpy",
+        "pathlib",
+        "sys",
+        "tempfile",
+        "time",
+        "torch",
+        "types"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/utility.py",
+      "sha256": "4c70b30cfb1f8bebcdae85fa95f39a77d267081bc9509d67b661c9e9600a5fbc",
+      "functions": [
+        {
+          "name": "mat2img",
+          "line": 26
+        },
+        {
+          "name": "color_by_value",
+          "line": 37
+        },
+        {
+          "name": "modify_font",
+          "line": 49
+        },
+        {
+          "name": "pad_image",
+          "line": 68
+        },
+        {
+          "name": "shift_image",
+          "line": 78
+        },
+        {
+          "name": "human_size",
+          "line": 85
+        },
+        {
+          "name": "create_lut",
+          "line": 99
+        },
+        {
+          "name": "compute_hist",
+          "line": 117
+        },
+        {
+          "name": "auto_lut",
+          "line": 123
+        },
+        {
+          "name": "elapsed_time",
+          "line": 146
+        },
+        {
+          "name": "signed_value",
+          "line": 153
+        },
+        {
+          "name": "equalize_img",
+          "line": 157
+        },
+        {
+          "name": "norm_img",
+          "line": 161
+        },
+        {
+          "name": "clip_value",
+          "line": 165
+        },
+        {
+          "name": "bgr_to_gray3",
+          "line": 173
+        },
+        {
+          "name": "gray_to_bgr",
+          "line": 177
+        },
+        {
+          "name": "load_image",
+          "line": 181
+        },
+        {
+          "name": "desaturate",
+          "line": 200
+        },
+        {
+          "name": "norm_mat",
+          "line": 204
+        },
+        {
+          "name": "exiftool_exe",
+          "line": 211
+        },
+        {
+          "name": "butter_exe",
+          "line": 222
+        },
+        {
+          "name": "ssimul_exe",
+          "line": 232
+        },
+        {
+          "name": "__init__",
+          "line": 245
+        },
+        {
+          "name": "doubleClicked",
+          "line": 288
+        },
+        {
+          "name": "reset_value",
+          "line": 291
+        },
+        {
+          "name": "value",
+          "line": 295
+        },
+        {
+          "name": "setValue",
+          "line": 298
+        },
+        {
+          "name": "sync",
+          "line": 303
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".histogram",
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "cv2",
+        "gui.sherloq_app.core.image_io",
+        "gui.sherloq_app.paths",
+        "gui.sherloq_app.ui.image_io",
+        "gui.sherloq_app.ui.localization",
+        "numpy",
+        "os",
+        "rawpy",
+        "shutil",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/wavelet_blocking.py",
+      "sha256": "231914707e520b9b9ca8de5b299f51735a58bd4759c31b3c0662042b964dcf63",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 9
+        },
+        {
+          "name": "detail",
+          "line": 18
+        },
+        {
+          "name": "compute",
+          "line": 36
+        },
+        {
+          "name": "_compute",
+          "line": 44
+        },
+        {
+          "name": "bounded",
+          "line": 39
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".interactive",
+        ".memory_resources",
+        ".wavelet_blocking_bounded",
+        "cv2",
+        "numpy",
+        "pywt"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/wavelet_blocking_bounded.py",
+      "sha256": "524830701e37514a5c5b243154cf4571c644a7b4d99ec0aac96b7388ae8dc0f3",
+      "functions": [
+        {
+          "name": "detail",
+          "line": 10
+        },
+        {
+          "name": "compute",
+          "line": 28
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        ".bounded_ops",
+        ".bounded_wavelets",
+        ".memory_resources",
+        "cv2",
+        "numpy",
+        "pywt"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/wavelet_threshold.py",
+      "sha256": "bcc8ef10112fb38bdfe1542e374be15c8854a4afc25ae546bb71c5b639f922e8",
+      "functions": [
+        {
+          "name": "threshold_band",
+          "line": 6
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "numpy",
+        "pywt"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/core/zero.py",
+      "sha256": "064896ce66e1f288ba3616f88111901dde7c0fd892da8babb763ebccce06b70a",
+      "functions": [
+        {
+          "name": "ptr",
+          "line": 13
+        },
+        {
+          "name": "analyze",
+          "line": 15
+        },
+        {
+          "name": "jpeg99",
+          "line": 38
+        },
+        {
+          "name": "main",
+          "line": 47
+        },
+        {
+          "name": "describe",
+          "line": 33
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "ctypes",
+        "cv2",
+        "gui.sherloq_app.core.noisesniffer",
+        "hashlib",
+        "json",
+        "numpy",
+        "pathlib",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/colors/pca.py",
+      "sha256": "416e582a92c3d607c79527a52ea0dfb73316a69ca1028b13dd5cff1f849670bb",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 21
+        },
+        {
+          "name": "process",
+          "line": 96
+        },
+        {
+          "name": "set_busy",
+          "line": 109
+        },
+        {
+          "name": "show_result",
+          "line": 114
+        },
+        {
+          "name": "show_error",
+          "line": 128
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 25,
+          "expression": "self.component_combo.addItems([self.tr(f\"#{i + 1}\") for i in range(3)])"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.pca",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/colors/plots.py",
+      "sha256": "badbed48240b6a6caa0e9d4112113b7a43ffcb2385b096a24acd294b93a3754b",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 38
+        },
+        {
+          "name": "zoom_at",
+          "line": 48
+        },
+        {
+          "name": "wheelEvent",
+          "line": 62
+        },
+        {
+          "name": "event",
+          "line": 67
+        },
+        {
+          "name": "paintGL",
+          "line": 72
+        },
+        {
+          "name": "__init__",
+          "line": 91
+        },
+        {
+          "name": "reset_camera",
+          "line": 254
+        },
+        {
+          "name": "export_plot",
+          "line": 258
+        },
+        {
+          "name": "export_2d",
+          "line": 268
+        },
+        {
+          "name": "set_busy",
+          "line": 278
+        },
+        {
+          "name": "change_renderer",
+          "line": 285
+        },
+        {
+          "name": "receive_colors",
+          "line": 296
+        },
+        {
+          "name": "show_error",
+          "line": 302
+        },
+        {
+          "name": "redraw",
+          "line": 306
+        },
+        {
+          "name": "_show_prepared",
+          "line": 320
+        },
+        {
+          "name": "plane_point",
+          "line": 50
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 96,
+          "expression": "self.xaxis_combo.addItems(choices)"
+        },
+        {
+          "line": 99,
+          "expression": "self.yaxis_combo.addItems(choices)"
+        },
+        {
+          "line": 102,
+          "expression": "self.zaxis_combo.addItems(choices)"
+        },
+        {
+          "line": 149,
+          "expression": "self.renderer_combo.addItems([self.tr(\"Fast view\"), self.tr(\"Classic (Matplotlib)\")])"
+        },
+        {
+          "line": 183,
+          "expression": "self.gl_view.addItem(self.scatter3)"
+        },
+        {
+          "line": 189,
+          "expression": "self.gl_view.addItem(self.grid3)"
+        },
+        {
+          "line": 193,
+          "expression": "self.gl_view.addItem(line)"
+        }
+      ],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.interactive",
+        "gui.sherloq_app.ui.gestures",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.plot2d",
+        "gui.sherloq_app.ui.plot_canvas",
+        "gui.sherloq_app.ui.tools",
+        "matplotlib.backends.backend_qt5agg",
+        "matplotlib.figure",
+        "numpy",
+        "pyqtgraph.opengl"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/colors/space.py",
+      "sha256": "0267b01f35630a11d74366254dac02d2355918dd48ae857126692f6930b87542",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 18
+        },
+        {
+          "name": "process",
+          "line": 137
+        },
+        {
+          "name": "set_busy",
+          "line": 151
+        },
+        {
+          "name": "show_result",
+          "line": 156
+        },
+        {
+          "name": "show_error",
+          "line": 160
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 23,
+          "expression": "self.rgb_combo.addItem(self.tr(\"Red\"))"
+        },
+        {
+          "line": 24,
+          "expression": "self.rgb_combo.addItem(self.tr(\"Green\"))"
+        },
+        {
+          "line": 25,
+          "expression": "self.rgb_combo.addItem(self.tr(\"Blue\"))"
+        },
+        {
+          "line": 31,
+          "expression": "self.cmyk_combo.addItem(self.tr(\"Cyan\"))"
+        },
+        {
+          "line": 32,
+          "expression": "self.cmyk_combo.addItem(self.tr(\"Magenta\"))"
+        },
+        {
+          "line": 33,
+          "expression": "self.cmyk_combo.addItem(self.tr(\"Yellow\"))"
+        },
+        {
+          "line": 34,
+          "expression": "self.cmyk_combo.addItem(self.tr(\"Black\"))"
+        },
+        {
+          "line": 38,
+          "expression": "self.gray_combo.addItem(self.tr(\"Lightness\"))"
+        },
+        {
+          "line": 39,
+          "expression": "self.gray_combo.addItem(self.tr(\"Luminance\"))"
+        },
+        {
+          "line": 40,
+          "expression": "self.gray_combo.addItem(self.tr(\"Average\"))"
+        },
+        {
+          "line": 41,
+          "expression": "self.gray_combo.addItem(self.tr(\"Perceptual\"))"
+        },
+        {
+          "line": 45,
+          "expression": "self.hsv_combo.addItem(self.tr(\"Hue\"))"
+        },
+        {
+          "line": 46,
+          "expression": "self.hsv_combo.addItem(self.tr(\"Saturation\"))"
+        },
+        {
+          "line": 47,
+          "expression": "self.hsv_combo.addItem(self.tr(\"Value\"))"
+        },
+        {
+          "line": 51,
+          "expression": "self.hls_combo.addItem(self.tr(\"Hue\"))"
+        },
+        {
+          "line": 52,
+          "expression": "self.hls_combo.addItem(self.tr(\"Luminance\"))"
+        },
+        {
+          "line": 53,
+          "expression": "self.hls_combo.addItem(self.tr(\"Saturation\"))"
+        },
+        {
+          "line": 57,
+          "expression": "self.ycrcb_combo.addItem(self.tr(\"Luminance\"))"
+        },
+        {
+          "line": 58,
+          "expression": "self.ycrcb_combo.addItem(self.tr(\"Chroma Red\"))"
+        },
+        {
+          "line": 59,
+          "expression": "self.ycrcb_combo.addItem(self.tr(\"Chroma Blue\"))"
+        },
+        {
+          "line": 63,
+          "expression": "self.xyz_combo.addItem(self.tr(\"X\"))"
+        },
+        {
+          "line": 64,
+          "expression": "self.xyz_combo.addItem(self.tr(\"Y\"))"
+        },
+        {
+          "line": 65,
+          "expression": "self.xyz_combo.addItem(self.tr(\"Z\"))"
+        },
+        {
+          "line": 69,
+          "expression": "self.lab_combo.addItem(self.tr(\"Luminosity\"))"
+        },
+        {
+          "line": 70,
+          "expression": "self.lab_combo.addItem(self.tr(\"Green-Red\"))"
+        },
+        {
+          "line": 71,
+          "expression": "self.lab_combo.addItem(self.tr(\"Blue-Yellow\"))"
+        },
+        {
+          "line": 75,
+          "expression": "self.luv_combo.addItem(self.tr(\"Luminosity\"))"
+        },
+        {
+          "line": 76,
+          "expression": "self.luv_combo.addItem(self.tr(\"Chroma U\"))"
+        },
+        {
+          "line": 77,
+          "expression": "self.luv_combo.addItem(self.tr(\"Chroma V\"))"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.color_spaces",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/colors/stats.py",
+      "sha256": "3b6555248f45519f3d8f60edd2dd0f92fad1dd68e0f21e8e650acc4cbfd828d0",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 10
+        },
+        {
+          "name": "process",
+          "line": 54
+        },
+        {
+          "name": "set_busy",
+          "line": 66
+        },
+        {
+          "name": "show_result",
+          "line": 71
+        },
+        {
+          "name": "show_error",
+          "line": 75
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.pixel_stats",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/detail/echo.py",
+      "sha256": "ca219098aee534b8456418e807e9bf42766bdaa3f79920ffc72a4dcebc2d617a",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 11
+        },
+        {
+          "name": "process",
+          "line": 58
+        },
+        {
+          "name": "set_busy",
+          "line": 64
+        },
+        {
+          "name": "show_result",
+          "line": 69
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.interactive",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/detail/frequency.py",
+      "sha256": "d3fbeece788aa71f26a0e167187336c2c27eb87e1c45e3e4623edc738e0a9700",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 12
+        },
+        {
+          "name": "process",
+          "line": 96
+        },
+        {
+          "name": "postprocess",
+          "line": 105
+        },
+        {
+          "name": "set_busy",
+          "line": 108
+        },
+        {
+          "name": "show_result",
+          "line": 114
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.interactive",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/detail/gradient.py",
+      "sha256": "93b749917eab4f17eee7078b9bbfb2fecbbb204c9ccbe7b1b70349ef4a0aa0fb",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 17
+        },
+        {
+          "name": "process",
+          "line": 67
+        },
+        {
+          "name": "set_busy",
+          "line": 76
+        },
+        {
+          "name": "show_result",
+          "line": 81
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 25,
+          "expression": "self.blue_combo.addItems(\n            [self.tr(\"None\"), self.tr(\"Flat\"), self.tr(\"Abs\"), self.tr(\"Norm\")]\n        )"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.gradient",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/detail/wavelets.py",
+      "sha256": "914604c2a403be7c70b5f21445aa1976aab847b7fb2cbaf841621453c76a34e7",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 13
+        },
+        {
+          "name": "update_wavelet",
+          "line": 78
+        },
+        {
+          "name": "update_level",
+          "line": 108
+        },
+        {
+          "name": "compute_dwt",
+          "line": 117
+        },
+        {
+          "name": "compute_idwt",
+          "line": 120
+        },
+        {
+          "name": "set_busy",
+          "line": 130
+        },
+        {
+          "name": "show_result",
+          "line": 135
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 17,
+          "expression": "self.family_combo.addItems(\n            [\n                self.tr(\"Daubechies\"),\n                self.tr(\"Symlets\"),\n                self.tr(\"Coiflets\"),\n                self.tr(\"Biorthogonal\"),\n            ]\n        )"
+        },
+        {
+          "line": 31,
+          "expression": "self.mode_combo.addItems(\n            [\n                self.tr(\"Soft\"),\n                self.tr(\"Hard\"),\n                self.tr(\"Garrote\"),\n                self.tr(\"Greater\"),\n                self.tr(\"Less\"),\n            ]\n        )"
+        },
+        {
+          "line": 82,
+          "expression": "self.wavelet_combo.addItems([f\"db{i}\" for i in range(1, 21)])"
+        },
+        {
+          "line": 84,
+          "expression": "self.wavelet_combo.addItems([f\"sym{i}\" for i in range(2, 21)])"
+        },
+        {
+          "line": 86,
+          "expression": "self.wavelet_combo.addItems([f\"coif{i}\" for i in range(1, 6)])"
+        },
+        {
+          "line": 105,
+          "expression": "self.wavelet_combo.addItems([f\"bior{t}\" for t in types])"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.interactive",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "pywt"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/general/digest.py",
+      "sha256": "15d476a8293aa5cdcf927d0c4c49b06b0a87f6639e73ec92870307500716c661",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 10
+        },
+        {
+          "name": "recalculate",
+          "line": 41
+        },
+        {
+          "name": "_progress",
+          "line": 54
+        },
+        {
+          "name": "_busy",
+          "line": 57
+        },
+        {
+          "name": "_finished",
+          "line": 66
+        },
+        {
+          "name": "_failed",
+          "line": 75
+        },
+        {
+          "name": "shutdown",
+          "line": 78
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.digest",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.table",
+        "gui.sherloq_app.ui.tools"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/general/editor.py",
+      "sha256": "8e87dcdf2a0341aa4767e8fcc33392191f446f3b9e8d7758b1f6bb5c2d91dccf",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 7
+        },
+        {
+          "name": "shutdown",
+          "line": 13
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.ui.browser",
+        "gui.sherloq_app.ui.tools"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/general/original.py",
+      "sha256": "dbe9e4d6ba6a4c68505934a91049c487874e570ca57e5f431f50863f7964c5dd",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 8
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/general/reverse.py",
+      "sha256": "e35d2e7247922e255d45811d5ec7334586f484dcc853e35d55fdb1cee9b3a2c0",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 10
+        },
+        {
+          "name": "choose",
+          "line": 47
+        },
+        {
+          "name": "shutdown",
+          "line": 68
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.ui.browser",
+        "gui.sherloq_app.ui.icons",
+        "gui.sherloq_app.ui.tools"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/inspection/adjust.py",
+      "sha256": "2f7604c4a7970368bbaaffb5f7159982bb0fa8f6c96ed21e78b573f81c3d9fc2",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 18
+        },
+        {
+          "name": "_busy",
+          "line": 104
+        },
+        {
+          "name": "_failed",
+          "line": 108
+        },
+        {
+          "name": "process",
+          "line": 113
+        },
+        {
+          "name": "reset",
+          "line": 127
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 32,
+          "expression": "self.equalize_combo.addItems(\n            [\n                self.tr(\"No EQ\"),\n                self.tr(\"Hist EQ\"),\n                self.tr(\"CLAHE L1\"),\n                self.tr(\"CLAHE L2\"),\n                self.tr(\"CLAHE L3\"),\n                self.tr(\"CLAHE L4\"),\n            ]\n        )"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.adjust",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/inspection/comparison.py",
+      "sha256": "e6dd5f9e6af57649f4da1fdf412e662739b76fd272a2cf57dc74a93d3b2348fe",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 39
+        },
+        {
+          "name": "load",
+          "line": 314
+        },
+        {
+          "name": "is_busy",
+          "line": 353
+        },
+        {
+          "name": "_ensure_engine",
+          "line": 356
+        },
+        {
+          "name": "change",
+          "line": 365
+        },
+        {
+          "name": "metrics",
+          "line": 389
+        },
+        {
+          "name": "_progress",
+          "line": 401
+        },
+        {
+          "name": "_metrics_ready",
+          "line": 407
+        },
+        {
+          "name": "_failed",
+          "line": 437
+        },
+        {
+          "name": "cancel",
+          "line": 444
+        },
+        {
+          "name": "shutdown",
+          "line": 453
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "cv2",
+        "gui.sherloq_app.core",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.comparison_job",
+        "gui.sherloq_app.ui.icons",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "numpy",
+        "os"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/inspection/histogram.py",
+      "sha256": "c82f43dbda51e116280af3d1540d81326b071e72962e332e3c326d60db03dba2",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 27
+        },
+        {
+          "name": "_computed",
+          "line": 160
+        },
+        {
+          "name": "redraw",
+          "line": 165
+        },
+        {
+          "name": "shutdown",
+          "line": 169
+        },
+        {
+          "name": "_redraw",
+          "line": 173
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.histogram",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.plot_canvas",
+        "gui.sherloq_app.ui.tools",
+        "matplotlib.figure",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/inspection/magnifier.py",
+      "sha256": "5cee617c6bb7940b34973663e543535a1438f9d79083b4c2b853feb155b50ff8",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 17
+        },
+        {
+          "name": "_busy",
+          "line": 65
+        },
+        {
+          "name": "_failed",
+          "line": 69
+        },
+        {
+          "name": "process",
+          "line": 74
+        },
+        {
+          "name": "change",
+          "line": 86
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.magnifier",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.region_viewer",
+        "gui.sherloq_app.ui.tools"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/jpeg/ela.py",
+      "sha256": "fa0134a4bec443459ff384004ee8b6c739d6ef94945a0207cd8127e01ca43f55",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 21
+        },
+        {
+          "name": "preprocess",
+          "line": 90
+        },
+        {
+          "name": "process",
+          "line": 93
+        },
+        {
+          "name": "set_busy",
+          "line": 102
+        },
+        {
+          "name": "show_result",
+          "line": 107
+        },
+        {
+          "name": "show_error",
+          "line": 112
+        },
+        {
+          "name": "default",
+          "line": 116
+        },
+        {
+          "name": "shutdown",
+          "line": 128
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.ela",
+        "gui.sherloq_app.ui.ela_biomes",
+        "gui.sherloq_app.ui.extensions",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/jpeg/ghostmmaps.py",
+      "sha256": "03914676591d0054ce5084626e9bb3b7554b6b1d5053893d9866677afe19ac60",
+      "functions": [
+        {
+          "name": "_run_ghost",
+          "line": 18
+        },
+        {
+          "name": "__init__",
+          "line": 30
+        },
+        {
+          "name": "parameters",
+          "line": 131
+        },
+        {
+          "name": "invalidate",
+          "line": 136
+        },
+        {
+          "name": "calculate_next_offset",
+          "line": 143
+        },
+        {
+          "name": "calculate_previous_offset",
+          "line": 146
+        },
+        {
+          "name": "_move_offset",
+          "line": 149
+        },
+        {
+          "name": "processGhostmaps",
+          "line": 157
+        },
+        {
+          "name": "set_busy",
+          "line": 174
+        },
+        {
+          "name": "_progress",
+          "line": 180
+        },
+        {
+          "name": "show_result",
+          "line": 185
+        },
+        {
+          "name": "show_error",
+          "line": 203
+        },
+        {
+          "name": "shutdown",
+          "line": 208
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "functools",
+        "gui.sherloq_app.core.ghost_maps",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/jpeg/multiple.py",
+      "sha256": "bff3fd0d194681879fcbd3096135671be6d7ab19f63b7d95604745a8fe98b0fb",
+      "functions": [
+        {
+          "name": "_run_curve",
+          "line": 21
+        },
+        {
+          "name": "__init__",
+          "line": 31
+        },
+        {
+          "name": "_progress",
+          "line": 86
+        },
+        {
+          "name": "process",
+          "line": 91
+        },
+        {
+          "name": "show_result",
+          "line": 101
+        },
+        {
+          "name": "show_error",
+          "line": 118
+        },
+        {
+          "name": "export_csv",
+          "line": 123
+        },
+        {
+          "name": "export_png",
+          "line": 136
+        },
+        {
+          "name": "shutdown",
+          "line": 143
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "csv",
+        "functools",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.ui.double_jpeg",
+        "gui.sherloq_app.ui.extensions",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.plot_canvas",
+        "gui.sherloq_app.ui.tools",
+        "matplotlib.figure",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/jpeg/quality.py",
+      "sha256": "ff619f2dd6e2fd86c3053b281be510f6439baf4e940792d544f44177399a5dec",
+      "functions": [
+        {
+          "name": "_run_quality",
+          "line": 22
+        },
+        {
+          "name": "__init__",
+          "line": 30
+        },
+        {
+          "name": "_progress",
+          "line": 57
+        },
+        {
+          "name": "process",
+          "line": 62
+        },
+        {
+          "name": "_error",
+          "line": 72
+        },
+        {
+          "name": "_result",
+          "line": 77
+        },
+        {
+          "name": "shutdown",
+          "line": 147
+        },
+        {
+          "name": "get_features",
+          "line": 152
+        },
+        {
+          "name": "create_table",
+          "line": 156
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "cv2",
+        "functools",
+        "gui.sherloq_app.core.jpeg",
+        "gui.sherloq_app.core.jpeg_quality",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.plot_canvas",
+        "gui.sherloq_app.ui.tools",
+        "matplotlib.figure",
+        "numpy",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/jpeg/zero.py",
+      "sha256": "2628d6946799f0033b1dcdec1a868a8073919a5e513545962807dc8bcb71eb50",
+      "functions": [
+        {
+          "name": "read_result",
+          "line": 16
+        },
+        {
+          "name": "palette",
+          "line": 22
+        },
+        {
+          "name": "display",
+          "line": 32
+        },
+        {
+          "name": "__init__",
+          "line": 44
+        },
+        {
+          "name": "params",
+          "line": 63
+        },
+        {
+          "name": "busy",
+          "line": 64
+        },
+        {
+          "name": "settings_changed",
+          "line": 65
+        },
+        {
+          "name": "state",
+          "line": 67
+        },
+        {
+          "name": "start",
+          "line": 69
+        },
+        {
+          "name": "launch",
+          "line": 76
+        },
+        {
+          "name": "complete",
+          "line": 80
+        },
+        {
+          "name": "failed",
+          "line": 86
+        },
+        {
+          "name": "redraw",
+          "line": 87
+        },
+        {
+          "name": "export_data",
+          "line": 90
+        },
+        {
+          "name": "shutdown",
+          "line": 94
+        },
+        {
+          "name": "finished",
+          "line": 98
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 47,
+          "expression": "self.mode.addItems(['Régions','Votes de grille','Votes JPEG99','Grilles différentes','Grilles manquantes'])"
+        },
+        {
+          "line": 52,
+          "expression": "self.legend.addItem(item)"
+        }
+      ],
+      "imports": [
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core",
+        "gui.sherloq_app.core.interactive",
+        "gui.sherloq_app.tools.noise.noisesniffer",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.process",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "json",
+        "matplotlib",
+        "numpy",
+        "pathlib",
+        "sys",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/metadata/c2pa.py",
+      "sha256": "609b7b3c501ca17508e5ca8253ddca575e490811a2208160d7578801e93e1354",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 13
+        },
+        {
+          "name": "state",
+          "line": 28
+        },
+        {
+          "name": "start",
+          "line": 30
+        },
+        {
+          "name": "launch",
+          "line": 35
+        },
+        {
+          "name": "process_failed",
+          "line": 38
+        },
+        {
+          "name": "failed",
+          "line": 42
+        },
+        {
+          "name": "complete",
+          "line": 43
+        },
+        {
+          "name": "choose_trust",
+          "line": 50
+        },
+        {
+          "name": "clear_trust",
+          "line": 53
+        },
+        {
+          "name": "export_data",
+          "line": 55
+        },
+        {
+          "name": "shutdown",
+          "line": 59
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.process",
+        "gui.sherloq_app.ui.tools",
+        "json",
+        "pathlib",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/metadata/exif.py",
+      "sha256": "5bedb6098b165cd5c50b99e99d99512eedbfd61b3a9f5e2bea3750d41dc2ddfe",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 13
+        },
+        {
+          "name": "is_busy",
+          "line": 45
+        },
+        {
+          "name": "_busy",
+          "line": 48
+        },
+        {
+          "name": "recalculate",
+          "line": 53
+        },
+        {
+          "name": "cancel",
+          "line": 70
+        },
+        {
+          "name": "_failed",
+          "line": 77
+        },
+        {
+          "name": "_finished",
+          "line": 81
+        },
+        {
+          "name": "shutdown",
+          "line": 97
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.digest",
+        "gui.sherloq_app.core.metadata",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.process",
+        "gui.sherloq_app.ui.table",
+        "gui.sherloq_app.ui.tools",
+        "os"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/metadata/header.py",
+      "sha256": "e59815c9f449ecc44b7e70d1b25ea84acba9ce73ad1906f294b1c6017ec7668f",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 13
+        },
+        {
+          "name": "recalculate",
+          "line": 43
+        },
+        {
+          "name": "_busy",
+          "line": 63
+        },
+        {
+          "name": "_finished",
+          "line": 68
+        },
+        {
+          "name": "_loaded",
+          "line": 82
+        },
+        {
+          "name": "shutdown",
+          "line": 85
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWebEngineWidgets",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.digest",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.process",
+        "gui.sherloq_app.ui.tools",
+        "os",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/metadata/location.py",
+      "sha256": "04f8715cde011232004961dd014bb6dd144b9665107be157a786f8a46174d867",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 13
+        },
+        {
+          "name": "_busy",
+          "line": 46
+        },
+        {
+          "name": "recalculate",
+          "line": 51
+        },
+        {
+          "name": "_finished",
+          "line": 69
+        },
+        {
+          "name": "copy_coordinates",
+          "line": 88
+        },
+        {
+          "name": "shutdown",
+          "line": 93
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.digest",
+        "gui.sherloq_app.core.location",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.browser",
+        "gui.sherloq_app.ui.process",
+        "gui.sherloq_app.ui.tools",
+        "os"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/metadata/thumbnail.py",
+      "sha256": "b5150d0f91877eabe65704719ed63a8915271eaa99832fa83a01a29c3a152a55",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 14
+        },
+        {
+          "name": "is_busy",
+          "line": 46
+        },
+        {
+          "name": "_busy",
+          "line": 49
+        },
+        {
+          "name": "recalculate",
+          "line": 54
+        },
+        {
+          "name": "cancel",
+          "line": 71
+        },
+        {
+          "name": "_failed",
+          "line": 78
+        },
+        {
+          "name": "_finished",
+          "line": 82
+        },
+        {
+          "name": "shutdown",
+          "line": 102
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtWidgets",
+        "functools",
+        "gui.sherloq_app.core.digest",
+        "gui.sherloq_app.core.thumbnail",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.process",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "os"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/noise/minmax.py",
+      "sha256": "5c4e4f43802aee6f025df5510efc6a63cb7bec0a31a0fbee43664451aff9b851",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 17
+        },
+        {
+          "name": "change",
+          "line": 87
+        },
+        {
+          "name": "preprocess",
+          "line": 101
+        },
+        {
+          "name": "cancel",
+          "line": 107
+        },
+        {
+          "name": "process",
+          "line": 115
+        },
+        {
+          "name": "_request",
+          "line": 119
+        },
+        {
+          "name": "set_busy",
+          "line": 126
+        },
+        {
+          "name": "show_result",
+          "line": 133
+        },
+        {
+          "name": "show_error",
+          "line": 143
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 21,
+          "expression": "self.chan_combo.addItems(\n            [\n                self.tr(\"Luminance\"),\n                self.tr(\"Red\"),\n                self.tr(\"Green\"),\n                self.tr(\"Blue\"),\n                self.tr(\"RGB Norm\"),\n            ]\n        )"
+        },
+        {
+          "line": 40,
+          "expression": "self.min_combo.addItems(colors)"
+        },
+        {
+          "line": 44,
+          "expression": "self.max_combo.addItems(colors)"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.minmax",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/noise/noise.py",
+      "sha256": "6d66c83cd1c2ebbbe969dd0999a40f38685867085d443582ec2f5a902df69006",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 17
+        },
+        {
+          "name": "process",
+          "line": 86
+        },
+        {
+          "name": "set_busy",
+          "line": 102
+        },
+        {
+          "name": "show_result",
+          "line": 107
+        },
+        {
+          "name": "show_error",
+          "line": 112
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 21,
+          "expression": "self.mode_combo.addItems(\n            [\n                self.tr(\"Median\"),\n                self.tr(\"Gaussian\"),\n                self.tr(\"BoxBlur\"),\n                self.tr(\"Bilateral\"),\n                self.tr(\"NonLocal\"),\n            ]\n        )"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.noise",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/noise/noise_estimmation.py",
+      "sha256": "569916b7c54492ff550fa6267929448f602733e9999d90201b21820d34fc36cb",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 22
+        },
+        {
+          "name": "parameter_changed",
+          "line": 66
+        },
+        {
+          "name": "calculate_noise_map",
+          "line": 73
+        },
+        {
+          "name": "set_busy",
+          "line": 85
+        },
+        {
+          "name": "show_result",
+          "line": 91
+        },
+        {
+          "name": "show_error",
+          "line": 96
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.wavelet_blocking",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "pywt"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/noise/noisesniffer.py",
+      "sha256": "63faa3591feb7459a7715aeb56029b14c44459a93516cdd113e2a278f789930c",
+      "functions": [
+        {
+          "name": "prepare",
+          "line": 14
+        },
+        {
+          "name": "read_result",
+          "line": 20
+        },
+        {
+          "name": "display",
+          "line": 26
+        },
+        {
+          "name": "export",
+          "line": 33
+        },
+        {
+          "name": "__init__",
+          "line": 44
+        },
+        {
+          "name": "params",
+          "line": 68
+        },
+        {
+          "name": "busy",
+          "line": 69
+        },
+        {
+          "name": "settings_changed",
+          "line": 70
+        },
+        {
+          "name": "state",
+          "line": 72
+        },
+        {
+          "name": "start",
+          "line": 77
+        },
+        {
+          "name": "launch",
+          "line": 85
+        },
+        {
+          "name": "complete",
+          "line": 89
+        },
+        {
+          "name": "failed",
+          "line": 93
+        },
+        {
+          "name": "redraw",
+          "line": 95
+        },
+        {
+          "name": "export_data",
+          "line": 97
+        },
+        {
+          "name": "shutdown",
+          "line": 101
+        },
+        {
+          "name": "finished",
+          "line": 107
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 46,
+          "expression": "self.block.addItems(['3','5','7','8'])"
+        },
+        {
+          "line": 50,
+          "expression": "self.mode.addItems(['Régions','Masque','Distribution des blocs'])"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core",
+        "gui.sherloq_app.core.interactive",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.process",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "json",
+        "numpy",
+        "os",
+        "pathlib",
+        "sys",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/noise/planes.py",
+      "sha256": "b4d13a97038e2671e62cff92f211d30871104eb55e3dccc96a3970e2cd46baaf",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 10
+        },
+        {
+          "name": "process",
+          "line": 62
+        },
+        {
+          "name": "set_busy",
+          "line": 68
+        },
+        {
+          "name": "show_result",
+          "line": 73
+        },
+        {
+          "name": "show_error",
+          "line": 77
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 14,
+          "expression": "self.chan_combo.addItems(\n            [\n                self.tr(\"Luminance\"),\n                self.tr(\"Red\"),\n                self.tr(\"Green\"),\n                self.tr(\"Blue\"),\n                self.tr(\"RGB Norm\"),\n            ]\n        )"
+        },
+        {
+          "line": 28,
+          "expression": "self.filter_combo.addItems(\n            [self.tr(\"Disabled\"), self.tr(\"Median\"), self.tr(\"Gaussian\")]\n        )"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.bit_planes",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/noise/prnu.py",
+      "sha256": "fedff08b902827f27cccf8413908e14a265e69a1777ff73e1c468680115b5138",
+      "functions": [
+        {
+          "name": "_finish_workers_at_exit",
+          "line": 45
+        },
+        {
+          "name": "__init__",
+          "line": 60
+        },
+        {
+          "name": "start",
+          "line": 67
+        },
+        {
+          "name": "_start_admitted",
+          "line": 73
+        },
+        {
+          "name": "_release_lane",
+          "line": 78
+        },
+        {
+          "name": "_cancel_queued",
+          "line": 81
+        },
+        {
+          "name": "request_cancel",
+          "line": 85
+        },
+        {
+          "name": "run",
+          "line": 92
+        },
+        {
+          "name": "__init__",
+          "line": 104
+        },
+        {
+          "name": "_on_start",
+          "line": 123
+        },
+        {
+          "name": "_new_database",
+          "line": 263
+        },
+        {
+          "name": "_browse_hdf5",
+          "line": 280
+        },
+        {
+          "name": "_check_hdf5",
+          "line": 294
+        },
+        {
+          "name": "_identify",
+          "line": 315
+        },
+        {
+          "name": "_set_busy",
+          "line": 348
+        },
+        {
+          "name": "_browse_dataset",
+          "line": 359
+        },
+        {
+          "name": "_cancel",
+          "line": 369
+        },
+        {
+          "name": "_on_progress",
+          "line": 376
+        },
+        {
+          "name": "_on_finished",
+          "line": 382
+        },
+        {
+          "name": "_thread_finished",
+          "line": 430
+        },
+        {
+          "name": "_on_cancelled",
+          "line": 434
+        },
+        {
+          "name": "shutdown",
+          "line": 443
+        },
+        {
+          "name": "_on_error",
+          "line": 454
+        },
+        {
+          "name": "hline",
+          "line": 463
+        }
+      ],
+      "constants": {
+        "_ACTIVE_WORKERS": "set()",
+        "_QUIT_HOOK_INSTALLED": "True"
+      },
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.prnu",
+        "gui.sherloq_app.ui.heavy_jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.tools",
+        "h5py",
+        "numpy",
+        "os",
+        "pathlib",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/tampering/adaptive_cfa.py",
+      "sha256": "a79c634c19b837838cda271824d7e8bd8f0ab000d38b5b5e3b993abfc0eb0c89",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 4
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "...ui.research_panel"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/tampering/automatic_clones.py",
+      "sha256": "a6b602a46a0f660dd99214ca141a15580c9e472be2cb82d34c270e7f314ec0d2",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 32
+        },
+        {
+          "name": "mousePressEvent",
+          "line": 37
+        },
+        {
+          "name": "mouseReleaseEvent",
+          "line": 41
+        },
+        {
+          "name": "contains",
+          "line": 52
+        },
+        {
+          "name": "data",
+          "line": 66
+        },
+        {
+          "name": "__init__",
+          "line": 80
+        },
+        {
+          "name": "rowCount",
+          "line": 85
+        },
+        {
+          "name": "data",
+          "line": 89
+        },
+        {
+          "name": "flags",
+          "line": 104
+        },
+        {
+          "name": "setData",
+          "line": 107
+        },
+        {
+          "name": "update",
+          "line": 119
+        },
+        {
+          "name": "__init__",
+          "line": 125
+        },
+        {
+          "name": "initial_detection",
+          "line": 226
+        },
+        {
+          "name": "run_whole_image",
+          "line": 231
+        },
+        {
+          "name": "initial_states",
+          "line": 239
+        },
+        {
+          "name": "state_labels",
+          "line": 242
+        },
+        {
+          "name": "source",
+          "line": 245
+        },
+        {
+          "name": "eventFilter",
+          "line": 248
+        },
+        {
+          "name": "cancel_work",
+          "line": 255
+        },
+        {
+          "name": "stop",
+          "line": 260
+        },
+        {
+          "name": "detect_zones",
+          "line": 268
+        },
+        {
+          "name": "auto_ready",
+          "line": 276
+        },
+        {
+          "name": "auto_failed",
+          "line": 291
+        },
+        {
+          "name": "sync_zones",
+          "line": 295
+        },
+        {
+          "name": "changed",
+          "line": 302
+        },
+        {
+          "name": "clear_results",
+          "line": 307
+        },
+        {
+          "name": "start",
+          "line": 314
+        },
+        {
+          "name": "patch_progress",
+          "line": 336
+        },
+        {
+          "name": "progress",
+          "line": 340
+        },
+        {
+          "name": "complete",
+          "line": 344
+        },
+        {
+          "name": "length_changed",
+          "line": 350
+        },
+        {
+          "name": "prepare_biomes",
+          "line": 358
+        },
+        {
+          "name": "biomes_ready",
+          "line": 365
+        },
+        {
+          "name": "failed",
+          "line": 368
+        },
+        {
+          "name": "update_status",
+          "line": 372
+        },
+        {
+          "name": "display_entries",
+          "line": 388
+        },
+        {
+          "name": "rebuild_legend",
+          "line": 391
+        },
+        {
+          "name": "tab_changed",
+          "line": 401
+        },
+        {
+          "name": "choose",
+          "line": 404
+        },
+        {
+          "name": "pick",
+          "line": 409
+        },
+        {
+          "name": "clear_focus",
+          "line": 416
+        },
+        {
+          "name": "focus_zones",
+          "line": 424
+        },
+        {
+          "name": "toggle_zones",
+          "line": 428
+        },
+        {
+          "name": "redraw",
+          "line": 431
+        },
+        {
+          "name": "export_results",
+          "line": 440
+        },
+        {
+          "name": "shutdown",
+          "line": 453
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "...core.auto_zones",
+        "...core.automatic_clones",
+        "...core.cloning2",
+        "...ui.check_list",
+        "...ui.jobs",
+        "...ui.research_job",
+        "...ui.selection_view",
+        "...ui.tools",
+        "...ui.viewer",
+        ".cloning2",
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "cv2",
+        "functools",
+        "gui.sherloq_app.ui.localization",
+        "hashlib",
+        "math",
+        "numpy",
+        "pathlib",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/tampering/clone_detectors.py",
+      "sha256": "c7cbeca1601051341b9072af58348375136db25ffa5c8cddcaca43ac7083c72b",
+      "functions": [
+        {
+          "name": "render",
+          "line": 18
+        },
+        {
+          "name": "__init__",
+          "line": 30
+        },
+        {
+          "name": "active",
+          "line": 54
+        },
+        {
+          "name": "params",
+          "line": 57
+        },
+        {
+          "name": "variant_changed",
+          "line": 59
+        },
+        {
+          "name": "regions_changed",
+          "line": 68
+        },
+        {
+          "name": "focus_zone",
+          "line": 74
+        },
+        {
+          "name": "delete_zone",
+          "line": 76
+        },
+        {
+          "name": "auto_start",
+          "line": 82
+        },
+        {
+          "name": "auto_complete",
+          "line": 85
+        },
+        {
+          "name": "changed",
+          "line": 92
+        },
+        {
+          "name": "state",
+          "line": 98
+        },
+        {
+          "name": "start",
+          "line": 102
+        },
+        {
+          "name": "complete",
+          "line": 107
+        },
+        {
+          "name": "failed",
+          "line": 116
+        },
+        {
+          "name": "redraw",
+          "line": 117
+        },
+        {
+          "name": "export_data",
+          "line": 119
+        },
+        {
+          "name": "shutdown",
+          "line": 123
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 33,
+          "expression": "self.variant.addItems(VARIANTS)"
+        },
+        {
+          "line": 34,
+          "expression": "self.view_mode.addItems(['Superposition','Carte','Masque','Suggestions','Source','Cible'])"
+        },
+        {
+          "line": 36,
+          "expression": "self.selection.addItems(['Déplacer','Rectangle'])"
+        },
+        {
+          "line": 72,
+          "expression": "self.zones.addItem(item)"
+        }
+      ],
+      "imports": [
+        "...core.auto_zones",
+        "...core.clone_detectors",
+        "...ui.extensions",
+        "...ui.jobs",
+        "...ui.research_job",
+        "...ui.selection_view",
+        "...ui.tools",
+        "...ui.viewer",
+        "..noise.noisesniffer",
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "cv2",
+        "gui.sherloq_app.ui.localization",
+        "numpy",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/tampering/cloning.py",
+      "sha256": "4a23808ddaa35a6a1c0ca8ffddf5ea369d04f50061825074d806a9e55f19e72e",
+      "functions": [
+        {
+          "name": "_run",
+          "line": 33
+        },
+        {
+          "name": "__init__",
+          "line": 44
+        },
+        {
+          "name": "parameters",
+          "line": 159
+        },
+        {
+          "name": "current_key",
+          "line": 165
+        },
+        {
+          "name": "_invalidate",
+          "line": 168
+        },
+        {
+          "name": "update_detector",
+          "line": 174
+        },
+        {
+          "name": "update_style",
+          "line": 181
+        },
+        {
+          "name": "toggle_mask",
+          "line": 185
+        },
+        {
+          "name": "load_mask",
+          "line": 194
+        },
+        {
+          "name": "process",
+          "line": 210
+        },
+        {
+          "name": "_start",
+          "line": 218
+        },
+        {
+          "name": "set_busy",
+          "line": 226
+        },
+        {
+          "name": "_progress",
+          "line": 232
+        },
+        {
+          "name": "show_result",
+          "line": 237
+        },
+        {
+          "name": "show_error",
+          "line": 255
+        },
+        {
+          "name": "shutdown",
+          "line": 259
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 48,
+          "expression": "self.detector_combo.addItems(\n            [self.tr(\"BRISK\"), self.tr(\"ORB\"), self.tr(\"AKAZE\")]\n        )"
+        }
+      ],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "cv2",
+        "functools",
+        "gui.sherloq_app.core.cloning",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.core.utility",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "numpy",
+        "os.path",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/tampering/cloning2.py",
+      "sha256": "869f7de90df58ac5bad8f6362a66ebaa15ad2c5d3f43b9b69a269c8a3a112669",
+      "functions": [
+        {
+          "name": "analyze",
+          "line": 25
+        },
+        {
+          "name": "draw",
+          "line": 31
+        },
+        {
+          "name": "write_export",
+          "line": 37
+        },
+        {
+          "name": "auto_detect",
+          "line": 78
+        },
+        {
+          "name": "__init__",
+          "line": 86
+        },
+        {
+          "name": "rowCount",
+          "line": 87
+        },
+        {
+          "name": "data",
+          "line": 89
+        },
+        {
+          "name": "flags",
+          "line": 95
+        },
+        {
+          "name": "setData",
+          "line": 96
+        },
+        {
+          "name": "update",
+          "line": 101
+        },
+        {
+          "name": "__init__",
+          "line": 108
+        },
+        {
+          "name": "rowCount",
+          "line": 109
+        },
+        {
+          "name": "data",
+          "line": 111
+        },
+        {
+          "name": "flags",
+          "line": 118
+        },
+        {
+          "name": "setData",
+          "line": 119
+        },
+        {
+          "name": "update",
+          "line": 125
+        },
+        {
+          "name": "__init__",
+          "line": 129
+        },
+        {
+          "name": "eventFilter",
+          "line": 259
+        },
+        {
+          "name": "toggle_zones",
+          "line": 265
+        },
+        {
+          "name": "parameters",
+          "line": 268
+        },
+        {
+          "name": "algorithm_changed",
+          "line": 272
+        },
+        {
+          "name": "unit_changed",
+          "line": 313
+        },
+        {
+          "name": "invalidate",
+          "line": 318
+        },
+        {
+          "name": "active_regions",
+          "line": 321
+        },
+        {
+          "name": "regions_changed",
+          "line": 324
+        },
+        {
+          "name": "zones_toggled",
+          "line": 328
+        },
+        {
+          "name": "remove_selected_zone",
+          "line": 336
+        },
+        {
+          "name": "focus_zones",
+          "line": 346
+        },
+        {
+          "name": "clear_focus",
+          "line": 351
+        },
+        {
+          "name": "radius_mode_changed",
+          "line": 355
+        },
+        {
+          "name": "detect_zones",
+          "line": 363
+        },
+        {
+          "name": "auto_ready",
+          "line": 367
+        },
+        {
+          "name": "auto_failed",
+          "line": 375
+        },
+        {
+          "name": "start",
+          "line": 378
+        },
+        {
+          "name": "stop",
+          "line": 388
+        },
+        {
+          "name": "busy",
+          "line": 391
+        },
+        {
+          "name": "progressed",
+          "line": 394
+        },
+        {
+          "name": "failed",
+          "line": 397
+        },
+        {
+          "name": "ready",
+          "line": 400
+        },
+        {
+          "name": "length_changed",
+          "line": 404
+        },
+        {
+          "name": "choose",
+          "line": 411
+        },
+        {
+          "name": "show_all_biomes",
+          "line": 414
+        },
+        {
+          "name": "biomes_only",
+          "line": 420
+        },
+        {
+          "name": "style",
+          "line": 423
+        },
+        {
+          "name": "redraw",
+          "line": 426
+        },
+        {
+          "name": "rendered",
+          "line": 430
+        },
+        {
+          "name": "export_data",
+          "line": 445
+        },
+        {
+          "name": "exported",
+          "line": 455
+        },
+        {
+          "name": "export_failed",
+          "line": 459
+        },
+        {
+          "name": "shutdown",
+          "line": 462
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 133,
+          "expression": "self.algorithm.addItems(ALGORITHMS)"
+        },
+        {
+          "line": 141,
+          "expression": "self.units.addItems(['px','%'])"
+        },
+        {
+          "line": 146,
+          "expression": "self.geometry.addItems(['Aucune','Similitude','Affine','Homographie'])"
+        },
+        {
+          "line": 162,
+          "expression": "self.mode.addItems(['Déplacer','Rectangle','Lasso','Polygone'])"
+        }
+      ],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "functools",
+        "gui.sherloq_app.core.auto_zones",
+        "gui.sherloq_app.core.cloning2",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.core.metal_dense",
+        "gui.sherloq_app.ui.check_list",
+        "gui.sherloq_app.ui.extensions",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.selection_view",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "hashlib",
+        "json",
+        "math",
+        "numpy",
+        "os",
+        "pathlib",
+        "tempfile",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/tampering/complete_analysis.py",
+      "sha256": "6449d27f7b4680bcea9291c76ccea9952b24c510f7dcec9b2242b1d6a4e998c9",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 24
+        },
+        {
+          "name": "settings_visibility",
+          "line": 91
+        },
+        {
+          "name": "enabled_sources",
+          "line": 95
+        },
+        {
+          "name": "sources_changed",
+          "line": 98
+        },
+        {
+          "name": "toggle_all_sources",
+          "line": 105
+        },
+        {
+          "name": "effective_ela_mode",
+          "line": 110
+        },
+        {
+          "name": "display_entries",
+          "line": 115
+        },
+        {
+          "name": "current_ela_preview",
+          "line": 124
+        },
+        {
+          "name": "redraw",
+          "line": 129
+        },
+        {
+          "name": "toggle_zones",
+          "line": 143
+        },
+        {
+          "name": "initial_states",
+          "line": 146
+        },
+        {
+          "name": "state_labels",
+          "line": 149
+        },
+        {
+          "name": "cancel_work",
+          "line": 152
+        },
+        {
+          "name": "ela_params",
+          "line": 157
+        },
+        {
+          "name": "start",
+          "line": 159
+        },
+        {
+          "name": "ela_profile_changed",
+          "line": 163
+        },
+        {
+          "name": "take_manual_ela_control",
+          "line": 165
+        },
+        {
+          "name": "manual_ela_bounds",
+          "line": 171
+        },
+        {
+          "name": "manual_ela_deviation",
+          "line": 174
+        },
+        {
+          "name": "ela_changed",
+          "line": 180
+        },
+        {
+          "name": "queue_ela",
+          "line": 184
+        },
+        {
+          "name": "ela_complete",
+          "line": 191
+        },
+        {
+          "name": "prepare_biomes",
+          "line": 198
+        },
+        {
+          "name": "biomes_ready",
+          "line": 210
+        },
+        {
+          "name": "export_results",
+          "line": 216
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 33,
+          "expression": "self.ela_block.addItems(['16','32','64','96'])"
+        },
+        {
+          "line": 41,
+          "expression": "self.ela_mode.addItems(['Biomes on image','Biomes on ELA','ELA only','Low ELA energy','High ELA energy'])"
+        },
+        {
+          "line": 49,
+          "expression": "self.ela_auto_profile.addItem('Conservative','standard')"
+        }
+      ],
+      "imports": [
+        "...core.automatic_clones",
+        "...core.complete_analysis",
+        "...core.ela_biomes",
+        "...ui.ela_biomes",
+        "...ui.ela_profiles",
+        "...ui.ela_settings",
+        "...ui.extensions",
+        "...ui.jobs",
+        "...ui.localization",
+        ".automatic_clones",
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "functools",
+        "hashlib",
+        "numpy",
+        "pathlib",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/tampering/contrast.py",
+      "sha256": "9d181bcd1ff2ab5d488825c19940000113b5f0eb35e3c6e2d50c33b9bb3a35f6",
+      "functions": [
+        {
+          "name": "_run",
+          "line": 17
+        },
+        {
+          "name": "__init__",
+          "line": 28
+        },
+        {
+          "name": "parameters",
+          "line": 59
+        },
+        {
+          "name": "_invalidate",
+          "line": 62
+        },
+        {
+          "name": "reset",
+          "line": 66
+        },
+        {
+          "name": "choose",
+          "line": 72
+        },
+        {
+          "name": "process",
+          "line": 80
+        },
+        {
+          "name": "_start",
+          "line": 89
+        },
+        {
+          "name": "set_busy",
+          "line": 94
+        },
+        {
+          "name": "_progress",
+          "line": 99
+        },
+        {
+          "name": "show_result",
+          "line": 103
+        },
+        {
+          "name": "show_error",
+          "line": 112
+        },
+        {
+          "name": "shutdown",
+          "line": 115
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 35,
+          "expression": "self.algo_combo.addItems(['Histogram Error','Channel Similarity','Joint indicator'])"
+        },
+        {
+          "line": 39,
+          "expression": "self.block_combo.addItems(['32','64','128','256'])"
+        }
+      ],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "functools",
+        "gui.sherloq_app.core.contrast",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/tampering/resampling.py",
+      "sha256": "52ce4e651677323c728ab79463545cea70dac26fa71dccaf695a3bc52f70e0c0",
+      "functions": [
+        {
+          "name": "rectangles",
+          "line": 23
+        },
+        {
+          "name": "_run",
+          "line": 38
+        },
+        {
+          "name": "__init__",
+          "line": 72
+        },
+        {
+          "name": "slider_zoom",
+          "line": 129
+        },
+        {
+          "name": "snapshot",
+          "line": 133
+        },
+        {
+          "name": "calculate_probability_maps",
+          "line": 141
+        },
+        {
+          "name": "calculate_fourier_maps",
+          "line": 142
+        },
+        {
+          "name": "start",
+          "line": 144
+        },
+        {
+          "name": "cancel",
+          "line": 152
+        },
+        {
+          "name": "invalidate_probability",
+          "line": 155
+        },
+        {
+          "name": "invalidate_fourier",
+          "line": 160
+        },
+        {
+          "name": "set_busy",
+          "line": 163
+        },
+        {
+          "name": "_progress",
+          "line": 171
+        },
+        {
+          "name": "show_result",
+          "line": 174
+        },
+        {
+          "name": "show_error",
+          "line": 195
+        },
+        {
+          "name": "click_on_canvas",
+          "line": 197
+        },
+        {
+          "name": "draw_selection",
+          "line": 210
+        },
+        {
+          "name": "shutdown",
+          "line": 218
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "cv2",
+        "functools",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.core.resampling",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.plot_canvas",
+        "gui.sherloq_app.ui.tools",
+        "matplotlib.backend_bases",
+        "matplotlib.backends.backend_qtagg",
+        "matplotlib.figure",
+        "numpy",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/tampering/splicing.py",
+      "sha256": "46c2d28ce6cbf8374fab53b9b8bdb4b97de720e4ba6b550b17468989d516e6aa",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 12
+        },
+        {
+          "name": "change_model",
+          "line": 54
+        },
+        {
+          "name": "estimate_noise",
+          "line": 62
+        },
+        {
+          "name": "compute_map",
+          "line": 66
+        },
+        {
+          "name": "set_busy",
+          "line": 70
+        },
+        {
+          "name": "show_progress",
+          "line": 77
+        },
+        {
+          "name": "show_result",
+          "line": 80
+        },
+        {
+          "name": "show_error",
+          "line": 92
+        },
+        {
+          "name": "shutdown",
+          "line": 96
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 17,
+          "expression": "self.model_combo.addItem('Automatic JPEG quality estimate',0)"
+        },
+        {
+          "line": 19,
+          "expression": "self.model_combo.addItem('Uncompressed model (101)',101)"
+        },
+        {
+          "line": 18,
+          "expression": "self.model_combo.addItem(f'JPEG model {quality}',quality)"
+        }
+      ],
+      "imports": [
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.ui.splicing_job",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "numpy",
+        "platform",
+        "sys"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/various/adaifl.py",
+      "sha256": "3a445555e811ddae7754f2ed9ab5909bd0ba3e2c8c8d9a3fdede3f7542195b12",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 4
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "...ui.research_panel"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/various/catnet.py",
+      "sha256": "214d520d2bf8a262e39bae2cf285b7a097eb6761527e24fa9da6682afb274fa5",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 4
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "...ui.research_panel"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/various/defect_pixels.py",
+      "sha256": "5103d3a9dd5899dbdb406d76a5d116601108d44c8e5410ae3c831cb764deb3d4",
+      "functions": [
+        {
+          "name": "_run",
+          "line": 16
+        },
+        {
+          "name": "_export",
+          "line": 21
+        },
+        {
+          "name": "__init__",
+          "line": 28
+        },
+        {
+          "name": "is_busy",
+          "line": 54
+        },
+        {
+          "name": "parameters",
+          "line": 56
+        },
+        {
+          "name": "choose",
+          "line": 58
+        },
+        {
+          "name": "process",
+          "line": 63
+        },
+        {
+          "name": "set_busy",
+          "line": 68
+        },
+        {
+          "name": "_progress",
+          "line": 72
+        },
+        {
+          "name": "show_result",
+          "line": 75
+        },
+        {
+          "name": "show_error",
+          "line": 82
+        },
+        {
+          "name": "export_data",
+          "line": 84
+        },
+        {
+          "name": "exported",
+          "line": 91
+        },
+        {
+          "name": "shutdown",
+          "line": 94
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 31,
+          "expression": "self.radius_combo.addItems(['3 × 3','5 × 5'])"
+        },
+        {
+          "line": 34,
+          "expression": "self.kind_combo.addItems(['Hot + dead','Hot','Dead'])"
+        },
+        {
+          "line": 36,
+          "expression": "self.mode_combo.addItems(['Candidates overlay','Candidates mask','Correction preview'])"
+        }
+      ],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "functools",
+        "gui.sherloq_app.core.defect_pixels",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/various/focal.py",
+      "sha256": "9f6be2fef4c3273638dae71637055edfb3a4e0ce83e369e1a8f716b7efac9562",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 4
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "...ui.research_panel"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/various/illuminant.py",
+      "sha256": "5c3dc8ffa6df9a10a8bc0c0ac97a92e3f4239984293120bac57e509686abf4db",
+      "functions": [
+        {
+          "name": "_run",
+          "line": 16
+        },
+        {
+          "name": "_export",
+          "line": 21
+        },
+        {
+          "name": "__init__",
+          "line": 28
+        },
+        {
+          "name": "is_busy",
+          "line": 53
+        },
+        {
+          "name": "parameters",
+          "line": 55
+        },
+        {
+          "name": "choose",
+          "line": 57
+        },
+        {
+          "name": "process",
+          "line": 62
+        },
+        {
+          "name": "set_busy",
+          "line": 67
+        },
+        {
+          "name": "_progress",
+          "line": 72
+        },
+        {
+          "name": "show_result",
+          "line": 75
+        },
+        {
+          "name": "show_error",
+          "line": 82
+        },
+        {
+          "name": "export_data",
+          "line": 84
+        },
+        {
+          "name": "exported",
+          "line": 90
+        },
+        {
+          "name": "shutdown",
+          "line": 93
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 31,
+          "expression": "self.method_combo.addItems(['Gray World','Shades of Gray (p=6)','White Patch'])"
+        },
+        {
+          "line": 32,
+          "expression": "self.block_combo.addItems(['32','64','128','256'])"
+        },
+        {
+          "line": 36,
+          "expression": "self.mode_combo.addItems(['Illuminant colour','Difference from global','Valid pixels'])"
+        }
+      ],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "functools",
+        "gui.sherloq_app.core.illuminant",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/various/median.py",
+      "sha256": "2882a2968f88f2249f5a567036e687d685e37ae0816aadaf1def9bc71d145b1c",
+      "functions": [
+        {
+          "name": "_run",
+          "line": 17
+        },
+        {
+          "name": "__init__",
+          "line": 26
+        },
+        {
+          "name": "parameters",
+          "line": 51
+        },
+        {
+          "name": "prepare",
+          "line": 54
+        },
+        {
+          "name": "_start",
+          "line": 59
+        },
+        {
+          "name": "process",
+          "line": 63
+        },
+        {
+          "name": "cancel",
+          "line": 67
+        },
+        {
+          "name": "set_busy",
+          "line": 71
+        },
+        {
+          "name": "_progress",
+          "line": 76
+        },
+        {
+          "name": "show_result",
+          "line": 80
+        },
+        {
+          "name": "show_error",
+          "line": 88
+        },
+        {
+          "name": "shutdown",
+          "line": 91
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "functools",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.core.median",
+        "gui.sherloq_app.paths",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/various/safire.py",
+      "sha256": "d660a7eda5da4c27f4758e8daf266285d29fa7b2074d7e6bc1018c6b6dbad9ca",
+      "functions": [
+        {
+          "name": "colors",
+          "line": 8
+        },
+        {
+          "name": "display",
+          "line": 9
+        },
+        {
+          "name": "__init__",
+          "line": 17
+        },
+        {
+          "name": "options",
+          "line": 26
+        },
+        {
+          "name": "params",
+          "line": 32
+        },
+        {
+          "name": "state",
+          "line": 36
+        },
+        {
+          "name": "complete",
+          "line": 37
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 20,
+          "expression": "self.side.addItems(['16','32'])"
+        },
+        {
+          "line": 23,
+          "expression": "self.mode.addItem('Confiance')"
+        }
+      ],
+      "imports": [
+        "...ui.research_panel",
+        "PySide6.QtWidgets",
+        "colorsys",
+        "cv2",
+        "gui.sherloq_app.ui.localization",
+        "numpy"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/various/stereogram.py",
+      "sha256": "6e323922ee23395b3978acba70f8c0c6db1a620e089fed2f9c6a491bc31ac95c",
+      "functions": [
+        {
+          "name": "_run",
+          "line": 15
+        },
+        {
+          "name": "__init__",
+          "line": 22
+        },
+        {
+          "name": "choose",
+          "line": 38
+        },
+        {
+          "name": "process",
+          "line": 45
+        },
+        {
+          "name": "set_busy",
+          "line": 50
+        },
+        {
+          "name": "_progress",
+          "line": 53
+        },
+        {
+          "name": "show_result",
+          "line": 56
+        },
+        {
+          "name": "show_error",
+          "line": 67
+        },
+        {
+          "name": "shutdown",
+          "line": 69
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "functools",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.core.stereogram",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.viewer",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/tools/various/trufor.py",
+      "sha256": "f031e1bbbc1a27a997d0572ae82528d4ec14b1dad3992cbe9f5739ff38266bd2",
+      "functions": [
+        {
+          "name": "_render",
+          "line": 21
+        },
+        {
+          "name": "_export",
+          "line": 26
+        },
+        {
+          "name": "__init__",
+          "line": 37
+        },
+        {
+          "name": "device",
+          "line": 74
+        },
+        {
+          "name": "is_busy",
+          "line": 77
+        },
+        {
+          "name": "set_busy",
+          "line": 79
+        },
+        {
+          "name": "trufor_process",
+          "line": 88
+        },
+        {
+          "name": "change_device",
+          "line": 95
+        },
+        {
+          "name": "loaded",
+          "line": 103
+        },
+        {
+          "name": "show_map",
+          "line": 110
+        },
+        {
+          "name": "rendered",
+          "line": 118
+        },
+        {
+          "name": "show_progress",
+          "line": 130
+        },
+        {
+          "name": "show_error",
+          "line": 133
+        },
+        {
+          "name": "export_data",
+          "line": 138
+        },
+        {
+          "name": "exported",
+          "line": 147
+        },
+        {
+          "name": "cancel",
+          "line": 151
+        },
+        {
+          "name": "shutdown",
+          "line": 156
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 46,
+          "expression": "self.map_combo.addItems(['Localisation des anomalies','Confiance du modèle','Noiseprint++'])"
+        }
+      ],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "gui.sherloq_app.core.jpeg_curve",
+        "gui.sherloq_app.core.trufor",
+        "gui.sherloq_app.paths",
+        "gui.sherloq_app.ui.jobs",
+        "gui.sherloq_app.ui.localization",
+        "gui.sherloq_app.ui.tools",
+        "gui.sherloq_app.ui.trufor_job",
+        "gui.sherloq_app.ui.viewer",
+        "pathlib",
+        "platform",
+        "sys",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/ui/ela_biomes.py",
+      "sha256": "ad010f61eafc546b5d63664b90f67fc93498b2f8cd4efa4dfe76d7f10553cac2",
+      "functions": [
+        {
+          "name": "analyze",
+          "line": 24
+        },
+        {
+          "name": "color",
+          "line": 30
+        },
+        {
+          "name": "energy_controls",
+          "line": 35
+        },
+        {
+          "name": "apply_automatic",
+          "line": 50
+        },
+        {
+          "name": "histogram_controls",
+          "line": 62
+        },
+        {
+          "name": "render",
+          "line": 75
+        },
+        {
+          "name": "__init__",
+          "line": 120
+        },
+        {
+          "name": "__call__",
+          "line": 121
+        },
+        {
+          "name": "__init__",
+          "line": 130
+        },
+        {
+          "name": "params",
+          "line": 186
+        },
+        {
+          "name": "current",
+          "line": 187
+        },
+        {
+          "name": "selection",
+          "line": 188
+        },
+        {
+          "name": "activate",
+          "line": 191
+        },
+        {
+          "name": "profile_changed",
+          "line": 193
+        },
+        {
+          "name": "take_manual_control",
+          "line": 195
+        },
+        {
+          "name": "manual_bounds",
+          "line": 201
+        },
+        {
+          "name": "manual_deviation",
+          "line": 204
+        },
+        {
+          "name": "changed",
+          "line": 210
+        },
+        {
+          "name": "queue_analysis",
+          "line": 212
+        },
+        {
+          "name": "start",
+          "line": 221
+        },
+        {
+          "name": "complete",
+          "line": 229
+        },
+        {
+          "name": "failed",
+          "line": 238
+        },
+        {
+          "name": "refilter",
+          "line": 241
+        },
+        {
+          "name": "display_settings",
+          "line": 244
+        },
+        {
+          "name": "redraw",
+          "line": 246
+        },
+        {
+          "name": "painted",
+          "line": 250
+        },
+        {
+          "name": "export_data",
+          "line": 278
+        },
+        {
+          "name": "shutdown",
+          "line": 284
+        }
+      ],
+      "constants": {},
+      "choices": [
+        {
+          "line": 135,
+          "expression": "self.block.addItems(['16','32','64','96'])"
+        },
+        {
+          "line": 139,
+          "expression": "self.mode.addItems(['Biomes sur ELA','Biomes sur image','Biomes seuls','ELA linéaire','Écarts','Zones comparables','Low ELA energy','High ELA energy'])"
+        },
+        {
+          "line": 156,
+          "expression": "self.auto_profile.addItem('Conservative','standard')"
+        },
+        {
+          "line": 242,
+          "expression": "self.legend.addItem('Tous les biomes')"
+        },
+        {
+          "line": 262,
+          "expression": "self.legend.addItem('Tous les biomes')"
+        },
+        {
+          "line": 267,
+          "expression": "self.legend.addItem(f\"Biome {r['id']} · {r['pixels']:,} px\\nÉcart {r['score']:.2f} · {description}{sources}\")"
+        }
+      ],
+      "imports": [
+        "..core.ela_biomes",
+        "..core.ela_energy",
+        "..tools.noise.noisesniffer",
+        ".ela_profiles",
+        ".ela_settings",
+        ".jobs",
+        ".percentile_slider",
+        ".tools",
+        ".viewer",
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "colorsys",
+        "cv2",
+        "functools",
+        "gui.sherloq_app.ui.localization",
+        "numpy",
+        "pathlib",
+        "threading"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/ui/ela_profiles.py",
+      "sha256": "1b0570233b0a765cdf2dcad821c42bd6cc338b132b63767bb84afc1be4878720",
+      "functions": [
+        {
+          "name": "compute_profile",
+          "line": 13
+        },
+        {
+          "name": "profile_store",
+          "line": 65
+        },
+        {
+          "name": "__init__",
+          "line": 20
+        },
+        {
+          "name": "get",
+          "line": 36
+        },
+        {
+          "name": "valid_name",
+          "line": 37
+        },
+        {
+          "name": "valid_values",
+          "line": 46
+        },
+        {
+          "name": "write",
+          "line": 50
+        },
+        {
+          "name": "add",
+          "line": 54
+        },
+        {
+          "name": "rename",
+          "line": 57
+        },
+        {
+          "name": "remove",
+          "line": 61
+        },
+        {
+          "name": "__init__",
+          "line": 72
+        },
+        {
+          "name": "eventFilter",
+          "line": 86
+        },
+        {
+          "name": "refresh",
+          "line": 98
+        },
+        {
+          "name": "buttons",
+          "line": 110
+        },
+        {
+          "name": "apply",
+          "line": 114
+        },
+        {
+          "name": "manual",
+          "line": 126
+        },
+        {
+          "name": "snapshot",
+          "line": 132
+        },
+        {
+          "name": "error",
+          "line": 134
+        },
+        {
+          "name": "save_current",
+          "line": 135
+        },
+        {
+          "name": "rename_current",
+          "line": 141
+        },
+        {
+          "name": "delete_current",
+          "line": 148
+        }
+      ],
+      "constants": {
+        "BUILTINS": "(('Aggressive','sensitive'),('Sensitive','conservative'),('Conservative','standard'),('Manual','manual'))",
+        "STANDARD": "(10,990,50,50)",
+        "RANGES": "((0,500),(500,1000),(0,200),(0,200))",
+        "KEY": "'ela/energy_profiles_v1'"
+      },
+      "choices": [
+        {
+          "line": 102,
+          "expression": "self.combo.addItem(t(label),key)"
+        },
+        {
+          "line": 104,
+          "expression": "self.combo.addItem(item['name'],item['id'])"
+        }
+      ],
+      "imports": [
+        ".localization",
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "json",
+        "uuid"
+      ]
+    },
+    {
+      "path": "source/gui/sherloq_app/ui/ela_settings.py",
+      "sha256": "623546b651be1c2fae08a493cbcc60986c9407a84b68debbca73fa1b8529747f",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 7
+        },
+        {
+          "name": "set_expanded",
+          "line": 41
+        }
+      ],
+      "constants": {},
+      "choices": [],
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets"
+      ]
+    }
+  ]
+}

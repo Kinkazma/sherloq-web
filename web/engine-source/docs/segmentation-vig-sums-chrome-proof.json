@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Torch2.8 strided channel sums on16 actual VIG squared-feature tensors; no full-network qualification.",
+  "records": [
+    {
+      "name": "knn-squared-norm-0",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-1",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-2",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-3",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-4",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-5",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-6",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-7",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-8",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-9",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-10",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-11",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-12",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-13",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-14",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    },
+    {
+      "name": "knn-squared-norm-15",
+      "elements": 256,
+      "different": 0,
+      "maxAbs": 0,
+      "finite": true
+    }
+  ],
+  "ort": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/rewrite-segmentation-mean.py": "e7a6ffd0f339cea56a5a68e882f40259fd0972867cee029bd64e1d74ce83e2e4",
+    "scripts/study-segmentation-outer-mean.mjs": "9fb8c79a4080f0bf61d4b07328293767a74eb18cd2674c055a6804b64821fed6",
+    "scripts/rewrite-vig-sums.py": "27197b214172d8ae6529335fb12b407bf77ad20d9075cf9e8c6300c9fe969550"
+  }
+}

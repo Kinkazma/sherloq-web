@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "cases": 96,
+  "width": 71,
+  "height": 53,
+  "bitExact": true,
+  "semantics": "Full OpenCV LINE_8 polygon mask, integer and half-pixel descriptor centers; clipped and self-intersecting paths, overlap and exclusions."
+}

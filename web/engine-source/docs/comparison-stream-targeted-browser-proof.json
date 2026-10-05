@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "mixed": true,
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "cases": [
+    {
+      "limitMiB": 512,
+      "view": {
+        "mode": "normal",
+        "equalized": false,
+        "grayscale": false,
+        "sha256": "14cd2aaafd0c26300069af397e5ba97de3379dc9178df7b75573ce12b5a85481"
+      },
+      "sha256": "14cd2aaafd0c26300069af397e5ba97de3379dc9178df7b75573ce12b5a85481",
+      "metrics": {
+        "workers": 3,
+        "completedMetricJobs": 5,
+        "workerHeapPeakBytes": 230686720,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "storage": "memory",
+        "blockPixels": 65536,
+        "cache": {
+          "stages": {
+            "histograms": false,
+            "sewar": false,
+            "ssimulacra": false,
+            "butteraugli": false,
+            "ssim": false
+          }
+        },
+        "globalStageMaximumBytes": 419430400,
+        "totalMs": 15181.70000000298,
+        "temporaryBackend": null,
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 10667473,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 510385617
+        }
+      }
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

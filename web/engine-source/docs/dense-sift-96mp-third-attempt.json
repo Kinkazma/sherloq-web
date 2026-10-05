@@ -1,0 +1,75 @@
+{
+  "status": "interrupted-not-qualified",
+  "commit": "5d20497",
+  "reason": "Propagation throughput regressed during the external-interval-table run under concurrent host load despite fewer reads. This attempt does not isolate table cost from host contention. Preserve it as unqualified; add a conservative optional-table fallback based only on actual useful read latency, preserving exact descriptor evaluation and all candidate decisions.",
+  "lastProgress": {
+    "elapsedMs": 3295368.400000006,
+    "phase": "global-patchmatch",
+    "stage": "propagation",
+    "iteration": 0,
+    "completed": 389120,
+    "total": 95820081,
+    "workspaceBytes": 1048575492,
+    "initialBatchPixels": 1045506,
+    "batchBytes": 568779824,
+    "residentPool": true,
+    "residentPoolBytes": 24703632,
+    "residentSiftBoundsBytes": 383280324,
+    "pagedSiftBounds": true,
+    "cacheBytes": 55034496,
+    "pageBytes": 4096,
+    "cachePages": 4096,
+    "reads": 36387571,
+    "writes": 374044,
+    "readBytes": 417265219517,
+    "writeBytes": 1532078472,
+    "heapBytes": 0,
+    "memory": {
+      "budgetBytes": 1610612736,
+      "retainedBytes": 288000000,
+      "cacheBytes": 0,
+      "activeReservationBytes": 1048575492,
+      "peakAccountedBytes": 1336575492
+    }
+  },
+  "completedPasses": [
+    {
+      "elapsedMs": 1659775.900000006,
+      "phase": "field-complete",
+      "completed": 1,
+      "total": 7,
+      "pass": {
+        "id": 0,
+        "algorithm": "PatchMatch Zernike",
+        "method": 0,
+        "patch": 3,
+        "targetPatch": 3,
+        "quarterTurn": false,
+        "reflection": false,
+        "stage": "base",
+        "descriptorFrame": "normal",
+        "requireTransform": false,
+        "requireReflection": false,
+        "requireDetail": false
+      },
+      "context": {
+        "id": "global:0",
+        "pairSearchRegion": 0,
+        "compare": false,
+        "regions": [],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "memory": {
+        "budgetBytes": 1610612736,
+        "retainedBytes": 288000000,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 805996600
+      }
+    }
+  ],
+  "runtimeSnapshotFile": ".build/dense-sift-96mp/runtime-lock-third-attempt.json"
+}

@@ -1,0 +1,88 @@
+{
+  "points": {
+    "shape": [
+      1932,
+      7
+    ],
+    "maximum": 0.0007159549322750536,
+    "mean": 7.1931924244824425e-06,
+    "different": 2092,
+    "columns": {
+      "x_px": {
+        "maximum": 0.0007152557463996345,
+        "mean": 1.4623499961969352e-05
+      },
+      "y_px": {
+        "maximum": 0.0007159549322750536,
+        "mean": 3.470686027856365e-05
+      },
+      "size_px": {
+        "maximum": 0.0,
+        "mean": 0.0
+      },
+      "angle_deg": {
+        "maximum": 0.0,
+        "mean": 0.0
+      },
+      "response": {
+        "maximum": 2.7477741241455078e-05,
+        "mean": 1.0219867308440908e-06
+      },
+      "octave": {
+        "maximum": 0.0,
+        "mean": 0.0
+      },
+      "class_id": {
+        "maximum": 0.0,
+        "mean": 0.0
+      }
+    }
+  },
+  "pairs": {
+    "shape": [
+      55,
+      4
+    ],
+    "maximum": 0.00043303991594001445,
+    "mean": 1.0433734808207811e-05,
+    "different": 67,
+    "columns": {
+      "point_a_id": {
+        "maximum": 0.0,
+        "mean": 0.0
+      },
+      "point_b_id": {
+        "maximum": 0.0,
+        "mean": 0.0
+      },
+      "descriptor_distance": {
+        "maximum": 5.7220458984375e-06,
+        "mean": 1.034546982158314e-06
+      },
+      "length_px": {
+        "maximum": 0.00043303991594001445,
+        "mean": 4.070039225067293e-05
+      }
+    }
+  },
+  "colors_bgr": {
+    "shape": [
+      55,
+      3
+    ],
+    "maximum": 0.0,
+    "mean": 0.0,
+    "different": 0
+  },
+  "pair_search_regions": {
+    "shape": [
+      55
+    ],
+    "maximum": 0.0,
+    "mean": 0.0,
+    "different": 0
+  },
+  "pairIdsEqual": true,
+  "groupsEqual": true,
+  "pngSha256Equal": true
+}

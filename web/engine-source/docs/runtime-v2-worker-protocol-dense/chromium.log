@@ -1,0 +1,14 @@
+Failed to load resource: the server responded with a status of 404 (Not Found)
+Protocol native case none
+Protocol native complete none
+Protocol native case null
+Protocol native complete null
+Protocol native case allocation
+Protocol native complete allocation
+Protocol null command sift-paged-worker.js
+Protocol null command dense-paged-field-worker.js
+Protocol null command dense-field-kernel-worker.js
+Protocol null command dense-zernike-tile-worker.js
+Protocol null command dense-sift-stream-worker.js
+Protocol null command dense-texture-worker.js
+{"reports":[{"fault":"none","tiles":9,"retries":0,"width":3,"domainReclaims":0,"exact":true},{"fault":"null","tiles":9,"retries":1,"width":3,"domainReclaims":0,"exact":true},{"fault":"allocation","tiles":9,"retries":1,"width":3,"domainReclaims":1,"exact":true},{"worker":"sift-paged-worker.js","nullRelayed":true},{"worker":"dense-paged-field-worker.js","nullRelayed":true},{"worker":"dense-field-kernel-worker.js","nullRelayed":true},{"worker":"dense-zernike-tile-worker.js","nullRelayed":true},{"worker":"dense-sift-stream-worker.js","nullRelayed":true},{"worker":"dense-texture-worker.js","nullRelayed":true}]}

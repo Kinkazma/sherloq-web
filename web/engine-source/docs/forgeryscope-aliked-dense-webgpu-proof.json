@@ -1,0 +1,55 @@
+{
+  "provider": "webgpu",
+  "scope": "ALIKED dense feature/score maps only; no keypoints/descriptors",
+  "modelSha256": "58dc4ff38e930240817844dad3dc45ef8cbcfa7972a545c1eb0bac3a51a87db0",
+  "checkpointSha256": "e9ddeb9e87b96555a6db4a4fbfb5b99b31c36371bf4171765dce8f1f9ef95022",
+  "runtime": {
+    "common": "1.30.0",
+    "web": "1.30.0"
+  },
+  "nativeTorch": "2.8.0",
+  "records": [
+    {
+      "case": 0,
+      "features": {
+        "maxError": 3.650784492492676e-7,
+        "differences": 1412805,
+        "values": 1572864
+      },
+      "scores": {
+        "maxError": 0.000010669231414794922,
+        "differences": 10471,
+        "values": 12288
+      }
+    },
+    {
+      "case": 1,
+      "features": {
+        "maxError": 5.476176738739014e-7,
+        "differences": 2357432,
+        "values": 2621440
+      },
+      "scores": {
+        "maxError": 0.000013947486877441406,
+        "differences": 17970,
+        "values": 20480
+      }
+    },
+    {
+      "case": 2,
+      "features": {
+        "maxError": 4.2282044887542725e-7,
+        "differences": 1444990,
+        "values": 1601664
+      },
+      "scores": {
+        "maxError": 0.000013172626495361328,
+        "differences": 10792,
+        "values": 12513
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim.",
+  "passed": true
+}

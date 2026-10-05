@@ -1,0 +1,657 @@
+{
+  "passed": true,
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "sourceSha256": "9cf0e522289832d28994f98c1758eca1a53a79f15c250644ef83d5f99a0d523b",
+  "complexity": "Original rich copied and smoothed image; global content matching over all15000 native80px cells,71 full-frame Ghost qualities",
+  "cases": [
+    {
+      "params": {
+        "block": 32,
+        "quality": 75,
+        "ghost": false,
+        "background": true
+      },
+      "ms": 129575.10000000894,
+      "errors": {
+        "content": {
+          "maximum": 1.1920928955078125e-7,
+          "mean": 3.973642985026042e-12,
+          "different": 3
+        },
+        "profiles": {
+          "maximum": 1.4551915228366852e-11,
+          "mean": 6.468307371202779e-17,
+          "different": 2
+        },
+        "quality_scores": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "signed_scores": {
+          "maximum": 3.725290298461914e-9,
+          "mean": 1.655684577094184e-14,
+          "different": 1
+        },
+        "peer_count": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "supported": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "legacy_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "coherent_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_quality_scores": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_signed_scores": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_reference": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_peer_count": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_supported": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "pre_background_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "labels": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        }
+      },
+      "regions": [
+        {
+          "id": 1,
+          "cells": 21,
+          "pixels": 134400,
+          "bbox": [
+            2960,
+            2480,
+            240,
+            1520
+          ],
+          "score": 6.456806659698486,
+          "dominant_descriptor": "grain_2px",
+          "signed_profile": [
+            -5.072111129760742,
+            -3.3171744346618652,
+            -3.34458065032959,
+            5.905601501464844,
+            6.892427921295166
+          ],
+          "sources": [
+            "ELA",
+            "ELA background"
+          ]
+        },
+        {
+          "id": 2,
+          "cells": 3,
+          "pixels": 19200,
+          "bbox": [
+            4640,
+            2480,
+            240,
+            80
+          ],
+          "score": 2.6889796257019043,
+          "dominant_descriptor": "luminance",
+          "signed_profile": [
+            -3.039860725402832,
+            -2.044066905975342,
+            -2.477318048477173,
+            0.3840217888355255,
+            0.15028417110443115
+          ],
+          "sources": [
+            "ELA",
+            "ELA background"
+          ]
+        },
+        {
+          "id": 3,
+          "cells": 19,
+          "pixels": 121600,
+          "bbox": [
+            4960,
+            2480,
+            80,
+            1520
+          ],
+          "score": 6.550792694091797,
+          "dominant_descriptor": "grain_2px",
+          "signed_profile": [
+            -5.169668674468994,
+            -3.3957839012145996,
+            -3.4168527126312256,
+            5.92677640914917,
+            7.053337574005127
+          ],
+          "sources": [
+            "ELA",
+            "ELA background"
+          ]
+        }
+      ],
+      "metrics": {
+        "workers": 1,
+        "kernel": "ela-native-cells-segmented",
+        "cellRecompressions": 3,
+        "ghostPhasesComputed": 0,
+        "cache": {
+          "result": false,
+          "stages": {
+            "cells/80/75": false,
+            "cell-plane/80/70": false,
+            "cell-plane/80/75": false,
+            "cell-plane/80/80": false,
+            "cell-background/80/75": false
+          }
+        },
+        "totalMs": 129574.39999999106,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 864002048,
+          "cacheBytes": 11762472,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1026933880
+        }
+      }
+    },
+    {
+      "params": {
+        "block": 32,
+        "quality": 75,
+        "ghost": true,
+        "background": true
+      },
+      "ms": 110380.70000000298,
+      "errors": {
+        "content": {
+          "maximum": 1.1920928955078125e-7,
+          "mean": 3.973642985026042e-12,
+          "different": 3
+        },
+        "profiles": {
+          "maximum": 1.4551915228366852e-11,
+          "mean": 6.468307371202779e-17,
+          "different": 2
+        },
+        "quality_scores": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "signed_scores": {
+          "maximum": 3.725290298461914e-9,
+          "mean": 1.655684577094184e-14,
+          "different": 1
+        },
+        "peer_count": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "supported": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "legacy_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "coherent_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_quality_scores": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_signed_scores": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_reference": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_peer_count": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "background_supported": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "pre_background_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "labels": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "ghost_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "ghost_quality": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "ghost_phase": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "ghost_peer_count": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "ghost_curves": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "ghost_supported": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        },
+        "ela_score": {
+          "maximum": 0,
+          "mean": 0,
+          "different": 0
+        }
+      },
+      "regions": [
+        {
+          "id": 1,
+          "cells": 21,
+          "pixels": 134400,
+          "bbox": [
+            2960,
+            2480,
+            240,
+            1520
+          ],
+          "score": 6.456806659698486,
+          "dominant_descriptor": "grain_2px",
+          "signed_profile": [
+            -5.072111129760742,
+            -3.3171744346618652,
+            -3.34458065032959,
+            5.905601501464844,
+            6.892427921295166
+          ],
+          "sources": [
+            "ELA",
+            "ELA background"
+          ]
+        },
+        {
+          "id": 2,
+          "cells": 3,
+          "pixels": 19200,
+          "bbox": [
+            4640,
+            2480,
+            240,
+            80
+          ],
+          "score": 2.6889796257019043,
+          "dominant_descriptor": "luminance",
+          "signed_profile": [
+            -3.039860725402832,
+            -2.044066905975342,
+            -2.477318048477173,
+            0.3840217888355255,
+            0.15028417110443115
+          ],
+          "sources": [
+            "ELA",
+            "ELA background"
+          ]
+        },
+        {
+          "id": 3,
+          "cells": 19,
+          "pixels": 121600,
+          "bbox": [
+            4960,
+            2480,
+            80,
+            1520
+          ],
+          "score": 6.550792694091797,
+          "dominant_descriptor": "grain_2px",
+          "signed_profile": [
+            -5.169668674468994,
+            -3.3957839012145996,
+            -3.4168527126312256,
+            5.92677640914917,
+            7.053337574005127
+          ],
+          "sources": [
+            "ELA",
+            "ELA background"
+          ]
+        }
+      ],
+      "metrics": {
+        "workers": 4,
+        "kernel": "ela-native-cells-segmented",
+        "cellRecompressions": 0,
+        "ghostPhasesComputed": 1,
+        "ghostScheduling": {
+          "count": 4,
+          "maximum": 4,
+          "ceiling": 4,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "retry": null
+        },
+        "cache": {
+          "result": false,
+          "stages": {
+            "cells/80/75": true,
+            "cell-ghost/80/75/0": false,
+            "cell-background/80/75": true
+          }
+        },
+        "totalMs": 110380.10000000894,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 288000000,
+          "cacheBytes": 238402170,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1026933880
+        }
+      }
+    }
+  ],
+  "refilter": {
+    "metrics": {
+      "workers": 1,
+      "kernel": "ela-native-cells-segmented",
+      "cellRecompressions": 0,
+      "ghostPhasesComputed": 0,
+      "cache": {
+        "result": false,
+        "stages": {
+          "cells/80/75": true,
+          "cell-ghost/80/75/0": true,
+          "cell-background/80/75": true
+        }
+      },
+      "totalMs": 972,
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 288000000,
+        "cacheBytes": 247590194,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1026933880
+      }
+    },
+    "regions": [
+      {
+        "id": 1,
+        "cells": 21,
+        "pixels": 134400,
+        "bbox": [
+          2960,
+          2480,
+          240,
+          1520
+        ],
+        "score": 6.456806659698486,
+        "dominant_descriptor": "grain_2px",
+        "signed_profile": [
+          -5.072111129760742,
+          -3.3171744346618652,
+          -3.34458065032959,
+          5.905601501464844,
+          6.892427921295166
+        ],
+        "sources": [
+          "ELA",
+          "ELA background"
+        ]
+      },
+      {
+        "id": 2,
+        "cells": 1,
+        "pixels": 6400,
+        "bbox": [
+          3280,
+          2480,
+          80,
+          80
+        ],
+        "score": 2.736976146697998,
+        "dominant_descriptor": "luminance",
+        "signed_profile": [
+          -2.981579303741455,
+          -2.239623546600342,
+          -2.4682507514953613,
+          0.5151420831680298,
+          0.23857802152633667
+        ],
+        "sources": [
+          "ELA"
+        ]
+      },
+      {
+        "id": 3,
+        "cells": 3,
+        "pixels": 19200,
+        "bbox": [
+          4640,
+          2480,
+          240,
+          80
+        ],
+        "score": 2.6889796257019043,
+        "dominant_descriptor": "luminance",
+        "signed_profile": [
+          -3.039860725402832,
+          -2.044066905975342,
+          -2.477318048477173,
+          0.3840217888355255,
+          0.15028417110443115
+        ],
+        "sources": [
+          "ELA",
+          "ELA background"
+        ]
+      },
+      {
+        "id": 4,
+        "cells": 19,
+        "pixels": 121600,
+        "bbox": [
+          4960,
+          2480,
+          80,
+          1520
+        ],
+        "score": 6.550792694091797,
+        "dominant_descriptor": "grain_2px",
+        "signed_profile": [
+          -5.169668674468994,
+          -3.3957839012145996,
+          -3.4168527126312256,
+          5.92677640914917,
+          7.053337574005127
+        ],
+        "sources": [
+          "ELA",
+          "ELA background"
+        ]
+      },
+      {
+        "id": 5,
+        "cells": 254,
+        "pixels": 1625600,
+        "bbox": [
+          8480,
+          6160,
+          1520,
+          1280
+        ],
+        "score": 1.222538948059082,
+        "dominant_descriptor": "chroma_red",
+        "signed_profile": [
+          0.17915219068527222,
+          1.2549340724945068,
+          1.0752573013305664,
+          0.003363192081451416,
+          0.003965132869780064
+        ],
+        "sources": [
+          "ELA"
+        ]
+      }
+    ]
+  },
+  "archives": [
+    {
+      "bytes": 4666240,
+      "sha256": "4befdc8a49971df3aa3d6f3a8564ddf6ec35b2cc544fbda7d1c301020d844549",
+      "fields": [
+        "score",
+        "legacy_score",
+        "coherent_score",
+        "quality_scores",
+        "signed_scores",
+        "profiles",
+        "content",
+        "peer_count",
+        "supported",
+        "labels",
+        "background_profiles",
+        "background_score",
+        "background_quality_scores",
+        "background_signed_scores",
+        "background_reference",
+        "background_peer_count",
+        "background_supported",
+        "pre_background_score"
+      ]
+    },
+    {
+      "bytes": 9183742,
+      "sha256": "2be5292e828214de54fe7bd7ee5a7c20c29a1211133d898c2271b8b575a80d55",
+      "fields": [
+        "score",
+        "legacy_score",
+        "coherent_score",
+        "quality_scores",
+        "signed_scores",
+        "profiles",
+        "content",
+        "peer_count",
+        "supported",
+        "labels",
+        "background_profiles",
+        "background_score",
+        "background_quality_scores",
+        "background_signed_scores",
+        "background_reference",
+        "background_peer_count",
+        "background_supported",
+        "pre_background_score",
+        "ela_score",
+        "ghost_score",
+        "ghost_quality",
+        "ghost_phase",
+        "ghost_curves",
+        "ghost_peer_count",
+        "ghost_supported"
+      ]
+    }
+  ],
+  "totalMs": 259736.89999999106,
+  "finalMemory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1026933880,
+    "knownHeapCapacityBytes": 0
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile, removed after qualification"
+}

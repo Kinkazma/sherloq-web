@@ -1,0 +1,170 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1600,
+    1100
+  ],
+  "budgetBytes": 536870912,
+  "cases": [
+    {
+      "params": {
+        "split": 15,
+        "smooth": 5,
+        "threshold": 0,
+        "filter": 0
+      },
+      "sha256": [
+        "f81743ab4ab64241770a7293d0a73280b582a98117a3c9a6100d1eb70d4284d2",
+        "e58c6b3514da44cdc7ae15088e5645f8cf58ca9e5a6fc135ae5fbaeb831f10eb",
+        "183f9b4284140bef6dd06230edd412d9544dc2cd99d3977c21af7be4372ba5a2",
+        "4a8c62e065202e427ceca220ccde7da02abf40490f189e13b90aef961fdccdd3"
+      ],
+      "maskSha256": "34bbc724d6bc8f3e47912e3a29bd41609349e3398a51c320d90dfe979cc5081b",
+      "metrics": {
+        "backend": "cpu",
+        "workers": 4,
+        "completedStripJobs": 53,
+        "preflightExecutions": 0,
+        "policy": "elastic useful strips, shared CPU admission",
+        "baseCached": false,
+        "maskCached": false,
+        "analysisCached": false,
+        "displayCached": false,
+        "blockPixels": 262144,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 16137.399999976158,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 69840000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 407323904
+        }
+      }
+    },
+    {
+      "params": {
+        "split": 15,
+        "smooth": 5,
+        "threshold": 37,
+        "filter": 3
+      },
+      "sha256": [
+        "2faaae160eceb6e01af5ddd56c925b32d7ed8c33bb159797379676bcb596ed33",
+        "7cd19e3460000a2702284265b5b461a3b3b652ff7f58e54ccaa3d682dc142c73",
+        "7498c7a5775af6bc62007538e100c04cf8ca8a542e2421237968b4df0ff0d143",
+        "8c0ff5eaf7662f850f6a3e7f96816ccf10bb45281bdd1835959f000ba6d4a78c"
+      ],
+      "maskSha256": "0ec354b1f91509f22e3f6238d2684b7cb259acc916302da72bfd1be0a2de394e",
+      "metrics": {
+        "backend": "cpu",
+        "workers": 4,
+        "completedStripJobs": 28,
+        "preflightExecutions": 0,
+        "policy": "elastic useful strips, shared CPU admission",
+        "baseCached": true,
+        "maskCached": true,
+        "analysisCached": false,
+        "displayCached": false,
+        "blockPixels": 262144,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 2059.5,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 80640000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 435883904
+        }
+      }
+    },
+    {
+      "params": {
+        "split": 15,
+        "smooth": 5,
+        "threshold": 37,
+        "filter": 7
+      },
+      "sha256": [
+        "2faaae160eceb6e01af5ddd56c925b32d7ed8c33bb159797379676bcb596ed33",
+        "7cd19e3460000a2702284265b5b461a3b3b652ff7f58e54ccaa3d682dc142c73",
+        "d1f357ce13b373a359a634991ea2cfb2004677e69857469912d5798aae1358a2",
+        "0fca065df22817caa107d8b25023dc351f2d21edab5b6d69dc9dc4c4b779bd83"
+      ],
+      "maskSha256": "0ec354b1f91509f22e3f6238d2684b7cb259acc916302da72bfd1be0a2de394e",
+      "metrics": {
+        "backend": "cpu",
+        "workers": 1,
+        "completedStripJobs": 0,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "baseCached": true,
+        "maskCached": true,
+        "analysisCached": true,
+        "displayCached": false,
+        "blockPixels": 262144,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 410.7000000178814,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 80640000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 435883904
+        }
+      }
+    },
+    {
+      "params": {
+        "split": 15,
+        "smooth": 5,
+        "threshold": 37,
+        "filter": 7
+      },
+      "sha256": [
+        "2faaae160eceb6e01af5ddd56c925b32d7ed8c33bb159797379676bcb596ed33",
+        "7cd19e3460000a2702284265b5b461a3b3b652ff7f58e54ccaa3d682dc142c73",
+        "d1f357ce13b373a359a634991ea2cfb2004677e69857469912d5798aae1358a2",
+        "0fca065df22817caa107d8b25023dc351f2d21edab5b6d69dc9dc4c4b779bd83"
+      ],
+      "maskSha256": "0ec354b1f91509f22e3f6238d2684b7cb259acc916302da72bfd1be0a2de394e",
+      "metrics": {
+        "backend": "cpu",
+        "workers": 0,
+        "completedStripJobs": 0,
+        "preflightExecutions": 0,
+        "policy": "immediate-useful-work",
+        "baseCached": true,
+        "maskCached": true,
+        "analysisCached": true,
+        "displayCached": true,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 0.09999999403953552,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 536870912,
+          "retainedBytes": 80640000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 435883904
+        }
+      }
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

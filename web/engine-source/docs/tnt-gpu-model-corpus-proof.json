@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Same production TNT backbone, checkpoint, native256 preparation, attention and decoder. GPU only replaces ordered linear layers; norms, GELU and attention remain CPU. Native final probabilities and masks compared. Fresh helpers, serial runs in one browser context with identical1GiB budgets; OS/driver caches not flushed. Component timings exclude source decoding, projection/export/UI; those have separate API recipes.",
+  "records": [
+    {
+      "name": "structured-copy",
+      "backend": "webgpu",
+      "preparationMs": 21,
+      "preparationExact": true,
+      "milliseconds": 8055.29999999702,
+      "sha256": "9b9f48bffd21db75d85d4f6b293639b51d5c5e1e0d7c2378b1bfe479f60b36fc",
+      "gpu": {
+        "devices": 1,
+        "allocations": 1099,
+        "peakAccountedBytes": 12485192,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "workers": 0,
+      "timings": {
+        "modelLoadMs": 1831.4999998360872,
+        "inferenceMs": 6202.900000169873,
+        "outputCopyMs": 3.2999999970197678,
+        "gpuWriteBytes": 432404904,
+        "gpuReadBytes": 150353920,
+        "backboneMs": 6074.100000157952,
+        "parameterLoadMs": 1582.1999998390675,
+        "backboneSetupMs": 7.5
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 625597916,
+        "peakAccountedBytes": 630316508
+      },
+      "probability": {
+        "maxAbs": 0.0000029802322387695312,
+        "meanAbs": 6.533844469913674e-7,
+        "different": 64740,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 11990,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 630316508
+      }
+    },
+    {
+      "name": "constant",
+      "backend": "webgpu",
+      "preparationMs": 13.200000002980232,
+      "preparationExact": true,
+      "milliseconds": 9010.89999999106,
+      "sha256": "ae2e3bb75af5c7a20a2a9bfd93d4e34ab6653e77ad46bc5eca27685915c9858d",
+      "gpu": {
+        "devices": 1,
+        "allocations": 1099,
+        "peakAccountedBytes": 12485192,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "workers": 0,
+      "timings": {
+        "modelLoadMs": 1941.4999998658895,
+        "inferenceMs": 7054.00000013411,
+        "outputCopyMs": 0.8999999910593033,
+        "gpuWriteBytes": 432404904,
+        "gpuReadBytes": 150353920,
+        "backboneMs": 6926.60000012815,
+        "parameterLoadMs": 1681.6999998688698,
+        "backboneSetupMs": 2.4000000059604645
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 625597916,
+        "peakAccountedBytes": 630316508
+      },
+      "probability": {
+        "maxAbs": 0.000001296401023864746,
+        "meanAbs": 9.895602381959634e-8,
+        "different": 65282,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 0,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 630316508
+      }
+    },
+    {
+      "name": "paired-spots",
+      "backend": "webgpu",
+      "preparationMs": 9.400000005960464,
+      "preparationExact": true,
+      "milliseconds": 7969.29999999702,
+      "sha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+      "gpu": {
+        "devices": 1,
+        "allocations": 1099,
+        "peakAccountedBytes": 12485192,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "workers": 0,
+      "timings": {
+        "modelLoadMs": 1839.0999997407198,
+        "inferenceMs": 6117.60000026226,
+        "outputCopyMs": 1,
+        "gpuWriteBytes": 432404904,
+        "gpuReadBytes": 150353920,
+        "backboneMs": 5987.10000026226,
+        "parameterLoadMs": 1595.8999997377396,
+        "backboneSetupMs": 3
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 625597916,
+        "peakAccountedBytes": 630316508
+      },
+      "probability": {
+        "maxAbs": 0.000003129243850708008,
+        "meanAbs": 1.2262190329792588e-7,
+        "different": 64569,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 8009,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 630316508
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-tnt-gpu.mjs": "96971791304a26b81b55dbb0e49b632d1e4591b4e412bf514bc1ba1bdd913173",
+    "experiments/segmentation/tnt-backbone.js": "ce96cb17e59eaaa21011b0b2a8a32e3640e361d7421428f8b807087896171af7",
+    "experiments/segmentation/tnt-inference.js": "48391bacc4dfd55b661cd567296a7ff7ed7f2f47ace37d943f3727a59346db84",
+    "experiments/segmentation/tnt-linear-gpu.js": "4650f6f15672f8d4a9a8e1ed8bec30f51c9ed1c10b2277f8e7336f6df6b11dd9",
+    "experiments/segmentation/tnt-linear.js": "076816da53d56761565f1f718866cb68561c52b1d4d6e8f1258532400554fcd6",
+    "experiments/segmentation/tnt-linear-worker.js": "ad5280f125769fdd254878f9da90beae90837ba386298ac8cfcc50939ab38bfd",
+    "experiments/segmentation/prepare.js": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "vendor/segmentation/TNT-PINNED.json": "ff4584f4c13ea3935edbfb3a3c37ce17efc56cfd2495d1d0b1adcc18393f2e1c"
+  }
+}

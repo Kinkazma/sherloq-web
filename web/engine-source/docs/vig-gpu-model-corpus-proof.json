@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Actual RGB preparation, lazy checkpoint backbone and unchanged ONNX consistency/decoder through production component; masks are native threshold decisions, no native activation substitution.",
+  "records": [
+    {
+      "name": "structured-copy",
+      "backend": "webgpu",
+      "gpu": {
+        "devices": 1,
+        "allocations": 602,
+        "peakAccountedBytes": 16714312,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "maxWorkers": 10,
+      "workers": 0,
+      "preparationExact": true,
+      "sha256": "402d82c567c14c15f1cae1b0620a05e9bb3c04c138a23a06a8204c6f7e102f13",
+      "milliseconds": 7680.9000000059605,
+      "setupMs": 0,
+      "timings": {
+        "modelLoadMs": 2533.5999999195337,
+        "inferenceMs": 5126.300000056624,
+        "outputCopyMs": 2.300000011920929,
+        "gpuWriteBytes": 455646904,
+        "gpuReadBytes": 104857600,
+        "backboneMs": 4999.700000062585,
+        "parameterLoadMs": 2290.599999934435,
+        "backboneSetupMs": 7.5
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 626327377,
+        "peakAccountedBytes": 631045969
+      },
+      "probability": {
+        "maxAbs": 0.00000616908073425293,
+        "meanAbs": 5.312678785784897e-7,
+        "different": 65436,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 0,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 631045969
+      }
+    },
+    {
+      "name": "constant",
+      "backend": "webgpu",
+      "gpu": {
+        "devices": 1,
+        "allocations": 602,
+        "peakAccountedBytes": 16714312,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "maxWorkers": 10,
+      "workers": 0,
+      "preparationExact": true,
+      "sha256": "7b3be37916f199046f78024f749fd402441ace69069ae2d58c48bf83c83cb916",
+      "milliseconds": 7892.9000000059605,
+      "setupMs": 0,
+      "timings": {
+        "modelLoadMs": 3008.300000101328,
+        "inferenceMs": 4860.199999913573,
+        "outputCopyMs": 2.5999999940395355,
+        "gpuWriteBytes": 455646904,
+        "gpuReadBytes": 104857600,
+        "backboneMs": 4725.699999913573,
+        "parameterLoadMs": 2750.1000000983477,
+        "backboneSetupMs": 3.2000000029802322
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 626327377,
+        "peakAccountedBytes": 631045969
+      },
+      "probability": {
+        "maxAbs": 0.000001084059476852417,
+        "meanAbs": 4.087463521817991e-8,
+        "different": 65521,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 0,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 631045969
+      }
+    },
+    {
+      "name": "paired-spots",
+      "backend": "webgpu",
+      "gpu": {
+        "devices": 1,
+        "allocations": 602,
+        "peakAccountedBytes": 16714312,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "maxWorkers": 10,
+      "workers": 0,
+      "preparationExact": true,
+      "sha256": "a050434b5773fbf9f8f5faee40c6fb2cb6654e57c0b2d9caa18646bfe5260a55",
+      "milliseconds": 7383,
+      "setupMs": 0,
+      "timings": {
+        "modelLoadMs": 2520.799999848008,
+        "inferenceMs": 4844.000000163913,
+        "outputCopyMs": 1.7999999970197678,
+        "gpuWriteBytes": 455646904,
+        "gpuReadBytes": 104857600,
+        "backboneMs": 4710.000000163913,
+        "parameterLoadMs": 2274.799999848008,
+        "backboneSetupMs": 2.7000000029802322
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 626327377,
+        "peakAccountedBytes": 631045969
+      },
+      "probability": {
+        "maxAbs": 0.000007808208465576172,
+        "meanAbs": 2.8543736096875905e-7,
+        "different": 64842,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 7256,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 631045969
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-vig-model.mjs": "0b84a27de54ed19a0a43e765af53baadcd373239f325b223fc262089d6d3e00f",
+    "scripts/export-vig-backbone.py": "04c77e31dd9689d595305772bbdc4da9d34e3a04b6d410d3cff1d374058d4bd7",
+    "experiments/segmentation/vig-backbone.js": "0df95f0391fff5eef26f45026083da3e09909cf329b98f8b03ccb46a1f520fc0",
+    "experiments/segmentation/vig-convolution.js": "2bfc249b8a6c97d0b563c6a9daf28a2550e36ffa569f5ca101bcdbe27482973a",
+    "experiments/segmentation/vig-convolution-worker.js": "b393e6911f7bacdf2666ce06819ee215e9bf383a08f898d60fe431d4270b5ac5",
+    "experiments/segmentation/vig-convolution-gpu.js": "a853af2900dbfc21cd0b62caa4245b98963d2b7fd5a62e0f28294f35dbc54a9a",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "experiments/segmentation/vig-inference.js": "eb3d96c1ba9fd583d48b90ce540190ab6b6cd24a16948b2cb20d3b465623ee27",
+    "experiments/segmentation/vig-math.cpp": "e2552034f4b2f370ff3d1103b7a55dacb0b882d2ffa862dda8a2be2dbca87a7b",
+    "experiments/segmentation/vig-exp.h": "fd0e1684e6c2ada4a8044f2f2f43b81fcaed1bc63b1c1dad9e3275f8abb22f06",
+    "experiments/segmentation/vig-exp-table.h": "836ee95bb30123b5d442b50e015fbf14c9fe5a8a2c45b908f7928f47059d66cf",
+    "vendor/segmentation/VIG-PINNED.json": "0fecccaa1e99269fafdce76e843d9c10d978b03c9705ae13a553e842fb19402c"
+  }
+}

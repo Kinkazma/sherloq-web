@@ -1,0 +1,1320 @@
+{
+  "schema": 1,
+  "scope": "Three alternating single/auto cold useful runs, one warm image reload and cache-only style/minimum change for each mode. Worker startup included. Canvas submission is illustrative display time, not physical paint or WordPress. Accounted memory is not RSS. No preflight or discarded warm-up.",
+  "cases": [
+    {
+      "name": "shapes",
+      "params": {
+        "response": 90,
+        "matching": 35,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "nativeRgbSha256": "0408f8684c76fbcda88fa55c4be5e86b9347fa68c18851f17bb63ef5c2aca5f4",
+      "samples": [
+        {
+          "sample": 0,
+          "cpuKernel": "single",
+          "imageLoadMs": 72.19999998807907,
+          "rpcMs": 13614.800000011921,
+          "presentationMs": 1.300000011920929,
+          "pipelineMs": 13688.300000011921,
+          "transportSchedulingMs": 0.7000000476837158,
+          "metrics": {
+            "totalMs": 13614.099999964237,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/35": false,
+                "geometry/90/35/15": false,
+                "count/90/35/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 0.8999999761581421,
+            "cloningDetectionMs": 30.599999964237213,
+            "cloningSelectionMs": 0.7000000476837158,
+            "cloningMatchingMs": 2.299999952316284,
+            "cloningClusteringMs": 404.4000000357628,
+            "cloningCountMs": 4001.300000011921,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 9172.300000011921,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3465245,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 268037456,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "styleReuseRpcMs": 8258.100000023842,
+          "styleMetrics": {
+            "totalMs": 8257.699999988079,
+            "cache": {
+              "result": true,
+              "analysis": true,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "viewMs": 8257.299999952316,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3465245,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 268037456,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "minimumReuseRpcMs": 12950.699999988079,
+          "minimumMetrics": {
+            "totalMs": 12950.400000035763,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": true,
+                "detected": true,
+                "selected/90": true,
+                "matches/90/35": true,
+                "geometry/90/35/15": true,
+                "count/90/35/15/6": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 0,
+            "cloningDetectionMs": 0,
+            "cloningSelectionMs": 0,
+            "cloningMatchingMs": 0,
+            "cloningClusteringMs": 0,
+            "cloningCountMs": 3822.899999976158,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 0,
+            "cloningGroupScheduling": {
+              "reused": true,
+              "preflightExecutions": 0,
+              "taskExecutions": 0
+            },
+            "viewMs": 9126.599999964237,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 5032929,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 268037456,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "warmLoadMs": 2,
+          "warmRpcMs": 13325,
+          "warmMetrics": {
+            "totalMs": 13324.899999976158,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/35": false,
+                "geometry/90/35/15": false,
+                "count/90/35/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 1.100000023841858,
+            "cloningDetectionMs": 7.599999964237213,
+            "cloningSelectionMs": 0.10000002384185791,
+            "cloningMatchingMs": 1.300000011920929,
+            "cloningClusteringMs": 401.7999999523163,
+            "cloningCountMs": 3835.899999976158,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 9076.199999988079,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3465245,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 268037456,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 268037456,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 0,
+          "cpuKernel": "auto",
+          "imageLoadMs": 78.5,
+          "rpcMs": 13296.5,
+          "presentationMs": 1.100000023841858,
+          "pipelineMs": 13376.100000023842,
+          "transportSchedulingMs": 0.5999999642372131,
+          "metrics": {
+            "totalMs": 13295.900000035763,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/35": false,
+                "geometry/90/35/15": false,
+                "count/90/35/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 10,
+            "cloningPreparationMs": 0.800000011920929,
+            "cloningDetectionMs": 31.399999976158142,
+            "cloningSelectionMs": 0.6000000238418579,
+            "cloningMatchingMs": 2.299999952316284,
+            "cloningClusteringMs": 117.19999998807907,
+            "cloningCountMs": 3878.600000023842,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 10,
+            "cloningGroupScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedRows": 6834,
+              "workerReservationBytes": 41079060,
+              "kernelMs": 114.10000002384186
+            },
+            "viewMs": 9263.199999988079,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3467355,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 298180904,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "styleReuseRpcMs": 8157,
+          "styleMetrics": {
+            "totalMs": 8156.799999952316,
+            "cache": {
+              "result": true,
+              "analysis": true,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "viewMs": 8156.299999952316,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3467355,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 298180904,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "minimumReuseRpcMs": 12827.100000023842,
+          "minimumMetrics": {
+            "totalMs": 12826.699999988079,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": true,
+                "detected": true,
+                "selected/90": true,
+                "matches/90/35": true,
+                "geometry/90/35/15": true,
+                "count/90/35/15/6": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 0,
+            "cloningDetectionMs": 0,
+            "cloningSelectionMs": 0,
+            "cloningMatchingMs": 0,
+            "cloningClusteringMs": 0,
+            "cloningCountMs": 3764.099999964237,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 0,
+            "cloningGroupScheduling": {
+              "reused": true,
+              "preflightExecutions": 0,
+              "taskExecutions": 0
+            },
+            "viewMs": 9061.699999988079,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 5035039,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 298180904,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "warmLoadMs": 1.899999976158142,
+          "warmRpcMs": 12935.700000047684,
+          "warmMetrics": {
+            "totalMs": 12935.5,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/35": false,
+                "geometry/90/35/15": false,
+                "count/90/35/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 10,
+            "cloningPreparationMs": 1.199999988079071,
+            "cloningDetectionMs": 7.800000011920929,
+            "cloningSelectionMs": 0.09999996423721313,
+            "cloningMatchingMs": 1.300000011920929,
+            "cloningClusteringMs": 111.5,
+            "cloningCountMs": 3743.300000011921,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 10,
+            "cloningGroupScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 1,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedRows": 6834,
+              "workerReservationBytes": 41079060,
+              "kernelMs": 109
+            },
+            "viewMs": 9069.400000035763,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3467355,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 298180904,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 298180904,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 1,
+          "cpuKernel": "auto",
+          "imageLoadMs": 72.59999996423721,
+          "rpcMs": 13296.400000035763,
+          "presentationMs": 3.099999964237213,
+          "pipelineMs": 13372.099999964237,
+          "transportSchedulingMs": 0.6000000238418579,
+          "metrics": {
+            "totalMs": 13295.800000011921,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/35": false,
+                "geometry/90/35/15": false,
+                "count/90/35/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 10,
+            "cloningPreparationMs": 0.800000011920929,
+            "cloningDetectionMs": 29.900000035762787,
+            "cloningSelectionMs": 0.699999988079071,
+            "cloningMatchingMs": 2.399999976158142,
+            "cloningClusteringMs": 107.80000001192093,
+            "cloningCountMs": 3883.899999976158,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 10,
+            "cloningGroupScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedRows": 6834,
+              "workerReservationBytes": 41079060,
+              "kernelMs": 104.69999998807907
+            },
+            "viewMs": 9268.600000023842,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3467355,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 298180904,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 298180904,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 1,
+          "cpuKernel": "single",
+          "imageLoadMs": 73.70000004768372,
+          "rpcMs": 13578.699999988079,
+          "presentationMs": 0.699999988079071,
+          "pipelineMs": 13653.100000023842,
+          "transportSchedulingMs": 0.6000000238418579,
+          "metrics": {
+            "totalMs": 13578.099999964237,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/35": false,
+                "geometry/90/35/15": false,
+                "count/90/35/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 0.800000011920929,
+            "cloningDetectionMs": 29.69999998807907,
+            "cloningSelectionMs": 0.800000011920929,
+            "cloningMatchingMs": 2.300000011920929,
+            "cloningClusteringMs": 420.80000001192093,
+            "cloningCountMs": 4020.5,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 9102,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3465245,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 268037456,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 268037456,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 2,
+          "cpuKernel": "single",
+          "imageLoadMs": 77.09999996423721,
+          "rpcMs": 13585.900000035763,
+          "presentationMs": 0.699999988079071,
+          "pipelineMs": 13663.699999988079,
+          "transportSchedulingMs": 0.6000000238418579,
+          "metrics": {
+            "totalMs": 13585.300000011921,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/35": false,
+                "geometry/90/35/15": false,
+                "count/90/35/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 1,
+            "cloningDetectionMs": 30.5,
+            "cloningSelectionMs": 0.800000011920929,
+            "cloningMatchingMs": 2.300000011920929,
+            "cloningClusteringMs": 393.30000001192093,
+            "cloningCountMs": 3926.800000011921,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 9228.699999988079,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3465245,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 268037456,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 268037456,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 2,
+          "cpuKernel": "auto",
+          "imageLoadMs": 70.89999997615814,
+          "rpcMs": 13254.699999988079,
+          "presentationMs": 0.40000003576278687,
+          "pipelineMs": 13326,
+          "transportSchedulingMs": 0.800000011920929,
+          "metrics": {
+            "totalMs": 13253.899999976158,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/35": false,
+                "geometry/90/35/15": false,
+                "count/90/35/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 10,
+            "cloningPreparationMs": 0.9000000357627869,
+            "cloningDetectionMs": 30,
+            "cloningSelectionMs": 0.800000011920929,
+            "cloningMatchingMs": 2.199999988079071,
+            "cloningClusteringMs": 133.5,
+            "cloningCountMs": 3956.100000023842,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 10,
+            "cloningGroupScheduling": {
+              "count": 10,
+              "maximum": 10,
+              "ceiling": 10,
+              "resourceReduced": false,
+              "policy": "immediate-useful-work",
+              "priorUsefulSamples": 0,
+              "reason": "Aggressive capacity-based start",
+              "preflightExecutions": 0,
+              "taskExecutions": 1,
+              "completedRows": 6834,
+              "workerReservationBytes": 41079060,
+              "kernelMs": 130.4000000357628
+            },
+            "viewMs": 9128.699999988079,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 278985,
+              "cacheBytes": 3467355,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 298180904,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 298180904,
+            "knownHeapCapacityBytes": 67108864
+          }
+        }
+      ],
+      "summary": [
+        {
+          "cpuKernel": "single",
+          "medianImageLoadMs": 73.70000004768372,
+          "medianRpcMs": 13585.900000035763,
+          "medianPipelineMs": 13663.699999988079,
+          "medianPresentationMs": 0.699999988079071,
+          "medianTransportSchedulingMs": 0.6000000238418579,
+          "clusteringMedianMs": 404.4000000357628,
+          "workers": [
+            1,
+            1,
+            1
+          ],
+          "peakAccountedBytes": 268037456
+        },
+        {
+          "cpuKernel": "auto",
+          "medianImageLoadMs": 72.59999996423721,
+          "medianRpcMs": 13296.400000035763,
+          "medianPipelineMs": 13372.099999964237,
+          "medianPresentationMs": 1.100000023841858,
+          "medianTransportSchedulingMs": 0.6000000238418579,
+          "clusteringMedianMs": 117.19999998807907,
+          "workers": [
+            10,
+            10,
+            10
+          ],
+          "peakAccountedBytes": 298180904
+        }
+      ]
+    },
+    {
+      "name": "large-checker",
+      "params": {
+        "response": 90,
+        "matching": 20,
+        "distance": 15,
+        "minimum": 5,
+        "showPoints": false,
+        "hideLines": false
+      },
+      "nativeRgbSha256": "e0b084060a9c1d987ab90929395eb8cb1429737fb0078e1d3fefbc8d46bfee72",
+      "samples": [
+        {
+          "sample": 0,
+          "cpuKernel": "single",
+          "imageLoadMs": 86.5,
+          "rpcMs": 218.20000004768372,
+          "presentationMs": 4.399999976158142,
+          "pipelineMs": 309.10000002384186,
+          "transportSchedulingMs": 1.0000000596046448,
+          "metrics": {
+            "totalMs": 217.19999998807907,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/20": false,
+                "geometry/90/20/15": false,
+                "count/90/20/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 3,
+            "cloningDetectionMs": 116.90000003576279,
+            "cloningSelectionMs": 1,
+            "cloningMatchingMs": 1.4000000357627869,
+            "cloningClusteringMs": 8.600000023841858,
+            "cloningCountMs": 27.69999998807907,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 57.59999996423721,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "styleReuseRpcMs": 28.19999998807907,
+          "styleMetrics": {
+            "totalMs": 27.69999998807907,
+            "cache": {
+              "result": true,
+              "analysis": true,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "viewMs": 27.600000023841858,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "minimumReuseRpcMs": 48.5,
+          "minimumMetrics": {
+            "totalMs": 48.30000001192093,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": true,
+                "detected": true,
+                "selected/90": true,
+                "matches/90/20": true,
+                "geometry/90/20/15": true,
+                "count/90/20/15/6": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 0,
+            "cloningDetectionMs": 0,
+            "cloningSelectionMs": 0,
+            "cloningMatchingMs": 0,
+            "cloningClusteringMs": 0,
+            "cloningCountMs": 18.299999952316284,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 0,
+            "cloningGroupScheduling": {
+              "reused": true,
+              "preflightExecutions": 0,
+              "taskExecutions": 0
+            },
+            "viewMs": 29.599999964237213,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1298454,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "warmLoadMs": 10,
+          "warmRpcMs": 177.29999995231628,
+          "warmMetrics": {
+            "totalMs": 177,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/20": false,
+                "geometry/90/20/15": false,
+                "count/90/20/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 3,
+            "cloningDetectionMs": 84,
+            "cloningSelectionMs": 0.19999998807907104,
+            "cloningMatchingMs": 0.5,
+            "cloningClusteringMs": 10.5,
+            "cloningCountMs": 21,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 57.69999998807907,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 462894426,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 0,
+          "cpuKernel": "auto",
+          "imageLoadMs": 81,
+          "rpcMs": 221.5,
+          "presentationMs": 4.399999976158142,
+          "pipelineMs": 306.89999997615814,
+          "transportSchedulingMs": 0.9000000357627869,
+          "metrics": {
+            "totalMs": 220.5999999642372,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/20": false,
+                "geometry/90/20/15": false,
+                "count/90/20/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 2.899999976158142,
+            "cloningDetectionMs": 116.29999995231628,
+            "cloningSelectionMs": 0.800000011920929,
+            "cloningMatchingMs": 1.2999999523162842,
+            "cloningClusteringMs": 8.899999976158142,
+            "cloningCountMs": 28.30000001192093,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 60.90000003576279,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "styleReuseRpcMs": 28.5,
+          "styleMetrics": {
+            "totalMs": 28.30000001192093,
+            "cache": {
+              "result": true,
+              "analysis": true,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "viewMs": 28.19999998807907,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "minimumReuseRpcMs": 49.69999998807907,
+          "minimumMetrics": {
+            "totalMs": 49.39999997615814,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": true,
+                "detected": true,
+                "selected/90": true,
+                "matches/90/20": true,
+                "geometry/90/20/15": true,
+                "count/90/20/15/6": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 0,
+            "cloningDetectionMs": 0,
+            "cloningSelectionMs": 0,
+            "cloningMatchingMs": 0,
+            "cloningClusteringMs": 0,
+            "cloningCountMs": 18.899999976158142,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 0,
+            "cloningGroupScheduling": {
+              "reused": true,
+              "preflightExecutions": 0,
+              "taskExecutions": 0
+            },
+            "viewMs": 30.100000023841858,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1298454,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "warmLoadMs": 10.400000035762787,
+          "warmRpcMs": 180.5999999642372,
+          "warmMetrics": {
+            "totalMs": 180.30000001192093,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/20": false,
+                "geometry/90/20/15": false,
+                "count/90/20/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 3.300000011920929,
+            "cloningDetectionMs": 84.60000002384186,
+            "cloningSelectionMs": 0.09999996423721313,
+            "cloningMatchingMs": 0.6000000238418579,
+            "cloningClusteringMs": 10.800000011920929,
+            "cloningCountMs": 21.19999998807907,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 59.5,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 462894426,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 1,
+          "cpuKernel": "auto",
+          "imageLoadMs": 81.10000002384186,
+          "rpcMs": 216.19999998807907,
+          "presentationMs": 3.800000011920929,
+          "pipelineMs": 301.10000002384186,
+          "transportSchedulingMs": 0.699999988079071,
+          "metrics": {
+            "totalMs": 215.5,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/20": false,
+                "geometry/90/20/15": false,
+                "count/90/20/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 2.800000011920929,
+            "cloningDetectionMs": 114.5,
+            "cloningSelectionMs": 0.800000011920929,
+            "cloningMatchingMs": 1.199999988079071,
+            "cloningClusteringMs": 8.5,
+            "cloningCountMs": 27.19999998807907,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 59.39999997615814,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 462894426,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 1,
+          "cpuKernel": "single",
+          "imageLoadMs": 81.89999997615814,
+          "rpcMs": 224.69999998807907,
+          "presentationMs": 3.800000011920929,
+          "pipelineMs": 310.39999997615814,
+          "transportSchedulingMs": 0.699999988079071,
+          "metrics": {
+            "totalMs": 224,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/20": false,
+                "geometry/90/20/15": false,
+                "count/90/20/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 2.800000011920929,
+            "cloningDetectionMs": 118.80000001192093,
+            "cloningSelectionMs": 1,
+            "cloningMatchingMs": 1.300000011920929,
+            "cloningClusteringMs": 8.899999976158142,
+            "cloningCountMs": 29.30000001192093,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 61,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 462894426,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 2,
+          "cpuKernel": "single",
+          "imageLoadMs": 84.80000001192093,
+          "rpcMs": 221.80000001192093,
+          "presentationMs": 4.199999988079071,
+          "pipelineMs": 310.80000001192093,
+          "transportSchedulingMs": 0.699999988079071,
+          "metrics": {
+            "totalMs": 221.10000002384186,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/20": false,
+                "geometry/90/20/15": false,
+                "count/90/20/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 2.800000011920929,
+            "cloningDetectionMs": 117.80000001192093,
+            "cloningSelectionMs": 0.800000011920929,
+            "cloningMatchingMs": 1.300000011920929,
+            "cloningClusteringMs": 9,
+            "cloningCountMs": 28.400000035762787,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 60.19999998807907,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 462894426,
+            "knownHeapCapacityBytes": 67108864
+          }
+        },
+        {
+          "sample": 2,
+          "cpuKernel": "auto",
+          "imageLoadMs": 73.80000001192093,
+          "rpcMs": 220.69999998807907,
+          "presentationMs": 4,
+          "pipelineMs": 298.5,
+          "transportSchedulingMs": 0.800000011920929,
+          "metrics": {
+            "totalMs": 219.89999997615814,
+            "cache": {
+              "result": false,
+              "stages": {
+                "gray": false,
+                "detected": false,
+                "selected/90": false,
+                "matches/90/20": false,
+                "geometry/90/20/15": false,
+                "count/90/20/15/5": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "copy-move-orb-reference",
+            "workers": 1,
+            "cloningPreparationMs": 2.899999976158142,
+            "cloningDetectionMs": 118.80000001192093,
+            "cloningSelectionMs": 0.699999988079071,
+            "cloningMatchingMs": 1.199999988079071,
+            "cloningClusteringMs": 8.600000023841858,
+            "cloningCountMs": 27.5,
+            "cloningGeometryStrategy": "point-pair-cache",
+            "backend": "cpu",
+            "cloningGroupWorkers": 1,
+            "viewMs": 59.30000001192093,
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 3323456,
+              "cacheBytes": 1238022,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 462894426,
+              "codecHeapCapacityBytes": 33554432,
+              "hdf5HeapCapacityBytes": 0,
+              "medianHeapCapacityBytes": 0,
+              "qualityHeapCapacityBytes": 0,
+              "resamplingHeapCapacityBytes": 0,
+              "cloningHeapCapacityBytes": 33554432
+            }
+          },
+          "cleanup": {
+            "budgetBytes": 1073741824,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 462894426,
+            "knownHeapCapacityBytes": 67108864
+          }
+        }
+      ],
+      "summary": [
+        {
+          "cpuKernel": "single",
+          "medianImageLoadMs": 84.80000001192093,
+          "medianRpcMs": 221.80000001192093,
+          "medianPipelineMs": 310.39999997615814,
+          "medianPresentationMs": 4.199999988079071,
+          "medianTransportSchedulingMs": 0.699999988079071,
+          "clusteringMedianMs": 8.899999976158142,
+          "workers": [
+            1,
+            1,
+            1
+          ],
+          "peakAccountedBytes": 462894426
+        },
+        {
+          "cpuKernel": "auto",
+          "medianImageLoadMs": 81,
+          "medianRpcMs": 220.69999998807907,
+          "medianPipelineMs": 301.10000002384186,
+          "medianPresentationMs": 4,
+          "medianTransportSchedulingMs": 0.800000011920929,
+          "clusteringMedianMs": 8.600000023841858,
+          "workers": [
+            1,
+            1,
+            1
+          ],
+          "peakAccountedBytes": 462894426
+        }
+      ]
+    }
+  ],
+  "runtimeFiles": {
+    "src/cloning.js": "65bcb7be446e265c83db6e592cbe4b541ec69ac471b5ff6bb068e28ba24bb226",
+    "src/cloning-post.js": "10f01cc18b6784053c7a4cfeb38cadb48a63342c5adaf16a8d0650c5ea3a2259",
+    "src/cloning-math.js": "18e5b15fa7453118beb333b59c33d3bc6151dd13d8b390ba3513782786bfc804",
+    "src/cloning-group-pool.js": "0f104477172756f9b43bba96c031228e6809fd3de61e84f54cc52f65511ee978",
+    "src/cloning-group-worker.js": "2c9cfb692223427e3fbb26f0a66a8de090501cce2e13da817bc1ed3fe3f2da7d",
+    "vendor/cloning/cloning.js": "4741dfce67c19661f3f3ed2cc4f7b4e758f748cc1f6726b3325bfda07375db4b",
+    "vendor/cloning/cloning.wasm": "508e79a9f593bb5700c075eaee30a5fe2295512e441a13869d24255c8415dbd4"
+  },
+  "browser": "154.0.8037.58"
+}

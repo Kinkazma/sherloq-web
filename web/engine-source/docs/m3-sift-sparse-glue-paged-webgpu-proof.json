@@ -1,0 +1,109 @@
+{
+  "browser": "154.0.8037.58",
+  "kind": "sift",
+  "provider": "webgpu",
+  "model": {
+    "file": "sift-sparse-glue-paged.bin",
+    "bytes": 45608176,
+    "sha256": "ec453f04fe2b34250ca31c0e232deaa731897914cb469dc616d5c380b7df4acc",
+    "weightSha256": "5b52b8d9982d43532dc042606b346bb9594c9f5a4bd6f64362c63866287b4ac0",
+    "layers": 9,
+    "heads": 4,
+    "dim": 256
+  },
+  "records": [
+    {
+      "id": 0,
+      "values": 95,
+      "maximum": 0.00004747509956359863,
+      "meanAbsoluteError": 0.0000017794240745671673,
+      "differences": 95,
+      "selected": 3,
+      "nativeSelected": 3,
+      "decisionsEqual": true,
+      "milliseconds": 9339.29999999702,
+      "metadata": {
+        "provider": "webgpu",
+        "execution": "native-layers-global-csr-row-pages",
+        "actualHeapBytes": 20185088,
+        "attentionHeapBytes": 16777216,
+        "maximumHeapBytes": 536870912,
+        "threads": 1,
+        "totalMs": 7754.29999999702,
+        "maximumConfidence": 0.9646543860435486,
+        "above": {
+          "point1": 7,
+          "point3": 3,
+          "point7": 1,
+          "point9": 1
+        },
+        "attentionPages": 18,
+        "assignmentPages": 1,
+        "maximumPageEdges": 95,
+        "preflightExecutions": 0
+      }
+    },
+    {
+      "id": 1,
+      "values": 18070,
+      "maximum": 0.000018484890460968018,
+      "meanAbsoluteError": 7.048892603910686e-9,
+      "differences": 17944,
+      "selected": 1,
+      "nativeSelected": 1,
+      "decisionsEqual": true,
+      "milliseconds": 11459,
+      "metadata": {
+        "provider": "webgpu",
+        "execution": "native-layers-global-csr-row-pages",
+        "actualHeapBytes": 20185088,
+        "attentionHeapBytes": 16777216,
+        "maximumHeapBytes": 536870912,
+        "threads": 1,
+        "totalMs": 9800.90000000596,
+        "maximumConfidence": 0.64116370677948,
+        "above": {
+          "point1": 5,
+          "point3": 1,
+          "point7": 0,
+          "point9": 0
+        },
+        "attentionPages": 36,
+        "assignmentPages": 1,
+        "maximumPageEdges": 16640,
+        "preflightExecutions": 0
+      }
+    },
+    {
+      "id": 2,
+      "values": 6400,
+      "maximum": 0.00006854534149169922,
+      "meanAbsoluteError": 6.72158785649181e-8,
+      "differences": 5057,
+      "selected": 78,
+      "nativeSelected": 78,
+      "decisionsEqual": true,
+      "milliseconds": 7559.5,
+      "metadata": {
+        "provider": "webgpu",
+        "execution": "native-layers-global-csr-row-pages",
+        "actualHeapBytes": 20185088,
+        "attentionHeapBytes": 16777216,
+        "maximumHeapBytes": 536870912,
+        "threads": 1,
+        "totalMs": 6770,
+        "maximumConfidence": 0.9776633977890015,
+        "above": {
+          "point1": 80,
+          "point3": 78,
+          "point7": 71,
+          "point9": 35
+        },
+        "attentionPages": 18,
+        "assignmentPages": 1,
+        "maximumPageEdges": 6400,
+        "preflightExecutions": 0
+      }
+    }
+  ]
+}

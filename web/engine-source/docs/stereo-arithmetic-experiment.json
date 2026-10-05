@@ -1,0 +1,316 @@
+{
+  "schema": 1,
+  "scope": "Sequential synthetic 1 MP RGB8 inputs, no resize. RPC includes copies/transfers; raster presentation measured separately. One main worker; no WordPress or physical-device claim.",
+  "results": [
+    {
+      "operation": "tampering.contrast",
+      "cpuKernel": "single",
+      "samples": [
+        {
+          "loadMs": 36.40000003576279,
+          "rpcMs": 70.09999996423721,
+          "displayMs": 4.5,
+          "pipelineMs": 111,
+          "viewMs": 1.9000000357627869,
+          "metrics": {
+            "totalMs": 69.39999997615814,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 5418,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 123731968,
+              "codecHeapCapacityBytes": 40304640
+            }
+          }
+        },
+        {
+          "loadMs": 3.799999952316284,
+          "rpcMs": 27,
+          "displayMs": 3.699999988079071,
+          "pipelineMs": 34.499999940395355,
+          "viewMs": 1.9000000357627869,
+          "metrics": {
+            "totalMs": 25.80000001192093,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 5418,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 123737386,
+              "codecHeapCapacityBytes": 40304640
+            }
+          }
+        },
+        {
+          "loadMs": 3.199999988079071,
+          "rpcMs": 23.399999976158142,
+          "displayMs": 3.599999964237213,
+          "pipelineMs": 30.199999928474426,
+          "viewMs": 1.9000000357627869,
+          "metrics": {
+            "totalMs": 23.200000047683716,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-reference",
+            "workers": 1,
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 5418,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 123737386,
+              "codecHeapCapacityBytes": 40304640
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 27,
+      "medianPipelineMs": 34.499999940395355
+    },
+    {
+      "operation": "various.stereogram",
+      "cpuKernel": "reference",
+      "samples": [
+        {
+          "loadMs": 35.60000002384186,
+          "rpcMs": 21209.80000001192,
+          "displayMs": 3.300000011920929,
+          "pipelineMs": 21248.700000047684,
+          "viewMs": 26.19999998807907,
+          "metrics": {
+            "totalMs": 21209.200000047684,
+            "cache": {
+              "result": false,
+              "stages": {
+                "search": false,
+                "pattern": false,
+                "flow": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-fma-reference",
+            "workers": 1,
+            "stages": {
+              "searchMs": 162.19999998807907,
+              "patternMs": 14,
+              "flowMs": 21013
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 13768862,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 281610302,
+              "codecHeapCapacityBytes": 94633984
+            }
+          }
+        },
+        {
+          "loadMs": 3.699999988079071,
+          "rpcMs": 20053.80000001192,
+          "displayMs": 4.400000035762787,
+          "pipelineMs": 20061.900000035763,
+          "viewMs": 25.5,
+          "metrics": {
+            "totalMs": 20053,
+            "cache": {
+              "result": false,
+              "stages": {
+                "search": false,
+                "pattern": false,
+                "flow": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-fma-reference",
+            "workers": 1,
+            "stages": {
+              "searchMs": 129.30000001192093,
+              "patternMs": 8.199999988079071,
+              "flowMs": 19906.19999998808
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 13768862,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 288495774,
+              "codecHeapCapacityBytes": 94633984
+            }
+          }
+        },
+        {
+          "loadMs": 3.199999988079071,
+          "rpcMs": 20045.30000001192,
+          "displayMs": 6.5,
+          "pipelineMs": 20055,
+          "viewMs": 26,
+          "metrics": {
+            "totalMs": 20044.799999952316,
+            "cache": {
+              "result": false,
+              "stages": {
+                "search": false,
+                "pattern": false,
+                "flow": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-fma-reference",
+            "workers": 1,
+            "stages": {
+              "searchMs": 127.89999997615814,
+              "patternMs": 8.300000011920929,
+              "flowMs": 19898.80000001192
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 13768862,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 288495774,
+              "codecHeapCapacityBytes": 94633984
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 20053.80000001192,
+      "medianPipelineMs": 20061.900000035763
+    },
+    {
+      "operation": "various.stereogram",
+      "cpuKernel": "single",
+      "samples": [
+        {
+          "loadMs": 35.5,
+          "rpcMs": 21639.30000001192,
+          "displayMs": 4.699999988079071,
+          "pipelineMs": 21679.5,
+          "viewMs": 25.80000001192093,
+          "metrics": {
+            "totalMs": 21638.69999998808,
+            "cache": {
+              "result": false,
+              "stages": {
+                "search": false,
+                "pattern": false,
+                "flow": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-fma-fast",
+            "workers": 1,
+            "stages": {
+              "searchMs": 157.69999998807907,
+              "patternMs": 14.300000011920929,
+              "flowMs": 21447.30000001192
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 13768852,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 281610302,
+              "codecHeapCapacityBytes": 94633984
+            }
+          }
+        },
+        {
+          "loadMs": 3.5,
+          "rpcMs": 21109,
+          "displayMs": 3.400000035762787,
+          "pipelineMs": 21115.900000035763,
+          "viewMs": 25.899999976158142,
+          "metrics": {
+            "totalMs": 21108.19999998808,
+            "cache": {
+              "result": false,
+              "stages": {
+                "search": false,
+                "pattern": false,
+                "flow": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-fma-fast",
+            "workers": 1,
+            "stages": {
+              "searchMs": 129.4000000357628,
+              "patternMs": 7.899999976158142,
+              "flowMs": 20961.19999998808
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 13768852,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 288495764,
+              "codecHeapCapacityBytes": 94633984
+            }
+          }
+        },
+        {
+          "loadMs": 3.600000023841858,
+          "rpcMs": 20001.899999976158,
+          "displayMs": 3.300000011920929,
+          "pipelineMs": 20008.80000001192,
+          "viewMs": 25.69999998807907,
+          "metrics": {
+            "totalMs": 20000.80000001192,
+            "cache": {
+              "result": false,
+              "stages": {
+                "search": false,
+                "pattern": false,
+                "flow": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-fma-fast",
+            "workers": 1,
+            "stages": {
+              "searchMs": 128.79999995231628,
+              "patternMs": 8.200000047683716,
+              "flowMs": 19854.100000023842
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 13768852,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 288495764,
+              "codecHeapCapacityBytes": 94633984
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 21109,
+      "medianPipelineMs": 21115.900000035763
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {imageCodec} from '../src/codecs.js';import {initCvWasm} from '../src/opencv.js';import {initJpegWasm} from '../src/jpeg.js';import {metadataLocation,metadataThumbnail,metadataStructure,hexView} from '../src/metadata.js';
+await initJpegWasm({wasmBinary:await readFile(new URL('../vendor/libjpeg/jpeg.wasm',import.meta.url))});
+await initCvWasm({wasmBinary:await readFile(new URL('../vendor/opencv/opencv.wasm',import.meta.url))});
+const bytes=new Uint8Array(await readFile(new URL('../fixtures/exif-tools.jpg',import.meta.url))),ref=JSON.parse(await readFile(new URL('../fixtures/exif-tools-reference.json',import.meta.url))),context={bytes,codec:imageCodec},image=await imageCodec.decode(bytes),sha=b=>createHash('sha256').update(b).digest('hex');
+test('Synthetic GPS rationals and thumbnail offsets agree with independent reader and exact source bytes',async()=>{
+ const location=await metadataLocation(image,{}, {},context);assert.equal(location.data.coordinates.latitude,ref.latitude);assert.equal(location.data.coordinates.longitude,ref.longitude);assert.equal(location.data.networkRequested,false);
+ const thumbnail=await metadataThumbnail(image,{}, {},context);assert.equal(thumbnail.data.sourceOffset,ref.thumbnailOffset);assert.equal(thumbnail.data.sourceLength,ref.thumbnailLength);assert.equal(sha(thumbnail.data.bytes),ref.thumbnailSha256);assert.equal(sha(thumbnail.pixels.data),ref.resizedSha256);assert.equal(sha(thumbnail.data.difference.data),ref.differenceSha256);
+ const structure=await metadataStructure(image,{}, {},context);assert.ok(structure.data.exif.directories.length===3);
+ const hex=await hexView(image,{offset:ref.thumbnailOffset,length:ref.thumbnailLength},{},context);assert.equal(sha(hex.data.bytes),ref.thumbnailSha256);hex.data.bytes.fill(0);assert.equal(sha(bytes.slice(ref.thumbnailOffset,ref.thumbnailOffset+ref.thumbnailLength)),ref.thumbnailSha256);
+});

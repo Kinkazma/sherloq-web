@@ -1,0 +1,1143 @@
+{
+  "version": "13.55",
+  "cases": [
+    {
+      "file": "rich.jpg",
+      "metadata": {
+        "ExifTool:ExifToolVersion": 13.55,
+        "File:FileSize": 7803,
+        "File:FileType": "JPEG",
+        "File:FileTypeExtension": "JPG",
+        "File:MIMEType": "image/jpeg",
+        "File:ExifByteOrder": "II",
+        "File:CurrentIPTCDigest": "b9210e28c1379839b2a9f5ba3dcd092a",
+        "File:ImageWidth": 64,
+        "File:ImageHeight": 48,
+        "File:EncodingProcess": 0,
+        "File:BitsPerSample": 8,
+        "File:ColorComponents": 3,
+        "File:YCbCrSubSampling": "2 2",
+        "EXIF:Orientation": 1,
+        "EXIF:Artist": "M5 synthétique",
+        "EXIF:ExifVersion": "0232",
+        "EXIF:ComponentsConfiguration": "1 2 3 0",
+        "EXIF:UserComment": "<script>not executable</script>",
+        "EXIF:ColorSpace": 65535,
+        "EXIF:GPSLatitudeRef": "N",
+        "EXIF:GPSLatitude": 1.03416666666667,
+        "EXIF:GPSLongitudeRef": "E",
+        "EXIF:GPSLongitude": 4.085,
+        "EXIF:GPSAltitude": 0,
+        "EXIF:ThumbnailOffset": 336,
+        "EXIF:ThumbnailLength": 1108,
+        "EXIF:ThumbnailImage": "(Binary data 1108 bytes, use -b option to extract)",
+        "JFIF:JFIFVersion": "1 1",
+        "JFIF:ResolutionUnit": 0,
+        "JFIF:XResolution": 1,
+        "JFIF:YResolution": 1,
+        "IPTC:Keywords": [
+          "tag-one",
+          "tag-two"
+        ],
+        "IPTC:ApplicationRecordVersion": 4,
+        "XMP:XMPToolkit": "Image::ExifTool 13.55",
+        "XMP:Subject": [
+          "first",
+          "deuxième"
+        ],
+        "XMP:GPSLatitude": 0,
+        "XMP:GPSLongitude": -12.25,
+        "Composite:ImageSize": "64 48",
+        "Composite:Megapixels": 0.003072,
+        "Composite:GPSLatitude": 1.03416666666667,
+        "Composite:GPSLongitude": 4.085,
+        "Composite:GPSLatitudeRef": "N",
+        "Composite:GPSLongitudeRef": "W",
+        "Composite:GPSPosition": "1.03416666666667 4.085"
+      },
+      "locationMetadata": {
+        "Composite:GPSLatitude": 1.03416666666667,
+        "Composite:GPSLongitude": 4.085
+      },
+      "nativeDisplayRows": [
+        [
+          "File",
+          "ExifByteOrder",
+          "II"
+        ],
+        [
+          null,
+          "CurrentIPTCDigest",
+          "b9210e28c1379839b2a9f5ba3dcd092a"
+        ],
+        [
+          null,
+          "ImageWidth",
+          "64"
+        ],
+        [
+          null,
+          "ImageHeight",
+          "48"
+        ],
+        [
+          null,
+          "EncodingProcess",
+          "0"
+        ],
+        [
+          null,
+          "BitsPerSample",
+          "8"
+        ],
+        [
+          null,
+          "ColorComponents",
+          "3"
+        ],
+        [
+          null,
+          "YCbCrSubSampling",
+          "2 2"
+        ],
+        [
+          "EXIF",
+          "Orientation",
+          "1"
+        ],
+        [
+          null,
+          "Artist",
+          "M5 synthétique"
+        ],
+        [
+          null,
+          "ExifVersion",
+          "0232"
+        ],
+        [
+          null,
+          "ComponentsConfiguration",
+          "1 2 3 0"
+        ],
+        [
+          null,
+          "UserComment",
+          "<script>not executable</script>"
+        ],
+        [
+          null,
+          "ColorSpace",
+          "65535"
+        ],
+        [
+          null,
+          "GPSLatitudeRef",
+          "N"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "1.03416666666667"
+        ],
+        [
+          null,
+          "GPSLongitudeRef",
+          "E"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "4.085"
+        ],
+        [
+          null,
+          "GPSAltitude",
+          "0"
+        ],
+        [
+          null,
+          "ThumbnailOffset",
+          "336"
+        ],
+        [
+          null,
+          "ThumbnailLength",
+          "1108"
+        ],
+        [
+          null,
+          "ThumbnailImage",
+          "(Binary data: 1108 bytes)"
+        ],
+        [
+          "JFIF",
+          "JFIFVersion",
+          "1 1"
+        ],
+        [
+          null,
+          "ResolutionUnit",
+          "0"
+        ],
+        [
+          null,
+          "XResolution",
+          "1"
+        ],
+        [
+          null,
+          "YResolution",
+          "1"
+        ],
+        [
+          "IPTC",
+          "Keywords",
+          "['tag-one', 'tag-two']"
+        ],
+        [
+          null,
+          "ApplicationRecordVersion",
+          "4"
+        ],
+        [
+          "XMP",
+          "XMPToolkit",
+          "Image::ExifTool 13.55"
+        ],
+        [
+          null,
+          "Subject",
+          "['first', 'deuxième']"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "0"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "-12.25"
+        ],
+        [
+          "Composite",
+          "ImageSize",
+          "64 48"
+        ],
+        [
+          null,
+          "Megapixels",
+          "0.003072"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "1.03416666666667"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "4.085"
+        ],
+        [
+          null,
+          "GPSLatitudeRef",
+          "N"
+        ],
+        [
+          null,
+          "GPSLongitudeRef",
+          "W"
+        ],
+        [
+          null,
+          "GPSPosition",
+          "1.03416666666667 4.085"
+        ]
+      ],
+      "htmlSha256": "0f31964e6416f32fee095e1eabd47f01767ec709fbfe2a6ca5cce2551d058adc",
+      "thumbnailBytes": 1108,
+      "thumbnailSha256": "4a6db9737cf6fd92d2807d9ea30f0c4b9b177682120aeff51139d2c5d3427818"
+    },
+    {
+      "file": "exif.png",
+      "metadata": {
+        "ExifTool:ExifToolVersion": 13.55,
+        "ExifTool:Warning": "[minor] Text/EXIF chunk(s) found after PNG IDAT (may be ignored by some readers)",
+        "File:FileSize": 9559,
+        "File:FileType": "PNG",
+        "File:FileTypeExtension": "PNG",
+        "File:MIMEType": "image/png",
+        "File:ExifByteOrder": "II",
+        "PNG:ImageWidth": 64,
+        "PNG:ImageHeight": 48,
+        "PNG:BitDepth": 8,
+        "PNG:ColorType": 2,
+        "PNG:Compression": 0,
+        "PNG:Filter": 0,
+        "PNG:Interlace": 0,
+        "EXIF:Orientation": 1,
+        "EXIF:GPSLatitudeRef": "N",
+        "EXIF:GPSLatitude": 1.03416666666667,
+        "EXIF:GPSLongitudeRef": "E",
+        "EXIF:GPSLongitude": 4.085,
+        "EXIF:ThumbnailOffset": 170,
+        "EXIF:ThumbnailLength": 1108,
+        "EXIF:ThumbnailImage": "(Binary data 1108 bytes, use -b option to extract)",
+        "Composite:ImageSize": "64 48",
+        "Composite:Megapixels": 0.003072,
+        "Composite:GPSLatitude": 1.03416666666667,
+        "Composite:GPSLongitude": 4.085,
+        "Composite:GPSPosition": "1.03416666666667 4.085"
+      },
+      "locationMetadata": {
+        "Composite:GPSLatitude": 1.03416666666667,
+        "Composite:GPSLongitude": 4.085
+      },
+      "nativeDisplayRows": [
+        [
+          "ExifTool",
+          "Warning",
+          "[minor] Text/EXIF chunk(s) found after PNG IDAT (may be ignored by some readers)"
+        ],
+        [
+          "File",
+          "ExifByteOrder",
+          "II"
+        ],
+        [
+          "PNG",
+          "ImageWidth",
+          "64"
+        ],
+        [
+          null,
+          "ImageHeight",
+          "48"
+        ],
+        [
+          null,
+          "BitDepth",
+          "8"
+        ],
+        [
+          null,
+          "ColorType",
+          "2"
+        ],
+        [
+          null,
+          "Compression",
+          "0"
+        ],
+        [
+          null,
+          "Filter",
+          "0"
+        ],
+        [
+          null,
+          "Interlace",
+          "0"
+        ],
+        [
+          "EXIF",
+          "Orientation",
+          "1"
+        ],
+        [
+          null,
+          "GPSLatitudeRef",
+          "N"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "1.03416666666667"
+        ],
+        [
+          null,
+          "GPSLongitudeRef",
+          "E"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "4.085"
+        ],
+        [
+          null,
+          "ThumbnailOffset",
+          "170"
+        ],
+        [
+          null,
+          "ThumbnailLength",
+          "1108"
+        ],
+        [
+          null,
+          "ThumbnailImage",
+          "(Binary data: 1108 bytes)"
+        ],
+        [
+          "Composite",
+          "ImageSize",
+          "64 48"
+        ],
+        [
+          null,
+          "Megapixels",
+          "0.003072"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "1.03416666666667"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "4.085"
+        ],
+        [
+          null,
+          "GPSPosition",
+          "1.03416666666667 4.085"
+        ]
+      ],
+      "htmlSha256": "1fe7dcb5f603fbe94d6a787e0179fc24370f6250dcbb6744b0d67adb9bc09cd4",
+      "thumbnailBytes": 1108,
+      "thumbnailSha256": "4a6db9737cf6fd92d2807d9ea30f0c4b9b177682120aeff51139d2c5d3427818"
+    },
+    {
+      "file": "rotated.tiff",
+      "metadata": {
+        "ExifTool:ExifToolVersion": 13.55,
+        "File:FileSize": 815,
+        "File:FileType": "TIFF",
+        "File:FileTypeExtension": "TIF",
+        "File:MIMEType": "image/tiff",
+        "File:ExifByteOrder": "II",
+        "EXIF:ImageWidth": 17,
+        "EXIF:ImageHeight": 13,
+        "EXIF:BitsPerSample": "8 8 8",
+        "EXIF:Compression": 1,
+        "EXIF:PhotometricInterpretation": 2,
+        "EXIF:StripOffsets": 152,
+        "EXIF:Orientation": 6,
+        "EXIF:SamplesPerPixel": 3,
+        "EXIF:RowsPerStrip": 13,
+        "EXIF:StripByteCounts": 663,
+        "EXIF:PlanarConfiguration": 1,
+        "Composite:ImageSize": "17 13",
+        "Composite:Megapixels": 0.000221
+      },
+      "locationMetadata": {},
+      "nativeDisplayRows": [
+        [
+          "File",
+          "ExifByteOrder",
+          "II"
+        ],
+        [
+          "EXIF",
+          "ImageWidth",
+          "17"
+        ],
+        [
+          null,
+          "ImageHeight",
+          "13"
+        ],
+        [
+          null,
+          "BitsPerSample",
+          "8 8 8"
+        ],
+        [
+          null,
+          "Compression",
+          "1"
+        ],
+        [
+          null,
+          "PhotometricInterpretation",
+          "2"
+        ],
+        [
+          null,
+          "StripOffsets",
+          "152"
+        ],
+        [
+          null,
+          "Orientation",
+          "6"
+        ],
+        [
+          null,
+          "SamplesPerPixel",
+          "3"
+        ],
+        [
+          null,
+          "RowsPerStrip",
+          "13"
+        ],
+        [
+          null,
+          "StripByteCounts",
+          "663"
+        ],
+        [
+          null,
+          "PlanarConfiguration",
+          "1"
+        ],
+        [
+          "Composite",
+          "ImageSize",
+          "17 13"
+        ],
+        [
+          null,
+          "Megapixels",
+          "0.000221"
+        ]
+      ],
+      "htmlSha256": "76c5236678aea87b7ca214ae701923b0c25705f8fb6307a0a3c8283f4f0e0730",
+      "thumbnailBytes": 0,
+      "thumbnailSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "plain.jpg",
+      "metadata": {
+        "ExifTool:ExifToolVersion": 13.55,
+        "File:FileSize": 1108,
+        "File:FileType": "JPEG",
+        "File:FileTypeExtension": "JPG",
+        "File:MIMEType": "image/jpeg",
+        "File:ImageWidth": 31,
+        "File:ImageHeight": 17,
+        "File:EncodingProcess": 0,
+        "File:BitsPerSample": 8,
+        "File:ColorComponents": 3,
+        "File:YCbCrSubSampling": "2 2",
+        "JFIF:JFIFVersion": "1 1",
+        "JFIF:ResolutionUnit": 0,
+        "JFIF:XResolution": 1,
+        "JFIF:YResolution": 1,
+        "Composite:ImageSize": "31 17",
+        "Composite:Megapixels": 0.000527
+      },
+      "locationMetadata": {},
+      "nativeDisplayRows": [
+        [
+          "File",
+          "ImageWidth",
+          "31"
+        ],
+        [
+          null,
+          "ImageHeight",
+          "17"
+        ],
+        [
+          null,
+          "EncodingProcess",
+          "0"
+        ],
+        [
+          null,
+          "BitsPerSample",
+          "8"
+        ],
+        [
+          null,
+          "ColorComponents",
+          "3"
+        ],
+        [
+          null,
+          "YCbCrSubSampling",
+          "2 2"
+        ],
+        [
+          "JFIF",
+          "JFIFVersion",
+          "1 1"
+        ],
+        [
+          null,
+          "ResolutionUnit",
+          "0"
+        ],
+        [
+          null,
+          "XResolution",
+          "1"
+        ],
+        [
+          null,
+          "YResolution",
+          "1"
+        ],
+        [
+          "Composite",
+          "ImageSize",
+          "31 17"
+        ],
+        [
+          null,
+          "Megapixels",
+          "0.000527"
+        ]
+      ],
+      "htmlSha256": "c1ca6d1a988f47ed650cc14e2e5a5ac1cd8ee139e956112b6a348719dc244ad8",
+      "thumbnailBytes": 0,
+      "thumbnailSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "xmp-gps.jpg",
+      "metadata": {
+        "ExifTool:ExifToolVersion": 13.55,
+        "File:FileSize": 3991,
+        "File:FileType": "JPEG",
+        "File:FileTypeExtension": "JPG",
+        "File:MIMEType": "image/jpeg",
+        "File:ImageWidth": 31,
+        "File:ImageHeight": 17,
+        "File:EncodingProcess": 0,
+        "File:BitsPerSample": 8,
+        "File:ColorComponents": 3,
+        "File:YCbCrSubSampling": "2 2",
+        "JFIF:JFIFVersion": "1 1",
+        "JFIF:ResolutionUnit": 0,
+        "JFIF:XResolution": 1,
+        "JFIF:YResolution": 1,
+        "XMP:XMPToolkit": "Image::ExifTool 13.55",
+        "XMP:GPSLatitude": 0,
+        "XMP:GPSLongitude": -12.25,
+        "Composite:ImageSize": "31 17",
+        "Composite:Megapixels": 0.000527,
+        "Composite:GPSLatitudeRef": "N",
+        "Composite:GPSLongitudeRef": "W",
+        "Composite:GPSPosition": "0 -12.25"
+      },
+      "locationMetadata": {},
+      "nativeDisplayRows": [
+        [
+          "File",
+          "ImageWidth",
+          "31"
+        ],
+        [
+          null,
+          "ImageHeight",
+          "17"
+        ],
+        [
+          null,
+          "EncodingProcess",
+          "0"
+        ],
+        [
+          null,
+          "BitsPerSample",
+          "8"
+        ],
+        [
+          null,
+          "ColorComponents",
+          "3"
+        ],
+        [
+          null,
+          "YCbCrSubSampling",
+          "2 2"
+        ],
+        [
+          "JFIF",
+          "JFIFVersion",
+          "1 1"
+        ],
+        [
+          null,
+          "ResolutionUnit",
+          "0"
+        ],
+        [
+          null,
+          "XResolution",
+          "1"
+        ],
+        [
+          null,
+          "YResolution",
+          "1"
+        ],
+        [
+          "XMP",
+          "XMPToolkit",
+          "Image::ExifTool 13.55"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "0"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "-12.25"
+        ],
+        [
+          "Composite",
+          "ImageSize",
+          "31 17"
+        ],
+        [
+          null,
+          "Megapixels",
+          "0.000527"
+        ],
+        [
+          null,
+          "GPSLatitudeRef",
+          "N"
+        ],
+        [
+          null,
+          "GPSLongitudeRef",
+          "W"
+        ],
+        [
+          null,
+          "GPSPosition",
+          "0 -12.25"
+        ]
+      ],
+      "htmlSha256": "bde0b103601b5665ae3fddc04fe89c302678e678861ebc9e2917b10ca9e04e60",
+      "thumbnailBytes": 0,
+      "thumbnailSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "zero-gps.jpg",
+      "metadata": {
+        "ExifTool:ExifToolVersion": 13.55,
+        "File:FileSize": 7801,
+        "File:FileType": "JPEG",
+        "File:FileTypeExtension": "JPG",
+        "File:MIMEType": "image/jpeg",
+        "File:ExifByteOrder": "II",
+        "File:CurrentIPTCDigest": "b9210e28c1379839b2a9f5ba3dcd092a",
+        "File:ImageWidth": 64,
+        "File:ImageHeight": 48,
+        "File:EncodingProcess": 0,
+        "File:BitsPerSample": 8,
+        "File:ColorComponents": 3,
+        "File:YCbCrSubSampling": "2 2",
+        "EXIF:Orientation": 1,
+        "EXIF:Artist": "M5 synthétique",
+        "EXIF:ExifVersion": "0232",
+        "EXIF:ComponentsConfiguration": "1 2 3 0",
+        "EXIF:UserComment": "<script>not executable</script>",
+        "EXIF:ColorSpace": 65535,
+        "EXIF:GPSLatitudeRef": "N",
+        "EXIF:GPSLatitude": 0,
+        "EXIF:GPSLongitudeRef": "E",
+        "EXIF:GPSLongitude": 0,
+        "EXIF:GPSAltitude": 0,
+        "EXIF:ThumbnailOffset": 336,
+        "EXIF:ThumbnailLength": 1108,
+        "EXIF:ThumbnailImage": "(Binary data 1108 bytes, use -b option to extract)",
+        "JFIF:JFIFVersion": "1 1",
+        "JFIF:ResolutionUnit": 0,
+        "JFIF:XResolution": 1,
+        "JFIF:YResolution": 1,
+        "IPTC:Keywords": [
+          "tag-one",
+          "tag-two"
+        ],
+        "IPTC:ApplicationRecordVersion": 4,
+        "XMP:XMPToolkit": "Image::ExifTool 13.55",
+        "XMP:Subject": [
+          "first",
+          "deuxième"
+        ],
+        "XMP:GPSLatitude": 0,
+        "XMP:GPSLongitude": 0,
+        "Composite:ImageSize": "64 48",
+        "Composite:Megapixels": 0.003072,
+        "Composite:GPSLatitude": 0,
+        "Composite:GPSLongitude": 0,
+        "Composite:GPSLatitudeRef": "N",
+        "Composite:GPSLongitudeRef": "E",
+        "Composite:GPSPosition": "0 0"
+      },
+      "locationMetadata": {
+        "Composite:GPSLatitude": 0,
+        "Composite:GPSLongitude": 0
+      },
+      "nativeDisplayRows": [
+        [
+          "File",
+          "ExifByteOrder",
+          "II"
+        ],
+        [
+          null,
+          "CurrentIPTCDigest",
+          "b9210e28c1379839b2a9f5ba3dcd092a"
+        ],
+        [
+          null,
+          "ImageWidth",
+          "64"
+        ],
+        [
+          null,
+          "ImageHeight",
+          "48"
+        ],
+        [
+          null,
+          "EncodingProcess",
+          "0"
+        ],
+        [
+          null,
+          "BitsPerSample",
+          "8"
+        ],
+        [
+          null,
+          "ColorComponents",
+          "3"
+        ],
+        [
+          null,
+          "YCbCrSubSampling",
+          "2 2"
+        ],
+        [
+          "EXIF",
+          "Orientation",
+          "1"
+        ],
+        [
+          null,
+          "Artist",
+          "M5 synthétique"
+        ],
+        [
+          null,
+          "ExifVersion",
+          "0232"
+        ],
+        [
+          null,
+          "ComponentsConfiguration",
+          "1 2 3 0"
+        ],
+        [
+          null,
+          "UserComment",
+          "<script>not executable</script>"
+        ],
+        [
+          null,
+          "ColorSpace",
+          "65535"
+        ],
+        [
+          null,
+          "GPSLatitudeRef",
+          "N"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "0"
+        ],
+        [
+          null,
+          "GPSLongitudeRef",
+          "E"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "0"
+        ],
+        [
+          null,
+          "GPSAltitude",
+          "0"
+        ],
+        [
+          null,
+          "ThumbnailOffset",
+          "336"
+        ],
+        [
+          null,
+          "ThumbnailLength",
+          "1108"
+        ],
+        [
+          null,
+          "ThumbnailImage",
+          "(Binary data: 1108 bytes)"
+        ],
+        [
+          "JFIF",
+          "JFIFVersion",
+          "1 1"
+        ],
+        [
+          null,
+          "ResolutionUnit",
+          "0"
+        ],
+        [
+          null,
+          "XResolution",
+          "1"
+        ],
+        [
+          null,
+          "YResolution",
+          "1"
+        ],
+        [
+          "IPTC",
+          "Keywords",
+          "['tag-one', 'tag-two']"
+        ],
+        [
+          null,
+          "ApplicationRecordVersion",
+          "4"
+        ],
+        [
+          "XMP",
+          "XMPToolkit",
+          "Image::ExifTool 13.55"
+        ],
+        [
+          null,
+          "Subject",
+          "['first', 'deuxième']"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "0"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "0"
+        ],
+        [
+          "Composite",
+          "ImageSize",
+          "64 48"
+        ],
+        [
+          null,
+          "Megapixels",
+          "0.003072"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "0"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "0"
+        ],
+        [
+          null,
+          "GPSLatitudeRef",
+          "N"
+        ],
+        [
+          null,
+          "GPSLongitudeRef",
+          "E"
+        ],
+        [
+          null,
+          "GPSPosition",
+          "0 0"
+        ]
+      ],
+      "htmlSha256": "f137cac6b8f165569b1cf7b69b3e75c7d9634292eb1d74cb89eb73c9aa090e8f",
+      "thumbnailBytes": 1108,
+      "thumbnailSha256": "4a6db9737cf6fd92d2807d9ea30f0c4b9b177682120aeff51139d2c5d3427818"
+    },
+    {
+      "file": "compressed.png",
+      "metadata": {
+        "ExifTool:ExifToolVersion": 13.55,
+        "ExifTool:Warning": "[minor] Text/EXIF chunk(s) found after PNG IDAT (may be ignored by some readers)",
+        "File:FileSize": 9656,
+        "File:FileType": "PNG",
+        "File:FileTypeExtension": "PNG",
+        "File:MIMEType": "image/png",
+        "File:ExifByteOrder": "II",
+        "PNG:ImageWidth": 64,
+        "PNG:ImageHeight": 48,
+        "PNG:BitDepth": 8,
+        "PNG:ColorType": 2,
+        "PNG:Compression": 0,
+        "PNG:Filter": 0,
+        "PNG:Interlace": 0,
+        "PNG:Description": "Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. ",
+        "EXIF:Orientation": 1,
+        "EXIF:GPSLatitudeRef": "N",
+        "EXIF:GPSLatitude": 1.03416666666667,
+        "EXIF:GPSLongitudeRef": "E",
+        "EXIF:GPSLongitude": 4.085,
+        "EXIF:ThumbnailOffset": 170,
+        "EXIF:ThumbnailLength": 1108,
+        "EXIF:ThumbnailImage": "(Binary data 1108 bytes, use -b option to extract)",
+        "Composite:ImageSize": "64 48",
+        "Composite:Megapixels": 0.003072,
+        "Composite:GPSLatitude": 1.03416666666667,
+        "Composite:GPSLongitude": 4.085,
+        "Composite:GPSPosition": "1.03416666666667 4.085"
+      },
+      "locationMetadata": {
+        "Composite:GPSLatitude": 1.03416666666667,
+        "Composite:GPSLongitude": 4.085
+      },
+      "nativeDisplayRows": [
+        [
+          "ExifTool",
+          "Warning",
+          "[minor] Text/EXIF chunk(s) found after PNG IDAT (may be ignored by some readers)"
+        ],
+        [
+          "File",
+          "ExifByteOrder",
+          "II"
+        ],
+        [
+          "PNG",
+          "ImageWidth",
+          "64"
+        ],
+        [
+          null,
+          "ImageHeight",
+          "48"
+        ],
+        [
+          null,
+          "BitDepth",
+          "8"
+        ],
+        [
+          null,
+          "ColorType",
+          "2"
+        ],
+        [
+          null,
+          "Compression",
+          "0"
+        ],
+        [
+          null,
+          "Filter",
+          "0"
+        ],
+        [
+          null,
+          "Interlace",
+          "0"
+        ],
+        [
+          null,
+          "Description",
+          "Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. Synthetic compressed PNG metadata. "
+        ],
+        [
+          "EXIF",
+          "Orientation",
+          "1"
+        ],
+        [
+          null,
+          "GPSLatitudeRef",
+          "N"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "1.03416666666667"
+        ],
+        [
+          null,
+          "GPSLongitudeRef",
+          "E"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "4.085"
+        ],
+        [
+          null,
+          "ThumbnailOffset",
+          "170"
+        ],
+        [
+          null,
+          "ThumbnailLength",
+          "1108"
+        ],
+        [
+          null,
+          "ThumbnailImage",
+          "(Binary data: 1108 bytes)"
+        ],
+        [
+          "Composite",
+          "ImageSize",
+          "64 48"
+        ],
+        [
+          null,
+          "Megapixels",
+          "0.003072"
+        ],
+        [
+          null,
+          "GPSLatitude",
+          "1.03416666666667"
+        ],
+        [
+          null,
+          "GPSLongitude",
+          "4.085"
+        ],
+        [
+          null,
+          "GPSPosition",
+          "1.03416666666667 4.085"
+        ]
+      ],
+      "htmlSha256": "9a750cbb20b80ee86221c3b0e8a3f05de492245e7fcc7e4dac495cb725b3ae38",
+      "thumbnailBytes": 1108,
+      "thumbnailSha256": "4a6db9737cf6fd92d2807d9ea30f0c4b9b177682120aeff51139d2c5d3427818"
+    }
+  ]
+}

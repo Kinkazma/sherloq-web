@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "method": 0,
+      "name": "global",
+      "points": 202,
+      "pairs": 101,
+      "exact": true
+    },
+    {
+      "method": 0,
+      "name": "overlap",
+      "points": 200,
+      "pairs": 100,
+      "exact": true
+    },
+    {
+      "method": 0,
+      "name": "compare",
+      "points": 200,
+      "pairs": 101,
+      "exact": true
+    },
+    {
+      "method": 0,
+      "name": "compact",
+      "points": 202,
+      "pairs": 101,
+      "exact": true
+    },
+    {
+      "method": 1,
+      "name": "global",
+      "points": 202,
+      "pairs": 101,
+      "exact": true
+    },
+    {
+      "method": 1,
+      "name": "overlap",
+      "points": 200,
+      "pairs": 100,
+      "exact": true
+    },
+    {
+      "method": 1,
+      "name": "compare",
+      "points": 188,
+      "pairs": 101,
+      "exact": true
+    },
+    {
+      "method": 1,
+      "name": "compact",
+      "points": 202,
+      "pairs": 101,
+      "exact": true
+    }
+  ]
+}

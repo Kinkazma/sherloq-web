@@ -1,0 +1,59 @@
+{
+  "scipy": "1.17.1",
+  "files": [
+    {
+      "file": "ckdtree_decl.h",
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/ckdtree_decl.h",
+      "bytes": 3565,
+      "sha256": "dcb98c7960e1d6512660454760141237d1a88f3855532e1d252a1b2c9a2dacec"
+    },
+    {
+      "file": "ordered_pair.h",
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/ordered_pair.h",
+      "bytes": 458,
+      "sha256": "664f6eb28379c409d17269635b2d028f5a4e6f4cbdb4d623de525e0dfb9c40aa"
+    },
+    {
+      "file": "coo_entries.h",
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/coo_entries.h",
+      "bytes": 146,
+      "sha256": "60df46ba6a2b53f45c0b1f327565dfbc89a115ee53bdb2bac42596e09b4ca697"
+    },
+    {
+      "file": "build.cxx",
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/build.cxx",
+      "bytes": 7758,
+      "sha256": "4fbc3c1e830c958f3f2a1eaaac063691eb1eb10936d1ac6740d425acdd25f30b"
+    },
+    {
+      "file": "query.cxx",
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/query.cxx",
+      "bytes": 15650,
+      "sha256": "d9035f43743a4d33694a8bde82426541b4bc609fc2931fec431e24f9c1b4a2fb"
+    },
+    {
+      "file": "distance.h",
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/distance.h",
+      "bytes": 8604,
+      "sha256": "aa2733fd291241ea9a269289389b678c89e4b163f781ac022c81466aa7a4c271"
+    },
+    {
+      "file": "distance_base.h",
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/distance_base.h",
+      "bytes": 6966,
+      "sha256": "0ea55fe0f91523258147b16826f195da3abde098f9647dc530c01fe077384038"
+    },
+    {
+      "file": "rectangle.h",
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/spatial/ckdtree/src/rectangle.h",
+      "bytes": 8050,
+      "sha256": "b3d4f9201c78ec356ed8b621bc64c242895ce8156e13043f38ccd4ba8be26f54"
+    },
+    {
+      "file": "LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/LICENSE.txt",
+      "bytes": 1531,
+      "sha256": "221e59f5e910fd7f94e44f0dac77436a11338c285c6346232e4a850a50da0e94"
+    }
+  ]
+}

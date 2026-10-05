@@ -1,0 +1,93 @@
+{
+  "browser": "154.0.8037.58",
+  "algorithm": "ORB",
+  "backend": "cpu",
+  "source": {
+    "file": "m3-96mp-noise-copy.jpg",
+    "width": 12000,
+    "height": 8000,
+    "description": "Public deterministic full-resolution RGB noise (seed130014); entire6000x8000 left half copied at dx6000 before JPEG90 encoding.",
+    "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+    "bytes": 80426021
+  },
+  "loadMs": 3905.2999999970198,
+  "totalMs": 49539.09999999404,
+  "points": 6000,
+  "pairs": 4277,
+  "groups": 3,
+  "metadata": {
+    "extraction": {
+      "family": "ORB",
+      "opencv": "4.11.0",
+      "featurePolicy": "global",
+      "reflectedPixels": false,
+      "workers": 1,
+      "peakWorkerHeapBytes": 1078132736,
+      "executions": 1,
+      "retries": 0,
+      "preflightExecutions": 0,
+      "inputLayout": "source-rows-gray",
+      "qualification": "CM2 integration under verification"
+    },
+    "stageCache": {
+      "features": false,
+      "matches": false,
+      "groups": false
+    },
+    "counts": {
+      "detections": 1,
+      "matchings": 1,
+      "groupings": 1,
+      "ocr": 0
+    },
+    "preflightExecutions": 0,
+    "coordinates": "original-pixel-centres",
+    "colorOrder": "BGR",
+    "qualification": "integration-under-verification",
+    "method": "sparse"
+  },
+  "params": {
+    "algorithm": "ORB",
+    "radius": 20000,
+    "minimum": 5,
+    "threshold": 0.3,
+    "tolerance": 600,
+    "geometricMinimum": 4
+  },
+  "exports": [
+    {
+      "format": "npz",
+      "bytes": 3552085
+    },
+    {
+      "format": "png",
+      "bytes": 197029909,
+      "sha256": "9b3851bfb100261a79db63d2af426525ee6121f5d23e1aa42378f5f3b54fa779",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 289197244,
+        "encodedWriteCalls": 752,
+        "maxSourceWindowBytes": 1152000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 865197416,
+          "cacheBytes": 763224,
+          "activeReservationBytes": 122159104,
+          "peakAccountedBytes": 2779150652
+        }
+      }
+    }
+  ],
+  "output": "orb",
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2779150652,
+    "knownHeapCapacityBytes": 96731136
+  }
+}

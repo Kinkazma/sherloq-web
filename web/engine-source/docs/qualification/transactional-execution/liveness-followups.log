@@ -1,0 +1,229 @@
+TAP version 13
+# (node:99523) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: adapter-owned projected outputs and raw grid copies survive adapter disposal
+ok 1 - adapter-owned projected outputs and raw grid copies survive adapter disposal
+  ---
+  duration_ms: 234.726875
+  type: 'test'
+  ...
+# Subtest: weights stream to stable Wasm, reuse retained parameters, release exact ownership
+ok 2 - weights stream to stable Wasm, reuse retained parameters, release exact ownership
+  ---
+  duration_ms: 150.581875
+  type: 'test'
+  ...
+# Subtest: two network refusals preserve hashed prefix with validated Range
+ok 3 - two network refusals preserve hashed prefix with validated Range
+  ---
+  duration_ms: 318.709125
+  type: 'test'
+  ...
+# Subtest: two network refusals preserve hashed prefix with 200 fallback
+ok 4 - two network refusals preserve hashed prefix with 200 fallback
+  ---
+  duration_ms: 313.855375
+  type: 'test'
+  ...
+# Subtest: allocation retry does not re-read committed data; terminal keeps prefix for explicit resume
+ok 5 - allocation retry does not re-read committed data; terminal keeps prefix for explicit resume
+  ---
+  duration_ms: 376.433708
+  type: 'test'
+  ...
+# Subtest: wrong size/hash/range never publish a parameter and cancellation clears incomplete banks
+ok 6 - wrong size/hash/range never publish a parameter and cancellation clears incomplete banks
+  ---
+  duration_ms: 407.600875
+  type: 'test'
+  ...
+# Subtest: initial Wasm refusal is retried without fetching and int64 offsets stay exact
+ok 7 - initial Wasm refusal is retried without fetching and int64 offsets stay exact
+  ---
+  duration_ms: 27.281709
+  type: 'test'
+  ...
+# Subtest: different live parameter extents share one bank and one SHA instance without whole-heap views
+ok 8 - different live parameter extents share one bank and one SHA instance without whole-heap views
+  ---
+  duration_ms: 1.623792
+  type: 'test'
+  ...
+# Subtest: an EOF network fault resumes at the final byte without hashing the prefix twice
+ok 9 - an EOF network fault resumes at the final byte without hashing the prefix twice
+  ---
+  duration_ms: 220.613208
+  type: 'test'
+  ...
+# Subtest: chunk admission refusal holds the received bytes and retries admission without reopening HTTP
+ok 10 - chunk admission refusal holds the received bytes and retries admission without reopening HTTP
+  ---
+  duration_ms: 110.95175
+  type: 'test'
+  ...
+# Subtest: large interrupted responses continue in bounded closed ranges accepted by the production host
+ok 11 - large interrupted responses continue in bounded closed ranges accepted by the production host
+  ---
+  duration_ms: 434.416666
+  type: 'test'
+  ...
+# Subtest: autonomous initialization retains its ticket until owned success settles
+ok 12 - autonomous initialization retains its ticket until owned success settles
+  ---
+  duration_ms: 1.337958
+  type: 'test'
+  ...
+# Subtest: autonomous initialization retains its ticket until rejection settles
+ok 13 - autonomous initialization retains its ticket until rejection settles
+  ---
+  duration_ms: 0.344791
+  type: 'test'
+  ...
+# Subtest: real D2 model factory is visible during deferred native initialization and releases after failure
+ok 14 - real D2 model factory is visible during deferred native initialization and releases after failure
+  ---
+  duration_ms: 1.074875
+  type: 'test'
+  ...
+# Subtest: deferred SHA initialization is a productive child until publication
+ok 15 - deferred SHA initialization is a productive child until publication
+  ---
+  duration_ms: 36.617125
+  type: 'test'
+  ...
+# Subtest: deferred SHA initialization is a productive child until cancellation settles
+ok 16 - deferred SHA initialization is a productive child until cancellation settles
+  ---
+  duration_ms: 1.298916
+  type: 'test'
+  ...
+# Subtest: parameter fetch remains visible until bytes arrive
+ok 17 - parameter fetch remains visible until bytes arrive
+  ---
+  duration_ms: 2.5175
+  type: 'test'
+  ...
+# Subtest: parameter fetch remains visible until cancelled IO settles
+ok 18 - parameter fetch remains visible until cancelled IO settles
+  ---
+  duration_ms: 0.758875
+  type: 'test'
+  ...
+# Subtest: parameter read remains visible until bytes arrive
+ok 19 - parameter read remains visible until bytes arrive
+  ---
+  duration_ms: 2.016875
+  type: 'test'
+  ...
+# Subtest: parameter read remains visible until cancelled IO settles
+ok 20 - parameter read remains visible until cancelled IO settles
+  ---
+  duration_ms: 3.250583
+  type: 'test'
+  ...
+# { cases: 20, heap: 33554432 }
+# Subtest: compact SIFT reconstructs every float32 and global field for paired mirrors and quarter frames
+ok 21 - compact SIFT reconstructs every float32 and global field for paired mirrors and quarter frames
+  ---
+  duration_ms: 1288.902291
+  type: 'test'
+  ...
+# Subtest: dense preparation reclaims a completed plane before committing its hot descriptors to disk
+ok 22 - dense preparation reclaims a completed plane before committing its hot descriptors to disk
+  ---
+  duration_ms: 9.658875
+  type: 'test'
+  ...
+# Subtest: an impossible explicit in-memory preparation returns its layout lease without creating a worker
+ok 23 - an impossible explicit in-memory preparation returns its layout lease without creating a worker
+  ---
+  duration_ms: 1.046083
+  type: 'test'
+  ...
+# Subtest: resident null releases CPU and preserves only validated hypotheses for explicit resume
+ok 24 - resident null releases CPU and preserves only validated hypotheses for explicit resume
+  ---
+  duration_ms: 7.37625
+  type: 'test'
+  ...
+# Subtest: resident messageerror releases CPU and preserves only validated hypotheses for explicit resume
+ok 25 - resident messageerror releases CPU and preserves only validated hypotheses for explicit resume
+  ---
+  duration_ms: 1.1465
+  type: 'test'
+  ...
+# Subtest: resident retainResult refusal returns the split reservation exactly once
+ok 26 - resident retainResult refusal returns the split reservation exactly once
+  ---
+  duration_ms: 0.846334
+  type: 'test'
+  ...
+# Subtest: clearing a resident checkpoint before-clear cannot publish a late worker result
+ok 27 - clearing a resident checkpoint before-clear cannot publish a late worker result
+  ---
+  duration_ms: 0.5595
+  type: 'test'
+  ...
+# Subtest: clearing a resident checkpoint after-clear cannot publish a late worker result
+ok 28 - clearing a resident checkpoint after-clear cannot publish a late worker result
+  ---
+  duration_ms: 1.164833
+  type: 'test'
+  ...
+# Subtest: the real resident worker handler reports null once and rejects subsequent commands
+ok 29 - the real resident worker handler reports null once and rejects subsequent commands
+  ---
+  duration_ms: 0.968292
+  type: 'test'
+  ...
+# Subtest: the real resident worker handler reports messageerror once and rejects subsequent commands
+ok 30 - the real resident worker handler reports messageerror once and rejects subsequent commands
+  ---
+  duration_ms: 0.553458
+  type: 'test'
+  ...
+# Subtest: actual resident lanes keep D2 waiting and return the first retired lane credit before the last finishes
+ok 31 - actual resident lanes keep D2 waiting and return the first retired lane credit before the last finishes
+  ---
+  duration_ms: 12.286083
+  type: 'test'
+  ...
+# Subtest: resident lane identity and dependencies survive the CPU gap between two hypotheses
+ok 32 - resident lane identity and dependencies survive the CPU gap between two hypotheses
+  ---
+  duration_ms: 1.063
+  type: 'test'
+  ...
+# Subtest: resident cancel drains all lane credits, tickets and backing owners
+ok 33 - resident cancel drains all lane credits, tickets and backing owners
+  ---
+  duration_ms: 2.152333
+  type: 'test'
+  ...
+# Subtest: resident transport drains all lane credits, tickets and backing owners
+ok 34 - resident transport drains all lane credits, tickets and backing owners
+  ---
+  duration_ms: 2.663833
+  type: 'test'
+  ...
+# Subtest: resident planner counts Wasm linear growth and page rounding without changing the native ceiling
+ok 35 - resident planner counts Wasm linear growth and page rounding without changing the native ceiling
+  ---
+  duration_ms: 1.050542
+  type: 'test'
+  ...
+# Subtest: real resident native worker reports its grown capacity within the same admitted plan and matches an independent native reference
+ok 36 - real resident native worker reports its grown capacity within the same admitted plan and matches an independent native reference
+  ---
+  duration_ms: 400.264458
+  type: 'test'
+  ...
+1..36
+# tests 36
+# suites 0
+# pass 36
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2468.696666

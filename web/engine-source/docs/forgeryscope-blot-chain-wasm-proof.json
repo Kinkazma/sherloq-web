@@ -1,0 +1,33 @@
+{
+  "provider": "wasm",
+  "records": [
+    {
+      "case": 0,
+      "inliers": 512,
+      "nativeInliers": 512,
+      "matches": 512,
+      "nativeMatches": 512,
+      "scoreError": 5.960464477539063e-8,
+      "affineMaxError": 0.00008524785962180995
+    },
+    {
+      "case": 1,
+      "inliers": 349,
+      "nativeInliers": 349,
+      "matches": 375,
+      "nativeMatches": 375,
+      "scoreError": 5.960464477539063e-8,
+      "affineMaxError": 1.5121639052040337e-7
+    }
+  ],
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 726606746
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

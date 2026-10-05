@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Native CPU uniform generator and ordered full40-iteration draw schedule, not actual PatchMatch evaluation",
+  "states": 25,
+  "calls": 264,
+  "values": 64323584,
+  "modelCalls": 240,
+  "modelValues": 64225280,
+  "lifecycle": {
+    "cancelled": true,
+    "refused": true,
+    "busy": true,
+    "retry": true,
+    "streamRolledBack": true
+  },
+  "fixtureSha256": "4661d2375e2af6533a9d8e8b543d598d8bf9d4157c353ec11b01c679db233841",
+  "browser": "154.0.8037.58",
+  "sourceSha256": "a36a0fc45f61e0081df4af49caadcf04757007ef3fb53ae81838412a36470b37"
+}

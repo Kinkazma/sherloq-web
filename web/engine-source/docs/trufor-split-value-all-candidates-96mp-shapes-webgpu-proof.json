@@ -1,0 +1,1196 @@
+{
+  "checkpointSha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+  "assets": {
+    "s1-rgb-b0-query": {
+      "bytes": 39918,
+      "sha256": "9ec02ae2dc5b05cdc89255798c13dd4b3ea6b01a9734cff6be3791b35c8a993d"
+    },
+    "s1-rgb-b0-query-split-value": {
+      "bytes": 49522,
+      "sha256": "852e2611d4d2bba19678b6a9bf7f89335046cbf10ce11dfcee88f21f34bbb937"
+    },
+    "s1-npp-b0-query": {
+      "bytes": 39918,
+      "sha256": "50dc9661687cde1d46e9719bf05c4490fe2b2977a30ec96d06bec9dc76131f13"
+    },
+    "s1-npp-b0-query-split-value": {
+      "bytes": 49522,
+      "sha256": "c710290dfecd126583704e18ba4900f09c602b688820fd224056b576c1d5e466"
+    },
+    "s2-rgb-b0-query": {
+      "bytes": 139256,
+      "sha256": "36ed1dc0fbb819f8a9103fc445bf8eb201563143a09f368a07a4a586ec088733"
+    },
+    "s2-rgb-b0-query-split-value": {
+      "bytes": 148860,
+      "sha256": "f150dbc5c34aaf12a7ec20cb13cd190f7e514f6747f8b8f8f168b972eeb19130"
+    },
+    "s2-npp-b0-query": {
+      "bytes": 139256,
+      "sha256": "36bc61a39ec87a39f5007e2932fdb5e55237786257ca54ae35de89d4c6d71aa6"
+    },
+    "s2-npp-b0-query-split-value": {
+      "bytes": 148860,
+      "sha256": "355a441db35041dadaad43b15fbf71e4c2b803542c8f0491dbc7ba3f4383813f"
+    },
+    "s3-rgb-b0-query": {
+      "bytes": 830456,
+      "sha256": "844a71594248274d41e52f5b7d972d55d76f68bb434dd095888aa0a04ec39825"
+    },
+    "s3-rgb-b0-query-split-value": {
+      "bytes": 840062,
+      "sha256": "d39f356ef34371c9e024166016d3f715d8969a33b0b830a187677f190030c54a"
+    },
+    "s3-npp-b0-query": {
+      "bytes": 830456,
+      "sha256": "cf1e1344f33891dd6da2bb8314d0fc2d6c9e2ea3273bb41bf3a26e51574a0735"
+    },
+    "s3-npp-b0-query-split-value": {
+      "bytes": 840062,
+      "sha256": "abd4fb687dbe5192bcf43c933427383af949af657b06d41d22c9e26b8ba23d9c"
+    },
+    "s4-rgb-b0-query": {
+      "bytes": 2111481,
+      "sha256": "20100a4bd385703e1b5d7d1892d6da5fb0979d7f914c88d2507831ab7302670e"
+    },
+    "s4-rgb-b0-query-split-value": {
+      "bytes": 2121087,
+      "sha256": "622fbecc8579eedb95253e3ee16ac77b59ae8aa0527ae2bcd698666d45f0f47a"
+    },
+    "s4-npp-b0-query": {
+      "bytes": 2111481,
+      "sha256": "8ec43e4daff1071e2d270f656e23ca737ce5c85dd58189c737f3c2334fdd03a6"
+    },
+    "s4-npp-b0-query-split-value": {
+      "bytes": 2121087,
+      "sha256": "dec91d78bf4849e0ec589cb49c05119ea086d5d4e3c4eecedaad4d6f37d13787"
+    }
+  },
+  "records": [
+    {
+      "stage": 1,
+      "graph": "s1-rgb-b0-query",
+      "dimensions": [
+        1,
+        64,
+        2000,
+        3000
+      ],
+      "keys": 93750,
+      "heads": 1,
+      "queryOffset": 5998576,
+      "queries": 1424,
+      "maxError": 2.384185791015625e-7,
+      "meanError": 1.4371165930191474e-11,
+      "finite": true,
+      "runs": {
+        "direct": {
+          "queriesPerCall": 178,
+          "totalMs": 802,
+          "coldMs": 544.7000000029802,
+          "warmMs": 249.79999999701977,
+          "warmQueries": 1246,
+          "reusedInputBytes": 336000000,
+          "times": [
+            {
+              "queries": 178,
+              "ms": 544.7000000029802
+            },
+            {
+              "queries": 178,
+              "ms": 38.099999994039536
+            },
+            {
+              "queries": 178,
+              "ms": 35
+            },
+            {
+              "queries": 178,
+              "ms": 36.8999999910593
+            },
+            {
+              "queries": 178,
+              "ms": 34.70000000298023
+            },
+            {
+              "queries": 178,
+              "ms": 36.70000000298023
+            },
+            {
+              "queries": 178,
+              "ms": 34
+            },
+            {
+              "queries": 178,
+              "ms": 34.400000005960464
+            }
+          ]
+        },
+        "split": {
+          "queriesPerCall": 88,
+          "totalMs": 763.2000000029802,
+          "coldMs": 605.0999999940395,
+          "warmMs": 139.1999999731779,
+          "warmQueries": 1320,
+          "reusedInputBytes": 768000000,
+          "times": [
+            {
+              "queries": 88,
+              "ms": 605.0999999940395
+            },
+            {
+              "queries": 88,
+              "ms": 11.399999991059303
+            },
+            {
+              "queries": 88,
+              "ms": 9.099999994039536
+            },
+            {
+              "queries": 88,
+              "ms": 10.199999988079071
+            },
+            {
+              "queries": 88,
+              "ms": 9
+            },
+            {
+              "queries": 88,
+              "ms": 11.400000005960464
+            },
+            {
+              "queries": 88,
+              "ms": 8
+            },
+            {
+              "queries": 88,
+              "ms": 10
+            },
+            {
+              "queries": 88,
+              "ms": 9.899999991059303
+            },
+            {
+              "queries": 88,
+              "ms": 7.5
+            },
+            {
+              "queries": 88,
+              "ms": 8.600000008940697
+            },
+            {
+              "queries": 88,
+              "ms": 8.200000002980232
+            },
+            {
+              "queries": 88,
+              "ms": 7.4000000059604645
+            },
+            {
+              "queries": 88,
+              "ms": 9.599999994039536
+            },
+            {
+              "queries": 88,
+              "ms": 9.599999994039536
+            },
+            {
+              "queries": 88,
+              "ms": 9.299999997019768
+            },
+            {
+              "queries": 16,
+              "ms": 6.699999988079071
+            }
+          ]
+        }
+      }
+    },
+    {
+      "stage": 1,
+      "graph": "s1-npp-b0-query",
+      "dimensions": [
+        1,
+        64,
+        2000,
+        3000
+      ],
+      "keys": 93750,
+      "heads": 1,
+      "queryOffset": 5998576,
+      "queries": 1424,
+      "maxError": 2.384185791015625e-7,
+      "meanError": 7.684719277901595e-12,
+      "finite": true,
+      "runs": {
+        "direct": {
+          "queriesPerCall": 178,
+          "totalMs": 757.2000000029802,
+          "coldMs": 506.09999999403954,
+          "warmMs": 245.20000000298023,
+          "warmQueries": 1246,
+          "reusedInputBytes": 336000000,
+          "times": [
+            {
+              "queries": 178,
+              "ms": 506.09999999403954
+            },
+            {
+              "queries": 178,
+              "ms": 34.599999994039536
+            },
+            {
+              "queries": 178,
+              "ms": 34.29999999701977
+            },
+            {
+              "queries": 178,
+              "ms": 36.79999999701977
+            },
+            {
+              "queries": 178,
+              "ms": 34.29999999701977
+            },
+            {
+              "queries": 178,
+              "ms": 35.6000000089407
+            },
+            {
+              "queries": 178,
+              "ms": 34.80000001192093
+            },
+            {
+              "queries": 178,
+              "ms": 34.79999999701977
+            }
+          ]
+        },
+        "split": {
+          "queriesPerCall": 88,
+          "totalMs": 801.0999999940395,
+          "coldMs": 596.6999999880791,
+          "warmMs": 174.29999996721745,
+          "warmQueries": 1320,
+          "reusedInputBytes": 768000000,
+          "times": [
+            {
+              "queries": 88,
+              "ms": 596.6999999880791
+            },
+            {
+              "queries": 88,
+              "ms": 16.200000002980232
+            },
+            {
+              "queries": 88,
+              "ms": 10.299999997019768
+            },
+            {
+              "queries": 88,
+              "ms": 13.699999988079071
+            },
+            {
+              "queries": 88,
+              "ms": 9.700000002980232
+            },
+            {
+              "queries": 88,
+              "ms": 15
+            },
+            {
+              "queries": 88,
+              "ms": 8.799999997019768
+            },
+            {
+              "queries": 88,
+              "ms": 13
+            },
+            {
+              "queries": 88,
+              "ms": 8.799999997019768
+            },
+            {
+              "queries": 88,
+              "ms": 14.799999997019768
+            },
+            {
+              "queries": 88,
+              "ms": 9.299999997019768
+            },
+            {
+              "queries": 88,
+              "ms": 8.599999994039536
+            },
+            {
+              "queries": 88,
+              "ms": 12.599999994039536
+            },
+            {
+              "queries": 88,
+              "ms": 9.599999994039536
+            },
+            {
+              "queries": 88,
+              "ms": 15
+            },
+            {
+              "queries": 88,
+              "ms": 8.900000005960464
+            },
+            {
+              "queries": 16,
+              "ms": 11.399999991059303
+            }
+          ]
+        }
+      }
+    },
+    {
+      "stage": 2,
+      "graph": "s2-rgb-b0-query",
+      "dimensions": [
+        1,
+        128,
+        1000,
+        1500
+      ],
+      "keys": 93750,
+      "heads": 2,
+      "queryOffset": 1499288,
+      "queries": 712,
+      "maxError": 2.384185791015625e-7,
+      "meanError": 3.3722837256749026e-12,
+      "finite": true,
+      "runs": {
+        "direct": {
+          "queriesPerCall": 89,
+          "totalMs": 887.7999999970198,
+          "coldMs": 617.6000000089407,
+          "warmMs": 260,
+          "warmQueries": 623,
+          "reusedInputBytes": 672000000,
+          "times": [
+            {
+              "queries": 89,
+              "ms": 617.6000000089407
+            },
+            {
+              "queries": 89,
+              "ms": 35.79999999701977
+            },
+            {
+              "queries": 89,
+              "ms": 36.29999999701977
+            },
+            {
+              "queries": 89,
+              "ms": 37.400000005960464
+            },
+            {
+              "queries": 89,
+              "ms": 37.29999999701977
+            },
+            {
+              "queries": 89,
+              "ms": 41
+            },
+            {
+              "queries": 89,
+              "ms": 34.79999999701977
+            },
+            {
+              "queries": 89,
+              "ms": 37.400000005960464
+            }
+          ]
+        },
+        "split": {
+          "queriesPerCall": 44,
+          "totalMs": 868,
+          "coldMs": 565,
+          "warmMs": 149.99999998509884,
+          "warmQueries": 660,
+          "reusedInputBytes": 1536000000,
+          "times": [
+            {
+              "queries": 44,
+              "ms": 565
+            },
+            {
+              "queries": 44,
+              "ms": 17.200000002980232
+            },
+            {
+              "queries": 44,
+              "ms": 9.799999997019768
+            },
+            {
+              "queries": 44,
+              "ms": 9.799999997019768
+            },
+            {
+              "queries": 44,
+              "ms": 13.399999991059303
+            },
+            {
+              "queries": 44,
+              "ms": 8.700000002980232
+            },
+            {
+              "queries": 44,
+              "ms": 8.899999991059303
+            },
+            {
+              "queries": 44,
+              "ms": 9.100000008940697
+            },
+            {
+              "queries": 44,
+              "ms": 9.299999997019768
+            },
+            {
+              "queries": 44,
+              "ms": 8.200000002980232
+            },
+            {
+              "queries": 44,
+              "ms": 9
+            },
+            {
+              "queries": 44,
+              "ms": 9.299999997019768
+            },
+            {
+              "queries": 44,
+              "ms": 7.899999991059303
+            },
+            {
+              "queries": 44,
+              "ms": 8.700000002980232
+            },
+            {
+              "queries": 44,
+              "ms": 12.200000002980232
+            },
+            {
+              "queries": 44,
+              "ms": 8.5
+            },
+            {
+              "queries": 8,
+              "ms": 137.6000000089407
+            }
+          ]
+        }
+      }
+    },
+    {
+      "stage": 2,
+      "graph": "s2-npp-b0-query",
+      "dimensions": [
+        1,
+        128,
+        1000,
+        1500
+      ],
+      "keys": 93750,
+      "heads": 2,
+      "queryOffset": 1499288,
+      "queries": 712,
+      "maxError": 2.384185791015625e-7,
+      "meanError": 1.300883994783076e-11,
+      "finite": true,
+      "runs": {
+        "direct": {
+          "queriesPerCall": 89,
+          "totalMs": 851.9000000059605,
+          "coldMs": 586.6999999880791,
+          "warmMs": 256.7000000178814,
+          "warmQueries": 623,
+          "reusedInputBytes": 672000000,
+          "times": [
+            {
+              "queries": 89,
+              "ms": 586.6999999880791
+            },
+            {
+              "queries": 89,
+              "ms": 35.79999999701977
+            },
+            {
+              "queries": 89,
+              "ms": 36.70000000298023
+            },
+            {
+              "queries": 89,
+              "ms": 36.900000005960464
+            },
+            {
+              "queries": 89,
+              "ms": 35.1000000089407
+            },
+            {
+              "queries": 89,
+              "ms": 38.29999999701977
+            },
+            {
+              "queries": 89,
+              "ms": 35.79999999701977
+            },
+            {
+              "queries": 89,
+              "ms": 38.1000000089407
+            }
+          ]
+        },
+        "split": {
+          "queriesPerCall": 44,
+          "totalMs": 762.6000000089407,
+          "coldMs": 565.3000000119209,
+          "warmMs": 164.30000001192093,
+          "warmQueries": 660,
+          "reusedInputBytes": 1536000000,
+          "times": [
+            {
+              "queries": 44,
+              "ms": 565.3000000119209
+            },
+            {
+              "queries": 44,
+              "ms": 11.100000008940697
+            },
+            {
+              "queries": 44,
+              "ms": 8.599999994039536
+            },
+            {
+              "queries": 44,
+              "ms": 12.5
+            },
+            {
+              "queries": 44,
+              "ms": 9.599999994039536
+            },
+            {
+              "queries": 44,
+              "ms": 10.700000002980232
+            },
+            {
+              "queries": 44,
+              "ms": 8.599999994039536
+            },
+            {
+              "queries": 44,
+              "ms": 13
+            },
+            {
+              "queries": 44,
+              "ms": 8.5
+            },
+            {
+              "queries": 44,
+              "ms": 13.100000008940697
+            },
+            {
+              "queries": 44,
+              "ms": 9.299999997019768
+            },
+            {
+              "queries": 44,
+              "ms": 13.600000008940697
+            },
+            {
+              "queries": 44,
+              "ms": 9.700000002980232
+            },
+            {
+              "queries": 44,
+              "ms": 13.099999994039536
+            },
+            {
+              "queries": 44,
+              "ms": 8.200000002980232
+            },
+            {
+              "queries": 44,
+              "ms": 14.700000002980232
+            },
+            {
+              "queries": 8,
+              "ms": 9.200000002980232
+            }
+          ]
+        }
+      }
+    },
+    {
+      "stage": 3,
+      "graph": "s3-rgb-b0-query",
+      "dimensions": [
+        1,
+        320,
+        500,
+        750
+      ],
+      "keys": 93750,
+      "heads": 5,
+      "queryOffset": 374720,
+      "queries": 280,
+      "maxError": 2.384185791015625e-7,
+      "meanError": 2.6136279172663177e-11,
+      "finite": true,
+      "runs": {
+        "direct": {
+          "queriesPerCall": 35,
+          "totalMs": 928.7000000029802,
+          "coldMs": 667.7000000029802,
+          "warmMs": 242.59999997913837,
+          "warmQueries": 245,
+          "reusedInputBytes": 1680000000,
+          "times": [
+            {
+              "queries": 35,
+              "ms": 667.7000000029802
+            },
+            {
+              "queries": 35,
+              "ms": 35.29999999701977
+            },
+            {
+              "queries": 35,
+              "ms": 33.70000000298023
+            },
+            {
+              "queries": 35,
+              "ms": 35.400000005960464
+            },
+            {
+              "queries": 35,
+              "ms": 34.69999998807907
+            },
+            {
+              "queries": 35,
+              "ms": 34.099999994039536
+            },
+            {
+              "queries": 35,
+              "ms": 34.70000000298023
+            },
+            {
+              "queries": 35,
+              "ms": 34.69999998807907
+            }
+          ]
+        },
+        "split": {
+          "queriesPerCall": 17,
+          "totalMs": 962.7999999970198,
+          "coldMs": 674.2000000029802,
+          "warmMs": 208.79999996721745,
+          "warmQueries": 255,
+          "reusedInputBytes": 3840000000,
+          "times": [
+            {
+              "queries": 17,
+              "ms": 674.2000000029802
+            },
+            {
+              "queries": 17,
+              "ms": 15.200000002980232
+            },
+            {
+              "queries": 17,
+              "ms": 21.69999998807907
+            },
+            {
+              "queries": 17,
+              "ms": 11
+            },
+            {
+              "queries": 17,
+              "ms": 17.700000002980232
+            },
+            {
+              "queries": 17,
+              "ms": 12.700000002980232
+            },
+            {
+              "queries": 17,
+              "ms": 12.099999994039536
+            },
+            {
+              "queries": 17,
+              "ms": 14.200000002980232
+            },
+            {
+              "queries": 17,
+              "ms": 12.400000005960464
+            },
+            {
+              "queries": 17,
+              "ms": 13.299999997019768
+            },
+            {
+              "queries": 17,
+              "ms": 13.5
+            },
+            {
+              "queries": 17,
+              "ms": 11.799999997019768
+            },
+            {
+              "queries": 17,
+              "ms": 11.5
+            },
+            {
+              "queries": 17,
+              "ms": 15.099999994039536
+            },
+            {
+              "queries": 17,
+              "ms": 13.399999991059303
+            },
+            {
+              "queries": 17,
+              "ms": 13.199999988079071
+            },
+            {
+              "queries": 8,
+              "ms": 13.700000002980232
+            }
+          ]
+        }
+      }
+    },
+    {
+      "stage": 3,
+      "graph": "s3-npp-b0-query",
+      "dimensions": [
+        1,
+        320,
+        500,
+        750
+      ],
+      "keys": 93750,
+      "heads": 5,
+      "queryOffset": 374720,
+      "queries": 280,
+      "maxError": 2.384185791015625e-7,
+      "meanError": 1.3231848632650715e-11,
+      "finite": true,
+      "runs": {
+        "direct": {
+          "queriesPerCall": 35,
+          "totalMs": 965.0999999940395,
+          "coldMs": 673.5,
+          "warmMs": 269.70000000298023,
+          "warmQueries": 245,
+          "reusedInputBytes": 1680000000,
+          "times": [
+            {
+              "queries": 35,
+              "ms": 673.5
+            },
+            {
+              "queries": 35,
+              "ms": 33.20000000298023
+            },
+            {
+              "queries": 35,
+              "ms": 31.900000005960464
+            },
+            {
+              "queries": 35,
+              "ms": 52.599999994039536
+            },
+            {
+              "queries": 35,
+              "ms": 44.29999999701977
+            },
+            {
+              "queries": 35,
+              "ms": 37.29999999701977
+            },
+            {
+              "queries": 35,
+              "ms": 32.900000005960464
+            },
+            {
+              "queries": 35,
+              "ms": 37.5
+            }
+          ]
+        },
+        "split": {
+          "queriesPerCall": 17,
+          "totalMs": 1077.4000000059605,
+          "coldMs": 793.5999999940395,
+          "warmMs": 219.00000002980232,
+          "warmQueries": 255,
+          "reusedInputBytes": 3840000000,
+          "times": [
+            {
+              "queries": 17,
+              "ms": 793.5999999940395
+            },
+            {
+              "queries": 17,
+              "ms": 25.700000002980232
+            },
+            {
+              "queries": 17,
+              "ms": 11.899999991059303
+            },
+            {
+              "queries": 17,
+              "ms": 19.5
+            },
+            {
+              "queries": 17,
+              "ms": 19.599999994039536
+            },
+            {
+              "queries": 17,
+              "ms": 10.900000005960464
+            },
+            {
+              "queries": 17,
+              "ms": 17.200000002980232
+            },
+            {
+              "queries": 17,
+              "ms": 23.100000008940697
+            },
+            {
+              "queries": 17,
+              "ms": 11.5
+            },
+            {
+              "queries": 17,
+              "ms": 10.799999997019768
+            },
+            {
+              "queries": 17,
+              "ms": 12.400000005960464
+            },
+            {
+              "queries": 17,
+              "ms": 11.900000005960464
+            },
+            {
+              "queries": 17,
+              "ms": 10.5
+            },
+            {
+              "queries": 17,
+              "ms": 12.100000008940697
+            },
+            {
+              "queries": 17,
+              "ms": 10.600000008940697
+            },
+            {
+              "queries": 17,
+              "ms": 11.299999997019768
+            },
+            {
+              "queries": 8,
+              "ms": 11.600000008940697
+            }
+          ]
+        }
+      }
+    },
+    {
+      "stage": 4,
+      "graph": "s4-rgb-b0-query",
+      "dimensions": [
+        1,
+        512,
+        250,
+        375
+      ],
+      "keys": 93750,
+      "heads": 8,
+      "queryOffset": 93574,
+      "queries": 176,
+      "maxError": 2.384185791015625e-7,
+      "meanError": 3.032983964989068e-11,
+      "finite": true,
+      "runs": {
+        "direct": {
+          "queriesPerCall": 22,
+          "totalMs": 1026.2999999970198,
+          "coldMs": 729,
+          "warmMs": 260.5,
+          "warmQueries": 154,
+          "reusedInputBytes": 2688000000,
+          "times": [
+            {
+              "queries": 22,
+              "ms": 729
+            },
+            {
+              "queries": 22,
+              "ms": 38.6000000089407
+            },
+            {
+              "queries": 22,
+              "ms": 37
+            },
+            {
+              "queries": 22,
+              "ms": 38.70000000298023
+            },
+            {
+              "queries": 22,
+              "ms": 35.70000000298023
+            },
+            {
+              "queries": 22,
+              "ms": 38.19999998807907
+            },
+            {
+              "queries": 22,
+              "ms": 35.79999999701977
+            },
+            {
+              "queries": 22,
+              "ms": 36.5
+            }
+          ]
+        },
+        "split": {
+          "queriesPerCall": 11,
+          "totalMs": 1101.5,
+          "coldMs": 710.2000000029802,
+          "warmMs": 328.59999994933605,
+          "warmQueries": 165,
+          "reusedInputBytes": 5760000000,
+          "times": [
+            {
+              "queries": 11,
+              "ms": 710.2000000029802
+            },
+            {
+              "queries": 11,
+              "ms": 24.5
+            },
+            {
+              "queries": 11,
+              "ms": 20.299999997019768
+            },
+            {
+              "queries": 11,
+              "ms": 20
+            },
+            {
+              "queries": 11,
+              "ms": 24
+            },
+            {
+              "queries": 11,
+              "ms": 21.099999994039536
+            },
+            {
+              "queries": 11,
+              "ms": 19.700000002980232
+            },
+            {
+              "queries": 11,
+              "ms": 20.099999994039536
+            },
+            {
+              "queries": 11,
+              "ms": 25.399999991059303
+            },
+            {
+              "queries": 11,
+              "ms": 20
+            },
+            {
+              "queries": 11,
+              "ms": 20.399999991059303
+            },
+            {
+              "queries": 11,
+              "ms": 24.899999991059303
+            },
+            {
+              "queries": 11,
+              "ms": 24.099999994039536
+            },
+            {
+              "queries": 11,
+              "ms": 22
+            },
+            {
+              "queries": 11,
+              "ms": 19.700000002980232
+            },
+            {
+              "queries": 11,
+              "ms": 22.399999991059303
+            }
+          ]
+        }
+      }
+    },
+    {
+      "stage": 4,
+      "graph": "s4-npp-b0-query",
+      "dimensions": [
+        1,
+        512,
+        250,
+        375
+      ],
+      "keys": 93750,
+      "heads": 8,
+      "queryOffset": 93574,
+      "queries": 176,
+      "maxError": 2.384185791015625e-7,
+      "meanError": 2.05579391893645e-11,
+      "finite": true,
+      "runs": {
+        "direct": {
+          "queriesPerCall": 22,
+          "totalMs": 1030.7999999970198,
+          "coldMs": 727.3999999910593,
+          "warmMs": 255.5,
+          "warmQueries": 154,
+          "reusedInputBytes": 2688000000,
+          "times": [
+            {
+              "queries": 22,
+              "ms": 727.3999999910593
+            },
+            {
+              "queries": 22,
+              "ms": 37
+            },
+            {
+              "queries": 22,
+              "ms": 38.20000000298023
+            },
+            {
+              "queries": 22,
+              "ms": 35.8999999910593
+            },
+            {
+              "queries": 22,
+              "ms": 35.5
+            },
+            {
+              "queries": 22,
+              "ms": 37.5
+            },
+            {
+              "queries": 22,
+              "ms": 35.29999999701977
+            },
+            {
+              "queries": 22,
+              "ms": 36.1000000089407
+            }
+          ]
+        },
+        "split": {
+          "queriesPerCall": 11,
+          "totalMs": 1170.4000000059605,
+          "coldMs": 751.9000000059605,
+          "warmMs": 344.6000000089407,
+          "warmQueries": 165,
+          "reusedInputBytes": 5760000000,
+          "times": [
+            {
+              "queries": 11,
+              "ms": 751.9000000059605
+            },
+            {
+              "queries": 11,
+              "ms": 26.600000008940697
+            },
+            {
+              "queries": 11,
+              "ms": 22
+            },
+            {
+              "queries": 11,
+              "ms": 27.69999998807907
+            },
+            {
+              "queries": 11,
+              "ms": 22.599999994039536
+            },
+            {
+              "queries": 11,
+              "ms": 20.5
+            },
+            {
+              "queries": 11,
+              "ms": 19.600000008940697
+            },
+            {
+              "queries": 11,
+              "ms": 22.200000002980232
+            },
+            {
+              "queries": 11,
+              "ms": 25.400000005960464
+            },
+            {
+              "queries": 11,
+              "ms": 20.599999994039536
+            },
+            {
+              "queries": 11,
+              "ms": 22.200000002980232
+            },
+            {
+              "queries": 11,
+              "ms": 25.400000005960464
+            },
+            {
+              "queries": 11,
+              "ms": 19.899999991059303
+            },
+            {
+              "queries": 11,
+              "ms": 20
+            },
+            {
+              "queries": 11,
+              "ms": 21.400000005960464
+            },
+            {
+              "queries": 11,
+              "ms": 28.5
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "storage": {
+    "reservedBytes": 0,
+    "peakReservedBytes": 3072000000,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 10737418240,
+    "openFiles": 0
+  },
+  "remainingTemporary": [],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2331957373
+  },
+  "passed": true,
+  "scope": "Changed learned query path only: both branches at all four actual96MP stage shapes, all93750keys, OPFS source/target at final offsets, original vs split graph. Synthetic finite feature values; no new end-to-end96MP source/time claim. Full source/output/export proof reuses prior96MP qualification; small native full chain separately qualifies new32learned queries.",
+  "browser": "154.0.8037.58",
+  "browserContext": "temporary on-disk profile owned by M2",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

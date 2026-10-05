@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "cases": 7,
+  "exactNativeValidationResults": true,
+  "offline": true,
+  "maximumObservedHeapBytes": 3997696,
+  "enforcedHeapMaximumBytes": 134217728,
+  "budgetRefusal": true,
+  "directCancellationPreservesSource": true,
+  "hardAbortReload": true,
+  "jsonExport": true,
+  "networkRequestsOutsideTestOrigin": [],
+  "browser": "154.0.8037.58"
+}

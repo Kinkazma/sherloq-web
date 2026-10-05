@@ -1,0 +1,848 @@
+{
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "analyzeMs": 1176383,
+  "totalMs": 1181285.399999991,
+  "fields": {
+    "map": {
+      "length": 96000000,
+      "finite": true,
+      "min": 0.002349097514525056,
+      "max": 0.8279685378074646,
+      "maxError": null,
+      "meanError": null,
+      "thresholdChanges": null
+    },
+    "native_map": {
+      "length": 6000000,
+      "finite": true,
+      "min": 0.0023316347505897284,
+      "max": 0.8325291872024536,
+      "maxError": null,
+      "meanError": null,
+      "thresholdChanges": null
+    }
+  },
+  "views": [
+    {
+      "view": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 0,
+      "rect": {
+        "x": 11947,
+        "y": 7959,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        11947,
+        7959
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 11947,
+        "y": 7959,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        11947,
+        7959
+      ],
+      "bytes": 6519
+    }
+  ],
+  "export": {
+    "bytes": 408003652,
+    "descriptor": 408003652,
+    "first": [
+      80,
+      75,
+      3,
+      4
+    ],
+    "last": [
+      80,
+      75,
+      5,
+      6
+    ]
+  },
+  "source": {
+    "dimensions": {
+      "id": "13552bc0-fce0-47ca-bde5-bc4d70bcba30",
+      "revision": 1,
+      "width": 12000,
+      "height": 8000,
+      "format": "rgb8",
+      "sourceWidth": 12000,
+      "sourceHeight": 8000,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        12000,
+        8000
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "metrics": {
+      "decodeMs": 1856.4000000059605,
+      "rowsPerChunk": 116,
+      "encodedWorkingBytes": 86050184,
+      "coefficientAllowanceBytes": 0,
+      "workingReservationBytes": 127956616,
+      "codecHeapCapacityBytes": 103546880,
+      "storage": "memory",
+      "temporaryBackend": null,
+      "temporaryFallback": null,
+      "temporaryBytes": 0,
+      "originalBlobBytes": 86050184,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM"
+    }
+  },
+  "provenance": {
+    "originalSourceSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+    "sourceSurfaceIdentity": "13552bc0-fce0-47ca-bde5-bc4d70bcba30/1",
+    "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+    "provider": "webgpu",
+    "qualification": "native segmented HRNet; see dimension-specific proof"
+  },
+  "storage": {
+    "backend": "opfs",
+    "reservedBytes": 384000000,
+    "peakReservedBytes": 8256000000,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 10737418240,
+    "openFiles": 2
+  },
+  "events": [
+    {
+      "phase": "inference",
+      "model": "rgb-stem",
+      "elapsedMs": 9925.39999999106
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stem",
+      "completed": 1036,
+      "total": 2000,
+      "elapsedMs": 19973.79999999702
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stem",
+      "completed": 1673,
+      "total": 2000,
+      "elapsedMs": 30049.39999999106
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-transition1-0",
+      "elapsedMs": 40106.59999999404
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-transition1-0",
+      "elapsedMs": 50140.59999999404
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-transition1-0",
+      "elapsedMs": 60189.79999999702
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-transition1-1",
+      "elapsedMs": 70193
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage2-0-branch0",
+      "elapsedMs": 80195.09999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage2-0-branch0",
+      "completed": 1406,
+      "total": 2000,
+      "elapsedMs": 90365.89999999106
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage2-0-branch1",
+      "elapsedMs": 100375
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage2-0-fuse1-0",
+      "completed": 779,
+      "total": 1000,
+      "elapsedMs": 110396.39999999106
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-0-branch0",
+      "completed": 798,
+      "total": 2000,
+      "elapsedMs": 120454.19999998808
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-0-branch0",
+      "completed": 2000,
+      "total": 2000,
+      "elapsedMs": 130533.09999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-0-branch1",
+      "completed": 836,
+      "total": 1000,
+      "elapsedMs": 140558.5
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-0-branch2",
+      "elapsedMs": 153138.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-0-branch2",
+      "completed": 500,
+      "total": 500,
+      "elapsedMs": 163194.29999999702
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 173358.89999999106
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-0-fuse0-2",
+      "elapsedMs": 184093
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 194174
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-0-fuse1-0",
+      "elapsedMs": 204181.59999999404
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 214991.89999999106
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage3-0-fuse2-0",
+      "elapsedMs": 224999.29999999702
+    },
+    {
+      "phase": "catnet-high-resolution-fusion",
+      "model": "rgb-stage3-0-branch0",
+      "completed": 1,
+      "total": 1,
+      "elapsedMs": 241007.89999999106
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-1-branch0",
+      "completed": 266,
+      "total": 2000,
+      "elapsedMs": 251048.69999998808
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-1-branch0",
+      "completed": 1596,
+      "total": 2000,
+      "elapsedMs": 261180.29999999702
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-1-branch1",
+      "elapsedMs": 272005.89999999106
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-1-branch1",
+      "completed": 646,
+      "total": 1000,
+      "elapsedMs": 282096.1999999881
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-1-branch2",
+      "completed": 114,
+      "total": 500,
+      "elapsedMs": 292277.09999999404
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 302305.1999999881
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-1-fuse1-2",
+      "elapsedMs": 312592.1999999881
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-2-branch0",
+      "completed": 114,
+      "total": 2000,
+      "elapsedMs": 322603.89999999106
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-2-branch0",
+      "completed": 1330,
+      "total": 2000,
+      "elapsedMs": 332846.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-2-branch1",
+      "completed": 342,
+      "total": 1000,
+      "elapsedMs": 343017.09999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-2-branch2",
+      "completed": 114,
+      "total": 500,
+      "elapsedMs": 353503.09999999404
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 363783.799999997
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-2-fuse1-2",
+      "elapsedMs": 374695.09999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-3-branch0",
+      "completed": 38,
+      "total": 2000,
+      "elapsedMs": 384784.299999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-3-branch0",
+      "completed": 950,
+      "total": 2000,
+      "elapsedMs": 395004.1999999881
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage3-3-branch1",
+      "completed": 456,
+      "total": 1000,
+      "elapsedMs": 405043.299999997
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 415057.59999999404
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-3-fuse1-0",
+      "elapsedMs": 425648.39999999106
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-3-fuse2-0",
+      "elapsedMs": 435857.89999999106
+    },
+    {
+      "phase": "catnet-high-resolution-fusion",
+      "model": "rgb-stage3-3-branch0",
+      "completed": 1,
+      "total": 1,
+      "elapsedMs": 446590.6999999881
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-branch0",
+      "completed": 494,
+      "total": 2000,
+      "elapsedMs": 456657.59999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-branch0",
+      "completed": 1862,
+      "total": 2000,
+      "elapsedMs": 466731.09999999404
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-0-branch1",
+      "elapsedMs": 477321.6999999881
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-0-branch2",
+      "elapsedMs": 487563.89999999106
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-branch2",
+      "completed": 418,
+      "total": 500,
+      "elapsedMs": 498021.09999999404
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-branch3",
+      "completed": 190,
+      "total": 250,
+      "elapsedMs": 508726
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-0-fuse0-2",
+      "elapsedMs": 518756.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-fuse1-0",
+      "completed": 171,
+      "total": 1000,
+      "elapsedMs": 528790.299999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-0-fuse1-3",
+      "completed": 38,
+      "total": 250,
+      "elapsedMs": 538799.099999994
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 548911
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-1-branch0",
+      "elapsedMs": 558999.5
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-1-branch1",
+      "elapsedMs": 569590.8999999911
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-1-branch3",
+      "elapsedMs": 580041.099999994
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 590098.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-1-fuse0-3",
+      "elapsedMs": 600191.5
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-1-fuse1-2",
+      "elapsedMs": 611815.5
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-1-fuse2-0",
+      "elapsedMs": 621836.099999994
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-1-fuse3-0",
+      "elapsedMs": 631926.3999999911
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-1-fuse3-2",
+      "completed": 133,
+      "total": 250,
+      "elapsedMs": 641933.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-2-branch0",
+      "elapsedMs": 651941.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-branch1",
+      "completed": 152,
+      "total": 1000,
+      "elapsedMs": 661999.8999999911
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-branch2",
+      "completed": 266,
+      "total": 500,
+      "elapsedMs": 672254.299999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-branch3",
+      "completed": 114,
+      "total": 250,
+      "elapsedMs": 682465.3999999911
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 692483.1999999881
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-fuse1-0",
+      "completed": 684,
+      "total": 1000,
+      "elapsedMs": 702496.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "rgb-stage4-2-fuse2-1",
+      "completed": 57,
+      "total": 500,
+      "elapsedMs": 712518.1999999881
+    },
+    {
+      "phase": "inference",
+      "model": "rgb-stage4-2-fuse3-2",
+      "elapsedMs": 722757.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 134,
+      "total": 1000,
+      "elapsedMs": 732761.8999999911
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 402,
+      "total": 1000,
+      "elapsedMs": 742775.099999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 686,
+      "total": 1000,
+      "elapsedMs": 752799.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stem",
+      "completed": 927,
+      "total": 1000,
+      "elapsedMs": 762830.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-layer",
+      "completed": 126,
+      "total": 1000,
+      "elapsedMs": 772900.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-layer",
+      "completed": 392,
+      "total": 1000,
+      "elapsedMs": 782923.799999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-layer",
+      "completed": 651,
+      "total": 1000,
+      "elapsedMs": 793079.5
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-layer",
+      "completed": 896,
+      "total": 1000,
+      "elapsedMs": 803117.8999999911
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-0-branch0",
+      "completed": 874,
+      "total": 1000,
+      "elapsedMs": 813217.8999999911
+    },
+    {
+      "phase": "catnet-high-resolution-fusion",
+      "model": "dct-stage3-0-branch0",
+      "completed": 1,
+      "total": 1,
+      "elapsedMs": 824317.1999999881
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-1-branch0",
+      "completed": 950,
+      "total": 1000,
+      "elapsedMs": 834593.8999999911
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-1-branch1",
+      "completed": 456,
+      "total": 500,
+      "elapsedMs": 845013.3999999911
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-1-fuse1-0",
+      "completed": 171,
+      "total": 500,
+      "elapsedMs": 855033.099999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage3-2-branch0",
+      "completed": 1000,
+      "total": 1000,
+      "elapsedMs": 865100.8999999911
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 875514.3999999911
+    },
+    {
+      "phase": "inference",
+      "model": "dct-transition3-2",
+      "elapsedMs": 885552.599999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage4-0-branch1",
+      "completed": 38,
+      "total": 500,
+      "elapsedMs": 896008.299999997
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage4-0-branch1",
+      "completed": 456,
+      "total": 500,
+      "elapsedMs": 906528.599999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage4-0-branch2",
+      "completed": 228,
+      "total": 250,
+      "elapsedMs": 917658.5
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage4-0-fuse1-0",
+      "elapsedMs": 928244.299999997
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-0-fuse2-0",
+      "elapsedMs": 938335.6999999881
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage4-1-branch0",
+      "completed": 494,
+      "total": 1000,
+      "elapsedMs": 948690.6999999881
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-1-branch1",
+      "elapsedMs": 958707.599999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "dct-stage4-1-branch2",
+      "completed": 228,
+      "total": 250,
+      "elapsedMs": 969119.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 979191.5
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 989471.599999994
+    },
+    {
+      "phase": "inference",
+      "model": "dct-stage4-1-fuse2-0",
+      "elapsedMs": 999625.599999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "fusion-transition-0",
+      "completed": 1938,
+      "total": 2000,
+      "elapsedMs": 1009634.299999997
+    },
+    {
+      "phase": "model-load",
+      "model": "fusion-transition-2",
+      "elapsedMs": 1019698.1999999881
+    },
+    {
+      "phase": "model-load",
+      "model": "fusion-stage5-0-branch0",
+      "elapsedMs": 1029975.8999999911
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-branch1",
+      "elapsedMs": 1041388.8999999911
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "fusion-stage5-0-branch2",
+      "completed": 154,
+      "total": 500,
+      "elapsedMs": 1051662
+    },
+    {
+      "phase": "model-load",
+      "model": "sample",
+      "elapsedMs": 1062012.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-fuse1-0",
+      "elapsedMs": 1072548.199999988
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-fuse2-0",
+      "elapsedMs": 1083433.399999991
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-stage5-0-fuse3-0",
+      "elapsedMs": 1093999.599999994
+    },
+    {
+      "phase": "catnet-high-resolution-fusion",
+      "model": "fusion-stage5-0-branch0",
+      "completed": 1,
+      "total": 1,
+      "elapsedMs": 1104212.099999994
+    },
+    {
+      "phase": "catnet-local-rows",
+      "model": "head",
+      "completed": 60,
+      "total": 2000,
+      "elapsedMs": 1114235.799999997
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 1124242.699999988
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 1134244.199999988
+    },
+    {
+      "phase": "inference",
+      "model": "sample",
+      "elapsedMs": 1144250.599999994
+    },
+    {
+      "phase": "model-load",
+      "model": "sample",
+      "elapsedMs": 1155583.099999994
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 103546880,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3211632096,
+    "residentCodecBytes": 103546880
+  },
+  "cancelled": null,
+  "remainingTemporary": null,
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "browserContext": "temporary on-disk profile owned by M2",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}

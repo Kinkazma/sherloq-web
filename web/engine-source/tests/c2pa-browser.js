@@ -1,0 +1,16 @@
+import {createWorkerEngine} from '../src/worker-client.js';import {createEngine} from '../src/index.js';import {validateC2paSource} from '../src/c2pa-validation.js';import {Budget} from '../src/cache.js';
+export async function c2paBrowserTest(){
+ const root='/tests/data/c2pa/',ref=await(await fetch(root+'reference.json')).json(),engine=createWorkerEngine(),assert=(ok,what)=>{if(!ok)throw Error(what);};let cases=0,heap=0;
+ try{for(const row of ref.cases){const blob=await(await fetch(root+row.file)).blob(),trustAnchors=row.trust?await(await fetch(root+row.trust)).text():null;await engine.loadBlob({id:'i',blob});const result=await engine.run({id:'c',imageId:'i',operation:'metadata.c2pa',params:{trustAnchors}});
+  for(const [key,value]of Object.entries(row.states))assert(result.data[key]===value,row.file+' '+key);assert(JSON.stringify(result.data.report?.validation_results??null)===JSON.stringify(row.validationResults),row.file+' validation results');assert(result.metrics.blockedNetworkRequests===0,'SDK attempted network');assert(result.provenance.originalSha256===row.sha256,'source digest');heap=Math.max(heap,result.metrics.heapCapacityBytes);
+  const exported=await engine.exportResult(result,{format:'json'}),parsed=JSON.parse(new TextDecoder().decode(exported.bytes));assert(parsed.data.signature===result.data.signature,'JSON export');assert(!JSON.stringify(result.provenance).includes('BEGIN CERTIFICATE'),'PEM leaked into provenance');
+  assert((await engine.capabilities()).memory.activeReservationBytes===0,'reservation leaked');await engine.unload('i');cases++;
+ }
+ // Direct engine abort preserves loaded source; tiny budget fails before Worker creation.
+ const blob=await(await fetch(root+'signed.jpg')).blob(),direct=createEngine();
+ try{await direct.loadBlob({id:'i',blob});const controller=new AbortController();let cancelled=false;try{await direct.run({id:'c',imageId:'i',operation:'metadata.c2pa'},{signal:controller.signal,onProgress:e=>{if(e.fraction>0)controller.abort();}});}catch(e){cancelled=e.code==='CANCELLED';}assert(cancelled,'direct cancellation');assert(direct.originalBlob('i').size===blob.size,'source lost');assert(direct.capabilities().memory.activeReservationBytes===0,'direct reservation leaked');}finally{await direct.dispose();}
+ const budget=new Budget(1024);let refused=false;try{await validateC2paSource(blob,{},{budget});}catch(e){refused=e.code==='MEMORY_LIMIT';}assert(refused&&budget.active===0,'budget refusal');
+ await engine.loadBlob({id:'abort',blob});const controller=new AbortController();let hard=false;try{await engine.run({id:'c',imageId:'abort',operation:'metadata.c2pa'},{signal:controller.signal,onProgress:e=>{if(e.fraction>0)controller.abort();}});}catch(e){hard=e.code==='CANCELLED'&&e.imagesCleared;}assert(hard,'hard abort');await engine.loadBlob({id:'recovered',blob});const recovered=await engine.run({id:'c',imageId:'recovered',operation:'metadata.c2pa'});assert(recovered.data.signature==='valid','recovery');
+ return {status:'passed',cases,exactNativeValidationResults:true,offline:true,maximumObservedHeapBytes:heap,enforcedHeapMaximumBytes:128*1024**2,budgetRefusal:true,directCancellationPreservesSource:true,hardAbortReload:true,jsonExport:true};
+ }finally{engine.dispose();}
+}

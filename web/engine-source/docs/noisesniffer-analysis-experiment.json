@@ -1,0 +1,4364 @@
+{
+  "schema": 1,
+  "status": "diagnostic-only",
+  "tails": {
+    "count": 796,
+    "maximumAbsoluteLogError": 9.094947017729282e-13,
+    "outsideTolerance": 0
+  },
+  "rows": [
+    {
+      "name": "tiny-3",
+      "parameters": [
+        3,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-3",
+      "parameters": [
+        3,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-3",
+      "parameters": [
+        3,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-5",
+      "parameters": [
+        5,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-5",
+      "parameters": [
+        5,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-5",
+      "parameters": [
+        5,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-7",
+      "parameters": [
+        7,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-7",
+      "parameters": [
+        7,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-7",
+      "parameters": [
+        7,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-8",
+      "parameters": [
+        8,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-8",
+      "parameters": [
+        8,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "tiny-8",
+      "parameters": [
+        8,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-3",
+      "parameters": [
+        3,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-3",
+      "parameters": [
+        3,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-3",
+      "parameters": [
+        3,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-5",
+      "parameters": [
+        5,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-5",
+      "parameters": [
+        5,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-5",
+      "parameters": [
+        5,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-7",
+      "parameters": [
+        7,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-7",
+      "parameters": [
+        7,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-7",
+      "parameters": [
+        7,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-8",
+      "parameters": [
+        8,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-8",
+      "parameters": [
+        8,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "random-8",
+      "parameters": [
+        8,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-3",
+      "parameters": [
+        3,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-3",
+      "parameters": [
+        3,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-3",
+      "parameters": [
+        3,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-5",
+      "parameters": [
+        5,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-5",
+      "parameters": [
+        5,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-5",
+      "parameters": [
+        5,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-7",
+      "parameters": [
+        7,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-7",
+      "parameters": [
+        7,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-7",
+      "parameters": [
+        7,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-8",
+      "parameters": [
+        8,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-8",
+      "parameters": [
+        8,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "constant-8",
+      "parameters": [
+        8,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-3",
+      "parameters": [
+        3,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-3",
+      "parameters": [
+        3,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-3",
+      "parameters": [
+        3,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-5",
+      "parameters": [
+        5,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-5",
+      "parameters": [
+        5,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-5",
+      "parameters": [
+        5,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-7",
+      "parameters": [
+        7,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-7",
+      "parameters": [
+        7,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-7",
+      "parameters": [
+        7,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-8",
+      "parameters": [
+        8,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-8",
+      "parameters": [
+        8,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "ties-8",
+      "parameters": [
+        8,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-3",
+      "parameters": [
+        3,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-3",
+      "parameters": [
+        3,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-3",
+      "parameters": [
+        3,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-5",
+      "parameters": [
+        5,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-5",
+      "parameters": [
+        5,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-5",
+      "parameters": [
+        5,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-7",
+      "parameters": [
+        7,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-7",
+      "parameters": [
+        7,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-7",
+      "parameters": [
+        7,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-8",
+      "parameters": [
+        8,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-8",
+      "parameters": [
+        8,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "gradient-8",
+      "parameters": [
+        8,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-3",
+      "parameters": [
+        3,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-3",
+      "parameters": [
+        3,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-3",
+      "parameters": [
+        3,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-5",
+      "parameters": [
+        5,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-5",
+      "parameters": [
+        5,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-5",
+      "parameters": [
+        5,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-7",
+      "parameters": [
+        7,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-7",
+      "parameters": [
+        7,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-7",
+      "parameters": [
+        7,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-8",
+      "parameters": [
+        8,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-8",
+      "parameters": [
+        8,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "flat-channel-8",
+      "parameters": [
+        8,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-3",
+      "parameters": [
+        3,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-3",
+      "parameters": [
+        3,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-3",
+      "parameters": [
+        3,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-5",
+      "parameters": [
+        5,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-5",
+      "parameters": [
+        5,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-5",
+      "parameters": [
+        5,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-7",
+      "parameters": [
+        7,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-7",
+      "parameters": [
+        7,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-7",
+      "parameters": [
+        7,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-8",
+      "parameters": [
+        8,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-8",
+      "parameters": [
+        8,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "patch-8",
+      "parameters": [
+        8,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-3",
+      "parameters": [
+        3,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-3",
+      "parameters": [
+        3,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-3",
+      "parameters": [
+        3,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-5",
+      "parameters": [
+        5,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-5",
+      "parameters": [
+        5,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-5",
+      "parameters": [
+        5,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-7",
+      "parameters": [
+        7,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-7",
+      "parameters": [
+        7,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-7",
+      "parameters": [
+        7,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-8",
+      "parameters": [
+        8,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-8",
+      "parameters": [
+        8,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "stripes-8",
+      "parameters": [
+        8,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-3",
+      "parameters": [
+        3,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-3",
+      "parameters": [
+        3,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-3",
+      "parameters": [
+        3,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-3",
+      "parameters": [
+        3,
+        20,
+        20000,
+        0.25,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-3",
+      "parameters": [
+        3,
+        20,
+        20000,
+        0.5,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-3",
+      "parameters": [
+        3,
+        20,
+        20000,
+        1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-5",
+      "parameters": [
+        5,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-5",
+      "parameters": [
+        5,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-5",
+      "parameters": [
+        5,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-5",
+      "parameters": [
+        5,
+        20,
+        20000,
+        0.25,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-5",
+      "parameters": [
+        5,
+        20,
+        20000,
+        0.5,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-5",
+      "parameters": [
+        5,
+        20,
+        20000,
+        1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-7",
+      "parameters": [
+        7,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-7",
+      "parameters": [
+        7,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-7",
+      "parameters": [
+        7,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-7",
+      "parameters": [
+        7,
+        20,
+        20000,
+        0.25,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-7",
+      "parameters": [
+        7,
+        20,
+        20000,
+        0.5,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-7",
+      "parameters": [
+        7,
+        20,
+        20000,
+        1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-8",
+      "parameters": [
+        8,
+        10,
+        100,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-8",
+      "parameters": [
+        8,
+        17,
+        500,
+        0.25,
+        0.3
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-8",
+      "parameters": [
+        8,
+        100,
+        20000,
+        0.1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-8",
+      "parameters": [
+        8,
+        20,
+        20000,
+        0.25,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-8",
+      "parameters": [
+        8,
+        20,
+        20000,
+        0.5,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "small-patch-8",
+      "parameters": [
+        8,
+        20,
+        20000,
+        1,
+        0.5
+      ],
+      "errors": {
+        "selected": {
+          "different": 0
+        },
+        "low_noise": {
+          "different": 0
+        },
+        "all_blocks": {
+          "different": 0
+        },
+        "low_noise_blocks": {
+          "different": 0
+        },
+        "mask": {
+          "different": 0
+        },
+        "distribution": {
+          "different": 0
+        },
+        "overlay": {
+          "different": 0
+        }
+      },
+      "regionsExact": true,
+      "maxLogNfa": 0
+    }
+  ],
+  "regional": [
+    {
+      "name": "growth-0",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 2.2737367544323206e-13
+    },
+    {
+      "name": "growth-1",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-2",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-3",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-4",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-5",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-6",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-7",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-8",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 1.1368683772161603e-13
+    },
+    {
+      "name": "growth-9",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-10",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-11",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-12",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 3.979039320256561e-13
+    },
+    {
+      "name": "growth-13",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-14",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-15",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-16",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 2.8421709430404007e-13
+    },
+    {
+      "name": "growth-17",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-18",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-19",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-20",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 4.547473508864641e-13
+    },
+    {
+      "name": "growth-21",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-22",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    },
+    {
+      "name": "growth-23",
+      "maskExact": true,
+      "regionsExact": true,
+      "maxLogNfa": 0
+    }
+  ],
+  "historicalDiagnostic": true,
+  "supersededBy": [
+    "noisesniffer-chrome-proof.json",
+    "noisesniffer-firefox-proof.json",
+    "noisesniffer-webkit-proof.json",
+    "qualification-0.12.0.json"
+  ]
+}

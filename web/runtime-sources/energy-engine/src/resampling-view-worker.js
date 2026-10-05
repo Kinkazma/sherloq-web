@@ -1,0 +1,7 @@
+import {resamplingFourierView} from './resampling-fourier.js';
+self.onmessage=async({data})=>{try{
+ const result={data:{magnitude:data.values,minimumMagnitude:data.low,maximumMagnitude:data.high,geometry:{outputSide:data.width}}};
+ // Partial row groups are independent; the renderer traverses the supplied rows.
+ await resamplingFourierView(result,data.params,{},undefined,data.rows);
+ postMessage({values:result.data.values,pixels:result.pixels.data},[result.data.values.buffer,result.pixels.data.buffer]);
+ }catch(error){postMessage({error:error.code??'WORKER_FAILED'});}};

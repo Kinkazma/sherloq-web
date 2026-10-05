@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Same production CMSeg backbone, checkpoint, native512 preparation, global correlations and decoder. GPU only replaces ordered non-Winograd convolutions. Native final probabilities and masks compared. Fresh helpers, serial runs in one browser context with identical1GiB budgets; OS/driver caches not flushed. Component timings exclude source decoding, projection/export/UI; those have separate API recipes.",
+  "records": [
+    {
+      "name": "blobs-copy",
+      "backend": "cpu",
+      "preparationMs": 18.700000002980232,
+      "preparationExact": true,
+      "milliseconds": 9742,
+      "sha256": "13e4925c4a2d22c43b5799de9643f116bcd9e652e1a61f156b69cf8db840b8f2",
+      "workers": 6,
+      "timings": {
+        "modelLoadMs": 749.4999998807907,
+        "inferenceMs": 8956.00000011921,
+        "outputCopyMs": 11.5,
+        "correlationMs": 6298.899999991059,
+        "backboneMs": 2019.10000012815,
+        "backboneSetupMs": 6.600000008940697,
+        "parameterLoadMs": 448.69999988377094,
+        "gpuWriteBytes": 0,
+        "gpuReadBytes": 0
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 579122564,
+        "peakAccountedBytes": 1059462734
+      },
+      "probability": {
+        "maxAbs": 0.000016391277313232422,
+        "meanAbs": 6.403389791890049e-8,
+        "different": 261871,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 2611,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1059462734
+      }
+    },
+    {
+      "name": "blobs-copy",
+      "backend": "webgpu",
+      "preparationMs": 17.100000008940697,
+      "preparationExact": true,
+      "milliseconds": 9236.699999988079,
+      "sha256": "13e4925c4a2d22c43b5799de9643f116bcd9e652e1a61f156b69cf8db840b8f2",
+      "gpu": {
+        "devices": 1,
+        "allocations": 273,
+        "peakAccountedBytes": 54532552,
+        "accounting": "explicit GPU buffers; excludes driver/compiler residency",
+        "errors": []
+      },
+      "workers": 6,
+      "timings": {
+        "modelLoadMs": 755.5000000447035,
+        "inferenceMs": 8448.299999952316,
+        "outputCopyMs": 10.999999985098839,
+        "correlationMs": 6397.5,
+        "backboneMs": 1412.4999999552965,
+        "backboneSetupMs": 6.0999999940395355,
+        "parameterLoadMs": 456.90000005066395,
+        "gpuWriteBytes": 111902456,
+        "gpuReadBytes": 101482496
+      },
+      "memoryBeforeRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 579122564,
+        "peakAccountedBytes": 1055643012
+      },
+      "probability": {
+        "maxAbs": 0.000016391277313232422,
+        "meanAbs": 6.403389791890049e-8,
+        "different": 261871,
+        "finite": true
+      },
+      "maskChanges": 0,
+      "foreground": 2611,
+      "memoryAfterRelease": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 1055643012
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "sources": {
+    "scripts/study-cmseg-gpu.mjs": "42313510b25d95d0636f15eb5f2c82edf698be6c3c94e18b6089f6a7161a12c9",
+    "experiments/segmentation/cmseg-backbone.js": "9d7a8a5f8de1074bd5a444f6af4b0bb79c1f1d5250e683574e3be2400ee9605e",
+    "experiments/segmentation/cmseg-inference.js": "17fecbee83f38224a40e571d710f6d6fa8efca3acb24c3d2bd3c4aabaa5d692d",
+    "experiments/segmentation/cmseg-inference-worker.js": "eb08d60c167279125fcf54deb3bc22de03788b7af2a6f1d1e9f0c5330fbe490f",
+    "experiments/segmentation/cmseg-correlation.js": "473ba0002d53980ef7034d81c032fa6f72d0187d52de49f260e8a2c89a9f7888",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "experiments/segmentation/prepare.js": "189d82c53ae2eeee979be90a0b93361c3118dd541be2955b5b85fea0af0953aa",
+    "experiments/d2prl/convolution-general-gpu.js": "4de7ef3b336fe6422739474720590d49929d27e810483d86be09ee59bb788d30",
+    "vendor/segmentation/CMSEG-EXACT-PINNED.json": "59e25760d8ad649f6eec2ef6d283b7c10bfa4b0911a0e2a179c2c88ee380cd9f"
+  }
+}

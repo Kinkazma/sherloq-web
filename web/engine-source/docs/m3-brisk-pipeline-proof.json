@@ -1,0 +1,446 @@
+{
+  "records": [
+    {
+      "name": "brisk-copy-0",
+      "pointFields": [
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 48,
+          "max": 0.000030517578125
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        }
+      ],
+      "statsEqual": true,
+      "matches": {
+        "values": 1512,
+        "expected": 1512,
+        "differences": 0,
+        "max": 0
+      },
+      "lengths": {
+        "values": 504,
+        "expected": 504,
+        "differences": 0,
+        "max": 0
+      },
+      "groups": {
+        "values": 1455,
+        "expected": 1455,
+        "differences": 0,
+        "max": 0
+      },
+      "rgb": {
+        "values": 236544,
+        "expected": 236544,
+        "differences": 0,
+        "max": 0
+      }
+    },
+    {
+      "name": "brisk-copy-1",
+      "pointFields": [
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 48,
+          "max": 0.000030517578125
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 475,
+          "expected": 475,
+          "differences": 0,
+          "max": 0
+        }
+      ],
+      "statsEqual": true,
+      "matches": {
+        "values": 1512,
+        "expected": 1512,
+        "differences": 0,
+        "max": 0
+      },
+      "lengths": {
+        "values": 504,
+        "expected": 504,
+        "differences": 0,
+        "max": 0
+      },
+      "groups": {
+        "values": 1455,
+        "expected": 1455,
+        "differences": 0,
+        "max": 0
+      },
+      "rgb": {
+        "values": 236544,
+        "expected": 236544,
+        "differences": 0,
+        "max": 0
+      }
+    },
+    {
+      "name": "brisk-masked-0",
+      "pointFields": [
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 43,
+          "max": 0.000030517578125
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        }
+      ],
+      "statsEqual": true,
+      "matches": {
+        "values": 1212,
+        "expected": 1212,
+        "differences": 0,
+        "max": 0
+      },
+      "lengths": {
+        "values": 404,
+        "expected": 404,
+        "differences": 0,
+        "max": 0
+      },
+      "groups": {
+        "values": 1134,
+        "expected": 1134,
+        "differences": 0,
+        "max": 0
+      },
+      "rgb": {
+        "values": 236544,
+        "expected": 236544,
+        "differences": 0,
+        "max": 0
+      }
+    },
+    {
+      "name": "brisk-masked-1",
+      "pointFields": [
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 43,
+          "max": 0.000030517578125
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 434,
+          "expected": 434,
+          "differences": 0,
+          "max": 0
+        }
+      ],
+      "statsEqual": true,
+      "matches": {
+        "values": 1212,
+        "expected": 1212,
+        "differences": 0,
+        "max": 0
+      },
+      "lengths": {
+        "values": 404,
+        "expected": 404,
+        "differences": 0,
+        "max": 0
+      },
+      "groups": {
+        "values": 1134,
+        "expected": 1134,
+        "differences": 0,
+        "max": 0
+      },
+      "rgb": {
+        "values": 236544,
+        "expected": 236544,
+        "differences": 0,
+        "max": 0
+      }
+    },
+    {
+      "name": "brisk-empty-0",
+      "pointFields": [
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        }
+      ],
+      "statsEqual": true,
+      "matches": {
+        "values": 0,
+        "expected": 0,
+        "differences": 0,
+        "max": 0
+      },
+      "lengths": {
+        "values": 0,
+        "expected": 0,
+        "differences": 0,
+        "max": 0
+      },
+      "groups": {
+        "values": 0,
+        "expected": 0,
+        "differences": 0,
+        "max": 0
+      },
+      "rgb": {
+        "values": 236544,
+        "expected": 236544,
+        "differences": 0,
+        "max": 0
+      }
+    },
+    {
+      "name": "brisk-flat-0",
+      "pointFields": [
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        },
+        {
+          "values": 0,
+          "expected": 0,
+          "differences": 0,
+          "max": 0
+        }
+      ],
+      "statsEqual": true,
+      "matches": {
+        "values": 0,
+        "expected": 0,
+        "differences": 0,
+        "max": 0
+      },
+      "lengths": {
+        "values": 0,
+        "expected": 0,
+        "differences": 0,
+        "max": 0
+      },
+      "groups": {
+        "values": 0,
+        "expected": 0,
+        "differences": 0,
+        "max": 0
+      },
+      "rgb": {
+        "values": 36864,
+        "expected": 36864,
+        "differences": 0,
+        "max": 0
+      }
+    }
+  ],
+  "cacheReused": true,
+  "exportIdentity": true,
+  "memory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 254871098,
+    "knownHeapCapacityBytes": 83886080
+  }
+}

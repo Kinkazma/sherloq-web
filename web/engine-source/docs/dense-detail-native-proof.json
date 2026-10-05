@@ -1,0 +1,140 @@
+{
+  "status": "passed",
+  "result": [
+    {
+      "width": 37,
+      "height": 41,
+      "highpassDifferences": 0,
+      "highpassMaximumError": 0,
+      "remapDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "width": 91,
+      "height": 80,
+      "highpassDifferences": 0,
+      "highpassMaximumError": 0,
+      "remapDifferences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "name": "identity",
+      "actual": {
+        "accepted": true,
+        "ncc": 1,
+        "samples": 32
+      },
+      "expected": {
+        "accepted": true,
+        "ncc": 1,
+        "samples": 32
+      }
+    },
+    {
+      "name": "translated",
+      "actual": {
+        "accepted": false,
+        "ncc": -0.0207498911768198,
+        "samples": 32
+      },
+      "expected": {
+        "accepted": false,
+        "ncc": -0.0207498911768198,
+        "samples": 32
+      }
+    },
+    {
+      "name": "reflection",
+      "actual": {
+        "accepted": false,
+        "ncc": 0.33039501309394836,
+        "samples": 32
+      },
+      "expected": {
+        "accepted": false,
+        "ncc": 0.33039501309394836,
+        "samples": 32
+      }
+    },
+    {
+      "name": "scale",
+      "actual": {
+        "accepted": false,
+        "ncc": 0.3391241282224655,
+        "samples": 32
+      },
+      "expected": {
+        "accepted": false,
+        "ncc": 0.3391241282224655,
+        "samples": 32
+      }
+    },
+    {
+      "name": "too-few",
+      "actual": {
+        "accepted": false,
+        "ncc": 0,
+        "samples": 5
+      },
+      "expected": {
+        "accepted": false,
+        "ncc": 0,
+        "samples": 5
+      }
+    },
+    {
+      "name": "translation-copy",
+      "actual": {
+        "accepted": true,
+        "ncc": 1,
+        "samples": 32
+      },
+      "expected": {
+        "accepted": true,
+        "ncc": 1,
+        "samples": 32
+      }
+    },
+    {
+      "name": "reflection-copy",
+      "actual": {
+        "accepted": true,
+        "ncc": 1,
+        "samples": 32
+      },
+      "expected": {
+        "accepted": true,
+        "ncc": 1,
+        "samples": 32
+      }
+    }
+  ],
+  "transformCount": 160,
+  "transformDifferences": []
+}

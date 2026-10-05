@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "cases": 32,
+  "different": 0,
+  "packedGrayAndPalette": true,
+  "adam7": true,
+  "pngExifOrientations": 8,
+  "alphaPolicy": "native IMREAD_COLOR, not retained",
+  "browser": "154.0.8037.58"
+}

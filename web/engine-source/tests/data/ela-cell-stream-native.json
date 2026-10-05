@@ -1,0 +1,62 @@
+{
+  "file": "tests/data/recompression-segmented-parallel.jpg",
+  "width": 1600,
+  "height": 2200,
+  "opencv": "4.11.0",
+  "numpy": "1.26.4",
+  "payloadSha256": "8ea203ed6a82b7cf2450f05d9d035f2802bad1fcc35a5f07b5aa983e29d8ebbc",
+  "cases": [
+    {
+      "quality": 75,
+      "block": 32,
+      "fields": {
+        "content": {
+          "offset": 0,
+          "bytes": 81600,
+          "sha256": "701525c1ae38a11f12fe4eb81cca98f796ec34f94054c6c154e82bc6544c6580"
+        },
+        "profiles": {
+          "offset": 81600,
+          "bytes": 68000,
+          "sha256": "9f991e230e02665c62d642bf512e581e457ee652cca5367ba14fff1c36f82698"
+        },
+        "usable": {
+          "offset": 149600,
+          "bytes": 3400,
+          "sha256": "abb4100ba87038b096c26abc2d018420160f3ba82d39363e01f159937ccfde54"
+        },
+        "background": {
+          "offset": 153000,
+          "bytes": 40800,
+          "sha256": "5396c317f09ddef1d6359ea43a168572aa4c6d93335651c8318e158efe036173"
+        }
+      }
+    },
+    {
+      "quality": 80,
+      "block": 32,
+      "fields": {
+        "content": {
+          "offset": 193800,
+          "bytes": 81600,
+          "sha256": "701525c1ae38a11f12fe4eb81cca98f796ec34f94054c6c154e82bc6544c6580"
+        },
+        "profiles": {
+          "offset": 275400,
+          "bytes": 68000,
+          "sha256": "3831b522cb2c7e0d2814aa1a54cad7f5525c25483607005052b5fbac24c45f77"
+        },
+        "usable": {
+          "offset": 343400,
+          "bytes": 3400,
+          "sha256": "abb4100ba87038b096c26abc2d018420160f3ba82d39363e01f159937ccfde54"
+        },
+        "background": {
+          "offset": 346800,
+          "bytes": 40800,
+          "sha256": "f5c09956c6befc0d1839c6447fd3617b15e1f5ba7ecc08eba887d3fd1ad476d2"
+        }
+      }
+    }
+  ]
+}

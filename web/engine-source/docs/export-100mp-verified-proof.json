@@ -1,0 +1,276 @@
+{
+  "passed": true,
+  "synthetic": true,
+  "verification": "Complete independent pixel/value comparison, ZIP/PNG CRC and whole-file SHA256; no detector execution",
+  "wallSeconds": 20.889286749996245,
+  "files": [
+    {
+      "file": "synthetic-100mp-6.png",
+      "byteLength": 1419989,
+      "sha256": "4bdb8a8a70cb6e6fe4498cbc6b4dbf0a2b984cf75ab853da88802f39cb06a58e",
+      "format": "png",
+      "dimensions": [
+        10000,
+        10000
+      ],
+      "verifiedPixels": 100000000,
+      "rgbSha256": "c0270d5007429405649c3bf04a41346dcbd6edb281d4052163cf377f65725f5b",
+      "chunksVerified": 24
+    },
+    {
+      "file": "synthetic-100mp-0.png",
+      "byteLength": 300097599,
+      "sha256": "920a467b3541548757555b5ad5a3b79cde0a322e576cba4ca97d29a19b133ded",
+      "format": "png",
+      "dimensions": [
+        10000,
+        10000
+      ],
+      "verifiedPixels": 100000000,
+      "rgbSha256": "c0270d5007429405649c3bf04a41346dcbd6edb281d4052163cf377f65725f5b",
+      "chunksVerified": 4581
+    },
+    {
+      "file": "synthetic-100mp.npz",
+      "byteLength": 5500023986,
+      "sha256": "87285e45048b06a6465980c38a6f614e5eda7757ed232299891986909c05b116",
+      "format": "npz",
+      "zip64": true,
+      "arrays": {
+        "root_results_patchmatch_points": {
+          "shape": [
+            2,
+            7
+          ],
+          "dtype": "<f4",
+          "verifiedValues": 14,
+          "sha256": "54927fa61cbf352440311792f86d2ea40980afe6f918101fb872c8acf107785b"
+        },
+        "root_results_patchmatch_pairs": {
+          "shape": [
+            1,
+            4
+          ],
+          "dtype": "<f8",
+          "verifiedValues": 4,
+          "sha256": "2618e6f260a620ae934afddb47be90ae70063d41adf0a2786fdbdc9180ddef2e"
+        },
+        "root_results_patchmatch_groups_0": {
+          "shape": [
+            1
+          ],
+          "dtype": "<i8",
+          "verifiedValues": 1,
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+        },
+        "root_results_patchmatch_colors": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "|u1",
+          "verifiedValues": 3,
+          "sha256": "99491895efd67f731d6c45663d0e8419f4d618a66adc753610b4ad51472c1438"
+        },
+        "root_results_patchmatch_pair_search_regions": {
+          "shape": [
+            1
+          ],
+          "dtype": "<i4",
+          "verifiedValues": 1,
+          "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+        },
+        "root_results_patchmatch_pair_algorithms": {
+          "shape": [
+            1
+          ],
+          "dtype": "|u1",
+          "verifiedValues": 1,
+          "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+        },
+        "root_results_patchmatch_dense_maps_0_consistent_mask": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "|b1",
+          "verifiedValues": 100000000,
+          "sha256": "be3fc743da54216917740d41585691e7750c262f29a1714a6a018ea39de90eef"
+        },
+        "root_results_patchmatch_dense_maps_0_coherence_error": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<f4",
+          "verifiedValues": 100000000,
+          "sha256": "f39b81004b389bd79d68d17eed732d1a8d5a82165df138b35c93d27d8bcbed07"
+        },
+        "root_results_patchmatch_dense_maps_0_targets": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<i4",
+          "verifiedValues": 100000000,
+          "sha256": "d294e30339d12062d8d9b5d9269a5c220d517173a3270d07845ecfe67b00cabb"
+        },
+        "root_results_patchmatch_dense_maps_0_distances_squared": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<f4",
+          "verifiedValues": 100000000,
+          "sha256": "3f0bef5ca1643a0b4b643cc284fd35d2aed7223b75b9989036f8a7b6040cacbd"
+        },
+        "root_results_patchmatch_dense_maps_1_consistent_mask": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "|b1",
+          "verifiedValues": 100000000,
+          "sha256": "b2e54ab699d622201eb8e7bdaaab557dc283b4d119d1850e7e3a77686742625b"
+        },
+        "root_results_patchmatch_dense_maps_1_coherence_error": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<f4",
+          "verifiedValues": 100000000,
+          "sha256": "df2929612871c0edd5e97d7fe692f9f27cb319b20f10f391d46974ed1aa6416b"
+        },
+        "root_results_patchmatch_dense_maps_1_targets": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<i4",
+          "verifiedValues": 100000000,
+          "sha256": "55331c22e259b9d59c50b9a679b410faf1ff17bb71d38e02893f621275223a7d"
+        },
+        "root_results_patchmatch_dense_maps_1_distances_squared": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<f4",
+          "verifiedValues": 100000000,
+          "sha256": "fd3da7383146301fae2ebb4f6111abc95c1337370ed627527473c709bdf37ea6"
+        },
+        "root_results_patchmatch_dense_maps_2_consistent_mask": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "|b1",
+          "verifiedValues": 100000000,
+          "sha256": "28058015d67eea14dedb831cf1068db781c3eb5eb32173068fc56124128cdd71"
+        },
+        "root_results_patchmatch_dense_maps_2_coherence_error": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<f4",
+          "verifiedValues": 100000000,
+          "sha256": "5478795d5f8f40a073b74fef6fd9b8e47f8d037b6132fdb13737e3a77136fd9f"
+        },
+        "root_results_patchmatch_dense_maps_2_targets": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<i4",
+          "verifiedValues": 100000000,
+          "sha256": "695abf1d2efdf4afec43b2c86d1997d62b167af51827a2ef5ee2d50d7c735d9e"
+        },
+        "root_results_patchmatch_dense_maps_2_distances_squared": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<f4",
+          "verifiedValues": 100000000,
+          "sha256": "8863ccf85ee307cc52259b2cfe4675a31d5928d3dcbac8cc7489f260b1fe0041"
+        },
+        "root_results_patchmatch_browser_details_dense_fields_0_allowed": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "|u1",
+          "verifiedValues": 100000000,
+          "sha256": "0f91e72fd87d17821ece0d8bdb5af96a87a0dfe4fdb09d370393ee09510d0b40"
+        },
+        "root_results_patchmatch_browser_details_dense_fields_1_allowed": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "|u1",
+          "verifiedValues": 100000000,
+          "sha256": "c94b21147b800b1b1745f2a8557d943671e0dd093432e10fbafe3bfed4e110b0"
+        },
+        "root_results_patchmatch_browser_details_dense_fields_2_allowed": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "|u1",
+          "verifiedValues": 100000000,
+          "sha256": "4bd4feb952b7e05c1d1bd6063b0464dfb21432810a6d36845e900029145351b0"
+        },
+        "root_results_sift_points": {
+          "shape": [
+            1,
+            7
+          ],
+          "dtype": "<f8",
+          "verifiedValues": 7,
+          "sha256": "f706170c62ccefa855935d11b203b15765e30e87a115c77ff37adfbadb2c5b8a"
+        },
+        "root_results_d2prl_probability": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<f4",
+          "verifiedValues": 100000000,
+          "sha256": "4aee3c148caedc6d2d57d5057dfc9e737e4b1abcb658d72da38cb04dce0608e0"
+        },
+        "root_results_ela_energy": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<f4",
+          "verifiedValues": 100000000,
+          "sha256": "3f0bef5ca1643a0b4b643cc284fd35d2aed7223b75b9989036f8a7b6040cacbd"
+        },
+        "root_corroboration_counts": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "|u1",
+          "verifiedValues": 100000000,
+          "sha256": "a993f8c574e0fea8c1cdcbcd9408d9e2e107ee6e4d120edcfa11decd53fa0cae"
+        },
+        "root_corroboration_context_counts": {
+          "shape": [
+            10000,
+            10000
+          ],
+          "dtype": "<u4",
+          "verifiedValues": 100000000,
+          "sha256": "36286c9dd45c90a7ff4443de7fc7301c5bc4900ff415d789dbc7f9a32a9dbb83"
+        }
+      },
+      "metadataAndCrcVerified": true,
+      "optionalUndefinedMetricHandled": true
+    }
+  ]
+}

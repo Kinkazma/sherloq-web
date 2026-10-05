@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Gradient global histogram display stage against existing native OpenCV equalization oracle above2^24. This isolates the count-conversion regression; not a complete large gradient image or speed benchmark.",
+  "reference": "OpenCV4.11 equalizeHist on explicit16777218 uint8 samples; grayscale replicated to RGB for the magnifier oracle",
+  "baselineSourceSha256": "ca54214d8ab744bba1ab9fdd2c07da2d67983c40c40f36ee03feb2dc42da3ecc",
+  "currentSourceSha256": "43ebc6fa0e3592bc6ef14cd1c4969e9d7a7a0cba2762ced6c7a3c44e4dda18ba",
+  "cases": [
+    {
+      "count": 16777218,
+      "bins": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          8388608
+        ],
+        [
+          255,
+          8388609
+        ]
+      ],
+      "differingPopulatedRgbComponentsBefore": 25165824,
+      "maxByteErrorBefore": 1,
+      "differingPopulatedRgbComponentsAfter": 0
+    },
+    {
+      "count": 16777218,
+      "bins": [
+        [
+          7,
+          1
+        ],
+        [
+          129,
+          8388608
+        ],
+        [
+          233,
+          8388609
+        ]
+      ],
+      "differingPopulatedRgbComponentsBefore": 25165824,
+      "maxByteErrorBefore": 1,
+      "differingPopulatedRgbComponentsAfter": 0
+    }
+  ]
+}

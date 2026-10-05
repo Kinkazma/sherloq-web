@@ -1,0 +1,278 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real model API from generated original file through source pixels, independent neural zone inference, source-coordinate composition, cached refilter and numeric NPZ export. No expected tensors enter the model. WordPress integration remains separate.",
+  "backend": "gpu",
+  "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+  "records": [
+    {
+      "name": "detect-500",
+      "checks": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true,
+        "candidates": true
+      },
+      "inferenceCount": true
+    },
+    {
+      "name": "refilter-0",
+      "checks": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true,
+        "candidates": true
+      },
+      "inferenceCount": true
+    },
+    {
+      "name": "refilter-17",
+      "checks": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true,
+        "candidates": true
+      },
+      "inferenceCount": true
+    },
+    {
+      "name": "refilter-5000",
+      "checks": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true,
+        "candidates": true
+      },
+      "inferenceCount": true
+    },
+    {
+      "name": "envelope-disabled",
+      "checks": {
+        "map": true,
+        "mask": true,
+        "target": true,
+        "source": true,
+        "analyzed": true,
+        "candidates": true
+      },
+      "inferenceCount": true
+    }
+  ],
+  "actualInferences": 3,
+  "metadata": {
+    "boxes": [
+      [
+        17,
+        23,
+        303,
+        283
+      ],
+      [
+        149,
+        91,
+        497,
+        373
+      ]
+    ],
+    "zones": [
+      {
+        "id": "roi-a",
+        "bounds": [
+          17,
+          23,
+          303,
+          283
+        ],
+        "origin": [
+          17,
+          23
+        ],
+        "analysis_shape": [
+          3,
+          448,
+          448
+        ],
+        "status": "ok",
+        "input_side": 448,
+        "patchmatch_iterations": 40,
+        "seed": 22,
+        "min_component": 500,
+        "role_filter": 50,
+        "kind": "region",
+        "decision": {
+          "overlap": 1087.56591796875,
+          "threshold": 1366.4796142578125,
+          "combineMaximum": false
+        },
+        "execution": {
+          "convolution": "webgpu",
+          "patchmatch": "wasm-workers",
+          "roles": "onnxruntime-wasm",
+          "workerCeiling": 10,
+          "referenceThreads": 8,
+          "roleRuntime": {
+            "heapCapacityBytes": 170524672,
+            "ort": {
+              "common": "1.30.0",
+              "web": "1.30.0"
+            }
+          }
+        }
+      },
+      {
+        "id": "roi-b",
+        "bounds": [
+          149,
+          91,
+          497,
+          373
+        ],
+        "origin": [
+          149,
+          91
+        ],
+        "analysis_shape": [
+          3,
+          448,
+          448
+        ],
+        "status": "ok",
+        "input_side": 448,
+        "patchmatch_iterations": 40,
+        "seed": 22,
+        "min_component": 500,
+        "role_filter": 50,
+        "kind": "region",
+        "decision": {
+          "overlap": 1033.9222412109375,
+          "threshold": 850.15478515625,
+          "combineMaximum": true
+        },
+        "execution": {
+          "convolution": "webgpu",
+          "patchmatch": "wasm-workers",
+          "roles": "onnxruntime-wasm",
+          "workerCeiling": 10,
+          "referenceThreads": 8,
+          "roleRuntime": {
+            "heapCapacityBytes": 170524672,
+            "ort": {
+              "common": "1.30.0",
+              "web": "1.30.0"
+            }
+          }
+        }
+      }
+    ],
+    "exclusions": [
+      [
+        201,
+        157,
+        251,
+        217
+      ],
+      [
+        0,
+        0,
+        8,
+        389
+      ]
+    ],
+    "min_component": 500,
+    "status": "ok",
+    "probability_interpolation": "bilinear",
+    "mask_interpolation": "nearest",
+    "exclusion_policy": "output-only-native-d2prl",
+    "inference_performed": false,
+    "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+    "backend": "gpu",
+    "pixelSha256": "1238856164fe1cde39f48ca43729fc0d5c2058eaab31502712a5762cc6ed41fd",
+    "resultId": "d2prl-session-1:5",
+    "revision": 5,
+    "sourceProvenance": {
+      "id": "d2prl-source",
+      "width": 521,
+      "height": 389,
+      "format": "rgb8",
+      "sha256": "a49d384b21e357114e799c084c69318d3dd63d1264473a15035f35a84f6acd98",
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          521,
+          389
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      },
+      "surface": {
+        "id": "bb2073cb-bf3c-4351-8c20-983939df8a36",
+        "revision": 1,
+        "width": 521,
+        "height": 389,
+        "format": "rgb8",
+        "sourceWidth": 521,
+        "sourceHeight": 389,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "metrics": {
+        "preparationMs": 39.899999998509884,
+        "memory": {
+          "budgetBytes": 2187484540,
+          "retainedBytes": 1135475,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 40000892
+        }
+      }
+    },
+    "vote_policy": "one-model-union",
+    "inferences": 0,
+    "cache_hits": 2
+  },
+  "exported": {
+    "bytes": 3055515,
+    "sha256": "a70d324be6338bd00bd2239a590166d3d1e95559f324c9e91e0ed5d1b9be93e9",
+    "minimum": 500,
+    "envelope": false
+  },
+  "originalPreserved": true,
+  "progressEvents": 3483,
+  "allReservationsReleased": true,
+  "peakAccountedBytes": 2306466799,
+  "memoryScope": "Conservative engine reservations, not RSS; reference comparator excluded.",
+  "browser": "154.0.8037.58",
+  "package": {
+    "schema": 1,
+    "file": "model.json",
+    "bytes": 1173784,
+    "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+    "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+    "assets": 1062,
+    "assetBytes": 541513527,
+    "scope": "Private model parameters and configuration only; no native expected images/activations, no distribution permission inferred."
+  },
+  "sources": {
+    "model": "e9fbc85605a73a1e48e434c7fdeb41b0c91da3c4a672eef8cb41d1452d183e12",
+    "analysis": "6e4869fbb1ef3a3a513cc6846b4ce62f8afb16a9ca2fc7ad783e90ae621c4fa4",
+    "descriptors": "dbdd97c4f46d75fdb79c9595158cf019f65916dd8447370294310b85b8ca0863",
+    "zones": "df16e465ce61c821807d5b826b828a5e54665db03a097dad84dbba28180fddb3",
+    "export": "f5bb7377fda7d7e34a25e71b167bde9b52c9cbaa161a1e7fe68b781c25385279"
+  }
+}

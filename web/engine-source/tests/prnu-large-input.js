@@ -1,0 +1,1 @@
+export function prnuLargeInput(f){const data=new Uint8Array(f.width*f.height*3);for(let i=0;i<f.width*f.height;i++){const state=(Math.imul(i,1103515245)+12345)>>>0;data[i*3]=state>>>24;data[i*3+1]=(state>>>16)&255;data[i*3+2]=(state>>>8)&255;}return {width:f.width,height:f.height,format:'rgb8',data};}

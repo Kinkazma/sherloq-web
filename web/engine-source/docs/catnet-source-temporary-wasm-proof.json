@@ -1,0 +1,218 @@
+{
+  "dimensions": [
+    131,
+    97
+  ],
+  "analyzeMs": 75863.79999999702,
+  "totalMs": 75935.10000000894,
+  "fields": {
+    "map": {
+      "length": 12707,
+      "finite": true,
+      "min": 0.002595240017399192,
+      "max": 0.01204010285437107,
+      "maxError": 2.561137080192566e-8,
+      "meanError": 4.773385493838085e-9,
+      "thresholdChanges": 0
+    },
+    "native_map": {
+      "length": 884,
+      "finite": true,
+      "min": 0.002583645284175873,
+      "max": 0.012510642409324646,
+      "maxError": 2.7939677238464355e-8,
+      "meanError": 6.014616039004261e-9,
+      "thresholdChanges": 0
+    }
+  },
+  "views": [
+    {
+      "view": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 0,
+      "rect": {
+        "x": 78,
+        "y": 56,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        78,
+        56
+      ],
+      "bytes": 6519
+    },
+    {
+      "view": 1,
+      "rect": {
+        "x": 78,
+        "y": 56,
+        "width": 53,
+        "height": 41
+      },
+      "origin": [
+        78,
+        56
+      ],
+      "bytes": 6519
+    }
+  ],
+  "export": {
+    "bytes": 57980,
+    "descriptor": 57980,
+    "first": [
+      80,
+      75,
+      3,
+      4
+    ],
+    "last": [
+      80,
+      75,
+      5,
+      6
+    ]
+  },
+  "source": {
+    "dimensions": {
+      "id": "074f6d43-2626-4e07-9991-934a6492c96d",
+      "revision": 1,
+      "width": 131,
+      "height": 97,
+      "format": "rgb8",
+      "sourceWidth": 131,
+      "sourceHeight": 97,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "provenance": {
+      "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+      "layout": "segmented-scanlines",
+      "orientation": 1,
+      "orientationApplied": true,
+      "sourceSize": [
+        131,
+        97
+      ],
+      "icc": "absent",
+      "depth": 8,
+      "alpha": "absent",
+      "interpolation": "none"
+    },
+    "metrics": {
+      "decodeMs": 11.5,
+      "rowsPerChunk": 97,
+      "encodedWorkingBytes": 54996,
+      "coefficientAllowanceBytes": 0,
+      "workingReservationBytes": 33685670,
+      "codecHeapCapacityBytes": 16777216,
+      "storage": "memory",
+      "temporaryBackend": null,
+      "temporaryFallback": null,
+      "temporaryBytes": 0,
+      "originalBlobBytes": 54996,
+      "originalBlobResidency": "browser-managed; not measured as zero RAM"
+    }
+  },
+  "provenance": {
+    "originalSourceSha256": "3ee646a9c0404fbbfdea115c110dfc634a02ccfcf9a1412b2f4781d20d5c4b78",
+    "sourceSurfaceIdentity": "074f6d43-2626-4e07-9991-934a6492c96d/1",
+    "checkpointSha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+    "provider": "wasm",
+    "qualification": "native segmented HRNet; see dimension-specific proof"
+  },
+  "storage": {
+    "backend": "opfs",
+    "reservedBytes": 54364,
+    "peakReservedBytes": 1216384,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 10737418240,
+    "openFiles": 2
+  },
+  "events": [
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-1-branch1",
+      "elapsedMs": 9864.40000000596
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage3-3-branch2",
+      "elapsedMs": 19918.20000000298
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-0-fuse3-1",
+      "elapsedMs": 30246.29999999702
+    },
+    {
+      "phase": "model-load",
+      "model": "rgb-stage4-1-fuse3-2",
+      "elapsedMs": 40551
+    },
+    {
+      "phase": "inference",
+      "model": "dct-layer",
+      "elapsedMs": 50622.79999999702
+    },
+    {
+      "phase": "model-load",
+      "model": "dct-stage4-0-fuse0-1",
+      "elapsedMs": 60910.10000000894
+    },
+    {
+      "phase": "inference",
+      "model": "fusion-transition-1",
+      "elapsedMs": 70984.40000000596
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 16777216,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3211921631,
+    "residentCodecBytes": 16777216
+  },
+  "pinnedMemory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 16815337,
+    "cacheBytes": 0,
+    "activeReservationBytes": 2362222,
+    "peakAccountedBytes": 3211921631,
+    "residentCodecBytes": 16777216
+  },
+  "cancelled": true,
+  "remainingTemporary": [],
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

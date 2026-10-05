@@ -1,0 +1,8 @@
+import assert from 'node:assert/strict';import {writeFile} from 'node:fs/promises';import {Budget} from '../src/cache.js';import {sampleDenseLinks} from '../src/dense-links.js';import {samplePagedDenseLinks,gatherDenseValues} from '../src/dense-paged-links.js';
+const plane=a=>({byteLength:a.byteLength,readInto(out,at){out.set(new Uint8Array(a.buffer,a.byteOffset+at,out.length));}}),budget=new Budget(32*1024**2),n=18022,targets=Int32Array.from({length:n},(_,i)=>i%43===0?-1:(i+n/2)%n),distancesSquared=Float32Array.from({length:n},(_,i)=>(i%37)/100),selected=Uint8Array.from({length:n},(_,i)=>i%7?1:0),proof=[];
+for(const limit of [1,6,6000,n]){
+ const expected=sampleDenseLinks(targets,distancesSquared,selected,limit),result=await samplePagedDenseLinks({width:n/2,height:2,targets:plane(targets),distancesSquared:plane(distancesSquared),selected:plane(selected)},limit,{budget,pageBytes:512,cachePages:1}),rows=new Int32Array(result.count);await result.rows.readInto(new Uint8Array(rows.buffer));assert.deepEqual(rows,expected.rows);assert.equal(result.total,expected.total);
+ const indices=Int32Array.from(rows).reverse(),actual=await gatherDenseValues(plane(targets),indices,Int32Array);assert.deepEqual(actual,Int32Array.from(indices,i=>targets[i]));
+ assert.equal(result.denseCount,targets.reduce((sum,t,i)=>sum+(t>=0&&distancesSquared[i]<=Math.fround(.3*.3)),0));proof.push({limit,count:result.count,total:result.total,denseCount:result.denseCount,...result.metrics});await result.dispose();assert.equal(budget.total(),0);
+}
+await writeFile(new URL('../docs/dense-paged-links-proof.json',import.meta.url),JSON.stringify({status:'passed',cases:proof},null,2)+'\n');console.log(proof);

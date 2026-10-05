@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "arrays": 14,
+  "exactNative": true,
+  "inputStorage": "opfs",
+  "outputStorage": "opfs",
+  "outputBytes": 2227059,
+  "archiveSurvivesSourceDisposal": true,
+  "cancellationCleanup": true,
+  "memory": {
+    "budgetBytes": 33554432,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 19008260
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

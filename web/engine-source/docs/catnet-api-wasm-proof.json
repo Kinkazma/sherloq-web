@@ -1,0 +1,22 @@
+{
+  "provider": "wasm",
+  "raw": {
+    "values": 884,
+    "maxError": 9.238719940185547e-7,
+    "differences": 858
+  },
+  "cacheIsolated": true,
+  "rejectsEditedJpeg": true,
+  "renderBytes": 38121,
+  "npzBytes": 57696,
+  "memory": {
+    "budgetBytes": 4294967296,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 2146781264
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

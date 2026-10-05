@@ -1,0 +1,138 @@
+{
+  "state": "failed",
+  "pid": 170,
+  "startedAt": "2026-10-03T07:57:57.014Z",
+  "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-memory-domains-96mp-20261003T075756Z",
+  "budgetPolicy": "maximum profile from browser RAM hint",
+  "computeProfile": "maximum",
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "timeoutHours": 24,
+  "phase": "stopped",
+  "updatedAt": "2026-10-03T08:04:53.699Z",
+  "wallMs": 416685,
+  "engineCommit": "2998c1ef47427991cb9c4ebef55ac5283ad2c739",
+  "port": 57313,
+  "browser": "154.0.8037.93",
+  "environment": {
+    "crossOriginIsolated": true,
+    "sharedArrayBuffer": true,
+    "hardwareConcurrency": 10,
+    "deviceMemoryGiB": 32,
+    "webgpuExposed": true,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36"
+  },
+  "initialHostMemory": {
+    "at": "2026-10-03T07:57:58.224Z",
+    "scope": "Read-only host counters; not a browser allocation limit, RAM probe or capacity estimate.",
+    "vmStat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   625387.\nPages active:                                1254792.\nPages inactive:                              1189999.\nPages speculative:                            103487.\nPages throttled:                                   0.\nPages wired down:                             289395.\nPages purgeable:                               68648.\n\"Translation faults\":                     5299590869.\nPages copy-on-write:                       195057351.\nPages zero filled:                        9172418174.\nPages reactivated:                         100282968.\nPages purged:                               23232095.\nFile-backed pages:                            756262.\nAnonymous pages:                             1792016.\nPages stored in compressor:                  2125947.\nPages occupied by compressor:                 655302.\nDecompressions:                             72692400.\nCompressions:                              126163961.\nPageins:                                   226592378.\nPageouts:                                   15545946.\nSwapins:                                     1043477.\nSwapouts:                                    2044431.",
+    "swap": "vm.swapusage: total = 13312.00M  used = 12360.12M  free = 951.88M  (encrypted)"
+  },
+  "lastProgress": {
+    "id": "complete96",
+    "phase": "global-patchmatch",
+    "stage": "propagation",
+    "iteration": 0,
+    "completed": 23966426,
+    "total": 96000000,
+    "parallel": {
+      "coordinator": "control-and-storage-only",
+      "workers": 9,
+      "peakActiveKernels": 9,
+      "tasks": 39045,
+      "cpuGrants": [
+        4,
+        2,
+        4,
+        2,
+        4,
+        6,
+        4,
+        6,
+        4,
+        7,
+        4,
+        6,
+        1,
+        4,
+        2,
+        1,
+        9,
+        1,
+        9,
+        1,
+        9,
+        1,
+        9,
+        1,
+        9,
+        1,
+        6,
+        3,
+        9,
+        1,
+        9,
+        1
+      ],
+      "cpuGrantChanges": 614,
+      "wavefront": "ordered-row-segments",
+      "reverse": "parallel-proposals-ordered-commit",
+      "cacheReconfigurations": 0,
+      "allocationRecoveries": 0,
+      "heapBytes": 202899456
+    },
+    "workers": 1,
+    "sharedReadCache": {
+      "bytes": 32,
+      "banks": 0,
+      "hits": 40138252,
+      "misses": 8931257,
+      "fills": 0,
+      "collisions": 612
+    },
+    "group": "patchmatch",
+    "attempt": 1,
+    "elapsedMs": 415394.2149999738
+  },
+  "deliveredBytes": 0,
+  "partialDeliveredBytes": 0,
+  "lastAutomaticState": {
+    "states": {
+      "patchmatch": "running",
+      "sift": "running",
+      "forgeryscope": "done",
+      "d2prl": "running",
+      "ela": "running"
+    },
+    "errors": {},
+    "attempts": {
+      "patchmatch": 1,
+      "sift": 3,
+      "forgeryscope": 1,
+      "d2prl": 1,
+      "ela": 1
+    },
+    "completed": [
+      "forgeryscope"
+    ],
+    "running": [
+      "patchmatch",
+      "sift",
+      "d2prl",
+      "ela"
+    ],
+    "preflightExecutions": 0
+  },
+  "budgetBytes": 27487371264,
+  "executionCapacity": {
+    "cpu": 10,
+    "gpu": 1
+  },
+  "exitCode": 1,
+  "stoppedAt": "2026-10-03T08:38:42.108345+00:00",
+  "error": {
+    "message": "Runner exited before writing a final result"
+  }
+}

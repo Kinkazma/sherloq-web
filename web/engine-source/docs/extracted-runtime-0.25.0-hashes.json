@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "version": "0.25.0",
+  "status": "runtime archive and every extracted file hash verified",
+  "archive": {
+    "file": "sherloq-web-engine-0.25.0-runtime.zip",
+    "bytes": 8406083,
+    "sha256": "8b8935e67fca713e19ee5838ad2366caeb412a8ab25caeff9ce586d3ea404d21",
+    "manifestFiles": 164
+  },
+  "verifiedRuntimeFiles": 164,
+  "browserRecipe": "Passed; see extracted-runtime-0.25-proof.json"
+}

@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "sourceSha256": "f0433cc1ca2ee56b11355f544466cbd4eb7b6c239c9e9e84a2cfabcdb4ba7a38",
+  "native": {
+    "numpy": "1.26.4",
+    "system": "Darwin",
+    "release": "26.5.2",
+    "architecture": "arm64",
+    "extensionSha256": "6a88945aed63a76e3c57076d657d704eef5d0d1e8d6cb1576724b1deb2872e44"
+  },
+  "cases": 184549377,
+  "chunks": 177,
+  "corrections": {
+    "count": 10863,
+    "bytes": 86904,
+    "compressedBytes": 73382,
+    "sha256": "aff6010f016381a1b499181f218ad90b8da34c77a3169f2e477efa56d52172d3",
+    "compressedSha256": "661fc7d29aab7a0b31c2e5af38fb210e3bde120d0c6f3e259ad17cd983d0e473"
+  },
+  "minimumBits": 973078528,
+  "maximumBits": 1157627904,
+  "functionalCheckMs": 2625.9000000003725,
+  "scope": "Exhaustive numerical test of bounded float32 log only; no ELA scores, masks or user-path preflight. CPU Math.log plus static sparse native corrections; no OS branding.",
+  "browser": "154.0.8037.58"
+}

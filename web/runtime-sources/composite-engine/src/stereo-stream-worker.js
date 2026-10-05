@@ -1,0 +1,3 @@
+import {createStereoStream} from './stereo-stream-kernel.js';
+let ready;
+self.onmessage=async({data:j})=>{try{const math=await(ready??=createStereoStream());let result={};if(j.op==='search')result={sums:math.search(j.rgb,j.width,j.height,j.outputRows)};else if(j.op==='create')math.create(j.width,j.height);else if(j.op==='input')math.put(j.rgb,j.width,j.top,j.rows,j.offset);else if(j.op==='flow')result=math.flow(j.original);else if(j.op==='output')result={values:math.read(j.offset,j.count)};else throw Error('Unknown stereo stage');self.postMessage({result},Object.values(result).filter(ArrayBuffer.isView).map(v=>v.buffer));}catch(error){self.postMessage({error:{code:error.code??'WORKER_FAILED',message:error.message}});}};

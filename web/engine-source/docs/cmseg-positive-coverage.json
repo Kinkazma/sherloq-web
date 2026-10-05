@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "scope": "Find a public synthetic positive case for CMSeg-Net decision coverage.\n\nAll generated cases and counts are recorded, including negative cases. This is\nbranch coverage, not a sensitivity/specificity benchmark or model tuning.\n",
+  "records": [
+    {
+      "name": "multiscale-192",
+      "foreground": 0,
+      "maximum": 0.01164997462183237
+    },
+    {
+      "name": "smooth-192",
+      "foreground": 0,
+      "maximum": 0.01891898363828659
+    },
+    {
+      "name": "bands-192",
+      "foreground": 0,
+      "maximum": 0.006148960907012224
+    },
+    {
+      "name": "blobs-192",
+      "foreground": 2611,
+      "maximum": 0.9982910752296448
+    }
+  ]
+}

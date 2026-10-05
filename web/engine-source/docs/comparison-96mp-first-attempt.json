@@ -1,0 +1,72 @@
+{
+  "error": {
+    "message": "Planned temporary arrays exceed the origin quota estimate or explicit allowance.",
+    "code": "STORAGE_QUOTA",
+    "stack": "EngineError: Planned temporary arrays exceed the origin quota estimate or explicit allowance.\n    at worker.onmessage (http://127.0.0.1:56383/src/comparison-paged-pool.js:26:39)"
+  },
+  "partial": {
+    "family": "Comparison",
+    "budgetBytes": 805306368,
+    "cases": [],
+    "sources": [
+      {
+        "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+        "shape": {
+          "id": "068145dd-606a-42d6-9bf0-0decf699a287",
+          "revision": 1,
+          "width": 12000,
+          "height": 8000,
+          "format": "rgb8",
+          "sourceWidth": 12000,
+          "sourceHeight": 8000,
+          "orientation": 1,
+          "coordinates": "full-resolution",
+          "storage": "temporary"
+        },
+        "metrics": {
+          "decodeMs": 4893.20000000298,
+          "rowsPerChunk": 116,
+          "encodedWorkingBytes": 80426021,
+          "coefficientAllowanceBytes": 0,
+          "workingReservationBytes": 122332453,
+          "codecHeapCapacityBytes": 96731136,
+          "storage": "temporary",
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "temporaryBytes": 288000000,
+          "originalBlobBytes": 80426021,
+          "originalBlobResidency": "browser-managed; not measured as zero RAM"
+        }
+      },
+      {
+        "sha256": "d8259400e07d574d240daf8bb619d8dce16da8f1fafc2681a91cbb3d42941493",
+        "shape": {
+          "id": "119bb61f-5241-4a53-9618-42b6c2a3dbfb",
+          "revision": 1,
+          "width": 12000,
+          "height": 8000,
+          "format": "rgb8",
+          "sourceWidth": 12000,
+          "sourceHeight": 8000,
+          "orientation": 1,
+          "coordinates": "full-resolution",
+          "storage": "temporary"
+        },
+        "metrics": {
+          "decodeMs": 2734.0999999940395,
+          "rowsPerChunk": 116,
+          "encodedWorkingBytes": 88948530,
+          "coefficientAllowanceBytes": 0,
+          "workingReservationBytes": 130854962,
+          "codecHeapCapacityBytes": 96731136,
+          "storage": "temporary",
+          "temporaryBackend": "opfs",
+          "temporaryFallback": null,
+          "temporaryBytes": 288000000,
+          "originalBlobBytes": 88948530,
+          "originalBlobResidency": "browser-managed; not measured as zero RAM"
+        }
+      }
+    ]
+  }
+}

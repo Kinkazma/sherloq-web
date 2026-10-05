@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "version": "0.27.0",
+  "status": "passed",
+  "browser": "154.0.8037.58",
+  "archives": [
+    {
+      "file": "sherloq-web-engine-0.27.0-runtime.zip",
+      "bytes": 8508939,
+      "sha256": "7a8520c3737079a11ab0cbe2a87e0e898755d1c4af15501d6110d802ff6b78ae",
+      "manifestFiles": 168
+    },
+    {
+      "file": "sherloq-web-engine-0.27.0-source.zip",
+      "bytes": 182211704,
+      "sha256": "cc4e694750ddc4332d455a52cf8a41d366c3458491db069d559a38c702521f34",
+      "manifestFiles": 3079
+    }
+  ],
+  "verifiedRuntimeFiles": 168,
+  "runtimeSmoke": {
+    "status": "passed",
+    "version": "0.27.0",
+    "operations": [
+      "ela.classic",
+      "metadata.structure",
+      "metadata.location",
+      "metadata.thumbnail",
+      "file.hex",
+      "colors.pca",
+      "colors.space",
+      "noise.separation",
+      "detail.gradient",
+      "inspection.adjust",
+      "detail.echo",
+      "subimages.detect",
+      "tampering.copyMove.akaze",
+      "tampering.copyMove.orb",
+      "tampering.resampling.fourier",
+      "various.median",
+      "noise.noisesniffer",
+      "noise.prnu",
+      "comparison.image",
+      "detail.frequency",
+      "noise.blocking",
+      "detail.wavelets",
+      "colors.plots",
+      "file.digest",
+      "inspection.magnifier",
+      "various.illuminant",
+      "tampering.contrast",
+      "various.stereogram",
+      "jpeg.zero",
+      "jpeg.ghosts",
+      "jpeg.multiple",
+      "jpeg.quality",
+      "inspection.histogram",
+      "colors.stats",
+      "noise.planes",
+      "noise.minmax",
+      "pixels.defects"
+    ],
+    "medianModel": "hand-authored toy for API smoke only; not a detector qualification",
+    "browser": "154.0.8037.58",
+    "extractedRuntime": true
+  },
+  "subimages": {
+    "cases": 144,
+    "runtimeFiles": {
+      "src/index.js": "4f10826b1ca917384893f6b5308909425c088460c8b6850b5ec9a029745fe50f",
+      "src/pixel-operations.js": "f5473af0cfc5b848fcd7434ad301edc5e099f4ecd5d122bc3f80dd8a777768a7",
+      "src/auto-zones.js": "e8142233b043c4a13321122f951a85816b749f7cd698f6d9b26960ca64b82fa4",
+      "src/analysis-scope.js": "e64e6c401ae2b63f724858b807f912a91aaa8c8f36fb7ae30b1341d0eb8a5283",
+      "src/worker-client.js": "4ee9edfaed55bff027f18ddd10681f33e1ee33cab762a64453d4a171f142d02a",
+      "src/worker.js": "ac472d18141cdae8ab0d7437d4d95f9b6670334f858ffa58a3612be0fccd7a77"
+    },
+    "payloadSha256": "55de6854be1e9adc702d1861600a9327b24464b0d49880daf6c4ea2a36f7ac09",
+    "cancellation": "Hard worker cancellation during useful panel work; original bytes reloaded and exact result reproduced"
+  },
+  "scope": "Executed immutable extracted src/vendor in Chrome. Generated fixtures and test harness served from source tree. Other browser recipes preceded freezing. Complete analysis, ELA energy, D2PRL, WordPress and other physical hardware remain unqualified."
+}

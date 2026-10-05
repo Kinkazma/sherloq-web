@@ -1,0 +1,241 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "Actual ORT WebGPU + CPU (including unsupported TopK), float32 model,512MiB WASM ceiling and individually admitted GPU buffers capped512MiB under one3GiB budget. Two unchanged ONNX stages separated at the complete feature tensor; CPU intermediate transfers and GPU queue completion are included, never an isolated shader timer. Idle storage/uniform buffer caches are bounded by32795264B each through the pinned bucket count table; active and submitted buffers unchanged. Functional study with profiling; no speedup claim or product startup probe. Fixtures/oracles and server copies are outside model admission. Driver/compiler overhead is not RSS-accounted.",
+  "variant": "mgcfdn",
+  "split": {
+    "schema": 1,
+    "status": "unqualified-split-candidate",
+    "variant": "mgcfdn",
+    "side": 256,
+    "kind": "sigmoid",
+    "sourceSha256": "8b99302269be19e214139b533e198f85169c3821a637a89ff93f6ab0c720b44e",
+    "checkpointSha256": "53920b1cefe1e8c1e8c78dfe2f43e80251529d9e5ccc7be31f899a636357f563",
+    "stages": [
+      {
+        "file": "gpu-split-encoder.onnx",
+        "bytes": 60369418,
+        "sha256": "b87459a9a4a46b1b5a3dfc4aea987a0f917b70c0e04b93975f48608492d4006d",
+        "inputs": [
+          "rgb"
+        ],
+        "outputs": [
+          "/network/visual_feature_extractor/Concat_4_output_0",
+          "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+        ],
+        "nodes": 730
+      },
+      {
+        "file": "gpu-split-head.onnx",
+        "bytes": 28813443,
+        "sha256": "6da571500c82be5ed474962d1daac53f0a868d1fb3e5f9bd0ee0fced4b856ba9",
+        "inputs": [
+          "/network/visual_feature_extractor/Concat_4_output_0",
+          "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+        ],
+        "outputs": [
+          "logits",
+          "probability"
+        ],
+        "nodes": 260
+      }
+    ],
+    "assetBytes": 89182861,
+    "boundary": [
+      {
+        "name": "/network/visual_feature_extractor/Concat_4_output_0",
+        "dtype": "FLOAT",
+        "shape": [
+          1,
+          640,
+          40,
+          40
+        ]
+      },
+      {
+        "name": "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0",
+        "dtype": "INT64",
+        "shape": []
+      }
+    ],
+    "scriptSha256": "7badc432c309befad9a3ba284ba3931b665ea14789066dccfb867e447a608352",
+    "scope": "Unchanged ONNX nodes/initializers split at the existing complete1x640x40x40 feature tensor plus int64 scalar. No crop, approximation, training or tensor-size change. Both full global1600x1600 consistency operations remain in the head."
+  },
+  "model": {
+    "file": "gpu-concat.onnx",
+    "bytes": 89060850,
+    "sha256": "8b99302269be19e214139b533e198f85169c3821a637a89ff93f6ab0c720b44e"
+  },
+  "weights": {
+    "models/external/clone_detectors/04_mgcfdn/weight/MGCFDN.pth": "53920b1cefe1e8c1e8c78dfe2f43e80251529d9e5ccc7be31f899a636357f563"
+  },
+  "sessionMs": 2329.800000011921,
+  "records": [
+    {
+      "name": "structured-copy",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 0.000003591179847717285,
+        "meanAbs": 1.72566866796231e-7,
+        "different": 65166,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.000032901763916015625,
+        "meanAbs": 0.000006123652383394074,
+        "different": 64395,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 0.00000356137752532959,
+        "meanAbs": 1.716429932046798e-7,
+        "different": 201696,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 0,
+      "preparationMs": 30.5,
+      "runMs": 415.29999999701977,
+      "projectionMs": 1162.2999999970198,
+      "heapBytes": 146014208,
+      "gpuLiveBytes": 301748400
+    },
+    {
+      "name": "constant",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 0.00002473592758178711,
+        "meanAbs": 0.000005775505362844852,
+        "different": 65525,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0005259513854980469,
+        "meanAbs": 0.00020851221961493138,
+        "different": 65499,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 0.000024624168872833252,
+        "meanAbs": 0.000005774334706581465,
+        "different": 14647,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 0,
+      "preparationMs": 17.099999994039536,
+      "runMs": 141.79999999701977,
+      "projectionMs": 901.6000000089407,
+      "heapBytes": 146014208,
+      "gpuLiveBytes": 308579344
+    },
+    {
+      "name": "paired-spots",
+      "preparationExact": true,
+      "probability": {
+        "maxAbs": 0.00013643503189086914,
+        "meanAbs": 0.0000031857703184420133,
+        "different": 65465,
+        "finite": true
+      },
+      "logits": {
+        "maxAbs": 0.0006837844848632812,
+        "meanAbs": 0.00007085750770441379,
+        "different": 65250,
+        "finite": true
+      },
+      "map": {
+        "maxAbs": 0.00013643503189086914,
+        "meanAbs": 0.0000031857703184420133,
+        "different": 65465,
+        "finite": true
+      },
+      "mask": {
+        "maxAbs": 0,
+        "meanAbs": 0,
+        "different": 0,
+        "finite": true
+      },
+      "foreground": 9409,
+      "preparationMs": 28.399999991059303,
+      "runMs": 138.20000000298023,
+      "projectionMs": 1343.9000000059605,
+      "heapBytes": 146014208,
+      "gpuLiveBytes": 308592240
+    }
+  ],
+  "gpu": {
+    "limitBytes": 536870912,
+    "liveBytes": 0,
+    "peakBytes": 478215120,
+    "allocations": 1431,
+    "writeBufferBytes": 104217328,
+    "readMappingBytes": 44622896,
+    "dispatchedProfiles": 2627,
+    "kernelTypes": {
+      "Transpose": 54,
+      "Conv": 842,
+      "BatchNormalization": 390,
+      "Sigmoid": 456,
+      "Mul": 471,
+      "GlobalAveragePool": 123,
+      "Add": 102,
+      "Resize": 18,
+      "Concat": 15,
+      "Relu": 57,
+      "Pow": 12,
+      "ReduceL2": 6,
+      "Clip": 3,
+      "Expand": 18,
+      "Div": 12,
+      "MatMul": 6,
+      "Sub": 9,
+      "Neg": 6,
+      "Exp": 6,
+      "Cast": 3,
+      "Softmax": 12,
+      "ReduceSum": 6
+    }
+  },
+  "gpuErrors": [],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1665513007
+  },
+  "adapter": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "maxStorageBuffersPerShaderStage": 10,
+    "maxBufferSize": 4294967292,
+    "maxStorageBufferBindingSize": 4294967292
+  },
+  "browser": "154.0.8037.58",
+  "providerMessages": [
+    "\u001b[0;93m2026-10-01 17:24:47.248300 [W:onnxruntime:, session_state.cc:1397 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.\u001b[m",
+    "\u001b[0;93m2026-10-01 17:24:47.250500 [W:onnxruntime:, session_state.cc:1399 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.\u001b[m",
+    "\u001b[0;93m2026-10-01 17:24:48.078300 [W:onnxruntime:, session_state.cc:1397 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.\u001b[m",
+    "\u001b[0;93m2026-10-01 17:24:48.078600 [W:onnxruntime:, session_state.cc:1399 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.\u001b[m"
+  ],
+  "sources": {
+    "scripts/study-mgcf-split-gpu.mjs": "6198497be61a89bc8ca943f1fc61730a72b1d04c322fa2bf3b60d48a5d8979be",
+    "scripts/split-mgcf-gpu.py": "7badc432c309befad9a3ba284ba3931b665ea14789066dccfb867e447a608352",
+    ".build/segmentation-models/mgcfdn/gpu-split.json": "0d713a1cd67632230d2ce79988031f99795c9b58e7d6a8ea9dedae95e2ba2318",
+    "scripts/build-segmentation-gpu-cache.py": "cdc9dc51a21afccc0a1bcd8550a2b25d0cfce122648e5301688d000aeb8db6a7",
+    ".build/segmentation-ort-gpu/runtime.json": "5d70f153f4d999d24491dfc8abb1d6286d65286749e544c9ff3bb4e42bb1637a",
+    ".build/segmentation-ort-gpu-bounded-cache/build.json": "f3154fc4fa48af034bc8a8677063805e258538d405f5ea0359f3553363ff70be",
+    ".build/segmentation-ort-gpu-bounded-cache/ort.all.min.mjs": "7d310c76aac719959f1b7ddfacd696d40d7b9a811d0ced1a68fb44a038a77cf4"
+  }
+}

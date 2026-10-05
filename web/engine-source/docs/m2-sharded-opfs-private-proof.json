@@ -1,0 +1,19 @@
+{
+  "records": [],
+  "storage": {
+    "reservedBytes": 0,
+    "peakReservedBytes": 4026531840,
+    "estimatedAvailableBytes": 10737418240,
+    "estimateIsAdmissionLimit": false,
+    "logicalLimitBytes": 10737418240,
+    "openFiles": 0
+  },
+  "passed": false,
+  "error": {
+    "message": "Temporary file sizing failed.",
+    "code": "STORAGE_IO"
+  },
+  "browser": "154.0.8037.58",
+  "browserContext": "off-the-record Playwright context",
+  "executionNote": "CPU/WASM"
+}

@@ -1,0 +1,336 @@
+{
+  "schema": 1,
+  "status": "rejected",
+  "scope": "OpenCV4.11 continuous bilinear score and nearest masks back to source dimensions; no neural inference",
+  "records": [
+    {
+      "name": "1x1-to-1x1-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "1x1-to-1x1-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "1x1-to-11x7-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "1x1-to-11x7-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "1x1-to-389x521-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "1x1-to-389x521-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "1x1-to-448x448-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "1x1-to-448x448-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "1x1-to-607x809-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "1x1-to-607x809-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-1x1-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-1x1-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-11x7-0",
+      "nearest": 0,
+      "different": 9,
+      "maxAbs": 5.960464477539063e-8,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-11x7-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-389x521-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-389x521-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-448x448-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-448x448-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-607x809-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "2x3-to-607x809-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-1x1-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-1x1-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-11x7-0",
+      "nearest": 0,
+      "different": 6,
+      "maxAbs": 5.960464477539063e-8,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-11x7-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-389x521-0",
+      "nearest": 0,
+      "different": 56,
+      "maxAbs": 5.960464477539063e-8,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-389x521-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-448x448-0",
+      "nearest": 0,
+      "different": 2,
+      "maxAbs": 7.450580596923828e-9,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-448x448-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-607x809-0",
+      "nearest": 0,
+      "different": 81,
+      "maxAbs": 5.960464477539063e-8,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "17x31-to-607x809-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-1x1-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-1x1-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-11x7-0",
+      "nearest": 0,
+      "different": 4,
+      "maxAbs": 5.960464477539063e-8,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-11x7-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-389x521-0",
+      "nearest": 0,
+      "different": 67,
+      "maxAbs": 5.960464477539063e-8,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-389x521-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-448x448-0",
+      "nearest": 0,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-448x448-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-607x809-0",
+      "nearest": 0,
+      "different": 100,
+      "maxAbs": 5.960464477539063e-8,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "448x448-to-607x809-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "model-0",
+      "nearest": 0,
+      "different": 56,
+      "maxAbs": 9.094947017729282e-13,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "model-1",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "model-2",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    },
+    {
+      "name": "model-3",
+      "nearest": 1,
+      "different": 0,
+      "maxAbs": 0,
+      "thresholdChanged": 0
+    }
+  ],
+  "node": "v22.22.2",
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "4e5ad557fa7397070aabfb87d5f527b9250a4abd40139ac4f696859f52a9aba9",
+    "objects": {
+      "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+      "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+      "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    "files": {
+      "spatial.js": {
+        "bytes": 23632,
+        "sha256": "3bc1d3c864c289dc73d814464c8b1f1e97619d5c9401d0fe68710c3482322e70"
+      },
+      "spatial.wasm": {
+        "bytes": 555680,
+        "sha256": "7313f13ed8028457762d09365c30a2728e1bd3e65f53ac34850a3cbfc2599fed"
+      }
+    }
+  }
+}

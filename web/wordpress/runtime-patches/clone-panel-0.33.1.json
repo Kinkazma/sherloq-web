@@ -1,0 +1,19 @@
+{
+  "schema": "sherloq.runtime-source-increment/1",
+  "baseCommit": "588b6d137fcf940e0bf5703aeb650b53a570e03d",
+  "baseReceiptSha256": "e19fbc4e3d3bc24c91661a3980ebaab3796593c1aba2a2cb9baf57afb34b66d6",
+  "engineCommit": "343c89f2cfd54816085fc7a8af69e530805a7742",
+  "engineVersion": "0.33.1-clone-panel.1",
+  "files": {
+    "docs/clone-panel-api.md": "5b74318c72a53cee8b6eee86df3bb156f2b545695a11e398baba876eb7eb0a72",
+    "src/dense-adapter.js": "6cf2c4bacf633ad6f7fc1f1860cd175eb24d2c178edd517cf2d603a0fd6d8619",
+    "src/dense-npz-stream.js": "d2a958415f8d7d86b52ed112c6025b51be4ed389c841dffd475462bc4583347a",
+    "src/index.d.ts": "cec9dd0f64cf659776d23e13055a1fa15a83a4b0bfa649abd6caf522b9e2f1f9",
+    "src/index.js": "3d53f3a297c36c7db0935e1fab3afb3f4701d73ffeef9813e98acc619f7d63b2",
+    "src/raster-export.js": "82949c0371b3aba5bad45928ebcea19692b20d91081bcb24c203f4c9614b4956",
+    "src/sparse-extract-errors.js": "e6771dbbe4c85c8301e1b1f3c2c8d91a88dcf00b9fc2cd7be88f6026a009c568",
+    "src/sparse-extract-worker.js": "a0a55119562b3454f7c6cb11059b869c2c8191e909fe80019b689227960f09c1",
+    "src/sparse-extract.js": "a3e8d80c56e9634a2fedca4875913756894b8dee970951510b0981562453a081"
+  },
+  "scope": "Committed source-only clone panel API and sparse allocation recovery; all binaries, models and other base files unchanged."
+}

@@ -1,0 +1,449 @@
+{
+  "schema": 1,
+  "status": "experimental-unqualified",
+  "rows": [
+    {
+      "name": "tiny",
+      "error": "INVALID_INPUT",
+      "expectedError": true
+    },
+    {
+      "name": "small",
+      "noisePower": 0.07209727186283212,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 3
+    },
+    {
+      "name": "zero",
+      "noisePower": 0,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 196
+    },
+    {
+      "name": "constant",
+      "noisePower": 0.0066986937597600426,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 900
+    },
+    {
+      "name": "same",
+      "noisePower": 0.03796280021508643,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 2115
+    },
+    {
+      "name": "shift",
+      "noisePower": 0.03684784246289085,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 3843
+    },
+    {
+      "name": "brightness",
+      "noisePower": 0.0343171880619207,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 9215
+    },
+    {
+      "name": "noise",
+      "noisePower": 0.03492566163872892,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 16125
+    },
+    {
+      "name": "random",
+      "noisePower": 0.034050276360333975,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 36100
+    },
+    {
+      "name": "gamma",
+      "noisePower": 0.03407403978035543,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 65535
+    },
+    {
+      "name": "large",
+      "noisePower": 0.033741042303332046,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 260100
+    },
+    {
+      "name": "row",
+      "error": "INVALID_INPUT",
+      "expectedError": true
+    },
+    {
+      "name": "column",
+      "error": "INVALID_INPUT",
+      "expectedError": true
+    },
+    {
+      "name": "narrow",
+      "noisePower": 0.05502025504407695,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 15
+    },
+    {
+      "name": "inverse",
+      "noisePower": 0.03472130826361079,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 15875
+    },
+    {
+      "name": "impulse",
+      "noisePower": 0.0008689040947105463,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 899
+    },
+    {
+      "name": "gradient",
+      "noisePower": 0.0021093191262255614,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 8835
+    },
+    {
+      "name": "checker",
+      "noisePower": 0.2454171343060232,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 4224
+    },
+    {
+      "name": "saturated",
+      "noisePower": 0.017841231580628055,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 2205
+    },
+    {
+      "name": "edge8",
+      "noisePower": 0.053561139563816584,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 42
+    },
+    {
+      "name": "edge9",
+      "noisePower": 0.05167542503700962,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 56
+    },
+    {
+      "name": "edge10",
+      "noisePower": 0.05036303830306139,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 72
+    },
+    {
+      "name": "edge11",
+      "noisePower": 0.04693346094260273,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 90
+    },
+    {
+      "name": "edge17",
+      "noisePower": 0.039659026673942166,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 240
+    },
+    {
+      "name": "edge31",
+      "noisePower": 0.03685733139430642,
+      "noiseError": 0,
+      "method": "direct",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 870
+    },
+    {
+      "name": "edge33",
+      "noisePower": 0.04004280525115892,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 992
+    },
+    {
+      "name": "edge79",
+      "noisePower": 0.03562814841731748,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 6006
+    },
+    {
+      "name": "edge80",
+      "noisePower": 0.03675233248605152,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 6162
+    },
+    {
+      "name": "edge81",
+      "noisePower": 0.03588117117247412,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 6320
+    },
+    {
+      "name": "edge175",
+      "noisePower": 0.034009981965101715,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 30102
+    },
+    {
+      "name": "edge176",
+      "noisePower": 0.03429211516974002,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 30450
+    },
+    {
+      "name": "edge177",
+      "noisePower": 0.03424103909474141,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 30800
+    },
+    {
+      "name": "megapixel",
+      "noisePower": 0.03358505488319048,
+      "noiseError": 0,
+      "method": "fft",
+      "methodMatches": true,
+      "maximumError": 0,
+      "differing": 0,
+      "count": 1044484
+    }
+  ],
+  "ncc": [
+    {
+      "name": "correlation--1.0",
+      "actual": -1,
+      "expected": -1,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "correlation-0.0",
+      "actual": 0,
+      "expected": 0,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "correlation-0.00499999999999",
+      "actual": 0.004999999999989958,
+      "expected": 0.004999999999989958,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "correlation-0.004999999999999",
+      "actual": 0.004999999999999005,
+      "expected": 0.004999999999999005,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "correlation-0.005",
+      "actual": 0.0050000000000000044,
+      "expected": 0.0050000000000000044,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "correlation-0.005000000000001",
+      "actual": 0.005000000000000949,
+      "expected": 0.005000000000000949,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "correlation-0.00500000000001",
+      "actual": 0.0050000000000099964,
+      "expected": 0.0050000000000099964,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "correlation-0.01",
+      "actual": 0.009999999999999955,
+      "expected": 0.009999999999999955,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "correlation-1.0",
+      "actual": 1,
+      "expected": 1,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "denominator-0.0",
+      "actual": 0,
+      "expected": 0,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "denominator-4.9999999999999996e-06",
+      "actual": 0,
+      "expected": 0,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "denominator-5e-06",
+      "actual": 1,
+      "expected": 1,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "denominator-5.000000000000001e-06",
+      "actual": 1,
+      "expected": 1,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "denominator-1e-05",
+      "actual": 1,
+      "expected": 1,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "constant",
+      "actual": 0,
+      "expected": 0,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "crop",
+      "actual": -0.2159422522031438,
+      "expected": -0.2159422522031438,
+      "error": 0,
+      "thresholdMatches": true
+    },
+    {
+      "name": "one-pixel",
+      "actual": 0,
+      "expected": 0,
+      "error": 0,
+      "thresholdMatches": true
+    }
+  ],
+  "historicalDiagnostic": true,
+  "supersededBy": [
+    "prnu-chrome-proof.json",
+    "prnu-firefox-proof.json",
+    "prnu-webkit-proof.json",
+    "qualification-0.11.0.json"
+  ]
+}

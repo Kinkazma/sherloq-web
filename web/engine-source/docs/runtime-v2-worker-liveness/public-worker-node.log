@@ -1,0 +1,60 @@
+TAP version 13
+# Subtest: qualification records every recovery transition and observes surviving peers after a detector failure
+ok 1 - qualification records every recovery transition and observes surviving peers after a detector failure
+  ---
+  duration_ms: 1.591958
+  type: 'test'
+  ...
+# Subtest: periodic diagnostics use only accounting and cancel their read without cancelling useful work
+ok 2 - periodic diagnostics use only accounting and cancel their read without cancelling useful work
+  ---
+  duration_ms: 0.687959
+  type: 'test'
+  ...
+# Subtest: post-analysis failure exports retained science before disposing its owner
+ok 3 - post-analysis failure exports retained science before disposing its owner
+  ---
+  duration_ms: 0.295375
+  type: 'test'
+  ...
+# Subtest: post-unload failure reuses committed archive and reports cleanup as secondary
+ok 4 - post-unload failure reuses committed archive and reports cleanup as secondary
+  ---
+  duration_ms: 0.242
+  type: 'test'
+  ...
+# Subtest: emergency cleanup selects only the launched browser profile and its descendants
+ok 5 - emergency cleanup selects only the launched browser profile and its descendants
+  ---
+  duration_ms: 41.796083
+  type: 'test'
+  ...
+# Subtest: public worker preserves allocation and recovery diagnostics without destroying the session
+ok 6 - public worker preserves allocation and recovery diagnostics without destroying the session
+  ---
+  duration_ms: 3.93075
+  type: 'test'
+  ...
+# Subtest: capabilities stays readable during a live public operation; unreadable responses settle pending work
+ok 7 - capabilities stays readable during a live public operation; unreadable responses settle pending work
+  ---
+  duration_ms: 2.757917
+  type: 'test'
+  ...
+# (node:17512) ExperimentalWarning: Module mocking is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: diagnostic reads preserve the active cancellation controller and root transport failures close storage
+ok 8 - diagnostic reads preserve the active cancellation controller and root transport failures close storage
+  ---
+  duration_ms: 28.087333
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 132.834542

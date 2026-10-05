@@ -1,0 +1,177 @@
+{
+  "passed": true,
+  "dimensions": [
+    12000,
+    8000
+  ],
+  "complexity": "Rich seed130014 texture with distant1500x1200 copy; full source, shifted global Ghost, no resize or crop",
+  "sourceSha256": "c3f282d1d7089619bf023a303fc128bad09b0ba80ccc47828891b9f45896dc1d",
+  "curve": {
+    "ms": 75203.40000000596,
+    "values": 101,
+    "exact": true,
+    "cacheBothPanels": true,
+    "csvBytes": 2197,
+    "metrics": {
+      "workers": 4,
+      "kernel": "global-gray-jpeg-stored-worker-pool",
+      "recompressions": 101,
+      "codecHeapCapacityBytes": 16777216,
+      "codecHeapMaximumBytes": 16777216,
+      "totalCodecHeapMaximumBytes": 67108864,
+      "maxSourceWindowBytes": 1152000,
+      "sourcePasses": 52,
+      "encodedStorage": "mixed",
+      "maximumEncodedBytes": 138011552,
+      "kernelMs": 75202.20000000298,
+      "scheduling": {
+        "count": 4,
+        "maximum": 4,
+        "ceiling": 4,
+        "resourceReduced": false,
+        "policy": "immediate-useful-work",
+        "priorUsefulSamples": 0,
+        "reason": "Aggressive capacity-based start",
+        "preflightExecutions": 0,
+        "taskExecutions": 1,
+        "retry": null
+      },
+      "totalMs": 75202.89999999106,
+      "cache": {
+        "result": false,
+        "scalarHits": 0
+      },
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 288000000,
+        "cacheBytes": 808,
+        "activeReservationBytes": 196608,
+        "peakAccountedBytes": 977367968
+      }
+    }
+  },
+  "ghosts": [
+    {
+      "params": {
+        "low": 60,
+        "high": 100,
+        "step": 20,
+        "x": 7,
+        "y": 3
+      },
+      "ms": 6399.199999988079,
+      "metrics": {
+        "workers": 3,
+        "kernel": "global-rgb-jpeg-ghost-worker-pool",
+        "recompressions": 3,
+        "qualityPlanesComputed": 3,
+        "encodedCacheHits": 0,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "totalCodecHeapMaximumBytes": 50331648,
+        "maxSourceWindowBytes": 1152000,
+        "sourcePasses": 2,
+        "encodedStorage": "mixed",
+        "maximumEncodedBytes": 176688534,
+        "scheduling": {
+          "count": 3,
+          "maximum": 3,
+          "ceiling": 3,
+          "resourceReduced": false,
+          "policy": "immediate-useful-work",
+          "priorUsefulSamples": 0,
+          "reason": "Aggressive capacity-based start",
+          "preflightExecutions": 0,
+          "taskExecutions": 1,
+          "retry": null
+        },
+        "stages": {
+          "60": false,
+          "80": false,
+          "100": false
+        },
+        "cache": {
+          "analysis": false,
+          "result": false,
+          "view": false,
+          "stages": {
+            "60": false,
+            "80": false,
+            "100": false
+          }
+        },
+        "totalMs": 6398.5999999940395,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 288000000,
+          "cacheBytes": 27006819,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1006542048
+        }
+      },
+      "rawSha256": "877567e7c8cf1c142eca62adf800e26a88c057f91dd60e67b0d857ef65e975a5",
+      "mapsSha256": "75e8cf5e1970d67471b176ebdfb44505dafccd2b75cf74bfdf61e2734422bbab"
+    },
+    {
+      "params": {
+        "low": 80,
+        "high": 100,
+        "step": 20,
+        "x": 7,
+        "y": 3
+      },
+      "ms": 437,
+      "metrics": {
+        "workers": 1,
+        "kernel": "global-rgb-jpeg-ghost-scanlines",
+        "recompressions": 0,
+        "qualityPlanesComputed": 0,
+        "encodedCacheHits": 0,
+        "stages": {
+          "80": true,
+          "100": true
+        },
+        "cache": {
+          "analysis": false,
+          "result": false,
+          "view": false,
+          "stages": {
+            "80": true,
+            "100": true
+          }
+        },
+        "totalMs": 436.40000000596046,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 288000000,
+          "cacheBytes": 39009215,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 1006542048
+        }
+      },
+      "rawSha256": "6b5228b5eead41e1e772ee6f71ed2ac34eac44263e5042c4d160254bf74527da",
+      "mapsSha256": "4d0f14df9aeee00052b921b24fd88697718c18f71d2b5a3597c0356edab84de5"
+    }
+  ],
+  "alternatePaletteCached": true,
+  "export": {
+    "format": "json",
+    "byteLength": 37766698,
+    "sha256": "e106de377d0f4d8fdf78820ee422ef0c266c88f5330eb680a9b2d86d072e75e7",
+    "ms": 563.2000000029802,
+    "fullScientificArraysExact": true,
+    "readAfterUnload": true
+  },
+  "totalMs": 99706.10000000894,
+  "finalMemory": {
+    "budgetBytes": 1073741824,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1006542048,
+    "knownHeapCapacityBytes": 131072
+  },
+  "storageCleanup": true,
+  "browser": "154.0.8037.58",
+  "storageContext": "fresh persistent Chrome profile, removed after qualification"
+}

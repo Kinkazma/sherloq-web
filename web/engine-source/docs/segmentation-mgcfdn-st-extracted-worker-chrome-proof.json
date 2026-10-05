@@ -1,0 +1,232 @@
+{
+  "schema": 1,
+  "status": "passed-corpus-tolerance",
+  "variant": "mgcfdn-st",
+  "backend": "cpu",
+  "scope": "Original PNG through common worker API and bounded configured segmentation model; three native crops, cache-only views, original/raw/NPZ/JSON, cooperative cancellation and lifecycle. Continuous maps are not bit exact; UI not claimed. WebGPU results are hybrid with CPU nodes.",
+  "version": "0.30.0-m1.5",
+  "records": [
+    {
+      "name": "original-png-three-zones",
+      "inferences": 3,
+      "execution": {
+        "backend": "cpu",
+        "wasmMaximumBytes": 536870912,
+        "gpuMaximumBytes": 0,
+        "observedHeapBytes": 246349824,
+        "gpuPeakBufferBytes": 0
+      },
+      "selection": "explicit-cpu",
+      "outputs": {
+        "map": {
+          "different": 114037,
+          "maxAbs": 0.000011593103408813477,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "target": {
+          "different": 113384,
+          "maxAbs": 0.000011593103408813477,
+          "finite": true
+        },
+        "source": {
+          "different": 115482,
+          "maxAbs": 0.000006198883056640625,
+          "finite": true
+        }
+      }
+    },
+    {
+      "name": "envelope-off",
+      "inferences": 0,
+      "outputs": {
+        "map": {
+          "different": 93105,
+          "maxAbs": 0.000011593103408813477,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "target": {
+          "different": 90836,
+          "maxAbs": 0.000011593103408813477,
+          "finite": true
+        },
+        "source": {
+          "different": 93202,
+          "maxAbs": 0.000008285045623779297,
+          "finite": true
+        }
+      }
+    },
+    {
+      "name": "envelope-restored",
+      "inferences": 0,
+      "outputs": {
+        "map": {
+          "different": 114037,
+          "maxAbs": 0.000011593103408813477,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "target": {
+          "different": 113384,
+          "maxAbs": 0.000011593103408813477,
+          "finite": true
+        },
+        "source": {
+          "different": 115482,
+          "maxAbs": 0.000006198883056640625,
+          "finite": true
+        }
+      }
+    },
+    {
+      "name": "after-cancel-original-cached",
+      "inferences": 0,
+      "outputs": {
+        "map": {
+          "different": 114037,
+          "maxAbs": 0.000011593103408813477,
+          "finite": true
+        },
+        "mask": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "candidates": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "analyzed": {
+          "different": 0,
+          "maxAbs": 0,
+          "finite": true
+        },
+        "target": {
+          "different": 113384,
+          "maxAbs": 0.000011593103408813477,
+          "finite": true
+        },
+        "source": {
+          "different": 115482,
+          "maxAbs": 0.000006198883056640625,
+          "finite": true
+        }
+      }
+    }
+  ],
+  "rawErrors": [
+    {
+      "different": 140598,
+      "maxAbs": 0.000011593103408813477,
+      "finite": true
+    },
+    {
+      "different": 137557,
+      "maxAbs": 0.000007152557373046875,
+      "finite": true
+    },
+    {
+      "different": 145093,
+      "maxAbs": 0.000011682510375976562,
+      "finite": true
+    }
+  ],
+  "exports": [
+    {
+      "name": "source",
+      "bytes": 3053723,
+      "sha256": "538cdf8501b2aac2108e1c1c82e4657355d80253686da0728c15ea907aa1244b"
+    },
+    {
+      "name": "raw",
+      "bytes": 2372120,
+      "sha256": "727776e7712b0fa60aa8d7cb2da5ea8e6deacaebe78987d9e958c379c8ff14fe"
+    }
+  ],
+  "missingRefused": true,
+  "lazy": true,
+  "decodeExact": true,
+  "jsonExact": true,
+  "smallJsonBudgetRefused": true,
+  "cancelled": true,
+  "imagesPreserved": true,
+  "originalPreserved": true,
+  "backendSwitch": null,
+  "corruptChildRefused": null,
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 1391286445,
+    "knownHeapCapacityBytes": 33554432
+  },
+  "browser": "154.0.8037.58",
+  "sources": {
+    "src/index.js": "0a7ff5b208301893d7b22befde04a2565f7f5b15ca3fdd68bc852406c4670f40",
+    "src/worker.js": "22a562f5974d0a089ae5f52672664b988d2ec3b0129448dae83265c384ee545a",
+    "src/worker-client.js": "11930fdeba0ba6207a0280df6ee201b41808b662573470eb39ed9ff308746b65",
+    "src/segmentation-adapter.js": "47ad7358ca871c4b2bdd5c4de745a896fd96160d18ce83dd6f1f56e87726025d",
+    "src/exports.js": "e2e12df8c12563ccf438bef6172a3da76790cda5e3bb2a49f8c8d46beea57199",
+    "experiments/segmentation/inference.js": "082f489e708171319266993d44001296526558e7a1fb56a35f0b42fff9e86734",
+    "experiments/segmentation/analysis.js": "7e68132ec99fa95a3c9e20f6dd89d6e4f4e218c950aad7f6f85de4994186d2d9",
+    "experiments/segmentation/npz.js": "d0c889f3af015be6216d61382d9e2f62f2e32aa22650ef0a0fd716f846c9b57d",
+    "experiments/segmentation/cmseg-inference.js": "01673cfe7ebe9b9840afd3278fc42df4c29be882d0bbcf5ba605c754d010c330",
+    "experiments/segmentation/cmseg-inference-worker.js": "a3ba9d02d4f319924da081eac5be1be7179347edc17fd3d0b0ea304fe836a64a",
+    "experiments/segmentation/cmseg-correlation.js": "473ba0002d53980ef7034d81c032fa6f72d0187d52de49f260e8a2c89a9f7888",
+    "experiments/segmentation/cmseg-correlation-worker.js": "a377f7927629dea7bed4f6f4c34092689e851fabb42632666160ca01758244a7",
+    "scripts/study-segmentation-common-worker.mjs": "24602e26a81797aa761e38d98153bce13c8e2cfb57040913ce64c44aafb4992e"
+  },
+  "modelRequests": 1,
+  "runtime": {
+    "kind": "staged-manifest-only",
+    "version": "0.30.0-m1.5",
+    "files": 265,
+    "manifestSha256": "5d390fbe22fa61f6317e8729b3c2aab8053101cf371797e904cb5c86d937808d"
+  }
+}

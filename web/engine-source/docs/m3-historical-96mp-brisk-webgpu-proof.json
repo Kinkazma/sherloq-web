@@ -1,0 +1,119 @@
+{
+  "browser": "154.0.8037.58",
+  "algorithm": "BRISK",
+  "backend": "webgpu",
+  "source": {
+    "file": "m3-96mp-noise-copy.jpg",
+    "width": 12000,
+    "height": 8000,
+    "description": "Public deterministic full-resolution RGB noise (seed130014); entire6000x8000 left half copied at dx6000 before JPEG90 encoding.",
+    "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+    "bytes": 80426021
+  },
+  "params": {
+    "response": 30,
+    "matching": 20,
+    "distance": 40,
+    "minimum": 5
+  },
+  "stats": {
+    "total": 9721597,
+    "filtered": 14811,
+    "matches": 14742,
+    "clusters": 14726,
+    "regions": 2
+  },
+  "metrics": {
+    "totalMs": 1458931.600000009,
+    "cache": {
+      "result": false,
+      "stages": {
+        "gray": false,
+        "detected": false,
+        "selected/30": false,
+        "matches/30/20/webgpu": false,
+        "geometry/30/20/webgpu/40": false,
+        "count/30/20/webgpu/40/5": false
+      },
+      "analysis": false,
+      "view": false
+    },
+    "kernel": "copy-move-brisk-reference",
+    "workers": 1,
+    "cloningPreparationMs": 270.90000000596046,
+    "cloningDetectionMs": 207747.5,
+    "cloningSelectionMs": 1252.0999999940395,
+    "cloningMatchingMs": 2442,
+    "cloningClusteringMs": 6610.5999999940395,
+    "cloningCountMs": 207475.39999999106,
+    "hammingBackend": "webgpu",
+    "cloningDescriptorPolicy": "selected-response-native",
+    "cloningGeometryStrategy": "endpoint-grid",
+    "backend": "hybrid",
+    "cloningGroupWorkers": 1,
+    "cloningGroupCandidateRows": 40689010,
+    "cloningGroupAllPairRows": 108655911,
+    "viewMs": 1033090.299999997,
+    "memory": {
+      "budgetBytes": 6442450944,
+      "retainedBytes": 576000000,
+      "cacheBytes": 703597220,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 5409905124
+    },
+    "resultStorage": "memory"
+  },
+  "loadMs": 10483.60000000894,
+  "totalMs": 1615873.300000012,
+  "exports": [
+    {
+      "format": "json",
+      "bytes": 41034317,
+      "sha256": "0f80d47dc47a3e916fd04ef9f869f32e21925421b4fe88fe74989e7865d5b465",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 242801044,
+        "encodedWriteCalls": 157,
+        "maxEncodedChunkBytes": 262144,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 818801044,
+          "cacheBytes": 703597220,
+          "activeReservationBytes": 2063089576,
+          "peakAccountedBytes": 5409905124
+        }
+      }
+    },
+    {
+      "format": "png",
+      "bytes": 97781159,
+      "sha256": "8e15aa2b0605607962e78114e2f17d95dceaf4102664b6c0d1770f280feb82b2",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 289197244,
+        "encodedWriteCalls": 374,
+        "maxSourceWindowBytes": 1152000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 865197244,
+          "cacheBytes": 703597220,
+          "activeReservationBytes": 2057568256,
+          "peakAccountedBytes": 5409905124
+        }
+      }
+    }
+  ],
+  "output": "historical-brisk",
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 5409905124,
+    "knownHeapCapacityBytes": 2032140288
+  }
+}

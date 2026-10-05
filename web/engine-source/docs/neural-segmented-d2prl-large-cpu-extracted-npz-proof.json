@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "variant": "d2prl",
+  "backend": "cpu",
+  "large": true,
+  "extracted": true,
+  "scope": "Actual paged common-worker NPZ read with NumPy allow_pickle=False; ZIP CRC, owned export SHA, names/dtypes/shapes, canonical source identity, all native array values and browser window hashes.",
+  "bytes": 1440011540,
+  "sha256": "6cfa8d9e213862259eb6037b91ed6366b097bde9967189f270f3f338b38ce832",
+  "numpy": "1.26.4",
+  "records": [
+    {
+      "array": "map",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "0a0bb53bcca6904df492a27557df17d591ef9e24779bf238500179b24957723a",
+      "accepted": true
+    },
+    {
+      "array": "mask",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+      "accepted": true
+    },
+    {
+      "array": "analyzed",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+      "accepted": true
+    },
+    {
+      "array": "candidates",
+      "dtype": "uint8",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+      "accepted": true
+    },
+    {
+      "array": "target",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "244800ebba4408ba63e8ecc4339c1f2e214991d18508fd53910134cc816f3d4a",
+      "accepted": true
+    },
+    {
+      "array": "source",
+      "dtype": "float32",
+      "shape": [
+        8000,
+        12000
+      ],
+      "maxAbs": 0.0,
+      "different": 0,
+      "sha256": "244800ebba4408ba63e8ecc4339c1f2e214991d18508fd53910134cc816f3d4a",
+      "accepted": true
+    }
+  ]
+}

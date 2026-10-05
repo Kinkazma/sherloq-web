@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "dimensions": [
+    1600,
+    1100
+  ],
+  "budgetBytes": 67108864,
+  "cases": [
+    {
+      "params": {
+        "component": 1,
+        "mode": "project",
+        "invert": false,
+        "equalize": false
+      },
+      "sha256": "a9f8a4cfe850dd54da91bf8defe433e39a4450e8407c24746e34a52dea91cda0",
+      "metrics": {
+        "blockPixels": 65536,
+        "storage": "memory",
+        "basisCached": false,
+        "retainedResultBytes": 5280000,
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "totalMs": 1356,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 10560000,
+          "cacheBytes": 120,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 56621568
+        }
+      }
+    },
+    {
+      "params": {
+        "component": 2,
+        "mode": "crossprod",
+        "invert": true,
+        "equalize": true
+      },
+      "sha256": "7c2beea032c44c78fb6c7ecfae116163ed3ed95cf6ac04cef04e1366dc080c9a",
+      "metrics": {
+        "blockPixels": 65536,
+        "storage": "memory",
+        "basisCached": true,
+        "retainedResultBytes": 5280000,
+        "temporaryBackend": "opfs",
+        "temporaryFallback": null,
+        "totalMs": 703,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 67108864,
+          "retainedBytes": 10560000,
+          "cacheBytes": 120,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 56621568
+        }
+      }
+    }
+  ],
+  "storageArtifactsRemaining": 0
+}

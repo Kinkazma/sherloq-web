@@ -1,0 +1,17 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import vm from 'node:vm';import {readFile} from 'node:fs/promises';
+const source=(await readFile(new URL('../sherloq-browser/assets/raster-export-client.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'').replaceAll('export function','function').replaceAll('export async function','async function').replace(/await Promise\.all\(\[import\(.*?\)\]\)/,'codecPlans').replaceAll('import.meta.url',JSON.stringify('https://local/raster-export-client.js'));
+test('composed export waits for a pending sink write after worker failure and keeps the original cause',async()=>{
+ let instance,finishWrite,writeEntered;const events=[],entered=new Promise(r=>writeEntered=r),pending=new Promise(r=>finishWrite=r);
+ const context=vm.createContext({URL,Set,Promise,Error,ArrayBuffer,setTimeout,clearTimeout,codecPlans:[{mediaExportPlan:()=>({workingBytes:1})},{pngExportPlan:()=>({workingBytes:1})}],serializeEngineError:e=>({code:e.code,message:e.message}),deserializeEngineError:e=>Object.assign(Error(e.message),e),createExportSink:async()=>({write:async()=>{events.push('writing');writeEntered();await pending;events.push('written');},abort:async()=>events.push('abort')}),removeTerminatedTemporarySession:async(id,backend)=>events.push('remove:'+id+':'+backend),Worker:class{constructor(){instance=this;}postMessage(){}terminate(){events.push('terminate');}}});new vm.Script(source).runInContext(context);
+ let settled=false;const job=context.exportPresentationRaster({width:10,height:10},{format:'png'},{reserve:async()=>async()=>{events.push('release');throw Error('cleanup failed');}});job.finally(()=>settled=true).catch(()=>{});
+ await new Promise(setImmediate);instance.onmessage({data:{temporarySession:{id:'temp',backend:'indexeddb'}}});instance.onmessage({data:{request:'start',sequence:1,value:{mime:'image/png'}}});await new Promise(setImmediate);
+ instance.onmessage({data:{request:'chunk',sequence:2,value:new Uint8Array(3)}});await entered;instance.onmessage({data:{error:{code:'ENCODE_FAILED',message:'encoder failed'}}});await new Promise(setImmediate);
+ assert.equal(settled,false);assert.deepEqual(events,['writing','terminate']);finishWrite();await assert.rejects(job,error=>error.code==='ENCODE_FAILED'&&error.cleanupError.message==='cleanup failed');assert.deepEqual(events,['writing','terminate','written','abort','remove:temp:indexeddb','release']);
+});
+
+test('a failed file finalization still aborts the writer before deleting the temporary entry',async()=>{
+ const code=(await readFile(new URL('../sherloq-browser/assets/export-sink.js',import.meta.url),'utf8')).replace('export async function','async function'),events=[];
+ const folder={getDirectoryHandle:async()=>folder,getFileHandle:async()=>({createWritable:async()=>({write:async()=>{},close:async()=>{throw Error('quota during close');},abort:async()=>events.push('abort')})}),removeEntry:async()=>events.push('remove')};
+ const context=vm.createContext({navigator:{storage:{getDirectory:async()=>folder}},crypto:{randomUUID:()=> 'test'},Blob});new vm.Script(code).runInContext(context);
+ const sink=await context.createExportSink({memoryBudgetBytes:32});await sink.write(new Uint8Array(1));await assert.rejects(sink.finish(),/quota during close/);await sink.abort();assert.deepEqual(events,['abort','remove']);await assert.rejects(sink.write(new Uint8Array(1)),{code:'CANCELLED'});
+});

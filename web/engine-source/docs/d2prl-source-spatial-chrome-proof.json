@@ -1,0 +1,1008 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Qualified original-byte decoder reused through actual worker, PNG/TIFF/JPEG RGB->AA448 on3synthetic files and full image-codec corpus;100native source-coordinate interpolation cases and worker lifecycle. No complete neural inference.",
+  "sources": [
+    {
+      "name": "png",
+      "exactPixels": true,
+      "exactPrepared": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          521,
+          389
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "tiff",
+      "exactPixels": true,
+      "exactPrepared": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          521,
+          389
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "jpg",
+      "exactPixels": true,
+      "exactPrepared": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "libjpeg-turbo-3.0.3/emscripten-4.0.15/islow-v1",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          521,
+          389
+        ],
+        "icc": "absent",
+        "depth": 8,
+        "alpha": "absent",
+        "interpolation": "none"
+      }
+    },
+    {
+      "name": "codec-rgb8.png",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-rgba8.png",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "present, native IMREAD_COLOR conversion; not retained",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-gray8.png",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-gray16.png",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 16,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-rgb8.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-rgba8.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "present, native IMREAD_COLOR conversion; not retained",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-gray8.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-gray16.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 16,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-orientation-1.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-orientation-2.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 2,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-orientation-3.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 3,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-orientation-4.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 4,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-orientation-5.tiff",
+      "explicitlyUnsupported": true
+    },
+    {
+      "name": "codec-orientation-6.tiff",
+      "explicitlyUnsupported": true
+    },
+    {
+      "name": "codec-orientation-7.tiff",
+      "explicitlyUnsupported": true
+    },
+    {
+      "name": "codec-orientation-8.tiff",
+      "explicitlyUnsupported": true
+    },
+    {
+      "name": "codec-tiff_lzw.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-tiff_adobe_deflate.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-packbits.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-rgb16.png",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "png",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 16,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    },
+    {
+      "name": "codec-rgb16.tiff",
+      "exactPixels": true,
+      "originalPreserved": true,
+      "provenance": {
+        "decoder": "opencv-4.11.0/emscripten-4.0.15",
+        "format": "tiff",
+        "sourceSize": [
+          17,
+          13
+        ],
+        "sourceDepth": 16,
+        "analysisDepth": 8,
+        "orientation": 1,
+        "orientationApplied": true,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "first image only"
+      }
+    }
+  ],
+  "records": [
+    {
+      "name": "1x1-to-1x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-1x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-1x29-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-1x29-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-31x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-31x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-11x7-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-11x7-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-389x521-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-389x521-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-448x448-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-448x448-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-224x224-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-224x224-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-607x809-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x1-to-607x809-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-1x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-1x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-1x29-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-1x29-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-31x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-31x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-11x7-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-11x7-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-389x521-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-389x521-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-448x448-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-448x448-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-224x224-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-224x224-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-607x809-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "1x7-to-607x809-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-1x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-1x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-1x29-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-1x29-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-31x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-31x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-11x7-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-11x7-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-389x521-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-389x521-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-448x448-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-448x448-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-224x224-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-224x224-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-607x809-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "7x1-to-607x809-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-1x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-1x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-1x29-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-1x29-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-31x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-31x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-11x7-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-11x7-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-389x521-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-389x521-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-448x448-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-448x448-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-224x224-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-224x224-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-607x809-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "2x3-to-607x809-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-1x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-1x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-1x29-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-1x29-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-31x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-31x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-11x7-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-11x7-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-389x521-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-389x521-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-448x448-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-448x448-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-224x224-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-224x224-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-607x809-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "17x31-to-607x809-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-1x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-1x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-1x29-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-1x29-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-31x1-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-31x1-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-11x7-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-11x7-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-389x521-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-389x521-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-448x448-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-448x448-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-224x224-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-224x224-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-607x809-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "448x448-to-607x809-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "model-0",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "model-1",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "model-2",
+      "exact": true,
+      "heapBytes": 16777216
+    },
+    {
+      "name": "model-3",
+      "exact": true,
+      "heapBytes": 16777216
+    }
+  ],
+  "lifecycle": {
+    "entered": true,
+    "cancelled": true,
+    "busy": true,
+    "cancellationReleased": true,
+    "retryExact": true,
+    "retryReleased": true,
+    "refused": true,
+    "refusalReleased": true,
+    "inputPreserved": true
+  },
+  "sourceLifecycle": {
+    "sourceBusy": true,
+    "sourceCancelled": true,
+    "sourceCancelReleased": true,
+    "sourceRetryExact": true,
+    "sourceRefused": true,
+    "sourceReleased": true
+  },
+  "peakAccountedBytes": 3257821820,
+  "allReservationsReleased": true,
+  "browser": "154.0.8037.58",
+  "sourcesSha256": {
+    "source": "f5c2d64db5069521751638c8329f779e406caabad0b873d270aff2c1cc19ff7a",
+    "spatial": "f4851cdab4e7be26ef0ea1bb943c3a6149ebd35d0bac715b88c2dcf73994cfc7",
+    "spatial-worker": "c2b6847b7b3d6e9ddb70f06ff1296858371e0aa57639e067d0685363611e679c",
+    "prepare": "19b18c7cc2169789583f708c47cf030c086cc9ecdc8787725b47378aee9db5f7"
+  },
+  "spatialBuild": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "30d43e9225f6fa21320578c2bed424c5e7eeea08c3d0f791a0990075738aca2d",
+    "objects": {
+      "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+      "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+      "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    "files": {
+      "spatial.js": {
+        "bytes": 23738,
+        "sha256": "f3906c052cddc62ab68fa985b6f59b731a50c614b2cca36fad788f3ff617d896"
+      },
+      "spatial.wasm": {
+        "bytes": 556176,
+        "sha256": "d951569ef9f4690c3543e61139778d015ff911c782caf50c7494902584353503"
+      }
+    }
+  },
+  "preparationBuild": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "8035cc819ffa4623c15d932a337dc345fb4056c9cd28550732526c098ef849a0",
+    "files": {
+      "prepare.js": {
+        "bytes": 7639,
+        "sha256": "21c44144ae950bd5f337f5fc88444de37031383f3fbc9114509b8ce539bd3579"
+      },
+      "prepare.wasm": {
+        "bytes": 9386,
+        "sha256": "64b560b642e5057610ac21b769d5a5336ba40491bd744c6ef9b9d16223a7c8eb"
+      }
+    }
+  }
+}

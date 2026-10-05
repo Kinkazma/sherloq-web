@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+ok 1 - D2 PatchMatch preserves committed evaluations and exact RNG across repeated later allocation incidents
+  ---
+  duration_ms: 38.724084
+  type: 'test'
+  ...
+# Subtest: five failures without progress stop locally while more separated incidents remain recoverable
+ok 2 - five failures without progress stop locally while more separated incidents remain recoverable
+  ---
+  duration_ms: 16.934125
+  type: 'test'
+  ...
+# Subtest: feature copy recovery retains completed native work and releases all ownership
+ok 3 - feature copy recovery retains completed native work and releases all ownership
+  ---
+  duration_ms: 4.208584
+  type: 'test'
+  ...
+# Subtest: cancelled local recovery immediately releases pressure and does not retry
+ok 4 - cancelled local recovery immediately releases pressure and does not retry
+  ---
+  duration_ms: 0.293458
+  type: 'test'
+  ...
+# Subtest: two evaluator lanes refusing every useful tile stop without leaking work or pressure
+ok 5 - two evaluator lanes refusing every useful tile stop without leaking work or pressure
+  ---
+  duration_ms: 11.900541
+  type: 'test'
+  ...
+# Subtest: concurrent useful tiles do not combine independent first refusals into a loop
+ok 6 - concurrent useful tiles do not combine independent first refusals into a loop
+  ---
+  duration_ms: 0.720709
+  type: 'test'
+  ...
+# Subtest: guarded stages retain dynamic getters and original method ownership
+ok 7 - guarded stages retain dynamic getters and original method ownership
+  ---
+  duration_ms: 0.294125
+  type: 'test'
+  ...
+# Subtest: a refused optional evaluator preserves the ready pool and grows again after external release
+ok 8 - a refused optional evaluator preserves the ready pool and grows again after external release
+  ---
+  duration_ms: 1.301583
+  type: 'test'
+  ...
+# Subtest: parameter digest recovery retains already fetched useful model bytes
+ok 9 - parameter digest recovery retains already fetched useful model bytes
+  ---
+  duration_ms: 26.880708
+  type: 'test'
+  ...
+# Subtest: cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+ok 10 - cancellation at a successful bootstrap boundary cannot create optional evaluator workers
+  ---
+  duration_ms: 0.995834
+  type: 'test'
+  ...
+# Subtest: D2 waits for independent work without retrying or treating GPU retirement as ArrayBuffer backing
+ok 11 - D2 waits for independent work without retrying or treating GPU retirement as ArrayBuffer backing
+  ---
+  duration_ms: 9.213708
+  type: 'test'
+  ...
+# Subtest: scheduled D2 worker calls carry one owner and cannot be mistaken for an independent producer
+ok 12 - scheduled D2 worker calls carry one owner and cannot be mistaken for an independent producer
+  ---
+  duration_ms: 0.641791
+  type: 'test'
+  ...
+# Subtest: native D2 work is visible to peers but its parent does not manufacture progress during output recovery
+ok 13 - native D2 work is visible to peers but its parent does not manufacture progress during output recovery
+  ---
+  duration_ms: 3.805375
+  type: 'test'
+  ...
+# Subtest: guarded concurrent invocations forward distinct tickets without mutating caller options
+ok 14 - guarded concurrent invocations forward distinct tickets without mutating caller options
+  ---
+  duration_ms: 0.549
+  type: 'test'
+  ...
+# Subtest: Row preparations preserve all Torch and Pillow native tensor references across arbitrary strips
+ok 15 - Row preparations preserve all Torch and Pillow native tensor references across arbitrary strips
+  ---
+  duration_ms: 4426.385792
+  type: 'test'
+  ...
+# Subtest: Oriented half-open ROI reads match contiguous preparations and retain source bytes
+ok 16 - Oriented half-open ROI reads match contiguous preparations and retain source bytes
+  ---
+  duration_ms: 740.528125
+  type: 'test'
+  ...
+# Subtest: Rows preparation cancellation, malformed reads and memory refusal release windows and allow retry
+ok 17 - Rows preparation cancellation, malformed reads and memory refusal release windows and allow retry
+  ---
+  duration_ms: 49.0335
+  type: 'test'
+  ...
+# Subtest: Wasm tensor leases keep stable views across new banks and owner disposal
+ok 18 - Wasm tensor leases keep stable views across new banks and owner disposal
+  ---
+  duration_ms: 110.224542
+  type: 'test'
+  ...
+# Subtest: released ranges coalesce and reused tensors preserve new-array zero semantics
+ok 19 - released ranges coalesce and reused tensors preserve new-array zero semantics
+  ---
+  duration_ms: 1.73475
+  type: 'test'
+  ...
+# Subtest: retirement excludes live tensors and reports only the Wasm domain
+ok 20 - retirement excludes live tensors and reports only the Wasm domain
+  ---
+  duration_ms: 5.325708
+  type: 'test'
+  ...
+# Subtest: allocation refusal and cancellation publish no bank and return reservations
+ok 21 - allocation refusal and cancellation publish no bank and return reservations
+  ---
+  duration_ms: 0.820083
+  type: 'test'
+  ...
+# Subtest: zero:false reuses a dirty range and full output publication overwrites every sentinel
+ok 22 - zero:false reuses a dirty range and full output publication overwrites every sentinel
+  ---
+  duration_ms: 1.059083
+  type: 'test'
+  ...
+# Subtest: one bank is counted once and remains pinned until its final slice is returned
+ok 23 - one bank is counted once and remains pinned until its final slice is returned
+  ---
+  duration_ms: 0.40375
+  type: 'test'
+  ...
+# Subtest: refused standalone helper admission registers no orphaned arena reclaimer
+ok 24 - refused standalone helper admission registers no orphaned arena reclaimer
+  ---
+  duration_ms: 4.282333
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5316.016125

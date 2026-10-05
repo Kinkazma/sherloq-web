@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {createEngine} from '../src/index.js';import {segmentedEla} from '../src/segmented-ela.js';import {Budget} from '../src/cache.js';import {createRgbSurface} from '../src/rgb-surface.js';import {imageCodec} from '../src/codecs.js';
+const ref=JSON.parse(await readFile(new URL('./data/segmented-ela-native.json',import.meta.url)));const hash=b=>createHash('sha256').update(b).digest('hex');
+test('segmented ELA matches native controls, odd bands and oriented source pixels',async()=>{
+ for(const item of ref.cases.slice(0,3)){const pixels=await imageCodec.decode(new Uint8Array(await readFile(new URL('../'+item.file,import.meta.url)))),budget=new Budget(128*1024**2),image={surface:createRgbSurface({byteLength:pixels.data.length,readInto:(out,at)=>out.set(pixels.data.subarray(at,at+out.length))},{width:pixels.width,height:pixels.height,budget,ownsStore:false})};
+  try{for(const expected of item.expected){const result=await segmentedEla(image,expected.params,{budget});const part=await result.surface.readWindow();assert.equal(hash(part.pixels.data),expected.sha256,item.file+'/'+JSON.stringify(expected.params));part.release();await result.surface.dispose();assert.equal(budget.active,0);}}finally{await image.rgbRecompression?.dispose();await image.surface.dispose();}assert.equal(budget.total(),0);
+ }
+});

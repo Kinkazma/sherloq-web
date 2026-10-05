@@ -1,0 +1,35 @@
+<!doctype html><meta charset="utf-8"><title>SHERLOQ — mémoire, recette navigateur</title>
+<style>body{font:16px system-ui;max-width:1000px;margin:40px auto;background:#fafafa;color:#222}pre{white-space:pre-wrap}button,a{padding:12px;display:inline-block}</style>
+<h1>SHERLOQ — mémoire, recette navigateur</h1><p>Tests locaux des modules livrés. Aucune image utilisateur ni service externe.</p>
+<button id="run">Exécuter les contrôles mémoire</button><a id="save" hidden>Télécharger les preuves JSON</a><pre id="out">Prêt.</pre>
+<script type="module">
+import {TileCache,createTiledSurface} from '/wp-content/plugins/sherloq-browser/assets/tiled-surface.js';
+import {exportRGBPNG} from '/wp-content/plugins/sherloq-browser/assets/png-export.js';
+const out=document.getElementById('out'),run=document.getElementById('run');
+const check=(v,label)=>{if(!v)throw new Error(label);};
+function rpc(worker,id,action,payload,options){return new Promise((resolve,reject)=>{worker.onmessage=({data})=>{if(data.id!==id||data.progress)return;data.error?reject(Object.assign(new Error(data.error.message),{code:data.error.code})):resolve(data.result);};worker.onerror=reject;worker.postMessage({id,action,payload,options},payload?.bytes?[payload.bytes.buffer]:[]);});}
+run.onclick=async()=>{
+ run.disabled=true;const proof={at:new Date().toISOString(),userAgent:navigator.userAgent,storage:await navigator.storage.estimate(),heapLimitBytes:performance.memory?.jsHeapSizeLimit??null,tests:[]};
+ async function test(name,fn){try{const data=await fn();proof.tests.push({name,pass:true,...data});}catch(e){proof.tests.push({name,pass:false,error:e.message});}out.textContent=JSON.stringify(proof,null,2);}
+ const width=1025,height=769,pixels={width,height,data:new Uint8Array(width*height*3)};for(let i=0;i<pixels.data.length;i++)pixels.data[i]=(i*17+(i>>>6))&255;
+ await test('Visible tile rendering is pixel exact at 100%, including a tile boundary',async()=>{
+  const cache=new TileCache(1024**2),s=createTiledSurface(pixels,cache),c=document.createElement('canvas');c.width=300;c.height=200;const ctx=c.getContext('2d');ctx.translate(-250,-240);s.draw(ctx,{left:250,top:240,right:550,bottom:440},1);const rgba=ctx.getImageData(0,0,300,200).data;
+  for(let y=0;y<200;y++)for(let x=0;x<300;x++)for(let k=0;k<3;k++)check(rgba[(y*300+x)*4+k]===pixels.data[((y+240)*width+x+250)*3+k],'Pixel mismatch');
+  const used=cache.bytes;check(used<=cache.limit,'Cache quota exceeded');s.close();check(cache.bytes===0,'Tiles not released');return{rgbBytes:pixels.data.byteLength,peakObservedTileBytes:used,cacheLimit:cache.limit};
+ });
+ await test('Shared tile cache evicts to its byte budget during panning',async()=>{const cache=new TileCache(1024**2),s=createTiledSurface(pixels,cache),c=document.createElement('canvas');c.width=300;c.height=200;const ctx=c.getContext('2d');let peak=0;for(let y=0;y<height;y+=100)for(let x=0;x<width;x+=100){ctx.setTransform(1,0,0,1,-x,-y);s.draw(ctx,{left:x,top:y,right:x+300,bottom:y+200},1);peak=Math.max(peak,cache.bytes);check(cache.bytes<=cache.limit,'Cache budget exceeded');}s.close();return{peakObservedTileBytes:peak,cacheLimit:cache.limit};});
+ await test('Fractional zoom has no transparent seams inside the image',async()=>{const cache=new TileCache(4*1024**2),s=createTiledSurface(pixels,cache),c=document.createElement('canvas');c.width=800;c.height=600;const ctx=c.getContext('2d');ctx.setTransform(.67,0,0,.67,.3,.4);s.draw(ctx,{left:0,top:0,right:width,bottom:height},.67);const rgba=ctx.getImageData(0,0,800,600).data;for(let y=2;y<Math.floor(height*.67)-2;y++)for(let x=2;x<Math.floor(width*.67)-2;x++)check(rgba[(y*800+x)*4+3]===255,'Transparent seam');s.close();return{scale:.67};});
+ await test('Full RGB PNG export decodes to exact dimensions and every pixel',async()=>{const blob=await exportRGBPNG(pixels),im=await createImageBitmap(blob),c=document.createElement('canvas');c.width=width;c.height=height;const ctx=c.getContext('2d');ctx.drawImage(im,0,0);const rgba=ctx.getImageData(0,0,width,height).data;check(im.width===width&&im.height===height,'Dimensions changed');for(let i=0,j=0;i<pixels.data.length;i+=3,j+=4)for(let k=0;k<3;k++)check(rgba[j+k]===pixels.data[i+k],'PNG pixel mismatch');im.close();return{pngBytes:blob.size,width,height};});
+ await test('Actual CompressionStream rejects the encoded-byte export quota',async()=>{try{await exportRGBPNG(pixels,{maxBytes:50});throw new Error('Quota not enforced');}catch(e){check(e.code==='EXPORT_BUDGET',e.message);return{code:e.code};}});
+ await test('Cancelling CompressionStream never yields a partial PNG',async()=>{const controller=new AbortController();try{await exportRGBPNG(pixels,{signal:controller.signal,onProgress:()=>controller.abort()});throw new Error('Cancelled PNG accepted');}catch(e){check(e.code==='CANCELLED',e.message);return{code:e.code};}});
+ await test('Blob source and exact pixel windows avoid the UI RGB quota; results retain admission',async()=>{
+  const worker=new Worker('/wp-content/plugins/sherloq-browser/assets/engine-worker.js',{type:'module'});try{
+   const file=await (await fetch('./synthetic.jpg')).blob(),options={computeProfile:'aggressive',uiReserveBytes:32*1024**2,uiRGBBudgetBytes:1};
+   const descriptor=await rpc(worker,1,'load',{id:'fixture',blob:file},options);check(descriptor.surface&& !descriptor.pixels,'Source must expose a surface');
+   const result=await rpc(worker,2,'read-window',{display:descriptor.surface,rect:{x:0,y:0,width:32,height:32}},options);check(result.pixels.data.length===32*32*3,'Window dimensions');
+   try{await rpc(worker,3,'run',{id:'ela',imageId:'fixture',operation:'ela.classic'},options);throw Error('Result quota not enforced');}catch(e){check(e.code==='RESULT_MEMORY_BUDGET',e.message);return{resultCode:e.code,sourceSurface:true,exactWindow:true};}
+  }finally{worker.terminate();}
+ });
+ proof.pass=proof.tests.every(t=>t.pass);out.textContent=JSON.stringify(proof,null,2);const a=document.getElementById('save');a.hidden=false;a.href=URL.createObjectURL(new Blob([out.textContent],{type:'application/json'}));a.download='SHERLOQ-memory-browser-0.3.0.json';run.disabled=false;
+};
+</script>

@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "status": "feature-blocks-executable-not-qualified-detector",
+  "scope": "One generated448x448 case for each of two D2PRL feature blocks, graph optimization disabled/all. No PatchMatch, random stream, final masks, or full model inference. Requested WebGPU provider does not prove every node placement. Functional timings are not isolated benchmarks.",
+  "reference": {
+    "schema": 1,
+    "scope": "Private generated random input; single448x448 feature-block reference per block, not complete D2PRL",
+    "torch": "2.8.0",
+    "onnx": "1.19.0",
+    "checkpoints": {
+      "third_party/research/clone_detectors/01_d2prl/ZM_polar_k13.mat": "7692a50926259fb963d7090e9e475f8a19c62944b293f6f991f97957983c8a93",
+      "third_party/research/clone_detectors/01_d2prl/VV_mvf7.mat": "aca122a7527645f74551cdaa4b44dbc2a50b87a74e784e935a4f060d2ef474e2",
+      "third_party/research/clone_detectors/01_d2prl/VV_mvf9.mat": "67937cda8cf52e3718801a5e254248bd5aed2129f6547627a1df2ff21ed0fe9a",
+      "third_party/research/clone_detectors/01_d2prl/VV_mvf11.mat": "5dc2acf945e625d1389a4a6525d8abe069a97e64b8f12aa3d1903e4a53b4c9bd",
+      "models/external/clone_detectors/01_d2prl/d2prl.pth": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+    },
+    "records": [
+      {
+        "kind": "zernike",
+        "modelFile": "zernike.onnx",
+        "modelBytes": 49797,
+        "modelSha256": "1a5ab47093db2fbea4c81f0ba7186be6ccaabd8248635dcef788b7e8e3d9ecfc",
+        "inputFile": "zernike-input.f32",
+        "inputShape": [
+          1,
+          3,
+          448,
+          448
+        ],
+        "nativeFile": "zernike-native.f32",
+        "nativeShape": [
+          1,
+          12,
+          448,
+          448
+        ],
+        "nativeSha256": "63cf891a14a5789e9579a6e5482ddd1d5580e2eb24312716d419170376b66aad",
+        "operators": {
+          "Identity": 1,
+          "Conv": 2,
+          "Mul": 2,
+          "Add": 2,
+          "Constant": 1,
+          "Sqrt": 1
+        },
+        "inputSha256": "0d9307acd26a8347aafba3d3ff343584a3da651d38018dc44bf41742c016e28a"
+      },
+      {
+        "kind": "cnn",
+        "modelFile": "cnn.onnx",
+        "modelBytes": 3558905,
+        "modelSha256": "2a0b541e4a4d48de8f9896bd4e01c4d04ab9e9e01aea332a6c950d39322b946b",
+        "inputFile": "cnn-input.f32",
+        "inputShape": [
+          1,
+          3,
+          448,
+          448
+        ],
+        "nativeFile": "cnn-native.f32",
+        "nativeShape": [
+          1,
+          32,
+          448,
+          448
+        ],
+        "nativeSha256": "c770a2050470eeff4c58ce4f5576e80185eb511ec827a910d1f9088544ee62bc",
+        "operators": {
+          "Constant": 8,
+          "ConstantOfShape": 1,
+          "Concat": 1,
+          "Reshape": 2,
+          "Slice": 1,
+          "Transpose": 1,
+          "Cast": 1,
+          "Pad": 1,
+          "Conv": 5,
+          "Relu": 4
+        },
+        "inputSha256": "fcbd132923524342c79680224f03603e602afde6d689c13a720bf692949a0f59"
+      }
+    ]
+  },
+  "providers": {
+    "wasm": {
+      "schema": 1,
+      "scope": "One generated448x448 input per feature block, not full D2PRL. Requested provider does not prove every node ran there. Timings are functional observations, not a benchmark.",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "rows": [
+        {
+          "kind": "zernike",
+          "requestedProvider": "wasm",
+          "graphOptimizationLevel": "disabled",
+          "elements": 2408448,
+          "maxAbs": 2.47955322265625e-05,
+          "maxRelative": 2.562999725341797e-06,
+          "meanAbs": 6.127303793295648e-07,
+          "different": 2206262,
+          "nonfinite": 0,
+          "changedHalf": 1856,
+          "functionalRunMs": 172.90000000037253
+        },
+        {
+          "kind": "cnn",
+          "requestedProvider": "wasm",
+          "graphOptimizationLevel": "disabled",
+          "elements": 6422528,
+          "maxAbs": 1.4543533325195312e-05,
+          "maxRelative": 1.1995434761047363e-05,
+          "meanAbs": 9.632617725392311e-07,
+          "different": 6152384,
+          "nonfinite": 0,
+          "changedHalf": 29672,
+          "functionalRunMs": 9000
+        },
+        {
+          "kind": "zernike",
+          "requestedProvider": "wasm",
+          "graphOptimizationLevel": "all",
+          "elements": 2408448,
+          "maxAbs": 2.47955322265625e-05,
+          "maxRelative": 2.562999725341797e-06,
+          "meanAbs": 6.127303793295648e-07,
+          "different": 2206262,
+          "nonfinite": 0,
+          "changedHalf": 1856,
+          "functionalRunMs": 152.5
+        },
+        {
+          "kind": "cnn",
+          "requestedProvider": "wasm",
+          "graphOptimizationLevel": "all",
+          "elements": 6422528,
+          "maxAbs": 1.4543533325195312e-05,
+          "maxRelative": 1.1995434761047363e-05,
+          "meanAbs": 9.632617725392311e-07,
+          "different": 6152384,
+          "nonfinite": 0,
+          "changedHalf": 29672,
+          "functionalRunMs": 8953
+        }
+      ],
+      "browser": "154.0.8037.58"
+    },
+    "webgpu": {
+      "schema": 1,
+      "scope": "One generated448x448 input per feature block, not full D2PRL. Requested provider does not prove every node ran there. Timings are functional observations, not a benchmark.",
+      "ort": {
+        "common": "1.30.0",
+        "web": "1.30.0"
+      },
+      "rows": [
+        {
+          "kind": "zernike",
+          "requestedProvider": "webgpu",
+          "graphOptimizationLevel": "disabled",
+          "elements": 2408448,
+          "maxAbs": 2.86102294921875e-05,
+          "maxRelative": 8.64267349243164e-06,
+          "meanAbs": 8.09943256623555e-07,
+          "different": 2274038,
+          "nonfinite": 0,
+          "changedHalf": 3845,
+          "functionalRunMs": 146.5
+        },
+        {
+          "kind": "cnn",
+          "requestedProvider": "webgpu",
+          "graphOptimizationLevel": "disabled",
+          "elements": 6422528,
+          "maxAbs": 2.3365020751953125e-05,
+          "maxRelative": 1.5020370483398438e-05,
+          "meanAbs": 1.3503012037974536e-06,
+          "different": 6229369,
+          "nonfinite": 0,
+          "changedHalf": 40133,
+          "functionalRunMs": 331.40000000037253
+        },
+        {
+          "kind": "zernike",
+          "requestedProvider": "webgpu",
+          "graphOptimizationLevel": "all",
+          "elements": 2408448,
+          "maxAbs": 2.86102294921875e-05,
+          "maxRelative": 8.64267349243164e-06,
+          "meanAbs": 8.09943256623555e-07,
+          "different": 2274038,
+          "nonfinite": 0,
+          "changedHalf": 3845,
+          "functionalRunMs": 28
+        },
+        {
+          "kind": "cnn",
+          "requestedProvider": "webgpu",
+          "graphOptimizationLevel": "all",
+          "elements": 6422528,
+          "maxAbs": 2.3365020751953125e-05,
+          "maxRelative": 1.5020370483398438e-05,
+          "meanAbs": 1.3503012037974536e-06,
+          "different": 6229369,
+          "nonfinite": 0,
+          "changedHalf": 40133,
+          "functionalRunMs": 283.70000000018626
+        }
+      ],
+      "browser": "154.0.8037.58"
+    }
+  }
+}

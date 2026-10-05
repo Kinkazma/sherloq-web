@@ -1,0 +1,210 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.42",
+  "runtimeFiles": 404,
+  "runtimeManifestSha256": "28e036e826f4170ba0037797e3f8978073f56e459b764fc836efb8527b9e1aec",
+  "scope": "Exact copied runtime and execution/recipe-source binding. Separate pinned MGCF base/ST graph mirrors; bounded JSEP idle cache and full feature boundary. Actual workers, native continuous/decision corpus, cold/warm reuse, copied common API/cached view/full NPZ/cancel-after-useful-encoder/reload. New rich96MP ST six-plane path covers the larger-asset two-session adapter; base96MP is shared adapter coverage, not a newly executed base network. No WordPress, other-device or universal-speed claim.",
+  "runtimePatch": {
+    "upstreamSha256": "2e4a0eae53c3f246e26423aaca493d3bfc22ce524894f27519a9ec4a14e6397a",
+    "sha256": "7d310c76aac719959f1b7ddfacd696d40d7b9a811d0ced1a68fb44a038a77cf4",
+    "maximumBothIdlePoolsBytes": 65590528
+  },
+  "variants": [
+    {
+      "variant": "mgcfdn",
+      "cpuModelSha256": "8b99302269be19e214139b533e198f85169c3821a637a89ff93f6ab0c720b44e",
+      "checkpointSha256": "53920b1cefe1e8c1e8c78dfe2f43e80251529d9e5ccc7be31f899a636357f563",
+      "manifestSha256": "cb88c2132a178ef411625c004d4509c4f0361f699cf606dc33cf3ce6d82d1402",
+      "stages": [
+        {
+          "file": "gpu-split-encoder.onnx",
+          "bytes": 60369418,
+          "sha256": "b87459a9a4a46b1b5a3dfc4aea987a0f917b70c0e04b93975f48608492d4006d",
+          "inputs": [
+            "rgb"
+          ],
+          "outputs": [
+            "/network/visual_feature_extractor/Concat_4_output_0",
+            "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+          ],
+          "nodes": 730,
+          "backend": "webgpu"
+        },
+        {
+          "file": "gpu-split-head.onnx",
+          "bytes": 28813443,
+          "sha256": "6da571500c82be5ed474962d1daac53f0a868d1fb3e5f9bd0ee0fced4b856ba9",
+          "inputs": [
+            "/network/visual_feature_extractor/Concat_4_output_0",
+            "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+          ],
+          "outputs": [
+            "logits",
+            "probability"
+          ],
+          "nodes": 260,
+          "backend": "webgpu"
+        }
+      ],
+      "assetBytes": 89182861,
+      "bridgeReservedBytes": 12288024,
+      "continuousTolerance": 0.001,
+      "probabilityMax": 0.00013643503189086914,
+      "probabilityMaxMean": 0.000005775505362844852,
+      "maskDifferences": 0,
+      "cpuMs": [
+        4213.5,
+        1807.2999999970198,
+        1805.5
+      ],
+      "hybridMs": [
+        6079.5999999940395,
+        218.5,
+        173.5
+      ],
+      "cpuPeak": 1346585849,
+      "hybridPeak": 1896110818,
+      "copiedApiMs": 1659.7999999970198,
+      "cachedViewMs": 10.699999988079071,
+      "npzPreparationMs": 111.79999999701977,
+      "copiedPeak": 1464502133,
+      "copiedForeground": [
+        14311,
+        9650
+      ],
+      "npzSha256": "5fc3535214da72b3126ec878f7f88ea883d3aa7a7f60bac0929e5ce96337c502",
+      "cancelledAfterEncoder": true,
+      "reloaded": true
+    },
+    {
+      "variant": "mgcfdn-st",
+      "cpuModelSha256": "d7b577b68f862a43d12959291e93ecd2143d0feb4723efeb56f2bd7f941cba6d",
+      "checkpointSha256": "95fa449ba33a4718b66ddcbe948ddc57abdfb34594c43bf47e49515bc63cec98",
+      "manifestSha256": "94bd9ac8162eb86bd16c3edc09433f7077a4788706b5e8640137f8d8b2a65090",
+      "stages": [
+        {
+          "file": "gpu-split-encoder.onnx",
+          "bytes": 61042997,
+          "sha256": "d3739d6e9d540879f8fcf0f1483ffa2e5299e8c35e1d40c1916fa5ffa6d9d6ac",
+          "inputs": [
+            "rgb"
+          ],
+          "outputs": [
+            "/network/visual_feature_extractor/Concat_4_output_0",
+            "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+          ],
+          "nodes": 3734,
+          "backend": "webgpu"
+        },
+        {
+          "file": "gpu-split-head.onnx",
+          "bytes": 28852562,
+          "sha256": "ed18f1799651542fc0f950c26908d7e57fe2b027087df0ecea511fc91aaac784",
+          "inputs": [
+            "/network/visual_feature_extractor/Concat_4_output_0",
+            "/network/visual_feature_extractor/layer1/layer1.0/layer1.0.0/layer1.0.0.0/Constant_output_0"
+          ],
+          "outputs": [
+            "logits",
+            "probability"
+          ],
+          "nodes": 426,
+          "backend": "wasm"
+        }
+      ],
+      "assetBytes": 89895559,
+      "bridgeReservedBytes": 12288024,
+      "continuousTolerance": 0.0001,
+      "probabilityMax": 0.00001615285873413086,
+      "probabilityMaxMean": 1.2966798646234287e-7,
+      "maskDifferences": 0,
+      "cpuMs": [
+        2483.2000000029802,
+        1408,
+        1342.9000000059605
+      ],
+      "hybridMs": [
+        2955.3999999910593,
+        1125.7999999970198,
+        1233.7999999970198
+      ],
+      "cpuPeak": 1351375231,
+      "hybridPeak": 1901443128,
+      "copiedApiMs": 4739.5,
+      "cachedViewMs": 30.799999997019768,
+      "npzPreparationMs": 91.29999999701977,
+      "copiedPeak": 1474601523,
+      "copiedForeground": [
+        5115,
+        4347
+      ],
+      "npzSha256": "c2b8df9eca8a1414edafac43e8b9f38c235d76605d9379276ea1f8bd9548053a",
+      "cancelledAfterEncoder": true,
+      "reloaded": true
+    }
+  ],
+  "large": {
+    "width": 12000,
+    "height": 8000,
+    "arrays": 6,
+    "foreground": 3370950,
+    "map": {
+      "different": 94233477,
+      "maxAbs": 0.000011444091796875,
+      "meanAbs": 1.1170482863238823e-7,
+      "nonzero": 96000000,
+      "finite": true,
+      "sha256": "dea908b978db54c7ea0a1511bc2e1a2581069733252646cd73266d7ee7806f53",
+      "accepted": true
+    },
+    "loadMs": 1269.5999999940395,
+    "analysisMs": 29479.40000000596,
+    "cachedViewMs": 9204.5,
+    "npzPreparationMs": 36797.89999999106,
+    "peakBytes": 3205063469,
+    "budgetBytes": 3221225472,
+    "exportBytes": 1440014924,
+    "exportSha256": "66bfb93577cf08cafc6e10354455197c689691e02caa938d37b81fc630ddb6ff"
+  },
+  "rejected": [
+    {
+      "proof": "segmentation-mgcfdn-gpu-concat-gpu-bounded-cache-candidate.json",
+      "status": "rejected",
+      "maskDifferenceMaximum": null,
+      "reason": "512MiB full-graph allocation refusal"
+    },
+    {
+      "proof": "segmentation-mgcfdn-gpu-concat-gpu-split-candidate.json",
+      "status": "rejected",
+      "maskDifferenceMaximum": 0,
+      "reason": "Historical strict1e-4 threshold exceeded; later workers qualified separately under declared1e-3 continuous tolerance"
+    },
+    {
+      "proof": "segmentation-mgcfdn-st-gpu-concat-gpu-split-candidate.json",
+      "status": "rejected",
+      "maskDifferenceMaximum": 3293,
+      "reason": "GPU head decision divergence; exact cause unresolved"
+    },
+    {
+      "proof": "segmentation-mgcfdn-st-gpu-concat-split-wasm-webgpu-candidate.json",
+      "status": "rejected",
+      "maskDifferenceMaximum": 3293,
+      "reason": "GPU head decision divergence; exact cause unresolved"
+    }
+  ],
+  "proofHashes": {
+    "mgcf-split-mgcfdn-workers-proof.json": "ff16e50ea184fab3b130db8d901b283144a5a74f96deb17a09b8eb5f5da5af37",
+    "neural-segmented-mgcfdn-webgpu-m1-42-extracted-proof.json": "994d980e03e9f980f7cacca0b281338a407526a7ef4d9f914a4460b687315f6c",
+    "neural-segmented-mgcfdn-webgpu-m1-42-extracted-npz-proof.json": "2dbe49c1b67520592f656f0f6726b9983abac0e4357573354b7df9f022813bfb",
+    "mgcf-split-mgcfdn-st-workers-proof.json": "1dc75499af07cc0ef2e19d7592d78a796a2b09449e5ad0b96b5012ddadf2372d",
+    "neural-segmented-mgcfdn-st-webgpu-m1-42-extracted-proof.json": "cefe078e7c31f20053c298afd2666f5d238464960e0ad7e48368b3fefd57ea08",
+    "neural-segmented-mgcfdn-st-webgpu-m1-42-extracted-npz-proof.json": "1452a1be201333a405e87651eada2c69e9df99ba7593402054e38b25d9a572e7",
+    "neural-segmented-mgcfdn-st-large-rich-webgpu-m1-42-candidate-proof.json": "3839e039a6f7388bbf4fb0f8c23c151b972c2ac86ea9d4dde25d720a910b194a",
+    "neural-segmented-mgcfdn-st-large-rich-webgpu-m1-42-candidate-npz-proof.json": "b22ef33f0ee1ca12a8405e77cb09011cff0e2ae3fbcfcee8b9c0cb1c9526fbd8",
+    "segmentation-mgcfdn-gpu-concat-gpu-bounded-cache-candidate.json": "25cca8f329b7f55a97c66354f650e423f01b96fce1f689e8c50fe8f6b591ba10",
+    "segmentation-mgcfdn-gpu-concat-gpu-split-candidate.json": "ef967339663a5ce50cd0b985211b5f6db801fa7c0238f959e7eecfa933f6dc48",
+    "segmentation-mgcfdn-st-gpu-concat-gpu-split-candidate.json": "291e27f9b62aff3bd1e1087bfa906c69a71a1c267c9964fa4cf5291757265cfd",
+    "segmentation-mgcfdn-st-gpu-concat-split-wasm-webgpu-candidate.json": "f6f39e68b1f6da0e917eb35fb5fab36beae0b0625babad187ee6aed2c10c8176"
+  }
+}

@@ -1,0 +1,3084 @@
+{
+  "schema": 1,
+  "kind": "vig-native-order-v1",
+  "inputShape": [
+    1,
+    3,
+    256,
+    256
+  ],
+  "parameters": {
+    "pos_embed": [
+      1,
+      640,
+      16,
+      16
+    ],
+    "stem.convs.0.weight": [
+      80,
+      3,
+      3,
+      3
+    ],
+    "stem.convs.0.bias": [
+      80
+    ],
+    "stem.convs.1.weight": [
+      80
+    ],
+    "stem.convs.1.bias": [
+      80
+    ],
+    "stem.convs.1.running_mean": [
+      80
+    ],
+    "stem.convs.1.running_var": [
+      80
+    ],
+    "stem.convs.3.weight": [
+      160,
+      80,
+      3,
+      3
+    ],
+    "stem.convs.3.bias": [
+      160
+    ],
+    "stem.convs.4.weight": [
+      160
+    ],
+    "stem.convs.4.bias": [
+      160
+    ],
+    "stem.convs.4.running_mean": [
+      160
+    ],
+    "stem.convs.4.running_var": [
+      160
+    ],
+    "stem.convs.6.weight": [
+      320,
+      160,
+      3,
+      3
+    ],
+    "stem.convs.6.bias": [
+      320
+    ],
+    "stem.convs.7.weight": [
+      320
+    ],
+    "stem.convs.7.bias": [
+      320
+    ],
+    "stem.convs.7.running_mean": [
+      320
+    ],
+    "stem.convs.7.running_var": [
+      320
+    ],
+    "stem.convs.9.weight": [
+      640,
+      320,
+      3,
+      3
+    ],
+    "stem.convs.9.bias": [
+      640
+    ],
+    "stem.convs.10.weight": [
+      640
+    ],
+    "stem.convs.10.bias": [
+      640
+    ],
+    "stem.convs.10.running_mean": [
+      640
+    ],
+    "stem.convs.10.running_var": [
+      640
+    ],
+    "stem.convs.12.weight": [
+      640,
+      640,
+      3,
+      3
+    ],
+    "stem.convs.12.bias": [
+      640
+    ],
+    "stem.convs.13.weight": [
+      640
+    ],
+    "stem.convs.13.bias": [
+      640
+    ],
+    "stem.convs.13.running_mean": [
+      640
+    ],
+    "stem.convs.13.running_var": [
+      640
+    ],
+    "backbone.0.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.0.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.0.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.0.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.0.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.0.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.0.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.0.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.0.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.0.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.0.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.0.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.0.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.0.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.0.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.0.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.0.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.0.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.0.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.0.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.0.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.0.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.0.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.0.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.0.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.0.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.0.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.0.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.0.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.0.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.1.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.1.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.1.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.1.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.1.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.1.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.1.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.1.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.1.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.1.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.1.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.1.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.1.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.1.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.1.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.1.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.1.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.1.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.1.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.1.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.1.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.1.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.1.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.1.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.1.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.1.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.1.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.1.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.1.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.1.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.2.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.2.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.2.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.2.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.2.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.2.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.2.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.2.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.2.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.2.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.2.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.2.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.2.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.2.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.2.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.2.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.2.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.2.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.2.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.2.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.2.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.2.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.2.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.2.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.2.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.2.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.2.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.2.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.2.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.2.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.3.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.3.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.3.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.3.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.3.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.3.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.3.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.3.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.3.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.3.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.3.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.3.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.3.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.3.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.3.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.3.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.3.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.3.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.3.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.3.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.3.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.3.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.3.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.3.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.3.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.3.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.3.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.3.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.3.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.3.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.4.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.4.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.4.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.4.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.4.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.4.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.4.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.4.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.4.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.4.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.4.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.4.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.4.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.4.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.4.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.4.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.4.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.4.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.4.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.4.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.4.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.4.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.4.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.4.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.4.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.4.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.4.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.4.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.4.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.4.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.5.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.5.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.5.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.5.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.5.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.5.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.5.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.5.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.5.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.5.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.5.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.5.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.5.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.5.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.5.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.5.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.5.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.5.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.5.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.5.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.5.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.5.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.5.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.5.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.5.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.5.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.5.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.5.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.5.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.5.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.6.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.6.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.6.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.6.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.6.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.6.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.6.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.6.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.6.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.6.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.6.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.6.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.6.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.6.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.6.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.6.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.6.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.6.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.6.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.6.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.6.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.6.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.6.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.6.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.6.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.6.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.6.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.6.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.6.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.6.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.7.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.7.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.7.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.7.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.7.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.7.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.7.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.7.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.7.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.7.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.7.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.7.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.7.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.7.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.7.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.7.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.7.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.7.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.7.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.7.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.7.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.7.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.7.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.7.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.7.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.7.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.7.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.7.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.7.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.7.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.8.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.8.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.8.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.8.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.8.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.8.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.8.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.8.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.8.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.8.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.8.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.8.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.8.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.8.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.8.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.8.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.8.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.8.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.8.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.8.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.8.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.8.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.8.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.8.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.8.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.8.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.8.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.8.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.8.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.8.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.9.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.9.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.9.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.9.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.9.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.9.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.9.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.9.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.9.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.9.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.9.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.9.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.9.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.9.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.9.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.9.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.9.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.9.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.9.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.9.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.9.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.9.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.9.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.9.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.9.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.9.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.9.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.9.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.9.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.9.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.10.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.10.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.10.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.10.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.10.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.10.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.10.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.10.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.10.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.10.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.10.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.10.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.10.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.10.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.10.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.10.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.10.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.10.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.10.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.10.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.10.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.10.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.10.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.10.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.10.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.10.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.10.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.10.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.10.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.10.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.11.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.11.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.11.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.11.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.11.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.11.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.11.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.11.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.11.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.11.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.11.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.11.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.11.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.11.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.11.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.11.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.11.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.11.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.11.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.11.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.11.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.11.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.11.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.11.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.11.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.11.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.11.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.11.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.11.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.11.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.12.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.12.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.12.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.12.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.12.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.12.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.12.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.12.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.12.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.12.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.12.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.12.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.12.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.12.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.12.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.12.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.12.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.12.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.12.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.12.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.12.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.12.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.12.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.12.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.12.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.12.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.12.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.12.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.12.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.12.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.13.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.13.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.13.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.13.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.13.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.13.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.13.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.13.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.13.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.13.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.13.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.13.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.13.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.13.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.13.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.13.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.13.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.13.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.13.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.13.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.13.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.13.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.13.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.13.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.13.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.13.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.13.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.13.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.13.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.13.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.14.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.14.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.14.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.14.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.14.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.14.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.14.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.14.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.14.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.14.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.14.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.14.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.14.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.14.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.14.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.14.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.14.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.14.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.14.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.14.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.14.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.14.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.14.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.14.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.14.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.14.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.14.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.14.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.14.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.14.1.fc2.1.running_var": [
+      640
+    ],
+    "backbone.15.0.fc1.0.weight": [
+      640,
+      640,
+      1,
+      1
+    ],
+    "backbone.15.0.fc1.0.bias": [
+      640
+    ],
+    "backbone.15.0.fc1.1.weight": [
+      640
+    ],
+    "backbone.15.0.fc1.1.bias": [
+      640
+    ],
+    "backbone.15.0.fc1.1.running_mean": [
+      640
+    ],
+    "backbone.15.0.fc1.1.running_var": [
+      640
+    ],
+    "backbone.15.0.graph_conv.gconv.nn.0.weight": [
+      1280,
+      320,
+      1,
+      1
+    ],
+    "backbone.15.0.graph_conv.gconv.nn.0.bias": [
+      1280
+    ],
+    "backbone.15.0.graph_conv.gconv.nn.1.weight": [
+      1280
+    ],
+    "backbone.15.0.graph_conv.gconv.nn.1.bias": [
+      1280
+    ],
+    "backbone.15.0.graph_conv.gconv.nn.1.running_mean": [
+      1280
+    ],
+    "backbone.15.0.graph_conv.gconv.nn.1.running_var": [
+      1280
+    ],
+    "backbone.15.0.fc2.0.weight": [
+      640,
+      1280,
+      1,
+      1
+    ],
+    "backbone.15.0.fc2.0.bias": [
+      640
+    ],
+    "backbone.15.0.fc2.1.weight": [
+      640
+    ],
+    "backbone.15.0.fc2.1.bias": [
+      640
+    ],
+    "backbone.15.0.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.15.0.fc2.1.running_var": [
+      640
+    ],
+    "backbone.15.1.fc1.0.weight": [
+      2560,
+      640,
+      1,
+      1
+    ],
+    "backbone.15.1.fc1.0.bias": [
+      2560
+    ],
+    "backbone.15.1.fc1.1.weight": [
+      2560
+    ],
+    "backbone.15.1.fc1.1.bias": [
+      2560
+    ],
+    "backbone.15.1.fc1.1.running_mean": [
+      2560
+    ],
+    "backbone.15.1.fc1.1.running_var": [
+      2560
+    ],
+    "backbone.15.1.fc2.0.weight": [
+      640,
+      2560,
+      1,
+      1
+    ],
+    "backbone.15.1.fc2.0.bias": [
+      640
+    ],
+    "backbone.15.1.fc2.1.weight": [
+      640
+    ],
+    "backbone.15.1.fc2.1.bias": [
+      640
+    ],
+    "backbone.15.1.fc2.1.running_mean": [
+      640
+    ],
+    "backbone.15.1.fc2.1.running_var": [
+      640
+    ]
+  },
+  "modules": {
+    "stem.convs.0": {
+      "kind": "Conv",
+      "ci": 3,
+      "co": 80,
+      "k": 3,
+      "pad": 1,
+      "stride": 2,
+      "groups": 1
+    },
+    "stem.convs.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "stem.convs.2": {
+      "kind": "GELU"
+    },
+    "stem.convs.3": {
+      "kind": "Conv",
+      "ci": 80,
+      "co": 160,
+      "k": 3,
+      "pad": 1,
+      "stride": 2,
+      "groups": 1
+    },
+    "stem.convs.4": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "stem.convs.5": {
+      "kind": "GELU"
+    },
+    "stem.convs.6": {
+      "kind": "Conv",
+      "ci": 160,
+      "co": 320,
+      "k": 3,
+      "pad": 1,
+      "stride": 2,
+      "groups": 1
+    },
+    "stem.convs.7": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "stem.convs.8": {
+      "kind": "GELU"
+    },
+    "stem.convs.9": {
+      "kind": "Conv",
+      "ci": 320,
+      "co": 640,
+      "k": 3,
+      "pad": 1,
+      "stride": 2,
+      "groups": 1
+    },
+    "stem.convs.10": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "stem.convs.11": {
+      "kind": "GELU"
+    },
+    "stem.convs.12": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 3,
+      "pad": 1,
+      "stride": 1,
+      "groups": 1
+    },
+    "stem.convs.13": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.0.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.0.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.0.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.0.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.0.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.0.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.0.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.0.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.0.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.0.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.0.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.0.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.1.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.1.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.1.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.1.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.1.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.1.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.1.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.1.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.1.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.1.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.1.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.1.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.2.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.2.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.2.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.2.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.2.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.2.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.2.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.2.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.2.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.2.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.2.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.2.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.3.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.3.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.3.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.3.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.3.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.3.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.3.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.3.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.3.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.3.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.3.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.3.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.4.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.4.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.4.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.4.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.4.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.4.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.4.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.4.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.4.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.4.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.4.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.4.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.5.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.5.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.5.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.5.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.5.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.5.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.5.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.5.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.5.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.5.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.5.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.5.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.6.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.6.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.6.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.6.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.6.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.6.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.6.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.6.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.6.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.6.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.6.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.6.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.7.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.7.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.7.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.7.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.7.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.7.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.7.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.7.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.7.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.7.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.7.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.7.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.8.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.8.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.8.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.8.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.8.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.8.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.8.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.8.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.8.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.8.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.8.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.8.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.9.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.9.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.9.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.9.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.9.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.9.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.9.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.9.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.9.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.9.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.9.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.9.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.10.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.10.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.10.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.10.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.10.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.10.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.10.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.10.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.10.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.10.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.10.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.10.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.11.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.11.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.11.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.11.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.11.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.11.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.11.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.11.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.11.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.11.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.11.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.11.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.12.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.12.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.12.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.12.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.12.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.12.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.12.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.12.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.12.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.12.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.12.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.12.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.13.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.13.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.13.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.13.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.13.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.13.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.13.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.13.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.13.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.13.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.13.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.13.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.14.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.14.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.14.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.14.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.14.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.14.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.14.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.14.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.14.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.14.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.14.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.14.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.15.0.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.15.0.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.15.0.graph_conv.gconv.nn.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 1280,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 4
+    },
+    "backbone.15.0.graph_conv.gconv.nn.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.15.0.graph_conv.gconv.nn.2": {
+      "kind": "GELU"
+    },
+    "backbone.15.0.fc2.0": {
+      "kind": "Conv",
+      "ci": 1280,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.15.0.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.15.1.fc1.0": {
+      "kind": "Conv",
+      "ci": 640,
+      "co": 2560,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.15.1.fc1.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    },
+    "backbone.15.1.act": {
+      "kind": "GELU"
+    },
+    "backbone.15.1.fc2.0": {
+      "kind": "Conv",
+      "ci": 2560,
+      "co": 640,
+      "k": 1,
+      "pad": 0,
+      "stride": 1,
+      "groups": 1
+    },
+    "backbone.15.1.fc2.1": {
+      "kind": "BN",
+      "epsilon": 1e-05
+    }
+  },
+  "knn": [
+    {
+      "k": 9,
+      "dilation": 1
+    },
+    {
+      "k": 9,
+      "dilation": 1
+    },
+    {
+      "k": 10,
+      "dilation": 1
+    },
+    {
+      "k": 10,
+      "dilation": 1
+    },
+    {
+      "k": 11,
+      "dilation": 2
+    },
+    {
+      "k": 12,
+      "dilation": 2
+    },
+    {
+      "k": 12,
+      "dilation": 2
+    },
+    {
+      "k": 13,
+      "dilation": 2
+    },
+    {
+      "k": 13,
+      "dilation": 3
+    },
+    {
+      "k": 14,
+      "dilation": 3
+    },
+    {
+      "k": 15,
+      "dilation": 3
+    },
+    {
+      "k": 15,
+      "dilation": 3
+    },
+    {
+      "k": 16,
+      "dilation": 4
+    },
+    {
+      "k": 16,
+      "dilation": 4
+    },
+    {
+      "k": 17,
+      "dilation": 4
+    },
+    {
+      "k": 18,
+      "dilation": 4
+    }
+  ]
+}

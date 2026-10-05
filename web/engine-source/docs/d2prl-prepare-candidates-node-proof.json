@@ -1,0 +1,506 @@
+{
+  "schema": 1,
+  "status": "candidate-comparison",
+  "scope": "Generated RGB uint8 HWC to float32 NCHW antialiased bilinear448; no decoder, orientation, alpha or ICC equivalence claimed",
+  "records": [
+    {
+      "name": "1x1-random-normalized",
+      "elements": 3,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1x1-random-fused-0",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1x1-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1x23-random-normalized",
+      "elements": 69,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1x23-random-fused-0",
+      "elements": 602112,
+      "different": 102592,
+      "maxAbs": 2.9802322387695312e-8,
+      "nonfinite": 0
+    },
+    {
+      "name": "1x23-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "29x1-random-normalized",
+      "elements": 87,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "29x1-random-fused-0",
+      "elements": 602112,
+      "different": 97664,
+      "maxAbs": 2.9802322387695312e-8,
+      "nonfinite": 0
+    },
+    {
+      "name": "29x1-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "2x3-random-normalized",
+      "elements": 18,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "2x3-random-fused-0",
+      "elements": 602112,
+      "different": 121464,
+      "maxAbs": 1.4901161193847656e-8,
+      "nonfinite": 0
+    },
+    {
+      "name": "2x3-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "11x17-random-normalized",
+      "elements": 561,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "11x17-random-fused-0",
+      "elements": 602112,
+      "different": 159476,
+      "maxAbs": 1.1920928955078125e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "11x17-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "11x17-edges-normalized",
+      "elements": 561,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "11x17-edges-fused-0",
+      "elements": 602112,
+      "different": 10212,
+      "maxAbs": 1.1920928955078125e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "11x17-edges-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "389x521-random-normalized",
+      "elements": 608007,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "389x521-random-fused-0",
+      "elements": 602112,
+      "different": 178379,
+      "maxAbs": 1.7881393432617188e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "389x521-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "389x521-edges-normalized",
+      "elements": 608007,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "389x521-edges-fused-0",
+      "elements": 602112,
+      "different": 51602,
+      "maxAbs": 1.1920928955078125e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "389x521-edges-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-random-normalized",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-random-fused-0",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-edges-normalized",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-edges-fused-0",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x448-edges-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x997-random-normalized",
+      "elements": 1339968,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x997-random-fused-0",
+      "elements": 602112,
+      "different": 163752,
+      "maxAbs": 1.7881393432617188e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x997-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x997-edges-normalized",
+      "elements": 1339968,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x997-edges-fused-0",
+      "elements": 602112,
+      "different": 17024,
+      "maxAbs": 5.960464477539063e-8,
+      "nonfinite": 0
+    },
+    {
+      "name": "448x997-edges-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "997x448-random-normalized",
+      "elements": 1339968,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "997x448-random-fused-0",
+      "elements": 602112,
+      "different": 163531,
+      "maxAbs": 1.7881393432617188e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "997x448-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "997x448-edges-normalized",
+      "elements": 1339968,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "997x448-edges-fused-0",
+      "elements": 602112,
+      "different": 16800,
+      "maxAbs": 5.960464477539063e-8,
+      "nonfinite": 0
+    },
+    {
+      "name": "997x448-edges-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "449x451-random-normalized",
+      "elements": 607497,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "449x451-random-fused-0",
+      "elements": 602112,
+      "different": 164984,
+      "maxAbs": 1.1920928955078125e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "449x451-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "449x451-edges-normalized",
+      "elements": 607497,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "449x451-edges-fused-0",
+      "elements": 602112,
+      "different": 31368,
+      "maxAbs": 1.1920928955078125e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "449x451-edges-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "607x809-random-normalized",
+      "elements": 1473189,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "607x809-random-fused-0",
+      "elements": 602112,
+      "different": 213735,
+      "maxAbs": 1.7881393432617188e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "607x809-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "607x809-edges-normalized",
+      "elements": 1473189,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "607x809-edges-fused-0",
+      "elements": 602112,
+      "different": 59007,
+      "maxAbs": 1.1920928955078125e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "607x809-edges-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1025x997-random-normalized",
+      "elements": 3065775,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1025x997-random-fused-0",
+      "elements": 602112,
+      "different": 226237,
+      "maxAbs": 1.7881393432617188e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "1025x997-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1025x997-edges-normalized",
+      "elements": 3065775,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "1025x997-edges-fused-0",
+      "elements": 602112,
+      "different": 85993,
+      "maxAbs": 1.7881393432617188e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "1025x997-edges-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "17x4097-random-normalized",
+      "elements": 208947,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "17x4097-random-fused-0",
+      "elements": 602112,
+      "different": 224431,
+      "maxAbs": 1.7881393432617188e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "17x4097-random-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "17x4097-edges-normalized",
+      "elements": 208947,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "17x4097-edges-fused-0",
+      "elements": 602112,
+      "different": 71938,
+      "maxAbs": 1.7881393432617188e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "17x4097-edges-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "actual-synthetic-model-source-normalized",
+      "elements": 608007,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    },
+    {
+      "name": "actual-synthetic-model-source-fused-0",
+      "elements": 602112,
+      "different": 184696,
+      "maxAbs": 1.7881393432617188e-7,
+      "nonfinite": 0
+    },
+    {
+      "name": "actual-synthetic-model-source-fused-1",
+      "elements": 602112,
+      "different": 0,
+      "maxAbs": 0,
+      "nonfinite": 0
+    }
+  ],
+  "build": {
+    "schema": 1,
+    "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+    "sourceSha256": "8035cc819ffa4623c15d932a337dc345fb4056c9cd28550732526c098ef849a0",
+    "files": {
+      "prepare.js": {
+        "bytes": 7639,
+        "sha256": "21c44144ae950bd5f337f5fc88444de37031383f3fbc9114509b8ce539bd3579"
+      },
+      "prepare.wasm": {
+        "bytes": 9386,
+        "sha256": "64b560b642e5057610ac21b769d5a5336ba40491bd744c6ef9b9d16223a7c8eb"
+      }
+    }
+  },
+  "node": "v22.22.2"
+}

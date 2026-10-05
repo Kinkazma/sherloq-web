@@ -1,0 +1,94 @@
+[
+  {
+    "coherence": {
+      "workspaceBytes": 17171632,
+      "pageBytes": 4096,
+      "cachePages": 1053,
+      "cacheBytes": 388032,
+      "reads": 94,
+      "writes": 19,
+      "readBytes": 382375,
+      "writeBytes": 76475,
+      "heapBytes": 8388608
+    },
+    "patch": 8,
+    "target": 8,
+    "support": 8,
+    "mirror": false,
+    "quarter": false,
+    "milliseconds": 14535.40000000596,
+    "metrics": {
+      "workspaceBytes": 27391428,
+      "initialBatchPixels": 257,
+      "batchBytes": 8526360,
+      "residentPool": true,
+      "residentPoolBytes": 3952,
+      "residentSiftBoundsBytes": 61180,
+      "pagedSiftBounds": true,
+      "cacheBytes": 2022720,
+      "pageBytes": 4096,
+      "cachePages": 256,
+      "reads": 45307,
+      "writes": 30,
+      "readBytes": 186885227,
+      "writeBytes": 122360,
+      "heapBytes": 8388608,
+      "siftBoundRejections": 217115
+    },
+    "preparation": {
+      "workers": 3,
+      "workspaceBytes": 57664176,
+      "heapBytes": 8388608,
+      "storedBytes": 2931406
+    },
+    "comparisons": "486321",
+    "peakAccountedBytes": 64153452,
+    "bitExact": true
+  },
+  {
+    "coherence": {
+      "workspaceBytes": 17146576,
+      "pageBytes": 4096,
+      "cachePages": 1053,
+      "cacheBytes": 363264,
+      "reads": 46,
+      "writes": 18,
+      "readBytes": 179959,
+      "writeBytes": 69215,
+      "heapBytes": 8388608
+    },
+    "patch": 8,
+    "target": 10,
+    "support": 10,
+    "mirror": true,
+    "quarter": true,
+    "milliseconds": 60321.79999999702,
+    "metrics": {
+      "workspaceBytes": 27321632,
+      "initialBatchPixels": 257,
+      "batchBytes": 8526360,
+      "residentPool": true,
+      "residentPoolBytes": 3592,
+      "residentSiftBoundsBytes": 0,
+      "pagedSiftBounds": true,
+      "cacheBytes": 2014464,
+      "pageBytes": 4096,
+      "cachePages": 256,
+      "reads": 167255,
+      "writes": 28,
+      "readBytes": 686227491,
+      "writeBytes": 110744,
+      "heapBytes": 8388608,
+      "siftBoundRejections": 209140
+    },
+    "preparation": {
+      "workers": 3,
+      "workspaceBytes": 57664176,
+      "heapBytes": 8388608,
+      "storedBytes": 2931406
+    },
+    "comparisons": "428431",
+    "peakAccountedBytes": 64153452,
+    "bitExact": true
+  }
+]

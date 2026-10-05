@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "width": 71,
+      "height": 43,
+      "radius": 1,
+      "minimum": 6,
+      "selected": 2583,
+      "milliseconds": 38.158958,
+      "workspaceBytes": 16788240,
+      "pageBytes": 512,
+      "cachePages": 2,
+      "cacheBytes": 7616,
+      "reads": 3209,
+      "writes": 1652,
+      "readBytes": 1618479,
+      "writeBytes": 845577,
+      "heapBytes": 8388608
+    },
+    {
+      "width": 1031,
+      "height": 29,
+      "radius": 3,
+      "minimum": 6,
+      "selected": 19328,
+      "milliseconds": 70.87929100000001,
+      "workspaceBytes": 16834320,
+      "pageBytes": 512,
+      "cachePages": 2,
+      "cacheBytes": 7616,
+      "reads": 26014,
+      "writes": 13171,
+      "readBytes": 13316660,
+      "writeBytes": 6742510,
+      "heapBytes": 8388608
+    },
+    {
+      "width": 1079,
+      "height": 37,
+      "radius": 6,
+      "minimum": 30000,
+      "selected": 0,
+      "milliseconds": 71.09350000000003,
+      "workspaceBytes": 16836624,
+      "pageBytes": 512,
+      "cachePages": 2,
+      "cacheBytes": 7616,
+      "reads": 20672,
+      "writes": 10348,
+      "readBytes": 10583700,
+      "writeBytes": 5298046,
+      "heapBytes": 8388608
+    },
+    {
+      "width": 537,
+      "height": 47,
+      "radius": 6,
+      "minimum": 1,
+      "selected": 12231,
+      "milliseconds": 15.851207999999986,
+      "workspaceBytes": 16807344,
+      "pageBytes": 512,
+      "cachePages": 2,
+      "cacheBytes": 4352,
+      "reads": 866,
+      "writes": 352,
+      "readBytes": 440570,
+      "writeBytes": 179082,
+      "heapBytes": 8388608
+    }
+  ]
+}

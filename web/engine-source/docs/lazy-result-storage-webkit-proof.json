@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Real1MP RAM-backed segmented JPEG,48MiB budget, multiple owned results and exact baseline CPU windows; lazy storage for ranks/bitplanes/extrema, preserved first result, unload/cancel/dispose and no speculative storage. Functional timings, not isolated benchmarks.",
+  "cases": [
+    {
+      "operation": "colors.stats",
+      "params": {
+        "mode": "avg",
+        "inclusive": true
+      },
+      "resultsUntilSpill": 7,
+      "backend": "indexeddb",
+      "transitionMetrics": {
+        "blocks": 1,
+        "storage": "temporary",
+        "retainedResultBytes": 3145728,
+        "temporaryBackend": "indexeddb",
+        "temporaryFallback": {
+          "from": "opfs",
+          "code": "STORAGE_IO",
+          "message": "Temporary browser storage failed (UnknownError)."
+        },
+        "totalMs": 20,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 50331648,
+          "retainedBytes": 22020096,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 47185920
+        }
+      },
+      "firstSurfaceStorage": "memory",
+      "cancellationMs": 3,
+      "cancellation": "storage-closed-before-worker-termination",
+      "sequenceMs": 657
+    },
+    {
+      "operation": "noise.planes",
+      "params": {
+        "channel": 4,
+        "bit": 3,
+        "filter": 2
+      },
+      "resultsUntilSpill": 5,
+      "backend": "indexeddb",
+      "transitionMetrics": {
+        "blocks": 2,
+        "rowsPerBlock": 1022,
+        "storage": "temporary",
+        "maskStorage": "memory",
+        "retainedResultBytes": 4194304,
+        "temporaryBackend": "indexeddb",
+        "temporaryFallback": {
+          "from": "opfs",
+          "code": "STORAGE_IO",
+          "message": "Temporary browser storage failed (UnknownError)."
+        },
+        "totalMs": 206,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 50331648,
+          "retainedBytes": 20971520,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 44684874
+        }
+      },
+      "firstSurfaceStorage": "memory",
+      "cancellationMs": 3,
+      "cancellation": "storage-closed-before-worker-termination",
+      "sequenceMs": 3392
+    },
+    {
+      "operation": "noise.minmax",
+      "params": {
+        "channel": 4,
+        "minimum": 1,
+        "maximum": 0,
+        "filter": 1
+      },
+      "resultsUntilSpill": 4,
+      "backend": "indexeddb",
+      "transitionMetrics": {
+        "stageMs": {
+          "admission": 4,
+          "extremaAndMaskWrites": 387,
+          "densityCounts": 11,
+          "globalNormalization": 53,
+          "displayWrites": 17
+        },
+        "blocks": 3,
+        "rowsPerBlock": 453,
+        "densityCells": 12996,
+        "densityGridBytes": 216128,
+        "storage": "temporary",
+        "maskStorage": {
+          "minimum": "memory",
+          "maximum": "memory"
+        },
+        "retainedResultBytes": 5242880,
+        "temporaryBackend": "indexeddb",
+        "temporaryFallback": {
+          "from": "opfs",
+          "code": "STORAGE_IO",
+          "message": "Temporary browser storage failed (UnknownError)."
+        },
+        "totalMs": 472,
+        "workers": 1,
+        "cache": {
+          "result": false
+        },
+        "memory": {
+          "budgetBytes": 50331648,
+          "retainedBytes": 20971520,
+          "cacheBytes": 0,
+          "activeReservationBytes": 16777216,
+          "peakAccountedBytes": 48450624
+        }
+      },
+      "firstSurfaceStorage": "memory",
+      "cancellationMs": 4,
+      "cancellation": "storage-closed-before-worker-termination",
+      "sequenceMs": 6049
+    }
+  ],
+  "storageArtifactsRemaining": 0,
+  "browser": "26.6"
+}

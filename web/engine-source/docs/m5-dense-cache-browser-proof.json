@@ -1,0 +1,274 @@
+[
+  {
+    "workerPath": "/tests/m5-dense-cache-worker.js",
+    "proof": {
+      "width": 1024,
+      "height": 768,
+      "iterations": 1,
+      "rows": [
+        {
+          "milliseconds": 8964.60000000894,
+          "comparisons": "16427193",
+          "hashes": {
+            "targets": "8f7802fd6fd04011970ead067648d74cb3f3f4b3b4849a19e1ec654ce2dece6a",
+            "distancesSquared": "d5121377350b32e2c229454bac367be08c64d702fe741645ba48ff5d330adb4b"
+          },
+          "metrics": {
+            "workspaceBytes": 117506048,
+            "initialBatchPixels": 65536,
+            "batchBytes": 13107200,
+            "residentPool": true,
+            "residentPoolBytes": 202760,
+            "residentSiftBoundsBytes": 0,
+            "pagedSiftBounds": false,
+            "cacheBytes": 83228736,
+            "pageBytes": 4096,
+            "cachePages": 9216,
+            "initialCachePages": 4096,
+            "initialCacheBytes": 38844480,
+            "cachePolicy": "reuse-after-initialization",
+            "reads": 23188,
+            "writes": 4096,
+            "readBytes": 583794688,
+            "writeBytes": 16777216,
+            "heapBytes": 115408896,
+            "plannedWorkspaceBytes": 100208712,
+            "siftBoundRejections": 0
+          }
+        }
+      ],
+      "peak": 117506048,
+      "final": 0,
+      "scope": "Isolated real paged Zernike matcher with synthetic full descriptors; not full image pipeline or 96 MP latency estimate."
+    }
+  },
+  {
+    "workerPath": "/tests/m5-dense-cache-sift-worker.js",
+    "proof": [
+      {
+        "coherence": {
+          "workspaceBytes": 17171632,
+          "pageBytes": 4096,
+          "cachePages": 1053,
+          "cacheBytes": 388032,
+          "reads": 94,
+          "writes": 19,
+          "readBytes": 382375,
+          "writeBytes": 76475,
+          "heapBytes": 8388608
+        },
+        "patch": 8,
+        "target": 8,
+        "support": 8,
+        "mirror": false,
+        "quarter": false,
+        "milliseconds": 1354.7999999970198,
+        "metrics": {
+          "workspaceBytes": 18840300,
+          "initialBatchPixels": 0,
+          "batchBytes": 0,
+          "residentPool": true,
+          "residentPoolBytes": 3952,
+          "residentSiftBoundsBytes": 61180,
+          "pagedSiftBounds": false,
+          "cacheBytes": 1997952,
+          "pageBytes": 4096,
+          "cachePages": 360,
+          "initialCachePages": 360,
+          "initialCacheBytes": 1997952,
+          "cachePolicy": "reuse-after-initialization",
+          "reads": 467,
+          "writes": 30,
+          "readBytes": 1962587,
+          "writeBytes": 122360,
+          "heapBytes": 8388608,
+          "plannedWorkspaceBytes": 18840300,
+          "siftBoundRejections": 139535
+        },
+        "preparation": {
+          "workers": 3,
+          "workspaceBytes": 57664176,
+          "heapBytes": 8388608,
+          "boundsFallback": null,
+          "fullBounds": true,
+          "storedBytes": 2931406
+        },
+        "comparisons": "486321",
+        "peakAccountedBytes": 64153452,
+        "bitExact": true
+      },
+      {
+        "coherence": {
+          "workspaceBytes": 17146576,
+          "pageBytes": 4096,
+          "cachePages": 1053,
+          "cacheBytes": 363264,
+          "reads": 46,
+          "writes": 18,
+          "readBytes": 179959,
+          "writeBytes": 69215,
+          "heapBytes": 8388608
+        },
+        "patch": 8,
+        "target": 10,
+        "support": 10,
+        "mirror": true,
+        "quarter": true,
+        "milliseconds": 2363.5,
+        "metrics": {
+          "workspaceBytes": 18753992,
+          "initialBatchPixels": 0,
+          "batchBytes": 0,
+          "residentPool": true,
+          "residentPoolBytes": 3592,
+          "residentSiftBoundsBytes": 0,
+          "pagedSiftBounds": false,
+          "cacheBytes": 1973184,
+          "pageBytes": 4096,
+          "cachePages": 360,
+          "initialCachePages": 360,
+          "initialCacheBytes": 1973184,
+          "cachePolicy": "reuse-after-initialization",
+          "reads": 467,
+          "writes": 28,
+          "readBytes": 1895187,
+          "writeBytes": 110744,
+          "heapBytes": 8388608,
+          "plannedWorkspaceBytes": 18753992,
+          "siftBoundRejections": 0
+        },
+        "preparation": {
+          "workers": 3,
+          "workspaceBytes": 57664176,
+          "heapBytes": 8388608,
+          "boundsFallback": null,
+          "fullBounds": true,
+          "storedBytes": 2931406
+        },
+        "comparisons": "428431",
+        "peakAccountedBytes": 64153452,
+        "bitExact": true
+      }
+    ]
+  },
+  {
+    "workerPath": "/tests/m5-dense-cache-phase-sift-worker.js",
+    "proof": [
+      {
+        "coherence": {
+          "workspaceBytes": 35582848,
+          "pageBytes": 4096,
+          "cachePages": 2048,
+          "cacheBytes": 18757632,
+          "reads": 4148,
+          "writes": 909,
+          "readBytes": 16983360,
+          "writeBytes": 3720000,
+          "heapBytes": 20840448
+        },
+        "patch": 8,
+        "target": 8,
+        "support": 8,
+        "mirror": false,
+        "quarter": false,
+        "milliseconds": 59226.20000000298,
+        "metrics": {
+          "workspaceBytes": 216773048,
+          "initialBatchPixels": 265679,
+          "batchBytes": 150792552,
+          "residentPool": true,
+          "residentPoolBytes": 191824,
+          "residentSiftBoundsBytes": 2976000,
+          "pagedSiftBounds": false,
+          "cacheBytes": 78489792,
+          "pageBytes": 4096,
+          "cachePages": 17440,
+          "initialCachePages": 4096,
+          "initialCacheBytes": 46035456,
+          "cachePolicy": "reuse-after-initialization",
+          "reads": 26151,
+          "writes": 3768,
+          "readBytes": 169166144,
+          "writeBytes": 15422976,
+          "heapBytes": 202244096,
+          "plannedWorkspaceBytes": 216773048,
+          "siftBoundRejections": 9629644
+        },
+        "preparation": {
+          "workers": 4,
+          "workspaceBytes": 81303296,
+          "heapBytes": 8388608,
+          "boundsFallback": null,
+          "fullBounds": true,
+          "storedBytes": 133789824
+        },
+        "comparisons": "24006671",
+        "peakAccountedBytes": 216773048,
+        "bitExact": true
+      },
+      {
+        "coherence": {
+          "workspaceBytes": 35326624,
+          "pageBytes": 4096,
+          "cachePages": 2048,
+          "cacheBytes": 18501696,
+          "reads": 2331,
+          "writes": 897,
+          "readBytes": 9536436,
+          "writeBytes": 3667860,
+          "heapBytes": 20578304
+        },
+        "patch": 8,
+        "target": 10,
+        "support": 10,
+        "mirror": true,
+        "quarter": true,
+        "milliseconds": 115472.59999999404,
+        "metrics": {
+          "workspaceBytes": 216021880,
+          "initialBatchPixels": 269881,
+          "batchBytes": 153044824,
+          "residentPool": true,
+          "residentPoolBytes": 189152,
+          "residentSiftBoundsBytes": 0,
+          "pagedSiftBounds": false,
+          "cacheBytes": 78258624,
+          "pageBytes": 4096,
+          "cachePages": 17440,
+          "initialCachePages": 4096,
+          "initialCacheBytes": 46010688,
+          "cachePolicy": "reuse-after-initialization",
+          "reads": 26656,
+          "writes": 3688,
+          "readBytes": 168992076,
+          "writeBytes": 15090784,
+          "heapBytes": 201523200,
+          "plannedWorkspaceBytes": 216021880,
+          "siftBoundRejections": 0
+        },
+        "preparation": {
+          "workers": 4,
+          "workspaceBytes": 81303296,
+          "heapBytes": 8388608,
+          "boundsFallback": null,
+          "fullBounds": true,
+          "storedBytes": 133789824
+        },
+        "comparisons": "22445304",
+        "peakAccountedBytes": 216773048,
+        "bitExact": true
+      }
+    ]
+  },
+  {
+    "workerPath": "/tests/m5-dense-cache-admission-worker.js",
+    "proof": {
+      "passed": true,
+      "code": "MEMORY_LIMIT",
+      "peak": 528482304,
+      "limit": 536870912,
+      "final": 0,
+      "scope": "Actual WASM cache migration refuses extra heap under newly admitted peer pressure, preserves MEMORY_LIMIT identity, and cleans up."
+    }
+  }
+]

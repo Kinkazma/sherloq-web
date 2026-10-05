@@ -1,0 +1,806 @@
+{
+  "schema": 1,
+  "scope": "Sequential synthetic 1024x1024 full resolution, native checksums outside timed sections; includes worker RPC, copies, preparation and raster presentation; no physical-device claim",
+  "cpuKernel": "auto",
+  "results": [
+    {
+      "block": 3,
+      "cold": {
+        "loadMs": 34.5,
+        "rpcMs": 15422.199999988079,
+        "presentationMs": 4.799999952316284,
+        "pipelineMs": 15461.499999940395,
+        "viewRpcMs": 3,
+        "metrics": {
+          "totalMs": 15421.600000023842,
+          "cache": {
+            "result": false,
+            "stages": {
+              "statistics/3": false
+            },
+            "analysis": false,
+            "view": false
+          },
+          "kernel": "cpu-pinned-noisesniffer-fma",
+          "workers": 5,
+          "calibration": {
+            "width": 1024,
+            "height": 1024,
+            "block": 3,
+            "selectedDctWorkers": 4,
+            "measurements": [
+              {
+                "dctWorkers": 0,
+                "activeWorkers": 1,
+                "samplesMs": [
+                  1468.6000000238419,
+                  1236.699999988079
+                ],
+                "medianMs": 1468.6000000238419
+              },
+              {
+                "dctWorkers": 1,
+                "activeWorkers": 2,
+                "samplesMs": [
+                  1312.300000011921,
+                  1275.800000011921
+                ],
+                "medianMs": 1312.300000011921
+              },
+              {
+                "dctWorkers": 2,
+                "activeWorkers": 3,
+                "samplesMs": [
+                  980.5,
+                  954.8999999761581
+                ],
+                "medianMs": 980.5
+              },
+              {
+                "dctWorkers": 4,
+                "activeWorkers": 5,
+                "samplesMs": [
+                  827.5,
+                  804.5
+                ],
+                "medianMs": 827.5
+              },
+              {
+                "dctWorkers": 8,
+                "activeWorkers": 9,
+                "samplesMs": [
+                  809.6000000238419,
+                  770.1999999880791
+                ],
+                "medianMs": 809.6000000238419
+              },
+              {
+                "dctWorkers": 9,
+                "activeWorkers": 10,
+                "samplesMs": [
+                  812.5,
+                  765.3000000119209
+                ],
+                "medianMs": 812.5
+              }
+            ],
+            "totalMs": 13205.100000023842,
+            "includesStartupAndCopies": true,
+            "rule": "At least 5% measured improvement; full-frame mean/extrema in main worker, independent DCT bands with exact block halos, no internal threads"
+          },
+          "stages": {
+            "statisticsMs": 13993.599999964237,
+            "selectionRegionsMs": 1421.5
+          },
+          "memory": {
+            "budgetBytes": 3736076288,
+            "retainedBytes": 6291456,
+            "cacheBytes": 47429052,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 1080688640,
+            "codecHeapCapacityBytes": 50987008,
+            "hdf5HeapCapacityBytes": 0
+          }
+        }
+      },
+      "samples": [
+        {
+          "loadMs": 3.299999952316284,
+          "rpcMs": 2193.400000035763,
+          "presentationMs": 4,
+          "pipelineMs": 2200.699999988079,
+          "viewRpcMs": 3.600000023841858,
+          "metrics": {
+            "totalMs": 2192.400000035763,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/3": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer-fma",
+            "workers": 5,
+            "calibration": {
+              "width": 1024,
+              "height": 1024,
+              "block": 3,
+              "selectedDctWorkers": 4,
+              "measurements": [
+                {
+                  "dctWorkers": 0,
+                  "activeWorkers": 1,
+                  "samplesMs": [
+                    1468.6000000238419,
+                    1236.699999988079
+                  ],
+                  "medianMs": 1468.6000000238419
+                },
+                {
+                  "dctWorkers": 1,
+                  "activeWorkers": 2,
+                  "samplesMs": [
+                    1312.300000011921,
+                    1275.800000011921
+                  ],
+                  "medianMs": 1312.300000011921
+                },
+                {
+                  "dctWorkers": 2,
+                  "activeWorkers": 3,
+                  "samplesMs": [
+                    980.5,
+                    954.8999999761581
+                  ],
+                  "medianMs": 980.5
+                },
+                {
+                  "dctWorkers": 4,
+                  "activeWorkers": 5,
+                  "samplesMs": [
+                    827.5,
+                    804.5
+                  ],
+                  "medianMs": 827.5
+                },
+                {
+                  "dctWorkers": 8,
+                  "activeWorkers": 9,
+                  "samplesMs": [
+                    809.6000000238419,
+                    770.1999999880791
+                  ],
+                  "medianMs": 809.6000000238419
+                },
+                {
+                  "dctWorkers": 9,
+                  "activeWorkers": 10,
+                  "samplesMs": [
+                    812.5,
+                    765.3000000119209
+                  ],
+                  "medianMs": 812.5
+                }
+              ],
+              "totalMs": 13205.100000023842,
+              "includesStartupAndCopies": true,
+              "rule": "At least 5% measured improvement; full-frame mean/extrema in main worker, independent DCT bands with exact block halos, no internal threads"
+            },
+            "stages": {
+              "statisticsMs": 792.9000000357628,
+              "selectionRegionsMs": 1392.7999999523163
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 47429052,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 1080688640,
+              "codecHeapCapacityBytes": 50987008,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        },
+        {
+          "loadMs": 3.800000011920929,
+          "rpcMs": 2242,
+          "presentationMs": 5.600000023841858,
+          "pipelineMs": 2251.400000035763,
+          "viewRpcMs": 2.900000035762787,
+          "metrics": {
+            "totalMs": 2241.300000011921,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/3": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer-fma",
+            "workers": 5,
+            "calibration": {
+              "width": 1024,
+              "height": 1024,
+              "block": 3,
+              "selectedDctWorkers": 4,
+              "measurements": [
+                {
+                  "dctWorkers": 0,
+                  "activeWorkers": 1,
+                  "samplesMs": [
+                    1468.6000000238419,
+                    1236.699999988079
+                  ],
+                  "medianMs": 1468.6000000238419
+                },
+                {
+                  "dctWorkers": 1,
+                  "activeWorkers": 2,
+                  "samplesMs": [
+                    1312.300000011921,
+                    1275.800000011921
+                  ],
+                  "medianMs": 1312.300000011921
+                },
+                {
+                  "dctWorkers": 2,
+                  "activeWorkers": 3,
+                  "samplesMs": [
+                    980.5,
+                    954.8999999761581
+                  ],
+                  "medianMs": 980.5
+                },
+                {
+                  "dctWorkers": 4,
+                  "activeWorkers": 5,
+                  "samplesMs": [
+                    827.5,
+                    804.5
+                  ],
+                  "medianMs": 827.5
+                },
+                {
+                  "dctWorkers": 8,
+                  "activeWorkers": 9,
+                  "samplesMs": [
+                    809.6000000238419,
+                    770.1999999880791
+                  ],
+                  "medianMs": 809.6000000238419
+                },
+                {
+                  "dctWorkers": 9,
+                  "activeWorkers": 10,
+                  "samplesMs": [
+                    812.5,
+                    765.3000000119209
+                  ],
+                  "medianMs": 812.5
+                }
+              ],
+              "totalMs": 13205.100000023842,
+              "includesStartupAndCopies": true,
+              "rule": "At least 5% measured improvement; full-frame mean/extrema in main worker, independent DCT bands with exact block halos, no internal threads"
+            },
+            "stages": {
+              "statisticsMs": 801.5,
+              "selectionRegionsMs": 1433.800000011921
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 47429052,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 1080688640,
+              "codecHeapCapacityBytes": 50987008,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        },
+        {
+          "loadMs": 3.5,
+          "rpcMs": 2405.5,
+          "presentationMs": 8.100000023841858,
+          "pipelineMs": 2417.100000023842,
+          "viewRpcMs": 3.800000011920929,
+          "metrics": {
+            "totalMs": 2404.800000011921,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/3": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer-fma",
+            "workers": 5,
+            "calibration": {
+              "width": 1024,
+              "height": 1024,
+              "block": 3,
+              "selectedDctWorkers": 4,
+              "measurements": [
+                {
+                  "dctWorkers": 0,
+                  "activeWorkers": 1,
+                  "samplesMs": [
+                    1468.6000000238419,
+                    1236.699999988079
+                  ],
+                  "medianMs": 1468.6000000238419
+                },
+                {
+                  "dctWorkers": 1,
+                  "activeWorkers": 2,
+                  "samplesMs": [
+                    1312.300000011921,
+                    1275.800000011921
+                  ],
+                  "medianMs": 1312.300000011921
+                },
+                {
+                  "dctWorkers": 2,
+                  "activeWorkers": 3,
+                  "samplesMs": [
+                    980.5,
+                    954.8999999761581
+                  ],
+                  "medianMs": 980.5
+                },
+                {
+                  "dctWorkers": 4,
+                  "activeWorkers": 5,
+                  "samplesMs": [
+                    827.5,
+                    804.5
+                  ],
+                  "medianMs": 827.5
+                },
+                {
+                  "dctWorkers": 8,
+                  "activeWorkers": 9,
+                  "samplesMs": [
+                    809.6000000238419,
+                    770.1999999880791
+                  ],
+                  "medianMs": 809.6000000238419
+                },
+                {
+                  "dctWorkers": 9,
+                  "activeWorkers": 10,
+                  "samplesMs": [
+                    812.5,
+                    765.3000000119209
+                  ],
+                  "medianMs": 812.5
+                }
+              ],
+              "totalMs": 13205.100000023842,
+              "includesStartupAndCopies": true,
+              "rule": "At least 5% measured improvement; full-frame mean/extrema in main worker, independent DCT bands with exact block halos, no internal threads"
+            },
+            "stages": {
+              "statisticsMs": 835.5,
+              "selectionRegionsMs": 1564.0999999642372
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 47429052,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 1080688640,
+              "codecHeapCapacityBytes": 50987008,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 2242,
+      "medianPipelineMs": 2251.400000035763
+    },
+    {
+      "block": 8,
+      "cold": {
+        "loadMs": 50.89999997615814,
+        "rpcMs": 38801.5,
+        "presentationMs": 5.300000011920929,
+        "pipelineMs": 38857.69999998808,
+        "viewRpcMs": 4.300000011920929,
+        "metrics": {
+          "totalMs": 38800.80000001192,
+          "cache": {
+            "result": false,
+            "stages": {
+              "statistics/8": false
+            },
+            "analysis": false,
+            "view": false
+          },
+          "kernel": "cpu-pinned-noisesniffer-fma",
+          "workers": 10,
+          "calibration": {
+            "width": 1024,
+            "height": 1024,
+            "block": 8,
+            "selectedDctWorkers": 9,
+            "measurements": [
+              {
+                "dctWorkers": 0,
+                "activeWorkers": 1,
+                "samplesMs": [
+                  5292.400000035763,
+                  4782.599999964237
+                ],
+                "medianMs": 5292.400000035763
+              },
+              {
+                "dctWorkers": 1,
+                "activeWorkers": 2,
+                "samplesMs": [
+                  4876.400000035763,
+                  4842.699999988079
+                ],
+                "medianMs": 4876.400000035763
+              },
+              {
+                "dctWorkers": 2,
+                "activeWorkers": 3,
+                "samplesMs": [
+                  2873.5,
+                  2855.300000011921
+                ],
+                "medianMs": 2873.5
+              },
+              {
+                "dctWorkers": 4,
+                "activeWorkers": 5,
+                "samplesMs": [
+                  1881.1000000238419,
+                  1963.300000011921
+                ],
+                "medianMs": 1963.300000011921
+              },
+              {
+                "dctWorkers": 8,
+                "activeWorkers": 9,
+                "samplesMs": [
+                  1830,
+                  1505
+                ],
+                "medianMs": 1830
+              },
+              {
+                "dctWorkers": 9,
+                "activeWorkers": 10,
+                "samplesMs": [
+                  1721.300000011921,
+                  1655.300000011921
+                ],
+                "medianMs": 1721.300000011921
+              }
+            ],
+            "totalMs": 37112.90000003576,
+            "includesStartupAndCopies": true,
+            "rule": "At least 5% measured improvement; full-frame mean/extrema in main worker, independent DCT bands with exact block halos, no internal threads"
+          },
+          "stages": {
+            "statisticsMs": 38634.60000002384,
+            "selectionRegionsMs": 162.0999999642372
+          },
+          "memory": {
+            "budgetBytes": 3736076288,
+            "retainedBytes": 6291456,
+            "cacheBytes": 41865032,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 1081868288,
+            "codecHeapCapacityBytes": 110886912,
+            "hdf5HeapCapacityBytes": 0
+          }
+        }
+      },
+      "samples": [
+        {
+          "loadMs": 3.799999952316284,
+          "rpcMs": 1783,
+          "presentationMs": 4.100000023841858,
+          "pipelineMs": 1790.8999999761581,
+          "viewRpcMs": 3.300000011920929,
+          "metrics": {
+            "totalMs": 1782.800000011921,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/8": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer-fma",
+            "workers": 10,
+            "calibration": {
+              "width": 1024,
+              "height": 1024,
+              "block": 8,
+              "selectedDctWorkers": 9,
+              "measurements": [
+                {
+                  "dctWorkers": 0,
+                  "activeWorkers": 1,
+                  "samplesMs": [
+                    5292.400000035763,
+                    4782.599999964237
+                  ],
+                  "medianMs": 5292.400000035763
+                },
+                {
+                  "dctWorkers": 1,
+                  "activeWorkers": 2,
+                  "samplesMs": [
+                    4876.400000035763,
+                    4842.699999988079
+                  ],
+                  "medianMs": 4876.400000035763
+                },
+                {
+                  "dctWorkers": 2,
+                  "activeWorkers": 3,
+                  "samplesMs": [
+                    2873.5,
+                    2855.300000011921
+                  ],
+                  "medianMs": 2873.5
+                },
+                {
+                  "dctWorkers": 4,
+                  "activeWorkers": 5,
+                  "samplesMs": [
+                    1881.1000000238419,
+                    1963.300000011921
+                  ],
+                  "medianMs": 1963.300000011921
+                },
+                {
+                  "dctWorkers": 8,
+                  "activeWorkers": 9,
+                  "samplesMs": [
+                    1830,
+                    1505
+                  ],
+                  "medianMs": 1830
+                },
+                {
+                  "dctWorkers": 9,
+                  "activeWorkers": 10,
+                  "samplesMs": [
+                    1721.300000011921,
+                    1655.300000011921
+                  ],
+                  "medianMs": 1721.300000011921
+                }
+              ],
+              "totalMs": 37112.90000003576,
+              "includesStartupAndCopies": true,
+              "rule": "At least 5% measured improvement; full-frame mean/extrema in main worker, independent DCT bands with exact block halos, no internal threads"
+            },
+            "stages": {
+              "statisticsMs": 1631.199999988079,
+              "selectionRegionsMs": 146.69999998807907
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 41865032,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 1081868288,
+              "codecHeapCapacityBytes": 110886912,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        },
+        {
+          "loadMs": 3.5,
+          "rpcMs": 1845.5,
+          "presentationMs": 3.5,
+          "pipelineMs": 1852.5,
+          "viewRpcMs": 2.800000011920929,
+          "metrics": {
+            "totalMs": 1845.0999999642372,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/8": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer-fma",
+            "workers": 10,
+            "calibration": {
+              "width": 1024,
+              "height": 1024,
+              "block": 8,
+              "selectedDctWorkers": 9,
+              "measurements": [
+                {
+                  "dctWorkers": 0,
+                  "activeWorkers": 1,
+                  "samplesMs": [
+                    5292.400000035763,
+                    4782.599999964237
+                  ],
+                  "medianMs": 5292.400000035763
+                },
+                {
+                  "dctWorkers": 1,
+                  "activeWorkers": 2,
+                  "samplesMs": [
+                    4876.400000035763,
+                    4842.699999988079
+                  ],
+                  "medianMs": 4876.400000035763
+                },
+                {
+                  "dctWorkers": 2,
+                  "activeWorkers": 3,
+                  "samplesMs": [
+                    2873.5,
+                    2855.300000011921
+                  ],
+                  "medianMs": 2873.5
+                },
+                {
+                  "dctWorkers": 4,
+                  "activeWorkers": 5,
+                  "samplesMs": [
+                    1881.1000000238419,
+                    1963.300000011921
+                  ],
+                  "medianMs": 1963.300000011921
+                },
+                {
+                  "dctWorkers": 8,
+                  "activeWorkers": 9,
+                  "samplesMs": [
+                    1830,
+                    1505
+                  ],
+                  "medianMs": 1830
+                },
+                {
+                  "dctWorkers": 9,
+                  "activeWorkers": 10,
+                  "samplesMs": [
+                    1721.300000011921,
+                    1655.300000011921
+                  ],
+                  "medianMs": 1721.300000011921
+                }
+              ],
+              "totalMs": 37112.90000003576,
+              "includesStartupAndCopies": true,
+              "rule": "At least 5% measured improvement; full-frame mean/extrema in main worker, independent DCT bands with exact block halos, no internal threads"
+            },
+            "stages": {
+              "statisticsMs": 1663.8999999761581,
+              "selectionRegionsMs": 177.19999998807907
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 41865032,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 1081868288,
+              "codecHeapCapacityBytes": 110886912,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        },
+        {
+          "loadMs": 3.5,
+          "rpcMs": 1726.8999999761581,
+          "presentationMs": 3.699999988079071,
+          "pipelineMs": 1734.0999999642372,
+          "viewRpcMs": 2.800000011920929,
+          "metrics": {
+            "totalMs": 1726.7000000476837,
+            "cache": {
+              "result": false,
+              "stages": {
+                "statistics/8": false
+              },
+              "analysis": false,
+              "view": false
+            },
+            "kernel": "cpu-pinned-noisesniffer-fma",
+            "workers": 10,
+            "calibration": {
+              "width": 1024,
+              "height": 1024,
+              "block": 8,
+              "selectedDctWorkers": 9,
+              "measurements": [
+                {
+                  "dctWorkers": 0,
+                  "activeWorkers": 1,
+                  "samplesMs": [
+                    5292.400000035763,
+                    4782.599999964237
+                  ],
+                  "medianMs": 5292.400000035763
+                },
+                {
+                  "dctWorkers": 1,
+                  "activeWorkers": 2,
+                  "samplesMs": [
+                    4876.400000035763,
+                    4842.699999988079
+                  ],
+                  "medianMs": 4876.400000035763
+                },
+                {
+                  "dctWorkers": 2,
+                  "activeWorkers": 3,
+                  "samplesMs": [
+                    2873.5,
+                    2855.300000011921
+                  ],
+                  "medianMs": 2873.5
+                },
+                {
+                  "dctWorkers": 4,
+                  "activeWorkers": 5,
+                  "samplesMs": [
+                    1881.1000000238419,
+                    1963.300000011921
+                  ],
+                  "medianMs": 1963.300000011921
+                },
+                {
+                  "dctWorkers": 8,
+                  "activeWorkers": 9,
+                  "samplesMs": [
+                    1830,
+                    1505
+                  ],
+                  "medianMs": 1830
+                },
+                {
+                  "dctWorkers": 9,
+                  "activeWorkers": 10,
+                  "samplesMs": [
+                    1721.300000011921,
+                    1655.300000011921
+                  ],
+                  "medianMs": 1721.300000011921
+                }
+              ],
+              "totalMs": 37112.90000003576,
+              "includesStartupAndCopies": true,
+              "rule": "At least 5% measured improvement; full-frame mean/extrema in main worker, independent DCT bands with exact block halos, no internal threads"
+            },
+            "stages": {
+              "statisticsMs": 1570.7000000476837,
+              "selectionRegionsMs": 151.89999997615814
+            },
+            "memory": {
+              "budgetBytes": 3736076288,
+              "retainedBytes": 6291456,
+              "cacheBytes": 41865032,
+              "activeReservationBytes": 0,
+              "peakAccountedBytes": 1081868288,
+              "codecHeapCapacityBytes": 110886912,
+              "hdf5HeapCapacityBytes": 0
+            }
+          }
+        }
+      ],
+      "medianRpcMs": 1783,
+      "medianPipelineMs": 1790.8999999761581
+    }
+  ],
+  "browser": "154.0.8037.58"
+}

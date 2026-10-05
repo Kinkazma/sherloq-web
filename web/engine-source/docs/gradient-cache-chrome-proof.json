@@ -1,0 +1,281 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Offline isolated gradient derivative-cache comparison, previous qualified runtime versus current, same96MP mode3 inverted length/intensity33,1GiB budget/single worker. One cold/warm useful task per condition, prior result released before warm. Same native whole RGB hash; warmed view uses retained Sobel pairs and global derivative statistics. Length extrema, rendering and histograms recomputed. Chain includes cold load, RPC, pixel-window transfer/Canvas frames and JSON. Blob fetch/full checksum outside timing. No WordPress or universal speed claim.",
+  "browser": "154.0.8037.58",
+  "baselineRuntime": "0.30.0-m1.22",
+  "cases": [
+    {
+      "condition": "without-cache",
+      "options": {
+        "memoryBudgetBytes": 1073741824,
+        "cpuKernel": "single",
+        "resourceHints": {
+          "hardwareConcurrency": 4
+        }
+      },
+      "sourceSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+      "outputSha256": "5f768f1ec977b1e0ca7926bea36b5dc5221fec5c5bf51a9c8a1331e4e0a73b8b",
+      "params": {
+        "intensity": 33,
+        "mode": 3,
+        "invert": true,
+        "equalize": false
+      },
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "loadMs": 2169.2000000029802,
+      "loadMetrics": {
+        "decodeMs": 1758.5,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "memory",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "temporaryBytes": 0,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 2121.39999999851,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 417005192
+        }
+      },
+      "samples": [
+        {
+          "temperature": "cold",
+          "rpcMs": 1722,
+          "transferMs": 5.899999998509884,
+          "canvasFramesMs": 7.100000001490116,
+          "exportMs": 0.6000000014901161,
+          "chainMs": 3904.8000000044703,
+          "exportBytes": 1756,
+          "metrics": {
+            "totalMs": 1721.5,
+            "derivativesMs": 510.30000000447035,
+            "lengthsMs": 175.5,
+            "renderMs": 541.6999999955297,
+            "toneMs": 468.3999999985099,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 288000000,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 849125280
+            }
+          }
+        },
+        {
+          "temperature": "warm",
+          "rpcMs": 1690.1999999955297,
+          "transferMs": 5.899999998509884,
+          "canvasFramesMs": 13.399999998509884,
+          "exportMs": 0.20000000298023224,
+          "chainMs": 1709.6999999955297,
+          "exportBytes": 1754,
+          "metrics": {
+            "totalMs": 1690.1000000014901,
+            "derivativesMs": 454.6000000014901,
+            "lengthsMs": 174.5,
+            "renderMs": 545,
+            "toneMs": 496.80000000447035,
+            "blocks": 381,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false
+            },
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 288000000,
+              "cacheBytes": 0,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 849125280
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 849125280,
+        "knownHeapCapacityBytes": 170655744
+      }
+    },
+    {
+      "condition": "with-cache",
+      "options": {
+        "memoryBudgetBytes": 1073741824,
+        "cpuKernel": "single",
+        "resourceHints": {
+          "hardwareConcurrency": 4
+        }
+      },
+      "sourceSha256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+      "outputSha256": "5f768f1ec977b1e0ca7926bea36b5dc5221fec5c5bf51a9c8a1331e4e0a73b8b",
+      "params": {
+        "intensity": 33,
+        "mode": 3,
+        "invert": true,
+        "equalize": false
+      },
+      "dimensions": [
+        12000,
+        8000
+      ],
+      "loadMs": 2184.7000000029802,
+      "loadMetrics": {
+        "decodeMs": 1784.4000000059605,
+        "rowsPerChunk": 116,
+        "encodedWorkingBytes": 86050184,
+        "coefficientAllowanceBytes": 0,
+        "workingReservationBytes": 127956616,
+        "codecHeapCapacityBytes": 103546880,
+        "storage": "memory",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "temporaryBytes": 0,
+        "originalBlobBytes": 86050184,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM",
+        "preparationMs": 2137.5,
+        "memory": {
+          "budgetBytes": 1073741824,
+          "retainedBytes": 288000000,
+          "cacheBytes": 0,
+          "activeReservationBytes": 0,
+          "peakAccountedBytes": 417005192
+        }
+      },
+      "samples": [
+        {
+          "temperature": "cold",
+          "rpcMs": 1728.3999999985099,
+          "transferMs": 6,
+          "canvasFramesMs": 6.899999998509884,
+          "exportMs": 0.7000000029802322,
+          "chainMs": 3926.7000000029802,
+          "exportBytes": 1923,
+          "metrics": {
+            "totalMs": 1727.8999999985099,
+            "derivativesMs": 493.6000000014901,
+            "lengthsMs": 177.59999999403954,
+            "renderMs": 542.8000000044703,
+            "toneMs": 492.8999999985099,
+            "blocks": 381,
+            "sourceReads": 381,
+            "analysisCacheHit": false,
+            "derivativeCacheStored": true,
+            "derivativeCacheBytes": 384001776,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false,
+              "analysis": false,
+              "view": false
+            },
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 288000000,
+              "cacheBytes": 384001776,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 849127056
+            }
+          }
+        },
+        {
+          "temperature": "warm",
+          "rpcMs": 1209.5,
+          "transferMs": 5.9000000059604645,
+          "canvasFramesMs": 14.399999998509884,
+          "exportMs": 0.29999999701976776,
+          "chainMs": 1230.1000000014901,
+          "exportBytes": 1876,
+          "metrics": {
+            "totalMs": 1209.4000000059605,
+            "derivativesMs": 0,
+            "lengthsMs": 160.5,
+            "renderMs": 564.1000000014901,
+            "toneMs": 465.5,
+            "blocks": 0,
+            "sourceReads": 0,
+            "analysisCacheHit": true,
+            "derivativeCacheStored": true,
+            "derivativeCacheBytes": 384001776,
+            "rowsPerBlock": 21,
+            "storage": "temporary",
+            "retainedResultBytes": 288000000,
+            "arithmeticHeapCapacityBytes": 67108864,
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "workers": 1,
+            "cache": {
+              "result": false,
+              "analysis": true,
+              "view": false
+            },
+            "memory": {
+              "budgetBytes": 1073741824,
+              "retainedBytes": 288000000,
+              "cacheBytes": 384001776,
+              "activeReservationBytes": 103546880,
+              "peakAccountedBytes": 849127056
+            }
+          }
+        }
+      ],
+      "memory": {
+        "budgetBytes": 1073741824,
+        "retainedBytes": 0,
+        "cacheBytes": 0,
+        "activeReservationBytes": 0,
+        "peakAccountedBytes": 849127056,
+        "knownHeapCapacityBytes": 170655744
+      }
+    }
+  ],
+  "sources": {
+    "src/segmented-gradient.js": "7c1e77e163141cc1f5dba0490b8423c6045a9d6dbc189301194bd5dcb66ba6ae",
+    "src/gradient-cache.js": "03489af9f1363ba657e80910d175be82cab1e912faa543e8271a68351980920a",
+    "src/gradient-math.js": "d5a3164a47d0968ce3340f5a97d61e183e133aa9f8e9bc8782348ec625421899",
+    "src/ram-byte-cache.js": "508e290e236487acc607b31105e5b25f5a24914dbd649c12c52850fe7b7f8749",
+    "src/index.js": "075e72e00fc45e2d59c0a47e7047273deaa9c00d6ee8e7ae2c4026d43b53938c",
+    "tests/gradient-cache-optimization-browser.js": "eeb25d5be5a05b8dd6a303ef95365f61a6ac267c239bfa6502d57274e2787dd5",
+    "scripts/study-gradient-cache.mjs": "75a67098a0d39d7d9faf5d9b5bc13f33de5b6f3729012b1918a8101a3ecd9aae"
+  },
+  "memorySummary": {
+    "scope": "Maximum of recorded load/completed-task snapshots across worker lifetimes; aborted intervals do not return a peak. Excludes browser process and browser-managed Blob residency.",
+    "maxRecordedAccountedBytes": 849127056,
+    "finalWorkerPeakAccountedBytes": null
+  }
+}

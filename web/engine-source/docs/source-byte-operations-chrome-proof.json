@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Ten streaming digests of unchanged86MB source bytes and exact hex windows/EOF over96MP JPEG; independent Python/hashlib reference, explicit visual-hash opt-out, immutable cache, JSON, cancellation/reload/storage cleanup. Functional timing only.",
+  "encodedBytes": 86050184,
+  "hashes": {
+    "MD5": "86c19a2c063b35d6305828299980869c",
+    "SHA-1": "0c0b13b40f47f9a04141865ad5c274d0b009d122",
+    "SHA2-224": "7ca4fe445af5ab30be4b585e8ec26f65dbe254245737d51fce3cfb59",
+    "SHA2-256": "f0b7febc57f625bf078dfeb746f5775f4c6efa7379e0f1c469a9330eb094f254",
+    "SHA2-384": "e06c4719e6603424c54bd5580b95e5090a25a1fb006f4deb7c4da6affe4540b847a6355d314494662f87aa988ff22345",
+    "SHA2-512": "b71c688f8cd7010360849d1365a19313b7629bda9b13b35110c3d60e8a1df7db80f30196aeb5cec5517b803591c4a9124c57e529d508e6aacbe0fd1396bdf93f",
+    "SHA3-224": "333dd0925db351eab69fca3651e4441a6a5409ec61db528235a774e5",
+    "SHA3-256": "245c2526d9dd2f24e3192324ec29f1417d09cb6a6f248abfab16ed741f3e52af",
+    "SHA3-384": "9aea5f9c477f95af4341de364fb4d596ef8eeeb4874cb506fe7f35e2f4907336a2917deae9925020f3fddaa16f921615",
+    "SHA3-512": "038bb42695c138801d885c9188ceed725866bf8f9b989b273640d0f3c706c64e5130677bd13ad73896de2abc355ab572657a589cbf765ab0d15d243306a01643"
+  },
+  "windows": [
+    {
+      "offset": 0,
+      "length": 256,
+      "returnedBytes": 256,
+      "sha256": "4f6fdf925f28553e8c76c04b97f16c5705af5827dfaabc7f4563a1b3b2269eb6"
+    },
+    {
+      "offset": 65530,
+      "length": 777,
+      "returnedBytes": 777,
+      "sha256": "7c80508f8babd665fed545dd05da13f9b2650408f816d78805082f5147973559"
+    },
+    {
+      "offset": 1048559,
+      "length": 65536,
+      "returnedBytes": 65536,
+      "sha256": "3a8c00ec530a45713f174626f1e4a26e0eef0c5ee552bc9a334820dffa4b1cb5"
+    },
+    {
+      "offset": 86050165,
+      "length": 65536,
+      "returnedBytes": 19,
+      "sha256": "d1bbf0bde9ca64ff7ff885010390b4f135213300ded7197d8e1d6c40f32998e5"
+    },
+    {
+      "offset": 86050184,
+      "length": 1,
+      "returnedBytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "loadMs": 2548.600000023842,
+  "rpcMs": 2320.699999988079,
+  "metrics": {
+    "totalMs": 2320.699999988079,
+    "workers": 1,
+    "cache": {
+      "result": false
+    },
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 3622,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 138149888
+    }
+  },
+  "jsonBytes": 2489,
+  "cancellationMs": 5.100000023841858,
+  "cancellation": "storage-closed-before-worker-termination",
+  "storageArtifactsRemaining": 0,
+  "browser": "154.0.8037.58"
+}

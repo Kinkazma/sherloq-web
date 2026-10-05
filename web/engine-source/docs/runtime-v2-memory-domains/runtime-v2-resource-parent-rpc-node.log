@@ -1,0 +1,214 @@
+TAP version 13
+# Subtest: independent pools share CPU capacity and one GPU queue without preflight work
+ok 1 - independent pools share CPU capacity and one GPU queue without preflight work
+  ---
+  duration_ms: 3.450542
+  type: 'test'
+  ...
+# Subtest: memory and CPU are admitted together, then queued work resumes without retrying computation
+ok 2 - memory and CPU are admitted together, then queued work resumes without retrying computation
+  ---
+  duration_ms: 0.283
+  type: 'test'
+  ...
+# Subtest: unrecoverable admission rejects instead of waiting forever for retained results
+ok 3 - unrecoverable admission rejects instead of waiting forever for retained results
+  ---
+  duration_ms: 0.432084
+  type: 'test'
+  ...
+# Subtest: queued cancellation removes listeners and cannot leak a late reservation
+ok 4 - queued cancellation removes listeners and cannot leak a late reservation
+  ---
+  duration_ms: 0.298208
+  type: 'test'
+  ...
+# Subtest: exceptions and disposal return all leases and reject only pending work
+ok 5 - exceptions and disposal return all leases and reject only pending work
+  ---
+  duration_ms: 0.280542
+  type: 'test'
+  ...
+# Subtest: elastic useful batches take spare cores and expand after a peer finishes
+ok 6 - elastic useful batches take spare cores and expand after a peer finishes
+  ---
+  duration_ms: 0.218084
+  type: 'test'
+  ...
+# Subtest: elastic width fits accounted memory without oversubscribing CPUs or reserving failed widths
+ok 7 - elastic width fits accounted memory without oversubscribing CPUs or reserving failed widths
+  ---
+  duration_ms: 0.150875
+  type: 'test'
+  ...
+# Subtest: cold data is reclaimed asynchronously before admitting memory and no CPU is held during migration
+ok 8 - cold data is reclaimed asynchronously before admitting memory and no CPU is held during migration
+  ---
+  duration_ms: 0.430375
+  type: 'test'
+  ...
+# Subtest: cancellation during asynchronous reclamation cannot admit a late task
+ok 9 - cancellation during asynchronous reclamation cannot admit a late task
+  ---
+  duration_ms: 4.61875
+  type: 'test'
+  ...
+# Subtest: invalid elastic memory bounds reject without leaking execution capacity
+ok 10 - invalid elastic memory bounds reject without leaking execution capacity
+  ---
+  duration_ms: 0.487708
+  type: 'test'
+  ...
+# Subtest: a GPU coordinator returns only its own CPU while sibling native lanes stay admitted
+ok 11 - a GPU coordinator returns only its own CPU while sibling native lanes stay admitted
+  ---
+  duration_ms: 0.280042
+  type: 'test'
+  ...
+# Subtest: an allocation waits for real independent backing retirement, not reservation churn or phase replay
+ok 12 - an allocation waits for real independent backing retirement, not reservation churn or phase replay
+  ---
+  duration_ms: 8.98525
+  type: 'test'
+  ...
+# Subtest: a typed reclaim result and its retirement notification are counted once
+ok 13 - a typed reclaim result and its retirement notification are counted once
+  ---
+  duration_ms: 0.849167
+  type: 'test'
+  ...
+# Subtest: legacy typed owners publish only missing retirement notifications
+ok 14 - legacy typed owners publish only missing retirement notifications
+  ---
+  duration_ms: 0.111417
+  type: 'test'
+  ...
+# Subtest: waiting cancellation releases pressure and subscriptions without replaying the operation
+ok 15 - waiting cancellation releases pressure and subscriptions without replaying the operation
+  ---
+  duration_ms: 0.67275
+  type: 'test'
+  ...
+# Subtest: blocked, own, and merely queued leases cannot keep recovery waiting
+ok 16 - blocked, own, and merely queued leases cannot keep recovery waiting
+  ---
+  duration_ms: 1.62625
+  type: 'test'
+  ...
+# Subtest: peer quiescence resumes the bounded guard and two waiting owners cannot deadlock
+ok 17 - peer quiescence resumes the bounded guard and two waiting owners cannot deadlock
+  ---
+  duration_ms: 1.047125
+  type: 'test'
+  ...
+# Subtest: invalid producer ownership is rejected before execution admission
+ok 18 - invalid producer ownership is rejected before execution admission
+  ---
+  duration_ms: 0.631083
+  type: 'test'
+  ...
+# Subtest: domain ledger separates logical reservation, materialized backing and aliased pinned ownership
+ok 19 - domain ledger separates logical reservation, materialized backing and aliased pinned ownership
+  ---
+  duration_ms: 1.955125
+  type: 'test'
+  ...
+# Subtest: backing pressure is domain-specific, nested and ends after the useful retry
+ok 20 - backing pressure is domain-specific, nested and ends after the useful retry
+  ---
+  duration_ms: 2.391708
+  type: 'test'
+  ...
+# Subtest: durable operations bridge CPU lease gaps and real IO until backing retirement
+ok 21 - durable operations bridge CPU lease gaps and real IO until backing retirement
+  ---
+  duration_ms: 6.413166
+  type: 'test'
+  ...
+# Subtest: queued operations have holder dependencies, and blocked cycles are not productive work
+ok 22 - queued operations have holder dependencies, and blocked cycles are not productive work
+  ---
+  duration_ms: 0.400458
+  type: 'test'
+  ...
+# Subtest: all operation owners waiting in recovery cannot keep each other alive
+ok 23 - all operation owners waiting in recovery cannot keep each other alive
+  ---
+  duration_ms: 0.199833
+  type: 'test'
+  ...
+# Subtest: reclaim carries owner, bounded target and attributable retirement diagnostics
+ok 24 - reclaim carries owner, bounded target and attributable retirement diagnostics
+  ---
+  duration_ms: 0.378667
+  type: 'test'
+  ...
+# Subtest: resource wait diagnostics preserve wait stage and exact baseline across cancellation
+ok 25 - resource wait diagnostics preserve wait stage and exact baseline across cancellation
+  ---
+  duration_ms: 0.639083
+  type: 'test'
+  ...
+# Subtest: one recovering lane does not hide useful compute or IO from the same owner
+ok 26 - one recovering lane does not hide useful compute or IO from the same owner
+  ---
+  duration_ms: 0.169125
+  type: 'test'
+  ...
+# Subtest: mixed legacy owner dependencies resolve through an explicit useful operation
+ok 27 - mixed legacy owner dependencies resolve through an explicit useful operation
+  ---
+  duration_ms: 0.186333
+  type: 'test'
+  ...
+# Subtest: a committed peer lane with the same owner wakes its suspended sibling
+ok 28 - a committed peer lane with the same owner wakes its suspended sibling
+  ---
+  duration_ms: 0.398833
+  type: 'test'
+  ...
+# Subtest: memory admission rejects self-held or parent-child cyclic ownership
+ok 29 - memory admission rejects self-held or parent-child cyclic ownership
+  ---
+  duration_ms: 0.307875
+  type: 'test'
+  ...
+# Subtest: explicit parent operations survive child RPC handoffs and restore their IO state
+ok 30 - explicit parent operations survive child RPC handoffs and restore their IO state
+  ---
+  duration_ms: 0.071917
+  type: 'test'
+  ...
+# Subtest: a parent awaiting two queued RPCs is not productive behind a blocked holder
+ok 31 - a parent awaiting two queued RPCs is not productive behind a blocked holder
+  ---
+  duration_ms: 2.249583
+  type: 'test'
+  ...
+# Subtest: pool clear prevents late dispatch to a terminated worker, next generation is reusable
+ok 32 - pool clear prevents late dispatch to a terminated worker, next generation is reusable
+  ---
+  duration_ms: 3.505334
+  type: 'test'
+  ...
+# Subtest: different worker pools cannot multiply the shared CPU quota
+ok 33 - different worker pools cannot multiply the shared CPU quota
+  ---
+  duration_ms: 3.736209
+  type: 'test'
+  ...
+# Subtest: production quality and LUT pools honor one quota and clearing a queued pool preserves its input
+ok 34 - production quality and LUT pools honor one quota and clearing a queued pool preserves its input
+  ---
+  duration_ms: 6.511208
+  type: 'test'
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 34
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 111.270042

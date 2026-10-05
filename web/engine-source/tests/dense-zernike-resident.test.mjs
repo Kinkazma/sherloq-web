@@ -1,0 +1,5 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {createDenseMath} from '../src/dense-math.js';
+test('haloed resident Zernike reproduces full descriptors and global fields including seams/mirrors',async()=>{
+ const math=await createDenseMath({print:()=>{}});let cases=0;
+ for(const [w,h,patch]of [[259,137,3],[267,141,8],[103,105,32]])for(const reflection of [false,true]){const gray=Float32Array.from({length:w*h},(_,i)=>(i*37+i%17*23)%256),full=math.features(gray,w,h,{method:0,patch,reflection});math.residentPrepare(gray,w,h,{patch,reflection});for(const [slot,values]of [[0,full.first],[1,full.second]])for(let at=0;at<w*h;at+=8192){const n=Math.min(8192,w*h-at);assert.deepEqual(math.residentUnpack(slot,at,n),values.subarray(at*12,(at+n)*12),`${w}/${patch}/${reflection}/${slot}/${at}`);}const mask=Uint8Array.from({length:w*h},(_,i)=>i%13?1:0),options={minimum:3,radius:25,iterations:2},a=math.field(full.first,full.second,mask,w,h,options),b=math.residentField(mask,w,h,options);assert.deepEqual(b,a);math.residentRelease();cases++;}console.log({cases,heap:math.heapBytes});
+});

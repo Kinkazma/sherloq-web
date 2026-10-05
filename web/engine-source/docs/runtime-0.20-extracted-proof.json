@@ -1,0 +1,181 @@
+{
+  "version": "0.20.0",
+  "extractedRuntime": true,
+  "observations": [
+    {
+      "runtimeSmoke": {
+        "status": "passed",
+        "version": "0.20.0",
+        "operations": [
+          "ela.classic",
+          "metadata.structure",
+          "metadata.location",
+          "metadata.thumbnail",
+          "file.hex",
+          "colors.pca",
+          "colors.space",
+          "noise.separation",
+          "detail.gradient",
+          "inspection.adjust",
+          "detail.echo",
+          "noise.noisesniffer",
+          "noise.prnu",
+          "comparison.image",
+          "detail.frequency",
+          "noise.blocking",
+          "detail.wavelets",
+          "colors.plots",
+          "file.digest",
+          "inspection.magnifier",
+          "various.illuminant",
+          "tampering.contrast",
+          "various.stereogram",
+          "jpeg.zero",
+          "jpeg.ghosts",
+          "jpeg.multiple",
+          "jpeg.quality",
+          "inspection.histogram",
+          "colors.stats",
+          "noise.planes",
+          "noise.minmax",
+          "pixels.defects"
+        ],
+        "browser": "154.0.8037.58",
+        "extractedRuntime": true
+      }
+    },
+    {
+      "temporaryStorage": {
+        "schema": 2,
+        "status": "passed",
+        "runs": [
+          {
+            "requestedBackend": "auto",
+            "normal": {
+              "status": "passed",
+              "backend": "opfs",
+              "fallback": null,
+              "capability": {
+                "available": true,
+                "opfs": {
+                  "available": true,
+                  "requiresDedicatedWorker": true,
+                  "quotaBytes": 10737418240,
+                  "usageBytes": 0,
+                  "estimateIsReservation": false
+                },
+                "indexeddb": true,
+                "estimateIsReservation": false
+              },
+              "bytes": 67108977,
+              "chunkBytes": 1048593,
+              "writeMs": 118.59999996423721,
+              "readMs": 445.7000000476837,
+              "peakRamAccountedBytes": 1048593,
+              "storage": {
+                "reservedBytes": 67108977,
+                "peakReservedBytes": 67108977,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 100663296,
+                "openFiles": 1
+              },
+              "sessionId": "job-20288d9c-1834-45b6-b607-43cc3dc62666",
+              "quotaAdmission": true,
+              "impreciseUsageAdmission": true,
+              "concurrentAdmission": true,
+              "overlappingPageWrites": true,
+              "idempotentCleanup": true,
+              "disposeDuringCreate": true,
+              "randomSeams": 4,
+              "cancellation": true,
+              "cacheChecks": null
+            },
+            "verifiedAbsent": true,
+            "terminated": {
+              "status": "passed",
+              "sessionId": "job-11e90b7f-df70-4031-a108-04ae30fb46d2",
+              "backend": "opfs",
+              "verifiedAbsent": true,
+              "cleanup": "owned job only"
+            }
+          },
+          {
+            "requestedBackend": "indexeddb",
+            "normal": {
+              "status": "passed",
+              "backend": "indexeddb",
+              "fallback": null,
+              "capability": {
+                "available": true,
+                "opfs": {
+                  "available": true,
+                  "requiresDedicatedWorker": true,
+                  "quotaBytes": 10737418426,
+                  "usageBytes": 186,
+                  "estimateIsReservation": false
+                },
+                "indexeddb": true,
+                "estimateIsReservation": false
+              },
+              "bytes": 67108977,
+              "chunkBytes": 1048593,
+              "writeMs": 188.10000002384186,
+              "readMs": 104.30000001192093,
+              "peakRamAccountedBytes": 8388608,
+              "storage": {
+                "reservedBytes": 67108977,
+                "peakReservedBytes": 67108977,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 100663296,
+                "openFiles": 0,
+                "arrays": 1,
+                "pageBytes": 1048576,
+                "backend": "indexeddb",
+                "readCacheEnabled": true,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 75,
+                  "cacheHits": 65,
+                  "requestedBytes": 67109480
+                }
+              },
+              "sessionId": "job-bf2dfb03-4b96-44fc-b7c5-ce58b9c98040",
+              "quotaAdmission": true,
+              "impreciseUsageAdmission": true,
+              "concurrentAdmission": true,
+              "overlappingPageWrites": true,
+              "idempotentCleanup": true,
+              "disposeDuringCreate": true,
+              "randomSeams": 4,
+              "cancellation": true,
+              "cacheChecks": {
+                "reuse": true,
+                "overlappingWriteInvalidation": true,
+                "failedWriteInvalidation": true,
+                "sharedBudgetEviction": true
+              }
+            },
+            "verifiedAbsent": true,
+            "terminated": {
+              "status": "passed",
+              "sessionId": "job-b1cdfb9e-8e70-4514-89e9-1b5a0782c198",
+              "backend": "indexeddb",
+              "verifiedAbsent": true,
+              "cleanup": "owned job only"
+            }
+          }
+        ],
+        "scope": "Real dedicated-worker OPFS or IndexedDB; bounded 64 MiB segmented array, exact sequential/random byte checks, explicit quota rejection, cancellation and terminated-worker cleanup. IndexedDB backing medium is browser-managed. Not an image-engine adapter or isolated performance benchmark.",
+        "browser": "154.0.8037.58"
+      }
+    },
+    {
+      "status": "passed",
+      "browser": "154.0.8037.58",
+      "exact": true,
+      "cancellation": "hard worker termination, explicit reload and large-image cancellation verified"
+    }
+  ]
+}

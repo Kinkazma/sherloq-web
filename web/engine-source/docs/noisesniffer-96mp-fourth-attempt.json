@@ -1,0 +1,17 @@
+{
+  "status": "stopped-development-run",
+  "reason": "Shared WASM rebuilt while this long test was running; subsequent module instances could mix cached JS and newer WASM. Harness now freezes all runtime resources per run. No output qualified from this attempt.",
+  "lastProgress": {
+    "phase": "noisesniffer-select",
+    "completed": 2106,
+    "total": 9441,
+    "elapsedMs": 1133006.299999997,
+    "memory": {
+      "budgetBytes": 268435456,
+      "retainedBytes": 0,
+      "cacheBytes": 0,
+      "activeReservationBytes": 93744261,
+      "peakAccountedBytes": 260953616
+    }
+  }
+}

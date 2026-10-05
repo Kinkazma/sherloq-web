@@ -1,0 +1,2 @@
+import {study} from './m2-browser-study.mjs';
+await study('trufor-query-io',async()=>{const worker=new Worker('/experiments/trufor-query-io-study-worker.js',{type:'module'});try{return await new Promise((resolve,reject)=>{worker.onerror=e=>reject(Error(e.message));worker.onmessage=e=>e.data.error?reject(Error(e.data.error)):resolve(e.data);worker.postMessage({});});}finally{worker.terminate();}});

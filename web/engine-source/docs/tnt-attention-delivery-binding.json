@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.30.0-m1.38",
+  "runtimeFiles": 390,
+  "runtimeManifestSha256": "37e89dbe976e51d1951ef85a7044cefae780d5b98e26321b5532323327f29198",
+  "scope": "Exact runtime bytes and component/96MP execution sources. Four native-exact matrix geometries, warm pairs and real submitted-GPU lifecycle checks. Actual repeated inference against immutable M1.37 with both caches preserved, native corpus, positive96MP source with full plane hashes and independent NPZ readback. Fresh copied auto-GPU API, cached view, actual attention submission cancellation and source reload. Earlier explicit CPU evidence is reused for its unchanged arithmetic. No WordPress or universal-device claim.",
+  "comparison": {
+    "baselineMs": [
+      9426.5,
+      7811.29999999702,
+      7627.9000000059605
+    ],
+    "candidateMs": [
+      8672.39999999106,
+      2885.0999999940395,
+      4334.9000000059605
+    ],
+    "probabilitySha256": "6989b6b1de22cd679eefab902204ab7202d6a73290cbc4e0d10971b5b597d12a",
+    "baselinePeak": 1088214620,
+    "candidatePeak": 1092408924,
+    "timingQualification": "Shared workstation; fresh browser per condition; OS and driver caches not flushed."
+  },
+  "large": {
+    "width": 12000,
+    "height": 8000,
+    "foreground": 4949629,
+    "arrays": 4,
+    "exportBytes": 672015440,
+    "exportSha256": "c0d5083d329f5b866369a0c3bba81df146612c47ef6f3c4e3f66eb0b41d417fb",
+    "peakAccountedBytes": 2630886876,
+    "allPlaneHashesEqualToM1_35": true
+  },
+  "copied": {
+    "automaticGpu": true,
+    "cancelled": true,
+    "retry": true
+  }
+}

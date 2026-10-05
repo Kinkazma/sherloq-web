@@ -1,0 +1,27 @@
+{
+  "qualification": "Ordered global same/lower/upper suppression and refinement study; no descriptor or96MP qualification",
+  "records": [
+    {
+      "width": 397,
+      "height": 281,
+      "strip": 7,
+      "windows": 1085,
+      "points": 1971,
+      "expectedPoints": 1971,
+      "maskDifferences": 0,
+      "pointDifferences": 0,
+      "pointMaximum": 0
+    },
+    {
+      "width": 640,
+      "height": 480,
+      "strip": 13,
+      "windows": 1094,
+      "points": 6378,
+      "expectedPoints": 6378,
+      "maskDifferences": 0,
+      "pointDifferences": 0,
+      "pointMaximum": 0
+    }
+  ]
+}

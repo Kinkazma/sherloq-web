@@ -1,0 +1,210 @@
+{
+  "title": "Audit systémique de integration.26 après échec autonome du 96 MP",
+  "date": "2026-10-03",
+  "sourceCommit": "77562789b0004e88be9ccd81fac3c5b8f4203816",
+  "scope": "Analyse seulement. Aucun code du moteur modifié, aucun nouveau 96 MP lancé. Reproductions minuscules réservées au développement, sans canary, étalonnage ou sonde au démarrage du produit.",
+  "mainConclusion": "Les réservations globales, le registre partiel des allocations, les droits d’accès aux vues et les reprises ne forment pas encore un contrat unique. Les correctifs locaux ne couvrent donc pas les interactions entre croissance Wasm, entrées-sorties, attente GPU et pression ArrayBuffer.",
+  "observedFailures": [
+    {
+      "group": "sift",
+      "timeUTC": "2026-10-03T09:16:42.356Z",
+      "error": "MEMORY_ALLOCATION: Array buffer allocation failed",
+      "site": "src/sift-paged-gaussian.js:25, ArrayBuffer.slice après readback GPU",
+      "totalFailures": 9,
+      "consecutiveFailures": 5,
+      "policyAvailableBytes": 9994297315,
+      "actualRequestedBytesRecorded": false,
+      "analysis": "La copie intermédiaire vers ArrayBuffer échoue après calcul GPU; une seconde copie vers Wasm devait suivre. Les vues peuvent être renouvelées et la copie intermédiaire supprimée. La récupération reconstruit actuellement la pyramide de la tuile. Le défaut d’allocateur précis reste inconnu."
+    },
+    {
+      "group": "d2prl",
+      "timeUTC": "2026-10-03T09:23:04.967Z",
+      "error": "MEMORY_ALLOCATION: Array buffer allocation failed",
+      "site": "experiments/d2prl/model.js:22",
+      "requestedBytes": 75497472,
+      "asset": "unet.encoder_stages.4.0.downsample.0.weight",
+      "shape": [
+        2048,
+        1024,
+        3,
+        3
+      ],
+      "nodeIndexZeroBased": 776,
+      "totalFailures": 6,
+      "consecutiveFailures": 5,
+      "policyAvailableBytes": 16655095127,
+      "failureBurstMs": 325,
+      "analysis": "Allocation du paramètre avant fetch/hash. Les paramètres précédents ne restent pas tous dans le Map UNet. Les premières reprises retirent des références pertinentes, les dernières repartent sur des commits indépendants sans retrait ciblé. 295/892 est une progression publique ancienne, pas le nœud de l’échec."
+    },
+    {
+      "group": "patchmatch",
+      "timeUTC": "2026-10-03T09:24:38.643Z",
+      "error": "WORKER_FAILED: Cannot perform %TypedArray%.prototype.set on a detached or out-of-bounds ArrayBuffer",
+      "site": "src/portable-byte-store.js:61",
+      "lastGlobalProgress": {
+        "completed": 57680716,
+        "total": 96000000,
+        "iteration": 0
+      },
+      "analysis": "La pile exacte est reproduite avec le module natif inchangé : Asyncify alloue sa pile après la capture de HEAPU8 et provoque memory.grow. La vue empruntée est détachée avant la réponse broker. L’événement grow individuel n’est pas enregistré dans le 96 MP."
+    }
+  ],
+  "crossCuttingFindings": [
+    {
+      "id": "MEMORY-LIFETIME",
+      "certainty": "reproduced",
+      "finding": "Une vue Wasm empruntée traverse une attente susceptible d’agrandir le tas. Cela provoque un échec de lecture; une variante démontre une écriture 128 KiB annoncée réussie après 64 KiB. Cette troncature n’a pas été observée dans le 96 MP.",
+      "sources": [
+        "src/portable-byte-store.js:61",
+        "src/portable-byte-store.js:65",
+        "src/dense-field-kernel-worker.js:23",
+        "native/dense-paged.cpp:11"
+      ]
+    },
+    {
+      "id": "ADMISSION-DOMAINS",
+      "certainty": "code and telemetry",
+      "finding": "Le budget de 25,6 Gio est une politique, pas la capacité restante de chaque allocateur. SIFT ne déclare pas tous ses backings de sous-workers, GPU et readbacks au registre. Les réservations forfaitaires ne remplacent pas le suivi des allocations, alias et copies.",
+      "sources": [
+        "src/execution-scheduler.js:88",
+        "src/sift-paged.js:86",
+        "src/resource-registry.js"
+      ]
+    },
+    {
+      "id": "RECOVERY-CAUSALITY",
+      "certainty": "production log and code",
+      "finding": "Une progression quelconque de producteur autorise une nouvelle allocation sans changement pertinent du domaine en échec. D2 épuise six refus en environ 325 ms. Garder la limite cinq; corriger les raisons de réveil, la granularité et le suivi des opérations.",
+      "sources": [
+        "src/resource-recovery.js:66",
+        "src/resource-recovery.js:74",
+        "src/cache.js:waitForResourceOpportunity"
+      ]
+    },
+    {
+      "id": "CPU-GPU-HEAD-OF-LINE",
+      "certainty": "reproduced",
+      "finding": "Un travail CPU+GPU en attente du seul GPU bloque les tâches CPU suivantes. Repro : CPU1/GPU1 actif, puis CPU1/GPU1 attendu, puis CPU1/GPU0 bloqué malgré neuf places CPU libres. Les compteurs de places ne mesurent pas l’utilisation physique des cœurs.",
+      "sources": [
+        "src/execution-scheduler.js:74"
+      ]
+    },
+    {
+      "id": "IPC-COVERAGE",
+      "certainty": "latent defect reproduced, not observed cause of this run",
+      "finding": "Le contrat renforcé Worker ne couvre pas les MessagePort du broker. Une requête ou réponse null peut laisser une promesse pendante; les messages suivants passent. Tous les transports doivent solder chaque appel, y compris sur fermeture, échec de décodage et erreur de protocole.",
+      "sources": [
+        "src/portable-byte-store.js:24",
+        "src/portable-byte-store.js:56"
+      ]
+    },
+    {
+      "id": "RESUME-GRANULARITY",
+      "certainty": "code",
+      "finding": "Les groupes terminés sont conservés et exportés. En revanche, le terminal d’une extraction détruit des bases et pages intermédiaires; la sortie partielle NPZ ne constitue pas un checkpoint complet d’exécution permettant de reprendre le 96 MP au point exact.",
+      "sources": [
+        "src/sift-paged.js:35",
+        "src/sift-paged.js:116",
+        "src/automatic-analysis-session.js:55",
+        "experiments/d2prl/model.js:82"
+      ]
+    },
+    {
+      "id": "OBSERVABILITY",
+      "certainty": "code and telemetry",
+      "finding": "SIFT ne relaie pas toutes ses reprises vers les événements publics, la taille réelle du slice manque, attempt du groupe masque la tentative interne, et les registres GPU/Wasm sous-workers sont incomplets. Une télémétrie de permissions n’est pas une mesure physique CPU/GPU/RSS."
+    },
+    {
+      "id": "RECOMPUTATION",
+      "certainty": "code; speedup unmeasured",
+      "finding": "SIFT reconstruit une pyramide pour de nombreuses graines voisines; réutilisation ou regroupement peuvent réduire le travail utile redondant, sous réserve de préserver exactement bords, halos, orientations et résultats scientifiques."
+    }
+  ],
+  "whatWorked": [
+    "Calcul autonome jusqu’au terminal, sans dépendre du suivi du chat.",
+    "Un échec opaque de transport Ghost a été récupéré; ELA et ForgeryScope ont terminé.",
+    "606329 admissions soldées, aucun slot actif ou attente au diagnostic final, aucun orphelin navigateur et aucune erreur de cleanup.",
+    "Archive partielle 4620213001 octets marquée vérifiée; aucun result.json. La réussite complète n’est pas acquise."
+  ],
+  "unknowns": [
+    "Mécanisme exact des refus ArrayBuffer : pool effectif, fragmentation, références restantes, pression OS et interaction des isolates non départagés.",
+    "Aucune preuve d’un plafond Chromium uniforme de 8 Gio; les sources de compilation et l’initialisation varient.",
+    "Retirer des références ou du crédit logique ne force pas un GC. V8 tente déjà une récupération après certains refus : attendre seulement le même GC n’est pas une explication suffisante.",
+    "Le swap était déjà élevé avant le test; il ne peut pas être attribué en entier au moteur.",
+    "Aucune corruption silencieuse ni message null broker n’est établi dans cette exécution."
+  ],
+  "proposal": [
+    {
+      "order": 1,
+      "name": "Contrat commun de propriété et de plage mémoire",
+      "details": "Chaque buffer possède un propriétaire, domaine, taille, durée de vie, emprunts et génération. Les ponts asynchrones transportent propriétaire+pointeur+longueur fixe et renouvellent la vue après attente. Interdire libération, transfert ou réutilisation du bloc emprunté; contrôler exactement les octets lus/écrits. Garder les chemins synchrones rapides."
+    },
+    {
+      "order": 2,
+      "name": "Admission par phase et domaine mémoire",
+      "details": "Un seul registre et une seule autorité d’admission, total de politique plus vecteur ArrayBuffer/Wasm/GPU/staging. Réserver juste avant la phase; enregistrer les sous-workers et compter chaque backing une seule fois. Réutiliser les banques stables existantes, financer le petit espace nécessaire à une migration avant de saturer le domaine. Apprendre seulement des allocations utiles courantes, sans canary ou historique persistant."
+    },
+    {
+      "order": 3,
+      "name": "Réduire les copies structurelles",
+      "details": "SIFT : destination Wasm prête et vue renouvelée pour le readback, sans ArrayBuffer.slice intermédiaire. D2 : poids chargés par fenêtres vers banque stable et SHA-256 incrémental avant publication; offsets/longueurs explicites; aucun clonage du heap complet. Chemin GPU direct possible avec contrat distinct. Repli paginé nécessite des kernels adaptés et la même arithmétique."
+    },
+    {
+      "order": 4,
+      "name": "Ordonnancement du travail réellement prêt",
+      "details": "Dissocier préparation CPU, soumission GPU, attente GPU et consommation CPU. Autoriser le backfill CPU avec vieillissement/priorité garantissant la prochaine admission GPU; ne pas financer dix tas GPU-bound alors que neuf attendent. Utiliser les cœurs libres pour d’autres unités utiles; adapter le nombre de workers aux phases et au coût marginal réel. Évaluer le temps total, pas le nombre de workers."
+    },
+    {
+      "order": 5,
+      "name": "Récupération causale au niveau de la transaction utile",
+      "details": "Conserver entrées immuables et résultats intermédiaires valides, reprendre l’allocation ou la sortie échouée plutôt que recalculer la tuile entière. Attendre une libération pertinente, un bloc réutilisable, une autre représentation ou un changement réel du pic local. Aucun réveil sur simple commit sans effet pertinent. Conserver cinq échecs comparables sans progrès propre; attente seule ne consomme ni ne remet à zéro la garde. Détecter les cycles d’attente et les impossibilités."
+    },
+    {
+      "order": 6,
+      "name": "Publication transactionnelle et checkpoints",
+      "details": "Publier seulement une unité complète; retenir tuile/région/nœud et RNG/paramètres/versions/entrées nécessaires à sa reprise. Ne pas détruire les unités déjà validées lors du terminal d’une autre unité. Utiliser les stores existants et les frontières naturelles, sans sauvegarder chaque scalaire. La reprise après destruction du navigateur requiert un checkpoint durable explicite et ne doit pas être promise par une simple archive partielle."
+    },
+    {
+      "order": 7,
+      "name": "Validation des interactions",
+      "details": "Reproductions déterministes de croissance Wasm pendant IO, écritures multi-blocs, refus slice après GPU, échecs de poids, annulation et invalidation de chaque IPC, CPU libre derrière GPU occupé, commits sans libération et préservation des checkpoints. Oracles scientifiques identiques. Puis un seul 96 MP à froid autonome, sans sonde préalable, jusqu’aux cinq groupes terminés et archive finale vérifiée."
+    }
+  ],
+  "acceptance": [
+    "Aucune lecture/écriture sur vue détachée; longueur fixe entièrement traitée ou erreur explicite.",
+    "Aucune requête abandonnée sans règlement sur erreur/fermeture de transport.",
+    "Aucun emplacement CPU libre artificiellement bloqué par un seul GPU occupé lorsque du travail CPU indépendant est prêt.",
+    "Reprise sans recalcul des étapes déjà validées et sans dépenser cinq essais sur des conditions inchangées.",
+    "Registre complet des allocations sous contrôle du moteur avec propriétaire, domaine, taille et génération; toute absence de mesure physique reste explicite.",
+    "Résultat scientifique inchangé sur oracles pertinents; calcul96 complet et result.json/archive finale vérifiés avant annonce de réussite.",
+    "Temps total inclut entrées-sorties, copies, reprises, export et vérification; aucune promesse de gain chiffré sans mesure."
+  ],
+  "primaryReferences": [
+    {
+      "url": "https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html",
+      "supports": "La croissance de mémoire invalide les vues; les vues doivent être recréées."
+    },
+    {
+      "url": "https://www.w3.org/TR/device-memory/",
+      "supports": "deviceMemory est une indication approximative de mémoire physique du périphérique, pas une mesure de mémoire libre allouable."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/chromium/chromium/154.0.8037.93/third_party/blink/renderer/modules/crypto/subtle_crypto.cc",
+      "supports": "La voie digest copie les octets avant le calcul natif; cette copie ne cause pas le refus initial du poids de72MiB."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/v8/v8/31fac3bef58c3def36b0760e4ddc54ec77099596/src/heap/heap.cc",
+      "supports": "AllocateExternalBackingStore comporte déjà des reprises/collectes après refus."
+    }
+  ],
+  "reproduce": {
+    "environment": "Node avec MessageChannel; source du commit audité. Chaque commande écrit seulement son JSON voisin. Ce sont des tests de développement, jamais des pré-calculs du moteur.",
+    "rootOverride": "SHERLOQ_AUDIT_ROOT permet de viser le snapshot runtime du calcul; par défaut le checkout contenant ce dossier.",
+    "commands": [
+      "node docs/audits/integration26-96mp-20261003/repro.mjs",
+      "node docs/audits/integration26-96mp-20261003/broker-write.mjs",
+      "node docs/audits/integration26-96mp-20261003/port-null.mjs",
+      "node docs/audits/integration26-96mp-20261003/scheduler.mjs"
+    ]
+  }
+}

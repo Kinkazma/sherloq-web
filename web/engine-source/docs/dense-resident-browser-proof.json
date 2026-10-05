@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "width": 512,
+  "height": 384,
+  "previousWorkspaceBytes": 196804608,
+  "budgetBytes": 100663296,
+  "heapBytes": 33554432,
+  "metrics": {
+    "workers": 1,
+    "completedJobs": 1,
+    "preflightExecutions": 0,
+    "policy": "immediate-useful-work",
+    "scheduling": {
+      "count": 1,
+      "maximum": 1,
+      "ceiling": 1,
+      "resourceReduced": false,
+      "policy": "immediate-useful-work",
+      "priorUsefulSamples": 0,
+      "reason": "Aggressive capacity-based start"
+    },
+    "outputBytes": 2752512,
+    "workerReservationBytes": 83411968,
+    "compactDescriptorJobs": 0,
+    "residentZernikeJobs": 1
+  },
+  "sha256": {
+    "targets": "5802ced29d07f7ebfc1a7e7bc2040984a7d209c91c9ae60bfe65d363a8dd128e",
+    "distancesSquared": "9251f0d59cfbc28a8285fa4bfb9c27db9d6b052c505b5cba496cc8e3a4a3212a",
+    "selected": "5a058c05169bf5a924fabde24d4797fad3a01f23c74aac7f4a5481846e3eba74",
+    "errors": "b0150bdb14df97218df13420a797c3af8fe191fd56f38296ea19ac91846d089e"
+  },
+  "comparisons": "5010058",
+  "cancelled": true,
+  "milliseconds": 7240.30000000447
+}

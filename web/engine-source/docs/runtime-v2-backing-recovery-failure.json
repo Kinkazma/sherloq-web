@@ -1,0 +1,1350 @@
+{
+  "schema": 1,
+  "version": "0.31.0-integration.22",
+  "engineCommit": "abbad32be3fe875a3688e2fac12679ab65c58357",
+  "scope": "Failed cold full 96 MP run; no complete result or archive was produced. The detached supervisor recorded a detector failure, not a monitor disconnect.",
+  "runDirectory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-repeat-recovery-96mp-20261003T033849Z",
+  "startedAt": "2026-10-03T04:12:19.971Z",
+  "finishedAt": "2026-10-03T04:19:29.943Z",
+  "stoppedAt": "2026-10-03T04:19:30.165Z",
+  "wallMs": 430194,
+  "supervisor": {
+    "supervisorPid": 15630,
+    "runnerPid": 15632,
+    "caffeinatePid": 15633,
+    "startedAt": "2026-10-03T04:12:19.665132+00:00",
+    "timeoutSeconds": 86400,
+    "directory": "/Users/gaeldauchy/SHERLOQ/web-engine-integration/.build/integration/runtime-v2-repeat-recovery-96mp-20261003T033849Z",
+    "exitCode": 1,
+    "timedOut": false,
+    "stoppedAt": "2026-10-03T04:19:30.187441+00:00"
+  },
+  "budgetBytes": 27487371264,
+  "executionCapacity": {
+    "cpu": 10,
+    "gpu": 1
+  },
+  "lastSuccessfulD2prl": {
+    "at": "2026-10-03T04:19:21.066Z",
+    "id": "automatic-d2prl-1",
+    "iteration": 11,
+    "iterations": 40,
+    "branch": "zm",
+    "phase": "patchmatch",
+    "completed": 56,
+    "total": 198,
+    "fraction": 0.2828282828282828,
+    "stage": "inference",
+    "zone": "automatic-zone-0",
+    "zoneIndex": 0,
+    "completedZones": 0,
+    "totalZones": 1,
+    "revision": 1,
+    "group": "d2prl",
+    "attempt": 1,
+    "elapsedMs": 419695.75499999523
+  },
+  "lastDense": {
+    "at": "2026-10-03T04:19:25.673Z",
+    "id": "complete96",
+    "phase": "global-patchmatch",
+    "stage": "initialization",
+    "iteration": null,
+    "completed": 83746365,
+    "total": 96000000,
+    "parallel": {
+      "coordinator": "control-and-storage-only",
+      "workers": 9,
+      "peakActiveKernels": 9,
+      "tasks": 6863,
+      "cpuGrants": [
+        3,
+        7,
+        5,
+        1,
+        4,
+        2,
+        5,
+        6,
+        9,
+        1,
+        5,
+        8,
+        2,
+        5,
+        3,
+        2,
+        6,
+        1,
+        3,
+        1,
+        5,
+        1,
+        2,
+        1,
+        2,
+        1,
+        3,
+        1,
+        4,
+        1,
+        9,
+        3
+      ],
+      "cpuGrantChanges": 408,
+      "wavefront": "ordered-row-segments",
+      "reverse": "parallel-proposals-ordered-commit",
+      "cacheReconfigurations": 0,
+      "allocationRecoveries": 0
+    },
+    "workers": 3,
+    "sharedReadCache": {
+      "bytes": 2210611232,
+      "banks": 525,
+      "hits": 17141879,
+      "misses": 5665194,
+      "fills": 819482,
+      "collisions": 257
+    },
+    "group": "patchmatch",
+    "attempt": 1,
+    "elapsedMs": 424299.55499997735
+  },
+  "finalDetectorError": {
+    "code": "MEMORY_ALLOCATION",
+    "name": "EngineError",
+    "message": "Array buffer allocation failed",
+    "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+    "details": {
+      "recovery": {
+        "operation": "patchmatch:propagate-zm",
+        "phase": "patchmatch:propagate-zm",
+        "consecutiveFailures": 5,
+        "totalFailures": 5,
+        "loopDetected": true,
+        "memory": {
+          "budgetBytes": 27487371264,
+          "retainedBytes": 10459006576,
+          "activeReservationBytes": 13567527981,
+          "cacheBytes": 0,
+          "availableBytes": 3460836707
+        }
+      }
+    },
+    "cause": {
+      "code": "COMPUTE_FAILED",
+      "name": "RangeError",
+      "message": "Array buffer allocation failed",
+      "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+    }
+  },
+  "recoveryEvents": [
+    {
+      "at": "2026-10-03T04:18:27.941Z",
+      "elapsedMs": 366568.375,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 1,
+      "completedOperations": 19393,
+      "recoveries": 1,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10531417453,
+              "activeReservationBytes": 16565163581,
+              "cacheBytes": 0,
+              "availableBytes": 390790230
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:27.967Z",
+      "elapsedMs": 366594.9849999845,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 2,
+      "completedOperations": 19393,
+      "recoveries": 2,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 2,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10359152099,
+              "activeReservationBytes": 16552580669,
+              "cacheBytes": 0,
+              "availableBytes": 575638496
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:27.998Z",
+      "elapsedMs": 366627.22499999404,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 3,
+      "completedOperations": 19393,
+      "recoveries": 3,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 3,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10162091331,
+              "activeReservationBytes": 16551428669,
+              "cacheBytes": 0,
+              "availableBytes": 773851264
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.025Z",
+      "elapsedMs": 366653.6999999881,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 4,
+      "completedOperations": 19393,
+      "recoveries": 4,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 4,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 9972882993,
+              "activeReservationBytes": 16552616669,
+              "cacheBytes": 0,
+              "availableBytes": 961871602
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.050Z",
+      "elapsedMs": 366678.75,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 5,
+      "completedOperations": 19393,
+      "recoveries": 5,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 5,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 9805095887,
+              "activeReservationBytes": 16552580669,
+              "cacheBytes": 0,
+              "availableBytes": 1129694708
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.074Z",
+      "elapsedMs": 366703.06999999285,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 6,
+      "completedOperations": 19393,
+      "recoveries": 6,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 6,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 9682864695,
+              "activeReservationBytes": 16537900605,
+              "cacheBytes": 0,
+              "availableBytes": 1266605964
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.098Z",
+      "elapsedMs": 366726.25999999046,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 7,
+      "completedOperations": 19393,
+      "recoveries": 7,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 7,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 9523969646,
+              "activeReservationBytes": 16537900605,
+              "cacheBytes": 0,
+              "availableBytes": 1425501013
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.130Z",
+      "elapsedMs": 366758.72499999404,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 2,
+      "totalFailures": 8,
+      "completedOperations": 19393,
+      "recoveries": 8,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 2,
+            "totalFailures": 8,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 9367435532,
+              "activeReservationBytes": 16537900605,
+              "cacheBytes": 0,
+              "availableBytes": 1582035127
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.160Z",
+      "elapsedMs": 366788.45999997854,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 9,
+      "completedOperations": 19393,
+      "recoveries": 9,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 9,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 9199712131,
+              "activeReservationBytes": 16537900605,
+              "cacheBytes": 0,
+              "availableBytes": 1749758528
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.188Z",
+      "elapsedMs": 366817.0900000036,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 2,
+      "totalFailures": 10,
+      "completedOperations": 19393,
+      "recoveries": 10,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 2,
+            "totalFailures": 10,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 9041835035,
+              "activeReservationBytes": 16537900605,
+              "cacheBytes": 0,
+              "availableBytes": 1907635624
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.222Z",
+      "elapsedMs": 366850.86999997497,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 11,
+      "completedOperations": 19393,
+      "recoveries": 11,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 11,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 8013792622,
+              "activeReservationBytes": 16537900605,
+              "cacheBytes": 0,
+              "availableBytes": 2935678037
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.262Z",
+      "elapsedMs": 366879.6749999821,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 2,
+      "totalFailures": 12,
+      "completedOperations": 19393,
+      "recoveries": 12,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 2,
+            "totalFailures": 12,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 7858074853,
+              "activeReservationBytes": 16537900605,
+              "cacheBytes": 0,
+              "availableBytes": 3091395806
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.283Z",
+      "elapsedMs": 366910.75499999523,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 13,
+      "completedOperations": 19393,
+      "recoveries": 13,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 13,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 6692907567,
+              "activeReservationBytes": 16521123389,
+              "cacheBytes": 0,
+              "availableBytes": 4273340308
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.321Z",
+      "elapsedMs": 366946.2800000012,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 2,
+      "totalFailures": 14,
+      "completedOperations": 19393,
+      "recoveries": 14,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 2,
+            "totalFailures": 14,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 6534483578,
+              "activeReservationBytes": 16521123389,
+              "cacheBytes": 0,
+              "availableBytes": 4431764297
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.351Z",
+      "elapsedMs": 366979.36999997497,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 3,
+      "totalFailures": 15,
+      "completedOperations": 19393,
+      "recoveries": 15,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 3,
+            "totalFailures": 15,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 6411662558,
+              "activeReservationBytes": 16508540477,
+              "cacheBytes": 0,
+              "availableBytes": 4567168229
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.380Z",
+      "elapsedMs": 367008.3400000036,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 4,
+      "totalFailures": 16,
+      "completedOperations": 19393,
+      "recoveries": 16,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 4,
+            "totalFailures": 16,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 6246660732,
+              "activeReservationBytes": 16508540477,
+              "cacheBytes": 0,
+              "availableBytes": 4732170055
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.410Z",
+      "elapsedMs": 367036.9699999988,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 17,
+      "completedOperations": 19393,
+      "recoveries": 17,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 17,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 6158579992,
+              "activeReservationBytes": 16495957565,
+              "cacheBytes": 0,
+              "availableBytes": 4832833707
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.437Z",
+      "elapsedMs": 367065.375,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 2,
+      "totalFailures": 18,
+      "completedOperations": 19393,
+      "recoveries": 18,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 2,
+            "totalFailures": 18,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 6000852323,
+              "activeReservationBytes": 16495957565,
+              "cacheBytes": 0,
+              "availableBytes": 4990561376
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.464Z",
+      "elapsedMs": 367092.92999997735,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 3,
+      "totalFailures": 19,
+      "completedOperations": 19393,
+      "recoveries": 19,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 3,
+            "totalFailures": 19,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5878031303,
+              "activeReservationBytes": 16483374653,
+              "cacheBytes": 0,
+              "availableBytes": 5125965308
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.497Z",
+      "elapsedMs": 367125.74499997497,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 20,
+      "completedOperations": 19393,
+      "recoveries": 20,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 20,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5494287344,
+              "activeReservationBytes": 16483374653,
+              "cacheBytes": 0,
+              "availableBytes": 5509709267
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.539Z",
+      "elapsedMs": 367166.64999997616,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 2,
+      "totalFailures": 21,
+      "completedOperations": 19393,
+      "recoveries": 21,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 2,
+            "totalFailures": 21,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5091634160,
+              "activeReservationBytes": 16483374653,
+              "cacheBytes": 0,
+              "availableBytes": 5912362451
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.652Z",
+      "elapsedMs": 367280.2150000036,
+      "operation": "patchmatch:wrap",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 1,
+      "completedOperations": 19394,
+      "recoveries": 22,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at wrapOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:27:223)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async evaluate (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:32:40)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:wrap",
+            "phase": "patchmatch:wrap",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5091634160,
+              "activeReservationBytes": 16416003645,
+              "cacheBytes": 0,
+              "availableBytes": 5979733459
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at wrapOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:27:223)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async evaluate (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:32:40)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:28.748Z",
+      "elapsedMs": 367373.9549999833,
+      "operation": "patchmatch:wrap",
+      "attempt": 1,
+      "consecutiveFailures": 2,
+      "totalFailures": 2,
+      "completedOperations": 19394,
+      "recoveries": 23,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at wrapOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:27:223)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async evaluate (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:32:40)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:wrap",
+            "phase": "patchmatch:wrap",
+            "consecutiveFailures": 2,
+            "totalFailures": 2,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5091634160,
+              "activeReservationBytes": 16348632637,
+              "cacheBytes": 0,
+              "availableBytes": 6047104467
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at wrapOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:27:223)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async evaluate (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:32:40)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:57.532Z",
+      "elapsedMs": 396160.8299999833,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 1,
+      "completedOperations": 21381,
+      "recoveries": 24,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5091634160,
+              "activeReservationBytes": 16168392253,
+              "cacheBytes": 0,
+              "availableBytes": 6227344851
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:57.556Z",
+      "elapsedMs": 396185.0449999869,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 2,
+      "totalFailures": 2,
+      "completedOperations": 21381,
+      "recoveries": 25,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 2,
+            "totalFailures": 2,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5091634160,
+              "activeReservationBytes": 16101021245,
+              "cacheBytes": 0,
+              "availableBytes": 6294715859
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:57.584Z",
+      "elapsedMs": 396212.6699999869,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 3,
+      "totalFailures": 3,
+      "completedOperations": 21381,
+      "recoveries": 26,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 3,
+            "totalFailures": 3,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5091634160,
+              "activeReservationBytes": 16033650237,
+              "cacheBytes": 0,
+              "availableBytes": 6362086867
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:18:57.607Z",
+      "elapsedMs": 396235.6999999881,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 4,
+      "totalFailures": 4,
+      "completedOperations": 21381,
+      "recoveries": 27,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 4,
+            "totalFailures": 4,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 5091634160,
+              "activeReservationBytes": 15966279229,
+              "cacheBytes": 0,
+              "availableBytes": 6429457875
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:19:25.669Z",
+      "elapsedMs": 424295.3549999893,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 1,
+      "totalFailures": 1,
+      "completedOperations": 23369,
+      "recoveries": 28,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 1,
+            "totalFailures": 1,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10459006576,
+              "activeReservationBytes": 13891273261,
+              "cacheBytes": 0,
+              "availableBytes": 3137091427
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:19:25.698Z",
+      "elapsedMs": 424327.5349999964,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 2,
+      "totalFailures": 2,
+      "completedOperations": 23369,
+      "recoveries": 29,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 2,
+            "totalFailures": 2,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10459006576,
+              "activeReservationBytes": 13798290925,
+              "cacheBytes": 0,
+              "availableBytes": 3230073763
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:19:25.783Z",
+      "elapsedMs": 424412.3249999881,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 3,
+      "totalFailures": 3,
+      "completedOperations": 23369,
+      "recoveries": 30,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 3,
+            "totalFailures": 3,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10459006576,
+              "activeReservationBytes": 13705308589,
+              "cacheBytes": 0,
+              "availableBytes": 3323056099
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    },
+    {
+      "at": "2026-10-03T04:19:25.829Z",
+      "elapsedMs": 424458.62999999523,
+      "operation": "patchmatch:propagate-zm",
+      "attempt": 1,
+      "consecutiveFailures": 4,
+      "totalFailures": 4,
+      "completedOperations": 23369,
+      "recoveries": 31,
+      "error": {
+        "code": "MEMORY_ALLOCATION",
+        "name": "EngineError",
+        "message": "Array buffer allocation failed",
+        "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26",
+        "details": {
+          "recovery": {
+            "operation": "patchmatch:propagate-zm",
+            "phase": "patchmatch:propagate-zm",
+            "consecutiveFailures": 4,
+            "totalFailures": 4,
+            "loopDetected": false,
+            "memory": {
+              "budgetBytes": 27487371264,
+              "retainedBytes": 10459006576,
+              "activeReservationBytes": 13634934989,
+              "cacheBytes": 0,
+              "availableBytes": 3393429699
+            }
+          }
+        },
+        "cause": {
+          "code": "INTERNAL",
+          "name": "RangeError",
+          "message": "Array buffer allocation failed",
+          "stack": "RangeError: Array buffer allocation failed\n    at new ArrayBuffer (<anonymous>)\n    at new Float32Array (<anonymous>)\n    at Object.allocate (http://127.0.0.1:54541/experiments/d2prl/candidates.js:6:94)\n    at propagateOffsets (http://127.0.0.1:54541/experiments/d2prl/candidates.js:35:102)\n    at async attempt (http://127.0.0.1:54541/experiments/d2prl/recovery.js:13:44)\n    at async runWithResourceRecovery (http://127.0.0.1:54541/src/resource-recovery.js:66:38)\n    at async operation (http://127.0.0.1:54541/experiments/d2prl/recovery.js:14:16)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/patchmatch.js:40:36)\n    at async Object.run (http://127.0.0.1:54541/experiments/d2prl/model.js:76:16)\n    at async http://127.0.0.1:54541/experiments/d2prl/analysis.js:72:26"
+        }
+      }
+    }
+  ],
+  "terminalStreakDurationMs": 188.0300000011921,
+  "archiveBytes": 0,
+  "evidence": [
+    {
+      "file": "status.json",
+      "bytes": 4980,
+      "sha256": "bac2c23a271a311ec4a38d69d2ab60cd0aa70d7e38c72cf4d9642b64ca6b3eac"
+    },
+    {
+      "file": "progress.jsonl",
+      "bytes": 891162,
+      "sha256": "247365ecd93978d324117ba98a0783c9bc534638bd49c63ec03f6c44df33b125"
+    },
+    {
+      "file": "job.json",
+      "bytes": 379,
+      "sha256": "a7859bd55b9863ca0882f1e5c9dd60cc4a90a2e953f543f269e6ad1f45d8f7bb"
+    },
+    {
+      "file": "incomplete.json",
+      "bytes": 5008,
+      "sha256": "93b546f8c2c7117cfbe735dcdfa96a0d2617c5dac116a5f849eaadb13021e333"
+    },
+    {
+      "file": "binding.json",
+      "bytes": 1664,
+      "sha256": "4aa535eebe68bb27a5d3b45ba31040449970a3c874690aa1ffc31be01f0b26dc"
+    }
+  ]
+}

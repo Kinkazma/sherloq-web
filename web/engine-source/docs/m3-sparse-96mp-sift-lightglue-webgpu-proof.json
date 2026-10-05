@@ -1,0 +1,248 @@
+{
+  "browser": "154.0.8037.58",
+  "algorithm": "SIFT + LightGlue",
+  "backend": "webgpu",
+  "source": {
+    "file": "m3-96mp-noise-copy.jpg",
+    "width": 12000,
+    "height": 8000,
+    "description": "Public deterministic full-resolution RGB noise (seed130014); entire6000x8000 left half copied at dx6000 before JPEG90 encoding.",
+    "sha256": "26b0892c49a53583fe01b15bc2407844a216f00bc14dd4a6faebbe9467c65c36",
+    "bytes": 80426021
+  },
+  "loadMs": 5015.9000000059605,
+  "totalMs": 221306.60000000894,
+  "points": 6000,
+  "pairs": 1714,
+  "groups": 1,
+  "metadata": {
+    "extraction": {
+      "provider": "webgpu",
+      "family": "SIFT-LightGlue",
+      "opencv": "4.11.0",
+      "inputLayout": "global-octave-bases",
+      "featurePolicy": "global",
+      "reflectedPixels": false,
+      "preflightExecutions": 0,
+      "jobs": [
+        {
+          "sourceRows": 8000,
+          "sourceReads": 125,
+          "globalCandidates": 481293,
+          "continuationSeeds": 121,
+          "continuationWindows": 121,
+          "octaveBases": [
+            {
+              "width": 24000,
+              "height": 16000,
+              "bytes": 1536000000,
+              "storage": "memory"
+            },
+            {
+              "width": 12000,
+              "height": 8000,
+              "bytes": 384000000,
+              "storage": "memory"
+            },
+            {
+              "width": 6000,
+              "height": 4000,
+              "bytes": 96000000,
+              "storage": "memory"
+            },
+            {
+              "width": 3000,
+              "height": 2000,
+              "bytes": 24000000,
+              "storage": "memory"
+            },
+            {
+              "width": 1500,
+              "height": 1000,
+              "bytes": 6000000,
+              "storage": "memory"
+            },
+            {
+              "width": 750,
+              "height": 500,
+              "bytes": 1500000,
+              "storage": "memory"
+            },
+            {
+              "width": 375,
+              "height": 250,
+              "bytes": 375000,
+              "storage": "memory"
+            },
+            {
+              "width": 187,
+              "height": 125,
+              "bytes": 93500,
+              "storage": "memory"
+            },
+            {
+              "width": 93,
+              "height": 62,
+              "bytes": 23064,
+              "storage": "memory"
+            },
+            {
+              "width": 46,
+              "height": 31,
+              "bytes": 5704,
+              "storage": "memory"
+            },
+            {
+              "width": 23,
+              "height": 15,
+              "bytes": 1380,
+              "storage": "memory"
+            },
+            {
+              "width": 11,
+              "height": 7,
+              "bytes": 308,
+              "storage": "memory"
+            },
+            {
+              "width": 5,
+              "height": 3,
+              "bytes": 60,
+              "storage": "memory"
+            }
+          ],
+          "preflightExecutions": 0,
+          "grayScale": 1,
+          "coreSize": 1024,
+          "supportHalo": 128,
+          "workers": 2,
+          "peakHeapBytes": 139460608,
+          "executions": 1410,
+          "retries": 0,
+          "stages": [
+            {
+              "executions": 1025,
+              "retries": 0,
+              "peakHeapBytes": 109248512,
+              "workers": 2,
+              "failures": [],
+              "gaussianProvider": "webgpu"
+            },
+            {
+              "executions": 1,
+              "retries": 0,
+              "peakHeapBytes": 139460608,
+              "workers": 1,
+              "failures": [],
+              "gaussianProvider": "cpu"
+            },
+            {
+              "executions": 384,
+              "retries": 0,
+              "peakHeapBytes": 105119744,
+              "workers": 2,
+              "failures": [],
+              "gaussianProvider": "webgpu"
+            }
+          ]
+        }
+      ],
+      "workers": 2,
+      "peakWorkerHeapBytes": 139460608,
+      "executions": 1410,
+      "retries": 0,
+      "qualification": "qualified native arithmetic with global paged dependencies"
+    },
+    "matching": {
+      "kind": "sift",
+      "runs": [
+        {
+          "provider": "webgpu",
+          "execution": "native-layers-global-csr-row-pages",
+          "actualHeapBytes": 50921472,
+          "attentionHeapBytes": 16777216,
+          "maximumHeapBytes": 536870912,
+          "threads": 1,
+          "totalMs": 69688.70000000298,
+          "maximumConfidence": 0.9837009310722351,
+          "above": {
+            "point1": 4925,
+            "point3": 4494,
+            "point7": 3428,
+            "point9": 1896
+          },
+          "attentionPages": 846,
+          "assignmentPages": 550,
+          "maximumPageEdges": 767872,
+          "preflightExecutions": 0,
+          "zone": 0,
+          "candidates": 35993944,
+          "gpuEstimatedBytes": 536870912
+        }
+      ],
+      "failures": [],
+      "preflightExecutions": 0
+    },
+    "stageCache": {
+      "features": false,
+      "matches": false,
+      "groups": false
+    },
+    "counts": {
+      "detections": 1,
+      "matchings": 1,
+      "groupings": 1,
+      "ocr": 0
+    },
+    "preflightExecutions": 0,
+    "coordinates": "original-pixel-centres",
+    "colorOrder": "BGR",
+    "qualification": "native-arithmetic-differences-unresolved",
+    "method": "sparse"
+  },
+  "params": {
+    "algorithm": "SIFT + LightGlue",
+    "reflections": false,
+    "radius": 20000,
+    "minimum": 5,
+    "threshold": 0.3,
+    "tolerance": 600,
+    "geometricMinimum": 4
+  },
+  "exports": [
+    {
+      "format": "npz",
+      "bytes": 3271460
+    },
+    {
+      "format": "png",
+      "bytes": 207165130,
+      "sha256": "29ec4b5edfa13a149f03d6efdd3c6484bcf05ab7ea7aebfe8ff8cba649268d8e",
+      "metrics": {
+        "storage": "memory",
+        "temporaryBackend": null,
+        "outputCapacityBytes": 289197244,
+        "encodedWriteCalls": 791,
+        "maxSourceWindowBytes": 1152000,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 16777216,
+        "memory": {
+          "budgetBytes": 6442450944,
+          "retainedBytes": 865197842,
+          "cacheBytes": 49098920,
+          "activeReservationBytes": 122159104,
+          "peakAccountedBytes": 4968228218
+        }
+      }
+    }
+  ],
+  "output": "sift-lightglue",
+  "finalMemory": {
+    "budgetBytes": 6442450944,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 4968228218,
+    "knownHeapCapacityBytes": 96731136
+  }
+}

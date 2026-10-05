@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "dimensions": [
+    4103,
+    5401
+  ],
+  "grid": [
+    135,
+    102
+  ],
+  "maximumContentError": 0,
+  "metrics": {
+    "workers": 1,
+    "kernel": "ela-native-cells-segmented",
+    "cellRecompressions": 3,
+    "ghostPhasesComputed": 0,
+    "cache": {
+      "result": false,
+      "stages": {
+        "cells/40/75": false,
+        "cell-plane/40/70": false,
+        "cell-plane/40/75": false,
+        "cell-plane/40/80": false,
+        "cell-background/40/75": false
+      }
+    },
+    "totalMs": 42572.39999999851,
+    "memory": {
+      "budgetBytes": 536870912,
+      "retainedBytes": 333337357,
+      "cacheBytes": 10792230,
+      "activeReservationBytes": 0,
+      "peakAccountedBytes": 483467196
+    }
+  },
+  "thresholdRecompressions": 0,
+  "npzBytes": 4282028,
+  "ownedCache": true,
+  "cancellation": "storage-closed-before-worker-termination",
+  "recoveryNative": true,
+  "storageCleanup": true,
+  "browser": "154.0.8037.58"
+}

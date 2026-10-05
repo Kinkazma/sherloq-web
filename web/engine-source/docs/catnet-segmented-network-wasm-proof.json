@@ -1,0 +1,79 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "metadata": {
+        "source_shape": [
+          64,
+          96
+        ],
+        "padded_shape": [
+          64,
+          96
+        ],
+        "orientation": 1
+      },
+      "outputs": {
+        "native_map": {
+          "values": 384,
+          "maxError": 1.8998980522155762e-7,
+          "differences": 344,
+          "meanAbsoluteError": 2.8160381286094587e-8,
+          "thresholdChanges": 0
+        },
+        "padded_map": {
+          "values": 6144,
+          "maxError": 1.601874828338623e-7,
+          "differences": 5799,
+          "meanAbsoluteError": 2.3601539093457784e-8,
+          "thresholdChanges": 0
+        }
+      },
+      "ms": 32288,
+      "operations": 1383
+    },
+    {
+      "case": 1,
+      "metadata": {
+        "source_shape": [
+          97,
+          131
+        ],
+        "padded_shape": [
+          104,
+          136
+        ],
+        "orientation": 1
+      },
+      "outputs": {
+        "native_map": {
+          "values": 884,
+          "maxError": 2.8405338525772095e-8,
+          "differences": 760,
+          "meanAbsoluteError": 5.862380618153654e-9,
+          "thresholdChanges": 0
+        },
+        "padded_map": {
+          "values": 14144,
+          "maxError": 2.7939677238464355e-8,
+          "differences": 13651,
+          "meanAbsoluteError": 4.985282035350665e-9,
+          "thresholdChanges": 0
+        }
+      },
+      "ms": 47168.09999999404,
+      "operations": 2324
+    }
+  ],
+  "memory": {
+    "budgetBytes": 3221225472,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 3220904448
+  },
+  "scope": "Complete native RGB/DCT HRNet, forced row boundaries, all interbranch global bilinear resizes, native softmax map and full padded map. Native preprocessed input; source JPEG and 96 MP are separate qualifications.",
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

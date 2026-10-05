@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "cases": 4,
+  "pngCorpusCases": 34,
+  "tiffCorpusCases": 50,
+  "largeTiffBytes": 33561071,
+  "largeTiffReadBytes": 408,
+  "largeTiffMaxReadBytes": 348,
+  "largePngBytes": 33555779,
+  "largePngReadBytes": 1343,
+  "largePngMaxReadBytes": 1278,
+  "memoryBudgetBytes": 8388608,
+  "pixelDecode": false,
+  "sourceRegistration": false,
+  "codecWasmRequests": [],
+  "browser": "154.0.8037.58"
+}

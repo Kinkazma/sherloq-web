@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "numpy": "1.26.4",
+  "arrays": 6,
+  "pickle": false,
+  "distributionOrder": "BGR",
+  "indices": "int64",
+  "bytes": 285436,
+  "sha256": "e7153d76912b5ad20c42da12b835cae6a61cae8b8da086648a66b7ed4add9022"
+}

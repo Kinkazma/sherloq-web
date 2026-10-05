@@ -1,0 +1,28 @@
+[
+  {
+    "name": "shape-10",
+    "width": 515,
+    "height": 513,
+    "offset": 61,
+    "sha256": "56f0de565bd2dffcaa52b5ad6ae0d1f6d16a4fda4df5cd797ff2c664b865b05c",
+    "nativeSha256": "56f0de565bd2dffcaa52b5ad6ae0d1f6d16a4fda4df5cd797ff2c664b865b05c",
+    "nativeExact": true,
+    "maximum": 0,
+    "mean": 0,
+    "lo": -2.0739917755126953,
+    "hi": 2.938692808151245,
+    "heapBytes": 8388608,
+    "paged": true,
+    "metrics": {
+      "workspaceBytes": 24472768,
+      "reads": 46851,
+      "writes": 23003,
+      "readBytes": 171266784,
+      "writeBytes": 81904816,
+      "temporaryPeakBytes": 17700552,
+      "heapBytes": 8388608,
+      "preflightExecutions": 0
+    },
+    "milliseconds": 6530.331125
+  }
+]

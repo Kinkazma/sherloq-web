@@ -1,0 +1,202 @@
+TAP version 13
+# Subtest: recovery tokens are concurrent, reentrant, idempotent, and leave the policy budget unchanged
+ok 1 - recovery tokens are concurrent, reentrant, idempotent, and leave the policy budget unchanged
+  ---
+  duration_ms: 3.544584
+  type: 'test'
+  ...
+# Subtest: a cancelled asynchronous reclaim releases its recovery token in finally
+ok 2 - a cancelled asynchronous reclaim releases its recovery token in finally
+  ---
+  duration_ms: 0.676459
+  type: 'test'
+  ...
+# Subtest: shared pages remain readable while concurrent recovery protects reclaimed RAM for a useful retry
+ok 3 - shared pages remain readable while concurrent recovery protects reclaimed RAM for a useful retry
+  ---
+  duration_ms: 29.980625
+  type: 'test'
+  ...
+# Subtest: new optional cache metadata is deferred during recovery and a later reader can connect
+ok 4 - new optional cache metadata is deferred during recovery and a later reader can connect
+  ---
+  duration_ms: 0.699334
+  type: 'test'
+  ...
+# Subtest: persistent workers grow their active concurrency when another detector returns CPUs
+ok 5 - persistent workers grow their active concurrency when another detector returns CPUs
+  ---
+  duration_ms: 10.340041
+  type: 'test'
+  ...
+# Subtest: idle native instances release real ownership under memory pressure and are recreated only for real work
+ok 6 - idle native instances release real ownership under memory pressure and are recreated only for real work
+  ---
+  duration_ms: 2.014583
+  type: 'test'
+  ...
+# Subtest: preparation and output writes do not retain CPU admission
+ok 7 - preparation and output writes do not retain CPU admission
+  ---
+  duration_ms: 0.459
+  type: 'test'
+  ...
+# Subtest: disposing while CPU admission is queued does not start a late worker job
+ok 8 - disposing while CPU admission is queued does not start a late worker job
+  ---
+  duration_ms: 0.775667
+  type: 'test'
+  ...
+# Subtest: reservation split preserves ownership after its originating execution ends
+ok 9 - reservation split preserves ownership after its originating execution ends
+  ---
+  duration_ms: 0.116875
+  type: 'test'
+  ...
+# Subtest: tight memory reuses one native worker instead of repeatedly evicting it for queued lanes
+ok 10 - tight memory reuses one native worker instead of repeatedly evicting it for queued lanes
+  ---
+  duration_ms: 1.350583
+  type: 'test'
+  ...
+# Subtest: released peer memory starts additional useful lanes during the same preparation
+ok 11 - released peer memory starts additional useful lanes during the same preparation
+  ---
+  duration_ms: 2.421958
+  type: 'test'
+  ...
+# Subtest: multiple failed tile computations reprepare detached inputs without repeating completed tiles
+ok 12 - multiple failed tile computations reprepare detached inputs without repeating completed tiles
+  ---
+  duration_ms: 79.71875
+  type: 'test'
+  ...
+# Subtest: idempotent partial publication retains its result and never repeats preparation or computation
+ok 13 - idempotent partial publication retains its result and never repeats preparation or computation
+  ---
+  duration_ms: 156.018375
+  type: 'test'
+  ...
+# Subtest: failed source preparation retries only its tile and keeps the healthy worker
+ok 14 - failed source preparation retries only its tile and keeps the healthy worker
+  ---
+  duration_ms: 79.913708
+  type: 'test'
+  ...
+# Subtest: a consumer without an idempotent contract is never replayed
+ok 15 - a consumer without an idempotent contract is never replayed
+  ---
+  duration_ms: 0.634
+  type: 'test'
+  ...
+# Subtest: five comparable failures of one tile stop without resetting the guard after repeated preparation
+ok 16 - five comparable failures of one tile stop without resetting the guard after repeated preparation
+  ---
+  duration_ms: 256.261375
+  type: 'test'
+  ...
+# Subtest: cancellation during local recovery releases its input scope, worker and pressure token
+ok 17 - cancellation during local recovery releases its input scope, worker and pressure token
+  ---
+  duration_ms: 0.951334
+  type: 'test'
+  ...
+# Subtest: allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+ok 18 - allocator failures normalize without treating invalid arguments or coding errors as memory pressure
+  ---
+  duration_ms: 1.81275
+  type: 'test'
+  ...
+# Subtest: normalization and wire errors preserve original stack, nested cause and details
+ok 19 - normalization and wire errors preserve original stack, nested cause and details
+  ---
+  duration_ms: 1.174875
+  type: 'test'
+  ...
+# Subtest: five failures with small memory jitter form one obstruction
+ok 20 - five failures with small memory jitter form one obstruction
+  ---
+  duration_ms: 0.426
+  type: 'test'
+  ...
+# Subtest: distinct recoveries have no lifetime limit and committed progress resets the streak
+ok 21 - distinct recoveries have no lifetime limit and committed progress resets the streak
+  ---
+  duration_ms: 1.016708
+  type: 'test'
+  ...
+# Subtest: replayed checkpoints and attempt numbers cannot reset the high-water mark
+ok 22 - replayed checkpoints and attempt numbers cannot reset the high-water mark
+  ---
+  duration_ms: 0.183584
+  type: 'test'
+  ...
+# Subtest: different useful operations and substantially different capacity start a new streak
+ok 23 - different useful operations and substantially different capacity start a new streak
+  ---
+  duration_ms: 0.21025
+  type: 'test'
+  ...
+# Subtest: recovery pressure protects reclaim through the successful useful retry and is released once
+ok 24 - recovery pressure protects reclaim through the successful useful retry and is released once
+  ---
+  duration_ms: 0.226792
+  type: 'test'
+  ...
+# Subtest: terminal unrelated errors and cancellation release recovery pressure without another operation
+ok 25 - terminal unrelated errors and cancellation release recovery pressure without another operation
+  ---
+  duration_ms: 0.48475
+  type: 'test'
+  ...
+# Subtest: five stable failures yield between retries and stop without an outer restart
+ok 26 - five stable failures yield between retries and stop without an outer restart
+  ---
+  duration_ms: 4.70725
+  type: 'test'
+  ...
+# Subtest: generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+ok 27 - generic engine wrappers normalize only explicit allocator evidence and retain exhausted local guards
+  ---
+  duration_ms: 0.504917
+  type: 'test'
+  ...
+# Subtest: public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+ok 28 - public recovery events are plain cloneable diagnostics without AbortSignal or Error instances
+  ---
+  duration_ms: 0.274208
+  type: 'test'
+  ...
+# Subtest: a successful owned result survives a cancellation race for caller cleanup
+ok 29 - a successful owned result survives a cancellation race for caller cleanup
+  ---
+  duration_ms: 0.088791
+  type: 'test'
+  ...
+# Subtest: allocator failures in reclaim share the suspended operation guard and keep pressure held
+ok 30 - allocator failures in reclaim share the suspended operation guard and keep pressure held
+  ---
+  duration_ms: 0.353458
+  type: 'test'
+  ...
+# Subtest: storage failures during reclaim remain terminal without replaying useful work
+ok 31 - storage failures during reclaim remain terminal without replaying useful work
+  ---
+  duration_ms: 0.11875
+  type: 'test'
+  ...
+# Subtest: alternating startup and compute phases cannot hide the same stalled operation
+ok 32 - alternating startup and compute phases cannot hide the same stalled operation
+  ---
+  duration_ms: 0.157625
+  type: 'test'
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 685.47125

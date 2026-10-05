@@ -1,0 +1,52 @@
+{
+  "records": [
+    {
+      "blot": false,
+      "transform": "original",
+      "affineMaxError": 7.105427357601002e-15,
+      "inliers": 27,
+      "nativeInliers": 27,
+      "score": 0.8474193215370178,
+      "nativeScore": 0.8474193215370178
+    },
+    {
+      "blot": false,
+      "transform": "fliplr",
+      "affineMaxError": 1.7763568394002505e-15,
+      "inliers": 27,
+      "nativeInliers": 27,
+      "score": 0.8474193215370178,
+      "nativeScore": 0.8474193215370178
+    },
+    {
+      "blot": false,
+      "transform": "flipud",
+      "affineMaxError": 1.7763568394002505e-15,
+      "inliers": 27,
+      "nativeInliers": 27,
+      "score": 0.8474193215370178,
+      "nativeScore": 0.8474193215370178
+    },
+    {
+      "blot": false,
+      "transform": "rot180",
+      "affineMaxError": 1.7763568394002505e-15,
+      "inliers": 27,
+      "nativeInliers": 27,
+      "score": 0.8474193215370178,
+      "nativeScore": 0.8474193215370178
+    },
+    {
+      "blot": true,
+      "transform": "original",
+      "affineMaxError": 0.000024382126809996407,
+      "inliers": 27,
+      "nativeInliers": 27,
+      "score": 0.8474193215370178,
+      "nativeScore": 0.8474193215370178
+    }
+  ],
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

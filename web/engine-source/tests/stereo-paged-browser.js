@@ -1,0 +1,18 @@
+import {createWorkerEngine} from '../src/worker-client.js';import {createSHA256} from '../vendor/hash-wasm/hashes.js';import {storageInventory} from './source-api-browser.js';
+const assert=(v,m)=>{if(!v)throw Error(m);};
+export async function stereoPagedBrowserTest(){
+ const ref=await(await fetch('/.build/stereo-stream/reference.json')).json(),blob=await(await fetch('/.build/stereo-stream/input.jpg')).blob(),flat=await(await fetch('/.build/stereo-stream/flat.jpg')).blob(),before=await storageInventory(),cases=[];
+ for(const limit of [64]){console.log('Stereo budget',limit);const engine=createWorkerEngine({memoryBudgetBytes:limit*1024**2,resourceHints:{hardwareConcurrency:4}});
+  try{const loaded=await engine.loadBlob({id:'source',blob,layout:'segmented'});assert(loaded.availableOperations.includes('various.stereogram'),'stereo capability');
+   for(let mode=0;mode<4;mode++){
+    const r=await engine.run({id:'s'+mode,imageId:'source',operation:'various.stereogram',params:{mode}});assert(r.data.offset===ref.offset,'period');assert(JSON.stringify(Array.from(r.data.differences))===JSON.stringify(ref.differences),'global search');assert(r.layers[0].coordinateSpace==='cropped-stereo-pair','paired coordinates');const sha=await createSHA256();for(let y=0;y<ref.height;y+=32){const page=await engine.readPixels({surfaceId:r.surface.id,revision:1,rect:{x:0,y,width:r.surface.width,height:Math.min(32,ref.height-y)}});sha.update(page.pixels.data);}assert(sha.digest('hex')===ref.views[mode],'native render '+mode);
+    if(mode===2){assert(r.metrics.flowPaged,'external Farneback fallback expected');const flow=await createSHA256();for(let at=0;at<r.tables.flow.rowCount;at+=65536){const page=await engine.readTable({tableId:r.tables.flow.id,revision:1,offset:at,length:65536});flow.update(Float32Array.from({length:page.length},(_,i)=>page.data[i*3+2]));}assert(flow.digest('hex')===ref.flowSha256,'native full Farneback SHA');}
+    cases.push({limitMiB:limit,mode,sha256:ref.views[mode],metrics:r.metrics});await engine.releaseSurface(r.surface.id);if(r.tables)await engine.releaseTable(r.tables.flow.id);
+   }
+   const cached=await engine.run({id:'cached',imageId:'source',operation:'various.stereogram',params:{mode:0}});assert(cached.metrics.searchCached&&cached.metrics.patternCached&&cached.metrics.viewCached,'analysis/view cache');await engine.releaseSurface(cached.surface.id);await engine.unload('source');
+   await engine.loadBlob({id:'flat',blob:flat,layout:'segmented'});const absent=await engine.run({id:'none',imageId:'flat',operation:'various.stereogram',params:{mode:3}});assert(!absent.data.detected&&!absent.surface&&absent.layout==='none','no invented output for absent period');await engine.unload('flat');
+   if(limit===160){await engine.loadBlob({id:'cancel-source',blob,layout:'segmented'});const controller=new AbortController();await engine.run({id:'cancel',imageId:'cancel-source',operation:'various.stereogram',params:{mode:2}},{signal:controller.signal,onProgress:p=>{if(p.phase==='stereo-flow'&&p.completed===0)controller.abort();}}).then(()=>{throw Error('cancel expected');},e=>assert(e.code==='CANCELLED'&&e.imagesCleared,'global flow worker cancellation'));await engine.loadBlob({id:'recovery',blob:flat,layout:'segmented'});await engine.unload('recovery');}
+  }finally{await engine.dispose();}
+ }
+ const after=await storageInventory();assert(JSON.stringify(before)===JSON.stringify(after),'temporary cleanup');return {status:'passed',dimensions:[ref.width,ref.height],flowSha256:ref.flowSha256,cases,storageArtifactsRemaining:after.length-before.length};
+}

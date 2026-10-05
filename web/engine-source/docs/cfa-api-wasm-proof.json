@@ -1,0 +1,25 @@
+{
+  "case": "noise",
+  "cacheIsolated": true,
+  "cancelled": true,
+  "localDifferences": 0,
+  "maxSuspicionError": 0,
+  "renderBytes": 22464,
+  "npzBytes": 4334,
+  "events": [
+    "model-load",
+    "inference",
+    "cfa-tiles"
+  ],
+  "memory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 105343836
+  },
+  "scope": "Actual CPU component lifecycle; full decision qualification is separately reported.",
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "CPU/WASM"
+}

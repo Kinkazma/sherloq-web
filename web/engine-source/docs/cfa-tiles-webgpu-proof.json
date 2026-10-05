@@ -1,0 +1,284 @@
+{
+  "records": [
+    {
+      "variant": "Original",
+      "block": 8,
+      "tile": 64,
+      "best": 2,
+      "nativeBest": 2,
+      "errors": {
+        "probabilities": {
+          "max": 1.1920928955078125e-7,
+          "differences": 31,
+          "values": 1920
+        },
+        "grids": {
+          "max": 2.9802322387695312e-8,
+          "differences": 8,
+          "values": 480
+        },
+        "local_grid": {
+          "max": 0,
+          "differences": 0,
+          "values": 120
+        },
+        "suspicion": {
+          "max": 0,
+          "differences": 0,
+          "values": 120
+        }
+      },
+      "tiles": 4
+    },
+    {
+      "variant": "Original",
+      "block": 16,
+      "tile": 32,
+      "best": 2,
+      "nativeBest": 2,
+      "errors": {
+        "probabilities": {
+          "max": 2.2304380564719395e-13,
+          "differences": 6,
+          "values": 480
+        },
+        "grids": {
+          "max": 3.449118161219511e-18,
+          "differences": 2,
+          "values": 120
+        },
+        "local_grid": {
+          "max": 0,
+          "differences": 0,
+          "values": 30
+        },
+        "suspicion": {
+          "max": 0,
+          "differences": 0,
+          "values": 30
+        }
+      },
+      "tiles": 9
+    },
+    {
+      "variant": "Original",
+      "block": 64,
+      "tile": 512,
+      "best": 2,
+      "nativeBest": 2,
+      "errors": {
+        "probabilities": {
+          "max": 0,
+          "differences": 0,
+          "values": 16
+        },
+        "grids": {
+          "max": 0,
+          "differences": 0,
+          "values": 4
+        },
+        "local_grid": {
+          "max": 0,
+          "differences": 0,
+          "values": 1
+        },
+        "suspicion": {
+          "max": 0,
+          "differences": 0,
+          "values": 1
+        }
+      },
+      "tiles": 1
+    },
+    {
+      "variant": "JPEG 95",
+      "block": 8,
+      "tile": 64,
+      "best": 2,
+      "nativeBest": 2,
+      "errors": {
+        "probabilities": {
+          "max": 0.00001379847526550293,
+          "differences": 841,
+          "values": 1920
+        },
+        "grids": {
+          "max": 0.0000034570693969726562,
+          "differences": 229,
+          "values": 480
+        },
+        "local_grid": {
+          "max": 0,
+          "differences": 0,
+          "values": 120
+        },
+        "suspicion": {
+          "max": 0.0000034570693969726562,
+          "differences": 25,
+          "values": 120
+        }
+      },
+      "tiles": 4
+    },
+    {
+      "variant": "JPEG 95",
+      "block": 16,
+      "tile": 32,
+      "best": 3,
+      "nativeBest": 3,
+      "errors": {
+        "probabilities": {
+          "max": 0.0000059604644775390625,
+          "differences": 62,
+          "values": 480
+        },
+        "grids": {
+          "max": 0.0000014901161193847656,
+          "differences": 19,
+          "values": 120
+        },
+        "local_grid": {
+          "max": 0,
+          "differences": 0,
+          "values": 30
+        },
+        "suspicion": {
+          "max": 5.960464477539063e-8,
+          "differences": 1,
+          "values": 30
+        }
+      },
+      "tiles": 9
+    },
+    {
+      "variant": "JPEG 95",
+      "block": 64,
+      "tile": 512,
+      "best": 0,
+      "nativeBest": 0,
+      "errors": {
+        "probabilities": {
+          "max": 5.960464477539063e-8,
+          "differences": 1,
+          "values": 16
+        },
+        "grids": {
+          "max": 0,
+          "differences": 0,
+          "values": 4
+        },
+        "local_grid": {
+          "max": 0,
+          "differences": 0,
+          "values": 1
+        },
+        "suspicion": {
+          "max": 0,
+          "differences": 0,
+          "values": 1
+        }
+      },
+      "tiles": 1
+    },
+    {
+      "variant": "Sans JPEG",
+      "block": 8,
+      "tile": 64,
+      "best": 0,
+      "nativeBest": 0,
+      "errors": {
+        "probabilities": {
+          "max": 0.000004947185516357422,
+          "differences": 916,
+          "values": 1920
+        },
+        "grids": {
+          "max": 0.000001043081283569336,
+          "differences": 236,
+          "values": 480
+        },
+        "local_grid": {
+          "max": 0,
+          "differences": 0,
+          "values": 120
+        },
+        "suspicion": {
+          "max": 0.0000010132789611816406,
+          "differences": 27,
+          "values": 120
+        }
+      },
+      "tiles": 4
+    },
+    {
+      "variant": "Sans JPEG",
+      "block": 16,
+      "tile": 32,
+      "best": 0,
+      "nativeBest": 0,
+      "errors": {
+        "probabilities": {
+          "max": 9.5367431640625e-7,
+          "differences": 64,
+          "values": 480
+        },
+        "grids": {
+          "max": 1.7881393432617188e-7,
+          "differences": 15,
+          "values": 120
+        },
+        "local_grid": {
+          "max": 0,
+          "differences": 0,
+          "values": 30
+        },
+        "suspicion": {
+          "max": 0,
+          "differences": 0,
+          "values": 30
+        }
+      },
+      "tiles": 9
+    },
+    {
+      "variant": "Sans JPEG",
+      "block": 64,
+      "tile": 512,
+      "best": 3,
+      "nativeBest": 3,
+      "errors": {
+        "probabilities": {
+          "max": 4.336808689942018e-19,
+          "differences": 1,
+          "values": 16
+        },
+        "grids": {
+          "max": 0,
+          "differences": 0,
+          "values": 4
+        },
+        "local_grid": {
+          "max": 0,
+          "differences": 0,
+          "values": 1
+        },
+        "suspicion": {
+          "max": 0,
+          "differences": 0,
+          "values": 1
+        }
+      },
+      "tiles": 1
+    }
+  ],
+  "memory": {
+    "budgetBytes": 536870912,
+    "retainedBytes": 0,
+    "cacheBytes": 0,
+    "activeReservationBytes": 0,
+    "peakAccountedBytes": 507754742
+  },
+  "passed": true,
+  "browser": "154.0.8037.58",
+  "executionNote": "WebGPU requested; ORT may assign nodes to CPU. No GPU-only claim."
+}
