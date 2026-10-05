@@ -101,23 +101,6 @@
     }
   },
   {
-    "id": "spiral-d2prl",
-    "input": "examples/spiral/edited.png",
-    "operation": "ai.clones.d2prl",
-    "params": {
-      "minimum": 8
-    }
-  },
-  {
-    "id": "spiral-complete-automatic",
-    "input": "examples/spiral/edited.png",
-    "operation": "analysis.complete",
-    "params": {
-      "maxConcurrent": 1
-    },
-    "view": {}
-  },
-  {
     "id": "street-catnet",
     "input": "examples/street/edited.png",
     "operation": "m2.catnet",

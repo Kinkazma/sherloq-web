@@ -10,7 +10,7 @@ First [restore the locked resource files](BUILD.md). Install the generator depen
 node scripts/generate-worker-examples.mjs
 ```
 
-The job list is [example-worker-jobs.json](../scripts/example-worker-jobs.json). A custom JSON list can be passed as the first argument, relative to `scripts/`. Jobs run sequentially in fresh browser contexts. Each job has a 15-minute timeout and an 8 GiB computational budget; actual physical memory also includes runtime overhead. Sources are served only on loopback. No input image is uploaded.
+The job list is [example-worker-jobs.json](../scripts/example-worker-jobs.json). A custom JSON list can be passed as the first argument, relative to `scripts/`. Jobs run sequentially in fresh browser contexts. The default list contains the successful worker jobs shown in the gallery. Each job has a 15-minute timeout (adjustable with `SHERLOQ_EXAMPLE_TIMEOUT_MS`) and an 8 GiB computational budget; actual physical memory also includes runtime overhead. Sources are served only on loopback. No input image is uploaded.
 
 Node jobs are described in [example-node-jobs.json](../scripts/example-node-jobs.json). Pass one complete job object as a JSON argument to `scripts/generate-node-example.mjs`. The ELA energy overlay uses the application's own `energy-render.js`.
 
