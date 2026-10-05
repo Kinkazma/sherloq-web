@@ -1,0 +1,839 @@
+{
+  "maxPreviewBytes": 500000,
+  "scope": "Lossy WebP presentation previews only. Original images and scientific outputs are unchanged.",
+  "images": [
+    {
+      "source": "examples/spiral/original.png",
+      "preview": "screenshots/readme-webp/examples/spiral/original.webp",
+      "sourceBytes": 3488657,
+      "previewBytes": 405666,
+      "sourceSha256": "8c20ac9ab35b2eb22adb50a8b926392652f3ea9455fe7193aa363586c250767b",
+      "previewSha256": "83c73249a34d7d8afe7ca8d6c02434251af1529bfdb1d5067548756c86c6274c",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 82
+    },
+    {
+      "source": "examples/spiral/edited.png",
+      "preview": "screenshots/readme-webp/examples/spiral/edited.webp",
+      "sourceBytes": 3565615,
+      "previewBytes": 394462,
+      "sourceSha256": "8553df70ebaa7c5dfc2757fc5fa01ef2b2b7d2b8e521489f237f65bc596a664f",
+      "previewSha256": "a6f0a76fceb5911a1ee877cee9b34b67c4b47c64c52fe91de61e64d0be144e29",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 82
+    },
+    {
+      "source": "examples/spiral/edit-reference.png",
+      "preview": "screenshots/readme-webp/examples/spiral/edit-reference.webp",
+      "sourceBytes": 2899310,
+      "previewBytes": 337154,
+      "sourceSha256": "e83682aee9507916870a33542f1034a403bfe7f577ca73eafa2ce0bc307fd9c0",
+      "previewSha256": "e95cefe4955390d97114fd6b7b6ad9ae9174a5f946e5428b27b300a2b8cb3ddb",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/street/original-preview.jpg",
+      "preview": "screenshots/readme-webp/examples/street/original-preview.webp",
+      "sourceBytes": 705661,
+      "previewBytes": 222660,
+      "sourceSha256": "dfc1447ba98047c609770a0f3fae50248d1fb383641216aa0820a71d5c977fa0",
+      "previewSha256": "081914aa70f88ca212427851693d953be3f123d41d10659f19afd5b977f1cfae",
+      "sourceDimensions": [
+        1755,
+        1404
+      ],
+      "previewDimensions": [
+        1755,
+        1404
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/street/edited-preview.png",
+      "preview": "screenshots/readme-webp/examples/street/edited-preview.webp",
+      "sourceBytes": 3865837,
+      "previewBytes": 204972,
+      "sourceSha256": "d94f43fcb07c28ffde6bb27ef818450f3bc03c7e0a53c2b58051151ac4d57242",
+      "previewSha256": "d42808ded7d01e968c268affb486f684cf3264bea840bf68d17fe5cbc7d54577",
+      "sourceDimensions": [
+        1755,
+        1404
+      ],
+      "previewDimensions": [
+        1755,
+        1404
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/street/edit-reference-preview.jpg",
+      "preview": "screenshots/readme-webp/examples/street/edit-reference-preview.webp",
+      "sourceBytes": 96617,
+      "previewBytes": 35704,
+      "sourceSha256": "f364b91442e7cfb81c09042b12732406f5ad568134da83ea69eea3215c39b16e",
+      "previewSha256": "63c5b4338a2b613935cd2af5eef50f619acc322991f5237a5fb5bea46f80f7a9",
+      "sourceDimensions": [
+        1755,
+        1404
+      ],
+      "previewDimensions": [
+        1755,
+        1404
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-patchmatch/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-patchmatch/result.webp",
+      "sourceBytes": 4275657,
+      "previewBytes": 399404,
+      "sourceSha256": "09d502ec16fc54ccec6f2d16d01a7802a8ecdf961122d4c151aaf974e287d121",
+      "previewSha256": "8a236e8a6fa725ae40993b4db490156f3f10c64b5a37fa04146c5e1f04a6b350",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 82
+    },
+    {
+      "source": "examples/results/spiral-sift-g2nn/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-sift-g2nn/result.webp",
+      "sourceBytes": 4273435,
+      "previewBytes": 397528,
+      "sourceSha256": "a7d69e6849674bc5475ba4b2718462ccfa5b1c55874b22f56cb77e265d79e0c5",
+      "previewSha256": "c72ed7956ff2d1241f3334f55e0bb9e354a9dec417d6df8f01d184fb14b67e11",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 82
+    },
+    {
+      "source": "examples/results/spiral-ela-layers/view-1.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-ela-layers/view-1.webp",
+      "sourceBytes": 793251,
+      "previewBytes": 338242,
+      "sourceSha256": "a86c474705b6194efc56ef06b02d478f202452acbc107eef10a942bbff830edc",
+      "previewSha256": "9a0169bf395536b7044f87d507af893dc5912148a006882864cf5a725d46e659",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-ela-layers/view-2.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-ela-layers/view-2.webp",
+      "sourceBytes": 841347,
+      "previewBytes": 354026,
+      "sourceSha256": "e1dbddc4c0be11d0fbdb6f94528ae18b3899988e08f250fad685c6102703b7ec",
+      "previewSha256": "7b0263167038d23dfcbcd18f20d80afc58b3aa8ea5263a13008820deef878cfc",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-ela-energy/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-ela-energy/result.webp",
+      "sourceBytes": 4000141,
+      "previewBytes": 392998,
+      "sourceSha256": "f3ac74699cc284a84b4a1f609f7afedf7ea13f756d4aa50ce8f5fa5cdf2836ea",
+      "previewSha256": "e0859795367035a9d4b38bbeb0829cc516714449073d7ae5954a4554dfc19d0c",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 82
+    },
+    {
+      "source": "examples/results/spiral-noisesniffer/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-noisesniffer/result.webp",
+      "sourceBytes": 4018729,
+      "previewBytes": 495058,
+      "sourceSha256": "1a5634994f5f9e66b12ffac5420f63e37b93ddcf8cda9113a40426a87e3819e5",
+      "previewSha256": "10aec6fe7a81376e445a5b046403cc0946f5b62b06b4626fcb2e29b6df6c9ad7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-noisesniffer/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/street-noisesniffer/preview.webp",
+      "sourceBytes": 1827322,
+      "previewBytes": 122592,
+      "sourceSha256": "98e9c1acc2c141d3005c08ded7b8c6ec76e965a7f63aaad470cab6c05ce77c01",
+      "previewSha256": "22d447f182de4faa84fd68c8a31eb9f4acbc761d14be0c10f56f6f932f0d4b20",
+      "sourceDimensions": [
+        1280,
+        1024
+      ],
+      "previewDimensions": [
+        1280,
+        1024
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-zero/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/street-zero/preview.webp",
+      "sourceBytes": 966066,
+      "previewBytes": 202664,
+      "sourceSha256": "baf58d1669edb734d075ef275fe04481a2177c7671d6583beae95ddf02959b7a",
+      "previewSha256": "f2642a12fe63fb8303424bb84b8d5f315e535ffada26235a3d38f925cc3c0946",
+      "sourceDimensions": [
+        1280,
+        1024
+      ],
+      "previewDimensions": [
+        1280,
+        1024
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-adaptive-cfa/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-adaptive-cfa/result.webp",
+      "sourceBytes": 3738938,
+      "previewBytes": 355374,
+      "sourceSha256": "e357b5d15f1f9d6e083d154c63df02bfb33938fd09f9ceb8c2c409e4fcf96dfe",
+      "previewSha256": "ea8bf4998e9ec911842ca25f71eee38a31428e2e59aa0f2ec34a06aee69eea72",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-adaptive-cfa/view-2.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-adaptive-cfa/view-2.webp",
+      "sourceBytes": 311222,
+      "previewBytes": 61050,
+      "sourceSha256": "95008eecd1f67535a9752a38d4cd0cd7256c1bd191fe9fd12d7d4b92b280ba5f",
+      "previewSha256": "55a6b76485cf853f6ef7657e20dd76f6822863d92aec427073194066e2422b74",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-focal/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-focal/result.webp",
+      "sourceBytes": 3643059,
+      "previewBytes": 303754,
+      "sourceSha256": "03fa702440cafe752e949bfb9fed0b6e84078f6445cc5e917d7aa7ecc4cf1671",
+      "previewSha256": "e504f0fa4a1e7a184580e303262b762f37eed2d072c555e1b5ff673c6c069d05",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-adaifl/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-adaifl/result.webp",
+      "sourceBytes": 3642054,
+      "previewBytes": 304756,
+      "sourceSha256": "b8c8d9161d9bf3425f357129aca6714c5cec99089c4acab771bb00ef676b0220",
+      "previewSha256": "89458c5571b7fff6614619392af18de4f4353651f1d40e9e20322727ef5f4d13",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-safire/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-safire/result.webp",
+      "sourceBytes": 3659179,
+      "previewBytes": 316104,
+      "sourceSha256": "619130f5f6019e4b0adba0fba4715cd2414d95936f312530c9f65e938dcdc69e",
+      "previewSha256": "8400a70099e17045b5801e66adbae37d052ddf3cf954a2253db9710b37ee4634",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-catnet/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/street-catnet/preview.webp",
+      "sourceBytes": 1579841,
+      "previewBytes": 86352,
+      "sourceSha256": "9e7af8c65a6767a5491bcbf58c697f1386964e4e5c2dcae5a050767e3df5a8b0",
+      "previewSha256": "c825045c7fafdb8ef03608d6672bc16e89fa4fdc333f910c5bfdd4903878e586",
+      "sourceDimensions": [
+        1280,
+        1024
+      ],
+      "previewDimensions": [
+        1280,
+        1024
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-catnet/preview-view-1.png",
+      "preview": "screenshots/readme-webp/examples/results/street-catnet/preview-view-1.webp",
+      "sourceBytes": 414575,
+      "previewBytes": 32534,
+      "sourceSha256": "0fc9d18c50166dacbe1d8db22fe165beb2ee13717672517881a4fb6ba70a7b4c",
+      "previewSha256": "da2b9d589392e09f9f3d07b390649a176b02379c589f65336249bb5016afc2b0",
+      "sourceDimensions": [
+        1280,
+        1024
+      ],
+      "previewDimensions": [
+        1280,
+        1024
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-catnet/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-catnet/result.webp",
+      "sourceBytes": 3641363,
+      "previewBytes": 304376,
+      "sourceSha256": "f953cade94ee81a0fe36b23036456d7a721c4fdf449f671ca60c9a6cc85ef9c2",
+      "previewSha256": "f20add2cb8db303373ff5205c33444c92df0d9aceb5c14aae1f0fc3c3b0befb8",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-catnet/view-1.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-catnet/view-1.webp",
+      "sourceBytes": 57056,
+      "previewBytes": 3488,
+      "sourceSha256": "92ac203c67a1e91fa6edc0f88632fca4c06ed813d771d2e1f782aae3a33aabd6",
+      "previewSha256": "c921be21961755767677eda99020704da7144ddaee4d2c3fc8d1da88a684e50e",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-d2prl/overlay.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-d2prl/overlay.webp",
+      "sourceBytes": 3363309,
+      "previewBytes": 396894,
+      "sourceSha256": "05e41689efcb9a08ddae29631546aabc607d11cc6fa87e74a5596b924cf44283",
+      "previewSha256": "cce57cf180327d4ab16394c45cd110cb1ff3e4920d3f9f4111a6111fe93453d3",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 82
+    },
+    {
+      "source": "examples/results/spiral-d2prl/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-d2prl/result.webp",
+      "sourceBytes": 168383,
+      "previewBytes": 16314,
+      "sourceSha256": "553502317e35b0ddde3a4b51e38f28e75f4915f2324dba0fd5a104b1a6d6570f",
+      "previewSha256": "feeb96688d90170ceb8710f368ea2acee9997a2358a454c06bce561add356831",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-complete-automatic/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-complete-automatic/result.webp",
+      "sourceBytes": 4267279,
+      "previewBytes": 398586,
+      "sourceSha256": "75cc13a97ebc4abc8a76de7d1b1f568ea91d47e11f547166efa9b67b40e0e6d2",
+      "previewSha256": "a16c8a82f1f3e0666b8a4a6e99097b39693ef34ff8a3da31082dae4db61f860f",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 82
+    },
+    {
+      "source": "examples/results/street-illuminant/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/street-illuminant/preview.webp",
+      "sourceBytes": 20766,
+      "previewBytes": 17406,
+      "sourceSha256": "ef686558f30ba99f43861c040f3ba896b4f794728d4f4a72d143921ac086b19c",
+      "previewSha256": "8cf1bf61214881f0d22dd42684da89cf72479ea48211e5964a49473f19c4a9ba",
+      "sourceDimensions": [
+        1280,
+        1024
+      ],
+      "previewDimensions": [
+        1280,
+        1024
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-dead-hot-pixels/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/street-dead-hot-pixels/preview.webp",
+      "sourceBytes": 1722778,
+      "previewBytes": 130514,
+      "sourceSha256": "fae224481c353e70de7568012be1e95987ef14e191aa0012b0b3e43909c64c9b",
+      "previewSha256": "bf262fcde1039399b7ee3198d940f8ddb481e620b2743c038a084dc45cb404cf",
+      "sourceDimensions": [
+        1280,
+        1024
+      ],
+      "previewDimensions": [
+        1280,
+        1024
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-dead-hot-pixels/preview-details.png",
+      "preview": "screenshots/readme-webp/examples/results/street-dead-hot-pixels/preview-details.webp",
+      "sourceBytes": 156823,
+      "previewBytes": 59968,
+      "sourceSha256": "dd7e178311cb3f9ba2d7c30cdb413031284e41df5eb6eb82bf3e484fc928ce34",
+      "previewSha256": "be5009930d086ab52e6507b85cf272aa147174ac3c671249e0e40cba92715195",
+      "sourceDimensions": [
+        534,
+        1280
+      ],
+      "previewDimensions": [
+        534,
+        1280
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-sift-g2nn/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/street-sift-g2nn/preview.webp",
+      "sourceBytes": 1893362,
+      "previewBytes": 128658,
+      "sourceSha256": "cd02f43c2100c97230cca9a4379a9a63ba0f7b2391ba18a049ca11a840d33cbc",
+      "previewSha256": "c9d3ae6fe8fffdeea1c4f31d36feddf68e84b96969c97ffbd89d1ff291f00a90",
+      "sourceDimensions": [
+        1280,
+        1024
+      ],
+      "previewDimensions": [
+        1280,
+        1024
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-ela-energy/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/street-ela-energy/preview.webp",
+      "sourceBytes": 1714582,
+      "previewBytes": 128658,
+      "sourceSha256": "43cdf26bf74312ea91e98201de42976052769d5d70f0afcd1d7ee679a81ec7df",
+      "previewSha256": "c9d3ae6fe8fffdeea1c4f31d36feddf68e84b96969c97ffbd89d1ff291f00a90",
+      "sourceDimensions": [
+        1280,
+        1024
+      ],
+      "previewDimensions": [
+        1280,
+        1024
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-zero/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-zero/result.webp",
+      "sourceBytes": 1820331,
+      "previewBytes": 495302,
+      "sourceSha256": "e35196409a8dc730a66e52aac3640604b291b968a728209b3baf263c904d002c",
+      "previewSha256": "5782f7c446f5bc00f5d6cb70a60f296cf8a236e40322f62d37e0a0dfafa430b0",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-recompression/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/street-recompression/preview.webp",
+      "sourceBytes": 92063,
+      "previewBytes": 23068,
+      "sourceSha256": "ea036b30693e5ab822909b28578a02d7e6f21653436cd2162b7584b28223ee7d",
+      "previewSha256": "ed8ee51554aace15968858f1a5bc92637defe2e12b5fd75e99c9b23d6da605be",
+      "sourceDimensions": [
+        1280,
+        744
+      ],
+      "previewDimensions": [
+        1280,
+        744
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/street-multiple-compression/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/street-multiple-compression/preview.webp",
+      "sourceBytes": 85533,
+      "previewBytes": 27622,
+      "sourceSha256": "330aa13eaaefef8682450e2c593eb47027530bc1b6109f50ab352517165b1d3e",
+      "previewSha256": "156c60b05a4dbbd7ceebb31dbcbd976691716e09f7768ab954bb9a7c3251d23f",
+      "sourceDimensions": [
+        1280,
+        744
+      ],
+      "previewDimensions": [
+        1280,
+        744
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-trufor/result.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-trufor/result.webp",
+      "sourceBytes": 716287,
+      "previewBytes": 49640,
+      "sourceSha256": "df4a650157dff1c2fe63e9df66c8f458fda8c48cfb69a13926edc17f5bd01296",
+      "previewSha256": "8237025bd8704bdbcc8cd3cde269676a7c15b04c9b8abe283ef52f9806238762",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-trufor/view-1.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-trufor/view-1.webp",
+      "sourceBytes": 564207,
+      "previewBytes": 16764,
+      "sourceSha256": "5fe73c98e1bcd3ce60c99719af10f3d484fcf1a20a7455ce135eb8e87e7e0d3b",
+      "previewSha256": "2bd24245d6a0c74654c1aef4ef84461eb15262191270a43cdf68dd790eacf719",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1254,
+        1254
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/spiral-trufor/view-2.png",
+      "preview": "screenshots/readme-webp/examples/results/spiral-trufor/view-2.webp",
+      "sourceBytes": 2417482,
+      "previewBytes": 475376,
+      "sourceSha256": "82f2fc895d5de17e39466673cd86d56568324dafe8d7eb7b8212e14161352878",
+      "previewSha256": "b8a62defa7a00b7566fb664b66b48abb35313b175a3070f775509d60afb89b67",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "previewDimensions": [
+        1129,
+        1129
+      ],
+      "quality": 76
+    },
+    {
+      "source": "examples/microscopy/preview.png",
+      "preview": "screenshots/readme-webp/examples/microscopy/preview.webp",
+      "sourceBytes": 764002,
+      "previewBytes": 123794,
+      "sourceSha256": "a233c0f1c8a1522a2b783bf3a948d09fee1108c99d0cd586bc3925757a017749",
+      "previewSha256": "b875360441c11fa9be81283ca4dc0214aa942d864cfbdeaf0f8d64060b584a94",
+      "sourceDimensions": [
+        1280,
+        371
+      ],
+      "previewDimensions": [
+        1280,
+        371
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/microscopy-forgeryscope-auto/preview.png",
+      "preview": "screenshots/readme-webp/examples/results/microscopy-forgeryscope-auto/preview.webp",
+      "sourceBytes": 796093,
+      "previewBytes": 110208,
+      "sourceSha256": "c6fb3bf9a848193c1d427a3c81ed22bd56cf2035c885eeca800d68c40cc59181",
+      "previewSha256": "f72f6838b7005cb686e874b4b1e0a5e18d7ca34ca5ba736b94b4f0844c24e3ed",
+      "sourceDimensions": [
+        1280,
+        371
+      ],
+      "previewDimensions": [
+        1280,
+        371
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/microscopy-forgeryscope-auto/preview-view-1.png",
+      "preview": "screenshots/readme-webp/examples/results/microscopy-forgeryscope-auto/preview-view-1.webp",
+      "sourceBytes": 883674,
+      "previewBytes": 129640,
+      "sourceSha256": "17a747786ee709b7923835295c7b97b41c90acca616c9c771d8a16fea5d7ca85",
+      "previewSha256": "5ebc295e40688df4350a9323bc72e9f1efbb1171ac65c7a6213f38acbe1492a4",
+      "sourceDimensions": [
+        1280,
+        371
+      ],
+      "previewDimensions": [
+        1280,
+        371
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/microscopy-forgeryscope-auto/preview-view-2.png",
+      "preview": "screenshots/readme-webp/examples/results/microscopy-forgeryscope-auto/preview-view-2.webp",
+      "sourceBytes": 796093,
+      "previewBytes": 110208,
+      "sourceSha256": "c6fb3bf9a848193c1d427a3c81ed22bd56cf2035c885eeca800d68c40cc59181",
+      "previewSha256": "f72f6838b7005cb686e874b4b1e0a5e18d7ca34ca5ba736b94b4f0844c24e3ed",
+      "sourceDimensions": [
+        1280,
+        371
+      ],
+      "previewDimensions": [
+        1280,
+        371
+      ],
+      "quality": 88
+    },
+    {
+      "source": "screenshots/upstream/0_general.png",
+      "preview": "screenshots/readme-webp/screenshots/upstream/0_general.webp",
+      "sourceBytes": 843215,
+      "previewBytes": 207380,
+      "sourceSha256": "197c37b7f777f2285b076c955d4e4bbfd29c681d4423df0016bb645a46460aa0",
+      "previewSha256": "9efaac12234a65c8e6910ab95a911a2586e5886032ef7167d666726256103098",
+      "sourceDimensions": [
+        1920,
+        1131
+      ],
+      "previewDimensions": [
+        1920,
+        1131
+      ],
+      "quality": 88
+    },
+    {
+      "source": "screenshots/upstream/1_metadata.png",
+      "preview": "screenshots/readme-webp/screenshots/upstream/1_metadata.webp",
+      "sourceBytes": 529547,
+      "previewBytes": 320640,
+      "sourceSha256": "7f0854bfbfa5ac6becd1469470b9af1ad2ca194ddc7f602eb8560fbcf75c7bae",
+      "previewSha256": "616720a625eb3fe5922a1453c643a4752fc01128cafcc1f15f030bdd181de4a6",
+      "sourceDimensions": [
+        1920,
+        1131
+      ],
+      "previewDimensions": [
+        1920,
+        1131
+      ],
+      "quality": 88
+    },
+    {
+      "source": "screenshots/upstream/2_inspection.png",
+      "preview": "screenshots/readme-webp/screenshots/upstream/2_inspection.webp",
+      "sourceBytes": 1693084,
+      "previewBytes": 338678,
+      "sourceSha256": "0543bf8c4aa171b68a0d3c87b1a50ad3adb54d73ca797b61ffea0d04ac828fdf",
+      "previewSha256": "5d3fdf531a7a4bd71bd59e7b88578777805ce30bdc843da2b1ea78f2d92ebb35",
+      "sourceDimensions": [
+        1920,
+        1134
+      ],
+      "previewDimensions": [
+        1920,
+        1134
+      ],
+      "quality": 88
+    },
+    {
+      "source": "screenshots/upstream/3_detail.png",
+      "preview": "screenshots/readme-webp/screenshots/upstream/3_detail.webp",
+      "sourceBytes": 1248078,
+      "previewBytes": 359004,
+      "sourceSha256": "5814d1ff61eabc79ccec9883ba78af2bd320290e5ce6669f818c45e3818069fa",
+      "previewSha256": "406cfebd181ffe4ae82f492bead6e26eb8de38a58ec2a75dd1a7d43967eb8ee7",
+      "sourceDimensions": [
+        1920,
+        1132
+      ],
+      "previewDimensions": [
+        1920,
+        1132
+      ],
+      "quality": 88
+    },
+    {
+      "source": "screenshots/upstream/4_colors.png",
+      "preview": "screenshots/readme-webp/screenshots/upstream/4_colors.webp",
+      "sourceBytes": 958228,
+      "previewBytes": 249932,
+      "sourceSha256": "6b254002776c9252d76eff7836a3c3861f71ffe3b7362bc3fe02717c1e800513",
+      "previewSha256": "ffde367d6ea84535ea164bc4b30a2487fbc0a085efb2ea0c8025e3abfce19501",
+      "sourceDimensions": [
+        1920,
+        1132
+      ],
+      "previewDimensions": [
+        1920,
+        1132
+      ],
+      "quality": 88
+    },
+    {
+      "source": "screenshots/upstream/5_noise.png",
+      "preview": "screenshots/readme-webp/screenshots/upstream/5_noise.webp",
+      "sourceBytes": 1830123,
+      "previewBytes": 465794,
+      "sourceSha256": "9b600599ceee0cefaf4e3675cf685ff234eba9c9afa68c35a7feb9506e22d183",
+      "previewSha256": "95ed61fb0c8e92356db59a09284c6965725220bb6498e0e3586ded36056cae91",
+      "sourceDimensions": [
+        1920,
+        1133
+      ],
+      "previewDimensions": [
+        1920,
+        1133
+      ],
+      "quality": 82
+    },
+    {
+      "source": "screenshots/upstream/6_jpeg.png",
+      "preview": "screenshots/readme-webp/screenshots/upstream/6_jpeg.webp",
+      "sourceBytes": 841028,
+      "previewBytes": 298946,
+      "sourceSha256": "d4bc8686ac45d9579492f9a114fe3b8db83d2a17ae8f009b9222c53a91e44c02",
+      "previewSha256": "9620c1399abb6cc73965772b3ff05b0ddfee4b28519d63f1b013b81a8933cffd",
+      "sourceDimensions": [
+        1920,
+        1133
+      ],
+      "previewDimensions": [
+        1920,
+        1133
+      ],
+      "quality": 88
+    },
+    {
+      "source": "screenshots/upstream/7_tampering.png",
+      "preview": "screenshots/readme-webp/screenshots/upstream/7_tampering.webp",
+      "sourceBytes": 952763,
+      "previewBytes": 241760,
+      "sourceSha256": "6a808853e9d4fd93102fe90b6920518f3ea138d3a47c035fdf3f74ba84eed50c",
+      "previewSha256": "e52f164ab2ce7ce40e85c31b9320bafbda104002a8ad8ddacb8ccee6e26c407c",
+      "sourceDimensions": [
+        1920,
+        1133
+      ],
+      "previewDimensions": [
+        1920,
+        1133
+      ],
+      "quality": 88
+    }
+  ]
+}

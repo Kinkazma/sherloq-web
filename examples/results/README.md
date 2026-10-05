@@ -1,6 +1,6 @@
 # Direct web-engine example outputs
 
-The [main gallery](../../README.md#examples-from-the-web-engine) embeds these images in expandable sections. All runs use the same original-resolution inputs listed in [the input provenance](../README.md). Previews are resized for display only.
+The [main gallery](../../README.md#examples-from-the-web-engine) embeds WebP previews of at most 500 kB in expandable sections. Click a preview to open its original image; full-resolution outputs are listed below. Preview compression and any resizing are for presentation only. All runs use the same original-resolution inputs listed in [the input provenance](../README.md).
 
 | Example | Full-resolution output | Parameters and provenance |
 | --- | --- | --- |

@@ -14,7 +14,7 @@ The job list is [example-worker-jobs.json](../scripts/example-worker-jobs.json).
 
 Node jobs are described in [example-node-jobs.json](../scripts/example-node-jobs.json). Pass one complete job object as a JSON argument to `scripts/generate-node-example.mjs`. The ELA energy overlay uses the application's own `energy-render.js`.
 
-Outputs and metadata are written beneath `scripts/results/`; status files report failures separately. PNG encoding is lossless. Job records retain the input, parameters, requested backend, engine identity and hashes. Preview images in the README are display reductions only. The full-resolution outputs remain available alongside them.
+Outputs and metadata are written beneath `scripts/results/`; status files report failures separately. PNG encoding is lossless. Job records retain the input, parameters, requested backend, engine identity and hashes. The README embeds lossy WebP previews of at most 500,000 bytes each, with display-only resizing where necessary. These previews must not be used as forensic analysis inputs. Their source hashes, dimensions, encoding quality and byte sizes are recorded in [the preview manifest](../screenshots/readme-webp/manifest.json). The original outputs remain unchanged and accessible by clicking each preview.
 
 These examples help readers understand the tools. They are not a contract for every future version, input or platform. A highlighted area can extend beyond a known edit, and a detector can miss an edit. Upstream desktop screenshots are attributed separately and are not presented as web-engine results.
 

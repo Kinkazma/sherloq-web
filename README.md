@@ -69,7 +69,7 @@ These are the same original and edited inputs used to document my macOS work. Ed
 
 | Original | Edited input | My edit reference |
 | --- | --- | --- |
-| ![Original spiral](examples/spiral/original.png) | ![Edited spiral](examples/spiral/edited.png) | ![Spiral edit reference](examples/spiral/edit-reference.png) |
+| [![Original spiral](screenshots/readme-webp/examples/spiral/original.webp)](examples/spiral/original.png) | [![Edited spiral](screenshots/readme-webp/examples/spiral/edited.webp)](examples/spiral/edited.png) | [![Spiral edit reference](screenshots/readme-webp/examples/spiral/edit-reference.webp)](examples/spiral/edit-reference.png) |
 
 </details>
 
@@ -78,7 +78,7 @@ These are the same original and edited inputs used to document my macOS work. Ed
 
 | Original | Edited input | My edit reference |
 | --- | --- | --- |
-| ![Street Photo original](examples/street/original-preview.jpg) | ![Street Photo edited](examples/street/edited-preview.png) | ![Street Photo edit reference](examples/street/edit-reference-preview.jpg) |
+| [![Street Photo original](screenshots/readme-webp/examples/street/original-preview.webp)](examples/street/original-preview.jpg) | [![Street Photo edited](screenshots/readme-webp/examples/street/edited-preview.webp)](examples/street/edited-preview.png) | [![Street Photo edit reference](screenshots/readme-webp/examples/street/edit-reference-preview.webp)](examples/street/edit-reference-preview.jpg) |
 
 [Full-resolution files and provenance](examples/README.md).
 
@@ -86,14 +86,14 @@ These are the same original and edited inputs used to document my macOS work. Ed
 
 ## Examples from the web engine
 
-These are computed outputs from the shipped web engine, generated in batches on the inputs above. They are illustrations of the methods, not interface screenshots or a guarantee of detection. Expand a section to see the images directly. The [full-resolution outputs and settings](examples/results/README.md) remain available; [generation procedure](docs/EXAMPLE-GENERATION.md).
+These are computed outputs from the shipped web engine, generated in batches on the inputs above. They are illustrations of the methods, not interface screenshots or a guarantee of detection. Expand a section to see the images directly. WebP previews are limited to 500 kB each; click an image to open its original. The [full-resolution outputs and settings](examples/results/README.md) remain available; [generation procedure](docs/EXAMPLE-GENERATION.md).
 
 <details>
 <summary>Copy-Move Forgery 2 — dense PatchMatch and SIFT + G2NN + RANSAC</summary>
 
 | Spiral — PatchMatch Zernike | Spiral — SIFT + G2NN + RANSAC |
 | --- | --- |
-| ![Spiral — PatchMatch Zernike](examples/results/spiral-patchmatch/result.png) | ![Spiral — SIFT + G2NN + RANSAC](examples/results/spiral-sift-g2nn/result.png) |
+| [![Spiral — PatchMatch Zernike](screenshots/readme-webp/examples/results/spiral-patchmatch/result.webp)](examples/results/spiral-patchmatch/result.png) | [![Spiral — SIFT + G2NN + RANSAC](screenshots/readme-webp/examples/results/spiral-sift-g2nn/result.webp)](examples/results/spiral-sift-g2nn/result.png) |
 
 Colors distinguish groups of matched regions. These are geometric correspondences, not a reconstruction of every edit. Compare their locations with my spiral edit reference above.
 
@@ -104,7 +104,7 @@ Colors distinguish groups of matched regions. These are geometric correspondence
 
 | Spiral — low-energy score | Spiral — high-energy score |
 | --- | --- |
-| ![Spiral — low-energy score](examples/results/spiral-ela-layers/view-1.png) | ![Spiral — high-energy score](examples/results/spiral-ela-layers/view-2.png) |
+| [![Spiral — low-energy score](screenshots/readme-webp/examples/results/spiral-ela-layers/view-1.webp)](examples/results/spiral-ela-layers/view-1.png) | [![Spiral — high-energy score](screenshots/readme-webp/examples/results/spiral-ela-layers/view-2.webp)](examples/results/spiral-ela-layers/view-2.png) |
 
 These are separate score layers, displayed with the application’s fixed red-channel scale. They also respond to scene structure and should be read alongside the territory overlay and edit reference.
 
@@ -113,7 +113,7 @@ These are separate score layers, displayed with the application’s fixed red-ch
 <details>
 <summary>ELA extension — energy territories</summary>
 
-![Spiral — ELA energy overlay](examples/results/spiral-ela-energy/result.png)
+[![Spiral — ELA energy overlay](screenshots/readme-webp/examples/results/spiral-ela-energy/result.webp)](examples/results/spiral-ela-energy/result.png)
 
 The energy view highlights two areas on the right of this spiral. It does not reveal every marked edit. ELA itself belongs to the original SHERLOQ tools; this example illustrates the added energy/territory view.
 
@@ -124,7 +124,7 @@ The energy view highlights two areas on the right of this spiral. It does not re
 
 | Spiral — noise responses | Street Photo — noise responses |
 | --- | --- |
-| ![Spiral — noise responses](examples/results/spiral-noisesniffer/result.png) | ![Street Photo — noise responses](examples/results/street-noisesniffer/preview.png) |
+| [![Spiral — noise responses](screenshots/readme-webp/examples/results/spiral-noisesniffer/result.webp)](examples/results/spiral-noisesniffer/result.png) | [![Street Photo — noise responses](screenshots/readme-webp/examples/results/street-noisesniffer/preview.webp)](examples/results/street-noisesniffer/preview.png) |
 
 Red regions are the tool’s responses. They extend beyond some known edits and also follow parts of the scene. The edit-reference images provide a separate visual comparison.
 
@@ -133,7 +133,7 @@ Red regions are the tool’s responses. They extend beyond some known edits and 
 <details>
 <summary>ZERO JPEG Grids — Street Photo</summary>
 
-![Street Photo — ZERO grid analysis](examples/results/street-zero/preview.png)
+[![Street Photo — ZERO grid analysis](screenshots/readme-webp/examples/results/street-zero/preview.webp)](examples/results/street-zero/preview.png)
 
 Blue marks missing-grid regions and red marks foreign-grid regions in this view. Broad responses across the scene are not a pixel-accurate edit mask. The analyzed file is the edited PNG, retaining whatever compression traces survived its editing/export history.
 
@@ -144,7 +144,7 @@ Blue marks missing-grid regions and red marks foreign-grid regions in this view.
 
 | Spiral — response overlay | Spiral — local grid view |
 | --- | --- |
-| ![Spiral — response overlay](examples/results/spiral-adaptive-cfa/result.png) | ![Spiral — local grid view](examples/results/spiral-adaptive-cfa/view-2.png) |
+| [![Spiral — response overlay](screenshots/readme-webp/examples/results/spiral-adaptive-cfa/result.webp)](examples/results/spiral-adaptive-cfa/result.png) | [![Spiral — local grid view](screenshots/readme-webp/examples/results/spiral-adaptive-cfa/view-2.webp)](examples/results/spiral-adaptive-cfa/view-2.png) |
 
 This is the Original variant with block 32 and tile 512. The map is coarse and responds widely across the spiral; it is not a precise outline of my edits.
 
@@ -155,7 +155,7 @@ This is the Original variant with block 32 and tile 512. The map is coarse and r
 
 | Spiral — FOCAL | Spiral — AdaIFL |
 | --- | --- |
-| ![Spiral — FOCAL](examples/results/spiral-focal/result.png) | ![Spiral — AdaIFL](examples/results/spiral-adaifl/result.png) |
+| [![Spiral — FOCAL](screenshots/readme-webp/examples/results/spiral-focal/result.webp)](examples/results/spiral-focal/result.png) | [![Spiral — AdaIFL](screenshots/readme-webp/examples/results/spiral-adaifl/result.webp)](examples/results/spiral-adaifl/result.png) |
 
 FOCAL produces a broad region on the right. AdaIFL gives a much smaller response on the left. The difference is retained here instead of presenting either result as complete detection.
 
@@ -164,7 +164,7 @@ FOCAL produces a broad region on the right. AdaIFL gives a much smaller response
 <details>
 <summary>SAFIRE — source clustering</summary>
 
-![Spiral — SAFIRE, three source clusters](examples/results/spiral-safire/result.png)
+[![Spiral — SAFIRE, three source clusters](screenshots/readme-webp/examples/results/spiral-safire/result.webp)](examples/results/spiral-safire/result.png)
 
 This run uses three k-means groups. The colors represent clusters, not automatic “authentic” and “forged” classes. A single cluster can span both edited and unedited material.
 
@@ -175,13 +175,13 @@ This run uses three k-means groups. The colors represent clusters, not automatic
 
 | Street Photo — CAT-Net overlay | Street Photo — CAT-Net heatmap |
 | --- | --- |
-| ![Street Photo — CAT-Net overlay](examples/results/street-catnet/preview.png) | ![Street Photo — CAT-Net heatmap](examples/results/street-catnet/preview-view-1.png) |
+| [![Street Photo — CAT-Net overlay](screenshots/readme-webp/examples/results/street-catnet/preview.webp)](examples/results/street-catnet/preview.png) | [![Street Photo — CAT-Net heatmap](screenshots/readme-webp/examples/results/street-catnet/preview-view-1.webp)](examples/results/street-catnet/preview-view-1.png) |
 
 Several compact responses align with marked edits in the sky and on the building; other cloud and edge responses are also visible. Compare with my Street Photo edit reference above.
 
 | Spiral — CAT-Net overlay | Spiral — CAT-Net heatmap |
 | --- | --- |
-| ![Spiral — CAT-Net overlay](examples/results/spiral-catnet/result.png) | ![Spiral — CAT-Net heatmap](examples/results/spiral-catnet/view-1.png) |
+| [![Spiral — CAT-Net overlay](screenshots/readme-webp/examples/results/spiral-catnet/result.webp)](examples/results/spiral-catnet/result.png) | [![Spiral — CAT-Net heatmap](screenshots/readme-webp/examples/results/spiral-catnet/view-1.webp)](examples/results/spiral-catnet/view-1.png) |
 
 The response on the spiral is weak. A successful execution does not mean the tool found its known edits.
 
@@ -192,7 +192,7 @@ The response on the spiral is weak. A successful execution does not mean the too
 
 | Spiral — probability overlay | Spiral — probability display |
 | --- | --- |
-| ![Spiral — probability overlay](examples/results/spiral-d2prl/overlay.png) | ![Spiral — probability display](examples/results/spiral-d2prl/result.png) |
+| [![Spiral — probability overlay](screenshots/readme-webp/examples/results/spiral-d2prl/overlay.webp)](examples/results/spiral-d2prl/overlay.png) | [![Spiral — probability display](screenshots/readme-webp/examples/results/spiral-d2prl/result.webp)](examples/results/spiral-d2prl/result.png) |
 
 Yellow opacity follows the saved probability display, without a new detection threshold. Several repeated patches respond around the spiral; other known edits do not. The native model retains its 448-pixel analysis grid, 40 iterations and seed 22. This run uses the original 1254 × 1254 input and projects its output back to those coordinates.
 
@@ -201,7 +201,7 @@ Yellow opacity follows the saved probability display, without a new detection th
 <details>
 <summary>Complete automatic analysis — corroboration view</summary>
 
-![Spiral — automatic corroboration](examples/results/spiral-complete-automatic/result.png)
+[![Spiral — automatic corroboration](screenshots/readme-webp/examples/results/spiral-complete-automatic/result.webp)](examples/results/spiral-complete-automatic/result.png)
 
 Colors count distinct detector/search-context contributions: blue 1, cyan 2, green 3, yellow 4, orange 5 and red 6 or more. D2PRL contributes at most one vote per pixel; ELA never votes in this map. The accompanying record lists the completed branches and detected search regions.
 
@@ -212,11 +212,11 @@ Colors count distinct detector/search-context contributions: blue 1, cyan 2, gre
 
 | Street Photo — Illuminant Map | Street Photo — Dead/Hot Pixels |
 | --- | --- |
-| ![Street Photo — Illuminant Map](examples/results/street-illuminant/preview.png) | ![Street Photo — Dead/Hot Pixels](examples/results/street-dead-hot-pixels/preview.png) |
+| [![Street Photo — Illuminant Map](screenshots/readme-webp/examples/results/street-illuminant/preview.webp)](examples/results/street-illuminant/preview.png) | [![Street Photo — Dead/Hot Pixels](screenshots/readme-webp/examples/results/street-dead-hot-pixels/preview.webp)](examples/results/street-dead-hot-pixels/preview.png) |
 
 Both use the original street photograph. The illuminant view is a local color estimate. The pixel tool reports 36 candidate pixels. The magnified windows below show six reported positions, with the original pixels beside their detector overlays. These are candidates, not a diagnosis of the camera sensor.
 
-![Street Photo — six pixel candidates at close range](examples/results/street-dead-hot-pixels/preview-details.png)
+[![Street Photo — six pixel candidates at close range](screenshots/readme-webp/examples/results/street-dead-hot-pixels/preview-details.webp)](examples/results/street-dead-hot-pixels/preview-details.png)
 
 </details>
 
@@ -225,11 +225,11 @@ Both use the original street photograph. The illuminant view is a local color es
 
 | Street Photo — sparse matching | Street Photo — ELA energy |
 | --- | --- |
-| ![Street Photo — sparse matching](examples/results/street-sift-g2nn/preview.png) | ![Street Photo — ELA energy](examples/results/street-ela-energy/preview.png) |
+| [![Street Photo — sparse matching](screenshots/readme-webp/examples/results/street-sift-g2nn/preview.webp)](examples/results/street-sift-g2nn/preview.png) | [![Street Photo — ELA energy](screenshots/readme-webp/examples/results/street-ela-energy/preview.webp)](examples/results/street-ela-energy/preview.png) |
 
 These views do not clearly expose the marked edits at normal viewing size. They remain visible because a quiet output must not be read as proof that an image is original.
 
-![Spiral — ZERO, no main grid found](examples/results/spiral-zero/result.png)
+[![Spiral — ZERO, no main grid found](screenshots/readme-webp/examples/results/spiral-zero/result.webp)](examples/results/spiral-zero/result.png)
 
 ZERO did not identify a main JPEG grid on this spiral and returned no foreign/missing-grid regions.
 
@@ -240,7 +240,7 @@ ZERO did not identify a main JPEG grid on this spiral and returned no foreign/mi
 
 | Street Photo — recompression curve | Street Photo — aligned double-JPEG scores |
 | --- | --- |
-| ![Street Photo — recompression curve](examples/results/street-recompression/preview.png) | ![Street Photo — aligned double-JPEG scores](examples/results/street-multiple-compression/preview.png) |
+| [![Street Photo — recompression curve](screenshots/readme-webp/examples/results/street-recompression/preview.webp)](examples/results/street-recompression/preview.png) | [![Street Photo — aligned double-JPEG scores](screenshots/readme-webp/examples/results/street-multiple-compression/preview.webp)](examples/results/street-multiple-compression/preview.png) |
 
 Both calculations use the original JPEG. The curve measures pixel differences after recompression at qualities 0–100. The separate aligned detector returns **inconclusive** here, with no frequency reaching its decision threshold. These plots show the unchanged engine values; they neither count past saves nor establish authenticity.
 
@@ -251,10 +251,10 @@ Both calculations use the original JPEG. The curve measures pixel differences af
 
 | Spiral — anomaly map | Spiral — confidence |
 | --- | --- |
-| ![Spiral — anomaly map](examples/results/spiral-trufor/result.png) | ![Spiral — confidence](examples/results/spiral-trufor/view-1.png) |
+| [![Spiral — anomaly map](screenshots/readme-webp/examples/results/spiral-trufor/result.webp)](examples/results/spiral-trufor/result.png) | [![Spiral — confidence](screenshots/readme-webp/examples/results/spiral-trufor/view-1.webp)](examples/results/spiral-trufor/view-1.png) |
 
 
-![Spiral — Noiseprint++](examples/results/spiral-trufor/view-2.png)
+[![Spiral — Noiseprint++](screenshots/readme-webp/examples/results/spiral-trufor/view-2.webp)](examples/results/spiral-trufor/view-2.png)
 
 The anomaly map responds strongly to two regions on the right; the confidence and Noiseprint++ outputs are separate views. TruFor was already integrated upstream. These are new outputs from the browser adaptation, not a claim to have introduced the method.
 
@@ -265,13 +265,13 @@ The anomaly map responds strongly to two regions on the right; the confidence an
 
 **Input figure**
 
-![User-supplied microscopy figure](examples/microscopy/preview.png)
+[![User-supplied microscopy figure](screenshots/readme-webp/examples/microscopy/preview.webp)](examples/microscopy/preview.png)
 
-![Forgeryscope Auto — final mask](examples/results/microscopy-forgeryscope-auto/preview.png)
+[![Forgeryscope Auto — final mask](screenshots/readme-webp/examples/results/microscopy-forgeryscope-auto/preview.webp)](examples/results/microscopy-forgeryscope-auto/preview.png)
 
 | Candidates without geometric support | Geometric matches |
 | --- | --- |
-| ![Candidates without geometric support](examples/results/microscopy-forgeryscope-auto/preview-view-1.png) | ![Geometric matches](examples/results/microscopy-forgeryscope-auto/preview-view-2.png) |
+| [![Candidates without geometric support](screenshots/readme-webp/examples/results/microscopy-forgeryscope-auto/preview-view-1.webp)](examples/results/microscopy-forgeryscope-auto/preview-view-1.png) | [![Geometric matches](screenshots/readme-webp/examples/results/microscopy-forgeryscope-auto/preview-view-2.webp)](examples/results/microscopy-forgeryscope-auto/preview-view-2.png) |
 
 The run detects 16 panels, tests 23 candidate pairs and accepts 5 microscopy correspondences under its geometric rules. The final mask and geometric map coincide here; the separate candidates-without-geometry field is empty. This is the same engine component used by the automatic workflow, run directly on the supplied figure. The example does not establish a new conclusion about the source publication. [Input provenance](examples/microscopy/provenance.json).
 
@@ -286,7 +286,7 @@ The following desktop screenshots come from [Guido Bartoli’s original reposito
 
 | General | Metadata |
 | --- | --- |
-| ![Upstream SHERLOQ — General](screenshots/upstream/0_general.png) | ![Upstream SHERLOQ — Metadata](screenshots/upstream/1_metadata.png) |
+| [![Upstream SHERLOQ — General](screenshots/readme-webp/screenshots/upstream/0_general.webp)](screenshots/upstream/0_general.png) | [![Upstream SHERLOQ — Metadata](screenshots/readme-webp/screenshots/upstream/1_metadata.webp)](screenshots/upstream/1_metadata.png) |
 
 </details>
 
@@ -295,7 +295,7 @@ The following desktop screenshots come from [Guido Bartoli’s original reposito
 
 | Inspection | Detail |
 | --- | --- |
-| ![Upstream SHERLOQ — Inspection](screenshots/upstream/2_inspection.png) | ![Upstream SHERLOQ — Detail](screenshots/upstream/3_detail.png) |
+| [![Upstream SHERLOQ — Inspection](screenshots/readme-webp/screenshots/upstream/2_inspection.webp)](screenshots/upstream/2_inspection.png) | [![Upstream SHERLOQ — Detail](screenshots/readme-webp/screenshots/upstream/3_detail.webp)](screenshots/upstream/3_detail.png) |
 
 </details>
 
@@ -304,7 +304,7 @@ The following desktop screenshots come from [Guido Bartoli’s original reposito
 
 | Colors | Noise |
 | --- | --- |
-| ![Upstream SHERLOQ — Colors](screenshots/upstream/4_colors.png) | ![Upstream SHERLOQ — Noise](screenshots/upstream/5_noise.png) |
+| [![Upstream SHERLOQ — Colors](screenshots/readme-webp/screenshots/upstream/4_colors.webp)](screenshots/upstream/4_colors.png) | [![Upstream SHERLOQ — Noise](screenshots/readme-webp/screenshots/upstream/5_noise.webp)](screenshots/upstream/5_noise.png) |
 
 </details>
 
@@ -313,7 +313,7 @@ The following desktop screenshots come from [Guido Bartoli’s original reposito
 
 | JPEG | Tampering |
 | --- | --- |
-| ![Upstream SHERLOQ — JPEG](screenshots/upstream/6_jpeg.png) | ![Upstream SHERLOQ — Tampering](screenshots/upstream/7_tampering.png) |
+| [![Upstream SHERLOQ — JPEG](screenshots/readme-webp/screenshots/upstream/6_jpeg.webp)](screenshots/upstream/6_jpeg.png) | [![Upstream SHERLOQ — Tampering](screenshots/readme-webp/screenshots/upstream/7_tampering.webp)](screenshots/upstream/7_tampering.png) |
 
 </details>
 
