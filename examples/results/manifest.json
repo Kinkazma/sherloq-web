@@ -1,8 +1,150 @@
 {
-  "date": "2026-10-05",
+  "date": "2026-10-06",
   "engine": "0.35.0-export.2",
   "scope": "Illustrative direct-engine outputs; not accuracy certification. Preview reductions are display-only.",
   "examples": [
+    {
+      "id": "microscopy-d2prl-automatic-zones",
+      "operation": "ai.clones.d2prl",
+      "input": "examples/microscopy/input.png",
+      "inputSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+      "engine": "0.35.0-export.2",
+      "sourceDimensions": [
+        3226,
+        936
+      ],
+      "outputs": [
+        {
+          "file": "automatic-zones.png",
+          "preview": "automatic-zones.webp",
+          "view": "Automatic panel rectangles in blue; enclosing search rectangle in orange. These are search areas, not detections.",
+          "width": 3226,
+          "height": 936,
+          "sha256": "a0c77befb16ec3b3db3111f3a414340819f4fff4fab4ce15b9041c2137dc5d88",
+          "rawRgbSha256": "aa82683f1dde600ebfedca00eeefc7da1ccef3f7fd166d03e3104274a036b1ca",
+          "previewSha256": "d32ae9f535978fe2881b316b26bfbe302bb06e578dbe9b3f051e88cf570369a8",
+          "previewBytes": 428406,
+          "previewDimensions": [
+            3226,
+            936
+          ],
+          "previewQuality": 88
+        },
+        {
+          "file": "local-detections-100.png",
+          "preview": "local-detections-100.webp",
+          "view": "Union of 16 independent panel masks, minimum 100 model-grid pixels",
+          "width": 3226,
+          "height": 936,
+          "sha256": "c40f80ec48a561adb89ea6e30b97d8b688ca6f6c03427607ac6b66d47bd42f0a",
+          "rawRgbSha256": "24c39fa10795993f03c58edc4dda7cb5efde8a9b5a00ec3427ff2b976f40a9b5",
+          "previewSha256": "5ff9272cf1a5a5ec25f8b13a47f786b05749d747a4ae64ebddce9e7d869128c1",
+          "previewBytes": 446816,
+          "previewDimensions": [
+            3226,
+            936
+          ],
+          "previewQuality": 88
+        },
+        {
+          "file": "global-detections-100.png",
+          "preview": "global-detections-100.webp",
+          "view": "Enclosing-zone mask, minimum 100 model-grid pixels",
+          "width": 3226,
+          "height": 936,
+          "sha256": "bff2a950543c7f0e101aefbaa22c249756c5ce9a2d6b9765db8ba24c5e5ac8f2",
+          "rawRgbSha256": "281605a04eb2bb28edf86cc97eac62452ce5ea5da3a966226dac3b605a9c2e1d",
+          "previewSha256": "ae69658fbaa99a93499651b383796b7bf1bd2268680a83c80673d88e033014e2",
+          "previewBytes": 411380,
+          "previewDimensions": [
+            3226,
+            936
+          ],
+          "previewQuality": 88
+        },
+        {
+          "file": "combined-detections-100.png",
+          "preview": "combined-detections-100.webp",
+          "view": "Boolean union of local and enclosing-zone masks; minimum 100; one D2PRL vote per pixel",
+          "width": 3226,
+          "height": 936,
+          "sha256": "dd44fdc346a6534bc0e021da4efb9699c3ed4d4af1de14c6bd9dfb1b53d22cca",
+          "rawRgbSha256": "4af60dc3da98492b7e0e1f5649d4026f93869021dff1b6e91b60154486b9d54e",
+          "previewSha256": "d0c0a85cf53b1a8bdd22088eee656c12c0eaad78ffb898e1a8379c7e8d0c2c4d",
+          "previewBytes": 420002,
+          "previewDimensions": [
+            3226,
+            936
+          ],
+          "previewQuality": 88
+        },
+        {
+          "file": "local-detections-10.png",
+          "preview": "local-detections-10.webp",
+          "view": "Union of 16 independent panel masks, minimum 10 model-grid pixels",
+          "width": 3226,
+          "height": 936,
+          "sha256": "a806adf3e94b60d81ff6e529b35ca6b83bd8b89db21948d3091b3d83da09affe",
+          "rawRgbSha256": "18211005a93684893b0ce651d478836c968b7dc6c8c808403414d4111da1054b",
+          "previewSha256": "efabe7596e115b433c1aaf7414ce11da441f6ed6ba843ee241564141e2e3d97e",
+          "previewBytes": 458958,
+          "previewDimensions": [
+            3226,
+            936
+          ],
+          "previewQuality": 88
+        },
+        {
+          "file": "global-detections-10.png",
+          "preview": "global-detections-10.webp",
+          "view": "Enclosing-zone mask, minimum 10 model-grid pixels",
+          "width": 3226,
+          "height": 936,
+          "sha256": "9c50116f875401d1e67f657add94c8dd347f75b9c5c5e8ea3fafead6eae10cd8",
+          "rawRgbSha256": "9bd66c1899dd2f33d07efba252191e1b83add65a9b09e3b75e7ca1d06191126e",
+          "previewSha256": "b3f4fd624f5015fa33886fd1fe4b7a15cf3dfd6fc55759c84bb08ee731792c5b",
+          "previewBytes": 412928,
+          "previewDimensions": [
+            3226,
+            936
+          ],
+          "previewQuality": 88
+        },
+        {
+          "file": "combined-detections-10.png",
+          "preview": "combined-detections-10.webp",
+          "view": "Boolean union of local and enclosing-zone masks; minimum 10; one D2PRL vote per pixel",
+          "width": 3226,
+          "height": 936,
+          "sha256": "5008b194586bac7e574a11ae5cc0809ff33a44e0b234d22144d0ca0b8858e3b9",
+          "rawRgbSha256": "03bcc83bf99c5b387712b825baaa34b18d63731db37fd91dd31aa9759b2136c1",
+          "previewSha256": "3bea30984d11ae50be534b87514eba55f7310e4fd08b0b4ded8883078f949282",
+          "previewBytes": 429574,
+          "previewDimensions": [
+            3226,
+            936
+          ],
+          "previewQuality": 88
+        },
+        {
+          "file": "threshold-detail.png",
+          "preview": "threshold-detail.webp",
+          "view": "Local panel panel-01: identical input crop, minimum 100, minimum 10. Selected as the panel with the most additional original-coordinate pixels at minimum 10.",
+          "width": 1184,
+          "height": 448,
+          "sha256": "8c3ca0d1d3565fec3e4f0053286e8a4e28f27ddb0eea5ec18a7c5f76c39ba763",
+          "rawRgbSha256": "5c93d1eaec15506b8a309068148312a7b9b4ad26cef1cadf4cce17fba1d89ad9",
+          "previewSha256": "8a3a0448bf6a7f1cbd99bc54d99d1fc64fab6912a349820f368ed0355a2071fd",
+          "previewBytes": 45590,
+          "previewDimensions": [
+            1184,
+            448
+          ],
+          "previewQuality": 88
+        }
+      ],
+      "recordSha256": "7c0dd2a3d287766ca5aa23aea9233ea610affe1f487ae684f59566a83754d0f2"
+    },
     {
       "id": "microscopy-forgeryscope-auto",
       "operation": "forgeryscope.auto.component",

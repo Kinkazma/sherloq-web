@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-06",
+  "engine": "0.35.0-export.2",
+  "inputSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+  "automaticPanels": 16,
+  "inferences": 17,
+  "minimums": [
+    100,
+    10
+  ],
+  "additionalRefilterInferences": 0,
+  "all17Minimum100MasksMatchExportExactly": true,
+  "all17Minimum10MasksContainMinimum100": true,
+  "allMasksStayWithinSearchRectangles": true,
+  "combinedMasksUseBooleanUnion": true,
+  "combinedWebProjectionMatchesIndependentUnion": true,
+  "previewCount": 8,
+  "maxPreviewBytes": 458958,
+  "scope": "Illustrative real-image execution, exact refilter consistency and presentation integrity; not independent accuracy qualification."
+}

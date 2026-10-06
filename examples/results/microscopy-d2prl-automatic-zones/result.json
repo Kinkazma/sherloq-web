@@ -1,0 +1,6607 @@
+{
+  "id": "microscopy-d2prl-automatic-zones",
+  "operation": "ai.clones.d2prl",
+  "engine": "0.35.0-export.2",
+  "input": "examples/microscopy/input.png",
+  "inputSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+  "sourceDimensions": [
+    3226,
+    936
+  ],
+  "runtime": "Direct shipped web-engine clients/workers in headless Chromium; no application UI",
+  "minimums": [
+    100,
+    10
+  ],
+  "nativeGrid": [
+    448,
+    448
+  ],
+  "automaticPanelCount": 16,
+  "inferenceCount": 17,
+  "additionalRefilterInferences": 0,
+  "inputRecord": {
+    "input": "examples/microscopy/input.png",
+    "sha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+    "width": 3226,
+    "height": 936,
+    "minimum": 100,
+    "detected": {
+      "regions": [
+        {
+          "id": "panel-0",
+          "bounds": [
+            0,
+            94,
+            383,
+            809
+          ]
+        },
+        {
+          "id": "panel-1",
+          "bounds": [
+            388,
+            94,
+            758,
+            810
+          ]
+        },
+        {
+          "id": "panel-2",
+          "bounds": [
+            784,
+            94,
+            1167,
+            809
+          ]
+        },
+        {
+          "id": "panel-3",
+          "bounds": [
+            1171,
+            94,
+            1556,
+            809
+          ]
+        },
+        {
+          "id": "panel-4",
+          "bounds": [
+            1661,
+            92,
+            2043,
+            807
+          ]
+        },
+        {
+          "id": "panel-5",
+          "bounds": [
+            2050,
+            92,
+            2433,
+            807
+          ]
+        },
+        {
+          "id": "panel-6",
+          "bounds": [
+            2454,
+            93,
+            2838,
+            809
+          ]
+        },
+        {
+          "id": "panel-7",
+          "bounds": [
+            2844,
+            93,
+            3226,
+            808
+          ]
+        },
+        {
+          "id": "panel-8",
+          "bounds": [
+            0,
+            819,
+            385,
+            930
+          ]
+        },
+        {
+          "id": "panel-9",
+          "bounds": [
+            389,
+            820,
+            758,
+            930
+          ]
+        },
+        {
+          "id": "panel-10",
+          "bounds": [
+            784,
+            819,
+            1167,
+            929
+          ]
+        },
+        {
+          "id": "panel-11",
+          "bounds": [
+            1171,
+            818,
+            1556,
+            929
+          ]
+        },
+        {
+          "id": "panel-12",
+          "bounds": [
+            1661,
+            819,
+            2042,
+            928
+          ]
+        },
+        {
+          "id": "panel-13",
+          "bounds": [
+            2051,
+            818,
+            2433,
+            928
+          ]
+        },
+        {
+          "id": "panel-14",
+          "bounds": [
+            2454,
+            820,
+            2840,
+            930
+          ]
+        },
+        {
+          "id": "panel-15",
+          "bounds": [
+            2844,
+            819,
+            3226,
+            930
+          ]
+        }
+      ],
+      "polygons": [
+        [
+          [
+            0,
+            94
+          ],
+          [
+            382,
+            94
+          ],
+          [
+            382,
+            808
+          ],
+          [
+            0,
+            808
+          ]
+        ],
+        [
+          [
+            388,
+            94
+          ],
+          [
+            757,
+            94
+          ],
+          [
+            757,
+            809
+          ],
+          [
+            388,
+            809
+          ]
+        ],
+        [
+          [
+            784,
+            94
+          ],
+          [
+            1166,
+            94
+          ],
+          [
+            1166,
+            808
+          ],
+          [
+            784,
+            808
+          ]
+        ],
+        [
+          [
+            1171,
+            94
+          ],
+          [
+            1555,
+            94
+          ],
+          [
+            1555,
+            808
+          ],
+          [
+            1171,
+            808
+          ]
+        ],
+        [
+          [
+            1661,
+            92
+          ],
+          [
+            2042,
+            92
+          ],
+          [
+            2042,
+            806
+          ],
+          [
+            1661,
+            806
+          ]
+        ],
+        [
+          [
+            2050,
+            92
+          ],
+          [
+            2432,
+            92
+          ],
+          [
+            2432,
+            806
+          ],
+          [
+            2050,
+            806
+          ]
+        ],
+        [
+          [
+            2454,
+            93
+          ],
+          [
+            2837,
+            93
+          ],
+          [
+            2837,
+            808
+          ],
+          [
+            2454,
+            808
+          ]
+        ],
+        [
+          [
+            2844,
+            93
+          ],
+          [
+            3225,
+            93
+          ],
+          [
+            3225,
+            807
+          ],
+          [
+            2844,
+            807
+          ]
+        ],
+        [
+          [
+            0,
+            819
+          ],
+          [
+            384,
+            819
+          ],
+          [
+            384,
+            929
+          ],
+          [
+            0,
+            929
+          ]
+        ],
+        [
+          [
+            389,
+            820
+          ],
+          [
+            757,
+            820
+          ],
+          [
+            757,
+            929
+          ],
+          [
+            389,
+            929
+          ]
+        ],
+        [
+          [
+            784,
+            819
+          ],
+          [
+            1166,
+            819
+          ],
+          [
+            1166,
+            928
+          ],
+          [
+            784,
+            928
+          ]
+        ],
+        [
+          [
+            1171,
+            818
+          ],
+          [
+            1555,
+            818
+          ],
+          [
+            1555,
+            928
+          ],
+          [
+            1171,
+            928
+          ]
+        ],
+        [
+          [
+            1661,
+            819
+          ],
+          [
+            2041,
+            819
+          ],
+          [
+            2041,
+            927
+          ],
+          [
+            1661,
+            927
+          ]
+        ],
+        [
+          [
+            2051,
+            818
+          ],
+          [
+            2432,
+            818
+          ],
+          [
+            2432,
+            927
+          ],
+          [
+            2051,
+            927
+          ]
+        ],
+        [
+          [
+            2454,
+            820
+          ],
+          [
+            2839,
+            820
+          ],
+          [
+            2839,
+            929
+          ],
+          [
+            2454,
+            929
+          ]
+        ],
+        [
+          [
+            2844,
+            819
+          ],
+          [
+            3225,
+            819
+          ],
+          [
+            3225,
+            929
+          ],
+          [
+            2844,
+            929
+          ]
+        ]
+      ],
+      "coordinates": "original-pixel-centres",
+      "boundsConvention": "half-open"
+    },
+    "envelope": {
+      "id": "global-zone",
+      "kind": "envelope",
+      "bounds": [
+        0,
+        92,
+        3226,
+        930
+      ]
+    },
+    "engine": "0.35.0-export.2",
+    "sourceIdentity": {
+      "engine_commit": "638d0f7aeebb6fc680fcd99b8af0e3977fb40284",
+      "engine_version": "0.35.0-export.2",
+      "resource_commit": "5b517b6972a72872d810e044fe7a85e1fc100b76",
+      "public_snapshot": "c785fb78b237ebad40b3274f9ffa94042f2aa9bc",
+      "scope": "Direct engine calls against the restored batch runtime; no application interface loaded"
+    }
+  },
+  "passes": [
+    {
+      "zone": {
+        "id": "global-zone",
+        "kind": "envelope",
+        "bounds": [
+          0,
+          92,
+          3226,
+          930
+        ]
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 250.59730000001193,
+      "maskPixels": 694828,
+      "metadata": {
+        "boxes": [
+          [
+            0,
+            92,
+            3226,
+            930
+          ]
+        ],
+        "zones": [
+          {
+            "id": "global-zone",
+            "bounds": [
+              0,
+              92,
+              3226,
+              930
+            ],
+            "origin": [
+              0,
+              92
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "envelope",
+            "decision": {
+              "overlap": 3.2004897444686684e-19,
+              "threshold": 1.653360879195348e-13,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105893,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 769,
+                "reuses": 763,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 1069,
+                "networkBytes": 521570456,
+                "committedBytes": 521570456,
+                "cacheHits": 37,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 1069,
+                "reuses": 1066,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:1",
+        "analysisId": "d2prl-session-1:1",
+        "revision": 1,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "global-zone",
+            "kind": "envelope",
+            "bounds": [
+              0,
+              92,
+              3226,
+              930
+            ]
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 250358.26999998093,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7571448960,
+          "retainedBytes": 54425376,
+          "cacheBytes": 2408448,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2249780624,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 276.93000000715256,
+          "projectionMs": 169.3299999833107,
+          "compositionMs": 105.77000015974045,
+          "postprocessMs": 100.45500004291534,
+          "blocks": 12,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              0,
+              92,
+              3226,
+              930
+            ]
+          ],
+          "zones": [
+            {
+              "id": "global-zone",
+              "bounds": [
+                0,
+                92,
+                3226,
+                930
+              ],
+              "origin": [
+                0,
+                92
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 699644,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "global-zone-mask-10.png",
+        "maskFileSha256": "f04af67f7e244fa9801a76e2645beb3058cc13a268576a870475731c3a63ec48"
+      },
+      "maskFile": "global-zone-mask.png",
+      "maskFileSha256": "3309695bb67661f90d46e6e4f975a36e94c450843722df526af27ee27bac66d5",
+      "rawGridSha256": "4868fb693bf009e05749992b123c0ba08633e49f1bf200107a64fd191576753a"
+    },
+    {
+      "zone": {
+        "id": "panel-01",
+        "bounds": [
+          0,
+          94,
+          383,
+          809
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 249.60997500002384,
+      "maskPixels": 18558,
+      "metadata": {
+        "boxes": [
+          [
+            0,
+            94,
+            383,
+            809
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-01",
+            "bounds": [
+              0,
+              94,
+              383,
+              809
+            ],
+            "origin": [
+              0,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 2.3545185080673094e-23,
+              "threshold": 9.45189496874381e-15,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 1703936,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105198,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 1538,
+                "reuses": 1532,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 2138,
+                "networkBytes": 1043140912,
+                "committedBytes": 1043140912,
+                "cacheHits": 74,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 2138,
+                "reuses": 2135,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:2",
+        "analysisId": "d2prl-session-1:2",
+        "revision": 2,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-01",
+            "bounds": [
+              0,
+              94,
+              383,
+              809
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 249389.64499998093,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7569040512,
+          "retainedBytes": 54425376,
+          "cacheBytes": 4816896,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2484972944,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 1353.3449999690056,
+          "projectionMs": 1244.5200000405312,
+          "compositionMs": 1171.614999949932,
+          "postprocessMs": 99.27499997615814,
+          "blocks": 12,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              0,
+              94,
+              383,
+              809
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-01",
+              "bounds": [
+                0,
+                94,
+                383,
+                809
+              ],
+              "origin": [
+                0,
+                94
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 20420,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-01-mask-10.png",
+        "maskFileSha256": "2c1500fe4ed656f236b89b99c885ba3ee49fb40bec6eb529eddeca0e50aca18a"
+      },
+      "maskFile": "panel-01-mask.png",
+      "maskFileSha256": "98a6e1d8d1ccedf1662b746b18b6c46cbe94c37e713c709c2006507188704867",
+      "rawGridSha256": "98fc899a4e706a45fea735d398087f1f171d44048094f68f0957fe5d57b3aef7"
+    },
+    {
+      "zone": {
+        "id": "panel-02",
+        "bounds": [
+          388,
+          94,
+          758,
+          810
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 251.23535000002383,
+      "maskPixels": 5597,
+      "metadata": {
+        "boxes": [
+          [
+            388,
+            94,
+            758,
+            810
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-02",
+            "bounds": [
+              388,
+              94,
+              758,
+              810
+            ],
+            "origin": [
+              388,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 5.238357140902748e-17,
+              "threshold": 1.1614000428039617e-08,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105038,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 2307,
+                "reuses": 2301,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 3207,
+                "networkBytes": 1564711368,
+                "committedBytes": 1564711368,
+                "cacheHits": 111,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 3207,
+                "reuses": 3204,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:3",
+        "analysisId": "d2prl-session-1:3",
+        "revision": 3,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-02",
+            "bounds": [
+              388,
+              94,
+              758,
+              810
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 251001.57499998808,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7566632064,
+          "retainedBytes": 54425376,
+          "cacheBytes": 7225344,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2487381392,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 1343.3550000190735,
+          "projectionMs": 1237.9700000286102,
+          "compositionMs": 1167.460000038147,
+          "postprocessMs": 96.84499996900558,
+          "blocks": 12,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              388,
+              94,
+              758,
+              810
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-02",
+              "bounds": [
+                388,
+                94,
+                758,
+                810
+              ],
+              "origin": [
+                388,
+                94
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 7112,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-02-mask-10.png",
+        "maskFileSha256": "62f645270840aeea71583c2d39fb72b372d6ba9a647e65e4c10365dd617177b8"
+      },
+      "maskFile": "panel-02-mask.png",
+      "maskFileSha256": "cb979aa38e841fa499e00497900eb0f0fcd0399e9da07fa16ffda5cd3a3b3959",
+      "rawGridSha256": "9b6f4637fee9ea47c5bbaba2a905d167487f1ad96a9e3cc2eaf174cf4309260e"
+    },
+    {
+      "zone": {
+        "id": "panel-03",
+        "bounds": [
+          784,
+          94,
+          1167,
+          809
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 253.17999500000477,
+      "maskPixels": 8178,
+      "metadata": {
+        "boxes": [
+          [
+            784,
+            94,
+            1167,
+            809
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-03",
+            "bounds": [
+              784,
+              94,
+              1167,
+              809
+            ],
+            "origin": [
+              784,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 3.7066040953272487e-26,
+              "threshold": 2.1713692704791286e-19,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105464,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 3076,
+                "reuses": 3070,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 4276,
+                "networkBytes": 2086281824,
+                "committedBytes": 2086281824,
+                "cacheHits": 148,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 4276,
+                "reuses": 4273,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:4",
+        "analysisId": "d2prl-session-1:4",
+        "revision": 4,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-03",
+            "bounds": [
+              784,
+              94,
+              1167,
+              809
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 252969.5,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7564223616,
+          "retainedBytes": 54425376,
+          "cacheBytes": 9633792,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2489789840,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 1330.7049999833107,
+          "projectionMs": 1225.320000052452,
+          "compositionMs": 1155.6299999952316,
+          "postprocessMs": 97.1599999666214,
+          "blocks": 12,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              784,
+              94,
+              1167,
+              809
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-03",
+              "bounds": [
+                784,
+                94,
+                1167,
+                809
+              ],
+              "origin": [
+                784,
+                94
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 9723,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-03-mask-10.png",
+        "maskFileSha256": "f47f18f0e405c03900dc2026932dfeace90bef9a1052fc9dc75295df65f794d4"
+      },
+      "maskFile": "panel-03-mask.png",
+      "maskFileSha256": "6afe47a1ab924ea75ff82110e0a8f60b889c42540ff12230f40f9aed1a711bab",
+      "rawGridSha256": "f48f74a529e832414e9943d39cb70a729db0b80ae9926c081cd1010e59e6d53e"
+    },
+    {
+      "zone": {
+        "id": "panel-04",
+        "bounds": [
+          1171,
+          94,
+          1556,
+          809
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 254.79361499994994,
+      "maskPixels": 8388,
+      "metadata": {
+        "boxes": [
+          [
+            1171,
+            94,
+            1556,
+            809
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-04",
+            "bounds": [
+              1171,
+              94,
+              1556,
+              809
+            ],
+            "origin": [
+              1171,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 1.1073293059674517e-14,
+              "threshold": 9.663911892943133e-10,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105147,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 3845,
+                "reuses": 3839,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 5345,
+                "networkBytes": 2607852280,
+                "committedBytes": 2607852280,
+                "cacheHits": 185,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 5345,
+                "reuses": 5342,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:5",
+        "analysisId": "d2prl-session-1:5",
+        "revision": 5,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-04",
+            "bounds": [
+              1171,
+              94,
+              1556,
+              809
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 254570.93999999762,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7561815168,
+          "retainedBytes": 54425376,
+          "cacheBytes": 12042240,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2492198288,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 1335.9749999642372,
+          "projectionMs": 1224.1549999713898,
+          "compositionMs": 1154.0900000929832,
+          "postprocessMs": 100.58500003814697,
+          "blocks": 12,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              1171,
+              94,
+              1556,
+              809
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-04",
+              "bounds": [
+                1171,
+                94,
+                1556,
+                809
+              ],
+              "origin": [
+                1171,
+                94
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 9737,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-04-mask-10.png",
+        "maskFileSha256": "cdda900943259fc36ff5a3c455332c5151c10470e6bd5f83f06eac9be84d46fe"
+      },
+      "maskFile": "panel-04-mask.png",
+      "maskFileSha256": "5d413770a0270cb5f6968db2f02f0f5de8d0fb90c9baae87f35aa1533fbf1f1a",
+      "rawGridSha256": "774cd9dcc50f62e1e0c5590e1a21c3916f09fc4b458efdc8e18dc856c982fe9f"
+    },
+    {
+      "zone": {
+        "id": "panel-05",
+        "bounds": [
+          1661,
+          92,
+          2043,
+          807
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 252.93663500005007,
+      "maskPixels": 10536,
+      "metadata": {
+        "boxes": [
+          [
+            1661,
+            92,
+            2043,
+            807
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-05",
+            "bounds": [
+              1661,
+              92,
+              2043,
+              807
+            ],
+            "origin": [
+              1661,
+              92
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 1.3315747131513175e-26,
+              "threshold": 4.485466035338353e-21,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105829,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 4614,
+                "reuses": 4608,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 6414,
+                "networkBytes": 3129422736,
+                "committedBytes": 3129422736,
+                "cacheHits": 222,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 6414,
+                "reuses": 6411,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:6",
+        "analysisId": "d2prl-session-1:6",
+        "revision": 6,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-05",
+            "bounds": [
+              1661,
+              92,
+              2043,
+              807
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 252716.71000003815,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7559406720,
+          "retainedBytes": 54425376,
+          "cacheBytes": 14450688,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2494606736,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 1333.3400000333786,
+          "projectionMs": 1222.714999973774,
+          "compositionMs": 1146.3300000429153,
+          "postprocessMs": 100.0450000166893,
+          "blocks": 12,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              1661,
+              92,
+              2043,
+              807
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-05",
+              "bounds": [
+                1661,
+                92,
+                2043,
+                807
+              ],
+              "origin": [
+                1661,
+                92
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 12080,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-05-mask-10.png",
+        "maskFileSha256": "1b06006d828cc2d6bc44bb211760faeba034144f51ab6e39f4365307924442d6"
+      },
+      "maskFile": "panel-05-mask.png",
+      "maskFileSha256": "5158254502d15f416a843bbbe5bb153aba5247c04d83034d8e63708f299367f2",
+      "rawGridSha256": "352c7fd3991563fe0e1458eeff9a002813cc6acc4eb02c4b57a64d550c76dc16"
+    },
+    {
+      "zone": {
+        "id": "panel-06",
+        "bounds": [
+          2050,
+          92,
+          2433,
+          807
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 251.79262999999523,
+      "maskPixels": 16267,
+      "metadata": {
+        "boxes": [
+          [
+            2050,
+            92,
+            2433,
+            807
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-06",
+            "bounds": [
+              2050,
+              92,
+              2433,
+              807
+            ],
+            "origin": [
+              2050,
+              92
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 6.00947926710125e-23,
+              "threshold": 5.496808664503757e-16,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 104997,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 5383,
+                "reuses": 5377,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 7483,
+                "networkBytes": 3650993192,
+                "committedBytes": 3650993192,
+                "cacheHits": 259,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 7483,
+                "reuses": 7480,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:7",
+        "analysisId": "d2prl-session-1:7",
+        "revision": 7,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-06",
+            "bounds": [
+              2050,
+              92,
+              2433,
+              807
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 251566.29000002146,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7556998272,
+          "retainedBytes": 54425376,
+          "cacheBytes": 16859136,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2497015184,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 1330.4300000071526,
+          "projectionMs": 1214.8149999976158,
+          "compositionMs": 1140.5900000929832,
+          "postprocessMs": 104.83500003814697,
+          "blocks": 12,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              2050,
+              92,
+              2433,
+              807
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-06",
+              "bounds": [
+                2050,
+                92,
+                2433,
+                807
+              ],
+              "origin": [
+                2050,
+                92
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 17910,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-06-mask-10.png",
+        "maskFileSha256": "5796e1985f05b6008e088aa1b931a817d27cc6d099ccf0927d6f9b59ed51bc65"
+      },
+      "maskFile": "panel-06-mask.png",
+      "maskFileSha256": "06497e782f3d0f8ebe9a3e428ed9432dc4a88955ea2a7c7267ba306185eeefec",
+      "rawGridSha256": "c593666e0e4a528bf53f8d25bae06421ec8380a4d9f9cbb86c1d0393fecfafa7"
+    },
+    {
+      "zone": {
+        "id": "panel-07",
+        "bounds": [
+          2454,
+          93,
+          2838,
+          809
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 262.77133499997854,
+      "maskPixels": 11230,
+      "metadata": {
+        "boxes": [
+          [
+            2454,
+            93,
+            2838,
+            809
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-07",
+            "bounds": [
+              2454,
+              93,
+              2838,
+              809
+            ],
+            "origin": [
+              2454,
+              93
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 3.057223799205616e-14,
+              "threshold": 6.408309900507447e-07,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 106047,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 6152,
+                "reuses": 6146,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 8552,
+                "networkBytes": 4172563648,
+                "committedBytes": 4172563648,
+                "cacheHits": 296,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 8552,
+                "reuses": 8549,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:8",
+        "analysisId": "d2prl-session-1:8",
+        "revision": 8,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-07",
+            "bounds": [
+              2454,
+              93,
+              2838,
+              809
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 262563.780000031,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7554589824,
+          "retainedBytes": 54425376,
+          "cacheBytes": 19267584,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2499423632,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 1361.6449999809265,
+          "projectionMs": 1253.7900000214577,
+          "compositionMs": 1176.449999988079,
+          "postprocessMs": 98.88499999046326,
+          "blocks": 12,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              2454,
+              93,
+              2838,
+              809
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-07",
+              "bounds": [
+                2454,
+                93,
+                2838,
+                809
+              ],
+              "origin": [
+                2454,
+                93
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 12494,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-07-mask-10.png",
+        "maskFileSha256": "0401e8bc9e4c489300cd848021c68a2f6d769988f1ab09ed0babfb8dae334e1a"
+      },
+      "maskFile": "panel-07-mask.png",
+      "maskFileSha256": "935574b7db50aec657789dec8d22220cfb57e414b639e62758f2745cad8e2b49",
+      "rawGridSha256": "b6ea12a7853fa68884b7ea110525ddce03500f22123373da75614ddc1a26788e"
+    },
+    {
+      "zone": {
+        "id": "panel-08",
+        "bounds": [
+          2844,
+          93,
+          3226,
+          808
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 264.540280000031,
+      "maskPixels": 872,
+      "metadata": {
+        "boxes": [
+          [
+            2844,
+            93,
+            3226,
+            808
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-08",
+            "bounds": [
+              2844,
+              93,
+              3226,
+              808
+            ],
+            "origin": [
+              2844,
+              93
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 8.079701238776659e-25,
+              "threshold": 4.0730571885458095e-18,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 1966080,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105457,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 6921,
+                "reuses": 6915,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 9621,
+                "networkBytes": 4694134104,
+                "committedBytes": 4694134104,
+                "cacheHits": 333,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 9621,
+                "reuses": 9618,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:9",
+        "analysisId": "d2prl-session-1:9",
+        "revision": 9,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-08",
+            "bounds": [
+              2844,
+              93,
+              3226,
+              808
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 264311.3900000453,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7552181376,
+          "retainedBytes": 54425376,
+          "cacheBytes": 21676032,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2501832080,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 1345.9150000214577,
+          "projectionMs": 1242.5249999761581,
+          "compositionMs": 1168.370000064373,
+          "postprocessMs": 90.88999998569489,
+          "blocks": 12,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              2844,
+              93,
+              3226,
+              808
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-08",
+              "bounds": [
+                2844,
+                93,
+                3226,
+                808
+              ],
+              "origin": [
+                2844,
+                93
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 1320,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-08-mask-10.png",
+        "maskFileSha256": "65e1d251e97dff493c788973f495ab108332fda25f95d219fd4b854e2ad9f92e"
+      },
+      "maskFile": "panel-08-mask.png",
+      "maskFileSha256": "a3e1d0e416be49361a115caad7b97b52f4b3810032ac18843e746127a12594cc",
+      "rawGridSha256": "c7677df7581f29d75efe3abe0d01416a328689434433cd52ebc3746581ccd305"
+    },
+    {
+      "zone": {
+        "id": "panel-09",
+        "bounds": [
+          0,
+          819,
+          385,
+          930
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 267.3627950000167,
+      "maskPixels": 120,
+      "metadata": {
+        "boxes": [
+          [
+            0,
+            819,
+            385,
+            930
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-09",
+            "bounds": [
+              0,
+              819,
+              385,
+              930
+            ],
+            "origin": [
+              0,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 8.595111606651188e-20,
+              "threshold": 4.781400427499027e-13,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105485,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 7690,
+                "reuses": 7684,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 10690,
+                "networkBytes": 5215704560,
+                "committedBytes": 5215704560,
+                "cacheHits": 370,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 10690,
+                "reuses": 10687,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:10",
+        "analysisId": "d2prl-session-1:10",
+        "revision": 10,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-09",
+            "bounds": [
+              0,
+              819,
+              385,
+              930
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 267152.4099999666,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7549772928,
+          "retainedBytes": 54425376,
+          "cacheBytes": 24084480,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2504240528,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 246.04499995708466,
+          "projectionMs": 129.12000000476837,
+          "compositionMs": 112.15000003576279,
+          "postprocessMs": 83.91000002622604,
+          "blocks": 4,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              0,
+              819,
+              385,
+              930
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-09",
+              "bounds": [
+                0,
+                819,
+                385,
+                930
+              ],
+              "origin": [
+                0,
+                819
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 364,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-09-mask-10.png",
+        "maskFileSha256": "e57f21b080034a4c9ad2d0b607593c33a34ca781af09786b18169deaba3d1d78"
+      },
+      "maskFile": "panel-09-mask.png",
+      "maskFileSha256": "4b9e5a924aba0fcb86ed2d0cc7070bef7d20833aa5a6806404ef21ddaf5a24d1",
+      "rawGridSha256": "25ce082c02179c24456e11d61323a68b80b4fd5237b0890f4e3e50f409decf61"
+    },
+    {
+      "zone": {
+        "id": "panel-10",
+        "bounds": [
+          389,
+          820,
+          758,
+          930
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 274.72213000005485,
+      "maskPixels": 391,
+      "metadata": {
+        "boxes": [
+          [
+            389,
+            820,
+            758,
+            930
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-10",
+            "bounds": [
+              389,
+              820,
+              758,
+              930
+            ],
+            "origin": [
+              389,
+              820
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 3.081057943809447e-18,
+              "threshold": 3.9543156075960706e-12,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 1572864,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105676,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 8459,
+                "reuses": 8453,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 11759,
+                "networkBytes": 5737275016,
+                "committedBytes": 5737275016,
+                "cacheHits": 407,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 11759,
+                "reuses": 11756,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:11",
+        "analysisId": "d2prl-session-1:11",
+        "revision": 11,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-10",
+            "bounds": [
+              389,
+              820,
+              758,
+              930
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 274513.37999999523,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7547364480,
+          "retainedBytes": 54425376,
+          "cacheBytes": 26492928,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2506648976,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 255,
+          "projectionMs": 130.71499997377396,
+          "compositionMs": 113.93000000715256,
+          "postprocessMs": 94.125,
+          "blocks": 4,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              389,
+              820,
+              758,
+              930
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-10",
+              "bounds": [
+                389,
+                820,
+                758,
+                930
+              ],
+              "origin": [
+                389,
+                820
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 668,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-10-mask-10.png",
+        "maskFileSha256": "53a0ffc5fc1000c9813d5575146d2724cb6e569a957d86b0a575cc3cf1bb40c9"
+      },
+      "maskFile": "panel-10-mask.png",
+      "maskFileSha256": "158bb344e06f82b206c9b4f8e08904a43f3099674279fabb81a0e74d2442ffe7",
+      "rawGridSha256": "e51e9277b9603c8d1c2aef0b8ede1929a74e99d4ba2078b42f78af483e675604"
+    },
+    {
+      "zone": {
+        "id": "panel-11",
+        "bounds": [
+          784,
+          819,
+          1167,
+          929
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 269.6726399999857,
+      "maskPixels": 653,
+      "metadata": {
+        "boxes": [
+          [
+            784,
+            819,
+            1167,
+            929
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-11",
+            "bounds": [
+              784,
+              819,
+              1167,
+              929
+            ],
+            "origin": [
+              784,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 7.598989026049991e-24,
+              "threshold": 5.694906245111591e-17,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105737,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 9228,
+                "reuses": 9222,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 12828,
+                "networkBytes": 6258845472,
+                "committedBytes": 6258845472,
+                "cacheHits": 444,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 12828,
+                "reuses": 12825,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:12",
+        "analysisId": "d2prl-session-1:12",
+        "revision": 12,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-11",
+            "bounds": [
+              784,
+              819,
+              1167,
+              929
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 269458.0649999976,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7544956032,
+          "retainedBytes": 54425376,
+          "cacheBytes": 28901376,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2509057424,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 258.2099999785423,
+          "projectionMs": 130.5549999475479,
+          "compositionMs": 113.92500007152557,
+          "postprocessMs": 96.81499999761581,
+          "blocks": 4,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              784,
+              819,
+              1167,
+              929
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-11",
+              "bounds": [
+                784,
+                819,
+                1167,
+                929
+              ],
+              "origin": [
+                784,
+                819
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 873,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-11-mask-10.png",
+        "maskFileSha256": "86ff278260caee480559cae4fddec224c87a7e7d4053e03bfbea1ba45920dbbf"
+      },
+      "maskFile": "panel-11-mask.png",
+      "maskFileSha256": "5ea020f23befed52afe74502c03036539ad57732fc1dfa85abe6ab31d863a8c9",
+      "rawGridSha256": "e72c73deef6a3f0940cea589cc5e3a0733faabeffe3f66b1a77d4149358b1238"
+    },
+    {
+      "zone": {
+        "id": "panel-12",
+        "bounds": [
+          1171,
+          818,
+          1556,
+          929
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 253.90775,
+      "maskPixels": 284,
+      "metadata": {
+        "boxes": [
+          [
+            1171,
+            818,
+            1556,
+            929
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-12",
+            "bounds": [
+              1171,
+              818,
+              1556,
+              929
+            ],
+            "origin": [
+              1171,
+              818
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 8.571751749294067e-25,
+              "threshold": 8.75028709650035e-18,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2031616,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105437,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 9997,
+                "reuses": 9991,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 13897,
+                "networkBytes": 6780415928,
+                "committedBytes": 6780415928,
+                "cacheHits": 481,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 13897,
+                "reuses": 13894,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:13",
+        "analysisId": "d2prl-session-1:13",
+        "revision": 13,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-12",
+            "bounds": [
+              1171,
+              818,
+              1556,
+              929
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 253695.7950000167,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7542547584,
+          "retainedBytes": 54425376,
+          "cacheBytes": 31309824,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2511465872,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 286.4800000190735,
+          "projectionMs": 151.4650000333786,
+          "compositionMs": 132.35999995470047,
+          "postprocessMs": 97.06999999284744,
+          "blocks": 4,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              1171,
+              818,
+              1556,
+              929
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-12",
+              "bounds": [
+                1171,
+                818,
+                1556,
+                929
+              ],
+              "origin": [
+                1171,
+                818
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 561,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-12-mask-10.png",
+        "maskFileSha256": "2c858c17ba470c272c2f820269d7e5a7a40086be3c402953255806b8cc8a833a"
+      },
+      "maskFile": "panel-12-mask.png",
+      "maskFileSha256": "0549159dee1c248dc05dc97a1583b58ac30d5914750260754931a238fd7d27e2",
+      "rawGridSha256": "4edd9ad7fbb8c0d310ae89f669f1b08ee938e9d6403d3618564db672c47ffb4c"
+    },
+    {
+      "zone": {
+        "id": "panel-13",
+        "bounds": [
+          1661,
+          819,
+          2042,
+          928
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 248.12210000002383,
+      "maskPixels": 211,
+      "metadata": {
+        "boxes": [
+          [
+            1661,
+            819,
+            2042,
+            928
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-13",
+            "bounds": [
+              1661,
+              819,
+              2042,
+              928
+            ],
+            "origin": [
+              1661,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 3.322705679973378e-19,
+              "threshold": 4.417892267294388e-12,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105381,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 10766,
+                "reuses": 10760,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 14966,
+                "networkBytes": 7301986384,
+                "committedBytes": 7301986384,
+                "cacheHits": 518,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 14966,
+                "reuses": 14963,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:14",
+        "analysisId": "d2prl-session-1:14",
+        "revision": 14,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-13",
+            "bounds": [
+              1661,
+              819,
+              2042,
+              928
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 247909.64499998093,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7540139136,
+          "retainedBytes": 54425376,
+          "cacheBytes": 33718272,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2513874320,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 287.75999999046326,
+          "projectionMs": 152.11500000953674,
+          "compositionMs": 133.62000000476837,
+          "postprocessMs": 94.625,
+          "blocks": 4,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              1661,
+              819,
+              2042,
+              928
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-13",
+              "bounds": [
+                1661,
+                819,
+                2042,
+                928
+              ],
+              "origin": [
+                1661,
+                819
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 578,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-13-mask-10.png",
+        "maskFileSha256": "bbfbadd2816553519850784cc0e0a7da4a1994f1d8ffd3ec6b932efd9d53e7ee"
+      },
+      "maskFile": "panel-13-mask.png",
+      "maskFileSha256": "80c6a7ea2c0c18e69a605a0c8d42bb401f607ca6a9d1a7f9e86dfb3dbf4d8d03",
+      "rawGridSha256": "789146243b28566041f6210320e39f2003425c8c46330683a450f0ba04d82e46"
+    },
+    {
+      "zone": {
+        "id": "panel-14",
+        "bounds": [
+          2051,
+          818,
+          2433,
+          928
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 254.54598000001909,
+      "maskPixels": 324,
+      "metadata": {
+        "boxes": [
+          [
+            2051,
+            818,
+            2433,
+            928
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-14",
+            "bounds": [
+              2051,
+              818,
+              2433,
+              928
+            ],
+            "origin": [
+              2051,
+              818
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 3.771868071784229e-13,
+              "threshold": 1.8661770582184545e-06,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105328,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 11535,
+                "reuses": 11529,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 16035,
+                "networkBytes": 7823556840,
+                "committedBytes": 7823556840,
+                "cacheHits": 555,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 16035,
+                "reuses": 16032,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:15",
+        "analysisId": "d2prl-session-1:15",
+        "revision": 15,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-14",
+            "bounds": [
+              2051,
+              818,
+              2433,
+              928
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 254327.81999999285,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7537730688,
+          "retainedBytes": 54425376,
+          "cacheBytes": 36126720,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2516282768,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 285.960000038147,
+          "projectionMs": 149.4000000357628,
+          "compositionMs": 129.62999993562698,
+          "postprocessMs": 95.98499995470047,
+          "blocks": 4,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              2051,
+              818,
+              2433,
+              928
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-14",
+              "bounds": [
+                2051,
+                818,
+                2433,
+                928
+              ],
+              "origin": [
+                2051,
+                818
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 597,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-14-mask-10.png",
+        "maskFileSha256": "6a459cea1fa663902dbc08a2eecc7720e69d05ddcbe075bbb8f5dc73f4a3e6e1"
+      },
+      "maskFile": "panel-14-mask.png",
+      "maskFileSha256": "ed21343209062f87e58a2239d32a35310ed0d4fa11774e8a7347ebed667958d1",
+      "rawGridSha256": "61c83a4b4998e7201c6b68fbf33941a394be53894dd2f37c0e0632b93d7b921b"
+    },
+    {
+      "zone": {
+        "id": "panel-15",
+        "bounds": [
+          2454,
+          820,
+          2840,
+          930
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 247.62834999996423,
+      "maskPixels": 407,
+      "metadata": {
+        "boxes": [
+          [
+            2454,
+            820,
+            2840,
+            930
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-15",
+            "bounds": [
+              2454,
+              820,
+              2840,
+              930
+            ],
+            "origin": [
+              2454,
+              820
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 0.00244382256641984,
+              "threshold": 54.00750732421875,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 2097152,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105243,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 12304,
+                "reuses": 12298,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 17104,
+                "networkBytes": 8345127296,
+                "committedBytes": 8345127296,
+                "cacheHits": 592,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 17104,
+                "reuses": 17101,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:16",
+        "analysisId": "d2prl-session-1:16",
+        "revision": 16,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-15",
+            "bounds": [
+              2454,
+              820,
+              2840,
+              930
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 247422.83999997377,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7535322240,
+          "retainedBytes": 54425376,
+          "cacheBytes": 38535168,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2518691216,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 290.4399999976158,
+          "projectionMs": 151.5600000023842,
+          "compositionMs": 133.42499995231628,
+          "postprocessMs": 98.96499997377396,
+          "blocks": 4,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              2454,
+              820,
+              2840,
+              930
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-15",
+              "bounds": [
+                2454,
+                820,
+                2840,
+                930
+              ],
+              "origin": [
+                2454,
+                820
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 663,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-15-mask-10.png",
+        "maskFileSha256": "75d667242b3fc99cd0d25a1df134bab164d24810da616db5ac3b35f9fd4f6e81"
+      },
+      "maskFile": "panel-15-mask.png",
+      "maskFileSha256": "4e14d4c7a993f791101fabe22c7aac896d003a08cbfdf022af4e852e599f8a83",
+      "rawGridSha256": "2dc88918fdad1e0ff520edc3ce1eb7a6e33335e4792463a0c36a07dee9e4c233"
+    },
+    {
+      "zone": {
+        "id": "panel-16",
+        "bounds": [
+          2844,
+          819,
+          3226,
+          930
+        ],
+        "kind": "region"
+      },
+      "width": 3226,
+      "height": 936,
+      "seconds": 247.42534999996423,
+      "maskPixels": 141,
+      "metadata": {
+        "boxes": [
+          [
+            2844,
+            819,
+            3226,
+            930
+          ]
+        ],
+        "zones": [
+          {
+            "id": "panel-16",
+            "bounds": [
+              2844,
+              819,
+              3226,
+              930
+            ],
+            "origin": [
+              2844,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50,
+            "kind": "region",
+            "decision": {
+              "overlap": 146.10064697265625,
+              "threshold": 2243.806396484375,
+              "combineMaximum": false
+            },
+            "execution": {
+              "convolution": "webgpu",
+              "patchmatch": "wasm-workers",
+              "roles": "onnxruntime-wasm",
+              "workerCeiling": 8,
+              "referenceThreads": 8,
+              "roleRuntime": {
+                "heapCapacityBytes": 170524672,
+                "ort": {
+                  "common": "1.30.0",
+                  "web": "1.30.0"
+                },
+                "parameterLoading": {
+                  "entries": 1,
+                  "reads": 1,
+                  "networkBytes": 19943135,
+                  "committedBytes": 19943135,
+                  "cacheHits": 0,
+                  "hashInstances": 1,
+                  "peakNetworkChunkBytes": 1966080,
+                  "banks": 1,
+                  "residentBytes": 19988480,
+                  "liveTensors": 1,
+                  "allocations": 1,
+                  "reuses": 0,
+                  "peakBytes": 19988480,
+                  "observedHeapBytes": 170524672
+                }
+              },
+              "allocationRecovery": {
+                "completedOperations": 105583,
+                "recoveries": 0
+              },
+              "tensorArena": {
+                "banks": 6,
+                "residentBytes": 372899840,
+                "liveTensors": 2,
+                "allocations": 13073,
+                "reuses": 13067,
+                "peakBytes": 372899840
+              },
+              "parameterStore": {
+                "entries": 0,
+                "reads": 18173,
+                "networkBytes": 8866697752,
+                "committedBytes": 8866697752,
+                "cacheHits": 629,
+                "hashInstances": 1,
+                "peakNetworkChunkBytes": 2097152,
+                "banks": 3,
+                "residentBytes": 111149056,
+                "liveTensors": 0,
+                "allocations": 18173,
+                "reuses": 18170,
+                "peakBytes": 111149056
+              }
+            }
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "exclusion_policy": "output-only-native-d2prl",
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+        "backend": "gpu",
+        "pixelSha256": "18d7bed190c670a9e8d6222b5fd6bd799bd00381941d65a595920554bb6b1457",
+        "resultId": "d2prl-session-1:17",
+        "analysisId": "d2prl-session-1:17",
+        "revision": 17,
+        "sourceProvenance": {
+          "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              3226,
+              936
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "vote_policy": "one-model-union",
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "provenance": {
+        "engine": "0.35.0-export.2",
+        "operation": "ai.clones.d2prl",
+        "originalSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "decode": {
+          "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+          "format": "png",
+          "layout": "segmented-scanlines",
+          "orientation": 1,
+          "orientationApplied": true,
+          "sourceSize": [
+            3226,
+            936
+          ],
+          "sourceDepth": 8,
+          "analysisDepth": 8,
+          "interlace": 0,
+          "icc": "absent",
+          "alpha": "absent",
+          "interpolation": "none",
+          "frames": "static PNG"
+        },
+        "params": {
+          "minimum": 100,
+          "exclusions": []
+        },
+        "regions": [
+          {
+            "id": "panel-16",
+            "bounds": [
+              2844,
+              819,
+              3226,
+              930
+            ],
+            "kind": "region"
+          }
+        ],
+        "model": {
+          "bytes": 1173784,
+          "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db",
+          "checkpointSha256": "2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36"
+        },
+        "backend": "webgpu-convolutions-wasm",
+        "kernelParity": "Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy",
+        "layout": "segmented"
+      },
+      "metrics": {
+        "totalMs": 247221.37999999523,
+        "inferences": 1,
+        "cache": {
+          "rawGrids": 0
+        },
+        "memory": {
+          "budgetBytes": 8589934592,
+          "policyAvailableBytes": 7532913792,
+          "retainedBytes": 54425376,
+          "cacheBytes": 40943616,
+          "activeReservationBytes": 961651808,
+          "peakAccountedBytes": 2521099664,
+          "activeRecoveries": 0
+        },
+        "projection": {
+          "totalMs": 270.85499995946884,
+          "projectionMs": 152.37999999523163,
+          "compositionMs": 132.89500004053116,
+          "postprocessMs": 84.41500002145767,
+          "blocks": 4,
+          "metadataBytes": 73728,
+          "storage": {
+            "map": "memory",
+            "mask": "memory",
+            "target": "memory",
+            "source": "memory",
+            "analyzed": "memory",
+            "candidates": "memory"
+          },
+          "resultBytes": 45293040
+        }
+      },
+      "minimum10Refilter": {
+        "metadata": {
+          "boxes": [
+            [
+              2844,
+              819,
+              3226,
+              930
+            ]
+          ],
+          "zones": [
+            {
+              "id": "panel-16",
+              "bounds": [
+                2844,
+                819,
+                3226,
+                930
+              ],
+              "origin": [
+                2844,
+                819
+              ],
+              "analysis_shape": [
+                3,
+                448,
+                448
+              ],
+              "status": "ok",
+              "input_side": 448,
+              "patchmatch_iterations": 40,
+              "seed": 22,
+              "min_component": 10,
+              "role_filter": 50
+            }
+          ],
+          "exclusions": [],
+          "min_component": 10,
+          "status": "ok",
+          "probability_interpolation": "bilinear",
+          "mask_interpolation": "nearest",
+          "exclusion_policy": "output-only-native-d2prl",
+          "inference_performed": false
+        },
+        "maskPixels": 301,
+        "minimum100MatchesExportExactly": true,
+        "minimum10ContainsMinimum100": true,
+        "additionalInferences": 0,
+        "maskFile": "panel-16-mask-10.png",
+        "maskFileSha256": "3cebe3fa9d86b4569e51f41dac318a71ce7dee7f1aa67f50d55844bf5428d012"
+      },
+      "maskFile": "panel-16-mask.png",
+      "maskFileSha256": "d512807bf37737d3b56ec77ee84161dc48dcb221f5600cbcc2a1a3633ee7bc43",
+      "rawGridSha256": "8039b0796f53256709f8058af35a64ba9f69ff91a5452fa15a4ee63b080f8ca4"
+    }
+  ],
+  "detail": {
+    "zone": "panel-01",
+    "bounds": [
+      9,
+      240,
+      201,
+      432
+    ],
+    "selection": "Largest number of additional original-coordinate pixels at minimum 10 versus 100 among the local panels",
+    "panelBounds": [
+      0,
+      94,
+      383,
+      809
+    ],
+    "displayScale": 2,
+    "interpolation": "nearest-neighbor presentation only",
+    "cropSelection": "192-pixel window centered on the largest newly retained component within the selected panel",
+    "newComponentPixels": 120
+  },
+  "display": {
+    "overlay": "Uniform yellow at 35% opacity on the exported filtered union mask only; no probability weighting or hand-added detections",
+    "combined": "Web-engine projection of all 17 cached grids, verified byte for byte against the Boolean OR of the independently exported masks; one D2PRL vote per pixel"
+  },
+  "counts": {
+    "100": {
+      "local": 82157,
+      "global": 694828,
+      "overlap": 36694,
+      "combined": 740291,
+      "localOnly": 45463,
+      "globalOnly": 658134
+    },
+    "10": {
+      "local": 95401,
+      "global": 699644,
+      "overlap": 41275,
+      "combined": 753770,
+      "localOnly": 54126,
+      "globalOnly": 658369
+    }
+  },
+  "outputs": [
+    {
+      "file": "automatic-zones.png",
+      "preview": "automatic-zones.webp",
+      "view": "Automatic panel rectangles in blue; enclosing search rectangle in orange. These are search areas, not detections.",
+      "width": 3226,
+      "height": 936,
+      "sha256": "a0c77befb16ec3b3db3111f3a414340819f4fff4fab4ce15b9041c2137dc5d88",
+      "rawRgbSha256": "aa82683f1dde600ebfedca00eeefc7da1ccef3f7fd166d03e3104274a036b1ca",
+      "previewSha256": "d32ae9f535978fe2881b316b26bfbe302bb06e578dbe9b3f051e88cf570369a8",
+      "previewBytes": 428406,
+      "previewDimensions": [
+        3226,
+        936
+      ],
+      "previewQuality": 88
+    },
+    {
+      "file": "local-detections-100.png",
+      "preview": "local-detections-100.webp",
+      "view": "Union of 16 independent panel masks, minimum 100 model-grid pixels",
+      "width": 3226,
+      "height": 936,
+      "sha256": "c40f80ec48a561adb89ea6e30b97d8b688ca6f6c03427607ac6b66d47bd42f0a",
+      "rawRgbSha256": "24c39fa10795993f03c58edc4dda7cb5efde8a9b5a00ec3427ff2b976f40a9b5",
+      "previewSha256": "5ff9272cf1a5a5ec25f8b13a47f786b05749d747a4ae64ebddce9e7d869128c1",
+      "previewBytes": 446816,
+      "previewDimensions": [
+        3226,
+        936
+      ],
+      "previewQuality": 88
+    },
+    {
+      "file": "global-detections-100.png",
+      "preview": "global-detections-100.webp",
+      "view": "Enclosing-zone mask, minimum 100 model-grid pixels",
+      "width": 3226,
+      "height": 936,
+      "sha256": "bff2a950543c7f0e101aefbaa22c249756c5ce9a2d6b9765db8ba24c5e5ac8f2",
+      "rawRgbSha256": "281605a04eb2bb28edf86cc97eac62452ce5ea5da3a966226dac3b605a9c2e1d",
+      "previewSha256": "ae69658fbaa99a93499651b383796b7bf1bd2268680a83c80673d88e033014e2",
+      "previewBytes": 411380,
+      "previewDimensions": [
+        3226,
+        936
+      ],
+      "previewQuality": 88
+    },
+    {
+      "file": "combined-detections-100.png",
+      "preview": "combined-detections-100.webp",
+      "view": "Boolean union of local and enclosing-zone masks; minimum 100; one D2PRL vote per pixel",
+      "width": 3226,
+      "height": 936,
+      "sha256": "dd44fdc346a6534bc0e021da4efb9699c3ed4d4af1de14c6bd9dfb1b53d22cca",
+      "rawRgbSha256": "4af60dc3da98492b7e0e1f5649d4026f93869021dff1b6e91b60154486b9d54e",
+      "previewSha256": "d0c0a85cf53b1a8bdd22088eee656c12c0eaad78ffb898e1a8379c7e8d0c2c4d",
+      "previewBytes": 420002,
+      "previewDimensions": [
+        3226,
+        936
+      ],
+      "previewQuality": 88
+    },
+    {
+      "file": "local-detections-10.png",
+      "preview": "local-detections-10.webp",
+      "view": "Union of 16 independent panel masks, minimum 10 model-grid pixels",
+      "width": 3226,
+      "height": 936,
+      "sha256": "a806adf3e94b60d81ff6e529b35ca6b83bd8b89db21948d3091b3d83da09affe",
+      "rawRgbSha256": "18211005a93684893b0ce651d478836c968b7dc6c8c808403414d4111da1054b",
+      "previewSha256": "efabe7596e115b433c1aaf7414ce11da441f6ed6ba843ee241564141e2e3d97e",
+      "previewBytes": 458958,
+      "previewDimensions": [
+        3226,
+        936
+      ],
+      "previewQuality": 88
+    },
+    {
+      "file": "global-detections-10.png",
+      "preview": "global-detections-10.webp",
+      "view": "Enclosing-zone mask, minimum 10 model-grid pixels",
+      "width": 3226,
+      "height": 936,
+      "sha256": "9c50116f875401d1e67f657add94c8dd347f75b9c5c5e8ea3fafead6eae10cd8",
+      "rawRgbSha256": "9bd66c1899dd2f33d07efba252191e1b83add65a9b09e3b75e7ca1d06191126e",
+      "previewSha256": "b3f4fd624f5015fa33886fd1fe4b7a15cf3dfd6fc55759c84bb08ee731792c5b",
+      "previewBytes": 412928,
+      "previewDimensions": [
+        3226,
+        936
+      ],
+      "previewQuality": 88
+    },
+    {
+      "file": "combined-detections-10.png",
+      "preview": "combined-detections-10.webp",
+      "view": "Boolean union of local and enclosing-zone masks; minimum 10; one D2PRL vote per pixel",
+      "width": 3226,
+      "height": 936,
+      "sha256": "5008b194586bac7e574a11ae5cc0809ff33a44e0b234d22144d0ca0b8858e3b9",
+      "rawRgbSha256": "03bcc83bf99c5b387712b825baaa34b18d63731db37fd91dd31aa9759b2136c1",
+      "previewSha256": "3bea30984d11ae50be534b87514eba55f7310e4fd08b0b4ded8883078f949282",
+      "previewBytes": 429574,
+      "previewDimensions": [
+        3226,
+        936
+      ],
+      "previewQuality": 88
+    },
+    {
+      "file": "threshold-detail.png",
+      "preview": "threshold-detail.webp",
+      "view": "Local panel panel-01: identical input crop, minimum 100, minimum 10. Selected as the panel with the most additional original-coordinate pixels at minimum 10.",
+      "width": 1184,
+      "height": 448,
+      "sha256": "8c3ca0d1d3565fec3e4f0053286e8a4e28f27ddb0eea5ec18a7c5f76c39ba763",
+      "rawRgbSha256": "5c93d1eaec15506b8a309068148312a7b9b4ad26cef1cadf4cce17fba1d89ad9",
+      "previewSha256": "8a3a0448bf6a7f1cbd99bc54d99d1fc64fab6912a349820f368ed0355a2071fd",
+      "previewBytes": 45590,
+      "previewDimensions": [
+        1184,
+        448
+      ],
+      "previewQuality": 88
+    }
+  ],
+  "sourceIdentity": {
+    "engine_commit": "638d0f7aeebb6fc680fcd99b8af0e3977fb40284",
+    "engine_version": "0.35.0-export.2",
+    "resource_commit": "5b517b6972a72872d810e044fe7a85e1fc100b76",
+    "public_snapshot": "c785fb78b237ebad40b3274f9ffa94042f2aa9bc",
+    "scope": "Direct engine calls against the restored batch runtime; no application interface loaded"
+  },
+  "combinedProjection": [
+    {
+      "minimum": 100,
+      "maskPixels": 740291,
+      "metadata": {
+        "boxes": [
+          [
+            0,
+            92,
+            3226,
+            930
+          ],
+          [
+            0,
+            94,
+            383,
+            809
+          ],
+          [
+            388,
+            94,
+            758,
+            810
+          ],
+          [
+            784,
+            94,
+            1167,
+            809
+          ],
+          [
+            1171,
+            94,
+            1556,
+            809
+          ],
+          [
+            1661,
+            92,
+            2043,
+            807
+          ],
+          [
+            2050,
+            92,
+            2433,
+            807
+          ],
+          [
+            2454,
+            93,
+            2838,
+            809
+          ],
+          [
+            2844,
+            93,
+            3226,
+            808
+          ],
+          [
+            0,
+            819,
+            385,
+            930
+          ],
+          [
+            389,
+            820,
+            758,
+            930
+          ],
+          [
+            784,
+            819,
+            1167,
+            929
+          ],
+          [
+            1171,
+            818,
+            1556,
+            929
+          ],
+          [
+            1661,
+            819,
+            2042,
+            928
+          ],
+          [
+            2051,
+            818,
+            2433,
+            928
+          ],
+          [
+            2454,
+            820,
+            2840,
+            930
+          ],
+          [
+            2844,
+            819,
+            3226,
+            930
+          ]
+        ],
+        "zones": [
+          {
+            "id": "global-zone",
+            "bounds": [
+              0,
+              92,
+              3226,
+              930
+            ],
+            "origin": [
+              0,
+              92
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-01",
+            "bounds": [
+              0,
+              94,
+              383,
+              809
+            ],
+            "origin": [
+              0,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-02",
+            "bounds": [
+              388,
+              94,
+              758,
+              810
+            ],
+            "origin": [
+              388,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-03",
+            "bounds": [
+              784,
+              94,
+              1167,
+              809
+            ],
+            "origin": [
+              784,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-04",
+            "bounds": [
+              1171,
+              94,
+              1556,
+              809
+            ],
+            "origin": [
+              1171,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-05",
+            "bounds": [
+              1661,
+              92,
+              2043,
+              807
+            ],
+            "origin": [
+              1661,
+              92
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-06",
+            "bounds": [
+              2050,
+              92,
+              2433,
+              807
+            ],
+            "origin": [
+              2050,
+              92
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-07",
+            "bounds": [
+              2454,
+              93,
+              2838,
+              809
+            ],
+            "origin": [
+              2454,
+              93
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-08",
+            "bounds": [
+              2844,
+              93,
+              3226,
+              808
+            ],
+            "origin": [
+              2844,
+              93
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-09",
+            "bounds": [
+              0,
+              819,
+              385,
+              930
+            ],
+            "origin": [
+              0,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-10",
+            "bounds": [
+              389,
+              820,
+              758,
+              930
+            ],
+            "origin": [
+              389,
+              820
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-11",
+            "bounds": [
+              784,
+              819,
+              1167,
+              929
+            ],
+            "origin": [
+              784,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-12",
+            "bounds": [
+              1171,
+              818,
+              1556,
+              929
+            ],
+            "origin": [
+              1171,
+              818
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-13",
+            "bounds": [
+              1661,
+              819,
+              2042,
+              928
+            ],
+            "origin": [
+              1661,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-14",
+            "bounds": [
+              2051,
+              818,
+              2433,
+              928
+            ],
+            "origin": [
+              2051,
+              818
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-15",
+            "bounds": [
+              2454,
+              820,
+              2840,
+              930
+            ],
+            "origin": [
+              2454,
+              820
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-16",
+            "bounds": [
+              2844,
+              819,
+              3226,
+              930
+            ],
+            "origin": [
+              2844,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 100,
+            "role_filter": 50
+          }
+        ],
+        "exclusions": [],
+        "min_component": 100,
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "exclusion_policy": "output-only-native-d2prl",
+        "inference_performed": false
+      },
+      "additionalInferences": 0
+    },
+    {
+      "minimum": 10,
+      "maskPixels": 753770,
+      "metadata": {
+        "boxes": [
+          [
+            0,
+            92,
+            3226,
+            930
+          ],
+          [
+            0,
+            94,
+            383,
+            809
+          ],
+          [
+            388,
+            94,
+            758,
+            810
+          ],
+          [
+            784,
+            94,
+            1167,
+            809
+          ],
+          [
+            1171,
+            94,
+            1556,
+            809
+          ],
+          [
+            1661,
+            92,
+            2043,
+            807
+          ],
+          [
+            2050,
+            92,
+            2433,
+            807
+          ],
+          [
+            2454,
+            93,
+            2838,
+            809
+          ],
+          [
+            2844,
+            93,
+            3226,
+            808
+          ],
+          [
+            0,
+            819,
+            385,
+            930
+          ],
+          [
+            389,
+            820,
+            758,
+            930
+          ],
+          [
+            784,
+            819,
+            1167,
+            929
+          ],
+          [
+            1171,
+            818,
+            1556,
+            929
+          ],
+          [
+            1661,
+            819,
+            2042,
+            928
+          ],
+          [
+            2051,
+            818,
+            2433,
+            928
+          ],
+          [
+            2454,
+            820,
+            2840,
+            930
+          ],
+          [
+            2844,
+            819,
+            3226,
+            930
+          ]
+        ],
+        "zones": [
+          {
+            "id": "global-zone",
+            "bounds": [
+              0,
+              92,
+              3226,
+              930
+            ],
+            "origin": [
+              0,
+              92
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-01",
+            "bounds": [
+              0,
+              94,
+              383,
+              809
+            ],
+            "origin": [
+              0,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-02",
+            "bounds": [
+              388,
+              94,
+              758,
+              810
+            ],
+            "origin": [
+              388,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-03",
+            "bounds": [
+              784,
+              94,
+              1167,
+              809
+            ],
+            "origin": [
+              784,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-04",
+            "bounds": [
+              1171,
+              94,
+              1556,
+              809
+            ],
+            "origin": [
+              1171,
+              94
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-05",
+            "bounds": [
+              1661,
+              92,
+              2043,
+              807
+            ],
+            "origin": [
+              1661,
+              92
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-06",
+            "bounds": [
+              2050,
+              92,
+              2433,
+              807
+            ],
+            "origin": [
+              2050,
+              92
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-07",
+            "bounds": [
+              2454,
+              93,
+              2838,
+              809
+            ],
+            "origin": [
+              2454,
+              93
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-08",
+            "bounds": [
+              2844,
+              93,
+              3226,
+              808
+            ],
+            "origin": [
+              2844,
+              93
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-09",
+            "bounds": [
+              0,
+              819,
+              385,
+              930
+            ],
+            "origin": [
+              0,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-10",
+            "bounds": [
+              389,
+              820,
+              758,
+              930
+            ],
+            "origin": [
+              389,
+              820
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-11",
+            "bounds": [
+              784,
+              819,
+              1167,
+              929
+            ],
+            "origin": [
+              784,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-12",
+            "bounds": [
+              1171,
+              818,
+              1556,
+              929
+            ],
+            "origin": [
+              1171,
+              818
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-13",
+            "bounds": [
+              1661,
+              819,
+              2042,
+              928
+            ],
+            "origin": [
+              1661,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-14",
+            "bounds": [
+              2051,
+              818,
+              2433,
+              928
+            ],
+            "origin": [
+              2051,
+              818
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-15",
+            "bounds": [
+              2454,
+              820,
+              2840,
+              930
+            ],
+            "origin": [
+              2454,
+              820
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          },
+          {
+            "id": "panel-16",
+            "bounds": [
+              2844,
+              819,
+              3226,
+              930
+            ],
+            "origin": [
+              2844,
+              819
+            ],
+            "analysis_shape": [
+              3,
+              448,
+              448
+            ],
+            "status": "ok",
+            "input_side": 448,
+            "patchmatch_iterations": 40,
+            "seed": 22,
+            "min_component": 10,
+            "role_filter": 50
+          }
+        ],
+        "exclusions": [],
+        "min_component": 10,
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "exclusion_policy": "output-only-native-d2prl",
+        "inference_performed": false
+      },
+      "additionalInferences": 0
+    }
+  ],
+  "combinedProjectionMatchesIndependentUnion": true
+}

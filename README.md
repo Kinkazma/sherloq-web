@@ -4,6 +4,70 @@
 
 **SHERLOQ is the work of [Guido Bartoli and the original contributors](https://github.com/GuidoBartoli/sherloq).** I refer to the original project for its introduction, history, research references and upstream development.
 
+## Featured example — D2PRL across automatic microscopy zones
+
+I used the web engine to analyze **16 automatically detected panels and their enclosing global zone**, with **minimum component sizes of 100 and 10 pixels on each 448 × 448 model grid**. Each panel has its own inference; the global pass sees the panels together and can highlight similarities across them.
+
+<details>
+<summary>Microscopy — automatic zones, local detections, global detections and their combined result</summary>
+
+**Combined result — the two filter settings**
+
+This view retains every pixel selected by either a local search or the global search. Overlap still counts as one D2PRL contribution, not agreement between independent algorithms.
+
+**Minimum 100 pixels**
+
+[![Combined local and global detections — minimum 100](examples/results/microscopy-d2prl-automatic-zones/combined-detections-100.webp)](examples/results/microscopy-d2prl-automatic-zones/combined-detections-100.png)
+
+**Minimum 10 pixels**
+
+[![Combined local and global detections — minimum 10](examples/results/microscopy-d2prl-automatic-zones/combined-detections-10.webp)](examples/results/microscopy-d2prl-automatic-zones/combined-detections-10.png)
+
+
+
+**1. Automatic search zones**
+
+The blue rectangles identify the 16 independent panel searches. The orange rectangle is the global search area enclosing them, including the gaps between panels. These outlines describe where the model searches; they are not detections of image manipulation.
+
+[![Sixteen automatic panels and their enclosing global zone](examples/results/microscopy-d2prl-automatic-zones/automatic-zones.webp)](examples/results/microscopy-d2prl-automatic-zones/automatic-zones.png)
+
+**2. Detections within each panel**
+
+Lowering the minimum keeps smaller connected components. Both settings reuse exactly the same model outputs; no neural inference is rerun.
+
+Each panel is analyzed separately. Its filtered mask is placed back at the panel's original coordinates. This view shows the union of those 16 local results.
+
+**Minimum 100 pixels**
+
+[![Independent panel detections — minimum 100](examples/results/microscopy-d2prl-automatic-zones/local-detections-100.webp)](examples/results/microscopy-d2prl-automatic-zones/local-detections-100.png)
+
+**Minimum 10 pixels**
+
+[![Independent panel detections — minimum 10](examples/results/microscopy-d2prl-automatic-zones/local-detections-10.webp)](examples/results/microscopy-d2prl-automatic-zones/local-detections-10.png)
+
+**3. Global analysis across panels**
+
+The enclosing-zone pass sees all the panels together. It can therefore reveal responses spanning different panels that an isolated panel search cannot see. This is a segmentation map, not a list of verified source–target pairs.
+
+**Minimum 100 pixels**
+
+[![Global detections — minimum 100](examples/results/microscopy-d2prl-automatic-zones/global-detections-100.webp)](examples/results/microscopy-d2prl-automatic-zones/global-detections-100.png)
+
+**Minimum 10 pixels**
+
+[![Global detections — minimum 10](examples/results/microscopy-d2prl-automatic-zones/global-detections-10.webp)](examples/results/microscopy-d2prl-automatic-zones/global-detections-10.png)
+
+**Detail — local panel 1**
+
+The same crop, enlarged 2× for display, shows the input, the local mask at 100 and the local mask at 10. I selected the panel with the most additional image pixels retained at 10 so the effect of the filter is easier to inspect.
+
+[![Local panel 1: input, minimum 100 and minimum 10](examples/results/microscopy-d2prl-automatic-zones/threshold-detail.webp)](examples/results/microscopy-d2prl-automatic-zones/threshold-detail.png)
+
+Yellow is applied only to the **filtered masks**, at a uniform opacity; it does not encode probability. All eight previews are WebP files under 500 kB. Click a preview for its full-resolution PNG. [Settings, per-panel masks and run records](examples/results/microscopy-d2prl-automatic-zones/README.md).
+
+</details>
+
+
 ## Why this is a separate repository
 
 This is a derivative adaptation of SHERLOQ, not a claim to have created the original project. My account already owns [the macOS fork](https://github.com/Kinkazma/sherloq). GitHub did not offer a destination for another fork under the same account, either from Guido's repository or from my existing fork: both belong to the same fork network. I therefore keep the web adaptation in this separate repository so the two versions can have their own code, documentation and examples. The absence of GitHub's “forked from” badge is a hosting constraint, not a change in authorship or attribution.

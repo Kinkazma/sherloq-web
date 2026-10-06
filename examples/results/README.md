@@ -4,6 +4,7 @@ The [main gallery](../../README.md#examples-from-the-web-engine) embeds WebP pre
 
 | Example | Full-resolution output | Parameters and provenance |
 | --- | --- | --- |
+| microscopy-d2prl-automatic-zones — minimum 100 and 10 | [Views and individual masks](microscopy-d2prl-automatic-zones/README.md) | [JSON](microscopy-d2prl-automatic-zones/result.json) |
 | microscopy-forgeryscope-auto | [PNG](microscopy-forgeryscope-auto/result.png) | [JSON](microscopy-forgeryscope-auto/result.json) |
 | spiral-adaifl | [PNG](spiral-adaifl/result.png) | [JSON](spiral-adaifl/result.json) |
 | spiral-adaptive-cfa | [PNG](spiral-adaptive-cfa/result.png) | [JSON](spiral-adaptive-cfa/result.json) |
