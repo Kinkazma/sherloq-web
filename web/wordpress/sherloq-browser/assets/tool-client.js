@@ -5,17 +5,27 @@ import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
 import {createExportSink} from './export-sink.js';
 
+// Dense native counters may exceed JS's exact-number range. Keep their decimal
+// values as strings in JSON; borrow scientific typed arrays without copying them.
+export function jsonExportValue(value){
+ if(typeof value==='bigint')return value.toString();
+ if(ArrayBuffer.isView(value))return value instanceof BigInt64Array||value instanceof BigUint64Array?Array.from(value,String):value;
+ if(Array.isArray(value))return value.map(jsonExportValue);
+ if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,jsonExportValue(v)]));
+ return value;
+}
+
 export function resultResources(result){
  const surfaces=new Map(),tables=new Map();const visit=value=>{if(!value||typeof value!=='object'||ArrayBuffer.isView(value))return;
   if(typeof value.id==='string'&&Number.isInteger(value.revision)){if(Number.isInteger(value.rowCount)&&Array.isArray(value.columns))tables.set(value.id,value);else if(Number.isInteger(value.width)&&Number.isInteger(value.height)&&typeof value.format==='string')surfaces.set(value.id,value);}
   for(const v of Object.values(value))visit(v);
  };visit(result);return {surfaces:[...surfaces.values()],tables:[...tables.values()]};
 }
-export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},engineFactory=createWorkerEngine,m2Factory=m2ToolClient}={}){
+export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity}={}){
  const deployment=await (await fetch(new URL('./integrated-config.json',import.meta.url))).json();
  const base=new URL(deployment.assetBase,new URL('./integrated-config.json',import.meta.url));
  const asset=name=>new URL(name,base).href;
- const engine=engineFactory({computeProfile,...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
+ const engine=engineFactory({computeProfile,...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
  let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,d2Loaded=false,segmentationVariant=null,m2=null,m2Method=null;
  let d2Analysis=null;let sourceInput;const sourceAliases=new Set();
  const invalidated=()=>{d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=d2Loaded=false;segmentationVariant=null;onInvalidated({resultLost});};
@@ -86,7 +96,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    if(reference&&task.operation!=='comparison.image'){const old=reference;reference=null;await engine.unload(old.id);}
    if(mask&&(!extras.mask||!['tampering.copyMove.brisk','tampering.copyMove.akaze','tampering.copyMove.orb'].includes(task.operation))){const old=mask;mask=null;await engine.unload(old.id);}
    if(prnu&&task.operation!=='noise.prnu'){const old=prnu;prnu=null;await engine.unload(old.id);}
-   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=await m2Factory({method,memoryBudgetBytes:Math.max(32*1024**2,memory.budgetBytes-reserve),computeProfile});m2Method=method;}const descriptor=await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const views=method==='forgeryscope'?[]:method==='trufor'?['map','confidence','noiseprint_pp']:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:metadata.provenance,metrics:metadata.metrics,m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view}))};return result;}
+   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=await m2Factory({method,memoryBudgetBytes:Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-reserve)),computeProfile});m2Method=method;}const descriptor=await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const views=method==='forgeryscope'?[]:method==='trufor'?['map','confidence','noiseprint_pp']:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:metadata.provenance,metrics:metadata.metrics,m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view}))};return result;}
    if(m2){await m2.dispose();m2=null;m2Method=null;}
    await configure(task.operation,task.params);const params={...task.params};
    if(task.operation==='comparison.image'){if(!extras.reference)throw Error('Choisissez une image de référence.');if(reference?.blob!==extras.reference){if(reference){const old=reference;reference=null;await engine.unload(old.id);}const id='reference-'+crypto.randomUUID();await engine.loadBlob({id,blob:extras.reference,layout:'segmented'},hooks());reference={id,blob:extras.reference};}params.referenceImageId=reference.id;}
@@ -109,6 +119,17 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    }return result;
   })),
   readTable:(table,offset=0,length=128)=>enqueue(()=>engine.readTable({tableId:table.id,revision:table.revision,offset,length},hooks())),
+  // Batch decisions read scientific values, never colours from a rendered map.
+  readScalar:(descriptor,rect,field)=>enqueue(async()=>{
+   if(result?.m2Result){
+    const name=field??'map',out=new Float32Array(rect.width*rect.height);
+    for(let y=0;y<rect.height;y++)out.set(await m2.readArray(result.m2Result.id,name,(rect.y+y)*result.m2Result.width+rect.x,rect.width),y*rect.width);
+    return out;
+   }
+   const input={surfaceId:descriptor.id,revision:descriptor.revision,rect};
+   const answer=await engine[descriptor.format==='mask8'?'readMask':'readPlane'](input,hooks());
+   return (answer.mask??answer.labels??answer.plane??answer.pixels).data;
+  }),
   derive:patches=>enqueue(()=>work(()=>engine.deriveOriginal({imageId:source.id,patches},hooks()))),
   loadModel:(kind,file)=>enqueue(()=>work(async()=>{const id=kind+'-'+crypto.randomUUID();await engine[kind==='median'?'loadMedianModel':'loadQualityModel']({id,blob:file},hooks());const old=kind==='median'?median:quality;if(old)await engine.unload(old);if(kind==='median')median=id;else quality=id;})),
   readWindow:(display,rect)=>enqueue(()=>pixels(display,rect)),
@@ -128,7 +149,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     else if(format==='csv'&&selected?.columns){let offset=0;do{const page=await engine.readTableCsv({tableId:selected.id,revision:selected.revision,offset,length:1024},hooks());await sink.write(page.bytes);offset=page.nextOffset;if(page.done)break;}while(true);}
     else if(format==='prnu'){if(!prnu)throw Error('Aucune base PRNU.');await stream(await engine.createPrnuDatabaseExport(prnu.id,hooks()),sink);}
     else if(selected?.id&&!selected.columns)await stream(await engine.exportSurface({...options,surfaceId:selected.id,revision:selected.revision,format,render:format==='npz'?undefined:{range:selected.range??[0,1]},storage:'temporary'},hooks()),sink);
-    else if(format==='json')await stream(await engine.exportResultFile(result,{format:'json',storage:'temporary'},hooks()),sink);
+    else if(format==='json')await stream(await engine.exportResultFile(jsonExportValue(result),{format:'json',storage:'temporary'},hooks()),sink);
     else {let maxBytes=32*1024**2;if(format==='npz'&&result.operation==='tampering.copyMove.sparse'){const bound=v=>ArrayBuffer.isView(v)?v.length*32+2:v===null||typeof v!=='object'?typeof v==='string'?v.length*6+2:32:Object.entries(v).reduce((n,[k,x])=>n+k.length*6+bound(x)+4,2);const needed=32768+4*(bound(result.data)+bound(result.provenance)+bound(result.style)+bound(result.visible));const {memory}=await engine.capabilities();maxBytes=Math.max(1,Math.floor(Math.min(Math.max(maxBytes,needed),memory.policyAvailableBytes-memory.knownHeapCapacityBytes)));}const output=await engine.exportResult(result,{format,maxBytes},hooks());await sink.write(output.bytes);}
     return await sink.finish();
    }catch(error){await sink.abort();throw error;}

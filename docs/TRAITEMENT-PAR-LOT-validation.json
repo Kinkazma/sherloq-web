@@ -1,0 +1,327 @@
+{
+  "date": "2026-10-11",
+  "browser": "Chrome",
+  "unitTests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "browserWorkflow": {
+    "images": 2,
+    "reimport": true,
+    "workspaceHandoff": true,
+    "layouts": [
+      "desktop",
+      "mobile"
+    ],
+    "browserErrors": [],
+    "archiveBytes": 7694420
+  },
+  "native": {
+    "ai.clones.d2prl": {
+      "mode": "ai.clones.d2prl",
+      "output": {
+        "cancelled": false,
+        "results": [
+          {
+            "status": "flagged",
+            "score": {
+              "clones": 1,
+              "additional": 0,
+              "total": 1
+            }
+          }
+        ],
+        "images": [
+          {
+            "state": "done",
+            "score": {
+              "clones": 1,
+              "additional": 0,
+              "total": 1,
+              "incomplete": false
+            },
+            "runs": [
+              {
+                "status": "done",
+                "entries": 33,
+                "files": [
+                  "resultats/image-e5aafd9bc59c713d1de1e78b/ai.clones.d2prl.json",
+                  "resultats/image-e5aafd9bc59c713d1de1e78b/ai.clones.d2prl.png",
+                  "resultats/image-e5aafd9bc59c713d1de1e78b/ai.clones.d2prl-mask.png",
+                  "resultats/image-e5aafd9bc59c713d1de1e78b/ai.clones.d2prl.npz"
+                ]
+              }
+            ]
+          }
+        ],
+        "comparisons": [],
+        "artifactBytes": 49986311
+      },
+      "errors": []
+    },
+    "analysis.clones": {
+      "mode": "analysis.clones",
+      "output": {
+        "cancelled": false,
+        "results": [
+          {
+            "status": "flagged",
+            "score": {
+              "clones": 1,
+              "additional": 0,
+              "total": 1
+            }
+          }
+        ],
+        "images": [
+          {
+            "state": "done",
+            "score": {
+              "clones": 1,
+              "additional": 0,
+              "total": 1,
+              "incomplete": false
+            },
+            "runs": [
+              {
+                "status": "done",
+                "entries": 6,
+                "files": [
+                  "resultats/image-ff25109eacb315b3a973f190/analysis.clones.npz",
+                  "resultats/image-ff25109eacb315b3a973f190/analysis.clones.png"
+                ]
+              }
+            ]
+          }
+        ],
+        "comparisons": [],
+        "artifactBytes": 46046337
+      },
+      "errors": []
+    },
+    "cancel": {
+      "mode": "cancel",
+      "output": {
+        "cancelled": true,
+        "results": [
+          {
+            "status": "incomplete",
+            "score": {
+              "clones": 0,
+              "additional": 0,
+              "total": 0
+            }
+          }
+        ],
+        "images": [
+          {
+            "state": "incomplete",
+            "score": {
+              "clones": 0,
+              "additional": 0,
+              "total": 0,
+              "incomplete": true
+            },
+            "runs": [
+              {
+                "status": "cancelled",
+                "error": {
+                  "code": "CANCELLED",
+                  "message": "Task cancelled."
+                },
+                "files": []
+              }
+            ]
+          }
+        ],
+        "comparisons": [],
+        "artifactBytes": 0
+      },
+      "errors": []
+    },
+    "compare": {
+      "mode": "compare",
+      "output": {
+        "cancelled": false,
+        "results": [
+          {
+            "status": "flagged",
+            "score": {
+              "clones": 0,
+              "additional": 0,
+              "total": 0
+            }
+          },
+          {
+            "status": "flagged",
+            "score": {
+              "clones": 1,
+              "additional": 0,
+              "total": 1
+            }
+          }
+        ],
+        "images": [
+          {
+            "state": "done",
+            "score": {
+              "clones": 0,
+              "additional": 0,
+              "total": 0,
+              "incomplete": false
+            },
+            "runs": [
+              {
+                "status": "done",
+                "entries": 0,
+                "files": [
+                  "resultats/image-ebc6f4724144bffcb24c3c56/clone-15.json",
+                  "resultats/image-ebc6f4724144bffcb24c3c56/clone-15.png"
+                ]
+              }
+            ]
+          },
+          {
+            "state": "done",
+            "score": {
+              "clones": 1,
+              "additional": 0,
+              "total": 1,
+              "incomplete": false
+            },
+            "runs": [
+              {
+                "status": "done",
+                "entries": 1,
+                "files": [
+                  "resultats/image-279cc5e6de8a4d7087872e51/clone-15.json",
+                  "resultats/image-279cc5e6de8a4d7087872e51/clone-15.png"
+                ]
+              }
+            ]
+          }
+        ],
+        "comparisons": [
+          {
+            "kind": "geometric-matches",
+            "status": "done",
+            "entries": 6
+          }
+        ],
+        "artifactBytes": 12075867
+      },
+      "errors": []
+    },
+    "decode": {
+      "mode": "decode",
+      "output": {
+        "images": [
+          {
+            "width": 480,
+            "height": 480,
+            "hash": "5fcb41ed73dddc8906336e8c0f34bfc39d7daaa1204e628aef7dcde4f804e7db",
+            "encoding": "original"
+          }
+        ],
+        "errors": [
+          {
+            "name": "invalid.pdf",
+            "message": "Failed to parse PDF document (line:0 col:22 offset=11): No PDF header found"
+          }
+        ]
+      },
+      "errors": []
+    },
+    "dense": {
+      "mode": "dense",
+      "output": {
+        "cancelled": false,
+        "results": [
+          {
+            "status": "flagged",
+            "score": {
+              "clones": 0,
+              "additional": 0,
+              "total": 0
+            }
+          }
+        ],
+        "images": [
+          {
+            "state": "done",
+            "score": {
+              "clones": 0,
+              "additional": 0,
+              "total": 0,
+              "incomplete": false
+            },
+            "runs": [
+              {
+                "status": "done",
+                "entries": 0,
+                "files": [
+                  "resultats/image-ff25109eacb315b3a973f190/clone-5.json",
+                  "resultats/image-ff25109eacb315b3a973f190/clone-5.png",
+                  "resultats/image-ff25109eacb315b3a973f190/clone-5.npz"
+                ]
+              }
+            ]
+          }
+        ],
+        "comparisons": [],
+        "artifactBytes": 3670508
+      },
+      "errors": []
+    },
+    "m2.trufor": {
+      "mode": "m2.trufor",
+      "output": {
+        "cancelled": false,
+        "results": [
+          {
+            "status": "flagged",
+            "score": {
+              "clones": 0,
+              "additional": 1,
+              "total": 1
+            }
+          }
+        ],
+        "images": [
+          {
+            "state": "done",
+            "score": {
+              "clones": 0,
+              "additional": 1,
+              "total": 1,
+              "incomplete": false
+            },
+            "runs": [
+              {
+                "status": "done",
+                "files": [
+                  "resultats/image-ff25109eacb315b3a973f190/m2.trufor.json",
+                  "resultats/image-ff25109eacb315b3a973f190/m2.trufor.npz",
+                  "resultats/image-ff25109eacb315b3a973f190/m2.trufor.png"
+                ]
+              }
+            ]
+          }
+        ],
+        "comparisons": [],
+        "artifactBytes": 3159783
+      },
+      "errors": []
+    }
+  },
+  "pdfReview": {
+    "reportPages": 3,
+    "annotatedPdfPages": 2,
+    "rotationCorrect": true,
+    "layoutVerifiedWith": "Poppler and visual inspection"
+  },
+  "limitations": [
+    "Static preview of the existing local WordPress copy; PHP/Gutenberg not exercised.",
+    "Full catalog and complex composite PDFs still require qualification."
+  ]
+}

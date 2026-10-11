@@ -1,0 +1,30 @@
+import {pathToFileURL} from 'node:url';
+const {chromium}=await import(process.env.SHERLOQ_PLAYWRIGHT?pathToFileURL(process.env.SHERLOQ_PLAYWRIGHT).href:'playwright');
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+const root=process.env.SHERLOQ_BATCH_TEST_ROOT,base=process.env.SHERLOQ_BATCH_BASE??'http://127.0.0.1:8097/wp-content/plugins/sherloq-browser/assets/';
+if(!root)throw Error('Set SHERLOQ_BATCH_TEST_ROOT to a generated fixture directory.');
+const browser=await chromium.launch({headless:true,...(process.env.SHERLOQ_CHROME?{executablePath:process.env.SHERLOQ_CHROME}:{})}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
+page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>errors.push(r.failure()?.errorText+' '+r.url()));
+try{
+ await page.goto(base+'app.html#lang=fr');await page.waitForFunction(()=>document.documentElement.dataset.workspaceReady==='true',null,{timeout:60000});await page.locator('#batch-open').click();await page.locator('#batch-dialog').waitFor();
+ await page.locator('#batch-dialog input[multiple]').setInputFiles(root+'/lot-de-validation.zip');await page.waitForFunction(()=>document.querySelector('.batch-status')?.textContent?.includes('documents'));
+ const counts=await page.locator('.batch-image-card').count();assert.equal(counts,2);assert.match(await page.locator('.batch-grid').innerText(),/4 occurrences/);
+ await page.screenshot({path:root+'/selection.png'});
+ await page.locator('.batch-image-card select').evaluateAll(nodes=>nodes.forEach(node=>{node.value='photography';node.dispatchEvent(new Event('change'));}));
+ await page.getByRole('button',{name:'Confirmer la sélection',exact:true}).click();
+ await page.locator('[data-batch-tool]').evaluateAll(nodes=>nodes.forEach(node=>{const selected=['tampering.copyMove.brisk','ela.energy'].includes(node.dataset.batchTool);if(node.checked!==selected){node.checked=selected;node.dispatchEvent(new Event('change'));}}));
+ await page.getByRole('button',{name:'Lancer le traitement',exact:true}).click();await page.waitForFunction(()=>['Traitement terminé','Traitement incomplet'].includes(document.querySelector('.batch-status')?.textContent),null,{timeout:240000});
+ const resultText=await page.locator('.batch-results').innerText();console.log(resultText);assert.doesNotMatch(resultText,/ · Incomplet|WORKER_FAILED|BATCH_TOOL_ERROR/);
+ await page.screenshot({path:root+'/results.png'});
+ const download=page.waitForEvent('download');await page.getByRole('button',{name:'Exporter le dossier ZIP',exact:true}).click();const archive=await download;await archive.saveAs(root+'/resultats.zip');
+ const report=page.waitForEvent('download');await page.getByRole('button',{name:'Exporter le rapport PDF',exact:true}).click();const pdf=await report;await pdf.saveAs(root+'/rapport.pdf');
+ await page.getByRole('button',{name:'Vider le lot',exact:true}).click();await page.locator('#batch-dialog input[multiple]').setInputFiles(root+'/resultats.zip');await page.waitForFunction(()=>document.querySelector('.batch-status')?.textContent?.includes('documents'));
+ assert.equal(await page.locator('.batch-image-card').count(),counts);assert.equal(await page.locator('.batch-error').count(),0);
+ await page.getByRole('button',{name:'Confirmer la sélection',exact:true}).click();await page.getByRole('button',{name:'Lancer le traitement',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.batch-status')?.textContent==='Traitement terminé',null,{timeout:15000});
+ assert.match(await page.locator('.batch-results').innerText(),/réutilisée|reused/);
+ await page.setViewportSize({width:390,height:844});await page.locator('.batch-nav button').nth(1).click();await page.screenshot({path:root+'/mobile.png'});const overflow=await page.locator('#batch-dialog').evaluate(e=>e.scrollWidth-e.clientWidth);assert.ok(overflow<=1);
+ await page.setViewportSize({width:1440,height:1000});await page.locator('.batch-nav button').nth(3).click();await page.getByRole('button',{name:'Ouvrir dans SHERLOQ',exact:true}).first().click();
+ await page.waitForFunction(()=>document.querySelector('.panel-host')?.shadowRoot?.querySelector('#file-info')?.textContent.includes('480 × 480'),null,{timeout:60000});assert.equal(await page.locator('#batch-dialog').evaluate(e=>e.open),false);await page.locator('#batch-open').click();assert.equal(await page.locator('#batch-dialog').evaluate(e=>e.open),true);
+ const evidence={images:counts,reimport:true,workspaceHandoff:true,layouts:['desktop','mobile'],browserErrors:errors,archiveBytes:(await fs.stat(root+'/resultats.zip')).size};await fs.writeFile(root+'/browser-validation.json',JSON.stringify(evidence,null,2));console.log(JSON.stringify(evidence));assert.equal(errors.length,0);
+}catch(error){console.log('FAIL',error.stack);console.log(await page.locator('.batch-status').textContent().catch(()=>''));await page.screenshot({path:root+'/failure.png'});process.exitCode=1;}finally{await browser.close();}

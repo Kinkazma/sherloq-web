@@ -4,7 +4,7 @@ import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js
 import {COUNT_COLORS} from './unified-engine/src/clone-corroboration.js';
 
 const cancelled = () => Object.assign(new Error('Analysis cancelled.'), {code: 'CANCELLED'});
-export async function createAutomaticClient({computeProfile = 'maximum', extensionId, onProgress = () => {}, engineFactory = createWorkerEngine, fetcher = fetch, config} = {}) {
+export async function createAutomaticClient({computeProfile = 'maximum', extensionId, onProgress = () => {}, engineFactory = createWorkerEngine, fetcher = fetch, config, retainMasks = false, memoryBudgetBytes} = {}) {
   const configurationURL = new URL('./integrated-config.json', import.meta.url);
   async function json(url, signal) { const response = await fetcher(url, {signal}); if (!response.ok) throw new Error('Resource unavailable: ' + response.status + ' ' + url); return response.json(); }
   const deployment = config ?? await json(configurationURL);
@@ -12,7 +12,7 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
   extensionId ??= deployment.memoryExtensionId;
   let hints;
   if (extensionId) try { hints = await readExtensionMemoryHints(extensionId); } catch { /* Optional bridge. */ }
-  const engine = engineFactory({computeProfile, resourceHints: hints ?? undefined, ...(extensionId ? {memoryExtensionId: extensionId} : {})});
+  const engine = engineFactory({computeProfile, resourceHints: hints ?? undefined, ...(memoryBudgetBytes ? {memoryBudgetBytes} : {}), ...(extensionId ? {memoryExtensionId: extensionId} : {})});
   let queue = Promise.resolve(), disposed = false, models = false, abort, analysis, retained, source, rendered, renderingLayer, disposePromise;
   function enqueue(fn) { const task = queue.then(() => { if (disposed) throw cancelled(); return fn(); }); queue = task.catch(() => {}); return task; }
   function hooks() { return {signal: abort?.signal, onProgress}; }
@@ -42,7 +42,7 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
   // Pixels stay owned by the worker. Presentation and NPZ read those originals;
   // the UI only needs descriptors and polygons, never a second retained mask.
   function compactResult(value) {
-    if (value?.data?.entries) value.data.entries = value.data.entries.map(({pixel_mask, ...entry}) => ({...entry, ...(pixel_mask ? {pixel_mask: {width: pixel_mask.width, height: pixel_mask.height}} : {})}));
+    if (!retainMasks && value?.data?.entries) value.data.entries = value.data.entries.map(({pixel_mask, ...entry}) => ({...entry, ...(pixel_mask ? {pixel_mask: {width: pixel_mask.width, height: pixel_mask.height}} : {})}));
     return value;
   }
   async function execute(fn) {
