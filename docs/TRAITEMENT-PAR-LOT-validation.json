@@ -323,5 +323,37 @@
   "limitations": [
     "Static preview of the existing local WordPress copy; PHP/Gutenberg not exercised.",
     "Full catalog and complex composite PDFs still require qualification."
-  ]
+  ],
+  "appearanceReview": {
+    "date": "2026-10-12",
+    "browser": "Codex in-app browser",
+    "themes": [
+      "dark",
+      "light"
+    ],
+    "viewportWidths": [
+      1077,
+      390
+    ],
+    "horizontalOverflowAt390": 0,
+    "sharedComponents": [
+      "primary",
+      "tabs",
+      "parameter-bar",
+      "preset-bar",
+      "statusbar",
+      "tool-group",
+      "window-actions"
+    ],
+    "nativeAndBatchMatch": [
+      "panel background",
+      "button background",
+      "button border",
+      "text color",
+      "font family",
+      "4px button radius"
+    ],
+    "preview": "TRAITEMENT-PAR-LOT-preview.jpg",
+    "browserErrors": []
+  }
 }
