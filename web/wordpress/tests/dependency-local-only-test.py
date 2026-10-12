@@ -63,11 +63,26 @@ with tempfile.TemporaryDirectory() as directory:
     output = root / 'output'
     receipt = packer.pack(output, resource_policy=policy)
     manifest = json.loads((output / 'manifest-template.json').read_text())
+    assert json.loads((output / 'public/web/wordpress/resource-policy.json').read_text()) == policy
     assert manifest['files']['individual-assets/local.onnx']['localOnly'] is True
     assert not (output / 'public/web-assets/chunks' / (b + '.bin')).exists()
     assert (output / 'public/web-assets/chunks' / (a + '.bin')).read_bytes() == public
     assert (output / 'public/web-assets/chunks' / (sha(factory) + '.bin')).read_bytes() == factory
     assert receipt['uniqueBytes'] == len(public) + len(factory)
+    # Real nested Git checkout: ls-tree paths are relative to its working
+    # directory. The frozen build must include its committed UI, never the
+    # modified working copy or an untracked private file.
+    subprocess.run(['git', 'init', '-q', str(root)], check=True)
+    subprocess.run(['git', 'add', 'staged'], cwd=root, check=True)
+    subprocess.run(['git', '-c', 'user.name=SHERLOQ fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', 'fixture'], cwd=root, check=True)
+    revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
+    (plugin / 'sherloq-browser.php').write_text('Version: 99.0.0\n')
+    (plugin / 'private.php').write_text('untracked private integration\n')
+    frozen = root / 'frozen'
+    packer.pack(frozen, source_revision=revision, resource_policy=policy)
+    assert (frozen / 'public/web/wordpress/sherloq-browser/sherloq-browser.php').read_text() == 'Version: 0.17.2\n'
+    assert not (frozen / 'public/web/wordpress/sherloq-browser/private.php').exists()
+    (plugin / 'sherloq-browser.php').write_text('Version: 0.17.2\n')
     chunks = output / 'public/web-assets/chunks'
     target = root / 'restored'
     assert restorer.restore(output / 'manifest-template.json', target, chunks) == 2

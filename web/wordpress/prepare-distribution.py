@@ -53,7 +53,7 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
     if source_revision:
         source_revision = subprocess.check_output(['git', 'rev-parse', source_revision + '^{commit}'], cwd=ROOT, text=True).strip()
     prefix = subprocess.check_output(['git', 'rev-parse', '--show-prefix'], cwd=ROOT, text=True).strip() if source_revision else ''
-    tracked = set(subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', source_revision, '--', prefix or '.'], cwd=ROOT, text=True).splitlines()) if source_revision else None
+    tracked = set(subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', source_revision, '--', '.'], cwd=ROOT, text=True).splitlines()) if source_revision else None
     # In a subdirectory git ls-tree prints paths relative to that directory.
     def source_bytes(source):
         name = source.relative_to(ROOT).as_posix()
