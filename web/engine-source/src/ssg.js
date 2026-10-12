@@ -17,7 +17,10 @@ export function ssgParams(input={}){
 const numeric=a=>ArrayBuffer.isView(a)&&!(a instanceof DataView)&&a.every(Number.isFinite);
 const typed=(a,n,message)=>requireValue(numeric(a)&&a.length%n===0,message);
 const admit=(hooks,n)=>{requireValue(Number.isSafeInteger(n)&&n>=0,'Invalid SSG allocation estimate.');hooks.reserveMemory?.(n);};
-const J1_ROOTS=Object.freeze([3.8317059702075125,7.015586669815619,10.173468135062722,13.323691936314223,16.470630050877634]);
+// BFM's Roots(1) is J1(0)=0; Roots(n+2) selects the first positive
+// root for radial order n=0. scipy.special.jn_zeros excludes that zero and
+// therefore needs an explicit leading 0 in the independent oracle.
+const J1_ROOTS=Object.freeze([0,3.8317059702075125,7.015586669815619,10.173468135062722,13.323691936314223]);
 
 // Ascending Bessel power series; the supported argument is <= the fifth J1
 // root. Float64 avoids the cancellation of a Float32 recurrence in this range.
@@ -57,7 +60,7 @@ export function ssgMomentBasis(input={},hooks={}){
  let norm=0;for(let i=0;i<count;i++)norm+=real[i*dims]**2+imag[i*dims]**2;norm=Math.sqrt(norm);
  requireValue(norm>0&&Number.isFinite(norm),'Degenerate SSG basis.');
  for(let i=0;i<count;i++)for(let m=0;m<4;m++)for(let n=0;n<4;n++){const id=i*dims+m*4+n,scale=(n?2:1)/norm;real[id]*=scale;imag[id]*=scale;}
- return {real,imag,dimensions:dims,blockSize:size,convention:'author-row-column',parameters:p};
+ return {real,imag,dimensions:dims,blockSize:size,radialRoots:J1_ROOTS.slice(1),convention:'author-row-column',parameters:p};
 }
 
 const reflect=(i,n)=>{while(i<0||i>=n)i=i<0?-i-1:2*n-i-1;return i;};

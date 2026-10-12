@@ -16,7 +16,10 @@ def basis(size=20, radii=30, angles=36):
     # Match the published author's row/column convention for reproducibility.
     col, row = np.meshgrid(np.arange(size), np.arange(size))
     x, y = row - (size - 1) / 2, col - (size - 1) / 2
-    roots = jn_zeros(1, 5)
+    # J1 has a zero at 0, deliberately omitted by scipy.special.jn_zeros.
+    # Author BFM selects Roots(n+2) after that leading zero, so radial order
+    # zero starts at the first positive root, not the second positive root.
+    roots = np.r_[0.0, jn_zeros(1, 4)]
     result = np.zeros((size, size, 16), dtype=np.complex128)
     for theta in np.arange(angles) * 2 * np.pi / angles:
         phase = np.exp(1j * np.repeat(np.arange(4), 4) * theta)
@@ -45,7 +48,7 @@ def main():
     cases = [dict(name=name, patch=patch.ravel().tolist(), expected=describe(patch, kernels)) for name, patch in zip(['zero', 'constant', 'synthetic-texture', 'impulse'], patches)]
     positions = [(0, 0), (4, 6), (9, 10), (18, 3), (19, 19)]
     coefficients = [dict(position=list(pos), real=kernels[pos].real.tolist(), imag=kernels[pos].imag.tolist()) for pos in positions]
-    output = dict(reference='independent SciPy formulas; not MATLAB whole-detector parity', scipy=scipy.__version__, roots=jn_zeros(1, 5).tolist(), basis=coefficients, cases=cases)
+    output = dict(reference='independent SciPy formulas; not MATLAB whole-detector parity', scipy=scipy.__version__, roots=np.r_[0.0, jn_zeros(1, 4)].tolist(), basis=coefficients, cases=cases)
     destination = Path(__file__).resolve().parents[1] / 'tests/ssg-moments.json'
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(output, indent=2) + '\n')

@@ -8,6 +8,10 @@ const close=(actual,expected,relative=2e-9,absolute=2e-7)=>{assert.equal(actual.
 const basis=ssgMomentBasis();
 const features=(points,values)=>{const count=points.length/3;return {points:Float64Array.from(points),magnitudes:new Float64Array(count*4),invariants:Float64Array.from(Array.from({length:count*24},(_,i)=>values[Math.floor(i/24)]??0)),moments:Float64Array.from(Array.from({length:count*24},(_,i)=>i%2?0:1))};};
 
+test('radial order zero uses the first positive J1 root after its excluded origin zero',()=>{
+ assert.equal(fixtures.roots[0],0);close(basis.radialRoots,[3.8317059702075125,7.015586669815619,10.173468135062722,13.323691936314223],0,1e-14);
+});
+
 test('Bessel zeros and basis coefficients agree with independent SciPy reference',()=>{
  for(const root of fixtures.roots)assert.ok(Math.abs(ssgBesselJ(1,root))<2e-10);
  for(const entry of fixtures.basis){const start=(entry.position[0]*20+entry.position[1])*16;close(basis.real.subarray(start,start+16),entry.real,2e-10,1e-10);close(basis.imag.subarray(start,start+16),entry.imag,2e-10,1e-10);}
