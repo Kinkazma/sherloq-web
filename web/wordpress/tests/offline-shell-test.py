@@ -18,7 +18,8 @@ class ShellTests(unittest.TestCase):
             plugin = Path(tmp)
             assets = plugin/'assets'
             assets.mkdir()
-            for name in ['offline-setup.html', 'offline-setup.js', 'offline-setup.css', 'app.webmanifest',
+            for name in ['offline-setup.html', 'offline-setup.js', 'offline-setup.css', 'app.css',
+                         'workspace-shell.css', 'media.css', 'fonts.js', 'app.webmanifest',
                          'offline-icon.svg', 'offline-icon-192.png', 'offline-icon-512.png']:
                 (assets/name).write_bytes((ROOT/'sherloq-browser/assets'/name).read_bytes())
             (assets/'app.html').write_text('<html><head></head><body>public workspace</body></html>')
@@ -31,6 +32,10 @@ class ShellTests(unittest.TestCase):
             self.assertEqual(hashlib.sha256(public).hexdigest(), result['files']['app.html']['sha256'])
             landing = (assets/'offline/app.html').read_text()
             self.assertIn('src="../offline-setup.js', landing)
+            for name in ['app.css', 'workspace-shell.css', 'media.css', 'offline-setup.css']:
+                self.assertIn('href="../'+name, landing)
+                self.assertIn(name, result['files'])
+            self.assertIn('src="../fonts.js', landing)
             self.assertIn('href="app.webmanifest"', landing)
             manifest = json.loads((assets/'offline/app.webmanifest').read_text())
             self.assertTrue((assets/'offline'/manifest['start_url']).is_file())
