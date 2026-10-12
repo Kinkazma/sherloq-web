@@ -148,10 +148,32 @@
   },
   "bootstrapTestBytesBeforePrivateOverlay": 24452025,
   "limits": [
-    "Transport checks use two local origins. Pinned public GitHub bytes are checked separately after publication.",
+    "Two local origins qualify complete controlled transport scenarios; the actual pinned GitHub origin additionally passes exact HTTPS/CORS checks and an isolated Chrome engine/export/SSG factory run.",
     "Optional research-model payloads are imported locally with their exact identities, not hosted here.",
     "SSG forest redistribution and use carry its separate noncommercial MSR-LA/BSD notices.",
     "Scientific filtering of mixed figures is not accepted. Display defaults are corrected.",
     "No new universal 96 MP, physical-mobile or numerical-parity qualification."
-  ]
+  ],
+  "independentPublishedTreeChecks": {
+    "sourceCommit": "a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2",
+    "methodsPresent": 14,
+    "publishedMainAncestryPreserved": true,
+    "atomicSiftSourcesUnchanged": true,
+    "diskAndStreamingZipModulesUnchanged": true,
+    "biomesOnlyDefaultsPresent": true,
+    "manifestTemplateSha256": "db961edf323d82462ff68a0fbf3aa60036ae6c8aba3d41ef96d322021bad1bb3",
+    "runtimeFiles": 5433,
+    "publicChunksVerified": 4725,
+    "optionalLocalOnlyChunksExcluded": 4,
+    "sourceAndDeliveryLocksMatch": true,
+    "scope": "Read-only frozen source and delivery integrity checks; not an inference qualification."
+  },
+  "publishedDelivery": {
+    "resourceCommit": "a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2",
+    "origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2/web-assets/",
+    "deploymentManifestSha256": "f6888946a2866155275f75dd9f134090cb914e2ec3ab772577c51b721f021408",
+    "finalizedBootstrapBytesBeforePrivateOverlay": 24451995,
+    "anonymousHttpEvidence": "methods-public-origin-http.json",
+    "actualChromeEvidence": "methods-public-origin-browser.json"
+  }
 }

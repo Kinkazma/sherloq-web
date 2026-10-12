@@ -14,6 +14,8 @@ Implementation changes and their verification are recorded here. The [README](RE
 - The frozen interface passes 317 tests; the combined batch contracts pass 15 tests. The earlier real interface/batch method runs produced 14 scientific NPZ files with 249 independent checks. These are functional and export checks, not acceptance of the scientific filtering workflow.
 - The generated delivery passes Chrome 154 and WebKit 26.6 checks on two local origins: exact synthetic pixels, lossless WebP, ranges across two chunks, verified local-model import, SSG factory ABI and independently read TAR/offline resources. The test bootstrap is 24,452,025 bytes before any private site overlay. These records do not establish a new 96 MP, physical-mobile or universal numerical-parity qualification.
 
+- A fresh Chrome run against the actual pinned GitHub origin verifies native pixels, lossless WebP export, SSG factory/WASM identities and ABI, with zero remote requests at startup. Anonymous HTTPS checks verify the manifest and new model/factory resources against their hashes, sizes and CORS policy. [Browser checks](docs/evidence/methods-public-origin-browser.json) · [HTTP checks](docs/evidence/methods-public-origin-http.json).
+
 [Method/resource notices](docs/METHODS-RESOURCE-LICENSES.txt) · [Declared method scope](web/engine-source/docs/local-methods-integration.txt)
 
 ## Batch 0.2.0 — Memory correction and output storage · 2026-10-12

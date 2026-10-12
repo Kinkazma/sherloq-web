@@ -1,0 +1,48 @@
+{
+  "resourceCommit": "a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2",
+  "origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2/web-assets/",
+  "anonymousHttps": true,
+  "checks": [
+    {
+      "path": "manifest-template.json",
+      "status": 200,
+      "bytes": 1901657,
+      "sha256": "db961edf323d82462ff68a0fbf3aa60036ae6c8aba3d41ef96d322021bad1bb3",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/8862652664bf888b575e78258a15e734550082cba244e7cccb4781fb4d740a61.bin",
+      "status": 200,
+      "bytes": 128936,
+      "sha256": "8862652664bf888b575e78258a15e734550082cba244e7cccb4781fb4d740a61",
+      "cors": "*",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "chunks/b428fe9626dfd59ea3161e2b79786b2a4713e13770e8d75c80477b5805f57157.bin",
+      "status": 200,
+      "bytes": 4266,
+      "sha256": "b428fe9626dfd59ea3161e2b79786b2a4713e13770e8d75c80477b5805f57157",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/b52b3838bb961767a7f8b8789b8f03af355aa41a2195e501418606304e6dcb42.bin",
+      "status": 200,
+      "bytes": 61657027,
+      "sha256": "b52b3838bb961767a7f8b8789b8f03af355aa41a2195e501418606304e6dcb42",
+      "cors": "*",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "chunks/c22662cd36bd37d651915acbfbbcc87e72ab7ab8a74bc403636cf521e4d82b29.bin",
+      "status": 200,
+      "bytes": 14307,
+      "sha256": "c22662cd36bd37d651915acbfbbcc87e72ab7ab8a74bc403636cf521e4d82b29",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    }
+  ],
+  "scope": "Actual pinned GitHub HTTPS manifest, EfficientLoFTR public model and SSG factory resources. Exact SHA-256/size and CORS checks; the complete library was independently verified locally, not downloaded again."
+}

@@ -14,11 +14,12 @@
   "upstream": "https://github.com/GuidoBartoli/sherloq",
   "macos_derivative": "https://github.com/Kinkazma/sherloq",
   "transport_adapter": "web/wordpress/runtime-delivery.py",
-  "resource_origin_policy": "The origin is pinned to the actual immutable resource publication commit; the manifest template has no deployment origin. Finalized deployment identity is recorded after resource publication.",
+  "resource_origin_policy": "Deployments use the verified immutable resource publication commit. The manifest template has no deployment origin; this deployment manifest pins that origin.",
   "compatibility_manifest_sha256": [
     "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2",
     "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
-    "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b"
+    "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b",
+    "f6888946a2866155275f75dd9f134090cb914e2ec3ab772577c51b721f021408"
   ],
   "bootstrap_limit_bytes": 25000000,
   "public_additions": {
@@ -41,5 +42,9 @@
     "main_commit": "a39262f9d3d23283a98d82f1b3f92ce0ce36c2b7",
     "resource_commit": "da01f941ad6ee010de881213d951193765e6071e",
     "deployment_manifest_sha256": "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2"
-  }
+  },
+  "resource_commit": "a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2",
+  "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2/web-assets/",
+  "deployment_manifest_sha256": "f6888946a2866155275f75dd9f134090cb914e2ec3ab772577c51b721f021408",
+  "finalized_bootstrap_bytes_before_private_overlay": 24451995
 }

@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-12T13:51:51.161Z",
+  "browser": "154.0.8037.98",
+  "resourceOrigin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2/web-assets/",
+  "deploymentManifestSha256": "f6888946a2866155275f75dd9f134090cb914e2ec3ab772577c51b721f021408",
+  "startupRemoteRequests": 0,
+  "remoteRequests": 9,
+  "pixels": {
+    "exactPixels": true,
+    "webpBytes": 666,
+    "engineVersion": "0.37.0-methods.1"
+  },
+  "forest": {
+    "exactFactory": true,
+    "exactWasm": true,
+    "abi": true
+  },
+  "isolation": {
+    "page": true,
+    "shared": true
+  },
+  "errors": [],
+  "scope": "Fresh isolated Chrome profile; actual immutable raw GitHub resources, synthetic 67×65 pixels and lossless export, SSG factory/WASM hashes and ABI. No user images or production WordPress tab. This does not qualify scientific inference accuracy or a particular WordPress deployment."
+}
