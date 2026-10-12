@@ -1,0 +1,187 @@
+SSG : référence, composants utilisables et contrats nécessaires
+12 octobre 2026 — intégration locale de recherche
+
+Le détecteur complet SSG n’est pas encore exposé. src/ssg.js constitue un noyau
+numérique indépendant des moments, mots, phrases et filtres, avec 18 tests.
+src/ssg-vlfeat.js ajoute le véritable détecteur VLFeat 0.9.18 fourni avec la
+référence officielle. Les contours structurés et la localisation RST/SSIM/ROI
+restent des composants distincts à construire et à qualifier. Un autre SIFT,
+une carte de gradients ou un masque vide ne remplacent pas ces étapes.
+
+Référence : Wang et al., Shrinking the Semantic Gap: Spatial Pooling of Local
+Moment Invariants for Copy-Move Forgery Detection, TIFS18(2023),
+DOI10.1109/TIFS.2023.3234861, https://arxiv.org/abs/2207.09135v2.
+Sources officielles : https://github.com/ChaoWang1016/word2phraseCMFD,
+commit66bb26eca0c7e95c76042d5bcca58f744d70a27d.
+
+Détecteur VLFeat utilisable
+
+La façade reçoit une image Float32 de géométrie déjà déterminée par l’appelant.
+Elle n’agrandit pas silencieusement l’image. Elle convertit au besoin le rangement
+par lignes en colonnes MATLAB puis applique vl_sift_new(rows,cols,-1,3,0),
+PeakThresh0, EdgeThresh50. Le wrapper officiel traite ainsi l’image transposée,
+retourne x/y à partir de k.y/k.x, ajoute1 aux centres et adapte les orientations
+par pi/2-angle. Les orientations multiples sont conservées. Les frames sont
+Float64 [x+1,y+1,sigma,orientation]. points contient ensuite x/y zéro-based
+arrondis et sigma, pour le noyau scientifique ; aucun dédoublonnage n’est caché.
+
+L’oracle ARM64 et WebAssembly utilisent les mêmes sources officielles0.9.18,
+avec calcul scalaire strict. Le seul scaffolding modifié concerne le démarrage
+Emscripten, le CPUID x86 absent sur ARM/WASM et la capture du premier malloc
+refusé. Les calculs SIFT ne sont pas remplacés. Le fichier sift.c0.9.18 est
+identique au0.9.20 déjà présent, mais le paquet reconstruit utilise bien0.9.18.
+
+La qualification dans vendor/ssg-vlfeat/qualification.json contient une texture
+257x193 (36frames) et une photo avec copie512x512 (1949frames). Toutes les
+valeurs Float64 des frames sont bit-identiques ARM64/WASM. Une autre texture
+xorshift257x193 donne38frames et un SHA natif fixé dans le test de la façade.
+Cette égalité concerne ces cas déclarés ; elle n’est pas une promesse universelle
+sur toutes les images ou implémentations de libm.
+Ceci qualifie le détecteur C et ses conventions de wrapper ; cela ne prouve pas
+l’intégralité du prétraitement MATLAB ni le masque final SSG.
+
+L’arène est admise avant l’instanciation. VLFeat réserve88octets/pixel pour les
+plans temp/Gaussian/DoG/gradient, plus4octets/pixel pour l’entrée. Le plan estime
+une marge pour les points, avec32MiB minimum et2GiB maximum. Il reste une
+estimation dépendant du contenu : l’allocateur peut refuser un vrai travail.
+Son premier refus est alors une erreur WASM détaillée ; l’arène est retirée pour
+permettre une reprise utile. Le helper Emscripten de croissance se borne au cap
+effectivement admis, plutôt qu’au plafond compilé2GiB, pour ne pas refuser une
+croissance spéculative qui dépasserait inutilement ce cap. Aucune allocation
+de calibration n’est exécutée.
+Les frames et points possèdent une réservation séparée56octets/frame. release()
+invalide ces deux tableaux ; releaseIdle() épargne une tâche active. L’arène
+inactive est réclamable par le budget commun. Une instance est scalaire et
+s’exécute dans un worker ; des instances indépendantes peuvent appartenir à un
+pool partagé. Aucun compteur d’admission n’est présenté comme occupation CPU.
+
+Le paquet vendor comprend le WASM d’environ50Ko, son chargeur, un tar.gz standard
+des sources VLFeat exactes, la licenceBSD2, BUILD.json et la qualification.
+scripts/build-ssg-vlfeat.py vérifie le SHA de l’archive, chaque source et le
+wrapper, puis utilise Emscripten4.0.15. L’archive remplace une collection de
+fichiers dispersés. Elle n’inclut pas les sources MATLAB SSG de l’auteur.
+
+Référence de la chaîne entière à fixer
+
+Enlarge.m agrandit les petites images à un grand côté de3000 avec bicubique.
+OI reste uint8 tandis que GI a déjà été convertie en double : les deux
+rééchantillonnages n’ont pas le même arrondi. Point.m appelle le MEX VLFeat,
+permutant ensuite row/col. Son unique(points,'rows') porte sur3xN et ne
+dédoublonne pas les colonnes des points. Le noyau actuel dédoublonne les points
+dans le cadre de sa définition scientifique indépendante.
+
+Il suit aussi l’article pour deux voisins I2NN, distance50 et exp(-sigma*d²).
+Le script officiel garde un seul voisin, utilise100 et exp(-sigma*d). Son pooling
+contient des extrémités répétées et son filtre de phase présente une anomalie de
+parcours d’un vecteur ligne. PostP effectue un second DBSCAN avec20voisins quand
+le premier produit au moins10groupes. Ces divergences empêchent de confondre
+« reproduire le script » et « implémenter la méthode de l’article ». Une future
+version devra publier sa définition et ses corrections, avec sorties de chaque
+étape, plutôt que revendiquer une équivalence MATLAB non vérifiée.
+
+Contours structurés : construction précise
+
+Le modèle officiel Function/EDGE/model.mat est conservé sans duplication. Il
+pèse24,4Mo compressés ; les tableaux utiles à l’inférence représentent218Mo.
+Ils contiennent notamment163,6Mo de segmentations indispensables au sharpen2.
+Les helpers channels manquants, soit environ118Ko, ont été acquis au même
+commit avec SHA256 et Git blob vérifiés. Il n’y a aucun entraînement à lancer.
+
+La construction fidèle doit employer les13canaux LUV/gradients/histogrammes,
+shrink2, stride2, huit arbres dont quatre sélectionnés par parité row+col,
+patch32/gt16, sharpen2, nms0 et la normalisation1,66. Il faut préserver les
+types et le rangement column-major des poids, les indices de feuilles, le
+padding symétrique et les lissages convTri. Le code edgesDetectMex.cpp peut
+être conservé derrière une petite ABI C remplaçant son accès mxArray. Les
+fonctions channels C++ sont séparables du runtime MATLAB ; aucune toolbox
+complète ni Octave n’est requise pour leur futur module natif/WASM.
+
+Ce n’est toutefois pas encore une preuve de parité. Les canaux natifs utilisent
+_mm_rcp_ps et _mm_rsqrt_ps approximatifs ; leur remplacement par division et
+racine exactes en WASM peut changer un seuil et donc une feuille. Le calcul des
+canaux, les feuilles et l’accumulation sharpened doivent être comparés avant
+le masque final. OpenCVximgproc structuredEdges ne possède pas ce chemin
+segs/nSegs/sharpen2 et ne constitue pas un remplacement exact.
+
+Un oracle C++ des mêmes kernels est réalisable sans MATLAB, en donnant les
+véritables tableaux d’entrée. Il ne valide pas à lui seul l’assemblage de
+canaux MATLAB. Les sorties manquantes sont les canaux intermédiaires, les
+feuilles et E pour plusieurs géométries, avec les branches SSE et les bords.
+Pour la mémoire : partager le modèle immuable, calculer des bandes avec les
+halos nécessaires et garder l’ordre des accumulations. Copier218Mo par worker
+annulerait précisément le bénéfice du parallélisme recherché.
+
+RST/MLESAC : construction précise
+
+Le modèle est une similitude à quatre paramètres, avec échantillon de deux
+points et normalisation du centroïde/sqrt2-distance moyenne. L’erreur est la
+somme des transferts aller/retour. Le seuil provient de chi2inv_LUT.mat original,
+avec probabilité0,99 et4degrés de liberté :13,278488654186267. La valeur chi²
+mathématique13,276704135987622 est différente et n’est pas un substitut exact.
+
+Le score natif examine128gamma uniformes entre0et1 et maximise la somme des
+logarithmes du mélange inlier/outlier. Il ne fait pas d’EM. Un candidat est
+accepté seulement si son nombre d’inliers n’est pas inférieur au précédent
+ET si son score augmente. L’estimation des itérations utilise l’échantillonnage
+sans remise choose(inliers,2)/choose(N,2), epsilon1e-6 et les limites natives
+de boucle, avec arrêt au consensus complet. Une seule réestimation LS est
+effectuée ensuite. Les formules sont assez petites pour une implémentation
+Float64 et des références analytiques/NumPy indépendantes.
+
+L’oracle complet réclame encore une suite identique d’échantillons minimaux.
+Le MATLAB natif initialise son twister depuis l’horloge, puis trie des nombres
+aléatoires pour sélectionner les points. Pour comparer, il suffit d’enregistrer
+les vrais échantillons ; un RANSAC affine OpenCV n’est pas un oracle de cette
+routine. Les cas dégénérés et les résidus tous nuls ont aussi une sémantique
+nonfinie dans le score original à caractériser explicitement.
+
+SSIM et ROI : construction précise
+
+Le préflou est15x15/sigma2 en double, puis un warp bilinéaire direct et inverse
+sur les centres1-based, avec remplissage0. Les paramètres RST portent sur
+row/col ; le repère affine image x/y permute donc les translations Theta4/Theta3.
+Il faut tester ces axes, le signe de la rotation et les bords avant de raccorder
+les opérateurs génériques. https://au.mathworks.com/help/images/ref/imtransform.html
+
+SSIM emploie Radius3 et les exposants[3,1,2]. Le script fournit des doubles
+0..255 sans spécifier DynamicRange : le défaut de classe est1, donc constantes
+0,0001/0,0009/0,00045. La formule locale est l³*c*s². Le SSIM générique Sewar
+existant n’a pas ce contrat. Une implémentation indépendante peut employer les
+formules documentées, mais le support de fenêtre et le traitement des bords
+doivent encore être fixés par l’oracle de la version MATLAB de référence.
+https://www.mathworks.com/help/images/ref/ssim.html
+
+La ROI contient des COMPTAGES d’intersections des disques stricts autour des
+extrémités, puis une dilatation en niveaux de gris ; elle n’est pas une union
+binaire. Sa convolution circulaire135x135 emploie exp(-0,001*d). Le normaliseur
+est mean(imfilter(3*ones135,kernel)), avec les bords du petit tableau, et non
+3*sum(kernel). Seuil0,4, ouverture disk4, aire0,0001*N, quatre connexions,
+remplissage des trous puis au moins trois pixels de points distincts par
+composante précèdent l’union finale et Restore.m.
+
+strel('disk',r) utilise par défaut une approximation n4. Un disque euclidien
+SciPy/OpenCV de rayons4ou50 ne garantit pas le même masque. Les empreintes/
+décompositions natives de ces deux seuls rayons constituent de petits oracles
+réutilisables : on n’a pas besoin d’embarquer MATLAB pour les appliquer.
+https://www.mathworks.com/help/images/ref/strel.html
+
+Licences et limites de qualification
+
+VLFeat estBSD2 avec conservation des notices. Les helpers channels sontBSD
+Simplified ; le wrapper forest3.01 et sa ressource relèvent deMSR-LA, avec termes
+noncommerciaux, redistribution aux mêmes termes, notices de modifications et
+restriction du hosting commercial. Les en-têtes RANSAC indiquentGNU GPL avec
+COPYINGv3 ; la présence d’un fichierLGPL séparé ne remplace pas cette indication.
+Le README du programme word2phraseCMFD porte All rights reserved, sans licence
+ouverte de l’auteur. Une implémentation indépendante des mathématiques est
+distinguée d’une redistribution de ses scripts. Aucun runtime/code MATLAB n’a
+été copié. Il n’existe actuellement ni MATLAB, ni Octave, ni Matlab Python Engine
+sur cette machine. Aucune permission générale de publication n’est déduite de
+cet inventaire local.
+
+28tests passent (18noyau,10façade), y compris un vrai refus d’allocation WASM,
+la reprise suivante, la conservation de la cause, le budget et les annulations.
+Ce nombre ne démontre pas un détecteur complet, un parcours GUI SSG, un résultat
+96MP, ni une utilisation physique de tous les cœurs. Le rapport détaillé local
+integration-review.json, l’acquisition et les preuves native/WASM sont conservés
+sous method-integration-resources-20261012/ssg.

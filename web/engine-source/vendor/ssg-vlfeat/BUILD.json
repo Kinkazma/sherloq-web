@@ -1,0 +1,417 @@
+{
+  "repository": "ChaoWang1016/word2phraseCMFD",
+  "commit": "66bb26eca0c7e95c76042d5bcca58f744d70a27d",
+  "component": "VLFeat0.9.18 detector, not complete SSG",
+  "license": "BSD-2-Clause (VLFeat files only)",
+  "archive": {
+    "file": "vlfeat-0.9.18-sift-source.tar.gz",
+    "bytes": 267144,
+    "sha256": "77b952214a6d7201a377c4e63558773172626c689160da6dd5d0964517de8a6e"
+  },
+  "sourceFiles": [
+    {
+      "path": "COPYING",
+      "sha256": "33b9f7703327199088d74f884b19997a0084180f984724720095a7cb412c4d89",
+      "bytes": 1365
+    },
+    {
+      "path": "toolbox/sift/vl_sift.c",
+      "sha256": "926ca705cb0aa5c8b7c29d62d8a313acb9def935a65a6f8f4b0c9de17661b757",
+      "bytes": 14782
+    },
+    {
+      "path": "vl/aib.c",
+      "sha256": "a739871010d7fd7025d66422ce5e1ad731d33f8e0175313ca92d5701365a343a",
+      "bytes": 21455
+    },
+    {
+      "path": "vl/aib.h",
+      "sha256": "5b28b7c0cd5f9424b89d1c127a724ced285d9274ff9703fa526204fb311510c4",
+      "bytes": 3553
+    },
+    {
+      "path": "vl/array.c",
+      "sha256": "1f6bb19fe4e0cd16553a9aa587f702bbeb6f9d1e2cbd6b37fa20d1057d249c8b",
+      "bytes": 5673
+    },
+    {
+      "path": "vl/array.h",
+      "sha256": "cf6fdf209f6bbab5df7da4c392b51439853481dd9e6e68b2b1755d537b42cd50",
+      "bytes": 2654
+    },
+    {
+      "path": "vl/covdet.c",
+      "sha256": "828a7067fd39d715ab736761932b2abba3d26f604b7ceac5f66751c42babd92b",
+      "bytes": 112850
+    },
+    {
+      "path": "vl/covdet.h",
+      "sha256": "c130ce7ddefe0a68dab96b41ed49b181e54babc9c20ce07de430935fa8592736",
+      "bytes": 9124
+    },
+    {
+      "path": "vl/dsift.c",
+      "sha256": "a461f50f1a161982caa7dfa03ac4acf3492d5ec0250bce0768f3997449cca746",
+      "bytes": 24724
+    },
+    {
+      "path": "vl/dsift.h",
+      "sha256": "be9e5435148b619f9ae459d8a10b8c3726433dcc94dd791ce5855e33b0a83839",
+      "bytes": 11052
+    },
+    {
+      "path": "vl/fisher.c",
+      "sha256": "32a3aebd8fc342a863efef9966d08f63978289dbae9776e0b1082772a6aef4ae",
+      "bytes": 18806
+    },
+    {
+      "path": "vl/fisher.h",
+      "sha256": "a51dace3138b29cebf6c45c16a4040f23e383e0178d2b01869b5fddf4fff922c",
+      "bytes": 1536
+    },
+    {
+      "path": "vl/float.th",
+      "sha256": "dcf2f74d6dca72e55cf6db3b899bdf74d13954d9247606c0210ad379e893d875",
+      "bytes": 3259
+    },
+    {
+      "path": "vl/generic.c",
+      "sha256": "6c33e4f9a1bb43f770b2becb7cc23e50c2fd42f2d1d7ae679e9ecb3d8ba8498c",
+      "bytes": 57415
+    },
+    {
+      "path": "vl/generic.h",
+      "sha256": "1a55202a246b09912bdc1bda94360cf4c6bc677a8e22bf7df05a93e40b547384",
+      "bytes": 6683
+    },
+    {
+      "path": "vl/getopt_long.c",
+      "sha256": "d5826ae79872676a08710f18e5c1501074acb9e78a235832648ccd3a687073c3",
+      "bytes": 9180
+    },
+    {
+      "path": "vl/getopt_long.h",
+      "sha256": "1988dc902f01d624717c1dc19f8ec63cd809454796a45a3d7df742bb7c41a4c7",
+      "bytes": 1479
+    },
+    {
+      "path": "vl/gmm.c",
+      "sha256": "0216169b1ff76f430433c1ff06d66ccc981202d81434b0c35395b96e87a61c44",
+      "bytes": 52837
+    },
+    {
+      "path": "vl/gmm.h",
+      "sha256": "1101becef0d9e272100708dbfea9ecfcfb62cc7fb959fb91de6d2159de390fba",
+      "bytes": 4424
+    },
+    {
+      "path": "vl/heap-def.h",
+      "sha256": "f21d1d7629a813a54ba3cb7f87d12199794a99f80683f975072b5c1833b72960",
+      "bytes": 13645
+    },
+    {
+      "path": "vl/hikmeans.c",
+      "sha256": "83e364010c1e00751291f96fdbe23295584a04fcb49b2b2dde0eea28ec76219b",
+      "bytes": 8840
+    },
+    {
+      "path": "vl/hikmeans.h",
+      "sha256": "a4f0ce6276d5d5dad0d4a6ea680a3c7276ba7b5c527e1e8e46052e512fee115d",
+      "bytes": 2202
+    },
+    {
+      "path": "vl/hog.c",
+      "sha256": "1d500ebd4f394357e43f5909fd8a27b5dd006b763367d2f204d0fc5f964c0f6e",
+      "bytes": 37808
+    },
+    {
+      "path": "vl/hog.h",
+      "sha256": "d911c99874e48725f23ca09bca25e756b3b0f6148d074628d07c5d5fc7676402",
+      "bytes": 2776
+    },
+    {
+      "path": "vl/homkermap.c",
+      "sha256": "becb1f853a76f8620d1451c1987cf8cc461f60ee4792e4932244d315e93b544c",
+      "bytes": 19513
+    },
+    {
+      "path": "vl/homkermap.h",
+      "sha256": "fe1ebcc561a9a126cebd69cf3176860ed54361180019cf850a1df2f044437066",
+      "bytes": 2592
+    },
+    {
+      "path": "vl/host.c",
+      "sha256": "dace45039fb98d11ff7c523def60c7eb43984413f5cc1db702f861c6dbaf60f4",
+      "bytes": 15929
+    },
+    {
+      "path": "vl/host.h",
+      "sha256": "ecc07b5b966225b3b622888eaf74eb4c36771f3618a78c609bbb0192513b579f",
+      "bytes": 17018
+    },
+    {
+      "path": "vl/ikmeans.c",
+      "sha256": "730fe8913aef113efd3468f456b885392268cb4f987dbdf1975c8b0cad9ed3f8",
+      "bytes": 7842
+    },
+    {
+      "path": "vl/ikmeans.h",
+      "sha256": "2a52d5683884691625bc49fe03ee32600dd7b278cb82af7ee26e1bc216a7b953",
+      "bytes": 2676
+    },
+    {
+      "path": "vl/ikmeans_elkan.tc",
+      "sha256": "a0e6a9991bbdccbb557a34b6c5ed90f49f24360ac5d60e69066b03f834a2d28e",
+      "bytes": 10130
+    },
+    {
+      "path": "vl/ikmeans_init.tc",
+      "sha256": "a39e17111af541356537ff7d73bb750a58d98ceefe6543ba8a6a75ee7883ffa0",
+      "bytes": 3903
+    },
+    {
+      "path": "vl/ikmeans_lloyd.tc",
+      "sha256": "b41710f5c671cc1aef149a50632860c5e86dd9273cd89f126170ff9c58acd9ce",
+      "bytes": 3445
+    },
+    {
+      "path": "vl/imopv.c",
+      "sha256": "32aa3d53a1faf4186b6b208609d655f53ddd1f00f2a762fc9934143c9b94f896",
+      "bytes": 35219
+    },
+    {
+      "path": "vl/imopv.h",
+      "sha256": "e8f1bd04e685f99e8ce705647170d7c06705d4896b8114e8ae87722ae3a093bd",
+      "bytes": 6075
+    },
+    {
+      "path": "vl/imopv_sse2.c",
+      "sha256": "d2537ff3648fc02cffbfaa736382bf95d398cddd807a1309c1fabefcb6298720",
+      "bytes": 7708
+    },
+    {
+      "path": "vl/imopv_sse2.h",
+      "sha256": "3d62c1fe804dd21c0b4fc6246aca1d7d2396f41cd1346b0bfa56c919be3a068b",
+      "bytes": 1768
+    },
+    {
+      "path": "vl/kdtree.c",
+      "sha256": "e085785f0679be21061ecc4de567b0d078aae11aface254602a818e9787a98c5",
+      "bytes": 35267
+    },
+    {
+      "path": "vl/kdtree.h",
+      "sha256": "fe45bab07c9b7519ece921648ae88c212410035fe0dcbc3f61e14f9c3e43dbff",
+      "bytes": 5706
+    },
+    {
+      "path": "vl/kmeans.c",
+      "sha256": "03ea058e67a0bc374749dfde46a5f0971e666a2be2c658b56b90891e939dec97",
+      "bytes": 72292
+    },
+    {
+      "path": "vl/kmeans.h",
+      "sha256": "84e24fef6ebdfb9bae8f4d223f45450d862a4c441e512f072236cc29173a6708",
+      "bytes": 13287
+    },
+    {
+      "path": "vl/lbp.c",
+      "sha256": "4e4af0bbbb25fd08ddc9d3d1dcb90f0712feb839706441a9bbd02b5f7ee00116",
+      "bytes": 12195
+    },
+    {
+      "path": "vl/lbp.h",
+      "sha256": "f11479181de09bfe10e6b4e095e8431613cbe20143f3f1de3f99a2bea9287125",
+      "bytes": 1147
+    },
+    {
+      "path": "vl/liop.c",
+      "sha256": "e507532bd120cb689f1b88d163e6df7505a70ac363798f039a1ecd91379ecfec",
+      "bytes": 20924
+    },
+    {
+      "path": "vl/liop.h",
+      "sha256": "53d0285493bb94558509f2268f58f08ba6970191ab811adeab6e013d5f435a6d",
+      "bytes": 2280
+    },
+    {
+      "path": "vl/mathop.c",
+      "sha256": "663354bab909b9e792fafcd816e01872b45f22e5b9381ed8d9add9075c98572c",
+      "bytes": 28485
+    },
+    {
+      "path": "vl/mathop.h",
+      "sha256": "6144652d313275f03b5e39159614ca9152f94a07d40b43f23d97608ac715bcee",
+      "bytes": 18371
+    },
+    {
+      "path": "vl/mathop_avx.c",
+      "sha256": "5b9e77e1a1c5098bb579f8b6f85430a9c30b197eec30a48983792475106c968f",
+      "bytes": 6416
+    },
+    {
+      "path": "vl/mathop_avx.h",
+      "sha256": "0ec2aa2c9c767d64c80b390d31e7f8a8ecc2ff37d6c1864f770fb96fd9f88d11",
+      "bytes": 1375
+    },
+    {
+      "path": "vl/mathop_sse2.c",
+      "sha256": "624c4aa5a4f9fb4d12f437321355ade748e0926b2bcb3e03a41012bf69dd77cd",
+      "bytes": 12280
+    },
+    {
+      "path": "vl/mathop_sse2.h",
+      "sha256": "3d7bf6e2897684842075415529ca304c1061eea405d2fa8ebaa8e31431e6dd16",
+      "bytes": 1964
+    },
+    {
+      "path": "vl/mser.c",
+      "sha256": "e676f657d153062f12acab597d3265752ba46eab0ade3e91b84bfada20546e3b",
+      "bytes": 30295
+    },
+    {
+      "path": "vl/mser.h",
+      "sha256": "29c62eed9d441da598f996dfd51730d7853bd8ae112de0c7ad94b30430ec1cc0",
+      "bytes": 13492
+    },
+    {
+      "path": "vl/pgm.c",
+      "sha256": "b2749362296386ac2b7254814b554bdf1a4c3a99103053d9f5a2a88bd076106b",
+      "bytes": 13341
+    },
+    {
+      "path": "vl/pgm.h",
+      "sha256": "943090052a9e1861e265ff171afefc8e0d81923ce10c535b0e5dc6e5490e0e19",
+      "bytes": 2356
+    },
+    {
+      "path": "vl/qsort-def.h",
+      "sha256": "7151255fa1b4c1ae52abd8c364fd34fef65ea6efc048acd3c158be5a261ab599",
+      "bytes": 5124
+    },
+    {
+      "path": "vl/quickshift.c",
+      "sha256": "c04b44c8fae595e78d64cbbfbbb1308e2b477985c799a06367bf87dc85ffe36a",
+      "bytes": 14579
+    },
+    {
+      "path": "vl/quickshift.h",
+      "sha256": "1701f44a61be1c9bd92e7f9dd4a66f678822977f0f3264c2d36307c0d18d3644",
+      "bytes": 5487
+    },
+    {
+      "path": "vl/random.c",
+      "sha256": "779d9074d39ccc6af6c82d8384c5b9a87bd544133c80f34d30f8722fed011541",
+      "bytes": 8048
+    },
+    {
+      "path": "vl/random.h",
+      "sha256": "3317cfd9dfba543a3d88b36bb1ddb6ad8364d6ce9d9591a2e659a10e5c74e24c",
+      "bytes": 4088
+    },
+    {
+      "path": "vl/rodrigues.c",
+      "sha256": "053d9a5e8ab01208bdc36468a4e6cb905f2eaeac6d3361ce359902bbbe57b231",
+      "bytes": 9037
+    },
+    {
+      "path": "vl/rodrigues.h",
+      "sha256": "c6aa58076a46bc9c1839bee566b24c2773a8a45fd55fbead3b091f35eaef8119",
+      "bytes": 778
+    },
+    {
+      "path": "vl/scalespace.c",
+      "sha256": "de5a7995f923ce428dc6a5079ec4de1a41b0fd60b0f0dce02494327d9780d5a9",
+      "bytes": 28618
+    },
+    {
+      "path": "vl/scalespace.h",
+      "sha256": "80ae40aff6857493990197222d82cc158c36df5f9909c7bdf5cea5cfffd99485",
+      "bytes": 3563
+    },
+    {
+      "path": "vl/shuffle-def.h",
+      "sha256": "71ae3f4638bf43a5385fd0d2a00b72cd21e78bd8d9d8e8ac7b4b4b9de45981a6",
+      "bytes": 2518
+    },
+    {
+      "path": "vl/sift.c",
+      "sha256": "1e2df9fc8ed9bc19d845e869592b400de15a0aa7a90923fd16786aeebe1be839",
+      "bytes": 72072
+    },
+    {
+      "path": "vl/sift.h",
+      "sha256": "a34d887347ae4bf8d6f96cbcd021da26ae292601966e361ac149ab570728c16f",
+      "bytes": 11779
+    },
+    {
+      "path": "vl/slic.c",
+      "sha256": "db4b0c4e1ed45cc4b6b1717ee4d71dda201fccd01b4922307fd9c632d6804c8b",
+      "bytes": 14119
+    },
+    {
+      "path": "vl/slic.h",
+      "sha256": "0e9443f036977813d473a7b9b6aafb952b11787d4b302cc3580adc5f12b86126",
+      "bytes": 698
+    },
+    {
+      "path": "vl/stringop.c",
+      "sha256": "88200cac6cec7496c84657f23634d68b29996ac31651b69c4247079f3e090114",
+      "bytes": 13504
+    },
+    {
+      "path": "vl/stringop.h",
+      "sha256": "1ff9ecf4c71348167c16593cd5de35ef0ff16d39de0a742eaf716c250a20333f",
+      "bytes": 2243
+    },
+    {
+      "path": "vl/svm.c",
+      "sha256": "711965a7b1e27144423acf97642846542d345c9ef40dd765832d058a50b9d5c8",
+      "bytes": 68799
+    },
+    {
+      "path": "vl/svm.h",
+      "sha256": "115cd3f71bd24be5457af55f5744f3b2d9b2117404651f382e6a5d489d0b1cfd",
+      "bytes": 8009
+    },
+    {
+      "path": "vl/svmdataset.c",
+      "sha256": "d50aecda32ee3431e05055f21f2eaeea367324659ba2724aa9f5b481e34c0b3c",
+      "bytes": 12140
+    },
+    {
+      "path": "vl/svmdataset.h",
+      "sha256": "4bb71687dbbe9392934ea9ca89d48c472d86a2d8f47c74c07aa905c5805fed9a",
+      "bytes": 2752
+    },
+    {
+      "path": "vl/vlad.c",
+      "sha256": "b5a03dbc762cb5b1b8cc5153a201fdc905fb8bf1626dca86ff635ffb6631a8d5",
+      "bytes": 10409
+    },
+    {
+      "path": "vl/vlad.h",
+      "sha256": "a2acbe2e2f7a66f9c3ab7b07cf3b0705591234c09f9906a4fbc1e4afe15adf56",
+      "bytes": 1284
+    }
+  ],
+  "runtimeFiles": {
+    "vlfeat.wasm": {
+      "bytes": 50554,
+      "sha256": "8025e4fe8d1fac20bc1a2b98428eea3f74f2101dd79ffae759d62bcb1e713699"
+    },
+    "vlfeat.mjs": {
+      "bytes": 9463,
+      "sha256": "86e61d613e3abc23624339d96e8bf9d1c84a622afc8e3b28f86d4c6977aeeb0f"
+    },
+    "wrapper.c": {
+      "bytes": 2227,
+      "sha256": "38549c5c2c05f804f6c50b93aacb1a49e61f5b7b38de41a9cdf2a61e0c3dd4a6"
+    },
+    "LICENSE.txt": {
+      "bytes": 1365,
+      "sha256": "33b9f7703327199088d74f884b19997a0084180f984724720095a7cb412c4d89"
+    }
+  },
+  "heapGrowthAdapter": "Reviewed getHeapMax uses caller-admitted maximumHeapBytes, imported memory enforces same physical cap; numerical WASM unchanged."
+}
