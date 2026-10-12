@@ -1,6 +1,19 @@
-import {requireValue,checkAbort,EngineError} from '../../src/errors.js';
+import {requireValue,checkAbort,EngineError,serializeEngineError} from '../../src/errors.js';
 import {createConvolutionGeneralGpu} from '../d2prl/convolution-general-gpu.js';
 import {createCmsegDotGpu} from './cmseg-dot-gpu.js';
+
+export function copyMappedCorrelationRows(dots,expectedLength,maximumBytes){
+  let primaryError;
+  try{
+    requireValue(dots?.data instanceof Float32Array&&dots.data.length===expectedLength&&dots.data.byteLength<=maximumBytes,'Admitted complete correlation rows required');
+    // getMappedRange buffers cannot be transferred to a worker. Only this tile
+    // is copied; the caller's existing perWorker=...+2*tileBytes owns the handoff.
+    // https://developer.mozilla.org/en-US/docs/Web/API/GPUBuffer/getMappedRange
+    return dots.data.slice();
+  }catch(error){primaryError=error;throw error;}finally{
+    try{dots?.release();}catch(error){if(primaryError)primaryError.details={...primaryError.details,cleanupErrors:[...(primaryError.details?.cleanupErrors??[]),serializeEngineError(error)]};else throw error;}
+  }
+}
 
 // Experimental bounded hybrid. Stream complete comparison rows twice; overlap
 // one ordered GPU dot job with independent CPU Gaussian/softmax/TopK jobs.
@@ -38,16 +51,18 @@ export function createCmsegCorrelationGpu({budget,moduleUrl,maxWorkers=Math.min(
               for(let lane=0;lane<count&&wave+lane*rowsPerJob<n;lane++){
                 checkAbort(signal);if(failure)throw failure;const first=wave+lane*rowsPerJob,size=Math.min(rowsPerJob,n-first),weights=residentInput?null:new Float32Array(size*c),bias=residentInput?null:new Float32Array(size);
                 if(!residentInput)for(let j=0;j<size;j++)for(let channel=0;channel<c;channel++)weights[j*c+channel]=normalized[channel*n+first+j];
-                let dots;
+                let dots,primaryError;
                 try{
                   dots=await gpu.run(residentInput?{first,count:size}:{input:normalized,weights,bias,channels:c,height:h,width:w,outChannels:size,kernel:1,hasBias:true},{signal,onSubmitted:()=>onProgress?.({phase:'cmseg-correlation-dot-gpu',stage:phase,completed:first,total:n})});checkAbort(signal);
                   if(residentInput){gpuWriteBytes+=dots.timings.gpuWriteBytes;gpuReadBytes+=dots.timings.gpuReadBytes;gpuPeak=Math.max(gpuPeak,dots.gpu.peakAccountedBytes);gpuAllocations+=dots.gpu.allocations;}
                   else{gpuWriteBytes+=normalized.byteLength+weights.byteLength+bias.byteLength+72;gpuReadBytes+=size*n*4;gpuPeak=Math.max(gpuPeak,normalized.byteLength+weights.byteLength+bias.byteLength+2*size*n*4+72);gpuAllocations+=7;}
-                  pending.push(call(workers[lane],{type:phase,first,count:size,dots:dots.data},[dots.data.buffer]).then(r=>{
+                  let transferable=dots.data;
+                  if(!residentInput){const mapped=dots;dots=null;transferable=copyMappedCorrelationRows(mapped,size*n,tileBytes);}
+                  pending.push(call(workers[lane],{type:phase,first,count:size,dots:transferable},[transferable.buffer]).then(r=>{
                     if(phase==='statistics'){maxima.set(r.maxima,first);inverse.set(r.inverse,first);inverse.set(r.columnSum,n+first);}else{for(let j=0;j<k;j++)output.set(r.output.subarray(j*size,(j+1)*size),j*n+first);peakHeap=Math.max(peakHeap,r.heapBytes);}
                     completed+=size;onProgress?.({phase:'cmseg-correlation-'+phase,completed,total:n,workers:count});
                   }).catch(e=>{failure??=e;}));
-                }finally{dots?.release();}
+                }catch(error){primaryError=error;throw error;}finally{try{dots?.release();}catch(error){if(primaryError)primaryError.details={...primaryError.details,cleanupErrors:[...(primaryError.details?.cleanupErrors??[]),serializeEngineError(error)]};else throw error;}}
               }
             }finally{await Promise.all(pending);}
             checkAbort(signal);if(failure)throw failure;
