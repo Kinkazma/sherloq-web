@@ -4,6 +4,7 @@ Implementation changes and their verification are recorded here. The [README](RE
 
 ## 0.17.0 — Scientific batch preparation and exports · 2026-10-12
 
+- Published the 9.66 MB standalone local-web bootstrap with an immutable dependency origin. Independent anonymous HTTPS and fresh Chrome checks verify the actual delivered text detector and runtime resources. [Artifact](docs/evidence/public-bootstrap-0.17.0.json) · [Delivery evidence](docs/evidence/batch-publication-0.17.0.json).
 - Added acquisition preclassification and PP-OCRv6 detector-only text polygons for native-coordinate exclusions. Ambiguous OCR proposals can be reviewed without losing their source/model provenance; original pixels remain unchanged.
 - Corrected native neural window bounds for D2PRL and MGCFDN while keeping exact scientific polygons for filtering. Small annotations already outside acquisitions are shown explicitly.
 - Added biomes-only single-method views, multi-method corroboration, source-linked flat archives, restored history and partial-run PDF/journal exports. Journal reads use ordered bounded windows and report incomplete exports.

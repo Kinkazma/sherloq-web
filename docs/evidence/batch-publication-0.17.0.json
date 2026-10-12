@@ -1,0 +1,62 @@
+{
+  "sourceCommit": "abc9dcac3643316cab06ccc3d5e3c3dc6cf4ac7e",
+  "publicFiles": 5436,
+  "uniquePublicChunksVerified": 4731,
+  "multiPieceFilesVerified": 8,
+  "publicBytes": 7221967905,
+  "uniquePublicBytes": 6975826709,
+  "optionalLocalOnlyChunksExcluded": 4,
+  "compatibilityManifestsPreserved": 4,
+  "previousNativeModelsWasmAndArraysUnchanged": true,
+  "atomicSiftSourceUnchanged": true,
+  "rawSourceAndExecutableLocksMatch": true,
+  "publicTextModelDetectorOnly": true,
+  "readmeImagesPreserved": 57,
+  "noindexAbsent": true,
+  "scope": "Independent full SHA-256/size closure and streamed multi-piece reconstruction; not scientific accuracy qualification.",
+  "date": "2026-10-12",
+  "uiVersion": "0.17.0",
+  "engineVersion": "0.37.0-methods.1",
+  "resourceCommit": "39575baa97a08cd2f0b461bf5016043c40c15ccb",
+  "resourceOrigin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/39575baa97a08cd2f0b461bf5016043c40c15ccb/web-assets/",
+  "manifestTemplateSha256": "56d4cdbca2f124b6f2525d9d5405ace76c8951bc59dd50d6fca4f977477f9801",
+  "deploymentManifestSha256": "3a08025dd38b6be3aad1adb0ba1ed58778b28633ef1847a441e827b1fa34484d",
+  "tests": {
+    "interface": {
+      "pass": 365,
+      "fail": 0
+    },
+    "batch": {
+      "pass": 80,
+      "fail": 0
+    },
+    "targetedEngine": {
+      "pass": 51,
+      "fail": 0
+    }
+  },
+  "humanFunctionalAcceptance": true,
+  "humanPublicationAuthorization": true,
+  "bootstrap": {
+    "artifact": "SHERLOQ-Web-bootstrap-0.17.0.zip",
+    "bytes": 9659762,
+    "sha256": "62959502da6d828d89e6206e60f270d8bc47f93f733be5225f98945cc12470ae",
+    "version": "0.17.0",
+    "resourceOrigin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/39575baa97a08cd2f0b461bf5016043c40c15ccb/web-assets/",
+    "manifestSha256": "3a08025dd38b6be3aad1adb0ba1ed58778b28633ef1847a441e827b1fa34484d",
+    "privateOverlayIncluded": false,
+    "scientificModelsBundled": false,
+    "compressedLimitBytes": 20000000
+  },
+  "localPublicLauncherBrowserPassed": true,
+  "publicPinnedOriginBrowserPassed": true,
+  "publicPinnedOriginHttpPassed": true,
+  "wordPressInstallerPublished": false,
+  "privateOverlayIncluded": false,
+  "scientificModelsBundled": false,
+  "limits": [
+    "The interrupted four-method lot is not claimed as sixteen completed analyses.",
+    "Scientific accuracy across the 86-acquisition corpus and full MATLAB parity remain unestablished.",
+    "Private WordPress installation and host-specific verification are separate."
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-12T21:14:28.249Z",
+  "browser": "154.0.8037.98",
+  "resourceOrigin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/39575baa97a08cd2f0b461bf5016043c40c15ccb/web-assets/",
+  "deploymentManifestSha256": "3a08025dd38b6be3aad1adb0ba1ed58778b28633ef1847a441e827b1fa34484d",
+  "startupRemoteRequests": 0,
+  "remoteRequests": 16,
+  "pixels": {
+    "exactPixels": true,
+    "webpBytes": 666,
+    "engineVersion": "0.37.0-methods.1"
+  },
+  "text": {
+    "width": 736,
+    "height": 736,
+    "status": "complete",
+    "polygons": 3,
+    "model": {
+      "id": "PP-OCRv6_small_det",
+      "sha256": "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f",
+      "bytes": 9929594
+    },
+    "originalPixelsModified": false,
+    "recognition": false
+  },
+  "forest": {
+    "exactFactory": true,
+    "exactWasm": true,
+    "abi": true
+  },
+  "isolation": {
+    "page": true,
+    "shared": true
+  },
+  "errors": [],
+  "scope": "Fresh isolated Chrome profile; configured dependency origin, synthetic 67\u00d765 pixels and lossless export, real PP-OCRv6 text inference, SSG factory/WASM hashes and ABI. No user images or production WordPress tab. This does not qualify scientific inference accuracy or a particular WordPress deployment."
+}

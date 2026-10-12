@@ -1,0 +1,136 @@
+{
+  "resourceCommit": "39575baa97a08cd2f0b461bf5016043c40c15ccb",
+  "origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/39575baa97a08cd2f0b461bf5016043c40c15ccb/web-assets/",
+  "anonymousHttps": true,
+  "checks": [
+    {
+      "path": "manifest-template.json",
+      "status": 200,
+      "bytes": 1904051,
+      "sha256": "56d4cdbca2f124b6f2525d9d5405ace76c8951bc59dd50d6fca4f977477f9801",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f.bin",
+      "status": 200,
+      "bytes": 9929594,
+      "sha256": "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f",
+      "cors": "*",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "chunks/356494383832f61ed844d85a525c04282a49914abace38f01a005021538dcc77.bin",
+      "status": 200,
+      "bytes": 18809,
+      "sha256": "356494383832f61ed844d85a525c04282a49914abace38f01a005021538dcc77",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/4b569780e099ee7f364652c90ab52be3b33adcb1ce451b53781c5cfb999a54b2.bin",
+      "status": 200,
+      "bytes": 10131,
+      "sha256": "4b569780e099ee7f364652c90ab52be3b33adcb1ce451b53781c5cfb999a54b2",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/6a06607dcfcabbc1971248eb34ca554e5b1c5b966418f235d7ec8b354507c6a3.bin",
+      "status": 200,
+      "bytes": 9654,
+      "sha256": "6a06607dcfcabbc1971248eb34ca554e5b1c5b966418f235d7ec8b354507c6a3",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/6b08a87942381c1eec1ed08cc4c28ae239947a462014dcdfaa3fc360745c699d.bin",
+      "status": 200,
+      "bytes": 12015,
+      "sha256": "6b08a87942381c1eec1ed08cc4c28ae239947a462014dcdfaa3fc360745c699d",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/7001d29269b937e7ed674d86ff90d2d9e065996181fc7be74955864c05f09c79.bin",
+      "status": 200,
+      "bytes": 7819,
+      "sha256": "7001d29269b937e7ed674d86ff90d2d9e065996181fc7be74955864c05f09c79",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/7c875fbe734b6f47164a1a3580bd6576b8aa1dcada2773383280c5db82a27a52.bin",
+      "status": 200,
+      "bytes": 17212,
+      "sha256": "7c875fbe734b6f47164a1a3580bd6576b8aa1dcada2773383280c5db82a27a52",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/932611f820e1ce8b76226871156265e23bda134b8fbc2eddaee151a1cafac996.bin",
+      "status": 200,
+      "bytes": 10578,
+      "sha256": "932611f820e1ce8b76226871156265e23bda134b8fbc2eddaee151a1cafac996",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/a37f1eb8810f7ef7948f80af225dd345e8329aa5e8bad56bb29f8f8928d47b06.bin",
+      "status": 200,
+      "bytes": 12474,
+      "sha256": "a37f1eb8810f7ef7948f80af225dd345e8329aa5e8bad56bb29f8f8928d47b06",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/a630addcdf71a216fcf44f1836799a16d0435e3a696b05760fcad678bc675d14.bin",
+      "status": 200,
+      "bytes": 2259,
+      "sha256": "a630addcdf71a216fcf44f1836799a16d0435e3a696b05760fcad678bc675d14",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/b23a12dd6c1d0afffa9bc38300c2b533bc9b1b57572235db24a3e6660d2ee9ff.bin",
+      "status": 200,
+      "bytes": 5155,
+      "sha256": "b23a12dd6c1d0afffa9bc38300c2b533bc9b1b57572235db24a3e6660d2ee9ff",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/b5e4f094142cac7c7de09064d5d6226c73e9d586d8c924d05ca6d7dc2cb0f98f.bin",
+      "status": 200,
+      "bytes": 1023,
+      "sha256": "b5e4f094142cac7c7de09064d5d6226c73e9d586d8c924d05ca6d7dc2cb0f98f",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08.bin",
+      "status": 200,
+      "bytes": 11358,
+      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/ec491dadde03dbb45308f2f15db547d9ccb398f8ad68e27feb0dab5e3d1425d8.bin",
+      "status": 200,
+      "bytes": 2968,
+      "sha256": "ec491dadde03dbb45308f2f15db547d9ccb398f8ad68e27feb0dab5e3d1425d8",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "chunks/fa96a34a3029ba04440437aa022fd24c372bec71f7eadb9c15f8a3dff02de8fe.bin",
+      "status": 200,
+      "bytes": 4560,
+      "sha256": "fa96a34a3029ba04440437aa022fd24c372bec71f7eadb9c15f8a3dff02de8fe",
+      "cors": "*",
+      "contentType": "text/plain; charset=utf-8"
+    }
+  ],
+  "scope": "Actual pinned GitHub HTTPS manifest, new PP-OCRv6 detector model and every changed runtime resource. Exact SHA-256/size and CORS checks; the complete library was independently verified locally, not downloaded again."
+}

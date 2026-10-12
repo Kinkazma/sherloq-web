@@ -1,6 +1,6 @@
 {
   "schema": "sherloq.publication-identity/1",
-  "ui_commit": "abc9dcac3643316cab06ccc3d5e3c3dc6cf4ac7e",
+  "ui_commit": "39575baa97a08cd2f0b461bf5016043c40c15ccb",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "ui_version": "0.17.0",
   "engine_commit": "abc9dcac3643316cab06ccc3d5e3c3dc6cf4ac7e",
@@ -16,6 +16,7 @@
   "transport_adapter": "web/wordpress/runtime-delivery.py",
   "resource_origin_policy": "Deployments use the verified immutable resource publication commit. The manifest template has no deployment origin; this deployment manifest pins that origin.",
   "compatibility_manifest_sha256": [
+    "3a08025dd38b6be3aad1adb0ba1ed58778b28633ef1847a441e827b1fa34484d",
     "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2",
     "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
     "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b",
@@ -45,5 +46,13 @@
     "deployment_manifest_sha256": "f6888946a2866155275f75dd9f134090cb914e2ec3ab772577c51b721f021408"
   },
   "bootstrap_limit_basis": "compressed ZIP bytes",
-  "desired_bootstrap_bytes": 10000000
+  "desired_bootstrap_bytes": 10000000,
+  "resource_commit": "39575baa97a08cd2f0b461bf5016043c40c15ccb",
+  "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/39575baa97a08cd2f0b461bf5016043c40c15ccb/web-assets/",
+  "deployment_manifest_sha256": "3a08025dd38b6be3aad1adb0ba1ed58778b28633ef1847a441e827b1fa34484d",
+  "finalized_bootstrap_compressed_bytes_before_private_overlay": 9679407,
+  "finalized_bootstrap_extracted_bytes_before_private_overlay": 28857790,
+  "public_bootstrap_asset": "SHERLOQ-Web-bootstrap-0.17.0.zip",
+  "public_bootstrap_bytes": 9659762,
+  "public_bootstrap_sha256": "62959502da6d828d89e6206e60f270d8bc47f93f733be5225f98945cc12470ae"
 }

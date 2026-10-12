@@ -21,7 +21,7 @@ npm test
 python3 build.py --frozen
 ```
 
-Default reconstruction verifies 5,436 public ordinary files (sizes and streamed SHA-256 reconstruction are recorded in the current publication evidence). There are 4,731 unique public pieces. Four optional research-model files are declared for verified local import and are not hosted as public payloads; see [resource notices](METHODS-RESOURCE-LICENSES.txt). Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
+Default reconstruction verifies 5,436 public ordinary files (7,221,967,905 declared bytes). The 4,731 unique public pieces occupy 6,975,826,709 bytes. Four optional research-model files are declared for verified local import and are not hosted as public payloads; see [resource notices](METHODS-RESOURCE-LICENSES.txt). Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
 
 The manifest template deliberately has no remote origin. A deployment origin identifies `web-assets/` at a full 40-character Git commit SHA; the source includes the finalization and browser-check scripts. The scientific runtime resources are immutable. A GitHub branch URL or a Release download is not an interchangeable origin.
 
