@@ -1,0 +1,41 @@
+{
+  "schema": "sherloq.startup-migration-publication/1",
+  "date": "2026-10-12",
+  "uiVersion": "0.15.2",
+  "engineVersion": "0.35.0-export.3",
+  "qualifiedSourceCommit": "1ad1c624c909261e1b69e194ad7ed4f9c262fb27",
+  "sourceCorrections": [
+    "0a2e17f28c0d195615e6d0e4ca158a977e56b1e5",
+    "1ad1c624c909261e1b69e194ad7ed4f9c262fb27"
+  ],
+  "resourceCommit": "34d648a10c5e516107a9d0a7f1cf4b2f51870e81",
+  "manifestTemplateSha256": "7085000f8095c7242b6dbc7f286ac12914dcd93fdcea0b182533da2b6adeab2d",
+  "deploymentManifestSha256": "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
+  "compatibilityManifestsShaVerified": 2,
+  "tests": {
+    "uiPassed": 261,
+    "uiFailed": 0,
+    "batchPassed": 11,
+    "batchFailed": 0
+  },
+  "browserMigration": {
+    "browser": "Chrome persistent profile",
+    "originalNavigationFailureReproduced": true,
+    "originalError": "net::ERR_FAILED after the older worker requests a removed manifest",
+    "migratedSameProfile": true,
+    "restartedWithAllServerManifestsMissing": true,
+    "crossOriginIsolated": true,
+    "retainedManifestShaVerified": true,
+    "scope": "Isolated profile and controlled server, real service worker lifecycle; no user browser profile or production installation changed by this check."
+  },
+  "bootstrap": {
+    "withoutPrivateOverlayBytes": 19606361,
+    "limitBytes": 25000000,
+    "zipCrcValid": true
+  },
+  "scientificResourceBytesChanged": false,
+  "modelWeightsChanged": false,
+  "wasmBinariesChanged": false,
+  "privateArchivePublished": false,
+  "scope": "UI startup and immutable manifest retention; does not claim a new scientific-model qualification or a SAFIRE admission fix."
+}
