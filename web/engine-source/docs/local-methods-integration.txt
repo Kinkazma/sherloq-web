@@ -1,225 +1,220 @@
-SHERLOQ Web — intégration locale des méthodes, 12 octobre 2026
+SHERLOQ Web — livraison locale des méthodes, 12 octobre 2026
 
-Livraison : interface 0.16.0-local, moteur 0.36.0-methods.1.
-Branche Git : local/methods-20261012. Code numérique et raccords qualifiés au
-commit cc67a09, avec EfficientLoFTR au commit 3519625 et SelfDM Proposal au
-commit 07dcb9d. Cette livraison est une version locale de recherche. Elle ne
-constitue ni une publication GitHub ni une mise à jour du WordPress public.
+Interface 0.17.1-local ; moteur 0.37.0-methods.1.
+Branche Git : local/methods-20261012. Dernier correctif numérique : 435ea1b ; provenance actualisée : 917ee9a.
+Version locale : http://127.0.0.1:52358/app.html#lang=fr
+Identité du moteur servi :
+13e4655ff648f1fc80f9d113bee0a1259c1160ff052aba39fcb643fc6369a27e.
+Le staging est gelé et les anciennes fenêtres locales restent intactes.
+Cette livraison ne publie rien sur GitHub et ne modifie pas WordPress.
 
-Disponible dans l'application locale
+Méthodes accessibles individuellement et dans le traitement par lot
 
-Dans Détection de clones par IA : les deux CMSeg-Net 2025, les sept choix
-MGCFDN 2026, la carte initiale SelfDM 2022 et, séparément, la chaîne complète
-SelfDM + Proposal SuperGlue 2022. Les neuf CMSeg/MGCFDN disposent d'un vrai
-parcours d'inférence dans l'interface ; leurs poids existants ont été réutilisés.
-Le chargement utilisait auparavant le libellé humain à la place de la clé
-stable du modèle : ce raccord est corrigé pour toutes les variantes.
+Détection de clones par IA : CMSeg-Net 2025 generalization et addnoise ;
+MGCFDN 2026, source/cible, 16×16, EffNet, MPDN, TNT et VIG ; SelfDM 2022
+carte initiale et SelfDM + Proposal SuperGlue 2022 chaîne complète.
+Détection de clones 2 : ALIKED + LightGlue 2023, EfficientLoFTR 2024 et
+SSG 2023 complet. Les années identifient les publications sans changer les IDs
+scientifiques ni les anciens réglages enregistrés. Le signalement des nouveaux
+outils applique le liseré jaune aux sélecteurs des méthodes récentes.
 
-Dans Détection de clones 2 : ALIKED + LightGlue 2023, déjà porté et à nouveau
-exercé dans l'interface avec deux rectangles, et EfficientLoFTR 2024, nouvellement
-porté. EfficientLoFTR compare exactement deux rectangles, sans prendre l'enveloppe
-commune pour une troisième région. Avant leur définition, Calculer reste
-désactivé ; Détecter les sous-images peut fournir les deux rectangles.
-Ses contrôles : confiance, grand côté, nombre de correspondances publiées,
-rotations par quarts de tour, miroir, séparation et vérification géométrique.
-Les points sont ramenés dans les coordonnées des pixels de l'image originale.
+EfficientLoFTR requiert exactement deux rectangles réels, préparables depuis
+Images dans le lot. Leur enveloppe commune n'est pas une troisième région.
+En comparaison, toutes les méthodes clairsemées attendent deux régions avant
+le calcul automatique. Les points restent dans les coordonnées originales.
+Le lot présente les paramètres scientifiques propres à chaque méthode ; les
+nombres décimaux sont acceptés sans supprimer les bornes ni le pas des flèches.
+Une étape terminée conserve sa sortie sur disque. Le ZIP partiel conserve les
+entrées, les résultats et les erreurs ; un échec d'initialisation remet aussi
+le contrôleur dans un état permettant une nouvelle demande.
 
-Les années sont celles des publications : SelfDM 2022, ALIKED/LightGlue 2023,
-XFeat/EfficientLoFTR 2024, CMSeg-Net 2025, MGCFDN 2026. Les IDs et les réglages
-enregistrés conservent leurs valeurs. « Signaler les nouveaux outils » active
-un liseré jaune sur les sélecteurs des méthodes récentes ; sa désactivation
-retire ce liseré. Ce comportement a été constaté dans le navigateur en français
-et en anglais, sans perdre le résultat au changement de langue.
+SSG complet
 
-SelfDM + Proposal SuperGlue : portée de cette première version
+Le détecteur emploie VLFeat DoG, moments Bessel–Fourier, mots et phrases spatiales,
+la forêt originale de contours structurés, I2NN/KD, DBSCAN pondéré, MLESAC/RST
+et la localisation SSIM/ROI. Il ne remplace pas la forêt par un filtre Sobel.
+Le masque publié garde la résolution originale, ses trous et ses composants.
+L'interface superpose ce masque ; les exports NPZ conservent ses pixels 0/1.
+La troisième colonne des paires est accepted_match, et non une probabilité.
 
-Ce choix exécute la chaîne complète, pas un alias de la carte initiale :
-SelfDM, sept échelles DeepMask, propositions, SuperPoint, SuperGlue indoor,
-SEEDS/fusion, ConvCRF. Le wrapper passe les pixels ou une source par lignes
-sans refaire la préparation SelfDM. Les cinq modèles restent des ONNX ordinaires,
-chargés à la demande ; le petit manifeste et chaque fichier sont vérifiés.
+Les douze réglages natifs sont séparés des anciens paramètres SIFT. La valeur
+3000 agrandit les petites images ; elle ne réduit pas les grandes. Zéro conserve
+la taille originale. Modifier uniquement la localisation reprend le checkpoint,
+sans extraire à nouveau les points, charger la forêt ou refaire les appariements.
+Le transfert du résultat ne détache pas le checkpoint. Un unique état conservé
+est compté et évictable ; les masques intermédiaires ne s'accumulent pas.
 
-La version complète accepte exclusivement une image ou un rectangle source
-de 512 × 512 pixels, sur CPU. L'interface l'indique et la préparation refuse
-les autres dimensions avant l'inférence, avec METHOD_DIMENSIONS_UNQUALIFIED.
-Elle ne réduit pas silencieusement l'image et ne remplace pas une erreur par
-la carte initiale. Les autres tailles, le GPU complet et les très grandes
-images doivent encore être portés et qualifiés.
+Depuis l'interface, le cas synthétique positif 660×340 donne 26190 caractéristiques,
+21936 correspondances, six modèles et 223858 pixels de masque au seuil 0,4.
+Le seuil 0,8 donne 223011 pixels ; le retour à 0,4 restaure chaque octet du
+premier masque. Ces deux demandes ne relancent aucune extraction, forêt ou
+recherche de correspondances. La normalisation à zéro produit un masque de
+202153 pixels, avec une nouvelle extraction. Les reçus historiques antérieurs
+au correctif de morphologie restent conservés, sans être présentés comme actuels.
 
-La source native mélange une carte dans les dimensions originales avec un
-guide CRF redimensionné à 512 : un cas 320 × 416 reproduit cette incohérence.
-La généralisation doit conserver un même repère BGR/carte et retirer le crop
-final arbitraire à 512. Le cas 32 × 32 révèle aussi la boucle source de
-500 propositions quand seules 50 existent : le port utilise la cardinalité
-réelle. Les primitives de resize et de CRF dynamiques restent à qualifier.
+La forêt x86/SSE originale et son port WASM ont zéro feuille et zéro pixel final
+différents sur le corpus déclaré. Les voies scalar/shared sont identiques.
+Six références SciPy indépendantes vérifient les disques, seuils et bordures
+SSIM/ROI avec zéro décision différente. Cela ne constitue pas une comparaison
+intégrale MATLAB : le port suit le papier v2 et corrige les index du script.
+L'oracle MATLAB complet pour le disque de rayon 50 n'est pas disponible.
 
-Les masques compacts, les propositions, les points et la fusion avant CRF sont
-conservés comme checkpoints comptés dans le budget commun. Un vrai HTTP 503
-sur le CRF, après les douze checkpoints, a été reproduit dans Chromium : la
-reprise exécute uniquement le CRF et donne les mêmes probabilités octet par
-octet. Les frères actifs terminent avant le transfert du cache. Les checkpoints
-sont évictables et le fournisseur de pixels ne survit pas à son invocation.
-Le changement d'identité des pixels ou du rectangle renouvelle l'instance.
+SSG utilise le CPU. Les descripteurs/RST traitent la rotation, mais aucune
+qualification du détecteur entier sur des miroirs n'est annoncée. Il n'existe
+pas encore de voie forestière par bandes dépassant l'arène wasm32 admise.
+Ni les images de 96 MP, ni WebKit mobile, ni Firefox ne sont qualifiés par ces
+essais. Contrairement à l'hypothèse de départ, SSG utilise une forêt entraînée.
+Ses fichiers restent privés hors Git. Voir docs/SSG-FULL.md.
 
-Parallélisme, mémoire et corrections communes
+SelfDM complet : pixels originaux, CPU et GPU
 
-Les équipes CPU et contextes GPU sont admis par le courtier commun, en fonction
-du travail et de la place disponible. Aucun plafond artificiel à trois workers
-ni à un thread par modèle n'a été ajouté. Les sept échelles SelfDM et les
-préparations de variantes EfficientLoFTR peuvent se chevaucher ; l'ordre des sorties respecte
-la méthode native. Les admissions ne sont pas une mesure d'occupation physique
-des cœurs. Aucune inférence de calibration préalable n'est réalisée.
+La chaîne est distincte de la carte initiale : SelfDM, sept échelles DeepMask,
+propositions, SuperPoint, SuperGlue indoor, SEEDS/fusion et ConvCRF.
+Seul le réseau initial utilise sa grille native de 512. Le raffinement, les
+propositions et le masque final conservent la géométrie du rectangle original.
+Il n'y a plus de limite arbitraire 512×512 ni de restriction au CPU.
+Les cinq familles neuronales ont une voie CPU ou WebGPU ; OpenCV utilise le CPU.
 
-La qualification a révélé une boucle générale : on réservait les entrées d'un
-job, refusait sa résidence, libérait les entrées, puis attendait seulement la
-résidence. Le crédit ainsi rendu réveillait immédiatement la même demande alors
-que le total ne tenait toujours pas. Le pool attend désormais le besoin atomique
-complet. Deux tests reproduisent le crédit intermédiaire et la reprise après
-croissance du budget, sans attendre artificiellement la fin d'un autre job.
+DeepMask est fenêtré en conservant le stride, les recouvrements et la banque
+globale des propositions. SuperPoint possède un encodeur dense fenêtré, puis
+un NMS/TopK et un échantillonnage des descripteurs sur toute la grille originale.
+Le halo de 48 et les origines multiples de huit évitent les ruptures de phase.
+Cette factorisation ne limite pas la résolution source. Les fenêtres CRF gardent
+la phase de leur pooling et ne tronquent plus le raffinement à 512.
 
-Le helper ORT tentait aussi une croissance jusqu'au plafond compilé de 4 GiB
-alors que la WebAssembly.Memory avait un maximum admis plus petit. Le maximum
-réel est désormais transmis également aux pthreads. Un vrai malloc près d'un
-plafond de 33 MiB vérifie que la croissance permise réussit, et que le dépassement
-réel reste refusé. Les binaires scientifiques n'ont pas été remplacés par ces
-changements de transport.
+Le bundle isolé contient six graphes pour cinq familles neuronales : SuperPoint
+dense et post-traitement sont distincts. Manifeste de 1824 octets, SHA :
+b446e758115af4c71080e06573e66cdae7e0f3853cf7bd403eaf3bea1e64ed79.
+Total de ses composants : 187736352 octets. Le builder reproduit toutes les
+entrées déclarées ; l'ancien bundle servant la fenêtre 60415 n'a pas été modifié.
 
-Le chargement vérifie la réponse HTTP avant compilation, la longueur et le SHA,
-et conserve la cause réseau initiale même si le nettoyage du lecteur échoue.
-Les durées de chargement, préparation, inférence et copie sont mesurées dans
-le worker. Le rapport distingue leur somme par tâches du temps écoulé : des
-phases parallèles se chevauchent, leur somme peut dépasser le temps total.
+Les checkpoints conservent les préparations, propositions, points et fenêtres
+terminées. Une réponse HTTP503 sur le post-traitement SuperPoint ne répète pas
+ses 48 fenêtres d'encodeur dense. Une interruption pendant le CRF reprend les
+fenêtres manquantes. La reprise et l'exécution non interrompue du même fournisseur
+sont identiques ; les domaines RAM/CPU/GPU sont rendus après dispose.
 
-EfficientLoFTR : mémoire et fidélité
+La qualification de SuperPoint couvre cinq géométries jusqu'à 2000×1500 : aucun
+point manquant ou supplémentaire parmi les 2048 retenus. Les scores quasi ex æquo
+peuvent changer l'ordre en Float32. Le cas GPU 2000×1500 observé prend 2,95 s
+contre 13,0 s CPU ; ce n'est pas un benchmark de toute la chaîne.
 
-Les poids officiels full FP32 sont conservés. Le port retire les alias inutiles,
-factorise RoPE sans changer ses coefficients, sélectionne les fenêtres fines
-pertinentes et traite leurs blocs indépendants par 512, après une seule FPN.
-Le Softmax utilise un axe terminal explicite pour supprimer deux gros temporaires
-implicites d'ORT. Le masque de bord WebGPU utilise Slice/Pad : le broadcast booléen
-précédent produisait un résultat GPU incorrect. Le rectangle inclut maintenant
-son dernier centre de pixel ; une ROI 320 reste une ROI 320, pas 319.
-Ces corrections ne diminuent ni la résolution demandée ni le nombre de matches
-natifs calculés. Les filtres de publication réutilisent un cache borné et évictable.
+La chaîne complète a abouti sur CPU et GPU pour 416×320, 512×512 et 831×641.
+Le seuil provisoire de parité continue 0,001 est dépassé sur certains cas ;
+les statuts failed-parity-or-ownership de ces reçus n'ont pas été repeints.
+Sur 831×641 : maxAbs GPU 0,0011100769, zéro pixel de masque différent ; CPU
+maxAbs environ 0,001231 et un pixel différent près du seuil. Le CRF natif recevant
+les mêmes données fusionnées du navigateur reproduit cette bascule CPU.
+Ces résultats établissent les chemins exercés, pas une identité flottante universelle.
 
-Les arrondis entre Torch, ORT CPU et WebGPU ne sont pas bit à bit identiques.
-Des scores presque ex æquo peuvent déplacer ensemble les deux ancrages dans
-une fenêtre fine, tout en conservant presque le déplacement entre eux. Les
-reçus donnent séparément les écarts absolus, relatifs et géométriques ; ils ne
-revendiquent pas une équivalence binaire universelle.
-La confiance est celle d'un réseau de correspondances appris sur MegaDepth,
-pas une probabilité calibrée de falsification.
+Le vrai parcours UI positif GPU 831×641 publie une carte [641,831], sans
+interpolation du masque ou des probabilités, et 79894 pixels identiques au masque
+natif. Il exécute 67 jobs WebGPU : 1 SelfDM, 42 DeepMask, 6 SuperPoint dense,
+3 SuperPoint post, 3 SuperGlue et 12 CRF ; trois ROI/SEEDS et 514 points.
+Il ne tombe pas sur le secours de la carte initiale. Le cas synthétique 660×340
+du lot est au contraire négatif pour les propositions : il ne démontre pas
+SuperPoint/SuperGlue. Ces deux preuves sont conservées séparément.
 
-Sur l'image exacte de l'UI, le native original et le port donnent 1 288 matches.
-L'écart de confiance maximal est 9,895e-6. Un quasi-ex æquo déplace les ancrages
-de 5 pixels ensemble, avec un écart de déplacement inférieur ou égal à 0,100 px.
-La conversion gray14 diffère de cv2 SIMD15 sur 20 pixels par ROI de 102 400,
-d'un niveau 8 bits ; le native utilisant BGR2gray cv2 donne lui aussi 1 288 matches.
-Ce détail est conservé, sans réajuster le code pour le masquer.
+Corrections communes et mémoire
 
-Preuves dans l'application, et portée des tests
+Les équipes et contextes sont admis par le courtier partagé selon le travail et
+la place disponible ; aucun canari ni inférence de calibration préalable.
+Les admissions ne mesurent pas l'utilisation physique des cœurs. Le compteur
+GPU de provenance nul du cas SelfDM est incomplet : il ne contredit pas ses
+67 jobs réellement exécutés par WebGPU et ne prouve aucune occupation physique.
 
-Les JSON/NPZ/images et journaux complets sont dans .build/validation de la
-worktree methods-web-20261012. Le reçu local de staging enregistre chaque SHA.
+Le pool attend le besoin atomique complet d'un job. Il ne boucle plus entre
+réservation des entrées, refus de résidence et réveil par le crédit tout juste
+rendu. Le maximum réellement admis de WebAssembly.Memory est transmis aussi
+aux pthreads ORT ; malloc respecte les possibilités réelles de croissance.
+Les durées par tâches sont distinctes du temps écoulé, car elles se chevauchent.
 
-- SelfDM complet : 11,337 s depuis l'image, 12 inférences, équipes admises
-  de 1 à 10 threads, 40 514 pixels positifs et zéro différence du masque NPZ
-  avec la référence positive native immuable ; écart continu max 0,000928938.
-  Une deuxième demande réutilise la grille : zéro inférence, un cache hit.
-- EfficientLoFTR CPU : 2,058 s, 10 threads admis, 1 288 matches, un biome.
-  Passage à une limite de 100 : 36,595 ms, zéro inférence, un cache hit.
-- EfficientLoFTR GPU, seuil 0,21 : 1,647 s, vraie inférence WebGPU. Huit
-  variantes à grand côté 192 : 2,961 s, sept nouvelles inférences GPU
-  et une passe reprise du cache, 403 matches avant publication. Les sept
-  contextes se préparent ensemble ; le courtier conserve actuellement un seul
-  graphe GPU actif. Cela ne mesure pas le nombre de cœurs GPU utilisés.
-- ALIKED + LightGlue : deux rectangles, un biome, vrais paramètres de l'UI
-  (limite 800) et chemin complet dans le navigateur.
-- CMSeg et MGCFDN : les neuf choix aboutissent dans l'interface. Des exports
-  CMSeg generalization et MGCFDN source/cible comparés au native ont zéro
-  différence de masque ; les écarts continus sont consignés séparément.
+Le chargement vérifie HTTP, longueur et SHA et conserve la cause réseau.
+Les nettoyages tentent de rendre tous les propriétaires même si l'un échoue ;
+les erreurs secondaires sont attachées à la cause initiale. Une seconde
+allocation refusée pendant la préparation SSG ou un nettoyage SelfDM défaillant
+ne laissent ni crédit captif, ni état busy verrouillé, ni sortie non publiée.
 
-Ces durées sont des observations locales sur des fixtures et des paramètres
-identifiés, pas un benchmark isolé ni une garantie pour toute image. Les essais
-832 du vrai pool EfficientLoFTR CPU et GPU produisent chacun 9 818 matches et
-libèrent tous les backings/domaines/admissions après dispose. Les données de
-tolérance, heap et commandes GPU sont dans les reçus dédiés.
+Le premier lot réel a révélé VIG : le buffer de lecture GPU était libéré avant
+la copie utile WASM et la batch-normalization. La lease est maintenant conservée
+jusqu'à cette copie existante, sans dupliquer les activations. Des tests détachent
+réellement le backing et vérifient les sorties BN/GELU et les chemins d'erreur.
+VIG a ensuite abouti depuis son menu dans le navigateur.
 
-272/272 tests UI passent, avec SHERLOQ_TEST_ASSET_ROOT pointant vers les actifs
-qualifiés réutilisés. 194/194 tests ciblés moteur passent : pool, chargement,
-croissance ORT, segmentation, SelfDM, EfficientLoFTR, noyau SSG/VLFeat.
-Trois fichiers de tests historiques ne sont pas annoncés validés par cette
-dernière exécution : neural-rows-prepare, neural-spatial-rows et
-segmented-neural-projection dépendent de corpus natifs .build absents de cette
-worktree. La tentative large et ses erreurs ENOENT sont conservées dans le log.
-Il n'y a pas ici de qualification 96 MP, WebKit mobile ou Firefox.
+Dans le secours non résident de CMSeg, une plage GPU mappée était transférée
+à un worker alors que ce backing n'est pas transférable. La correction copie
+seulement la tuile courante dans l'enveloppe de deux tuiles déjà admise ; elle
+ne copie pas la matrice entière et conserve les causes/leases. Chromium réel
+compare CPU, GPU résident et secours : 98304 valeurs identiques à Torch, même
+SHA de sortie et aucun budget retenu. Voir docs/CMSEG-MAPPED-TILE-HANDOFF.md
+et docs/VIG-MAPPED-OUTPUT-LIFETIME.md.
 
-Les journaux UI finaux SelfDM et EfficientLoFTR ont zéro échec d'opération
-documenté. Ils conservent également les notifications ResizeObserver et les
-avertissements ORT concernant les opérateurs CPU dans un chemin hybride GPU.
-Un avertissement n'a pas été effacé pour transformer la preuve en succès parfait.
+EfficientLoFTR : correspondances et export
 
-SSG : acquis, parties portées, ce qui manque encore
+Les poids officiels full FP32 sont conservés. RoPE est factorisé sans changement
+de coefficients, les blocs fins sélectionnés sont indépendants après une FPN
+unique. L'axe Softmax est explicite et le masque de bord GPU utilise Slice/Pad.
+Le dernier centre de pixel appartient à la ROI. Les filtres de publication
+réutilisent le cache. Ces changements ne réduisent pas la résolution demandée.
 
-Le code officiel a été obtenu et vérifié, ainsi que VLFeat, le modèle d'arêtes
-structurées et les constantes nécessaires. Le noyau des moments/Bessel, du
-pooling et de l'appariement existe avec miroir/rotation. La primitive VLFeat SIFT
-est portée, bornée, comptée au budget et qualifiée bit à bit sur deux cas natifs.
-Les 28 tests du composant et les 18 tests du noyau sont compris dans la suite.
+Sur les deux ROI 320×320 de l'interface : 1288 correspondances natives et
+1288 dans le navigateur, écart de confiance maximal 9,895e-6. Un quasi-ex æquo
+peut déplacer les deux ancrages ensemble de cinq pixels, avec un écart de
+déplacement au plus 0,100 px. Les petites différences gray14/cv2 SIMD15 et
+Float32 restent déclarées. Le NPZ nomme correctement la colonne confidence.
+Cette confiance MegaDepth n'est pas une probabilité calibrée de fraude.
 
-Le détecteur SSG complet n'est pas exposé comme fonction disponible. Il dépend
-en réalité d'une forêt d'arêtes entraînée, contrairement à l'hypothèse de départ,
-et d'un chemin MATLAB (MLESAC, SSIM, morphologie) qui n'est pas encore porté
-fidèlement. Les approximations SSE reciprocal/rsqrt peuvent changer des feuilles
-de la forêt ; des remplacements mathématiquement plus précis ne suffisent pas
-à garantir les mêmes décisions. Les constantes natives SSIM et strel ont été
-identifiées ; une référence MATLAB du parcours complet reste nécessaire.
+Qualification finale et fichiers de preuve
 
-C'est techniquement résoluble par port des canaux/forêt et des post-traitements,
-avec comparaison intermédiaire et finale contre MATLAB. Les droits du modèle
-source « all rights reserved » restent à clarifier pour une redistribution.
-Les détails, contrats et limites sont dans docs/ssg-integration.txt et dans
-ssg/integration-review.json parmi les ressources locales. Aucune méthode de
-secours n'est présentée à la place du vrai SSG.
+Chaque nouvelle méthode a été sélectionnée depuis les menus et calculée
+réellement dans l'application, avec export. Les tests de composants et les
+qualifications API ne sont pas présentés comme ce parcours utilisateur.
+Le lot final exécuté depuis l’interface termine les 14 méthodes, sans erreur
+de calcul ou d’export. Son ZIP contient les 14 NPZ scientifiques ; ses 249
+contrôles passent, dont CRC, chemins, paramètres, formes et masque SSG natif.
+Temps écoulé observé : 73,462 s, sorties scientifiques et images du lot incluses ;
+l’emballage/téléchargement final du ZIP est effectué ensuite.
+Le premier lot avait 13 succès et un échec VIG : cet historique reste intact.
+Le modèle ALIKED n’a pas de SHA de poids dans son NPZ ; le rapport marque
+ND et distingue cette lacune de l’identité du moteur source effectivement servi.
+309/309 tests UI et 154/154 tests moteur ciblés passent sur le code final.
+Les corpus natifs absents de cette worktree ne sont pas annoncés testés.
+Ces fixtures ne constituent pas une mesure de précision clinique/scientifique
+ni un benchmark général. Le fichier duplicated-photo.png est synthétique.
 
-Sources primaires et licences
+Les preuves privées sont dans .build/batch-validation/final : JSON individuels,
+NPZ, captures, contrôles SSG aller/retour et independent-ui-proof.json SelfDM.
+Les historiques .build/validation et le premier ZIP partiellement réussi
+restent intacts ; leurs identités différentes sont enregistrées séparément.
+Le compte rendu JSON local inventorie les chemins, SHA et limites de chaque preuve.
 
-CMSeg : https://github.com/YoursEver/FakeParaEgg ; arXiv2412.10258 ; publication
-IEEE Signal Processing Letters32,1106–1110,2025. Quatre images de validation
-et leurs masques union ont été récupérés depuis les archives officielles déjà
-présentes ; ces masques ne sont pas des références séparées source/cible.
-MGCFDN : https://github.com/tuhanglsWorld/MGCFDN ; Neurocomputing664 (2026),
-132029 ; DOI10.1016/j.neucom.2025.132029. Poids déjà disponibles localement.
-ALIKED : https://github.com/Shiaoming/ALIKED ; LightGlue :
-https://github.com/cvg/LightGlue. Ressources et modèles existants réutilisés.
-EfficientLoFTR : https://github.com/zju3dv/EfficientLoFTR ; révision Apache2
-ffd4a4644064354468eb1f0c7a3e732233cb732f. Le HEAD 2026 de licence différente
-n'est pas la révision utilisée. ONNX 61 657 027 octets, SHA
+Sources et licences
+
+CMSeg : https://github.com/YoursEver/FakeParaEgg ; IEEE SPL 2025.
+MGCFDN : https://github.com/tuhanglsWorld/MGCFDN ; Neurocomputing 664 (2026),
+132029 ; DOI10.1016/j.neucom.2025.132029. Les poids existants ont été réutilisés.
+ALIKED : https://github.com/Shiaoming/ALIKED ; LightGlue : https://github.com/cvg/LightGlue.
+EfficientLoFTR : https://github.com/zju3dv/EfficientLoFTR, révision Apache2
+ffd4a4644064354468eb1f0c7a3e732233cb732f ; ONNX61657027 octets, SHA
 b52b3838bb961767a7f8b8789b8f03af355aa41a2195e501418606304e6dcb42.
-SelfDM : https://github.com/yaqiliu-cs/SelfDM-TIP ;
-révision ef7b4a00d0c5742a63b187d898979259c2aead40.
-Bundle 2 140 octets, SHA4431d068c7c7ae44f2992518b5a71e4c53268620421dba4cc4a4e98cd879d02e.
-SelfDM/SuperGlue ont des restrictions d'usage recherche/interne/non commercial.
-Cette version reste privée ; leur accès en téléchargement n'autorise pas à
-conclure que les modèles peuvent être redistribués publiquement.
-SSG : https://github.com/ChaoWang1016/word2phraseCMFD,
-66bb26eca0c7e95c76042d5bcca58f744d70a27d ; IEEE TIFS18 (2023),1064–1079,
+SelfDM : https://github.com/yaqiliu-cs/SelfDM-TIP,
+ef7b4a00d0c5742a63b187d898979259c2aead40 ; restrictions recherche/interne et
+SuperGlue non commercial : les téléchargements ne prouvent pas un droit de
+redistribution publique. SSG : https://github.com/ChaoWang1016/word2phraseCMFD,
+66bb26eca0c7e95c76042d5bcca58f744d70a27d ; IEEE TIFS2023,
 DOI10.1109/TIFS.2023.3234861 ; https://arxiv.org/abs/2207.09135.
+La forêt SSG originale est restreinte. Les modèles ONNX, NPY, corpus, reçus
+privés et chemins d'envoi mail ne sont pas ajoutés à Git.
 
-Conservation des autres travaux
+Préservation et livraison
 
-Les correctifs de migration Service Worker 0.15.2, le mode hors ligne et les
-corrections batch ont été conservés. La worktree reprend notamment la rétention
-des manifestes, le passage atomique des phases SIFT, les sorties batch sur disque
-et l'abandon du plafond de trois workers qualifiés par l'autre fil. Les changements
-du batch sont repris au commit 298efc0, sans remplacer les raccords de méthodes.
-Les modèles lourds et binaires de la livraison précédente ne sont pas recopiés
-inutilement : le serveur local utilise un overlay et un fallback qualifié.
-
-Le serveur local de cette livraison écoute sur 127.0.0.1:60415. Les captures,
-journaux et ressources de recherche restent locaux. Aucun mail, ZIP WordPress,
-push GitHub ou message à un autre fil n'a été envoyé pour cette livraison.
-Tous les changements de code de cette worktree sont enregistrés dans Git ;
-le seul élément hors Git est le lien node_modules vers l'environnement de tests,
-en plus des fichiers .build ignorés. Les travaux et serveurs de l'utilisateur
-n'ont pas été interrompus ni réinitialisés.
+Les migrations Service Worker0.15.2, la rétention des manifestes, le mode hors
+ligne, la transition atomique SIFT et les sorties batch bornées sur disque des
+autres fils sont préservés, notamment au commit298efc0. Aucun retour à l'ancien
+builder0.15.1 ni plafond artificiel de trois workers n'a été introduit.
+Les dépendances lourdes locales restent séparées et épinglées par SHA ; le
+staging réutilise le fallback qualifié et ne transforme pas201Mo d'inventaire
+en chargement de démarrage. Les serveurs50375,51965 et60415 sont laissés intacts.
+Aucun push, message à un autre fil, mail, automatisation ou déploiement WordPress
+n'est effectué dans cette phase locale. Le code est enregistré dans Git ;
+node_modules et build.json privé restent exclus avec les fichiers .build.
