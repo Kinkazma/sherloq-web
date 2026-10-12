@@ -13,6 +13,7 @@ import re
 import shutil
 import subprocess
 import tarfile
+import tempfile
 import zipfile
 import importlib.util
 _spec = importlib.util.spec_from_file_location("runtime_delivery", Path(__file__).with_name("runtime-delivery.py"))
@@ -192,7 +193,10 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
     manifest['remoteBase'] = origin if not offline else None
     data = encode(manifest)
     identity = digest(data)
-    plugin = output / 'private' / 'sherloq-browser'
+    installer_directory = output / 'private'
+    installer_directory.mkdir(parents=True, exist_ok=True)
+    staging = tempfile.TemporaryDirectory(prefix='.sherloq-build-', dir=installer_directory)
+    plugin = Path(staging.name) / 'sherloq-browser'
     sources = output / 'public/web/wordpress/sherloq-browser'
     version = re.search(r'Version:\s*([\d.]+)', (sources / 'sherloq-browser.php').read_text())[1]
     for source in sources.rglob('*'):
@@ -242,6 +246,14 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
         for p in names:
             z.write(p, 'sherloq-browser/' + p.relative_to(plugin).as_posix())
     result = {'installer': archive.name, 'bytes': archive.stat().st_size, 'uncompressedBytes': size, 'sha256': digest(archive.read_bytes()), 'origin': manifest['remoteBase'], 'manifest': identity, 'private': True, 'originConfigured': bool(origin and not local_test), 'publishedOriginVerified': False}
+    # This directory is generated packaging output. Start from the reviewed
+    # public inputs on each finalization; retain deployed manifests only through
+    # compatibility-manifests, never stale test origins or a previous overlay.
+    destination = installer_directory / 'sherloq-browser'
+    if destination.exists():
+        shutil.rmtree(destination)
+    plugin.replace(destination)
+    staging.cleanup()
     put(output / 'private/receipt.json', encode(result))
     return result
 

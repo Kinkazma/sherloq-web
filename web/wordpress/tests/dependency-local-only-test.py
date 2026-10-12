@@ -83,6 +83,25 @@ with tempfile.TemporaryDirectory() as directory:
     assert (frozen / 'public/web/wordpress/sherloq-browser/sherloq-browser.php').read_text() == 'Version: 0.17.2\n'
     assert not (frozen / 'public/web/wordpress/sherloq-browser/private.php').exists()
     (plugin / 'sherloq-browser.php').write_text('Version: 0.17.2\n')
+    # Finalizing twice must not accumulate old test manifests or private files.
+    sources = frozen / 'public/web/wordpress/sherloq-browser'
+    (sources / 'assets').mkdir(exist_ok=True)
+    for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-manifest.js', 'dependency-sw.js', 'offline-browser-store.js', 'offline-browser-sw.js']:
+        (sources / 'assets' / name).write_text('')
+    compatibility = frozen / 'public/web/wordpress/compatibility-manifests'
+    compatibility.mkdir()
+    previous = b'{"previous":true}\n'
+    (compatibility / (sha(previous)+'.json')).write_bytes(previous)
+    packer._offline.write_shell = lambda *args: None
+    first = packer.finalize(frozen, 'http://127.0.0.1:8081/', local_test=True)
+    installer = frozen / 'private/sherloq-browser'
+    (installer / 'stale-private.php').write_text('old private overlay\n')
+    second = packer.finalize(frozen, 'http://127.0.0.1:8082/', local_test=True)
+    assert first['manifest'] != second['manifest']
+    assert not (installer / 'assets' / ('dependency-manifest-'+first['manifest']+'.json')).exists()
+    assert (installer / 'assets' / ('dependency-manifest-'+second['manifest']+'.json')).exists()
+    assert (installer / 'assets' / ('dependency-manifest-'+sha(previous)+'.json')).read_bytes() == previous
+    assert not (installer / 'stale-private.php').exists()
     chunks = output / 'public/web-assets/chunks'
     target = root / 'restored'
     assert restorer.restore(output / 'manifest-template.json', target, chunks) == 2
