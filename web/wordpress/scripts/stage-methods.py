@@ -61,7 +61,7 @@ def stage(fallback, resources, output, version):
     # bytes before publishing a local manifest; never silently select an old graph.
     program = 'import {SEGMENTATION_MODELS} from ' + json.dumps((engine / 'experiments/segmentation/models.js').as_uri()) + ';import {EFFICIENT_LOFTR_ASSET} from ' + json.dumps((engine / 'src/efficient-loftr-assets.js').as_uri()) + ';import {SELFDM_PROPOSAL_MODELS,SELFDM_PROPOSAL_CV} from ' + json.dumps((engine / 'src/selfdm-proposal-assets.js').as_uri()) + ';process.stdout.write(JSON.stringify({selfdm:SEGMENTATION_MODELS["selfdm-map"],proposal:SEGMENTATION_MODELS["selfdm-proposal"],proposalComponents:SELFDM_PROPOSAL_MODELS,proposalCV:SELFDM_PROPOSAL_CV,eloftr:EFFICIENT_LOFTR_ASSET}));'
     identities = json.loads(subprocess.check_output(['node', '--input-type=module', '-e', program], text=True))
-    model_paths = {'selfdm': 'selfdm-ssg/browser-selfdm-512/selfdm-map-512.onnx', 'proposal':'selfdm-ssg/proposal-browser-candidate/integration-bundle-general/selfdm-proposal-bundle.json', 'eloftr': 'aliked-eloftr/export/efficient-loftr-full-fp32.onnx'}
+    model_paths = {'selfdm': 'selfdm-ssg/browser-selfdm-512/selfdm-map-512.onnx', 'proposal':'selfdm-ssg/proposal-browser-candidate/integration-bundle-sp-window/selfdm-proposal-bundle.json', 'eloftr': 'aliked-eloftr/export/efficient-loftr-full-fp32.onnx'}
     def verify_file(path, identity, name):
         digest = hashlib.sha256()
         with path.open('rb') as stream:
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     parser.add_argument('--fallback', type=Path, required=True)
     parser.add_argument('--resources', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--version', default='0.17.0-local')
+    parser.add_argument('--version', default='0.17.1-local')
     args = parser.parse_args()
     hashes = stage(args.fallback.resolve(), args.resources.resolve(), args.output.resolve(), args.version)
     print(json.dumps({'files': len(hashes), 'bytes': sum(v['bytes'] for v in hashes.values()), 'output': str(args.output.resolve())}))

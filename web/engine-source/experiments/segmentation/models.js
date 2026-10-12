@@ -2,15 +2,15 @@
 // browser candidate report. Not an announcement that all nine models are ported.
 export const SEGMENTATION_MODELS = Object.freeze({
   'selfdm-proposal': Object.freeze({
-    id:'selfdm-proposal-superglue-original-grid-v2',variant:'SelfDM + Proposal SuperGlue',
-    family:'selfdm-proposal',side:512,kind:'sigmoid',bytes:2105,assetBytes:187735468,
-    sha256:'9f81708fa15623a34f7c4617b5f2c2bb8420e4e8d9fdde6aa8060536f52d6df9',
-    gpu:Object.freeze({id:'selfdm-proposal-superglue-original-grid-v2',bytes:2105,assetBytes:187735468,
-      sha256:'9f81708fa15623a34f7c4617b5f2c2bb8420e4e8d9fdde6aa8060536f52d6df9',sharedAssets:true,
+    id:'selfdm-proposal-superglue-original-grid-sp-windows-v3',variant:'SelfDM + Proposal SuperGlue',
+    family:'selfdm-proposal',side:512,kind:'sigmoid',bytes:1824,assetBytes:187736352,
+    sha256:'b446e758115af4c71080e06573e66cdae7e0f3853cf7bd403eaf3bea1e64ed79',
+    gpu:Object.freeze({id:'selfdm-proposal-superglue-original-grid-sp-windows-v3',bytes:1824,assetBytes:187736352,
+      sha256:'b446e758115af4c71080e06573e66cdae7e0f3853cf7bd403eaf3bea1e64ed79',sharedAssets:true,
       status:'experimental-five-network-webgpu-native-corpus'}),
     status:'experimental-local-full-original-grid',cpuContinuousBitExact:false,
     qualificationDimensions:[[32,32],[416,320],[512,512],[831,641]],
-    numericalParity:'Complete SelfDM, DeepMask, Proposal SuperGlue, SEEDS and ConvCRF chain. Initial network at512; refinement and output at the original rectangle dimensions using halo windows and global coordinates. Measured Float32 differences remain: one threshold-crossing pixel on the declared831×641 CPU case; continuous errors and CPU/WebGPU qualifications are recorded separately. This is not universal bit-exact parity.',
+    numericalParity:'Complete SelfDM, DeepMask, Proposal SuperGlue, SEEDS and ConvCRF chain. Initial network at512; refinement and output at the original rectangle dimensions using DeepMask/SuperPoint/CRF halo windows and global coordinates, with native global SuperPoint NMS/TopK/descriptor sampling. SuperPoint is separately qualified through2000×1500. Measured Float32 differences remain: one threshold-crossing pixel on the declared831×641 CPU case; continuous errors and CPU/WebGPU qualifications are recorded separately. This is not universal bit-exact parity.',
     license:'Local research only. SelfDM and SuperGlue redistribution/use terms require separate review before public distribution.'
   }),
   'selfdm-map': Object.freeze({

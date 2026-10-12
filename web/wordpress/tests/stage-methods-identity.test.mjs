@@ -60,7 +60,7 @@ cv_identity = {'file':'seeds.wasm', 'bytes':len(cv_data), 'sha256':sha(cv_data)}
 prepare_identity = {'file':'feature-math.wasm', 'bytes':len(wasm), 'sha256':sha(wasm)}
 factory_data = b'export default function prepare(){return 1;}'
 factory_identity = {'file':'proposal-cv.mjs', 'bytes':len(factory_data), 'sha256':sha(factory_data)}
-proposal_path = 'selfdm-ssg/proposal-browser-candidate/integration-bundle-general/selfdm-proposal-bundle.json'
+proposal_path = 'selfdm-ssg/proposal-browser-candidate/integration-bundle-sp-window/selfdm-proposal-bundle.json'
 proposal_data = json.dumps({'schema':1, 'family':'selfdm-proposal', 'models':{'selfdm':component_identity}, 'cv':cv_identity, 'prepare':prepare_identity, 'cvFactory':factory_identity}).encode()
 put(resources / proposal_path, proposal_data)
 put(resources / Path(proposal_path).parent / component_identity['file'], component_data)
