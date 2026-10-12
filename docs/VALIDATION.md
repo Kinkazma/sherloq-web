@@ -4,7 +4,7 @@
 
 The supplied 30 MP and 96 MP functional qualifications pass native planes/masks, refiltering without new inference, source-coordinate exports and paged ZIP/NumPy checks. Model weights and parameters remain unchanged. Detailed image qualification reports are retained locally.
 
-Integration passes 368 interface checks, 256 D2PRL/projection checks and 78 shared checks; fourteen cases requiring unavailable local fixture artifacts remain unexecuted. The 26 changed delivery resources, their raw/executable locks and both runtime mirrors are independently verified. Fresh Chrome checks verify the selected exact-SIMD evaluator, HWC layout, D2PRL-specific 256 MiB role runtime, unchanged shared WASM, isolation and native ABI, alongside pixels/export, text detection and SSG. These transport checks are separate from the supplied full scientific inferences.
+Integration passes 368 interface checks, 256 D2PRL/projection checks and 78 shared checks; fourteen cases requiring unavailable local fixture artifacts remain unexecuted. The 26 changed delivery resources, their raw/executable locks and both runtime mirrors are independently verified. Fresh Chrome checks against the actual immutable GitHub resource origin verify the selected exact-SIMD evaluator, HWC layout, D2PRL-specific 256 MiB role runtime, unchanged shared WASM, isolation and native ABI, alongside pixels/export, text detection and SSG. These transport checks are separate from the supplied full scientific inferences.
 
 The earlier validation records below retain their original scope. The large-image tests qualify these particular inputs and host; the single 30 MP timing does not establish a repeated speed gain or universal device compatibility.
 

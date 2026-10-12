@@ -269,7 +269,7 @@ redémarre ce profil sans aucun manifeste disponible côté serveur. Playwright 
 
 ## Small public bootstrap
 
-The release asset `SHERLOQ-Web-bootstrap-0.17.0.zip` is a standalone local-web launcher. It contains the small interface, runtime modules and pinned resource manifests. With Python 3.9 or later, extract the ZIP and run `python3 Launch-SHERLOQ.py` inside `SHERLOQ-Web/`; macOS also provides `Launch-SHERLOQ.command`. The launcher serves only on localhost and opens the workspace in your browser. Keep that terminal window open while working.
+The release asset `SHERLOQ-Web-bootstrap-0.17.1.zip` is a standalone local-web launcher. It contains the small interface, runtime modules and pinned resource manifests. With Python 3.9 or later, extract the ZIP and run `python3 Launch-SHERLOQ.py` inside `SHERLOQ-Web/`; macOS also provides `Launch-SHERLOQ.command`. The launcher serves only on localhost and opens the workspace in your browser. Keep that terminal window open while working.
 
 The selected methods download their verified dependencies from the immutable GitHub origin on first use. The small ZIP does not contain the full scientific model library. Use **Take offline** to prepare and test a complete saved local library before disconnecting. Keep the default localhost port to retain the same browser storage origin between launches; close the previous launcher before replacing the package.
 
@@ -278,9 +278,9 @@ To reproduce the public archive from a finalized public-only UI:
 ```sh
 python3 scripts/build-public-bootstrap.py \
   --plugin /path/to/finalized/public-only/sherloq-browser \
-  --output SHERLOQ-Web-bootstrap-0.17.0.zip \
+  --output SHERLOQ-Web-bootstrap-0.17.1.zip \
   --notice /path/to/checkout/LICENSE \
   --notice /path/to/checkout/docs/METHODS-RESOURCE-LICENSES.txt
 ```
 
-The builder rejects a private site overlay, verifies ZIP CRC and enforces a 20,000,000-byte compressed ceiling. The installable WordPress package and private site integration remain separate. [Artifact identity and qualification](../../docs/evidence/public-bootstrap-0.17.0.json).
+The builder rejects a private site overlay, verifies ZIP CRC and enforces a 20,000,000-byte compressed ceiling. The installable WordPress package and private site integration remain separate. Artifact size and SHA-256 are recorded in [the current source identity](../../docs/SOURCE-IDENTITY.json).

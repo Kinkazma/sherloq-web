@@ -1,6 +1,6 @@
 {
   "schema": "sherloq.publication-identity/1",
-  "ui_commit": "0fb01b415831a2d84a9f8e246aaa06d5f8a90edf",
+  "ui_commit": "7f7fe65f4fe01f606de99eeb0b6be2fe51ffea34",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "ui_version": "0.17.1",
   "engine_commit": "0fb01b415831a2d84a9f8e246aaa06d5f8a90edf",
@@ -17,6 +17,7 @@
   "resource_origin_policy": "Deployments use the verified immutable resource publication commit. The manifest template has no deployment origin; this deployment manifest pins that origin.",
   "compatibility_manifest_sha256": [
     "3a08025dd38b6be3aad1adb0ba1ed58778b28633ef1847a441e827b1fa34484d",
+    "4279039f9f3984b9416093f1b06cbd0d485448e4dd2c6cbd8eff84a5b0760536",
     "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2",
     "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
     "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b",
@@ -48,5 +49,13 @@
   "bootstrap_limit_basis": "compressed ZIP bytes",
   "desired_bootstrap_bytes": 10000000,
   "d2prl_increment_sha256": "9aa114b5aa02febf34ae17fe15b234e0491a90eb8c1a48a490010db974d250a4",
-  "d2prl_qualification": "Supplied 30/96 MP native-array/mask, refilter and paged export checks passed. Detailed qualification files remain local."
+  "d2prl_qualification": "Supplied 30/96 MP native-array/mask, refilter and paged export checks passed. Detailed qualification files remain local.",
+  "resource_commit": "7f7fe65f4fe01f606de99eeb0b6be2fe51ffea34",
+  "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/7f7fe65f4fe01f606de99eeb0b6be2fe51ffea34/web-assets/",
+  "deployment_manifest_sha256": "4279039f9f3984b9416093f1b06cbd0d485448e4dd2c6cbd8eff84a5b0760536",
+  "finalized_bootstrap_compressed_bytes_before_private_overlay": 10294196,
+  "finalized_bootstrap_extracted_bytes_before_private_overlay": 31218489,
+  "public_bootstrap_asset": "SHERLOQ-Web-bootstrap-0.17.1.zip",
+  "public_bootstrap_bytes": 10274362,
+  "public_bootstrap_sha256": "9afa61adecfb9840de0465064f98196f991c0cc9e70edeb45090e9f031a97754"
 }
