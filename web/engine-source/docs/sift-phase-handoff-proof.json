@@ -1,0 +1,155 @@
+{
+  "schema": "sherloq.sift-phase-qualification/1",
+  "sameScientificDigests": true,
+  "scope": "Three native PDF-extracted acquisitions, identical SIFT + G2NN + RANSAC + Panels + Text parameters. Main user batch ran concurrently: elapsed times are not an isolated performance benchmark.",
+  "runs": [
+    {
+      "mode": "natural-capacity",
+      "capacity": {
+        "cpu": 10,
+        "gpu": 1
+      },
+      "status": "done",
+      "recoveries": [],
+      "images": [
+        {
+          "width": 799,
+          "height": 1050,
+          "points": 18000,
+          "pairs": 5405,
+          "groups": 37,
+          "digests": {
+            "points": "1d293f2c16e3429710e7d6599a444571124417ef5598b9e1d42fb8c1a2c58c92",
+            "pairs": "36902cd8c59941d8dcb32a2c14d5c0595f166ed0d1d638d045a49547d02faafa",
+            "colors": "ab457e0bf91cda3bd9a1908de023227f9dae3ee618d827b6a26b4ba928dfbe9e",
+            "pair_search_regions": "a0d74ac288696fb74c37d4540af70e518ea7726c2e13c6f38362379dbda679f8",
+            "groups": "4f5e22cc59026470d658ab6b64dda3cf0b812d4b76a26106c5b57b738ab513b6"
+          },
+          "backend": "hybrid",
+          "workers": 10,
+          "extractionRetries": 0,
+          "schedulerPeakCpu": 5,
+          "schedulerPeakGpu": 1,
+          "npzBytes": 10318573,
+          "elapsedMs": 48910.42999994755
+        },
+        {
+          "width": 820,
+          "height": 1050,
+          "points": 18000,
+          "pairs": 2995,
+          "groups": 19,
+          "digests": {
+            "points": "5f4aa565d38bd7df0fbab80df97dd9a010a7f94979f2b78a5fb36a2f7ac19de8",
+            "pairs": "d780f326d4e303c5dc1cd8eae6020f0cd9d747774814828346d7bf748538d5bd",
+            "colors": "15218f6ae26188aa1fae6758c31c6365e36aeb4a6c895d628f1a3ffe23a94e85",
+            "pair_search_regions": "36c21bc863945db9635ce98c47b54543eab45560e523328bc786cd1aabde50c4",
+            "groups": "d9e4b1d63354f5e4ff3442401a4a8f828c02e68e277a7cfebb23e6e28b6cf2f4"
+          },
+          "backend": "hybrid",
+          "workers": 10,
+          "extractionRetries": 0,
+          "schedulerPeakCpu": 5,
+          "schedulerPeakGpu": 1,
+          "npzBytes": 9571231,
+          "elapsedMs": 37730.485000014305
+        },
+        {
+          "width": 755,
+          "height": 632,
+          "points": 18000,
+          "pairs": 4288,
+          "groups": 19,
+          "digests": {
+            "points": "b3669c150c5faa303c113db57c685c7c71a8aa70fa6a199fd56a556274c67301",
+            "pairs": "6d6bdafb3fc798a8c83683de2e4ab046516dce758b23b7ef010dfdf742fd28b4",
+            "colors": "a359cc2350089bcbea3de622be4358fa38dce47bc75dd3da6198a743efb0224d",
+            "pair_search_regions": "6753e954c001580fef2ec4a6b7b06485ce34747e3ed3aaeaf79cfb572b9f3add",
+            "groups": "635f98029d10a38ad2f71da35b05a56f14d639aa010223ebda71432d1da356c3"
+          },
+          "backend": "hybrid",
+          "workers": 9,
+          "extractionRetries": 0,
+          "schedulerPeakCpu": 5,
+          "schedulerPeakGpu": 1,
+          "npzBytes": 10013550,
+          "elapsedMs": 24181
+        }
+      ]
+    },
+    {
+      "mode": "reference-3",
+      "capacity": {
+        "cpu": 3,
+        "gpu": 1
+      },
+      "status": "done",
+      "recoveries": [],
+      "images": [
+        {
+          "width": 799,
+          "height": 1050,
+          "points": 18000,
+          "pairs": 5405,
+          "groups": 37,
+          "digests": {
+            "points": "1d293f2c16e3429710e7d6599a444571124417ef5598b9e1d42fb8c1a2c58c92",
+            "pairs": "36902cd8c59941d8dcb32a2c14d5c0595f166ed0d1d638d045a49547d02faafa",
+            "colors": "ab457e0bf91cda3bd9a1908de023227f9dae3ee618d827b6a26b4ba928dfbe9e",
+            "pair_search_regions": "a0d74ac288696fb74c37d4540af70e518ea7726c2e13c6f38362379dbda679f8",
+            "groups": "4f5e22cc59026470d658ab6b64dda3cf0b812d4b76a26106c5b57b738ab513b6"
+          },
+          "backend": "hybrid",
+          "workers": 3,
+          "extractionRetries": 0,
+          "schedulerPeakCpu": 3,
+          "schedulerPeakGpu": 1,
+          "npzBytes": 10318561,
+          "elapsedMs": 40675.89499998093
+        },
+        {
+          "width": 820,
+          "height": 1050,
+          "points": 18000,
+          "pairs": 2995,
+          "groups": 19,
+          "digests": {
+            "points": "5f4aa565d38bd7df0fbab80df97dd9a010a7f94979f2b78a5fb36a2f7ac19de8",
+            "pairs": "d780f326d4e303c5dc1cd8eae6020f0cd9d747774814828346d7bf748538d5bd",
+            "colors": "15218f6ae26188aa1fae6758c31c6365e36aeb4a6c895d628f1a3ffe23a94e85",
+            "pair_search_regions": "36c21bc863945db9635ce98c47b54543eab45560e523328bc786cd1aabde50c4",
+            "groups": "d9e4b1d63354f5e4ff3442401a4a8f828c02e68e277a7cfebb23e6e28b6cf2f4"
+          },
+          "backend": "hybrid",
+          "workers": 3,
+          "extractionRetries": 0,
+          "schedulerPeakCpu": 3,
+          "schedulerPeakGpu": 1,
+          "npzBytes": 9571223,
+          "elapsedMs": 32850.064999997616
+        },
+        {
+          "width": 755,
+          "height": 632,
+          "points": 18000,
+          "pairs": 4288,
+          "groups": 19,
+          "digests": {
+            "points": "b3669c150c5faa303c113db57c685c7c71a8aa70fa6a199fd56a556274c67301",
+            "pairs": "6d6bdafb3fc798a8c83683de2e4ab046516dce758b23b7ef010dfdf742fd28b4",
+            "colors": "a359cc2350089bcbea3de622be4358fa38dce47bc75dd3da6198a743efb0224d",
+            "pair_search_regions": "6753e954c001580fef2ec4a6b7b06485ce34747e3ed3aaeaf79cfb572b9f3add",
+            "groups": "635f98029d10a38ad2f71da35b05a56f14d639aa010223ebda71432d1da356c3"
+          },
+          "backend": "hybrid",
+          "workers": 3,
+          "extractionRetries": 0,
+          "schedulerPeakCpu": 3,
+          "schedulerPeakGpu": 1,
+          "npzBytes": 10013554,
+          "elapsedMs": 18759.174999952316
+        }
+      ]
+    }
+  ]
+}
