@@ -92,7 +92,13 @@ Yellow is applied only to the **filtered masks**, at a uniform opacity; it does 
 | Local resource library | Ordinary files in their original formats, folder reconnection and standard TAR import/export |
 | Results | Tool-specific views and exports; changing display controls can reuse a completed result where supported |
 
-The interface is **0.15.2**, based on `f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404` with the startup migration corrections and existing batch workflow preserved. The engine snapshot is **0.35.0-export.3**, with the atomic SIFT phase increment from `e666287` over `a1f85661db24610ac3c7bf894214afc85a72d024`. The runtime lock also retains earlier engine slots used by specific tools; a single version number does not replace that inventory.
+The interface is **0.15.2**, based on `f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404` with the startup migration corrections and batch **0.2.0**. The engine snapshot is **0.35.0-export.3**, with the atomic SIFT phase increment from `e666287` over `a1f85661db24610ac3c7bf894214afc85a72d024`. The runtime lock also retains earlier engine slots used by specific tools; a single version number does not replace that inventory.
+
+### Batch processing — 0.2.0
+
+I corrected a SIFT scheduling error during CPU/GPU phase changes. The scheduler now queues the continuation and releases its previous lease atomically, keeping the normal worker capacity and existing memory budgets. Outputs are stored in browser-private files and read on demand; ZIP32/ZIP64 export and import use bounded windows instead of retaining the whole output archive in memory.
+
+The complete human-selected batch of **86 images from seven PDFs** finished **172 analyses with zero errors**, using SIFT + G2NN + RANSAC + Panels + Text and Forgeryscope Auto. Its 1.17 GB of output artifacts exported and reimported successfully; all 172 NPZ files passed independent checks. Three reference images produced exactly the same scientific arrays at nine to ten workers as at three workers. This is a functional/export qualification, not a speed benchmark or a verdict on the supplied publications. [Batch workflow and qualification](docs/TRAITEMENT-PAR-LOT.md).
 
 ### Startup after a WordPress plugin update — 0.15.2
 

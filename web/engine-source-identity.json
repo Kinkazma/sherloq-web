@@ -1,1 +1,9 @@
-{"commit":"a1f85661db24610ac3c7bf894214afc85a72d024","runtime":"0.35.0-export.3","snapshot":"engine-source"}
+{
+  "commit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
+  "commitRepository": "https://github.com/Kinkazma/sherloq-web",
+  "baseCommit": "a1f85661db24610ac3c7bf894214afc85a72d024",
+  "runtime": "0.35.0-export.3",
+  "snapshot": "engine-source",
+  "sourceIncrementSha256": "286e322c49123c29eec25421e0d60b381e9df87f01663b859b4919ffd09b3006",
+  "incrementScope": "Atomic SIFT CPU/GPU phase handoff in src/execution-scheduler.js and src/sift-paged-resources.js; other scientific source files retain the base snapshot."
+}

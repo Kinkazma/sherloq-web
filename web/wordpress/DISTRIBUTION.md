@@ -107,8 +107,9 @@ recovery store for image calculations.
 The published `runtime-lock.json` identifies the adapted executable resources.
 `runtime-source-lock.json` records the reviewed engine inputs; native WASM and
 model hashes remain identical. Reapplying the adapter is idempotent. The engine
-source snapshot is still 0.35.0-export.2: transport changes belong to this UI
-release. Sites can add an optional private packaging overlay with
+source snapshot and its reviewed increments are identified in
+`web/engine-source-identity.json` and the runtime receipts; the current engine is
+0.35.0-export.3 with its atomic SIFT phase increment. Sites can add an optional private packaging overlay with
 `--private-overlay PATH`; this content is never copied to the public tree.
 
 On Apache, the scoped header rules remove duplicate PHP/Apache policy headers.

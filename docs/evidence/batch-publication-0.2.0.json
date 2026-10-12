@@ -1,0 +1,74 @@
+{
+  "schema": "sherloq.batch-publication-qualification/1",
+  "date": "2026-10-12",
+  "uiVersion": "0.15.2",
+  "batchVersion": "0.2.0",
+  "engineVersion": "0.35.0-export.3",
+  "sourceCommits": {
+    "engineBase": "a1f85661db24610ac3c7bf894214afc85a72d024",
+    "atomicSiftIncrement": "e6662876ccf67761443720e8c9e528419cb2e1b5",
+    "batch": "2c76dade4c4b284a963a49e60d78424f852c6746",
+    "fullHumanBatchValidation": "072e07e2b717951af686df07e35b86b6149be48a"
+  },
+  "sourceIncrementSha256": "286e322c49123c29eec25421e0d60b381e9df87f01663b859b4919ffd09b3006",
+  "manifestTemplateSha256": "38204b6bf2af7394f30853865f6dcd88b52971d3159098bdef3372e9eb9796cc",
+  "tests": {
+    "ui": {
+      "passed": 261,
+      "failed": 0
+    },
+    "batchStorage": {
+      "passed": 21,
+      "failed": 0
+    },
+    "engineTargeted": {
+      "passed": 60,
+      "failed": 0
+    },
+    "nativeSift": {
+      "passed": 7,
+      "failed": 0
+    }
+  },
+  "offlineShellTests": 1,
+  "lockedResources": {
+    "verifiedChunks": 4249,
+    "verifiedRuntimeFiles": 5246,
+    "uniqueBytes": 6610442277,
+    "compatibilityManifests": [
+      "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
+      "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b"
+    ]
+  },
+  "deliveryBrowser": {
+    "date": "2026-10-12",
+    "browser": "154.0.8037.98",
+    "atomicHandoffWaiterPreserved": true,
+    "cpuCapacity": 10,
+    "releasedBudgetBytes": 0,
+    "exactPixels": true,
+    "webpBytes": 666,
+    "engineVersion": "0.35.0-export.3",
+    "batchRunnerAvailable": true,
+    "crossOriginIsolated": true,
+    "resourceRequests": 7,
+    "resourceBytes": 16778144,
+    "pageErrors": [],
+    "scope": "Isolated private delivery using the exact locked resources across two local origins. Atomic phase handoff, bootstrap, native synthetic pixel read/export, and batch dialog; full 86-image analysis is recorded separately."
+  },
+  "rawSourceInventoryCorrected": true,
+  "runtimeChanges": [
+    "unified-engine/src/execution-scheduler.js",
+    "unified-engine/src/sift-paged-resources.js"
+  ],
+  "scientificResourcesUnchanged": true,
+  "workerPolicy": "Atomic CPU/GPU SIFT phase handoff with normal scheduler capacity; no added three-worker ceiling, increased memory budget or forced M2 CPU retry.",
+  "fullHumanBatchEvidence": "docs/TRAITEMENT-PAR-LOT-memory-validation.json#fullHumanBatch",
+  "packaging": {
+    "bootstrapLimitBytes": 25000000,
+    "localCandidateBootstrapBytes": 21445898,
+    "privateOverlayIncluded": false,
+    "installerPublished": false
+  },
+  "scope": "Source/runtime integration and functional scientific-export qualification. The 86-image batch and its 172 analyses are recorded separately. Not a new 96 MP qualification, controlled speed benchmark, PHP/Gutenberg execution qualification, or scientific verdict on the input publications."
+}
