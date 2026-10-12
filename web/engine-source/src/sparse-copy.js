@@ -1,5 +1,6 @@
 import {EfficientLoFtrEngine} from './efficient-loftr.js';
 import {efficientLoFtrParams} from './efficient-loftr-input.js';
+import {ssgFullParams} from './ssg-full-input.js';
 import {sparseStageCache} from './sparse-stage-cache.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {SparseGlueEngine} from './sparse-glue.js';
@@ -14,10 +15,11 @@ import {pairedBiomes} from './copy-biomes.js';
 import {verifyCopyGeometry,filterSiftModels,rejectSelfCopies,createGeometryKernel} from './copy-geometry.js';
 import {copyPalette,refineCopyBiomes} from './copy-subbiomes.js';
 const CLASSIC='SIFT + G2NN + RANSAC',PANELS=CLASSIC+' + Panels + Text';
-export const SPARSE_COPY_ALGORITHMS=Object.freeze(['SIFT','RootSIFT','AKAZE','BRISK','ORB','XFeat','XFeat + LighterGlue','ALIKED','ALIKED rotation','ALIKED + LightGlue','ALIKED rotation + LightGlue','SIFT + LightGlue',CLASSIC,PANELS,'EfficientLoFTR']);
+export const SPARSE_COPY_ALGORITHMS=Object.freeze(['SIFT','RootSIFT','AKAZE','BRISK','ORB','XFeat','XFeat + LighterGlue','ALIKED','ALIKED rotation','ALIKED + LightGlue','ALIKED rotation + LightGlue','SIFT + LightGlue',CLASSIC,PANELS,'EfficientLoFTR','SSG']);
 const implemented=[...SPARSE_COPY_ALGORITHMS];
 export function sparseCopyParams(input={}){
  if(input.algorithm==='EfficientLoFTR')return efficientLoFtrParams(input);
+ if(input.algorithm==='SSG')return ssgFullParams(input);
  const p={algorithm:CLASSIC,limit:6000,radius:600,minimum:5,threshold:.7,tolerance:50,model:'Affine',geometricThreshold:3,geometricMinimum:24,regions:[],excluded:[],compare:false,reflections:false,autoRadius:false,compact:false,guides:[],independent:true,...input};
  requireValue(SPARSE_COPY_ALGORITHMS.includes(p.algorithm)&&Number.isInteger(p.limit)&&p.limit>=100&&p.limit<=20000,'Invalid sparse algorithm or point count.');
  for(const key of ['radius','minimum','threshold','tolerance','geometricThreshold'])requireValue(Number.isFinite(p[key]),'Nonfinite sparse parameter.');
@@ -35,8 +37,15 @@ let nextId=0;
 export class SparseCopyEngine{
  constructor(image,budget,profile){this.image=image;this.budget=budget;this.profile=profile;this.features=new SparseFeatureEngine(budget,profile);this.learned=new LearnedFeatureEngine(budget,profile);this.glue=new SparseGlueEngine(budget,profile);this.ocr=new TextRegionEngine(budget,profile);this.prefix='m3-sparse-'+(++nextId)+'/';this.running=false;this.disposed=false;this.lifetime=new AbortController();this.counts={detections:0,matchings:0,groupings:0,ocr:0};}
  clearCheckpoint(key){return this.features.clearCheckpoint?.(key);}
- async dispose(){this.disposed=true;this.lifetime.abort();await this.efficient?.dispose();const features=this.features.dispose();this.learned.dispose();this.glue.dispose();this.ocr.dispose();if(!this.running)this.budget.clearPrefix(this.prefix);await features;await this.finished;this.budget.clearPrefix(this.prefix);}
+ async dispose(){this.disposed=true;this.lifetime.abort();await this.efficient?.dispose();await this.ssg?.dispose();const features=this.features.dispose();this.learned.dispose();this.glue.dispose();this.ocr.dispose();if(!this.running)this.budget.clearPrefix(this.prefix);await features;await this.finished;this.budget.clearPrefix(this.prefix);}
  async analyze(input={},hooks={}){
+  if(input.algorithm==='SSG'){
+   requireValue(!this.running&&!this.disposed,'Sparse engine busy or disposed.');
+   const signal=hooks.signal?AbortSignal.any([hooks.signal,this.lifetime.signal]):this.lifetime.signal;checkAbort(signal);
+   this.running=true;let finish;this.finished=new Promise(resolve=>{finish=resolve;});
+   try{const {SsgFullEngine}=await import('./ssg-full.js');checkAbort(signal);this.ssg??=new SsgFullEngine(this.image,this.budget,this.profile);this.ssg.image=this.image;return await this.ssg.analyze(input,{...hooks,signal});}
+   finally{this.running=false;finish();}
+  }
   if(input.algorithm==='EfficientLoFTR'){
    requireValue(!this.running&&!this.disposed,'Sparse engine busy or disposed.');
    const signal=hooks.signal?AbortSignal.any([hooks.signal,this.lifetime.signal]):this.lifetime.signal;checkAbort(signal);

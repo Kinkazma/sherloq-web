@@ -57,11 +57,16 @@ component_data = b'fixture-proposal-component'
 cv_data = wasm
 component_identity = {'file':'component.onnx', 'bytes':len(component_data), 'sha256':sha(component_data)}
 cv_identity = {'file':'seeds.wasm', 'bytes':len(cv_data), 'sha256':sha(cv_data)}
-proposal_path = 'selfdm-ssg/proposal-browser-candidate/integration-bundle/selfdm-proposal-bundle.json'
-proposal_data = json.dumps({'schema':1, 'family':'selfdm-proposal', 'models':{'selfdm':component_identity}, 'cv':cv_identity}).encode()
+prepare_identity = {'file':'feature-math.wasm', 'bytes':len(wasm), 'sha256':sha(wasm)}
+factory_data = b'export default function prepare(){return 1;}'
+factory_identity = {'file':'proposal-cv.mjs', 'bytes':len(factory_data), 'sha256':sha(factory_data)}
+proposal_path = 'selfdm-ssg/proposal-browser-candidate/integration-bundle-general/selfdm-proposal-bundle.json'
+proposal_data = json.dumps({'schema':1, 'family':'selfdm-proposal', 'models':{'selfdm':component_identity}, 'cv':cv_identity, 'prepare':prepare_identity, 'cvFactory':factory_identity}).encode()
 put(resources / proposal_path, proposal_data)
 put(resources / Path(proposal_path).parent / component_identity['file'], component_data)
 put(resources / Path(proposal_path).parent / cv_identity['file'], cv_data)
+put(resources / Path(proposal_path).parent / prepare_identity['file'], wasm)
+put(resources / Path(proposal_path).parent / factory_identity['file'], factory_data)
 models['proposal'] = {'bytes':len(proposal_data), 'sha256':sha(proposal_data)}
 put(engine / 'src/selfdm-proposal-assets.js', 'export const SELFDM_PROPOSAL_MODELS=' + json.dumps({'selfdm':component_identity}) + ';export const SELFDM_PROPOSAL_CV=' + json.dumps(cv_identity) + ';')
 put(engine / 'experiments/segmentation/models.js',
@@ -158,9 +163,9 @@ assert config['baseEngineCommit'] == 'qualified-base'
 assert config['localMethodBuild']['baseRuntimeReceiptSha256'] == 'qualified-base-receipt'
 assert 'runtimeReceiptSha256' not in config
 assert config['localMethodBuild']['scope'] == 'local research only'
-assert config['engineVersion'] == '0.36.0-methods.1'
+assert config['engineVersion'] == '0.37.0-methods.1'
 assert config['assetBase'] == './unified-assets/'
-assert 'engine 0.36.0-methods.1' in (output / 'session-log.js').read_text()
+assert 'engine 0.37.0-methods.1' in (output / 'session-log.js').read_text()
 put(engine / 'src/entry.js', 'export const currentSource = "new revision";')
 stage.stage(fallback, resources, output, 'test-local')
 changed = json.loads((output / 'integrated-config.json').read_text())
@@ -219,4 +224,23 @@ assert (output / 'individual-assets/individual-models.json').read_bytes() == bef
 print(json.dumps({'wrongModelRejected':True, 'verifiedManifestPreserved':True}))
 `);
   assert.deepEqual(result, {wrongModelRejected:true, verifiedManifestPreserved:true});
+});
+
+test('a corrupt preparation module or CV factory cannot enter the verified SelfDM bundle', () => {
+  const result = python(String.raw`
+stage.stage(fallback, resources, output, 'test-local')
+before = (output / 'individual-assets/individual-models.json').read_bytes()
+for name, identity, original in [('prepare', prepare_identity, wasm), ('cvFactory', factory_identity, factory_data)]:
+    path = resources / Path(proposal_path).parent / identity['file']
+    put(path, b'corrupt')
+    try:
+        stage.stage(fallback, resources, output, 'test-local')
+        raise AssertionError('Corrupt preparation dependency accepted')
+    except ValueError as error:
+        assert 'proposal/' + name in str(error)
+    assert (output / 'individual-assets/individual-models.json').read_bytes() == before
+    put(path, original)
+print(json.dumps({'corruptPreparationRejected':True, 'corruptFactoryRejected':True, 'manifestPreserved':True}))
+`);
+  assert.deepEqual(result, {corruptPreparationRejected:true, corruptFactoryRejected:true, manifestPreserved:true});
 });

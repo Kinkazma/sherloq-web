@@ -135,7 +135,7 @@ test('Draw, finish, escape and automatic regions never start clone analysis; Cal
 
 test('All native clone choices route with their own parameters and dense controls',async()=>{
  const h=environment();try{const {root,controller}=h.mount('tampering.copyMove.sparse'),$=id=>root.getElementById(id);h.adopt(controller);
-  const choices=[...$('tool-param-algorithm').options].map(o=>JSON.parse(o.value));assert.equal(choices.length,21);assert.deepEqual(new Set(choices),new Set(CLONE_ALGORITHMS));
+  const choices=[...$('tool-param-algorithm').options].map(o=>JSON.parse(o.value));assert.equal(choices.length,22);assert.deepEqual(new Set(choices),new Set(CLONE_ALGORITHMS));
   for(const algorithm of choices){$('tool-param-algorithm').value=JSON.stringify(algorithm);$('tool-param-algorithm').onchange();await $('task-run').onclick();const task=h.calls.at(-1),dense=algorithm.includes('PatchMatch');assert.equal(task.operation,dense?'tampering.copyMove.dense':'tampering.copyMove.sparse',algorithm);assert.equal(task.params[dense?'profile':'algorithm'],algorithm);assert.equal($('tool-param-patch').disabled,!dense);if(dense){assert.equal(task.params.iterations,8);assert.equal(task.params.texture,2);assert.equal(task.params.flip,algorithm.endsWith(' + Mirror')||$('tool-param-reflections').checked);}if(algorithm.endsWith(' + Mirror')){assert.equal($('tool-param-reflections').disabled,true);assert.equal(task.params.flip,true);}}
  }finally{await h.dispose();}
 });

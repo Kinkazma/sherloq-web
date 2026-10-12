@@ -55,7 +55,7 @@ test('Actual panel chooses overlay, switches views without inference and preserv
  const method=document.getElementById('tool-neural-method');method.value='forgeryscope-auto';method.onchange();assert.equal(ui.operation(),'m2.forgeryscope');assert.deepEqual(ui.params(),{profile:'auto'});assert.deepEqual(ui.taskRegions([]),[]);assert.equal(min.parentElement.hidden,true);
  for(const key of ['mgcfdn-st','cmseg-generalization','selfdm-map','selfdm-proposal']){const option=[...method.options].find(o=>o.value===key);assert.equal(option.dataset.newFeature,'yellow');assert.match(option.textContent,/202[256]/);}
  const backend=document.getElementById('tool-backend'),gpu=[...backend.options].find(option=>option.value==='webgpu');backend.value='webgpu';backend.onchange();
- method.value='selfdm-proposal';method.onchange();assert.equal(gpu.disabled,true);assert.equal(ui.backend(),'auto');assert.deepEqual(ui.params(),{variant:'selfdm-proposal',selectionPresent:false});
+ method.value='selfdm-proposal';method.onchange();assert.equal(gpu.disabled,false);assert.equal(ui.backend(),'webgpu');assert.deepEqual(ui.params(),{variant:'selfdm-proposal',selectionPresent:false});
  method.value='mgcfdn';method.onchange();assert.equal(gpu.disabled,false);
 });
 test('Forgeryscope tools use the real M2 API, sampled masks, original overlay and result release',async()=>{

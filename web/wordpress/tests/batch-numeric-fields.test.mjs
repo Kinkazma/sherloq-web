@@ -31,7 +31,7 @@ async function fixture(){
 
 test('all batch numeric defaults have valid bounds and stepping, including the native SSG decimal defaults',async()=>{
  const f=await fixture();try{const numeric=[...f.ui.dialog.querySelectorAll('.batch-fields input')].filter(n=>n.type==='number');assert.ok(numeric.length>100);const invalid=numeric.filter(n=>!valid(n)).map(n=>({key:n.dataset.parameter,value:n.value,min:n.min,max:n.max,step:n.step}));assert.deepEqual(invalid,[]);assert.equal(f.parameter('salienceSigma').value,'0.001');assert.equal(f.parameter('salienceSigma').step,'any');assert.equal(Number(f.parameter('salienceSigma').min),.000001);
-  const siftRadius=f.ui.dialog.querySelector('[data-batch-tool="clone-15"]').closest('.batch-tool').querySelector('[data-parameter="radius"]');assert.equal(Number(siftRadius.value),808.95);assert.equal(siftRadius.step,'any');siftRadius.onkeydown({key:'ArrowUp',preventDefault(){},stopPropagation(){}});assert.equal(Number(siftRadius.value),809.95);
+  const siftRadius=f.ui.dialog.querySelector('[data-batch-tool="clone-15"]').closest('.batch-tool').querySelector('[data-parameter="radius"]');assert.equal(Number(siftRadius.value),808.95);assert.equal(siftRadius.step,'any');siftRadius.onkeydown({key:'ArrowUp',preventDefault(){},stopPropagation(){}});assert.equal(Number(siftRadius.value),809.05);
   await f.ui.run();assert.doesNotThrow(()=>ssgFullParams(f.calls[0][0].params));}finally{await f.ui.dispose();}
 });
 

@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
 import {createToolWorkspace} from '../sherloq-browser/assets/tool-workspace.js';
 import {toolCatalog,toolFields} from '../sherloq-browser/assets/tool-catalog.js';
+import {CLONE_ALGORITHMS,SSG_DEFAULTS} from '../sherloq-browser/assets/clone-methods.js';
+import {ssgFullParams} from '../../engine-source/src/ssg-full-input.js';
 
 // Linkedom has no constraint-validation implementation. Model the native number
 // input rules independently of the generator, including HTML's min-based lattice.
@@ -64,4 +66,27 @@ test('Integer and parity constraints survive restored invalid values; Calculate 
  block.value='32';block.onchange();assert.equal(h.workspace.params().block,32);assert.equal(block.checkValidity(),true);
  h.setLanguage('en');block.value='7';block.reportValidity();assert.match(h.messages.at(-1),/Invalid setting.*Minimum value: 8/);
  h.workspace.select('detail.wavelets');const level=h.parameter('level');assert.equal(level.value,'');assert.equal(level.required,false);assert.equal(level.checkValidity(),true);level.onchange();assert.equal(h.workspace.params().level,null);
+});
+
+test('Full SSG controls deliver only native parameters and keep prior detector IDs stable',()=>{
+ const h=environment(),id='tampering.copyMove.sparse';
+ assert.equal(CLONE_ALGORITHMS[20],'EfficientLoFTR');assert.equal(CLONE_ALGORITHMS[21],'SSG');
+ h.workspace.restore({[id]:{...toolCatalog[id].params,algorithm:'SSG',normalizationLongEdge:0}});h.workspace.select(id);
+ for(const key of Object.keys(SSG_DEFAULTS)){const input=h.parameter(key);assert.equal(input.closest('label').hidden,false,key);assert.equal(input.disabled,false,key);assert.equal(input.checkValidity(),true,key);}
+ for(const key of ['limit','radius','threshold','minimum','model','patch','longSide','reflections'])assert.equal(h.parameter(key).closest('label').hidden,true,key);
+ const params=h.workspace.params();assert.equal(params.normalizationLongEdge,0);assert.equal(params.spatialK,3);assert.doesNotThrow(()=>ssgFullParams(params));
+ for(const key of ['limit','radius','threshold','minimum','model','autoRadius','compact','independent','longSide','patch'])assert.equal(Object.hasOwn(params,key),false,key);
+ const backend=h.document.getElementById('tool-backend');assert.equal([...backend.options].find(o=>o.value==='webgpu').disabled,true);
+ const algorithm=h.parameter('algorithm');algorithm.value=JSON.stringify('EfficientLoFTR');algorithm.onchange();
+ assert.equal(h.parameter('longSide').closest('label').hidden,false);assert.equal(h.parameter('normalizationLongEdge').closest('label').hidden,true);
+ for(const key of ['limit','minimum','threshold','tolerance','model','geometricThreshold','geometricMinimum'])assert.equal(h.parameter(key).disabled,false,'SSG → EfficientLoFTR restores '+key);
+ assert.equal([...backend.options].find(o=>o.value==='webgpu').disabled,false);assert.equal(Object.hasOwn(h.workspace.params(),'spatialK'),false);
+ algorithm.value=JSON.stringify('SSG');algorithm.onchange();algorithm.value=JSON.stringify('SIFT');algorithm.onchange();
+ for(const key of ['limit','radius','minimum','threshold','tolerance','model','geometricThreshold','geometricMinimum'])assert.equal(h.parameter(key).disabled,false,'SSG → SIFT restores '+key);
+});
+test('SIFT G2NN algorithm defaults retain their fractional scientific distance after switching detectors',()=>{
+ const h=environment();h.workspace.select('tampering.copyMove.sparse');const algorithm=h.parameter('algorithm');
+ algorithm.value=JSON.stringify('SIFT + G2NN + RANSAC');algorithm.onchange();const radius=h.parameter('radius');
+ assert.equal(radius.value,'808.95');assert.equal(radius.step,'any');assert.equal(radius.reportValidity(),true);assert.equal(h.workspace.params().radius,808.95);
+ radius.onkeydown({key:'ArrowUp',preventDefault(){},stopPropagation(){}});assert.equal(Number(radius.value),809.05);assert.equal(h.workspace.params().radius,809.05);
 });

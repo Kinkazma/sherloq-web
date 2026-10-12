@@ -2,12 +2,15 @@
 // browser candidate report. Not an announcement that all nine models are ported.
 export const SEGMENTATION_MODELS = Object.freeze({
   'selfdm-proposal': Object.freeze({
-    id:'selfdm-proposal-superglue-native512-v1',variant:'SelfDM + Proposal SuperGlue',
-    family:'selfdm-proposal',side:512,kind:'sigmoid',bytes:2140,assetBytes:196619121,
-    sha256:'4431d068c7c7ae44f2992518b5a71e4c53268620421dba4cc4a4e98cd879d02e',
-    status:'experimental-local-full-512-cpu',cpuContinuousBitExact:false,
-    qualificationDimensions:[512,512],
-    numericalParity:'Complete pinned512 chain, no initial-map substitution. Prototype positive and no-match binary masks agree with the native source; no-match continuous CRF delta0.001913 exceeds the provisional0.001 target. Common-pool and actual UI qualification are recorded separately. Other dimensions are explicitly refused.',
+    id:'selfdm-proposal-superglue-original-grid-v2',variant:'SelfDM + Proposal SuperGlue',
+    family:'selfdm-proposal',side:512,kind:'sigmoid',bytes:2105,assetBytes:187735468,
+    sha256:'9f81708fa15623a34f7c4617b5f2c2bb8420e4e8d9fdde6aa8060536f52d6df9',
+    gpu:Object.freeze({id:'selfdm-proposal-superglue-original-grid-v2',bytes:2105,assetBytes:187735468,
+      sha256:'9f81708fa15623a34f7c4617b5f2c2bb8420e4e8d9fdde6aa8060536f52d6df9',sharedAssets:true,
+      status:'experimental-five-network-webgpu-native-corpus'}),
+    status:'experimental-local-full-original-grid',cpuContinuousBitExact:false,
+    qualificationDimensions:[[32,32],[416,320],[512,512],[831,641]],
+    numericalParity:'Complete SelfDM, DeepMask, Proposal SuperGlue, SEEDS and ConvCRF chain. Initial network at512; refinement and output at the original rectangle dimensions using halo windows and global coordinates. Measured Float32 differences remain: one threshold-crossing pixel on the declared831×641 CPU case; continuous errors and CPU/WebGPU qualifications are recorded separately. This is not universal bit-exact parity.',
     license:'Local research only. SelfDM and SuperGlue redistribution/use terms require separate review before public distribution.'
   }),
   'selfdm-map': Object.freeze({

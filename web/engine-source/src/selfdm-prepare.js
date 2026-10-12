@@ -1,6 +1,6 @@
 // SelfDM utilsdm.imreadtonumpy: OpenCV INTER_LINEAR on float64 BGR, channel
 // means, then float32 NCHW. This is deliberately not Pillow RGB / 255.
-import {EngineError, requireValue, checkAbort, createCooperator} from './errors.js';
+import {EngineError, requireValue, checkAbort, createCooperator, serializeEngineError} from './errors.js';
 import {validateRgbRows} from './rgb-row-source.js';
 
 const MEANS = [104.008, 116.669, 122.675];
@@ -31,7 +31,7 @@ export function createSelfDMPrepare({budget}) {
       requireValue(rowsPerRead === undefined || Number.isSafeInteger(rowsPerRead) && rowsPerRead > 0, 'Preparation row group');
       const batchRows = Math.min(height, rowsPerRead ?? Math.max(1, Math.floor(262144 / width)));
       checkAbort(signal); busy = true;
-      let scratchRelease, outputRelease, window, windowY = 0, windowRows = 0, complete = false, sourceReads = 0, readMs = 0;
+      let scratchRelease, outputRelease, window, primaryError, windowY = 0, windowRows = 0, complete = false, sourceReads = 0, readMs = 0;
       const started = performance.now(), cooperate = createCooperator(signal);
       try {
         // The caller owns data; a readRows result owns its source-window lease.
@@ -46,7 +46,7 @@ export function createSelfDMPrepare({budget}) {
           let source = data, rowY = sourceY;
           if (streamed) {
             if (!window || sourceY < windowY || sourceY >= windowY + windowRows) {
-              window?.release(); window = null; windowY = sourceY; windowRows = Math.min(batchRows, height - sourceY);
+              const previous = window; window = null; previous?.release(); windowY = sourceY; windowRows = Math.min(batchRows, height - sourceY);
               const at = performance.now(); window = await readRows(windowY, windowRows, {signal});
               validateRgbRows(window, width, windowRows); checkAbort(signal);
               sourceReads++; readMs += performance.now() - at;
@@ -76,8 +76,22 @@ export function createSelfDMPrepare({budget}) {
         }
         checkAbort(signal); complete = true;
         return {rgb, tensor, shape: [1, 3, side, side], release: outputRelease, metrics: {totalMs: performance.now() - started, sourceReads, readMs, rowsPerRead: streamed ? batchRows : 0}};
+      } catch (error) {
+        primaryError = error; throw error;
       } finally {
-        window?.release?.(); scratchRelease?.(); if (!complete) outputRelease?.(); busy = false;
+        let cleanupFailure;
+        const cleanup = release => {
+          try {release?.();} catch (error) {
+            const retained = primaryError ?? cleanupFailure;
+            if (retained) retained.details = {...retained.details, cleanupErrors: [...(retained.details?.cleanupErrors ?? []), serializeEngineError(error)]};
+            else cleanupFailure = error;
+          }
+        };
+        const previous = window; window = null;
+        cleanup(previous && (() => previous.release?.())); cleanup(scratchRelease);
+        if (!complete || primaryError || cleanupFailure) cleanup(outputRelease);
+        busy = false;
+        if (!primaryError && cleanupFailure) throw cleanupFailure;
       }
     },
     dispose() {requireValue(!busy, 'SelfDM preparation busy'); disposed = true;}

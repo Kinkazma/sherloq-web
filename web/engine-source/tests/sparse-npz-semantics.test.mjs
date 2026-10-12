@@ -23,6 +23,7 @@ test('full SSG archive keeps the original-grid localization mask separately from
   const arrays=unpackScientificNpz(m3Npz(input,1024*1024).bytes),metadata=JSON.parse(arrays.metadata_json.text);
   assert.equal(arrays.mask.dtype,'|u1');assert.deepEqual(arrays.mask.shape,[2,3]);assert.deepEqual(arrays.mask.data,mask);
   assert.equal(metadata.mask_coordinates,'original-image-pixels');assert.deepEqual(metadata.mask_shape,[2,3]);
+  assert.equal(metadata.pair_columns[2],'accepted_match');
   assert.deepEqual(metadata.biomes,[[0]]);
   input.data.width=4;assert.throws(()=>m3Npz(input,1024*1024),/Invalid M3 NPZ shape/);
 });

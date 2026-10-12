@@ -70,7 +70,7 @@ test('Learned-tool controls use native algorithms and valid scientific defaults'
  for(const algorithm of CLONE_ALGORITHMS){const p={...toolCatalog['tampering.copyMove.sparse'].params,algorithm};changeCloneAlgorithm(p,'PatchMatch Zernike');const rectangles=algorithm==='EfficientLoFTR'?[{id:'a',x0:0,y0:0,x1:32,y1:32},{id:'b',x0:40,y0:0,x1:72,y1:32}]:[];const params=sparseParameters(p,rectangles);assert.doesNotThrow(()=>(isDenseClone(algorithm)?denseCopyParams:sparseCopyParams)(params),algorithm);assert.equal(cloneOperation(algorithm),isDenseClone(algorithm)?'tampering.copyMove.dense':'tampering.copyMove.sparse');}
  assert.doesNotThrow(()=>safireParams(toolCatalog['ai.sources.safire'].params));
  const algorithm=toolFields('tampering.copyMove.sparse').find(f=>f.key==='algorithm');
- assert.deepEqual(algorithm.choices.map(c=>c.value),CLONE_ALGORITHMS);assert.equal(CLONE_ALGORITHMS.length,21);assert.deepEqual(CLONE_ALGORITHMS.filter(a=>!isDenseClone(a)),SPARSE_COPY_ALGORITHMS);
+ assert.deepEqual(algorithm.choices.map(c=>c.value),CLONE_ALGORITHMS);assert.equal(CLONE_ALGORITHMS.length,22);assert.deepEqual(CLONE_ALGORITHMS.filter(a=>!isDenseClone(a)),SPARSE_COPY_ALGORITHMS);
 });
 
 test('Dense NPZ uses the live worker surface archive and releases every export handle',async()=>{

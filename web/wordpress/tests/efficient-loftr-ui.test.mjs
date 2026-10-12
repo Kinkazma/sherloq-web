@@ -7,7 +7,7 @@ import {sparseParameters} from '../sherloq-browser/assets/sparse-controls.js';
 
 test('Method families distinguish classical detection from learned matching',()=>{
  assert.equal(CLONE_ALGORITHMS[16],'SIFT + G2NN + RANSAC + Panels + Text');
- assert.equal(CLONE_ALGORITHMS.at(-1),'EfficientLoFTR');
+ assert.equal(CLONE_ALGORITHMS[20],'EfficientLoFTR');assert.equal(CLONE_ALGORITHMS.at(-1),'SSG');assert.equal(cloneMethodFamily('SSG'),'classical');
  assert.equal(cloneMethodFamily('PatchMatch Zernike'),'dense');
  assert.equal(cloneMethodFamily('SIFT + G2NN + RANSAC + Panels + Text'),'classical');
  for(const name of ['ALIKED + LightGlue','SIFT + LightGlue','EfficientLoFTR'])assert.equal(cloneMethodFamily(name),'learned');

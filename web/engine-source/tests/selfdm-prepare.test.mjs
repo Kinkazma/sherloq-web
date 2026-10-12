@@ -94,6 +94,24 @@ test('SelfDM preserves a row-provider failure cause and leaves preparation reusa
   const result = await prepare.run({...geometry, data: pixels()}); result.release(); prepare.dispose(); assert.equal(budget.total(), 0);
 });
 
+test('SelfDM cleanup cannot erase a malformed-row cause or strand its budget and busy state', async () => {
+  const budget = new Budget(4 * 1024 ** 2), prepare = createSelfDMPrepare({budget}), cleanup = new Error('row cleanup failed');
+  await assert.rejects(prepare.run({width:1,height:1,side:512,readRows:async()=>({pixels:{width:2,height:1,format:'rgb8',data:new Uint8Array(6)},release(){throw cleanup;}})}), error => {
+    assert.equal(error.code, 'INVALID_INPUT'); assert.match(error.details.cleanupErrors[0].message, /row cleanup failed/); return true;
+  });
+  assert.equal(budget.total(),0);
+  const result = await prepare.run({...geometry,data:pixels()}); assert.equal(sha(result.tensor),nativeHash);
+  result.release(); prepare.dispose(); assert.equal(budget.total(),0);
+});
+
+test('SelfDM rejects an unpublished result when its final row cleanup fails, then remains reusable', async () => {
+  const budget = new Budget(4 * 1024 ** 2), prepare = createSelfDMPrepare({budget}), cleanup = new Error('final row cleanup failed');
+  await assert.rejects(prepare.run({width:1,height:1,side:512,readRows:async()=>({pixels:{width:1,height:1,format:'rgb8',data:Uint8Array.of(12,126,249)},release(){throw cleanup;}})}), error => error === cleanup);
+  assert.equal(budget.total(),0);
+  const result = await prepare.run({width:1,height:1,side:512,data:Uint8Array.of(12,126,249)});
+  assert.equal(result.tensor[0],Math.fround(249-104.008)); result.release(); prepare.dispose(); assert.equal(budget.total(),0);
+});
+
 test('SelfDM rejects an unqualified profile, mixed source and disposed preparation', async () => {
   const budget = new Budget(8 * 1024 ** 2), prepare = createSelfDMPrepare({budget});
   await assert.rejects(prepare.run({...geometry, data: pixels(), side: 256}), {code: 'INVALID_INPUT'});

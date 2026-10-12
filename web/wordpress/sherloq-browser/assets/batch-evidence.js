@@ -42,7 +42,13 @@ export async function cloneEvidence(output,recipe,client,image,context,signal){
  const {budget}=context,algorithm=recipe.params.algorithm,methodKey=(algorithm==='SIFT + G2NN + RANSAC'?SIFT_SOURCE:algorithm)??recipe.params.variant??(recipe.operation==='m2.forgeryscope'?'Forgeryscope Auto':recipe.operation==='ai.clones.d2prl'?'D2PRL':recipe.operation);let owned;
  if(algorithm==='EfficientLoFTR'&&(output.data?.metadata?.algorithm!=='EfficientLoFTR'||output.data.compare!==true||!Array.isArray(output.data.regions)||output.data.regions.length!==2))throw Object.assign(Error('Les preuves EfficientLoFTR doivent provenir de la comparaison réelle de deux rectangles.'),{code:'BATCH_EVIDENCE_INVALID'});
  if(recipe.kind==='automatic')return {entries:(output.data?.entries??[]).filter(e=>CLONE_SOURCES.includes(e.source)).map(e=>({...e,methodKey:e.source})),release(){}};
- if(recipe.operation==='ai.clones.d2prl'||recipe.operation==='ai.clones.segmentation'){
+ if(algorithm==='SSG'){
+  const d=output.data;
+  if(d?.metadata?.completeDetector!==true||d.params?.algorithm!=='SSG'||d.width!==image.width||d.height!==image.height||!(d.mask instanceof Uint8Array)||d.mask.length!==image.width*image.height)throw Object.assign(Error('Le masque localisé du détecteur SSG complet est absent ou ses coordonnées diffèrent de l’image.'),{code:'BATCH_EVIDENCE_INVALID'});
+  const mask={byteLength:d.mask.byteLength,readInto(destination,offset){destination.set(d.mask.subarray(offset,offset+destination.length));return destination;}};
+  owned=await streamedD2prlRegions({width:image.width,height:image.height,mask,minimum:0},{budget,signal});
+  owned.entries=owned.entries.map(entry=>({...entry,id:'ssg-'+entry.id.slice(6),source:SIFT_SOURCE,label:'SSG',search_context:'ssg-full-localization',provenance:{method:'SSG',coordinates:'original-image-pixels',original_shape:[image.height,image.width],evidence:'SSIM-and-ROI-localization',scientificDefinitions:d.metadata.scientificDefinitions}}));
+ }else if(recipe.operation==='ai.clones.d2prl'||recipe.operation==='ai.clones.segmentation'){
   const mask=output.maskSurfaces?.mask??output.maskSurfaces?.union;
   if(!mask)throw Error('Le masque scientifique D2PRL est absent.');
   owned=await streamedD2prlRegions({width:image.width,height:image.height,mask:await maskStore(client,mask,image.width,image.height),minimum:recipe.operation==='ai.clones.segmentation'?0:recipe.params.minimum??500},{budget,signal});
