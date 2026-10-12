@@ -40,6 +40,7 @@ async function maskStore(client,descriptor,width,height){
 }
 export async function cloneEvidence(output,recipe,client,image,context,signal){
  const {budget}=context,algorithm=recipe.params.algorithm,methodKey=(algorithm==='SIFT + G2NN + RANSAC'?SIFT_SOURCE:algorithm)??recipe.params.variant??(recipe.operation==='m2.forgeryscope'?'Forgeryscope Auto':recipe.operation==='ai.clones.d2prl'?'D2PRL':recipe.operation);let owned;
+ if(algorithm==='EfficientLoFTR'&&(output.data?.metadata?.algorithm!=='EfficientLoFTR'||output.data.compare!==true||!Array.isArray(output.data.regions)||output.data.regions.length!==2))throw Object.assign(Error('Les preuves EfficientLoFTR doivent provenir de la comparaison réelle de deux rectangles.'),{code:'BATCH_EVIDENCE_INVALID'});
  if(recipe.kind==='automatic')return {entries:(output.data?.entries??[]).filter(e=>CLONE_SOURCES.includes(e.source)).map(e=>({...e,methodKey:e.source})),release(){}};
  if(recipe.operation==='ai.clones.d2prl'||recipe.operation==='ai.clones.segmentation'){
   const mask=output.maskSurfaces?.mask??output.maskSurfaces?.union;

@@ -38,12 +38,12 @@ function describe(id,item){
  return {id,operation:id,...item,backend:'auto',params:copy(item.params??{}),kind,group,description:id==='file.similarity'?['Liens vers des services externes ; aucune opération locale à exécuter en lot.','Links to external services; no local batch operation.']:descriptions[kind],notBatch:id==='file.similarity',requires:prerequisites[id],signal:{threshold:.8,minimumPixels:32},fields:toolCatalog[id]?toolFields(id):Object.entries(item.params??{}).map(([key,value])=>({key,label:key,value,type:typeof value==='boolean'?'checkbox':typeof value==='number'?'number':'text'}))};
 }
 const entries=Object.entries({...toolCatalog,...extra}).filter(([id])=>id!=='tampering.copyMove.sparse').map(([id,item])=>describe(id,item));
-for(const [variant,name]of NEURAL_METHODS.filter(([id])=>!id.startsWith('forgeryscope')&&id!=='d2prl'))entries.push({...describe('ai.clones.segmentation',{fr:name,en:name,params:{variant}}),id:'segmentation-'+variant,fields:[]});
+for(const [variant,name]of NEURAL_METHODS.filter(([id])=>!id.startsWith('forgeryscope')&&id!=='d2prl'))entries.push({...describe('ai.clones.segmentation',{fr:name,en:name,params:{variant}}),...(variant==='selfdm-proposal'?{description:['Chaîne complète expérimentale à la résolution native. Le chemin GPU reste en cours de qualification ; les dimensions non qualifiées sont signalées sans substitution.','Experimental complete pipeline at native resolution. The GPU path is being qualified; unqualified dimensions are reported without substitution.']}:variant==='selfdm-map'?{description:['Carte initiale SelfDM uniquement, préparée à la résolution native du modèle. Le raffinement complet est une méthode distincte.','SelfDM initial map only, prepared at the model’s native resolution. Complete refinement is a separate method.']}:{}),id:'segmentation-'+variant,fields:[]});
 for(const [index,algorithm] of CLONE_ALGORITHMS.entries()){
  const params=copy(toolCatalog['tampering.copyMove.sparse'].params);changeCloneAlgorithm(params,params.algorithm);params.algorithm=algorithm;changeCloneAlgorithm(params,'PatchMatch Zernike');
  const item=describe('tampering.copyMove.sparse',toolCatalog['tampering.copyMove.sparse']);
- const relevant=f=>!['algorithm','compare'].includes(f.key)&&(!['longSide','rotationMode'].includes(f.key)||algorithm==='EfficientLoFTR')&&(!['patch','iterations','texture'].includes(f.key)||isDenseClone(algorithm))&&(f.key!=='reflections'||isDenseClone(algorithm)||algorithm===PANELS_SIFT)&&(f.key!=='independent'||algorithm===CLASSIC_SIFT);
- entries.push({...item,...(algorithm==='EfficientLoFTR'?{notBatch:true,group:'required',description:['Comparez deux rectangles depuis Détection de clones 2. Le lot ne choisit pas automatiquement cette paire.','Compare two rectangles in Copy-Move Forgery 2. Batch does not choose this pair automatically.']} : {}),id:'clone-'+index,fr:cloneMethodLabel(algorithm),en:cloneMethodLabel(algorithm),params,fields:item.fields.filter(relevant).map(f=>({...f,value:params[f.key]??f.value}))});
+ const relevant=f=>!(algorithm==='EfficientLoFTR'&&['radius','autoRadius','compact','independent'].includes(f.key))&&!['algorithm','compare'].includes(f.key)&&(!['longSide','rotationMode'].includes(f.key)||algorithm==='EfficientLoFTR')&&(!['patch','iterations','texture'].includes(f.key)||isDenseClone(algorithm))&&(f.key!=='reflections'||isDenseClone(algorithm)||algorithm===PANELS_SIFT||algorithm==='EfficientLoFTR')&&(f.key!=='independent'||algorithm===CLASSIC_SIFT);
+ entries.push({...item,...(algorithm==='EfficientLoFTR'?{pairRequired:true,group:'required',description:['Deux rectangles distincts par image. Préparez la paire dans Images : détection des panneaux ou coordonnées explicites. S’il n’y a pas exactement deux panneaux, le lot attend votre choix.','Two distinct regions per image. Prepare the pair in Images using panel detection or explicit coordinates. Unless exactly two panels are detected, the batch requires your choice.']} : {}),id:'clone-'+index,fr:cloneMethodLabel(algorithm),en:cloneMethodLabel(algorithm),params,fields:item.fields.filter(relevant).map(f=>({...f,...(algorithm==='EfficientLoFTR'&&f.key==='longSide'?{min:64}:{}),value:params[f.key]??f.value}))});
 }
 const priority=x=>x.id==='ai.clones.d2prl'?0:x.params.algorithm==='SIFT + G2NN + RANSAC + Panels + Text'?1:x.params.algorithm==='SIFT + G2NN + RANSAC'?2:x.params.algorithm==='PatchMatch Zernike'?3:x.id==='m2.forgeryscope'?4:x.id==='analysis.clones'?5:x.id==='analysis.complete'?6:10;
 export const batchCatalog=Object.freeze(entries.sort((a,b)=>priority(a)-priority(b)));
@@ -51,12 +51,35 @@ export function batchTask(recipe,{id,imageId,regions=[]}={}){
  let operation=recipe.operation,params=copy(recipe.params);
  if(operation==='tampering.copyMove.sparse'){
   operation=cloneOperation(params.algorithm);
-  params=sparseParameters({...params,excluded:[],compare:false},regions.map(r=>({...r,polygon:r.polygon??[[r.x0,r.y0],[r.x1-1,r.y0],[r.x1-1,r.y1-1],[r.x0,r.y1-1]]})));
+  if(params.algorithm==='EfficientLoFTR')regions=batchPairRegions(regions);
+  params=sparseParameters({...params,excluded:[],compare:params.algorithm==='EfficientLoFTR'},regions.map(r=>({...r,polygon:r.polygon??[[r.x0,r.y0],[r.x1-1,r.y0],[r.x1-1,r.y1-1],[r.x0,r.y1-1]]})));
  }
  return {id,imageId,operation,params,backend:recipe.backend??'auto',...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
 }
 export const recipeKey=recipe=>JSON.stringify([recipe.operation,recipe.params,recipe.backend??'auto']);
 export const catalogRecipe=id=>{const entry=batchCatalog.find(x=>x.id===id);if(!entry)throw Error('Unknown batch tool');return {...entry,params:copy(entry.params),signal:copy(entry.signal)};};
+
+export function batchPairRegions(regions,{width,height}={}){
+ const invalid=message=>{throw Object.assign(Error(message),{code:'BATCH_PAIR_REQUIRED',details:{requiredRegions:2,width,height}});};
+ if(!Array.isArray(regions)||regions.length!==2)invalid('EfficientLoFTR nécessite exactement deux rectangles distincts. Préparez la paire dans Images.');
+ const pair=regions.map(r=>{
+  if(!r||r.envelope||![r.x0,r.y0,r.x1,r.y1].every(Number.isSafeInteger)||r.x0<0||r.y0<0||r.x1-r.x0<8||r.y1-r.y0<8||width!==undefined&&r.x1>width||height!==undefined&&r.y1>height)invalid('Paire EfficientLoFTR invalide : deux rectangles réels de 8 pixels minimum, à l’intérieur de l’image, sans enveloppe.');
+  return {x0:r.x0,y0:r.y0,x1:r.x1,y1:r.y1};
+ });
+ if(JSON.stringify(pair[0])===JSON.stringify(pair[1]))invalid('Les deux rectangles EfficientLoFTR doivent être distincts.');
+ return pair;
+}
+export function batchPairSelection(image,regions,source='manual'){
+ if(!['manual','detected','selected-panels'].includes(source)||typeof image.hash!=='string')throw Object.assign(Error('Identité de paire invalide.'),{code:'BATCH_PAIR_REQUIRED'});
+ return {pixelHash:image.hash,width:image.width,height:image.height,source,regions:batchPairRegions(regions,image)};
+}
+export function restoredBatchPair(image){
+ if(image.pairCleared)return null;
+ const value=image.pairSelection??image.restored?.configuration?.pairSelections?.[image.hash];
+ if(!value)return null;
+ if(value.pixelHash!==image.hash||value.width!==image.width||value.height!==image.height)throw Object.assign(Error('La paire enregistrée appartient à une autre image.'),{code:'BATCH_PAIR_REQUIRED'});
+ return batchPairSelection(image,value.regions,value.source);
+}
 
 export function imageScore(runs){
  const successful=runs.filter(x=>x.status==='done'||x.status==='partial');
