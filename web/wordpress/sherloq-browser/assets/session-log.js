@@ -87,6 +87,6 @@ export function createSessionLog({id=crypto.randomUUID(),indexedDB=globalThis.in
  append({time:started,level:'info',kind:'session.start',environment});return api;
 }
 const n=globalThis.navigator;
-export const sessionLog=typeof document!=='undefined'?createSessionLog({id:runtimeContext.session,environment:{uiVersion:'0.15.1',engineVersion:'0.35.0-export.3',userAgent:n?.userAgent,platform:n?.platform,languages:n?.languages,hardwareConcurrency:n?.hardwareConcurrency,crossOriginIsolated:globalThis.crossOriginIsolated}}):null;
+export const sessionLog=typeof document!=='undefined'?createSessionLog({id:runtimeContext.session,environment:{uiVersion:'0.15.2',engineVersion:'0.35.0-export.3',userAgent:n?.userAgent,platform:n?.platform,languages:n?.languages,hardwareConcurrency:n?.hardwareConcurrency,crossOriginIsolated:globalThis.crossOriginIsolated}}):null;
 if(sessionLog){runtimeContext.subscribe(e=>sessionLog.append(e));globalThis.addEventListener('pagehide',()=>{diagnostic({level:'info',kind:'session.pagehide'});void sessionLog.flush();});}
 export async function reportWithSession(report={}){return {...report,sessionLog:await sessionLog?.report()};}

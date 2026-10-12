@@ -92,7 +92,7 @@ def build(installed, chunks, output, shell_only=False):
         target = assets/name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(installed/name, target)
-    worker='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in ['dependency-core.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','dependency-sw.js'])
+    worker='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in ['dependency-core.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','dependency-manifest.js','dependency-sw.js'])
     (assets/'dependency-sw.js').write_text(worker)
     offline_worker='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in ['dependency-core.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','offline-browser-store.js','offline-browser-sw.js'])
     (assets/'offline-browser-sw.js').write_text(offline_worker)

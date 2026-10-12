@@ -220,3 +220,22 @@ The earlier Go/Python archive readers and their tests remain available as
 separate development experiments. They are not the public button's installation
 path and do not establish cross-platform PWA qualification. No source build or
 local test publishes to GitHub or installs anything on a live WordPress site.
+# Migration des gestionnaires de téléchargements
+
+Le ZIP doit conserver les inventaires immuables des versions déjà déployées dans
+`compatibility-manifests/`. WordPress remplace le dossier de l’extension, mais le
+navigateur peut encore exécuter son ancien Service Worker. Supprimer l’inventaire
+de ce worker peut empêcher le chargement du document qui installerait son
+remplaçant (`net::ERR_FAILED`, après un HTTP 404 sur l’ancien manifeste).
+
+Le gestionnaire actuel laisse passer le document et les petits fichiers de
+démarrage sans attendre cet inventaire. Il conserve une copie vérifiée du
+manifeste dans Cache Storage, utilisable après un redémarrage si sa copie serveur
+est indisponible. Une erreur temporaire ne verrouille pas les tentatives suivantes.
+Les ressources scientifiques restent soumises à l’inventaire et à leur identité
+SHA-256. Les mises à jour attendent toujours la fin des fenêtres actives.
+
+`scripts/check-dependency-migration.mjs ANCIENS_ASSETS NOUVEAUX_ASSETS SORTIE`
+reproduit le défaut dans un profil Chrome persistant, vérifie sa migration, puis
+redémarre ce profil sans aucun manifeste disponible côté serveur. Playwright doit
+être installé ; `PLAYWRIGHT_MODULE` peut désigner son installation existante.

@@ -110,7 +110,7 @@ def pack(output, source_revision=None):
     put(output / 'public/web/wordpress/runtime-lock.json', encode(delivered))
     for name in ['build.py', 'runtime-delivery.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         put(output / 'public/web/wordpress' / name, source_bytes(ROOT / name))
-    for folder in ['tests', 'scripts', 'runtime-patches', 'offline-launcher']:
+    for folder in ['tests', 'scripts', 'runtime-patches', 'offline-launcher', 'compatibility-manifests']:
         for source in (ROOT / folder).rglob('*'):
             if source.is_file() and source.suffix in {'.js', '.mjs', '.py', '.json', '.html', '.go', '.mod'} and 'fixtures' not in source.parts:
                 if tracked is None or source.relative_to(ROOT).as_posix() in tracked:
@@ -167,11 +167,18 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
     # Classic SW works in Firefox/WebKit too. Only module syntax is removed from
     # these reviewed dependency files; runtime bytes remain untouched.
     worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '')
-                       for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-sw.js'])
+                       for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-manifest.js', 'dependency-sw.js'])
     put(plugin / 'assets/dependency-sw.js', worker.encode())
     offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
     put(plugin / 'assets/offline-browser-sw.js', offline_worker.encode())
     put(plugin / ('assets/dependency-manifest-' + identity + '.json'), encode(manifest))
+    # An old installed worker requests its own immutable manifest before it can
+    # serve the page that installs the replacement. WordPress replaces the
+    # plugin directory; retaining these small inventories is part of migration.
+    for previous in (output / 'public/web/wordpress/compatibility-manifests').glob('*.json'):
+        if previous.stem != digest(previous.read_bytes()):
+            raise ValueError('Compatibility manifest identity mismatch: ' + previous.name)
+        put(plugin / ('assets/dependency-manifest-' + previous.name), previous.read_bytes())
     put(plugin / 'assets/dependency-config.json', encode({'schema': 'sherloq.dependency-config/1', 'enabled': True, 'workerType': 'classic', 'workerVersion': version, 'manifest': identity}))
     _offline.write_shell(plugin, manifest, identity, version)
     if private_overlay:
@@ -183,7 +190,7 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
             f.write("\nrequire_once __DIR__ . '/private/report.php';\n")
         app = plugin / 'assets/app.html'
         app.write_text(app.read_text().replace('</body>', '<script type="module" src="private-report.js?v=' + version + '"></script></body>'))
-    names = sorted(p for p in plugin.rglob('*') if p.is_file() and not (p.name.startswith('dependency-manifest-') and p.name != 'dependency-manifest-' + identity + '.json'))
+    names = sorted(p for p in plugin.rglob('*') if p.is_file())
     size = sum(p.stat().st_size for p in names)
     if size > 25_000_000:
         raise ValueError('Private bootstrap package exceeds 25 MB')

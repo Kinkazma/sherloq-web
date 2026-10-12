@@ -2,21 +2,21 @@ import {validateManifest,remoteBase,sha256,dependencyResponse} from './dependenc
 import {createChunkLoader} from './dependency-store.js';
 import {resourceTarStream,indexResourceTar,archiveChunkReader} from './dependency-tar.js';
 import {readOfflineShell,offlineShellParts} from './offline-kit-core.js';
+import {createManifestLoader,isDependencyBootstrap} from './dependency-manifest.js';
 const scope=new URL('./',self.location.href);
 const manifestHash=new URL(self.location.href).searchParams.get('manifest');
-const ready=(async()=>{
+const manifestLoader=createManifestLoader(new URL('dependency-manifest-'+manifestHash+'.json',scope),manifestHash);
+let preparation;
+const ready=()=>preparation??=(async()=>{
  if(!/^[a-f0-9]{64}$/.test(manifestHash))throw Error('Dependency manifest identity missing');
- const response=await fetch(new URL('dependency-manifest-'+manifestHash+'.json',scope),{cache:'no-cache'});
- if(!response.ok)throw Error('Dependency manifest unavailable');
- const bytes=await response.arrayBuffer();if(await sha256(bytes)!==manifestHash)throw Error('Dependency manifest integrity failure');
- const manifest=validateManifest(JSON.parse(new TextDecoder().decode(bytes))),base=remoteBase(manifest.remoteBase,{allowLocal:['127.0.0.1','localhost'].includes(scope.hostname)});
+ const manifest=await manifestLoader(),base=remoteBase(manifest.remoteBase,{allowLocal:['127.0.0.1','localhost'].includes(scope.hostname)});
  return {manifest,localFiles:new Set(manifest.localFiles||[]),load:createChunkLoader(manifest,{base,scope})};
-})();
+})().catch(error=>{preparation=null;throw error;});
 // Updates wait until previous controlled windows close. Never replace a worker
 // under a running analysis and accidentally mix two engine deliveries.
-self.addEventListener('install',event=>event.waitUntil(ready));
+self.addEventListener('install',event=>event.waitUntil(ready()));
 self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));
-self.addEventListener('message',event=>{if(event.data?.type==='dependency-identity')event.waitUntil(ready.then(()=>event.ports[0]?.postMessage({manifest:manifestHash})));});
+self.addEventListener('message',event=>{if(event.data?.type==='dependency-identity')event.waitUntil(ready().then(()=>event.ports[0]?.postMessage({manifest:manifestHash})));});
 // Hosts may ignore .htaccess for static assets. Workers must still receive
 // the same embedder policy as the PHP-served application document.
 async function localResponse(request){
@@ -92,11 +92,12 @@ async function notifyDependency(event,entry){
 self.addEventListener('fetch',event=>{
  const u=new URL(event.request.url);if(u.origin!==scope.origin||!u.pathname.startsWith(scope.pathname)||!['GET','HEAD'].includes(event.request.method))return;
  const path=u.pathname.slice(scope.pathname.length);
+ if(isDependencyBootstrap(event.request,path)){event.respondWith(localResponse(event.request));return;}
  if(path==='__dependency_download__/resources.tar'||path==='__dependency_download__/kit.tar'){
   let finish;event.waitUntil(new Promise(resolve=>{finish=resolve;}));
   const id=u.searchParams.get('id');
   const notify=data=>self.clients.matchAll().then(clients=>clients.forEach(c=>c.postMessage({type:'dependency-download-progress',id,...data})));
-  event.respondWith(ready.then(async({manifest,load})=>{
+  event.respondWith(ready().then(async({manifest,load})=>{
    const kit=path.endsWith('/kit.tar');let extras;
    if(kit){const requested=offlineExports.get(id);offlineExports.delete(id);if(!requested)throw Error('Start archive creation from the offline dialog');
     const shell=await readOfflineShell(scope);if(shell.manifest!==manifestHash)throw Error('Offline application version mismatch');
@@ -110,7 +111,7 @@ self.addEventListener('fetch',event=>{
   }).catch(e=>{void notify({done:true,error:e.message});finish();return new Response(e.message,{status:503});}));return;
  }
  event.respondWith((async()=>{
-  const {manifest,localFiles,load}=await ready,file=manifest.files[path];
+  const {manifest,localFiles,load}=await ready(),file=manifest.files[path];
   if(localFiles.has(path))return localResponse(event.request);
   if(file)return dependencyResponse(file,manifest,h=>recoverChunk(event,path,load,h),event.request);
   if(manifest.slots.some(s=>path.startsWith(s+'/')))return new Response('Dependency absent from the locked delivery',{status:404});
