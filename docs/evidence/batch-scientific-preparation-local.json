@@ -1,7 +1,7 @@
 {
   "date": "2026-10-12",
   "status": "local-functional-acceptance-awaiting-delivery-integration",
-  "publicationApproved": false,
+  "publicationApproved": true,
   "full86ScientificValidation": false,
   "sourcePixelsOrAnalysisSettingsReduced": false,
   "workerCapAdded": false,
@@ -84,11 +84,19 @@
     "accepted": true,
     "scope": "Overall improved local batch; not only SSG",
     "scientificFullCorpusValidationRequiredForTransmission": false,
-    "publicationRequestedInThisTurn": false
+    "publicationRequestedInThisTurn": true
   },
   "furtherScientificEvaluation": [
     "Measure scientific preclassification/text-exclusion accuracy beyond the small local cases.",
     "A new filtered 86-image run is needed before claiming full-corpus scientific validation; it is not a prerequisite for this authorized global handoff."
   ],
-  "historicalQualificationNote": "The 113 targeted tests and 18 overlapping UI tests above precede the SSG-specific qualification. The four-method run was deliberately stopped, not completed. Acceptance records user scope, not fabricated inference results."
+  "historicalQualificationNote": "The 113 targeted tests and 18 overlapping UI tests above precede the SSG-specific qualification. The four-method run was deliberately stopped, not completed. Acceptance records user scope, not fabricated inference results.",
+  "publicationAuthorization": {
+    "date": "2026-10-12",
+    "authorizedBy": "Gaël",
+    "scope": "All functional batch improvements and their public source/evidence; private payloads excluded",
+    "publisher": "GitHub thread",
+    "wordpressCoordination": "GitHub will notify the WordPress thread when needed",
+    "full86ScientificValidationClaimAllowed": false
+  }
 }
