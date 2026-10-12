@@ -3,6 +3,8 @@ export const isDenseClone=name=>DENSE_PROFILES.includes(name);
 export const CLONE_ALGORITHMS=Object.freeze(['SIFT','RootSIFT','AKAZE','BRISK','ORB',...DENSE_PROFILES.slice(0,2),'XFeat','XFeat + LighterGlue','ALIKED','ALIKED rotation','ALIKED + LightGlue','ALIKED rotation + LightGlue','SIFT + LightGlue',DENSE_PROFILES[2],'SIFT + G2NN + RANSAC','SIFT + G2NN + RANSAC + Panels + Text',...DENSE_PROFILES.slice(3),'EfficientLoFTR']);
 export const cloneOperation=name=>isDenseClone(name)?'tampering.copyMove.dense':'tampering.copyMove.sparse';
 export const cloneMethodFamily=name=>isDenseClone(name)?'dense':name==='EfficientLoFTR'||name.startsWith('ALIKED')||name.startsWith('XFeat')||name.includes('LightGlue')?'learned':'classical';
+export const cloneMethodYear=name=>name==='EfficientLoFTR'||name.startsWith('XFeat')?2024:name.startsWith('ALIKED')||name.includes('LightGlue')?2023:null;
+export const cloneMethodLabel=name=>cloneMethodYear(name)?name+' · '+cloneMethodYear(name):name;
 export const cloneFamilyLabels={fr:{classical:'Descripteurs classiques',dense:'PatchMatch dense',learned:'Appariements par IA'},en:{classical:'Classical descriptors',dense:'Dense PatchMatch',learned:'Learned matching'}};
 export const denseCloneParameters=p=>({profile:p.algorithm,patch:p.patch,iterations:p.iterations,texture:p.texture,flip:p.algorithm.endsWith(' + Mirror')||p.reflections,auto:p.autoRadius,...Object.fromEntries(['limit','radius','minimum','threshold','tolerance','model','geometricThreshold','geometricMinimum','compact','regions','guides','compare'].map(k=>[k,p[k]])),excluded:[]});
 // Follow desktop method defaults only upon a deliberate algorithm change.

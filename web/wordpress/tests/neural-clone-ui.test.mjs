@@ -7,10 +7,11 @@ import {NEURAL_METHODS,neuralOperation,forgeryscopeParams,neuralDisplays,compose
 const plane=(id,format='float32')=>({id,revision:1,width:4,height:1,format});
 const result=()=>({operation:'ai.clones.d2prl',surface:plane('map'),planeSurfaces:{source:plane('source'),target:plane('target')},maskSurfaces:{mask:plane('mask','mask8'),analyzed:plane('analyzed','mask8')},data:{metadata:{analysisId:'raw-1'}}});
 
-test('All fifteen native methods have usable operation routes and descriptive names',()=>{
- assert.equal(NEURAL_METHODS.length,15);assert.equal(new Set(NEURAL_METHODS.map(x=>x[0])).size,15);
- assert.equal(neuralOperation('d2prl'),'ai.clones.d2prl');assert.equal(neuralOperation('mgcfdn-st'),'ai.clones.segmentation');
+test('All native methods and the explicit SelfDM initial map have usable operation routes and descriptive names',()=>{
+ assert.equal(NEURAL_METHODS.length,16);assert.equal(new Set(NEURAL_METHODS.map(x=>x[0])).size,16);
+ assert.equal(neuralOperation('d2prl'),'ai.clones.d2prl');assert.equal(neuralOperation('mgcfdn-st'),'ai.clones.segmentation');assert.equal(neuralOperation('selfdm-map'),'ai.clones.segmentation');assert.match(NEURAL_METHODS.find(x=>x[0]==='selfdm-map')[1],/carte initiale/);
  for(const [id]of NEURAL_METHODS.filter(x=>x[0].startsWith('forgeryscope-'))){assert.equal(neuralOperation(id),'m2.forgeryscope');assert.deepEqual(forgeryscopeParams(id,'whole',[]),{profile:id.slice(13)});}
+ for(const row of NEURAL_METHODS.filter(x=>x[0].startsWith('mgcfdn')))for(const label of row.slice(1))assert.match(label,/MGCFDN 2026/);
  const boxes=[{x0:0,y0:0,x1:20,y1:20},{x0:30,y0:0,x1:50,y1:20}];
  assert.deepEqual(forgeryscopeParams('forgeryscope-microscopy','compare',boxes).panels,[['Microscopy',1,0,0,20,20],['Microscopy',1,30,0,50,20]]);
  assert.throws(()=>forgeryscopeParams('forgeryscope-auto','compare',boxes));
@@ -47,11 +48,12 @@ test('Actual panel chooses overlay, switches views without inference and preserv
  Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value||this.options[0]?.value||'';},set(v){for(const o of this.options)o.toggleAttribute('selected',o.value===String(v));}});
  globalThis.Option=function(text,value){const o=document.createElement('option');o.textContent=text;o.value=value;return o;};
  const shown=[],settings=[];const ui=createToolWorkspace({document,language:()=> 'fr',getClient:async()=>({}),run(){},cancel(){},showSurface:d=>shown.push(d),download(){},notify(){},onSettings:v=>settings.push(v)});
- ui.select('ai.clones.d2prl');assert.equal(document.getElementById('tool-neural-method').options.length,15);assert.equal(ui.params().minimum,500);
+ ui.select('ai.clones.d2prl');assert.equal(document.getElementById('tool-neural-method').options.length,16);assert.equal(ui.params().minimum,500);
  await ui.render(result());assert.equal(shown.at(-1).cloneView,'overlay');const layers=document.getElementById('tool-layer');layers.value='2';layers.onchange();assert.equal(shown.at(-1).cloneView,'mask');assert.deepEqual(settings.at(-1),{presentationOnly:true});
  await ui.render(result());assert.equal(shown.at(-1).cloneView,'mask');assert.equal(ui.serialize().uiOptions.neuralView,'mask');
  const min=document.getElementById('tool-param-minimum');min.value='750';min.onchange();assert.equal(ui.params().minimum,750);assert.equal(settings.at(-1).presentationOnly,false);
  const method=document.getElementById('tool-neural-method');method.value='forgeryscope-auto';method.onchange();assert.equal(ui.operation(),'m2.forgeryscope');assert.deepEqual(ui.params(),{profile:'auto'});assert.deepEqual(ui.taskRegions([]),[]);assert.equal(min.parentElement.hidden,true);
+ for(const key of ['mgcfdn-st','cmseg-generalization','selfdm-map']){const option=[...method.options].find(o=>o.value===key);assert.equal(option.dataset.newFeature,'yellow');assert.match(option.textContent,/202[256]/);}
 });
 test('Forgeryscope tools use the real M2 API, sampled masks, original overlay and result release',async()=>{
  const fetchBefore=globalThis.fetch;globalThis.fetch=async()=>({json:async()=>({assetBase:'./unified-assets/'})});const calls=[];

@@ -9,8 +9,9 @@ import {createSegmentationZones} from '../experiments/segmentation/zones.js';
 import {createSegmentationAnalysis} from '../experiments/segmentation/analysis.js';
 import {createSpatial} from '../experiments/d2prl/spatial.js';
 import {selectSegmentationBackend} from '../experiments/segmentation/backend.js';
+import {createSelfDMPrepare} from './selfdm-prepare.js';
 
-export function createSegmentationAdapter({budget, version, publishResult}) {
+export function createSegmentationAdapter({budget, profile, version, publishResult}) {
   let config, state, active = false;
   const clearState = async () => {if (!state) return; const old = state; state = null; await old.session.dispose(); old.inference.dispose(); old.prepare.dispose(); old.spatial.dispose(); await old.project.dispose();};
   return {
@@ -60,8 +61,9 @@ export function createSegmentationAdapter({budget, version, publishResult}) {
         resident = budget.reserve(knownHeapBytes);
         if (state && state.backend !== backend) await clearState();
         if (!state) {
-          const prepare = createSegmentationPrepare({budget}), inference = createSegmentationInference({budget, variant: config.variant, modelUrl: backend === 'webgpu' ? config.gpuModelUrl : config.modelUrl, backend}), spatial = createSpatial({budget, moduleUrl: new URL(config.model.side === 512 ? '../vendor/segmentation/spatial512.js' : '../vendor/d2prl/spatial.js', import.meta.url).href, maxInputSide: config.model.side === 512 ? 512 : 448});
-          const createLane = inference.independentZoneWorker ? () => ({prepare:createSegmentationPrepare({budget}),inference:createSegmentationInference({budget,variant:config.variant,modelUrl:config.modelUrl,backend:'cpu'})}) : undefined;
+          const prepareFactory=config.model.family==='selfdm'?createSelfDMPrepare:createSegmentationPrepare;
+          const prepare = prepareFactory({budget}), inference = createSegmentationInference({budget, profile, variant: config.variant, modelUrl: backend === 'webgpu' ? config.gpuModelUrl : config.modelUrl, backend}), spatial = createSpatial({budget, moduleUrl: new URL(config.model.side === 512 ? '../vendor/segmentation/spatial512.js' : '../vendor/d2prl/spatial.js', import.meta.url).href, maxInputSide: config.model.side === 512 ? 512 : 448});
+          const createLane = inference.independentZoneWorker ? () => ({prepare:prepareFactory({budget}),inference:createSegmentationInference({budget,profile,variant:config.variant,modelUrl:config.modelUrl,backend:'cpu'})}) : undefined;
           const project = createNeuralProjector({budget,family:'segmentation',side:config.model.side,kind:config.model.kind,contiguous:createSegmentationZones({budget,spatial})}), session = createSegmentationAnalysis({budget, prepare, inference, project, createLane}); state = {prepare, inference, spatial, project, session, backend};
         }
         state.project.setImage(image);const hooks = {signal, onProgress: e => onProgress?.({id: task.id, ...e})};

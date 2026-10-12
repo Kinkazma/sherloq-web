@@ -2,15 +2,17 @@ import {INFERNO} from './unified-engine/src/research-palette.js';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
 
 export const NEURAL_METHODS = [
- ['cmseg-generalization','CMSeg-Net generalization'],['cmseg-addnoise','CMSeg-Net addnoise'],
- ['mgcfdn','MGCFDN'],['mgcfdn-st','MGCFDN source/cible','MGCFDN source/target'],
- ['mgcfdn-16','MGCFDN 16×16'],['mgcfdn-effnet','MGCFDN EffNet 16×16'],
- ['mgcfdn-mpdn','MGCFDN MPDN 16×16'],['mgcfdn-tnt','MGCFDN TNT 16×16'],['mgcfdn-vig','MGCFDN VIG 16×16'],['d2prl','D2PRL'],
+ ['cmseg-generalization','CMSeg-Net 2025 generalization'],['cmseg-addnoise','CMSeg-Net 2025 addnoise'],
+ ['mgcfdn','MGCFDN 2026'],['mgcfdn-st','MGCFDN 2026 source/cible','MGCFDN 2026 source/target'],
+ ['mgcfdn-16','MGCFDN 2026 16×16'],['mgcfdn-effnet','MGCFDN 2026 EffNet 16×16'],
+ ['mgcfdn-mpdn','MGCFDN 2026 MPDN 16×16'],['mgcfdn-tnt','MGCFDN 2026 TNT 16×16'],['mgcfdn-vig','MGCFDN 2026 VIG 16×16'],['d2prl','D2PRL'],
  ['forgeryscope-microscopy','Forgeryscope microscopie','Forgeryscope microscopy'],
  ['forgeryscope-duplicate','Forgeryscope blots complets','Forgeryscope full blots'],
  ['forgeryscope-overlap','Forgeryscope chevauchements','Forgeryscope overlaps'],
- ['forgeryscope-lanes','Forgeryscope pistes','Forgeryscope lanes'],['forgeryscope-auto','Forgeryscope Auto']
+ ['forgeryscope-lanes','Forgeryscope pistes','Forgeryscope lanes'],['forgeryscope-auto','Forgeryscope Auto'],
+ ['selfdm-map','SelfDM 2022 — carte initiale (expérimental)','SelfDM 2022 — initial map (experimental)']
 ];
+export const isRecentNeuralMethod=method=>method?.startsWith('mgcfdn')||method?.startsWith('cmseg-')||method==='selfdm-map';
 export const isForgeryscope = method => method?.startsWith('forgeryscope-');
 export const neuralOperation = method => isForgeryscope(method)?'m2.forgeryscope':!method||method==='d2prl'?'ai.clones.d2prl':'ai.clones.segmentation';
 export function forgeryscopeParams(method,scope,rectangles,language='fr') {

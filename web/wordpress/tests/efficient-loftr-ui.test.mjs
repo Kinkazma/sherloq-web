@@ -32,6 +32,7 @@ test('The real clone panel offers family groups and enables only relevant Effici
  ui.select('tampering.copyMove.sparse');
  const detector=document.getElementById('tool-param-algorithm');
  assert.equal(detector.querySelectorAll('optgroup').length,3);
+ for(const name of ['EfficientLoFTR','ALIKED + LightGlue','XFeat']){const option=[...detector.options].find(o=>JSON.parse(o.value)===name);assert.match(option.textContent,/202[34]/);assert.equal(option.dataset.newFeature,'yellow');}
  detector.value=JSON.stringify('EfficientLoFTR');detector.onchange();
  for(const key of ['longSide','rotationMode'])assert.equal(document.getElementById('tool-param-'+key).closest('label').hidden,false);
  for(const key of ['radius','autoRadius','compact','patch'])assert.equal(document.getElementById('tool-param-'+key).closest('label').hidden,true);

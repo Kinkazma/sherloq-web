@@ -7,12 +7,12 @@ import {fileURLToPath} from 'node:url';
 import {toolCatalog,toolFields,neuralSelection} from '../sherloq-browser/assets/tool-catalog.js';
 import {toolGroups} from '../sherloq-browser/assets/tool-tree.js';
 import {validIndividualSettings} from '../sherloq-browser/assets/settings.js';
-import {PIXEL_OPERATIONS} from '../sherloq-browser/assets/unified-engine/src/pixel-operations.js';
-import {sparseCopyParams,SPARSE_COPY_ALGORITHMS} from '../sherloq-browser/assets/unified-engine/src/sparse-copy.js';
+import {PIXEL_OPERATIONS} from '../../engine-source/src/pixel-operations.js';
+import {sparseCopyParams,SPARSE_COPY_ALGORITHMS} from '../../engine-source/src/sparse-copy.js';
 import {sparseParameters} from '../sherloq-browser/assets/sparse-controls.js';
 import {CLONE_ALGORITHMS,isDenseClone,cloneOperation,changeCloneAlgorithm} from '../sherloq-browser/assets/clone-methods.js';
-import {denseCopyParams} from '../sherloq-browser/assets/unified-engine/src/dense-adapter.js';
-import {safireParams} from '../sherloq-browser/assets/unified-engine/src/safire.js';
+import {denseCopyParams} from '../../engine-source/src/dense-adapter.js';
+import {safireParams} from '../../engine-source/src/safire.js';
 import {resultResources,createToolClient} from '../sherloq-browser/assets/tool-client.js';
 
 test('Every tree entry has a concrete adapter and native default parameters validate',()=>{
@@ -46,7 +46,7 @@ test('Queued source windows and releases cannot overlap regular worker calls',as
  finally{await client?.dispose();globalThis.fetch=originalFetch;}
 });
 test('Pinned model closure includes nested backbones, runtime factories and every graph URL',async()=>{
- const root=fileURLToPath(new URL('../',import.meta.url)),assets=path.join(root,'sherloq-browser/assets/individual-assets');
+ const root=fileURLToPath(new URL('../',import.meta.url)),assets=path.join(process.env.SHERLOQ_TEST_ASSET_ROOT??path.join(root,'sherloq-browser/assets'),'individual-assets');
  const lock=JSON.parse(await fs.readFile(path.join(root,'runtime-lock.json'))).runtimes.find(r=>r.destination.endsWith('/individual-assets')).files;
  const catalog=JSON.parse(await fs.readFile(path.join(assets,'individual-models.json'))),visited=new Set();
  async function visitFile(name,sha){name=path.normalize(name);assert.ok(!name.startsWith('../'));assert.ok(lock[name],name);if(sha)assert.equal(lock[name],sha,name);if(visited.has(name)||!name.endsWith('.json'))return;visited.add(name);await walk(JSON.parse(await fs.readFile(path.join(assets,name))),path.dirname(name));}
@@ -67,10 +67,10 @@ test('Neural selections preserve source coordinates and keep native exclusions s
 });
 
 test('Learned-tool controls use native algorithms and valid scientific defaults',()=>{
- for(const algorithm of CLONE_ALGORITHMS){const p={...toolCatalog['tampering.copyMove.sparse'].params,algorithm};changeCloneAlgorithm(p,'PatchMatch Zernike');const params=sparseParameters(p,[]);assert.doesNotThrow(()=>(isDenseClone(algorithm)?denseCopyParams:sparseCopyParams)(params),algorithm);assert.equal(cloneOperation(algorithm),isDenseClone(algorithm)?'tampering.copyMove.dense':'tampering.copyMove.sparse');}
+ for(const algorithm of CLONE_ALGORITHMS){const p={...toolCatalog['tampering.copyMove.sparse'].params,algorithm};changeCloneAlgorithm(p,'PatchMatch Zernike');const rectangles=algorithm==='EfficientLoFTR'?[{id:'a',x0:0,y0:0,x1:32,y1:32},{id:'b',x0:40,y0:0,x1:72,y1:32}]:[];const params=sparseParameters(p,rectangles);assert.doesNotThrow(()=>(isDenseClone(algorithm)?denseCopyParams:sparseCopyParams)(params),algorithm);assert.equal(cloneOperation(algorithm),isDenseClone(algorithm)?'tampering.copyMove.dense':'tampering.copyMove.sparse');}
  assert.doesNotThrow(()=>safireParams(toolCatalog['ai.sources.safire'].params));
  const algorithm=toolFields('tampering.copyMove.sparse').find(f=>f.key==='algorithm');
- assert.deepEqual(algorithm.choices.map(c=>c.value),CLONE_ALGORITHMS);assert.equal(CLONE_ALGORITHMS.length,20);assert.deepEqual(CLONE_ALGORITHMS.filter(a=>!isDenseClone(a)),SPARSE_COPY_ALGORITHMS);
+ assert.deepEqual(algorithm.choices.map(c=>c.value),CLONE_ALGORITHMS);assert.equal(CLONE_ALGORITHMS.length,21);assert.deepEqual(CLONE_ALGORITHMS.filter(a=>!isDenseClone(a)),SPARSE_COPY_ALGORITHMS);
 });
 
 test('Dense NPZ uses the live worker surface archive and releases every export handle',async()=>{

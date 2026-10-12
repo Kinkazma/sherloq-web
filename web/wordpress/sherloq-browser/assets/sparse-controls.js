@@ -1,4 +1,4 @@
-import {isDenseClone,denseCloneParameters} from './clone-methods.js';
+import {isDenseClone,denseCloneParameters,cloneMethodYear} from './clone-methods.js';
 export const CLASSIC_SIFT='SIFT + G2NN + RANSAC';
 export const PANELS_SIFT=CLASSIC_SIFT+' + Panels + Text';
 export const sparseViewDefaults=()=>({low:0,high:100000,minimum:4,circles:false,lines:false,points:false,areas:true,textExclusions:false});
@@ -10,7 +10,7 @@ export function restoreSparseView(value,version){
  return {...sparseViewDefaults(),...value};
 }
 export const biomesOnly=view=>!view.circles&&!view.lines&&!view.points&&view.areas;
-export function sparseAlgorithmColor(name){return ([CLASSIC_SIFT,PANELS_SIFT].includes(name)||name.startsWith('Extended:')||name.endsWith(' + Mirror'))?'green':['AKAZE','BRISK','ORB'].includes(name)?null:'red';}
+export function sparseAlgorithmColor(name){return cloneMethodYear(name)?'yellow':([CLASSIC_SIFT,PANELS_SIFT].includes(name)||name.startsWith('Extended:')||name.endsWith(' + Mirror'))?'green':['AKAZE','BRISK','ORB'].includes(name)?null:'red';}
 export const sparseLabels={
  fr:{longSide:'Grand côté du modèle (px)',rotationMode:'Passes de rotation',patch:'Patch (px)',iterations:'Itérations',texture:'Texture minimum',algorithm:'Détecteur',limit:'Points maximum',radius:'Écartement maximum (px)',minimum:'Séparation minimum (px)',threshold:'Tolérance du descripteur',tolerance:'Proximité des biomes (px)',model:'Géométrie',geometricThreshold:'Erreur maximum (px)',geometricMinimum:'Témoins minimum',compare:'Comparer deux zones',reflections:'Inclure les réflexions',autoRadius:'Rayon automatique par zone',compact:'Ignorer les intervalles entre zones',independent:'SIFT par zone',low:'Longueur affichée min.',high:'max.',support:'Points minimum par côté',circles:'Cercles',lines:'Liaisons',points:'Points centraux',areas:'Biomes',textExclusions:'Exclusions de texte',biomesOnly:'Biomes seuls'},
  en:{longSide:'Model long side (px)',rotationMode:'Rotation passes',patch:'Patch (px)',iterations:'Iterations',texture:'Minimum texture',algorithm:'Detector',limit:'Maximum points',radius:'Maximum spacing (px)',minimum:'Minimum spacing (px)',threshold:'Descriptor tolerance',tolerance:'Biome proximity (px)',model:'Geometry',geometricThreshold:'Maximum error (px)',geometricMinimum:'Minimum inliers',compare:'Compare two regions',reflections:'Include reflections',autoRadius:'Automatic radius per region',compact:'Ignore gaps between regions',independent:'Per-region SIFT',low:'Displayed length min.',high:'max.',support:'Minimum points per side',circles:'Circles',lines:'Links',points:'Centre points',areas:'Biomes',textExclusions:'Text exclusions',biomesOnly:'Biomes only'}

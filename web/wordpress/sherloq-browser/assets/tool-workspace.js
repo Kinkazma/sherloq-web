@@ -1,4 +1,4 @@
-import {NEURAL_METHODS,isForgeryscope,neuralOperation,forgeryscopeParams,neuralDisplays} from './neural-clone-ui.js';
+import {NEURAL_METHODS,isRecentNeuralMethod,isForgeryscope,neuralOperation,forgeryscopeParams,neuralDisplays} from './neural-clone-ui.js';
 import {isDenseClone,cloneOperation,changeCloneAlgorithm,cloneMethodFamily,cloneFamilyLabels} from './clone-methods.js';
 import {toolCatalog,toolFields,toolTitle,setField,neuralSelection} from './tool-catalog.js';
 import {resultResources} from './tool-client.js';
@@ -59,7 +59,7 @@ export function createToolWorkspace({document=globalThis.document,language,getCl
   if(id==='tampering.copyMove.brisk'){const label=node('label','Détecteur'),input=node('select');for(const name of ['BRISK','AKAZE','ORB'])input.append(new Option(name,name.toLowerCase()));input.value=extras.detector||'brisk';input.onchange=()=>{extras.detector=input.value;onSettings();};label.append(input);attachments.append(label);inputFile('Masque facultatif','mask',{accept:'image/*'});}
   if(id==='ai.clones.d2prl'){
    const fr=language()==='fr',label=node('label',fr?'Méthode':'Method'),input=node('select',null,{id:'tool-neural-method'});
-   for(const [value,french,english] of NEURAL_METHODS)input.append(new Option(fr?french:english??french,value));
+   for(const [value,french,english] of NEURAL_METHODS){const option=new Option(fr?french:english??french,value);if(isRecentNeuralMethod(value))option.dataset.newFeature='yellow';input.append(option);}
    input.value=NEURAL_METHODS.some(([v])=>v===extras.neuralMethod)?extras.neuralMethod:'d2prl';extras.neuralMethod=input.value;
    const scopeLabel=node('label',fr?'Zones de recherche':'Search regions'),scope=node('select',null,{id:'tool-neural-scope'}),note=node('p');
    const configureScope=()=>{
@@ -71,7 +71,7 @@ export function createToolWorkspace({document=globalThis.document,language,getCl
      ...(fg&&input.value!=='forgeryscope-auto'?[new Option(fr?'Comparer deux rectangles':'Compare two rectangles','compare')]:[]));
     if(![...scope.options].some(o=>o.value===extras.neuralScope))extras.neuralScope='whole';scope.value=extras.neuralScope;
     const c=document.getElementById('tool-param-minimum');if(c){c.parentElement.hidden=!d2;c.title=fr?'Taille minimale sur la grille du modèle (448 × 448). 0 = aucun filtre. Modifie le masque et la superposition, pas la carte brute.':'Minimum size on the model grid (448 × 448). 0 = no filter. Changes the mask and overlay, not the raw map.';}
-    note.textContent=fg?(fr?'Forgeryscope compare des panneaux. Les suggestions ne constituent pas une confirmation géométrique.':'Forgeryscope compares panels. Suggestions are not geometric confirmation.'):(fr?'Chaque rectangle est analysé séparément. Le minimum D2PRL filtre les régions sur la grille 448 × 448 ; 0 désactive ce filtre.':'Each rectangle is analyzed independently. D2PRL minimum filters regions on the 448 × 448 grid; 0 disables this filter.');
+    note.textContent=input.value==='selfdm-map'?(fr?'Carte initiale SelfDM à 512 × 512 ; le raffinement Proposal SuperGlue est distinct et encore en cours de portage.':'SelfDM initial map at 512 × 512; Proposal SuperGlue refinement is separate and still being ported.'):fg?(fr?'Forgeryscope compare des panneaux. Les suggestions ne constituent pas une confirmation géométrique.':'Forgeryscope compares panels. Suggestions are not geometric confirmation.'):!d2?(fr?'Chaque rectangle est analysé séparément à la résolution native du modèle.':'Each rectangle is analyzed independently at the model’s native resolution.'):(fr?'Chaque rectangle est analysé séparément. Le minimum D2PRL filtre les régions sur la grille 448 × 448 ; 0 désactive ce filtre.':'Each rectangle is analyzed independently. D2PRL minimum filters regions on the 448 × 448 grid; 0 disables this filter.');
    };
    input.onchange=()=>{extras.neuralMethod=input.value;extras.neuralView=input.value==='forgeryscope-lanes'?'candidates':'overlay';configureScope();onSettings();};
    scope.onchange=()=>{extras.neuralScope=scope.value;onSettings();};configureScope();label.append(input);scopeLabel.append(scope);attachments.append(label,scopeLabel,note);
