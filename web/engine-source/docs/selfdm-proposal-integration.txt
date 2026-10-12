@@ -1,127 +1,168 @@
-SelfDM + Proposal SuperGlue — chaîne locale de recherche
+SelfDM + Proposal SuperGlue — chaîne générale locale de recherche
 
-Le composant SelfDMProposalEngine applique la carte initiale SelfDM, les sept
-échelles DeepMask, la projection des 500 meilleures propositions réellement
-disponibles, la sélection ordonnée des rectangles, SuperPoint, SuperGlue indoor,
-SEEDS et la fusion native, puis ConvCRF. Il ne remplace aucun modèle et ne lit
-aucun résultat pré-calculé. Les références natives servent seulement aux tests.
+SelfDMProposalEngine exécute les vrais modèles SelfDM, les sept échelles
+DeepMask, le classement global des500 propositions réellement disponibles,
+leur projection/sélection ordonnée, SuperPoint, SuperGlue indoor, SEEDS,
+la fusion native et ConvCRF. Aucun modèle de remplacement, apprentissage,
+pré-calcul ni changement implicite de résolution scientifique n'est utilisé.
+Les références natives servent uniquement à la qualification de développement.
 
 Contrat :
 new SelfDMProposalEngine({format:'rgb8',width,height,data|readRows},budget,
                          {maxWorkers},options)
-await engine.analyze(params,{models,cv,signal,onProgress,backend:'cpu'|'auto'})
-→ {width,height,raw:Float32Array,metadata,metrics,release()}
+await engine.analyze(params,{models,cv,signal,onProgress,backend:'cpu'|'auto'|'webgpu'})
+→ {width,height,raw:Float32Array,metadata,metrics,timings,release()}
 await engine.dispose()
 engine.releaseIdle()
 
-La première qualification porte exclusivement sur 512×512 pixels source. Une
-autre dimension produit METHOD_DIMENSIONS_UNQUALIFIED avant calcul, sans
-redimensionnement implicite ni remplacement par la seule carte initiale. Le
-wrapper doit renouveler l'instance à chaque changement de sourceKey (identité
-des pixels, dimensions, ROI), et conserver cette instance pour reprendre le
-même téléchargement. Les sorties scientifiques sont empruntées jusqu'à release.
-dispose libère les caches/contextes sans invalider une sortie encore empruntée.
+La carte finale garde exactement les dimensions et les coordonnées du rectangle
+source. Le réseau initial conserve son entrée native512×512 : la carte512 est
+reprojetée avec OpenCV INTER_LINEAR comme dans le véritable appelant upstream.
+Cette entrée de réseau ne limite plus les dimensions de l'image ou du CRF.
+Chaque côté doit avoir au moins8 pixels afin que les sept échelles natives
+aient une dimension non nulle. La préparation initiale utilise readRows et
+conserve la borne existante131072 par côté du préparateur commun ; aucun
+plafond artificiel512/1024 n'est ajouté au traitement scientifique général.
 
-loadSelfDMProposalBundle(identity,{budget,signal}) vérifie le petit manifeste
-JSON (taille/SHA/réponse HTTP), puis rend les cinq identités et le module CV.
-Chaque modèle est téléchargé et vérifié à la demande par NeuralGraphPool. Les
-modèles ne sont pas incorporés dans le démarrage de l'application. Le worker CV
-vérifie également la taille et le SHA de son binaire. Les fichiers du bundle
-gardent leurs formats ONNX/WASM ordinaires.
+Le wrapper renouvelle l'instance quand change sourceKey : identité des pixels,
+dimensions et ROI. Il conserve l'instance pour reprendre un téléchargement sur
+le même rectangle. Les tableaux scientifiques restent empruntés jusqu'à
+release(). dispose libère contextes et caches sans invalider une sortie prêtée.
 
-Admission et parallélisme :
-Les sept échelles et les préparations/points des différents rectangles peuvent
-chevaucher leurs calculs. Un pool neuronal commun attribue à chaque graphe une
-équipe CPU selon les admissions globales, sans plafond artificiel à un thread.
-Les autres calculs de l'application partagent le même courtier. Les résultats
-des échelles sont stockés selon l'index natif ; les paires et la première
-attribution d'un label SEEDS respectent l'ordre scientifique de la source.
-Des instances de rectangles indépendants peuvent partager le courtier.
-Le terme independentZoneWorker=true ne multiplie pas la capacité CPU globale.
-Le chemin GPU complet n'est pas qualifié et n'est pas annoncé disponible.
+Deux défauts upstream sont corrigés :
+1. L'image BGR originale et la carte de probabilité utilisent le même repère
+   pour CRF. L'ancienne combinaison image512/unary original et le crop512 final
+   disparaissent. Le maillage de position devient dynamique, avec une origine
+   absolue explicite pour conserver aussi l'arrondi Float32 des coordonnées.
+2. Le nombre de propositions est min(500, cardinalité réellement produite).
+   La référence32×32 fournit50 propositions et finit sans créer de masques
+   artificiels ; l'ancien appelant indexait500 scores et levait IndexError.
 
-Conservation du travail :
-Les checkpoints sont une carte initiale, des masques112×112 compactés à la vraie
-cardinalité de chaque échelle, des rectangles, des points/descripteurs/labels
-et la carte fusionnée avant CRF. Ils sont comptés une seule fois dans le budget,
-pinés pendant leur utilisation, évictables entre deux appels. Un téléchargement
-défaillant ne jette pas les étapes déjà terminées. Les frères actifs finissent
-avant le transfert du cache. Les caches n'impliquent aucune inférence préalable
-au calcul demandé. Aucune duplication de500 masques pleine image n'est créée.
+Travail borné et parallélisme :
+Les sept échelles DeepMask peuvent chevaucher leurs calculs sous le courtier
+CPU/RAM/GPU commun. Le ResNet non recadré a un champ réceptif411 et un stride16.
+Les grandes pyramides sont traitées par fenêtres avec ce halo réel, alignées
+sur le stride. Les coordonnées, les indices globaux et le classement natif
+sont conservés ; aucune réduction de la taille scientifique n'est nécessaire.
+L'entrée d'une fenêtre est au plus704×704. Les pixels sources nécessaires sont
+copiés seulement dans son rectangle d'interpolation, avec align_corners=True,
+le padding80, les normalisations RGB natives et une politique FMA fixe.
 
-Le module CV réutilise OpenCV4.11 SEEDS et imgproc/core, avec les paramètres
-source400/15/3/5/true et10 itérations. Son helper de croissance mémoire reçoit
-memoryMaximumBytes : il respecte le maximum de la WebAssembly.Memory importée,
-au lieu de viser une croissance spéculative au plafond compilé2GiB. La mémoire
-de chaque contexte CV est admise avant sa création. La primitive FMA existante
-de pyramide a été qualifiée bit à bit sur les sept entrées512 et reste à16MiB.
+Une seule banque remplaçable Top500 de masques112×112 est conservée par échelle,
+avec les scores, indices et fenêtres terminées. Les nouveaux candidats remplacent
+ceux devenus inutiles. On ne garde ni500 images complètes ni500 masques par
+fenêtre. Les égalités de scores utilisent les indices globaux puis l'ordre
+des échelles ; les paires SuperGlue et le premier marquage SEEDS restent ordonnés.
 
-Référence et limites numériques :
-Source officielle SelfDM-TIP, commit ef7b4a00d0c5742a63b187d898979259c2aead40.
-Chargement strict des checkpoints originaux. Les modifications d'export de
-SymmetricPad2d et scoreThreshold préservent les valeurs Torch bit à bit avant
-export. Les entrées pyramide ont une parité native exacte. Les arrondis Float32
-entre backends peuvent changer l'ordre de scores SuperPoint presque égaux.
-Pour le prototype scalaire privé depuis pixels, le cas positif512 a0 pixels
-de masque différents et un écart CRF maximal0,000929. Le contrôle sans match a
-également0 différences de masque, mais un écart continu0,001913, supérieur à
-la cible provisoire0,001. Ce dernier écart provient de l'amplification par CRF
-de l'écart initialCNN : le CRF natif appliqué à la même carte WASM reproduit
-0,001911, alors que CRF WASM/natif à entrées identiques diffèrent de0,00000739.
-Ce sont deux qualifications de mécanismes, pas une mesure de précision sur un
-corpus ni une promesse pour les images96MP, les iPhone ou d'autres dimensions.
-Le script qualify-selfdm-proposal-browser.mjs ajoute la qualification du pool
-réel dans Chromium depuis des pixels PNG effectivement décodés, puis une reprise
-avec cache, en contrôlant les leases, les occupations admises et les décisions.
+La projection d'une proposition n'alloue plus une grille complète de l'image.
+Elle calcule son support affine160×160 avec la bordure d'interpolation,
+l'intersection avec les limites originales et la translation des contours.
+Le plafond admis48MiB reste identique pour cette étape sur une image96MP.
+Les boîtes ont été comparées au véritable OpenCV natif pleine image :63 masques
+DeepMask réels, dimensions512²/831×641/12000×8000, toutes les boîtes identiques,
+heap WASM réellement matérialisé16MiB. Cela qualifie cette projection seulement,
+pas la chaîne complète96MP.
 
-Qualification du raccord commun réalisée : Chromium154, équipe globale10,
-source PNG512×512 décodée par createImageBitmap/Canvas et identité RGB vérifiée.
-Douze inférences utiles produisent la même sortie finale que le prototype :
-0 différences de masque,40 514 pixels positifs, écart maximal0,000928938. Le
-dernier parcours froid dure10,224 s (un précédent17,598 s : mesures locales,
-pas un benchmark de précision ou une garantie universelle de temps). Le pic
-de contextes neuronaux est5 ; les équipes de chaque phase sont réellement
-attribuées à1/2/4/6/9/10 threads par le même courtier. Le budget compté en pic
-est2 931 964 166 octets ; la plus grande mémoire WASM matérialisée411 697 152.
-La deuxième demande retrouve12 checkpoints et n'exécute que CRF, en92 ms.
+Le CRF traite des fenêtres centrales256×256 avec le halo des trois moyennes,
+du voisinage7×7 et de l'interpolation native. Leur phase AvgPool4 est celle de
+l'image entière, y compris les côtés impairs. Chaque graphe reçoit l'origine
+absolue ; seules les valeurs centrales sont publiées dans l'unique grille finale.
+Les entrées et sorties temporaires d'une fenêtre sont libérées immédiatement.
+Les fenêtres indépendantes utilisent le pool neuronal et le courtier global.
 
-Un refus HTTP503 est ensuite injecté sur le téléchargement CRF, après retrait
-des seuls contextes inactifs. L'erreur exportée conserve ASSET_HTTP, l'URL, le
-statut et les identités. La reprise retrouve les mêmes12 checkpoints, exécute
-CRF seul et restitue exactement les mêmes octets de probabilité. Après dispose,
-les réservations, les caches, tous les domaines mémoire enregistrés, les CPU/GPU
-admis et la file d'attente sont à0. Chromium a également signalé des requêtes
-ERR_ABORTED pendant le retrait de workers ayant déjà consommé leurs réponses :
-ces événements bruts sont conservés dans le reçu, séparés des vrais échecs
-de téléchargement/inférence. Il n'y a ni pageerror ni refus réseau inattendu.
-Ce test est une qualification d'API navigateur ; le parcours de l'application
-par un utilisateur est vérifié séparément par le fil parent.
+SEEDS utilise OpenCV4.11 avec400/15/3/5/true et10 itérations, sans modification
+de son algorithme. Sa mémoire d'histogrammes/parents est calculée à partir de
+la véritable géométrie de ROI, plutôt que limitée arbitrairement à96MiB : une
+ROI2000×1500 peut exiger plus de500MiB. Tous les heaps importés respectent
+memoryMaximumBytes, au lieu de chercher la croissance spéculative2GiB compilée.
+Les pixels, fenêtres et tableaux déjà empruntés ne sont pas recomptés comme
+source de préparation. Le transfert de la grille finale partage sa réservation
+avec le résultat, sans copie ni deuxième réservation du même champ.
 
-La première qualification du pool a aussi révélé puis permis de corriger un
-défaut commun d'admission : après restitution d'une réservation partielle,
-un crédit suffisant pour la résidence seule réveillait à tort un job dont les
-entrées/sorties demandaient aussi114 711 048 octets. Pour la même échelle, la
-résidence579 805 394 rentrait dans603 464 982 octets disponibles, alors que la
-croissance complète694 516 442 ne rentrait pas. La boucle de notifications
-affamait le thread principal. Le pool commun attend désormais le besoin complet
-atomique, avec deux régressions dédiées et sans réduire le parallélisme.
+Backend hybride :
+SelfDM initial, DeepMask borné et SuperGlue sont exécutables sur WebGPU avec
+leurs mêmes modèles FP32. Les vrais shaders/soumissions ont été instrumentés
+pendant la qualification ; aucun f16 n'a été utilisé. SuperPoint et CRF restent
+explicitement CPU : leurs graphes dynamiques déclenchent une véritable erreur
+de partition ORT WebGPU sur des Cast sans provider. Le choix explicite évite
+de tenter ce graphe incompatible à chaque calcul et conserve le GPU pour les
+graphes qualifiés. auto choisit GPU quand disponible ; webgpu exige sa présence,
+mais la chaîne reste hybride. Les étapes CPU reçoivent leurs équipes communes,
+sans plafond artificiel à1 thread. Le reste de l'application partage le courtier.
+Les admissions ne sont pas une mesure d'utilisation physique des cœurs.
 
-Défauts upstream identifiés :
-La source mélange l'image CRF prétraitée512×512 avec une carte dans les dimensions
-originales. Pour320×416, la référence reproduit l'échec géométrique ; fournir la
-même image BGR dans les coordonnées de la carte donne une sortie finie. Le port
-général doit reprendre ce contrat cohérent, sans crop512 final. La source boucle
-aussi sur500 propositions quand un cas32×32 n'en possède que50 ; ce port borne
-le nombre à min(500, cardinalité réelle), sans créer de propositions artificielles.
-Le petit cas nécessite encore une primitive de resize générale et un CRF dynamique
-qualifiés avant d'être accepté par ce moteur.
+Conservation et reprise :
+La carte initiale, les banques Top500 et leurs fenêtres terminées, les boîtes,
+les points/descripteurs/labels et la carte fusionnée sont compactés et budgétés.
+Les checkpoints sont pinés pendant l'appel et évictables ensuite. Un refus
+réseau ne jette pas les étapes déjà terminées. Les frères actifs terminent
+leur travail utile avant la publication du cache. Les fenêtres CRF terminées
+conservent leur portion exacte dans une seule grille partielle et leur bitset.
+La reprise repart du premier composant ou de la première fenêtre manquante.
+Elle ne republie pas une transformation partielle non idempotente.
+
+Le manifeste local contient cinq ONNX ordinaires et les identités CV/préparation.
+loadSelfDMProposalBundle vérifie HTTP/taille/SHA avant lecture JSON ; chaque
+modèle est vérifié à la demande par le loader commun. Une erreur garde sa cause,
+URL, statut et identité. Les gros fichiers ne font pas partie du démarrage.
+Le module feature-math hérité reste déclaré dans le manifeste compatible ;
+la préparation générale utilise désormais le noyau CV, sans charger ce module.
+
+Qualification numérique et limites :
+Source officielle ef7b4a00d0c5742a63b187d898979259c2aead40, checkpoints chargés
+strictement. Le CRF dynamique Torch reproduit le natif bit à bit sur512²,
+416×320,32²,47×33,640×832,831×641. ONNX CPU et ses fenêtres ont0 différences
+de masque sur ces cas. DeepMask tuilé est comparé au même graphe pleine image
+à l'échelle6 sur512² et831×641 : erreur maximale5,97e−7,0 différence au seuil0,2,
+ordre global Top500 identique. Le noyau de pyramide reproduit bit à bit les
+grandes entrées ; les petits chemins génériques Torch peuvent différer par
+moins de8,35e−7 de simple arrondi Float32, sans politique d'ajustement runtime.
+
+Les vrais parcours API Chromium décodent les pixels PNG, vérifient leur identité
+et exécutent toute la chaîne/pool commun.32²CPU finit à0 positifs et0 différence
+de masque.416×320CPU/hybride produit19972 positifs,0 différence de masque,
+écarts maximaux0,000420/0,000765.512²GPU hybride garde40514 positifs/0 différence
+de masque, mais son écart continu0,001056 dépasse la cible provisoire0,001.
+831×641CPU produit79895 positifs contre79894 natifs :1 pixel de frontière
+diffère, avec erreur maximale0,001227. Les boîtes sont identiques et les514
+matches conservés. Ces écarts sont annoncés, aucun seuil ni tolérance scientifique
+n'est modifié pour les cacher et aucune parité universelle n'est revendiquée.
+
+La cause a été séparée du tuilage : le CRF natif recevant exactement la carte
+fusionnée navigateur reproduit le même pixel(447,415) à0,500160694122, contre
+0,499924898148 pour la chaîne native complète. Le CRF navigateur fenêtré et le
+CRF natif sur ces mêmes entrées diffèrent au plus de6,08e−6 et d'aucun masque.
+Sur512GPU, même expérience :8,52e−6/0 différence de masque. L'écart total est
+hérité des arrondis du champ neuronal/fusion puis amplifié par le CRF natif.
+Il ne provient pas d'une erreur de repère, d'un halo omis ou d'un changement
+de dimension. Les décisions au voisinage du seuil sont explicitement exportées.
+
+Les reçus conservent aussi la cible stricte0,001 et son dépassement ; une chaîne
+qui finit avec ces écarts mesurés n'est pas déclarée bit-exacte. Les références
+ne sont pas un corpus d'évaluation de précision. Aucune qualification complète
+96MP, iPhone physique ou tous navigateurs n'est déduite de ces essais.
+
+Dans les tests de téléchargement, un vrai HTTP503 tardif sur CRF est conservé,
+puis seul le composant/la fenêtre manquante est refait. La sortie après reprise
+est byte-identique à celle de la première exécution. Après dispose, RAM comptée,
+backings enregistrés, admissions CPU/GPU et files reviennent à0. Les avertissements
+ORT de placement des opérations de forme surCPU et les ERR_ABORTED lors du
+retrait de workers déjà consommés sont conservés, séparés des vrais échecs.
+
+Tests et reproduction :
+tests/selfdm-proposal.test.mjs :15 régressions sur identité, géométrie, propriété,
+reprise de fenêtre, erreurs/annulation et kernels réellement compilés.
+scripts/build-selfdm-proposal-cv.py compile OpenCV et fixe l'identité du binaire
+effectivement produit (proposal-cv.wasm renommé en seeds.wasm).
+scripts/export-selfdm-proposal-crf.py exporte le CRF dynamique et compare les
+formules natives/ORT/fenêtres sur des fichiers de référence explicitement fournis.
+scripts/qualify-selfdm-proposal-browser.mjs lance son propre Chromium/port local,
+sans toucher au navigateur utilisateur : arguments resources, threads, géométrie,
+backend. Les reçus détaillés et images de qualification restent privés sous
+method-integration-resources-20261012/selfdm-ssg/proposal-browser-candidate/.
 
 Licences :
-Composants SelfDM sous usage recherche, SuperGlue sous restrictions internes/non
-commerciales, DeepMask et ConvCRF sous MIT, OpenCV sous Apache2.0. Cette intégration
-est locale/privée de recherche. Aucune autorisation de redistribution publique
-des modèles ou du code tiers n'est déduite de leur téléchargement accessible.
-
-Tests source : selfdm-proposal.test.mjs. Tests natifs/exports et reçus détaillés :
-method-integration-resources-20261012/selfdm-ssg/proposal-browser-candidate/.
-Le manifeste de livraison contient les SHA de chaque modèle/CV/préparation.
+SelfDM usage recherche, SuperGlue restrictions internes/non commerciales,
+DeepMask/ConvCRF MIT, OpenCV Apache2.0. Intégration locale/privée de recherche.
+Aucune redistribution publique du code tiers ou des poids n'est autorisée
+automatiquement par leur présence téléchargeable. Aucune publication effectuée.
