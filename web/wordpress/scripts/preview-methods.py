@@ -17,11 +17,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--fallback', type=Path, required=True)
     parser.add_argument('--resources', type=Path)
+    parser.add_argument('--staged', type=Path)
     parser.add_argument('--port', type=int, default=0)
     parser.add_argument('--receipt', type=Path, required=True)
     args = parser.parse_args()
     primary = Path(__file__).resolve().parents[1] / 'sherloq-browser/assets'
-    roots = [primary, args.fallback.resolve()]
+    engine_source = Path(__file__).resolve().parents[2] / 'engine-source'
+    roots = ([args.staged.resolve()] if args.staged else []) + [primary, args.fallback.resolve()]
     for root in roots:
         if not root.is_dir():
             raise SystemExit('Missing asset root: ' + str(root))
@@ -36,6 +38,13 @@ def main():
             relative = Path(*parts) if parts else Path('app.html')
             if parts and parts[0] == 'integration-resources' and args.resources:
                 return str(args.resources.resolve().joinpath(*parts[1:]))
+            if parts and parts[0] == 'engine-source':
+                source = engine_source.joinpath(*parts[1:])
+                if source.is_file():
+                    return str(source)
+                # Large pinned runtime binaries stay in the qualified delivery.
+                binary = args.fallback.resolve().joinpath('unified-engine', *parts[1:])
+                return str(binary if binary.is_file() else source)
             for root in roots:
                 target = root / relative
                 if target.is_file():

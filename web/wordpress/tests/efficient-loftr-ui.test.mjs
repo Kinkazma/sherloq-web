@@ -37,7 +37,7 @@ test('The real clone panel offers family groups and enables only relevant Effici
  for(const key of ['longSide','rotationMode'])assert.equal(document.getElementById('tool-param-'+key).closest('label').hidden,false);
  for(const key of ['radius','autoRadius','compact','patch'])assert.equal(document.getElementById('tool-param-'+key).closest('label').hidden,true);
  assert.equal(document.getElementById('tool-param-compare').checked,true);assert.equal(document.getElementById('tool-param-compare').disabled,true);
- assert.equal(ui.params([]).threshold,.2);assert.deepEqual(ui.params([]).rotations,[0]);
+ assert.equal(ui.canRun([]),false);assert.equal(ui.canRun([{},{}, {envelope:true}]),true);assert.equal(ui.canRun([{}]),false);assert.equal(ui.params([]).threshold,.2);assert.deepEqual(ui.params([]).rotations,[0]);
  assert.equal(document.getElementById('tool-param-threshold').closest('label').querySelector('span').textContent,'Confiance minimum');
  language='en';ui.translate();assert.equal(detector.querySelector('[data-clone-family="learned"]').label,'Learned matching');
  detector.value=JSON.stringify('ALIKED + LightGlue');detector.onchange();
