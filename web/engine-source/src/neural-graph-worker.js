@@ -22,13 +22,14 @@ installWorkerMessageProtocol(self,async data=>{
  if(data.command==='execute'){if(!execute)throw workerMessageFailure('neural-endpoint','message','unexpected-execute');const resume=execute;execute=null;resume();return;}
   if(!data.runtime||typeof data.runtime!=='object'||!data.asset||!data.inputs||data.command!==undefined)throw workerMessageFailure('neural-endpoint','message','invalid-job');
   const initializationStart=performance.now();let initialized=false,phase='initialization';
+  const timings={modelLoadMs:0,modelReleaseMs:0,inputPreparationMs:0,inferenceMs:0,outputCopyMs:0,initializationMs:0};
   const feeds={};let outputs;
   if(['cfa','noiseprint-plus'].includes(data.runtime.executor)){
    try{
     if(!cfaModule){
      initialized=true;
      asset=data.asset;self.postMessage({phase:'model-load'});
-     const [weights,program,factory]=await Promise.all([modelBytes(asset),modelBytes(asset.program),import(data.runtime.factoryUrl)]);
+     const loadStarted=performance.now();const [weights,program,factory]=await Promise.all([modelBytes(asset),modelBytes(asset.program),import(data.runtime.factoryUrl)]);timings.modelLoadMs=performance.now()-loadStarted;
      cfaWeights=new Float32Array(weights.buffer);cfaProgram=JSON.parse(new TextDecoder().decode(program));
      cfaModule=await factory.default({wasmMemory:allocateWasmMemory({initial:256,maximum:data.memoryMaximumBytes/65536},{label:'neural-native-heap'}),locateFile:name=>name.endsWith('.wasm')?data.runtime.wasmUrl:name});
      if(data.provider==='webgpu'){
@@ -37,7 +38,7 @@ installWorkerMessageProtocol(self,async data=>{
      }
     }
     if(asset.sha256!==data.asset.sha256)throw Error('Worker model changed');
-    await waitForExecution(initialized?performance.now()-initializationStart:0,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';
+    timings.initializationMs=initialized?performance.now()-initializationStart:0;await waitForExecution(timings.initializationMs,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';const inferenceStarted=performance.now();
     self.postMessage({phase:'inference'});let tensor,name;
     if(data.runtime.executor==='cfa'){
      const {runCfaProgram,runCfaProgramHybrid}=await import('./cfa-program.js'),options={block:data.inputs.block.data[0],...(data.provider==='webgpu'?{acquireCpu:()=>acquireResource('cpu'),acquireGpu:()=>acquireResource('gpu'),releaseCpu:()=>self.postMessage({releaseExecution:true})}:{})};
@@ -49,8 +50,8 @@ installWorkerMessageProtocol(self,async data=>{
      else{const {runNoiseprintPlusProgram}=await import('./noiseprint-plus-program.js');tensor=runNoiseprintPlusProgram(cfaModule,cfaProgram,cfaWeights,data.inputs.rgb,options);}
      name='noiseprint';
     }
-    if(tensor.data.byteLength>data.outputBytes)throw Error('Model output exceeds admitted size');
-    self.postMessage({result:{[name]:tensor},heapBytes:cfaModule.HEAPU8.byteLength,gpuBytes:cfaGPU?.residentBytes,provider:data.provider,runtime:{executor:data.runtime.executor+'-native-order-v1',gpu:tensor.gpu??tensor.metrics}},[tensor.data.buffer]);
+    timings.inferenceMs=performance.now()-inferenceStarted;if(tensor.data.byteLength>data.outputBytes)throw Error('Model output exceeds admitted size');
+    self.postMessage({result:{[name]:tensor},timings,heapBytes:cfaModule.HEAPU8.byteLength,gpuBytes:cfaGPU?.residentBytes,provider:data.provider,runtime:{executor:data.runtime.executor+'-native-order-v1',gpu:tensor.gpu??tensor.metrics}},[tensor.data.buffer]);
   }catch(error){self.postMessage({error:serializeEngineError(neuralRuntimeError(error,{provider:data.provider,phase,heapBytes:cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.()??0,maximumBytes:data.memoryMaximumBytes}),'NEURAL_EXECUTION')});}
    return;
   }
@@ -58,7 +59,7 @@ installWorkerMessageProtocol(self,async data=>{
     if(session&&asset.sha256!==data.asset.sha256){
       self.postMessage({phase:'model-release'});
       for(const cached of reusable.values())cached.tensor.dispose();reusable.clear();
-      const old=session;session=null;await old.release();asset=null;runtimeLifecycle.modelSwitches++;
+      const releaseStarted=performance.now(),old=session;session=null;await old.release();timings.modelReleaseMs=performance.now()-releaseStarted;asset=null;runtimeLifecycle.modelSwitches++;
     }
     if(!ort){
       initialized=true;
@@ -71,12 +72,12 @@ installWorkerMessageProtocol(self,async data=>{
     if(!session){
       initialized=true;asset=data.asset;
       self.postMessage({phase:'model-load'});
-      const bytes=await modelBytes(asset);
+      const loadStarted=performance.now(),bytes=await modelBytes(asset);
       session=await ort.InferenceSession.create(bytes,{executionProviders:[data.provider==='webgpu'&&asset.preferredLayout?{name:'webgpu',preferredLayout:asset.preferredLayout}:data.provider],graphOptimizationLevel:asset.graphOptimizationLevel??'all',enableCpuMemArena:false,enableMemPattern:false});
-      runtimeLifecycle.modelInitializations++;
+      timings.modelLoadMs=performance.now()-loadStarted;runtimeLifecycle.modelInitializations++;
     }
     if(asset.sha256!==data.asset.sha256)throw Error('Worker model changed');
-    await waitForExecution(initialized?performance.now()-initializationStart:0,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';
+    timings.initializationMs=initialized?performance.now()-initializationStart:0;await waitForExecution(timings.initializationMs,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';const preparationStarted=performance.now();
     for(const [name,cached]of reusable)if(!Object.hasOwn(data.reusableInputs??{},name)){cached.tensor.dispose();reusable.delete(name);}
     for(const [name,key]of Object.entries(data.reusableInputs??{})){
       let cached=reusable.get(name);
@@ -91,10 +92,10 @@ installWorkerMessageProtocol(self,async data=>{
       }feeds[name]=cached.tensor;
     }
     for(const [name,item]of Object.entries(data.inputs))if(!feeds[name])feeds[name]=new ort.Tensor(item.type??'float32',item.data,item.dims);
-    self.postMessage({phase:'inference'});
+    timings.inputPreparationMs=performance.now()-preparationStarted;self.postMessage({phase:'inference'});const inferenceStarted=performance.now();
     outputs=await session.run(feeds);
-    phase='output';const {result,transfers,copiedOutputBytes}=neuralOutputTransfer(outputs,feeds,data.outputBytes);
-    self.postMessage({result,copiedOutputBytes,heapBytes:runtime.heapBytes(),runtime:ort.env.versions,runtimeLifecycle:{...runtimeLifecycle},provider:data.provider},transfers);
+    timings.inferenceMs=performance.now()-inferenceStarted;phase='output';const outputStarted=performance.now(),{result,transfers,copiedOutputBytes}=neuralOutputTransfer(outputs,feeds,data.outputBytes);timings.outputCopyMs=performance.now()-outputStarted;
+    self.postMessage({result,timings,copiedOutputBytes,heapBytes:runtime.heapBytes(),runtime:ort.env.versions,runtimeLifecycle:{...runtimeLifecycle},provider:data.provider},transfers);
   }catch(error){self.postMessage({error:serializeEngineError(neuralRuntimeError(error,{provider:data.provider,phase,heapBytes:cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.()??0,maximumBytes:data.memoryMaximumBytes}),'NEURAL_EXECUTION')});}
   finally{for(const [name,t]of Object.entries(feeds))if(reusable.get(name)?.tensor!==t)t.dispose();for(const t of Object.values(outputs??{}))t.dispose();}
 },{label:'neural-endpoint',onFailure:error=>self.postMessage({error:serializeEngineError(error)})});
