@@ -42,4 +42,9 @@ test('The real clone panel offers family groups and enables only relevant Effici
  language='en';ui.translate();assert.equal(detector.querySelector('[data-clone-family="learned"]').label,'Learned matching');
  detector.value=JSON.stringify('ALIKED + LightGlue');detector.onchange();
  assert.equal(document.getElementById('tool-param-longSide').closest('label').hidden,true);assert.equal(ui.params([]).longSide,undefined);
+ const compare=document.getElementById('tool-param-compare');compare.checked=true;compare.onchange();
+ assert.equal(ui.canRun([]),false);assert.equal(ui.canRun([{envelope:true}]),false);assert.equal(ui.canRun([{}]),false);assert.equal(ui.canRun([{},{},{envelope:true}]),true);
+ compare.checked=false;compare.onchange();assert.equal(ui.canRun([]),true);
+ detector.value=JSON.stringify('SSG');detector.onchange();compare.checked=true;compare.onchange();
+ assert.equal(ui.canRun([]),false);assert.equal(ui.canRun([{},{},{envelope:true}]),true);
 });
