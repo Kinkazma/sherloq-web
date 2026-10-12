@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {createFloatPlane} from './segmented-float-plane.js';
 import {controlCheckpoint,checkAbort} from './errors.js';
 // For byte-valued8×8 blocks, means are integer/64 and every squared deviation

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 // Full energy-only scientific path under qualification. Legacy peer biomes are separate.
 import{parameters}from'./pixel-utils.js';import{requireValue,checkAbort}from'./errors.js';import{jpegHeader}from'./image-headers.js';import{tableEstimate}from'./jpeg-quality.js';
 import{energyLogData}from'./energy-log-data.js';import{referenceLogFunction}from'./energy-log-reference.js';

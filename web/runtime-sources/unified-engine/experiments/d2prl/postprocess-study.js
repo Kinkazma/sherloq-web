@@ -1,0 +1,8 @@
+export async function postprocessStudy(module,reference,payload,hash){
+ const rows=[];for(const row of reference.records){const bytes=payload.subarray(row.input.offset,row.input.offset+row.input.bytes);if(await hash(bytes)!==row.input.sha256)throw Error('Input identity');const n=row.width*row.height,ip=module._malloc(bytes.byteLength),op=module._malloc(n*16);if(!ip||!op)throw Error('Allocation');
+  try{module.HEAPU8.set(bytes,ip);if(module._d2prl_postprocess(ip,row.width,row.height,row.minimum,op,op+12*n)!==1)throw Error('Postprocess rejected');const output=module.HEAPF32.slice(op/4,op/4+3*n),filter=module.HEAPF32.slice(op/4+3*n,op/4+4*n),e=payload.slice(row.output.offset,row.output.offset+row.output.bytes),ef=payload.slice(row.filtered.offset,row.filtered.offset+row.filtered.bytes);if(await hash(e)!==row.output.sha256||await hash(ef)!==row.filtered.sha256)throw Error('Output reference identity');const expected=new Float32Array(e.buffer),filtered=new Float32Array(ef.buffer),bits=new Uint32Array(filter.buffer),expectedBits=new Uint32Array(ef.buffer);let differentMasks=0,differentFilter=0,maxFilterError=0,nonfinite=0;
+   for(let i=0;i<output.length;i++)differentMasks+=output[i]!==expected[i];for(let i=0;i<n;i++){differentFilter+=bits[i]!==expectedBits[i];maxFilterError=Math.max(maxFilterError,Math.abs(filter[i]-filtered[i]));nonfinite+=!Number.isFinite(filter[i]);}rows.push({name:row.name,differentMasks,differentFilter,maxFilterError,nonfinite});
+  }finally{module._free(op);module._free(ip);}
+ }
+ return{schema:1,status:rows.every(r=>r.differentMasks===0&&r.nonfinite===0)?'passed':'rejected',scope:reference.scope,cases:rows.length,filterExact:rows.every(r=>r.differentFilter===0),rows,heapBytes:module.HEAPU8.length};
+}

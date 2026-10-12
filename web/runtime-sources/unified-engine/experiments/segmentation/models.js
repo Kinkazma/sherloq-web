@@ -1,6 +1,30 @@
 // Experimental identities established by the native checkpoint conversion and
 // browser candidate report. Not an announcement that all nine models are ported.
 export const SEGMENTATION_MODELS = Object.freeze({
+  'selfdm-proposal': Object.freeze({
+    id:'selfdm-proposal-superglue-original-grid-sp-windows-v3',variant:'SelfDM + Proposal SuperGlue',
+    family:'selfdm-proposal',side:512,kind:'sigmoid',bytes:1824,assetBytes:187736352,
+    sha256:'b446e758115af4c71080e06573e66cdae7e0f3853cf7bd403eaf3bea1e64ed79',
+    gpu:Object.freeze({id:'selfdm-proposal-superglue-original-grid-sp-windows-v3',bytes:1824,assetBytes:187736352,
+      sha256:'b446e758115af4c71080e06573e66cdae7e0f3853cf7bd403eaf3bea1e64ed79',sharedAssets:true,
+      status:'experimental-five-network-webgpu-native-corpus'}),
+    status:'experimental-local-full-original-grid',cpuContinuousBitExact:false,
+    qualificationDimensions:[[32,32],[416,320],[512,512],[831,641]],
+    numericalParity:'Complete SelfDM, DeepMask, Proposal SuperGlue, SEEDS and ConvCRF chain. Initial network at512; refinement and output at the original rectangle dimensions using DeepMask/SuperPoint/CRF halo windows and global coordinates, with native global SuperPoint NMS/TopK/descriptor sampling. SuperPoint is separately qualified through2000×1500. Measured Float32 differences remain: one threshold-crossing pixel on the declared831×641 CPU case; continuous errors and CPU/WebGPU qualifications are recorded separately. This is not universal bit-exact parity.',
+    license:'Local research only. SelfDM and SuperGlue redistribution/use terms require separate review before public distribution.'
+  }),
+  'selfdm-map': Object.freeze({
+    id:'selfdm-initial-map-native512-topk48-v1', variant:'SelfDM — initial map',
+    family:'selfdm', side:512, kind:'sigmoid', bytes:62971505,
+    sha256:'933ce196b044f0df1d3e0aa2dabe79907b6406e1aa9384cc7bb831922b1d4d59',
+    checkpointSha256:'5d8ad8b3fe51c31c150bc9b26a858ad1e9653f05cbd0415ae0c36bf8952ab574',
+    gpu:Object.freeze({id:'selfdm-initial-map-native512-topk48-v1',bytes:62971505,
+      sha256:'933ce196b044f0df1d3e0aa2dabe79907b6406e1aa9384cc7bb831922b1d4d59',
+      sharedAssets:true,status:'experimental-webgpu-native-corpus'}),
+    status:'experimental-initial-map-cpu-and-webgpu-corpus', cpuContinuousBitExact:false,
+    numericalParity:'Initial map only. Native BGR/mean preparation; two declared images have zero threshold-0.5 mask differences, maximum probability error 2.67e-4. Proposal SuperGlue refinement is not included.',
+    license:'Research use only; local integration, no public redistribution authorization.'
+  }),
   'mgcfdn-vig':Object.freeze({
   "id": "mgcfdn-vig-native-order-v1",
   "variant": "MGCFDN VIG 16\u00d716",

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {selectFloat32Ranks} from './float32-ranks-stream.js';
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {energyPairwise,energyQuantile} from './energy-prepare.js';

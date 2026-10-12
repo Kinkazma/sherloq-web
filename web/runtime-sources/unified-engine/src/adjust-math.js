@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {wasmAllocationFailure,nativeModuleFailure,copyTypedArray} from './allocation.js';
 import {EngineError,requireValue,checkAbort,checkpoint} from './errors.js';
 export const ADJUST_HEAP_BYTES=64*1024**2;let ready,pending;

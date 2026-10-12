@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import createJpegModule from '../vendor/libjpeg/jpeg.js';
 import {jpegHeader,orientRgb} from './image-headers.js';

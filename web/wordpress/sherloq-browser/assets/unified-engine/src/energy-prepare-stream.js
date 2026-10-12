@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {gray} from './pixel-utils.js';
 import {createSegmentedBytes} from './segmented-bytes.js';

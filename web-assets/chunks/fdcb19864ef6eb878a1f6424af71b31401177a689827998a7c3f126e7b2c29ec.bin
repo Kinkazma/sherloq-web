@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "source": "SciPy 1.17.1 pocketfft native binary64 sin/cos",
+  "headerSha256": "50f4ddbe60432325f560c706b6f1c49f9e0949fc7f20ae6499f2299e37d9790c",
+  "file": "native/noisesniffer-twiddles.h",
+  "sha256": "3c7800a77526551d1ab1852da9e5eeea970b03e257c070fefb04c4d97e3f3d99",
+  "lengths": [
+    3,
+    5,
+    7,
+    8,
+    12,
+    20,
+    28,
+    32
+  ],
+  "generator": "scripts/generate-noisesniffer-twiddles.py"
+}

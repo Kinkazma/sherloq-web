@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "component": "Native OpenCV4.11 SEEDS/projection/ROI/resize and PyTorch align_corners window",
+  "opencvVersion": "4.11.0",
+  "compiler": "Emscripten4.0.15",
+  "sourceUrls": [
+    "https://github.com/opencv/opencv_contrib/blob/4.11.0/modules/ximgproc/src/seeds.cpp",
+    "https://github.com/opencv/opencv_contrib/blob/4.11.0/modules/ximgproc/include/opencv2/ximgproc/seeds.hpp"
+  ],
+  "licence": "Apache-2.0; see LICENSE-OPENCV.txt",
+  "sourceInputs": {
+    "seeds-wrapper.cpp": {
+      "bytes": 6773,
+      "sha256": "fc815caeff2b19059db5d5db27c69380da30c094e520417dfc9a35e52b8906eb"
+    },
+    "seeds.cpp": {
+      "bytes": 45580,
+      "sha256": "ef04fc840b02c1d8e48cf32f8c2ffe87dd724122a5f99e7b8ea3e13588d74d1b"
+    },
+    "libopencv_imgproc.a": {
+      "bytes": 5090812,
+      "sha256": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+    },
+    "libopencv_core.a": {
+      "bytes": 3723884,
+      "sha256": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    "libzlib.a": {
+      "bytes": 104156,
+      "sha256": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+    }
+  },
+  "outputs": {
+    "proposal-cv.mjs": {
+      "bytes": 25744,
+      "sha256": "0303e50cf88763de85a49df62aae03f0c410b85cacf3a87bff848b1804f16740"
+    },
+    "seeds.wasm": {
+      "bytes": 1151525,
+      "sha256": "6df92eebc58f69911146f0cf76e24bbeb11b56b48df7cf3f23aeca66dc6cd8e2"
+    },
+    "seeds-wrapper.cpp": {
+      "bytes": 6773,
+      "sha256": "fc815caeff2b19059db5d5db27c69380da30c094e520417dfc9a35e52b8906eb"
+    }
+  },
+  "factoryAdaptation": {
+    "compiled": "var getHeapMax=()=>2147483648;",
+    "admitted": "var getHeapMax=()=>Module[\"memoryMaximumBytes\"]??2147483648;",
+    "reason": "Bound speculative growth by actual admitted imported memory without changing CV kernels"
+  },
+  "parameters": {
+    "numSuperpixels": 400,
+    "numLevels": 15,
+    "prior": 3,
+    "histogramBins": 5,
+    "doubleStep": true,
+    "iterations": 10
+  },
+  "channelOrder": "Exact caller RGB bytes retained for SEEDS; upstream BGR2GRAY on those same RGB bytes for SuperPoint preserved explicitly",
+  "initialMemoryBytes": 16777216,
+  "maximumMemoryBytes": "Caller-admitted, geometry-derived imported memory maximum; compile2GiB is not an admission",
+  "privateResearchPipeline": true,
+  "projectionSupport": "160x160 learned mask affine support plus interpolation border; original-image clipping and contour coordinates retained"
+}

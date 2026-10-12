@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {RoutedDenseImageEngine} from './dense-surface-routing.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {densePassPlan,DENSE_PROFILES,denseSearchContexts} from './dense-profiles.js';

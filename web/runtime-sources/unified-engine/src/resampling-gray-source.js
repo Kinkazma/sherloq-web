@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue,controlCheckpoint} from './errors.js';import {inspectJpegBlob} from './jpeg.js';import {decodeJpegGrayRows} from './jpeg-gray-rows.js';import {createSegmentedBytes} from './segmented-bytes.js';import {createMaskSurface} from './rgb-surface.js';
 export async function createResamplingGray(image,{budget,signal,onProgress,storage='auto',decodeGray}={}){
  const {width,height}=image.surface.descriptor,options={budget,signal,storage,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,chunkBytes:262144};let store,surface;

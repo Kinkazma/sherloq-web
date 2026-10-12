@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {readPrnuDatabase} from './prnu-hdf5.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createTemporarySession} from './temporary-storage.js';

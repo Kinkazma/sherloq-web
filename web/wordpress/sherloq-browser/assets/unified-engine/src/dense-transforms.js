@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 // Singular values and orthogonal polar factor of a real 2x2 matrix, using the
 // closed form of the same SVD predicates as native transformed_groups.
 export function denseTransformAccepted(matrix,sourceBin,targetBin,mirror=false){

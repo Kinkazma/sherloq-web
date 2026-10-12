@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {parameters,gray,rows} from './pixel-utils.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {cloningHeapBytes,cloningImageHeapBound,cloningPagedHeapBound,cloningPointHeapBound,cloningCountHeapBound,cloningDetect,cloningSelect,cloningDescribeBrisk,cloningMatches,cloningNormFunction,cloningRegionCount,cloningRenderer} from './cloning-math.js';

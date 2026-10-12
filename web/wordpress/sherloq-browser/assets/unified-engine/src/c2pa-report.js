@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {parameters} from './pixel-utils.js';import {requireValue} from './errors.js';
 export function c2paParams(input={}){
  const p=parameters(input,{trustAnchors:null});

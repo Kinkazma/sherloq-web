@@ -1,0 +1,3 @@
+EfficientLoFTR CVPR2024; Apache-2.0 source pinned to ffd4a4644064354468eb1f0c7a3e732233cb732f.
+Modified 2026-10-12: complete native FP32 checkpoint exported to standard ONNX with axis-separated RoPE constants; scientific values unchanged.
+Checkpoint SHA256: 0af6291141c736e75e94b7f8aae4399b77c7731b3f08758212b2cfe370188878.

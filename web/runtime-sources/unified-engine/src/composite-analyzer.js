@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {COMPOSITE_STATISTICS_POLICY,COMPOSITE_STATISTICS_REVISION,compositePolicyMetadata} from './composite-policy.js';
 import {createCompositeSegmentedAnalyzer} from './composite-segmented-analyzer.js';
 import {renderCompositeSegmented} from './composite-segmented-display.js';

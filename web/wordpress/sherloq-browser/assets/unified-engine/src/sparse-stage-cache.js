@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {EngineError,checkAbort} from './errors.js';
 
 // Stage outputs already belong to the caller's admitted computation. Do not

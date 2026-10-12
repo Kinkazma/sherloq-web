@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 // Histogram counts are invariant to EXIF's lossless permutation of RGB pixels.
 // Iterate the original decoded grid without reconstructing an oriented image.
 import {gray,round2} from './pixel-utils.js';import {histogramSummary} from './histogram.js';import {checkAbort,requireValue} from './errors.js';

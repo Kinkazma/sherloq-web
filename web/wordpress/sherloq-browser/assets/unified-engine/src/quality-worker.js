@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {serializeEngineError} from './errors.js';
 import {jpegCodec} from './jpeg.js';import {jpegBlockError} from './jpeg-block-error.js';
 import {describeEnergy} from './energy-primitives.js';

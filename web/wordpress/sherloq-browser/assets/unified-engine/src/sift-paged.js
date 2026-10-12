@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {deserializeWorkerError} from './errors.js';
 import {createReusableBuffer} from './reusable-buffer.js';
 import {getSiftPreparationGate} from './sift-preparation-gate.js';

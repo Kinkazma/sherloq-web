@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {streamScientificNpz} from './scientific-npz-stream.js';
 export async function streamZeroNpz(analysis,provenance,request,hooks={}){
  const {width,height,planes,metadata}=analysis,n=width*height;let input;

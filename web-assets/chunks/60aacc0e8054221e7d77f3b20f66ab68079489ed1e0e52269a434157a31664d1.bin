@@ -1,0 +1,7 @@
+SSG structured forest / Piotr Dollar structured edge detector
+Noncommercial redistribution under the attached MSR-LA terms.
+The attached Piotr BSD notice applies to channel implementations.
+This separable dependency is not relicensed under the application license.
+Modified for browser delivery on 2026-10-12.
+Lossless MAT-to-standard-NPY storage; Emscripten scalar/SIMD and shared-worker runtime adaptation; native x86 reciprocal instruction lookup retained to match original channel and tree decisions. Original forest parameters and array bytes are unchanged. Independent localization and geometry do not redistribute the original MATLAB or RANSAC toolbox.
+Source: https://github.com/ChaoWang1016/word2phraseCMFD/tree/66bb26eca0c7e95c76042d5bcca58f744d70a27d/Function/EDGE

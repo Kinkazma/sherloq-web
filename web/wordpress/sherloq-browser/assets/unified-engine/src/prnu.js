@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {prnuNccStored,PRNU_NCC_WORKSPACE_BYTES} from './prnu-ncc.js';
 export {prnuNcc} from './prnu-ncc.js';
 import {EngineError,requireValue,checkpoint} from './errors.js';

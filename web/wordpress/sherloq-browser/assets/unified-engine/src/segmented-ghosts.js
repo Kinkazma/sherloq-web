@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {allocateTypedArray,allocateOwnedTypedArray} from './allocation.js';
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';import {parallelGhostPlanes,ghostPoolShape} from './ghost-stream-pool.js';
 import {createRgbRecompression} from './jpeg-rgb-stream.js';import {numpySum} from './numpy-sum.js';import {requireValue,controlCheckpoint,checkAbort} from './errors.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {sampleStoredPixels} from './display-sampling.js';
 import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
 import {allocateOwnedTypedArray} from './allocation.js';

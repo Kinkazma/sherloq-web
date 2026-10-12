@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {requireValue,controlCheckpoint} from './errors.js';
 // Interleaved binary32/binary64 real/imaginary pairs, always in global row-major order.

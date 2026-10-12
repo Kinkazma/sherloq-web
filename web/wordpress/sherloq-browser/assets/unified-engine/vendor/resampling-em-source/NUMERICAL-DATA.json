@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "purpose": "Pinned numerical coefficients for the native binary64 EM oracle; no model weights, image data or executable native code.",
+  "oracle": {
+    "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+    "architecture": "arm64",
+    "library": "libSystem/libsystem_m",
+    "numpy": "1.26.4"
+  },
+  "arrays": {
+    "exp_coeff": 8,
+    "exp_table": 256,
+    "pow_log_coeff": 11,
+    "pow_log_table": 258,
+    "pow_exp_coeff": 5,
+    "pow_exp_table": 256
+  },
+  "domain": "Power exponent exactly 2; exponential argument nonpositive as required by EM. Split range reduction preserves native last-bit behavior.",
+  "qualification": "190 native EM cases: 104 maps exact and 86 refusals; separate 100000-value negative exponential and exponent-spanning square probes exact.",
+  "sourceNote": "M4 compatibility implementation and mathematical constants characterized against the local native reference. Apple ARM exp.s/pow.s in the public Libm repository are empty; no claim that this is an upstream open-source ARM implementation.",
+  "files": [
+    {
+      "file": "math.cpp",
+      "sha256": "81fd2124b9752ccc8b237c34fa192f5f3796596dab28ec783350c3dd8a66eb64"
+    },
+    {
+      "file": "math-tables.h",
+      "sha256": "a60e4c64aca0ed70a91cdeea8e6f0177d67643e9006da2e93b943c3583d168cb"
+    },
+    {
+      "file": "blas.cpp",
+      "sha256": "6b884b50a5ccef34a215335fb9edea160ded3c628867da422123cf56a3aeac33"
+    },
+    {
+      "file": "initial.h",
+      "sha256": "13429dd4200901db3702440d0fa5b20aa9ab16a39445f7b58b9b21790dbd9e53"
+    }
+  ]
+}

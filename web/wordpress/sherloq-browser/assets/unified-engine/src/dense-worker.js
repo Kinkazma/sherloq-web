@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';
 import {serializeEngineError,requireValue} from './errors.js';
 import {createDenseMath,canonicalDenseSift,denseGray,denseDescriptorShape} from './dense-math.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import{EngineError,requireValue,checkAbort,controlCheckpoint}from'./errors.js';import{rgbRowSource,validateRgbRows}from'./rgb-row-source.js';import{createSHA256}from'../vendor/hash-wasm/hashes.js';
 // The common engine owns this immutable surface for the entire queued analysis.
 // Its memo is a canonical oriented RGB hash, never the original encoded-file hash.

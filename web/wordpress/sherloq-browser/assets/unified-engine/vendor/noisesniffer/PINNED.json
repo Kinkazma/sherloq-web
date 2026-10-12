@@ -1,0 +1,18 @@
+{
+  "source": "https://www.ipol.im/pub/art/2024/462/",
+  "upstreamArchiveSha256": "2f009d61221a24e698c629ec30f86422355a36971591a549de18a67ac869091a",
+  "files": [
+    {
+      "file": "LICENSE",
+      "sha256": "01b4bb058a35cf06dde9e3447b34f4af535df2ec1423393893e517e8ee83ba53"
+    },
+    {
+      "file": "PROVENANCE.md",
+      "sha256": "1b73d3548fea99eeb0cba3eee32b1d308f8a9b43ebdf301a9ff173f8630238fb"
+    },
+    {
+      "file": "functions.py",
+      "sha256": "7ec0547a5bf98a1c7c3787e0ab2e86e5808b5f272784d5abc6af6d1f9b851100"
+    }
+  ]
+}

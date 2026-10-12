@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {runWithWorkerTransportRecovery} from './worker-transport-recovery.js';
 import {scheduledWorkerCall,cancelScheduledWorkerCalls} from './scheduled-worker-call.js';

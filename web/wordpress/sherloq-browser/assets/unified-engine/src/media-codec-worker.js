@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {heicCell,heicGrid} from './heic-grid.js';
 import {serializeEngineError,deserializeEngineError,EngineError,requireValue} from './errors.js';
 import {extendedImageFormat,isoChroma,webpChroma} from './media-format.js';

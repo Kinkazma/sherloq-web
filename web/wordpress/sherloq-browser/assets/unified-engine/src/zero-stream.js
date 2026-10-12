@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {allocateWasmMemory,wasmAllocationFailure} from './allocation.js';
 import {parallelZeroBands,zeroStreamWorkerBytes} from './zero-stream-pool.js';
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {COMPOSITE_STATISTICS_POLICY} from './composite-policy.js';
 import {EngineError,checkAbort,requireValue,deserializeEngineError} from './errors.js';
 import {registerArrayViews} from './allocation.js';

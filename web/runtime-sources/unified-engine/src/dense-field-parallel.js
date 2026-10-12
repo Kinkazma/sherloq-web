@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {serializeEngineError,isRecoverableResourceError} from './errors.js';
 import {runWithResourceRecovery,ResourceRecoveryController} from './resource-recovery.js';
 import {commitDenseWriteBatch,denseWriteBatchBytes} from './dense-write-batch.js';

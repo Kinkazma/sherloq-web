@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {removeTerminatedTemporarySession} from './temporary-storage.js';
 import {resolveComputeProfile} from './profiles.js';
 import {readExtensionMemoryHints} from './browser-memory.js';

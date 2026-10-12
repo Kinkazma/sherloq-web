@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
 import {defectChannel} from './defect-pixels.js';
 import {createSegmentedBytes} from './segmented-bytes.js';

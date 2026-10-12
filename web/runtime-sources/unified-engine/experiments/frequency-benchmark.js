@@ -1,0 +1,19 @@
+import {createWorkerEngine} from '../src/worker-client.js';
+const hash=async b=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',b)),x=>x.toString(16).padStart(2,'0')).join('');
+const median=x=>x.toSorted((a,b)=>a-b)[Math.floor(x.length/2)];
+const render=async pixels=>{const t=performance.now(),canvas=document.createElement('canvas');canvas.width=pixels.width;canvas.height=pixels.height;document.body.append(canvas);const rgba=new Uint8ClampedArray(pixels.width*pixels.height*4);for(let i=0,j=0;i<pixels.data.length;i+=3,j+=4){rgba[j]=pixels.data[i];rgba[j+1]=pixels.data[i+1];rgba[j+2]=pixels.data[i+2];rgba[j+3]=255;}canvas.getContext('2d').putImageData(new ImageData(rgba,pixels.width,pixels.height),0,0);const uploadMs=performance.now()-t;await new Promise(requestAnimationFrame);await new Promise(requestAnimationFrame);const totalMs=performance.now()-t;canvas.remove();return {uploadMs,throughTwoAnimationFramesMs:totalMs};};
+export async function frequencyBenchmark(){
+ const ref=await(await fetch('/fixtures/frequency-large-reference.json')).json(),f=ref.cases[2],data=new Uint8Array(await(await fetch('/fixtures/'+f.file)).arrayBuffer()),expected=f.expected[2],report={schema:1,fixture:f.name,params:expected.params,scope:'Isolated sequential 1 MP synthetic trials, full resolution. Worker RPC, source copies, mask, DFT/reconstruction, four output transfers and raster presentation measured; WordPress UI is separate. GPU driver overhead is estimated, not physical RSS.',results:[]},identities={};
+ for(const backend of ['cpu','webgpu']){const engine=createWorkerEngine({computeProfile:'maximum'}),record={backend,samples:[]};
+  try{await engine.load({id:'keep',bytes:new Uint8Array([1,2,3]),pixels:{width:1,height:1,format:'rgb8',data:new Uint8Array([1,2,3])}});
+   for(let repeat=0;repeat<3;repeat++){
+    const pipeline=performance.now(),t=performance.now();await engine.load({id:'i',bytes:data,pixels:{width:f.width,height:f.height,format:'rgb8',data}});const loadMs=performance.now()-t,start=performance.now(),r=await engine.run({id:'f',imageId:'i',operation:'detail.frequency',backend,params:expected.params}),runRpcMs=performance.now()-start,rendering=await render(r.pixels),pipelineMs=performance.now()-pipeline,frames=[r.pixels,r.data.high,r.data.magnitude,r.data.phase],sha256=await Promise.all(frames.map(x=>hash(x.data)));
+    if(sha256.some((s,i)=>s!==expected.sha256[i])||r.data.zeroPercent!==expected.zeroPercent)throw new Error('Native benchmark parity failed');
+    const changed=performance.now(),next=await engine.run({id:'changed',imageId:'i',operation:'detail.frequency',backend,params:{...expected.params,threshold:0}}),changedThresholdMs=performance.now()-changed,nextHashes=await Promise.all([next.pixels,next.data.high,next.data.magnitude,next.data.phase].map(x=>hash(x.data)));
+    if(backend==='cpu')identities[repeat]=nextHashes;else if(JSON.stringify(nextHashes)!==JSON.stringify(identities[repeat]))throw new Error('Changed-threshold CPU/GPU parity failed');
+    const filterStart=performance.now(),filtered=await engine.run({id:'filter',imageId:'i',operation:'detail.frequency',backend,params:{...expected.params,threshold:0,filter:15}}),changedFilterMs=performance.now()-filterStart;
+    record.samples.push({repeat,cold:repeat===0,loadMs,runRpcMs,rendering,pipelineMs,changedThresholdMs,changedFilterMs,exact:true,metrics:r.metrics,thresholdCache:next.metrics.cache,filterCache:filtered.metrics.cache});console.log('Frequency benchmark',backend,repeat,JSON.stringify({runRpcMs,pipelineMs,changedThresholdMs,changedFilterMs}));await engine.unload('i');
+   }record.medianRunRpcMs=median(record.samples.map(x=>x.runRpcMs));record.medianPipelineMs=median(record.samples.map(x=>x.pipelineMs));report.results.push(record);
+  }finally{engine.dispose();}
+ }return report;
+}

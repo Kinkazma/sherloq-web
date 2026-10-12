@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {TypedPages} from './m3-typed-pages.js';
 import {normalizeResourceError} from './errors.js';
 

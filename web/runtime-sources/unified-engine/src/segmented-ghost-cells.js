@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {allocateOwnedTypedArray} from './allocation.js';
 import {requireValue,checkAbort,isResumableResourceError,normalizeResourceError,controlCheckpoint} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';

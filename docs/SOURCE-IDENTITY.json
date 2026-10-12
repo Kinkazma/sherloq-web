@@ -1,56 +1,45 @@
 {
-  "ui_commit": "2c76dade4c4b284a963a49e60d78424f852c6746",
-  "engine_commit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
-  "manifest_sha256": "38204b6bf2af7394f30853865f6dcd88b52971d3159098bdef3372e9eb9796cc",
-  "documentation_adaptations": [
-    {
-      "path": "web/wordpress/sherloq-browser/README.md",
-      "reason": "Preserved existing public introduction."
-    }
-  ],
+  "schema": "sherloq.publication-identity/1",
+  "ui_commit": "ec799cf68ad56543dd60032bfb23df4c44bbd8a6",
+  "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
+  "ui_version": "0.16.0",
+  "engine_commit": "54999769b522a5a240ad40c482005620e6477fed",
+  "engine_commit_repository": "https://github.com/Kinkazma/sherloq-web",
+  "engine_version": "0.37.0-methods.1",
+  "source_revision": "ec799cf68ad56543dd60032bfb23df4c44bbd8a6",
+  "engine_base_commit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
+  "engine_source_increment_sha256": "cdb29a28f0745164db3402fbd003cc4a4a9ea38fe647ff4a7e35519e4970157c",
+  "runtime_receipt_sha256": "6c66a9689c841d9fbe678a718202a2da50a54fb815116b767fa4f51c6b353c48",
+  "manifest_sha256": "db961edf323d82462ff68a0fbf3aa60036ae6c8aba3d41ef96d322021bad1bb3",
   "upstream": "https://github.com/GuidoBartoli/sherloq",
   "macos_derivative": "https://github.com/Kinkazma/sherloq",
-  "ui_version": "0.15.2",
-  "engine_version": "0.35.0-export.3",
-  "resource_commit": "da01f941ad6ee010de881213d951193765e6071e",
-  "resource_origin_policy": "Pin deployment to the immutable resource publication commit; manifest template has no deployment origin.",
   "transport_adapter": "web/wordpress/runtime-delivery.py",
-  "public_additions": {
-    "batch_base": "a7dd508",
-    "merged_files": [
-      "sherloq-browser/assets/app.html",
-      "sherloq-browser/assets/tool-client.js"
-    ],
-    "batch_dependencies": "Eight byte-identical vendor files added to the immutable dependency manifest for on-demand loading",
-    "packaging": "Bootstrap cap raised to 25,000,000 bytes at the owner\u2019s request.",
-    "offline_layout": {
-      "patchSha256": "e67b77072462060ca3cbf305af2f088c18eac6dfbae57970213bc14590a67b73",
-      "sourceCommits": [
-        "d76fb1f7cdf253af039013db5dac99359e33deca",
-        "a82da5ec6dc7951b4746916e7304be6988c23fa9"
-      ],
-      "scope": "Six public layout, typography and Home Screen asset path files; preview helper excluded."
-    },
-    "batch_version": "0.2.0",
-    "batch_functional_validation_commit": "072e07e2b717951af686df07e35b86b6149be48a",
-    "batch_human_acceptance": "Rejected for acquisition-only filtering and display defaults; functional/export checks passed.",
-    "atomic_sift_phase_handoff": "Normal native worker capacity retained; no added three-worker ceiling or raised budget."
-  },
-  "bootstrap_limit_bytes": 25000000,
-  "ui_base_commit": "f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404",
-  "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
-  "ui_patch_commits": [
-    "0a2e17f28c0d195615e6d0e4ca158a977e56b1e5",
-    "1ad1c624c909261e1b69e194ad7ed4f9c262fb27",
-    "2c76dade4c4b284a963a49e60d78424f852c6746"
-  ],
-  "deployment_manifest_sha256": "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2",
+  "resource_origin_policy": "The origin is pinned to the actual immutable resource publication commit; the manifest template has no deployment origin. Finalized deployment identity is recorded after resource publication.",
   "compatibility_manifest_sha256": [
     "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2",
     "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
     "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b"
   ],
-  "engine_base_commit": "a1f85661db24610ac3c7bf894214afc85a72d024",
-  "engine_commit_repository": "https://github.com/Kinkazma/sherloq-web",
-  "engine_source_increment_sha256": "286e322c49123c29eec25421e0d60b381e9df87f01663b859b4919ffd09b3006"
+  "bootstrap_limit_bytes": 25000000,
+  "public_additions": {
+    "methods": [
+      "CMSeg-Net",
+      "MGCFDN",
+      "SelfDM",
+      "ALIKED + LightGlue",
+      "EfficientLoFTR",
+      "SSG"
+    ],
+    "batch_version": "0.2.0",
+    "batch_method_defaults": "Biomes alone, without circles, lines or points.",
+    "batch_human_acceptance": "Functional/export checks passed. Scientific exclusion of text, charts and diagrams remains unaccepted.",
+    "atomic_sift_phase_handoff": "Normal native worker capacity retained; no added three-worker ceiling or raised budget.",
+    "local_only_models": 4,
+    "resource_notices": "docs/METHODS-RESOURCE-LICENSES.txt"
+  },
+  "previous_publication": {
+    "main_commit": "a39262f9d3d23283a98d82f1b3f92ce0ce36c2b7",
+    "resource_commit": "da01f941ad6ee010de881213d951193765e6071e",
+    "deployment_manifest_sha256": "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2"
+  }
 }

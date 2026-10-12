@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {parameters,gray,rows,round2} from './pixel-utils.js';
 export const histogramParams=(p={})=>parameters(p,{channel:3,start:0,end:255},{channel:[0,3],start:[0,255],end:[0,255]});
 export function histogramSummary(bins,channel,start,end,total){

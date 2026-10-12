@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import{createNumericSurface}from'./numeric-surface.js';import{createMaskSurface}from'./rgb-surface.js';
 // A published bundle owns its analysis stores independently of model/raw caches.
 // Releasing one handle cannot destroy the other planes in the same bundle.

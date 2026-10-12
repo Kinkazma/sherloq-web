@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {wasmAllocationFailure} from './allocation.js';
 import {boundedG2nn} from './sift-g2nn-bounded.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';

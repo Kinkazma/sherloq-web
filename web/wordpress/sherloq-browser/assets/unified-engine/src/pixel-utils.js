@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue,checkpoint} from './errors.js';
 
 export const gray=(r,g,b)=>(r*9798+g*19235+b*3735+16384)>>15;

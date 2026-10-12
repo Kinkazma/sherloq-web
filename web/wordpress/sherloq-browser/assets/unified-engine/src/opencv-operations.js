@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {parameters} from './pixel-utils.js';import {requireValue} from './errors.js';import {cvPixels,cvPca} from './opencv.js';
 import {pcaParams,pcaData,pcaView} from './pca.js';
 const spaces=['rgb','cmyk','gray','hsv','hls','ycrcb','xyz','lab','luv'];

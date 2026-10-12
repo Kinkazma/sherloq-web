@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
 import {medianAnalyze,medianGeometry,medianGrid,medianEnlargeRows} from './median.js';
 import {MEDIAN_HEAP_LIMIT,MEDIAN_FORMATS} from './median-features.js';

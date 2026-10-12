@@ -1,0 +1,38 @@
+{
+  "emscripten": "4.0.15",
+  "pocketfft": {
+    "repository": "https://github.com/scipy/pocketfft",
+    "commit": "9367142748fcc9696a1c9e5a99b76ed9897c9daa",
+    "source": "SciPy v1.17.1 git submodule",
+    "files": [
+      {
+        "file": "pocketfft_hdronly.h",
+        "sha256": "50f4ddbe60432325f560c706b6f1c49f9e0949fc7f20ae6499f2299e37d9790c",
+        "bytes": 111974
+      },
+      {
+        "file": "LICENSE.md",
+        "sha256": "a85ca13fdf90160b64a0698215868c13b74d835ad0a4e2ba44713b8c5058a056",
+        "bytes": 1498
+      },
+      {
+        "file": "README.md",
+        "sha256": "ebd5c333d29bea8859d63569f7bd116df6c9d10938361645402c6b0aeef9c281",
+        "bytes": 10841
+      }
+    ]
+  },
+  "twiddles": {
+    "schema": 1,
+    "file": "prnu-twiddles.bin",
+    "bytes": 5916728,
+    "sha256": "6ea04149284b8570d089557529464dabb14f5e99f071aac6d339fa3eeaa4db18",
+    "maximumLength": 2097152,
+    "lengths": 582,
+    "complexSeeds": 369212,
+    "reference": "Darwin arm64 binary64 sin/cos; SciPy 1.17.1 pocketfft",
+    "pocketfftHeaderSha256": "50f4ddbe60432325f560c706b6f1c49f9e0949fc7f20ae6499f2299e37d9790c",
+    "format": "PRNUFFT1; little-endian u32 max,count,doubleWords,reserved; count*(n,wordOffset,v1Count,v2Count); interleaved float64 real/imaginary seeds",
+    "generator": "scripts/generate-prnu-twiddles.py"
+  }
+}

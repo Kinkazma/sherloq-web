@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {createNeuralTensor} from './neural-tensor-store.js';
 import {createTemporarySession} from './temporary-storage.js';
 import {checkAbort,requireValue,checkpoint} from './errors.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue} from './errors.js';
 import {SIFT_SOURCE} from './clone-relations.js';
 import {automaticPointEntries} from './automatic-point-entries.js';

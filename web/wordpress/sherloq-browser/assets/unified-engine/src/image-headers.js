@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {EngineError,requireValue} from './errors.js';
 const text=(bytes,start,end)=>new TextDecoder('latin1').decode(bytes.subarray(start,end));
 function checkRange(start,count,end){requireValue(Number.isSafeInteger(start)&&Number.isSafeInteger(count)&&start>=0&&count>=0&&start+count<=end,'Metadata offset outside source bytes.');}

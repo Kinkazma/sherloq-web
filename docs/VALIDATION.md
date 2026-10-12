@@ -1,8 +1,16 @@
 # Validation scope and optimization priorities
 
+## Current methods delivery — 0.16.0
+
+The frozen 0.16.0 source integrates the new clone method families into individual and batch workflows. Its delivery contains 5,429 public files in 4,725 unique pieces. Four optional research-model files retain verified local-import metadata without public payloads. Publication independently checked every public piece and reconstructed multi-piece resource against its SHA-256 identity. The raw source lock and executable delivery lock are recorded separately.
+
+The delivery author's 317 interface checks and 15 batch contracts pass. Chrome 154 and WebKit 26.6 transport checks cover two local origins, synthetic pixels, lossless WebP, range reads, authorized local-model import, the SSG factory ABI and standard TAR/offline reuse. Earlier real individual and batch method runs retain their separate scientific scope. The biome display defaults are corrected; automatic scientific exclusion of text, charts and diagrams remains unaccepted. These checks do not establish universal numerical parity, 96 MP, physical-mobile or deployment-specific compatibility. [Current evidence](evidence/methods-publication-0.16.0.json) · [Change history](../CHANGELOG.md).
+
+The sections below retain the evidence of earlier deliveries; their counts and engine versions describe those particular stages.
+
 ## Resource integrity
 
-For the initial delivery, publication preparation independently checked SHA-256 and size for every one of the 4,224 pieces and streamed reconstruction hashes for all 5,237 original resources. All passed. The five replacement runtime resources in the Copy-Move correction were subsequently checked against their supplied hashes. The current manifest uses 4,225 unique pieces for the same 5,237 reconstructed files; historical pieces remain available at their immutable commit. Every file in the supplied public tree is at most 100,000,000 bytes.
+For the initial delivery, publication preparation independently checked SHA-256 and size for every one of the 4,224 pieces and streamed reconstruction hashes for all 5,237 original resources. All passed. The five replacement runtime resources in the Copy-Move correction were subsequently checked against their supplied hashes. The Copy-Move correction manifest used 4,225 unique pieces for the same 5,237 reconstructed files; historical pieces remain available at their immutable commit. Every file in the supplied public tree is at most 100,000,000 bytes.
 
 ## Independent interface checks
 

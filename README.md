@@ -14,19 +14,7 @@ I started with [my macOS adaptation](https://github.com/Kinkazma/sherloq), then 
 
 Much of the implementation was produced with AI assistants. My role has been to direct the work, question and correct implementation choices, explore possible solutions, shape the interface, and review part of the calculations and results. That process does not make every method independently validated. I describe the evidence and its limits alongside the code. SHERLOQ and the integrated research methods retain their original authors and component licenses.
 
-[Source layout and reconstruction](docs/BUILD.md) · [Validation and performance limits](docs/VALIDATION.md) · [Example inputs](examples/README.md) · [Credits and licenses](docs/ATTRIBUTION.md)
-
-## New clone-analysis methods
-
-The browser engine and batch catalogue include CMSeg-Net 2025 (two models), MGCFDN 2026 (seven variants), SelfDM 2022 initial map and the complete Proposal SuperGlue pipeline, ALIKED + LightGlue 2023, EfficientLoFTR 2024 and complete SSG 2023.
-
-CMSeg-Net, MGCFDN and SelfDM are selected in **AI Clone Detection → Method**. ALIKED + LightGlue, EfficientLoFTR and SSG are selected in **Copy-Move Forgery 2 → Detector**. EfficientLoFTR requires exactly two real regions; their enclosing rectangle is not a third region. The same methods and scientific parameters are available in batch processing.
-
-SelfDM refinement preserves the original image geometry, with bounded DeepMask, SuperPoint and CRF windows; its five neural families support CPU or WebGPU, while OpenCV stages use the CPU. SSG publishes its original-resolution binary mask, including holes, and reuses the extraction checkpoint when only localization parameters change. Its structured-edge forest is distributed separately under noncommercial MSR-LA terms and the applicable BSD notices.
-
-**Model availability follows component licenses.** The public dependency library includes the redistributable resources. Research-only SuperPoint/SuperGlue graphs and the SelfDM initial weights require a verified local library import; the complete pipeline does not silently substitute an initial map when a required graph is missing. Local standard ONNX files retain their scientific SHA identities. See [component conditions and source references](docs/METHODS-RESOURCE-LICENSES.txt).
-
-The declared local browser qualification completed 14 individual method paths and a 14-method batch, with 14 scientific NPZ exports and 249 archive checks. The original-grid positive SelfDM GPU case at 831 × 641 matches the native binary mask; measured continuous Float32 differences and one CPU threshold-boundary pixel remain documented. These checks do not establish universal detector accuracy, mobile WebKit/Firefox or 96 MP qualification for the new methods. The batch's ongoing OCR, panel preclassification and acquisition-only filtering are a separate task; its previously rejected scientific-filtering acceptance has not been relabeled as passed.
+[Source layout and reconstruction](docs/BUILD.md) · [Changelog](CHANGELOG.md) · [Validation and limits](docs/VALIDATION.md) · [Example inputs](examples/README.md) · [Credits and licenses](docs/ATTRIBUTION.md)
 
 ## Featured example — D2PRL across automatic microscopy zones
 
@@ -92,75 +80,25 @@ Yellow is applied only to the **filtered masks**, at a uniform opacity; it does 
 </details>
 
 
-## What I have adapted
+## What I added
 
-| Area | Implementation in this delivery |
-| --- | --- |
-| Browser workspace | Independent tool documents, tabs, tiled/cascaded layouts, French/English controls, theme, favorites, zoom and portable settings |
-| WordPress integration | A block or shortcode embeds the workspace; WordPress serves the interface while computation runs in the browser |
-| Tool interfaces | A 50-entry catalogue with individual and automatic workflows; tool presence is not a claim that every browser, input and algorithm combination has been qualified |
-| Runtime and models | Locked browser runtimes, WebAssembly kernels and converted model resources, with explicit source identities and SHA-256 manifests |
-| Resource loading | Large dependencies requested as needed, verified pieces, bounded concurrent downloads and optional caching |
-| Local resource library | Ordinary files in their original formats, folder reconnection and standard TAR import/export |
-| Results | Tool-specific views and exports; changing display controls can reuse a completed result where supported |
+I brought the following method families into the web workflows, alongside the inherited SHERLOQ tools:
 
-The interface is **0.16.0** and the unified engine is **0.37.0-methods.1**. This delivery combines the qualified new methods with the published startup migration, atomic SIFT phase correction, batch **0.2.0**, and its biomes-only display correction. Exact source/resource identities are recorded in `web/engine-source-identity.json`, the runtime locks and the dependency manifest. The runtime lock also retains earlier engine slots used by specific tools; a single version number does not replace that inventory.
+- **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG.
+- **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM.
+- **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression.
+- **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL and AdaIFL.
+- **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, and ELA energy/territory views.
 
-### Batch processing — 0.2.0
+These are integrations of existing research methods, whose authors retain credit. SelfDM requires model files imported into the local resource library; the supplied models and their terms are described in the [resource notices](docs/METHODS-RESOURCE-LICENSES.txt).
 
-I corrected a SIFT scheduling error during CPU/GPU phase changes. The scheduler now queues the continuation and releases its previous lease atomically, keeping the normal worker capacity and existing memory budgets. Outputs are stored in browser-private files and read on demand; ZIP32/ZIP64 export and import use bounded windows instead of retaining the whole output archive in memory.
+### Batch processing
 
-The complete human-selected batch of **86 images from seven PDFs** finished **172 analyses with zero errors**, using SIFT + G2NN + RANSAC + Panels + Text and Forgeryscope Auto. Its 1.17 GB of output artifacts exported and reimported successfully; all 172 NPZ files passed independent checks. Three reference images produced exactly the same scientific arrays at nine to ten workers as at three workers. This is a functional/export qualification, not a speed benchmark or a verdict on the supplied publications. [Batch workflow and qualification](docs/TRAITEMENT-PAR-LOT.md).
+Import documents or images, choose the material to analyze and run the selected methods as a batch. Results can be reviewed together, compared between studies, and exported as a PDF report or a ZIP containing the images and scientific data. [Batch workflow](docs/TRAITEMENT-PAR-LOT.md).
 
-**The scientific filtering requirements have not been accepted.** Text, charts and diagrams inside mixed figures are not reliably excluded and can generate false positives. Biomes alone are now the default display; users can still enable circles, links and points. Successful execution and intact exports do not validate the scientific filtering requirements, whose further preparation/OCR work is ongoing.
+### Entirely local web app
 
-### Startup after a WordPress plugin update — 0.15.2
-
-Replacing the plugin directory could remove the immutable manifest still requested by an installed older service worker, blocking navigation before the replacement workspace could open. The update retains deployed manifests, keeps startup documents/configuration/modules reachable, and stores SHA-verified manifest copies that survive a worker restart. A temporary manifest failure remains retryable.
-
-A persistent Chrome profile reproduced the original navigation failure, migrated to 0.15.2, and reopened successfully after every server manifest was forced to return 404. Shared-memory isolation remained active. [Migration checks and source identity](docs/evidence/startup-migration-0.15.2.json).
-
-### Offline setup presentation
-
-The blue **Take offline / Emporter hors ligne** button sits immediately before Settings. The preparation page shares SHERLOQ’s typography and themes, supports French and English, and presents its three steps once in the main content. The Home Screen landing resolves all shared styles and font modules correctly. [Presentation and path checks](docs/evidence/offline-layout-0.15.2.json).
-
-## Execution, recovery and export corrections
-
-I integrated corrections to shared ONNX Runtime residency and memory admission, worker startup and error reporting, and reusable transform workers. Local strip recovery retains completed work. The interface uses the views actually published by M2, preserves useful magnifier previews after a failure, accepts valid decimal gamma settings, and keeps calculation progress tied to the active calculation.
-
-Automatic diagnostics now distinguish partial results, suspension, resumption and intentional cancellation. NPZ export preserves D2PRL masks whose native contours contain only one or two points. Model weights and WASM binaries are unchanged. The existing batch workflow is retained; its PDF/ZIP dependencies load on demand through the same hashed resource library.
-
-[Causes, source revisions, qualification and integration checks](docs/EXECUTION-CORRECTIONS.md). The separate [SAFIRE admission issue](https://github.com/Kinkazma/sherloq-web/issues/1) remains open. This delivery does not claim a new 96 MP qualification or a universal speed benchmark.
-
-## Additional and restored tools
-
-I focus the new examples on the work added to the [original SHERLOQ baseline](https://github.com/GuidoBartoli/sherloq/tree/3fe95fcb56037e47e2eefbc2d3785804a31a74f5): Copy-Move Forgery 2 and its dense/geometric matching, Noisesniffer, ZERO JPEG Grids, Adaptive CFA, AI clone methods including D2PRL and Forgeryscope Auto, combined automatic workflows, and CAT-Net, SAFIRE, FOCAL and AdaIFL. These integrate existing research methods; their original authors retain credit.
-
-Illuminant Map and Dead/Hot Pixels used existing menu labels but lacked working implementations in that baseline. Multiple Compression was also restored and expanded. The energy/territory views extend ELA, which was already present. TruFor was already an upstream integration and is not presented as a newly invented detector.
-
-### Dense Copy-Move display correction
-
-The web renderer now accepts the compact point arrays produced by PatchMatch. This fixes the error after `dense-geometry` without changing detector settings or the scientific arrays. The reported spiral example completes and its cached result can be redrawn. [Correction and regression evidence](web/engine-source/docs/dense-render-correction.md).
-
-### WordPress frame loading and language
-
-The PHP workspace entry explicitly supplies the isolation headers required by the page and its workers, including on hosts that do not apply `.htaccess` rules to static assets. Service-worker updates carry a version identity. The default language follows the visitor's French or English browser preference; an explicit language choice is retained. [Reproduction and verification](docs/evidence/wordpress-0.14.2-proof.json).
-
-### Startup and updates
-
-The workspace shows progress from the first page load and continues when a slow resource installation finishes, without requiring a manual reload. Temporary startup errors are retried. A new service worker only takes over early when every open window confirms it is waiting for that exact version and has no mounted workspace, preserving an already open session. [Verification, including a deliberately delayed 32-second manifest response](docs/evidence/wordpress-0.14.3-proof.json).
-
-## What the distribution checks establish
-
-The supplied Chrome 154, Firefox 155 and WebKit 26.6 records cover two distinct local origins: resource transport, a large model range spanning two pieces, a real engine operation and lossless export on synthetic 67 × 65 pixels, reuse of a local resource library, and independently read standard TAR archives.
-
-Startup transferred 2,363,985 application bytes with no remote resource requests in those checks. This is a startup measurement, not an inference-speed claim. The records do not establish public-host performance or the scientific accuracy of every catalogue method. See [the exact scope](docs/VALIDATION.md).
-
-## Performance work and remaining limits
-
-Calculation time, memory use and model loading still need substantial optimization. I would start with reproducible measurements of expensive tools, cold versus cached model preparation, CPU/GPU transfers and repeated allocations, and cancellation or recovery during large jobs. Improvements must retain scientific parameters and compare actual output arrays against a fixed reference.
-
-The transport admits at most two pieces and 128 MiB of declared payload at once. Hashing, response copies, caches and engine allocations add to that amount; it is not a physical-RAM cap. Browser storage can be evicted, and hardware/browser differences matter. [Priorities and evidence](docs/VALIDATION.md).
+The **Take offline / Emporter hors ligne** command prepares a local web app and its resource library. Once prepared, it can open and analyze images without WordPress or an Internet connection. The saved resource archive can restore its working library. [Local installation and restoration](web/wordpress/DISTRIBUTION.md#sherloq-web-local).
 
 ## Example material
 

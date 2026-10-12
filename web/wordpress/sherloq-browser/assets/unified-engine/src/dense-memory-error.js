@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {EngineError,serializeEngineError,deserializeEngineError} from './errors.js';
 
 // Called only at a validated WebAssembly.Memory constructor/grow boundary.

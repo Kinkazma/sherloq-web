@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {segmentedZeroVotes} from './zero-stream.js';
 import {segmentedZeroRegions} from './zero-region-stream.js';

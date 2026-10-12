@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {analyzeForgeryscope} from './forgeryscope-pipeline.js';
 import {forgeryscopeMaskField} from './forgeryscope-segmented-result.js';
 import {checkAbort} from './errors.js';

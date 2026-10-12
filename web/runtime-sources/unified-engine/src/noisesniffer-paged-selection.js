@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {noisesnifferStd8} from './noisesniffer-std8.js';
 import {noisesnifferPackedFlags} from './noisesniffer-packed-flags.js';
 import {noisesnifferStoredPatches} from './noisesniffer-stored-patches.js';

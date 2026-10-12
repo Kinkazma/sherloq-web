@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {createNumericBank} from './numeric-bank.js';
 import {requireValue,checkAbort} from './errors.js';
 const MiB=1024**2;

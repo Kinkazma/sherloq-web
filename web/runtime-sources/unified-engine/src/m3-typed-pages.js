@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {EngineError,requireValue} from './errors.js';
 
 // Budgeted accumulation: no per-value JS objects and no fixed result-count cap.

@@ -1,0 +1,157 @@
+{
+  "schema": "sherloq.methods-publication-evidence/1",
+  "date": "2026-10-12",
+  "sourceRevision": "ec799cf68ad56543dd60032bfb23df4c44bbd8a6",
+  "uiVersion": "0.16.0",
+  "engineVersion": "0.37.0-methods.1",
+  "manifestTemplateSha256": "db961edf323d82462ff68a0fbf3aa60036ae6c8aba3d41ef96d322021bad1bb3",
+  "independentPublicationChecks": {
+    "sourceCommit": "ec799cf68ad56543dd60032bfb23df4c44bbd8a6",
+    "methodsPresent": 14,
+    "publishedMainAncestryPreserved": true,
+    "atomicSiftSourcesUnchanged": true,
+    "diskAndStreamingZipModulesUnchanged": true,
+    "biomesOnlyDefaultsPresent": true,
+    "manifestTemplateSha256": "db961edf323d82462ff68a0fbf3aa60036ae6c8aba3d41ef96d322021bad1bb3",
+    "runtimeFiles": 5433,
+    "publicChunksVerified": 4725,
+    "optionalLocalOnlyChunksExcluded": 4,
+    "sourceAndDeliveryLocksMatch": true,
+    "scope": "Read-only frozen source and delivery integrity checks; not an inference qualification."
+  },
+  "suppliedQualification": {
+    "interfaceTestsPassed": 317,
+    "batchContractsPassed": 15,
+    "publicResourceAuditChecksPassed": 30,
+    "earlierRealIndividualMethods": 14,
+    "earlierRealBatchMethods": 14,
+    "earlierScientificNpzChecks": 249,
+    "offlinePythonTestsPassed": 4,
+    "offlineGoTestsPassed": 5
+  },
+  "publicLibrary": {
+    "declaredPublicFiles": 5429,
+    "declaredPublicBytes": 7211972597,
+    "uniqueChunks": 4725,
+    "uniqueChunkBytes": 6965842759,
+    "optionalLocalOnlyFiles": 4,
+    "oldRuntimeSlotEntriesUnchanged": 2419,
+    "localSmallWasmFiles": 96
+  },
+  "suppliedTransportChecks": {
+    "chrome": {
+      "date": "2026-10-12T13:20:13.276Z",
+      "browser": "154.0.8037.98",
+      "startup": {
+        "appBytes": 2584500,
+        "remoteBytes": 0,
+        "remoteRequests": 0
+      },
+      "online": {
+        "appBytes": 7137333,
+        "remoteBytes": 217330382,
+        "remoteRequests": 12
+      },
+      "largeModelRange": {
+        "file": "individual-assets/m3/safire-encoder-bounded.onnx",
+        "chunksFetched": 2,
+        "exact": true
+      },
+      "standardTar": true,
+      "offlineLocalLibrary": {
+        "ordinaryFile": "jpeg.wasm",
+        "size": 531241,
+        "mode": "remembered-folder"
+      },
+      "optionalModels": {
+        "files": 4,
+        "missingCode": "MODEL_LOCAL_REQUIRED",
+        "remoteRequests": 0,
+        "imported": {
+          "name": "individual-assets/segmentation/selfdm-proposal/superpoint-post-folded.onnx",
+          "bytes": 13627,
+          "sha256": "3fd09c58ac33fe73e374194e6aec029a88bf4bacede7a5c0369268fd4c7774a0"
+        }
+      },
+      "forestFactory": {
+        "manifestSha256": "b428fe9626dfd59ea3161e2b79786b2a4713e13770e8d75c80477b5805f57157",
+        "factorySha256": "c22662cd36bd37d651915acbfbbcc87e72ab7ab8a74bc403636cf521e4d82b29",
+        "wasmSha256": "8862652664bf888b575e78258a15e734550082cba244e7cccb4781fb4d740a61",
+        "abi": true
+      },
+      "transport": {
+        "type": "application/wasm",
+        "rangeStatus": 206,
+        "rangeExact": true
+      },
+      "pixels": {
+        "exactPixels": true,
+        "webpBytes": 666,
+        "version": "0.37.0-methods.1"
+      },
+      "errors": [],
+      "scope": "Fresh automated browser, synthetic 67×65 pixels; no user image or existing application tab touched. Two local origins simulate published raw GitHub assets. Ordinary local file reused offline; standard TAR verified independently by Python. Optional-model import and forest ABI are delivery checks, not a new scientific inference qualification."
+    },
+    "webkit": {
+      "date": "2026-10-12T13:24:22.138Z",
+      "browser": "26.6",
+      "startup": {
+        "appBytes": 2584500,
+        "remoteBytes": 0,
+        "remoteRequests": 0
+      },
+      "online": {
+        "appBytes": 7137333,
+        "remoteBytes": 217330382,
+        "remoteRequests": 12
+      },
+      "largeModelRange": {
+        "file": "individual-assets/m3/safire-encoder-bounded.onnx",
+        "chunksFetched": 2,
+        "exact": true
+      },
+      "standardTar": true,
+      "offlineLocalLibrary": {
+        "ordinaryFile": "jpeg.wasm",
+        "size": 531241,
+        "mode": "imported-standard-file"
+      },
+      "optionalModels": {
+        "files": 4,
+        "missingCode": "MODEL_LOCAL_REQUIRED",
+        "remoteRequests": 0,
+        "imported": {
+          "name": "individual-assets/segmentation/selfdm-proposal/superpoint-post-folded.onnx",
+          "bytes": 13627,
+          "sha256": "3fd09c58ac33fe73e374194e6aec029a88bf4bacede7a5c0369268fd4c7774a0"
+        }
+      },
+      "forestFactory": {
+        "manifestSha256": "b428fe9626dfd59ea3161e2b79786b2a4713e13770e8d75c80477b5805f57157",
+        "factorySha256": "c22662cd36bd37d651915acbfbbcc87e72ab7ab8a74bc403636cf521e4d82b29",
+        "wasmSha256": "8862652664bf888b575e78258a15e734550082cba244e7cccb4781fb4d740a61",
+        "abi": true
+      },
+      "transport": {
+        "type": "application/wasm",
+        "rangeStatus": 206,
+        "rangeExact": true
+      },
+      "pixels": {
+        "exactPixels": true,
+        "webpBytes": 666,
+        "version": "0.37.0-methods.1"
+      },
+      "errors": [],
+      "scope": "Fresh automated browser, synthetic 67×65 pixels; no user image or existing application tab touched. Two local origins simulate published raw GitHub assets. Ordinary local file reused offline; standard TAR verified independently by Python. Optional-model import and forest ABI are delivery checks, not a new scientific inference qualification."
+    }
+  },
+  "bootstrapTestBytesBeforePrivateOverlay": 24452025,
+  "limits": [
+    "Transport checks use two local origins. Pinned public GitHub bytes are checked separately after publication.",
+    "Optional research-model payloads are imported locally with their exact identities, not hosted here.",
+    "SSG forest redistribution and use carry its separate noncommercial MSR-LA/BSD notices.",
+    "Scientific filtering of mixed figures is not accepted. Display defaults are corrected.",
+    "No new universal 96 MP, physical-mobile or numerical-parity qualification."
+  ]
+}

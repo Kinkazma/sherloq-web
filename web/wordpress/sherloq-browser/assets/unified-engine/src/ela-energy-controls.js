@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue} from './errors.js';
 // UI request revisions for the callable energy-only engine and its scientific profiles.
 // This controller does not run analysis or supply legacy peer biomes.

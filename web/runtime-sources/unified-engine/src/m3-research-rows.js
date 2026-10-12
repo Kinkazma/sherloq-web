@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {validateRgbRows} from './rgb-row-source.js';
 import {pillowCoefficients} from './adaifl-prepare.js';

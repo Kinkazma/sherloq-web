@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {EngineError,normalizeResourceError,resourceAllocationKind} from './errors.js';
 
 // Error boundaries add execution context; they never replace the allocator's

@@ -1,0 +1,20 @@
+import{createPatchMatch}from'./patchmatch.js';import{Budget}from'../../src/cache.js';
+export async function patchmatchStudy(factory,reference,read,hash,{onCase=()=>{},onTrace=()=>{},testLifecycle=true,evaluatorFactory,budgetBytes=768*1024**2}={}){
+ const budget=new Budget(budgetBytes),engine=await createPatchMatch(factory,{budget,evaluatorFactory}),records=[];let firstInput;
+ try{
+  for(const row of reference.records){const planes=[];for(const entry of row.inputs){const bytes=await read(entry);if(await hash(bytes)!==entry.sha256)throw Error('Input identity');planes.push(new Uint16Array(bytes.buffer,bytes.byteOffset,bytes.byteLength/2));}
+   const input={zmFeatures:planes[0],cnnFeatures:planes[1],cnnFinalFeatures:planes[2],side:row.side,iterations:row.iterations,randomState:row.initial,referenceThreads:row.referenceThreads};firstInput??=input;let at=0,trace=[];const start=performance.now();
+   const result=await engine.run(input,{onTrace:async current=>{const native=row.trace[at++];if(current.branch!==native.branch)throw Error('Evaluation order');const hashes=[await hash(new Uint8Array(current.x.buffer)),await hash(new Uint8Array(current.y.buffer))],exact=hashes.every((h,i)=>h===native.outputs[i].sha256);trace.push(exact);onTrace({name:row.name,evaluation:at,total:row.trace.length,exact});if(!exact)throw Error('First divergent evaluation '+row.name+' '+at+' '+current.branch+' '+current.phase);}});
+   try{const all=[result.offsets.zm.x,result.offsets.zm.y,result.offsets.cnn.x,result.offsets.cnn.y,result.coordinates.zm.x,result.coordinates.zm.y,result.coordinates.cnn.x,result.coordinates.cnn.y];let exact=true;for(let i=0;i<all.length;i++)exact&&=await hash(new Uint8Array(all[i].buffer))===row.outputs[i].sha256;
+    if(JSON.stringify(result.finalRandomState)!==JSON.stringify(row.final)||at!==row.trace.length)throw Error('RNG or evaluation order');const record={name:row.name,side:row.side,iterations:row.iterations,evaluations:at,traceExact:trace.every(Boolean),outputsExact:exact,elapsedMs:performance.now()-start};records.push(record);onCase(record);
+   }finally{result.release();}
+  }
+  if(!testLifecycle){const peak=budget.snapshot().peakAccountedBytes;engine.dispose();if(budget.total()!==0)throw Error('Budget retained after disposal');return{schema:1,status:records.every(x=>x.traceExact&&x.outputsExact)?'passed':'rejected',scope:reference.scope,cases:records.length,records,lifecycle:{notRun:true,reason:'Lifecycle is exercised separately by the seven-case corpus',allReservationsReleased:true},peakAccountedBytes:peak};}
+  const before=budget.total(),controller=new AbortController();let cancelled=false,busy=false,refused=false,progress=0;const pending=engine.run(firstInput,{signal:controller.signal,onProgress:()=>{progress++;if(progress===2)controller.abort();}});try{await engine.run(firstInput);}catch(error){busy=error.code==='INVALID_INPUT';}try{await pending;}catch(error){cancelled=error.code==='CANCELLED';}if(budget.total()>before)throw Error('Workspace retained after cancellation');
+  const oldLimit=budget.limit,afterCancelled=budget.total();budget.limit=afterCancelled;try{await engine.run(firstInput);}catch(error){refused=error.code==='MEMORY_LIMIT';}finally{budget.limit=oldLimit;}if(budget.total()!==afterCancelled)throw Error('Reservation retained after refusal');
+  const retry=await engine.run(firstInput);try{if(await hash(new Uint8Array(retry.offsets.zm.x.buffer))!==reference.records[0].outputs[0].sha256)throw Error('Retry differed');}finally{retry.release();}
+  if(!cancelled||!busy||!refused||progress!==2)throw Error('PatchMatch lifecycle');
+  const peak=budget.snapshot().peakAccountedBytes;engine.dispose();if(budget.total()!==0)throw Error('Budget retained after disposal');
+  return{schema:1,status:records.every(x=>x.traceExact&&x.outputsExact)?'passed':'rejected',scope:reference.scope,cases:records.length,records,lifecycle:{cancelled,busy,refused,retry:true,allReservationsReleased:true},peakAccountedBytes:peak};
+ }finally{engine.dispose();}
+}

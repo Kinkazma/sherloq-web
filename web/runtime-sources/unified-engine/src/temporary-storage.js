@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {EngineError,requireValue,checkAbort,serializeEngineError} from './errors.js';
 import {createTemporarySession as createOpfsSession,temporaryStorageCapabilities as opfsCapabilities,removeTerminatedTemporarySession as removeOpfsSession} from './opfs-storage.js';
 import {createIndexedDbSession,removeIndexedDbSession} from './indexeddb-storage.js';

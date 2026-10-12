@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {createPagedDetailSampler} from './dense-paged-detail.js';
 import {pagedGuideLabels} from './dense-paged-regions.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';

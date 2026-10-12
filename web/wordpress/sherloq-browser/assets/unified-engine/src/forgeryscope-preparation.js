@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {allocateWasmMemory,copyTypedArray,registerArrayViews} from './allocation.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {yoloLetterboxShape} from './forgeryscope-yolo.js';

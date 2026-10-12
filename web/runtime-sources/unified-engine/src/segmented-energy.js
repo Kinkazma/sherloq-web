@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue,checkAbort} from './errors.js';
 import {energyReferenceHeader} from './energy-pipeline.js';import {inspectJpegBlob} from './jpeg.js';
 import {segmentedEnergyQualities} from './energy-qualities-stream.js';import {AdaptiveConcurrency} from './adaptive-concurrency.js';import {detectSegmentedPanels} from './auto-zones-stream.js';

@@ -2,7 +2,7 @@
 // Source RGB and verified checkpoint parameters are the only inference inputs.
 import factory from '../../vendor/segmentation/vig-math.js';
 import {createVigConvolution} from './vig-convolution.js';
-import {requireValue,checkAbort,controlCheckpoint,EngineError} from '../../src/errors.js';
+import {requireValue,checkAbort,controlCheckpoint,EngineError,serializeEngineError} from '../../src/errors.js';
 const HEAP=64*1024**2,STAGING=96*1024**2;
 export function vigStructure(){
  const parameters={pos_embed:[1,640,16,16]},modules={},knn=[];
@@ -21,21 +21,25 @@ export function validateVigBackbone(graph){
  const expected=vigStructure();requireValue(Object.keys(graph.parameters).length===511&&JSON.stringify(graph.modules)===JSON.stringify(expected.modules)&&JSON.stringify(graph.knn)===JSON.stringify(expected.knn),'Pinned VIG architecture');
  for(const[name,shape]of Object.entries(expected.parameters)){const p=graph.parameters[name];requireValue(p?.dtype==='float32'&&JSON.stringify(p.shape)===JSON.stringify(shape)&&p.bytes===shape.reduce((n,v)=>n*v,4)&&/^[a-f0-9]{64}$/.test(p.sha256)&&p.file==='parameters/'+p.sha256+'.bin','VIG parameter identity: '+name);}
 }
-export async function createVigBackbone({budget,graph,read,maxWorkers=1,backend='cpu'}){
+export async function createVigBackbone({budget,graph,read,maxWorkers=1,backend='cpu',convolutionFactory}){
  validateVigBackbone(graph);requireValue(budget?.reserve&&typeof read==='function'&&['cpu','webgpu'].includes(backend),'VIG parameter reader and budget');let pool,module,freeHeap,busy=false,disposed=false;
- try{pool=backend==='webgpu'?await (await import('./vig-convolution-gpu.js')).createVigConvolutionGpu({budget}):createVigConvolution({budget,maxWorkers});freeHeap=budget.reserve(HEAP);module=await factory();requireValue(module.HEAPU8.length===HEAP,'VIG bounded math heap');}catch(e){pool?.dispose();freeHeap?.();throw e;}
+ try{pool=convolutionFactory?await convolutionFactory({budget,maxWorkers,backend}):backend==='webgpu'?await (await import('./vig-convolution-gpu.js')).createVigConvolutionGpu({budget}):createVigConvolution({budget,maxWorkers});freeHeap=budget.reserve(HEAP);module=await factory();requireValue(module.HEAPU8.length===HEAP,'VIG bounded math heap');}catch(e){pool?.dispose();freeHeap?.();throw e;}
  return{
   async run(input,{signal,onProgress}={}){
    if(busy)throw new EngineError('BUSY','VIG backbone busy');requireValue(!disposed&&input instanceof Float32Array&&input.length===3*256**2&&input.every(Number.isFinite),'Prepared VIG RGB');checkAbort(signal);busy=true;
-   let staging,release,complete=false,workers=0,parameterLoadMs=0,graphDistanceMs=0,gpuWriteBytes=0,gpuReadBytes=0,gpuPeakBufferBytes=0,gpuAllocations=0,stamp=performance.now();const started=stamp;
+   let staging,release,complete=false,primaryError,workers=0,parameterLoadMs=0,graphDistanceMs=0,gpuWriteBytes=0,gpuReadBytes=0,gpuPeakBufferBytes=0,gpuAllocations=0,stamp=performance.now();const started=stamp,mappedSources=new Map(),consume=data=>{const free=mappedSources.get(data);if(free){mappedSources.delete(data);free();}};
    const checkpoint=async()=>{checkAbort(signal);if(performance.now()-stamp>=8){await controlCheckpoint(signal);stamp=performance.now();}};
    const parameter=async name=>{checkAbort(signal);const spec=graph.parameters[name],at=performance.now();let bytes;try{bytes=await read(spec,{signal});}finally{parameterLoadMs+=performance.now()-at;}checkAbort(signal);requireValue(bytes instanceof Uint8Array&&bytes.byteLength===spec.bytes&&bytes.byteOffset%4===0,'Verified VIG parameter bytes');const a=new Float32Array(bytes.buffer,bytes.byteOffset,bytes.byteLength/4);requireValue(a.every(Number.isFinite),'Finite VIG parameters');return a;};
-   const math=async(arrays,length,fn)=>{const pointers=[],put=n=>{const p=module._malloc(n);requireValue(p>0,'VIG math admission');pointers.push(p);return p;};try{const inputs=arrays.map(a=>{const p=put(a.byteLength);module.HEAPF32.set(a,p/4);return p;}),out=put(length*4);await fn(inputs,out,put);checkAbort(signal);const result=module.HEAPF32.slice(out/4,out/4+length);await checkpoint();return result;}finally{pointers.forEach(p=>module._free(p));}};
+   // A GPU convolution may return its mapped readback directly. Keep that lease
+   // through parameter awaits, then retire it only after this useful Wasm copy.
+   // No additional host activation copy or changed arithmetic is introduced.
+   const math=async(arrays,length,fn)=>{const pointers=[],put=n=>{const p=module._malloc(n);requireValue(p>0,'VIG math admission');pointers.push(p);return p;};try{const inputs=arrays.map(a=>{const p=put(a.byteLength);module.HEAPF32.set(a,p/4);consume(a);return p;}),out=put(length*4);await fn(inputs,out,put);checkAbort(signal);const result=module.HEAPF32.slice(out/4,out/4+length);await checkpoint();return result;}finally{pointers.forEach(p=>module._free(p));}};
    const op=async(name,a)=>{
     const m=graph.modules[name],plane=a.h*a.w;let data;
     if(m.kind==='Conv'){
      const weight=await parameter(name+'.weight'),bias=await parameter(name+'.bias'),result=await pool.run({input:a.data,weight,bias,geometry:[m.ci,a.h,a.w,m.co,m.k,m.pad,m.stride,m.groups]},{signal,onProgress:p=>onProgress?.({...p,layer:name})});
-     try{workers=Math.max(workers,result.workers);gpuWriteBytes+=result.timings?.gpuWriteBytes??0;gpuReadBytes+=result.timings?.gpuReadBytes??0;gpuPeakBufferBytes=Math.max(gpuPeakBufferBytes,result.gpu?.peakAccountedBytes??0);gpuAllocations+=result.gpu?.allocations??0;data=result.data;}finally{result.release();}
+     if(backend==='webgpu')mappedSources.set(result.data,result.release);else result.release();
+     workers=Math.max(workers,result.workers);gpuWriteBytes+=result.timings?.gpuWriteBytes??0;gpuReadBytes+=result.timings?.gpuReadBytes??0;gpuPeakBufferBytes=Math.max(gpuPeakBufferBytes,result.gpu?.peakAccountedBytes??0);gpuAllocations+=result.gpu?.allocations??0;data=result.data;
      a={data,c:m.co,h:Math.floor((a.h+2*m.pad-m.k)/m.stride)+1,w:Math.floor((a.w+2*m.pad-m.k)/m.stride)+1};
     }else if(m.kind==='BN'){
      const arrays=[a.data];for(const key of ['weight','bias','running_mean','running_var'])arrays.push(await parameter(name+'.'+key));
@@ -60,7 +64,7 @@ export async function createVigBackbone({budget,graph,read,maxWorkers=1,backend=
      a={...a,c:1280,data};for(let j=0;j<3;j++)a=await op(p+'.graph_conv.gconv.nn.'+j,a);a=await op(p+'.fc2.0',a);a=await op(p+'.fc2.1',a);a=add(a,shortcut);shortcut=a;p='backbone.'+i+'.1';a=await op(p+'.fc1.0',a);a=await op(p+'.fc1.1',a);a=await op(p+'.act',a);a=await op(p+'.fc2.0',a);a=await op(p+'.fc2.1',a);a=add(a,shortcut);onProgress?.({phase:'vig-backbone',completed:i+1,total:16});await checkpoint();
     }
     requireValue(a.data.every(Number.isFinite),'Finite VIG features');checkAbort(signal);complete=true;return{data:a.data,shape:[1,640,16,16],workers,...(backend==='webgpu'?{gpu:{devices:1,allocations:gpuAllocations,peakAccountedBytes:gpuPeakBufferBytes,accounting:'explicit GPU buffers; excludes driver/compiler residency',errors:[]}}:{}),timings:{parameterLoadMs,graphDistanceMs,executionMs:performance.now()-started-parameterLoadMs,gpuWriteBytes,gpuReadBytes},release};
-   }finally{staging?.();if(!complete)release?.();busy=false;}
+   }catch(error){primaryError=error;throw error;}finally{let cleanupError;const clean=free=>{try{free?.();}catch(error){if(primaryError)primaryError.details={...primaryError.details,cleanupErrors:[...(primaryError.details?.cleanupErrors??[]),serializeEngineError(error)]};else cleanupError??=error;}};for(const free of mappedSources.values())clean(free);mappedSources.clear();clean(staging);if(!complete)clean(release);busy=false;if(cleanupError)throw cleanupError;}
   },
   dispose(){requireValue(!busy,'VIG backbone busy');if(disposed)return;disposed=true;pool.dispose();module=null;freeHeap();}
  };

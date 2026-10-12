@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 // Scientific policy shared with the pinned native Python assets. No UI tuning.
 export const COMPOSITE_STATISTICS_POLICY='covariance-floor-v1';
 export const COMPOSITE_STATISTICS_REVISION='covariance-floor-v1/banked-global-scale-1';

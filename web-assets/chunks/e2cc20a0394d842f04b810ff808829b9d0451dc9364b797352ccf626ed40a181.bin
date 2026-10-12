@@ -1,0 +1,6 @@
+{
+  "opencv": "4.11.0",
+  "source": "modules/imgproc/src/drawing.cpp",
+  "sourceSha256": "993d1c8e46e3b7e54ebc514f2eb3dc9436bf55a9ce2a129eb12108359a17dd14",
+  "adaptation": "Original integer clipping and LINE_8 traversal; fixed-point polygon edges written to segmented storage; sorted scanline intersections preserve even-odd fill."
+}

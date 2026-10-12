@@ -1,0 +1,5 @@
+SelfDM Proposal SuperGlue support components; browser conversion 2026-10-12.
+DeepMask (Qiang Wang): MIT project code and author-linked trained weights.
+ConvCRF (Marvin Teichmann): MIT; static Float32 graph has no learned weights.
+OpenCV SEEDS: Apache-2.0 with independently written original-grid wrappers.
+The complete chain is not MIT: SelfDM/SuperPoint/SuperGlue graphs remain user-supplied research material and are not hosted by this distribution.

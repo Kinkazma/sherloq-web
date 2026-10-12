@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 const BLOCK=65536;
 // Unsigned word order is the qualified radix ordering for nonnegative float32.

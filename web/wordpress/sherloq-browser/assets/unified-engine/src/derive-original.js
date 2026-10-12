@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 
 // Patches use immutable ORIGINAL coordinates, never positions shifted by prior edits.

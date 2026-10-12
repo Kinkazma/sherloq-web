@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {panels,polygonArea,signedDistance,roundEven,sourceLabel} from './clone-relations.js';
 import {createCloneEntryGeometry} from './clone-entry-geometry.js';

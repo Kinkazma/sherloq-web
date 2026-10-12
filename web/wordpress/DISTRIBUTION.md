@@ -135,14 +135,14 @@ The published `runtime-lock.json` identifies the adapted executable resources.
 model hashes remain identical. Reapplying the adapter is idempotent. The engine
 source snapshot and its reviewed increments are identified in
 `web/engine-source-identity.json` and the runtime receipts; the current engine is
-0.35.0-export.3 with its atomic SIFT phase increment. Sites can add an optional private packaging overlay with
+0.37.0-methods.1, including the new clone methods and the retained atomic SIFT phase increment. Sites can add an optional private packaging overlay with
 `--private-overlay PATH`; this content is never copied to the public tree.
 
 On Apache, the scoped header rules remove duplicate PHP/Apache policy headers.
 This preserves shared-memory isolation while keeping the PHP entry point valid
 on hosts that do not apply `.htaccess` to static assets.
 
-## SHERLOQ Web Local (0.15.0 candidate)
+## SHERLOQ Web Local
 
 The **Take offline / Emporter hors ligne** toolbar button opens the installation
 flow. This public feature runs in the visitor's own browser on their own device;

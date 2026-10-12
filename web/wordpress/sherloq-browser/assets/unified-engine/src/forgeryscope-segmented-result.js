@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {requireValue,checkAbort} from './errors.js';
 /** Read-only result fields. Binary arrays retain their native bytes; map is the
  * native float32 cast materialized only in requested/export windows. */

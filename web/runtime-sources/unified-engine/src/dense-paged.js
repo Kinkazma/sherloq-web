@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {wasmRange,byteView,closeMemoryRanges} from './memory-range.js';
 // Native global traversal with bounded caches and externally stored planes.
 // Input stores are borrowed; returned planes are owned until dispose(). No

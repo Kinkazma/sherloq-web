@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.15.1";
+import "../../runtime-context.js?v=0.16.0";
 import {noisesnifferPagedSelectionWorkspace} from './noisesniffer-paged-selection.js';
 import {createNoisesnifferNpzPages} from './noisesniffer-npz-pages.js';
 import {noisesnifferParams,noisesnifferRegions} from './noisesniffer.js';
