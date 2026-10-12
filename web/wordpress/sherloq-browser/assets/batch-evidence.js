@@ -8,6 +8,14 @@ import {forgeryscopeEntries} from './unified-engine/src/automatic-ai-entries.js'
 import {SIFT_SOURCE,CLONE_SOURCES} from './unified-engine/src/clone-relations.js';
 
 const check=signal=>signal?.throwIfAborted();
+export function batchForgeryscopeMetadata(value){
+ const metadata=value?.metadata??value;
+ if(Array.isArray(metadata?.zones))return metadata;
+ // Standalone M2 analyzes the whole source. The automatic orchestrator wraps
+ // the same native comparisons in zones with an explicit crop origin.
+ if(metadata?.profile==='Forgeryscope Auto'&&Array.isArray(metadata.comparisons))return {...metadata,zones:[{...metadata,origin:[0,0]}]};
+ throw Error('Métadonnées Forgeryscope Auto absentes ou non reconnues.');
+}
 export function compactEvidence(value){
  if(typeof value==='bigint')return value.toString();
  if(ArrayBuffer.isView(value))return {type:value.constructor.name,length:value.length};
@@ -38,7 +46,7 @@ export async function cloneEvidence(output,recipe,client,image,context,signal){
   if(!mask)throw Error('Le masque scientifique D2PRL est absent.');
   owned=await streamedD2prlRegions({width:image.width,height:image.height,mask:await maskStore(client,mask,image.width,image.height),minimum:recipe.operation==='ai.clones.segmentation'?0:recipe.params.minimum??500},{budget,signal});
  }else if(recipe.operation==='m2.forgeryscope'){
-  owned=await forgeryscopeEntries({metadata:output.data.metadata??output.data},{budget,low:0,signal});
+  owned=await forgeryscopeEntries({metadata:batchForgeryscopeMetadata(output.data)},{budget,low:0,signal});
  }else if(output.data?.pairs&&output.data?.groups){
   const combined=output.operation==='tampering.copyMove.dense'&&Array.isArray(output.data.group_algorithms);
   owned=await automaticPointEntries(output.data,{budget,geometry:{biomeSides},source:combined?null:SIFT_SOURCE,low:0,signal});

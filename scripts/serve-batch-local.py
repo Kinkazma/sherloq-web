@@ -15,6 +15,15 @@ manifest=json.loads((assets/('dependency-manifest-'+configuration['manifest']+'.
 manifest['remoteBase']=f'http://127.0.0.1:{args.port}/__batch_assets__/'
 manifest_bytes=json.dumps(manifest,separators=(',',':')).encode()
 local_identity=hashlib.sha256(manifest_bytes).hexdigest()
+# Existing browser workers keep their manifest URL across a server restart.
+# Reconstruct those local identities in memory so they can load the updated
+# bootstrap and migrate normally, without deleting the user's browser storage.
+local_manifests={local_identity:manifest_bytes}
+for previous_path in assets.glob('dependency-manifest-*.json'):
+ previous=json.loads(previous_path.read_text())
+ previous['remoteBase']=f'http://127.0.0.1:{args.port}/__batch_assets__/'
+ previous_bytes=json.dumps(previous,separators=(',',':')).encode()
+ local_manifests[hashlib.sha256(previous_bytes).hexdigest()]=previous_bytes
 configuration['manifest']=local_identity
 configuration['workerVersion']='batch-local-1'
 repository=Path(__file__).resolve().parents[1]
@@ -43,7 +52,8 @@ class Handler(SimpleHTTPRequestHandler):
  def do_GET(self):
   path=urlsplit(self.path).path
   if path.endswith('/dependency-config.json'): data=json.dumps(configuration).encode()
-  elif path.endswith('/dependency-manifest-'+local_identity+'.json'): data=manifest_bytes
+  elif Path(path).name.startswith('dependency-manifest-') and Path(path).stem.removeprefix('dependency-manifest-') in local_manifests:
+   data=local_manifests[Path(path).stem.removeprefix('dependency-manifest-')]
   else: return super().do_GET()
   self.send_response(200);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
  def end_headers(self):
