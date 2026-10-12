@@ -1,3 +1,5 @@
+import {readBatchZip} from './batch-zip.js';
+import {createBatchArtifactStore} from './batch-artifacts.js';
 const MiB=1024**2;
 export const IMPORT_LIMITS={fileBytes:256*MiB,expandedBytes:1024*MiB,entries:2000,pixels:100000000};
 const imagePattern=/\.(?:png|jpe?g|webp|avif|gif|bmp|tiff?|heic|heif|jp2|j2k|jxl|psd)$/i;
@@ -45,7 +47,7 @@ function pdfPixels(image){
  else throw Error('Format de pixels PDF non reconnu.');ctx.putImageData(out,0,0);return c;
 }
 export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMITS}={}){
- const studies=[],images=[],byHash=new Map(),errors=[],artifacts=new Map();let total=0,filesCount=0,retainedBytes=0;
+ const studies=[],images=[],byHash=new Map(),errors=[],artifacts=await createBatchArtifactStore();let total=0,filesCount=0,retainedBytes=0;
  function admit(bytes){total+=bytes;if(total>limits.expandedBytes)throw Error('Le lot dépasse 1 Gio de fichiers décompressés. Fractionnez le lot.');}
  async function addImage(blob,occurrence,{name,encoding='original',identity}={},signal){
   check(signal);const info=identity??await pixelIdentity(blob,{signal});let image=byHash.get(info.hash);
@@ -93,13 +95,12 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
   finally{await parser?.destroy();}
  }
  async function importFile(file,name=file.name,signal){
-  check(signal);if(++filesCount>limits.entries)throw Error('Maximum : 2 000 fichiers.');if(file.size>limits.fileBytes)throw Error('Fichier supérieur à 256 Mio : '+name);
+  check(signal);if(++filesCount>limits.entries)throw Error('Maximum : 2 000 fichiers.');if(file.size>limits.fileBytes&&!/\.zip$/i.test(name))throw Error('Fichier supérieur à 256 Mio : '+name);
   if(/\.zip$/i.test(name)){
-   const {JSZip}=await batchLibraries();const zip=await JSZip.loadAsync(file,{checkCRC32:false,createFolders:false});
+   const {JSZip}=await batchLibraries();const stored=await readBatchZip(file,{maximumEntries:limits.entries});if(!stored&&file.size>limits.fileBytes)throw Error('ZIP compressé supérieur à 256 Mio. Les archives SHERLOQ sont lues par morceaux.');const zip=stored??await JSZip.loadAsync(file,{checkCRC32:false,createFolders:false});
    const entries=Object.values(zip.files).filter(x=>!x.dir&&!x.name.startsWith('__MACOSX/')&&!x.name.split('/').some(p=>p.startsWith('.')));
    if(entries.length>limits.entries)throw Error('Archive contenant trop de fichiers.');let expanded=0;
    for(const entry of entries){const size=entry._data?.uncompressedSize;if(!Number.isSafeInteger(size)||size>limits.fileBytes)throw Error('Entrée ZIP trop grande ou invalide : '+entry.name);expanded+=size;}
-   if(expanded+total>limits.expandedBytes)throw Error('Archive dépassant la limite de 1 Gio décompressé.');
    const manifestEntry=entries.find(x=>x.name==='sherloq-batch.json');let manifest;
    if(manifestEntry){if(manifestEntry._data.uncompressedSize>8*MiB)throw Error('Inventaire de reprise trop grand.');manifest=JSON.parse(await manifestEntry.async('string'));if(manifest.schema!=='sherloq.batch/1')manifest=null;}
    if(manifest){
@@ -108,15 +109,16 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
     for(const old of manifest.studies??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(old.name),kind:old.kind,blob,manualMarked:!!old.retained,errors:[],restored:true};studies.push(study);remap.set(old.id,study.id);}
     for(const old of manifest.images??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);for(const occurrence of old.occurrences??[]){if(!remap.has(occurrence.studyId))continue;const image=await addImage(blob,{...occurrence,studyId:remap.get(occurrence.studyId)},{name:old.name,encoding:old.encoding},signal);image.family=['unknown','microscopy','gel','photography','schematic'].includes(old.family)?old.family:'unknown';image.selected=old.selected!==false;
      if(old.hash===image.hash&&old.state==='done'&&Array.isArray(old.runs)&&old.runs.length<=100&&old.runs.every(r=>r.status==='done')&&old.score&&['clones','additional','total'].every(k=>Number.isSafeInteger(old.score[k])&&old.score[k]>=0&&old.score[k]<=128)){
-      const files=old.runs.flatMap(r=>r.files??[]);if(files.every(path=>typeof path==='string'&&path.startsWith('resultats/'+image.id+'/')&&zip.file(path))){for(const path of files)if(!artifacts.has(path)){const output=await zip.file(path).async('blob');admit(output.size);artifacts.set(path,output);}image.runs=old.runs;image.score=old.score;image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};}
+      const files=old.runs.flatMap(r=>r.files??[]);if(files.every(path=>typeof path==='string'&&path.startsWith('resultats/'+image.id+'/')&&zip.file(path))){for(const path of files)if(!artifacts.has(path)){const output=await zip.file(path).async('blob');await artifacts.set(path,output);}image.runs=old.runs;image.score=old.score;image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};}
      }
     }}
     return;
    }
+   if(expanded+total>limits.expandedBytes)throw Error('Archive dépassant la limite de 1 Gio décompressé.');
    for(const entry of entries){check(signal);if(/\.pdf$/i.test(entry.name)||imagePattern.test(entry.name))await importFile(await entry.async('blob'),entry.name.split('/').pop(),signal);}
   }else if(/\.pdf$/i.test(name)){admit(file.size);await extractPdf(file,name,signal);}
   else if(imagePattern.test(name)){admit(file.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(name),kind:'image',blob:file,manualMarked:/^(?:A_VERIFIER|\[?SUSPECT|★)/i.test(name),errors:[]};studies.push(study);try{await addImage(file,{studyId:study.id,page:null},{name},signal);}catch(error){check(signal);study.errors.push(error.message);errors.push({name,message:error.message});}}
   else throw Error('Format non pris en charge : '+name);
  }
- return {studies,images,errors,artifacts,async import(files,signal){for(const file of files){try{await importFile(file,file.name,signal);}catch(error){check(signal);errors.push({name:file.name,message:error.message});}}return {studies,images,errors};},clear(){studies.length=images.length=errors.length=0;byHash.clear();artifacts.clear();total=filesCount=retainedBytes=0;}};
+ return {studies,images,errors,artifacts,async import(files,signal){for(const file of files){try{await importFile(file,file.name,signal);}catch(error){check(signal);errors.push({name:file.name,message:error.message});}}return {studies,images,errors};},clear(){studies.length=images.length=errors.length=0;byHash.clear();total=filesCount=retainedBytes=0;return artifacts.clear();}};
 }

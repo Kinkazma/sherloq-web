@@ -1,0 +1,14 @@
+{
+  "schema": "sherloq.runtime-source-increment/1",
+  "baseIncrement": {
+    "receipt": "runtime-patches/execution-0.35.0-export.3.json",
+    "sha256": "705d2acdd9d1e229adfb741781d8b45e8d992e7c9b645b24bd526abbc728a2f1"
+  },
+  "engineCommit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
+  "engineVersion": "0.35.0-export.3",
+  "files": {
+    "src/execution-scheduler.js": "d816f9f483e1d5d5ed8d6f83f5228410a3ca5fabbe3641b4d1b0bbe78a76988b",
+    "src/sift-paged-resources.js": "c59cc60fbbd65cec0105d0505758787b3c25239d352d6b61dfceb6d10ae7fe2f"
+  },
+  "scope": "Atomic CPU/GPU SIFT phase handoff; unchanged native arithmetic, budgets and execution capacity. 94 targeted scheduler/resource tests and 7 native SIFT tests pass. Three PDF-extracted acquisitions use 9-10 workers with WebGPU and zero recovery; all scientific digests match the 3-worker reference. Not a new 96 MP qualification."
+}

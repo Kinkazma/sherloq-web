@@ -3,8 +3,25 @@ import assert from 'node:assert/strict';
 import {batchCatalog,catalogRecipe,batchTask,imageScore,studyScores} from '../web/wordpress/sherloq-browser/assets/batch-catalog.js';
 import {comparisonPolygons} from '../web/wordpress/sherloq-browser/assets/batch-export.js';
 import {pdfPoint,safeName} from '../web/wordpress/sherloq-browser/assets/batch-import.js';
-import {jsonExportValue} from '../web/wordpress/sherloq-browser/assets/tool-client.js';
+import {jsonExportValue,sparseNpzPreparationBytes} from '../web/wordpress/sherloq-browser/assets/tool-client.js';
 import {batchForgeryscopeMetadata} from '../web/wordpress/sherloq-browser/assets/batch-evidence.js';
+import {createBatchRunner} from '../web/wordpress/sherloq-browser/assets/batch-runner.js';
+import {m3Npz} from '../web/wordpress/sherloq-browser/assets/unified-engine/src/npz.js';
+
+test('Batch uses the native capacity and backend without a worker cap or forced CPU retry',async()=>{
+ const previous=globalThis.fetch;let settings,calls=0;
+ globalThis.fetch=async()=>new Response(JSON.stringify({engineVersion:'test',engineCommit:'test',runtimeSourceIncrementSha256:'test'}));
+ const image={id:'image',name:'image.png',blob:new Blob(),width:1,height:1,family:'unknown',selected:true,state:'ready',occurrences:[],runs:[]},model={images:[image],studies:[],artifacts:new Map()};
+ const runner=createBatchRunner({toolFactory:async value=>{settings=value;return {async load(){},async run(task){calls++;assert.equal(task.backend,'auto');throw Object.assign(Error('native refusal'),{code:'MEMORY_LIMIT'});},async dispose(){}};}});
+ try{await runner.run(model,[{id:'native',fr:'native',kind:'view',operation:'m2.native',params:{},signal:{},backend:'auto'}]);assert.equal(settings.resourceHints,undefined);assert.equal(settings.memoryBudgetBytes,4*1024**3);assert.equal(calls,1);assert.equal(image.runs[0].status,'error');assert.equal(image.runs[0].error.code,'MEMORY_LIMIT');assert.equal(model.engine.resourceHints,undefined);}
+ finally{globalThis.fetch=previous;}
+});
+
+test('Sparse NPZ admission includes numeric arrays and the native nested JSON mirror',()=>{
+ const data={points:new Float64Array(18000*7),pairs:new Float64Array(5405*4),colors:new Uint8Array(5405*3),pair_search_regions:new Int32Array(5405),groups:[new Uint32Array([0,1])],params:{algorithm:'SIFT + G2NN + RANSAC + Panels + Text'},metadata:{},regions:[],bases:[]};
+ const result={operation:'tampering.copyMove.sparse',data,provenance:{},style:{},visible:[]};
+ const output=m3Npz(result,sparseNpzPreparationBytes(result));assert.ok(output.bytes.byteLength>data.points.byteLength);assert.equal(output.bytes[0],0x50);assert.equal(output.bytes[1],0x4b);
+});
 
 test('Standalone Forgeryscope Auto keeps native comparisons in source coordinates',()=>{
  const comparisons=[{accepted:true,polygon0:[[1,2],[3,4]],polygon1:[[11,12],[13,14]]}],lane_pairs=[{score:.8}];

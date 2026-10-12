@@ -22,11 +22,16 @@ export function resultResources(result){
   for(const v of Object.values(value))visit(v);
  };visit(result);return {surfaces:[...surfaces.values()],tables:[...tables.values()]};
 }
-export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity}={}){
+export function sparseNpzPreparationBytes(result){
+ const bound=v=>ArrayBuffer.isView(v)?v.length*32+2:v===null||typeof v!=='object'?typeof v==='string'?v.length*6+2:32:Object.entries(v).reduce((n,[k,x])=>n+k.length*6+bound(x)+4,2);
+ // Numeric arrays and their native JSON row mirror both live during NPZ preparation.
+ return 65536+8*(bound(result.data)+bound(result.provenance)+bound(result.style)+bound(result.visible));
+}
+export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity,resourceHints}={}){
  const deployment=await (await fetch(new URL('./integrated-config.json',import.meta.url))).json();
  const base=new URL(deployment.assetBase,new URL('./integrated-config.json',import.meta.url));
  const asset=name=>new URL(name,base).href;
- const engine=engineFactory({computeProfile,...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
+ const engine=engineFactory({computeProfile,...(resourceHints?{resourceHints}:{}),...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
  let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,m3OcrLoaded=false,d2Loaded=false,segmentationVariant=null,m2=null,m2Method=null;
  let d2Analysis=null;let sourceInput;const sourceAliases=new Set();
  const invalidated=()=>{d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;segmentationVariant=null;onInvalidated({resultLost});};
@@ -157,7 +162,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     else if(format==='prnu'){if(!prnu)throw Error('Aucune base PRNU.');await stream(await engine.createPrnuDatabaseExport(prnu.id,hooks()),sink);}
     else if(selected?.id&&!selected.columns)await stream(await engine.exportSurface({...options,surfaceId:selected.id,revision:selected.revision,format,render:format==='npz'?undefined:{range:selected.range??[0,1]},storage:'temporary'},hooks()),sink);
     else if(format==='json')await stream(await engine.exportResultFile(jsonExportValue(result),{format:'json',storage:'temporary'},hooks()),sink);
-    else {let maxBytes=32*1024**2;if(format==='npz'&&result.operation==='tampering.copyMove.sparse'){const bound=v=>ArrayBuffer.isView(v)?v.length*32+2:v===null||typeof v!=='object'?typeof v==='string'?v.length*6+2:32:Object.entries(v).reduce((n,[k,x])=>n+k.length*6+bound(x)+4,2);const needed=32768+4*(bound(result.data)+bound(result.provenance)+bound(result.style)+bound(result.visible));const {memory}=await engine.capabilities();maxBytes=Math.max(1,Math.floor(Math.min(Math.max(maxBytes,needed),memory.policyAvailableBytes-memory.knownHeapCapacityBytes)));}const output=await engine.exportResult(result,{format,maxBytes},hooks());await sink.write(output.bytes);}
+    else {let maxBytes=32*1024**2;if(format==='npz'&&result.operation==='tampering.copyMove.sparse'){const needed=sparseNpzPreparationBytes(result);const {memory}=await engine.capabilities();maxBytes=Math.max(1,Math.floor(Math.min(Math.max(maxBytes,needed),memory.policyAvailableBytes-memory.knownHeapCapacityBytes)));}const output=await engine.exportResult(result,{format,maxBytes},hooks());await sink.write(output.bytes);}
     return await sink.finish();
    }catch(error){await sink.abort();throw error;}
   })),

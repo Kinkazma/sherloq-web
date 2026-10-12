@@ -1,0 +1,55 @@
+{
+  "schema": "sherloq.batch-pipeline-qualification/1",
+  "status": "done",
+  "documents": 7,
+  "extracted": 147,
+  "qualificationImages": 3,
+  "completedMethods": 6,
+  "engine": {
+    "version": "0.35.0-export.3",
+    "commit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
+    "increment": "286e322c49123c29eec25421e0d60b381e9df87f01663b859b4919ffd09b3006",
+    "batch": "0.2.0",
+    "memoryBudgetBytes": 4294967296,
+    "m2MemoryBudgetBytes": 2147483648
+  },
+  "artifactStorage": {
+    "kind": "origin-private-files",
+    "files": 18,
+    "bytes": 56161447,
+    "retainedResultBlobBytes": 0
+  },
+  "reportBytes": 2290746,
+  "archiveBytes": 129214964,
+  "reusedImages": 3,
+  "arraysValidatedIndependently": true,
+  "scope": "Three-image integration qualification from seven scientific PDFs, not the complete 86-image human selection.",
+  "compressedStorageQualification": {
+    "schema": "sherloq.batch-storage-qualification/1",
+    "chunkBytes": 1048576,
+    "storage": {
+      "kind": "origin-private-files",
+      "files": 33,
+      "bytes": 553648128,
+      "retainedResultBlobBytes": 0
+    },
+    "liveBatchPreserved": true,
+    "archiveBytes": 2163994,
+    "resumedFiles": 34,
+    "inventory": "{}",
+    "lastBytesMatch": true,
+    "elapsedMs": 12187.544999957085,
+    "status": "done",
+    "remainingTemporaryEntries": []
+  },
+  "uiUnitSuite": {
+    "passed": 252,
+    "total": 254,
+    "unavailableFixtures": [
+      "unified-engine/src/energy-log-data.js",
+      "unified-assets/d2prl/model.json"
+    ],
+    "scope": "Full suite run from web/wordpress; two cases require unstaged delivery resources. They are not claimed as passed."
+  },
+  "batchTests": 21
+}

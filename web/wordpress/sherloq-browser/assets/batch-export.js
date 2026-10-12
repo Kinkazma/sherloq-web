@@ -1,3 +1,4 @@
+import {diskBatchZip} from './batch-zip.js';
 import {batchLibraries,safeName,pdfPoint} from './batch-import.js';
 import {studyScores,batchCatalog} from './batch-catalog.js';
 
@@ -56,22 +57,22 @@ export async function batchReport(model,{language='fr',signal}={}){
   if(image.encoding==='pdf-decoded-png')line('Pixels extraits du PDF en PNG. Historique de compression JPEG original non conservé.');
   for(const run of image.runs){line(run.title+' : '+run.status+(run.positive?' - éléments signalés':'')+(run.error?' - '+run.error.message:''));if(run.threshold!==undefined)line('Seuil '+run.threshold+' | '+run.pixels+' pixels | minimum '+run.minimumPixels);if(run.descriptive)line('Régions descriptives ELA ; interprétation humaine nécessaire.');}
   if(y<350)addPage();
-  const outputPath=image.runs.find(r=>r.positive)?.files?.find(p=>p.endsWith('.png')),blob=model.artifacts.get(outputPath)??image.blob;
+  const outputPath=image.runs.find(r=>r.positive)?.files?.find(p=>p.endsWith('.png')),blob=(await model.artifacts.get(outputPath))??image.blob;
   try{const bytes=await blob.arrayBuffer(),embedded=blob.type==='image/jpeg'||/\.jpe?g$/i.test(outputPath??image.name)?await doc.embedJpg(bytes):await doc.embedPng(bytes);const scale=Math.min(510/embedded.width,Math.max(120,y-80)/embedded.height,1),w=embedded.width*scale,h=embedded.height*scale;page.drawImage(embedded,{x:42,y:y-h,width:w,height:h});y-=h+20;}catch{line('Image disponible dans l’archive ZIP.');}
  }
- if(model.comparisons?.length){for(const pair of model.comparisons){check();addPage();line('Comparaisons entre études retenues',{heading:true,size:16});line(pair.kind==='identical-pixels'?'Pixels strictement identiques entre les études sélectionnées.':pair.status==='error'?'Comparaison incomplète : '+pair.message:'Correspondances géométriques entre deux images.');line((pair.images??[]).map(id=>model.images.find(i=>i.id===id)?.name??id).join(' / '));const path=pair.files?.find(p=>p.endsWith('.png'));if(path){const blob=model.artifacts.get(path);if(blob){const embedded=await doc.embedPng(await blob.arrayBuffer()),scale=Math.min(510/embedded.width,(y-60)/embedded.height);page.drawImage(embedded,{x:42,y:y-embedded.height*scale,width:embedded.width*scale,height:embedded.height*scale});}}}}
+ if(model.comparisons?.length){for(const pair of model.comparisons){check();addPage();line('Comparaisons entre études retenues',{heading:true,size:16});line(pair.kind==='identical-pixels'?'Pixels strictement identiques entre les études sélectionnées.':pair.status==='error'?'Comparaison incomplète : '+pair.message:'Correspondances géométriques entre deux images.');line((pair.images??[]).map(id=>model.images.find(i=>i.id===id)?.name??id).join(' / '));const path=pair.files?.find(p=>p.endsWith('.png'));if(path){const blob=await model.artifacts.get(path);if(blob){const embedded=await doc.embedPng(await blob.arrayBuffer()),scale=Math.min(510/embedded.width,(y-60)/embedded.height);page.drawImage(embedded,{x:42,y:y-embedded.height*scale,width:embedded.width*scale,height:embedded.height*scale});}}}}
  return new Blob([await doc.save()],{type:'application/pdf'});
 }
 export async function batchArchive(model,{language='fr',signal,onProgress=()=>{}}={}){
- const {pdf,JSZip}=await batchLibraries(),zip=new JSZip(),results=model.results??studyScores(model.studies,model.images,model.configuration?.options??{}),manifest={schema:'sherloq.batch/1',startedAt:model.startedAt,finishedAt:model.finishedAt,configuration:model.configuration,engine:model.engine,cancelled:model.cancelled,studies:[],images:[],comparisons:model.comparisons??[],errors:model.errors};let bytes=0;
- const add=(path,blob)=>{bytes+=blob.size;if(bytes>768*1024**2)throw Error('Archive supérieure à 768 Mio. Fractionnez le lot avant export.');zip.file(path,blob,{compression:/\.(?:png|jpe?g|webp|avif)$/i.test(path)?'STORE':'DEFLATE',compressionOptions:{level:3}});};
+ const {pdf}=await batchLibraries(),entries=[],results=model.results??studyScores(model.studies,model.images,model.configuration?.options??{}),manifest={schema:'sherloq.batch/1',startedAt:model.startedAt,finishedAt:model.finishedAt,configuration:model.configuration,engine:model.engine,cancelled:model.cancelled,studies:[],images:[],comparisons:model.comparisons??[],errors:model.errors};
+ const add=(path,blob)=>entries.push({path,size:blob.size,read:async()=>blob});
  add('rapport-SHERLOQ.pdf',await batchReport(model,{language,signal}));
  for(const [index,study]of results.entries()){
   signal?.throwIfAborted();const path='documents/'+index+'-'+artifactName(study),blob=study.kind==='pdf'?await annotatedStudy(study,model.images,pdf,model.comparisons):study.blob;add(path,blob);
   const {blob:ignored,...rest}=study;manifest.studies.push({...rest,archivePath:path});
  }
  for(const image of model.images){signal?.throwIfAborted();const path='images/'+image.id+'/'+safeName(image.name);add(path,image.blob);const {blob,thumbnail,restored,...rest}=image;manifest.images.push({...rest,archivePath:path});}
- for(const [path,blob]of model.artifacts)add(path,blob);
- const inventory=JSON.stringify(manifest,null,2);if(new TextEncoder().encode(inventory).length>8*1024**2)throw Error('Inventaire supérieur à 8 Mio : fractionnez le lot pour permettre sa reprise.');zip.file('sherloq-batch.json',inventory,{compression:'DEFLATE',compressionOptions:{level:3}});
- return zip.generateAsync({type:'blob',compression:'STORE',streamFiles:true},event=>{signal?.throwIfAborted();onProgress(event.percent/100);});
+ for(const path of model.artifacts.keys()){const blob=await model.artifacts.get(path);entries.push({path,size:blob.size,read:()=>model.artifacts.get(path)});}
+ const inventory=JSON.stringify(manifest,null,2);if(new TextEncoder().encode(inventory).length>8*1024**2)throw Error('Inventaire supérieur à 8 Mio : fractionnez le lot pour permettre sa reprise.');add('sherloq-batch.json',new Blob([inventory],{type:'application/json'}));
+ return diskBatchZip(entries,{signal,onProgress});
 }
