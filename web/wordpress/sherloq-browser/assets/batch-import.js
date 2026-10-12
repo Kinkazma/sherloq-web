@@ -1,7 +1,10 @@
 import {readBatchZip} from './batch-zip.js';
 import {createBatchArtifactStore} from './batch-artifacts.js';
 import {pdfTextPolygons,projectPdfExclusions} from './batch-scope-geometry.js';
-import {batchArtifactOwners,restoreBatchArtifacts} from './batch-restoration.js';
+import {batchArtifactOwners,restoredArtifactPaths} from './batch-restoration.js';
+import {remapBatchEvidence} from './batch-archive-layout.js';
+import {batchPairSelection} from './batch-catalog.js';
+import {serializeEngineError} from './unified-engine/src/errors.js';
 const MiB=1024**2;
 export const IMPORT_LIMITS={fileBytes:256*MiB,expandedBytes:1024*MiB,entries:2000,pixels:100000000};
 const imagePattern=/\.(?:png|jpe?g|webp|avif|gif|bmp|tiff?|heic|heif|jp2|j2k|jxl|psd)$/i;
@@ -48,16 +51,41 @@ function pdfPixels(image){
  else if(kind===1){const rowBytes=Math.ceil(width/8);for(let y=0;y<height;y++)for(let x=0;x<width;x++){const v=(data[y*rowBytes+(x>>3)]>>(7-(x&7)))&1?255:0;out.data.set([v,v,v,255],(y*width+x)*4);}}
  else throw Error('Format de pixels PDF non reconnu.');ctx.putImageData(out,0,0);return c;
 }
-export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMITS}={}){
- const studies=[],images=[],byHash=new Map(),errors=[],artifacts=await createBatchArtifactStore();let total=0,filesCount=0,retainedBytes=0;
+export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMITS,identify=pixelIdentity,artifactStoreFactory=createBatchArtifactStore,libraryLoader=batchLibraries}={}){
+ const studies=[],images=[],byHash=new Map(),errors=[],artifacts=await artifactStoreFactory(),restoredImages=new WeakMap();let total=0,filesCount=0,retainedBytes=0;
  function admit(bytes){total+=bytes;if(total>limits.expandedBytes)throw Error('Le lot dépasse 1 Gio de fichiers décompressés. Fractionnez le lot.');}
  async function addImage(blob,occurrence,{name,encoding='original',identity}={},signal){
-  check(signal);const info=identity??await pixelIdentity(blob,{signal});let image=byHash.get(info.hash);
+  check(signal);const info=identity??await identify(blob,{signal});let image=byHash.get(info.hash);
   if(!image){if(images.length>=limits.entries||retainedBytes+blob.size+info.thumbnail.size>limits.expandedBytes)throw Error('Trop d’images extraites pour ce lot. Fractionnez les documents.');retainedBytes+=blob.size+info.thumbnail.size;image={id:'image-'+info.hash.slice(0,24),hash:info.hash,name:safeName(name??'image.png'),blob,thumbnail:info.thumbnail,width:info.width,height:info.height,encoding,selected:true,family:'unknown',occurrences:[],runs:[],state:'ready'};byHash.set(info.hash,image);images.push(image);}
   image.occurrences.push(occurrence);onProgress({phase:'image',images:images.length,occurrences:images.reduce((n,i)=>n+i.occurrences.length,0)});return image;
  }
+ async function restoreImage(image,old,manifest,zip,signal,owners){
+  if(old.id!==image.id||old.hash!==image.hash||old.width!==image.width||old.height!==image.height)return;
+  const seen=restoredImages.get(image)??new Set();if(seen.has(old))return;seen.add(old);restoredImages.set(image,seen);
+  const flatPaths=new Map();
+  if(manifest.archiveLayout==='flat/1'){
+   const convert=(runs,prefix)=>{if(!Array.isArray(runs))return runs;const paths=restoredArtifactPaths({...old,runs},manifest,owners,()=>true,{prefix});if(!paths)return null;for(const [a,b]of paths)flatPaths.set(a,b);return runs.map(run=>({...run,files:(run.files??[]).map(path=>paths.get(path))}));};
+   old={...old,runs:convert(old.runs,'resultats/'+image.id),history:(old.history??[]).map((attempt,index)=>({...attempt,runs:convert(attempt.runs,'historique/restored-'+index+'/resultats/'+image.id)}))};
+  }
+  if(old.pairCleared)image.pairCleared=true;
+  else{const selection=old.pairSelection??manifest.configuration?.pairSelections?.[image.hash];if(selection)try{
+   if(selection.pixelHash!==image.hash||selection.width!==image.width||selection.height!==image.height)throw Object.assign(Error('La paire archivée appartient à une autre image.'),{code:'BATCH_PAIR_REQUIRED'});
+   image.pairSelection=batchPairSelection(image,selection.regions,selection.source);image.pairCleared=false;
+  }catch(error){image.pairError=serializeEngineError(error,'BATCH_PAIR_REQUIRED');}}
+  const permitted=path=>typeof path==='string'&&path.split('/').every(p=>p&&p!=='.'&&p!=='..')&&(path.startsWith('resultats/'+image.id+'/')||/^historique\/[^/]+\/resultats\//.test(path)&&path.split('/')[3]===image.id);
+  const validRuns=runs=>Array.isArray(runs)&&runs.length<=100&&runs.every(r=>r&&typeof r==='object'&&!Array.isArray(r)&&typeof r.title==='string'&&['done','partial','error','cancelled','running'].includes(r.status)&&Array.isArray(r.files)&&r.files.every(permitted));
+  const diagnosticRuns=runs=>structuredClone(runs).map(r=>r.status==='running'?{...r,archivedStatus:'running',status:'partial',error:r.error??{code:'INTERRUPTED_ARCHIVE',message:'Ce calcul était actif lors de l’export ; il n’est pas en cours dans cette session.'}}:r);
+  const archives=new Map([...flatPaths].map(([a,b])=>[b,a])),entry=path=>zip.file(archives.get(path)??path);
+  const restoreFiles=async runs=>{for(const path of runs.flatMap(r=>r.files))if(entry(path)&&!artifacts.has(path)){check(signal);const archivePath=archives.get(path)??path;await artifacts.set(path,await remapBatchEvidence(await entry(path).async('blob'),archivePath,flatPaths));}};
+  const history=(old.history??[]);if(Array.isArray(history)&&history.length<=1000){image.history??=[];for(const attempt of history)if(attempt&&validRuns(attempt.runs)){await restoreFiles(attempt.runs);image.history.push({...structuredClone(attempt),runs:diagnosticRuns(attempt.runs)});}}
+  if(!validRuns(old.runs))return;
+  await restoreFiles(old.runs);
+  const scoreValid=old.score&&['clones','additional','total'].every(k=>Number.isSafeInteger(old.score[k])&&old.score[k]>=0&&old.score[k]<=128);
+  if(old.state==='done'&&old.runs.every(r=>r.status==='done')&&scoreValid&&old.runs.flatMap(r=>r.files).every(path=>entry(path))){image.runs=structuredClone(old.runs);image.score=structuredClone(old.score);image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};if(old.preparation)image.preparation=structuredClone(old.preparation);}
+  else if(old.runs.length){image.runs=diagnosticRuns(old.runs);image.state='incomplete';image.score={...(scoreValid?structuredClone(old.score):{clones:0,additional:0,total:0}),incomplete:true};image.restoredDiagnostics=true;}
+ }
  async function extractPdf(blob,name,signal){
-  const {pdfjs,pdf}=await batchLibraries(),study={id:'study-'+crypto.randomUUID(),name:safeName(name),blob,kind:'pdf',manualMarked:/^(?:A_VERIFIER|\[?SUSPECT|★)/i.test(name),errors:[]};studies.push(study);
+  const {pdfjs,pdf}=await libraryLoader(),study={id:'study-'+crypto.randomUUID(),name:safeName(name),blob,kind:'pdf',manualMarked:/^(?:A_VERIFIER|\[?SUSPECT|★)/i.test(name),errors:[]};studies.push(study);
   const originalJpegs=new Map(),extracted=new WeakMap();let parser;
   try{
    // Preserve DCT streams only when the browser's decoded pixels match PDF.js.
@@ -101,7 +129,7 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
  async function importFile(file,name=file.name,signal){
   check(signal);if(++filesCount>limits.entries)throw Error('Maximum : 2 000 fichiers.');if(file.size>limits.fileBytes&&!/\.zip$/i.test(name))throw Error('Fichier supérieur à 256 Mio : '+name);
   if(/\.zip$/i.test(name)){
-   const {JSZip}=await batchLibraries();const stored=await readBatchZip(file,{maximumEntries:limits.entries});if(!stored&&file.size>limits.fileBytes)throw Error('ZIP compressé supérieur à 256 Mio. Les archives SHERLOQ sont lues par morceaux.');const zip=stored??await JSZip.loadAsync(file,{checkCRC32:false,createFolders:false});
+   const {JSZip}=await libraryLoader();const stored=await readBatchZip(file,{maximumEntries:limits.entries});if(!stored&&file.size>limits.fileBytes)throw Error('ZIP compressé supérieur à 256 Mio. Les archives SHERLOQ sont lues par morceaux.');const zip=stored??await JSZip.loadAsync(file,{checkCRC32:false,createFolders:false});
    const entries=Object.values(zip.files).filter(x=>!x.dir&&!x.name.startsWith('__MACOSX/')&&!x.name.split('/').some(p=>p.startsWith('.')));
    if(entries.length>limits.entries)throw Error('Archive contenant trop de fichiers.');let expanded=0;
    for(const entry of entries){const size=entry._data?.uncompressedSize;if(!Number.isSafeInteger(size)||size>limits.fileBytes)throw Error('Entrée ZIP trop grande ou invalide : '+entry.name);expanded+=size;}
@@ -110,13 +138,11 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
    if(manifest){
     if(!Array.isArray(manifest.studies)||!Array.isArray(manifest.images)||manifest.studies.length>limits.entries||manifest.images.length>limits.entries)throw Error('Inventaire de reprise invalide.');
     const remap=new Map(),owners=batchArtifactOwners(manifest);
-    for(const old of manifest.studies??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(old.name),kind:old.kind,blob,manualMarked:!!old.retained,errors:[],restored:true,...(old.pageText?{pageText:old.pageText}:{})};studies.push(study);remap.set(old.id,study.id);}
+    for(const old of manifest.studies??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(old.name),kind:old.kind,blob,manualMarked:!!old.retained,errors:Array.isArray(old.errors)?structuredClone(old.errors):[],restored:true,...(old.pageText?{pageText:old.pageText}:{})};studies.push(study);remap.set(old.id,study.id);}
     for(const old of manifest.images??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);for(const occurrence of old.occurrences??[]){if(!remap.has(occurrence.studyId))continue;const image=await addImage(blob,{...occurrence,studyId:remap.get(occurrence.studyId)},{name:old.name,encoding:old.encoding},signal);image.family=['unknown','microscopy','gel','photography','schematic'].includes(old.family)?old.family:'unknown';image.selected=old.selected!==false;
-     if(old.id===image.id&&old.hash===image.hash&&old.state==='done'&&Array.isArray(old.runs)&&old.runs.length<=100&&old.runs.every(r=>r.status==='done')&&old.score&&['clones','additional','total'].every(k=>Number.isSafeInteger(old.score[k])&&old.score[k]>=0&&old.score[k]<=128)){
-      const runs=await restoreBatchArtifacts(old,manifest,zip,artifacts,owners);if(runs){image.runs=runs;image.score=old.score;image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};if(old.preparation)image.preparation=old.preparation;}
-     }
+     await restoreImage(image,old,manifest,zip,signal,owners);
     }}
-    return;
+    if(Array.isArray(manifest.errors)&&manifest.errors.length<=limits.entries)errors.push(...structuredClone(manifest.errors));return;
    }
    if(expanded+total>limits.expandedBytes)throw Error('Archive dépassant la limite de 1 Gio décompressé.');
    for(const entry of entries){check(signal);if(/\.pdf$/i.test(entry.name)||imagePattern.test(entry.name))await importFile(await entry.async('blob'),entry.name.split('/').pop(),signal);}

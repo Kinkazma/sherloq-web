@@ -5,6 +5,7 @@ import {readFile} from 'node:fs/promises';
 import {parseHTML} from 'linkedom';
 import {mountAnalysisPanel} from '../sherloq-browser/assets/app.js';
 import {toolCatalog} from '../sherloq-browser/assets/tool-catalog.js';
+import {CLONE_ALGORITHMS} from '../sherloq-browser/assets/clone-methods.js';
 import {readPlotPoints,bindPlotCamera} from '../sherloq-browser/assets/scatter-view.js';
 import {bindDocumentResize} from '../sherloq-browser/assets/document-resize.js';
 import {loupeDefaults} from '../sherloq-browser/assets/media-settings.js';
@@ -116,7 +117,7 @@ test('Clone controls default to visible horizontal biomes, constrain reflections
   change('algorithm',JSON.stringify('SIFT + G2NN + RANSAC'));assert.equal($('tool-param-reflections').disabled,true);change('algorithm',JSON.stringify('SIFT + G2NN + RANSAC + Panels + Text'));assert.equal($('tool-param-reflections').disabled,false);change('reflections',true);change('algorithm',JSON.stringify('ORB'));assert.equal($('tool-param-reflections').checked,false);assert.equal($('tool-param-reflections').disabled,true);assert.equal($('tool-param-independent').disabled,true);
   change('autoRadius',true);for(const key of ['autoRadius','compact','independent'])assert.ok($('tool-param-'+key).title.length>80);
   const originalSettings=controller.settings().individual;controller.setLanguage('en');assert.match($('tool-param-autoRadius').title,/diagonal/);assert.equal($('task-run').textContent,'Calculate');assert.deepEqual(controller.settings().individual,originalSettings);
-  controller.setHighlight(true);assert.equal($('app').classList.contains('highlight-new-features'),true);assert.equal([...$('tool-param-algorithm').options].find(o=>o.value===JSON.stringify('SIFT + G2NN + RANSAC')).dataset.newFeature,'green');assert.equal([...$('tool-param-algorithm').options].find(o=>o.value==='"ALIKED"').dataset.newFeature,'red');
+  controller.setHighlight(true);assert.equal($('app').classList.contains('highlight-new-features'),true);assert.equal([...$('tool-param-algorithm').options].find(o=>o.value===JSON.stringify('SIFT + G2NN + RANSAC')).dataset.newFeature,'green');assert.equal([...$('tool-param-algorithm').options].find(o=>o.value==='"ALIKED"').dataset.newFeature,'yellow');
   $('sparse-view-lines').checked=true;$('sparse-view-lines').onchange();assert.equal($('sparse-biomes-only').getAttribute('aria-pressed'),'false');$('sparse-biomes-only').onclick();assert.equal($('sparse-view-lines').checked,false);assert.equal($('sparse-biomes-only').getAttribute('aria-pressed'),'true');assert.equal(h.calls.length,0);
  }finally{await h.dispose();}
 });
@@ -134,7 +135,7 @@ test('Draw, finish, escape and automatic regions never start clone analysis; Cal
 
 test('All native clone choices route with their own parameters and dense controls',async()=>{
  const h=environment();try{const {root,controller}=h.mount('tampering.copyMove.sparse'),$=id=>root.getElementById(id);h.adopt(controller);
-  const choices=[...$('tool-param-algorithm').options].map(o=>JSON.parse(o.value));assert.equal(choices.length,20);assert.equal(choices[5],'PatchMatch Zernike');assert.equal(choices[6],'PatchMatch SIFT');
+  const choices=[...$('tool-param-algorithm').options].map(o=>JSON.parse(o.value));assert.equal(choices.length,22);assert.deepEqual(new Set(choices),new Set(CLONE_ALGORITHMS));
   for(const algorithm of choices){$('tool-param-algorithm').value=JSON.stringify(algorithm);$('tool-param-algorithm').onchange();await $('task-run').onclick();const task=h.calls.at(-1),dense=algorithm.includes('PatchMatch');assert.equal(task.operation,dense?'tampering.copyMove.dense':'tampering.copyMove.sparse',algorithm);assert.equal(task.params[dense?'profile':'algorithm'],algorithm);assert.equal($('tool-param-patch').disabled,!dense);if(dense){assert.equal(task.params.iterations,8);assert.equal(task.params.texture,2);assert.equal(task.params.flip,algorithm.endsWith(' + Mirror')||$('tool-param-reflections').checked);}if(algorithm.endsWith(' + Mirror')){assert.equal($('tool-param-reflections').disabled,true);assert.equal(task.params.flip,true);}}
  }finally{await h.dispose();}
 });

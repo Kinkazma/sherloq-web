@@ -3,13 +3,13 @@ const flatPath=path=>typeof path==='string'&&/^resultats\/(?:images|donnees)\/[^
 // A shared file reference may not attach another image's analysis to this one.
 export function batchArtifactOwners(manifest){
  const owners=new Map();
- for(const image of manifest.images??[])for(const run of image.runs??[])for(const path of run.files??[]){
+ for(const image of manifest.images??[])for(const run of [...(image.runs??[]),...(image.history??[]).flatMap(attempt=>attempt.runs??[])])for(const path of run.files??[]){
   if(owners.has(path)&&owners.get(path)!==image.id)owners.set(path,null);else if(!owners.has(path))owners.set(path,image.id);
  }
  for(const pair of manifest.comparisons??[])for(const path of pair.files??[])owners.set(path,null);
  return owners;
 }
-export function restoredArtifactPaths(image,manifest,owners,exists){
+export function restoredArtifactPaths(image,manifest,owners,exists,{prefix='resultats/'+image.id}={}){
  const files=(image.runs??[]).flatMap(run=>run.files??[]),paths=new Map();
  if(!files.every(path=>typeof path==='string'&&exists(path)))return null;
  if(manifest.archiveLayout==='flat/1'){
@@ -17,7 +17,7 @@ export function restoredArtifactPaths(image,manifest,owners,exists){
   // Restore the internal per-image identity, while presenting the flat layout
   // only at export. This keeps deletion/replacement and scientific references
   // consistent on subsequent runs without accumulating old flat files.
-  for(const [index,path]of [...new Set(files)].entries())paths.set(path,'resultats/'+image.id+'/restored-'+index+path.slice(path.lastIndexOf('.')));
+  for(const [index,path]of [...new Set(files)].entries())paths.set(path,prefix+'/restored-'+index+path.slice(path.lastIndexOf('.')));
  }else{
   if(!files.every(path=>path.startsWith('resultats/'+image.id+'/')&&!path.slice(('resultats/'+image.id+'/').length).includes('/')&&!path.includes('\\')&&!path.split('/').some(p=>p==='.'||p==='..')))return null;
   for(const path of files)paths.set(path,path);

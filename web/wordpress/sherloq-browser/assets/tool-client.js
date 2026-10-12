@@ -4,6 +4,7 @@ import {individualModels,m2ToolClient} from './tool-models.js';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
 import {createExportSink} from './export-sink.js';
+import {EngineError} from './unified-engine/src/errors.js';
 
 // Dense native counters may exceed JS's exact-number range. Keep their decimal
 // values as strings in JSON; borrow scientific typed arrays without copying them.
@@ -33,23 +34,29 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  const base=new URL(deployment.assetBase,new URL('./integrated-config.json',import.meta.url));
  const asset=name=>new URL(name,base).href;
  const engine=engineFactory({computeProfile,...(resourceHints?{resourceHints}:{}),...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
- let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,d2Loaded=false,segmentationVariant=null,m2=null,m2Method=null;
+ let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,m3OcrLoaded=false,d2Loaded=false,segmentationVariant=null,m2=null,m2Method=null;
  let d2Analysis=null;let sourceInput;const sourceAliases=new Set();
- const invalidated=()=>{d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=d2Loaded=false;segmentationVariant=null;onInvalidated({resultLost});};
+ const invalidated=()=>{d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;segmentationVariant=null;onInvalidated({resultLost});};
  engine.onSourceInvalidation?.(invalidated);
  const resolve=value=>Array.isArray(value)?value.map(resolve):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,v])=>[key,key==='url'?asset(v):resolve(v)])):value;
  const enqueue=fn=>{const task=queue.then(()=>{if(disposed)throw Object.assign(Error('Outil fermé'),{code:'CANCELLED'});return fn();});queue=task.catch(()=>{});return task;};
  const hooks=()=>({signal:controller?.signal,onProgress});
- const work=async fn=>{controller=new AbortController();try{return await fn();}catch(error){if(m2&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error.code)){const failed=m2;m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}if(error.imagesCleared){d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=d2Loaded=false;segmentationVariant=null;}throw error;}finally{controller=null;}};
+ const work=async fn=>{controller=new AbortController();try{return await fn();}catch(error){if(m2&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error.code)){const failed=m2;m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}if(error.imagesCleared){d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;segmentationVariant=null;}throw error;}finally{controller=null;}};
  async function release(){if(!result)return;if(result.m2Result){await m2.release(result.m2Result.id);result=null;return;}const previous=result;result=null;const resources=resultResources(previous);for(const s of resources.surfaces)if(s.id!==source?.surface.id)await engine.releaseSurface(s.id);for(const t of resources.tables)await engine.releaseTable(t.id);}
  async function configure(operation,params={}){
-  if(operation==='ai.clones.segmentation'&&segmentationVariant!==params.variant){if(segmentationVariant){segmentationVariant=null;await engine.unloadSegmentationModel();}const manifest=await individualModels();await engine.loadSegmentationModel(resolve(manifest.segmentation[params.variant]),hooks());segmentationVariant=params.variant;}
+  if(operation==='ai.clones.segmentation'&&segmentationVariant!==params.variant){if(segmentationVariant){segmentationVariant=null;await engine.unloadSegmentationModel();}const manifest=await individualModels(),model=manifest.segmentation?.[params.variant];if(!model)throw new EngineError('MODEL_UNAVAILABLE','Segmentation model is not configured.',{details:{variant:params.variant}});await engine.loadSegmentationModel({...resolve(model),variant:params.variant},hooks());segmentationVariant=params.variant;}
   if(operation==='ai.clones.d2prl'&&!d2Loaded){await engine.loadD2prlModel({...D2PRL_MODEL_IDENTITY,url:asset('d2prl/model.json')},hooks());d2Loaded=true;}
-  if((operation.startsWith('ai.sources.')||operation.startsWith('ai.localization.')||operation==='tampering.copyMove.sparse')&&!m3Loaded){
-   const manifest=await individualModels();
-   const resolve=value=>Array.isArray(value)?value.map(resolve):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,v])=>[key,key==='url'?asset(v):resolve(v)])):value;
-   const language=new Uint8Array(await(await fetch(asset('ocr/eng.traineddata'),{signal:controller?.signal})).arrayBuffer());
-   await engine.loadM3Models({models:resolve(manifest.m3),language:{data:language,sha256:deployment.englishSha256}},hooks());m3Loaded=true;
+  const needsOcr=operation==='tampering.copyMove.sparse'&&params.algorithm==='SIFT + G2NN + RANSAC + Panels + Text';
+  if((operation.startsWith('ai.sources.')||operation.startsWith('ai.localization.')||operation==='tampering.copyMove.sparse')&&(!m3Loaded||needsOcr&&!m3OcrLoaded)){
+   const manifest=await individualModels();let language;
+   // Learned matching and ordinary SIFT do not use OCR. Fetch it only for the
+   // requested Panels + Text pass; a failed fetch leaves the image intact.
+   if(needsOcr){
+    const requestedUrl=asset('ocr/eng.traineddata'),response=await fetch(requestedUrl,{signal:controller?.signal});
+    if(!response.ok)throw new EngineError('ASSET_HTTP','OCR dependency could not load.',{details:{requestedUrl,receivedUrl:response.url||requestedUrl,status:response.status,file:'ocr/eng.traineddata',sha256:deployment.englishSha256}});
+    language={data:new Uint8Array(await response.arrayBuffer()),sha256:deployment.englishSha256};
+   }
+   await engine.loadM3Models({models:resolve(manifest.m3),...(language?{language}:{})},hooks());m3Loaded=true;m3OcrLoaded=!!language;
   }
   if(operation==='various.median'&&!median){const manifest=await individualModels();if(!manifest.median)throw Error('Choisissez un modèle médian XGBoost.');const response=await fetch(asset(manifest.median.url),{signal:controller?.signal});if(!response.ok)throw Error('Modèle médian absent.');await engine.loadMedianModel({id:'median-model',blob:await response.blob()},hooks());median='median-model';}
  }

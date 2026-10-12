@@ -72,6 +72,17 @@
 .batch-image-card label { justify-content:space-between; overflow-wrap:anywhere; }
 .batch-image-card small { display:block; color:var(--muted); font-size:10px; overflow-wrap:anywhere; }
 .batch-image-card summary { cursor:pointer; font-size:11px; }
+.batch-pair-editor { border-top:1px solid var(--line); padding-top:6px; }
+.batch-pair-preview { position:relative; width:100%; max-height:180px; background-size:100% 100%; background-repeat:no-repeat; margin:6px 0; }
+.batch-pair-region { position:absolute; box-sizing:border-box; border:2px solid #e4bf37; background:#e4bf3720; color:#fff; font-size:11px; padding:2px; text-shadow:0 1px 2px #000; }
+.batch-pair-region:last-child { border-color:#48aaff; background:#48aaff20; }
+.batch-pair-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; }
+.batch-pair-fields fieldset { margin:0; padding:4px; min-width:0; border:1px solid var(--line); }
+.batch-pair-fields legend { font-size:10px; }
+.batch-pair-fields label { font-size:10px; margin:4px 0; }
+.batch-pair-fields input[type=number] { width:62px; padding:3px; }
+.batch-pair-fields select { width:100%; padding:3px; }
+.batch-pair-actions { display:flex; flex-wrap:wrap; gap:4px; }
 .batch-settings { margin:0 0 10px; border:1px solid var(--line); border-radius:0; gap:9px 12px; padding:9px 12px; }
 .batch-settings legend { font-size:12px; font-weight:600; padding:0 5px; }
 .batch-settings>label { flex:1 1 260px; justify-content:space-between; }

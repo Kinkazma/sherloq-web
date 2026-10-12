@@ -29,14 +29,17 @@ export function batchArchiveLayout(model){
   const variants=new Map();for(const path of pending){const key=path.slice(0,path.length-extension(basename(path)).length);if(!variants.has(key))variants.set(key,[]);variants.get(key).push(path);}
   for(const [variant,group]of variants){const base=resultNames(label+(variants.size>1?' -- '+basename(variant):''));for(const path of group){const ext=extension(basename(path)),folder=imageExtension.test(ext)?'resultats/images/':'resultats/donnees/';let target=folder+base+ext.toLowerCase();while(usedPaths.has(collisionKey(target)))target=folder+resultNames(base)+ext.toLowerCase();usedPaths.add(collisionKey(target));paths.set(path,target);}}
  }
- for(const image of model.images)for(const run of image.runs??[])addFiles(run.files,stem(basename(image.name))+' -- '+(run.title||run.toolId||run.operation||'analyse'));
+ for(const image of model.images){
+  for(const run of image.runs??[])addFiles(run.files,stem(basename(image.name))+' -- '+(run.title||run.toolId||run.operation||'analyse'));
+  for(const [index,attempt]of (image.history??[]).entries())for(const run of attempt.runs??[])addFiles(run.files,stem(basename(image.name))+' -- '+(run.title||run.toolId||run.operation||'analyse')+' -- essai '+(index+1));
+ }
  for(const pair of model.comparisons??[])addFiles(pair.files,(pair.images??[]).map(id=>stem(basename(imagesById.get(id)?.name??id))).join(' -- ')+' -- comparaison');
  // Keep any additional scientific exports, even when an interrupted method
 // produced a file before its run record could be completed.
  for(const path of model.artifacts.keys())if(!paths.has(path))addFiles([path],stem(basename(path))||'resultat');
  return {
   sources,paths,
-  images:model.images.map(image=>{const {blob,thumbnail,restored,...rest}=image;return {...rest,runs:(image.runs??[]).map(run=>remapFiles(run,paths)),archivePath:sources.get(image.id)};}),
+  images:model.images.map(image=>{const {blob,thumbnail,restored,...rest}=image;return {...rest,runs:(image.runs??[]).map(run=>remapFiles(run,paths)),...(image.history?{history:image.history.map(attempt=>({...attempt,runs:(attempt.runs??[]).map(run=>remapFiles(run,paths))}))}:{}),archivePath:sources.get(image.id)};}),
   comparisons:(model.comparisons??[]).map(pair=>remapFiles(pair,paths)),
  };
 }

@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8"><link rel="icon" href="data:,"><title>EfficientLoFTR — préparation et transformations</title>
+<p id="status">Prêt</p><p>Calculs terminés : <span id="completed">0</span></p><pre id="result"></pre>
+<script type="module">
+import {EfficientLoFtrEngine} from '/engine-source/src/efficient-loftr.js';
+import {EFFICIENT_LOFTR_ASSET} from '/engine-source/src/efficient-loftr-assets.js';
+import {mapEfficientLoFtrPoint} from '/engine-source/src/efficient-loftr-input.js';
+import {Budget} from '/engine-source/src/cache.js';
+import {getExecutionScheduler} from '/engine-source/src/execution-scheduler.js';
+const hash=async a=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',a))].map(x=>x.toString(16).padStart(2,'0')).join(''),read=async spec=>{const response=await fetch(spec.file);if(!response.ok)throw Error('Reference '+response.status);const a=await response.arrayBuffer();if(a.byteLength!==spec.bytes||await hash(a)!==spec.sha256)throw Error('Reference identity');return a;};
+window.runEfficientLoFtrQualification=async({threads=4,backend='cpu',cases}={})=>{
+ const reference=await(await fetch('native-reference.json')).json(),budget=new Budget(3*1024**3),scheduler=getExecutionScheduler(budget,{maxWorkers:threads}),records=[],report={scope:'Whole actual EfficientLoFtrEngine/JS bounded preparation/original native outputs on identical inputs/mirror and rotation inverse/Chromium common-pool; separate from user UI journey',backend,requestedThreads:threads,records},started=performance.now();
+ try{for(const record of reference.records.filter(r=>!cases||cases.includes(r.name))){
+  let engine,result;const releases=[];try{
+   document.querySelector('#status').textContent='Calcul '+record.name;releases.push(budget.reserve(record.image.bytes));const data=new Uint8Array(await read(record.image)),sourceHash=await hash(data);
+   engine=new EfficientLoFtrEngine({...record.image,format:'rgb8',data},budget,{maxWorkers:threads});
+   const parameters={algorithm:'EfficientLoFTR',compare:true,regions:record.regions,rotations:[record.variant.rotation],reflections:record.variant.reflected,threshold:record.threshold,longSide:record.longSide,minimum:0,model:'None',geometricMinimum:4,tolerance:50},options={backend,models:{eloftr:{url:new URL('../efficient-loftr-full-fp32.onnx',location.href).href,bytes:EFFICIENT_LOFTR_ASSET.bytes,sha256:EFFICIENT_LOFTR_ASSET.sha256}}};result=await engine.analyze(parameters,options);
+   const selectedVariant=record.variant.reflected?1:0,pairIndices=Array.from(result.pair_search_regions).flatMap((owner,index)=>owner===selectedVariant?[index]:[]),expected={};for(const[key,spec]of Object.entries(record.outputs)){releases.push(budget.reserve(spec.bytes));expected[key]=new Float32Array(await read(spec));}
+   if(pairIndices.length!==record.nativeMatches)throw Error('Native pair count '+pairIndices.length+' != '+record.nativeMatches);
+   let maxSource=0,maxTarget=0,maxConfidence=0;
+   for(let i=0;i<pairIndices.length;i++){
+    const row=pairIndices[i],a=result.pairs[row*4]*7,b=result.pairs[row*4+1]*7,p0=mapEfficientLoFtrPoint(expected.keypoints0[i*2],expected.keypoints0[i*2+1],record.crops[0]),p1=mapEfficientLoFtrPoint(expected.keypoints1[i*2],expected.keypoints1[i*2+1],record.crops[1],record.variant);
+    maxSource=Math.max(maxSource,Math.abs(result.points[a]-p0[0]),Math.abs(result.points[a+1]-p0[1]));maxTarget=Math.max(maxTarget,Math.abs(result.points[b]-p1[0]),Math.abs(result.points[b+1]-p1[1]));maxConfidence=Math.max(maxConfidence,Math.abs(result.pairs[row*4+2]-expected.confidence[i]));
+   }
+   const entry={name:record.name,variant:record.variant,selectedMatches:pairIndices.length,totalMatches:result.pairs.length/4,maxSource,maxTarget,maxConfidence,sourcePreserved:await hash(data)===sourceHash,metadata:result.metadata,groups:result.groups.map(g=>g.length)};records.push(entry);document.querySelector('#completed').textContent=String(records.length);
+   if(!entry.sourcePreserved||maxSource!==0||maxTarget>.35||maxConfidence>2e-5||result.metadata.preflightExecutions)throw Error('Native preparation/mapping parity failed '+record.name);
+   result.release();result=null;const cacheStart=performance.now();result=await engine.analyze({...parameters,limit:17},options);entry.cache={elapsedMs:performance.now()-cacheStart,kept:result.pairs.length/4,inferenceExecutions:result.metadata.inferenceExecutions,rawCacheHits:result.metadata.rawCacheHits};if(entry.cache.inferenceExecutions!==0||entry.cache.rawCacheHits!==result.metadata.variants.length||entry.cache.kept>17)throw Error('Filter reused CNN unexpectedly');
+  }finally{result?.release();await engine?.dispose();for(const release of releases.reverse())release();}
+ }
+ report.status='native-and-chromium-common-'+backend+'-qualified';
+ }catch(e){report.status='failed';report.error={name:e.name,code:e.code,message:e.message,stack:e.stack,details:e.details,cause:e.cause&&{name:e.cause.name,message:e.cause.message}};}
+ finally{window.qualificationTeardown=true;report.elapsedMs=performance.now()-started;report.memoryAfterDispose=budget.snapshot();report.backingsAfterDispose=budget.resourceSnapshot();report.scheduler=scheduler.snapshot();if(Object.values(report.backingsAfterDispose.domains).some(d=>d.backings||d.reservedBytes||d.materializedBytes)||report.backingsAfterDispose.operations.length||budget.total()||report.scheduler.active.cpu||report.scheduler.active.gpu||report.scheduler.queued)report.status='failed-release';document.querySelector('#status').textContent=report.status;document.querySelector('#status').dataset.status=report.status;document.querySelector('#result').textContent=JSON.stringify(report,null,2);}
+ return report;
+};
+</script>

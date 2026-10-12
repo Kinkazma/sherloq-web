@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "definition": "independent SSG full localization; no MATLAB runtime or literal script parity claim",
+  "command": [
+    "/Users/gaeldauchy/SHERLOQ/web-engine/.build/emsdk-4.0.15/upstream/emscripten/em++",
+    "/Users/gaeldauchy/SHERLOQ/methods-web-20261012/web/engine-source/vendor/ssg-full/localization.cpp",
+    "-I/Users/gaeldauchy/SHERLOQ/methods-web-20261012/web/engine-source/vendor/pocketfft",
+    "-O3",
+    "-std=c++17",
+    "-ffp-contract=off",
+    "-fexceptions",
+    "-sDISABLE_EXCEPTION_CATCHING=0",
+    "-DPOCKETFFT_NO_MULTITHREADING",
+    "-sMODULARIZE=1",
+    "-sEXPORT_ES6=1",
+    "-sENVIRONMENT=node,web,worker",
+    "-sFILESYSTEM=0",
+    "-sIMPORTED_MEMORY=1",
+    "-sALLOW_MEMORY_GROWTH=1",
+    "-sINITIAL_MEMORY=33554432",
+    "-sMAXIMUM_MEMORY=2147483648",
+    "-sABORTING_MALLOC=0",
+    "-sSTACK_SIZE=1048576",
+    "-sEXPORTED_FUNCTIONS=[\"_malloc\", \"_free\", \"_ssg_full_blur\", \"_ssg_full_roi\", \"_ssg_full_localize\", \"_ssg_full_ssim\", \"_ssg_full_salience\", \"_ssg_full_set_team\", \"_ssg_full_shutdown\", \"_ssg_full_morph\", \"_ssg_full_phrases\"]",
+    "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPF64\",\"HEAPU32\"]",
+    "-o",
+    "/Users/gaeldauchy/SHERLOQ/methods-web-20261012/web/engine-source/vendor/ssg-full/localization.mjs"
+  ],
+  "files": {
+    "localization.cpp": {
+      "bytes": 11599,
+      "sha256": "f0cbf4da7e60e9d92602ce95c1225ee73a03821a7746117509a90bf9614edc51"
+    },
+    "localization-parallel.h": {
+      "bytes": 958,
+      "sha256": "2f81c3e28966feeb3d027ff7ce3797cbff17d130f5987556f7b81c6d33e409b9"
+    },
+    "nearest.h": {
+      "bytes": 2091,
+      "sha256": "7612448fba5c2366621e6c6cef16ba6333a557fb6733bd61fd91eaf3b78e9127"
+    },
+    "pocketfft_hdronly.h": {
+      "bytes": 111974,
+      "sha256": "50f4ddbe60432325f560c706b6f1c49f9e0949fc7f20ae6499f2299e37d9790c"
+    },
+    "localization.mjs": {
+      "bytes": 15190,
+      "sha256": "44ee3d94235f0fce6963afca38fa0199c6f2dc0b5ab1aaf23abfb2e6bbe4901c"
+    },
+    "localization.wasm": {
+      "bytes": 134278,
+      "sha256": "aba3d03a9c61bb91c646584f004d1412fd6fa38d9a1d1064045d7d582c9fb46b"
+    },
+    "localization-shared.mjs": {
+      "bytes": 32272,
+      "sha256": "95377b4192776f953736ee24ff60f34183b2729a7e030f51127702bea3988229"
+    },
+    "localization-shared.wasm": {
+      "bytes": 171747,
+      "sha256": "7c0e4456375c65f9acc1e492103d3f840d923965da8a9b7eb4e1e41b338a37f9"
+    }
+  }
+}

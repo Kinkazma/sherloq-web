@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NeuralGraphPool} from '../src/neural-graph-pool.js';
 import {Budget} from '../src/cache.js';
+import {EngineError} from '../src/errors.js';
 import {getExecutionScheduler} from '../src/execution-scheduler.js';
 const MiB=1024**2,asset={url:'https://example.invalid/model',bytes:1024,sha256:'a'.repeat(64)},runtimes={wasm:{factoryUrl:'bounded',ortUrl:'ort',wasmUrl:'wasm'}};
 const input={x:{data:new Float32Array([1]),dims:[1]}},options={backend:'cpu',workspaceBytes:MiB,outputBytes:4};
@@ -49,7 +50,7 @@ test('Auto uses CPU when GPU residency cannot fit, without disabling later GPU w
 });
 test('Immutable input reuse avoids retransmission and keeps its residency charged',async()=>{
  const budget=new Budget(256*MiB),messages=[],pool=new NeuralGraphPool(budget,{maxWorkers:1},{assets:{a:asset},runtimes,workerFactory:()=>new Worker((w,job)=>{messages.push(job);w.result();})}),feeds={...input,bank:{data:new Float32Array(65536),dims:[65536]}};
- for(const key of ['bank1','bank1','bank2']){const r=await pool.run('a',feeds,{...options,reusableInputs:{bank:key}});assert.equal(r.metrics.reusedInputBytes,key==='bank1'&&messages.length===2?262144:0);r.release();}
+ for(const key of ['bank1','bank1','bank2']){const r=await pool.run('a',feeds,{...options,reusableInputs:{bank:key}});assert.equal(r.metrics.reusedInputBytes,key==='bank1'&&messages.length===2?262144:0);assert.equal(r.metrics.workerReused,messages.length>1);assert.equal(pool.snapshot().workerStarts,1);r.release();}
  assert.ok(messages[0].inputs.bank);assert.equal(messages[1].inputs.bank,undefined);assert.ok(messages[2].inputs.bank);assert.ok(pool.slots[0].bytes>=pool.slots[0].cap+feeds.bank.data.byteLength);pool.dispose();assert.equal(budget.total(),0);
 });
 
@@ -182,6 +183,33 @@ test('live budget growth reopens an admission without waiting for the other pool
   const first=pools[0].run('a',input,options);await turn();const second=pools[1].run('a',input,options);await turn();assert.equal(pools[1].waiters.size,1);
   budget.setLimit(256*MiB);await turn();assert.equal(workers.length,2);assert.equal(workers[0].terminated,false);for(const w of workers)w.result();for(const result of await Promise.all([first,second]))result.release();
  }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceListeners.size,0);
+});
+
+test('new context waits for job plus residency, without spinning when residency alone fits',{timeout:2000},async()=>{
+ const budget=new Budget(174*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
+ const larger={x:{data:new Float32Array(8*MiB),dims:[8*MiB]}},jobBytes=32*MiB+8,originalReserve=budget.reserve.bind(budget);let attempts=0,unexpected;
+ budget.reserve=bytes=>{if(bytes===jobBytes&&++attempts>6)throw new EngineError('ADMISSION_SPIN','Intermediate credit retried without progress');return originalReserve(bytes);};
+ try{
+  const first=pools[0].run('a',input,options);await turn();const second=pools[1].run('a',larger,options);second.catch(error=>{unexpected=error;});await turn();
+  assert.equal(unexpected,undefined);assert.equal(attempts,1);assert.equal(workers.length,1);assert.equal(pools[1].waiters.size,1);
+  budget.setLimit(180*MiB);await turn();assert.equal(attempts,1,'residency-only credit must not reopen a compound admission');
+  budget.setLimit(208*MiB);await turn();assert.equal(attempts,2);assert.equal(workers.length,2);
+  for(const worker of workers)worker.result();for(const result of await Promise.all([first,second]))result.release();
+ }finally{for(const pool of pools)pool.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceListeners.size,0);
+});
+
+test('model reconfiguration waits for its returned job prefix plus resident delta',{timeout:2000},async()=>{
+ const budget=new Budget(256*MiB),workers=[],pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset,b:{...asset,bytes:8*MiB,sha256:'b'.repeat(64)}},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}),peerPool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}});
+ const larger={x:{data:new Float32Array(8*MiB),dims:[8*MiB]}},jobBytes=32*MiB+8,originalReserve=budget.reserve.bind(budget);let attempts=0,unexpected;
+ budget.reserve=bytes=>{if(bytes===jobBytes&&++attempts>6)throw new EngineError('ADMISSION_SPIN','Intermediate credit retried without progress');return originalReserve(bytes);};
+ try{
+  const warm=pool.run('a',input,{...options,workspaceBytes:50*MiB});await turn();workers[0].result();(await warm).release();
+  const peer=peerPool.run('a',input,options);await turn();const next=pool.run('b',larger,options);next.catch(error=>{unexpected=error;});await turn();
+  assert.equal(unexpected,undefined);assert.equal(attempts,1);assert.equal(pool.waiters.size,1);
+  budget.setLimit(260*MiB);await turn();assert.equal(attempts,1);
+  budget.setLimit(280*MiB);await turn();assert.equal(attempts,2);assert.equal(workers.length,2);
+  workers[0].result();workers[1].result();for(const result of await Promise.all([next,peer]))result.release();
+ }finally{pool.dispose();peerPool.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceListeners.size,0);
 });
 
 test('a reused model waits for another pool to release memory needed by new inputs',{timeout:2000},async()=>{

@@ -1,10 +1,14 @@
 import {registerArrayViews} from './allocation.js';
-import {EngineError,checkAbort,requireValue,deserializeEngineError,resourceAllocationKind,controlCheckpoint} from './errors.js';
+import {EngineError,checkAbort,requireValue,deserializeEngineError,resourceAllocationKind,resourceRecoveryBytes,controlCheckpoint} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 const MiB=1024**2;
 const executionContexts=new WeakMap();
 const dataBytes=inputs=>Object.values(inputs).reduce((n,t)=>n+t.data.byteLength,0);
+function atomicAdmission(error,retryBytes){
+  if(error?.code==='MEMORY_LIMIT')error.details={...error.details,admission:{...error.details?.admission,retryBytes,scope:'neural-job-and-resident-growth'}};
+  return error;
+}
 /** Real useful jobs only. Sessions are lazy and reclaimable. The caller owns
  * source/input allocations; returned arrays have a lease until release().
  * workspaceBytes is a graph-specific live activation bound, not a benchmark.
@@ -46,7 +50,7 @@ export class NeuralGraphPool {
       const done=()=>finish(),abort=()=>finish(new EngineError('CANCELLED','Neural task cancelled.'));
       const inspect=()=>{
         if(signal?.aborted)return abort();const cycle=this.budget.resources?.dependencyCycleError(operation,'memory');if(cycle)return finish(cycle);
-        if(refusal&&this.budget.limit-this.budget.total()>=(refusal.details?.requestedBytes??Infinity))return finish();
+        if(refusal&&this.budget.limit-this.budget.total()>=(resourceRecoveryBytes(refusal)??Infinity))return finish();
         if(refusal&&this.budget.resourceProgressSnapshot?.(this.resourceOwner,'policy',operation)?.independentProducers===0)finish(refusal);
       };
       this.waiters.add(done);this.budget.resourceListeners?.add(inspect);signal?.addEventListener('abort',abort,{once:true});inspect();
@@ -76,7 +80,7 @@ export class NeuralGraphPool {
     try{for(;;){
       checkAbort(signal);if(this.disposed)throw new EngineError('DISPOSED','Neural pool disposed.');
       slot=this.slots.find(s=>!s.busy&&s.name===name&&s.provider===provider&&s.cap>=memoryMaximumBytes&&s.workspaceCap>=workspaceBytes&&(s.reusableBytes??0)>=reusableBytes);
-      if(slot){slot.busy=true;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);reusedBytes=Object.entries(reusableInputs).reduce((n,[key,id])=>n+(slot.reusableInputs?.[key]===id?inputs[key].data.byteLength:0),0);try{releaseJob=this.budget.reserve(jobBytes-reusedBytes);}catch(e){slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);if(e.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,e);continue;}throw e;}break;}
+      if(slot){slot.busy=true;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);reusedBytes=Object.entries(reusableInputs).reduce((n,[key,id])=>n+(slot.reusableInputs?.[key]===id?inputs[key].data.byteLength:0),0);try{releaseJob=this.budget.reserve(jobBytes-reusedBytes);}catch(e){atomicAdmission(e,jobBytes-reusedBytes);slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);if(e.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,e);continue;}throw e;}workerReused=true;break;}
       // Graphs in a segmented network run in succession. An idle ORT runtime
       // can release its old model and load the next one without constructing
       // another Wasm memory, thread team or WebGPU device. Busy workers are
@@ -87,7 +91,7 @@ export class NeuralGraphPool {
           slot.busy=true;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);
           const targetBytes=slot.cap+asset.bytes*2+(provider==='webgpu'?asset.bytes+workspaceBytes:0)+4*MiB+reusableBytes;
           try{releaseJob=this.budget.reserve(jobBytes);if(targetBytes>slot.bytes){this.budget.retain(targetBytes-slot.bytes);slot.bytes=targetBytes;}}
-          catch(error){slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);releaseJob?.();releaseJob=null;if(error.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,error);continue;}throw error;}
+          catch(error){atomicAdmission(error,jobBytes+Math.max(0,targetBytes-slot.bytes));slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);releaseJob?.();releaseJob=null;if(error.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,error);continue;}throw error;}
           // Keep any larger old residency charged until model release and the
           // new useful job have completed inside the worker.
           slot.targetBytes=targetBytes;if(slot.gpuBacking){slot.targetGpuBytes=asset.bytes+workspaceBytes+reusableBytes+jobBytes;slot.gpuBacking.resize(Math.max(slot.gpuBacking.bytes,slot.targetGpuBytes),{materializedBytes:0});}slot.name=name;slot.workspaceCap=workspaceBytes;slot.reusableBytes=reusableBytes;slot.reusableInputs={};workerReused=true;modelReconfigured=true;this.runtimeReuses++;break;
@@ -107,7 +111,7 @@ export class NeuralGraphPool {
           slot={name,provider,cap:memoryMaximumBytes,workspaceCap:workspaceBytes,bytes:residentBytes,reusableBytes,reusableInputs:{},lastUsed:++this.clock,busy:true,worker:this.factory(new URL('./neural-graph-worker.js',import.meta.url))};this.workerStarts++;slot.backing=this.budget.registerBacking?.('wasm',slot.cap,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved',reclaimable:false});if(provider==='webgpu')slot.gpuBacking=this.budget.registerBacking?.('gpu',asset.bytes+workspaceBytes+reusableBytes+jobBytes,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved'});this.slots.push(slot);this.peakWorkers=Math.max(this.peakWorkers,this.slots.length);this.contexts.peakWorkers=Math.max(this.contexts.peakWorkers,this.allSlots().length);
         }catch(e){slot?.worker?.terminate();slot?.backing?.();slot?.gpuBacking?.();this.budget.retained-=residentBytes;throw e;}
         break;
-      }catch(error){releaseJob?.();releaseJob=null;if(error.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,error);continue;}throw error;}
+      }catch(error){atomicAdmission(error,jobBytes+residentBytes);releaseJob?.();releaseJob=null;if(error.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,error);continue;}throw error;}
     }
     }catch(error){
       releaseJob?.();releaseJob=null;operation?.release();this.wake();
