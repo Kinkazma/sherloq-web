@@ -2,6 +2,16 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.17.1 — D2PRL execution and memory · 2026-10-13
+
+- Integrated the qualified HWC PatchMatch evaluator with exact half decoding and SIMD interpolation, windowed descriptor transfer, reusable buffers and the bounded D2PRL role runtime. Existing evaluator variants remain selectable; the general 512 MiB runtime and other methods are preserved.
+- Added immutable parameter publications, reusable finiteness validation, SHA-verified parameter caching and bounded OPFS/IndexedDB spill/recovery. The model retains preparation 448, 40 iterations, seed 22, ordered reductions and explicit FMA.
+- Retained the improved batch workflow, atomic SIFT scheduling, startup manifests, noindex correction and local/offline features. The resource stager validates its runtime catalogue and handles a stale primary WASM hiding the qualified fallback.
+
+The supplied real 30 MP and 96 MP qualifications passed native-array/mask checks, refiltering without inference and large paged export/reimport. The 30 MP timing is a single functional comparison; full bit parity with Torch and a universal speed gain are not claimed. Detailed image/array qualification reports stay local.
+
+Independent integration checks pass 368 interface tests, 256 D2PRL/projection checks and 78 shared-resource checks. Fourteen fixture-dependent cases are unexecuted: twelve unavailable experimental artifacts and two unavailable historical raw-array fixtures. The scientific qualification above comes from the completed supplied runs, not those unavailable fixture tests.
+
 ## 0.17.0 — Scientific batch preparation and exports · 2026-10-12
 
 - Published the 9.66 MB standalone local-web bootstrap with an immutable dependency origin. Independent anonymous HTTPS and fresh Chrome checks verify the actual delivered text detector and runtime resources. [Artifact](docs/evidence/public-bootstrap-0.17.0.json) · [Delivery evidence](docs/evidence/batch-publication-0.17.0.json).

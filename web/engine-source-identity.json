@@ -1,9 +1,11 @@
 {
-  "commit": "abc9dcac3643316cab06ccc3d5e3c3dc6cf4ac7e",
+  "commit": "0fb01b415831a2d84a9f8e246aaa06d5f8a90edf",
   "commitRepository": "https://github.com/Kinkazma/sherloq-web",
   "baseCommit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
   "runtime": "0.37.0-methods.1",
   "snapshot": "engine-source",
   "sourceIncrementSha256": "440210e4665b4a62114cc5028b045414a0901aab55d39ab465136a7067b3e88c",
-  "incrementScope": "Functionally accepted batch scientific preparation, reviewed OCR/acquisition exclusions and shared SSG callers; preserved atomic SIFT and 0.16.0 native resources. Exact raw inputs and delivered resources are recorded separately."
+  "incrementScope": "Qualified D2PRL exact evaluator, ownership/cache, memory and role runtime overlay on the retained functionally accepted batch/methods source. Detailed image qualification reports remain private.",
+  "d2prlIncrementSha256": "9aa114b5aa02febf34ae17fe15b234e0491a90eb8c1a48a490010db974d250a4",
+  "d2prlSourceCommit": "0fb01b415831a2d84a9f8e246aaa06d5f8a90edf"
 }

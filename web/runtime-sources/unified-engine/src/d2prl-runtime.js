@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.17.0";
+import "../../runtime-context.js?v=0.17.1";
 // Lazy initialization of the runtime used by an actual requested model job.
 // Loading this module executes no synthetic inference, warm-up or calibration.
 import {D2PRL_ROLE_RUNTIME_256} from '../experiments/d2prl/role-runtime.js';
