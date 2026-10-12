@@ -1,5 +1,5 @@
 {
-  "ui_commit": "f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404",
+  "ui_commit": "1ad1c624c909261e1b69e194ad7ed4f9c262fb27",
   "engine_commit": "a1f85661db24610ac3c7bf894214afc85a72d024",
   "manifest_sha256": "7085000f8095c7242b6dbc7f286ac12914dcd93fdcea0b182533da2b6adeab2d",
   "documentation_adaptations": [
@@ -10,7 +10,7 @@
   ],
   "upstream": "https://github.com/GuidoBartoli/sherloq",
   "macos_derivative": "https://github.com/Kinkazma/sherloq",
-  "ui_version": "0.15.1",
+  "ui_version": "0.15.2",
   "engine_version": "0.35.0-export.3",
   "resource_commit": "34d648a10c5e516107a9d0a7f1cf4b2f51870e81",
   "resource_origin_policy": "Pin deployment to the immutable resource publication commit; manifest template has no deployment origin.",
@@ -24,5 +24,16 @@
     "batch_dependencies": "Eight byte-identical vendor files added to the immutable dependency manifest for on-demand loading",
     "packaging": "Bootstrap cap raised to 25,000,000 bytes at the owner\u2019s request."
   },
-  "bootstrap_limit_bytes": 25000000
+  "bootstrap_limit_bytes": 25000000,
+  "ui_base_commit": "f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404",
+  "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
+  "ui_patch_commits": [
+    "0a2e17f28c0d195615e6d0e4ca158a977e56b1e5",
+    "1ad1c624c909261e1b69e194ad7ed4f9c262fb27"
+  ],
+  "deployment_manifest_sha256": "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
+  "compatibility_manifest_sha256": [
+    "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b",
+    "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb"
+  ]
 }
