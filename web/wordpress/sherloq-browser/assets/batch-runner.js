@@ -4,7 +4,7 @@ import {createCompositeClient} from './composite-client.js';
 import {batchTask,recipeKey,imageScore,studyScores,catalogRecipe,batchCatalog} from './batch-catalog.js';
 import {evidenceContext,cloneEvidence,mapEvidence,regionEvidence,compactEvidence} from './batch-evidence.js';
 import {nextFrame,safeName} from './batch-import.js';
-import {detectedRectangles} from './sparse-controls.js';
+import {detectedRectangles,sparseViewDefaults} from './sparse-controls.js';
 import {neuralDisplays} from './neural-clone-ui.js';
 
 const check=signal=>signal?.throwIfAborted();
@@ -77,7 +77,7 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
     const client=await getTool(),bitmap=async image=>{try{return await createImageBitmap(image.blob);}catch(error){check(signal);const source=await client.load({id:image.id,blob:image.blob});return createImageBitmap(await displayBlob(client,source.surface,signal));}};
     a=await bitmap(left);b=await bitmap(right);check(signal);ctx.fillStyle='#ffffff';ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(a,0,0);ctx.drawImage(b,0,left.height+32);const blob=await c.convertToBlob({type:'image/png'});await client.load({id:'cross-'+crypto.randomUUID(),blob});
     const recipe=catalogRecipe(batchCatalog.find(r=>r.params.algorithm==='SIFT + G2NN + RANSAC').id);recipe.params.autoRadius=false;recipe.params.independent=false;recipe.params.compare=true;recipe.params.radius=Math.hypot(c.width,c.height);recipe.params.regions=[polygon({x0:0,y0:0,x1:left.width,y1:left.height}),polygon({x0:0,y0:left.height+32,x1:right.width,y1:left.height+32+right.height})];
-    check(signal);const output=await client.run({id:'cross-run-'+crypto.randomUUID(),imageId:client.source.id,operation:'tampering.copyMove.sparse',params:recipe.params,backend:'auto'},{file:blob});
+    check(signal);const output=await client.run({id:'cross-run-'+crypto.randomUUID(),imageId:client.source.id,operation:'tampering.copyMove.sparse',params:recipe.params,view:sparseViewDefaults(),backend:'auto'},{file:blob});
     const found=await cloneEvidence(output,{...recipe,kind:'clones'},client,{width:c.width,height:c.height},context,signal);
     try{if(found.entries.length){const path='comparaisons/'+index;await put(model.artifacts,path+'.json',await client.export('json'));await put(model.artifacts,path+'.png',await client.export('png',output.surface));model.comparisons.push({kind:'geometric-matches',images:[left.id,right.id],offset:[0,left.height+32],entries:compactEvidence(found.entries),files:[path+'.json',path+'.png'],params:recipe.params,status:'done'});}}finally{found.release();}
    }catch(error){check(signal);model.comparisons.push({images:[left.id,right.id],status:'error',message:error.message});}finally{a?.close();b?.close();c.width=c.height=1;}

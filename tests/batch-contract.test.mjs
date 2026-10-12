@@ -57,6 +57,14 @@ test('Dense clone dispatch preserves native auto settings and panel coordinates'
  const task=batchTask(recipe,{id:'job',imageId:'image',regions:[{x0:12,y0:34,x1:112,y1:234}]});
  assert.equal(task.operation,'tampering.copyMove.dense');assert.equal(task.params.profile,'PatchMatch Zernike');assert.equal(task.params.auto,true);assert.deepEqual(task.params.regions[0],[[12,34],[111,34],[111,233],[12,233]]);
 });
+test('Batch clone outputs request biomes only, preserving the analysis parameters',()=>{
+ for(const algorithm of ['PatchMatch Zernike','SIFT + G2NN + RANSAC + Panels + Text']){
+  const recipe=catalogRecipe(batchCatalog.find(x=>x.params.algorithm===algorithm).id),before=structuredClone(recipe.params);
+  const task=batchTask(recipe,{id:'job',imageId:'image'});
+  assert.deepEqual(task.view,{low:0,high:100000,minimum:4,circles:false,lines:false,points:false,areas:true,textExclusions:false});
+  assert.deepEqual(recipe.params,before);
+ }
+});
 test('Only native D2PRL parameters are used for an explicit ROI',()=>{
  const task=batchTask(catalogRecipe('ai.clones.d2prl'),{id:'job',imageId:'image',regions:[{x0:0,y0:0,x1:50,y1:80}]});
  assert.deepEqual(task.regions[0].bounds,[0,0,50,80]);assert.equal(task.params.selectionPresent,true);

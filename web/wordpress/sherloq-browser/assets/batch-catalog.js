@@ -1,6 +1,6 @@
 import {toolCatalog,toolFields} from './tool-catalog.js';
 import {CLONE_ALGORITHMS,changeCloneAlgorithm,cloneOperation,isDenseClone} from './clone-methods.js';
-import {sparseParameters,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js';
+import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js';
 import defaults from './tool-defaults.js';
 import {defaults as classicDefaults} from './settings.js';
 import {NEURAL_METHODS} from './neural-clone-ui.js';
@@ -53,7 +53,7 @@ export function batchTask(recipe,{id,imageId,regions=[]}={}){
   operation=cloneOperation(params.algorithm);
   params=sparseParameters({...params,excluded:[],compare:false},regions.map(r=>({...r,polygon:r.polygon??[[r.x0,r.y0],[r.x1-1,r.y0],[r.x1-1,r.y1-1],[r.x0,r.y1-1]]})));
  }
- return {id,imageId,operation,params,backend:recipe.backend??'auto',...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
+ return {id,imageId,operation,params,backend:recipe.backend??'auto',...(['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)?{view:sparseViewDefaults()}:{}),...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
 }
 export const recipeKey=recipe=>JSON.stringify([recipe.operation,recipe.params,recipe.backend??'auto']);
 export const catalogRecipe=id=>{const entry=batchCatalog.find(x=>x.id===id);if(!entry)throw Error('Unknown batch tool');return {...entry,params:copy(entry.params),signal:copy(entry.signal)};};
