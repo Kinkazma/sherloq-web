@@ -102,12 +102,13 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
    let failure;try{return await detectedPair(image,await getTool(),pairController.signal);}catch(error){failure=error;throw error;}finally{pairController=null;const previous=tool;tool=null;try{await previous?.dispose();}catch(error){if(failure)failure.cleanupError=serializeEngineError(error);else throw error;}}
   },
   async run(model,recipes,options={}){
-   if(controller||pairController)throw Error('Lot déjà en cours.');controller=new AbortController();const signal=controller.signal;context=evidenceContext();const selected=model.images.filter(i=>i.selected),unique=[...new Map(recipes.map(r=>[recipeKey(r),r])).values()];
-   const deployment=await fetch(new URL('./integrated-config.json',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();}).catch(error=>{context.dispose();context=null;controller=null;throw error;});model.engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,batch:'0.2.0',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3};
+   if(controller||pairController)throw Error('Lot déjà en cours.');controller=new AbortController();const signal=controller.signal;let failure;
+   try{
+   context=evidenceContext();const selected=model.images.filter(i=>i.selected),unique=[...new Map(recipes.map(r=>[recipeKey(r),r])).values()];
+   const deployment=await fetch(new URL('./integrated-config.json',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();});model.engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,batch:'0.2.0',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3};
    for(const path of [...model.artifacts.keys()])if(path.startsWith('comparaisons/')){await model.artifacts.delete(path);}model.comparisons=[];
    options={...options,pairSelections:{}};if(unique.some(r=>r.params.algorithm==='EfficientLoFTR'))for(const image of selected){try{const selection=restoredBatchPair(image);if(selection)options.pairSelections[image.hash]=selection;}catch{/* Invalid input remains a documented per-tool failure. */}}
    model.configuration={options:{threshold:options.threshold??1,basis:options.basis??'clones',compare:!!options.compare,panels:!!options.panels},pairSelections:options.pairSelections,recipes:unique.map(r=>({id:r.id,operation:r.operation,params:r.params,signal:r.signal,backend:r.backend??'auto'}))};model.startedAt=new Date().toISOString();model.cancelled=false;
-   try{
     for(const [index,image]of selected.entries()){
      check(signal);event({phase:'image-start',image,index,total:selected.length});
      const signature=c=>{const pair=c?.pairSelections?.[image.hash];return JSON.stringify([(c?.recipes??[]).map(r=>[r.operation,r.params,r.signal,r.backend??'auto']).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b))),c?.options?.panels,pair?[pair.pixelHash,pair.width,pair.height,pair.regions]:null]);};
@@ -123,8 +124,14 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
      event({phase:'image-done',image,index:index+1,total:selected.length});
     }
     if(options.compare)await comparisons(model,options,signal);
-   }catch(error){if(signal.aborted)model.cancelled=true;else throw error;}
-   finally{model.finishedAt=new Date().toISOString();context.dispose();context=null;await Promise.allSettled([tool?.dispose(),automatic?.dispose(),composite?.dispose()]);tool=automatic=composite=null;controller=null;}
+   }catch(error){failure=error;if(signal.aborted)model.cancelled=true;else throw error;}
+   finally{
+    model.finishedAt=new Date().toISOString();
+    const closed=await Promise.allSettled([context,tool,automatic,composite].map(async owner=>await owner?.dispose()));
+    context=null;tool=automatic=composite=null;controller=null;
+    const cleanupErrors=closed.filter(result=>result.status==='rejected').map(result=>result.reason);
+    if(cleanupErrors.length){if(failure)failure.details={...failure.details,cleanupErrors:[...(failure.details?.cleanupErrors??[]),...cleanupErrors.map(error=>serializeEngineError(error,'BATCH_CLEANUP_ERROR'))]};else throw cleanupErrors[0];}
+   }
    model.results=studyScores(model.studies,model.images,options);event({phase:'finished',model});return model;
   },
   async clear(){this.cancel();}
