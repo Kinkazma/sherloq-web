@@ -1,6 +1,6 @@
 {
   "date": "2026-10-12",
-  "status": "local-candidate-under-native-qualification",
+  "status": "local-functional-acceptance-awaiting-delivery-integration",
   "publicationApproved": false,
   "full86ScientificValidation": false,
   "sourcePixelsOrAnalysisSettingsReduced": false,
@@ -62,15 +62,15 @@
         "payloadSaved": false
       },
       "allHttpPayloadsMatchPinnedIdentities": true,
-      "successfulNativeSSGRetryQualified": false
-    }
+      "successfulNativeSSGRetryQualified": true
+    },
+    "originalFourMethodRun": "Stopped at the explicit user request; partial results and complete journal exported.",
+    "ssgQualificationEvidence": "ssg-browser-local.json",
+    "finalSSGOnlyReportAndArchiveQualified": true
   },
   "remaining": [
-    "Finish the four-image, four-method native run without changing its settings.",
-    "Verify the native outputs, final PDF, ZIP and complete session journal.",
-    "Check the global report menu after completion with the batch dialog closed.",
-    "Qualify scientific classification and text exclusions beyond the small local cases.",
-    "Qualify a new full 86-image run before claiming full-corpus validation."
+    "Integrate the complete improved batch into the target delivery with declared pinned OCR/panel resources and synchronized runtime/source manifests.",
+    "Verify the target WordPress/web-downloadable package startup, report integration and offline dependencies."
   ],
   "limits": [
     "An OCR detector is not a verified recognizer; an experimental recognizer was rejected after biological images produced false characters.",
@@ -78,5 +78,17 @@
     "The user's first journal-download abort was not reproduced and is not assigned an invented cause.",
     "Original SSG resources are reused by the local candidate server and are not included in this source patch.",
     "The local source checkout lacks two physical delivery metadata files required by the complete WordPress test suite; the targeted tests above are distinct."
-  ]
+  ],
+  "humanFunctionalAcceptance": {
+    "date": "2026-10-12",
+    "accepted": true,
+    "scope": "Overall improved local batch; not only SSG",
+    "scientificFullCorpusValidationRequiredForTransmission": false,
+    "publicationRequestedInThisTurn": false
+  },
+  "furtherScientificEvaluation": [
+    "Measure scientific preclassification/text-exclusion accuracy beyond the small local cases.",
+    "A new filtered 86-image run is needed before claiming full-corpus scientific validation; it is not a prerequisite for this authorized global handoff."
+  ],
+  "historicalQualificationNote": "The 113 targeted tests and 18 overlapping UI tests above precede the SSG-specific qualification. The four-method run was deliberately stopped, not completed. Acceptance records user scope, not fabricated inference results."
 }
