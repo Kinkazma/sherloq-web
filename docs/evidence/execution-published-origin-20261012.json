@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-12",
+  "resourceCommit": "34d648a10c5e516107a9d0a7f1cf4b2f51870e81",
+  "rawOrigin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/34d648a10c5e516107a9d0a7f1cf4b2f51870e81/web-assets/",
+  "manifestExact": true,
+  "newChunksVerifiedFromRawOrigin": 935,
+  "newChunkBytesVerified": 9251807,
+  "allNewChunkHashesExact": true,
+  "corsHeader": "*",
+  "seconds": 60.54,
+  "browser": {
+    "resourceOrigin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/34d648a10c5e516107a9d0a7f1cf4b2f51870e81/web-assets/",
+    "rawOriginUrlRecords": 24,
+    "allObservedRawUrlsUsePinnedCommit": true,
+    "images": 2,
+    "reimport": true,
+    "workspaceHandoff": true,
+    "layouts": [
+      "desktop",
+      "mobile"
+    ],
+    "errors": [],
+    "abortedWasmRequests": 6,
+    "session": {
+      "events": 1739,
+      "errorCount": 0,
+      "documentedFailures": 0,
+      "storageError": null
+    },
+    "zipMembers": 24,
+    "zipCrcValid": true,
+    "nestedNpzArchives": 2,
+    "numpyArraysDecoded": 14,
+    "pdfHeaderAndEofValid": true,
+    "scope": "Local application bootstrap, actual pinned GitHub raw resources, isolated Chrome browser; no production WordPress installation changed."
+  },
+  "bootstrap": {
+    "uncompressedBytes": 17788662,
+    "limitBytes": 25000000,
+    "overlayIncluded": false
+  },
+  "manifestTemplateSha256": "7085000f8095c7242b6dbc7f286ac12914dcd93fdcea0b182533da2b6adeab2d",
+  "deploymentManifestSha256": "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
+  "scope": "All 935 new chunks and the complete manifest fetched from the immutable raw origin; older chunk identities preserved and all local manifest/file hashes verified. Browser workflow exercises the published origin; it does not requalify every model."
+}

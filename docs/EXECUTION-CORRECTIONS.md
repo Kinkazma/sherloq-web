@@ -47,3 +47,7 @@ The batch PDF/ZIP vendor bytes and paths are unchanged. Eight files now form a l
 ## Limits
 
 [SAFIRE issue #1](https://github.com/Kinkazma/sherloq-web/issues/1) remains open. These shared corrections do not resolve its distinct 2 GiB admission policy. There is no new complete 96 MP qualification, physical iPhone qualification, universal speed benchmark, or fresh run of every AI model. Local worker/strip recovery also does not guarantee recovery after loss of the browser process and unpersisted RAM.
+
+## Published origin
+
+The resources are pinned to `34d648a10c5e516107a9d0a7f1cf4b2f51870e81`. The manifest and all 935 new chunks (9,251,807 bytes) were downloaded from that exact GitHub raw origin and matched their SHA-256 identities. A second batch browser journey used that origin: 1,739 journal events, no raw error or documented failure, ZIP/PDF export, archive reimport and workspace handoff completed. Six abandoned WASM transport requests remain recorded separately. [Published-origin receipt](evidence/execution-published-origin-20261012.json).

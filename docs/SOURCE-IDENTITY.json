@@ -12,8 +12,8 @@
   "macos_derivative": "https://github.com/Kinkazma/sherloq",
   "ui_version": "0.15.1",
   "engine_version": "0.35.0-export.3",
-  "resource_commit": null,
-  "resource_origin_policy": "Finalize deployment against the immutable resource publication commit; publication receipt records the exact pin.",
+  "resource_commit": "34d648a10c5e516107a9d0a7f1cf4b2f51870e81",
+  "resource_origin_policy": "Pin deployment to the immutable resource publication commit; manifest template has no deployment origin.",
   "transport_adapter": "web/wordpress/runtime-delivery.py",
   "public_additions": {
     "batch_base": "a7dd508",
