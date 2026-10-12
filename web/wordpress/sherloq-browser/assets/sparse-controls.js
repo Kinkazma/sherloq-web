@@ -12,11 +12,13 @@ export function restoreSparseView(value,version){
 export const biomesOnly=view=>!view.circles&&!view.lines&&!view.points&&view.areas;
 export function sparseAlgorithmColor(name){return ([CLASSIC_SIFT,PANELS_SIFT].includes(name)||name.startsWith('Extended:')||name.endsWith(' + Mirror'))?'green':['AKAZE','BRISK','ORB'].includes(name)?null:'red';}
 export const sparseLabels={
- fr:{patch:'Patch (px)',iterations:'Itérations',texture:'Texture minimum',algorithm:'Détecteur',limit:'Points maximum',radius:'Écartement maximum (px)',minimum:'Séparation minimum (px)',threshold:'Tolérance du descripteur',tolerance:'Proximité des biomes (px)',model:'Géométrie',geometricThreshold:'Erreur maximum (px)',geometricMinimum:'Témoins minimum',compare:'Comparer deux zones',reflections:'Inclure les réflexions',autoRadius:'Rayon automatique par zone',compact:'Ignorer les intervalles entre zones',independent:'SIFT par zone',low:'Longueur affichée min.',high:'max.',support:'Points minimum par côté',circles:'Cercles',lines:'Liaisons',points:'Points centraux',areas:'Biomes',textExclusions:'Exclusions de texte',biomesOnly:'Biomes seuls'},
- en:{patch:'Patch (px)',iterations:'Iterations',texture:'Minimum texture',algorithm:'Detector',limit:'Maximum points',radius:'Maximum spacing (px)',minimum:'Minimum spacing (px)',threshold:'Descriptor tolerance',tolerance:'Biome proximity (px)',model:'Geometry',geometricThreshold:'Maximum error (px)',geometricMinimum:'Minimum inliers',compare:'Compare two regions',reflections:'Include reflections',autoRadius:'Automatic radius per region',compact:'Ignore gaps between regions',independent:'Per-region SIFT',low:'Displayed length min.',high:'max.',support:'Minimum points per side',circles:'Circles',lines:'Links',points:'Centre points',areas:'Biomes',textExclusions:'Text exclusions',biomesOnly:'Biomes only'}
+ fr:{longSide:'Grand côté du modèle (px)',rotationMode:'Passes de rotation',patch:'Patch (px)',iterations:'Itérations',texture:'Texture minimum',algorithm:'Détecteur',limit:'Points maximum',radius:'Écartement maximum (px)',minimum:'Séparation minimum (px)',threshold:'Tolérance du descripteur',tolerance:'Proximité des biomes (px)',model:'Géométrie',geometricThreshold:'Erreur maximum (px)',geometricMinimum:'Témoins minimum',compare:'Comparer deux zones',reflections:'Inclure les réflexions',autoRadius:'Rayon automatique par zone',compact:'Ignorer les intervalles entre zones',independent:'SIFT par zone',low:'Longueur affichée min.',high:'max.',support:'Points minimum par côté',circles:'Cercles',lines:'Liaisons',points:'Points centraux',areas:'Biomes',textExclusions:'Exclusions de texte',biomesOnly:'Biomes seuls'},
+ en:{longSide:'Model long side (px)',rotationMode:'Rotation passes',patch:'Patch (px)',iterations:'Iterations',texture:'Minimum texture',algorithm:'Detector',limit:'Maximum points',radius:'Maximum spacing (px)',minimum:'Minimum spacing (px)',threshold:'Descriptor tolerance',tolerance:'Biome proximity (px)',model:'Geometry',geometricThreshold:'Maximum error (px)',geometricMinimum:'Minimum inliers',compare:'Compare two regions',reflections:'Include reflections',autoRadius:'Automatic radius per region',compact:'Ignore gaps between regions',independent:'Per-region SIFT',low:'Displayed length min.',high:'max.',support:'Minimum points per side',circles:'Circles',lines:'Links',points:'Centre points',areas:'Biomes',textExclusions:'Text exclusions',biomesOnly:'Biomes only'}
 };
 export const sparseHelp={
  fr:{
+  longSide:'EfficientLoFTR redimensionne chaque rectangle en conservant ses proportions, vers ce grand côté, puis utilise des dimensions multiples de 32. Les correspondances sont ramenées dans les coordonnées de l’image originale.',
+  rotationMode:'Ajoute des comparaisons à 90°, 180° et 270°, puis ramène les points dans l’image originale. Ces passes demandent du calcul supplémentaire.',
   algorithm:'Choisit le détecteur et l’appariement. Panels + Text ajoute la recherche de sous-images et l’exclusion du texte. Les options disponibles suivent l’algorithme sélectionné.',
   radius:'Distance maximum entre deux points appariés, dans l’image originale. En mode automatique avec des zones, leur diagonale détermine cette distance.',
   autoRadius:'Utilise la diagonale de chaque zone comme écartement maximum. En comparaison, utilise la diagonale des deux zones réunies. Sans zone, le rayon manuel reste utilisé, sauf si Panels + Text détecte lui-même des sous-images. Ce réglage ne dessine pas de cercle.',
@@ -34,6 +36,8 @@ export const sparseHelp={
   biomesOnly:'Affiche uniquement les biomes ; désactive les cercles, les liaisons et les points centraux.'
  },
  en:{
+  longSide:'EfficientLoFTR resizes each rectangle with its aspect ratio preserved, to this long side and dimensions divisible by32. Matches are mapped back to original image coordinates.',
+  rotationMode:'Adds90°,180° and270° comparisons and maps points back to the original image. Additional passes cost more computation.',
   algorithm:'Selects the detector and matcher. Panels + Text adds subimage detection and text exclusion. Available options follow the selected algorithm.',
   radius:'Maximum distance between matched points in original pixels. Automatic mode uses the diagonal of each selected region.',
   autoRadius:'Uses each region’s diagonal as the maximum spacing; comparison uses the combined diagonal. Without regions, the manual radius is used unless Panels + Text detects subimages. This setting does not draw circles.',
@@ -59,7 +63,10 @@ export function sparseParameters(settings,rectangles){
  p.guides=p.compact&&!p.compare?rectangles.filter(r=>!r.envelope).map(polygon):[];
  if(isDenseClone(p.algorithm))return denseCloneParameters(p);
  delete p.patch;delete p.iterations;delete p.texture;
- p.reflections=p.algorithm===PANELS_SIFT&&p.reflections;
+ const efficient=p.algorithm==='EfficientLoFTR';
+ p.reflections=(p.algorithm===PANELS_SIFT||efficient)&&p.reflections;
+ if(efficient){p.compare=true;p.rotations=p.rotationMode==='quarter-turns'?[0,90,180,270]:[0];}else {delete p.longSide;delete p.rotations;}
+ delete p.rotationMode;
  p.independent=p.algorithm===PANELS_SIFT||p.algorithm===CLASSIC_SIFT&&p.independent;
  p.guides=p.compact&&!p.compare?rectangles.filter(r=>!r.envelope).map(polygon):[];
  return p;
