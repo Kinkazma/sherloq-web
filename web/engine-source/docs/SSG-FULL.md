@@ -55,7 +55,7 @@ Each engine retains at most one budgeted native checkpoint: normalized gray, fea
 
 ## Local qualification and limits
 
-Run `node --test tests/ssg-full.test.mjs tests/ssg.test.mjs tests/ssg-vlfeat.test.mjs` (41 tests at integration). Compiled C++ phrase IDs, descriptors and distances are bit-identical to the core JS formula; weighted DBSCAN pairs, clusters and original row IDs match the prior implementation.
+Run `node --test tests/ssg-full.test.mjs tests/ssg.test.mjs tests/ssg-vlfeat.test.mjs` (42 tests at integration). Compiled C++ phrase IDs, descriptors and distances are bit-identical to the core JS formula; weighted DBSCAN pairs, clusters and original row IDs match the prior implementation.
 
 The actual pinned native x86/SSE forest and compiled scalar/shared WASM were compared on a 97×113 textured fixture: zero differing leaf IDs (11,600) and zero differing final edge pixels (10,961). Scalar and ten-thread WASM outputs were byte-identical. Channel intermediates differ by at most 1.12e-6; final decisions match. The adapter preserves the original approximate SSE reciprocal/reciprocal-square-root instruction values through generated tables and aligned buffers.
 

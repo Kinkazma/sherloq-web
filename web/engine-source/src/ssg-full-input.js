@@ -18,8 +18,9 @@ const cubic=x=>{x=Math.abs(x);return x<=1?1.5*x**3-2.5*x**2+1:x<=2?-.5*x**3+2.5*
 export function ssgResizeCoefficients(source,target){const scale=target/source,filter=Math.min(1,scale),radius=2/filter,out=[];for(let i=0;i<target;i++){const center=(i+.5)/scale-.5,ids=[],weights=[];let total=0;for(let j=Math.ceil(center-radius);j<=Math.floor(center+radius);j++){const w=cubic((center-j)*filter)*filter;if(w){ids.push(reflect(j,source));weights.push(w);total+=w;}}out.push({ids,weights:weights.map(w=>w/total)});}return out;}
 export async function prepareSsgImage(image,p,{budget,signal}={}){
  requireValue(image?.format==='rgb8'&&image.width>0&&image.height>0&&(image.data instanceof Uint8Array||typeof image.readRows==='function'),'SSG requires RGB8 source.');checkAbort(signal);
- const scale=p.normalizationLongEdge?Math.max(1,p.normalizationLongEdge/Math.max(image.width,image.height)):1,width=Math.ceil(image.width*scale),height=Math.ceil(image.height*scale),rgbOwner=allocateOwnedTypedArray(Uint8Array,width*height*3,{budget,owner:'ssg',label:'SSG normalized RGB'}),grayOwner=allocateOwnedTypedArray(Float64Array,width*height,{budget,owner:'ssg',label:'SSG normalized double grayscale'});let source,sourceOwner;
+ const scale=p.normalizationLongEdge?Math.max(1,p.normalizationLongEdge/Math.max(image.width,image.height)):1,width=Math.ceil(image.width*scale),height=Math.ceil(image.height*scale);let source,sourceOwner,rgbOwner,grayOwner;
  try{
+  rgbOwner=allocateOwnedTypedArray(Uint8Array,width*height*3,{budget,owner:'ssg',label:'SSG normalized RGB'});grayOwner=allocateOwnedTypedArray(Float64Array,width*height,{budget,owner:'ssg',label:'SSG normalized double grayscale'});
   if(image.data)source=image.data;
   else{sourceOwner=allocateOwnedTypedArray(Uint8Array,image.width*image.height*3,{budget,owner:'ssg',label:'SSG source read'});source=sourceOwner.data;for(let y=0;y<image.height;y+=64){checkAbort(signal);const count=Math.min(64,image.height-y);let rows,primaryError;try{rows=await image.readRows(y,count,{signal});source.set(validateRgbRows(rows,image.width,count),y*image.width*3);}catch(error){primaryError=error;throw error;}finally{try{rows?.release();}catch(cleanup){if(primaryError)primaryError.details={...primaryError.details,cleanupErrors:[...(primaryError.details?.cleanupErrors??[]),serializeEngineError(cleanup)]};else throw cleanup;}}}}
   const xs=ssgResizeCoefficients(image.width,width),ys=ssgResizeCoefficients(image.height,height),cooperate=createCooperator(signal);
@@ -29,5 +30,5 @@ export async function prepareSsgImage(image,p,{budget,signal}={}){
    const at=y*width+x;grayOwner.data[at]=gray;for(let c=0;c<3;c++)rgbOwner.data[at*3+c]=Math.max(0,Math.min(255,Math.round(rgb[c])));
   }}
   return {rgb:rgbOwner.data,gray:grayOwner.data,width,height,scaleX:width/image.width,scaleY:height/image.height,originalWidth:image.width,originalHeight:image.height,release(){rgbOwner.release();grayOwner.release();}};
- }catch(error){rgbOwner.release();grayOwner.release();throw error;}finally{sourceOwner?.release();}
+ }catch(error){rgbOwner?.release();grayOwner?.release();throw error;}finally{sourceOwner?.release();}
 }
