@@ -68,7 +68,80 @@
     "bootstrapLimitBytes": 25000000,
     "localCandidateBootstrapBytes": 21445898,
     "privateOverlayIncluded": false,
-    "installerPublished": false
+    "installerPublished": false,
+    "publishedOriginCandidateBootstrapBytes": 21445868
   },
-  "scope": "Source/runtime integration and functional scientific-export qualification. The 86-image batch and its 172 analyses are recorded separately. Not a new 96 MP qualification, controlled speed benchmark, PHP/Gutenberg execution qualification, or scientific verdict on the input publications."
+  "scope": "Source/runtime integration and functional scientific-export qualification. The 86-image batch and its 172 analyses are recorded separately. Not a new 96 MP qualification, controlled speed benchmark, PHP/Gutenberg execution qualification, or scientific verdict on the input publications.",
+  "publishedDeliveryBrowser": {
+    "date": "2026-10-12",
+    "browser": "154.0.8037.98",
+    "atomicHandoffWaiterPreserved": true,
+    "cpuCapacity": 10,
+    "releasedBudgetBytes": 0,
+    "exactPixels": true,
+    "webpBytes": 666,
+    "engineVersion": "0.35.0-export.3",
+    "batchRunnerAvailable": true,
+    "crossOriginIsolated": true,
+    "pageErrors": [],
+    "publishedOrigin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/da01f941ad6ee010de881213d951193765e6071e/web-assets/",
+    "publishedChunks": [
+      {
+        "sha256": "d816f9f483e1d5d5ed8d6f83f5228410a3ca5fabbe3641b4d1b0bbe78a76988b",
+        "bytes": 17779
+      },
+      {
+        "sha256": "c59cc60fbbd65cec0105d0505758787b3c25239d352d6b61dfceb6d10ae7fe2f",
+        "bytes": 6091
+      }
+    ],
+    "scope": "Isolated private delivery with the immutable published GitHub resource origin; real native pixel read/export, atomic phase handoff, and both new chunk hashes verified in the browser. Full 86-image analysis is recorded separately.",
+    "pageResourceRequestsObserved": 2
+  },
+  "publication": {
+    "resourceCommit": "da01f941ad6ee010de881213d951193765e6071e",
+    "resourceOrigin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/da01f941ad6ee010de881213d951193765e6071e/web-assets/",
+    "deploymentManifestSha256": "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2",
+    "rawFilesVerified": [
+      {
+        "path": "web-assets/manifest-template.json",
+        "bytes": 1817781,
+        "sha256": "38204b6bf2af7394f30853865f6dcd88b52971d3159098bdef3372e9eb9796cc",
+        "httpStatus": 200
+      },
+      {
+        "path": "web/wordpress/runtime-source-lock.json",
+        "bytes": 667423,
+        "sha256": "6a4bb061f437fdf7ae650d7224a2dfd5d8c9ef7b2e3dd5a5acc2a4a87d2d1257",
+        "httpStatus": 200
+      },
+      {
+        "path": "web/engine-source-identity.json",
+        "bytes": 518,
+        "sha256": "fda8d6104892e8504360023403c8390462786fd512547a62b956c65d7bd8ff65",
+        "httpStatus": 200
+      },
+      {
+        "path": "web-assets/chunks/d816f9f483e1d5d5ed8d6f83f5228410a3ca5fabbe3641b4d1b0bbe78a76988b.bin",
+        "bytes": 17779,
+        "sha256": "d816f9f483e1d5d5ed8d6f83f5228410a3ca5fabbe3641b4d1b0bbe78a76988b",
+        "httpStatus": 200
+      },
+      {
+        "path": "web-assets/chunks/c59cc60fbbd65cec0105d0505758787b3c25239d352d6b61dfceb6d10ae7fe2f.bin",
+        "bytes": 6091,
+        "sha256": "c59cc60fbbd65cec0105d0505758787b3c25239d352d6b61dfceb6d10ae7fe2f",
+        "httpStatus": 200
+      }
+    ]
+  },
+  "humanAcceptance": {
+    "status": "rejected",
+    "scope": "Acquisition-only scientific filtering and display defaults",
+    "reportedOn": "2026-10-12",
+    "reasons": [
+      "Texts, charts and diagrams inside figures are not reliably excluded, causing false positives.",
+      "Display defaults still include circles and lines alongside biomes instead of biomes alone."
+    ]
+  }
 }

@@ -1,6 +1,6 @@
 {
   "schema": "sherloq.batch-pipeline-qualification/1",
-  "status": "done",
+  "status": "functional-checks-completed-human-acceptance-rejected",
   "documents": 7,
   "extracted": 147,
   "qualificationImages": 3,
@@ -44,7 +44,7 @@
   },
   "batchTests": 21,
   "fullHumanBatch": {
-    "status": "passed",
+    "status": "functional-export-checks-passed",
     "qualifiedAt": "2026-10-12",
     "documents": 7,
     "pages": 98,
@@ -104,7 +104,16 @@
       "recalculationLaunched": false,
       "sourceArchiveBytes": 307633661
     },
-    "scope": "Local browser functional and scientific-export validation using the exact human selection. Negative comparisons are not persisted individually. Signals on mixed figures require human inspection. Not a controlled runtime benchmark, a new 96 MP qualification, or PHP/Gutenberg packaging validation."
+    "scope": "Local browser execution, memory correction and scientific-export integrity checks using the exact human selection. Human acceptance of acquisition-only filtering and display defaults was rejected. Text, charts and diagrams can cause false positives. Not a controlled runtime benchmark, new 96 MP qualification, PHP/Gutenberg execution qualification, or scientific verdict.",
+    "humanAcceptance": {
+      "status": "rejected",
+      "scope": "Acquisition-only scientific filtering and display defaults",
+      "reportedOn": "2026-10-12",
+      "reasons": [
+        "Texts, charts and diagrams inside figures are not reliably excluded, causing false positives.",
+        "Display defaults still include circles and lines alongside biomes instead of biomes alone."
+      ]
+    }
   },
   "previousUiUnitSuite": {
     "passed": 252,

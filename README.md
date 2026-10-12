@@ -100,6 +100,8 @@ I corrected a SIFT scheduling error during CPU/GPU phase changes. The scheduler 
 
 The complete human-selected batch of **86 images from seven PDFs** finished **172 analyses with zero errors**, using SIFT + G2NN + RANSAC + Panels + Text and Forgeryscope Auto. Its 1.17 GB of output artifacts exported and reimported successfully; all 172 NPZ files passed independent checks. Three reference images produced exactly the same scientific arrays at nine to ten workers as at three workers. This is a functional/export qualification, not a speed benchmark or a verdict on the supplied publications. [Batch workflow and qualification](docs/TRAITEMENT-PAR-LOT.md).
 
+**The scientific filtering requirements have not been accepted.** Text, charts and diagrams inside mixed figures are not reliably excluded and can generate false positives. The default display also includes circles and lines alongside biomes, whereas the requested default is biomes alone. Successful execution and intact exports do not validate these requirements.
+
 ### Startup after a WordPress plugin update — 0.15.2
 
 Replacing the plugin directory could remove the immutable manifest still requested by an installed older service worker, blocking navigation before the replacement workspace could open. The update retains deployed manifests, keeps startup documents/configuration/modules reachable, and stores SHA-verified manifest copies that survive a worker restart. A temporary manifest failure remains retryable.

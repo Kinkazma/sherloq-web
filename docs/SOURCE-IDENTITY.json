@@ -1,7 +1,7 @@
 {
-  "ui_commit": "979e264d542519054ebeb24cbc36b712fc12fea6",
-  "engine_commit": "a1f85661db24610ac3c7bf894214afc85a72d024",
-  "manifest_sha256": "7085000f8095c7242b6dbc7f286ac12914dcd93fdcea0b182533da2b6adeab2d",
+  "ui_commit": "2c76dade4c4b284a963a49e60d78424f852c6746",
+  "engine_commit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
+  "manifest_sha256": "38204b6bf2af7394f30853865f6dcd88b52971d3159098bdef3372e9eb9796cc",
   "documentation_adaptations": [
     {
       "path": "web/wordpress/sherloq-browser/README.md",
@@ -12,7 +12,7 @@
   "macos_derivative": "https://github.com/Kinkazma/sherloq",
   "ui_version": "0.15.2",
   "engine_version": "0.35.0-export.3",
-  "resource_commit": "34d648a10c5e516107a9d0a7f1cf4b2f51870e81",
+  "resource_commit": "da01f941ad6ee010de881213d951193765e6071e",
   "resource_origin_policy": "Pin deployment to the immutable resource publication commit; manifest template has no deployment origin.",
   "transport_adapter": "web/wordpress/runtime-delivery.py",
   "public_additions": {
@@ -30,18 +30,27 @@
         "a82da5ec6dc7951b4746916e7304be6988c23fa9"
       ],
       "scope": "Six public layout, typography and Home Screen asset path files; preview helper excluded."
-    }
+    },
+    "batch_version": "0.2.0",
+    "batch_functional_validation_commit": "072e07e2b717951af686df07e35b86b6149be48a",
+    "batch_human_acceptance": "Rejected for acquisition-only filtering and display defaults; functional/export checks passed.",
+    "atomic_sift_phase_handoff": "Normal native worker capacity retained; no added three-worker ceiling or raised budget."
   },
   "bootstrap_limit_bytes": 25000000,
   "ui_base_commit": "f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "ui_patch_commits": [
     "0a2e17f28c0d195615e6d0e4ca158a977e56b1e5",
-    "1ad1c624c909261e1b69e194ad7ed4f9c262fb27"
+    "1ad1c624c909261e1b69e194ad7ed4f9c262fb27",
+    "2c76dade4c4b284a963a49e60d78424f852c6746"
   ],
-  "deployment_manifest_sha256": "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
+  "deployment_manifest_sha256": "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2",
   "compatibility_manifest_sha256": [
-    "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b",
-    "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb"
-  ]
+    "8efb75077588d7b429f3f724c80e2446010f16e461d3b6c46630ccb57a4f1db2",
+    "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
+    "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b"
+  ],
+  "engine_base_commit": "a1f85661db24610ac3c7bf894214afc85a72d024",
+  "engine_commit_repository": "https://github.com/Kinkazma/sherloq-web",
+  "engine_source_increment_sha256": "286e322c49123c29eec25421e0d60b381e9df87f01663b859b4919ffd09b3006"
 }
