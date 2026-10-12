@@ -4,6 +4,16 @@ import {batchCatalog,catalogRecipe,batchTask,imageScore,studyScores} from '../we
 import {comparisonPolygons} from '../web/wordpress/sherloq-browser/assets/batch-export.js';
 import {pdfPoint,safeName} from '../web/wordpress/sherloq-browser/assets/batch-import.js';
 import {jsonExportValue} from '../web/wordpress/sherloq-browser/assets/tool-client.js';
+import {batchForgeryscopeMetadata} from '../web/wordpress/sherloq-browser/assets/batch-evidence.js';
+
+test('Standalone Forgeryscope Auto keeps native comparisons in source coordinates',()=>{
+ const comparisons=[{accepted:true,polygon0:[[1,2],[3,4]],polygon1:[[11,12],[13,14]]}],lane_pairs=[{score:.8}];
+ const metadata=batchForgeryscopeMetadata({metadata:{profile:'Forgeryscope Auto',comparisons,lane_pairs,status:'ok'}});
+ assert.deepEqual(metadata.zones[0].origin,[0,0]);assert.equal(metadata.zones[0].comparisons,comparisons);assert.equal(metadata.zones[0].lane_pairs,lane_pairs);
+ const zoned={zones:[{origin:[10,20],comparisons}]};assert.equal(batchForgeryscopeMetadata(zoned),zoned);
+ assert.deepEqual(batchForgeryscopeMetadata({profile:'Forgeryscope Auto',comparisons:[],status:'no_panels'}).zones[0].comparisons,[]);
+ assert.throws(()=>batchForgeryscopeMetadata({status:'ok'}));
+});
 
 test('A display-only output never becomes a positive method vote',()=>{
  const score=imageScore([{status:'done',kind:'view',positive:false},{status:'done',kind:'map',positive:true,methodKey:'trufor'},{status:'done',kind:'map',positive:true,methodKey:'trufor'}]);

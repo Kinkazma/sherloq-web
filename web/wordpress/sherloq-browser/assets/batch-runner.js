@@ -54,7 +54,7 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
     else if(output.surface){run.files.push(await put(artifacts,path+'.png',await owner.export('png',output.surface)));}
     if(output.m2Result){run.files.push(await put(artifacts,path+'.npz',await owner.export('npz')));const display=output.views?.[0];if(display&&!overlay)run.files.push(await put(artifacts,path+'.png',await displayBlob(owner,display,signal)));}
     else if(['clones','map','ela','regions'].includes(recipe.kind)&&recipe.operation!=='tampering.copyMove.brisk'&&recipe.operation!=='tampering.copyMove.akaze'&&recipe.operation!=='tampering.copyMove.orb'){
-     try{run.files.push(await put(artifacts,path+'.npz',await owner.export('npz',output.surface)));}catch(error){run.exportWarning=error.message;}
+     try{run.files.push(await put(artifacts,path+'.npz',await owner.export('npz',output.operation==='tampering.copyMove.sparse'?undefined:output.surface)));}catch(error){run.exportWarning=error.message;}
     }
    }
    check(signal);run.provenance=compactEvidence(output.provenance);run.metrics=compactEvidence(output.metrics);
