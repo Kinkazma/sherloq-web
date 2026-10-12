@@ -1,12 +1,13 @@
 import {createWasmTensorArena,isWasmTensorView} from '../../src/wasm-tensor-arena.js';
 import {scheduledWorkerCall,cancelScheduledWorkerCalls} from '../../src/scheduled-worker-call.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from '../../src/worker-message-protocol.js';
+import {validateD2prlFloat32} from './parameter-ownership.js';
 // One coordinated pool, one WASM thread per worker. It executes only useful
 // convolution tiles; no calibration, warm-up or nested library pool.
 import {requireValue, checkAbort, controlCheckpoint, EngineError, deserializeEngineError} from '../../src/errors.js';
 const HEAP_MAX = 256 * 1024 ** 2;
 export function createConvolutionCpu({budget,arena, moduleUrl, maxWorkers = 1,operation=(_label,work)=>work(),workerFactory=()=>new Worker(new URL('./convolution-cpu-worker.js',import.meta.url),{type:'module'})} = {}) {
-  requireValue(budget && typeof budget.reserve === 'function' && typeof moduleUrl === 'string' && Number.isInteger(maxWorkers) && maxWorkers >= 1 && maxWorkers <= 32, 'Explicit shared budget, module and worker ceiling required');
+  requireValue(budget && typeof budget.reserve === 'function' && typeof moduleUrl === 'string' && Number.isInteger(maxWorkers) && maxWorkers >= 1 && maxWorkers <= 64, 'Explicit shared budget, module and worker ceiling required');
   const ownsArena=!arena;arena??=createWasmTensorArena({budget});
   const admission={budget,resourceOwner:'d2prl',profile:{maxWorkers}};
   const pool = []; let busy = false, disposed = false;
@@ -55,9 +56,8 @@ export function createConvolutionCpu({budget,arena, moduleUrl, maxWorkers = 1,op
         if (workers < 1) throw new EngineError('MEMORY_LIMIT', 'One CPU convolution worker cannot be admitted',{details:{requestedBytes:copyBytes+(pool.some(slot=>slot.release)?0:HEAP_MAX)}});
         while (pool.length > workers) remove();
         copies = scope.reserve(workers * copyBytes);
-        let stamp = performance.now(); for (const values of [input, weights, bias]) for (let i = 0; i < values.length; i++) {
-          requireValue(Number.isFinite(values[i]), 'Nonfinite convolution tensor'); if ((i & 8191) === 0 && performance.now() - stamp >= 8) { await controlCheckpoint(signal); stamp = performance.now(); }
-        }
+        let stamp=performance.now();const validationCheckpoint=()=>{if(performance.now()-stamp>=8)return controlCheckpoint(signal).then(()=>{stamp=performance.now();});};
+        for(const values of [input,weights,bias])await validateD2prlFloat32(values,{signal,message:'Nonfinite convolution tensor',checkpoint:validationCheckpoint});
         while (pool.length < workers) {
           checkAbort(signal);const slot={};pool.push(slot);await operation('convolution:bootstrap',()=>initialize(slot,signal,scope));
         }

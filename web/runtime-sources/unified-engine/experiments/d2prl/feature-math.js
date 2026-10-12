@@ -1,6 +1,7 @@
 import {createWasmTensorArena} from '../../src/wasm-tensor-arena.js';
 // Experimental bounded CPU helpers for composing the qualified feature graph.
 import {requireValue, checkAbort, controlCheckpoint, EngineError} from '../../src/errors.js';
+import {validateD2prlFloat32} from './parameter-ownership.js';
 const PAGE = 16 * 1024 ** 2, MAX = 512 * 1024 ** 2;
 export async function createFeatureMath(factory, {budget,arena,operation:recover=(_label,work)=>work()} = {}) {
   requireValue(budget && typeof budget.reserve === 'function', 'Shared budget required');
@@ -45,10 +46,8 @@ export async function createFeatureMath(factory, {budget,arena,operation:recover
         if (target > accounted) { resident.push(active.split(target-accounted)); accounted = target; }
         const allocate = bytes => { const ptr = module._malloc(bytes);trackHeap(); if (ptr) pointers.push(ptr); if(!ptr)throw new EngineError('MEMORY_ALLOCATION','Native D2PRL allocation refused'); requireValue(module.HEAPU8.length <= accounted, 'Feature helper allocation'); return ptr; };
         let stamp = performance.now();
-        for (const array of arrays) for (let i=0;i<array.length;i++) {
-          requireValue(Number.isFinite(array[i]), 'Nonfinite feature input');
-          if ((i&8191)===0 && performance.now()-stamp >= 8) { await controlCheckpoint(signal); stamp=performance.now(); }
-        }
+        const validationCheckpoint=()=>{if(performance.now()-stamp>=8)return controlCheckpoint(signal).then(()=>{stamp=performance.now();});};
+        for(const array of arrays)await validateD2prlFloat32(array,{signal,message:'Nonfinite feature input',checkpoint:validationCheckpoint});
         const inputs = arrays.map(array => {const ptr=allocate(array.byteLength);module.HEAPF32.set(array,ptr/4);return ptr;});
         const out = inPlace ? inputs[0] : allocate(outputBytes);
         checkAbort(signal);

@@ -1,7 +1,14 @@
 import {createWasmTensorArena} from '../../src/wasm-tensor-arena.js';
 import {retainD2prlCheckpoint} from './checkpoint.js';
 import {requireValue,checkAbort} from '../../src/errors.js';
-function ownDescriptorBanks(zm,cnn){return{get zm(){return zm.data;},get cnn(){return cnn.data;},release(){zm.release();cnn.release();}};}
+import {publishD2prlDescriptor} from './descriptor-ownership.js';
+function ownDescriptorBanks(zm,cnn){
+ let revocations=[],published=false,released=false;
+ return{get zm(){return zm.data;},get cnn(){return cnn.data;},publish(){
+  requireValue(!released,'Released descriptor banks');if(published)return;
+  const revoke=publishD2prlDescriptor(zm.data);try{revocations=[revoke,publishD2prlDescriptor(cnn.data)];published=true;}catch(error){revoke();throw error;}
+ },release(){if(released)return;released=true;for(const revoke of revocations)revoke();revocations=[];zm.release();cnn.release();}};
+}
 export function createDescriptors({arena:sharedArena,convolution,math,budget,loadConvolution,loadBatchNorm,operation=(_label,work)=>work()}){
  let busy=false,checkpoint;
  const clear=()=>{if(!checkpoint)return;const old=checkpoint;checkpoint=null;for(const value of old.held)value.release();old.banks?.release();if(!sharedArena)old.arena.dispose();};
@@ -37,7 +44,7 @@ export function createDescriptors({arena:sharedArena,convolution,math,budget,loa
      await trace(side+'-cnn-float',()=>s.value.data);
      await step(async()=>{const half=await unary('half',s.value.data);state.banks.cnn.set(half.data,scaleIndex*32*448*448);drop(s.value);s.value=null;drop(half);});
     }
-    const result=state.banks;state.banks=null;return result;
+    state.banks.publish();const result=state.banks;state.banks=null;return result;
    }catch(error){retain=retainD2prlCheckpoint(error,signal,checkpointKey);throw error;}finally{if(!retain)clear();busy=false;}
   },
   releaseCheckpoint(key){requireValue(!busy,'Descriptors busy');if(key===undefined||checkpoint?.key===key)clear();},

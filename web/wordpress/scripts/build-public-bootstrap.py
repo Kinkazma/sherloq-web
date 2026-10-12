@@ -96,7 +96,7 @@ Manifest SHA-256: {config['manifest']}
 Component notices are in notices/ and the full source repository.
 '''
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(args.output, 'w', zipfile.ZIP_DEFLATED) as archive:
+    with zipfile.ZipFile(args.output, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for file in sorted(assets.rglob('*')):
             if file.is_file() and file.suffix != '.php' and not file.name.startswith('.'):
                 archive.write(file, 'SHERLOQ-Web/assets/' + file.relative_to(assets).as_posix())

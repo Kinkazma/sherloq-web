@@ -40,16 +40,19 @@ export function createD2prlModel(options) {
 }
 async function createModel({budget, model, assetBaseUrl, runtime, backend, maxWorkers}) {
   requireValue(model?.schema === 1 && model.side === 448 && model.iterations === 40 && model.seed === 22 && model.referenceThreads === 8 && model.checkpointSha256 === '2749c7436169ce689deaeb197ce5dae3d1a4533999833928168ec0b0d703df36', 'Pinned native D2PRL model');
-  requireValue(['cpu', 'gpu'].includes(backend) && Number.isInteger(maxWorkers) && maxWorkers >= 1 && maxWorkers <= 32, 'Explicit backend and useful worker ceiling');
-  const disposables = [], own = value => (disposables.push(value), value); let busy = false, disposed = false, recovery;
+  requireValue(['cpu', 'gpu'].includes(backend) && Number.isInteger(maxWorkers) && maxWorkers >= 1 && maxWorkers <= 64, 'Explicit backend and useful worker ceiling');
+  const evaluatorUrl=runtime.evaluatorUrl,evaluatorDescriptorLayout=runtime.evaluatorDescriptorLayout??'CHW-uint16';
+  requireValue(['CHW-uint16','HWC-uint16'].includes(evaluatorDescriptorLayout),'Native evaluator descriptor layout');
+  const disposables = [], own = value => (disposables.push(value), value); let busy = false, disposed = false, disposing, recovery;
   const arena=own(createWasmTensorArena({budget}));
   const operation=(label,work,options)=>recovery?recovery(label,work,options):work();
   const guarded=(stage,label,methods,optionsIndex)=>recoverableStage(own(stage),label,operation,methods,optionsIndex);
-  const parameters=own(createParameterStore({budget,assetBaseUrl,operation}));
-  const featureFiles=new Set([...model.features.flatMap(row=>[row.weights.file,row.bias.file]),...model.batchnorm.map(row=>row.params.file)]);
+  const parameters=own(createParameterStore({budget,assetBaseUrl,operation,spill:true}));
   const read = async (spec, {signal} = {}) => {
     requireValue(/^assets\/[0-9a-f]{64}\.bin$/.test(spec.file) && model.assets[spec.file]?.sha256 === spec.sha256 && model.assets[spec.file]?.bytes === spec.bytes, 'Manifest-listed parameter required');
-    return parameters.acquire(spec,{signal,retain:featureFiles.has(spec.file)});
+    // Verify each lazy asset once while its owned bytes survive. Idle entries
+    // remain evictable by the shared budget; reuse never bypasses model pins.
+    return parameters.acquire(spec,{signal,retain:true});
   };
   const featureParameters = async (specs, signal) => {
     const owned=[];try{for(const spec of specs)owned.push(await read(spec,{signal}));return{values:owned.map(value=>value.data),release(){for(const value of owned)value.release();}};}catch(error){for(const value of owned)value.release();throw error;}
@@ -69,7 +72,8 @@ async function createModel({budget, model, assetBaseUrl, runtime, backend, maxWo
     const unet = createUnetGraph({arena,operation,ownedParameters:true,graph: model.graph, convolution, math, budget, layouts: model.layouts.unet, pointLayouts: model.layouts.point, tailProbe: true, tailMode: 'block1024', loadParameter: (_name, spec, options) => read(spec, options)});
     const heads = own(createHeads({operation,unionHead, unet, math, roles, budget}));
     let checkpoint;
-    const clearCheckpoint=()=>{if(!checkpoint)return;const old=checkpoint;checkpoint=null;heads.releaseCheckpoint(old.key);descriptors.releaseCheckpoint(old.key);old.result?.release();old.pm?.release();old.pmEngine?.dispose();old.features?.release();old.prepared?.release();parameters.clear();};
+    const cleanup=(steps)=>{let error;for(const step of steps)try{step();}catch(cause){error??=cause;}return error;};
+    const clearCheckpoint=()=>{if(!checkpoint)return;const old=checkpoint;checkpoint=null;const error=cleanup([()=>heads.releaseCheckpoint(old.key),()=>descriptors.releaseCheckpoint(old.key),()=>old.result?.release(),()=>old.pm?.release(),()=>old.pmEngine?.dispose(),()=>old.features?.release(),()=>old.prepared?.release(),()=>parameters.clearIncomplete()]);if(error)throw error;};
     return {
       modelId: model.modelId, backend,
       async run({rgb, readRows, width, height, backend: requestedBackend = backend}, {signal,onProgress,checkpointKey,verifiedInputIdentity} = {}) {
@@ -79,22 +83,23 @@ async function createModel({budget, model, assetBaseUrl, runtime, backend, maxWo
         // reuse the same object; no second image hash or capacity probe occurs.
         requireValue(verifiedInputIdentity===undefined||typeof verifiedInputIdentity==='string','Verified input identity');
         if(checkpoint&&(checkpoint.key!==checkpointKey||checkpoint.width!==width||checkpoint.height!==height||checkpoint.verifiedInputIdentity!==verifiedInputIdentity||(verifiedInputIdentity===undefined&&(checkpoint.rgb?.deref()!==rgb||checkpoint.readRows?.deref()!==readRows))))clearCheckpoint();
-        const state=checkpoint??{key:checkpointKey,width,height,verifiedInputIdentity,...(verifiedInputIdentity===undefined?{rgb:rgb?new WeakRef(rgb):undefined,readRows:readRows?new WeakRef(readRows):undefined}:{})};checkpoint=state;busy=true;let rawRelease,complete=false,retain=false;
+        const state=checkpoint??{key:checkpointKey,width,height,verifiedInputIdentity,phaseTimes:{},...(verifiedInputIdentity===undefined?{rgb:rgb?new WeakRef(rgb):undefined,readRows:readRows?new WeakRef(readRows):undefined}:{})};checkpoint=state;busy=true;let rawRelease,complete=false,retain=false,failure;
+        const phase=async(name,work)=>{const started=performance.now();try{return await work();}finally{state.phaseTimes[name]=(state.phaseTimes[name]??0)+performance.now()-started;}};
         recovery=createD2prlRecovery({budget,signal,onRecovery:event=>onProgress?.({phase:'resource-recovery',...event}),onReclaim:event=>onProgress?.(event),onWait:event=>onProgress?.(event)});
         const progress = event => {checkAbort(signal); onProgress?.(event); checkAbort(signal);};
         try {
-          if(!state.prepared){progress({phase:'preparation',completed:0,total:1});state.prepared=readRows?await preparation.runRows({readRows,width,height},{signal,onProgress:progress}):await preparation.run({rgb,width,height},{signal});progress({phase:'preparation',completed:1,total:1});}
-          state.descriptorStage??=0;if(!state.features&&!state.pm)state.features=await descriptors.run(state.prepared.data,{signal,checkpointKey,onStage:name=>progress({phase:'descriptors',message:name,completed:++state.descriptorStage,total:45})});parameters.clearRetained();convolution.releaseIdleWorkers?.();
-          if(!state.pm){state.pmEngine??=await createPatchMatch(null, {budget, operation, evaluatorFactory: async (_, {budget}) => createEvaluatorPool(runtime.evaluatorUrl, {budget, maxWorkers,operation})});
-          state.pm=await state.pmEngine.run({zmFeatures:state.features.zm,cnnFeatures:state.features.cnn, side: 448, iterations: 40, randomState: model.randomState, referenceThreads: 8}, {signal,checkpointKey,onProgress:event=>progress({...event,phase:'patchmatch'})});state.features.release();state.features=null;state.pmEngine.dispose();state.pmEngine=null;}
-          state.result??=await heads.run({rgb:state.prepared.data,patchmatch:state.pm},{signal,checkpointKey,onRoleProgress:progress,onStage: name => progress({phase: 'heads', message: name}), onUnetNode: ({index, total}) => progress({phase: 'unet', completed: index + 1, total})});
-          const result=state.result;const raw = await operation('raw-output',()=>{const release=budget.reserve(3*448**2*4);try{const raw=new Float32Array(3*448**2);raw.set(result.union);raw.set(result.target,448**2);raw.set(result.source,2*448**2);rawRelease=release;return raw;}catch(error){release();throw error;}}); checkAbort(signal); complete = true;
-          return {raw, decision: {...result.decision}, execution: {convolution: backend === 'gpu' ? 'webgpu' : 'wasm-simd-workers', patchmatch: 'wasm-workers', roles: 'onnxruntime-wasm', workerCeiling: maxWorkers, referenceThreads: 8, roleRuntime: result.roleRuntime, allocationRecovery: recovery.snapshot(), tensorArena:arena.snapshot(),parameterStore:parameters.snapshot()}, modelId: model.modelId, backend, release: rawRelease};
-        }catch(error){retain=retainD2prlCheckpoint(error,signal,checkpointKey);throw error;}finally{if(!retain)clearCheckpoint();convolution.releaseIdleWorkers?.();if(!complete)rawRelease?.();recovery=null;busy=false;}
+          if(!state.prepared){progress({phase:'preparation',completed:0,total:1});state.prepared=await phase('preparation',()=>readRows?preparation.runRows({readRows,width,height},{signal,onProgress:progress}):preparation.run({rgb,width,height},{signal}));progress({phase:'preparation',completed:1,total:1});}
+          state.descriptorStage??=0;if(!state.features&&!state.pm)state.features=await phase('descriptors',()=>descriptors.run(state.prepared.data,{signal,checkpointKey,onStage:name=>progress({phase:'descriptors',message:name,completed:++state.descriptorStage,total:45})}));convolution.releaseIdleWorkers?.();
+          if(!state.pm)await phase('patchmatch',async()=>{state.pmEngine??=await createPatchMatch(null, {budget, operation, evaluatorFactory: async (_, {budget}) => state.pmEvaluator=await createEvaluatorPool(evaluatorUrl, {budget, maxWorkers,operation,descriptorLayout:evaluatorDescriptorLayout})});
+          state.pm=await state.pmEngine.run({zmFeatures:state.features.zm,cnnFeatures:state.features.cnn, side: 448, iterations: 40, randomState: model.randomState, referenceThreads: 8}, {signal,checkpointKey,onProgress:event=>progress({...event,phase:'patchmatch'})});state.pmStats=structuredClone(state.pmEvaluator?.stats);state.features.release();state.features=null;state.pmEngine.dispose();state.pmEngine=null;state.pmEvaluator=null;});
+          state.result??=await phase('heads',()=>heads.run({rgb:state.prepared.data,patchmatch:state.pm},{signal,checkpointKey,onRoleProgress:progress,onStage: name => progress({phase: 'heads', message: name}), onUnetNode: ({index, total}) => progress({phase: 'unet', completed: index + 1, total})}));
+          const result=state.result;const raw = await phase('raw-output',()=>operation('raw-output',()=>{const release=budget.reserve(3*448**2*4);try{const raw=new Float32Array(3*448**2);raw.set(result.union);raw.set(result.target,448**2);raw.set(result.source,2*448**2);rawRelease=release;return raw;}catch(error){release();throw error;}})); checkAbort(signal); complete = true;
+          return {raw, decision: {...result.decision}, execution: {convolution: backend === 'gpu' ? 'webgpu' : 'wasm-simd-workers', patchmatch: 'wasm-workers', patchmatchPool:state.pmStats, evaluator:{url:evaluatorUrl,descriptorLayout:evaluatorDescriptorLayout}, phaseTimes:{...state.phaseTimes},timingSemantics:'Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.',roles: 'onnxruntime-wasm', workerCeiling: maxWorkers, referenceThreads: 8, roleRuntime: result.roleRuntime, allocationRecovery: recovery.snapshot(), tensorArena:arena.snapshot(),parameterStore:parameters.snapshot()}, modelId: model.modelId, backend, release: rawRelease};
+        }catch(error){failure=error;retain=retainD2prlCheckpoint(error,signal,checkpointKey);throw error;}finally{let error=cleanup([()=>{if(!retain)clearCheckpoint();},()=>convolution.releaseIdleWorkers?.()]);if(!complete||error){const released=cleanup([()=>rawRelease?.()]);error??=released;}recovery=null;busy=false;if(error&&!failure)throw error;}
       },
       releaseCheckpoint(key){requireValue(!busy,'D2PRL model busy');if(key===undefined||checkpoint?.key===key)clearCheckpoint();},
-      checkpointSnapshot(){return checkpoint?{key:checkpoint.key,prepared:!!checkpoint.prepared,descriptors:!!checkpoint.features,descriptorProgress:descriptors.checkpointSnapshot(),patchmatchProgress:checkpoint.pmEngine?.checkpointSnapshot(),patchmatch:!!checkpoint.pm,heads:heads.snapshot()}:null;},
-      dispose() {requireValue(!busy, 'D2PRL model busy'); if (disposed) return; disposed = true;clearCheckpoint();for (const value of disposables.reverse()) value.dispose();}
+      checkpointSnapshot(){return checkpoint?{key:checkpoint.key,phaseTimes:{...checkpoint.phaseTimes},prepared:!!checkpoint.prepared,descriptors:!!checkpoint.features,descriptorProgress:descriptors.checkpointSnapshot(),patchmatchProgress:checkpoint.pmEngine?.checkpointSnapshot(),patchmatch:!!checkpoint.pm,heads:heads.snapshot()}:null;},
+      dispose() {requireValue(!busy, 'D2PRL model busy'); if (disposed) return disposing; disposed = true;const pending=[];let error=cleanup([clearCheckpoint]);for(const value of disposables.reverse())try{const closed=value.dispose();if(closed?.then)pending.push(closed);}catch(cause){error??=cause;}if(pending.length)return disposing=Promise.allSettled(pending).then(results=>{error??=results.find(result=>result.status==='rejected')?.reason;if(error)throw error;});if(error)throw error;}
     };
-  } catch (error) {for (const value of disposables.reverse()) value.dispose(); throw error;}
+  } catch (error) {await Promise.allSettled(disposables.reverse().map(value=>Promise.resolve().then(()=>value.dispose())));throw error;}
 }

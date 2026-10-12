@@ -1,0 +1,106 @@
+Pistes de reprise — autres PatchMatch du moteur SHERLOQ
+Date : 12 octobre 2026. Audit en lecture seule ; aucune piste ci-dessous
+n'a été appliquée ni chronométrée sur SIFT/Zernike.
+Racine des chemins : methods-web-20261012/web/engine-source, dans SHERLOQ.
+
+POINT DE DÉPART
+Les autres routes PatchMatch identifiées sont DenseCopyEngine Zernike
+(12 Float32) et SIFT (128 Float32) : tableaux résidents, Zernike résident,
+SIFT compact sans perte, et champ paginé avec barrières de propagation.
+Leurs descripteurs sont DÉJÀ rangés par pixel :
+- vendor/dense-source/bridge.cpp, préparation et champ (first+i*dimensions) ;
+- native/dense-paged.cpp, lecture du vecteur (index*dimensions) ;
+- src/dense-math.js, descripteurs et mise dans le repère canonique.
+La permutation CHW→HWC qui accélère D2PRL ne constitue donc pas une
+nouvelle optimisation de ces représentations. clone-entries traite les
+relations après le champ ; ce n'est pas un autre évaluateur PatchMatch.
+
+1. RÉUTILISER LES BUFFERS TRANSFÉRÉS DES LOTS DE DISTANCE GPU
+Fichiers : src/dense-field-kernel-worker.js (module.distanceBatch),
+src/dense-field-parallel.js (gpuPrepare/gpuRequest/gpuConsumed).
+Constat : le kernel fait actuellement trois .slice() pour queryDescriptors,
+candidateDescriptors et best, puis transfère ces buffers au coordinateur.
+Celui-ci renvoie le résultat, mais pas ces buffers d'entrée.
+Piste : après consommation GPU, retourner leur propriété au worker et
+réutiliser une capacité suffisante pour le lot suivant. Recopier toutes
+les valeurs actives ; distinguer capacité et longueur utile, dont les queues.
+Préserver gpuPrepare et sa réservation préalable, l'accusé gpuConsumed,
+CPU=0 pendant l'attente GPU, ainsi que les publications transactionnelles.
+Tester croissance/réduction de lots, détachement réel, aliases interdits,
+annulation, échec de transfert et reprise. Aucun buffer encore consommé
+par le GPU ne doit être écrasé ; chaque backing doit être retiré une fois.
+Mesurer allocations, octets copiés et temps du calcul complet, pas seulement
+le nombre de messages. Le regroupement des messages est une autre piste,
+mais ne doit pas traverser une barrière de dépendance du champ classique.
+
+2. CONSERVER PLUSIEURS ARÈNES GPU SELON LES DIMENSIONS
+Fichier : src/dense-distance-gpu.js, createDenseDistanceGPU.batch.
+Constat : un changement de dimensions détruit l'unique arène et recrée
+ses buffers ; device et pipeline sont déjà conservés.
+Piste : de petites arènes par dimension, chacune récupérable si inactive,
+peuvent éviter cette alternance (Zernike12, préfixes SIFT16, SIFT128).
+Vérifier d'abord qu'une vraie charge alterne effectivement ces dimensions.
+Réserver avant allocation ; compter les buffers GPU matérialisés, les
+readbacks et les pins ; aucun double comptage de l'enveloppe d'admission.
+Ne pas conserver trois capacités maximales sans nécessité mesurée.
+Le shader ne fournit qu'une borne de rejet de perdants : conserver le
+raffinement natif exact des candidats restants et le signal NaN de repli.
+
+3. RÉUTILISER DES DESCRIPTEURS ENTRE HYPOTHÈSES IDENTIQUES
+Fichier : src/dense-worker.js, branches residentPrepare/residentRelease,
+compactPrepare/compactRelease et features/canonicalDenseSift.
+Constat : les descripteurs natifs résidents/compacts sont libérés à la fin
+de chaque hypothèse, même si une hypothèse suivante reprend la préparation.
+Piste : retenir une publication immuable, avec emprunteurs protégés et
+récupération des entrées inactives par le budget partagé.
+Clé indispensable : identité des pixels et du crop, méthode, patch,
+targetPatch, support commun, reflection, quarterTurn/repère canonique,
+configuration et version du kernel. L'identité de l'objet JS ne suffit pas.
+Ne pas confondre descripteurs préparés avec champ, masques et résultats :
+les sélections/candidats autorisés peuvent changer entre hypothèses.
+Après éviction ou migration, révoquer l'ancienne durée de vie avant
+réutilisation de sa mémoire. Tester l'allocation d'une autre fonction du
+moteur sous pression, les pins actifs et la reprise exacte des descripteurs.
+Mesurer des répétitions réelles, le premier calcul, les suivants et la
+pression mémoire ; l'économie potentielle augmente la résidence du cache.
+
+MÉCANISMES DÉJÀ PRÉSENTS À PRÉSERVER
+src/dense-pool.js : lanes persistantes et réutilisation des sources.
+src/dense-field-parallel.js : lots utiles adaptatifs, barrières wavefront,
+propositions inverses puis commit ordonné, checkpoints de commandes.
+src/dense-field-kernel-worker.js : retour du writeBatch transactionnel.
+Le shared-read-cache et les mécanismes de récupération existent déjà.
+Les auditer avant d'ajouter un cache ou un ordonnanceur équivalent.
+
+FRONTIÈRES SCIENTIFIQUES
+Le champ classique utilise un argmin strict '<', une L2 Float32 ordonnée,
+des sorties précoces non négatives et un RNG xorshift (seed/pixel/itération).
+Sa propagation, les réflexions et la réévaluation inverse asymétrique
+imposent des dépendances. Ne pas y substituer le kernel D2PRL : demi-
+précision, interpolation, neuf rotations, SLEEF/softmax et RNG distinct.
+Les validations de finitude réutilisables ne valent que pour une publication
+immuable dont le propriétaire reste actif ; rescanner les entrées ordinaires.
+Sur D2PRL seulement, table de décodage half et interpolation SIMD sont des
+essais suivants envisagés ; ils n'offrent pas directement cette économie
+aux descripteurs classiques Float32. Aucun gain n'est établi pour ces essais.
+
+RECETTE DE REPRISE
+Prendre une référence immuable du moteur, choisir UNE piste, puis comparer
+à froid et sur répétitions, sous deux budgets de mémoire au moins.
+Comparer bits des descripteurs/champs/distances, nombre et ordre des
+comparaisons, RNG, masques/composantes et sorties scientifiques finales.
+Exercer annulation, refus d'allocation, quota/IO si stockage, et reprise.
+Vérifier qu'une autre fonction obtient ses ressources après des entrées
+de cache inactives. Exiger un gain global mesuré ; ne pas convertir les
+compteurs de buffers ou de messages en un pourcentage de vitesse.
+Références/tests à inspecter : tests/dense-field-lifecycle-recovery.test.mjs,
+tests/dense-field-resource-rpc.test.mjs, tests/dense-worker-message-protocol.test.mjs,
+tests/dense-checkpoint-ownership.test.mjs, tests/dense-sift-checkpoint.test.mjs.
+Les optimisations D2PRL en cours et leurs preuves restent séparées de ce
+fichier ; ce document conserve les pistes de transfert, pas une promesse.
+
+Mise à jour du 13 octobre 2026 : la table de décodage half et
+l'interpolation SIMD exacte ont depuis été conservées pour D2PRL.
+Leurs gains sont documentés dans D2PRL-OPTIMIZATION-20261012.txt.
+Aucune de ces nouvelles mesures ne qualifie un gain pour SIFT/Zernike ;
+les trois pistes de transfert ci-dessus restent à tester séparément.

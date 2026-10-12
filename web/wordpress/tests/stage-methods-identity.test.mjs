@@ -82,6 +82,16 @@ put(primary / 'integrated-config.json', json.dumps({
     'runtimeReceiptSha256':'qualified-base-receipt', 'assetBase':'./unified-assets/',
 }))
 
+def refresh_runtime_manifest():
+    records = []
+    for directory in ('src', 'vendor', 'experiments'):
+        for path in sorted((engine / directory).rglob('*')):
+            if path.is_file() and path.suffix in ('.js', '.mjs', '.json', '.wasm'):
+                data = path.read_bytes()
+                records.append({'file':path.relative_to(engine).as_posix(), 'bytes':len(data), 'sha256':sha(data)})
+    put(engine / 'runtime-manifest.json', json.dumps({'schema':1, 'version':'test-runtime', 'files':records}))
+refresh_runtime_manifest()
+
 def load(name, path):
     spec = importlib.util.spec_from_file_location(name, path)
     result = importlib.util.module_from_spec(spec)
@@ -109,15 +119,8 @@ function python(body) {
 
 test('staging delivers every exact WASM identity used by its generated loaders without duplicating a qualified binary', () => {
   const result = python(String.raw`
-# Reproduce the prior source-only staging behavior, using the same transport adapter.
-source = (real / 'scripts/stage-methods.py').read_text()
-source = source[:source.index("    for path in sorted(engine.rglob('*.wasm')):")] + source[source.index("    for directory in ('src', 'vendor', 'experiments'):"):]
-legacy = {'__file__':str(wp / 'scripts/stage-methods.py'), '__name__':'legacy_stage'}
-exec(compile(source, '<legacy-source-only-staging>', 'exec'), legacy)
-old = root / 'legacy'
-legacy['stage'](fallback, resources, old, 'test-local')
-assert not (old / new_path).exists() and not (fallback / new_path).exists()
-assert loader_identity(old, changed_path) != sha((fallback / changed_path).read_bytes())
+assert not (fallback / new_path).exists()
+assert (fallback / changed_path).read_bytes() != updated
 
 receipt = stage.stage(fallback, resources, output, 'test-local')
 for path in (new_path, changed_path, shared_path):
@@ -143,6 +146,7 @@ test('restaging a reverted WASM cannot leave an obsolete staged binary in front 
 stage.stage(fallback, resources, output, 'test-local')
 assert (output / changed_path).read_bytes() == updated
 put(engine / 'vendor/changed/module.wasm', wasm)
+refresh_runtime_manifest()
 receipt = stage.stage(fallback, resources, output, 'test-local')
 assert receipt[changed_path]['storage'] == 'qualified-fallback'
 assert loader_identity(output, changed_path) == sha(delivered(changed_path).read_bytes())
@@ -150,6 +154,69 @@ assert not (output / changed_path).exists(), 'Obsolete staged binary shadows the
 print(json.dumps({'revertedExact':True, 'obsoleteRemoved':True}))
 `);
   assert.deepEqual(result, {revertedExact:true, obsoleteRemoved:true});
+});
+
+test('staging enrolls only verified runtime-manifest resources and excludes build and unlisted vendor candidates',()=>{
+ const result=python(String.raw`
+put(engine / '.build/rejected/module.wasm', updated)
+put(engine / 'vendor/unlisted/module.wasm', updated)
+put(engine / 'vendor/unlisted/module.js', 'export const rejected = true;')
+receipt = stage.stage(fallback, resources, output, 'test-local')
+assert not any('/.build/' in name or '/unlisted/' in name for name in receipt)
+assert not (output / 'unified-engine/.build/rejected/module.wasm').exists()
+assert not (output / 'unified-engine/vendor/unlisted/module.wasm').exists()
+assert not (output / 'unified-engine/vendor/unlisted/module.js').exists()
+before = dict(receipt)
+put(engine / 'src/entry.js', 'export const unmanifested = true;')
+try:
+    stage.stage(fallback, resources, output, 'test-local')
+    raise AssertionError('Unmanifested source revision accepted')
+except ValueError as error:
+    assert 'Runtime manifest differs from current source' in str(error)
+assert (output / 'unified-engine/src/entry.js').read_bytes() != (engine / 'src/entry.js').read_bytes()
+valid_manifest = json.loads((engine / 'runtime-manifest.json').read_text())
+for unsafe in ['.build/rejected.wasm','src/../entry.js','src//entry.js','src/./entry.js','/src/entry.js','src\\entry.js']:
+    invalid = json.loads(json.dumps(valid_manifest))
+    invalid['files'][0]['file'] = unsafe
+    put(engine / 'runtime-manifest.json', json.dumps(invalid))
+    try:
+        stage.stage(fallback, resources, output, 'test-local')
+        raise AssertionError('Unsafe manifest path accepted: ' + unsafe)
+    except ValueError as error:
+        assert 'Unsafe or duplicate runtime manifest path' in str(error)
+print(json.dumps({'qualifiedOnly':True,'unmanifestedSourceRejected':True,'priorOutputPreserved':True}))
+`);assert.deepEqual(result,{qualifiedOnly:true,unmanifestedSourceRejected:true,priorOutputPreserved:true});
+});
+
+test('a conflicting primary WordPress binary cannot shadow the exact qualified fallback',()=>{
+ const result=python(String.raw`
+put(primary / shared_path, updated)
+receipt = stage.stage(fallback, resources, output, 'test-local')
+assert (fallback / shared_path).read_bytes() == wasm
+assert (primary / shared_path).read_bytes() == updated
+assert (output / shared_path).read_bytes() == wasm
+assert loader_identity(output, shared_path) == sha(delivered(shared_path).read_bytes())
+print(json.dumps({'shadowPrevented':True,'primaryUnchanged':True,'fallbackUnchanged':True}))
+`);assert.deepEqual(result,{shadowPrevented:true,primaryUnchanged:true,fallbackUnchanged:true});
+});
+
+test('targeted runtime staging preserves current UI, model and batch entries and includes only its qualified native dependency',()=>{
+ const result=python(String.raw`
+put(output / 'app.js','current-main-batch')
+put(output / 'individual-assets/individual-models.json','current-model-manifest')
+put(output / 'integrated-config.json','current-config')
+receipt = stage.stage(fallback, resources, output, 'test-local', ['vendor/changed/module.js'])
+assert set(name for name in receipt if name.startswith('unified-engine/')) == {'unified-engine/vendor/changed/module.js',changed_path}
+assert (output / 'app.js').read_text() == 'current-main-batch'
+assert (output / 'individual-assets/individual-models.json').read_text() == 'current-model-manifest'
+assert (output / 'integrated-config.json').read_text() == 'current-config'
+assert (output / changed_path).read_bytes() == updated
+assert not (output / 'unified-engine/src/entry.js').exists()
+proof = json.loads((output / 'local-runtime-increment-receipt.json').read_text())
+assert proof['runtimeManifest']['sha256'] == sha((engine / 'runtime-manifest.json').read_bytes())
+assert proof['files'][changed_path]['sha256'] == sha(updated)
+print(json.dumps({'ownedOnly':True,'batchAndModelsPreserved':True,'nativeIdentityExact':True}))
+`);assert.deepEqual(result,{ownedOnly:true,batchAndModelsPreserved:true,nativeIdentityExact:true});
 });
 
 test('the local configuration distinguishes current content identity from its qualified baseline', () => {
@@ -167,6 +234,7 @@ assert config['engineVersion'] == '0.37.0-methods.1'
 assert config['assetBase'] == './unified-assets/'
 assert 'engine 0.37.0-methods.1' in (output / 'session-log.js').read_text()
 put(engine / 'src/entry.js', 'export const currentSource = "new revision";')
+refresh_runtime_manifest()
 stage.stage(fallback, resources, output, 'test-local')
 changed = json.loads((output / 'integrated-config.json').read_text())
 assert changed['engineCommit'] != config['engineCommit']

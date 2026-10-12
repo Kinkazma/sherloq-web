@@ -1,4 +1,5 @@
 import {createWasmTensorArena} from '../../src/wasm-tensor-arena.js';
+import {validateD2prlFloat32} from './parameter-ownership.js';
 // Bounded helpers for the private UNet composition study. No runtime operation.
 import {requireValue, checkAbort, controlCheckpoint, EngineError} from '../../src/errors.js';
 const PAGE = 16 * 1024 ** 2, MAX = 512 * 1024 ** 2;
@@ -63,10 +64,7 @@ export async function createNeuralMath(factory, {budget,arena,operation:recover=
           if (ptr) pointers.push(ptr);
           if(!ptr)throw new EngineError('MEMORY_ALLOCATION','Native D2PRL allocation refused'); requireValue(module.HEAPU8.length <= accounted, 'Neural helper allocation'); return ptr;
         };
-        for (const {data} of tensors) for (let i = 0; i < data.length; i++) {
-          requireValue(Number.isFinite(data[i]), 'Nonfinite neural input');
-          if ((i & 8191) === 0) await checkpoint();
-        }
+        for(const {data} of tensors)await validateD2prlFloat32(data,{signal,message:'Nonfinite neural input',checkpoint});
         const inputs = tensors.map(({data}) => { const ptr = allocate(data.byteLength); module.HEAPF32.set(data, ptr / 4); return ptr; });
         const out = allocate(outputBytes), temp = scratch ? allocate(scratch) : 0;
         checkAbort(signal);

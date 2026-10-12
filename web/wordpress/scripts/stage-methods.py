@@ -4,25 +4,68 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import re
 import subprocess
 from pathlib import Path
 
 
-def stage(fallback, resources, output, version):
+def stage(fallback, resources, output, version, runtime_files=None):
     wordpress = Path(__file__).resolve().parents[1]
     engine = wordpress.parent / 'engine-source'
     spec = importlib.util.spec_from_file_location('delivery', wordpress / 'runtime-delivery.py')
     delivery = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(delivery)
     source_assets = wordpress / 'sherloq-browser/assets'
+    manifest_bytes = (engine / 'runtime-manifest.json').read_bytes()
+    runtime_manifest = json.loads(manifest_bytes)
+    if runtime_manifest.get('schema') != 1 or not isinstance(runtime_manifest.get('files'), list):
+        raise ValueError('A qualified runtime manifest is required')
+    qualified = {}
+    seen = set()
+    for record in runtime_manifest['files']:
+        name = record['file']
+        parts = Path(name).parts
+        if not parts or Path(name).is_absolute() or name != Path(name).as_posix() or '\\' in name or any(part in ('.', '..', '.build') for part in parts) or name in seen:
+            raise ValueError('Unsafe or duplicate runtime manifest path: ' + name)
+        seen.add(name)
+        if parts[0] in ('src', 'vendor', 'experiments') and Path(name).suffix in ('.js', '.mjs', '.json', '.wasm'):
+            if type(record['bytes']) is not int or record['bytes'] <= 0 or not re.fullmatch('[0-9a-f]{64}', record['sha256']):
+                raise ValueError('Invalid qualified runtime identity: ' + name)
+            qualified[name] = record
+    selected = set(qualified) if runtime_files is None else set(runtime_files)
+    if not selected or any(name not in qualified for name in selected):
+        raise ValueError('Requested file is absent from the qualified runtime manifest')
+
+    def checked_runtime(name):
+        record = qualified[name]
+        path = engine / name
+        if path.is_symlink() or not path.is_file() or engine.resolve() not in path.resolve().parents:
+            raise ValueError('Regular qualified runtime file required: ' + name)
+        data = path.read_bytes()
+        if len(data) != record['bytes'] or hashlib.sha256(data).hexdigest() != record['sha256']:
+            raise ValueError('Runtime manifest differs from current source: ' + name)
+        return data
 
     def lookup(relative):
         path = Path(relative)
-        candidates = [engine.joinpath(*path.parts[1:]), source_assets / path, fallback / path]
-        for candidate in candidates:
-            if candidate.is_file():
-                return candidate.read_bytes()
-        raise FileNotFoundError(relative)
+        if not path.parts or path.parts[0] != 'unified-engine':
+            raise ValueError('Qualified runtime namespace required: ' + relative)
+        name = Path(*path.parts[1:]).as_posix()
+        if name not in qualified:
+            raise ValueError('Loader references an unqualified runtime binary: ' + name)
+        selected.add(name)
+        return checked_runtime(name)
+
+    # Validate every selected byte stream before writing anything. Native
+    # dependencies discovered by the transport adapter are qualified too.
+    prepared = {}
+    for name in sorted(selected):
+        data = checked_runtime(name)
+        if Path(name).suffix in ('.js', '.mjs', '.json'):
+            relative = 'unified-engine/' + name
+            prepared[name] = delivery.adapted_runtime(relative, data, lookup, version)
+    for name in selected:
+        checked_runtime(name)
 
     hashes = {}
     def write(relative, data):
@@ -33,14 +76,14 @@ def stage(fallback, resources, output, version):
         temporary.replace(target)
         hashes[relative] = {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
 
-    for path in sorted(engine.rglob('*.wasm')):
-        if not path.is_file():
-            continue
-        relative = 'unified-engine/' + path.relative_to(engine).as_posix()
-        data = path.read_bytes()
+    for name in sorted(name for name in selected if name.endswith('.wasm')):
+        relative = 'unified-engine/' + name
+        data = checked_runtime(name)
         digest = hashlib.sha256(data).hexdigest()
         previous = fallback / relative
-        if not previous.is_file() or hashlib.sha256(previous.read_bytes()).hexdigest() != digest:
+        primary = source_assets / relative
+        shadowed = primary.is_file() and hashlib.sha256(primary.read_bytes()).hexdigest() != digest
+        if shadowed or not previous.is_file() or hashlib.sha256(previous.read_bytes()).hexdigest() != digest:
             # Ship exactly the byte stream hashed by the transport adapter. An
             # older fallback binary must never satisfy a new generated loader.
             write(relative, data)
@@ -49,11 +92,18 @@ def stage(fallback, resources, output, version):
             if staged.is_file() or staged.is_symlink():
                 staged.unlink()
             hashes[relative] = {'bytes': len(data), 'sha256': digest, 'storage': 'qualified-fallback'}
-    for directory in ('src', 'vendor', 'experiments'):
-        for path in sorted((engine / directory).rglob('*')):
-            if path.is_file() and path.suffix in ('.js', '.mjs', '.json'):
-                relative = 'unified-engine/' + path.relative_to(engine).as_posix()
-                write(relative, delivery.adapted_runtime(relative, path.read_bytes(), lookup, version))
+    for name, data in sorted(prepared.items()):
+        write('unified-engine/' + name, data)
+    if runtime_files is not None:
+        # A targeted increment does not replace the UI, model manifests or
+        # unrelated batch configuration inherited from the current main branch.
+        receipt_path = output / 'local-runtime-increment-receipt.json'
+        previous = json.loads(receipt_path.read_text()) if receipt_path.is_file() else {}
+        receipt = {'schema': 1, 'scope': 'qualified runtime increment only; UI, models and unrelated batch files preserved',
+                   'version': version, 'runtimeManifest': {'bytes': len(manifest_bytes), 'sha256': hashlib.sha256(manifest_bytes).hexdigest()},
+                   'files': {**previous.get('files', {}), **hashes}}
+        write('local-runtime-increment-receipt.json', (json.dumps(receipt, indent=2) + '\n').encode())
+        return hashes
     # Keep the shared, qualified native binaries in the fallback. Only transport
     # code is adapted, with their unchanged bytes hashed by runtime-delivery.
     manifest = json.loads((fallback / 'individual-assets/individual-models.json').read_text())
@@ -129,6 +179,8 @@ if __name__ == '__main__':
     parser.add_argument('--resources', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--version', default='0.17.1-local')
+    parser.add_argument('--runtime-files', type=Path, help='Explicit runtime-manifest relative paths, one per line; preserves UI/model/batch files')
     args = parser.parse_args()
-    hashes = stage(args.fallback.resolve(), args.resources.resolve(), args.output.resolve(), args.version)
+    selected = [line.strip() for line in args.runtime_files.read_text().splitlines() if line.strip() and not line.lstrip().startswith('#')] if args.runtime_files else None
+    hashes = stage(args.fallback.resolve(), args.resources.resolve(), args.output.resolve(), args.version, selected)
     print(json.dumps({'files': len(hashes), 'bytes': sum(v['bytes'] for v in hashes.values()), 'output': str(args.output.resolve())}))

@@ -11,6 +11,7 @@ import {createEvaluatorPool} from '../experiments/d2prl/evaluator-pool.js';
 import {EngineError,serializeEngineError} from '../src/errors.js';
 import {readVerifiedModelAsset} from '../experiments/d2prl/model.js';
 import {createHash} from 'node:crypto';
+import {publishD2prlDescriptor} from '../experiments/d2prl/descriptor-ownership.js';
 const state={state:Array.from({length:624},(_,i)=>Math.imul(i+1,1664525)>>>0),left:1,next:0};
 
 test('D2 recovery forwards the real operation graph and recovery stage as serializable diagnostics',async()=>{
@@ -103,8 +104,8 @@ test('guarded stages retain dynamic getters and original method ownership',async
 test('a refused optional evaluator preserves the ready pool and grows again after external release',async()=>{
  const budget=new Budget(256*1024**2),competing=budget.reserve(32*1024**2),operation=createD2prlRecovery({budget,reclaim:async()=>1}),workers=[];
  const pool=await createEvaluatorPool('unused',{budget,maxWorkers:2,tileSize:8,operation,workerFactory(){const number=workers.length+1,worker={closed:false,terminate(){this.closed=true;},postMessage(message){queueMicrotask(()=>{if(this.closed)return;let response={id:message.id,ok:true};if(message.type==='init'&&number===2)response={id:message.id,ok:false,error:serializeEngineError(new RangeError('Array buffer allocation failed'))};if(message.type==='evaluate')Object.assign(response,{x:message.x.slice(0,message.end-message.begin),y:message.y.slice(0,message.end-message.begin)});this.onmessage({data:response});});}};workers.push(worker);return worker;}});
- const input={features:new Uint16Array(36*64),offsetX:new Float32Array(64),offsetY:new Float32Array(64),side:8,channels:36,candidates:1};
- try{await pool.evaluate(input);assert.equal(pool.stats.activeWorkers,1);assert.equal(pool.stats.optionalWorkerRefusals,1);assert.equal(workers[0].closed,false);await pool.evaluate(input);assert.equal(workers.length,2,'No retry caused by returning the failed worker reservation');competing();await pool.evaluate(input);assert.equal(pool.stats.activeWorkers,2);assert.equal(workers.length,3);assert.equal(pool.stats.descriptorUploads,2,'The ready worker retained its descriptor');assert.equal(pool.stats.tiles,24);}finally{competing();pool.dispose();}
+ const input={features:new Uint16Array(36*64),offsetX:new Float32Array(64),offsetY:new Float32Array(64),side:8,channels:36,candidates:1},revoke=publishD2prlDescriptor(input.features);
+ try{await pool.evaluate(input);assert.equal(pool.stats.activeWorkers,1);assert.equal(pool.stats.optionalWorkerRefusals,1);assert.equal(workers[0].closed,false);await pool.evaluate(input);assert.equal(workers.length,2,'No retry caused by returning the failed worker reservation');competing();await pool.evaluate(input);assert.equal(pool.stats.activeWorkers,2);assert.equal(workers.length,3);assert.equal(pool.stats.descriptorUploads,2,'The ready worker retained its descriptor');assert.equal(pool.stats.tiles,24);}finally{revoke();competing();pool.dispose();}
  assert.equal(budget.total(),0);assert.equal(budget.recovering,false);
 });
 
