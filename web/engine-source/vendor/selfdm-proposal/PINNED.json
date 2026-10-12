@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "component": "SelfDM Proposal OpenCV SEEDS/projection/ROI/float resize",
+  "opencvVersion": "4.11.0",
+  "compiler": "Emscripten4.0.15",
+  "sourceUrls": [
+    "https://github.com/opencv/opencv_contrib/blob/4.11.0/modules/ximgproc/src/seeds.cpp",
+    "https://github.com/opencv/opencv_contrib/blob/4.11.0/modules/ximgproc/include/opencv2/ximgproc/seeds.hpp"
+  ],
+  "licence": "Apache-2.0; see LICENSE-OPENCV.txt",
+  "sourceInputs": {
+    "seeds-wrapper.cpp": {
+      "bytes": 4326,
+      "sha256": "ace723103ba9a1a55068d690c3025e350b34962f9164e7d5e3b8d8ee9d3aa576"
+    },
+    "seeds.cpp": {
+      "bytes": 45580,
+      "sha256": "ef04fc840b02c1d8e48cf32f8c2ffe87dd724122a5f99e7b8ea3e13588d74d1b"
+    },
+    "libopencv_imgproc.a": {
+      "bytes": 5090812,
+      "sha256": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+    },
+    "libopencv_core.a": {
+      "bytes": 3723884,
+      "sha256": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    "libzlib.a": {
+      "bytes": 104156,
+      "sha256": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+    }
+  },
+  "outputs": {
+    "proposal-cv.mjs": {
+      "bytes": 25541,
+      "sha256": "864550c38e6ee1363d1469b7b819c7704414919c8c21d5e49966ccb99267add7"
+    },
+    "seeds.wasm": {
+      "bytes": 1150059,
+      "sha256": "755c4321cfe93e60e29c8c2cdf032c1648ba4e2d7328f57983ecb86c80c1978f"
+    },
+    "seeds-wrapper.cpp": {
+      "bytes": 4326,
+      "sha256": "ace723103ba9a1a55068d690c3025e350b34962f9164e7d5e3b8d8ee9d3aa576"
+    }
+  },
+  "factoryAdaptation": {
+    "compiled": "var getHeapMax=()=>2147483648;",
+    "admitted": "var getHeapMax=()=>Module[\"memoryMaximumBytes\"]??2147483648;",
+    "reason": "Bound speculative growth by actual admitted imported memory without changing CV kernels"
+  },
+  "parameters": {
+    "numSuperpixels": 400,
+    "numLevels": 15,
+    "prior": 3,
+    "histogramBins": 5,
+    "doubleStep": true,
+    "iterations": 10
+  },
+  "channelOrder": "Exact caller RGB bytes retained for SEEDS; upstream BGR2GRAY on those same RGB bytes for SuperPoint preserved explicitly",
+  "initialMemoryBytes": 16777216,
+  "maximumMemoryBytes": "Caller-admitted worker cap,32MiB projection or96MiB ROI, compiled maximum2GiB is not an admission",
+  "privateResearchPipeline": true
+}
