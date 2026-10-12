@@ -1,9 +1,10 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.17.0";
 import {extractAlikedSegmented} from './aliked-segmented.js';
 import {EngineError,requireValue,checkAbort,checkpoint} from './errors.js';
-import {decodeForgeryscopeYolo,parseForgeryscopePanels} from './forgeryscope-yolo.js';
+import {decodeForgeryscopeYolo,parseForgeryscopePanels,classifyForgeryscopePanels} from './forgeryscope-yolo.js';
 import {overlapFromAffine} from './forgeryscope-geometry.js';
 import {runMicroMatcher} from './forgeryscope-micro-matcher.js';
+import {filterForgeryscopeFeatures} from './forgeryscope-scientific-scope.js';
 const MiB=1024**2,f=Math.fround;
 const bytes=object=>Object.values(object).reduce((n,t)=>n+(t?.data?.byteLength??0),0);
 const tensor=(data,dims)=>({data,dims,type:'float32'});
@@ -19,16 +20,35 @@ export function cropForgeryscopeRGB(image,box){
  * contract; absence is an explicit error, never an ALIKED substitute.
  */
 export class ForgeryscopeNetworks {
-  constructor({pool,preparation,budget,assets,sift,alikedSegments=false}){this.pool=pool;this.preparation=preparation;this.budget=budget;this.assets=assets;this.sift=sift;this.alikedSegments=alikedSegments;}
-  async detect(image,kind,options={}){
+  constructor({pool,preparation,budget,assets,sift,alikedSegments=false}){this.pool=pool;this.preparation=preparation;this.budget=budget;this.assets=assets;this.sift=sift;this.alikedSegments=alikedSegments;this.detectionKeys=new Set();}
+  clearDetectionCache(){for(const key of this.detectionKeys)this.budget.remove(key);this.detectionKeys.clear();}
+  async detectRows(image,kind,options={}){
+    requireValue(['panels','lanes'].includes(kind),'Invalid YOLO profile.');checkAbort(options.signal);
+    const name=kind==='panels'?'yolo_panel_extractor':'yolo_lane_extractor';
+    // Native panel inference is CPU-required. Cache identity records that
+    // actual constraint as well as the request; it never silently swaps a
+    // graph, threshold, or provider to obtain a hit. Unhashed crops stay fresh.
+    const sourceHash=/^[a-f0-9]{64}$/.test(image.sha256??'')?image.sha256:null;
+    const key=kind==='panels'&&sourceHash?'m2/forgeryscope/panel-detection/'+JSON.stringify([sourceHash,image.width,image.height,this.assets[name].sha256,options.backend??'auto','cpu-required','native-yolo-panels/1']):null;
+    const cached=key&&this.budget.get(key)?.value;
+    if(cached)return {rows:cached.map(row=>row.slice()),cacheHit:true};
     const prepared=await this.preparation.yolo(image,options);let run;
     try{
       const n=prepared.tensor.dims[2]*prepared.tensor.dims[3];
-      run=await this.pool.run(kind==='panels'?'yolo_panel_extractor':'yolo_lane_extractor',{rgb:prepared.tensor},{...options,workspaceBytes:n*512,outputBytes:n*4,cpuRequired:true});
+      run=await this.pool.run(name,{rgb:prepared.tensor},{...options,workspaceBytes:n*512,outputBytes:n*4,cpuRequired:true});
       const t=run.result.predictions;
       const rows=await decodeForgeryscopeYolo(t.data,{...options,kind,width:image.width,height:image.height,inputWidth:prepared.tensor.dims[3],inputHeight:prepared.tensor.dims[2],classes:t.dims[1]-4,anchors:t.dims[2]});
-      return kind==='panels'?parseForgeryscopePanels(rows,this.assets.yolo_panel_extractor.classes):rows;
+      if(key){const value=rows.map(row=>row.slice()),byteLength=JSON.stringify(value).length*3+256;if(this.budget.put(key,{value,byteLength}))this.detectionKeys.add(key);}
+      return {rows,cacheHit:false};
     }finally{run?.release();prepared.release();}
+  }
+  async detect(image,kind,options={}){
+    const {rows}=await this.detectRows(image,kind,options);
+    return kind==='panels'?parseForgeryscopePanels(rows,this.assets.yolo_panel_extractor.classes):rows;
+  }
+  async classifyPanels(image,options={}){
+    const {rows,cacheHit}=await this.detectRows(image,'panels',options);
+    return {panels:classifyForgeryscopePanels(rows,this.assets.yolo_panel_extractor.classes),cacheHit};
   }
   async embed(images,name,options={}){
     const spec=this.assets[name],count=images.length;
@@ -75,7 +95,10 @@ export class ForgeryscopeNetworks {
   async match(image0,image1,label,options={}){
     const micro=label==='Microscopy';
     if(micro&&!this.sift)throw new EngineError('MODEL_UNAVAILABLE','Native-compatible SIFT extractor is required for microscopy.');
-    const extract=(image,transform)=>micro?this.sift.extract(image,{...options,transform,resize:null,max_num_keypoints:4096}):this.extractBlot(image,transform,options);
+    const extract=async(image,transform)=>{
+      const features=await (micro?this.sift.extract(image,{...options,transform,resize:null,max_num_keypoints:4096}):this.extractBlot(image,transform,options));
+      try{return await filterForgeryscopeFeatures(features,image,options.scientificScope,{transform,signal:options.signal});}catch(error){features.release();throw error;}
+    };
     const a=await extract(image0,'original');let best=null;
     try{
       for(const transform of micro?['original','fliplr','flipud','rot180']:['original']){
@@ -100,11 +123,12 @@ export class ForgeryscopeNetworks {
           const estimate=await this.preparation.affine(new Float32Array(p0),new Float32Array(p1),!micro,options);
           if(estimate.error)continue;
           const result=overlapFromAffine(estimate.matrix,estimate.inliers,new Float32Array(scores),[image0.width,image0.height],[image1.width,image1.height],transform);
+          if(options.scientificScope)result.scopeFiltering={fingerprint:options.scientificScope.fingerprint,stage:'keypoints-before-matching',points0:a.scopeFiltering,points1:b.scopeFiltering};
           if(!result.error&&(!best||result.mean_match_score>best.mean_match_score))best=result;
         }finally{release?.();b.release();}
       }
     }finally{a.release();}
     if(best&&!micro){delete best.H_transformed;delete best.transform_type;}
-    checkAbort(options.signal);return best??{error:micro?'All transform variations failed to find matches':'Affine transformation computation failed'};
+    checkAbort(options.signal);return best??{error:micro?'All transform variations failed to find matches':'Affine transformation computation failed',...(options.scientificScope?{scopeFiltering:{fingerprint:options.scientificScope.fingerprint,stage:'keypoints-before-matching',points0:a.scopeFiltering,geometricEvidence:false}}:{})};
   }
 }

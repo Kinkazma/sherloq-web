@@ -1,6 +1,16 @@
 # Validation scope and optimization priorities
 
-## Current methods delivery — 0.16.0
+## Current batch delivery — 0.17.0
+
+The improved batch was accepted as functional and authorized for publication. It includes acquisition preclassification, PP-OCRv6 detector-only text polygons, reviewable exclusions, corrected D2PRL/MGCFDN native windows and source-linked partial-run archives/reports/journals. All 0.16.0 methods, atomic SIFT worker capacity, startup migrations and offline workflows are retained.
+
+Independent publication checks pass 365 interface tests, 80 batch tests and 51 targeted engine tests. These are distinct test scopes, not a count of completed scientific analyses. All 4,731 public pieces and every multi-piece file are independently verified against size/SHA-256. Existing neural weights, WASM and SSG arrays retain their identities. Four optional local-only models remain excluded from public payloads. The new public text detector is 9,929,594 bytes and is loaded separately.
+
+A fresh isolated Chrome profile checks native source pixels, lossless WebP, real text inference on a synthetic 736 × 736 image, original-pixel coordinates, SSG factory/WASM identity and ABI, zero dependency downloads at startup and clean JavaScript errors. The downloadable bootstrap contains the small interface and launchers; its limit applies to the compressed ZIP (20,000,000 bytes), with a target below 10 MB. Its complete public dependency origin is pinned to an immutable commit. [Publication evidence](evidence/batch-publication-0.17.0.json).
+
+This verifies delivery and functional contracts. The interrupted four-method lot does not establish sixteen completed analyses; scientific accuracy on all 86 acquisitions, full MATLAB parity, universal 96 MP and physical-mobile compatibility remain unestablished. Deployment of the private WordPress installer is a separate step.
+
+## Earlier methods delivery — 0.16.0
 
 The frozen 0.16.0 source integrates the new clone method families into individual and batch workflows. Its delivery contains 5,429 public files in 4,725 unique pieces. Four optional research-model files retain verified local-import metadata without public payloads. Publication independently checked every public piece and reconstructed multi-piece resource against its SHA-256 identity. The raw source lock and executable delivery lock are recorded separately.
 

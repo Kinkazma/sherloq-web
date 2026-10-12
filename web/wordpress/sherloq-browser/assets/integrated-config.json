@@ -1,11 +1,1 @@
-{
-  "schema": "sherloq.wordpress-integrated-runtime/1",
-  "engineCommit": "54999769b522a5a240ad40c482005620e6477fed",
-  "engineVersion": "0.37.0-methods.1",
-  "runtimeReceiptSha256": "6c66a9689c841d9fbe678a718202a2da50a54fb815116b767fa4f51c6b353c48",
-  "assetBase": "./unified-assets/",
-  "memoryExtensionId": null,
-  "englishSha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
-  "qualification": "Qualified new method execution and scientific exports; acquisition-only batch OCR/filtering improvements are a separate ongoing task. Some research models require a verified local import.",
-  "runtimeSourceIncrementSha256": "cdb29a28f0745164db3402fbd003cc4a4a9ea38fe647ff4a7e35519e4970157c"
-}
+{"assetBase":"./unified-assets/","engineCommit":"abc9dcac3643316cab06ccc3d5e3c3dc6cf4ac7e","engineVersion":"0.37.0-methods.1","englishSha256":"7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2","memoryExtensionId":null,"qualification":"Qualified new method execution and scientific exports; acquisition-only batch OCR/filtering improvements are a separate ongoing task. Some research models require a verified local import.","runtimeReceiptSha256":"6c66a9689c841d9fbe678a718202a2da50a54fb815116b767fa4f51c6b353c48","runtimeSourceIncrementSha256":"440210e4665b4a62114cc5028b045414a0901aab55d39ab465136a7067b3e88c","schema":"sherloq.wordpress-integrated-runtime/1"}

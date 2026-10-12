@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.17.0";
 import {EfficientLoFtrEngine} from './efficient-loftr.js';
 import {efficientLoFtrParams} from './efficient-loftr-input.js';
 import {ssgFullParams} from './ssg-full-input.js';
@@ -8,6 +8,7 @@ import {SparseGlueEngine} from './sparse-glue.js';
 import {LearnedFeatureEngine} from './learned-feature.js';
 import {SparseFeatureEngine} from './sparse-extract.js';
 import {TextRegionEngine} from './text-ocr.js';
+import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';
 import {detectPanels} from './auto-zones.js';
 import {copyDistancePolicy,compactCopyAxes,enclosingCopyRegions} from './copy-policy.js';
 import {spatialCopyMatches,normalizeSiftDescriptors} from './copy-spatial.js';
@@ -62,8 +63,14 @@ export class SparseCopyEngine{
   const cache=sparseStageCache(this.budget,this.prefix,{signal,byteLength:payloadBytes,hits:stageCache}),memo=(name,compute)=>cache.memo(name,compute);
   const geometry=async()=>kernel??=await createGeometryKernel({signal,reserveMemory:admit});
   try{
-   let regions=p.regions,excluded=p.excluded,preprocessing=null;
-   if(p.algorithm===PANELS){
+   let regions=p.regions,excluded=p.excluded,preprocessing=null;const scope=hooks.scientificScope;
+   if(scope){
+    compileForgeryscopeScientificScope(scope,{width:this.image.width,height:this.image.height,sourceSha256:hooks.sourceSha256});
+    requireValue(scope.status==='ready'&&scope.text?.status==='complete'&&scope.regions.length>0,'Scientific preparation is incomplete; whole-image fallback is forbidden.');
+    regions=p.regions=(scope.searchRegions??scope.regions).map(r=>r.polygon??[[r.x0,r.y0],[r.x1,r.y0],[r.x1,r.y1],[r.x0,r.y1]]);excluded=p.excluded=scope.excluded;
+    preprocessing={version:3,reflections:p.reflections,automatic_panels:false,panels:regions,envelope:null,text_engine:scope.text.metadata?.model?.id??'PP-OCRv6_small_det',text_exclusions:scope.text.polygons??[],graph_exclusion:true,scientific_scope:{schema:scope.schema,fingerprint:scope.fingerprint,models:scope.models,coordinates:scope.coordinates,policy:'original-pixel feature exclusions; no source painting'},ocr:scope.text.metadata};
+   }
+   if(p.algorithm===PANELS&&!scope){
     const auto=!regions.length&&!p.compare;let panels=[],envelope=null;
     if(auto){panels=await memo('panels',()=>detectPanels(this.image,{signal,account:admit,onProgress:f=>report('panels',f*.04)}));envelope=enclosingCopyRegions(panels);if(!panels.length){report('no-regions',1);return {status:'no-regions',regions:[],preprocessing:{automatic_panels:true,panels:[],envelope:null},release(){}};}regions=[...panels];if(!regions.some(poly=>JSON.stringify(poly)===JSON.stringify(envelope)))regions.push(envelope);}
     requireValue(language?.data instanceof Uint8Array&&typeof language.sha256==='string','Panels + Text requires explicit verified English OCR weights.');

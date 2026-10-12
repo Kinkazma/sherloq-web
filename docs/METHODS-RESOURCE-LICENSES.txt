@@ -289,3 +289,15 @@ rapports n’est inclus dans cette notice ou dans les ressources de méthodes
 publiques. Cette notice apporte les conditions et la provenance ; elle ne
 remplace ni les textes complets des licences ni les limites scientifiques
 enregistrées avec les moteurs.
+
+PP-OCRv6 small scientific text detector (detector only)
+------------------------------------------------------
+Public file: batch-models/PP-OCRv6_det_small.onnx
+Bytes: 9,929,594
+SHA-256: 090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f
+Source: https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.9.2/onnx/PP-OCRv6/det/PP-OCRv6_det_small.onnx
+Specification: https://huggingface.co/PaddlePaddle/PP-OCRv6_small_det/blob/main/inference.yml
+PaddleOCR / PaddlePaddle Authors and RapidOCR / RapidAI; Apache-2.0.
+Full license and implementation attribution: web/engine-source/vendor/scientific-text-detector/.
+This integration detects polygons for reviewed exclusions, without character recognition.
+Its connected-component hull/minimum-rectangle-offset postprocessing does not claim bit parity with OpenCV/PyClipper.

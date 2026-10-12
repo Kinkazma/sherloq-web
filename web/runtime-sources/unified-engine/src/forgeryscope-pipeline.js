@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.17.0";
 import {forgeryscopeMaskField} from './forgeryscope-segmented-result.js';
 import {checkAbort,checkpoint,requireValue} from './errors.js';
 import {selectForgeryscopePanels,planForgeryscopeComparisons,classifyForgeryscopeMatch,laneOverlapGroups,bestLaneMatches,writeLaneUnion,FORGERYSCOPE_PROFILES,FORGERYSCOPE_THRESHOLDS} from './forgeryscope-decisions.js';
@@ -6,16 +6,18 @@ import {duplicateEvidence,writeDuplicateUnion} from './forgeryscope-geometry.js'
 import {forgeryscopeCliqueGroups} from './forgeryscope-cliques.js';
 import {cropForgeryscopeRGB} from './forgeryscope-networks.js';
 import {forgeryscopeSimilarityRow,normalizeLaneEmbeddings} from './forgeryscope-similarity.js';
+import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';
 
 /** Full public orchestration, with real network stages injected by the runtime.
  * No connected-component or geometric substitute for missing feature extractors.
  * The caller must release the returned admitted dense outputs after export/view.
  */
-export async function analyzeForgeryscope(image,{networks,budget,pool,profile='auto',panels:manualPanels,exclusions=[],signal,onProgress,backend='auto',segmentedResult=false,inputAlreadyBudgeted=false}={}){
+export async function analyzeForgeryscope(image,{networks,budget,pool,profile='auto',panels:manualPanels,exclusions=[],scientificScope,signal,onProgress,backend='auto',segmentedResult=false,inputAlreadyBudgeted=false}={}){
   requireValue(image.data instanceof Uint8Array&&Number.isSafeInteger(image.width)&&Number.isSafeInteger(image.height)&&image.width>0&&image.height>0&&image.data.length===image.width*image.height*3,'Forgeryscope requires original RGB8.');
   requireValue(Object.hasOwn(FORGERYSCOPE_PROFILES,profile),'Invalid Forgeryscope profile.');
   requireValue(profile!=='auto'||manualPanels===undefined,'Auto classifies its own panels; use a standalone profile for paired panels.');
-  const options={signal,backend,onProgress,segmentedAliked:segmentedResult},n=image.width*image.height,inputBytes=inputAlreadyBudgeted?0:image.data.byteLength,outputBytes=n*(profile==='auto'?(segmentedResult?6:10):(segmentedResult?2:6));
+  const scope=compileForgeryscopeScientificScope(scientificScope,{width:image.width,height:image.height,sourceSha256:image.sha256});
+  const options={signal,backend,onProgress,segmentedAliked:segmentedResult,...(scope?{scientificScope:scope}:{})},n=image.width*image.height,inputBytes=inputAlreadyBudgeted?0:image.data.byteLength,outputBytes=n*(profile==='auto'?(segmentedResult?6:10):(segmentedResult?2:6));
   // Admit the full live envelope before allocating either half. A retry must
   // not mistake rolling back its own input credit for new room for the output.
   const releaseInput=budget.reserve(inputBytes+outputBytes),releaseOutput=releaseInput.split(outputBytes);let complete=false;
@@ -23,10 +25,11 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
   const mask=new Uint8Array(n),candidates=new Uint8Array(n),auto=profile==='auto';
   const geometric=auto?new Uint8Array(n):null,branches=auto?Object.fromEntries(['microscopy','blots','lanes'].map(name=>[name,new Uint8Array(n)])):null;
   const meta={profile:FORGERYSCOPE_PROFILES[profile],public_simplified:true,panels:[],comparisons:[],embedding_candidates:[],manual_panels:manualPanels!==undefined,status:'no_panels',thresholds:{...FORGERYSCOPE_THRESHOLDS},competition_ensemble:false,segmentation_fallback:false};
+  if(scope){meta.scientific_scope={schema:scope.schema,fingerprint:scope.fingerprint,coordinates:'original-pixels',width:scope.width,height:scope.height,sourceSha256:scope.sourceSha256,regions:structuredClone(scientificScope.regions),excluded:structuredClone(scientificScope.excluded),geometry:{keypointsExcludedBeforeMatching:true,policy:'feature-center',originalPixelsPreserved:true,nativeExtractionSettingsPreserved:true},embeddings:{filtered:false,qualifiedForScopedSignal:false},lanes:{filtered:false,qualifiedForScopedSignal:false},masks:{originalBranchOutputsPreserved:true,geometric:'envelopes from scoped feature matches, not exact pixel segmentation',exclusionHolesApplied:false}};meta.filtered_evidence={scopeFingerprint:scope.fingerprint,comparisons:[],lanePairs:[],policy:'Only supported geometry after scoped keypoint filtering; raw similarity and lane evidence do not corroborate the scoped signal.'};}
   const progress=(phase,completed,total)=>{checkAbort(signal);onProgress?.({phase,completed,total,fraction:total?completed/total:0});};
   function crop(box){
     const bytes=Math.max(0,Math.trunc(box[2])-Math.trunc(box[0]))*Math.max(0,Math.trunc(box[3])-Math.trunc(box[1]))*3,release=budget.reserve(bytes);
-    try{return {...cropForgeryscopeRGB(image,box),release};}catch(e){release();throw e;}
+    try{const result={...cropForgeryscopeRGB(image,box),release};if(scope){const norm=(x,n)=>Math.max(0,Math.min(n,(x=Math.trunc(x))<0?n+x:x));result.scientificOrigin=[norm(box[0],image.width),norm(box[1],image.height)];}return result;}catch(e){release();throw e;}
   }
   async function vectorsFor(items,name,load){
     const release=budget.reserve(items.length*4096),values=new Float32Array(items.length*1024);let completed=false,batchSize=Math.min(8,items.length);
@@ -106,7 +109,9 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
           if(decision.accepted){await writeDuplicateUnion(mask,image.width,image.height,info,{signal});if(auto){accepted.push(info);await writeDuplicateUnion(branches[decision.branch],image.width,image.height,info,{signal});}}
           if(decision.candidate)await writeDuplicateUnion(candidates,image.width,image.height,info,{signal});
           if(auto&&decision.supported)await writeDuplicateUnion(geometric,image.width,image.height,info,{signal});
-          meta.comparisons.push({panel0:pair.panel0,panel1:pair.panel1,...decision,inliers:info.match_result.inliers,score:info.match_result.mean_match_score,matrix:info.match_result.H??null,polygon0:info.poly_coords0,polygon1:info.poly_coords1,fallback:info.match_result.fallback??null});
+          const comparison={panel0:pair.panel0,panel1:pair.panel1,...decision,inliers:info.match_result.inliers,score:info.match_result.mean_match_score,matrix:info.match_result.H??null,polygon0:info.poly_coords0,polygon1:info.poly_coords1,fallback:info.match_result.fallback??null};
+          if(scope){const qualified=decision.supported&&match.scopeFiltering?.fingerprint===scope.fingerprint;comparison.scientificScope={qualified,featureFiltering:match.scopeFiltering??null,reason:qualified?'scoped geometric features':'Raw similarity or unsupported geometry is not scoped evidence.'};if(qualified)meta.filtered_evidence.comparisons.push({...comparison,accepted:true});}
+          meta.comparisons.push(comparison);
         }finally{a.release();b?.release();}
       }
       if(auto)meta.merged_groups=(await forgeryscopeCliqueGroups(accepted,{signal})).map(g=>({panel_ids:g.panel_ids,n_pairs:g.n_pairs,total_inliers:g.total_inliers,avg_match_score:g.avg_match_score,polygons:g.all_poly_coords}));
