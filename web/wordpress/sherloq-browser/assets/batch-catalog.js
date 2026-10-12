@@ -42,8 +42,8 @@ for(const [variant,name]of NEURAL_METHODS.filter(([id])=>!id.startsWith('forgery
 for(const [index,algorithm] of CLONE_ALGORITHMS.entries()){
  const params=copy(toolCatalog['tampering.copyMove.sparse'].params);changeCloneAlgorithm(params,params.algorithm);params.algorithm=algorithm;changeCloneAlgorithm(params,'PatchMatch Zernike');
  const item=describe('tampering.copyMove.sparse',toolCatalog['tampering.copyMove.sparse']);
- const relevant=f=>!['algorithm','compare'].includes(f.key)&&(!['patch','iterations','texture'].includes(f.key)||isDenseClone(algorithm))&&(f.key!=='reflections'||isDenseClone(algorithm)||algorithm===PANELS_SIFT)&&(f.key!=='independent'||algorithm===CLASSIC_SIFT);
- entries.push({...item,id:'clone-'+index,fr:algorithm,en:algorithm,params,fields:item.fields.filter(relevant).map(f=>({...f,value:params[f.key]??f.value}))});
+ const relevant=f=>!['algorithm','compare'].includes(f.key)&&(!['longSide','rotationMode'].includes(f.key)||algorithm==='EfficientLoFTR')&&(!['patch','iterations','texture'].includes(f.key)||isDenseClone(algorithm))&&(f.key!=='reflections'||isDenseClone(algorithm)||algorithm===PANELS_SIFT)&&(f.key!=='independent'||algorithm===CLASSIC_SIFT);
+ entries.push({...item,...(algorithm==='EfficientLoFTR'?{notBatch:true,group:'required',description:['Comparez deux rectangles depuis Détection de clones 2. Le lot ne choisit pas automatiquement cette paire.','Compare two rectangles in Copy-Move Forgery 2. Batch does not choose this pair automatically.']} : {}),id:'clone-'+index,fr:algorithm,en:algorithm,params,fields:item.fields.filter(relevant).map(f=>({...f,value:params[f.key]??f.value}))});
 }
 const priority=x=>x.id==='ai.clones.d2prl'?0:x.params.algorithm==='SIFT + G2NN + RANSAC + Panels + Text'?1:x.params.algorithm==='SIFT + G2NN + RANSAC'?2:x.params.algorithm==='PatchMatch Zernike'?3:x.id==='m2.forgeryscope'?4:x.id==='analysis.clones'?5:x.id==='analysis.complete'?6:10;
 export const batchCatalog=Object.freeze(entries.sort((a,b)=>priority(a)-priority(b)));

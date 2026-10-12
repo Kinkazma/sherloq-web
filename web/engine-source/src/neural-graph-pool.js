@@ -76,7 +76,7 @@ export class NeuralGraphPool {
     try{for(;;){
       checkAbort(signal);if(this.disposed)throw new EngineError('DISPOSED','Neural pool disposed.');
       slot=this.slots.find(s=>!s.busy&&s.name===name&&s.provider===provider&&s.cap>=memoryMaximumBytes&&s.workspaceCap>=workspaceBytes&&(s.reusableBytes??0)>=reusableBytes);
-      if(slot){slot.busy=true;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);reusedBytes=Object.entries(reusableInputs).reduce((n,[key,id])=>n+(slot.reusableInputs?.[key]===id?inputs[key].data.byteLength:0),0);try{releaseJob=this.budget.reserve(jobBytes-reusedBytes);}catch(e){slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);if(e.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,e);continue;}throw e;}break;}
+      if(slot){slot.busy=true;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);reusedBytes=Object.entries(reusableInputs).reduce((n,[key,id])=>n+(slot.reusableInputs?.[key]===id?inputs[key].data.byteLength:0),0);try{releaseJob=this.budget.reserve(jobBytes-reusedBytes);}catch(e){slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);if(e.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,e);continue;}throw e;}workerReused=true;break;}
       // Graphs in a segmented network run in succession. An idle ORT runtime
       // can release its old model and load the next one without constructing
       // another Wasm memory, thread team or WebGPU device. Busy workers are

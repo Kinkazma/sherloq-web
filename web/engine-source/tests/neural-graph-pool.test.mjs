@@ -49,7 +49,7 @@ test('Auto uses CPU when GPU residency cannot fit, without disabling later GPU w
 });
 test('Immutable input reuse avoids retransmission and keeps its residency charged',async()=>{
  const budget=new Budget(256*MiB),messages=[],pool=new NeuralGraphPool(budget,{maxWorkers:1},{assets:{a:asset},runtimes,workerFactory:()=>new Worker((w,job)=>{messages.push(job);w.result();})}),feeds={...input,bank:{data:new Float32Array(65536),dims:[65536]}};
- for(const key of ['bank1','bank1','bank2']){const r=await pool.run('a',feeds,{...options,reusableInputs:{bank:key}});assert.equal(r.metrics.reusedInputBytes,key==='bank1'&&messages.length===2?262144:0);r.release();}
+ for(const key of ['bank1','bank1','bank2']){const r=await pool.run('a',feeds,{...options,reusableInputs:{bank:key}});assert.equal(r.metrics.reusedInputBytes,key==='bank1'&&messages.length===2?262144:0);assert.equal(r.metrics.workerReused,messages.length>1);assert.equal(pool.snapshot().workerStarts,1);r.release();}
  assert.ok(messages[0].inputs.bank);assert.equal(messages[1].inputs.bank,undefined);assert.ok(messages[2].inputs.bank);assert.ok(pool.slots[0].bytes>=pool.slots[0].cap+feeds.bank.data.byteLength);pool.dispose();assert.equal(budget.total(),0);
 });
 

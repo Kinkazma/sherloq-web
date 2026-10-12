@@ -1,6 +1,6 @@
 import {DENSE_PROFILES} from './unified-engine/src/dense-profiles.js';
 export const isDenseClone=name=>DENSE_PROFILES.includes(name);
-export const CLONE_ALGORITHMS=Object.freeze(['SIFT','RootSIFT','AKAZE','BRISK','ORB',...DENSE_PROFILES.slice(0,2),'XFeat','XFeat + LighterGlue','ALIKED','ALIKED rotation','ALIKED + LightGlue','ALIKED rotation + LightGlue','EfficientLoFTR','SIFT + LightGlue',DENSE_PROFILES[2],'SIFT + G2NN + RANSAC','SIFT + G2NN + RANSAC + Panels + Text',...DENSE_PROFILES.slice(3)]);
+export const CLONE_ALGORITHMS=Object.freeze(['SIFT','RootSIFT','AKAZE','BRISK','ORB',...DENSE_PROFILES.slice(0,2),'XFeat','XFeat + LighterGlue','ALIKED','ALIKED rotation','ALIKED + LightGlue','ALIKED rotation + LightGlue','SIFT + LightGlue',DENSE_PROFILES[2],'SIFT + G2NN + RANSAC','SIFT + G2NN + RANSAC + Panels + Text',...DENSE_PROFILES.slice(3),'EfficientLoFTR']);
 export const cloneOperation=name=>isDenseClone(name)?'tampering.copyMove.dense':'tampering.copyMove.sparse';
 export const cloneMethodFamily=name=>isDenseClone(name)?'dense':name==='EfficientLoFTR'||name.startsWith('ALIKED')||name.startsWith('XFeat')||name.includes('LightGlue')?'learned':'classical';
 export const cloneFamilyLabels={fr:{classical:'Descripteurs classiques',dense:'PatchMatch dense',learned:'Appariements par IA'},en:{classical:'Classical descriptors',dense:'Dense PatchMatch',learned:'Learned matching'}};

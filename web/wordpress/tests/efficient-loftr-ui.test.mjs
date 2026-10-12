@@ -2,10 +2,12 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
 import {createToolWorkspace} from '../sherloq-browser/assets/tool-workspace.js';
-import {cloneMethodFamily} from '../sherloq-browser/assets/clone-methods.js';
+import {cloneMethodFamily,CLONE_ALGORITHMS} from '../sherloq-browser/assets/clone-methods.js';
 import {sparseParameters} from '../sherloq-browser/assets/sparse-controls.js';
 
 test('Method families distinguish classical detection from learned matching',()=>{
+ assert.equal(CLONE_ALGORITHMS[16],'SIFT + G2NN + RANSAC + Panels + Text');
+ assert.equal(CLONE_ALGORITHMS.at(-1),'EfficientLoFTR');
  assert.equal(cloneMethodFamily('PatchMatch Zernike'),'dense');
  assert.equal(cloneMethodFamily('SIFT + G2NN + RANSAC + Panels + Text'),'classical');
  for(const name of ['ALIKED + LightGlue','SIFT + LightGlue','EfficientLoFTR'])assert.equal(cloneMethodFamily(name),'learned');
