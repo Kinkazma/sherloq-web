@@ -74,7 +74,19 @@ export async function mountBatchUI({document=globalThis.document,language=()=>do
  function field(recipe,definition){
   const key=definition.key,node=definition.choices?el('select'):el('input');if(definition.choices)for(const choice of definition.choices){const option=el('option',null,choice.label);option.value=String(choice.value);node.append(option);}else node.type=definition.type==='checkbox'?'checkbox':definition.type==='number'?'number':'text';
   let value=key.split('.').reduce((v,k)=>v?.[k],recipe.params);if(node.type==='checkbox')node.checked=!!value;else node.value=value??'';
-  for(const key of ['min','max','step'])if(definition[key]!==undefined)node[key]=definition[key];if(node.type==='number'&&!definition.step)node.step='any';
+  for(const key of ['min','max'])if(definition[key]!==undefined)node[key]=definition[key];
+  const increment=definition.step??(Number.isInteger(definition.value)?1:'any');
+  if(node.type==='number'){
+   const continuous=typeof increment==='number'&&(!Number.isInteger(increment)||typeof definition.value==='number'&&!Number.isInteger(definition.value));
+   node.required=!definition.nullable;node.step=continuous?'any':increment;
+   if(continuous)node.onkeydown=event=>{
+    if(node.disabled||!['ArrowUp','ArrowDown'].includes(event.key)||event.altKey||event.ctrlKey||event.metaKey)return;
+    const value=node.value===''?definition.value??definition.min??0:Number(node.value);if(!Number.isFinite(value))return;
+    event.preventDefault();event.stopPropagation();const next=Number((value+(event.key==='ArrowUp'?increment:-increment)).toPrecision(15));
+    node.value=Math.max(definition.min??-Infinity,Math.min(definition.max??Infinity,next));
+    const Event=node.ownerDocument.defaultView.Event;node.dispatchEvent(new Event('input',{bubbles:true}));node.dispatchEvent(new Event('change',{bubbles:true}));
+   };
+  }
   node.dataset.parameter=key;node.onchange=()=>{if(!node.reportValidity())return;let value=node.type==='checkbox'?node.checked:node.type==='number'||typeof definition.value==='number'?node.value===''&&definition.nullable?null:Number(node.value):node.value;setField(recipe.params,key,value);persist();};const efficient=recipe.params.algorithm==='EfficientLoFTR',names=lang()==='fr'?{threshold:'Confiance minimum',limit:'Correspondances maximum',reflections:'Miroir',longSide:'Grand côté (pixels)',rotationMode:'Rotations'}:{threshold:'Minimum confidence',limit:'Maximum matches',reflections:'Mirror',longSide:'Long side (pixels)',rotationMode:'Rotations'},row=label(efficient&&names[key]?names[key]:recipe.operation==='tampering.copyMove.sparse'?(sparseLabels[lang()][key]??definition.label):definition.label,node);if(efficient&&key==='threshold')row.title=lang()==='fr'?'Seuil natif de confiance. Une valeur plus élevée est plus stricte ; ce n’est pas une probabilité de fraude.':'Native confidence threshold. Higher is stricter; this is not a forgery probability.';else if(recipe.operation==='tampering.copyMove.sparse'&&sparseHelp[lang()][key])row.title=sparseHelp[lang()][key];return row;
  }
  function renderTools(){tools.replaceChildren();for(const group of ['recommended','complement','less','required']){
@@ -97,6 +109,10 @@ export async function mountBatchUI({document=globalThis.document,language=()=>do
  async function importFiles(files){if(working||exporting||pairBusy||!files?.length)return;working=true;confirmed=false;importController=new AbortController();show(0);try{await model.import([...files],importController.signal);renderDocuments();renderImages();renderResults();setStatus(model.errors.length?t('importError'):model.images.length+' images · '+model.studies.length+' documents');}catch(error){setStatus(error.message);}finally{working=false;importController=null;show(model.images.length?1:0);}}
  async function run(){
   if(working||exporting||pairBusy)return;if(!confirmed)return setStatus(t('confirm'));if(!model.images.some(i=>i.selected))return setStatus(t('noImages'));if(!recipes.size)return setStatus(t('noTools'));if(!minimum.reportValidity())return;
+  for(const recipe of recipes.values()){
+   const card=tools.querySelector('[data-batch-tool="'+recipe.id+'"]').closest('.batch-tool');
+   if([...card.querySelectorAll('.batch-fields input,.batch-fields select')].some(control=>!control.disabled&&typeof control.reportValidity==='function'&&!control.reportValidity()))return setStatus((lang()==='fr'?'Réglage invalide · ':'Invalid setting · ')+recipe[lang()]);
+  }
   for(const recipe of recipes.values())if(recipe.requires&&!additional[recipe.requires])return setStatus(t('prerequisite')+' '+recipe[lang()]);
   if([...recipes.values()].some(recipe=>recipe.pairRequired)){
    const selected=model.images.filter(image=>image.selected);
