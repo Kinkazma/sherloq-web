@@ -1,6 +1,7 @@
 import {diskBatchZip} from './batch-zip.js';
 import {batchLibraries,safeName,pdfPoint} from './batch-import.js';
 import {studyScores,batchCatalog} from './batch-catalog.js';
+import {batchArchiveLayout,remapBatchEvidence} from './batch-archive-layout.js';
 
 const pdfText=text=>String(text??'').replace(/[\u2010-\u2015]/g,'-').replace(/[^\x20-\x7e\xa0-\xff\n]/g,' ');
 const polygons=run=>[...[...(run.entries??[]),...(run.additionalEntries??[])].flatMap(e=>e.polygons??[]),...(run.regions??[]).filter(r=>r.bbox).map(r=>{const [x,y,w,h]=r.bbox;return [[x,y],[x+w,y],[x+w,y+h],[x,y+h]];})];
@@ -64,15 +65,15 @@ export async function batchReport(model,{language='fr',signal}={}){
  return new Blob([await doc.save()],{type:'application/pdf'});
 }
 export async function batchArchive(model,{language='fr',signal,onProgress=()=>{}}={}){
- const {pdf}=await batchLibraries(),entries=[],results=model.results??studyScores(model.studies,model.images,model.configuration?.options??{}),manifest={schema:'sherloq.batch/1',startedAt:model.startedAt,finishedAt:model.finishedAt,configuration:model.configuration,engine:model.engine,cancelled:model.cancelled,studies:[],images:[],comparisons:model.comparisons??[],errors:model.errors};
+ const {pdf}=await batchLibraries(),entries=[],results=model.results??studyScores(model.studies,model.images,model.configuration?.options??{}),layout=batchArchiveLayout(model),manifest={schema:'sherloq.batch/1',archiveLayout:'flat/1',startedAt:model.startedAt,finishedAt:model.finishedAt,configuration:model.configuration,engine:model.engine,cancelled:model.cancelled,studies:[],images:layout.images,comparisons:layout.comparisons,errors:model.errors};
  const add=(path,blob)=>entries.push({path,size:blob.size,read:async()=>blob});
  add('rapport-SHERLOQ.pdf',await batchReport(model,{language,signal}));
  for(const [index,study]of results.entries()){
   signal?.throwIfAborted();const path='documents/'+index+'-'+artifactName(study),blob=study.kind==='pdf'?await annotatedStudy(study,model.images,pdf,model.comparisons):study.blob;add(path,blob);
   const {blob:ignored,...rest}=study;manifest.studies.push({...rest,archivePath:path});
  }
- for(const image of model.images){signal?.throwIfAborted();const path='images/'+image.id+'/'+safeName(image.name);add(path,image.blob);const {blob,thumbnail,restored,...rest}=image;manifest.images.push({...rest,archivePath:path});}
- for(const path of model.artifacts.keys()){const blob=await model.artifacts.get(path);entries.push({path,size:blob.size,read:()=>model.artifacts.get(path)});}
+ for(const image of model.images){signal?.throwIfAborted();add(layout.sources.get(image.id),image.blob);}
+ for(const path of model.artifacts.keys()){signal?.throwIfAborted();const read=async()=>remapBatchEvidence(await model.artifacts.get(path),path,layout.paths),blob=await read();entries.push({path:layout.paths.get(path),size:blob.size,read});}
  const inventory=JSON.stringify(manifest,null,2);if(new TextEncoder().encode(inventory).length>8*1024**2)throw Error('Inventaire supérieur à 8 Mio : fractionnez le lot pour permettre sa reprise.');add('sherloq-batch.json',new Blob([inventory],{type:'application/json'}));
  return diskBatchZip(entries,{signal,onProgress});
 }

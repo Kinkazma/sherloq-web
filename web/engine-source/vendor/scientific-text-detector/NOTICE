@@ -1,0 +1,19 @@
+SHERLOQ text localization preparation
+
+Model: PP-OCRv6_small_det, PaddlePaddle / PaddleOCR contributors.
+Detector model and preprocessing/postprocessing specification: Apache-2.0.
+https://github.com/PaddlePaddle/PaddleOCR
+https://huggingface.co/PaddlePaddle/PP-OCRv6_small_det
+
+Pinned ONNX conversion: RapidAI / RapidOCR contributors, Apache-2.0.
+https://github.com/RapidAI/RapidOCR
+https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.9.2/onnx/PP-OCRv6/det/PP-OCRv6_det_small.onnx
+SHA256: 090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f
+Bytes: 9929594
+
+The SHERLOQ JavaScript implementation localizes text only. It implements
+Paddle's BGR/ImageNet normalization and DB thresholds. Connected components,
+convex hulls, minimum-area rectangles and rectangle offsets replace OpenCV
+and PyClipper preprocessing/postprocessing dependencies. This port does not
+claim byte-level parity with those libraries. Original scientific pixels
+are preserved and oriented exclusions use original image coordinates.

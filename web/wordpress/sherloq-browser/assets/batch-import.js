@@ -1,5 +1,7 @@
 import {readBatchZip} from './batch-zip.js';
 import {createBatchArtifactStore} from './batch-artifacts.js';
+import {pdfTextPolygons,projectPdfExclusions} from './batch-scope-geometry.js';
+import {batchArtifactOwners,restoreBatchArtifacts} from './batch-restoration.js';
 const MiB=1024**2;
 export const IMPORT_LIMITS={fileBytes:256*MiB,expandedBytes:1024*MiB,entries:2000,pixels:100000000};
 const imagePattern=/\.(?:png|jpe?g|webp|avif|gif|bmp|tiff?|heic|heif|jp2|j2k|jxl|psd)$/i;
@@ -69,14 +71,16 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
    parser=pdfjs.getDocument({data:new Uint8Array(await blob.arrayBuffer()),isEvalSupported:false,useWasm:false,useSystemFonts:true,disableFontFace:true,stopAtErrors:true,maxImageSize:limits.pixels});
    const doc=await parser.promise;study.pages=doc.numPages;
    for(let pageNumber=1;pageNumber<=doc.numPages;pageNumber++){
-    check(signal);onProgress({phase:'pdf',name:study.name,page:pageNumber,pages:doc.numPages});const page=await doc.getPage(pageNumber),list=await page.getOperatorList(),stack=[];let matrix=[1,0,0,1,0,0];const OPS=pdfjs.OPS;
+    check(signal);onProgress({phase:'pdf',name:study.name,page:pageNumber,pages:doc.numPages});const page=await doc.getPage(pageNumber),list=await page.getOperatorList(),textPolygons=pdfTextPolygons(await page.getTextContent()),stack=[];let matrix=[1,0,0,1,0,0];const OPS=pdfjs.OPS;
+    (study.pageText??=[]).push({page:pageNumber,polygons:textPolygons,source:'pdf-native-text',coordinates:'pdf-points'});
+    const occurrence=(at,index,width,height)=>({studyId:study.id,page:pageNumber,matrix:at.slice(),operator:index,textExclusions:projectPdfExclusions(textPolygons,at,width,height)});
     const record=async(image,at,index)=>{
      if(!image?.width||!image?.height||image.width<8||image.height<8)return;
-     const cached=extracted.get(image);if(cached){await addImage(cached.blob,{studyId:study.id,page:pageNumber,matrix:at.slice(),operator:index},cached,signal);return;}
+     const cached=extracted.get(image);if(cached){await addImage(cached.blob,occurrence(at,index,cached.identity.width,cached.identity.height),cached,signal);return;}
      const c=pdfPixels(image);let encoded=await c.convertToBlob({type:'image/png'});c.width=c.height=1;
      const identity=await pixelIdentity(encoded,{signal}),native=originalJpegs.get(identity.hash);if(native)encoded=native.blob;
      const record={blob:encoded,identity,name:study.name.replace(/\.pdf$/i,'')+'-p'+pageNumber+'-'+index+(native?'.jpg':'.png'),encoding:native?'embedded-jpeg':'pdf-decoded-png'};extracted.set(image,record);
-     await addImage(encoded,{studyId:study.id,page:pageNumber,matrix:at.slice(),operator:index},record,signal);
+     await addImage(encoded,occurrence(at,index,identity.width,identity.height),record,signal);
     };
     for(let i=0;i<list.fnArray.length;i++){
      check(signal);const op=list.fnArray[i],args=list.argsArray[i];
@@ -87,7 +91,7 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
      else if(op===OPS.paintImageXObject){const object=await new Promise(resolve=>(args[0].startsWith('g_')?page.commonObjs:page.objs).get(args[0],resolve));await record(object,matrix,i);}
      else if(op===OPS.paintInlineImageXObject)await record(args[0],matrix,i);
      else if(op===OPS.paintImageXObjectRepeat){const object=await new Promise(resolve=>(args[0].startsWith('g_')?page.commonObjs:page.objs).get(args[0],resolve));for(let j=0;j<args[3].length;j+=2)await record(object,multiply(matrix,[args[1],0,0,args[2],args[3][j],args[3][j+1]]),i);}
-     else if(op===OPS.paintInlineImageXObjectGroup){for(const part of args[1]){const whole=pdfPixels(args[0]),crop=new OffscreenCanvas(part.w,part.h);crop.getContext('2d').drawImage(whole,part.x,part.y,part.w,part.h,0,0,part.w,part.h);const id=await pixelIdentity(await crop.convertToBlob(),{signal});await addImage(await crop.convertToBlob(),{studyId:study.id,page:pageNumber,matrix:multiply(matrix,part.transform),operator:i},{identity:id,name:study.name+'-p'+pageNumber+'.png',encoding:'pdf-decoded-png'},signal);whole.width=whole.height=crop.width=crop.height=1;}}
+     else if(op===OPS.paintInlineImageXObjectGroup){for(const part of args[1]){const whole=pdfPixels(args[0]),crop=new OffscreenCanvas(part.w,part.h);crop.getContext('2d').drawImage(whole,part.x,part.y,part.w,part.h,0,0,part.w,part.h);const id=await pixelIdentity(await crop.convertToBlob(),{signal});await addImage(await crop.convertToBlob(),occurrence(multiply(matrix,part.transform),i,id.width,id.height),{identity:id,name:study.name+'-p'+pageNumber+'.png',encoding:'pdf-decoded-png'},signal);whole.width=whole.height=crop.width=crop.height=1;}}
     }
     page.cleanup();await nextFrame();
    }
@@ -105,11 +109,11 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
    if(manifestEntry){if(manifestEntry._data.uncompressedSize>8*MiB)throw Error('Inventaire de reprise trop grand.');manifest=JSON.parse(await manifestEntry.async('string'));if(manifest.schema!=='sherloq.batch/1')manifest=null;}
    if(manifest){
     if(!Array.isArray(manifest.studies)||!Array.isArray(manifest.images)||manifest.studies.length>limits.entries||manifest.images.length>limits.entries)throw Error('Inventaire de reprise invalide.');
-    const remap=new Map();
-    for(const old of manifest.studies??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(old.name),kind:old.kind,blob,manualMarked:!!old.retained,errors:[],restored:true};studies.push(study);remap.set(old.id,study.id);}
+    const remap=new Map(),owners=batchArtifactOwners(manifest);
+    for(const old of manifest.studies??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(old.name),kind:old.kind,blob,manualMarked:!!old.retained,errors:[],restored:true,...(old.pageText?{pageText:old.pageText}:{})};studies.push(study);remap.set(old.id,study.id);}
     for(const old of manifest.images??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);for(const occurrence of old.occurrences??[]){if(!remap.has(occurrence.studyId))continue;const image=await addImage(blob,{...occurrence,studyId:remap.get(occurrence.studyId)},{name:old.name,encoding:old.encoding},signal);image.family=['unknown','microscopy','gel','photography','schematic'].includes(old.family)?old.family:'unknown';image.selected=old.selected!==false;
-     if(old.hash===image.hash&&old.state==='done'&&Array.isArray(old.runs)&&old.runs.length<=100&&old.runs.every(r=>r.status==='done')&&old.score&&['clones','additional','total'].every(k=>Number.isSafeInteger(old.score[k])&&old.score[k]>=0&&old.score[k]<=128)){
-      const files=old.runs.flatMap(r=>r.files??[]);if(files.every(path=>typeof path==='string'&&path.startsWith('resultats/'+image.id+'/')&&zip.file(path))){for(const path of files)if(!artifacts.has(path)){const output=await zip.file(path).async('blob');await artifacts.set(path,output);}image.runs=old.runs;image.score=old.score;image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};}
+     if(old.id===image.id&&old.hash===image.hash&&old.state==='done'&&Array.isArray(old.runs)&&old.runs.length<=100&&old.runs.every(r=>r.status==='done')&&old.score&&['clones','additional','total'].every(k=>Number.isSafeInteger(old.score[k])&&old.score[k]>=0&&old.score[k]<=128)){
+      const runs=await restoreBatchArtifacts(old,manifest,zip,artifacts,owners);if(runs){image.runs=runs;image.score=old.score;image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};if(old.preparation)image.preparation=old.preparation;}
      }
     }}
     return;
