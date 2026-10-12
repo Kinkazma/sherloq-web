@@ -20,6 +20,7 @@ resource_root=repository/'web-assets'
 candidate_data={}
 candidate_chunks={}
 candidate_chunk_files={}
+candidate_logical_files={}
 candidate_modules=tuple(p.relative_to(args.candidate_engine).as_posix() for p in args.candidate_engine.rglob('*') if p.is_file() and p.suffix in ('.js','.mjs')) if args.candidate_engine else ()
 if args.candidate_engine:
  for name in candidate_modules:
@@ -35,10 +36,14 @@ if args.ssg_assets_manifest:
  for path,spec in donor['files'].items():
   if path.startswith(('individual-assets/m3/ssg/','unified-engine/vendor/ssg-vlfeat/','unified-engine/vendor/ssg-full/')):
    manifest['files'][path]=spec
+   sources=[]
    for chunk in spec['chunks']:
     source=donor_chunks/(chunk+'.bin')
     if not source.is_file() or source.stat().st_size!=donor['chunks'][chunk]:raise ValueError('Missing original SSG chunk '+chunk)
     manifest['chunks'][chunk]=donor['chunks'][chunk];candidate_chunk_files[chunk]=source
+    sources.append(source)
+   if sum(source.stat().st_size for source in sources)!=spec['size']:raise ValueError('Invalid original SSG file size '+path)
+   candidate_logical_files[path]=(spec,sources)
  catalog_path='individual-assets/individual-models.json'
  def catalog_bytes(table,chunks):return b''.join((chunks/(chunk+'.bin')).read_bytes() for chunk in table['files'][catalog_path]['chunks'])
  base_catalog=json.loads(catalog_bytes(manifest,resource_root/'chunks'));donor_catalog=json.loads(catalog_bytes(donor,donor_chunks))
@@ -108,6 +113,15 @@ class Handler(SimpleHTTPRequestHandler):
    return
   if relative in candidate_data:
    data=candidate_data[relative];self.send_response(200);self.send_header('Content-Type',mimetypes.guess_type(relative)[0] or 'application/octet-stream');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
+  if relative in candidate_logical_files:
+   spec,sources=candidate_logical_files[relative]
+   self.send_response(200);self.send_header('Content-Type',spec.get('type') or mimetypes.guess_type(relative)[0] or 'application/octet-stream');self.send_header('Content-Length',str(spec['size']));self.end_headers()
+   # Dynamic imports use logical module URLs even from workers not controlled
+   # by the page service worker. Reuse the pinned chunks in bounded reads.
+   for source in sources:
+    with source.open('rb') as stream:
+     while data:=stream.read(1024*1024):self.wfile.write(data)
+   return
   if args.candidate_engine and relative and '/' not in relative and relative!='dependency-config.json' and not relative.startswith('dependency-manifest-') and Path(relative).suffix in ('.js','.css','.html','.json'):
    source=repository/'web/wordpress/sherloq-browser/assets'/relative
    if source.is_file():

@@ -45,7 +45,25 @@
       "bytes": 9073257
     },
     "native16AnalysesFinished": false,
-    "finalNativeReportAndArchiveQualified": false
+    "finalNativeReportAndArchiveQualified": false,
+    "ssgLogicalTransport": {
+      "observedFailure": "dynamic import returned HTTP404 despite available manifest chunks",
+      "activeCalculationInterrupted": false,
+      "copiedModelPayloadBytes": 0,
+      "vendorFileChecksOnActiveAndTemporaryServers": 20,
+      "additionalRuntimeAndManifestChecks": 5,
+      "originalModelArrayChecks": 7,
+      "modelArrayBytesVerifiedByStreaming": 218141668,
+      "futureServerMultiChunkLogicalResponse": {
+        "chunks": 2,
+        "bytes": 163555456,
+        "matchesPinnedSha256": true,
+        "readWindowBytes": 1048576,
+        "payloadSaved": false
+      },
+      "allHttpPayloadsMatchPinnedIdentities": true,
+      "successfulNativeSSGRetryQualified": false
+    }
   },
   "remaining": [
     "Finish the four-image, four-method native run without changing its settings.",
