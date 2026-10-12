@@ -23,7 +23,7 @@ const server=createServer(async(req,res)=>{try{
  if(req.method==='POST'&&/^\/save-\d+x\d+-(cpu|auto|webgpu)-(raw|fused)\.bin$/.test(name)){const chunks=[];for await(const part of req)chunks.push(part);await writeFile(resolve(resources,name.slice(1)),Buffer.concat(chunks));res.statusCode=204;res.end();return;}
  if(name==='/favicon.ico'){res.statusCode=204;res.end();return;}
  if(name==='/fail-next-crf'){failNextCrf=true;res.statusCode=204;res.end();return;}
- if(failNextCrf&&name==='/resources/integration-bundle-general/convcrf-dynamic.onnx'){failNextCrf=false;res.statusCode=503;res.end('Intentional qualification-only component outage');return;}
+ if(failNextCrf&&name==='/resources/integration-bundle-general/convcrf-static-folded-if.onnx'){failNextCrf=false;res.statusCode=503;res.end('Intentional qualification-only component outage');return;}
  if(name==='/native-probability.bin'){res.end(reference);return;}
  const base=name.startsWith('/resources/')?resources:engine;
  const relative=name.startsWith('/resources/')?name.slice('/resources/'.length):name.startsWith('/engine-source/')?name.slice('/engine-source/'.length):name.slice(1),file=resolve(base,relative);

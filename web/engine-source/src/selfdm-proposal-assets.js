@@ -6,9 +6,9 @@ import {fetchVerifiedAsset} from './fetch-verified-asset.js';
 export const SELFDM_PROPOSAL_MODELS = Object.freeze({
  selfdm: {file:'selfdm-map-512.onnx',bytes:62971505,sha256:'933ce196b044f0df1d3e0aa2dabe79907b6406e1aa9384cc7bb831922b1d4d59'},
  deepmask: {file:'deepmask-heads.onnx',bytes:69701737,sha256:'86f9c9a82098f2e605d69aea0fb3227eb258b3b1921c7108949fb36ab74261cf'},
- superpoint: {file:'superpoint-full.onnx',bytes:5228681,sha256:'495d56929e749a463d29660551a62da0eff1f73496412773277201c17f0414e3'},
+ superpoint: {file:'superpoint-static-folded.onnx',bytes:5224069,sha256:'9fe79e4199ca3e2a8ff34ab15c04b435de8d77e1b47c449bd9cb24c9ff11145b'},
  superglue: {file:'superglue-indoor.onnx',bytes:48603642,sha256:'2964d7a675c295999c86b6ccaf90eb5297ca2b2200dbdeb813a21eabb2361b88'},
- crf: {file:'convcrf-dynamic.onnx',bytes:274800,sha256:'c90f0bcd30de0ccc1c0cae9b9b853d481452450e7b2d5a64c70c6074cdfd00d5'}
+ crf: {file:'convcrf-static-folded-if.onnx',bytes:47511,sha256:'e614ae178a99af889a0fbfc58be1e281281c41934e5b16d00ad475d3952482ff'}
 });
 export const SELFDM_PROPOSAL_CV = Object.freeze({bytes:1151525,sha256:'6df92eebc58f69911146f0cf76e24bbeb11b56b48df7cf3f23aeca66dc6cd8e2'});
 export const SELFDM_PROPOSAL_PREPARE = Object.freeze({bytes:9735,sha256:'7a6f800fa4ae9762ab4c50b7cefbf9b8984799b478926ddac7db62bc22832d13'});
@@ -28,7 +28,7 @@ export function verifySelfDMProposalModels(models){
   const actual=models?.[name];
   requireValue(actual?.bytes===expected.bytes&&actual.sha256===expected.sha256&&typeof actual.url==='string'&&/^https?:$/.test(new URL(actual.url).protocol),'Pinned SelfDM Proposal model required: '+name);
  }
- return Object.fromEntries(Object.entries(SELFDM_PROPOSAL_MODELS).map(([name,spec])=>[name,{...spec,...models[name],graphOptimizationLevel:'disabled',wasmMaximumBytes:2*1024**3,...(['selfdm','deepmask','superglue'].includes(name)?{gpuWasmWorkspaceBytes:128*1024**2}:{} )}]));
+ return Object.fromEntries(Object.entries(SELFDM_PROPOSAL_MODELS).map(([name,spec])=>[name,{...spec,...models[name],graphOptimizationLevel:'disabled',wasmMaximumBytes:2*1024**3,gpuWasmWorkspaceBytes:128*1024**2}]));
 }
 export async function loadSelfDMProposalBundle(identity,{budget,signal}={}){
  const release=budget?.reserve(identity.bytes*2);

@@ -58,7 +58,7 @@ test('A verified manifest resolves only pinned scientific components and returns
  const original=globalThis.fetch,budget=new Budget(1*MiB);
  const data=new TextEncoder().encode(JSON.stringify({schema:1,family:'selfdm-proposal',models:SELFDM_PROPOSAL_MODELS,cv:{...SELFDM_PROPOSAL_CV,file:'seeds.wasm'},prepare:SELFDM_PROPOSAL_PREPARE}));
  globalThis.fetch=async()=>new Response(data,{status:200});
- try{const bundle=await loadSelfDMProposalBundle({id:'bundle',url:'https://example.invalid/bundle/manifest.json',bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')},{budget});assert.equal(bundle.models.crf.url,'https://example.invalid/bundle/convcrf-dynamic.onnx');assert.equal(bundle.cv.url,'https://example.invalid/bundle/seeds.wasm');assert.equal(budget.total(),0);}
+ try{const bundle=await loadSelfDMProposalBundle({id:'bundle',url:'https://example.invalid/bundle/manifest.json',bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')},{budget});assert.equal(bundle.models.crf.url,'https://example.invalid/bundle/convcrf-static-folded-if.onnx');assert.equal(bundle.cv.url,'https://example.invalid/bundle/seeds.wasm');assert.equal(budget.total(),0);}
  finally{globalThis.fetch=original;}
 });
 

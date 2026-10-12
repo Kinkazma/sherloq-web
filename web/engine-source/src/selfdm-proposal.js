@@ -60,9 +60,10 @@ export class SelfDMProposalEngine{
   const adopt=value=>{cached.adopt(value,pins(this.budget,value));const arrayBytes=Object.values(tensors(value)).reduce((sum,array)=>sum+array.byteLength,0);admit(Math.max(0,bytes(value)-arrayBytes));return value;};
   const report=(phase,fraction,extra={})=>hooks.onProgress?.({phase,fraction,...extra});
   const graph=async(name,inputs,workspaceBytes,outputBytes,details={})=>{
-   // SP dynamic TopK/CRF If-Cast graphs have real ORT WebGPU partition failures.
-   // Their CPU stages are deliberate; the three qualified graphs use GPU.
-   const backend=['superpoint','crf'].includes(name)?'cpu':(hooks.backend??'auto');
+   // Static literal Casts are folded during export, preserving values/dtypes
+   // while removing the ORT unassigned-provider failure. All learned/CRF
+   // graphs share the requested backend; OpenCV stages remain native CPU.
+   const backend=hooks.backend??'auto';
    const value=await this.pool.run(name,inputs,{signal,backend,workspaceBytes,outputBytes,gpuWasmWorkspaceBytes:models[name].gpuWasmWorkspaceBytes,resourceOperation:operation,onProgress:event=>hooks.onProgress?.({...event,stage:name})});
    records.push({stage:name,...details,...value.metrics,timings:value.timings,heapBytes:value.heapBytes,inferenceExecutions:1,cacheHit:false,...(value.qualificationGpu?{qualificationGpu:value.qualificationGpu}:{})});return value;
   };

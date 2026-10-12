@@ -79,17 +79,36 @@ Les pixels, fenêtres et tableaux déjà empruntés ne sont pas recomptés comme
 source de préparation. Le transfert de la grille finale partage sa réservation
 avec le résultat, sans copie ni deuxième réservation du même champ.
 
-Backend hybride :
-SelfDM initial, DeepMask borné et SuperGlue sont exécutables sur WebGPU avec
-leurs mêmes modèles FP32. Les vrais shaders/soumissions ont été instrumentés
-pendant la qualification ; aucun f16 n'a été utilisé. SuperPoint et CRF restent
-explicitement CPU : leurs graphes dynamiques déclenchent une véritable erreur
-de partition ORT WebGPU sur des Cast sans provider. Le choix explicite évite
-de tenter ce graphe incompatible à chaque calcul et conserve le GPU pour les
-graphes qualifiés. auto choisit GPU quand disponible ; webgpu exige sa présence,
-mais la chaîne reste hybride. Les étapes CPU reçoivent leurs équipes communes,
-sans plafond artificiel à1 thread. Le reste de l'application partage le courtier.
-Les admissions ne sont pas une mesure d'utilisation physique des cœurs.
+Réseaux GPU et CV CPU :
+Les cinq graphes SelfDM, DeepMask, SuperPoint, SuperGlue et ConvCRF utilisent
+le provider WebGPU en FP32 lorsqu'il est demandé et disponible. Ce n'est pas
+un programme100%GPU : OpenCV, la préparation, le classement/fusion et certaines
+opérations de forme prises en charge parORT restent CPU. Les vrais shaders et
+soumissions ont été instrumentés, sansf16 ; aucune utilisation physique des
+cœurs n'est déduite d'une simple admission. cpu reste une voie complète.
+
+L'erreur de partition ORT avait une cause précise : des Cast de constantes
+(échelle4 avant Resize, epsilon avant Clip) n'étaient pas assignés à un provider,
+mais TransformerMemcpy exigeait cette assignation. Le pliage exact des seuls
+sous-graphes statiques vers des initializers supprime l'erreur sans modifier
+les paramètres appris, les valeurs, les types ou les opérations dynamiques.
+Ce travail se fait à l'export du graphe, jamais sur l'image comme un canary.
+Les49 voisins du CRF sont vectorisés avec le même unfold et les mêmes sommes ;
+les AvgPool natifs count_include_pad=False et leurs phases restent inchangés.
+La formulation Torch reste bit-identique sur les six géométries de référence.
+
+SuperPoint folded CPU est bit-identique au graphe CPU d'origine pour les quatre
+cas. SurGPU, le casplein512 conserve exactement les2048membres, mais14 indices
+sont réordonnés sur des scores quasiégaux. Après alignement par coordonnées,
+scoremax2,95e−6 et descripteurmax1,51e−6 ; les deuxROI réelles et le casvide ont
+les mêmes coordonnées/ordres. La qualification complète vérifie ensuite les
+matches et les masques finaux, sans cacher ce comportement de TopK.
+
+Le pirecas ROI2000×1500 demande encore un encodeur SuperPoint par fenêtres avec
+halo/stride8, puisNMS/TopK/échantillonnage global : son activation64canaux peut
+atteindre768Mo. Les géométries831 de cette première qualification ne démontrent
+pas ce pirecas. Ce port borné sera qualifié séparément ; le plafond historique
+192MiB de cette étape ne doit pas être présenté comme une borne universelle.
 
 Conservation et reprise :
 La carte initiale, les banques Top500 et leurs fenêtres terminées, les boîtes,
@@ -121,8 +140,9 @@ moins de8,35e−7 de simple arrondi Float32, sans politique d'ajustement runtime
 Les vrais parcours API Chromium décodent les pixels PNG, vérifient leur identité
 et exécutent toute la chaîne/pool commun.32²CPU finit à0 positifs et0 différence
 de masque.416×320CPU/hybride produit19972 positifs,0 différence de masque,
-écarts maximaux0,000420/0,000765.512²GPU hybride garde40514 positifs/0 différence
-de masque, mais son écart continu0,001056 dépasse la cible provisoire0,001.
+écarts maximaux0,000420/0,000768.512²GPU hybride garde40514 positifs/0 différence
+de masque, mais son écart continu0,001058 dépasse la cible provisoire0,001.
+831×641GPU produit79894 positifs/0 différence de masque et écart maximal0,001110.
 831×641CPU produit79895 positifs contre79894 natifs :1 pixel de frontière
 diffère, avec erreur maximale0,001227. Les boîtes sont identiques et les514
 matches conservés. Ces écarts sont annoncés, aucun seuil ni tolérance scientifique
@@ -137,7 +157,9 @@ hérité des arrondis du champ neuronal/fusion puis amplifié par le CRF natif.
 Il ne provient pas d'une erreur de repère, d'un halo omis ou d'un changement
 de dimension. Les décisions au voisinage du seuil sont explicitement exportées.
 
-Les reçus conservent aussi la cible stricte0,001 et son dépassement ; une chaîne
+Les six chaînes CPU/GPU416/512/831 finissent depuis les vrais pixels, conservent
+leurs résultats et reprennent seulement la fenêtre CRF après503, avec toutes
+les réservations à0 aprèsdispose. Les reçus conservent aussi la cible stricte0,001 et son dépassement ; une chaîne
 qui finit avec ces écarts mesurés n'est pas déclarée bit-exacte. Les références
 ne sont pas un corpus d'évaluation de précision. Aucune qualification complète
 96MP, iPhone physique ou tous navigateurs n'est déduite de ces essais.
@@ -154,7 +176,9 @@ tests/selfdm-proposal.test.mjs :15 régressions sur identité, géométrie, prop
 reprise de fenêtre, erreurs/annulation et kernels réellement compilés.
 scripts/build-selfdm-proposal-cv.py compile OpenCV et fixe l'identité du binaire
 effectivement produit (proposal-cv.wasm renommé en seeds.wasm).
-scripts/export-selfdm-proposal-crf.py exporte le CRF dynamique et compare les
+scripts/fold-selfdm-proposal-constants.py conserve chaque initializer appris et
+évalue seulement les opérations statiques exactes.
+scripts/export-selfdm-proposal-crf.py exporte le CRF dynamique vectorisé et compare les
 formules natives/ORT/fenêtres sur des fichiers de référence explicitement fournis.
 scripts/qualify-selfdm-proposal-browser.mjs lance son propre Chromium/port local,
 sans toucher au navigateur utilisateur : arguments resources, threads, géométrie,

@@ -53,18 +53,16 @@ class DynamicCRF(torch.nn.Module):
         position=native_pool(torch.cat((y,x),dim=1)*self.pos_sdims,p0,p1)
         colour=native_pool(image*self.col_schan,p0,p1)
         ph,pw=colour.shape[2],colour.shape[3]
-        padded_pos=F.pad(position,(3,3,3,3))
-        padded_col=F.pad(colour,(3,3,3,3))
-        valid=F.pad(torch.ones((1,1,ph,pw),dtype=torch.float32,device=image.device),(3,3,3,3))
-        kernels=torch.jit.annotate(list[torch.Tensor],[])
-        for dy in range(7):
-            for dx in range(7):
-                delta_pos=position-padded_pos[:,:,dy:dy+ph,dx:dx+pw]
-                delta_col=colour-padded_col[:,:,dy:dy+ph,dx:dx+pw]
-                pos=torch.exp(torch.sum(-.5*(delta_pos*delta_pos),dim=1,keepdim=True))*3
-                col=torch.exp(torch.sum(-.5*(delta_col*delta_col),dim=1,keepdim=True))*10
-                kernels.append((pos+col)*valid[:,:,dy:dy+ph,dx:dx+pw])
-        gaussian=torch.stack(kernels,dim=2)
+        # Same49 offsets, position/colour sums and FP32 order; vectorize the
+        # neighbour planes rather than materialize49 copies of graph code.
+        positions=F.unfold(position,(7,7),padding=(3,3)).reshape(1,2,49,ph,pw)
+        colours=F.unfold(colour,(7,7),padding=(3,3)).reshape(1,3,49,ph,pw)
+        valid=F.unfold(torch.ones((1,1,ph,pw),dtype=torch.float32,device=image.device),(7,7),padding=(3,3)).reshape(1,1,49,ph,pw)
+        delta_pos=position.unsqueeze(2)-positions
+        delta_col=colour.unsqueeze(2)-colours
+        pos=torch.exp(torch.sum(-.5*(delta_pos*delta_pos),dim=1,keepdim=True))*3
+        col=torch.exp(torch.sum(-.5*(delta_col*delta_col),dim=1,keepdim=True))*10
+        gaussian=(pos+col)*valid
         logunary=F.log_softmax(unary,dim=1)
         coarse=native_pool(logunary,p0,p1)
         patches=F.unfold(coarse,(7,7),padding=(3,3)).reshape(1,2,49,ph,pw)
@@ -99,7 +97,7 @@ try:
         record['nativeCases'].append({'width':width,'height':height,**parity,'bitExact':bool(np.array_equal(native,actual))})
         if parity['nonfinite'] or parity['maskChanges'] or parity['maxAbs']>1e-5:raise ValueError('Functional CRF changed native decisions: '+str(record['nativeCases'][-1]))
         cases.append((width,height,unary,image,native))
-    out=HERE/'convcrf-dynamic.onnx'
+    out=HERE/'convcrf-vectorized-dynamic.onnx'
     torch.onnx.export(model,(torch.from_numpy(cases[0][2]),torch.from_numpy(cases[0][3]),torch.zeros(2)),out,input_names=['unary','image','origin'],output_names=['probability'],dynamic_axes={'unary':{2:'height',3:'width'},'image':{2:'height',3:'width'},'probability':{1:'height',2:'width'}},opset_version=18,dynamo=False,do_constant_folding=False,external_data=False)
     onnx.checker.check_model(onnx.load(out),full_check=True)
     session=ort.InferenceSession(str(out),providers=['CPUExecutionProvider'])
