@@ -51,5 +51,68 @@
     ],
     "scope": "Full suite run from web/wordpress; two cases require unstaged delivery resources. They are not claimed as passed."
   },
-  "batchTests": 21
+  "batchTests": 21,
+  "fullHumanBatch": {
+    "status": "passed",
+    "qualifiedAt": "2026-10-12",
+    "documents": 7,
+    "pages": 98,
+    "uniqueImages": 147,
+    "selectedImages": 86,
+    "humanSelectionExact": true,
+    "completedAnalyses": 172,
+    "analysisErrors": 0,
+    "finalSignalThreshold": 2,
+    "thresholdBasis": "clones",
+    "backends": [
+      "auto",
+      "auto"
+    ],
+    "siftNativeBackends": {
+      "hybrid": 86
+    },
+    "siftExtractionWorkers": {
+      "1": 62,
+      "9": 8,
+      "10": 16
+    },
+    "siftExtractionRetries": 0,
+    "qualifiedReferenceImages": 3,
+    "exactReferenceFields": [
+      "points",
+      "pairs",
+      "colors",
+      "pair_search_regions",
+      "groups"
+    ],
+    "artifactBytes": 1172320718,
+    "archiveBytes": 307633661,
+    "archiveExpandedBytes": 1287905009,
+    "archiveEntries": 680,
+    "archiveCRC": true,
+    "npzVerified": 172,
+    "npyCRCVerified": 1290,
+    "sourceProvenanceHashesVerified": 172,
+    "outputPNGDimensionsVerified": 172,
+    "comparisonPNGDimensionsVerified": 4,
+    "reportPages": 46,
+    "allReportPagesRenderedAndInspected": true,
+    "annotatedSourcePagesInspected": 2,
+    "retainedStudies": 5,
+    "comparisonImages": 48,
+    "plannedComparisons": 543,
+    "reportedGeometricMatches": 4,
+    "comparisonErrors": 0,
+    "reusedForFinalComparisonPass": 86,
+    "fullArchiveImport": {
+      "images": 147,
+      "selected": 86,
+      "completedMethods": 172,
+      "errors": 0,
+      "selectionMatches": true,
+      "recalculationLaunched": false,
+      "sourceArchiveBytes": 307633661
+    },
+    "scope": "Local browser functional and scientific-export validation using the exact human selection. Negative comparisons are not persisted individually. Signals on mixed figures require human inspection. Not a controlled runtime benchmark, a new 96 MP qualification, or PHP/Gutenberg packaging validation."
+  }
 }
