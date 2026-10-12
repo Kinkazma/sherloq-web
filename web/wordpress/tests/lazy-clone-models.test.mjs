@@ -1,6 +1,17 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createToolClient} from '../sherloq-browser/assets/tool-client.js';
+import {SEGMENTATION_MODELS} from '../../engine-source/experiments/segmentation/models.js';
+
+test('Every segmentation model loads by its stable key rather than its display name',async()=>{
+ const before=globalThis.fetch,loaded=[];
+ const segmentation=Object.fromEntries(Object.entries(SEGMENTATION_MODELS).map(([key,model])=>[key,{...model,url:'segmentation/'+key+'/model.onnx'}]));
+ globalThis.fetch=async url=>({ok:true,json:async()=>String(url).includes('individual-models')?{segmentation}:{assetBase:'./unified-assets/'}});
+ const engine={loadBlob:async()=>({id:'source',surface:{id:'source-surface',revision:1,width:8,height:8,format:'rgb8'}}),loadSegmentationModel:async model=>{assert.ok(Object.hasOwn(SEGMENTATION_MODELS,model.variant));assert.equal(model.sha256,SEGMENTATION_MODELS[model.variant].sha256);assert.match(model.url,/segmentation\//);loaded.push(model.variant);},unloadSegmentationModel:async()=>{},run:async()=>({data:{}}),dispose:async()=>{}};
+ const client=await createToolClient({engineFactory:()=>engine});
+ try{await client.load({id:'source',blob:new Blob(['fixture'])});for(const variant of Object.keys(segmentation))await client.run({operation:'ai.clones.segmentation',params:{variant}});assert.deepEqual(loaded,Object.keys(segmentation));await assert.rejects(client.run({operation:'ai.clones.segmentation',params:{variant:'missing-model'}}),e=>e.code==='MODEL_UNAVAILABLE'&&e.details.variant==='missing-model');assert.equal(client.source.id,'source');}
+ finally{await client.dispose();globalThis.fetch=before;}
+});
 
 test('Learned matching avoids OCR; Panels + Text alone fetches it and keeps it for subsequent runs', async()=>{
  const before=globalThis.fetch,requested=[],loads=[];
