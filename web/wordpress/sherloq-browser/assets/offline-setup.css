@@ -1,1 +1,27 @@
-:root{color-scheme:dark light;font-family:system-ui,sans-serif;background:#171b22;color:#ebeff5}body{margin:0}main{max-width:54rem;padding:clamp(1rem,4vw,3rem);margin:auto;line-height:1.5}header{display:flex;align-items:center;justify-content:space-between}h1{margin:.25rem 0}h2{margin-top:1rem}section{padding:1rem 0;border-top:1px solid #566273}.actions{display:flex;gap:.7rem;flex-wrap:wrap}button,a{font:inherit;padding:.6rem .9rem;border:1px solid #7388a3;border-radius:.4rem;background:#263448;color:inherit;text-decoration:none;cursor:pointer}.primary,#open{background:#285ba0}button:disabled{opacity:.5;cursor:default}[hidden]{display:none!important}progress{width:100%;height:1rem}#status{white-space:pre-wrap;overflow-wrap:anywhere}#limits,#storage-info,#install-help{font-size:.92rem;color:#b8c5d6}li{margin:.5rem 0}
+/* Share the workspace palette, typography and controls instead of a separate theme. */
+body.offline-setup{display:flex;flex-direction:column;height:100dvh}
+.offline-setup .app-toolbar{gap:5px;padding:5px 8px;min-height:42px}
+.offline-setup .brand{font-size:16px;margin-right:4px}
+.offline-setup .app-toolbar button,.offline-setup .app-toolbar summary,.toolbar-link{font-size:12px;min-height:28px;padding:4px 7px}
+.offline-setup .theme-button{border-radius:4px}
+.offline-setup .icon-button{width:29px;height:29px;padding:0}
+.toolbar-link{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:4px;background:var(--raised);color:var(--ink);text-decoration:none;white-space:nowrap}
+.toolbar-link:hover{background:var(--hover)}
+.offline-content{flex:1;min-width:0;overflow:auto;padding:24px clamp(16px,3vw,48px);scroll-behavior:smooth}
+.offline-content>h1,.offline-content>p,.offline-content>section{max-width:64rem}
+.offline-content h1{font-size:21px;margin:0 0 8px;font-weight:600}
+.offline-content #intro{color:var(--muted);margin:0 0 24px}
+.offline-content section{padding:18px 0;border-top:1px solid var(--line);scroll-margin-top:12px}
+.offline-content h2{font-size:15px;margin:0 0 8px;font-weight:600}
+.offline-content p{margin:8px 0 12px}
+.actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.offline-help{margin-top:12px;color:var(--muted);font-size:12px}
+.offline-help summary{cursor:pointer;width:fit-content}
+.offline-help a{color:var(--accent)}
+#selected:empty,.actions:has(>[hidden]):not(:has(>:not([hidden]))){display:none}
+#selected{color:var(--accent);overflow-wrap:anywhere}
+.offline-setup .statusbar{min-height:30px;font-size:11px}
+.offline-setup .statusbar progress{width:180px;height:6px}
+#status{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:760px){.offline-content{padding:20px 16px}.offline-setup .brand small{display:none}.offline-setup .statusbar progress{width:80px}}
+@media(prefers-reduced-motion:reduce){.offline-content{scroll-behavior:auto}}
