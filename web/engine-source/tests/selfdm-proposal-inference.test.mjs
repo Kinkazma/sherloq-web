@@ -17,7 +17,8 @@ function fixture({failFirst=false}={}) {
 test('complete-pipeline preparation passes the owned source without a duplicate tensor or silent resize',async()=>{
   const prepare=createSelfDMProposalPrepare(),input={...source,side:512};const result=await prepare.run(input);
   assert.equal(result.inferenceInput.data,source.data);assert.equal(result.tensor,undefined);result.release();
-  await assert.rejects(prepare.run({...input,width:640}),error=>error.code==='METHOD_DIMENSIONS_UNQUALIFIED'&&error.details.automaticDownscale===false);
+  const rectangle={width:640,height:416,side:512,format:'rgb8',data:new Uint8Array(640*416*3)};const prepared=await prepare.run(rectangle);assert.equal(prepared.inferenceInput.data,rectangle.data);assert.equal(prepared.inferenceInput.width,640);prepared.release();
+  await assert.rejects(prepare.run({...rectangle,data:new Uint8Array(1)}),error=>error.code==='INVALID_INPUT');
   prepare.dispose();await assert.rejects(prepare.run(input),error=>error.code==='INVALID_INPUT');
 });
 test('the same immutable source reuses its bundle and checkpoint owner',async()=>{

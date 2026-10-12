@@ -20,8 +20,8 @@ class Worker {
   }
   terminate() {this.terminated = true;}
 }
-function setup({maxWorkers = 4, action = worker => worker.result(), budget = new Budget(2048 * MiB)} = {}) {
-  const workers = [], inference = createSelfDMInference({budget, profile: {maxWorkers}, model, modelUrl: 'https://example.invalid/selfdm-map-512.onnx', workerFactory() {const worker = new Worker(action); workers.push(worker); return worker;}});
+function setup({maxWorkers = 4, action = worker => worker.result(), budget = new Budget(2048 * MiB), backend='cpu'} = {}) {
+  const workers = [], inference = createSelfDMInference({budget, profile: {maxWorkers}, model, backend, modelUrl: 'https://example.invalid/selfdm-map-512.onnx', workerFactory() {const worker = new Worker(action); workers.push(worker); return worker;}});
   return {budget, inference, workers};
 }
 
@@ -93,8 +93,21 @@ test('SelfDM admission refusal never starts a worker or probes memory', async ()
   finally {inference.dispose();}
 });
 
-test('SelfDM rejects incompatible models, profiles and unqualified backends', () => {
+test('SelfDM GPU dispatch uses the bounded asyncify runtime and common GPU admission',async()=>{
+  const descriptor=Object.getOwnPropertyDescriptor(globalThis,'navigator');
+  Object.defineProperty(globalThis,'navigator',{configurable:true,value:{gpu:{}}});
+  const {budget,inference,workers}=setup({backend:'webgpu'});
+  try{
+    const output=await inference.run(input());
+    assert.equal(workers[0].jobs[0].provider,'webgpu');assert.match(workers[0].jobs[0].runtime.factoryUrl,/selfdm-runtime-gpu-factory.mjs$/);
+    assert.match(workers[0].jobs[0].runtime.wasmUrl,/ort-wasm-simd-threaded.asyncify.wasm$/);
+    assert.equal(output.metrics.provider,'webgpu');assert.equal(output.metrics.gpuGranted,1);assert.equal(output.metrics.cpuGranted,1);
+    output.release();inference.releaseIdle();assert.equal(budget.total(),0);
+  }finally{inference.dispose();if(descriptor)Object.defineProperty(globalThis,'navigator',descriptor);else delete globalThis.navigator;}
+});
+
+test('SelfDM rejects incompatible models, profiles and unsupported backends', () => {
   const budget = new Budget(2048 * MiB), options = {budget, profile: {maxWorkers: 4}, model, modelUrl: 'https://example.invalid/selfdm-map-512.onnx'};
-  for (const patch of [{profile: undefined}, {model: {...model, side: 256}}, {model: {...model, kind: 'softmax'}}, {backend: 'webgpu'}]) assert.throws(() => createSelfDMInference({...options, ...patch}), {code: 'INVALID_INPUT'});
+  for (const patch of [{profile: undefined}, {model: {...model, side: 256}}, {model: {...model, kind: 'softmax'}}, {backend: 'metal'}]) assert.throws(() => createSelfDMInference({...options, ...patch}), {code: 'INVALID_INPUT'});
   assert.equal(budget.total(), 0);
 });

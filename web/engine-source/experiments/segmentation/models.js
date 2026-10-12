@@ -15,7 +15,10 @@ export const SEGMENTATION_MODELS = Object.freeze({
     family:'selfdm', side:512, kind:'sigmoid', bytes:62971505,
     sha256:'933ce196b044f0df1d3e0aa2dabe79907b6406e1aa9384cc7bb831922b1d4d59',
     checkpointSha256:'5d8ad8b3fe51c31c150bc9b26a858ad1e9653f05cbd0415ae0c36bf8952ab574',
-    status:'experimental-initial-map-cpu-corpus', cpuContinuousBitExact:false,
+    gpu:Object.freeze({id:'selfdm-initial-map-native512-topk48-v1',bytes:62971505,
+      sha256:'933ce196b044f0df1d3e0aa2dabe79907b6406e1aa9384cc7bb831922b1d4d59',
+      sharedAssets:true,status:'experimental-webgpu-native-corpus'}),
+    status:'experimental-initial-map-cpu-and-webgpu-corpus', cpuContinuousBitExact:false,
     numericalParity:'Initial map only. Native BGR/mean preparation; two declared images have zero threshold-0.5 mask differences, maximum probability error 2.67e-4. Proposal SuperGlue refinement is not included.',
     license:'Research use only; local integration, no public redistribution authorization.'
   }),

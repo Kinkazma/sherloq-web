@@ -2,10 +2,12 @@
 // No components, hole filling, thresholds supplied by the UI or role residuals.
 import {requireValue, checkAbort, controlCheckpoint} from '../../src/errors.js';
 
-export async function segmentationProbabilities({raw, side, kind}, {budget, signal} = {}) {
+export async function segmentationProbabilities({raw, side, kind, width = side, height = side, nativeResolution = false}, {budget, signal} = {}) {
   requireValue(budget && typeof budget.reserve === 'function', 'Shared budget required');
   requireValue([256, 512].includes(side) && ['sigmoid', 'softmax'].includes(kind), 'Native segmentation model grid required');
-  const n = side * side, roles = kind === 'softmax';
+  requireValue([width,height].every(v=>Number.isSafeInteger(v)&&v>0&&v<=131072)&&Number.isSafeInteger(width*height*4),'Probability grid geometry');
+  requireValue(nativeResolution ? kind==='sigmoid' : width===side&&height===side, 'Explicit original-resolution sigmoid grid or native fixed model grid required');
+  const n = width * height, roles = kind === 'softmax';
   requireValue(!roles || side === 256, 'Only MGCFDN source/target has three channels');
   requireValue(raw instanceof Float32Array && raw.length === n * (roles ? 3 : 1), 'Probability grid shape');
   checkAbort(signal); let borrowed, outputRelease, complete = false;

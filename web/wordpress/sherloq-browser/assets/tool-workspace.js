@@ -65,7 +65,7 @@ export function createToolWorkspace({document=globalThis.document,language,getCl
    const configureScope=()=>{
     const fr=language()==='fr';
     const d2=input.value==='d2prl',fg=isForgeryscope(input.value);
-    const backend=document.getElementById('tool-backend'),cpuOnly=input.value.startsWith('selfdm-');
+    const backend=document.getElementById('tool-backend'),cpuOnly=input.value==='selfdm-proposal';
     if(backend){for(const option of backend.options)if(option.value==='webgpu')option.disabled=cpuOnly;if(cpuOnly&&backend.value==='webgpu'){backend.value='auto';extras.backend='auto';}}
     scope.replaceChildren(new Option(fr?'Image entière':'Whole image','whole'),
      ...(!fg?[new Option(fr?'Rectangles dessinés':'Drawn rectangles','regions')]:[]),

@@ -43,6 +43,8 @@ function commonNeuralExecution(runs, values, concurrency, budget) {
 export function createSegmentationAnalysis({budget, prepare, inference, project, createLane}) {
   requireValue(budget && prepare && inference?.model && project, 'Actual segmentation pipeline required');
   const model = inference.model, rawBytes = model.side ** 2 * (model.kind === 'softmax' ? 3 : 1) * 4, prefix = 'segmentation-' + (++sequence) + ':';
+  const sourceResolution=model.family==='selfdm-proposal';
+  const bytesForZone=zone=>sourceResolution?(zone.bounds[2]-zone.bounds[0])*(zone.bounds[3]-zone.bounds[1])*4:rawBytes;
   const lanes = [{prepare, inference}];
   let revision = 0, current, tail = Promise.resolve(), last, disposed = false;
   const validate = (width, height, zones, mode, segmented = false) => {
@@ -79,7 +81,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
         lanes[i].inference.releaseIdle?.(); releasedSessionBytes += bytes - (lanes[i].inference.residentBytes ?? 0);
       }
     }
-    const result = await project.run({...context, side: model.side, kind: model.kind, zones: context.zones.map((zone, i) => ({...zone, raw: values[i].raw}))}, {signal: job.signal, onProgress: job.progress});
+    const result = await project.run({...context, side: model.side, kind: model.kind, zones: context.zones.map((zone, i) => ({...zone, raw: values[i].raw,...(sourceResolution?{rawWidth:values[i].rawWidth,rawHeight:values[i].rawHeight}:{})}))}, {signal: job.signal, onProgress: job.progress});
     try {
       job.check(); const resultId = prefix + job.revision, analysisId = context.analysisId ?? resultId;
       result.metadata = {...result.metadata, modelId: model.id, variant: model.variant, backend: inference.backend ?? 'cpu', execution: {...context.execution, projectionReleasedSessionBytes: releasedSessionBytes}, timings: {...counts.timings, projectionMs: performance.now() - projectionStarted}, pixelSha256: context.pixelSha256, resultId, analysisId, revision: job.revision, sourceProvenance: context.provenance, inferences: counts.inferences, cache_hits: counts.cacheHits, inference_performed: counts.inferences > 0, zones: result.metadata.zones.map((zone, i) => ({...zone, kind: context.zones[i].kind}))};
@@ -118,7 +120,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
           const scheduled = await runSegmentationZones({count:groups.length,lanes,signal:job.signal,run:async (groupIndex,lane,signal) => {
             job.check(); const group=groups[groupIndex],i=group.index,zone = context.zones[i], [x0, y0, x1, y1] = zone.bounds, width = x1 - x0, height = y1 - y0;
             let value = budget.get(zone.cacheKey);
-            if (value) {pinned.push(budget.reserve(rawBytes)); cacheHits++;}
+            if (value) {pinned.push(budget.reserve(value.raw.byteLength)); cacheHits++;}
             else {
               const cropRelease = segmented?null:budget.reserve(width * height * 3); let prepared, output;
               try {
@@ -137,8 +139,8 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
                 timings.neuralRpcMs += performance.now() - inferStarted;
                 for (const name of ['modelLoadMs', 'inferenceMs', 'outputCopyMs', 'gpuWriteBytes', 'gpuReadBytes', 'correlationMs', 'backboneMs', 'backboneSetupMs', 'parameterLoadMs', 'attentionMatmulMs', 'graphDistanceMs', 'correlationGpuMs']) timings[name] = (timings[name] ?? 0) + (output.timings?.[name] ?? 0);
                 if(model.splitGraph)for(const name of ['encoderMs','headMs'])timings[name]=(timings[name]??0)+(output.timings?.[name]??0);
-                requireValue(output.raw instanceof Float32Array && output.raw.byteLength === rawBytes, 'Actual model probability grid required');
-                pinned.push(budget.reserve(rawBytes)); value = {raw: output.raw, byteLength: rawBytes, heapBytes: output.heapBytes, gpuPeakBufferBytes: output.gpu?.peakAccountedBytes ?? 0, parameterCache:output.parameterCache, sessionCache:output.sessionCache, correlationWorkers: output.workers ?? 0, correlationHeapBytes: output.correlationObservedHeapBytes ?? 0, ...(model.family?.startsWith('selfdm')?{neuralMemoryMaximumBytes:output.metrics?.memoryMaximumBytes,...(output.metadata?{pipelineMetadata:{...structuredClone(output.metadata),coordinateFrame:'input-rectangle-pixels',originalBounds:[...zone.bounds],originalOrigin:zone.bounds.slice(0,2)}}:{})}: {})}; budget.put(zone.cacheKey, value); if (budget.get(zone.cacheKey) === value) inserted.push(zone.cacheKey); inferences++;
+                requireValue(output.raw instanceof Float32Array && output.raw.byteLength === bytesForZone(zone), 'Actual model probability grid required');
+                const actualRawBytes=bytesForZone(zone);pinned.push(budget.reserve(actualRawBytes)); value = {raw: output.raw, byteLength: actualRawBytes,...(sourceResolution?{rawWidth:zone.bounds[2]-zone.bounds[0],rawHeight:zone.bounds[3]-zone.bounds[1]}:{}), heapBytes: output.heapBytes, gpuPeakBufferBytes: output.gpu?.peakAccountedBytes ?? 0, parameterCache:output.parameterCache, sessionCache:output.sessionCache, correlationWorkers: output.workers ?? 0, correlationHeapBytes: output.correlationObservedHeapBytes ?? 0, ...(model.family?.startsWith('selfdm')?{neuralMemoryMaximumBytes:output.metrics?.memoryMaximumBytes,...(output.metadata?{pipelineMetadata:{...structuredClone(output.metadata),coordinateFrame:'input-rectangle-pixels',originalBounds:[...zone.bounds],originalOrigin:zone.bounds.slice(0,2)}}:{})}: {})}; budget.put(zone.cacheKey, value); if (budget.get(zone.cacheKey) === value) inserted.push(zone.cacheKey); inferences++;
               } finally {output?.release(); prepared?.release(); cropRelease?.();}
             }
             cacheHits += group.indices.length - 1; completedZones += group.indices.length;
@@ -163,14 +165,14 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
       return start(async job => {
         const values = context.zones.map(z => budget.get(z.cacheKey)); if (values.some(v => !v)) throw new EngineError('CACHE_MISS', 'Model grids evicted; explicit analysis required');
         if(model.family?.startsWith('selfdm'))Object.assign(context.execution,commonNeuralExecution([],values,{requested:0,observed:0,memoryBackoffs:0},budget));
-        const release = budget.reserve(rawBytes * values.length); try {return await finish(context, values, job, {inferences: 0, cacheHits: values.length});} finally {release();}
+        const release = budget.reserve(values.reduce((sum,v)=>sum+v.raw.byteLength,0)); try {return await finish(context, values, job, {inferences: 0, cacheHits: values.length});} finally {release();}
       }, options);
     },
     readRaw(resultId) {
       requireValue(!disposed && !current && last?.resultId === resultId, 'Current completed result required');
       const values = last.zones.map(z => budget.get(z.cacheKey)); if (values.some(v => !v)) throw new EngineError('CACHE_MISS', 'Model grids evicted; explicit analysis required');
-      const release = budget.reserve(rawBytes * values.length * 2);
-      try {return {width: last.width, height: last.height, rawGrids: values.map((v, i) => ({id: last.zones[i].id, kind: last.zones[i].kind, bounds: [...last.zones[i].bounds], raw: v.raw.slice()})), metadata: {...structuredClone(last.resultMetadata), raw_shape: [model.kind === 'softmax' ? 3 : 1, model.side, model.side], raw_filter_applied: false}, release};}
+      const release = budget.reserve(values.reduce((sum,v)=>sum+v.raw.byteLength,0)*2);
+      try {return {width: last.width, height: last.height, rawGrids: values.map((v, i) => ({id: last.zones[i].id, kind: last.zones[i].kind, bounds: [...last.zones[i].bounds], raw: v.raw.slice(),...(sourceResolution?{raw_shape:[1,v.rawHeight,v.rawWidth]}:{})})), metadata: {...structuredClone(last.resultMetadata), ...(sourceResolution?{raw_shapes:values.map(v=>[1,v.rawHeight,v.rawWidth])}:{raw_shape: [model.kind === 'softmax' ? 3 : 1, model.side, model.side]}), raw_filter_applied: false}, release};}
       catch (error) {release(); throw error;}
     },
     cancel() {current?.abort(); revision++;},

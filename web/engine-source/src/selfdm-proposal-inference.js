@@ -9,7 +9,9 @@ export function createSelfDMProposalPrepare() {
   return {
     async run(input, {signal} = {}) {
       requireValue(!disposed && input.side === 512, 'SelfDM Proposal preparation disposed or unsupported');
-      if (input.width !== 512 || input.height !== 512) throw new EngineError('METHOD_DIMENSIONS_UNQUALIFIED', 'SelfDM + Proposal SuperGlue currently requires a qualified 512 × 512 rectangle.', {details:{method:'selfdm-proposal', width:input.width, height:input.height, requiredWidth:512, requiredHeight:512, automaticDownscale:false}});
+      requireValue([input.width,input.height].every(v=>Number.isSafeInteger(v)&&v>0&&v<=131072)&&Number.isSafeInteger(input.width*input.height*4),'SelfDM original source geometry');
+      const streamed=typeof input.readRows==='function';
+      requireValue(streamed?input.data===undefined:input.readRows===undefined&&(input.data instanceof Uint8Array||input.data instanceof Uint8ClampedArray)&&input.data.length===input.width*input.height*3,'Owned RGB8 pixels or an exclusive source-row provider required');
       checkAbort(signal);
       return {inferenceInput:{...input,format:'rgb8'},release(){}};
     },
@@ -18,10 +20,10 @@ export function createSelfDMProposalPrepare() {
 }
 
 export function createSelfDMProposalInference({budget, profile, model, modelUrl, backend = 'cpu', engineFactory = (...args) => new SelfDMProposalEngine(...args), bundleLoader = loadSelfDMProposalBundle}) {
-  requireValue(budget && Number.isSafeInteger(profile?.maxWorkers) && profile.maxWorkers > 0 && model?.family === 'selfdm-proposal' && backend === 'cpu', 'Qualified SelfDM Proposal profile and CPU backend required');
+  requireValue(budget && Number.isSafeInteger(profile?.maxWorkers) && profile.maxWorkers > 0 && model?.family === 'selfdm-proposal' && ['cpu','webgpu'].includes(backend), 'Qualified SelfDM Proposal compute profile required');
   let engine, sourceKey, bundle, busy = false, disposed = false;
   return {
-    model:structuredClone(model), backend:'cpu', requiresSourcePixels:true,
+    model:structuredClone(model), backend:backend==='webgpu'?'webgpu-cpu':'cpu', requiresSourcePixels:true,
     independentZoneWorker:true,
     get residentBytes() {return (engine?.pool?.slots??[]).reduce((sum,slot)=>sum+slot.bytes+(slot.threadLeases?.length??0)*2*1024**2,0) + [...(engine?.cvPools?.values()??[])].reduce((sum,pool)=>sum+[...(pool.workers?.values()??[])].reduce((n,slot)=>n+slot.bytes,0),0);},
     releaseIdle() {engine?.releaseIdle();},
@@ -36,7 +38,7 @@ export function createSelfDMProposalInference({budget, profile, model, modelUrl,
         // A fresh provider may own the same scientific pixels. Checkpoints use
         // sourceKey, while the source window belongs only to this invocation.
         engine.image = input;
-        const started = performance.now(), result = await engine.analyze({}, {signal,onProgress,models:bundle.models,cv:bundle.cv,backend:'cpu'});
+        const started = performance.now(), result = await engine.analyze({}, {signal,onProgress,models:bundle.models,cv:bundle.cv,backend});
         return {...result, timings:{...result.timings,totalMs:performance.now()-started}, modelId:model.id};
       } finally {if(engine)engine.image=null;busy = false;}
     },
