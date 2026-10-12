@@ -23,6 +23,7 @@ const codes={
  MEMORY_ALLOCATION:['Le navigateur a refusé une allocation de mémoire.','The browser refused a memory allocation.'],
  GPU_OUT_OF_MEMORY:['La mémoire graphique disponible ne suffit pas.','Available graphics memory is insufficient.'],
  UNSUPPORTED_BACKEND:['Ce mode de calcul n’est pas disponible pour cet outil. Choisissez Automatique ou CPU.','This computation mode is unavailable for this tool. Choose Automatic or CPU.'],
+ METHOD_DIMENSIONS_UNQUALIFIED:['Cette version expérimentale nécessite une image ou un rectangle de 512 × 512 pixels. Aucune réduction automatique n’est appliquée.','This experimental version requires a 512 × 512 image or rectangle. No automatic downscale is applied.'],
  UNSUPPORTED_OPERATION:['Cette opération n’est pas disponible avec cette configuration.','This operation is unavailable with this configuration.'],
  INVALID_INPUT:['Les réglages transmis au moteur ne sont pas valides.','The settings supplied to the engine are invalid.'],
  FEATURE_EXTRACTION_FAILED:['L’extraction des points caractéristiques a échoué. Le bouton Diagnostic donne la cause technique.','Feature extraction failed. Open Diagnostics for the technical cause.'],

@@ -1,0 +1,116 @@
+{
+  "scope": "VLFeat detector submodule only; not full SSG and not a MATLAB image/SSIM oracle",
+  "sourceCommit": "66bb26eca0c7e95c76042d5bcca58f744d70a27d",
+  "sourceVersion": "0.9.18",
+  "contract": {
+    "input": "Float32 grayscale 0..255, MATLAB column-major/transposed C geometry",
+    "octaves": -1,
+    "levels": 3,
+    "firstOctave": 0,
+    "peakThreshold": 0,
+    "edgeThreshold": 50,
+    "orientationDuplicatesPreserved": true,
+    "frames": "Float64 [x+1,y+1,sigma,pi/2-angle] per official MATLAB wrapper",
+    "descriptors": "not requested; SSG Point discards them"
+  },
+  "nativeCompiler": "Homebrew clang version 23.1.0",
+  "wasmCompiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "floatingPoint": "scalar strict -ffp-contract=off, matching pinned algorithm; continuous tolerance and exact rounded centers tested",
+  "platformAdaptation": "generic.c constructor dispatch adds __EMSCRIPTEN__; host.c disables x86 CPUID on non-x86 ARM/WASM; no numerical source changes",
+  "modelWeightsRequired": false,
+  "cases": [
+    {
+      "name": "seeded-texture-257x193",
+      "count": 36,
+      "wasmWallMs": 114.345958,
+      "heapBytes": 33554432,
+      "rows": 193,
+      "cols": 257,
+      "inputSha256": "b53b31b5c002eff06f6dfb17abe02bf9eb53e943d0d2dd1ff500063e4f012f0b",
+      "nativeWallMs": 13.887750043068081,
+      "nativeFramesSha256": "d128bdedd74f7f12f50922c9b05572647401de1eb083e3a447fffb2eea3cbc81",
+      "maxAbsoluteByAxis": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meanAbsoluteByAxis": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "matlabRoundedCentersIdentical": true,
+      "allFrameValuesBitExact": true,
+      "wasmFramesSha256": "d128bdedd74f7f12f50922c9b05572647401de1eb083e3a447fffb2eea3cbc81"
+    },
+    {
+      "name": "real-photo-copy512",
+      "count": 1949,
+      "wasmWallMs": 433.375625,
+      "heapBytes": 33554432,
+      "rows": 512,
+      "cols": 512,
+      "inputSha256": "bd150ade256c991d4f12606a2c6cf74be9473836e63c86a41fbfc88d33d2edf1",
+      "nativeWallMs": 339.16604198748246,
+      "nativeFramesSha256": "3c8e484caa3de43ad729b253ad5336f89b9d121dde01848db1feab307ba5285a",
+      "maxAbsoluteByAxis": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meanAbsoluteByAxis": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "matlabRoundedCentersIdentical": true,
+      "allFrameValuesBitExact": true,
+      "wasmFramesSha256": "3c8e484caa3de43ad729b253ad5336f89b9d121dde01848db1feab307ba5285a"
+    }
+  ],
+  "files": {
+    "vlfeat.mjs": {
+      "bytes": 9463,
+      "sha256": "86e61d613e3abc23624339d96e8bf9d1c84a622afc8e3b28f86d4c6977aeeb0f"
+    },
+    "generic-wasm.c": {
+      "bytes": 57442,
+      "sha256": "946dc79e26bd1d274ef8f2b65b1dbfa766d191991ed8036e45ab62f0ef20940d"
+    },
+    "vlfeat.wasm": {
+      "bytes": 50554,
+      "sha256": "8025e4fe8d1fac20bc1a2b98428eea3f74f2101dd79ffae759d62bcb1e713699"
+    },
+    "host-portable.c": {
+      "bytes": 16017,
+      "sha256": "c0e93cd14487b673aa7ee625bef36ffb71962537298be483e45c50a99dbfe783"
+    },
+    "wrapper.c": {
+      "bytes": 2227,
+      "sha256": "38549c5c2c05f804f6c50b93aacb1a49e61f5b7b38de41a9cdf2a61e0c3dd4a6"
+    }
+  },
+  "facadeSyntheticReference": {
+    "generator": "xorshift32 seed10212, shifts13/17/5, gray=state&255",
+    "width": 257,
+    "height": 193,
+    "count": 38,
+    "nativeFrameSha256": "657e38e304967c1820073d7b0a70f93590424629fae70548f4ef91d9ed26b25b",
+    "frameConvention": "official MATLAB x/y one-based, sigma, orientation; orientation duplicates preserved"
+  },
+  "facadeQualification": {
+    "testsPassed": 10,
+    "nativeWorkspaceRefusal": "true32MiB allocation refusal on1024x1024 is returned as MEMORY_ALLOCATION and retired before useful retry",
+    "growth": "1024x1024 real native SIFT runs with admitted geometry cap, cache retirement preserves independent result arrays",
+    "heapGrowthAdapter": "Reviewed getHeapMax uses caller-admitted maximumHeapBytes, imported memory enforces same physical cap; numerical WASM unchanged.",
+    "overgrowthRegression": "32MiB initial/33MiB maximum arena;30MiB+1.5MiB allocations fail with compiled2GiB helper but succeed with caller-admitted33MiB bound"
+  },
+  "rebuildVerified": {
+    "wasmSha256": "8025e4fe8d1fac20bc1a2b98428eea3f74f2101dd79ffae759d62bcb1e713699",
+    "jsSha256": "86e61d613e3abc23624339d96e8bf9d1c84a622afc8e3b28f86d4c6977aeeb0f"
+  }
+}

@@ -18,7 +18,9 @@ export function createSegmentationZones({budget, spatial}) {
       for (const zone of zones) {
         const b = zone.bounds, minimum = mode === 'whole-image' ? 1 : 8;
         requireValue(Array.isArray(b) && b.length === 4 && b.every(Number.isInteger) && b[0] >= 0 && b[1] >= 0 && b[2] <= width && b[3] <= height && b[2] - b[0] >= minimum && b[3] - b[1] >= minimum, 'Valid half-open source rectangle required');
-        requireValue(typeof zone.id === 'string' && zone.id.length > 0 && !ids.has(zone.id) && zone.raw instanceof Float32Array && zone.raw.length === channels * side * side, 'Unique zone identity and raw probability grid required');
+        const native=zone.rawWidth!==undefined||zone.rawHeight!==undefined;
+        requireValue(!native||kind==='sigmoid'&&zone.rawWidth===b[2]-b[0]&&zone.rawHeight===b[3]-b[1], 'Original-resolution grid must match its source rectangle');
+        requireValue(typeof zone.id === 'string' && zone.id.length > 0 && !ids.has(zone.id) && zone.raw instanceof Float32Array && zone.raw.length === channels * (native?zone.rawWidth*zone.rawHeight:side*side), 'Unique zone identity and raw probability grid required');
         ids.add(zone.id);
       }
       checkAbort(signal); busy = true;
@@ -31,16 +33,17 @@ export function createSegmentationZones({budget, spatial}) {
         const target = roles ? new Float32Array(n) : undefined, source = roles ? new Float32Array(n) : undefined, metadata = [];
         for (let index = 0; index < zones.length; index++) {
           const zone = zones[index], [x0, y0, x1, y1] = zone.bounds, w = x1 - x0, h = y1 - y0;
-          const grid = await segmentationProbabilities({raw: zone.raw, side, kind}, {budget, signal});
+          const native=zone.rawWidth!==undefined,gridWidth=native?zone.rawWidth:side,gridHeight=native?zone.rawHeight:side;
+          const grid = await segmentationProbabilities({raw: zone.raw, side, kind,width:gridWidth,height:gridHeight,nativeResolution:native}, {budget, signal});
           let projectedForeground = false;
           try {
             for (const [name, destination] of [['map', map], ['mask', mask], ...(roles ? [['target', target], ['source', source]] : [])]) {
               let temporaryRelease, input = grid[name];
               try {
-                if (name === 'mask') {temporaryRelease = budget.reserve(input.length * 4); input = Float32Array.from(input);}
-                const resized = await spatial.run({input, width: side, height: side, outWidth: w, outHeight: h, nearest: name === 'mask'}, {signal});
+                if (name === 'mask'&&!native) {temporaryRelease = budget.reserve(input.length * 4); input = Float32Array.from(input);}
+                const resized = native?{data:input,release(){}}:await spatial.run({input, width: side, height: side, outWidth: w, outHeight: h, nearest: name === 'mask'}, {signal});
                 try {
-                  requireValue(resized.data instanceof Float32Array && resized.data.length === w * h, 'Spatial backend output shape');
+                  requireValue((resized.data instanceof Float32Array||native&&name==='mask'&&resized.data instanceof Uint8Array) && resized.data.length === w * h, 'Spatial backend output shape');
                   for (let y = 0; y < h; y++) {
                     for (let x = 0; x < w; x++) {
                       const value = resized.data[y * w + x], at = (y + y0) * width + x + x0;
@@ -55,11 +58,12 @@ export function createSegmentationZones({budget, spatial}) {
               } finally {temporaryRelease?.();}
             }
           } finally {grid.release();}
-          metadata.push({id: zone.id, bounds: [...zone.bounds], origin: [x0, y0], analysis_shape: [channels, side, side], status: projectedForeground ? 'ok' : 'empty'});
+          metadata.push({id: zone.id, bounds: [...zone.bounds], origin: [x0, y0], analysis_shape: [channels, gridHeight, gridWidth], status: projectedForeground ? 'ok' : 'empty',...(native?{probability_interpolation:'none',mask_interpolation:'none'}:{})});
           onProgress?.({phase: 'segmentation-projection', completed: index + 1, total: zones.length}); checkAbort(signal);
         }
         checkAbort(signal); complete = true;
-        return {width, height, map, mask, analyzed, candidates, ...(roles ? {target, source} : {}), metadata: {boxes: zones.map(z => [...z.bounds]), zones: metadata, status: mask.some(Boolean) ? 'ok' : 'empty', channel_order: roles ? ['target', 'source', 'background'] : ['union_probability'], threshold: .5, threshold_rule: roles ? 'target>=0.5 OR source>=0.5' : 'probability>0.5', probability_interpolation: 'bilinear', mask_interpolation: 'nearest', inference_performed: false, raw_filter_applied: false}, release: outputRelease};
+        const allNative=zones.every(z=>z.rawWidth!==undefined);
+        return {width, height, map, mask, analyzed, candidates, ...(roles ? {target, source} : {}), metadata: {boxes: zones.map(z => [...z.bounds]), zones: metadata, status: mask.some(Boolean) ? 'ok' : 'empty', channel_order: roles ? ['target', 'source', 'background'] : ['union_probability'], threshold: .5, threshold_rule: roles ? 'target>=0.5 OR source>=0.5' : 'probability>0.5', probability_interpolation: allNative?'none':'bilinear', mask_interpolation: allNative?'none':'nearest', inference_performed: false, raw_filter_applied: false}, release: outputRelease};
       } finally {borrowed?.(); if (!complete) outputRelease?.(); busy = false;}
     }
   };

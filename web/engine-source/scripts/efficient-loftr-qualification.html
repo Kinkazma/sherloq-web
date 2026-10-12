@@ -1,0 +1,51 @@
+<!doctype html><meta charset="utf-8"><link rel="icon" href="data:,"><title>EfficientLoFTR — qualification numérique locale</title>
+<p id="status">Prêt</p><p>Calculs terminés : <span id="completed">0</span></p><pre id="result"></pre>
+<script type="module">
+import {NeuralGraphPool} from '/engine-source/src/neural-graph-pool.js';
+import {EFFICIENT_LOFTR_ASSET,efficientLoFtrRuntimes} from '/engine-source/src/efficient-loftr-assets.js';
+import {efficientLoFtrWorkspace} from '/engine-source/src/efficient-loftr-input.js';
+import {pairedBiomes} from '/engine-source/src/copy-biomes.js';
+import {verifyCopyGeometry,createGeometryKernel} from '/engine-source/src/copy-geometry.js';
+import {Budget} from '/engine-source/src/cache.js';
+import {getExecutionScheduler} from '/engine-source/src/execution-scheduler.js';
+const status=document.querySelector('#status'),completed=document.querySelector('#completed');
+const hash=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');
+const read=async spec=>{const r=await fetch(spec.file);if(!r.ok)throw Error('Reference HTTP '+r.status+': '+spec.file);const a=await r.arrayBuffer();if(a.byteLength!==spec.bytes||await hash(a)!==spec.sha256)throw Error('Reference identity mismatch '+spec.file);return a;};
+async function geometryComparison(expected,actual,{budget,admit,kernel}){
+ const count=expected.confidence.length;
+ if(!count)return {groupsEqual:true,inliersEqual:true,maximumMatrixDifference:0,sourceHullOverlap:1,targetHullOverlap:1,maximumDisplacementDifference:0};
+ admit(count*(14*8*2+4*8*2)+4096);
+ const convert=output=>{const points=new Float64Array(count*14),pairs=new Float64Array(count*4);for(let i=0;i<count;i++){const x=output.keypoints0[i*2],y=output.keypoints0[i*2+1],u=output.keypoints1[i*2],v=output.keypoints1[i*2+1];points.set([x,y,8,-1,output.confidence[i],0,0,u,v,8,-1,output.confidence[i],0,1],i*14);pairs.set([i*2,i*2+1,output.confidence[i],Math.hypot(x-u,y-v)],i*4);}return{points,pairs};};
+ const a=convert(expected),b=convert(actual),groupsA=await pairedBiomes(a.points,a.pairs,50,{reserveMemory:admit}),groupsB=await pairedBiomes(b.points,b.pairs,50,{reserveMemory:admit}),
+ native=await verifyCopyGeometry(a.points,a.pairs,groupsA,{model:'Affine',threshold:3,minimum:24,reserveMemory:admit,kernel}),browser=await verifyCopyGeometry(b.points,b.pairs,groupsB,{model:'Affine',threshold:3,minimum:24,reserveMemory:admit,kernel});
+ let maximumMatrixDifference=0;if(native.models.length!==browser.models.length)maximumMatrixDifference=Infinity;else for(let i=0;i<native.models.length;i++){const x=native.models[i].matrix.flat(),y=browser.models[i].matrix.flat();for(let j=0;j<9;j++)maximumMatrixDifference=Math.max(maximumMatrixDifference,Math.abs(x[j]-y[j]));}
+ let maximumDisplacementDifference=0,total=0;for(let i=0;i<count;i++){const d=Math.hypot((actual.keypoints1[i*2]-actual.keypoints0[i*2])-(expected.keypoints1[i*2]-expected.keypoints0[i*2]),(actual.keypoints1[i*2+1]-actual.keypoints0[i*2+1])-(expected.keypoints1[i*2+1]-expected.keypoints0[i*2+1]));maximumDisplacementDifference=Math.max(maximumDisplacementDifference,d);total+=d;}
+ return {groupsEqual:JSON.stringify(groupsA.map(x=>[...x]))===JSON.stringify(groupsB.map(x=>[...x])),inliersEqual:JSON.stringify(native.groups.map(x=>[...x]))===JSON.stringify(browser.groups.map(x=>[...x])),nativeGroups:groupsA.map(x=>x.length),browserGroups:groupsB.map(x=>x.length),nativeInliers:native.groups.map(x=>x.length),browserInliers:browser.groups.map(x=>x.length),maximumMatrixDifference,maximumDisplacementDifference,meanDisplacementDifference:total/count,sourceHullOverlap:kernel.overlap(Float64Array.from(expected.keypoints0),Float64Array.from(actual.keypoints0)),targetHullOverlap:kernel.overlap(Float64Array.from(expected.keypoints1),Float64Array.from(actual.keypoints1))};
+}
+window.runEfficientLoFtrQualification=async({threads=1,backend='cpu',cases=['smaller-shapes','no-matches']}={})=>{
+ let geometryKernel;const geometryLeases=[];const reference=await(await fetch('reference.json')).json(),budget=new Budget(3*1024**3),scheduler=getExecutionScheduler(budget,{maxWorkers:threads}),
+ pool=new NeuralGraphPool(budget,{maxWorkers:threads},{assets:{eloftr:{...EFFICIENT_LOFTR_ASSET,url:new URL('../efficient-loftr-full-fp32.onnx',location.href).href}},runtimes:efficientLoFtrRuntimes(),resourceOwner:'sift',...(backend==='webgpu'?{workerFactory:()=>new Worker(new URL('./qualification-gpu-worker.mjs',location.href),{type:'module'})}:{})}),
+ report={schema:1,scope:'Native FP32 pair outputs against real Chromium common NeuralGraphPool and ORT. No user/UI image path claim.',backend,requestedThreads:threads,crossOriginIsolated,sharedMemory:typeof SharedArrayBuffer!=='undefined',records:[],model:reference.model,parityBounds:{sourcePixel:1,targetPixel:1.25,meanCoordinate:.01,confidence:2e-5,scope:'ORT1.30 WASM vs native Torch FP32; adjacent fine argmax near ties allowed, counts unchanged'}},started=performance.now();
+ try{
+  if(!crossOriginIsolated)throw Error('Missing real browser shared memory');
+  for(const record of reference.records.filter(r=>cases.includes(r.name))){
+   const leases=[];let result;try{
+    const inputs={},saved={};for(const key of ['image0','image1','threshold']){const spec=record.files[key];leases.push(budget.reserve(spec.bytes));const a=await read(spec);inputs[key]={data:new Float32Array(a),dims:spec.dims,type:'float32'};saved[key]=spec.sha256;}
+    const a={width:inputs.image0.dims[3],height:inputs.image0.dims[2]},b={width:inputs.image1.dims[3],height:inputs.image1.dims[2]},progress=[];
+    status.textContent='Calcul '+record.name;
+    result=await pool.run('eloftr',inputs,{...efficientLoFtrWorkspace(a,b),backend,onProgress:e=>progress.push({...e,cpuAdmitted:scheduler.snapshot().active.cpu})});
+    const errors={},counts={},disagreements=[],expectedOutputs={};for(const key of ['keypoints0','keypoints1','confidence']){const spec=record.files[key];leases.push(budget.reserve(spec.bytes));const expected=new Float32Array(await read(spec)),actual=result.result[key].data;expectedOutputs[key]=expected;counts[key]=actual.length;if(actual.length!==expected.length)throw Error(record.name+' '+key+' count '+actual.length+' != '+expected.length);let max=0,total=0;for(let i=0;i<actual.length;i++){if(!Number.isFinite(actual[i]))throw Error('Nonfinite '+key);const d=Math.abs(actual[i]-expected[i]);if(d>.35&&disagreements.length<128)disagreements.push({key,index:i,actual:actual[i],expected:expected[i]});max=Math.max(max,d);total+=d;}errors[key]={maximum:max,mean:actual.length?total/actual.length:0};}
+    const sourcePreserved=await Promise.all(Object.entries(inputs).map(async([key,value])=>await hash(value.data)===saved[key]));
+    const r={name:record.name,counts,errors,disagreements,qualificationGpu:result.qualificationGpu,metrics:result.metrics,heapBytes:result.heapBytes,runtime:result.runtime,progress,sourcePreserved:sourcePreserved.every(Boolean)};if(backend==='webgpu'){const admit=n=>{const f=budget.reserve(n);geometryLeases.push(f);return f;};if(r.counts.confidence)geometryKernel??=await createGeometryKernel({reserveMemory:admit});r.geometry=await geometryComparison(expectedOutputs,Object.fromEntries(Object.entries(result.result).map(([key,value])=>[key,value.data])),{budget,admit,kernel:geometryKernel});}
+    report.records.push(r);completed.textContent=String(report.records.length);
+    if(!r.sourcePreserved||backend==='cpu'&&(errors.keypoints0.maximum>1||errors.keypoints1.maximum>1.25)||errors.keypoints0.mean>.01||errors.keypoints1.mean>.01||errors.confidence.maximum>2e-5||result.metrics.preflightExecutions||backend==='webgpu'&&(!r.geometry.groupsEqual||!r.geometry.inliersEqual||r.geometry.maximumMatrixDifference>.001||r.geometry.maximumDisplacementDifference>.35||r.geometry.sourceHullOverlap<.999||r.geometry.targetHullOverlap<.999))throw Error('Native FP32 parity failed '+record.name);
+    if(backend==='cpu'&&(result.metrics.threads!==threads||result.metrics.cpuGranted!==threads))throw Error('Requested thread team was not admitted');
+    if(backend==='webgpu'&&(result.metrics.provider!=='webgpu'||!(result.qualificationGpu?.queueSubmissions>0)))throw Error('Forced WebGPU silently substituted');
+   }finally{result?.release();for(const release of leases.reverse())release();}
+  }
+  report.status='native-and-chromium-common-'+backend+'-qualified';
+ }catch(error){report.status='failed';report.error={name:error.name,code:error.code,message:error.message,stack:error.stack,details:error.details,cause:error.cause&&{name:error.cause.name,message:error.cause.message}};}
+ finally{pool.dispose();geometryKernel?.dispose();for(const f of geometryLeases.reverse())f();report.elapsedMs=performance.now()-started;report.memoryAfterDispose=budget.snapshot();report.backingsAfterDispose=budget.resourceSnapshot();report.scheduler=scheduler.snapshot();if(Object.values(report.backingsAfterDispose.domains).some(d=>d.backings||d.reservedBytes||d.materializedBytes)||report.backingsAfterDispose.operations.length||budget.total()!==0||report.scheduler.active.cpu!==0||report.scheduler.active.gpu!==0||report.scheduler.queued!==0)report.status='failed-release';status.textContent=report.status;status.dataset.status=report.status;document.querySelector('#result').textContent=JSON.stringify(report,null,2);window.qualificationReport=report;}
+ return report;
+};
+</script>
