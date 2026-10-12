@@ -24,18 +24,24 @@ export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>
  async function read(h,observe=()=>{}){
   const report=value=>{try{observe({chunk:h,expectedBytes:manifest.chunks[h],...value});}catch{}};
   if(!Object.hasOwn(manifest.chunks,h))throw Error('Unknown dependency chunk');
-  const c=await cache(),url=key(h);let cached=await c?.match(url).catch(()=>null);
-  if(cached){try{const bytes=await verify(h,new Uint8Array(await cached.arrayBuffer()));report({level:'info',kind:'dependency.cache-hit'});return bytes;}catch(error){report({level:'warning',kind:'dependency.cache-invalid',error:{message:error.message}});await c.delete(url).catch(()=>{});}}
-  let bytes,localSource=false;if(archive)try{const value=await archive(h);if(value){bytes=await verify(h,value);localSource=true;report({level:'info',kind:'dependency.archive-hit'});}}catch(error){report({level:'warning',kind:'dependency.archive-invalid',error:{message:error.message}});}
-  const local=bytes?null:await folder().catch(()=>null);
-  if(local)for(const {path,offset} of locations.get(h)||[])try{const file=await(await libraryFile(local,path)).getFile();bytes=await verify(h,new Uint8Array(await file.slice(offset,offset+manifest.chunks[h]).arrayBuffer()));localSource=true;break;}catch{/* Missing, changed or permission expired: try another copy, then GitHub. */}
+  const c=await cache(),url=key(h);let cached=await c?.match(url).catch(()=>null),localCause;const localFailures=[];
+  const localFailure=(source,error)=>{localCause=error;localFailures.push({source,name:error.name,code:error.code,message:error.message});};
+  if(cached){try{const bytes=await verify(h,new Uint8Array(await cached.arrayBuffer()));report({level:'info',kind:'dependency.cache-hit'});return bytes;}catch(error){localFailure('cache',error);report({level:'warning',kind:'dependency.cache-invalid',error:{message:error.message}});await c.delete(url).catch(()=>{});}}
+  let bytes,localSource=false;if(archive)try{const value=await archive(h);if(value){bytes=await verify(h,value);localSource=true;report({level:'info',kind:'dependency.archive-hit'});}}catch(error){localFailure('archive',error);report({level:'warning',kind:'dependency.archive-invalid',error:{message:error.message}});}
+  const local=bytes?null:await folder().catch(error=>{localFailure('folder-access',error);return null;});
+  if(local)for(const {path,offset} of locations.get(h)||[])try{const file=await(await libraryFile(local,path)).getFile();if(file.size!==manifest.files[path].size)throw Error('Local library file length differs: '+path);bytes=await verify(h,new Uint8Array(await file.slice(offset,offset+manifest.chunks[h]).arrayBuffer()));localSource=true;report({level:'info',kind:'dependency.folder-hit',file:path});break;}catch(error){localFailure('folder',error);report({level:'warning',kind:'dependency.folder-invalid',file:path,error:{message:error.message}});}
   // Small modules physically bundled in WordPress also belong to the complete
   // standard library export. Do not fetch a second copy from GitHub for them.
   if(!bytes)for(const {path,offset} of locations.get(h)||[])if(manifest.localFiles?.includes(path))try{
    const response=await fetcher(new URL(path,scope),{credentials:'omit',referrerPolicy:'no-referrer'});
    if(response.ok){const data=new Uint8Array(await response.arrayBuffer());bytes=await verify(h,data.subarray(offset,offset+manifest.chunks[h]));break;}
-  }catch{/* The immutable remote copy remains the fallback. */}
+  }catch(error){localFailure('bundled',error);}
   if(!bytes){
+   const files=(locations.get(h)||[]).map(({path})=>path);
+   if(files.length&&files.every(path=>manifest.files[path].localOnly===true)){
+    const error=Object.assign(new Error('This model requires its original local files. Connect a library folder or import its verified archive.',localCause?{cause:localCause}:undefined),{code:'MODEL_LOCAL_REQUIRED',details:{files,expectedSha256:h,expectedBytes:manifest.chunks[h],localFailures}});
+    report({level:'error',kind:'dependency.local-required',error:{code:error.code,message:error.message,details:error.details,cause:localCause&&{message:localCause.message}}});throw error;
+   }
    if(!base)throw Error('DEPENDENCY_OFFLINE_MISSING: '+h);
    const requestedURL=new URL('chunks/'+h+'.bin',base).href;let response;try{response=await fetcher(requestedURL,{mode:'cors',credentials:'omit',referrerPolicy:'no-referrer'});}catch(cause){const error=Object.assign(new Error('Dependency network request failed.',{cause}),{code:'DEPENDENCY_NETWORK',details:{requestedURL,expectedSha256:h}});report({level:'warning',kind:'dependency.remote-failed',error:{code:error.code,message:error.message,details:error.details,cause:{message:cause.message}}});throw error;}
    report({level:'info',kind:'dependency.remote-response',requestedURL,finalURL:response.url,status:response.status,contentType:response.headers.get('content-type')});

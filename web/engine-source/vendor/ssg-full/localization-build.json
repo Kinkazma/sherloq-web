@@ -3,9 +3,9 @@
   "compiler": "Emscripten4.0.15",
   "definition": "independent SSG full localization; no MATLAB runtime or literal script parity claim",
   "command": [
-    "/Users/gaeldauchy/SHERLOQ/web-engine/.build/emsdk-4.0.15/upstream/emscripten/em++",
-    "/Users/gaeldauchy/SHERLOQ/methods-web-20261012/web/engine-source/vendor/ssg-full/localization.cpp",
-    "-I/Users/gaeldauchy/SHERLOQ/methods-web-20261012/web/engine-source/vendor/pocketfft",
+    "em++",
+    "vendor/ssg-full/localization.cpp",
+    "-Ivendor/pocketfft",
     "-O3",
     "-std=c++17",
     "-ffp-contract=off",
@@ -25,7 +25,7 @@
     "-sEXPORTED_FUNCTIONS=[\"_malloc\", \"_free\", \"_ssg_full_blur\", \"_ssg_full_roi\", \"_ssg_full_localize\", \"_ssg_full_ssim\", \"_ssg_full_salience\", \"_ssg_full_set_team\", \"_ssg_full_shutdown\", \"_ssg_full_morph\", \"_ssg_full_phrases\"]",
     "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPF64\",\"HEAPU32\"]",
     "-o",
-    "/Users/gaeldauchy/SHERLOQ/methods-web-20261012/web/engine-source/vendor/ssg-full/localization.mjs"
+    "vendor/ssg-full/localization.mjs"
   ],
   "files": {
     "localization.cpp": {
@@ -60,5 +60,6 @@
       "bytes": 171747,
       "sha256": "7c0e4456375c65f9acc1e492103d3f840d923965da8a9b7eb4e1e41b338a37f9"
     }
-  }
+  },
+  "commandDirectory": "web/engine-source"
 }

@@ -9,7 +9,7 @@ import {createRequire} from 'node:module';
 import {execFileSync} from 'node:child_process';
 import assert from 'node:assert/strict';
 const root=fileURLToPath(new URL('../',import.meta.url)),output=path.resolve(root,process.env.DELIVERY||'.build/github-delivery-100mb');
-const browsers=createRequire(new URL('../../web-engine-clone-panel-api/package.json',import.meta.url))('playwright'),kind=process.env.BROWSER||'chrome';
+const browsers=createRequire(import.meta.url)(process.env.PLAYWRIGHT_PACKAGE||'playwright'),kind=process.env.BROWSER||'chrome';
 const counts={appBytes:0,remoteBytes:0,remoteRequests:0},remotePaths=[];let offline=false;
 function serve(directory,remote=false){return createServer(async(req,res)=>{try{
  res.setHeader('Cross-Origin-Opener-Policy','same-origin');res.setHeader('Cross-Origin-Embedder-Policy','require-corp');res.setHeader('Cache-Control','no-store');
@@ -52,6 +52,39 @@ try{
    if(page.bytes.length<16)throw Error('Codec result missing');return {exactPixels:true,webpBytes:exported.byteLength,version:(await engine.capabilities()).version};
   }finally{await engine.dispose();}
  });
+ const optionalModels=await page.evaluate(async manifest=>{
+  const {createChunkLoader}=await import('./dependency-store.js');
+  const entries=Object.entries(manifest.files).filter(([,file])=>file.localOnly);
+  if(!entries.length)return {files:0};
+  let requests=0;const load=createChunkLoader(manifest,{base:manifest.remoteBase,scope:new URL('./',location.href),folder:async()=>null,cacheStorage:null,fetcher:async()=>{requests++;throw Error('Optional-model remote request');}});
+  for(const [name,file]of entries)try{await load(file.chunks[0]);throw Error('Missing optional model accepted: '+name);}catch(error){if(error.code!=='MODEL_LOCAL_REQUIRED')throw error;}
+  if(requests)throw Error('Restricted model requested remotely');
+  return {files:entries.length,missingCode:'MODEL_LOCAL_REQUIRED',remoteRequests:requests};
+ },manifest);
+ // Optional user-supplied models use exactly the same Service Worker URL as
+ // public models. A small real model suffices to exercise cache import/reuse.
+ if(process.env.LOCAL_MODEL_LIBRARY){
+  const entry=Object.entries(manifest.files).filter(([,file])=>file.localOnly).sort((a,b)=>a[1].size-b[1].size)[0];
+  if(entry){const [name,file]=entry,bytes=await fs.readFile(path.join(process.env.LOCAL_MODEL_LIBRARY,name));assert.equal(bytes.length,file.size);
+   optionalModels.imported=await page.evaluate(async({name,file,bytes,manifest})=>{
+    const {importLibraryFile}=await import('./dependency-tar.js'),{sha256}=await import('./dependency-core.js');
+    const cache=await caches.open('sherloq-dependency-chunks-v1');
+    await importLibraryFile(new Blob([Uint8Array.from(bytes)]),file,manifest,(hash,data)=>cache.put(new URL('./__dependency_chunks__/'+hash,location.href),new Response(data)));
+    const response=await fetch('./'+name),restored=new Uint8Array(await response.arrayBuffer());
+    if(!response.ok||await sha256(restored)!==file.sha256)throw Error('Imported local model identity differs');return {name,bytes:restored.length,sha256:file.sha256};
+   },{name,file,bytes:[...bytes],manifest});
+  }
+ }
+ const forestFactory=await page.evaluate(async manifest=>{
+  const name='individual-assets/m3/ssg/forest-manifest.json';if(!manifest.files[name])return null;
+  const {sha256}=await import('./dependency-core.js'),read=async name=>{const r=await fetch('./'+name);if(!r.ok)throw Error('Resource unavailable: '+name);const bytes=new Uint8Array(await r.arrayBuffer());if(await sha256(bytes)!==manifest.files[name].sha256)throw Error('Resource identity differs: '+name);return bytes;};
+  const forest=JSON.parse(new TextDecoder().decode(await read(name))),prefix='individual-assets/m3/ssg/';
+  const bytes=await read(prefix+'edges.mjs'),wasm=await read(prefix+'edges.wasm');
+  if(await sha256(bytes)!==forest.runtime['edges.mjs'].sha256||await sha256(wasm)!==forest.runtime['edges.wasm'].sha256)throw Error('Forest factory identity differs');
+  const {default:create}=await import('./'+prefix+'edges.mjs');
+  const module=await create({wasmBinary:wasm,noInitialRun:true});if(typeof module._ssg_edges_detect!=='function')throw Error('Structured forest ABI unavailable');
+  return {manifestSha256:manifest.files[name].sha256,factorySha256:forest.runtime['edges.mjs'].sha256,wasmSha256:forest.runtime['edges.wasm'].sha256,abi:true};
+ },manifest);
  // Reconnect an ordinary file directory after clearing the transport cache.
  // OPFS stands in for the user-picked handle in this isolated automated test.
  const localCopy=await page.evaluate(async()=>{
@@ -79,7 +112,7 @@ try{
  assert.deepEqual(errors,[]);
  const tar=await page.evaluate(async()=>{const r=await fetch('./__dependency_download__/resources.tar?file=unified-engine/src/worker-client.js');if(!r.ok)throw Error('TAR download failed');const b=await r.arrayBuffer();return [...new Uint8Array(b)];});
  const tarPath=path.join(output,`standard-library-${kind}.tar`);await fs.writeFile(tarPath,Buffer.from(tar));
- execFileSync('python3',['-c',"import sys,tarfile; t=tarfile.open(sys.argv[1]); assert t.extractfile('unified-engine/src/worker-client.js').read()==open(sys.argv[2],'rb').read()",tarPath,path.join(root,'sherloq-browser/assets/unified-engine/src/worker-client.js')]);
- const proof={date:new Date().toISOString(),browser:browser.version(),startup,online,largeModelRange:{file:largeName,chunksFetched:2,exact:true},standardTar:true,offlineLocalLibrary:localCopy,transport,pixels,errors,scope:'Fresh automated browser, synthetic 67×65 pixels; no user image or existing application tab touched. Two local origins simulate published raw GitHub assets. Ordinary local file reused offline; standard TAR verified independently by Python.'};
+ execFileSync('python3',['-c',"import sys,tarfile; t=tarfile.open(sys.argv[1]); assert t.extractfile('unified-engine/src/worker-client.js').read()==open(sys.argv[2],'rb').read()",tarPath,path.join(output,'public/web/runtime-sources/unified-engine/src/worker-client.js')]);
+ const proof={date:new Date().toISOString(),browser:browser.version(),startup,online,largeModelRange:{file:largeName,chunksFetched:2,exact:true},standardTar:true,offlineLocalLibrary:localCopy,optionalModels,forestFactory,transport,pixels,errors,scope:'Fresh automated browser, synthetic 67×65 pixels; no user image or existing application tab touched. Two local origins simulate published raw GitHub assets. Ordinary local file reused offline; standard TAR verified independently by Python. Optional-model import and forest ABI are delivery checks, not a new scientific inference qualification.'};
  await fs.writeFile(path.join(output,`browser-${kind}-proof.json`),JSON.stringify(proof,null,2));console.log(JSON.stringify(proof,null,2));
 }finally{clearTimeout(watchdog);await browser.close();app.closeAllConnections();resources.closeAllConnections();await new Promise(r=>app.close(r));await new Promise(r=>resources.close(r));}

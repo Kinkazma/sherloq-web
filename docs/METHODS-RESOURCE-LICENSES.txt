@@ -1,0 +1,291 @@
+SHERLOQ WEB — NOTICES DES MÉTHODES ET RESSOURCES
+Distribution publique 0.16.0 · 12 octobre 2026
+
+Cette notice distingue le code de l’application, les adaptateurs écrits pour
+SHERLOQ, le code tiers, les poids et les ressources converties. La licence
+principale du dépôt ne remplace pas les licences propres aux dépendances.
+Les notices complètes fournies avec chaque bibliothèque restent applicables.
+
+Une méthode qualifiée dans la version locale n’est pas nécessairement une
+méthode dont tous les modèles peuvent être redistribués. Cette livraison
+publie les raccords individuels et par lot et les ressources autorisées ; les
+nouveaux graphes SelfDM/SuperPoint/SuperGlue signalés localOnly sont importés
+par l’utilisateur et ne sont pas fournis comme blobs publics. Les ressources
+CMSeg-Net/MGCFDN déjà présentes dans la distribution antérieure ne sont pas
+republiées comme de nouveaux jeux de poids par cette livraison.
+
+1. ALIKED + LightGlue — BSD-3-Clause et Apache-2.0
+
+ALIKED : Xiaoming Zhao et collaborateurs, publication 2023.
+Source épinglée : 683d7c65197395c0b3f01ebe76e1084a27e73a65.
+Le dépôt contient le code d’inférence et les modèles dans models/ sous
+BSD-3-Clause. Conserver le copyright, les conditions et la garantie exclue,
+y compris dans la documentation accompagnant les distributions binaires.
+Ne pas suggérer une approbation du port SHERLOQ par les auteurs.
+
+LightGlue : Philipp Lindenberger, Paul-Edouard Sarlin et Marc Pollefeys,
+ICCV 2023. Source épinglée : eb42fee2d71449efb0aa5c10549752b5d75384d8.
+Le README licence explicitement le code et les poids préentraînés LightGlue
+sous Apache-2.0. Conserver la licence, les notices applicables et l’indication
+des fichiers modifiés. Cette permission ne s’étend pas à SuperPoint : le
+README LightGlue distingue expressément sa licence restrictive, ses poids
+et son fichier d’inférence.
+
+Le port ALIKED + LightGlue conserve sa provenance et documente la recherche
+spatiale de candidats propre à SHERLOQ ; elle ne constitue pas une promesse
+d’identité avec un appariement entièrement libre de contraintes spatiales.
+
+Sources primaires et textes complets :
+https://github.com/Shiaoming/ALIKED/blob/683d7c65197395c0b3f01ebe76e1084a27e73a65/LICENSE
+https://github.com/Shiaoming/ALIKED/blob/683d7c65197395c0b3f01ebe76e1084a27e73a65/README.md
+https://github.com/cvg/LightGlue/blob/eb42fee2d71449efb0aa5c10549752b5d75384d8/LICENSE
+https://github.com/cvg/LightGlue/blob/eb42fee2d71449efb0aa5c10549752b5d75384d8/README.md#license
+
+2. EfficientLoFTR — Apache-2.0, version épinglée
+
+Yifan Wang, Xingyi He, Sida Peng, Dongli Tan et Xiaowei Zhou, CVPR 2024.
+Source : ffd4a4644064354468eb1f0c7a3e732233cb732f, sous Apache-2.0.
+La publication actuelle de SHERLOQ conserve cette source et cette licence ;
+elle n’adopte pas silencieusement le HEAD ultérieur sous une autre licence.
+
+Checkpoint original :
+SHA-256 0af6291141c736e75e94b7f8aae4399b77c7731b3f08758212b2cfe370188878.
+Graphe ONNX FP32 qualifié : efficient-loftr-full-fp32.onnx, 61 657 027 octets,
+SHA-256 b52b3838bb961767a7f8b8789b8f03af355aa41a2195e501418606304e6dcb42.
+
+Le checkpoint est annoncé dans le README de cette source ; la fiche de
+modèle liée par les auteurs indique également Apache-2.0. Cette fiche
+corrobore les termes du modèle et ne constitue pas une comparaison de son
+fichier avec le checkpoint Drive exact employé dans l’export SHERLOQ.
+Conserver cette distinction de provenance, la copie Apache-2.0, toutes les
+notices applicables et les notices des modifications d’export ONNX.
+
+Les adaptations d’export préservent les entrées/sorties et les paramètres
+scientifiques : elles ne créent pas de nouveaux poids d’entraînement.
+L’interface et le lot exigent deux régions réelles pour la comparaison ;
+l’enveloppe de deux rectangles ne remplace pas ces deux entrées.
+
+Sources :
+https://github.com/zju3dv/EfficientLoFTR/blob/ffd4a4644064354468eb1f0c7a3e732233cb732f/LICENSE
+https://github.com/zju3dv/EfficientLoFTR/blob/ffd4a4644064354468eb1f0c7a3e732233cb732f/README.md
+https://huggingface.co/zju-community/efficientloftr/raw/main/README.md
+
+3. MGCFDN — code Apache-2.0, contexte distinct des checkpoints
+
+Hang Tu, Peng Liang, Xiaoguang Lu et Huimin Zhao, Neurocomputing 2026.
+Source épinglée : 2f0827b7c5675753c55318ca244bc2c712d6cd47.
+Le LICENSE du code est Apache-2.0. Le README annonce les poids préentraînés
+comme ressources du projet, renvoie vers Drive/Baidu et demande de respecter
+la licence du code. L’archive originale des poids ne comporte pas de licence
+ou notice distincte pour les checkpoints.
+
+Aucune interdiction spécifique de redistribution des checkpoints n’a été
+trouvée dans ces éléments. Appliquer la licence du projet aux poids annoncés
+est une interprétation du contexte de publication, et non une clause
+explicite portant séparément sur chacun de ces fichiers. Il ne faut ni
+inventer une interdiction, ni présenter cette interprétation comme un grant
+supplémentaire écrit par les auteurs. Les références et identités existantes
+des modèles sont conservées ; cette livraison ne rediffuse pas leur archive
+originale ou un nouveau jeu de checkpoints.
+
+Préserver les notices Apache-2.0 et celles des dépendances de backbones,
+notamment les éléments Huawei employés par ViG. Les datasets d’entraînement
+ne font pas partie de ce livrable d’inférence.
+
+Sources :
+https://github.com/tuhanglsWorld/MGCFDN/blob/2f0827b7c5675753c55318ca244bc2c712d6cd47/LICENSE
+https://github.com/tuhanglsWorld/MGCFDN/blob/2f0827b7c5675753c55318ca244bc2c712d6cd47/README.md
+
+4. CMSeg-Net — licence de redistribution non déterminée
+
+H.-C. Shao, Y.-R. Liao, T.-Y. Tseng, Y.-L. Chuo et F.-Y. Lin,
+IEEE Signal Processing Letters 2025.
+Référence : FakeParaEgg ae09c70b19c5626787ea525a009039645a31205b.
+
+Les auteurs fournissent un code provisoire et les modèles par Dropbox,
+avec une demande de citation. Aucune licence explicite de redistribution
+du code ou des modèles n’a été trouvée dans le README ou dans les deux
+archives examinées. Cette absence de grant identifiable n’est pas une
+interdiction textuelle spécifique comparable à celle de SuperGlue.
+
+Les adaptateurs indépendants, références et routes de ressources existantes
+sont conservés. Cette livraison n’ajoute pas de redistribution des archives
+originales CMSeg-Net et ne transforme pas les modèles en ressources MIT ou
+Apache simplement parce que les bibliothèques d’exécution le sont.
+
+Un téléchargement original suivi d’une conversion/import pour l’utilisateur
+ne vaut pas autorisation de réhéberger les graphes convertis. Un checkpoint
+PyTorch ne peut pas être présenté comme un graphe ONNX directement exécutable
+par le navigateur. Les archives et jeux de données de recherche ne sont pas
+inclus dans cette publication.
+
+Source :
+https://github.com/YoursEver/FakeParaEgg/blob/ae09c70b19c5626787ea525a009039645a31205b/README.md
+
+5. SelfDM / Proposal SuperGlue — ressources de recherche importées localement
+
+Yaqi Liu, Chao Xia, Xiaobin Zhu et Shengwei Xu, IEEE TIP 2022.
+Source SelfDM : ef7b4a00d0c5742a63b187d898979259c2aead40.
+Le README SelfDM indique Research Use Only. Il ne contient pas de grant
+explicite de redistribution du checkpoint initial ou du graphe converti.
+Cette formule ne constitue pas, à elle seule, une clause explicite interdisant
+toute redistribution ; elle n’autorise pas non plus à annoncer ces fichiers
+comme librement redistribuables.
+
+SuperPoint/SuperGlue : Magic Leap, licence personnelle de recherche interne
+noncommerciale, source ddcf11f42e7e0732a0c4607648f9448ea8d73590.
+La clause courte applicable dit :
+“You may not distribute, copy or use the Software except as explicitly permitted herein.”
+Le droit accordé vise “own noncommercial internal research purposes”.
+La licence complète conserve la non-transférabilité, l’absence de souslicence
+et les restrictions sur les dérivés et l’accès de tiers. Un service gratuit
+ou une conversion ONNX ne retire pas ces conditions.
+
+Les nouveaux graphes suivants ne sont pas publiés comme blobs :
+- selfdm-map-512.onnx : autorisation de redistribution non confirmée ;
+- superpoint-dense-folded.onnx : ressource restrictive, import local ;
+- superpoint-post-folded.onnx : ressource restrictive, import local ;
+- superglue-indoor.onnx : ressource restrictive, import local.
+
+Les noms, contrats et identités permettent de raccorder une bibliothèque
+standard obtenue et convertie par l’utilisateur sous les termes applicables.
+Cette option ne promet pas une chaîne complète disponible en ligne sans
+import. Un bundle local SHA-vérifié ne doit pas être redistribué uniquement
+parce qu’il peut être chargé par l’application.
+
+Les composants distincts suivants ont des licences permissives :
+- DeepMask : implémentation Qiang Wang, MIT ; les poids préentraînés sont
+  annoncés dans son projet MIT, sans terme distinct les excluant trouvé.
+  Cette lecture du contexte du projet est distinguée d’une clause de poids
+  séparée explicite. Conserver le copyright Qiang Wang et le texte MIT.
+- ConvCRF : Marvin Teichmann, MIT. Le graphe de raffinement fixe emploie les
+  opérations du modèle, sans checkpoint d’entraînement supplémentaire.
+- OpenCV : Apache-2.0 et notices applicables aux composants inclus.
+
+Leur permission ne s’étend pas aux autres composants du bundle SelfDM.
+
+Générateurs destinés à l’utilisateur
+
+export-selfdm-proposal-point-windows.py importe SuperPoint depuis le checkout
+fourni par l’utilisateur. Il n’embarque pas la classe originale SuperPoint,
+son constructeur, ses poids ou son fichier d’inférence complet. Les classes
+Dense et Post reformulent la succession convolution/pooling, les têtes,
+le NMS global, les bords, TopK et l’échantillonnage nécessaires à la séparation
+des calculs. La courte séquence de suppression NMS et son ordre sont proches
+de ceux de la référence ; cette correspondance mathématique ne prouve pas,
+à elle seule, qu’une classe originale complète a été copiée dans le script.
+
+Ce générateur ne doit pas être présenté comme une nouvelle licence libre
+sur le modèle ou ses graphes exportés. Il sert à l’usage local de ressources
+fournies sous leurs propres termes. Une reprise textuelle substantielle d’un
+fichier auteur doit conserver les restrictions de ce fichier et rester hors
+du paquet public si ces termes ne permettent pas sa distribution. Les
+séquences mathématiques génériques ne justifient pas, seules, un retrait
+arbitraire des adaptateurs indépendants. Les graphes issus des ressources
+Magic Leap demeurent soumis à la licence restrictive, quel que soit le
+statut du code d’orchestration de l’export.
+
+Sources et licences complètes :
+https://github.com/yaqiliu-cs/SelfDM-TIP/blob/ef7b4a00d0c5742a63b187d898979259c2aead40/README.md
+https://github.com/magicleap/SuperGluePretrainedNetwork/blob/ddcf11f42e7e0732a0c4607648f9448ea8d73590/LICENSE
+https://github.com/foolwood/deepmask-pytorch/blob/master/LICENSE
+https://github.com/foolwood/deepmask-pytorch/blob/master/README.md
+https://github.com/MarvinTeichmann/ConvCRF/blob/09306378ebc76e38f91aeaf57be5ce36ec2b873c/LICENSE
+
+6. SSG complet — bibliothèque externe noncommerciale MSR-LA
+
+Chao Wang et collaborateurs, IEEE TIFS 2023 ; article arXiv 2207.09135v2.
+Source auteur : 66bb26eca0c7e95c76042d5bcca58f744d70a27d.
+
+Le port mathématique indépendant suit le papier v2 : VLFeat DoG, moments
+Bessel–Fourier, mots et phrases spatiales, forêt de contours structurés,
+MLESAC/RST et localisation SSIM/ROI. Les scripts MATLAB de l’auteur, dont
+le README annonce les droits réservés, ne font pas partie du paquet public.
+Les adaptateurs et la localisation indépendante ne donnent pas une autre
+licence au moteur de forêt ou à ses données.
+
+La licence spécifique attachée à EDGE autorise expressément de
+“distribute the Software for non-commercial purposes”.
+Les dérivés restent “under the same terms and conditions as in this license”.
+Les fichiers modifiés indiquent “that you have changed the software” et leur
+date. Cette licence inclut enseignement, recherche, démonstrations publiques
+et expérimentation personnelle parmi ses exemples de buts noncommerciaux.
+Elle ne donne pas le droit d’hébergement logiciel commercial, contient un
+grant back des modifications à Microsoft et ne doit pas être remplacée par
+la licence générale du dépôt. La clause sur les publications de résultats
+ne supprime pas l’autorisation distincte de distribution noncommerciale.
+
+La bibliothèque de forêt doit donc être distribuée séparément avec la
+licence MSR-LA complète, les copyrights d’origine et les notices datées.
+Elle n’est pas annoncée comme une dépendance commercialement libre.
+Les sources de canaux Piotr Dollár/Ron Appel indiquent Simplified BSD :
+conserver aussi leurs copyrights, conditions et exclusion de garantie.
+VLFeat relève de BSD à deux clauses, pocketfft de BSD à trois clauses.
+Le port actuel emploie une implémentation indépendante du calcul MLESAC ;
+il ne compile pas la toolbox GNU RANSAC originale.
+
+Notice de modifications — 12 octobre 2026
+
+Les dérivés distribués pour SHERLOQ Web diffèrent de la bibliothèque originale :
+- ajout d’un adaptateur C ABI et d’une interface de mémoire WebAssembly ;
+- parallélisation des colonnes de forêt avec préservation de l’accumulation ;
+- adaptation des allocations à l’alignement requis ;
+- adaptation SIMD des approximations réciproque/racine réciproque SSE ;
+- compilation des variantes scalaire et mémoire partagée du runtime ;
+- conversion sans entraînement des tableaux du modèle MAT en tableaux NPY
+  standards, avec conservation des valeurs, types et ordre des dimensions.
+
+Ces modifications ont été réalisées pour SHERLOQ le 12 octobre 2026.
+Le modèle original n’a pas été réentraîné. Les notices sur les sources MSR
+modifiées doivent être visibles dans les fichiers ; cette notice accompagne
+également les binaires et tableaux correspondants. Une copie offline de la
+bibliothèque emporte ses licences et notices, pas seulement leurs liens.
+
+La nouvelle copie publique du manifeste corrige les anciennes mentions de
+restriction générale à un usage privé et retire les chemins locaux. Son
+identité SHA est donc distincte ; les valeurs scientifiques des tableaux
+peuvent rester identiques. Aucune ressource d’une fenêtre locale déjà ouverte
+n’est modifiée pour cette opération de distribution.
+
+Modèle original : model.mat, 24 433 845 octets,
+SHA-256 ff1dc0c8f843335e0e2324bb4d8cfed13870232ea2623f4e6befa0c6df06f0ce.
+Les sept tableaux NPY conservent ensemble 218 140 772 octets utiles de données.
+
+Sources et licences complètes :
+https://github.com/ChaoWang1016/word2phraseCMFD/blob/66bb26eca0c7e95c76042d5bcca58f744d70a27d/Function/EDGE/license.txt
+https://github.com/ChaoWang1016/word2phraseCMFD/blob/66bb26eca0c7e95c76042d5bcca58f744d70a27d/README.md
+https://github.com/pdollar/toolbox/blob/master/external/bsd.txt
+https://www.vlfeat.org/license.html
+
+7. Portée des qualifications et de cette publication
+
+Les quatorze méthodes ont terminé les parcours locaux déclarés, individuellement
+et dans le traitement par lot. Les exports NPZ, masques, coordonnées, reprises
+et identités ont été vérifiés sur les fixtures décrites dans les reçus de
+qualification. Les contraintes d’usage et de distribution ci-dessus demeurent
+applicables même quand une méthode fonctionne dans la version de recherche.
+
+La chaîne SelfDM a été exercée sur CPU et GPU jusqu’à 831×641 pour la chaîne
+complète ; SuperPoint seul jusqu’à 2000×1500. De petits écarts Float32 restent
+documentés, avec dépassement de la cible provisoire de parité continue 0,001
+sur certains cas. Ces essais ne démontrent pas une identité numérique
+universelle, une accélération systématique ou la qualification à 96 MP.
+
+SSG emploie le CPU, un masque natif à la résolution originale et un checkpoint
+réutilisable ; ce port ne revendique pas une équivalence complète MATLAB.
+Le détecteur complet sur des miroirs et une voie forestière par bandes pour
+les très grandes images ne sont pas qualifiés par cette livraison. Les
+parcours Firefox/WebKit mobile ne sont pas qualifiés par les essais Chromium
+et CPU/WebGPU actuellement déclarés. Les admissions de ressources ne sont
+pas des mesures d’utilisation physique de tous les cœurs.
+
+Les futurs changements de préparation scientifique, d’OCR et de filtrage du
+lot n’ont pas à bloquer les raccords qualifiés publiés ici. Ils doivent garder
+les coordonnées originales, les deux entrées réelles d’EfficientLoFTR, les
+trous du masque SSG, les cartes brutes et les identités des bibliothèques.
+
+Aucun corpus utilisateur, ZIP WordPress privé ou système privé d’envoi de
+rapports n’est inclus dans cette notice ou dans les ressources de méthodes
+publiques. Cette notice apporte les conditions et la provenance ; elle ne
+remplace ni les textes complets des licences ni les limites scientifiques
+enregistrées avec les moteurs.

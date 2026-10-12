@@ -25,7 +25,7 @@ test('partial archive plus cached chunk fetches only the missing piece',async()=
 });
 test('corrupted old archive cannot substitute unverified bytes',async()=>{
  const {a,b,ha,m}=await fixture(),blob=await tar(m,async h=>h===ha?a:b),index=await indexResourceTar(blob),bytes=new Uint8Array(await blob.arrayBuffer());bytes[index.files.get('models/a.bin').offset]^=255;
- const read=archiveChunkReader(await indexResourceTar(new Blob([bytes])),m);assert.equal(await read(ha),null);
+ const read=archiveChunkReader(await indexResourceTar(new Blob([bytes])),m);await assert.rejects(read(ha),e=>e.code==='DEPENDENCY_LOCAL_INTEGRITY');
  const load=createChunkLoader(m,{base:null,scope:'https://app.test/',cacheStorage:null,folder:async()=>null,archive:read});await assert.rejects(load(ha),/OFFLINE_MISSING/);
 });
 test('TAR index rejects truncation and unsupported extra paths',async()=>{

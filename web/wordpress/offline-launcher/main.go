@@ -36,9 +36,10 @@ type config struct {
 	Port        int    `json:"port"`
 }
 type fileMeta struct {
-	Size int64  `json:"size"`
-	SHA  string `json:"sha256"`
-	Type string `json:"type"`
+	Size      int64  `json:"size"`
+	SHA       string `json:"sha256"`
+	Type      string `json:"type"`
+	LocalOnly bool   `json:"localOnly,omitempty"`
 }
 type inventory struct {
 	Schema   string              `json:"schema"`
@@ -53,10 +54,11 @@ type resource struct {
 	err    error
 }
 type library struct {
-	Path     string
-	Size     int64
-	Modified time.Time
-	Files    map[string]*resource
+	Path             string
+	Size             int64
+	Modified         time.Time
+	Files            map[string]*resource
+	LocalOnlyMissing map[string]bool
 }
 
 var hashPattern = regexp.MustCompile(`^[a-f0-9]{64}$`)
@@ -177,7 +179,7 @@ func openLibrary(c config) (*library, error) {
 	if shell.Schema != "sherloq.offline-shell/1" || manifest.Schema != "sherloq.dependencies/1" || shell.Manifest != c.Manifest {
 		return nil, errors.New("unsupported archive")
 	}
-	lib := &library{c.ArchivePath, stat.Size(), stat.ModTime(), map[string]*resource{}}
+	lib := &library{Path: c.ArchivePath, Size: stat.Size(), Modified: stat.ModTime(), Files: map[string]*resource{}, LocalOnlyMissing: map[string]bool{}}
 	for i, list := range []map[string]fileMeta{shell.Files, manifest.Files} {
 		for name, meta := range list {
 			key := name
@@ -185,6 +187,13 @@ func openLibrary(c config) (*library, error) {
 				key = "app/" + name
 			}
 			m, ok := members[key]
+			if i == 1 && meta.LocalOnly && !ok {
+				if !safe(name) || strings.HasPrefix(name, "private") || !hashPattern.MatchString(meta.SHA) || meta.Size < 0 {
+					return nil, fmt.Errorf("invalid local-only file: %s", name)
+				}
+				lib.LocalOnlyMissing[name] = true
+				continue
+			}
 			if !safe(name) || strings.HasPrefix(name, "private") || !ok || m.Size != meta.Size || !hashPattern.MatchString(meta.SHA) {
 				return nil, fmt.Errorf("missing or invalid file: %s", name)
 			}
@@ -280,6 +289,10 @@ func handler(lib *library, c config, host string, stop func()) http.Handler {
 		if name == "__identity" {
 			h.Set("Content-Type", "application/json")
 			json.NewEncoder(w).Encode(map[string]string{"manifest": c.Manifest, "shell": c.ShellHash})
+			return
+		}
+		if lib.LocalOnlyMissing[name] {
+			http.Error(w, "MODEL_LOCAL_REQUIRED: import the original verified model files", 503)
 			return
 		}
 		item, ok := lib.Files[name]

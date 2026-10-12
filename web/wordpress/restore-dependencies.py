@@ -8,7 +8,7 @@ import re
 import urllib.request
 
 
-def restore(manifest_path, destination, chunks=None, origin=None):
+def restore(manifest_path, destination, chunks=None, origin=None, include_local_only=False):
     manifest = json.loads(manifest_path.read_text())
     if manifest['schema'] != 'sherloq.dependencies/1':
         raise ValueError('Invalid dependency manifest')
@@ -17,13 +17,20 @@ def restore(manifest_path, destination, chunks=None, origin=None):
     cache = chunks or destination / '.dependency-downloads'
     cache.mkdir(parents=True, exist_ok=True)
     count = 0
+    public_chunks = {sha for record in manifest['files'].values() if record.get('localOnly') is not True for sha in record['chunks']}
     for name, record in manifest['files'].items():
+        if 'localOnly' in record and not isinstance(record['localOnly'], bool):
+            raise ValueError('Invalid local-only dependency policy')
         path = PurePosixPath(name)
         if path.is_absolute() or '..' in path.parts or '\\' in name:
             raise ValueError('Invalid dependency path')
         target = destination / path
-        if target.is_file() and hashlib.file_digest(target.open('rb'), 'sha256').hexdigest() == record['sha256']:
+        if record.get('localOnly') and not include_local_only:
             continue
+        if target.is_file() and target.stat().st_size == record['size']:
+            with target.open('rb') as stream:
+                if hashlib.file_digest(stream, 'sha256').hexdigest() == record['sha256']:
+                    continue
         target.parent.mkdir(parents=True, exist_ok=True)
         temporary = target.with_name(target.name + '.partial')
         try:
@@ -34,6 +41,8 @@ def restore(manifest_path, destination, chunks=None, origin=None):
                         raise ValueError('Invalid dependency identity')
                     piece = cache / (sha + '.bin')
                     if not piece.exists():
+                        if record.get('localOnly') and sha not in public_chunks:
+                            raise ValueError('MODEL_LOCAL_REQUIRED: supply original verified files or local chunks for ' + name)
                         if not origin:
                             raise ValueError('Missing chunk: ' + sha)
                         download = piece.with_suffix('.partial')
@@ -73,5 +82,6 @@ if __name__ == '__main__':
     p.add_argument('--destination', type=Path, required=True, help='Typically sherloq-browser/assets')
     p.add_argument('--chunks', type=Path, help='Local published web-assets/chunks directory')
     p.add_argument('--origin', help='Published raw.githubusercontent.com commit URL ending /web-assets/')
+    p.add_argument('--include-local-only', action='store_true', help='Restore optional restricted models from locally supplied chunks only; never download unpublished payloads')
     args = p.parse_args()
-    print('Restored', restore(args.manifest, args.destination, args.chunks, args.origin), 'verified ordinary files')
+    print('Restored', restore(args.manifest, args.destination, args.chunks, args.origin, args.include_local_only), 'verified ordinary files')

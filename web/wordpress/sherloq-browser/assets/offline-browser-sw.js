@@ -1,4 +1,4 @@
-import {sha256,dependencyResponse} from './dependency-core.js';
+import {sha256,dependencyResponse,publicDependencyEntries} from './dependency-core.js';
 import {createChunkLoader} from './dependency-store.js';
 import {resourceTarStream,indexResourceTar,archiveChunkReader} from './dependency-tar.js';
 import {offlineHeaders,offlineMissing,readOfflineInstallation} from './offline-browser-store.js';
@@ -38,7 +38,7 @@ self.addEventListener('fetch',event=>{
    const exportLoad=requested.archive?createChunkLoader(manifest,{base:null,scope:sourceBase,fetcher:noNetwork,folder:async()=>null,archive:archiveChunkReader(await indexResourceTar(requested.archive),manifest)}):offlineLoad;
    const extras=(async function*(){const metadata=await cache.match(new URL('__shell.json',offlineBase));yield ['offline-kit.json',new Uint8Array(await metadata.arrayBuffer())];for(const [path,meta]of Object.entries(shell.files)){const r=await cache.match(new URL(path,offlineBase));if(!r)throw Error('Offline application file missing');const bytes=new Uint8Array(await r.arrayBuffer());if(bytes.length!==meta.size||await sha256(bytes)!==meta.sha256)throw Error('Offline application integrity failure');yield ['app/'+path,bytes];}})();
    const notify=data=>self.clients.matchAll().then(clients=>clients.forEach(c=>c.postMessage({type:'dependency-download-progress',id,...data})));
-   const stream=resourceTarStream(manifest,exportLoad,{extras,progress:value=>void notify({value,total:Object.keys(manifest.files).length}),finished:error=>{void notify({done:true,error:error?.message}).finally(finishArchive);}});
+   const stream=resourceTarStream(manifest,exportLoad,{extras,progress:value=>void notify({value,total:publicDependencyEntries(manifest).length}),finished:error=>{void notify({done:true,error:error?.message}).finally(finishArchive);}});
    return new Response(stream,{headers});
   }
   if(manifest.files[name])return dependencyResponse(manifest.files[name],manifest,offlineLoad,event.request);

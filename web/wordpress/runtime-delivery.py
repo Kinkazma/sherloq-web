@@ -4,7 +4,19 @@ import json
 import posixpath
 import re
 
+# These model manifests pin the original factory bytes, and their callers pass
+# a separately fetched, SHA-verified wasmBinary. Rewriting the loader would
+# break that second identity and offers no additional download protection.
+VERIFIED_BINARY_FACTORIES = frozenset({
+    'individual-assets/m3/ssg/edges.mjs',
+    'individual-assets/m3/ssg/edges-shared.mjs',
+    'individual-assets/segmentation/selfdm-proposal/proposal-cv.mjs',
+    'unified-engine/vendor/selfdm-proposal/proposal-cv.mjs',
+})
+
 def adapted_runtime(relative, data, lookup, version):
+    if relative in VERIFIED_BINARY_FACTORIES:
+        return data
     if not relative.endswith(('.js', '.mjs')):
         return data
     text = data.decode('utf-8')

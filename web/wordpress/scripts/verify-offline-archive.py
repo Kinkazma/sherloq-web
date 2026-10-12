@@ -14,9 +14,12 @@ def verify(archive):
         canonical = (json.dumps(manifest, sort_keys=True, separators=(',', ':'))+'\n').encode()
         if hashlib.sha256(canonical).hexdigest() != shell['manifest']:
             raise ValueError('Manifest identity differs')
-        expected = {**manifest['files'], **{'app/'+p:m for p,m in shell['files'].items()}}
         members = tar.getmembers()
         actual = {m.name for m in members}
+        if any('localOnly' in meta and not isinstance(meta['localOnly'], bool) for meta in manifest['files'].values()):
+            raise ValueError('Invalid local-only dependency policy')
+        runtime_expected = {p:m for p,m in manifest['files'].items() if not m.get('localOnly') or p in actual}
+        expected = {**runtime_expected, **{'app/'+p:m for p,m in shell['files'].items()}}
         if len(actual) != len(members) or actual != set(expected)|{'manifest.json','offline-kit.json'}:
             raise ValueError('File inventory differs or has duplicates')
         if any(not m.isfile() for m in members) or any(p.startswith(('private','app/private')) for p in expected):
@@ -35,7 +38,8 @@ def verify(archive):
         if b'private-report' in tar.extractfile('app/app.html').read():
             raise ValueError('Private mailer in public shell')
     return {'scope':'Every original file verified with SHA-256; no network or extraction',
-            'filesVerified':len(expected),'runtimeFiles':len(manifest['files']),
+            'filesVerified':len(expected),'runtimeFiles':len(runtime_expected),
+            'localOnlyMissing':sorted(set(manifest['files'])-set(runtime_expected)),
             'shellFiles':len(shell['files']),'verifiedBytes':total,'archiveBytes':archive.stat().st_size,
             'version':shell['version'],'manifest':shell['manifest'],'privateReporterIncluded':False}
 

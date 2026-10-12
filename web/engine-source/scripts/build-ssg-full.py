@@ -1,7 +1,9 @@
-"""Local-only exact-source structured-forest C ABI build and standard NPY export.
+"""Exact-source structured-forest C ABI build and standard NPY export.
 
-The original forest/model is not an open-source/public SHERLOQ dependency.
-This script keeps restricted files in the caller's explicit private output.
+The forest and derived detector retain their MSR-LA noncommercial terms;
+the channel code retains its own BSD notice. Outputs are not relicensed under
+the application's license. Include the original licenses and modification notice
+when redistributing the separable dependency.
 """
 from pathlib import Path
 import argparse, hashlib, json, os, shutil, subprocess
@@ -39,7 +41,8 @@ model=loadmat(model_path,simplify_cells=True)['model'];arrays=[]
 for name in ['thrs','fids','child','segs','nSegs','eBins','eBnds']:
  data=np.asfortranarray(model[name]);p=args.output/(name+'.npy');np.save(p,data,allow_pickle=False)
  arrays.append(dict(name=name,file=p.name,bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest(),shape=list(data.shape),dtype=data.dtype.str,fortranOrder=True,dataBytes=data.nbytes))
-manifest=dict(schema='sherloq.ssg-structured-forest/1',source='https://github.com/ChaoWang1016/word2phraseCMFD',sourceCommit='66bb26eca0c7e95c76042d5bcca58f744d70a27d',privateOnly=True,license='MSR-LA; original author repository all rights reserved; no public redistribution authorized',original=dict(file=str(model_path),bytes=model_path.stat().st_size,sha256=hashlib.sha256(model_path.read_bytes()).hexdigest()),arrays=arrays,nodes=int(model['fids'].shape[0]),opts={k:model['opts'][k] for k in ['shrink','stride','imWidth','gtWidth','nChns','nCells','nChnFtrs','nTrees','nTreesEval','sharpen','grdSmooth','chnSmooth','simSmooth','normRad','nOrients']},sourceFiles=records)
+manifest=dict(schema='sherloq.ssg-structured-forest/1',source='https://github.com/ChaoWang1016/word2phraseCMFD',sourceCommit='66bb26eca0c7e95c76042d5bcca58f744d70a27d',nonCommercialOnly=True,license='MSR-LA (structured forest and derived detector runtimes), noncommercial purposes only; BSD-2-Clause (Piotr channel code). Independent adapters retain their separately stated license.',original=dict(file='Function/EDGE/model.mat',bytes=model_path.stat().st_size,sha256=hashlib.sha256(model_path.read_bytes()).hexdigest()),arrays=arrays,nodes=int(model['fids'].shape[0]),opts={k:model['opts'][k] for k in ['shrink','stride','imWidth','gtWidth','nChns','nCells','nChnFtrs','nTrees','nTreesEval','sharpen','grdSmooth','chnSmooth','simSmooth','normRad','nOrients']},sourceFiles=records,modificationDate='2026-10-12',modifications='Lossless MAT-to-standard-NPY storage; Emscripten scalar/SIMD and shared-worker adaptation; native x86 reciprocal lookup preserves channel and tree decisions. Forest parameters and array bytes are unchanged.')
+(args.output/'NOTICE-MODIFICATIONS.txt').write_text('SSG structured forest and derived detector: MSR-LA, noncommercial purposes only.\nPiotr channel code retains its BSD notice.\nModified 2026-10-12: '+manifest['modifications']+'\nKeep the original license files with this dependency.\n')
 (args.output/'forest-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 env=dict(os.environ,EM_CONFIG=str(args.emsdk/'.emscripten'))
 exports=['malloc','free','ssg_edges_release','ssg_edges_detect','ssg_edges_set_model','ssg_edges_set_team','ssg_edges_shutdown','ssg_edges_output','ssg_edges_regular','ssg_edges_similar','ssg_edges_leaves','ssg_edges_channel_count','ssg_edges_leaf_count','ssg_edges_allocation_bytes','ssg_edges_approx']

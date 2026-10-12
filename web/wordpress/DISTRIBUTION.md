@@ -23,6 +23,17 @@ Failed optional cache writes do not prevent online calculation. Missing or corru
 local files fall back to the published copy. A new delivery waits for the previous
 application windows to close before replacing their service worker.
 
+For resources marked `localOnly`, the published manifest contains their exact
+names, sizes and hashes, but no public payload. They can be supplied through an
+authorized local library, an imported standard TAR, or the verified browser cache.
+A missing local-only model reports `MODEL_LOCAL_REQUIRED` without requesting it
+from GitHub. Complete public downloads and offline preparation skip these optional
+files; a supplied file still has to match its pinned SHA-256. SelfDM and Proposal
+SuperGlue need these local models. The source includes the conversion scripts and
+component notices; the public application does not redistribute their restricted
+weights. The full SSG forest is distributed under its separate noncommercial
+MSR-LA terms, with the original license and modification notices.
+
 ## Local libraries and standard formats
 
 The Resources menu can download the complete library. Chromium can write the
@@ -60,6 +71,21 @@ To prepare a new delivery from a checkout with the locked files staged:
 ```sh
 python3 prepare-distribution.py --output .build/delivery --offline
 ```
+
+For the new clone methods, reconstruct the published baseline and overlay the
+reviewed source/resources with `scripts/assemble-method-resources.py`. Use its
+identity-only policy when preparing the distribution:
+
+```sh
+python3 prepare-distribution.py --output .build/delivery \
+  --source-revision FULL_REVIEWED_COMMIT_SHA --resource-policy resource-policy.json
+```
+
+The policy records the optional model identities, not their weights. Never add
+the fully materialized runtime staging directories to Git wholesale; publish the
+builder's filtered `public/` tree. Rebuild the native offline launchers from the
+updated source when shipping them: readers predating this policy require every
+manifest entry and cannot open a public archive without the optional models.
 
 Publish the reviewed `public/` tree through the maintainer's GitHub workflow.
 It contains sources and resources. Keep **`private/` outside the public fork and

@@ -48,11 +48,19 @@ class Archive:
         if self.manifest.get('schema') != 'sherloq.dependencies/1' or self.shell.get('schema') != 'sherloq.offline-shell/1':
             raise ValueError('Unsupported archive version')
         self.files = {}
+        self.local_only_missing = set()
         for name, meta in self.shell['files'].items():
             self.files[name] = ('app/'+name, meta)
         for name, meta in self.manifest['files'].items():
             if name in self.files:
                 raise ValueError('Duplicate application/resource name')
+            if 'localOnly' in meta and not isinstance(meta['localOnly'], bool):
+                raise ValueError('Invalid local-only dependency policy')
+            if meta.get('localOnly') and name not in self.members:
+                if not safe_path(name) or not re.fullmatch('[a-f0-9]{64}', meta['sha256']):
+                    raise ValueError('Invalid local-only dependency identity')
+                self.local_only_missing.add(name)
+                continue
             self.files[name] = (name, meta)
         for name, (member, meta) in self.files.items():
             if not safe_path(name) or self.members.get(member, (-1, -1))[1] != meta['size'] or not re.fullmatch('[a-f0-9]{64}', meta['sha256']):
@@ -142,6 +150,9 @@ def make_server(archive, config):
                 if name == 'dependency-config.json':
                     data = json.dumps({'schema':'sherloq.dependency-config/1','enabled':False,'offline':True}).encode()
                     self.reply(data, 'application/json')
+                    return
+                if name in archive.local_only_missing:
+                    self.send_error(503, 'MODEL_LOCAL_REQUIRED: import the original verified model files')
                     return
                 if name not in archive.files or name.startswith('private'):
                     self.send_error(404)

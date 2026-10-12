@@ -1,6 +1,6 @@
-import {sha256,validateManifest,remoteBase} from './dependency-core.js';
-import {createChunkLoader} from './dependency-store.js';
-import {indexResourceTar,archiveChunkReader} from './dependency-tar.js';
+import {sha256,validateManifest,remoteBase,requiredDependencyChunks} from './dependency-core.js';
+import {createChunkLoader,libraryFile,libraryValue} from './dependency-store.js';
+import {indexResourceTar,archiveChunkReader,importLibraryFile} from './dependency-tar.js';
 import {validateOfflineShell} from './offline-kit-core.js';
 
 export const OFFLINE_CHUNKS='sherloq-dependency-chunks-v1';
@@ -41,15 +41,15 @@ export async function saveOfflineShell(plan,{storage=caches,fetcher=fetch,signal
 }
 export async function offlineMissing(plan,{storage=caches}={}){
  const cache=await storage.open(OFFLINE_CHUNKS),keys=new Set((await cache.keys()).map(r=>r.url));
- return Object.keys(plan.manifest.chunks).filter(h=>!keys.has(offlineChunkURL(plan.sourceBase,h)));
+ return requiredDependencyChunks(plan.manifest).map(([hash])=>hash).filter(h=>!keys.has(offlineChunkURL(plan.sourceBase,h)));
 }
 export async function prepareOfflineBrowser(plan,{archive,storage=caches,fetcher=fetch,signal,progress=()=>{},folder}={}){
  const index=archive?await indexResourceTar(archive,{signal}):null;
  const cache=await saveOfflineShell(plan,{storage,fetcher,signal,progress,archiveIndex:index}),chunks=await storage.open(OFFLINE_CHUNKS);
  const network=plan.local?async()=>{throw Error('Offline resource missing. Select your archive.');}:fetcher;
  const load=createChunkLoader(plan.manifest,{base:plan.local?null:remoteBase(plan.manifest.remoteBase,{allowLocal:['127.0.0.1','localhost'].includes(plan.sourceBase.hostname)}),scope:plan.sourceBase,cacheStorage:storage,fetcher:network,archive:index&&archiveChunkReader(index,plan.manifest),...(folder?{folder}:{})});
- let completed=0,bytes=0;const total=Object.keys(plan.manifest.chunks).length;
- for(const [hash,size]of Object.entries(plan.manifest.chunks)){
+ let completed=0,bytes=0;const required=requiredDependencyChunks(plan.manifest),total=required.length;
+ for(const [hash,size]of required){
   signal?.throwIfAborted();let reusedCache=false;
   const data=await load(hash,entry=>{if(entry.kind==='dependency.cache-hit')reusedCache=true;});
   // Unlike transient archive exports, an installation must persist every piece.
@@ -57,8 +57,19 @@ export async function prepareOfflineBrowser(plan,{archive,storage=caches,fetcher
   if(!reusedCache)await chunks.put(offlineChunkURL(plan.sourceBase,hash),new Response(data));
   bytes+=size;progress({phase:'resources',completed:++completed,total,bytes});
  }
+ // A public-only archive is complete without restricted models. When the user
+ // explicitly supplies those ordinary files, preserve them for offline use as
+ // well; an invalid supplied model never becomes a successful import.
+ const importedLocalOnlyFiles=[],optional=Object.entries(plan.manifest.files).filter(([,file])=>file.localOnly===true),directory=folder?await folder():await libraryValue('folder').catch(()=>null);
+ for(const [path,file]of optional){
+  signal?.throwIfAborted();const member=index?.files.get(path);let blob=member&&index.blob.slice(member.offset,member.offset+member.size);
+  if(!blob&&directory)try{blob=await(await libraryFile(directory,path)).getFile();}catch(error){if(error.name!=='NotFoundError')throw error;}
+  if(!blob)continue;
+  await importLibraryFile(blob,file,plan.manifest,(hash,data)=>chunks.put(offlineChunkURL(plan.sourceBase,hash),new Response(data)),signal);
+  importedLocalOnlyFiles.push(path);progress({phase:'local-models',completed:importedLocalOnlyFiles.length,total:optional.length});
+ }
  signal?.throwIfAborted();if((await offlineMissing(plan,{storage})).length)throw Error('Offline resources were removed during installation');
- const receipt={schema:'sherloq.browser-offline/1',version:plan.shell.version,manifest:plan.config.manifest,shell:plan.identity,sourceBase:plan.sourceBase.href,appBase:plan.appBase.href,chunks:total,bytes,complete:true};
+ const receipt={schema:'sherloq.browser-offline/1',version:plan.shell.version,manifest:plan.config.manifest,shell:plan.identity,sourceBase:plan.sourceBase.href,appBase:plan.appBase.href,chunks:total,bytes,complete:true,localOnlyFiles:optional.map(([path])=>path),importedLocalOnlyFiles};
  await cache.put(new URL('__installation.json',plan.appBase),new Response(JSON.stringify(receipt),{headers:offlineHeaders('application/json')}));
  return receipt;
 }

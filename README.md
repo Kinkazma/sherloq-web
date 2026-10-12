@@ -16,6 +16,18 @@ Much of the implementation was produced with AI assistants. My role has been to 
 
 [Source layout and reconstruction](docs/BUILD.md) · [Validation and performance limits](docs/VALIDATION.md) · [Example inputs](examples/README.md) · [Credits and licenses](docs/ATTRIBUTION.md)
 
+## New clone-analysis methods
+
+The browser engine and batch catalogue include CMSeg-Net 2025 (two models), MGCFDN 2026 (seven variants), SelfDM 2022 initial map and the complete Proposal SuperGlue pipeline, ALIKED + LightGlue 2023, EfficientLoFTR 2024 and complete SSG 2023.
+
+CMSeg-Net, MGCFDN and SelfDM are selected in **AI Clone Detection → Method**. ALIKED + LightGlue, EfficientLoFTR and SSG are selected in **Copy-Move Forgery 2 → Detector**. EfficientLoFTR requires exactly two real regions; their enclosing rectangle is not a third region. The same methods and scientific parameters are available in batch processing.
+
+SelfDM refinement preserves the original image geometry, with bounded DeepMask, SuperPoint and CRF windows; its five neural families support CPU or WebGPU, while OpenCV stages use the CPU. SSG publishes its original-resolution binary mask, including holes, and reuses the extraction checkpoint when only localization parameters change. Its structured-edge forest is distributed separately under noncommercial MSR-LA terms and the applicable BSD notices.
+
+**Model availability follows component licenses.** The public dependency library includes the redistributable resources. Research-only SuperPoint/SuperGlue graphs and the SelfDM initial weights require a verified local library import; the complete pipeline does not silently substitute an initial map when a required graph is missing. Local standard ONNX files retain their scientific SHA identities. See [component conditions and source references](docs/METHODS-RESOURCE-LICENSES.txt).
+
+The declared local browser qualification completed 14 individual method paths and a 14-method batch, with 14 scientific NPZ exports and 249 archive checks. The original-grid positive SelfDM GPU case at 831 × 641 matches the native binary mask; measured continuous Float32 differences and one CPU threshold-boundary pixel remain documented. These checks do not establish universal detector accuracy, mobile WebKit/Firefox or 96 MP qualification for the new methods. The batch's ongoing OCR, panel preclassification and acquisition-only filtering are a separate task; its previously rejected scientific-filtering acceptance has not been relabeled as passed.
+
 ## Featured example — D2PRL across automatic microscopy zones
 
 I used the web engine to analyze **16 automatically detected panels and their enclosing global zone**, with **minimum component sizes of 100 and 10 pixels on each 448 × 448 model grid**. Each panel has its own inference; the global pass sees the panels together and can highlight similarities across them.

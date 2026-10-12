@@ -21,10 +21,16 @@ func jsonLine(v any) []byte {
 	return append(b, '\n')
 }
 func fixture(t *testing.T) (config, *library) {
+	return fixtureOptional(t, false, false)
+}
+func fixtureOptional(t *testing.T, includeOptional, corruptOptional bool) (config, *library) {
 	t.Helper()
 	html, model := []byte("<!doctype html><title>offline</title>"), []byte{0, 97, 115, 109, 1, 0, 0, 0}
 	meta := func(b []byte) fileMeta { return fileMeta{Size: int64(len(b)), SHA: sum(b)} }
-	manifest := jsonLine(map[string]any{"schema": "sherloq.dependencies/1", "files": map[string]fileMeta{"engine/module.wasm": meta(model)}})
+	optional := []byte("local model")
+	optionalMeta := meta(optional)
+	optionalMeta.LocalOnly = true
+	manifest := jsonLine(map[string]any{"schema": "sherloq.dependencies/1", "files": map[string]fileMeta{"engine/module.wasm": meta(model), "engine/local.onnx": optionalMeta}})
 	c := config{Schema: "sherloq.offline-launcher/1", ArchivePath: filepath.Join(t.TempDir(), "normal.tar"), Manifest: sum(manifest), Token: strings.Repeat("a", 32), Port: 49871}
 	shell := jsonLine(inventory{Schema: "sherloq.offline-shell/1", Manifest: c.Manifest, Files: map[string]fileMeta{"app.html": meta(html)}})
 	c.ShellHash = sum(shell)
@@ -33,7 +39,14 @@ func fixture(t *testing.T) (config, *library) {
 		t.Fatal(e)
 	}
 	w := tar.NewWriter(f)
-	for name, data := range map[string][]byte{"manifest.json": manifest, "offline-kit.json": shell, "app/app.html": html, "engine/module.wasm": model} {
+	entries := map[string][]byte{"manifest.json": manifest, "offline-kit.json": shell, "app/app.html": html, "engine/module.wasm": model}
+	if includeOptional {
+		entries["engine/local.onnx"] = optional
+		if corruptOptional {
+			entries["engine/local.onnx"] = []byte("wrong model")
+		}
+	}
+	for name, data := range entries {
 		if e = w.WriteHeader(&tar.Header{Name: name, Size: int64(len(data)), Mode: 0644}); e != nil {
 			t.Fatal(e)
 		}
@@ -52,6 +65,33 @@ func fixture(t *testing.T) (config, *library) {
 		t.Fatal(e)
 	}
 	return c, lib
+}
+func TestOptionalModelsAbsentPresentAndCorrupt(t *testing.T) {
+	for _, mode := range []struct{ present, corrupt bool }{{false, false}, {true, false}, {true, true}} {
+		c, lib := fixtureOptional(t, mode.present, mode.corrupt)
+		host := "127.0.0.1:49871"
+		h := handler(lib, c, host, nil)
+		request := func(name string) *httptest.ResponseRecorder {
+			w := httptest.NewRecorder()
+			h.ServeHTTP(w, httptest.NewRequest("GET", "http://"+host+"/"+c.Token+"/"+name, nil))
+			return w
+		}
+		if r := request("app.html"); r.Code != 200 {
+			t.Fatal("optional model blocked application", r)
+		}
+		r := request("engine/local.onnx")
+		if !mode.present {
+			if r.Code != 503 || !strings.Contains(r.Body.String(), "MODEL_LOCAL_REQUIRED") {
+				t.Fatal(r)
+			}
+		} else if mode.corrupt {
+			if r.Code != 503 || !strings.Contains(r.Body.String(), "corrupt") {
+				t.Fatal("corrupt optional model accepted", r)
+			}
+		} else if r.Code != 200 || r.Body.String() != "local model" {
+			t.Fatal(r)
+		}
+	}
 }
 func TestOriginalFilesAndIsolation(t *testing.T) {
 	c, lib := fixture(t)

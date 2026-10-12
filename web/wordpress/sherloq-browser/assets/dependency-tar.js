@@ -1,6 +1,6 @@
 // POSIX ustar: files remain usable by tar, Archive Utility, 7-Zip, etc.
 // Transport pieces never become a proprietary installed-library format.
-import {sha256} from './dependency-core.js';
+import {sha256,publicDependencyEntries} from './dependency-core.js';
 const enc=new TextEncoder(),dec=new TextDecoder(),BLOCK=512;
 function put(header,offset,length,value){const bytes=enc.encode(value);if(bytes.length>length)throw Error('TAR field too long');header.set(bytes,offset);}
 function header(path,size){
@@ -8,9 +8,9 @@ function header(path,size){
  if(enc.encode(name).length>100){const slash=path.lastIndexOf('/');name=path.slice(slash+1);prefix=path.slice(0,slash);}
  put(h,0,100,name);put(h,345,155,prefix);put(h,100,8,'0000644\0');put(h,108,8,'0000000\0');put(h,116,8,'0000000\0');put(h,124,12,size.toString(8).padStart(11,'0')+'\0');put(h,136,12,'00000000000\0');h.fill(32,148,156);h[156]=48;put(h,257,6,'ustar\0');put(h,263,2,'00');put(h,148,8,h.reduce((n,b)=>n+b,0).toString(8).padStart(6,'0')+'\0 ');return h;
 }
-export async function* resourceTarParts(manifest,load,{signal,progress=()=>{},extras}={}){
+export async function* resourceTarParts(manifest,load,{signal,progress=()=>{},extras,includeLocalOnly=false}={}){
  let done=0;
- const entries=[['manifest.json',{size:0}],...Object.entries(manifest.files)];
+ const entries=[['manifest.json',{size:0}],...(includeLocalOnly?Object.entries(manifest.files):publicDependencyEntries(manifest))];
  const metadata=enc.encode(JSON.stringify(manifest,null,2)+'\n');entries[0][1].size=metadata.length;
  if(extras)for await(const [path,bytes] of extras){
   signal?.throwIfAborted();if(!safeTarPath(path)||path==='manifest.json'||Object.hasOwn(manifest.files,path))throw Error('Invalid extra TAR path');
@@ -42,8 +42,8 @@ export async function indexResourceTar(blob,{signal}={}){
  throw Error('TAR footer missing');
 }
 export function archiveChunkReader(index,manifest){
- const locations=new Map();for(const [path,file]of Object.entries(manifest.files)){let at=0;for(const hash of file.chunks){const member=index.files.get(path);if(member&&member.size>=at+manifest.chunks[hash]){const items=locations.get(hash)||[];items.push(member.offset+at);locations.set(hash,items);}at+=manifest.chunks[hash];}}
- return async hash=>{for(const offset of locations.get(hash)||[]){const bytes=new Uint8Array(await index.blob.slice(offset,offset+manifest.chunks[hash]).arrayBuffer());if(await sha256(bytes)===hash)return bytes;}return null;};
+ const locations=new Map(),invalidLengths=new Map();for(const [path,file]of Object.entries(manifest.files)){let at=0;for(const hash of file.chunks){const member=index.files.get(path);if(member?.size===file.size){const items=locations.get(hash)||[];items.push(member.offset+at);locations.set(hash,items);}else if(member)invalidLengths.set(hash,{file:path,expectedFileBytes:file.size,receivedFileBytes:member.size});at+=manifest.chunks[hash];}}
+ return async hash=>{for(const offset of locations.get(hash)||[]){const bytes=new Uint8Array(await index.blob.slice(offset,offset+manifest.chunks[hash]).arrayBuffer());if(await sha256(bytes)===hash)return bytes;}if(locations.has(hash)||invalidLengths.has(hash))throw Object.assign(Error('Local archive integrity failure: '+hash),{code:'DEPENDENCY_LOCAL_INTEGRITY',details:{expectedSha256:hash,expectedBytes:manifest.chunks[hash],...invalidLengths.get(hash)}});return null;};
 }
 export async function writeResourceTar(manifest,load,sink,options={}){for await(const bytes of resourceTarParts(manifest,load,options))await sink.write(bytes);}
 export function resourceTarStream(manifest,load,options={}){

@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
 import {toolCatalog,toolFields,neuralSelection} from '../sherloq-browser/assets/tool-catalog.js';
 import {toolGroups} from '../sherloq-browser/assets/tool-tree.js';
 import {validIndividualSettings} from '../sherloq-browser/assets/settings.js';
@@ -14,6 +15,8 @@ import {CLONE_ALGORITHMS,isDenseClone,cloneOperation,changeCloneAlgorithm} from 
 import {denseCopyParams} from '../../engine-source/src/dense-adapter.js';
 import {safireParams} from '../../engine-source/src/safire.js';
 import {resultResources,createToolClient} from '../sherloq-browser/assets/tool-client.js';
+import {SELFDM_PROPOSAL_MODELS} from '../../engine-source/src/selfdm-proposal-assets.js';
+import {SEGMENTATION_MODELS} from '../../engine-source/experiments/segmentation/models.js';
 
 test('Every tree entry has a concrete adapter and native default parameters validate',()=>{
  const existing=new Set(['original','ela.classic','composite','analysis.complete','analysis.clones']);
@@ -46,15 +49,52 @@ test('Queued source windows and releases cannot overlap regular worker calls',as
  finally{await client?.dispose();globalThis.fetch=originalFetch;}
 });
 test('Pinned model closure includes nested backbones, runtime factories and every graph URL',async()=>{
- const root=fileURLToPath(new URL('../',import.meta.url)),assets=path.join(process.env.SHERLOQ_TEST_ASSET_ROOT??path.join(root,'sherloq-browser/assets'),'individual-assets');
+ const root=fileURLToPath(new URL('../',import.meta.url)),repository=path.resolve(root,'../..'),publicAssets=path.join(root,'sherloq-browser/assets/individual-assets');
  const lock=JSON.parse(await fs.readFile(path.join(root,'runtime-lock.json'))).runtimes.find(r=>r.destination.endsWith('/individual-assets')).files;
- const catalog=JSON.parse(await fs.readFile(path.join(assets,'individual-models.json'))),visited=new Set();
- async function visitFile(name,sha){name=path.normalize(name);assert.ok(!name.startsWith('../'));assert.ok(lock[name],name);if(sha)assert.equal(lock[name],sha,name);if(visited.has(name)||!name.endsWith('.json'))return;visited.add(name);await walk(JSON.parse(await fs.readFile(path.join(assets,name))),path.dirname(name));}
- async function walk(v,folder){if(!v||typeof v!=='object')return;if(v.file&&v.sha256)await visitFile(path.join(folder,v.file),v.sha256);for(const child of Object.values(v))await walk(child,folder);}
- async function resources(v){if(!v||typeof v!=='object')return;if(v.url){const name=v.url.replace('../individual-assets/','');await visitFile(name,v.sha256);}for(const child of Object.values(v))await resources(child);}
- await resources(catalog);
- for(const name of ['trufor-split-value/manifest.json','catnet-segments/manifest.json','cfa-m2/program-manifest.json','trufor-npp/native-manifest.json','cfa-m2/operators.mjs','cfa-m2/operators.wasm','catnet/jpeg.mjs','catnet/jpeg.wasm'])await visitFile(name);
- assert.equal(Object.keys(catalog.segmentation).length,9);assert.ok(visited.size>10);
+ const policyPaths=[process.env.SHERLOQ_TEST_RESOURCE_POLICY,path.join(repository,'.build/method-resources/resource-policy.json'),path.join(repository,'web-assets/manifest-template.json')].filter(Boolean);let policy;
+ for(const filename of policyPaths){let value;try{value=JSON.parse(await fs.readFile(filename));}catch(error){if(error.code==='ENOENT')continue;throw error;}
+  if(value.schema==='sherloq.resource-policy/1'){policy=value.files;break;}
+  if(value.schema==='sherloq.dependencies/1'&&Object.values(value.files).some(f=>f.localOnly===true)){policy=Object.fromEntries(Object.entries(value.files).filter(([,f])=>f.localOnly===true).map(([name,f])=>[name,{localOnly:true,sha256:f.sha256,bytes:f.size,chunks:f.chunks.map(sha256=>({sha256,bytes:value.chunks[sha256]}))}]));break;}
+ }
+ assert.ok(policy,'Missing reviewed local-only graph policy');
+ const restrictedNames=['selfdm','superpoint','superpoint-post','superglue'],expectedRestricted=restrictedNames.map(key=>'individual-assets/segmentation/selfdm-proposal/'+SELFDM_PROPOSAL_MODELS[key].file);
+ assert.deepEqual(Object.keys(policy).sort(),expectedRestricted.sort());
+ for(const key of restrictedNames){const expected=SELFDM_PROPOSAL_MODELS[key],name='segmentation/selfdm-proposal/'+expected.file,record=policy['individual-assets/'+name];
+  assert.deepEqual(record,{localOnly:true,sha256:expected.sha256,bytes:expected.bytes,chunks:[{sha256:expected.sha256,bytes:expected.bytes}]},name);
+  assert.equal(lock[name],undefined,'Restricted graph must not enter the physical runtime lock: '+name);
+  await assert.rejects(fs.stat(path.join(publicAssets,name)),error=>error.code==='ENOENT',name);
+  for(const part of record.chunks)await assert.rejects(fs.stat(path.join(repository,'web-assets/chunks',part.sha256+'.bin')),error=>error.code==='ENOENT','Restricted graph must not be hosted: '+name);
+ }
+ async function qualify(assets,{publicBuild}={}){
+  const catalogBytes=await fs.readFile(path.join(assets,'individual-models.json')),catalog=JSON.parse(catalogBytes),visited=new Set(),localOnlyVisited=new Set();
+  if(publicBuild)assert.equal(createHash('sha256').update(catalogBytes).digest('hex'),lock['individual-models.json']);
+  async function visitFile(name,sha,bytes){name=path.normalize(name);assert.ok(!path.isAbsolute(name)&&name!=='..'&&!name.startsWith('../'),'Unsafe resource path: '+name);
+   if(!lock[name]){const optional=policy['individual-assets/'+name];assert.ok(optional?.localOnly===true,'Missing execution resource: '+name);assert.ok(sha&&Number.isSafeInteger(bytes),'Missing exact local-only identity: '+name);assert.equal(optional.sha256,sha,name);assert.equal(optional.bytes,bytes,name);localOnlyVisited.add(name);visited.add(name);return;}
+   if(sha)assert.equal(lock[name],sha,name);const file=path.join(assets,name),stat=await fs.stat(file);if(bytes!==undefined)assert.equal(stat.size,bytes,name);
+   if(visited.has(name))return;visited.add(name);if(!name.endsWith('.json'))return;
+   const data=await fs.readFile(file);assert.equal(createHash('sha256').update(data).digest('hex'),lock[name],name);await walk(JSON.parse(data),path.dirname(name));
+  }
+  async function walk(v,folder){if(!v||typeof v!=='object')return;
+   if(v.schema==='sherloq.ssg-structured-forest/1'){
+    assert.deepEqual(v.arrays.map(a=>a.name),['thrs','fids','child','segs','nSegs','eBins','eBnds']);assert.deepEqual(Object.keys(v.runtime).sort(),['edges-shared.mjs','edges-shared.wasm','edges.mjs','edges.wasm']);
+    assert.deepEqual(v.original,{bytes:24433845,file:'Function/EDGE/model.mat',sha256:'ff1dc0c8f843335e0e2324bb4d8cfed13870232ea2623f4e6befa0c6df06f0ce'});
+    // Original MAT and source-file hashes describe provenance. Only the seven
+    // NPY arrays, four runtime files and retained notices are execution assets.
+    for(const [name,spec]of Object.entries(v.runtime))await visitFile(path.join(folder,name),spec.sha256,spec.bytes);
+    for(const name of v.licenses)await visitFile(path.join(folder,name));
+    for(const [key,child]of Object.entries(v))if(!['original','sourceFiles','runtime','licenses'].includes(key))await walk(child,folder);return;
+   }
+   if(v.family==='selfdm-proposal'){assert.deepEqual(Object.keys(v.models).sort(),Object.keys(SELFDM_PROPOSAL_MODELS).sort(),'Every Proposal graph must be declared');for(const [key,expected]of Object.entries(SELFDM_PROPOSAL_MODELS))assert.deepEqual(v.models[key],expected,'Pinned Proposal graph identity: '+key);}
+   if(v.file&&v.sha256)await visitFile(path.join(folder,v.file),v.sha256,v.bytes);for(const child of Object.values(v))await walk(child,folder);
+  }
+  async function resources(v){if(!v||typeof v!=='object')return;if(v.url){assert.ok(v.url.startsWith('../individual-assets/'),'Unexpected model URL: '+v.url);await visitFile(v.url.slice('../individual-assets/'.length),v.sha256,v.bytes);}for(const child of Object.values(v))await resources(child);}
+  await resources(catalog);
+  for(const name of ['trufor-split-value/manifest.json','catnet-segments/manifest.json','cfa-m2/program-manifest.json','trufor-npp/native-manifest.json','cfa-m2/operators.mjs','cfa-m2/operators.wasm','catnet/jpeg.mjs','catnet/jpeg.wasm'])await visitFile(name);
+  const expectedMethods=Object.keys(SEGMENTATION_MODELS).filter(key=>publicBuild||!key.startsWith('selfdm-')).sort();assert.deepEqual(Object.keys(catalog.segmentation).sort(),expectedMethods);assert.ok(visited.size>10);
+  if(publicBuild){assert.deepEqual([...localOnlyVisited].sort(),restrictedNames.map(key=>'segmentation/selfdm-proposal/'+SELFDM_PROPOSAL_MODELS[key].file).sort());for(const name of ['m3/ssg/segs.npy','m3/ssg/edges-shared.mjs','m3/ssg/edges-shared.wasm','m3/efficient-loftr-full-fp32.onnx'])assert.ok(visited.has(name),name);}
+ }
+ await qualify(publicAssets,{publicBuild:true});
+ if(process.env.SHERLOQ_TEST_ASSET_ROOT)await qualify(path.join(process.env.SHERLOQ_TEST_ASSET_ROOT,'individual-assets'));
 });
 
 test('Neural selections preserve source coordinates and keep native exclusions separate',()=>{

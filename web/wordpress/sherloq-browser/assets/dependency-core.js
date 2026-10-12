@@ -11,9 +11,17 @@ export function validateManifest(m){
  for(const [path,f] of Object.entries(m.files)){
   if(!pathOK(path)||!m.slots.some(s=>path.startsWith(s+'/'))||!digestPattern.test(f.sha256)||!Array.isArray(f.chunks)||!Number.isSafeInteger(f.size)||f.size<0||typeof f.type!=='string'||/[\r\n]/.test(f.type))throw Error('Invalid dependency file');
   if(f.chunks.some(h=>!Object.hasOwn(m.chunks,h))||f.chunks.reduce((n,h)=>n+m.chunks[h],0)!==f.size)throw Error('Invalid dependency file length');
+  if(f.localOnly!==undefined&&typeof f.localOnly!=='boolean')throw Error('Invalid local-only dependency policy');
  }
  if(m.localFiles!==undefined&&(!Array.isArray(m.localFiles)||m.localFiles.some(p=>!Object.hasOwn(m.files,p))))throw Error('Invalid local dependency list');
  return m;
+}
+// Optional, restricted weights retain their ordinary file identity for import,
+// but are not part of a downloadable public library or offline readiness.
+export const publicDependencyEntries=manifest=>Object.entries(manifest.files).filter(([,file])=>file.localOnly!==true);
+export function requiredDependencyChunks(manifest){
+ const required=new Set(publicDependencyEntries(manifest).flatMap(([,file])=>file.chunks));
+ return Object.entries(manifest.chunks).filter(([hash])=>required.has(hash));
 }
 export function remoteBase(value,{allowLocal=false}={}){
  if(value===null)return null;

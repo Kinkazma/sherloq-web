@@ -1,4 +1,4 @@
-import {validateManifest,remoteBase,sha256,dependencyResponse} from './dependency-core.js';
+import {validateManifest,remoteBase,sha256,dependencyResponse,publicDependencyEntries} from './dependency-core.js';
 import {createChunkLoader} from './dependency-store.js';
 import {resourceTarStream,indexResourceTar,archiveChunkReader} from './dependency-tar.js';
 import {readOfflineShell,offlineShellParts} from './offline-kit-core.js';
@@ -73,7 +73,7 @@ async function recoverChunk(event,path,load,hash){
   for(let attempt=1;attempt<=3;attempt++)try{
    const bytes=await load(hash,entry=>void notifyDependency(event,{...entry,file:path}));
    void notifyDependency(event,{level:'info',kind:'dependency.ready',key,file:path});return bytes;
-  }catch(error){cause=error;await notifyDependency(event,{level:'warning',kind:'dependency.transport-error',attempt,file:path,error:{name:error.name,code:error.code,message:error.message,details:error.details,cause:error.cause?.message}});if(attempt<3)await new Promise(r=>setTimeout(r,250*attempt));}
+  }catch(error){cause=error;await notifyDependency(event,{level:'warning',kind:'dependency.transport-error',attempt,file:path,error:{name:error.name,code:error.code,message:error.message,details:error.details,cause:error.cause?.message}});if(error.code==='MODEL_LOCAL_REQUIRED')throw error;if(attempt<3)await new Promise(r=>setTimeout(r,250*attempt));}
   if(!session)throw cause;
   // Keep the original module import or file stream pending: retrying a failed
   // ES module import after rejection would otherwise reuse its cached failure.
@@ -106,7 +106,8 @@ self.addEventListener('fetch',event=>{
    }
    const selected=u.searchParams.get('file');if(selected&&!manifest.files[selected]){finish();return new Response('Unknown library file',{status:404});}
    const chosen=selected?{...manifest,files:{[selected]:manifest.files[selected]}}:manifest;
-   const stream=resourceTarStream(chosen,load,{extras,progress:value=>void notify({value,total:Object.keys(chosen.files).length}),finished:error=>{void notify({done:true,error:error?.message});finish();}});
+   const total=selected?1:publicDependencyEntries(chosen).length;
+   const stream=resourceTarStream(chosen,load,{extras,includeLocalOnly:!!selected,progress:value=>void notify({value,total}),finished:error=>{void notify({done:true,error:error?.message});finish();}});
    return new Response(stream,{headers:{'Content-Type':'application/x-tar','Cross-Origin-Embedder-Policy':'require-corp','Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Resource-Policy':'same-origin','Content-Disposition':'attachment; filename="'+(kit?'SHERLOQ-complet.tar':'SHERLOQ-resources.tar')+'"','Cache-Control':'no-store'}});
   }).catch(e=>{void notify({done:true,error:e.message});finish();return new Response(e.message,{status:503});}));return;
  }

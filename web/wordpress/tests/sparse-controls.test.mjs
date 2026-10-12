@@ -10,8 +10,13 @@ import {errorText,localizeStatus} from '../sherloq-browser/assets/ui-errors.js';
 import {createToolClient} from '../sherloq-browser/assets/tool-client.js';
 const defaults=toolCatalog['tampering.copyMove.sparse'].params;
 const rectangles=[{x0:10,y0:10,x1:30,y1:40},{x0:100,y0:10,x1:120,y1:40}];
-test('Every offered detector accepts restored reflections and automatic radius after normalization',()=>{
- for(const algorithm of SPARSE_COPY_ALGORITHMS){const p=sparseParameters({...defaults,algorithm,reflections:true,autoRadius:true},rectangles);assert.doesNotThrow(()=>sparseCopyParams(p),algorithm);assert.equal(p.reflections,algorithm===PANELS_SIFT);const policy=copyDistancePolicy(p,p.regions);assert.equal(policy.radius,Math.hypot(20,30));}
+test('Every offered detector accepts restored settings under its native parameter contract',()=>{
+ for(const algorithm of SPARSE_COPY_ALGORITHMS){
+  const p=sparseParameters({...defaults,algorithm,reflections:true,autoRadius:true},rectangles);assert.doesNotThrow(()=>sparseCopyParams(p),algorithm);
+  if(algorithm==='SSG'){assert.equal(p.reflections,true);assert.equal(p.regions.length,2);assert.equal(p.autoRadius,undefined);assert.equal(p.radius,undefined);continue;}
+  if(algorithm==='EfficientLoFTR'){assert.equal(p.reflections,true);assert.equal(p.compare,true);assert.equal(p.regions.length,2);assert.deepEqual(p.rotations,[0]);continue;}
+  assert.equal(p.reflections,algorithm===PANELS_SIFT);const policy=copyDistancePolicy(p,p.regions);assert.equal(policy.radius,Math.hypot(20,30));
+ }
 });
 test('Compacting has real distance guides outside comparison; no envelope can fill the gap back in',()=>{
  const detected=detectedRectangles({regions:[{bounds:[10,10,31,41]},{bounds:[100,10,121,41]}],polygons:[[[10,10],[30,10],[30,40],[10,40]],[[100,10],[120,10],[120,40],[100,40]]]});

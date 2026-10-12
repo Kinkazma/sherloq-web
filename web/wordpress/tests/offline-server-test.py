@@ -60,5 +60,36 @@ class OfflineServerTests(unittest.TestCase):
         self.path.write_bytes(self.path.read_bytes()+b'changed')
         self.assertEqual(self.request('engine/module.wasm')[0],503)
 
+    def test_optional_models_do_not_block_startup_and_present_bytes_are_verified(self):
+        spec = importlib.util.spec_from_file_location('verify_archive', Path(__file__).parents[1]/'scripts/verify-offline-archive.py')
+        verifier = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(verifier)
+        canonical = lambda value: (json.dumps(value,sort_keys=True,separators=(',',':'))+'\n').encode()
+        original = b'local model'
+        for present, corrupt in [(False,False),(True,False),(True,True)]:
+            manifest = json.loads(json.dumps(self.manifest))
+            manifest['files']['engine/local.onnx'] = {'localOnly':True,'size':len(original),'sha256':offline.digest(original),'chunks':[offline.digest(original)],'type':'application/octet-stream'}
+            manifest['chunks'][offline.digest(original)] = len(original)
+            shell = {**self.shell,'version':'test','manifest':offline.digest(canonical(manifest))}
+            config = {**self.config,'manifest':shell['manifest'],'shellSha256':offline.digest(canonical(shell))}
+            path = Path(self.tmp.name)/f'optional-{present}-{corrupt}.tar'
+            entries = [('manifest.json',canonical(manifest)),('offline-kit.json',canonical(shell)),('app/app.html',self.html),('engine/module.wasm',self.model)]
+            if present:entries.append(('engine/local.onnx',b'wrong model' if corrupt else original))
+            with tarfile.open(path,'w:',format=tarfile.USTAR_FORMAT) as tar:
+                for name,data in entries:
+                    info=tarfile.TarInfo(name);info.size=len(data);tar.addfile(info,io.BytesIO(data))
+            archive = offline.Archive(path,config)
+            archive.verify('app.html')
+            archive.verify('engine/module.wasm')
+            if not present:
+                self.assertEqual(archive.local_only_missing,{'engine/local.onnx'})
+                self.assertEqual(verifier.verify(path)['localOnlyMissing'],['engine/local.onnx'])
+            elif corrupt:
+                with self.assertRaisesRegex(ValueError,'Corrupt'):archive.verify('engine/local.onnx')
+                with self.assertRaisesRegex(ValueError,'integrity'):verifier.verify(path)
+            else:
+                archive.verify('engine/local.onnx')
+                self.assertEqual(verifier.verify(path)['localOnlyMissing'],[])
+
 
 if __name__=='__main__':unittest.main()

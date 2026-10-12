@@ -45,8 +45,11 @@ def put(path, data):
     path.write_bytes(data)
 
 
-def pack(output, source_revision=None):
+def pack(output, source_revision=None, local_only=None, resource_policy=None):
     lock, files = locked_files(ROOT)
+    local_only = set(lock.get('localOnlyFiles', [])) | set(local_only or [])
+    if any(not isinstance(name, str) or not name or any(part in ('', '.', '..') for part in name.split('/')) or '\\' in name for name in local_only):
+        raise ValueError('Invalid local-only dependency path')
     if source_revision:
         source_revision = subprocess.check_output(['git', 'rev-parse', source_revision + '^{commit}'], cwd=ROOT, text=True).strip()
     prefix = subprocess.check_output(['git', 'rev-parse', '--show-prefix'], cwd=ROOT, text=True).strip() if source_revision else ''
@@ -67,6 +70,7 @@ def pack(output, source_revision=None):
             if tracked is None or source.relative_to(ROOT).as_posix() in tracked:
                 put(output / 'public/web/wordpress/sherloq-browser' / name, source_bytes(source))
             continue
+        restricted = relative in local_only
         original = source.read_bytes() if source.suffix in ['.js', '.mjs'] else None
         adapted = _delivery.adapted_runtime(relative, original, runtime_data, version) if original is not None else None
         chunks = []
@@ -79,23 +83,54 @@ def pack(output, source_revision=None):
                 hasher.update(data)
                 sha = digest(data)
                 target = resource / 'chunks' / (sha + '.bin')
-                if not target.exists():
+                if restricted:
+                    pass  # Identity only: restricted payload is imported locally.
+                elif not target.exists():
                     put(target, data)
                 elif target.stat().st_size != len(data) or digest(target.read_bytes()) != sha:
                     raise ValueError('Existing chunk is corrupt: ' + sha)
                 manifest['chunks'][sha] = len(data)
                 chunks.append(sha)
         manifest['files'][relative] = {'sha256': hasher.hexdigest(), 'size': size, 'type': mime(relative), 'chunks': chunks}
+        if restricted:
+            manifest['files'][relative]['localOnly'] = True
         parts = Path(relative).parts
         small_source = source.suffix in ['.js', '.mjs', '.json'] and size <= 128 * 1024
         small_wasm = source.suffix == '.wasm' and size < 300 * 1024
-        if small_wasm or (small_source and parts[0].endswith('engine') and len(parts) > 2 and parts[1] in ['src', 'vendor']):
+        if not restricted and (small_wasm or (small_source and parts[0].endswith('engine') and len(parts) > 2 and parts[1] in ['src', 'vendor'])):
             manifest['localFiles'].append(relative)
             put(output / 'public/web/wordpress/sherloq-browser' / name, adapted if adapted is not None else source.read_bytes())
         # Readable runtime source and notices accompany the exact executable
         # resources. They are not fetched at startup simply because published.
-        if source.suffix.lower() in {'.js', '.mjs', '.c', '.cc', '.cpp', '.h', '.hpp', '.py', '.sh', '.md', '.wgsl'} or any(x in source.name.lower() for x in ['license', 'notice', 'copyright']):
+        if not restricted and (source.suffix.lower() in {'.js', '.mjs', '.c', '.cc', '.cpp', '.h', '.hpp', '.py', '.sh', '.md', '.wgsl'} or any(x in source.name.lower() for x in ['license', 'notice', 'copyright'])):
             put(output / 'public/web/runtime-sources' / relative, adapted if adapted is not None else source.read_bytes())
+    if resource_policy is not None:
+        if not isinstance(resource_policy, dict) or resource_policy.get('schema') != 'sherloq.resource-policy/1' or not isinstance(resource_policy.get('files'), dict):
+            raise ValueError('Invalid resource policy')
+        for name, record in resource_policy['files'].items():
+            if not isinstance(name, str) or not name or any(part in ('', '.', '..') for part in name.split('/')) or '\\' in name or not any(name.startswith(slot + '/') for slot in slots):
+                raise ValueError('Invalid resource policy path')
+            if not isinstance(record, dict) or record.get('localOnly') is not True or not re.fullmatch('[a-f0-9]{64}', record.get('sha256', '')) or type(record.get('bytes')) is not int or record['bytes'] < 0 or not isinstance(record.get('chunks'), list):
+                raise ValueError('Injected resource requires a local-only identity')
+            parts = record['chunks']
+            if any(not isinstance(part, dict) or not re.fullmatch('[a-f0-9]{64}', part.get('sha256', '')) or type(part.get('bytes')) is not int or not 0 < part['bytes'] <= CHUNK for part in parts) or sum(part['bytes'] for part in parts) != record['bytes']:
+                raise ValueError('Invalid local-only resource chunks')
+            entry = {'localOnly': True, 'sha256': record['sha256'], 'size': record['bytes'], 'type': mime(name), 'chunks': [part['sha256'] for part in parts]}
+            if name in manifest['files'] and manifest['files'][name] != entry:
+                raise ValueError('Resource policy conflicts with staged resource: ' + name)
+            for part in parts:
+                sha, size = part['sha256'], part['bytes']
+                if sha in manifest['chunks'] and manifest['chunks'][sha] != size:
+                    raise ValueError('Resource policy chunk identity conflicts')
+                manifest['chunks'][sha] = size
+            manifest['files'][name] = entry
+            local_only.add(name)
+    if local_only - set(manifest['files']):
+        raise ValueError('Local-only files are absent from locked resources: ' + ', '.join(sorted(local_only - set(manifest['files']))))
+    public_chunks = {sha for file in manifest['files'].values() if not file.get('localOnly') for sha in file['chunks']}
+    restricted_chunks = {sha for file in manifest['files'].values() if file.get('localOnly') for sha in file['chunks']}
+    if any((resource / 'chunks' / (sha + '.bin')).exists() for sha in restricted_chunks - public_chunks):
+        raise ValueError('Restricted payload is already present in the public output; use a fresh output directory')
     put(output / 'manifest-template.json', encode(manifest))
     put(resource / 'manifest-template.json', encode(manifest))
     # Published resources are the executable delivery, after transport adaptation.
@@ -110,14 +145,20 @@ def pack(output, source_revision=None):
     put(output / 'public/web/wordpress/runtime-lock.json', encode(delivered))
     for name in ['build.py', 'runtime-delivery.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         put(output / 'public/web/wordpress' / name, source_bytes(ROOT / name))
+    for name in ['resource-policy.json', 'method-resource-assembly.json']:
+        source = ROOT / name
+        if source.is_file() and (tracked is None or name in tracked):
+            put(output / 'public/web/wordpress' / name, source_bytes(source))
     for folder in ['tests', 'scripts', 'runtime-patches', 'offline-launcher', 'compatibility-manifests']:
         for source in (ROOT / folder).rglob('*'):
             if source.is_file() and source.suffix in {'.js', '.mjs', '.py', '.json', '.html', '.go', '.mod'} and 'fixtures' not in source.parts:
                 if tracked is None or source.relative_to(ROOT).as_posix() in tracked:
                     put(output / 'public/web/wordpress' / source.relative_to(ROOT), source_bytes(source))
     report = {'schema': 'sherloq.distribution-preparation/1', 'runtimeFiles': len(manifest['files']),
-              'runtimeBytes': sum(f['size'] for f in manifest['files'].values()), 'uniqueChunks': len(manifest['chunks']),
-              'uniqueBytes': sum(manifest['chunks'].values()), 'chunkLimit': CHUNK,
+              'runtimeBytes': sum(f['size'] for f in manifest['files'].values()), 'uniqueChunks': len(public_chunks),
+              'publicRuntimeBytes': sum(f['size'] for f in manifest['files'].values() if not f.get('localOnly')), 'declaredChunks': len(manifest['chunks']),
+              'uniqueBytes': sum(manifest['chunks'][sha] for sha in public_chunks), 'chunkLimit': CHUNK,
+              'localOnlyFiles': sorted(local_only), 'publicChunks': len(public_chunks),
               'publicDirectory': 'public', 'privateInstallerDirectory': 'private',
               'published': False, 'sourceRevision': source_revision, 'runtimeLockSha256': digest((ROOT / 'runtime-lock.json').read_bytes())}
     put(output / 'preparation.json', encode(report))
@@ -214,9 +255,19 @@ if __name__ == '__main__':
     p.add_argument('--engine-source', type=Path, help='Export the complete committed engine source tree')
     p.add_argument('--engine-commit', default='70473081aab0767f9ea10613001e444847e2d9db')
     p.add_argument('--source-revision', help='Package committed UI sources, excluding unrelated working edits')
+    p.add_argument('--local-only-manifest', type=Path, help='JSON list (or files list) of restricted paths: retain identities for local import without publishing payloads')
+    p.add_argument('--resource-policy', type=Path, help='Reviewed sherloq.resource-policy/1 metadata for local-only files absent from physical runtime slots')
     a = p.parse_args()
+    local_only = None
+    if a.local_only_manifest:
+        local_only = json.loads(a.local_only_manifest.read_text())
+        if isinstance(local_only, dict):
+            local_only = local_only.get('files')
+        if not isinstance(local_only, list) or any(not isinstance(name, str) for name in local_only):
+            raise ValueError('Local-only manifest must contain a list of dependency paths')
     if not a.finalize:
-        print(json.dumps(pack(a.output, a.source_revision), indent=2))
+        policy = json.loads(a.resource_policy.read_text()) if a.resource_policy else None
+        print(json.dumps(pack(a.output, a.source_revision, local_only, policy), indent=2))
     if a.engine_source:
         stage_engine_source(a.output, a.engine_source, a.engine_commit)
     if a.origin or a.offline or a.finalize:

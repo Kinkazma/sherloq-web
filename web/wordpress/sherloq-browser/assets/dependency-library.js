@@ -1,4 +1,4 @@
-import {validateManifest,remoteBase,sha256} from './dependency-core.js';
+import {validateManifest,remoteBase,sha256,publicDependencyEntries} from './dependency-core.js';
 import {libraryValue,createChunkLoader,saveLibraryFile} from './dependency-store.js';
 import {importResourceTar,importLibraryFile} from './dependency-tar.js';
 const scope=new URL('./',import.meta.url);
@@ -37,7 +37,7 @@ export function mountDependencyControls(document,config){
   // Ask for a writable directory while still inside the user's click gesture.
   if(!globalThis.showDirectoryPicker){downloadDependencyArchive(document,new URL('./__dependency_download__/resources.tar',scope));status.textContent=t('Téléchargement de l’archive lancé. Suivez sa progression dans les téléchargements du navigateur.','Archive download started. Follow its progress in your browser downloads.');return;}
   let destination;try{if(globalThis.showDirectoryPicker)destination=await useFolder('readwrite');}catch(e){if(e.name!=='AbortError')report(e);return;}
-  await job(async signal=>{const m=await manifest(),entries=Object.entries(m.files),load=createChunkLoader(m,{base:remoteBase(m.remoteBase,{allowLocal:['localhost','127.0.0.1'].includes(location.hostname)}),scope});meter.max=entries.length;meter.value=0;
+  await job(async signal=>{const m=await manifest(),entries=publicDependencyEntries(m),load=createChunkLoader(m,{base:remoteBase(m.remoteBase,{allowLocal:['localhost','127.0.0.1'].includes(location.hostname)}),scope});meter.max=entries.length;meter.value=0;
    const progress=n=>{meter.value=n;status.textContent=t('Téléchargement : ','Download: ')+n+' / '+entries.length;};
    if(destination){let n=0;for(const [path,file] of entries){signal.throwIfAborted();await saveLibraryFile(destination,path,file,load,{signal});progress(++n);}const w=await(await destination.getFileHandle('manifest.json',{create:true})).createWritable();try{await w.write(JSON.stringify(m));await w.close();}catch(e){await w.abort().catch(()=>{});throw e;}}
 
@@ -50,7 +50,7 @@ export function mountDependencyControls(document,config){
  const cancel=add('dependency-cancel',()=>controller?.abort());cancel.disabled=true;
  const close=add('dependency-close',()=>dialog.close());
  function translate(){entry.textContent=t('Ressources de calcul…','Calculation resources…');dialog.querySelector('h2').textContent=entry.textContent;
-  dialog.querySelector('.dependency-description').textContent=t('Les ressources sont téléchargées depuis GitHub uniquement selon les besoins. Vous pouvez toutes les conserver pour les réutiliser. Le navigateur peut demander de reconnecter le dossier après une suppression des autorisations.','Resources are downloaded from GitHub only as needed. You can keep them all for reuse. The browser may ask you to reconnect the folder after permissions are cleared.');
+  dialog.querySelector('.dependency-description').textContent=t('Les ressources publiques sont téléchargées depuis GitHub uniquement selon les besoins. Les modèles soumis à des restrictions de redistribution doivent être importés depuis leurs fichiers originaux vérifiés. Le téléchargement complet contient les ressources publiques. Le navigateur peut demander de reconnecter le dossier après une suppression des autorisations.','Public resources are downloaded from GitHub only as needed. Models with redistribution restrictions must be imported from their verified original files. The complete download contains public resources. The browser may ask you to reconnect the folder after permissions are cleared.');
   dialog.querySelector('.dependency-folder').textContent=folderName?t('Dossier mémorisé : ','Remembered folder: ')+folderName:t('Aucun dossier connecté.','No folder connected.');
   choose.textContent=t('Connecter un dossier…','Connect a folder…');download.textContent=t('Télécharger toutes les ressources…','Download all resources…');restore.textContent=t('Recharger une archive…','Load an archive…');forget.textContent=t('Oublier le dossier','Forget folder');cancel.textContent=t('Arrêter','Stop');close.textContent=t('Fermer','Close');
  }
