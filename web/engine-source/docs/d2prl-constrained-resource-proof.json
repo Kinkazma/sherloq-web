@@ -1,0 +1,540 @@
+{
+  "schema": 1,
+  "status": "passed-resource-parity-only",
+  "scope": "Four full D2PRL flat-RGB inferences under a2GiB shared policy budget: one cold and one retained-warm pass per current-HWC512 reference and exact-subnormal256 candidate. Three raw planes/decisions exact and final context ownership zero. No speed qualification with one pair per temperature; policy/backing ownership is not physical RAM/RSS.",
+  "report": {
+    "file": ".build/d2prl-optimization/2026-10-12T21-57-06.145Z-71588/report.json",
+    "bytes": 425477,
+    "sha256": "e4d29d68676d8f26a4fc276c0a99e08c7570170fe5449cfa2ca0add981695e70"
+  },
+  "configuration": {
+    "backends": [
+      "webgpu"
+    ],
+    "budgets": [
+      2147483648
+    ],
+    "profiles": [
+      "maximum"
+    ],
+    "repetitions": 1,
+    "startupOnly": false,
+    "resourceParityOnly": true,
+    "temperatures": [
+      "cold-context-new-model",
+      "warm-retained-model"
+    ],
+    "inputMode": "rgb",
+    "rolesMemoryMiB": 256
+  },
+  "source": {
+    "bytes": 586359,
+    "sha256": "131a1b751dcd6f2006f2ce40a8083cfc867ea5f5345c310b16051e8a862f6b0c",
+    "shape": [
+      381,
+      513,
+      3
+    ]
+  },
+  "modelSha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+  "reference": {
+    "kind": "frozen-current-engine-source",
+    "snapshot": "snapshot:4a9c1a949169c17f0b300540c3651db0de607c4f09cf747643f600f2f7a269a6"
+  },
+  "candidate": {
+    "files": {
+      "table-simd4-exact-subnormal.js": {
+        "bytes": 7747,
+        "sha256": "cda1e5e9d64566652c12d6eb5589b8f8621fcdc519897b47344dc2e9dfc0759a"
+      },
+      "table-simd4-exact-subnormal.wasm": {
+        "bytes": 18586,
+        "sha256": "54944c22b79e25068908af4c0885a4b0cf2131cf943b77f176683cbef50f8fb5"
+      }
+    },
+    "runtimeSnapshotSha256": "4a9c1a949169c17f0b300540c3651db0de607c4f09cf747643f600f2f7a269a6"
+  },
+  "runs": 4,
+  "threeRawAndDecisionsExact": true,
+  "policyWithinBudget": true,
+  "allFinalOwnershipZero": true,
+  "globalSpeedQualified": false,
+  "speedQualification": "forbidden-resource-parity-only-one-pair-per-temperature",
+  "physicalRamQualified": false,
+  "finalOwnershipTiming": "For retained cold/warm pairs, finalCapabilities is sampled after the retained model/context is disposed and can be attached to both rows.",
+  "diagnosticMeaning": "Parameter reads/cache counters and allocator peaks are cumulative for the retained model. Zero spill/reclaim in this case means no pressure migration was required; separate cross-function/real-storage tests cover those contracts.",
+  "rows": [
+    {
+      "variant": "reference",
+      "temperature": "cold-context-new-model",
+      "repetition": 0,
+      "resourceParityOnly": true,
+      "inferences": 1,
+      "rawCacheHits": 0,
+      "rolesMemoryMiB": 512,
+      "evaluatorModule": "pixel-major-combined.js",
+      "raw": [
+        {
+          "plane": "union",
+          "sha256": "279e6fe94ed0babf4dd4723b290951330b51b6abd05176b33d2987fdada6a446",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        },
+        {
+          "plane": "target",
+          "sha256": "15bc52c273656a157c0f72457110a521fc8351e6943ebd2cf5fdb0101e42e7ad",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        },
+        {
+          "plane": "source",
+          "sha256": "125c62526cce3e4b947fa527adf081ae0394d1ef0fbeb74db5ce742574533cf3",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        }
+      ],
+      "decisionSha256": "eccee7a9ebdff70203ad43d47058a35d9dfcb78443f37af642c353d74f9c12cd",
+      "memory": {
+        "budgetBytes": 2147483648,
+        "observedBeforeDisposePolicyPeakBytes": 1883214166,
+        "sampledPolicyPeakBytes": 1883214166,
+        "finalContextPeakPolicyBytes": 2099386487,
+        "policyWithinBudget": true,
+        "roleHeapBytes": 170524672
+      },
+      "pool": {
+        "createdWorkers": 10,
+        "peakWorkers": 10,
+        "peakConcurrentComputeCalls": 10,
+        "perWorkerPolicyBytes": 77004800,
+        "peakPolicyBytes": 770048000,
+        "peakWasmBytes": 531496960,
+        "descriptorTransport": "windowed",
+        "heapLimitBytes": 67108864,
+        "descriptorUploadLimitBytes": 8388608,
+        "descriptorUploads": 20,
+        "transportAllocations": 40,
+        "transportReuses": 19364,
+        "transportReductions": 0,
+        "optionalWorkerRefusals": 0,
+        "optionalPolicyRefusals": 0,
+        "optionalPolicyReclaims": 0,
+        "optionalPolicyReclaimedBytes": 0,
+        "optionalPeerDeferrals": 0
+      },
+      "parameters": {
+        "entries": 1061,
+        "verifiedEntries": 1061,
+        "reads": 1061,
+        "networkBytes": 521570392,
+        "cacheHits": 45,
+        "cacheHitBytes": 7221360,
+        "residentBytes": 528023552,
+        "verifiedTensorBytes": 521570392,
+        "liveLeaseCount": 0,
+        "evictedEntries": 0,
+        "spilledEntries": 0,
+        "storageFallbacks": 0,
+        "spillWrittenBytes": 0,
+        "rehydrationReadBytes": 0
+      },
+      "allocationRecovery": {
+        "completedOperations": 35287,
+        "recoveries": 0
+      },
+      "finalOwnership": {
+        "policyBytes": 0,
+        "activeRecoveries": 0,
+        "registeredBackings": {
+          "array-buffer": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "wasm": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "gpu": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "gpu-mapped": {
+            "backings": 0,
+            "materializedBytes": 0
+          }
+        },
+        "activeCpu": 0,
+        "activeGpu": 0,
+        "running": 0,
+        "queued": 0,
+        "operations": 0,
+        "pressures": 0,
+        "waitingOwners": 0,
+        "zero": true
+      }
+    },
+    {
+      "variant": "reference",
+      "temperature": "warm-retained-model",
+      "repetition": 0,
+      "resourceParityOnly": true,
+      "inferences": 1,
+      "rawCacheHits": 0,
+      "rolesMemoryMiB": 512,
+      "evaluatorModule": "pixel-major-combined.js",
+      "raw": [
+        {
+          "plane": "union",
+          "sha256": "279e6fe94ed0babf4dd4723b290951330b51b6abd05176b33d2987fdada6a446",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        },
+        {
+          "plane": "target",
+          "sha256": "15bc52c273656a157c0f72457110a521fc8351e6943ebd2cf5fdb0101e42e7ad",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        },
+        {
+          "plane": "source",
+          "sha256": "125c62526cce3e4b947fa527adf081ae0394d1ef0fbeb74db5ce742574533cf3",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        }
+      ],
+      "decisionSha256": "eccee7a9ebdff70203ad43d47058a35d9dfcb78443f37af642c353d74f9c12cd",
+      "memory": {
+        "budgetBytes": 2147483648,
+        "observedBeforeDisposePolicyPeakBytes": 2099386487,
+        "sampledPolicyPeakBytes": 2099386487,
+        "finalContextPeakPolicyBytes": 2099386487,
+        "policyWithinBudget": true,
+        "roleHeapBytes": 170524672
+      },
+      "pool": {
+        "createdWorkers": 10,
+        "peakWorkers": 10,
+        "peakConcurrentComputeCalls": 10,
+        "perWorkerPolicyBytes": 77004800,
+        "peakPolicyBytes": 770048000,
+        "peakWasmBytes": 531496960,
+        "descriptorTransport": "windowed",
+        "heapLimitBytes": 67108864,
+        "descriptorUploadLimitBytes": 8388608,
+        "descriptorUploads": 20,
+        "transportAllocations": 40,
+        "transportReuses": 19364,
+        "transportReductions": 0,
+        "optionalWorkerRefusals": 0,
+        "optionalPolicyRefusals": 0,
+        "optionalPolicyReclaims": 0,
+        "optionalPolicyReclaimedBytes": 0,
+        "optionalPeerDeferrals": 0
+      },
+      "parameters": {
+        "entries": 1061,
+        "verifiedEntries": 1061,
+        "reads": 1061,
+        "networkBytes": 521570392,
+        "cacheHits": 1151,
+        "cacheHitBytes": 536013112,
+        "residentBytes": 528023552,
+        "verifiedTensorBytes": 521570392,
+        "liveLeaseCount": 0,
+        "evictedEntries": 0,
+        "spilledEntries": 0,
+        "storageFallbacks": 0,
+        "spillWrittenBytes": 0,
+        "rehydrationReadBytes": 0
+      },
+      "allocationRecovery": {
+        "completedOperations": 19013,
+        "recoveries": 0
+      },
+      "finalOwnership": {
+        "policyBytes": 0,
+        "activeRecoveries": 0,
+        "registeredBackings": {
+          "array-buffer": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "wasm": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "gpu": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "gpu-mapped": {
+            "backings": 0,
+            "materializedBytes": 0
+          }
+        },
+        "activeCpu": 0,
+        "activeGpu": 0,
+        "running": 0,
+        "queued": 0,
+        "operations": 0,
+        "pressures": 0,
+        "waitingOwners": 0,
+        "zero": true
+      }
+    },
+    {
+      "variant": "candidate",
+      "temperature": "cold-context-new-model",
+      "repetition": 0,
+      "resourceParityOnly": true,
+      "inferences": 1,
+      "rawCacheHits": 0,
+      "rolesMemoryMiB": 256,
+      "evaluatorModule": "table-simd4-exact-subnormal.js",
+      "raw": [
+        {
+          "plane": "union",
+          "sha256": "279e6fe94ed0babf4dd4723b290951330b51b6abd05176b33d2987fdada6a446",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        },
+        {
+          "plane": "target",
+          "sha256": "15bc52c273656a157c0f72457110a521fc8351e6943ebd2cf5fdb0101e42e7ad",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        },
+        {
+          "plane": "source",
+          "sha256": "125c62526cce3e4b947fa527adf081ae0394d1ef0fbeb74db5ce742574533cf3",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        }
+      ],
+      "decisionSha256": "eccee7a9ebdff70203ad43d47058a35d9dfcb78443f37af642c353d74f9c12cd",
+      "memory": {
+        "budgetBytes": 2147483648,
+        "observedBeforeDisposePolicyPeakBytes": 1624774775,
+        "sampledPolicyPeakBytes": 1624774775,
+        "finalContextPeakPolicyBytes": 2099386487,
+        "policyWithinBudget": true,
+        "roleHeapBytes": 170524672
+      },
+      "pool": {
+        "createdWorkers": 10,
+        "peakWorkers": 10,
+        "peakConcurrentComputeCalls": 10,
+        "perWorkerPolicyBytes": 77004800,
+        "peakPolicyBytes": 770048000,
+        "peakWasmBytes": 534118400,
+        "descriptorTransport": "windowed",
+        "heapLimitBytes": 67108864,
+        "descriptorUploadLimitBytes": 8388608,
+        "descriptorUploads": 20,
+        "transportAllocations": 40,
+        "transportReuses": 19364,
+        "transportReductions": 0,
+        "optionalWorkerRefusals": 0,
+        "optionalPolicyRefusals": 0,
+        "optionalPolicyReclaims": 0,
+        "optionalPolicyReclaimedBytes": 0,
+        "optionalPeerDeferrals": 0
+      },
+      "parameters": {
+        "entries": 1061,
+        "verifiedEntries": 1061,
+        "reads": 1061,
+        "networkBytes": 521570392,
+        "cacheHits": 45,
+        "cacheHitBytes": 7221360,
+        "residentBytes": 528023552,
+        "verifiedTensorBytes": 521570392,
+        "liveLeaseCount": 0,
+        "evictedEntries": 0,
+        "spilledEntries": 0,
+        "storageFallbacks": 0,
+        "spillWrittenBytes": 0,
+        "rehydrationReadBytes": 0
+      },
+      "allocationRecovery": {
+        "completedOperations": 35405,
+        "recoveries": 0
+      },
+      "finalOwnership": {
+        "policyBytes": 0,
+        "activeRecoveries": 0,
+        "registeredBackings": {
+          "array-buffer": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "wasm": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "gpu": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "gpu-mapped": {
+            "backings": 0,
+            "materializedBytes": 0
+          }
+        },
+        "activeCpu": 0,
+        "activeGpu": 0,
+        "running": 0,
+        "queued": 0,
+        "operations": 0,
+        "pressures": 0,
+        "waitingOwners": 0,
+        "zero": true
+      }
+    },
+    {
+      "variant": "candidate",
+      "temperature": "warm-retained-model",
+      "repetition": 0,
+      "resourceParityOnly": true,
+      "inferences": 1,
+      "rawCacheHits": 0,
+      "rolesMemoryMiB": 256,
+      "evaluatorModule": "table-simd4-exact-subnormal.js",
+      "raw": [
+        {
+          "plane": "union",
+          "sha256": "279e6fe94ed0babf4dd4723b290951330b51b6abd05176b33d2987fdada6a446",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        },
+        {
+          "plane": "target",
+          "sha256": "15bc52c273656a157c0f72457110a521fc8351e6943ebd2cf5fdb0101e42e7ad",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        },
+        {
+          "plane": "source",
+          "sha256": "125c62526cce3e4b947fa527adf081ae0394d1ef0fbeb74db5ce742574533cf3",
+          "dtype": "<f4",
+          "shape": [
+            448,
+            448
+          ]
+        }
+      ],
+      "decisionSha256": "eccee7a9ebdff70203ad43d47058a35d9dfcb78443f37af642c353d74f9c12cd",
+      "memory": {
+        "budgetBytes": 2147483648,
+        "observedBeforeDisposePolicyPeakBytes": 2099386487,
+        "sampledPolicyPeakBytes": 2099386487,
+        "finalContextPeakPolicyBytes": 2099386487,
+        "policyWithinBudget": true,
+        "roleHeapBytes": 170524672
+      },
+      "pool": {
+        "createdWorkers": 10,
+        "peakWorkers": 10,
+        "peakConcurrentComputeCalls": 10,
+        "perWorkerPolicyBytes": 77004800,
+        "peakPolicyBytes": 770048000,
+        "peakWasmBytes": 534118400,
+        "descriptorTransport": "windowed",
+        "heapLimitBytes": 67108864,
+        "descriptorUploadLimitBytes": 8388608,
+        "descriptorUploads": 20,
+        "transportAllocations": 40,
+        "transportReuses": 19364,
+        "transportReductions": 0,
+        "optionalWorkerRefusals": 0,
+        "optionalPolicyRefusals": 0,
+        "optionalPolicyReclaims": 0,
+        "optionalPolicyReclaimedBytes": 0,
+        "optionalPeerDeferrals": 0
+      },
+      "parameters": {
+        "entries": 1061,
+        "verifiedEntries": 1061,
+        "reads": 1061,
+        "networkBytes": 521570392,
+        "cacheHits": 1151,
+        "cacheHitBytes": 536013112,
+        "residentBytes": 528023552,
+        "verifiedTensorBytes": 521570392,
+        "liveLeaseCount": 0,
+        "evictedEntries": 0,
+        "spilledEntries": 0,
+        "storageFallbacks": 0,
+        "spillWrittenBytes": 0,
+        "rehydrationReadBytes": 0
+      },
+      "allocationRecovery": {
+        "completedOperations": 19013,
+        "recoveries": 0
+      },
+      "finalOwnership": {
+        "policyBytes": 0,
+        "activeRecoveries": 0,
+        "registeredBackings": {
+          "array-buffer": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "wasm": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "gpu": {
+            "backings": 0,
+            "materializedBytes": 0
+          },
+          "gpu-mapped": {
+            "backings": 0,
+            "materializedBytes": 0
+          }
+        },
+        "activeCpu": 0,
+        "activeGpu": 0,
+        "running": 0,
+        "queued": 0,
+        "operations": 0,
+        "pressures": 0,
+        "waitingOwners": 0,
+        "zero": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+D2PRL dans le moteur courant — qualification du 13 octobre 2026
+
+Les derniers changements conservés ont été intégrés au commit GitHub
+15f917a44308aaa1464a58245470c2fb30c6fd78, avec ses fonctions de batch.
+L'incrément ne remplace aucun modèle ni aucune entrée des autres fonctions.
+Les deux miroirs de distribution, les chunks et les locks concordent pour
+26 fichiers (470386 octets). Le navigateur neuf a réellement chargé et
+instancié le noyau table-simd4-exact-subnormal, HWC, et sélectionné les rôles
+D2PRL plafonnés à256Mio. Le runtime général512Mio reste inchangé.
+
+Le test utilise l'API worker actuelle : JPEG segmenté, ai.clones.d2prl,
+cartes et masques à la résolution de la source, refiltrage puis libération.
+Le modèle conserve sa préparation448, ses40itérations et son seed22.
+Aucune chaîne automatique d'un autre chat n'est reconstruite.
+Chrome154.0.8037.98, WebGPU, profil maximum, budget partagé3072Mio,
+10workers PatchMatch par inférence ; les temps concernent cet hôte.
+
+30MP (7500×4000) : une image dérivée de toute la source96MP existante,
+avec INTER_AREA et JPEG93. Première analyse123,415s avec l'ancien HWC
+et les rôles512 ;116,459s avec SIMD exact et les rôles256. Trois cartes
+brutes, décision et douze plans complets (analyse/refiltrage) bit-identiques.
+Le refiltrage à17 prend2,215s et effectue zéro nouvelle inférence.
+Pic comptabilisé2816,362Mio dans les deux variantes, sous3072Mio.
+Une seule paire : l'écart observé5,636% ne qualifie pas un gain répété.
+
+96MP (12000×8000) : corpus riche original, deuxROI et enveloppe complète,
+soit trois véritables inférences. Analyse339,952s (5min40s), refiltrage
+sans inférence18,385s. Les douze plans complets correspondent exactement
+aux SHA natifs déjà publiés. Les raw Torch sont diagnostiques : résidu
+absolu maximal5,9605e-7, aucun changement de signe ; aucune égalité de
+bits avec les raw Torch n'est revendiquée. Les oracles binaires des grandes
+planes absents ne sont pas recréés : leurs empreintes complètes servent
+à la comparaison, et les trois raw natifs existants sont vérifiés.
+
+Export96MP :1 440 064 444octets, préparation31,174s, lecture et sauvegarde
+par pages76,136s. Relecture indépendante ZIP/NumPy : CRC, empreinte de
+l'archive, six NPY complets, types, formes, valeurs finies/binaires,
+empreintes natives et provenance contrôlés en fenêtres1Mio.
+Pic comptabilisé3000,602Mio, sous3072Mio. Réservations, cache, backings,
+opérations, pressions et baux CPU/GPU sont tous nuls après libération.
+Les contextes et processus de navigateur du test sont fermés.
+Ces compteurs mesurent l'admission et les backings enregistrés, pas le RSS.
+
+Contrôles finaux du checkout de publication :122tests D2PRL réussis,
+11contrôles de cycle de vie exécutés séparément avec les mocks Node ;
+12cas restent explicitement ignorés faute d'artefacts locaux non livrés ;
+49tests partagés Budget/scheduler/migration/protocole réussis ;
+12tests de staging/transport/identité de distribution réussis.
+Les validations numériques natives et les benchmarks répétés précédents
+restent documentés dans D2PRL-OPTIMIZATION-20261012.txt.
+
+Preuve portable : d2prl-large-qualification-20261013.json.
+La preuve conserve les SHA des rapports locaux détaillés et les modules
+chargés ; seuls les chemins de machine et origines temporaires sont normalisés.
+Recettes : study-d2prl-large-qualification.mjs,
+check-d2prl-large-npz.py et generate-d2prl-30mp-fixture.py.
+Installation ciblée : web/wordpress/scripts/stage-d2prl-increment.py.
+Aucun poids, JPEG, raw privé, archive NPZ ou .build n'est ajouté au commit.

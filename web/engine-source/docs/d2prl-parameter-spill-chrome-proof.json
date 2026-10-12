@@ -1,0 +1,2237 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "createdAt": "2026-10-12T19:42:07.227Z",
+  "browser": "154.0.8037.98",
+  "deviceScope": "Real isolated desktop Chromium, not a phone",
+  "systemExclusiveEstablished": false,
+  "macroBenchmarkOverlap": false,
+  "concurrencyEvidence": "Orchestrator schedules this functional check before the macrobenchmark; external process load is not measured.",
+  "benchmark": false,
+  "syntheticAsset": {
+    "file": "assets/cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b.bin",
+    "bytes": 262144,
+    "sha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+    "dtype": "float32",
+    "shape": [
+      65536
+    ]
+  },
+  "sources": {
+    "scripts/check-d2prl-parameter-spill-browser.mjs": "5a41379ff6bdb5d505e757e069951f628b34ed07c91f0df018ce355cde9a9f7d",
+    "tests/d2prl-parameter-spill-browser-worker.js": "0e5734e9be115e017b90afbfca874a256c19557bc55efe7869c3753612909640",
+    "experiments/d2prl/parameter-store.js": "4a4b63ea6c36924145e297403887078306e242507178bfcb6323bad129dd3a39",
+    "experiments/d2prl/parameter-spill.js": "22a36d02a4a5d9c46bd26422e3af241378ebfe7de1ee48062f8154388562285a",
+    "src/migration-workspace.js": "19bdd57b6bd28bceaac04ea6d8685a8107b252b260ea6799440ba61e414907a5",
+    "src/temporary-storage.js": "456ef7d0b5eff999957237234cc0bf36af786d0c348264d95b7515580bcc73e8",
+    "src/opfs-storage.js": "cb8fa5224ac84cb1bfa1581ef0d7750ac5da61b4c15c369dd1c25e671f6b1498",
+    "src/indexeddb-storage.js": "500105285870658b9d0c12c3951a23e5313f5c1e3babc8cd0f11345c9bc37f3c",
+    "src/segmented-bytes.js": "b5c7a60b96ee562c27b7488c197ce04a416f8ced0141231a1edc0dd697d467a6"
+  },
+  "runs": [
+    {
+      "backend": "opfs",
+      "cases": [
+        {
+          "status": "passed",
+          "backend": "opfs",
+          "mode": "normal",
+          "assetBytes": 262144,
+          "windowBytes": 65536,
+          "initialSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "finalSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "exactBytes": true,
+          "fetches": 1,
+          "recovery": {
+            "reclaimedPolicyBytes": 16777216,
+            "wasmBackingReferenceRetirementBytes": 16777216,
+            "retirementIsNotRssOrPhysicalRamMeasurement": true
+          },
+          "injections": {
+            "explicitLogicalQuota": false,
+            "writeIoAfterRealWrite": false,
+            "cancelAfterRealWrite": false
+          },
+          "realStorageIo": {
+            "writeCalls": 4,
+            "writeBytes": 262144,
+            "readCalls": 8,
+            "readBytes": 524288,
+            "scope": "Successful calls at the real storage array API; backend page/transaction bytes may differ."
+          },
+          "afterPressure": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 0,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 1,
+            "liveLeaseCount": 0,
+            "verifiedTensorBytes": 0,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 1,
+            "storageFallbacks": 0,
+            "lastStorageFallback": null,
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 262144,
+              "spillWrittenBytes": 262144,
+              "spillReadbackBytes": 262144,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 22.94999998807907,
+              "rehydrationMs": 0,
+              "spillFailures": 0,
+              "rehydrationFailures": 0,
+              "lastFailure": null,
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 1,
+              "storedBytes": 262144,
+              "session": {
+                "reservedBytes": 262144,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 1,
+                "physicalFiles": 1,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 0,
+            "residentBytes": 0,
+            "liveTensors": 0,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "computed": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 1,
+            "cacheHitBytes": 262144,
+            "evictedEntries": 0,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 1,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 1,
+            "storageFallbacks": 0,
+            "lastStorageFallback": null,
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 262144,
+              "spillWrittenBytes": 262144,
+              "spillReadbackBytes": 262144,
+              "rehydratedBytes": 262144,
+              "rehydrationReadBytes": 262144,
+              "spillMs": 22.94999998807907,
+              "rehydrationMs": 21.139999985694885,
+              "spillFailures": 0,
+              "rehydrationFailures": 0,
+              "lastFailure": null,
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 1,
+              "storedBytes": 262144,
+              "session": {
+                "reservedBytes": 262144,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 1,
+                "physicalFiles": 1,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            },
+            "hashInstances": 2,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 2,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "storage": [
+            {
+              "id": "job-8f52ae50-4a71-4fc4-8ba6-6a692aaa244d",
+              "backend": "opfs",
+              "capability": {
+                "available": true,
+                "requiresDedicatedWorker": true,
+                "quotaBytes": 10737418240,
+                "usageBytes": 0,
+                "estimateIsReservation": false
+              },
+              "snapshot": {
+                "reservedBytes": 262144,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 1,
+                "physicalFiles": 1,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            }
+          ],
+          "cleanup": {
+            "sessionIds": [
+              "job-8f52ae50-4a71-4fc4-8ba6-6a692aaa244d"
+            ],
+            "inventoryBefore": [],
+            "inventoryAfter": [],
+            "ownedSessionsAbsent": true,
+            "ownedPayloadBytes": 0,
+            "policyBytes": 0,
+            "resource": {
+              "domains": {
+                "array-buffer": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "wasm": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu-mapped": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                }
+              },
+              "pressures": [],
+              "operations": [],
+              "waitingOwners": [],
+              "backingReleased": {
+                "array-buffer": 327680,
+                "wasm": 33816576
+              },
+              "backingReusable": {},
+              "meaning": "Registered backing ownership; policy reservations are separate and retirement does not force browser garbage collection.",
+              "lastAllocationReclaim": null
+            }
+          },
+          "memory": {
+            "initialPolicyLimitBytes": 33554432,
+            "constrainedPolicyLimitBytes": 18284544,
+            "peakPolicyBytes": 18284544,
+            "limitIsSimulation": true,
+            "physicalMemoryRefusalInjected": false,
+            "comparatorOutsideEngineBudget": true
+          },
+          "elapsedFunctionalMs": 74.16000002622604
+        },
+        {
+          "status": "passed",
+          "backend": "opfs",
+          "mode": "quota",
+          "assetBytes": 262144,
+          "windowBytes": 65536,
+          "initialSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "finalSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "exactBytes": true,
+          "fetches": 2,
+          "recovery": {
+            "reclaimedPolicyBytes": 16777216,
+            "wasmBackingReferenceRetirementBytes": 16777216,
+            "retirementIsNotRssOrPhysicalRamMeasurement": true
+          },
+          "injections": {
+            "explicitLogicalQuota": true,
+            "writeIoAfterRealWrite": false,
+            "cancelAfterRealWrite": false
+          },
+          "realStorageIo": {
+            "writeCalls": 0,
+            "writeBytes": 0,
+            "readCalls": 0,
+            "readBytes": 0,
+            "scope": "Successful calls at the real storage array API; backend page/transaction bytes may differ."
+          },
+          "afterPressure": {
+            "entries": 0,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 1,
+            "verifiedEntries": 0,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 0,
+            "verifiedTensorBytes": 0,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 1,
+            "lastStorageFallback": {
+              "phase": "spill",
+              "asset": "assets/cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b.bin",
+              "bytes": 262144,
+              "code": "STORAGE_QUOTA",
+              "message": "Planned temporary arrays exceed the explicit storage allowance."
+            },
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 0,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.3649999499320984,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "STORAGE_QUOTA",
+                  "name": "EngineError",
+                  "message": "Planned temporary arrays exceed the explicit storage allowance.",
+                  "stack": "EngineError: Planned temporary arrays exceed the explicit storage allowance.\n    at Object.create (http://isolated-test.invalid/src/opfs-storage.js:32:162)\n    at Object.create (http://isolated-test.invalid/tests/d2prl-parameter-spill-browser-worker.js:29:69)\n    at createSegmentedBytes (http://isolated-test.invalid/src/segmented-bytes.js:30:45)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 0,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 262143,
+                "openFiles": 0,
+                "physicalFiles": 0,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 134916,
+            "banks": 0,
+            "residentBytes": 0,
+            "liveTensors": 0,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "computed": {
+            "entries": 1,
+            "reads": 2,
+            "networkBytes": 524288,
+            "committedBytes": 524288,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 1,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 1,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 1,
+            "lastStorageFallback": {
+              "phase": "spill",
+              "asset": "assets/cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b.bin",
+              "bytes": 262144,
+              "code": "STORAGE_QUOTA",
+              "message": "Planned temporary arrays exceed the explicit storage allowance."
+            },
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 0,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.3649999499320984,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "STORAGE_QUOTA",
+                  "name": "EngineError",
+                  "message": "Planned temporary arrays exceed the explicit storage allowance.",
+                  "stack": "EngineError: Planned temporary arrays exceed the explicit storage allowance.\n    at Object.create (http://isolated-test.invalid/src/opfs-storage.js:32:162)\n    at Object.create (http://isolated-test.invalid/tests/d2prl-parameter-spill-browser-worker.js:29:69)\n    at createSegmentedBytes (http://isolated-test.invalid/src/segmented-bytes.js:30:45)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 0,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 262143,
+                "openFiles": 0,
+                "physicalFiles": 0,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            },
+            "hashInstances": 2,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 2,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "storage": [
+            {
+              "id": "job-99535db9-041b-48bc-9a15-1f69d80a7dbf",
+              "backend": "opfs",
+              "capability": {
+                "available": true,
+                "requiresDedicatedWorker": true,
+                "quotaBytes": 10737418426,
+                "usageBytes": 186,
+                "estimateIsReservation": false
+              },
+              "snapshot": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 0,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 262143,
+                "openFiles": 0,
+                "physicalFiles": 0,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            }
+          ],
+          "cleanup": {
+            "sessionIds": [
+              "job-99535db9-041b-48bc-9a15-1f69d80a7dbf"
+            ],
+            "inventoryBefore": [],
+            "inventoryAfter": [],
+            "ownedSessionsAbsent": true,
+            "ownedPayloadBytes": 0,
+            "policyBytes": 0,
+            "resource": {
+              "domains": {
+                "array-buffer": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "wasm": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu-mapped": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                }
+              },
+              "pressures": [],
+              "operations": [],
+              "waitingOwners": [],
+              "backingReleased": {
+                "array-buffer": 524288,
+                "wasm": 33816576
+              },
+              "backingReusable": {},
+              "meaning": "Registered backing ownership; policy reservations are separate and retirement does not force browser garbage collection.",
+              "lastAllocationReclaim": null
+            }
+          },
+          "memory": {
+            "initialPolicyLimitBytes": 33554432,
+            "constrainedPolicyLimitBytes": 18284544,
+            "peakPolicyBytes": 18284544,
+            "limitIsSimulation": true,
+            "physicalMemoryRefusalInjected": false,
+            "comparatorOutsideEngineBudget": true
+          },
+          "elapsedFunctionalMs": 15.230000019073486
+        },
+        {
+          "status": "passed",
+          "backend": "opfs",
+          "mode": "io",
+          "assetBytes": 262144,
+          "windowBytes": 65536,
+          "initialSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "finalSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "exactBytes": true,
+          "fetches": 2,
+          "recovery": {
+            "reclaimedPolicyBytes": 16777216,
+            "wasmBackingReferenceRetirementBytes": 16777216,
+            "retirementIsNotRssOrPhysicalRamMeasurement": true
+          },
+          "injections": {
+            "explicitLogicalQuota": false,
+            "writeIoAfterRealWrite": true,
+            "cancelAfterRealWrite": false
+          },
+          "realStorageIo": {
+            "writeCalls": 1,
+            "writeBytes": 65536,
+            "readCalls": 0,
+            "readBytes": 0,
+            "scope": "Successful calls at the real storage array API; backend page/transaction bytes may differ."
+          },
+          "afterPressure": {
+            "entries": 0,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 1,
+            "verifiedEntries": 0,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 0,
+            "verifiedTensorBytes": 0,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 1,
+            "lastStorageFallback": {
+              "phase": "spill",
+              "asset": "assets/cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b.bin",
+              "bytes": 262144,
+              "code": "STORAGE_IO",
+              "message": "Explicit test injection after a real opfs write"
+            },
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 0,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.9649999737739563,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "STORAGE_IO",
+                  "name": "EngineError",
+                  "message": "Explicit test injection after a real opfs write",
+                  "stack": "EngineError: Explicit test injection after a real opfs write\n    at Object.write (http://isolated-test.invalid/tests/d2prl-parameter-spill-browser-worker.js:29:272)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "physicalFiles": 0,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 0,
+            "residentBytes": 0,
+            "liveTensors": 0,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "computed": {
+            "entries": 1,
+            "reads": 2,
+            "networkBytes": 524288,
+            "committedBytes": 524288,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 1,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 1,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 1,
+            "lastStorageFallback": {
+              "phase": "spill",
+              "asset": "assets/cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b.bin",
+              "bytes": 262144,
+              "code": "STORAGE_IO",
+              "message": "Explicit test injection after a real opfs write"
+            },
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 0,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.9649999737739563,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "STORAGE_IO",
+                  "name": "EngineError",
+                  "message": "Explicit test injection after a real opfs write",
+                  "stack": "EngineError: Explicit test injection after a real opfs write\n    at Object.write (http://isolated-test.invalid/tests/d2prl-parameter-spill-browser-worker.js:29:272)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "physicalFiles": 0,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            },
+            "hashInstances": 2,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 2,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "storage": [
+            {
+              "id": "job-dc861479-530e-4425-a62e-5b230d5d2f25",
+              "backend": "opfs",
+              "capability": {
+                "available": true,
+                "requiresDedicatedWorker": true,
+                "quotaBytes": 10737418426,
+                "usageBytes": 186,
+                "estimateIsReservation": false
+              },
+              "snapshot": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "physicalFiles": 0,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            }
+          ],
+          "cleanup": {
+            "sessionIds": [
+              "job-dc861479-530e-4425-a62e-5b230d5d2f25"
+            ],
+            "inventoryBefore": [],
+            "inventoryAfter": [],
+            "ownedSessionsAbsent": true,
+            "ownedPayloadBytes": 0,
+            "policyBytes": 0,
+            "resource": {
+              "domains": {
+                "array-buffer": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "wasm": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu-mapped": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                }
+              },
+              "pressures": [],
+              "operations": [],
+              "waitingOwners": [],
+              "backingReleased": {
+                "array-buffer": 589824,
+                "wasm": 33816576
+              },
+              "backingReusable": {},
+              "meaning": "Registered backing ownership; policy reservations are separate and retirement does not force browser garbage collection.",
+              "lastAllocationReclaim": null
+            }
+          },
+          "memory": {
+            "initialPolicyLimitBytes": 33554432,
+            "constrainedPolicyLimitBytes": 18284544,
+            "peakPolicyBytes": 18284544,
+            "limitIsSimulation": true,
+            "physicalMemoryRefusalInjected": false,
+            "comparatorOutsideEngineBudget": true
+          },
+          "elapsedFunctionalMs": 14.780000030994415
+        },
+        {
+          "status": "passed",
+          "backend": "opfs",
+          "mode": "cancel",
+          "assetBytes": 262144,
+          "windowBytes": 65536,
+          "initialSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "finalSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "exactBytes": true,
+          "fetches": 1,
+          "recovery": {
+            "reclaimedPolicyBytes": 0,
+            "wasmBackingReferenceRetirementBytes": 0,
+            "retirementIsNotRssOrPhysicalRamMeasurement": true
+          },
+          "injections": {
+            "explicitLogicalQuota": false,
+            "writeIoAfterRealWrite": false,
+            "cancelAfterRealWrite": true
+          },
+          "realStorageIo": {
+            "writeCalls": 1,
+            "writeBytes": 65536,
+            "readCalls": 0,
+            "readBytes": 0,
+            "scope": "Successful calls at the real storage array API; backend page/transaction bytes may differ."
+          },
+          "afterPressure": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 0,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 1,
+            "liveLeaseCount": 0,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 262144,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 0,
+            "lastStorageFallback": null,
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 65536,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.4449999928474426,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "CANCELLED",
+                  "name": "EngineError",
+                  "message": "Task cancelled.",
+                  "stack": "EngineError: Task cancelled.\n    at checkAbort (http://isolated-test.invalid/src/errors.js:62:65)\n    at controlCheckpoint (http://isolated-test.invalid/src/errors.js:67:49)\n    at owner.run.signal.signal (http://isolated-test.invalid/experiments/d2prl/parameter-spill.js:48:58)\n    at async execute (http://isolated-test.invalid/src/migration-workspace.js:17:176)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "physicalFiles": 0,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "computed": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 1,
+            "cacheHitBytes": 262144,
+            "evictedEntries": 0,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 1,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 0,
+            "lastStorageFallback": null,
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 65536,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.4449999928474426,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "CANCELLED",
+                  "name": "EngineError",
+                  "message": "Task cancelled.",
+                  "stack": "EngineError: Task cancelled.\n    at checkAbort (http://isolated-test.invalid/src/errors.js:62:65)\n    at controlCheckpoint (http://isolated-test.invalid/src/errors.js:67:49)\n    at owner.run.signal.signal (http://isolated-test.invalid/experiments/d2prl/parameter-spill.js:48:58)\n    at async execute (http://isolated-test.invalid/src/migration-workspace.js:17:176)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "physicalFiles": 0,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "storage": [
+            {
+              "id": "job-4d9ef08c-c43b-4d54-a19b-799c94d5da10",
+              "backend": "opfs",
+              "capability": {
+                "available": true,
+                "requiresDedicatedWorker": true,
+                "quotaBytes": 10737418426,
+                "usageBytes": 186,
+                "estimateIsReservation": false
+              },
+              "snapshot": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "physicalFiles": 0,
+                "maximumPhysicalFileBytes": 1073741824
+              }
+            }
+          ],
+          "cleanup": {
+            "sessionIds": [
+              "job-4d9ef08c-c43b-4d54-a19b-799c94d5da10"
+            ],
+            "inventoryBefore": [],
+            "inventoryAfter": [],
+            "ownedSessionsAbsent": true,
+            "ownedPayloadBytes": 0,
+            "policyBytes": 0,
+            "resource": {
+              "domains": {
+                "array-buffer": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "wasm": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu-mapped": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                }
+              },
+              "pressures": [],
+              "operations": [],
+              "waitingOwners": [],
+              "backingReleased": {
+                "array-buffer": 327680,
+                "wasm": 16908288
+              },
+              "backingReusable": {},
+              "meaning": "Registered backing ownership; policy reservations are separate and retirement does not force browser garbage collection.",
+              "lastAllocationReclaim": null
+            }
+          },
+          "memory": {
+            "initialPolicyLimitBytes": 33554432,
+            "constrainedPolicyLimitBytes": 18284544,
+            "peakPolicyBytes": 18284544,
+            "limitIsSimulation": true,
+            "physicalMemoryRefusalInjected": false,
+            "comparatorOutsideEngineBudget": true
+          },
+          "elapsedFunctionalMs": 9.375
+        }
+      ],
+      "workerContext": {
+        "dedicatedWorker": true,
+        "crossOriginIsolated": true,
+        "secureContext": true,
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36"
+      },
+      "scope": "Real desktop Chromium storage APIs; synthetic fixed parameters. Explicit constrained Budget, logical quota, I/O and cancellation injections; no model inference, phone qualification or isolated speed benchmark."
+    },
+    {
+      "backend": "indexeddb",
+      "cases": [
+        {
+          "status": "passed",
+          "backend": "indexeddb",
+          "mode": "normal",
+          "assetBytes": 262144,
+          "windowBytes": 65536,
+          "initialSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "finalSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "exactBytes": true,
+          "fetches": 1,
+          "recovery": {
+            "reclaimedPolicyBytes": 16777216,
+            "wasmBackingReferenceRetirementBytes": 16777216,
+            "retirementIsNotRssOrPhysicalRamMeasurement": true
+          },
+          "injections": {
+            "explicitLogicalQuota": false,
+            "writeIoAfterRealWrite": false,
+            "cancelAfterRealWrite": false
+          },
+          "realStorageIo": {
+            "writeCalls": 4,
+            "writeBytes": 262144,
+            "readCalls": 8,
+            "readBytes": 524288,
+            "scope": "Successful calls at the real storage array API; backend page/transaction bytes may differ."
+          },
+          "afterPressure": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 0,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 1,
+            "liveLeaseCount": 0,
+            "verifiedTensorBytes": 0,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 1,
+            "storageFallbacks": 0,
+            "lastStorageFallback": null,
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 262144,
+              "spillWrittenBytes": 262144,
+              "spillReadbackBytes": 262144,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 11.5,
+              "rehydrationMs": 0,
+              "spillFailures": 0,
+              "rehydrationFailures": 0,
+              "lastFailure": null,
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 1,
+              "storedBytes": 262144,
+              "session": {
+                "reservedBytes": 262144,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "arrays": 1,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 4,
+                  "cacheHits": 0,
+                  "requestedBytes": 262144
+                }
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 0,
+            "residentBytes": 0,
+            "liveTensors": 0,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "computed": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 1,
+            "cacheHitBytes": 262144,
+            "evictedEntries": 0,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 1,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 1,
+            "storageFallbacks": 0,
+            "lastStorageFallback": null,
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 262144,
+              "spillWrittenBytes": 262144,
+              "spillReadbackBytes": 262144,
+              "rehydratedBytes": 262144,
+              "rehydrationReadBytes": 262144,
+              "spillMs": 11.5,
+              "rehydrationMs": 2.225000023841858,
+              "spillFailures": 0,
+              "rehydrationFailures": 0,
+              "lastFailure": null,
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 1,
+              "storedBytes": 262144,
+              "session": {
+                "reservedBytes": 262144,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "arrays": 1,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 8,
+                  "cacheHits": 0,
+                  "requestedBytes": 524288
+                }
+              }
+            },
+            "hashInstances": 2,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 2,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "storage": [
+            {
+              "id": "job-18aac9fa-9ff3-47de-8610-a559fde48abe",
+              "backend": "indexeddb",
+              "capability": {
+                "available": true,
+                "asynchronous": true,
+                "quotaBytes": 10737418426,
+                "usageBytes": 186,
+                "estimateIsReservation": false,
+                "backingMedium": "browser-managed; not guaranteed disk"
+              },
+              "snapshot": {
+                "reservedBytes": 262144,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "arrays": 1,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 8,
+                  "cacheHits": 0,
+                  "requestedBytes": 524288
+                }
+              }
+            }
+          ],
+          "cleanup": {
+            "sessionIds": [
+              "job-18aac9fa-9ff3-47de-8610-a559fde48abe"
+            ],
+            "inventoryBefore": [],
+            "inventoryAfter": [],
+            "ownedSessionsAbsent": true,
+            "ownedPayloadBytes": 0,
+            "policyBytes": 0,
+            "resource": {
+              "domains": {
+                "array-buffer": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "wasm": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu-mapped": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                }
+              },
+              "pressures": [],
+              "operations": [],
+              "waitingOwners": [],
+              "backingReleased": {
+                "array-buffer": 327680,
+                "wasm": 33816576
+              },
+              "backingReusable": {},
+              "meaning": "Registered backing ownership; policy reservations are separate and retirement does not force browser garbage collection.",
+              "lastAllocationReclaim": null
+            }
+          },
+          "memory": {
+            "initialPolicyLimitBytes": 33554432,
+            "constrainedPolicyLimitBytes": 18284544,
+            "peakPolicyBytes": 18284544,
+            "limitIsSimulation": true,
+            "physicalMemoryRefusalInjected": false,
+            "comparatorOutsideEngineBudget": true
+          },
+          "elapsedFunctionalMs": 29.740000009536743
+        },
+        {
+          "status": "passed",
+          "backend": "indexeddb",
+          "mode": "quota",
+          "assetBytes": 262144,
+          "windowBytes": 65536,
+          "initialSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "finalSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "exactBytes": true,
+          "fetches": 2,
+          "recovery": {
+            "reclaimedPolicyBytes": 16777216,
+            "wasmBackingReferenceRetirementBytes": 16777216,
+            "retirementIsNotRssOrPhysicalRamMeasurement": true
+          },
+          "injections": {
+            "explicitLogicalQuota": true,
+            "writeIoAfterRealWrite": false,
+            "cancelAfterRealWrite": false
+          },
+          "realStorageIo": {
+            "writeCalls": 0,
+            "writeBytes": 0,
+            "readCalls": 0,
+            "readBytes": 0,
+            "scope": "Successful calls at the real storage array API; backend page/transaction bytes may differ."
+          },
+          "afterPressure": {
+            "entries": 0,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 1,
+            "verifiedEntries": 0,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 0,
+            "verifiedTensorBytes": 0,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 1,
+            "lastStorageFallback": {
+              "phase": "spill",
+              "asset": "assets/cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b.bin",
+              "bytes": 262144,
+              "code": "STORAGE_QUOTA",
+              "message": "Planned temporary arrays exceed the explicit storage allowance."
+            },
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 0,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 1.8149999976158142,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "STORAGE_QUOTA",
+                  "name": "EngineError",
+                  "message": "Planned temporary arrays exceed the explicit storage allowance.",
+                  "stack": "EngineError: Planned temporary arrays exceed the explicit storage allowance.\n    at Object.create (http://isolated-test.invalid/src/indexeddb-storage.js:39:162)\n    at Object.create (http://isolated-test.invalid/tests/d2prl-parameter-spill-browser-worker.js:29:69)\n    at createSegmentedBytes (http://isolated-test.invalid/src/segmented-bytes.js:30:45)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 0,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 262143,
+                "openFiles": 0,
+                "arrays": 0,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 0,
+                  "cacheHits": 0,
+                  "requestedBytes": 0
+                }
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 0,
+            "residentBytes": 0,
+            "liveTensors": 0,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "computed": {
+            "entries": 1,
+            "reads": 2,
+            "networkBytes": 524288,
+            "committedBytes": 524288,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 1,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 1,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 1,
+            "lastStorageFallback": {
+              "phase": "spill",
+              "asset": "assets/cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b.bin",
+              "bytes": 262144,
+              "code": "STORAGE_QUOTA",
+              "message": "Planned temporary arrays exceed the explicit storage allowance."
+            },
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 0,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 1.8149999976158142,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "STORAGE_QUOTA",
+                  "name": "EngineError",
+                  "message": "Planned temporary arrays exceed the explicit storage allowance.",
+                  "stack": "EngineError: Planned temporary arrays exceed the explicit storage allowance.\n    at Object.create (http://isolated-test.invalid/src/indexeddb-storage.js:39:162)\n    at Object.create (http://isolated-test.invalid/tests/d2prl-parameter-spill-browser-worker.js:29:69)\n    at createSegmentedBytes (http://isolated-test.invalid/src/segmented-bytes.js:30:45)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 0,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 262143,
+                "openFiles": 0,
+                "arrays": 0,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 0,
+                  "cacheHits": 0,
+                  "requestedBytes": 0
+                }
+              }
+            },
+            "hashInstances": 2,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 2,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "storage": [
+            {
+              "id": "job-d33fe4ee-f5f2-4e58-8dbe-36d4050ba004",
+              "backend": "indexeddb",
+              "capability": {
+                "available": true,
+                "asynchronous": true,
+                "quotaBytes": 10737418426,
+                "usageBytes": 186,
+                "estimateIsReservation": false,
+                "backingMedium": "browser-managed; not guaranteed disk"
+              },
+              "snapshot": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 0,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 262143,
+                "openFiles": 0,
+                "arrays": 0,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 0,
+                  "cacheHits": 0,
+                  "requestedBytes": 0
+                }
+              }
+            }
+          ],
+          "cleanup": {
+            "sessionIds": [
+              "job-d33fe4ee-f5f2-4e58-8dbe-36d4050ba004"
+            ],
+            "inventoryBefore": [],
+            "inventoryAfter": [],
+            "ownedSessionsAbsent": true,
+            "ownedPayloadBytes": 0,
+            "policyBytes": 0,
+            "resource": {
+              "domains": {
+                "array-buffer": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "wasm": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu-mapped": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                }
+              },
+              "pressures": [],
+              "operations": [],
+              "waitingOwners": [],
+              "backingReleased": {
+                "array-buffer": 524288,
+                "wasm": 33816576
+              },
+              "backingReusable": {},
+              "meaning": "Registered backing ownership; policy reservations are separate and retirement does not force browser garbage collection.",
+              "lastAllocationReclaim": null
+            }
+          },
+          "memory": {
+            "initialPolicyLimitBytes": 33554432,
+            "constrainedPolicyLimitBytes": 18284544,
+            "peakPolicyBytes": 18284544,
+            "limitIsSimulation": true,
+            "physicalMemoryRefusalInjected": false,
+            "comparatorOutsideEngineBudget": true
+          },
+          "elapsedFunctionalMs": 13.115000009536743
+        },
+        {
+          "status": "passed",
+          "backend": "indexeddb",
+          "mode": "io",
+          "assetBytes": 262144,
+          "windowBytes": 65536,
+          "initialSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "finalSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "exactBytes": true,
+          "fetches": 2,
+          "recovery": {
+            "reclaimedPolicyBytes": 16777216,
+            "wasmBackingReferenceRetirementBytes": 16777216,
+            "retirementIsNotRssOrPhysicalRamMeasurement": true
+          },
+          "injections": {
+            "explicitLogicalQuota": false,
+            "writeIoAfterRealWrite": true,
+            "cancelAfterRealWrite": false
+          },
+          "realStorageIo": {
+            "writeCalls": 1,
+            "writeBytes": 65536,
+            "readCalls": 0,
+            "readBytes": 0,
+            "scope": "Successful calls at the real storage array API; backend page/transaction bytes may differ."
+          },
+          "afterPressure": {
+            "entries": 0,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 1,
+            "verifiedEntries": 0,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 0,
+            "verifiedTensorBytes": 0,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 1,
+            "lastStorageFallback": {
+              "phase": "spill",
+              "asset": "assets/cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b.bin",
+              "bytes": 262144,
+              "code": "STORAGE_IO",
+              "message": "Explicit test injection after a real indexeddb write"
+            },
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 0,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.35999995470047,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "STORAGE_IO",
+                  "name": "EngineError",
+                  "message": "Explicit test injection after a real indexeddb write",
+                  "stack": "EngineError: Explicit test injection after a real indexeddb write\n    at Object.write (http://isolated-test.invalid/tests/d2prl-parameter-spill-browser-worker.js:29:272)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "arrays": 0,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 0,
+                  "cacheHits": 0,
+                  "requestedBytes": 0
+                }
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 0,
+            "residentBytes": 0,
+            "liveTensors": 0,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "computed": {
+            "entries": 1,
+            "reads": 2,
+            "networkBytes": 524288,
+            "committedBytes": 524288,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 1,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 1,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 1,
+            "lastStorageFallback": {
+              "phase": "spill",
+              "asset": "assets/cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b.bin",
+              "bytes": 262144,
+              "code": "STORAGE_IO",
+              "message": "Explicit test injection after a real indexeddb write"
+            },
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 0,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.35999995470047,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "STORAGE_IO",
+                  "name": "EngineError",
+                  "message": "Explicit test injection after a real indexeddb write",
+                  "stack": "EngineError: Explicit test injection after a real indexeddb write\n    at Object.write (http://isolated-test.invalid/tests/d2prl-parameter-spill-browser-worker.js:29:272)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "arrays": 0,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 0,
+                  "cacheHits": 0,
+                  "requestedBytes": 0
+                }
+              }
+            },
+            "hashInstances": 2,
+            "peakNetworkChunkBytes": 262144,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 2,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "storage": [
+            {
+              "id": "job-095e4a92-fd79-4db8-a474-310e8298a7eb",
+              "backend": "indexeddb",
+              "capability": {
+                "available": true,
+                "asynchronous": true,
+                "quotaBytes": 10737418426,
+                "usageBytes": 186,
+                "estimateIsReservation": false,
+                "backingMedium": "browser-managed; not guaranteed disk"
+              },
+              "snapshot": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "arrays": 0,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 0,
+                  "cacheHits": 0,
+                  "requestedBytes": 0
+                }
+              }
+            }
+          ],
+          "cleanup": {
+            "sessionIds": [
+              "job-095e4a92-fd79-4db8-a474-310e8298a7eb"
+            ],
+            "inventoryBefore": [],
+            "inventoryAfter": [],
+            "ownedSessionsAbsent": true,
+            "ownedPayloadBytes": 0,
+            "policyBytes": 0,
+            "resource": {
+              "domains": {
+                "array-buffer": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "wasm": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu-mapped": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                }
+              },
+              "pressures": [],
+              "operations": [],
+              "waitingOwners": [],
+              "backingReleased": {
+                "array-buffer": 589824,
+                "wasm": 33816576
+              },
+              "backingReusable": {},
+              "meaning": "Registered backing ownership; policy reservations are separate and retirement does not force browser garbage collection.",
+              "lastAllocationReclaim": null
+            }
+          },
+          "memory": {
+            "initialPolicyLimitBytes": 33554432,
+            "constrainedPolicyLimitBytes": 18284544,
+            "peakPolicyBytes": 18284544,
+            "limitIsSimulation": true,
+            "physicalMemoryRefusalInjected": false,
+            "comparatorOutsideEngineBudget": true
+          },
+          "elapsedFunctionalMs": 12.820000052452087
+        },
+        {
+          "status": "passed",
+          "backend": "indexeddb",
+          "mode": "cancel",
+          "assetBytes": 262144,
+          "windowBytes": 65536,
+          "initialSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "finalSha256": "cfc156ab47c40f66317bc49a85e7558b462070077ed2c84fa8c6f88c880a099b",
+          "exactBytes": true,
+          "fetches": 1,
+          "recovery": {
+            "reclaimedPolicyBytes": 0,
+            "wasmBackingReferenceRetirementBytes": 0,
+            "retirementIsNotRssOrPhysicalRamMeasurement": true
+          },
+          "injections": {
+            "explicitLogicalQuota": false,
+            "writeIoAfterRealWrite": false,
+            "cancelAfterRealWrite": true
+          },
+          "realStorageIo": {
+            "writeCalls": 1,
+            "writeBytes": 65536,
+            "readCalls": 0,
+            "readBytes": 0,
+            "scope": "Successful calls at the real storage array API; backend page/transaction bytes may differ."
+          },
+          "afterPressure": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 0,
+            "cacheHitBytes": 0,
+            "evictedEntries": 0,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 1,
+            "liveLeaseCount": 0,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 262144,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 0,
+            "lastStorageFallback": null,
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 65536,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.435000002384186,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "CANCELLED",
+                  "name": "EngineError",
+                  "message": "Task cancelled.",
+                  "stack": "EngineError: Task cancelled.\n    at checkAbort (http://isolated-test.invalid/src/errors.js:62:65)\n    at controlCheckpoint (http://isolated-test.invalid/src/errors.js:67:49)\n    at owner.run.signal.signal (http://isolated-test.invalid/experiments/d2prl/parameter-spill.js:48:58)\n    at async execute (http://isolated-test.invalid/src/migration-workspace.js:17:176)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "arrays": 0,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 0,
+                  "cacheHits": 0,
+                  "requestedBytes": 0
+                }
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 200452,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "computed": {
+            "entries": 1,
+            "reads": 1,
+            "networkBytes": 262144,
+            "committedBytes": 262144,
+            "cacheHits": 1,
+            "cacheHitBytes": 262144,
+            "evictedEntries": 0,
+            "verifiedEntries": 1,
+            "idleVerifiedEntries": 0,
+            "liveLeaseCount": 1,
+            "verifiedTensorBytes": 262144,
+            "idleVerifiedTensorBytes": 0,
+            "incompleteTensorBytes": 0,
+            "spilledEntries": 0,
+            "storageFallbacks": 0,
+            "lastStorageFallback": null,
+            "spill": {
+              "sessionsCreated": 1,
+              "spillBytes": 0,
+              "spillWrittenBytes": 65536,
+              "spillReadbackBytes": 0,
+              "rehydratedBytes": 0,
+              "rehydrationReadBytes": 0,
+              "spillMs": 2.435000002384186,
+              "rehydrationMs": 0,
+              "spillFailures": 1,
+              "rehydrationFailures": 0,
+              "lastFailure": {
+                "phase": "spill",
+                "error": {
+                  "code": "CANCELLED",
+                  "name": "EngineError",
+                  "message": "Task cancelled.",
+                  "stack": "EngineError: Task cancelled.\n    at checkAbort (http://isolated-test.invalid/src/errors.js:62:65)\n    at controlCheckpoint (http://isolated-test.invalid/src/errors.js:67:49)\n    at owner.run.signal.signal (http://isolated-test.invalid/experiments/d2prl/parameter-spill.js:48:58)\n    at async execute (http://isolated-test.invalid/src/migration-workspace.js:17:176)"
+                }
+              },
+              "windowBytes": 65536,
+              "ownedWorkspacePolicyBytes": 196608,
+              "sharedWindowCapacityBytes": 196608,
+              "storedParameters": 0,
+              "storedBytes": 0,
+              "session": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "arrays": 0,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 0,
+                  "cacheHits": 0,
+                  "requestedBytes": 0
+                }
+              }
+            },
+            "hashInstances": 1,
+            "peakNetworkChunkBytes": 200452,
+            "banks": 1,
+            "residentBytes": 16777216,
+            "liveTensors": 1,
+            "allocations": 1,
+            "reuses": 0,
+            "peakBytes": 16777216
+          },
+          "storage": [
+            {
+              "id": "job-2b7cad7f-86d6-4cfa-b17b-66f7c82d72e2",
+              "backend": "indexeddb",
+              "capability": {
+                "available": true,
+                "asynchronous": true,
+                "quotaBytes": 10737418426,
+                "usageBytes": 186,
+                "estimateIsReservation": false,
+                "backingMedium": "browser-managed; not guaranteed disk"
+              },
+              "snapshot": {
+                "reservedBytes": 0,
+                "peakReservedBytes": 262144,
+                "estimatedAvailableBytes": 10737418240,
+                "estimateIsAdmissionLimit": false,
+                "logicalLimitBytes": 524288,
+                "openFiles": 0,
+                "arrays": 0,
+                "pageBytes": 65536,
+                "backend": "indexeddb",
+                "readCacheEnabled": false,
+                "readCachePages": 2,
+                "reads": {
+                  "transactions": 0,
+                  "cacheHits": 0,
+                  "requestedBytes": 0
+                }
+              }
+            }
+          ],
+          "cleanup": {
+            "sessionIds": [
+              "job-2b7cad7f-86d6-4cfa-b17b-66f7c82d72e2"
+            ],
+            "inventoryBefore": [],
+            "inventoryAfter": [],
+            "ownedSessionsAbsent": true,
+            "ownedPayloadBytes": 0,
+            "policyBytes": 0,
+            "resource": {
+              "domains": {
+                "array-buffer": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "wasm": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                },
+                "gpu-mapped": {
+                  "reservedBytes": 0,
+                  "materializedBytes": 0,
+                  "pinnedBytes": 0,
+                  "reclaimableBytes": 0,
+                  "backings": 0,
+                  "owners": {}
+                }
+              },
+              "pressures": [],
+              "operations": [],
+              "waitingOwners": [],
+              "backingReleased": {
+                "array-buffer": 327680,
+                "wasm": 16908288
+              },
+              "backingReusable": {},
+              "meaning": "Registered backing ownership; policy reservations are separate and retirement does not force browser garbage collection.",
+              "lastAllocationReclaim": null
+            }
+          },
+          "memory": {
+            "initialPolicyLimitBytes": 33554432,
+            "constrainedPolicyLimitBytes": 18284544,
+            "peakPolicyBytes": 18284544,
+            "limitIsSimulation": true,
+            "physicalMemoryRefusalInjected": false,
+            "comparatorOutsideEngineBudget": true
+          },
+          "elapsedFunctionalMs": 8.914999961853027
+        }
+      ],
+      "workerContext": {
+        "dedicatedWorker": true,
+        "crossOriginIsolated": true,
+        "secureContext": true,
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36"
+      },
+      "scope": "Real desktop Chromium storage APIs; synthetic fixed parameters. Explicit constrained Budget, logical quota, I/O and cancellation injections; no model inference, phone qualification or isolated speed benchmark."
+    }
+  ],
+  "ownedSessions": [
+    {
+      "backend": "opfs",
+      "id": "job-8f52ae50-4a71-4fc4-8ba6-6a692aaa244d"
+    },
+    {
+      "backend": "opfs",
+      "id": "job-99535db9-041b-48bc-9a15-1f69d80a7dbf"
+    },
+    {
+      "backend": "opfs",
+      "id": "job-dc861479-530e-4425-a62e-5b230d5d2f25"
+    },
+    {
+      "backend": "opfs",
+      "id": "job-4d9ef08c-c43b-4d54-a19b-799c94d5da10"
+    },
+    {
+      "backend": "indexeddb",
+      "id": "job-18aac9fa-9ff3-47de-8610-a559fde48abe"
+    },
+    {
+      "backend": "indexeddb",
+      "id": "job-d33fe4ee-f5f2-4e58-8dbe-36d4050ba004"
+    },
+    {
+      "backend": "indexeddb",
+      "id": "job-095e4a92-fd79-4db8-a474-310e8298a7eb"
+    },
+    {
+      "backend": "indexeddb",
+      "id": "job-2b7cad7f-86d6-4cfa-b17b-66f7c82d72e2"
+    }
+  ],
+  "playwrightModule": "playwright (local module supplied to the original functional check)",
+  "scope": "Eight sequential real dedicated-worker OPFS/IndexedDB cases with a 256 KiB synthetic parameter. Exact pinned-SHA roundtrip, simulated policy pressure, explicit logical quota and I/O/cancellation injections, owned session and backing cleanup. External process load is not measured; no isolated performance claim.",
+  "emergencyCleanup": [
+    {
+      "backend": "opfs",
+      "id": "job-8f52ae50-4a71-4fc4-8ba6-6a692aaa244d",
+      "ownedCleanup": "complete"
+    },
+    {
+      "backend": "opfs",
+      "id": "job-99535db9-041b-48bc-9a15-1f69d80a7dbf",
+      "ownedCleanup": "complete"
+    },
+    {
+      "backend": "opfs",
+      "id": "job-dc861479-530e-4425-a62e-5b230d5d2f25",
+      "ownedCleanup": "complete"
+    },
+    {
+      "backend": "opfs",
+      "id": "job-4d9ef08c-c43b-4d54-a19b-799c94d5da10",
+      "ownedCleanup": "complete"
+    },
+    {
+      "backend": "indexeddb",
+      "id": "job-18aac9fa-9ff3-47de-8610-a559fde48abe",
+      "ownedCleanup": "complete"
+    },
+    {
+      "backend": "indexeddb",
+      "id": "job-d33fe4ee-f5f2-4e58-8dbe-36d4050ba004",
+      "ownedCleanup": "complete"
+    },
+    {
+      "backend": "indexeddb",
+      "id": "job-095e4a92-fd79-4db8-a474-310e8298a7eb",
+      "ownedCleanup": "complete"
+    },
+    {
+      "backend": "indexeddb",
+      "id": "job-2b7cad7f-86d6-4cfa-b17b-66f7c82d72e2",
+      "ownedCleanup": "complete"
+    }
+  ],
+  "normalizedWithOriginalSHA": "0860be471817fe3730ab00a47cb2a9633e2b8c86585c0b469ea0e374971d7b52",
+  "normalizedWithOriginalBytes": 81478,
+  "normalization": {
+    "schema": 1,
+    "status": "portable-redaction-only",
+    "originalReference": ".build/d2prl-parameter-spill-portable-proof/original.json",
+    "measurementAndResultFieldsUnchanged": true,
+    "rules": {
+      "playwrightModule": "Replace the machine-specific file URL with a portable module description.",
+      "stackOrigins": "Replace only the ephemeral loopback origin with http://isolated-test.invalid; retain source paths and line/column information."
+    },
+    "fields": [
+      {
+        "field": "runs.0.cases.1.afterPressure.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.0.cases.1.computed.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.0.cases.2.afterPressure.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.0.cases.2.computed.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.0.cases.3.afterPressure.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.0.cases.3.computed.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.1.cases.1.afterPressure.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.1.cases.1.computed.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.1.cases.2.afterPressure.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.1.cases.2.computed.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.1.cases.3.afterPressure.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "runs.1.cases.3.computed.spill.lastFailure.error.stack",
+        "kind": "ephemeral-loopback-origin"
+      },
+      {
+        "field": "playwrightModule",
+        "kind": "private-local-module-path"
+      }
+    ]
+  }
+}

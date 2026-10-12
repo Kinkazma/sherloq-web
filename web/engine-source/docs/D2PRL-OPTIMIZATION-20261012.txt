@@ -1,0 +1,66 @@
+D2PRL — optimisation exacte du moteur, 12 octobre 2026
+
+Le runtime local choisit désormais l'évaluateur HWC avec interpolation SIMD
+et décodage exact des valeurs half, et le runtime rôles D2 limité à256Mio.
+Les40itérations, seed22, état et ordre MT19937, référence numérique8threads,
+réductions, demi-précision et trois cartes union/target/source sont conservés.
+Le SIMD traite quatre canaux indépendants ; les sommes restent ordonnées.
+reference-exp.h et ses FMA explicites ne sont pas modifiés.
+
+Mesures distinctes :
+- Gain initial contre eb0cc7518c58b98a905abe031f7a3228d0a2d3df :
+ 49,196% à froid,52,170% avec le modèle conservé.8calculs complets,
+ deux paires par température ; environ236→120s puis236→113s.
+- Gain supplémentaire contre le HWC déjà qualifié, moteur courant figé :
+ 5,461% à froid,4,449% avec le modèle conservé.8calculs complets,
+ deux paires par température ; environ117→111s puis110→105s.
+ Toutes les4paires sont plus rapides : minimum individuel3,8196%.
+ Le seuil médian5% n'est pas atteint à chaud. La sélection utilise donc
+ explicitement le critère toutes-paires-plus-rapides ; la qualification5%
+ reste fausse pour ce cas. Ces deux pourcentages ne sont pas additionnés.
+
+Ces mesures portent sur le RGB de référence389×521, WebGPU, profil maximum,
+ budget8Gio,10workers physiques, préparation/descripteurs/PatchMatch/têtes
+ complets. La répétition conserve le modèle et ses paramètres mais recalcule
+ toutes les étapes ; aucun cache de cartes ni checkpoint terminé n'est repris.
+ Les trois cartes brutes et les décisions sont bit-identiques à la référence
+ du moteur. Les différences antérieures des résidus ORT avec Torch restent
+ diagnostiques et ne sont pas assimilées à une égalité Torch des trois cartes.
+
+Mémoire : le pool réduit sa réserve de134,1875 à73,4375Mio par worker à448,
+ soit607,5Mio pour10workers. Le heap est limité à64Mio, avec deux slots36/96
+ et cinq allocations natives ; les transferts sont bornés à8Mio, chunks1Mio.
+ Le runtime rôles économise256Mio de réservation ; son heap réel mesuré reste
+ 162,625Mio dans les six comparaisons positif/JPEG/plat, sorties identiques.
+ Réservations, backings enregistrés et RSS sont trois mesures différentes.
+ Ces économies d'admission ne constituent pas une baisse mesurée du RSS.
+
+Le contrôle complémentaire à2Gio utilise le RGB uniforme existant381×513 :
+ quatre calculs froid/chaud, référence et candidat,10workers chacun,
+ trois cartes/décisions exactes, pic2002,131Mio, nettoyage final complet.
+ Un seul couple par température : aucune qualification de vitesse pour ce lot.
+ Aucun spill/reclaim n'a été nécessaire dans ce cas. Le spill OPFS/IndexedDB
+ et les replis quota/IO/annulation ont leurs preuves de navigateur séparées.
+
+Validation disponible :58cas de traces/sorties,65536patterns half et262147
+ lanes/queues mixtes exacts ;264cas natifs,723784valeurs d'évaluation,
+ 2097160exponentielles et2686976poids softmax identiques.16lignes de fixtures
+ natives indisponibles sont explicitement exclues. Pool :76tests ciblés,
+ neuf modules natifs à448 dans les deux ordres d'allocation, y compris fautes
+ de transfert, annulation, pression et protection des propriétaires actifs.
+ Les contrôles partagés Budget/scheduler et34cas natifs de math neuronales
+ sont également passés ; les corpus absents ne sont pas déclarés testés.
+
+La variante table+SIMDscalaire a été écartée :−2,643% froid/+2,629% chaud,
+ dispersion et paires défavorables. Ses scripts restent des expériences,
+ ses binaires ne sont pas activés. Les sources originales SDK4, HWC et512Mio
+ restent présentes. Autres fonctions du moteur : factories ORT512inchangées.
+ Sélections explicites : d2prlRuntime({evaluator:'pixel-major',rolesMemoryMiB:512})
+ ou {evaluator:'reference',rolesMemoryMiB:512}. Aucun ajustement silencieux
+ du plafond d'un worker vivant, aucun calcul de calibration à l'initialisation.
+
+Preuves : d2prl-optimization-summary-20261012.json/.csv,
+ d2prl-constrained-resource-proof.json, d2prl-evaluator-windowed-proof.json,
+ d2prl-parameter-spill-chrome-proof.json et vendor/d2prl/PINNED.json.
+ Les rapports détaillés locaux sont dans .build/d2prl-optimization.
+ Modèles, images, corpus, raw privés et node_modules ne font pas partie du patch.

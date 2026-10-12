@@ -13,6 +13,7 @@ export function acquireMigrationWorkspace(budget,bytes,{reserve=amount=>budget.r
  record.refs++;let released=false;
  const borrow=size=>{requireValue(Number.isSafeInteger(size)&&size>=0,'Invalid migration staging request.');if(size>record.capacity-record.used)throw new EngineError('MEMORY_LIMIT','Migration staging exceeds its reserved window.');record.used+=size;record.borrowers++;let done=false;return()=>{if(done)return;done=true;record.used-=size;if(--record.borrowers===0){record.drained?.();record.drained=null;}};};
  return {
+  get capacityBytes(){return record.capacity;},
   run(operation,{signal}={}){if(released)return Promise.reject(new EngineError('DISPOSED','Migration owner released.'));const execute=async()=>{checkAbort(signal);const value=await operation(borrow);checkAbort(signal);return value;};const task=record.tail.then(execute,execute);record.tail=task.catch(()=>{});return task;},
   async release(){if(released)return;released=true;if(--record.refs)return;record.closing=true;await record.tail;if(record.borrowers)await new Promise(resolve=>{record.drained=resolve;});for(const drop of record.reservations)drop();record.reservations.length=0;if(workspaces.get(budget)===record)workspaces.delete(budget);}
  };

@@ -1,0 +1,384 @@
+{
+  "schema": 1,
+  "status": "focused-native-and-fixture-qualification-passed",
+  "writtenAtUtc": "2026-10-12T21:42:25.507Z",
+  "scope": "Static record of already completed focused tests; this record did not execute models, native kernels, browser storage or timing. Full current-model eight-pass macro and flat2GiB qualification belong to the root reports.",
+  "sourceIdentities": {
+    "experiments/d2prl/evaluator-pool.js": {
+      "bytes": 21803,
+      "sha256": "a140f5e97c8c017a8710c4673c1da794f0fc41dbb91e3a9657c9a70f498c540f"
+    },
+    "experiments/d2prl/evaluator-worker.js": {
+      "bytes": 8672,
+      "sha256": "a018e74051aa72638beb4f5163ae341a9772f7de4a00614eed3b361f89f6d9e7"
+    },
+    "tests/d2prl-evaluator-admission.test.mjs": {
+      "bytes": 13048,
+      "sha256": "0168776087f439938a73ef25338954aea5c99c32494307cc4abc32f9d8f8d9cc"
+    },
+    "tests/d2prl-evaluator-slots.test.mjs": {
+      "bytes": 16623,
+      "sha256": "67136e466e9e11370898ee7760e0f6c123d53c7f3f9b77539d0e9c141d45a7a0"
+    },
+    "tests/d2prl-evaluator-resources.test.mjs": {
+      "bytes": 19335,
+      "sha256": "f215b59abf38f9ae0b3e54a3815af3511b7bc6fedf56bd62d2d879f7064b95e9"
+    },
+    "tests/d2prl-worker-protocol.test.mjs": {
+      "bytes": 18503,
+      "sha256": "677c88cb3ee542b066066da100032933e8609dfc1b86ecbddbb3b9e13ce8f205"
+    },
+    "tests/d2prl-evaluator-batching.test.mjs": {
+      "bytes": 8948,
+      "sha256": "2268a17f072db3a2121f77f315d79aecb2212a7a2133cf5ebdc5b8728da7007b"
+    }
+  },
+  "configuration": {
+    "side": 448,
+    "tileSize": 4096,
+    "kernelTileSize": 512,
+    "descriptorTransportDefault": "windowed",
+    "descriptorTransportComparator": "legacy-auto",
+    "descriptorLayoutDefault": "CHW-uint16",
+    "HwcRequiresExplicitLayoutAndNativeMetadata": true,
+    "physicalWorkerCeiling": 64,
+    "referenceThreadsMeaning": "Numerical native layout, independent of physical worker count"
+  },
+  "policy": {
+    "units": "bytes; MiB=1048576",
+    "initialPerWorkerBytes": 140705792,
+    "after64MiBHeapCapLegacyAutoBytes": 107151360,
+    "finalWindowedPerWorkerBytes": 77004800,
+    "initialPerWorkerMiB": 134.1875,
+    "finalPerWorkerMiB": 73.4375,
+    "reductionBytesPerWorker": 63700992,
+    "reductionMiBPerWorker": 60.75,
+    "reductionBytesForTenWorkers": 637009920,
+    "reductionMiBForTenWorkers": 607.5,
+    "heapCapBytes": 67108864,
+    "uploadWindowBytes": 8388608,
+    "singleUploadChunkBytes": 1048576,
+    "coordinateAndResultTransportBytes": 458752,
+    "abiAllowanceBytes": 1048576,
+    "formula": "heapCap + min(8MiB,192*side^2) + 28*tileSize*4 + 1MiB; max96-channel envelope fixed before any36-channel upload",
+    "meaning": "Policy admission envelope only, not process RSS or OS/browser reclamation. Windowed transport does not change the five native allocations or the64MiB heap cap. The initial134.1875MiB envelope was the earlier qualified HWC pool policy; the32MiB cap-margin and28.75MiB transport-policy reductions are not a measured60.75MiB physical release."
+  },
+  "ownership": {
+    "borrowedSources": [
+      "immutable published descriptor Wasm views",
+      "ordinary complete Uint16Array sources",
+      "ordinary Uint16Array subviews",
+      "original candidate-major offsetX/offsetY planes",
+      "parameter/checkpoint backing banks"
+    ],
+    "transferredOnly": [
+      "new bounded descriptor chunk buffers",
+      "owned recycled tile input Float32 buffers",
+      "owned tile result Float32 buffers"
+    ],
+    "sourceBanksNeverTransferred": true,
+    "maxOutstandingDescriptorChunkBatchBytes": 8388608,
+    "channelSlotCommit": "Revoke only the replaced channel key before its first write; publish replacement only after complete verified-size upload. Other channel remains committed.",
+    "HwcPermutation": "Copy original Uint16 bits directly into the persistent channel slot, including channel-boundary chunks; no floating conversion or full transposed bank.",
+    "leaseChecks": "Published descriptor identity checked across yields; unbranded external arrays still validate and cannot retain a worker upload by object identity alone.",
+    "cleanupAssertions": [
+      "Budget.total()==0",
+      "Budget.recovering==false",
+      "resource operations and pressures empty",
+      "all registered backing counts zero",
+      "scheduler running/queued/active.cpu/active.gpu zero",
+      "pool wasmBytes and transportBytes zero",
+      "all test workers terminated"
+    ]
+  },
+  "admission": {
+    "optionalModes": [
+      "reclaim-idle",
+      "available-only"
+    ],
+    "reclaim": "Only after an actual useful policy reservation refusal; failed optional worker released before one bounded normal Budget reclaim; no CPU lease held.",
+    "peer": "Independent productive peer defers optional reclaim and waiting. After peer completion the next useful call can grow.",
+    "physicalRefusalClaim": false,
+    "protectedOwners": "Live parameter refs, loads and migrations remain protected by their existing owner contracts; useful initialized workers remain owned."
+  },
+  "checks": {
+    "distinctTestsCovered": 76,
+    "finalUnresolvedFailures": 0,
+    "firstRun": {
+      "command": "node --test --test-concurrency=1 --test-reporter=spec tests/d2prl-evaluator-admission.test.mjs tests/d2prl-evaluator-slots.test.mjs tests/d2prl-evaluator-resources.test.mjs tests/d2prl-worker-protocol.test.mjs tests/d2prl-evaluator-batching.test.mjs",
+      "reportedTotal": 76,
+      "passed": 68,
+      "fixtureAssertionsToAdapt": 8,
+      "durationMs": 7383.640541,
+      "nativeAdmissionSlotsBatchingAllPassed": true
+    },
+    "finalFocusedRun": {
+      "command": "node --test --test-concurrency=1 --test-reporter=spec tests/d2prl-evaluator-resources.test.mjs tests/d2prl-worker-protocol.test.mjs",
+      "passed": 59,
+      "failed": 0,
+      "exitCode": 0,
+      "durationMs": 538.727
+    },
+    "chronology": "No runtime source changes between the first and final focused run. Eight assertions were corrected for completed features-end counts, newly retired useful upload-chunk backing, and the existing recovery event.error.code field. All seventeen other tests had passed in the first run, so all76 distinct final paths are covered.",
+    "windowedNewFaultCases": [
+      "features-begin/messageerror",
+      "features-begin/cancel",
+      "features-chunks/messageerror",
+      "features-chunks/cancel",
+      "features-end/messageerror",
+      "features-end/cancel"
+    ],
+    "terminalCompanionDrainBothTransportModes": true,
+    "externalFull448PolicyFixture": {
+      "policySimulated": true,
+      "ordinarySourcePreserved": true,
+      "channelsInOrder": [
+        36,
+        96
+      ],
+      "fixedFinalEnvelope": true,
+      "chunkBatchBound": true,
+      "singleChunkBound": true
+    },
+    "nativeBatchedParity": {
+      "realWasmWorkerCases": 36,
+      "float32ElementsCompared": 109872
+    },
+    "realMaximumShape": {
+      "actualNativeModules": 9,
+      "allocationOrders": 18,
+      "channels": [
+        36,
+        96
+      ],
+      "orders": [
+        [
+          36,
+          96
+        ],
+        [
+          96,
+          36
+        ]
+      ],
+      "descriptorPayloadBytes": 52985856,
+      "kernelBufferBytes": 57344,
+      "allocationsPerWorker": 5,
+      "evaluationAndReplacementMallocs": 0,
+      "evaluationAndReplacementFrees": 0,
+      "evaluationRanges": [
+        0,
+        66900,
+        200700
+      ],
+      "pixelsPerRange": 4,
+      "candidates": 13,
+      "referenceThreads": 3,
+      "full448Inference": false,
+      "nonTableHighWater": {
+        "first36Bytes": 53149696,
+        "first96Bytes": 55443456,
+        "abiBytes": 67448
+      },
+      "tableHighWaterIncludingFinalSubnormal": {
+        "first36Bytes": 53411840,
+        "first96Bytes": 55705600,
+        "abiBytes": 329608
+      },
+      "modules": [
+        "vendor-CHW",
+        "HWC",
+        "SIMD-control",
+        "SIMD-scalar",
+        "SIMD-normal",
+        "table",
+        "table-SIMD-scalar",
+        "table-SIMD-normal",
+        "table-SIMD-exact-subnormal"
+      ],
+      "finalSubnormalArtifact": {
+        "path": ".build/evaluator-table-simd-subnormal/table-simd4-exact-subnormal.wasm",
+        "bytes": 18586,
+        "sha256": "54944c22b79e25068908af4c0885a4b0cf2131cf943b77f176683cbef50f8fb5"
+      }
+    }
+  },
+  "independentNativeCorpus": {
+    "path": ".build/evaluator-table-simd-subnormal/table-simd4-exact-subnormal-native-corpus-proof.json",
+    "sha256": "f256f9c143a204f538b8e7742ee74cb4c14d2de4414e72a0325ee4b8726f8d71",
+    "status": "passed-available-native-corpora",
+    "coverageComplete": false,
+    "evaluatorCases": 264,
+    "evaluatorElements": 723784,
+    "missing": [
+      {
+        "reference": "reference.json",
+        "name": "zernike-448-5-noise",
+        "side": 448,
+        "files": [
+          "zernike-448-5-noise-features.bin",
+          "zernike-448-5-noise-offset_x.bin",
+          "zernike-448-5-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "reference.json",
+        "name": "zernike-448-13-noise",
+        "side": 448,
+        "files": [
+          "zernike-448-13-noise-features.bin",
+          "zernike-448-13-noise-offset_x.bin",
+          "zernike-448-13-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "reference.json",
+        "name": "cnn-448-5-noise",
+        "side": 448,
+        "files": [
+          "cnn-448-5-noise-features.bin",
+          "cnn-448-5-noise-offset_x.bin",
+          "cnn-448-5-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "reference.json",
+        "name": "cnn-448-13-noise",
+        "side": 448,
+        "files": [
+          "cnn-448-13-noise-features.bin",
+          "cnn-448-13-noise-offset_x.bin",
+          "cnn-448-13-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "zernike-448-5-noise",
+        "side": 448,
+        "files": [
+          "zernike-448-5-noise-features.bin",
+          "zernike-448-5-noise-offset_x.bin",
+          "zernike-448-5-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "zernike-448-13-noise",
+        "side": 448,
+        "files": [
+          "zernike-448-13-noise-features.bin",
+          "zernike-448-13-noise-offset_x.bin",
+          "zernike-448-13-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "cnn-448-5-noise",
+        "side": 448,
+        "files": [
+          "cnn-448-5-noise-features.bin",
+          "cnn-448-5-noise-offset_x.bin",
+          "cnn-448-5-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "cnn-448-13-noise",
+        "side": 448,
+        "files": [
+          "cnn-448-13-noise-features.bin",
+          "cnn-448-13-noise-offset_x.bin",
+          "cnn-448-13-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "zernike-448-5-noise-threads1",
+        "side": 448,
+        "files": [
+          "zernike-448-5-noise-features.bin",
+          "zernike-448-5-noise-offset_x.bin",
+          "zernike-448-5-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "zernike-448-13-noise-threads1",
+        "side": 448,
+        "files": [
+          "zernike-448-13-noise-features.bin",
+          "zernike-448-13-noise-offset_x.bin",
+          "zernike-448-13-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "cnn-448-5-noise-threads1",
+        "side": 448,
+        "files": [
+          "cnn-448-5-noise-features.bin",
+          "cnn-448-5-noise-offset_x.bin",
+          "cnn-448-5-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "cnn-448-13-noise-threads1",
+        "side": 448,
+        "files": [
+          "cnn-448-13-noise-features.bin",
+          "cnn-448-13-noise-offset_x.bin",
+          "cnn-448-13-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "zernike-448-5-noise-threads8",
+        "side": 448,
+        "files": [
+          "zernike-448-5-noise-features.bin",
+          "zernike-448-5-noise-offset_x.bin",
+          "zernike-448-5-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "zernike-448-13-noise-threads8",
+        "side": 448,
+        "files": [
+          "zernike-448-13-noise-features.bin",
+          "zernike-448-13-noise-offset_x.bin",
+          "zernike-448-13-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "cnn-448-5-noise-threads8",
+        "side": 448,
+        "files": [
+          "cnn-448-5-noise-features.bin",
+          "cnn-448-5-noise-offset_x.bin",
+          "cnn-448-5-noise-offset_y.bin"
+        ]
+      },
+      {
+        "reference": "thread-reference.json",
+        "name": "cnn-448-13-noise-threads8",
+        "side": 448,
+        "files": [
+          "cnn-448-13-noise-features.bin",
+          "cnn-448-13-noise-offset_x.bin",
+          "cnn-448-13-noise-offset_y.bin"
+        ]
+      }
+    ],
+    "meaning": "Independent scientific-agent proof; sixteen unavailable source rows remain listed explicitly and are not counted as passed."
+  },
+  "pending": [
+    "Frozen current-model three raw plane hashes and decisions for the new combined candidate",
+    "Flat2GiB current-model ownership/budget/bit parity; no present speed qualification from this static record"
+  ],
+  "speedClaim": null,
+  "rssClaim": null,
+  "activation": "No new native candidate activated by this proof; runtime source freeze respected after READY."
+}

@@ -1,0 +1,526 @@
+{
+  "schema": 1,
+  "scope": "Two separately measured exact D2PRL engine A/B comparisons on the recorded synthetic case/settings; initial gain and additional gain have different denominators.",
+  "initialEvidence": {
+    "bytes": 483982,
+    "sha256": "aea606368aaf99da3db20b8fdc85bcbfc84daa4abddb8e5bd88e9f3892081352",
+    "reference": "eb0cc7518c58b98a905abe031f7a3228d0a2d3df",
+    "runs": 8,
+    "modelSha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b"
+  },
+  "additionalEvidence": {
+    "bytes": 507838,
+    "sha256": "c036e070b1727faedc11f138cc6a8ed685226f0bc8ce9865e2c198d7ac710b4c",
+    "reference": "snapshot:4a9c1a949169c17f0b300540c3651db0de607c4f09cf747643f600f2f7a269a6",
+    "referenceKind": "frozen-current-engine-source",
+    "runs": 8,
+    "modelSha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b"
+  },
+  "speedCriterion": "all-paired-runs-faster",
+  "allCasesReachFivePercent": false,
+  "allPairedRunsFaster": true,
+  "minObservedPairedGainPercent": 3.819617180466317,
+  "candidateMeetsRecordedSpeedCriterion": true,
+  "stagingQualification": "This metadata-only report does not replace the stager native, artifact, snapshot, cleanup and complete-matrix checks.",
+  "cumulativeGain": {
+    "status": "not-directly-measured",
+    "reason": "Percentages from different baselines and timing sessions are not added; this table reports both comparisons explicitly."
+  },
+  "nativeSemantics": {
+    "side": 448,
+    "iterations": 40,
+    "seed": 22,
+    "referenceThreads": 8,
+    "threeRawPlanes": "union/target/source",
+    "precision": "bit-identical-to-each-recorded-current-engine-reference"
+  },
+  "measurementLimits": [
+    "Cold means fresh browser context/model, not OS/file-cache cold.",
+    "Retained warm repeats complete inference with the same initialized model/RGB; no scientific raw cache hits.",
+    "Additional result measures the tested evaluator plus roles256 configuration; it does not isolate their individual full-model contributions.",
+    "The explicit all-positive-pairs criterion does not imply at least5% paired median gain in every cold/warm case.",
+    "Registered backing/policy peaks and worker leases are not physical RAM or utilization."
+  ],
+  "cases": [
+    {
+      "comparison": "initial-vs-historical-engine",
+      "baseline": "historical-engine-eb0cc7518c58b98a905abe031f7a3228d0a2d3df",
+      "candidate": "qualified-HWC",
+      "job": "pinned-positive-rgb",
+      "backend": "webgpu",
+      "profile": "maximum",
+      "budgetBytes": 8589934592,
+      "temperature": "cold-context-new-model",
+      "pairs": 2,
+      "threeRawPlanesAndDecisionsExact": true,
+      "globalGainQualified": true,
+      "allPairedRunsFaster": true,
+      "referenceMeanMs": 235710.24500000477,
+      "referenceMedianMs": 235710.24500000477,
+      "referenceIqrMs": 6640.524999976158,
+      "referenceMinMs": 229069.7200000286,
+      "referenceMaxMs": 242350.76999998093,
+      "candidateMeanMs": 119653.75499999523,
+      "candidateMedianMs": 119653.75499999523,
+      "candidateIqrMs": 44.86500000953674,
+      "candidateMinMs": 119608.8899999857,
+      "candidateMaxMs": 119698.62000000477,
+      "pairedGainMeanPercent": 49.19607218307738,
+      "pairedGainMedianPercent": 49.19607218307738,
+      "pairedGainIqrPercent": 1.4503029037461062,
+      "pairedGainMinPercent": 47.74576927933128,
+      "pairedGainMaxPercent": 50.64637508682349,
+      "phaseDispersion": {
+        "preparation": {
+          "reference": {
+            "n": 2,
+            "mean": 50.55500000715256,
+            "median": 50.55500000715256,
+            "q25": 48.64750000834465,
+            "q75": 52.462500005960464,
+            "iqr": 3.814999997615814,
+            "min": 46.74000000953674,
+            "max": 54.37000000476837
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 47.71000000834465,
+            "median": 47.71000000834465,
+            "q25": 47.37500001490116,
+            "q75": 48.04500000178814,
+            "iqr": 0.6699999868869781,
+            "min": 47.04000002145767,
+            "max": 48.37999999523163
+          }
+        },
+        "descriptors": {
+          "reference": {
+            "n": 2,
+            "mean": 14600.874999970198,
+            "median": 14600.874999970198,
+            "q25": 14491.26749996841,
+            "q75": 14710.482499971986,
+            "iqr": 219.21500000357628,
+            "min": 14381.659999966621,
+            "max": 14820.089999973774
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 13820.955000013113,
+            "median": 13820.955000013113,
+            "q25": 13798.497500017285,
+            "q75": 13843.41250000894,
+            "iqr": 44.91499999165535,
+            "min": 13776.040000021458,
+            "max": 13865.870000004768
+          }
+        },
+        "patchmatch": {
+          "reference": {
+            "n": 2,
+            "mean": 200580.55500000715,
+            "median": 200580.55500000715,
+            "q25": 197443.24750000238,
+            "q75": 203717.86250001192,
+            "iqr": 6274.615000009537,
+            "min": 194305.93999999762,
+            "max": 206855.1700000167
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 87524.00249996781,
+            "median": 87524.00249996781,
+            "q25": 87489.3912499696,
+            "q75": 87558.61374996603,
+            "iqr": 69.22249999642372,
+            "min": 87454.77999997139,
+            "max": 87593.22499996424
+          }
+        },
+        "heads": {
+          "reference": {
+            "n": 2,
+            "mean": 20429.069999992847,
+            "median": 20429.069999992847,
+            "q25": 20358.76249998808,
+            "q75": 20499.377499997616,
+            "iqr": 140.61500000953674,
+            "min": 20288.45499998331,
+            "max": 20569.685000002384
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 18194.622500002384,
+            "median": 18194.622500002384,
+            "q25": 18113.991250008345,
+            "q75": 18275.253749996424,
+            "iqr": 161.26249998807907,
+            "min": 18033.360000014305,
+            "max": 18355.884999990463
+          }
+        }
+      },
+      "meaning": "Initial measured reduction versus historical engine"
+    },
+    {
+      "comparison": "initial-vs-historical-engine",
+      "baseline": "historical-engine-eb0cc7518c58b98a905abe031f7a3228d0a2d3df",
+      "candidate": "qualified-HWC",
+      "job": "pinned-positive-rgb",
+      "backend": "webgpu",
+      "profile": "maximum",
+      "budgetBytes": 8589934592,
+      "temperature": "warm-retained-model",
+      "pairs": 2,
+      "threeRawPlanesAndDecisionsExact": true,
+      "globalGainQualified": true,
+      "allPairedRunsFaster": true,
+      "referenceMeanMs": 235962.30749997497,
+      "referenceMedianMs": 235962.30749997497,
+      "referenceIqrMs": 8418.46250000596,
+      "referenceMinMs": 227543.844999969,
+      "referenceMaxMs": 244380.76999998093,
+      "candidateMeanMs": 112751.77750000358,
+      "candidateMedianMs": 112751.77750000358,
+      "candidateIqrMs": 985.2175000011921,
+      "candidateMinMs": 111766.56000000238,
+      "candidateMaxMs": 113736.99500000477,
+      "pairedGainMeanPercent": 52.170207110780794,
+      "pairedGainMedianPercent": 52.170207110780794,
+      "pairedGainIqrPercent": 1.2888989391700036,
+      "pairedGainMinPercent": 50.88130817161079,
+      "pairedGainMaxPercent": 53.459106049950805,
+      "phaseDispersion": {
+        "preparation": {
+          "reference": {
+            "n": 2,
+            "mean": 36.36249998211861,
+            "median": 36.36249998211861,
+            "q25": 35.79374997317791,
+            "q75": 36.9312499910593,
+            "iqr": 1.1375000178813934,
+            "min": 35.22499996423721,
+            "max": 37.5
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 34.929999977350235,
+            "median": 34.929999977350235,
+            "q25": 34.81749998033047,
+            "q75": 35.04249997437,
+            "iqr": 0.22499999403953552,
+            "min": 34.7049999833107,
+            "max": 35.15499997138977
+          }
+        },
+        "descriptors": {
+          "reference": {
+            "n": 2,
+            "mean": 13930.705000013113,
+            "median": 13930.705000013113,
+            "q25": 13805.780000016093,
+            "q75": 14055.630000010133,
+            "iqr": 249.84999999403954,
+            "min": 13680.855000019073,
+            "max": 14180.555000007153
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 13956.46250000596,
+            "median": 13956.46250000596,
+            "q25": 13875.416250005364,
+            "q75": 14037.508750006557,
+            "iqr": 162.0925000011921,
+            "min": 13794.370000004768,
+            "max": 14118.555000007153
+          }
+        },
+        "patchmatch": {
+          "reference": {
+            "n": 2,
+            "mean": 202381.16500002146,
+            "median": 202381.16500002146,
+            "q25": 198077.44000002742,
+            "q75": 206684.8900000155,
+            "iqr": 8607.449999988079,
+            "min": 193773.71500003338,
+            "max": 210988.61500000954
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 85688.24500000477,
+            "median": 85688.24500000477,
+            "q25": 85232.23000001907,
+            "q75": 86144.25999999046,
+            "iqr": 912.0299999713898,
+            "min": 84776.21500003338,
+            "max": 86600.27499997616
+          }
+        },
+        "heads": {
+          "reference": {
+            "n": 2,
+            "mean": 19613.702499985695,
+            "median": 19613.702499985695,
+            "q25": 19583.866249978542,
+            "q75": 19643.538749992847,
+            "iqr": 59.672500014305115,
+            "min": 19554.02999997139,
+            "max": 19673.375
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 13071.810000002384,
+            "median": 13071.810000002384,
+            "q25": 13027.480000019073,
+            "q75": 13116.139999985695,
+            "iqr": 88.6599999666214,
+            "min": 12983.150000035763,
+            "max": 13160.469999969006
+          }
+        }
+      },
+      "meaning": "Initial measured reduction versus historical engine"
+    },
+    {
+      "comparison": "additional-vs-qualified-HWC",
+      "baseline": "qualified-HWC-frozen-current-engine",
+      "candidate": "table-simd4-exact-subnormal-with-roles256",
+      "job": "pinned-positive-rgb",
+      "backend": "webgpu",
+      "profile": "maximum",
+      "budgetBytes": 8589934592,
+      "temperature": "cold-context-new-model",
+      "pairs": 2,
+      "threeRawPlanesAndDecisionsExact": true,
+      "globalGainQualified": true,
+      "allPairedRunsFaster": true,
+      "referenceMeanMs": 117121.32250005007,
+      "referenceMedianMs": 117121.32250005007,
+      "referenceIqrMs": 979.7724999785423,
+      "referenceMinMs": 116141.55000007153,
+      "referenceMaxMs": 118101.09500002861,
+      "candidateMeanMs": 110716.25499999523,
+      "candidateMedianMs": 110716.25499999523,
+      "candidateIqrMs": 196.1700000166893,
+      "candidateMinMs": 110520.08499997854,
+      "candidateMaxMs": 110912.42500001192,
+      "pairedGainMeanPercent": 5.4607287984064365,
+      "pairedGainMedianPercent": 5.4607287984064365,
+      "pairedGainIqrPercent": 0.958356477685399,
+      "pairedGainMinPercent": 4.5023723207210375,
+      "pairedGainMaxPercent": 6.4190852760918355,
+      "phaseDispersion": {
+        "preparation": {
+          "reference": {
+            "n": 2,
+            "mean": 45.895000010728836,
+            "median": 45.895000010728836,
+            "q25": 45.615000024437904,
+            "q75": 46.17499999701977,
+            "iqr": 0.5599999725818634,
+            "min": 45.33500003814697,
+            "max": 46.4549999833107
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 45.28000000119209,
+            "median": 45.28000000119209,
+            "q25": 45.17749999463558,
+            "q75": 45.382500007748604,
+            "iqr": 0.20500001311302185,
+            "min": 45.07499998807907,
+            "max": 45.485000014305115
+          }
+        },
+        "descriptors": {
+          "reference": {
+            "n": 2,
+            "mean": 14995.65000000596,
+            "median": 14995.65000000596,
+            "q25": 14779.427500024438,
+            "q75": 15211.872499987483,
+            "iqr": 432.4449999630451,
+            "min": 14563.205000042915,
+            "max": 15428.094999969006
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 14049.247500002384,
+            "median": 14049.247500002384,
+            "q25": 14034.753749996424,
+            "q75": 14063.741250008345,
+            "iqr": 28.98750001192093,
+            "min": 14020.259999990463,
+            "max": 14078.235000014305
+          }
+        },
+        "patchmatch": {
+          "reference": {
+            "n": 2,
+            "mean": 83768.59499999881,
+            "median": 83768.59499999881,
+            "q25": 83182.47500000894,
+            "q75": 84354.71499998868,
+            "iqr": 1172.2399999797344,
+            "min": 82596.35500001907,
+            "max": 84940.83499997854
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 78504.70500001311,
+            "median": 78504.70500001311,
+            "q25": 78367.84500001371,
+            "q75": 78641.56500001252,
+            "iqr": 273.7199999988079,
+            "min": 78230.9850000143,
+            "max": 78778.42500001192
+          }
+        },
+        "heads": {
+          "reference": {
+            "n": 2,
+            "mean": 18251.36749997735,
+            "median": 18251.36749997735,
+            "q25": 18135.668749973178,
+            "q75": 18367.066249981523,
+            "iqr": 231.39750000834465,
+            "min": 18019.969999969006,
+            "max": 18482.764999985695
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 18061.522499978542,
+            "median": 18061.522499978542,
+            "q25": 18037.401249974966,
+            "q75": 18085.64374998212,
+            "iqr": 48.24250000715256,
+            "min": 18013.27999997139,
+            "max": 18109.764999985695
+          }
+        }
+      },
+      "meaning": "Additional measured reduction relative to the already qualified HWC engine"
+    },
+    {
+      "comparison": "additional-vs-qualified-HWC",
+      "baseline": "qualified-HWC-frozen-current-engine",
+      "candidate": "table-simd4-exact-subnormal-with-roles256",
+      "job": "pinned-positive-rgb",
+      "backend": "webgpu",
+      "profile": "maximum",
+      "budgetBytes": 8589934592,
+      "temperature": "warm-retained-model",
+      "pairs": 2,
+      "threeRawPlanesAndDecisionsExact": true,
+      "globalGainQualified": false,
+      "allPairedRunsFaster": true,
+      "referenceMeanMs": 110408.81499999762,
+      "referenceMedianMs": 110408.81499999762,
+      "referenceIqrMs": 414.4150000214577,
+      "referenceMinMs": 109994.39999997616,
+      "referenceMaxMs": 110823.23000001907,
+      "candidateMeanMs": 105493.87250003219,
+      "candidateMedianMs": 105493.87250003219,
+      "candidateIqrMs": 299.16249999403954,
+      "candidateMinMs": 105194.71000003815,
+      "candidateMaxMs": 105793.03500002623,
+      "pairedGainMeanPercent": 4.449222032694617,
+      "pairedGainMedianPercent": 4.449222032694617,
+      "pairedGainIqrPercent": 0.6296048522282991,
+      "pairedGainMinPercent": 3.819617180466317,
+      "pairedGainMaxPercent": 5.078826884922916,
+      "phaseDispersion": {
+        "preparation": {
+          "reference": {
+            "n": 2,
+            "mean": 34.84749999642372,
+            "median": 34.84749999642372,
+            "q25": 34.76375000178814,
+            "q75": 34.9312499910593,
+            "iqr": 0.16749998927116394,
+            "min": 34.68000000715256,
+            "max": 35.014999985694885
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 34.62999999523163,
+            "median": 34.62999999523163,
+            "q25": 34.610000014305115,
+            "q75": 34.64999997615814,
+            "iqr": 0.039999961853027344,
+            "min": 34.5900000333786,
+            "max": 34.669999957084656
+          }
+        },
+        "descriptors": {
+          "reference": {
+            "n": 2,
+            "mean": 14047.184999972582,
+            "median": 14047.184999972582,
+            "q25": 13985.924999967217,
+            "q75": 14108.444999977946,
+            "iqr": 122.52000001072884,
+            "min": 13924.664999961853,
+            "max": 14169.70499998331
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 13952.719999969006,
+            "median": 13952.719999969006,
+            "q25": 13921.739999979734,
+            "q75": 13983.699999958277,
+            "iqr": 61.95999997854233,
+            "min": 13890.759999990463,
+            "max": 14014.679999947548
+          }
+        },
+        "patchmatch": {
+          "reference": {
+            "n": 2,
+            "mean": 83245.76000002027,
+            "median": 83245.76000002027,
+            "q25": 83126.4225000292,
+            "q75": 83365.09750001132,
+            "iqr": 238.6749999821186,
+            "min": 83007.08500003815,
+            "max": 83484.43500000238
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 78431.52000004053,
+            "median": 78431.52000004053,
+            "q25": 78318.4525000453,
+            "q75": 78544.58750003576,
+            "iqr": 226.13499999046326,
+            "min": 78205.38500005007,
+            "max": 78657.655000031
+          }
+        },
+        "heads": {
+          "reference": {
+            "n": 2,
+            "mean": 13080.740000009537,
+            "median": 13080.740000009537,
+            "q25": 13054.242500007153,
+            "q75": 13107.237500011921,
+            "iqr": 52.99500000476837,
+            "min": 13027.745000004768,
+            "max": 13133.735000014305
+          },
+          "candidate": {
+            "n": 2,
+            "mean": 13074.699999988079,
+            "median": 13074.699999988079,
+            "q25": 13069.14249998331,
+            "q75": 13080.257499992847,
+            "iqr": 11.115000009536743,
+            "min": 13063.584999978542,
+            "max": 13085.814999997616
+          }
+        }
+      },
+      "meaning": "Additional measured reduction relative to the already qualified HWC engine"
+    }
+  ]
+}

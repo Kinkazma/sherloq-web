@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "suites": [
+    {
+      "name": "targeted",
+      "tests": 137,
+      "pass": 122,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 15
+    },
+    {
+      "name": "shared",
+      "tests": 49,
+      "pass": 49,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "name": "delivery",
+      "tests": 12,
+      "pass": 12,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "name": "mocked-lifecycle",
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    }
+  ],
+  "skipNote": "The three lifecycle tests skipped without Node module-mock support were separately rerun successfully, including their nested failure cases. Twelve remaining skips require non-shipped local qualification/experimental artifacts."
+}

@@ -1,7 +1,7 @@
 import {createNeuralInput} from './neural-input.js';
 import {createNeuralProjector} from './neural-projector.js';
 import {publishNeuralResult} from './publish-neural-result.js';
-import {EngineError, requireValue, checkAbort} from './errors.js';
+import {EngineError, requireValue, checkAbort, serializeEngineError} from './errors.js';
 import {createD2prlModel, readVerifiedModelAsset} from '../experiments/d2prl/model.js';
 import {createD2prlAnalysis} from '../experiments/d2prl/analysis.js';
 import {createD2prlZones} from '../experiments/d2prl/zones.js';
@@ -16,7 +16,8 @@ const OWN_OUTPUT=Symbol('owned D2PRL output');
 
 export function createD2prlAdapter({budget, profile, version, publishResult}) {
   let manifest, manifestRelease, assetBaseUrl, identity, active, state;
-  const clearState = async () => {if (!state) return; const old = state; state = null; await old.session.dispose(); old.pipeline.dispose(); old.postprocess.dispose(); old.spatial.dispose(); await old.project.dispose();};
+  const disposeAll=async(resources,failure)=>{const additional=[];for(const resource of resources)try{await resource?.dispose?.();}catch(error){if(failure)additional.push(serializeEngineError(error));else failure=error;}if(failure){if(additional.length&&typeof failure==='object')failure.details={...failure.details,cleanupFailures:additional};throw failure;}};
+  const clearState = async () => {if (!state) return; const old = state; state = null; await disposeAll([old.session,old.pipeline,old.postprocess,old.spatial,old.project]);};
   const own = (envelope, result) => {
     const metadataRelease=budget.reserve(8192+8*scientificJsonBound({provenance:envelope.provenance,layers:envelope.layers,metrics:envelope.metrics}));let released=false,pending;
     return {...envelope,release(){if(released)return pending;released=true;try{pending=result.release();}catch(error){metadataRelease();throw error;}if(pending?.then){pending=Promise.resolve(pending).finally(metadataRelease);return pending;}metadataRelease();}};
@@ -60,12 +61,12 @@ export function createD2prlAdapter({budget, profile, version, publishResult}) {
         if (state && state.backend !== backend) await clearState();
         if (!state) {
           const runtime = await withD2prlActivity(budget,'d2prl:runtime-import','io',d2prlRuntime); checkAbort(signal);
-          const pipeline = await createD2prlModel({budget, model: manifest, assetBaseUrl, runtime, backend, maxWorkers: Math.min(32, profile.maxWorkers)});
+          const pipeline = await createD2prlModel({budget, model: manifest, assetBaseUrl, runtime, backend, maxWorkers: Math.min(64, profile.maxWorkers)});
           let postprocess, spatial;
           try {
             postprocess = createPostprocess({budget, moduleUrl: runtime.postprocessUrl}); spatial = createSpatial({budget, moduleUrl: runtime.spatialUrl}); const project = createNeuralProjector({budget,postprocess,family:'d2prl',side:448,contiguous:createD2prlZones({budget,postprocess,spatial})});
             const session = createD2prlAnalysis({budget, infer: (input, options) => pipeline.run(input, options),releaseInferenceCheckpoint:key=>pipeline.releaseCheckpoint(key),project, modelId: manifest.modelId}); state = {backend, pipeline, postprocess, spatial, project, session};
-          } catch (error) {pipeline.dispose(); postprocess?.dispose(); spatial?.dispose(); throw error;}
+          } catch (error) {await disposeAll([pipeline,postprocess,spatial],error);}
         }
         checkAbort(signal);state.project.setImage(image);
         const zones = refilter ? state.lastContext.zones : regions.length ? regions : [{id: 'whole-image', kind: 'whole-image', bounds: [0, 0, geometry.width, geometry.height]}];
@@ -95,6 +96,6 @@ export function createD2prlAdapter({budget, profile, version, publishResult}) {
     },
     releaseCheckpoint(key){requireValue(!active,'D2PRL adapter busy');return state?.session.releaseCheckpoint(key);},
     async clearImages() {requireValue(!active, 'D2PRL adapter busy'); await clearState();},
-    async dispose() {requireValue(!active, 'D2PRL adapter busy'); await clearState(); manifest = null; identity = null; assetBaseUrl = null; manifestRelease?.(); manifestRelease = null;}
+    async dispose() {requireValue(!active, 'D2PRL adapter busy'); try{await clearState();}finally{manifest = null; identity = null; assetBaseUrl = null; manifestRelease?.(); manifestRelease = null;}}
   };
 }

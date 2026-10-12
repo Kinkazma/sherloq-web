@@ -1,0 +1,3485 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "date": "2026-10-13",
+  "baseCommit": "15f917a44308aaa1464a58245470c2fb30c6fd78",
+  "scope": "Actual current common-worker engine, D2PRL operation only. Segmented full JPEG source, fixed448/40/seed22 native model, all full source-coordinate planes checked; three original zones at96MP. No batch-chain recreation, completed-model-output shortcut, universal-device or RSS claim. One30MP A/B pair is functional evidence, not repeated speed qualification.",
+  "portability": "Ephemeral origins and local source/depot paths normalized; numerical values, array hashes and module identities preserved. Original detailed local report size/SHA recorded.",
+  "installedRuntime": {
+    "originalLocalProof": {
+      "bytes": 43640,
+      "sha256": "fc03eb9ce16d3ea77356e380d2f102a1b68c50cb5d9e7dda22dc798977ad29ae"
+    },
+    "status": "passed",
+    "browser": "154.0.8037.98",
+    "evaluator": "table-simd4-exact-subnormal.js",
+    "descriptorLayout": "HWC-uint16",
+    "nativeLayout": 1,
+    "rolesRuntime": {
+      "runtimeId": "ort130-wasm-256mib-d2prl",
+      "memoryMaximumBytes": 268435456
+    },
+    "sourceHashes": {
+      "unified-engine/src/d2prl-runtime.js": "0ffd9cf84959c961ac50afa46caeafc68676b189f81c464589d33f3faa2928e9",
+      "unified-engine/experiments/d2prl/evaluator-pool.js": "a140f5e97c8c017a8710c4673c1da794f0fc41dbb91e3a9657c9a70f498c540f",
+      "unified-engine/vendor/d2prl/table-simd4-exact-subnormal.js": "ccff061e00cdde058da60c77181ea687c5fd8ba60c0be52b3dd3266a6587280c",
+      "unified-engine/vendor/d2prl/table-simd4-exact-subnormal.wasm": "54944c22b79e25068908af4c0885a4b0cf2131cf943b77f176683cbef50f8fb5",
+      "unified-engine/vendor/d2prl/factory-roles256.mjs": "3327cd4e63ed23e9426040c665c96db732ddf63864f2b438da1798842b27a15a"
+    }
+  },
+  "cases": [
+    {
+      "originalLocalReport": {
+        "bytes": 872061,
+        "sha256": "64495e3f42dc2bccfb7396986fa62a4927db7d5a97cbca9d68c57699ac19cb9d"
+      },
+      "source": {
+        "original": {
+          "file": "source.jpg",
+          "bytes": 8001269,
+          "sha256": "693a7ce49c894e97326aeb62399629b1cfb41c7eccc85d2cf7c8e27dfaa2ffc9"
+        },
+        "pixelSha256": "461c7c8d2524be737679f14da3ccd8da071e8746413fda920334a1cb8d11d83c",
+        "dimensions": [
+          7500,
+          4000
+        ]
+      },
+      "reference": {
+        "bytes": 2921,
+        "sha256": "57968b0a2a2e2ec9077d70d2d150f07475b34681521800e33dc7770bddb95cc6"
+      },
+      "runtimeSource": {
+        "files": {
+          "src/index.js": {
+            "bytes": 108347,
+            "sha256": "8cec6370afb541bc3306bdb65cd736726cc0ef0438ebe6defbf921462f69c6df"
+          },
+          "src/worker.js": {
+            "bytes": 5408,
+            "sha256": "a69f35b29111c22e027b264dfa95b03c3a3581321577b525107530efd6635cd5"
+          },
+          "src/worker-client.js": {
+            "bytes": 17771,
+            "sha256": "f78caf45e712f2f6673db9fd801452a5671e89c1b223c000f0ccefe2e7451b90"
+          },
+          "src/d2prl-runtime.js": {
+            "bytes": 1729,
+            "sha256": "aafb418246eacae85b686b575fec70289348ae6d286c7c4b3fecbccdc4c56d90"
+          },
+          "src/d2prl-adapter.js": {
+            "bytes": 11924,
+            "sha256": "7a3aab298a4a8f9c5767a1d3e2f30e06f0564b6e4ce4bfaf6414733e989ee626"
+          },
+          "src/neural-input.js": {
+            "bytes": 1535,
+            "sha256": "3e146ac8abebb333b9e162539ce4246bd07ad7c0c3a2694439e06fd67599b152"
+          },
+          "src/neural-projector.js": {
+            "bytes": 2307,
+            "sha256": "d3af680abf3cff44c4e6f3298e320215fe0ae966f88e2537533ee6d6b60aefe7"
+          },
+          "src/neural-exports.js": {
+            "bytes": 2994,
+            "sha256": "982cda32dd9d36c43e0d15e4f5c7b468eb3323e7c39e2c1490a09a83573595d8"
+          },
+          "experiments/d2prl/model.js": {
+            "bytes": 14062,
+            "sha256": "87f28f947ccc9ebd45592a9b664a4abcceda12f790b2e9b337dc89020c11f633"
+          },
+          "experiments/d2prl/analysis.js": {
+            "bytes": 13189,
+            "sha256": "87a0ad0077f05ba61aef90c006bbd3f9df6b7f1aab4ae16b536711ff85af4d32"
+          },
+          "experiments/d2prl/evaluator-pool.js": {
+            "bytes": 21803,
+            "sha256": "a140f5e97c8c017a8710c4673c1da794f0fc41dbb91e3a9657c9a70f498c540f"
+          },
+          "experiments/d2prl/evaluator-worker.js": {
+            "bytes": 8672,
+            "sha256": "a018e74051aa72638beb4f5163ae341a9772f7de4a00614eed3b361f89f6d9e7"
+          },
+          "experiments/d2prl/role-runtime.js": {
+            "bytes": 2170,
+            "sha256": "4280ca7f66180d6424898d6a52ae481054d4bdecd01c1ba7667a420fa4259721"
+          },
+          "vendor/d2prl/PINNED.json": {
+            "bytes": 37891,
+            "sha256": "2cd9baa3d288e1bedd6906dde77554a780fbe9d44d8883dfddacc4e65d504d6e"
+          },
+          "vendor/d2prl/table-simd4-exact-subnormal.js": {
+            "bytes": 7747,
+            "sha256": "cda1e5e9d64566652c12d6eb5589b8f8621fcdc519897b47344dc2e9dfc0759a"
+          },
+          "vendor/d2prl/table-simd4-exact-subnormal.wasm": {
+            "bytes": 18586,
+            "sha256": "54944c22b79e25068908af4c0885a4b0cf2131cf943b77f176683cbef50f8fb5"
+          },
+          "vendor/d2prl/pixel-major-combined.js": {
+            "bytes": 7382,
+            "sha256": "61b2d84203358f4ec1e1f0dabcbe7238764289e5d67236162a615f70dd0f30d7"
+          },
+          "vendor/d2prl/pixel-major-combined.wasm": {
+            "bytes": 15723,
+            "sha256": "11ad5dc8226e0190c1930a6593fc349895f58a60d28717c34d650c54ef025878"
+          },
+          "vendor/d2prl/factory-roles256.mjs": {
+            "bytes": 573,
+            "sha256": "3327cd4e63ed23e9426040c665c96db732ddf63864f2b438da1798842b27a15a"
+          },
+          "vendor/d2prl/ort-wasm-simd-threaded-roles256.mjs": {
+            "bytes": 24380,
+            "sha256": "62dc5bef5c2cab005cf7f6c025e3222b16066e6f0631c9e304ddcaf06ba4e28f"
+          },
+          "vendor/d2prl/factory.mjs": {
+            "bytes": 221,
+            "sha256": "85a4d82bcb5311dc399ee4c1d0e86b8514ac94220c92a41f8e84d14be7c78415"
+          }
+        },
+        "sha256": "648604f95b437cb724525902f84e86a16fbdb6a9a35695c6a0894fbab2d3fb64"
+      },
+      "baselineOverride": {
+        "scope": "Only d2prlRuntime evaluator/roles default arguments differ; all other runtime/source/model/image bytes shared.",
+        "runtimeSha256": "89166da8714015f8c496f84edd7714ad558b8fb7c9de9559ad5f73eaa8d8b287"
+      },
+      "recipe": {
+        "bytes": 15897,
+        "sha256": "657c716a1f6441807444803778d129597991706b800b93135320a54dc008562e"
+      },
+      "model": {
+        "bytes": 1173784,
+        "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db"
+      },
+      "browser": "154.0.8037.98",
+      "comparison": {
+        "status": "passed-exact-current-engine-parity",
+        "nativeRawPlanesExact": true,
+        "sixPlanesExactInBothViews": true,
+        "analysisGainPercent": 5.636414116307884,
+        "speedQualified": false,
+        "reason": "One paired functional observation; not a repeated isolated speed qualification."
+      },
+      "rows": [
+        {
+          "status": "passed",
+          "variant": "baseline",
+          "size": 30,
+          "backend": "webgpu",
+          "computeProfile": "maximum",
+          "dimensions": [
+            7500,
+            4000
+          ],
+          "sourceSha256": "693a7ce49c894e97326aeb62399629b1cfb41c7eccc85d2cf7c8e27dfaa2ffc9",
+          "pixelSha256": "461c7c8d2524be737679f14da3ccd8da071e8746413fda920334a1cb8d11d83c",
+          "selection": {
+            "evaluator": "pixel-major-combined.js",
+            "descriptorLayout": "HWC-uint16",
+            "roles": {
+              "runtimeId": "ort130-wasm-512mib",
+              "memoryMaximumBytes": 536870912
+            },
+            "rolesFactory": "/runtime/baseline/vendor/d2prl/factory.mjs"
+          },
+          "records": [
+            {
+              "name": "detect",
+              "rpcMs": 123415.43500000238,
+              "inferences": 1,
+              "executions": [
+                {
+                  "id": "full-envelope",
+                  "bounds": [
+                    0,
+                    0,
+                    7500,
+                    4000
+                  ],
+                  "decision": {
+                    "overlap": 19410.2109375,
+                    "threshold": 14437.29296875,
+                    "combineMaximum": true
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2760.1050000190735,
+                      "configureMs": 83.08499991893768,
+                      "uploadMs": 344.02499985694885,
+                      "packingMs": 213.504998087883,
+                      "workerCallMs": 557315.6850025058,
+                      "workerComputeMs": 546916.0549976826,
+                      "workerCopyMs": 683.664998114109,
+                      "kernelTiles": 77616,
+                      "gatherMs": 46.785001039505005,
+                      "totalMs": 62739.1899997592,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 531496960,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 67448,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 531496960,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/baseline/vendor/d2prl/pixel-major-combined.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 1961.75,
+                      "descriptors": 14189.639999985695,
+                      "patchmatch": 84819.48000001907,
+                      "heads": 19750.07999998331,
+                      "raw-output": 0.38499999046325684
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 33300,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 770,
+                      "reuses": 764,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 45,
+                      "cacheHitBytes": 7221360,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                }
+              ],
+              "outputs": {
+                "map": {
+                  "sha256": "d24000be765ae0840875301c3cf74db36faef9b13d7a03b64898cc410b7a7508",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 30000000,
+                  "finite": true,
+                  "binary": null,
+                  "nativeHashChecked": false
+                },
+                "mask": {
+                  "sha256": "0e17ba866f39bd18ca42d90df8079a99cea9510c20ca18a992401cd95638b0ec",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 18377091,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "analyzed": {
+                  "sha256": "9cc67bf78b06550b8bd80a2da0d8582c13eaf6ce32c8bdcfc1e93e355b763904",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 30000000,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "candidates": {
+                  "sha256": "5cea420a169be50cd615ee30e570f980afb5eb88e8431d652202fc99df58ed7d",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 0,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "target": {
+                  "sha256": "1644cc8bb9d51f64e5b64430abd130774e7755d7c2d618379a932e60ffc25fb0",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 10970099,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "source": {
+                  "sha256": "e64c861184b7d1409b4063fa82539a13cc48f06f029c0fe1df211dba0bf7e272",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 7406992,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                }
+              },
+              "metrics": {
+                "totalMs": 123413.219999969,
+                "inferences": 1,
+                "cache": {
+                  "rawGrids": 0
+                },
+                "memory": {
+                  "budgetBytes": 3221225472,
+                  "policyAvailableBytes": 1282653344,
+                  "retainedBytes": 540073728,
+                  "cacheBytes": 2408448,
+                  "activeReservationBytes": 1396089952,
+                  "peakAccountedBytes": 2503096464,
+                  "activeRecoveries": 0
+                },
+                "projection": {
+                  "totalMs": 2088.4699999690056,
+                  "projectionMs": 1976.9800000190735,
+                  "compositionMs": 1107.3350003957748,
+                  "postprocessMs": 103.92999994754791,
+                  "blocks": 116,
+                  "metadataBytes": 73728,
+                  "storage": {
+                    "map": "memory",
+                    "mask": "memory",
+                    "target": "memory",
+                    "source": "memory",
+                    "analyzed": "memory",
+                    "candidates": "memory"
+                  },
+                  "resultBytes": 450000000
+                }
+              }
+            },
+            {
+              "name": "refilter",
+              "rpcMs": 2184.3449999690056,
+              "inferences": 0,
+              "executions": [
+                {
+                  "id": "full-envelope",
+                  "bounds": [
+                    0,
+                    0,
+                    7500,
+                    4000
+                  ],
+                  "decision": {
+                    "overlap": 19410.2109375,
+                    "threshold": 14437.29296875,
+                    "combineMaximum": true
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2760.1050000190735,
+                      "configureMs": 83.08499991893768,
+                      "uploadMs": 344.02499985694885,
+                      "packingMs": 213.504998087883,
+                      "workerCallMs": 557315.6850025058,
+                      "workerComputeMs": 546916.0549976826,
+                      "workerCopyMs": 683.664998114109,
+                      "kernelTiles": 77616,
+                      "gatherMs": 46.785001039505005,
+                      "totalMs": 62739.1899997592,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 531496960,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 67448,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 531496960,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/baseline/vendor/d2prl/pixel-major-combined.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 1961.75,
+                      "descriptors": 14189.639999985695,
+                      "patchmatch": 84819.48000001907,
+                      "heads": 19750.07999998331,
+                      "raw-output": 0.38499999046325684
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 33300,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 770,
+                      "reuses": 764,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 45,
+                      "cacheHitBytes": 7221360,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                }
+              ],
+              "outputs": {
+                "map": {
+                  "sha256": "d24000be765ae0840875301c3cf74db36faef9b13d7a03b64898cc410b7a7508",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 30000000,
+                  "finite": true,
+                  "binary": null,
+                  "nativeHashChecked": false
+                },
+                "mask": {
+                  "sha256": "9becc165d4a022936a098c8fa057f27b755691f9798ba80738601b73837301b5",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 19253358,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "analyzed": {
+                  "sha256": "9cc67bf78b06550b8bd80a2da0d8582c13eaf6ce32c8bdcfc1e93e355b763904",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 30000000,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "candidates": {
+                  "sha256": "5cea420a169be50cd615ee30e570f980afb5eb88e8431d652202fc99df58ed7d",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 0,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "target": {
+                  "sha256": "942f5944e45a84450e62bcaee1b7ecc089870e7fad435b3cd285637602e3f7a4",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 11443181,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "source": {
+                  "sha256": "be230838c7ca160983fba811eb749cad0606a4c6d77ba3a048964bd72f1af8b5",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 7810177,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                }
+              },
+              "metrics": {
+                "totalMs": 2183.899999976158,
+                "inferences": 0,
+                "cache": {
+                  "rawGrids": 1
+                },
+                "memory": {
+                  "budgetBytes": 3221225472,
+                  "policyAvailableBytes": 832579616,
+                  "retainedBytes": 990147456,
+                  "cacheBytes": 2408448,
+                  "activeReservationBytes": 1396089952,
+                  "peakAccountedBytes": 2953170192,
+                  "activeRecoveries": 0
+                },
+                "projection": {
+                  "totalMs": 2183.4099999666214,
+                  "projectionMs": 2074.560000002384,
+                  "compositionMs": 1209.9399998188019,
+                  "postprocessMs": 101.6599999666214,
+                  "blocks": 116,
+                  "metadataBytes": 73728,
+                  "storage": {
+                    "map": "memory",
+                    "mask": "memory",
+                    "target": "memory",
+                    "source": "memory",
+                    "analyzed": "memory",
+                    "candidates": "memory"
+                  },
+                  "resultBytes": 450000000
+                }
+              }
+            }
+          ],
+          "raw": [
+            {
+              "zone": "full-envelope",
+              "bounds": [
+                0,
+                0,
+                7500,
+                4000
+              ],
+              "shape": [
+                3,
+                448,
+                448
+              ],
+              "sha256": "b0f03d22bdba60759f7d49275cdee69bdafbd9b1fe891905d947e6a45d9bbafc",
+              "planeSha256": [
+                "57d06735b7cbe618741824960a1dbacb2dffffb614dff1248a44798ee67f2fd4",
+                "016f8a2ac2e40e9659698767b580c2644f6a1eeecdf45c956e98829dac57f5c5",
+                "efbc18c1c7fab04f1cf4e59de58c7440b805312100486c2d92cd5de8cba9826c"
+              ],
+              "decision": {
+                "overlap": 19410.2109375,
+                "threshold": 14437.29296875,
+                "combineMaximum": true
+              }
+            }
+          ],
+          "checks": {
+            "raw": true,
+            "windowOwnership": true,
+            "priorOwnedResult": true,
+            "releasedSurface": true
+          },
+          "times": {
+            "loadMs": 404.81999999284744,
+            "modelManifestMs": 18.819999992847443,
+            "analysisMs": 123415.43500000238,
+            "cacheViewMs": 2184.3449999690056
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "peakAccountedBytes": 2953170192
+          },
+          "exported": null,
+          "exportPages": 0,
+          "finalMemory": {
+            "budgetBytes": 3221225472,
+            "policyAvailableBytes": 3221225472,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 2953170192,
+            "activeRecoveries": 0,
+            "knownHeapCapacityBytes": 16777216
+          },
+          "finalResourceDomains": {
+            "array-buffer": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            },
+            "wasm": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            },
+            "gpu": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            },
+            "gpu-mapped": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            }
+          },
+          "finalActivity": {
+            "operations": [],
+            "pressures": []
+          },
+          "finalCompute": {
+            "active": {
+              "cpu": 0,
+              "gpu": 0
+            },
+            "running": 0,
+            "queued": 0
+          },
+          "independentNpz": null
+        },
+        {
+          "status": "passed",
+          "variant": "candidate",
+          "size": 30,
+          "backend": "webgpu",
+          "computeProfile": "maximum",
+          "dimensions": [
+            7500,
+            4000
+          ],
+          "sourceSha256": "693a7ce49c894e97326aeb62399629b1cfb41c7eccc85d2cf7c8e27dfaa2ffc9",
+          "pixelSha256": "461c7c8d2524be737679f14da3ccd8da071e8746413fda920334a1cb8d11d83c",
+          "selection": {
+            "evaluator": "table-simd4-exact-subnormal.js",
+            "descriptorLayout": "HWC-uint16",
+            "roles": {
+              "runtimeId": "ort130-wasm-256mib-d2prl",
+              "memoryMaximumBytes": 268435456
+            },
+            "rolesFactory": "/runtime/candidate/vendor/d2prl/factory-roles256.mjs"
+          },
+          "records": [
+            {
+              "name": "detect",
+              "rpcMs": 116459.22999995947,
+              "inferences": 1,
+              "executions": [
+                {
+                  "id": "full-envelope",
+                  "bounds": [
+                    0,
+                    0,
+                    7500,
+                    4000
+                  ],
+                  "decision": {
+                    "overlap": 19410.2109375,
+                    "threshold": 14437.29296875,
+                    "combineMaximum": true
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2749.810000061989,
+                      "configureMs": 88.12999957799911,
+                      "uploadMs": 354.4899997115135,
+                      "packingMs": 231.19499969482422,
+                      "workerCallMs": 510129.56500411034,
+                      "workerComputeMs": 498944.1450075507,
+                      "workerCopyMs": 706.9949941039085,
+                      "kernelTiles": 77616,
+                      "gatherMs": 42.064999520778656,
+                      "totalMs": 57807.92999994755,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 534118400,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 329608,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 534118400,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/candidate/vendor/d2prl/table-simd4-exact-subnormal.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 1994.4699999690056,
+                      "descriptors": 13775.634999990463,
+                      "patchmatch": 79832.55500000715,
+                      "heads": 18147.235000014305,
+                      "raw-output": 0.3199999928474426
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 33339,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 770,
+                      "reuses": 764,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 45,
+                      "cacheHitBytes": 7221360,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                }
+              ],
+              "outputs": {
+                "map": {
+                  "sha256": "d24000be765ae0840875301c3cf74db36faef9b13d7a03b64898cc410b7a7508",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 30000000,
+                  "finite": true,
+                  "binary": null,
+                  "nativeHashChecked": false
+                },
+                "mask": {
+                  "sha256": "0e17ba866f39bd18ca42d90df8079a99cea9510c20ca18a992401cd95638b0ec",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 18377091,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "analyzed": {
+                  "sha256": "9cc67bf78b06550b8bd80a2da0d8582c13eaf6ce32c8bdcfc1e93e355b763904",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 30000000,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "candidates": {
+                  "sha256": "5cea420a169be50cd615ee30e570f980afb5eb88e8431d652202fc99df58ed7d",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 0,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "target": {
+                  "sha256": "1644cc8bb9d51f64e5b64430abd130774e7755d7c2d618379a932e60ffc25fb0",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 10970099,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "source": {
+                  "sha256": "e64c861184b7d1409b4063fa82539a13cc48f06f029c0fe1df211dba0bf7e272",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 7406992,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                }
+              },
+              "metrics": {
+                "totalMs": 116457.50499999523,
+                "inferences": 1,
+                "cache": {
+                  "rawGrids": 0
+                },
+                "memory": {
+                  "budgetBytes": 3221225472,
+                  "policyAvailableBytes": 1282653344,
+                  "retainedBytes": 540073728,
+                  "cacheBytes": 2408448,
+                  "activeReservationBytes": 1396089952,
+                  "peakAccountedBytes": 2503096464,
+                  "activeRecoveries": 0
+                },
+                "projection": {
+                  "totalMs": 2112.2000000476837,
+                  "projectionMs": 2001.7900000214577,
+                  "compositionMs": 1137.024999678135,
+                  "postprocessMs": 102.68500000238419,
+                  "blocks": 116,
+                  "metadataBytes": 73728,
+                  "storage": {
+                    "map": "memory",
+                    "mask": "memory",
+                    "target": "memory",
+                    "source": "memory",
+                    "analyzed": "memory",
+                    "candidates": "memory"
+                  },
+                  "resultBytes": 450000000
+                }
+              }
+            },
+            {
+              "name": "refilter",
+              "rpcMs": 2214.8700000047684,
+              "inferences": 0,
+              "executions": [
+                {
+                  "id": "full-envelope",
+                  "bounds": [
+                    0,
+                    0,
+                    7500,
+                    4000
+                  ],
+                  "decision": {
+                    "overlap": 19410.2109375,
+                    "threshold": 14437.29296875,
+                    "combineMaximum": true
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2749.810000061989,
+                      "configureMs": 88.12999957799911,
+                      "uploadMs": 354.4899997115135,
+                      "packingMs": 231.19499969482422,
+                      "workerCallMs": 510129.56500411034,
+                      "workerComputeMs": 498944.1450075507,
+                      "workerCopyMs": 706.9949941039085,
+                      "kernelTiles": 77616,
+                      "gatherMs": 42.064999520778656,
+                      "totalMs": 57807.92999994755,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 534118400,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 329608,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 534118400,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/candidate/vendor/d2prl/table-simd4-exact-subnormal.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 1994.4699999690056,
+                      "descriptors": 13775.634999990463,
+                      "patchmatch": 79832.55500000715,
+                      "heads": 18147.235000014305,
+                      "raw-output": 0.3199999928474426
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 33339,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 770,
+                      "reuses": 764,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 45,
+                      "cacheHitBytes": 7221360,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                }
+              ],
+              "outputs": {
+                "map": {
+                  "sha256": "d24000be765ae0840875301c3cf74db36faef9b13d7a03b64898cc410b7a7508",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 30000000,
+                  "finite": true,
+                  "binary": null,
+                  "nativeHashChecked": false
+                },
+                "mask": {
+                  "sha256": "9becc165d4a022936a098c8fa057f27b755691f9798ba80738601b73837301b5",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 19253358,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "analyzed": {
+                  "sha256": "9cc67bf78b06550b8bd80a2da0d8582c13eaf6ce32c8bdcfc1e93e355b763904",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 30000000,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "candidates": {
+                  "sha256": "5cea420a169be50cd615ee30e570f980afb5eb88e8431d652202fc99df58ed7d",
+                  "dtype": "uint8",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 30000000,
+                  "nonzero": 0,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "target": {
+                  "sha256": "942f5944e45a84450e62bcaee1b7ecc089870e7fad435b3cd285637602e3f7a4",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 11443181,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                },
+                "source": {
+                  "sha256": "be230838c7ca160983fba811eb749cad0606a4c6d77ba3a048964bd72f1af8b5",
+                  "dtype": "float32",
+                  "shape": [
+                    4000,
+                    7500
+                  ],
+                  "bytes": 120000000,
+                  "nonzero": 7810177,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": false
+                }
+              },
+              "metrics": {
+                "totalMs": 2214.4700000286102,
+                "inferences": 0,
+                "cache": {
+                  "rawGrids": 1
+                },
+                "memory": {
+                  "budgetBytes": 3221225472,
+                  "policyAvailableBytes": 832579616,
+                  "retainedBytes": 990147456,
+                  "cacheBytes": 2408448,
+                  "activeReservationBytes": 1396089952,
+                  "peakAccountedBytes": 2953170192,
+                  "activeRecoveries": 0
+                },
+                "projection": {
+                  "totalMs": 2213.8949999809265,
+                  "projectionMs": 2105.264999985695,
+                  "compositionMs": 1232.9750002026558,
+                  "postprocessMs": 102.83000004291534,
+                  "blocks": 116,
+                  "metadataBytes": 73728,
+                  "storage": {
+                    "map": "memory",
+                    "mask": "memory",
+                    "target": "memory",
+                    "source": "memory",
+                    "analyzed": "memory",
+                    "candidates": "memory"
+                  },
+                  "resultBytes": 450000000
+                }
+              }
+            }
+          ],
+          "raw": [
+            {
+              "zone": "full-envelope",
+              "bounds": [
+                0,
+                0,
+                7500,
+                4000
+              ],
+              "shape": [
+                3,
+                448,
+                448
+              ],
+              "sha256": "b0f03d22bdba60759f7d49275cdee69bdafbd9b1fe891905d947e6a45d9bbafc",
+              "planeSha256": [
+                "57d06735b7cbe618741824960a1dbacb2dffffb614dff1248a44798ee67f2fd4",
+                "016f8a2ac2e40e9659698767b580c2644f6a1eeecdf45c956e98829dac57f5c5",
+                "efbc18c1c7fab04f1cf4e59de58c7440b805312100486c2d92cd5de8cba9826c"
+              ],
+              "decision": {
+                "overlap": 19410.2109375,
+                "threshold": 14437.29296875,
+                "combineMaximum": true
+              }
+            }
+          ],
+          "checks": {
+            "raw": true,
+            "windowOwnership": true,
+            "priorOwnedResult": true,
+            "releasedSurface": true
+          },
+          "times": {
+            "loadMs": 414.4399999976158,
+            "modelManifestMs": 18.214999973773956,
+            "analysisMs": 116459.22999995947,
+            "cacheViewMs": 2214.8700000047684
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "peakAccountedBytes": 2953170192
+          },
+          "exported": null,
+          "exportPages": 0,
+          "finalMemory": {
+            "budgetBytes": 3221225472,
+            "policyAvailableBytes": 3221225472,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 2953170192,
+            "activeRecoveries": 0,
+            "knownHeapCapacityBytes": 16777216
+          },
+          "finalResourceDomains": {
+            "array-buffer": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            },
+            "wasm": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            },
+            "gpu": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            },
+            "gpu-mapped": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            }
+          },
+          "finalActivity": {
+            "operations": [],
+            "pressures": []
+          },
+          "finalCompute": {
+            "active": {
+              "cpu": 0,
+              "gpu": 0
+            },
+            "running": 0,
+            "queued": 0
+          },
+          "independentNpz": null
+        }
+      ],
+      "hostCleanup": {
+        "status": "closed",
+        "failures": []
+      }
+    },
+    {
+      "originalLocalReport": {
+        "bytes": 537905,
+        "sha256": "df5f549e2c78eeb3d66f124bc4447a1905cedcba6b19bc2f301966ae59f7230e"
+      },
+      "source": {
+        "original": {
+          "file": "../../neural-96mp-1238856164fe1cde.jpg",
+          "bytes": 22835139,
+          "sha256": "03c0b3127e021f2b8f88cbe044545e0de2127fcdae8a62cd36182821180f2ccb"
+        },
+        "pixelSha256": "f36a71d7001d402be0f2615fdda70a01964b78f723660ee312cb4986d227a17b",
+        "dimensions": [
+          12000,
+          8000
+        ]
+      },
+      "reference": {
+        "bytes": 5436,
+        "sha256": "bc311beb64509716f917dabfe3fb0f0ff603c8efef747ff97fadde7732dcb6a1"
+      },
+      "runtimeSource": {
+        "files": {
+          "src/index.js": {
+            "bytes": 108347,
+            "sha256": "8cec6370afb541bc3306bdb65cd736726cc0ef0438ebe6defbf921462f69c6df"
+          },
+          "src/worker.js": {
+            "bytes": 5408,
+            "sha256": "a69f35b29111c22e027b264dfa95b03c3a3581321577b525107530efd6635cd5"
+          },
+          "src/worker-client.js": {
+            "bytes": 17771,
+            "sha256": "f78caf45e712f2f6673db9fd801452a5671e89c1b223c000f0ccefe2e7451b90"
+          },
+          "src/d2prl-runtime.js": {
+            "bytes": 1729,
+            "sha256": "aafb418246eacae85b686b575fec70289348ae6d286c7c4b3fecbccdc4c56d90"
+          },
+          "src/d2prl-adapter.js": {
+            "bytes": 11924,
+            "sha256": "7a3aab298a4a8f9c5767a1d3e2f30e06f0564b6e4ce4bfaf6414733e989ee626"
+          },
+          "src/neural-input.js": {
+            "bytes": 1535,
+            "sha256": "3e146ac8abebb333b9e162539ce4246bd07ad7c0c3a2694439e06fd67599b152"
+          },
+          "src/neural-projector.js": {
+            "bytes": 2307,
+            "sha256": "d3af680abf3cff44c4e6f3298e320215fe0ae966f88e2537533ee6d6b60aefe7"
+          },
+          "src/neural-exports.js": {
+            "bytes": 2994,
+            "sha256": "982cda32dd9d36c43e0d15e4f5c7b468eb3323e7c39e2c1490a09a83573595d8"
+          },
+          "experiments/d2prl/model.js": {
+            "bytes": 14062,
+            "sha256": "87f28f947ccc9ebd45592a9b664a4abcceda12f790b2e9b337dc89020c11f633"
+          },
+          "experiments/d2prl/analysis.js": {
+            "bytes": 13189,
+            "sha256": "87a0ad0077f05ba61aef90c006bbd3f9df6b7f1aab4ae16b536711ff85af4d32"
+          },
+          "experiments/d2prl/evaluator-pool.js": {
+            "bytes": 21803,
+            "sha256": "a140f5e97c8c017a8710c4673c1da794f0fc41dbb91e3a9657c9a70f498c540f"
+          },
+          "experiments/d2prl/evaluator-worker.js": {
+            "bytes": 8672,
+            "sha256": "a018e74051aa72638beb4f5163ae341a9772f7de4a00614eed3b361f89f6d9e7"
+          },
+          "experiments/d2prl/role-runtime.js": {
+            "bytes": 2170,
+            "sha256": "4280ca7f66180d6424898d6a52ae481054d4bdecd01c1ba7667a420fa4259721"
+          },
+          "vendor/d2prl/PINNED.json": {
+            "bytes": 37891,
+            "sha256": "2cd9baa3d288e1bedd6906dde77554a780fbe9d44d8883dfddacc4e65d504d6e"
+          },
+          "vendor/d2prl/table-simd4-exact-subnormal.js": {
+            "bytes": 7747,
+            "sha256": "cda1e5e9d64566652c12d6eb5589b8f8621fcdc519897b47344dc2e9dfc0759a"
+          },
+          "vendor/d2prl/table-simd4-exact-subnormal.wasm": {
+            "bytes": 18586,
+            "sha256": "54944c22b79e25068908af4c0885a4b0cf2131cf943b77f176683cbef50f8fb5"
+          },
+          "vendor/d2prl/pixel-major-combined.js": {
+            "bytes": 7382,
+            "sha256": "61b2d84203358f4ec1e1f0dabcbe7238764289e5d67236162a615f70dd0f30d7"
+          },
+          "vendor/d2prl/pixel-major-combined.wasm": {
+            "bytes": 15723,
+            "sha256": "11ad5dc8226e0190c1930a6593fc349895f58a60d28717c34d650c54ef025878"
+          },
+          "vendor/d2prl/factory-roles256.mjs": {
+            "bytes": 573,
+            "sha256": "3327cd4e63ed23e9426040c665c96db732ddf63864f2b438da1798842b27a15a"
+          },
+          "vendor/d2prl/ort-wasm-simd-threaded-roles256.mjs": {
+            "bytes": 24380,
+            "sha256": "62dc5bef5c2cab005cf7f6c025e3222b16066e6f0631c9e304ddcaf06ba4e28f"
+          },
+          "vendor/d2prl/factory.mjs": {
+            "bytes": 221,
+            "sha256": "85a4d82bcb5311dc399ee4c1d0e86b8514ac94220c92a41f8e84d14be7c78415"
+          }
+        },
+        "sha256": "648604f95b437cb724525902f84e86a16fbdb6a9a35695c6a0894fbab2d3fb64"
+      },
+      "baselineOverride": {
+        "scope": "Only d2prlRuntime evaluator/roles default arguments differ; all other runtime/source/model/image bytes shared.",
+        "runtimeSha256": "89166da8714015f8c496f84edd7714ad558b8fb7c9de9559ad5f73eaa8d8b287"
+      },
+      "recipe": {
+        "bytes": 15897,
+        "sha256": "657c716a1f6441807444803778d129597991706b800b93135320a54dc008562e"
+      },
+      "model": {
+        "bytes": 1173784,
+        "sha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+        "modelId": "d2prl-448-40-1cc132928c75c00c40232a678e684fab804f5ea38bb1e39e48e177ab5dd597db"
+      },
+      "browser": "154.0.8037.98",
+      "comparison": {
+        "status": "not-requested-single-variant"
+      },
+      "rows": [
+        {
+          "status": "passed",
+          "variant": "candidate",
+          "size": 96,
+          "backend": "webgpu",
+          "computeProfile": "maximum",
+          "dimensions": [
+            12000,
+            8000
+          ],
+          "sourceSha256": "03c0b3127e021f2b8f88cbe044545e0de2127fcdae8a62cd36182821180f2ccb",
+          "pixelSha256": "f36a71d7001d402be0f2615fdda70a01964b78f723660ee312cb4986d227a17b",
+          "selection": {
+            "evaluator": "table-simd4-exact-subnormal.js",
+            "descriptorLayout": "HWC-uint16",
+            "roles": {
+              "runtimeId": "ort130-wasm-256mib-d2prl",
+              "memoryMaximumBytes": 268435456
+            },
+            "rolesFactory": "/runtime/candidate/vendor/d2prl/factory-roles256.mjs"
+          },
+          "records": [
+            {
+              "name": "detect",
+              "rpcMs": 339951.81999999285,
+              "inferences": 3,
+              "executions": [
+                {
+                  "id": "roi-a",
+                  "bounds": [
+                    392,
+                    473,
+                    6979,
+                    5820
+                  ],
+                  "decision": {
+                    "overlap": 28930.439453125,
+                    "threshold": 30119.7890625,
+                    "combineMaximum": false
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2751.584999203682,
+                      "configureMs": 87.555000603199,
+                      "uploadMs": 351.27500063180923,
+                      "packingMs": 212.76500034332275,
+                      "workerCallMs": 506538.1450009942,
+                      "workerComputeMs": 496245.72999197245,
+                      "workerCopyMs": 705.2400032281876,
+                      "kernelTiles": 77616,
+                      "gatherMs": 45.980000138282776,
+                      "totalMs": 57458.9399997592,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 534118400,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 329608,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 534118400,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/candidate/vendor/d2prl/table-simd4-exact-subnormal.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 2222.7699999809265,
+                      "descriptors": 13753.064999997616,
+                      "patchmatch": 75336.31000000238,
+                      "heads": 18154.65999996662,
+                      "raw-output": 0.39499998092651367
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 33352,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 769,
+                      "reuses": 763,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 45,
+                      "cacheHitBytes": 7221360,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                },
+                {
+                  "id": "roi-b",
+                  "bounds": [
+                    3432,
+                    1871,
+                    11447,
+                    7671
+                  ],
+                  "decision": {
+                    "overlap": 6082.84423828125,
+                    "threshold": 4823.27978515625,
+                    "combineMaximum": true
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2748.844999432564,
+                      "configureMs": 83.77500009536743,
+                      "uploadMs": 344.52500051259995,
+                      "packingMs": 216.0700072646141,
+                      "workerCallMs": 505357.2999947071,
+                      "workerComputeMs": 495411.5199906826,
+                      "workerCopyMs": 704.4550034999847,
+                      "kernelTiles": 77616,
+                      "gatherMs": 40.33000040054321,
+                      "totalMs": 57393.68500030041,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 534118400,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 329608,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 534118400,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/candidate/vendor/d2prl/table-simd4-exact-subnormal.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 2990.5099999904633,
+                      "descriptors": 13636.714999973774,
+                      "patchmatch": 74863.15999996662,
+                      "heads": 13779.735000014305,
+                      "raw-output": 0.2800000309944153
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 19197,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 1539,
+                      "reuses": 1533,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 1151,
+                      "cacheHitBytes": 536013112,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                },
+                {
+                  "id": "full-envelope",
+                  "bounds": [
+                    0,
+                    0,
+                    12000,
+                    8000
+                  ],
+                  "decision": {
+                    "overlap": 21527.83203125,
+                    "threshold": 14556.240234375,
+                    "combineMaximum": true
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2787.880000472069,
+                      "configureMs": 79.83000028133392,
+                      "uploadMs": 346.5600003004074,
+                      "packingMs": 212.8749993443489,
+                      "workerCallMs": 503951.3650020957,
+                      "workerComputeMs": 494467.6199961901,
+                      "workerCopyMs": 692.3100004792213,
+                      "kernelTiles": 77616,
+                      "gatherMs": 38.02500092983246,
+                      "totalMs": 57127.7300003767,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 534118400,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 329608,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 534118400,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/candidate/vendor/d2prl/table-simd4-exact-subnormal.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 6383.224999964237,
+                      "descriptors": 13637.430000007153,
+                      "patchmatch": 74172.31499999762,
+                      "heads": 13611.435000002384,
+                      "raw-output": 0.3049999475479126
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 19396,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 2309,
+                      "reuses": 2303,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 2257,
+                      "cacheHitBytes": 1064804864,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                }
+              ],
+              "outputs": {
+                "map": {
+                  "sha256": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+                  "dtype": "float32",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 384000000,
+                  "nonzero": 96000000,
+                  "finite": true,
+                  "binary": null,
+                  "nativeHashChecked": true
+                },
+                "mask": {
+                  "sha256": "269b592b1396604f87b8556dc888a82ea46c851a47110c8f3c376226c987da7f",
+                  "dtype": "uint8",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 96000000,
+                  "nonzero": 68160948,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                },
+                "analyzed": {
+                  "sha256": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+                  "dtype": "uint8",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 96000000,
+                  "nonzero": 96000000,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                },
+                "candidates": {
+                  "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+                  "dtype": "uint8",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 96000000,
+                  "nonzero": 0,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                },
+                "target": {
+                  "sha256": "72d82254deb5d6cd3e8c822b04d05a4bcf72cd03c994e55ecb778749d583051b",
+                  "dtype": "float32",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 384000000,
+                  "nonzero": 46212896,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                },
+                "source": {
+                  "sha256": "8f635aa7d08fc786af6f3c21869341d104d46264b79e2aa7d0c26b5ff0adad5e",
+                  "dtype": "float32",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 384000000,
+                  "nonzero": 36071575,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                }
+              },
+              "metrics": {
+                "totalMs": 339949.655000031,
+                "inferences": 3,
+                "cache": {
+                  "rawGrids": 0
+                },
+                "memory": {
+                  "budgetBytes": 3221225472,
+                  "policyAvailableBytes": 649042848,
+                  "retainedBytes": 1152090112,
+                  "cacheBytes": 7225344,
+                  "activeReservationBytes": 1412867168,
+                  "peakAccountedBytes": 3146358752,
+                  "activeRecoveries": 0
+                },
+                "projection": {
+                  "totalMs": 15482.889999985695,
+                  "projectionMs": 15115.380000054836,
+                  "compositionMs": 8803.77999997139,
+                  "postprocessMs": 306.2699999809265,
+                  "blocks": 884,
+                  "metadataBytes": 90112,
+                  "storage": {
+                    "map": "memory",
+                    "mask": "memory",
+                    "target": "memory",
+                    "source": "temporary",
+                    "analyzed": "temporary",
+                    "candidates": "temporary"
+                  },
+                  "resultBytes": 1440000000
+                }
+              }
+            },
+            {
+              "name": "refilter",
+              "rpcMs": 18384.65999996662,
+              "inferences": 0,
+              "executions": [
+                {
+                  "id": "roi-a",
+                  "bounds": [
+                    392,
+                    473,
+                    6979,
+                    5820
+                  ],
+                  "decision": {
+                    "overlap": 28930.439453125,
+                    "threshold": 30119.7890625,
+                    "combineMaximum": false
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2751.584999203682,
+                      "configureMs": 87.555000603199,
+                      "uploadMs": 351.27500063180923,
+                      "packingMs": 212.76500034332275,
+                      "workerCallMs": 506538.1450009942,
+                      "workerComputeMs": 496245.72999197245,
+                      "workerCopyMs": 705.2400032281876,
+                      "kernelTiles": 77616,
+                      "gatherMs": 45.980000138282776,
+                      "totalMs": 57458.9399997592,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 534118400,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 329608,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 534118400,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/candidate/vendor/d2prl/table-simd4-exact-subnormal.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 2222.7699999809265,
+                      "descriptors": 13753.064999997616,
+                      "patchmatch": 75336.31000000238,
+                      "heads": 18154.65999996662,
+                      "raw-output": 0.39499998092651367
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 33352,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 769,
+                      "reuses": 763,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 45,
+                      "cacheHitBytes": 7221360,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                },
+                {
+                  "id": "roi-b",
+                  "bounds": [
+                    3432,
+                    1871,
+                    11447,
+                    7671
+                  ],
+                  "decision": {
+                    "overlap": 6082.84423828125,
+                    "threshold": 4823.27978515625,
+                    "combineMaximum": true
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2748.844999432564,
+                      "configureMs": 83.77500009536743,
+                      "uploadMs": 344.52500051259995,
+                      "packingMs": 216.0700072646141,
+                      "workerCallMs": 505357.2999947071,
+                      "workerComputeMs": 495411.5199906826,
+                      "workerCopyMs": 704.4550034999847,
+                      "kernelTiles": 77616,
+                      "gatherMs": 40.33000040054321,
+                      "totalMs": 57393.68500030041,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 534118400,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 329608,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 534118400,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/candidate/vendor/d2prl/table-simd4-exact-subnormal.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 2990.5099999904633,
+                      "descriptors": 13636.714999973774,
+                      "patchmatch": 74863.15999996662,
+                      "heads": 13779.735000014305,
+                      "raw-output": 0.2800000309944153
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 19197,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 1539,
+                      "reuses": 1533,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 1151,
+                      "cacheHitBytes": 536013112,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                },
+                {
+                  "id": "full-envelope",
+                  "bounds": [
+                    0,
+                    0,
+                    12000,
+                    8000
+                  ],
+                  "decision": {
+                    "overlap": 21527.83203125,
+                    "threshold": 14556.240234375,
+                    "combineMaximum": true
+                  },
+                  "execution": {
+                    "convolution": "webgpu",
+                    "patchmatch": "wasm-workers",
+                    "patchmatchPool": {
+                      "peakWorkers": 10,
+                      "createdWorkers": 10,
+                      "callsAdmitted": 9822,
+                      "peakConcurrentCalls": 10,
+                      "peakConcurrentComputeCalls": 10,
+                      "tiles": 9702,
+                      "messages": 9822,
+                      "descriptorUploads": 20,
+                      "optionalWorkerRefusals": 0,
+                      "optionalPolicyRefusals": 0,
+                      "optionalPolicyReclaims": 0,
+                      "optionalPolicyReclaimedBytes": 0,
+                      "optionalPeerDeferrals": 0,
+                      "optionalReclaimMs": 0,
+                      "transportAllocations": 40,
+                      "transportReuses": 19364,
+                      "transportReductions": 0,
+                      "minimumTransportPixels": 4096,
+                      "descriptorValidationElements": 26492928,
+                      "offsetValidationElements": 388161536,
+                      "validationMs": 2787.880000472069,
+                      "configureMs": 79.83000028133392,
+                      "uploadMs": 346.5600003004074,
+                      "packingMs": 212.8749993443489,
+                      "workerCallMs": 503951.3650020957,
+                      "workerComputeMs": 494467.6199961901,
+                      "workerCopyMs": 692.3100004792213,
+                      "kernelTiles": 77616,
+                      "gatherMs": 38.02500092983246,
+                      "totalMs": 57127.7300003767,
+                      "peakPolicyBytes": 770048000,
+                      "peakWasmBytes": 534118400,
+                      "peakDescriptorBytes": 529858560,
+                      "peakWorkerAbiBytes": 329608,
+                      "peakTransportBytes": 85524480,
+                      "activeWorkers": 10,
+                      "admittedCalls": 0,
+                      "admittedComputes": 0,
+                      "tileSize": 4096,
+                      "kernelTileSize": 512,
+                      "descriptorLayout": "HWC-uint16",
+                      "descriptorTransport": "windowed",
+                      "optionalMemory": "reclaim-idle",
+                      "heapLimitBytes": 67108864,
+                      "descriptorUploadLimitBytes": 8388608,
+                      "perWorkerPolicyBytes": 77004800,
+                      "abiAllowanceBytes": 1048576,
+                      "policyBytes": 770048000,
+                      "wasmBytes": 534118400,
+                      "descriptorBytes": 529858560,
+                      "descriptorSlotCapacityBytes": 529858560,
+                      "transportBytes": 4259840,
+                      "timingSemantics": "Wall durations including waits; concurrent worker/copy/gather totals are not additive. Optional reclamation is policy accounting after a reservation refusal, not evidence of allocator failure or physical RAM release. Descriptor bytes are native payload extents within the reported heap, not an extra backing. Backings are registered extents, not process RSS or GPU utilization."
+                    },
+                    "evaluator": {
+                      "url": "<ephemeral-origin>/runtime/candidate/vendor/d2prl/table-simd4-exact-subnormal.js",
+                      "descriptorLayout": "HWC-uint16"
+                    },
+                    "phaseTimes": {
+                      "preparation": 6383.224999964237,
+                      "descriptors": 13637.430000007153,
+                      "patchmatch": 74172.31499999762,
+                      "heads": 13611.435000002384,
+                      "raw-output": 0.3049999475479126
+                    },
+                    "timingSemantics": "Phase elapsed wall milliseconds include waits, retries and phase callbacks; failed attempts accumulate across checkpoint resumes. Pool service times overlap and are not additive CPU time.",
+                    "roles": "onnxruntime-wasm",
+                    "workerCeiling": 10,
+                    "referenceThreads": 8,
+                    "roleRuntime": {
+                      "heapCapacityBytes": 170524672,
+                      "ort": {
+                        "common": "1.30.0",
+                        "web": "1.30.0"
+                      },
+                      "parameterLoading": {
+                        "entries": 1,
+                        "reads": 1,
+                        "networkBytes": 19943135,
+                        "committedBytes": 19943135,
+                        "cacheHits": 0,
+                        "cacheHitBytes": 0,
+                        "evictedEntries": 0,
+                        "verifiedEntries": 1,
+                        "idleVerifiedEntries": 0,
+                        "liveLeaseCount": 1,
+                        "verifiedTensorBytes": 19943135,
+                        "idleVerifiedTensorBytes": 0,
+                        "incompleteTensorBytes": 0,
+                        "spilledEntries": 0,
+                        "storageFallbacks": 0,
+                        "lastStorageFallback": null,
+                        "spill": null,
+                        "hashInstances": 1,
+                        "peakNetworkChunkBytes": 2097152,
+                        "banks": 1,
+                        "residentBytes": 19988480,
+                        "liveTensors": 1,
+                        "allocations": 1,
+                        "reuses": 0,
+                        "peakBytes": 19988480,
+                        "observedHeapBytes": 170524672
+                      }
+                    },
+                    "allocationRecovery": {
+                      "completedOperations": 19396,
+                      "recoveries": 0
+                    },
+                    "tensorArena": {
+                      "banks": 6,
+                      "residentBytes": 372899840,
+                      "liveTensors": 2,
+                      "allocations": 2309,
+                      "reuses": 2303,
+                      "peakBytes": 372899840
+                    },
+                    "parameterStore": {
+                      "entries": 1061,
+                      "reads": 1061,
+                      "networkBytes": 521570392,
+                      "committedBytes": 521570392,
+                      "cacheHits": 2257,
+                      "cacheHitBytes": 1064804864,
+                      "evictedEntries": 0,
+                      "verifiedEntries": 1061,
+                      "idleVerifiedEntries": 1061,
+                      "liveLeaseCount": 0,
+                      "verifiedTensorBytes": 521570392,
+                      "idleVerifiedTensorBytes": 521570392,
+                      "incompleteTensorBytes": 0,
+                      "spilledEntries": 0,
+                      "storageFallbacks": 0,
+                      "lastStorageFallback": null,
+                      "spill": {
+                        "sessionsCreated": 0,
+                        "spillBytes": 0,
+                        "spillWrittenBytes": 0,
+                        "spillReadbackBytes": 0,
+                        "rehydratedBytes": 0,
+                        "rehydrationReadBytes": 0,
+                        "spillMs": 0,
+                        "rehydrationMs": 0,
+                        "spillFailures": 0,
+                        "rehydrationFailures": 0,
+                        "lastFailure": null,
+                        "windowBytes": 262144,
+                        "ownedWorkspacePolicyBytes": 786432,
+                        "sharedWindowCapacityBytes": 0,
+                        "storedParameters": 0,
+                        "storedBytes": 0,
+                        "session": null
+                      },
+                      "hashInstances": 1,
+                      "peakNetworkChunkBytes": 2097152,
+                      "banks": 27,
+                      "residentBytes": 528023552,
+                      "liveTensors": 1061,
+                      "allocations": 1061,
+                      "reuses": 1034,
+                      "peakBytes": 528023552
+                    }
+                  }
+                }
+              ],
+              "outputs": {
+                "map": {
+                  "sha256": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+                  "dtype": "float32",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 384000000,
+                  "nonzero": 96000000,
+                  "finite": true,
+                  "binary": null,
+                  "nativeHashChecked": true
+                },
+                "mask": {
+                  "sha256": "a7a7be5bebb651fbaa145cb9ab69068a1f64b9323794c50c84e96fdc9d40201a",
+                  "dtype": "uint8",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 96000000,
+                  "nonzero": 71635170,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                },
+                "analyzed": {
+                  "sha256": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+                  "dtype": "uint8",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 96000000,
+                  "nonzero": 96000000,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                },
+                "candidates": {
+                  "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+                  "dtype": "uint8",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 96000000,
+                  "nonzero": 0,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                },
+                "target": {
+                  "sha256": "b3f5738b82008f4aeb8fd186de6ddc47e915daac6d261067ccca0b1bff26ac89",
+                  "dtype": "float32",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 384000000,
+                  "nonzero": 48152079,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                },
+                "source": {
+                  "sha256": "ff815a233ee54fda6d833e81766d47cdbcf55b4d3a26f5296fce5f7bcd96895e",
+                  "dtype": "float32",
+                  "shape": [
+                    8000,
+                    12000
+                  ],
+                  "bytes": 384000000,
+                  "nonzero": 39108207,
+                  "finite": true,
+                  "binary": true,
+                  "nativeHashChecked": true
+                }
+              },
+              "metrics": {
+                "totalMs": 18384.125,
+                "inferences": 0,
+                "cache": {
+                  "rawGrids": 3
+                },
+                "memory": {
+                  "budgetBytes": 3221225472,
+                  "policyAvailableBytes": 648952736,
+                  "retainedBytes": 1152180224,
+                  "cacheBytes": 7225344,
+                  "activeReservationBytes": 1412867168,
+                  "peakAccountedBytes": 3146358752,
+                  "activeRecoveries": 0
+                },
+                "projection": {
+                  "totalMs": 18383.439999997616,
+                  "projectionMs": 17946.20500010252,
+                  "compositionMs": 11691.799999177456,
+                  "postprocessMs": 306.5249999165535,
+                  "blocks": 884,
+                  "metadataBytes": 90112,
+                  "storage": {
+                    "map": "temporary",
+                    "mask": "temporary",
+                    "target": "temporary",
+                    "source": "temporary",
+                    "analyzed": "temporary",
+                    "candidates": "temporary"
+                  },
+                  "resultBytes": 1440000000
+                }
+              }
+            }
+          ],
+          "raw": [
+            {
+              "zone": "roi-a",
+              "bounds": [
+                392,
+                473,
+                6979,
+                5820
+              ],
+              "shape": [
+                3,
+                448,
+                448
+              ],
+              "sha256": "ce35e30bd731b9fdc61bcf58297af25e6a14b44d4ed2f741491c70267ea5f2c0",
+              "planeSha256": [
+                "76dfa023e504aa15faf4f4371d386a21b73bb3f6f0b4630bab94147934458bac",
+                "77903062aba589cb65328882f363f193a70085c88ab4f36a7a3c6a6cd36675bd",
+                "918c319d63be933cc969159612f2198e3b48026fd661e73f6c36e79a3b70e577"
+              ],
+              "decision": {
+                "overlap": 28930.439453125,
+                "threshold": 30119.7890625,
+                "combineMaximum": false
+              },
+              "nativeDiagnostic": {
+                "maxAbs": 5.662441253662109e-07,
+                "differentBits": 73678,
+                "signDifferences": 0,
+                "tolerance": 0.0001,
+                "meaning": "Torch raw residual diagnostic; exact current-engine A/B is a separate check."
+              }
+            },
+            {
+              "zone": "roi-b",
+              "bounds": [
+                3432,
+                1871,
+                11447,
+                7671
+              ],
+              "shape": [
+                3,
+                448,
+                448
+              ],
+              "sha256": "6f526137dd068f317cd46c51f57148131dad9b4e552d1c5d3a65adbaf9821cbc",
+              "planeSha256": [
+                "756dcd4a853a62e20d7dafbb6f59cd1ce6831c5ff866647dcf319f81000201bf",
+                "9616ca677fabc6f624092d4c9d8cc9ea5354ac8a43591b581d1133de78cb77eb",
+                "7f3b437e816bebcd9f6d6e654d9066b7155a37987a2183284642ba1806ab6c7d"
+              ],
+              "decision": {
+                "overlap": 6082.84423828125,
+                "threshold": 4823.27978515625,
+                "combineMaximum": true
+              },
+              "nativeDiagnostic": {
+                "maxAbs": 4.470348358154297e-07,
+                "differentBits": 79510,
+                "signDifferences": 0,
+                "tolerance": 0.0001,
+                "meaning": "Torch raw residual diagnostic; exact current-engine A/B is a separate check."
+              }
+            },
+            {
+              "zone": "full-envelope",
+              "bounds": [
+                0,
+                0,
+                12000,
+                8000
+              ],
+              "shape": [
+                3,
+                448,
+                448
+              ],
+              "sha256": "246a5e388163a1c81992f6d4a79c24410f87d6bf5283417485eeb72fdd5770b9",
+              "planeSha256": [
+                "485841cae6d27f78c3015d64a21f14c40bbcb527e813ddddb6e59bcb3aea0b70",
+                "fdb739d025fb4c4194c358ee646c111954c5ff01ba6d65c8f494e9a28aa85d75",
+                "543b227a85fc09ab4775a2491b961d5f1844148878ad396c2361408cfa5eea9d"
+              ],
+              "decision": {
+                "overlap": 21527.83203125,
+                "threshold": 14556.240234375,
+                "combineMaximum": true
+              },
+              "nativeDiagnostic": {
+                "maxAbs": 5.960464477539062e-07,
+                "differentBits": 112200,
+                "signDifferences": 0,
+                "tolerance": 0.0001,
+                "meaning": "Torch raw residual diagnostic; exact current-engine A/B is a separate check."
+              }
+            }
+          ],
+          "checks": {
+            "raw": true,
+            "windowOwnership": true,
+            "priorOwnedResult": true,
+            "releasedSurface": true,
+            "exportAfterSourceModelRelease": true,
+            "releasedExport": true
+          },
+          "times": {
+            "loadMs": 1282.4950000047684,
+            "modelManifestMs": 19.2849999666214,
+            "analysisMs": 339951.81999999285,
+            "cacheViewMs": 18384.65999996662,
+            "exportPreparationMs": 31174.040000021458,
+            "exportReadbackMs": 76135.92000001669
+          },
+          "memory": {
+            "budgetBytes": 3221225472,
+            "peakAccountedBytes": 3146358752
+          },
+          "exported": {
+            "byteLength": 1440064444,
+            "sha256": "1a8864a1e9cd8b51a015244c4f3917ca3ddd619a17e7ce09028a133e44df5b5b",
+            "metrics": {
+              "storage": "temporary",
+              "temporaryBackend": "opfs",
+              "arrays": 8,
+              "zip64": false,
+              "assemblyMs": 14949.995000004768,
+              "hashMs": 16094.20499998331,
+              "maximumScalarChunk": 65536,
+              "outputCapacityBytes": 1440064444,
+              "memory": {
+                "budgetBytes": 3221225472,
+                "policyAvailableBytes": 654850976,
+                "retainedBytes": 1152180224,
+                "cacheBytes": 7225344,
+                "activeReservationBytes": 1406968928,
+                "peakAccountedBytes": 3146358752,
+                "activeRecoveries": 0
+              }
+            }
+          },
+          "exportPages": 1374,
+          "finalMemory": {
+            "budgetBytes": 3221225472,
+            "policyAvailableBytes": 3221225472,
+            "retainedBytes": 0,
+            "cacheBytes": 0,
+            "activeReservationBytes": 0,
+            "peakAccountedBytes": 3146358752,
+            "activeRecoveries": 0,
+            "knownHeapCapacityBytes": 27656192
+          },
+          "finalResourceDomains": {
+            "array-buffer": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            },
+            "wasm": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            },
+            "gpu": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            },
+            "gpu-mapped": {
+              "reservedBytes": 0,
+              "materializedBytes": 0,
+              "pinnedBytes": 0,
+              "reclaimableBytes": 0,
+              "backings": 0,
+              "owners": {}
+            }
+          },
+          "finalActivity": {
+            "operations": [],
+            "pressures": []
+          },
+          "finalCompute": {
+            "active": {
+              "cpu": 0,
+              "gpu": 0
+            },
+            "running": 0,
+            "queued": 0
+          },
+          "independentNpz": {
+            "schema": 1,
+            "status": "passed",
+            "checkedAtUtc": "2026-10-12T22:44:57.958290+00:00",
+            "scope": "Actual browser NPZ: complete archive SHA/bytes, all eight ZIP member CRCs, NumPy allow_pickle=False, six full plane SHA/shapes/dtypes, source Blob/RGB/layout/backend and zero cached inference. Optional native comparison uses independent manifest hashes without oracle bins.",
+            "browserProof": {
+              "file": "<engine-root>/.build/d2prl-large-qualification/96mp-20261013/candidate-result.json",
+              "sha256": "8db766d009fbd77bb7fe2b3be72d3f21a61fc3e9373f11b64e6abe28ba4ba341",
+              "variant": "candidate",
+              "meaning": "Input JSON bytes at check time; a runner may append this independent result afterward."
+            },
+            "reference": {
+              "file": "<existing-source-corpus>/neural-segmented/d2prl-large-rich/reference.json",
+              "sha256": "bc311beb64509716f917dabfe3fb0f0ff603c8efef747ff97fadde7732dcb6a1",
+              "nativePlaneHashesChecked": true
+            },
+            "bytes": 1440064444,
+            "sha256": "1a8864a1e9cd8b51a015244c4f3917ca3ddd619a17e7ce09028a133e44df5b5b",
+            "archive": {
+              "file": "<engine-root>/.build/d2prl-large-qualification/96mp-20261013/candidate.npz",
+              "bytes": 1440064444,
+              "sha256": "1a8864a1e9cd8b51a015244c4f3917ca3ddd619a17e7ce09028a133e44df5b5b"
+            },
+            "dimensions": [
+              12000,
+              8000
+            ],
+            "sourceSha256": "03c0b3127e021f2b8f88cbe044545e0de2127fcdae8a62cd36182821180f2ccb",
+            "pixelSha256": "f36a71d7001d402be0f2615fdda70a01964b78f723660ee312cb4986d227a17b",
+            "backend": "webgpu",
+            "exportBackend": "webgpu-convolutions-wasm",
+            "cachedInferences": 0,
+            "numpy": "1.26.4",
+            "allowPickle": false,
+            "scientificPageBytes": 1048576,
+            "metadataMaximumBytes": 8388608,
+            "fullScientificArraysMaterialized": 0,
+            "metadataHeaders": {
+              "metadata_json": {
+                "bytes": 58092,
+                "dtype": "<U14523"
+              },
+              "browser_provenance_json": {
+                "bytes": 4488,
+                "dtype": "<U1122"
+              }
+            },
+            "zipCrc": [
+              {
+                "member": "map.npy",
+                "bytes": 384000128,
+                "crc32": 2723533554,
+                "passed": true
+              },
+              {
+                "member": "mask.npy",
+                "bytes": 96000128,
+                "crc32": 2137961080,
+                "passed": true
+              },
+              {
+                "member": "analyzed.npy",
+                "bytes": 96000128,
+                "crc32": 332038251,
+                "passed": true
+              },
+              {
+                "member": "candidates.npy",
+                "bytes": 96000128,
+                "crc32": 335703249,
+                "passed": true
+              },
+              {
+                "member": "target.npy",
+                "bytes": 384000128,
+                "crc32": 3116616060,
+                "passed": true
+              },
+              {
+                "member": "source.npy",
+                "bytes": 384000128,
+                "crc32": 2185644720,
+                "passed": true
+              },
+              {
+                "member": "metadata_json.npy",
+                "bytes": 58220,
+                "crc32": 2780341495,
+                "passed": true
+              },
+              {
+                "member": "browser_provenance_json.npy",
+                "bytes": 4616,
+                "crc32": 3073866232,
+                "passed": true
+              }
+            ],
+            "records": [
+              {
+                "array": "map",
+                "shape": [
+                  8000,
+                  12000
+                ],
+                "dtype": "float32",
+                "bytes": 384000000,
+                "sha256": "8fd7ea89a03ac53cf68425cba6f4644928f427fc041da7369c795ca00678a1b7",
+                "nonzero": 96000000,
+                "finite": true,
+                "binary": null,
+                "nativeHashChecked": true
+              },
+              {
+                "array": "mask",
+                "shape": [
+                  8000,
+                  12000
+                ],
+                "dtype": "uint8",
+                "bytes": 96000000,
+                "sha256": "a7a7be5bebb651fbaa145cb9ab69068a1f64b9323794c50c84e96fdc9d40201a",
+                "nonzero": 71635170,
+                "finite": true,
+                "binary": true,
+                "nativeHashChecked": true
+              },
+              {
+                "array": "analyzed",
+                "shape": [
+                  8000,
+                  12000
+                ],
+                "dtype": "uint8",
+                "bytes": 96000000,
+                "sha256": "b7cc5cfc1ebd69ff439f17e9c4d5da246c3f554e4c5d34222ce51781f25bb4ca",
+                "nonzero": 96000000,
+                "finite": true,
+                "binary": true,
+                "nativeHashChecked": true
+              },
+              {
+                "array": "candidates",
+                "shape": [
+                  8000,
+                  12000
+                ],
+                "dtype": "uint8",
+                "bytes": 96000000,
+                "sha256": "0037aa866f12a55584ed5e8119192e8bc2024a2d59ab1db027bd36b2590b7501",
+                "nonzero": 0,
+                "finite": true,
+                "binary": true,
+                "nativeHashChecked": true
+              },
+              {
+                "array": "target",
+                "shape": [
+                  8000,
+                  12000
+                ],
+                "dtype": "float32",
+                "bytes": 384000000,
+                "sha256": "b3f5738b82008f4aeb8fd186de6ddc47e915daac6d261067ccca0b1bff26ac89",
+                "nonzero": 48152079,
+                "finite": true,
+                "binary": true,
+                "nativeHashChecked": true
+              },
+              {
+                "array": "source",
+                "shape": [
+                  8000,
+                  12000
+                ],
+                "dtype": "float32",
+                "bytes": 384000000,
+                "sha256": "ff815a233ee54fda6d833e81766d47cdbcf55b4d3a26f5296fce5f7bcd96895e",
+                "nonzero": 39108207,
+                "finite": true,
+                "binary": true,
+                "nativeHashChecked": true
+              }
+            ],
+            "speedClaim": null,
+            "rssClaim": null
+          }
+        }
+      ],
+      "hostCleanup": {
+        "status": "closed",
+        "failures": []
+      }
+    }
+  ]
+}

@@ -8,10 +8,11 @@ import {NativeRandom} from '../experiments/d2prl/random.js';
 import {createD2prlRecovery} from '../experiments/d2prl/recovery.js';
 import {EngineError} from '../src/errors.js';
 import {Budget} from '../src/cache.js';
+import {testAssetUrl} from './helpers/test-assets.mjs';
 const hash=value=>createHash('sha256').update(new Uint8Array(value.buffer,value.byteOffset,value.byteLength)).digest('hex');
 
 test('owned candidate workspace matches pinned Torch propagation and RNG at the full 448 grid',async()=>{
- const reference=JSON.parse(await readFile(new URL('../fixtures/d2prl/candidates.json',import.meta.url))),compressed=await readFile(new URL('../fixtures/d2prl/'+reference.payload.file,import.meta.url)),payload=new Uint8Array(gunzipSync(compressed));
+ const base=testAssetUrl('fixtures/d2prl/'),reference=JSON.parse(await readFile(new URL('candidates.json',base))),compressed=await readFile(new URL(reference.payload.file,base)),payload=new Uint8Array(gunzipSync(compressed));
  assert.equal(hash(compressed),reference.payload.compressedSha256);assert.equal(hash(payload),reference.payload.sha256);
  let operations=0;
  for(const row of reference.records.filter(row=>row.side===448)){
