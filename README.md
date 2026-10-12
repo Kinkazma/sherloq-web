@@ -104,7 +104,7 @@ Yellow is applied only to the **filtered masks**, at a uniform opacity; it does 
 | Local resource library | Ordinary files in their original formats, folder reconnection and standard TAR import/export |
 | Results | Tool-specific views and exports; changing display controls can reuse a completed result where supported |
 
-The interface is **0.15.2**, based on `f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404` with the startup migration corrections and batch **0.2.0**. The engine snapshot is **0.35.0-export.3**, with the atomic SIFT phase increment from `e666287` over `a1f85661db24610ac3c7bf894214afc85a72d024`. The runtime lock also retains earlier engine slots used by specific tools; a single version number does not replace that inventory.
+The interface is **0.16.0** and the unified engine is **0.37.0-methods.1**. This delivery combines the qualified new methods with the published startup migration, atomic SIFT phase correction, batch **0.2.0**, and its biomes-only display correction. Exact source/resource identities are recorded in `web/engine-source-identity.json`, the runtime locks and the dependency manifest. The runtime lock also retains earlier engine slots used by specific tools; a single version number does not replace that inventory.
 
 ### Batch processing — 0.2.0
 
@@ -112,7 +112,7 @@ I corrected a SIFT scheduling error during CPU/GPU phase changes. The scheduler 
 
 The complete human-selected batch of **86 images from seven PDFs** finished **172 analyses with zero errors**, using SIFT + G2NN + RANSAC + Panels + Text and Forgeryscope Auto. Its 1.17 GB of output artifacts exported and reimported successfully; all 172 NPZ files passed independent checks. Three reference images produced exactly the same scientific arrays at nine to ten workers as at three workers. This is a functional/export qualification, not a speed benchmark or a verdict on the supplied publications. [Batch workflow and qualification](docs/TRAITEMENT-PAR-LOT.md).
 
-**The scientific filtering requirements have not been accepted.** Text, charts and diagrams inside mixed figures are not reliably excluded and can generate false positives. The default display also includes circles and lines alongside biomes, whereas the requested default is biomes alone. Successful execution and intact exports do not validate these requirements.
+**The scientific filtering requirements have not been accepted.** Text, charts and diagrams inside mixed figures are not reliably excluded and can generate false positives. Biomes alone are now the default display; users can still enable circles, links and points. Successful execution and intact exports do not validate the scientific filtering requirements, whose further preparation/OCR work is ongoing.
 
 ### Startup after a WordPress plugin update — 0.15.2
 

@@ -4,6 +4,6 @@
   "baseCommit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
   "runtime": "0.37.0-methods.1",
   "snapshot": "engine-source",
-  "sourceIncrementSha256": "a8ac84e885a65187030c4b4a56aff595680cd2030576b2277c802feb0ec5cc43",
+  "sourceIncrementSha256": "cdb29a28f0745164db3402fbd003cc4a4a9ea38fe647ff4a7e35519e4970157c",
   "incrementScope": "New clone methods and qualified atomic SIFT phase changes; exact overlaid runtime inputs are recorded in web/wordpress/runtime-source-lock.json."
 }

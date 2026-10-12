@@ -149,6 +149,8 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
         source = ROOT / name
         if source.is_file() and (tracked is None or name in tracked):
             put(output / 'public/web/wordpress' / name, source_bytes(source))
+    if resource_policy is not None:
+        put(output / 'public/web/wordpress/resource-policy.json', encode(resource_policy))
     for folder in ['tests', 'scripts', 'runtime-patches', 'offline-launcher', 'compatibility-manifests']:
         for source in (ROOT / folder).rglob('*'):
             if source.is_file() and source.suffix in {'.js', '.mjs', '.py', '.json', '.html', '.go', '.mod'} and 'fixtures' not in source.parts:

@@ -160,7 +160,7 @@ def assemble(args):
     # Only Git-tracked executable/runtime sources are admitted. A developer's
     # untracked build.json, private paths or live model directories cannot enter.
     tracked = subprocess.check_output([args.git, '-C', str(source_root), 'ls-files', '-z', '--',
-                                      'web/engine-source/src', 'web/engine-source/vendor', 'web/engine-source/experiments'], text=True).split('\0')
+                                      'web/engine-source/src', 'web/engine-source/vendor', 'web/engine-source/experiments', 'web/engine-source/package.json'], text=True).split('\0')
     engine = source_root / 'web/engine-source'
     admitted_extensions = {'.js', '.mjs', '.json', '.wasm', '.d.ts'}
     for name in sorted(name for name in tracked if name):

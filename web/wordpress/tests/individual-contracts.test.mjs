@@ -51,7 +51,7 @@ test('Queued source windows and releases cannot overlap regular worker calls',as
 test('Pinned model closure includes nested backbones, runtime factories and every graph URL',async()=>{
  const root=fileURLToPath(new URL('../',import.meta.url)),repository=path.resolve(root,'../..'),publicAssets=path.join(root,'sherloq-browser/assets/individual-assets');
  const lock=JSON.parse(await fs.readFile(path.join(root,'runtime-lock.json'))).runtimes.find(r=>r.destination.endsWith('/individual-assets')).files;
- const policyPaths=[process.env.SHERLOQ_TEST_RESOURCE_POLICY,path.join(repository,'.build/method-resources/resource-policy.json'),path.join(repository,'web-assets/manifest-template.json')].filter(Boolean);let policy;
+ const policyPaths=[process.env.SHERLOQ_TEST_RESOURCE_POLICY,path.join(root,'resource-policy.json'),path.join(repository,'.build/method-resources/resource-policy.json'),path.join(repository,'web-assets/manifest-template.json')].filter(Boolean);let policy;
  for(const filename of policyPaths){let value;try{value=JSON.parse(await fs.readFile(filename));}catch(error){if(error.code==='ENOENT')continue;throw error;}
   if(value.schema==='sherloq.resource-policy/1'){policy=value.files;break;}
   if(value.schema==='sherloq.dependencies/1'&&Object.values(value.files).some(f=>f.localOnly===true)){policy=Object.fromEntries(Object.entries(value.files).filter(([,f])=>f.localOnly===true).map(([name,f])=>[name,{localOnly:true,sha256:f.sha256,bytes:f.size,chunks:f.chunks.map(sha256=>({sha256,bytes:value.chunks[sha256]}))}]));break;}
