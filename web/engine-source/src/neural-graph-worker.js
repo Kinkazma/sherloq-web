@@ -1,11 +1,12 @@
 import {closeGpuErrorScopes} from './gpu-error-scope.js';
-import {allocateTypedArray,allocateWasmMemory} from './allocation.js';
+import {allocateWasmMemory} from './allocation.js';
 import {neuralRuntimeError} from './neural-runtime-error.js';
 // The worker owns its actual ORT instance. Termination cancels initialization,
 // download, CPU inference or GPU inference and destroys the model cache.
 import {neuralOutputTransfer} from './neural-output-transfer.js';
 import {EngineError,serializeEngineError} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
+import {fetchVerifiedAsset} from './fetch-verified-asset.js';
 const reusable=new Map();
 let session,ort,runtime,asset,cfaModule,cfaProgram,cfaWeights,cfaGPU,execute,resourceReady;
 const runtimeLifecycle={runtimeInitializations:0,modelInitializations:0,modelSwitches:0};
@@ -14,13 +15,7 @@ function waitForExecution(initializationMs,heapBytes){
 }
 function acquireResource(kind){return new Promise(resolve=>{resourceReady=resolve;self.postMessage({executionResource:kind});});}
 async function modelBytes(spec){
-  const response=await fetch(spec.url);if(!response.ok)throw Error('Model download: '+response.status);
-  const bytes=allocateTypedArray(Uint8Array,spec.bytes,{label:'neural-model-bytes'}),reader=response.body.getReader();let offset=0;
-  try{for(;;){const {value,done}=await reader.read();if(done)break;if(offset+value.length>bytes.length)throw Error('Model length mismatch');bytes.set(value,offset);offset+=value.length;}}
-  finally{await reader.cancel();reader.releaseLock();}
-  if(offset!==bytes.length)throw Error('Model length mismatch');
-  const sha=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');
-  if(sha!==spec.sha256)throw Error('Model identity mismatch');return bytes;
+  return fetchVerifiedAsset(spec);
 }
 installWorkerMessageProtocol(self,async data=>{
   if(data.command==='resource-ready'){if(!resourceReady)throw workerMessageFailure('neural-endpoint','message','unexpected-resource-ready');const resume=resourceReady;resourceReady=null;resume();return;}
