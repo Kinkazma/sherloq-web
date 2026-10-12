@@ -31,4 +31,4 @@ The engine's internal README and qualification reports are development history t
 
 The 0.16.0 delivery includes 96 native WASM modules below 300 KiB locally, on demand. The published executable lock records transport-adapted JavaScript; `runtime-source-lock.json` separately records the original reviewed inputs. Exact model and WASM identities are recorded per file, including the new method resources.
 
-The batch PDF/ZIP vendor files retain their original bytes and paths and load on demand. The packaging cap is 25,000,000 bytes. Method-specific optional files can be imported from an authorized local library without blocking downloads for other tools. [Changes and qualification](../CHANGELOG.md).
+The batch PDF/ZIP vendor files retain their original bytes and paths and load on demand. The compressed bootstrap ZIP cap is 20,000,000 bytes; extracted size is reported separately. Method-specific optional files can be imported from an authorized local library without blocking downloads for other tools. [Changes and qualification](../CHANGELOG.md).

@@ -49,8 +49,19 @@ export async function decodeForgeryscopeYolo(predictions,{anchors,classes,width,
   checkAbort(signal);return kept;
 }
 
-export function parseForgeryscopePanels(boxes,names) {
+export function parseForgeryscopePanels(boxes,names,{includeExcluded=false}={}) {
   const excluded=new Set(['Graphs','Flow Cytometry','Body Imaging']);
-  return boxes.filter(b=>!excluded.has(names[b[5]])&&f(b[2]-b[0])>=5&&f(b[3]-b[1])>=5)
+  return boxes.filter(b=>(includeExcluded||!excluded.has(names[b[5]]))&&f(b[2]-b[0])>=5&&f(b[3]-b[1])>=5)
     .map(b=>{requireValue(typeof names[b[5]]==='string','Unknown YOLO class.');return [names[b[5]],roundEven(b[4]*1000)/1000,...b.slice(0,4)];});
+}
+
+/** Classification is a separate consumer of the same decoded detections. It
+ * keeps graph classes that the native clone pipeline deliberately drops.
+ * Hints describe the detector's labels, not a scientific validity decision. */
+export function classifyForgeryscopePanels(boxes,names) {
+  const acquisitions=new Set(['Microscopy','Blots','Body Imaging']),excluded=new Set(['Graphs','Flow Cytometry']);
+  return boxes.filter(b=>f(b[2]-b[0])>=5&&f(b[3]-b[1])>=5).map(b=>{
+    const label=names[b[5]];requireValue(typeof label==='string','Unknown YOLO class.');
+    return {classId:b[5],label,confidence:b[4],rectangle:b.slice(0,4),policyHint:acquisitions.has(label)?'acquisition':excluded.has(label)?'non-acquisition':'needs-review'};
+  });
 }

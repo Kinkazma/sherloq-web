@@ -2,6 +2,17 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.17.0 — Scientific batch preparation and exports · 2026-10-12
+
+- Added acquisition preclassification and PP-OCRv6 detector-only text polygons for native-coordinate exclusions. Ambiguous OCR proposals can be reviewed without losing their source/model provenance; original pixels remain unchanged.
+- Corrected native neural window bounds for D2PRL and MGCFDN while keeping exact scientific polygons for filtering. Small annotations already outside acquisitions are shown explicitly.
+- Added biomes-only single-method views, multi-method corroboration, source-linked flat archives, restored history and partial-run PDF/journal exports. Journal reads use ordered bounded windows and report incomplete exports.
+- Qualified shared SSG callers and reject a different algorithm injected into the automatic SIFT provider before computation. The local preview serves pinned SSG logical URLs from existing pieces. This local 404 correction is not claimed as a production WordPress failure.
+- Preserved the 0.16.0 method integrations, normal SIFT worker capacity, immutable models/WASM, startup migration, local/offline workflows and the noindex correction.
+- Corrected the bootstrap limit to apply to the compressed download ZIP, with a 20,000,000-byte ceiling and a target below 10 MB. Extracted size remains reported. Large resources are obtained separately from the immutable GitHub origin.
+
+The user accepted this version as functional. The interrupted four-method run is not counted as sixteen completed analyses; scientific accuracy on all 86 images and full MATLAB parity remain unestablished. See [batch preparation evidence](docs/evidence/batch-scientific-preparation-local.json) and the separate SSG records.
+
 ## 0.16.0 — Browser methods and batch integration · 2026-10-12
 
 - Removed the hardcoded `noindex,nofollow` robots directive from the WordPress workspace template.

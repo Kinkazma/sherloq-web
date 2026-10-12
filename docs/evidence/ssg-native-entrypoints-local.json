@@ -1,0 +1,380 @@
+{
+  "schema": "sherloq.ssg-native-entrypoints-local/1",
+  "date": "2026-10-12",
+  "scope": "Local caller contracts and full native positive qualifications",
+  "testMatrix": {
+    "caseCount": 46,
+    "passed": 46,
+    "failed": 0,
+    "command": "node --test web/engine-source/tests/ssg-entrypoints.test.mjs web/engine-source/tests/automatic-sift-provider-contract.test.mjs web/engine-source/tests/automatic-analysis-plan.test.mjs web/engine-source/tests/automatic-sparse-storage.test.mjs web/engine-source/tests/automatic-analyzer.test.mjs web/engine-source/tests/m3-api.test.mjs web/engine-source/tests/m3-lifecycle-await.test.mjs web/engine-source/tests/sparse-npz-semantics.test.mjs web/engine-source/tests/ssg-localized-view.test.mjs web/wordpress/tests/tool-client-ssg.test.mjs web/wordpress/tests/tool-numeric-validity.test.mjs web/wordpress/tests/batch-ssg.test.mjs web/wordpress/tests/batch-ssg-mask.test.mjs web/wordpress/tests/batch-scoped-dispatch.test.mjs",
+    "files": [
+      {
+        "file": "web/engine-source/tests/ssg-entrypoints.test.mjs",
+        "caseCount": 3,
+        "cases": [
+          "shared SparseCopyEngine dispatches SSG to the full native engine and reuses its successful checkpoint",
+          "public M3 API preserves native SSG resources, fractional polygons, provenance and explicit unsupported modes",
+          "automatic production plans keep their declared SIFT job and never silently activate SSG"
+        ]
+      },
+      {
+        "file": "web/engine-source/tests/automatic-sift-provider-contract.test.mjs",
+        "caseCount": 2,
+        "cases": [
+          "automatic SIFT provider rejects an injected SSG algorithm before native computation or evidence preparation",
+          "all production automatic SIFT plans still reach their original shared sparse engine and resource hooks"
+        ]
+      },
+      {
+        "file": "web/engine-source/tests/automatic-analysis-plan.test.mjs",
+        "caseCount": 3,
+        "cases": [
+          "native panel fallback, ordered identity, disabled zones and four real submissions",
+          "complete analysis adds only ELA; M3/M4 receive independent native settings",
+          "selection and plan own coordinates; empty manual selection never becomes whole-image"
+        ]
+      },
+      {
+        "file": "web/engine-source/tests/automatic-sparse-storage.test.mjs",
+        "caseCount": 2,
+        "cases": [
+          "automatic sparse adapter forwards lazy source storage and leaves borrowed session ownership with the source",
+          "automatic SIFT consumes bounded source rows and windows without retaining full RGB"
+        ]
+      },
+      {
+        "file": "web/engine-source/tests/automatic-analyzer.test.mjs",
+        "caseCount": 2,
+        "cases": [
+          "public integration facade preserves explicit missing engines and caller-owned source",
+          "all-disabled complete selection allocates no ELA provider or fallback analysis"
+        ]
+      },
+      {
+        "file": "web/engine-source/tests/m3-api.test.mjs",
+        "caseCount": 2,
+        "cases": [
+          "automatic Panels+Text empty-panel result completes without requiring OCR weights",
+          "sparse NPZ checks the metadata bound before building a large nested mirror"
+        ]
+      },
+      {
+        "file": "web/engine-source/tests/m3-lifecycle-await.test.mjs",
+        "caseCount": 9,
+        "cases": [
+          "M3 model replacement awaits the real disposer, holds old resources and keeps the public engine busy",
+          "unloading M3 models waits for workers while preserving the image and accounting",
+          "unloading a source preserves its bytes and retained ownership until its M3 disposer finishes",
+          "engine disposal holds all ownership until M3 closure and only then clears the common budget",
+          "a failed M3 source closure preserves the original cause, image and accounting for a useful retry",
+          "model replacement failures keep the authoritative old resources and release the unused destination",
+          "all image closures settle before model release and a successful closure is not repeated after a peer failure",
+          "concurrent adapter close requests coalesce the same real disposer rather than double-closing the worker",
+          "SSG result provenance names the real author pipeline and explicitly identifies its paper-v2 protocol"
+        ]
+      },
+      {
+        "file": "web/engine-source/tests/sparse-npz-semantics.test.mjs",
+        "caseCount": 2,
+        "cases": [
+          "actual EfficientLoFTR archive labels confidence, while classical archives retain descriptor distance",
+          "full SSG archive keeps the original-grid localization mask separately from biome hulls"
+        ]
+      },
+      {
+        "file": "web/engine-source/tests/ssg-localized-view.test.mjs",
+        "caseCount": 1,
+        "cases": [
+          "SSG presents its exact mask with the compiled renderer and keeps the original unchanged"
+        ]
+      },
+      {
+        "file": "web/wordpress/tests/tool-client-ssg.test.mjs",
+        "caseCount": 1,
+        "cases": [
+          "general clone tool loads the same pinned SSG resource catalog once and preserves its native task"
+        ]
+      },
+      {
+        "file": "web/wordpress/tests/tool-numeric-validity.test.mjs",
+        "caseCount": 6,
+        "cases": [
+          "All generated numeric defaults pass native bounds and stepping rules, including automatic empty fields",
+          "Decimal parameters accept scientific values between UI increments without weakening bounds",
+          "Decimal keyboard editing retains schema increments, stable decimals and endpoint bounds",
+          "Integer and parity constraints survive restored invalid values; Calculate blockers report the field",
+          "Full SSG controls deliver only native parameters and keep prior detector IDs stable",
+          "SIFT G2NN algorithm defaults retain their fractional scientific distance after switching detectors"
+        ]
+      },
+      {
+        "file": "web/wordpress/tests/batch-ssg.test.mjs",
+        "caseCount": 5,
+        "cases": [
+          "SSG batch exposes only its scientific native parameters and passes their exact defaults",
+          "SSG edited parameters and explicit batch panels retain their scientific values and original coordinates",
+          "temporarily removing every clone uses total and restores the user’s clone preference on reactivation",
+          "an explicitly selected total basis survives clone removal, reactivation and saved-setting reload",
+          "a saved automatic total fallback retains the preferred clone basis when SSG is selected later"
+        ]
+      },
+      {
+        "file": "web/wordpress/tests/batch-ssg-mask.test.mjs",
+        "caseCount": 2,
+        "cases": [
+          "SSG batch evidence uses exact localized pixels, preserves holes and does not invent biome hull coverage",
+          "A partial SSG core or a mask from a different image cannot count as full-detector evidence"
+        ]
+      },
+      {
+        "file": "web/wordpress/tests/batch-scoped-dispatch.test.mjs",
+        "caseCount": 6,
+        "cases": [
+          "SIFT scientific dispatch preserves native settings, allows cross-panel search and excludes intervening graph/text gaps",
+          "dense search propagates scientific exclusions instead of clearing them, without sending unsupported M3 scope fields",
+          "SSG, two-real-ROI EfficientLoFTR and Forgeryscope retain their distinct scientific contracts",
+          "segmentation and D2PRL receive true acquisition ROIs only and never unknown algorithm parameters",
+          "incomplete preparation cannot become a full-frame task",
+          "cross-study scope keeps two original image envelopes for searching while all text, graph gaps and padding remain excluded"
+        ]
+      }
+    ],
+    "qualificationLimits": [
+      "The 46 cases are caller, ownership, UI, rendering, archive and native-empty tests; they are not 46 positive detector runs.",
+      "ssg-entrypoints.test.mjs exercises actual native VLFeat and localization on a uniform 48 x 48 source with normalizationLongEdge=0. No matched words means no structured-forest download.",
+      "The general tool-client resource test uses a protocol engine stub; lifecycle tests use controlled detector/disposal stubs. Neither is claimed as positive native inference.",
+      "Localized-mask rendering and archive fixtures validate preservation of scientific outputs rather than executing the complete detector."
+    ],
+    "lastUpdatedSubset": {
+      "caseCount": 6,
+      "passed": 6,
+      "failed": 0,
+      "command": "node --test web/engine-source/tests/ssg-entrypoints.test.mjs web/engine-source/tests/automatic-sift-provider-contract.test.mjs web/wordpress/tests/tool-client-ssg.test.mjs",
+      "reason": "Rechecked after adding real public M3 two-region comparison assertions. These six cases are included in the 46-case matrix, not additional cases."
+    }
+  },
+  "entrypoints": {
+    "generalCloneTool": {
+      "operation": "tampering.copyMove.sparse",
+      "algorithm": "SSG",
+      "resourceLoader": "tool-client.js configure() -> loadM3Models()",
+      "engine": "SparseCopyEngine -> SsgFullEngine",
+      "nativeParametersPreserved": true
+    },
+    "batch": {
+      "operation": "tampering.copyMove.sparse",
+      "algorithm": "SSG",
+      "engine": "SparseCopyEngine -> SsgFullEngine",
+      "nativeScopeFields": [
+        "params.regions",
+        "params.excluded"
+      ],
+      "scientificScopeIdentityValidated": true
+    },
+    "automaticProductionPlans": {
+      "SSGProgrammed": false,
+      "sparseAlgorithm": "SIFT + G2NN + RANSAC + Panels + Text",
+      "jobs": [
+        "patchmatch",
+        "sift",
+        "forgeryscope",
+        "d2prl"
+      ],
+      "completeAdds": [
+        "ela"
+      ],
+      "SSGInjectionInSiftProvider": "INVALID_INPUT before compute"
+    },
+    "denseLegacyComposite": {
+      "SSGRoutePresent": false,
+      "details": "Dense profiles are PatchMatch; legacy ELA/energy/composite and M2 composite have no SSG invocation."
+    },
+    "exports": {
+      "startsDetector": false,
+      "sparseSSG": "m3Npz preserves original-grid uint8 localized mask and accepted_match pair-score semantics"
+    }
+  },
+  "positiveNativeExecution": {
+    "fixture": {
+      "id": "duplicated-photo",
+      "width": 660,
+      "height": 340,
+      "format": "rgb8",
+      "sourceSha256": "2f48c64aed473a2b136e371157b9a83299c4333409b1b3ba1510c464930872f0",
+      "payloadEmbedded": false
+    },
+    "model": {
+      "qualificationManifestSha256": "62ce0d714bd265962a1964c5ba345463b90eb9e23c66f1772cb1969908c06988",
+      "qualificationManifestBytes": 5065,
+      "browserResourceManifestSha256": "b428fe9626dfd59ea3161e2b79786b2a4713e13770e8d75c80477b5805f57157",
+      "browserResourceManifestBytes": 4266,
+      "samePinnedForestArraysAndRuntimes": true,
+      "structuredForestPayloadBytes": 218140772,
+      "sharpen": 2,
+      "nTreesEval": 4,
+      "payloadEmbedded": false
+    },
+    "execution": {
+      "budgetBytes": 4294967296,
+      "profileMaxWorkers": 10,
+      "nativeThreadsAdmitted": 10,
+      "sharedImmutableForest": true,
+      "physicalCpuMeasured": false,
+      "physicalCoreCountClaimed": false,
+      "nativeDetectorComplete": true,
+      "fullMatlabScriptParityClaimed": false,
+      "normalizedWidth": 3000,
+      "normalizedHeight": 1546,
+      "outputCoordinates": "original-pixel-centres",
+      "outputFilesCreated": false
+    },
+    "runs": [
+      {
+        "id": "single-source",
+        "entrypoint": "SsgFullEngine.analyze",
+        "parameters": {
+          "algorithm": "SSG",
+          "normalizationLongEdge": 3000,
+          "minimumDistance": 100,
+          "spatialK": 3,
+          "ratio": 0.6,
+          "absolute": 0.1,
+          "salienceSigma": 0.001,
+          "maskThreshold": 0.4,
+          "minimumArea": 0.0001,
+          "roiRadius": 50,
+          "ssimRadius": 3,
+          "ssimOpening": 4,
+          "rngSeed": 1,
+          "compare": false,
+          "reflections": false,
+          "regions": [],
+          "excluded": [],
+          "limit": 0
+        },
+        "result": {
+          "status": "ok",
+          "pairs": 21936,
+          "groups": 6,
+          "maskPixels": 223858,
+          "features": 26190,
+          "matchedWords": 23575,
+          "matchedPhrases": 21999,
+          "wallMs": 17128.422166999997,
+          "budgetPeakBytes": 1247162082,
+          "budgetFinalBytes": 0,
+          "sourceUnchanged": true,
+          "nativeThreadsAdmitted": 10,
+          "physicalCpuMeasured": false,
+          "newVlfeat": 1,
+          "newForest": 1,
+          "newMatching": 1
+        },
+        "oracle": {
+          "type": "existing positive native qualification aggregate oracle",
+          "expectedPairs": 21936,
+          "expectedGroups": 6,
+          "expectedMaskPixels": 223858,
+          "checkedExactAggregateEquality": true,
+          "bitwiseFullMaskCompared": false,
+          "independentFullMatlabOracle": false
+        }
+      },
+      {
+        "id": "two-region-comparison",
+        "entrypoint": "SparseCopyEngine.analyze -> SsgFullEngine.analyze",
+        "parameters": {
+          "algorithm": "SSG",
+          "normalizationLongEdge": 3000,
+          "minimumDistance": 100,
+          "spatialK": 3,
+          "ratio": 0.6,
+          "absolute": 0.1,
+          "salienceSigma": 0.001,
+          "maskThreshold": 0.4,
+          "minimumArea": 0.0001,
+          "roiRadius": 50,
+          "ssimRadius": 3,
+          "ssimOpening": 4,
+          "rngSeed": 1,
+          "compare": true,
+          "reflections": false,
+          "regions": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                329,
+                0
+              ],
+              [
+                329,
+                339
+              ],
+              [
+                0,
+                339
+              ]
+            ],
+            [
+              [
+                330,
+                0
+              ],
+              [
+                659,
+                0
+              ],
+              [
+                659,
+                339
+              ],
+              [
+                330,
+                339
+              ]
+            ]
+          ],
+          "excluded": [],
+          "limit": 0
+        },
+        "result": {
+          "status": "ok",
+          "pairs": 22398,
+          "groups": 4,
+          "maskPixels": 216284,
+          "checkedCrossRegionPairs": 22398,
+          "wallMs": 15621.010542,
+          "budgetPeakBytes": 1247149310,
+          "budgetFinalBytes": 0,
+          "sourceUnchanged": true,
+          "nativeThreadsAdmitted": 10,
+          "physicalCpuMeasured": false,
+          "newVlfeat": 1,
+          "newForest": 1,
+          "newMatching": 1
+        },
+        "oracle": {
+          "type": "positive native cross-region invariant",
+          "everyAcceptedPairChecked": true,
+          "condition": "Each pair joins a point inside region 0 to a point inside region 1, in either direction, evaluated in original coordinates with ssgInside().",
+          "atLeastOnePairAndGroupRequired": true,
+          "originalRegionsAndCompareFlagPreserved": true,
+          "bitwiseFullMaskCompared": false,
+          "independentFullMatlabOracle": false
+        }
+      }
+    ]
+  },
+  "combinedRecheck": {
+    "passed": 47,
+    "failed": 0,
+    "skipped": 0,
+    "files": 15,
+    "command": "node --test web/engine-source/tests/ssg-entrypoints.test.mjs web/engine-source/tests/automatic-sift-provider-contract.test.mjs web/engine-source/tests/automatic-analysis-plan.test.mjs web/engine-source/tests/automatic-sparse-storage.test.mjs web/engine-source/tests/automatic-analyzer.test.mjs web/engine-source/tests/m3-api.test.mjs web/engine-source/tests/m3-lifecycle-await.test.mjs web/engine-source/tests/sparse-npz-semantics.test.mjs web/engine-source/tests/ssg-localized-view.test.mjs web/wordpress/tests/tool-client-ssg.test.mjs web/wordpress/tests/tool-numeric-validity.test.mjs web/wordpress/tests/batch-ssg.test.mjs web/wordpress/tests/batch-ssg-mask.test.mjs web/wordpress/tests/batch-scoped-dispatch.test.mjs web/engine-source/tests/ssg-loading-recovery.test.mjs",
+    "includesLoadingFailureRecovery": true,
+    "loadingTestLimit": "Injects two module-factory failures and then runs actual VLFeat; does not claim browser import-map failure-cache behavior."
+  }
+}

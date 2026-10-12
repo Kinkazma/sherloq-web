@@ -14,7 +14,7 @@ export function createForgeryscopeSourceAnalyzer({networks,budget,pool,identitie
   try{
    checkAbort(options.signal);const hit=cached?.key===key;
    if(hit){item=cached;item.refs++;}
-   else{clearCache();window=await image.surface.readWindow({x:0,y:0,width,height},{signal:options.signal});value=await analyzeForgeryscope(window.pixels,{...params,...options,networks,budget,pool,segmentedResult:true,inputAlreadyBudgeted:true});window.release();window=null;lease=budget.reserve(bytesOf(value.metadata));item={key,refs:2,value,lease};cached=item;value=null;lease=null;}
+   else{clearCache();window=await image.surface.readWindow({x:0,y:0,width,height},{signal:options.signal});value=await analyzeForgeryscope({...window.pixels,sha256:image.sha256},{...params,...options,networks,budget,pool,segmentedResult:true,inputAlreadyBudgeted:true});window.release();window=null;lease=budget.reserve(bytesOf(value.metadata));item={key,refs:2,value,lease};cached=item;value=null;lease=null;}
    const out={width,height,metadata:structuredClone(item.value.metadata),provenance:{originalSourceSha256:image.sha256,sourceSurfaceIdentity:id+'/'+revision,models:identities,publicPipeline:true,competitionEnsemble:false},metrics:{cache:{result:hit},memory:budget.snapshot(),preflightExecutions:0,segmented:true}};
    const resultLease=budget.reserve(bytesOf(out));for(const [key,value]of Object.entries(item.value))if(ArrayBuffer.isView(value))out[key]=forgeryscopeMaskField(value);else if(typeof value?.readInto==='function')out[key]=value;
    let released=false;item.refs++;return {...out,release(){if(released)return;released=true;resultLease();unpin(item);}};

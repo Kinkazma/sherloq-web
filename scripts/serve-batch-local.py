@@ -2,20 +2,63 @@
 """Serve the existing local WordPress files; no site copy, PHP or remote deployment."""
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
-import argparse, json, hashlib
+import argparse, json, hashlib, mimetypes
 from urllib.parse import urlsplit, unquote
 parser=argparse.ArgumentParser()
 parser.add_argument('--port',type=int,default=8097)
 parser.add_argument('--root',default='/Users/gaeldauchy/gaeldauchy-site-unraid-2026-07-31/gaeldauchy-site-unraid-2026-09-24/gaeldauchy-site-unraid/wordpress/html')
 parser.add_argument('--fixtures',type=Path,help='Optional generated fixtures directory for browser checks')
 parser.add_argument('--candidate-engine',type=Path,help='Optional source directory for isolated SIFT phase qualification')
+parser.add_argument('--scientific-text-model',type=Path,help='Existing pinned detector model; served locally without copying')
+parser.add_argument('--ssg-assets-manifest',type=Path,help='Existing local qualification manifest; overlay only pinned SSG resources without copying or publishing them')
 args=parser.parse_args()
 assets=Path(args.root)/'wp-content/plugins/sherloq-browser/assets'
 configuration=json.loads((assets/'dependency-config.json').read_text())
 manifest=json.loads((assets/('dependency-manifest-'+configuration['manifest']+'.json')).read_text())
-candidate_modules=('execution-scheduler.js','sift-paged-resources.js')
+repository=Path(__file__).resolve().parents[1]
+resource_root=repository/'web-assets'
+candidate_data={}
+candidate_chunks={}
+candidate_chunk_files={}
+candidate_logical_files={}
+candidate_modules=tuple(p.relative_to(args.candidate_engine).as_posix() for p in args.candidate_engine.rglob('*') if p.is_file() and p.suffix in ('.js','.mjs')) if args.candidate_engine else ()
 if args.candidate_engine:
- manifest['localFiles']=sorted(set(manifest.get('localFiles',[]))|{'unified-engine/src/'+name for name in candidate_modules})
+ for name in candidate_modules:
+  path='unified-engine/src/'+name
+  context='../'*(len(Path(name).parts)+1)+'runtime-context.js?v=batch-scientific-local'
+  data=('import "'+context+'";\n').encode()+(args.candidate_engine/name).read_bytes()
+  digest=hashlib.sha256(data).hexdigest();candidate_data[path]=data;candidate_chunks[digest]=data
+  manifest['chunks'][digest]=len(data)
+  manifest['files'][path]={'size':len(data),'sha256':digest,'chunks':[digest],'type':'text/javascript'}
+ manifest['localFiles']=sorted(set(manifest.get('localFiles',[]))|set(candidate_data))
+if args.ssg_assets_manifest:
+ donor=json.loads(args.ssg_assets_manifest.read_text());donor_root=args.ssg_assets_manifest.parent/'public/web-assets';donor_chunks=donor_root/'chunks'
+ for path,spec in donor['files'].items():
+  if path.startswith(('individual-assets/m3/ssg/','unified-engine/vendor/ssg-vlfeat/','unified-engine/vendor/ssg-full/')):
+   manifest['files'][path]=spec
+   sources=[]
+   for chunk in spec['chunks']:
+    source=donor_chunks/(chunk+'.bin')
+    if not source.is_file() or source.stat().st_size!=donor['chunks'][chunk]:raise ValueError('Missing original SSG chunk '+chunk)
+    manifest['chunks'][chunk]=donor['chunks'][chunk];candidate_chunk_files[chunk]=source
+    sources.append(source)
+   if sum(source.stat().st_size for source in sources)!=spec['size']:raise ValueError('Invalid original SSG file size '+path)
+   candidate_logical_files[path]=(spec,sources)
+ catalog_path='individual-assets/individual-models.json'
+ def catalog_bytes(table,chunks):return b''.join((chunks/(chunk+'.bin')).read_bytes() for chunk in table['files'][catalog_path]['chunks'])
+ base_catalog=json.loads(catalog_bytes(manifest,resource_root/'chunks'));donor_catalog=json.loads(catalog_bytes(donor,donor_chunks))
+ forest=donor_catalog['m3']['ssg-edges']
+ if forest['sha256']!='b428fe9626dfd59ea3161e2b79786b2a4713e13770e8d75c80477b5805f57157' or forest['bytes']!=4266:raise ValueError('Unqualified original SSG forest manifest')
+ base_catalog.setdefault('m3',{})['ssg-edges']=forest;catalog=json.dumps(base_catalog,separators=(',',':')).encode();catalog_sha=hashlib.sha256(catalog).hexdigest()
+ candidate_data[catalog_path]=catalog;candidate_chunks[catalog_sha]=catalog;manifest['chunks'][catalog_sha]=len(catalog)
+ manifest['files'][catalog_path]={'size':len(catalog),'sha256':catalog_sha,'chunks':[catalog_sha],'type':'application/json'}
+ manifest['localFiles']=sorted(set(manifest.get('localFiles',[]))|{catalog_path}|{p for p in donor['files'] if p.startswith(('individual-assets/m3/ssg/','unified-engine/vendor/ssg-vlfeat/','unified-engine/vendor/ssg-full/'))})
+if args.scientific_text_model:
+ model=args.scientific_text_model.resolve();size=model.stat().st_size;digest=hashlib.sha256(model.read_bytes()).hexdigest()
+ if size!=9929594 or digest!='090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f':raise ValueError('Scientific text detector identity mismatch')
+ path='batch-models/PP-OCRv6_det_small.onnx';manifest['chunks'][digest]=size
+ manifest['files'][path]={'size':size,'sha256':digest,'chunks':[digest],'type':'application/octet-stream'}
+ manifest['slots']=sorted(set(manifest['slots'])|{'batch-models'});manifest['localFiles'].append(path)
 manifest['remoteBase']=f'http://127.0.0.1:{args.port}/__batch_assets__/'
 manifest_bytes=json.dumps(manifest,separators=(',',':')).encode()
 local_identity=hashlib.sha256(manifest_bytes).hexdigest()
@@ -29,9 +72,8 @@ for previous_path in assets.glob('dependency-manifest-*.json'):
  previous_bytes=json.dumps(previous,separators=(',',':')).encode()
  local_manifests[hashlib.sha256(previous_bytes).hexdigest()]=previous_bytes
 configuration['manifest']=local_identity
-configuration['workerVersion']='batch-local-1'
-repository=Path(__file__).resolve().parents[1]
-resource_root=repository/'web-assets'
+configuration['workerVersion']='batch-local-scientific-1' if args.candidate_engine else 'batch-local-1'
+if args.candidate_engine:configuration['workerType']='module'
 class Handler(SimpleHTTPRequestHandler):
  def __init__(self,*a,**k): super().__init__(*a,directory=args.root,**k)
  def translate_path(self,path):
@@ -55,14 +97,39 @@ class Handler(SimpleHTTPRequestHandler):
   return str(resource_root/'missing')
  def do_GET(self):
   path=urlsplit(self.path).path
+  prefix='/wp-content/plugins/sherloq-browser/assets/'
+  relative=path.removeprefix(prefix) if path.startswith(prefix) else None
+  if args.scientific_text_model and (relative=='batch-models/PP-OCRv6_det_small.onnx' or path.endswith('/chunks/'+digest+'.bin')):
+   self.send_response(200);self.send_header('Content-Type','application/octet-stream');self.send_header('Content-Length',str(size));self.end_headers()
+   with model.open('rb') as source:
+    while data:=source.read(1024*1024):self.wfile.write(data)
+   return
+  if path.startswith('/__batch_assets__/chunks/') and Path(path).stem in candidate_chunks:
+   data=candidate_chunks[Path(path).stem];self.send_response(200);self.send_header('Content-Type','application/octet-stream');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
+  if path.startswith('/__batch_assets__/chunks/') and Path(path).stem in candidate_chunk_files:
+   source=candidate_chunk_files[Path(path).stem];self.send_response(200);self.send_header('Content-Type','application/octet-stream');self.send_header('Content-Length',str(source.stat().st_size));self.end_headers()
+   with source.open('rb') as stream:
+    while data:=stream.read(1024*1024):self.wfile.write(data)
+   return
+  if relative in candidate_data:
+   data=candidate_data[relative];self.send_response(200);self.send_header('Content-Type',mimetypes.guess_type(relative)[0] or 'application/octet-stream');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
+  if relative in candidate_logical_files:
+   spec,sources=candidate_logical_files[relative]
+   self.send_response(200);self.send_header('Content-Type',spec.get('type') or mimetypes.guess_type(relative)[0] or 'application/octet-stream');self.send_header('Content-Length',str(spec['size']));self.end_headers()
+   # Dynamic imports use logical module URLs even from workers not controlled
+   # by the page service worker. Reuse the pinned chunks in bounded reads.
+   for source in sources:
+    with source.open('rb') as stream:
+     while data:=stream.read(1024*1024):self.wfile.write(data)
+   return
+  if args.candidate_engine and relative and '/' not in relative and relative!='dependency-config.json' and not relative.startswith('dependency-manifest-') and Path(relative).suffix in ('.js','.css','.html','.json'):
+   source=repository/'web/wordpress/sherloq-browser/assets'/relative
+   if source.is_file():
+    data=source.read_bytes();self.send_response(200);self.send_header('Content-Type',mimetypes.guess_type(source)[0] or 'application/octet-stream');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
   if args.candidate_engine and ((Path(path).name.startswith('batch-') and Path(path).suffix=='.js') or Path(path).name=='integrated-config.json'):
    source=repository/'web/wordpress/sherloq-browser/assets'/Path(path).name
    if source.is_file():
     data=source.read_bytes();self.send_response(200);self.send_header('Content-Type','application/json' if source.suffix=='.json' else 'text/javascript');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
-  if args.candidate_engine and any(path.endswith('/unified-engine/src/'+name) for name in candidate_modules):
-   source=args.candidate_engine/Path(path).name
-   data=b'import "../../runtime-context.js?v=0.15.1";\n'+source.read_bytes()
-   self.send_response(200);self.send_header('Content-Type','text/javascript');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
   if args.fixtures and Path(path).name in ('__sift_memory__.html','__sift_memory__.js','__batch_storage__.html','__batch_storage__.js','__batch_pipeline__.html','__batch_pipeline__.js'):
    storage='__batch_storage__' in path
    pipeline='__batch_pipeline__' in path

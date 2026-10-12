@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-12",
+  "status": "local-functional-acceptance-awaiting-delivery-integration",
+  "publicationApproved": true,
+  "full86ScientificValidation": false,
+  "sourcePixelsOrAnalysisSettingsReduced": false,
+  "workerCapAdded": false,
+  "targetedTests": {
+    "passed": 113,
+    "failed": 0,
+    "coverage": [
+      "prepared acquisition scope and source identity",
+      "exact text and graph holes in scientific evidence",
+      "human review of ambiguous OCR on an identified acquisition",
+      "source-coordinate acquisition preview and annotation bars",
+      "integer native neural crop contracts",
+      "full-resolution corroboration PNG and exact uint32 NPZ",
+      "single-method biome display and partial-result reports",
+      "flat archive pointers, history and streamed round trips",
+      "complete journal cursor export and visible failure feedback"
+    ]
+  },
+  "uiRegressionTests": {
+    "passed": 18,
+    "failed": 0,
+    "includesTestsAlsoCountedAbove": true,
+    "covers": [
+      "native panel and phase progress without per-tick preview rerenders",
+      "active, queued and final incomplete study labels",
+      "global report availability and routing after a closed-dialog completion",
+      "acquisition selection and EfficientLoFTR pair controls"
+    ],
+    "browserQualificationAfterActiveRunStillRequired": true
+  },
+  "browserChecks": {
+    "fourSourcesSelectedWithPreparedAcquisitions": true,
+    "ambiguousAcquisitionAdmittedByExplicitHumanReview": true,
+    "outsideAcquisitionAnnotationBarsDisplayed": true,
+    "sessionExportDuringNativeCalculation": {
+      "schema": "sherloq.session/1",
+      "eventCount": 22619,
+      "actualEvents": 22619,
+      "indicesContinuous": true,
+      "storageError": null,
+      "bytes": 9073257
+    },
+    "native16AnalysesFinished": false,
+    "finalNativeReportAndArchiveQualified": false,
+    "ssgLogicalTransport": {
+      "observedFailure": "dynamic import returned HTTP404 despite available manifest chunks",
+      "activeCalculationInterrupted": false,
+      "copiedModelPayloadBytes": 0,
+      "vendorFileChecksOnActiveAndTemporaryServers": 20,
+      "additionalRuntimeAndManifestChecks": 5,
+      "originalModelArrayChecks": 7,
+      "modelArrayBytesVerifiedByStreaming": 218141668,
+      "futureServerMultiChunkLogicalResponse": {
+        "chunks": 2,
+        "bytes": 163555456,
+        "matchesPinnedSha256": true,
+        "readWindowBytes": 1048576,
+        "payloadSaved": false
+      },
+      "allHttpPayloadsMatchPinnedIdentities": true,
+      "successfulNativeSSGRetryQualified": true
+    },
+    "originalFourMethodRun": "Stopped at the explicit user request; partial results and complete journal exported.",
+    "ssgQualificationEvidence": "ssg-browser-local.json",
+    "finalSSGOnlyReportAndArchiveQualified": true
+  },
+  "remaining": [
+    "Integrate the complete improved batch into the target delivery with declared pinned OCR/panel resources and synchronized runtime/source manifests.",
+    "Verify the target WordPress/web-downloadable package startup, report integration and offline dependencies."
+  ],
+  "limits": [
+    "An OCR detector is not a verified recognizer; an experimental recognizer was rejected after biological images produced false characters.",
+    "D2PRL and MGCFDN analyze retained acquisitions independently; this does not establish inter-panel clone detection by these networks.",
+    "The user's first journal-download abort was not reproduced and is not assigned an invented cause.",
+    "Original SSG resources are reused by the local candidate server and are not included in this source patch.",
+    "The local source checkout lacks two physical delivery metadata files required by the complete WordPress test suite; the targeted tests above are distinct."
+  ],
+  "humanFunctionalAcceptance": {
+    "date": "2026-10-12",
+    "accepted": true,
+    "scope": "Overall improved local batch; not only SSG",
+    "scientificFullCorpusValidationRequiredForTransmission": false,
+    "publicationRequestedInThisTurn": true
+  },
+  "furtherScientificEvaluation": [
+    "Measure scientific preclassification/text-exclusion accuracy beyond the small local cases.",
+    "A new filtered 86-image run is needed before claiming full-corpus scientific validation; it is not a prerequisite for this authorized global handoff."
+  ],
+  "historicalQualificationNote": "The 113 targeted tests and 18 overlapping UI tests above precede the SSG-specific qualification. The four-method run was deliberately stopped, not completed. Acceptance records user scope, not fabricated inference results.",
+  "publicationAuthorization": {
+    "date": "2026-10-12",
+    "authorizedBy": "Gaël",
+    "scope": "All functional batch improvements and their public source/evidence; private payloads excluded",
+    "publisher": "GitHub thread",
+    "wordpressCoordination": "GitHub will notify the WordPress thread when needed",
+    "full86ScientificValidationClaimAllowed": false
+  }
+}

@@ -12,7 +12,7 @@ test('Batch uses the native capacity and backend without a worker cap or forced 
  const previous=globalThis.fetch;let settings,calls=0;
  globalThis.fetch=async()=>new Response(JSON.stringify({engineVersion:'test',engineCommit:'test',runtimeSourceIncrementSha256:'test'}));
  const image={id:'image',name:'image.png',blob:new Blob(),width:1,height:1,family:'unknown',selected:true,state:'ready',occurrences:[],runs:[]},model={images:[image],studies:[],artifacts:new Map()};
- const runner=createBatchRunner({toolFactory:async value=>{settings=value;return {async load(){},async run(task){calls++;assert.equal(task.backend,'auto');throw Object.assign(Error('native refusal'),{code:'MEMORY_LIMIT'});},async dispose(){}};}});
+ const runner=createBatchRunner({scientificFiltering:false,toolFactory:async value=>{settings=value;return {async load(){},async run(task){calls++;assert.equal(task.backend,'auto');throw Object.assign(Error('native refusal'),{code:'MEMORY_LIMIT'});},async dispose(){}};}});
  try{await runner.run(model,[{id:'native',fr:'native',kind:'view',operation:'m2.native',params:{},signal:{},backend:'auto'}]);assert.equal(settings.resourceHints,undefined);assert.equal(settings.memoryBudgetBytes,4*1024**3);assert.equal(calls,1);assert.equal(image.runs[0].status,'error');assert.equal(image.runs[0].error.code,'MEMORY_LIMIT');assert.equal(model.engine.resourceHints,undefined);}
  finally{globalThis.fetch=previous;}
 });

@@ -23,6 +23,7 @@ async function fixture(){
  Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value??this.options[0]?.value??'';},set(v){for(const o of this.options)o.toggleAttribute('selected',o.value===String(v));}});
  const image={id:'i',hash:'same-pixels',name:'source.png',width:80,height:64,blob:new Blob(['image']),thumbnail:new Blob(['thumbnail']),family:'photography',selected:true,occurrences:[{studyId:'s'}],runs:[],state:'ready'},calls=[];
  const model={images:[image],studies:[{id:'s',name:'Source',errors:[]}],errors:[],artifacts:{has(){return false;},async clear(){},async dispose(){}},async import(){},async clear(){}};
+ image.preparation={schema:'sherloq.scientific-scope/1',status:'ready',sourceSha256:'a'.repeat(64),width:image.width,height:image.height,fingerprint:'prepared-ui-fixture',regions:[{x0:0,y0:0,x1:image.width,y1:image.height,type:'photography',confidence:1}],excluded:[]};
  const ui=await mountBatchUI({document,language:()=> 'fr',importerFactory:async()=>model,runnerFactory:()=>({async run(model,recipes){calls.push(recipes);model.results=[];},async clear(){},cancel(){}})});
  const card=ui.dialog.querySelector('[data-batch-tool="clone-21"]').closest('.batch-tool');
  [...ui.dialog.querySelectorAll('.batch-selection-bar button')].find(b=>b.textContent==='Confirmer la sélection').onclick();

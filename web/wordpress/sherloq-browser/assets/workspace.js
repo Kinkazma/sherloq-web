@@ -10,8 +10,9 @@ import {createWorkspaceEnginePool} from './workspace-engine-pool.js';
 import {validateSettings,settingsFilename} from './settings.js';
 import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js';
 
-export function mountWorkspace(document=globalThis.document,{panelFactory=mountAnalysisPanel,fetcher=fetch}={}) {
+export function mountWorkspace(document=globalThis.document,{panelFactory=mountAnalysisPanel,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js')).mountBatchUI(options)}={}) {
 const $=id=>document.getElementById(id),state=createWorkspaceState();
+let batchUI,batchOpening;
 const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id)),engineFactory=createWorkspaceEnginePool();
 const labels={
  fr:{batch:'Traitement par lot',file:'Fichier',open:'Ouvrir une image…',tools:'Outils',tile:'Mosaïque',cascade:'Cascade',tabs:'Onglets',closeAll:'Tout fermer',settings:'Réglages',quickExport:'Export rapide',exportImage:'Exporter l’image affichée…',exportReport:'Exporter le rapport…',saveSession:'Exporter la session…',restoreSession:'Restaurer une session…',exportSettings:'Exporter les réglages…',importSettings:'Rappeler les réglages…',compute:'Calcul',maximum:'Maximum utile',aggressive:'Agressif',navigation:'Navigation',automatic:'Automatique',mouse:'Souris',highlight:'Signaler les nouveaux outils',about:'À propos',availability:'Je suis heureux de mettre cette application à la disposition de tous, gratuitement et sans limite de durée d’utilisation.',privacy:'Vos images et résultats restent dans ce navigateur. Aucun envoi d’image ni suivi d’utilisation par cette application.',welcome:'Ouvrez ou glissez une image pour commencer.',fit:'Ajuster',cancel:'Annuler',closeHint:'Fermer tous les documents et arrêter leurs calculs ? Les réglages et favoris seront conservés.',closeConfirm:'Tout fermer et réinitialiser',ready:'Prêt.',loading:'Chargement…',favorites:'Favoris',addFavorite:'Ajouter aux favoris',removeFavorite:'Retirer des favoris',close:'Fermer',background:'calcul(s) dans les autres onglets',busyClose:'Cet onglet calcule encore. Le fermer arrêtera son calcul. Continuer ?',replace:'Ouvrir une nouvelle image fermera les analyses de l’image actuelle. Continuer ?',invalid:'Fichier de réglages invalide.',busySettings:'Les réglages pourront être rappelés après les calculs en cours.',loadedSettings:'Réglages rappelés.',sessionImage:'Ouvrez maintenant l’image originale de cette session.',missingImage:'Cette session appartient à une autre image.'},
@@ -53,6 +54,10 @@ function translate(){
 }
 function entries(){return [...new Set([sourceEntry,...state.documents.values()].filter(Boolean))];}
 function scheduleRender(){if(framePending)return;framePending=true;requestAnimationFrame(()=>{framePending=false;renderStatus();});}
+function reportTarget(entry=state.documents.get(state.active),view=entry?.controller?.snapshot()){
+ if(entry?.controller&&!entry.loading)return view?.hasReport?entry.controller:null;
+ return batchUI?.canExport?batchUI:null;
+}
 function renderStatus(){
  const entry=state.documents.get(state.active),view=entry?.controller?.snapshot();
  for(const record of state.documents.values()){
@@ -65,7 +70,7 @@ function renderStatus(){
  $('file-info').textContent=sourceInput?.description||currentFile?.name||'';
  const available=!!entry?.controller&&!entry.loading;
  for(const id of ['fit','zoom-in','zoom-out','save-session'])$(id).disabled=!available;
- $('export-image').disabled=!available||!!view.busy||!(view.hasResult||entry.id==='original');$('quick-export-image').disabled=$('export-image').disabled;$('export-report').disabled=!available||!view.hasReport;
+ $('export-image').disabled=!available||!!view.busy||!(view.hasResult||entry.id==='original');$('quick-export-image').disabled=$('export-image').disabled;$('export-report').disabled=!reportTarget(entry,view);
  const busy=entries().some(e=>e.controller?.busy||e.loading);$('import-settings').disabled=busy;$('restore-session').disabled=busy;
 }
 function renderDocuments(){
@@ -157,8 +162,7 @@ async function openImage(file){
  catch(error){record.loading=false;notify(error.message);}
 }
 function pickImage(){closeMenus();$('image-file').value='';$('image-file').click();}
-let batchUI,batchOpening;
-if($('batch-open'))$('batch-open').onclick=async()=>{closeMenus();if(!batchUI){batchOpening??=import('./batch-ui.js').then(({mountBatchUI})=>mountBatchUI({document,language:()=>state.language,computeProfile:()=>computeProfile,onInspect:openImage})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);try{await batchOpening;}catch(error){notify(error.message);return;}}batchUI.open();};
+if($('batch-open'))$('batch-open').onclick=async()=>{closeMenus();if(!batchUI){batchOpening??=Promise.resolve().then(()=>batchFactory({document,language:()=>state.language,computeProfile:()=>computeProfile,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);try{await batchOpening;}catch(error){notify(error.message);return;}}batchUI.open();};
 
 for(const id of ['open-image','open-file-menu','welcome-open'])$(id).onclick=pickImage;
 $('image-file').onchange=e=>void openImage(e.target.files[0]);
@@ -171,7 +175,7 @@ $('close-all').onclick=()=>{if(!state.documents.size)return;$('close-dialog').sh
 const active=()=>state.documents.get(state.active)?.controller;
 $('fit').onclick=()=>{active()?.fit();scheduleRender();};$('zoom-in').onclick=()=>{active()?.zoomBy(1.25);scheduleRender();};$('zoom-out').onclick=()=>{active()?.zoomBy(.8);scheduleRender();};
 $('quick-export-image').onclick=()=>{closeMenus();void active()?.exportImage({...media.quickExport});};
-$('export-image').onclick=()=>{closeMenus();void active()?.exportImage();};$('export-report').onclick=()=>{closeMenus();active()?.exportReport();};$('save-session').onclick=()=>{closeMenus();active()?.saveSession();};
+$('export-image').onclick=()=>{closeMenus();void active()?.exportImage();};$('export-report').onclick=()=>{closeMenus();return reportTarget()?.exportReport();};$('save-session').onclick=()=>{closeMenus();active()?.saveSession();};
 $('background-status').onclick=()=>{const next=[...state.documents.values()].find(e=>e.id!==state.active&&e.controller?.busy);if(next)selectDocument(next.id);};
 $('compute-profile').onchange=()=>{computeProfile=$('compute-profile').value;for(const record of entries())record.controller?.setComputeProfile(computeProfile);savePreferences();};
 $('navigation-mode').onchange=()=>{navigationMode=$('navigation-mode').value;for(const record of entries())record.controller?.setNavigation(navigationMode);savePreferences();};

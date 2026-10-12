@@ -1,0 +1,127 @@
+{
+  "schema": "sherloq.ssg-browser-local/1",
+  "date": "2026-10-12",
+  "localOnly": true,
+  "publicationApproved": false,
+  "full86ScientificValidation": false,
+  "ssgAlgorithmRewritten": false,
+  "transportCorrectionCommit": "eb0cc75",
+  "transport": "Pinned logical resource URLs exposed from existing chunk files using bounded reads; no model/site copy.",
+  "initialFailure": "HTTP 404 for VLFeat module before inference",
+  "oldRealmFailurePersistenceCause": "Not yet established; no rejected application promise found.",
+  "batch": {
+    "images": 4,
+    "requestedMethods": [
+      "SSG"
+    ],
+    "completed": 4,
+    "failed": 0,
+    "normalizationLongEdge": 3000,
+    "nativeDurationsMs": [
+      8476,
+      16902,
+      9404.5150000453,
+      4100.65499997139
+    ],
+    "nativeResultReuse": false,
+    "nativeCheckpointReuse": false,
+    "sameSourceAndScope": true,
+    "sameNativeRecipeParameters": true,
+    "originalDimensions": [
+      [
+        799,
+        1050
+      ],
+      [
+        576,
+        605
+      ],
+      [
+        263,
+        299
+      ],
+      [
+        135,
+        636
+      ]
+    ],
+    "localizedMaskPositivePixels": [
+      0,
+      45971,
+      0,
+      0
+    ],
+    "scores": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "selectionNote": "C1 case retained by inherited explicit human preselection; threshold is 3.",
+    "zipEntries": 52,
+    "zipBytes": 21654870,
+    "zipCrcError": null,
+    "npzCrcErrors": 0,
+    "arraysFinite": true,
+    "pdfPages": 2,
+    "pdfRenderedAndVisuallyInspected": true,
+    "flatArchiveLayout": true
+  },
+  "individualTool": {
+    "qualified": true,
+    "operation": "tampering.copyMove.sparse",
+    "status": "ok",
+    "engine": "0.37.0-methods.1",
+    "nativeSourceCommit": "66bb26eca0c7e95c76042d5bcca58f744d70a27d",
+    "durationMs": 18864.735000014305,
+    "originalDimensions": [
+      576,
+      605
+    ],
+    "pairs": 20,
+    "maskPositivePixels": 42836,
+    "arraysFinite": true,
+    "crcError": null,
+    "edge": {
+      "modelSha256": "b428fe9626dfd59ea3161e2b79786b2a4713e13770e8d75c80477b5805f57157",
+      "modelBytes": 218140772,
+      "sharpen": 2,
+      "nTreesEval": 4,
+      "sharedImmutableModel": true,
+      "cpuTeamAdmitted": 10,
+      "physicalCpuMeasured": false,
+      "runtimeReused": false,
+      "wallMs": 1373.3449999690056,
+      "heapBytes": 915734528
+    },
+    "stageCache": {
+      "nativeCheckpoint": false,
+      "newVlfeat": 1,
+      "newForest": 1,
+      "newMatching": 1
+    },
+    "nativeParametersEqualOriginalRecipe": true,
+    "scopeDifference": "Individual tool runs whole source without the batch scientific preparation; its counts need not match the filtered batch."
+  },
+  "journal": {
+    "eventCount": 1047,
+    "indicesContinuous": true,
+    "storageError": null,
+    "workerErrors": 0,
+    "warnings": "ResizeObserver notification warnings, kept in the full journal.",
+    "warningsCount": 5,
+    "containsBatchAndIndividualQualification": true
+  },
+  "versions": {
+    "native": "0.37.0-methods.1",
+    "legacyBatchJournalHeader": "0.35.0-export.3",
+    "note": "Batch and journal header retain 0.35.0-export.3; actual native tool provenance reports 0.37.0-methods.1."
+  },
+  "limits": [
+    "Functional native execution and export integrity verified on four acquisitions; no claim of scientific accuracy on the full 86-image corpus.",
+    "Full MATLAB script parity is not established by these checks.",
+    "Ten CPU threads admitted is not a measurement of physical core utilization.",
+    "Local preview resource routing fix does not establish an identical failure in production WordPress.",
+    "Original four-method lot deliberately aborted; only SSG was subsequently qualified."
+  ]
+}

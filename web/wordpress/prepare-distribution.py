@@ -239,12 +239,12 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
         app.write_text(app.read_text().replace('</body>', '<script type="module" src="private-report.js?v=' + version + '"></script></body>'))
     names = sorted(p for p in plugin.rglob('*') if p.is_file())
     size = sum(p.stat().st_size for p in names)
-    if size > 25_000_000:
-        raise ValueError('Private bootstrap package exceeds 25 MB')
     archive = output / 'private' / ('sherloq-browser-' + version + ('-offline' if offline else '-github') + '.zip')
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
         for p in names:
             z.write(p, 'sherloq-browser/' + p.relative_to(plugin).as_posix())
+    if archive.stat().st_size > 20_000_000:
+        raise ValueError('Compressed bootstrap ZIP exceeds 20 MB')
     result = {'installer': archive.name, 'bytes': archive.stat().st_size, 'uncompressedBytes': size, 'sha256': digest(archive.read_bytes()), 'origin': manifest['remoteBase'], 'manifest': identity, 'private': True, 'originConfigured': bool(origin and not local_test), 'publishedOriginVerified': False}
     # This directory is generated packaging output. Start from the reviewed
     # public inputs on each finalization; retain deployed manifests only through

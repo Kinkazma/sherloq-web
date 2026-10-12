@@ -1,5 +1,5 @@
 import {diagnostic} from './runtime-context.js';
-import {sessionLog,reportWithSession} from './session-log.js';
+import {downloadSession} from './session-ui.js';
 // Keep a small text-only diagnostic history, never scientific buffers or images.
 export function errorEvidence(error,depth=0){return {name:error?.name,code:error?.code,message:error?.message,stack:error?.stack,details:error?.details,...(error?.cleanupError&&depth<8?{cleanupError:errorEvidence(error.cleanupError,depth+1)}:{}),...(error?.cause&&depth<8?{cause:errorEvidence(error.cause,depth+1)}:{})};}
 export function createErrorJournal({limit=8,maxBytes=32768}={}){
@@ -15,7 +15,7 @@ export function createErrorJournal({limit=8,maxBytes=32768}={}){
  return {record,get length(){return entries.length;},snapshot:()=>entries.map(text=>JSON.parse(text))};
 }
 export function showErrorJournal(document,journal,{language='fr',download}={}){
- const fr=language==='fr',dialog=document.createElement('dialog'),title=document.createElement('h2'),text=document.createElement('p'),pre=document.createElement('pre'),save=document.createElement('button'),close=document.createElement('button');
+ const fr=language==='fr',dialog=document.createElement('dialog'),title=document.createElement('h2'),text=document.createElement('p'),pre=document.createElement('pre'),save=document.createElement('button'),close=document.createElement('button'),feedback=document.createElement('p');feedback.setAttribute('role','alert');feedback.hidden=true;
  dialog.className='error-diagnostic';title.textContent=fr?'Dernières erreurs de cet outil':'Recent errors in this tool';text.textContent=fr?'Le dernier échec figure en bas. Ces diagnostics restent disponibles après les calculs suivants.':'The latest failure is at the bottom. Diagnostics remain available after subsequent calculations.';
- const report={schema:'sherloq.errors/1',errors:journal.snapshot()},json=JSON.stringify(report,null,2);pre.textContent=json;save.textContent=fr?'Exporter le journal complet':'Export complete session log';save.onclick=async()=>download(new Blob([JSON.stringify(await reportWithSession(report),null,2)],{type:'application/json'}),'SHERLOQ-diagnostics.json');close.textContent=fr?'Fermer':'Close';close.onclick=()=>dialog.close();dialog.addEventListener('close',()=>dialog.remove(),{once:true});dialog.append(title,text,pre,save,close);document.getElementById('app').append(dialog);dialog.showModal();return dialog;
+ const report={schema:'sherloq.errors/1',errors:journal.snapshot()},json=JSON.stringify(report,null,2);pre.textContent=json;save.textContent=fr?'Exporter le journal complet':'Export complete session log';save.onclick=()=>void downloadSession({document,button:save,feedback,report,download,name:'SHERLOQ-diagnostics.json',operation:'tool-diagnostics'});close.textContent=fr?'Fermer':'Close';close.onclick=()=>dialog.close();dialog.addEventListener('close',()=>dialog.remove(),{once:true});dialog.append(title,text,pre,feedback,save,close);document.getElementById('app').append(dialog);dialog.showModal();return dialog;
 }

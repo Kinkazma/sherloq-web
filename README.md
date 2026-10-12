@@ -87,6 +87,7 @@ I brought the following method families into the web workflows, alongside the in
 - **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG.
 - **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM.
 - **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression.
+- **Text detection:** PP-OCRv6.
 - **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL and AdaIFL.
 - **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, and ELA energy/territory views.
 
@@ -94,7 +95,7 @@ These are integrations of existing research methods, whose authors retain credit
 
 ### Batch processing
 
-Import documents or images, choose the material to analyze and run the selected methods as a batch. Results can be reviewed together, compared between studies, and exported as a PDF report or a ZIP containing the images and scientific data. [Batch workflow](docs/TRAITEMENT-PAR-LOT.md).
+Import documents or images, review the automatically proposed acquisitions and text/graph exclusions, and run the selected methods as a batch. Results can be reviewed together and compared between studies. PDF reports, source-linked ZIP archives and complete journals can also preserve a partial run; saved archives can be resumed. [Batch workflow](docs/TRAITEMENT-PAR-LOT.md).
 
 ### Entirely local web app
 
