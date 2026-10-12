@@ -100,6 +100,10 @@ Replacing the plugin directory could remove the immutable manifest still request
 
 A persistent Chrome profile reproduced the original navigation failure, migrated to 0.15.2, and reopened successfully after every server manifest was forced to return 404. Shared-memory isolation remained active. [Migration checks and source identity](docs/evidence/startup-migration-0.15.2.json).
 
+### Offline setup presentation
+
+The blue **Take offline / Emporter hors ligne** button sits immediately before Settings. The preparation page shares SHERLOQ’s typography and themes, supports French and English, and presents its three steps once in the main content. The Home Screen landing resolves all shared styles and font modules correctly. [Presentation and path checks](docs/evidence/offline-layout-0.15.2.json).
+
 ## Execution, recovery and export corrections
 
 I integrated corrections to shared ONNX Runtime residency and memory admission, worker startup and error reporting, and reusable transform workers. Local strip recovery retains completed work. The interface uses the views actually published by M2, preserves useful magnifier previews after a failure, accepts valid decimal gamma settings, and keeps calculation progress tied to the active calculation.

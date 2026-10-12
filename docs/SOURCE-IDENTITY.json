@@ -1,5 +1,5 @@
 {
-  "ui_commit": "1ad1c624c909261e1b69e194ad7ed4f9c262fb27",
+  "ui_commit": "979e264d542519054ebeb24cbc36b712fc12fea6",
   "engine_commit": "a1f85661db24610ac3c7bf894214afc85a72d024",
   "manifest_sha256": "7085000f8095c7242b6dbc7f286ac12914dcd93fdcea0b182533da2b6adeab2d",
   "documentation_adaptations": [
@@ -22,7 +22,15 @@
       "sherloq-browser/assets/tool-client.js"
     ],
     "batch_dependencies": "Eight byte-identical vendor files added to the immutable dependency manifest for on-demand loading",
-    "packaging": "Bootstrap cap raised to 25,000,000 bytes at the owner\u2019s request."
+    "packaging": "Bootstrap cap raised to 25,000,000 bytes at the owner\u2019s request.",
+    "offline_layout": {
+      "patchSha256": "e67b77072462060ca3cbf305af2f088c18eac6dfbae57970213bc14590a67b73",
+      "sourceCommits": [
+        "d76fb1f7cdf253af039013db5dac99359e33deca",
+        "a82da5ec6dc7951b4746916e7304be6988c23fa9"
+      ],
+      "scope": "Six public layout, typography and Home Screen asset path files; preview helper excluded."
+    }
   },
   "bootstrap_limit_bytes": 25000000,
   "ui_base_commit": "f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404",

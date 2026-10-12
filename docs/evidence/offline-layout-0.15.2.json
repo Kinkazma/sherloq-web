@@ -1,0 +1,105 @@
+{
+  "schema": "sherloq.offline-layout-publication/1",
+  "date": "2026-10-12",
+  "uiVersion": "0.15.2",
+  "qualifiedCodeCommit": "979e264d542519054ebeb24cbc36b712fc12fea6",
+  "publicPatchSha256": "e67b77072462060ca3cbf305af2f088c18eac6dfbae57970213bc14590a67b73",
+  "modifiedPublicPaths": [
+    "web/wordpress/offline-shell.py",
+    "web/wordpress/sherloq-browser/assets/offline-kit-ui.js",
+    "web/wordpress/sherloq-browser/assets/offline-setup.html",
+    "web/wordpress/sherloq-browser/assets/offline-setup.css",
+    "web/wordpress/sherloq-browser/assets/offline-setup.js",
+    "web/wordpress/tests/offline-shell-test.py"
+  ],
+  "tests": {
+    "uiPassed": 261,
+    "uiFailed": 0,
+    "offlineShellPythonPassed": 1,
+    "javascriptSyntaxValid": true
+  },
+  "browser": {
+    "date": "2026-10-12",
+    "browser": "154.0.8037.98",
+    "variants": [
+      {
+        "lang": "fr",
+        "theme": "dark",
+        "font": "iowan",
+        "sections": 3,
+        "sidebar": 0
+      },
+      {
+        "lang": "fr",
+        "theme": "dark",
+        "font": "montserrat",
+        "sections": 3,
+        "sidebar": 0
+      },
+      {
+        "lang": "fr",
+        "theme": "light",
+        "font": "iowan",
+        "sections": 3,
+        "sidebar": 0
+      },
+      {
+        "lang": "fr",
+        "theme": "light",
+        "font": "montserrat",
+        "sections": 3,
+        "sidebar": 0
+      },
+      {
+        "lang": "en",
+        "theme": "dark",
+        "font": "iowan",
+        "sections": 3,
+        "sidebar": 0
+      },
+      {
+        "lang": "en",
+        "theme": "dark",
+        "font": "montserrat",
+        "sections": 3,
+        "sidebar": 0
+      },
+      {
+        "lang": "en",
+        "theme": "light",
+        "font": "iowan",
+        "sections": 3,
+        "sidebar": 0
+      },
+      {
+        "lang": "en",
+        "theme": "light",
+        "font": "montserrat",
+        "sections": 3,
+        "sidebar": 0
+      }
+    ],
+    "mobile390NoOverflow": true,
+    "homeScreenSharedAssetPaths": 6,
+    "homeScreenAssetsHttp200": true,
+    "toolbar": {
+      "text": "Emporter hors ligne",
+      "afterSpacer": true,
+      "nextId": "settings-menu",
+      "background": "rgb(36, 67, 103)",
+      "margin": "0px"
+    },
+    "popupOpened": true,
+    "pageErrors": [],
+    "scope": "Real isolated browser, presentation/paths/controls only; no model download or scientific inference."
+  },
+  "bootstrap": {
+    "uncompressedBytesWithoutPrivateOverlay": 19613963,
+    "limitBytes": 25000000,
+    "zipCrcValid": true
+  },
+  "resourceCommit": "34d648a10c5e516107a9d0a7f1cf4b2f51870e81",
+  "deploymentManifestSha256": "ae8d78bba013c5a6a192f1333c2c6dc2989aed727b26b58b1036f0c4dc650cfb",
+  "scientificRuntimeChanged": false,
+  "scope": "Approved presentation, typography, toolbar position and Home Screen asset paths. Scientific qualification and startup migration are separate."
+}

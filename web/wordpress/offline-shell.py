@@ -2,6 +2,7 @@
 import hashlib
 import json
 from pathlib import Path
+import re
 
 
 def write_shell(plugin, manifest, identity, version):
@@ -35,7 +36,12 @@ def write_shell(plugin, manifest, identity, version):
     (assets / 'offline-shell.json').write_text(json.dumps(result, sort_keys=True, separators=(',', ':'))+'\n')
     # A newly installed Home Screen app may have separate storage from Safari.
     # Its real start URL must open setup online even before its SW is installed.
-    landing = (assets / 'offline-setup.html').read_text().replace('href="offline-setup.css', 'href="../offline-setup.css').replace('src="offline-setup.js', 'src="../offline-setup.js')
+    landing = (assets / 'offline-setup.html').read_text()
+    # The online Home Screen landing shares all workspace styles and fonts.
+    # Its assets live one level above it; cached offline pages use their own
+    # unmodified relative URLs after installation.
+    landing = re.sub(r'((?:href|src)=")([^"/]+\.(?:css|js)(?:\?[^"\n]*)?)(")',
+                     lambda match: match[1] + '../' + match[2] + match[3], landing)
     landing = landing.replace('</head>', '<link rel="manifest" href="app.webmanifest"><link rel="apple-touch-icon" href="offline-icon-192.png"></head>')
     (assets / 'offline').mkdir(exist_ok=True)
     for name in ['app.html', 'offline-setup.html']:
