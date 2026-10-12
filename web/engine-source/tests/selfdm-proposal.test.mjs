@@ -24,7 +24,8 @@ function fixture({fail,hold,boxCount=2}={}){
    let result;
    if(name==='selfdm')result={probability:{data:new Float32Array(plane).fill(.8),dims:[1,1,512,512]}};
    if(name==='deepmask'){const [,,h,w]=inputs.normalizedRgb.dims,rows=Math.ceil(h/16)-9,cols=Math.ceil(w/16)-9;result={mask:{data:new Float32Array(rows*cols*112**2),dims:[1,rows*cols,112,112]},score:{data:new Float32Array(rows*cols).fill(.5),dims:[1,1,rows,cols]}};}
-   if(name==='superpoint')result={keypoints:{data:Float32Array.from([2,3,4,5,6,7,8,9]),dims:[1,4,2]},scores:{data:new Float32Array(4).fill(.8),dims:[1,4]},descriptors:{data:new Float32Array(256*4),dims:[1,256,4]}};
+   if(name==='superpoint'){const [,,h,w]=inputs.image.dims,rows=Math.floor(h/8),cols=Math.floor(w/8);result={dense_scores:{data:new Float32Array(rows*8*cols*8).fill(.5),dims:[1,1,rows*8,cols*8]},dense_descriptors:{data:new Float32Array(256*rows*cols),dims:[1,256,rows,cols]}};}
+   if(name==='superpoint-post')result={keypoints:{data:Float32Array.from([2,3,4,5,6,7,8,9]),dims:[1,4,2]},scores:{data:new Float32Array(4).fill(.8),dims:[1,4]},descriptors:{data:new Float32Array(256*4),dims:[1,256,4]}};
    if(name==='superglue')result={matches0:{data:BigInt64Array.from([0n,1n,2n,3n]),dims:[1,4]},matches1:{data:BigInt64Array.from([0n,1n,2n,3n]),dims:[1,4]},matching_scores0:{data:new Float32Array(4).fill(.7),dims:[1,4]},matching_scores1:{data:new Float32Array(4).fill(.7),dims:[1,4]}};
    if(name==='crf'){const [,,h,w]=inputs.unary.dims;result={probability:{data:new Float32Array(h*w).fill(.7),dims:[1,h,w]}};}
    const reservation=budget.reserve(Object.values(result).reduce((sum,item)=>sum+item.data.byteLength,0)),backing=registerArrayViews(budget,Object.fromEntries(Object.entries(result).map(([name,item])=>[name,item.data])));outputs++;let closed=false;
@@ -50,7 +51,7 @@ test('Proposal rejects dimensions with empty native scales before workers, cache
 });
 
 test('Pinned graph and CV identities cannot be silently exchanged',()=>{
- assert.deepEqual(Object.keys(verifySelfDMProposalModels(models)),['selfdm','deepmask','superpoint','superglue','crf']);
+ assert.deepEqual(Object.keys(verifySelfDMProposalModels(models)),['selfdm','deepmask','superpoint','superpoint-post','superglue','crf']);
  assert.throws(()=>verifySelfDMProposalModels({...models,superglue:{...models.superglue,sha256:'f'.repeat(64)}}),{code:'INVALID_INPUT'});
 });
 
@@ -79,7 +80,7 @@ test('A late download failure preserves every completed sibling/checkpoint, retr
   await assert.rejects(f.owner.analyze({}, {models}),error=>error.code==='NETWORK_TRANSIENT'&&error.details.status===503&&error.cause.message==='network unavailable');
   assert.equal(f.peak,7);assert.equal(f.calls.filter(name=>name==='deepmask').length,15);assert.ok(f.budget.cacheBytes>0);assert.equal(f.outputs,0);
   const previous=f.calls.length,result=await f.owner.analyze({}, {models});
-  assert.deepEqual(f.calls.slice(previous),['crf']);assert.equal(result.metrics.inferenceExecutions,1);assert.equal(result.metrics.cacheHits,13);assert.equal(result.metadata.matchedPoints,8);assert.equal(result.metadata.fellBackToInitial,false);
+  assert.deepEqual(f.calls.slice(previous),['crf']);assert.equal(result.metrics.inferenceExecutions,1);assert.equal(result.metrics.cacheHits,15);assert.equal(result.metadata.matchedPoints,8);assert.equal(result.metadata.fellBackToInitial,false);
   assert.deepEqual(f.image.data,pixels);await f.owner.dispose();assert.equal(f.budget.total(),plane*4);assert.equal(f.outputs,0);assert.equal(result.raw[0],Math.fround(.7));result.release();result.release();assert.equal(f.outputs,0);assert.equal(f.budget.total(),0);
  }finally{await f.owner.dispose();}
 });
@@ -160,4 +161,11 @@ test('Cropped pyramid source windows retain the whole-pyramid global interpolati
   }
  }
  assert.ok(module.HEAPU8.byteLength<=cap);
+});
+
+test('Malformed source rows retain INVALID_INPUT when row release also fails, without leaking the source-window reservation',async()=>{
+ const budget=new Budget(128*MiB),width=16,height=16,image={format:'rgb8',width,height,async readRows(){return {pixels:{format:'rgb8',width:17,height:1,data:new Uint8Array(17*3)},release(){throw Error('row cleanup failed');}};}},owner=new SelfDMProposalEngine(image,budget,{maxWorkers:2},{poolFactory:()=>({slots:[],dispose(){},snapshot(){}}),stripPoolFactory:()=>({clear(){},metrics(){},async run({prepare}){await prepare(0);}})});
+ const key=Object.values(models).map(value=>value.sha256).join('/'),data=new Float32Array(width*height).fill(.8);owner.identity=key;owner.pool=owner.poolFactory();budget.put(owner.prefix+key+'/initial',{value:{data},byteLength:data.byteLength});
+ await assert.rejects(owner.analyze({}, {models}),error=>error.code==='INVALID_INPUT'&&error.details.cleanupErrors[0].stage==='proposal-source-row'&&error.details.cleanupErrors[0].error.message==='row cleanup failed');
+ assert.equal(owner.running,false);await owner.dispose();assert.equal(budget.total(),0);
 });

@@ -1,4 +1,4 @@
-import {EngineError,requireValue,checkAbort} from './errors.js';
+import {EngineError,requireValue,checkAbort,serializeEngineError} from './errors.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';
 import {WaveletStripPool} from './wavelet-strip-pool.js';
 import {createSelfDMPrepare} from './selfdm-prepare.js';
@@ -8,6 +8,7 @@ import {sparseStageCache} from './sparse-stage-cache.js';
 import {SELFDM_PROPOSAL_REFERENCE,SELFDM_PROPOSAL_CV,verifySelfDMProposalModels,selfDMProposalRuntimes} from './selfdm-proposal-assets.js';
 import {selectProposalBoxes,proposalResize,createFirstMatchPaint,paintMatchedPoints,sourceMatchedPoint,fuseProposalScores} from './selfdm-proposal-process.js';
 import {proposalDeepMaskWindows,proposalSourcePatch,proposalCRFWindows,proposalSeedsBytes} from './selfdm-proposal-pyramid.js';
+import {runProposalPointWindows} from './selfdm-proposal-point-window.js';
 
 const MiB=1024**2,SIDE=512,MASK=112**2;
 let nextId=0;
@@ -64,7 +65,7 @@ export class SelfDMProposalEngine{
    // while removing the ORT unassigned-provider failure. All learned/CRF
    // graphs share the requested backend; OpenCV stages remain native CPU.
    const backend=hooks.backend??'auto';
-   const value=await this.pool.run(name,inputs,{signal,backend,workspaceBytes,outputBytes,gpuWasmWorkspaceBytes:models[name].gpuWasmWorkspaceBytes,resourceOperation:operation,onProgress:event=>hooks.onProgress?.({...event,stage:name})});
+   const value=await this.pool.run(name,inputs,{signal,backend,workspaceBytes,outputBytes,gpuWasmWorkspaceBytes:details.gpuWasmWorkspaceBytes??models[name].gpuWasmWorkspaceBytes,resourceOperation:operation,onProgress:event=>hooks.onProgress?.({...event,stage:name})});
    records.push({stage:name,...details,...value.metrics,timings:value.timings,heapBytes:value.heapBytes,inferenceExecutions:1,cacheHit:false,...(value.qualificationGpu?{qualificationGpu:value.qualificationGpu}:{})});return value;
   };
   const memo=async(name,compute)=>{
@@ -77,7 +78,12 @@ export class SelfDMProposalEngine{
   const sourceRect=async(x,y,w,h)=>{
    const owned=allocateOwnedTypedArray(Uint8Array,w*h*3,{budget:this.budget,owner:'selfdm-proposal',label:'proposal-source-window'});
    try{if(this.image.data){requireValue(this.image.data.length===PLANE*3,'Source RGB geometry');for(let row=0;row<h;row++)owned.data.set(this.image.data.subarray(((y+row)*width+x)*3,((y+row)*width+x+w)*3),row*w*3);}
-    else for(let row=0;row<h;row++){const window=await this.image.readRows(y+row,1,{signal});try{const data=validateRgbRows(window,width,1);owned.data.set(data.subarray(x*3,(x+w)*3),row*w*3);}finally{window.release?.();}}
+    else for(let row=0;row<h;row++){
+     const window=await this.image.readRows(y+row,1,{signal});let primary;
+     try{const data=validateRgbRows(window,width,1);owned.data.set(data.subarray(x*3,(x+w)*3),row*w*3);}
+     catch(error){primary=error;throw error;}
+     finally{try{window?.release?.();}catch(cleanup){if(primary){if(typeof primary==='object')primary.details={...primary.details,cleanupErrors:[...(primary.details?.cleanupErrors??[]),{stage:'proposal-source-row',row:y+row,error:serializeEngineError(cleanup)}]};}else throw cleanup;}}
+    }
     return owned;
    }catch(error){owned.release();throw error;}
   };
@@ -144,18 +150,21 @@ export class SelfDMProposalEngine{
    });report('selfdm-proposal-boxes',.55,{proposals:selected.boxes.length});
    const [rw,rh]=selected.resize,proposals=[];
    const pointJobs=await Promise.allSettled(Array.from({length:selected.boxes.length>=2?selected.boxes.length:0},async(_,index)=>{
-    proposals[index]=await memo('point'+index,async()=>{
+    const roi=await memo('roi'+index,async()=>{
      const box=selected.boxes[index][0],patch={x:box[0],y:box[1],width:box[2]-box[0],height:box[3]-box[1]},sourceBytes=patch.width*patch.height*3,heap=proposalSeedsBytes(rw,rh,sourceBytes);
      let roi,sourceLease;const kernel=this.kernel('roi/'+index,operation,{heap,io:sourceBytes+rw*rh*8});
      try{await kernel.run({count:1,pixels:1,key:'selfdm-proposal-roi',signal,prepare:async()=>{sourceLease?.release();sourceLease=await sourceRect(patch.x,patch.y,patch.width,patch.height);return {command:'roi',source:sourceLease.data,width,height,box,patch,resize:selected.resize,heapBytes:heap,cvURL};},consume:value=>{const gray=own(Float32Array,value.gray.length,'proposal-gray'),labels=own(Int32Array,value.labels.length,'proposal-labels');gray.set(value.gray);labels.set(value.labels);roi={gray,labels,labelCount:value.labelCount};},local:()=>{throw new EngineError('MEMORY_LIMIT','Shared memory cannot admit the useful Proposal region worker.');}});}finally{sourceLease?.release();}
-     let result;try{result=await graph('superpoint',{image:{data:roi.gray,dims:[1,1,rh,rw]}},192*MiB,(2048*(2+1+256))*4);
+     return adopt(roi);
+    });
+    const point=await memo('point'+index,async()=>{
+     let result;try{result=await runProposalPointWindows({gray:roi.gray,width:rw,height:rh,budget:this.budget,cacheKey:this.prefix+key+'/point-dense'+index,runGraph:(...args)=>graph(...args),maxWorkers:this.profile.maxWorkers,signal,onProgress:event=>hooks.onProgress?.({...event,proposal:index}),publishCheckpoint:()=>!this.disposed});
       const {keypoints,scores,descriptors}=result.result,count=scores?.data?.length;
       requireValue(Number.isInteger(count)&&count<=2048&&keypoints.data instanceof Float32Array&&scores.data instanceof Float32Array&&descriptors.data instanceof Float32Array&&keypoints.data.length===count*2&&descriptors.data.length===count*256&&JSON.stringify(keypoints.dims)===JSON.stringify([1,count,2])&&JSON.stringify(scores.dims)===JSON.stringify([1,count])&&JSON.stringify(descriptors.dims)===JSON.stringify([1,256,count]),'SuperPoint output geometry');
       requireValue(keypoints.data.every(Number.isFinite)&&scores.data.every(Number.isFinite)&&descriptors.data.every(Number.isFinite),'SuperPoint finite output');
       for(let i=0;i<count;i++)requireValue(keypoints.data[i*2]>=0&&keypoints.data[i*2]<rw&&keypoints.data[i*2+1]>=0&&keypoints.data[i*2+1]<rh,'SuperPoint coordinates outside proposal');
-      scratch.push(result.release);result=null;return adopt({...roi,keypoints:keypoints.data,scores:scores.data,descriptors:descriptors.data,count});
+      scratch.push(result.release);result=null;return adopt({keypoints:keypoints.data,scores:scores.data,descriptors:descriptors.data,count});
      }finally{result?.release();}
-    });
+    });proposals[index]={...roi,...point};
    }));const pointFailure=pointJobs.find(value=>value.status==='rejected');if(pointFailure)throw pointFailure.reason;
    const fused=await memo('fused',async()=>{
     if(selected.boxes.length<2){const data=own(Float32Array,PLANE,'proposal-initial-fallback');data.set(initial.data);return adopt({data,matchedPoints:0,fellBackToInitial:true});}

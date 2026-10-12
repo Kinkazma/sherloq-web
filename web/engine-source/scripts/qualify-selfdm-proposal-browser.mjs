@@ -10,6 +10,7 @@ const resources=resolve(process.argv[2]),engine=resolve(fileURLToPath(new URL('.
 if(!Number.isSafeInteger(threads)||threads<1||threads>32)throw Error('Explicit useful CPU team required');
 const {chromium}=await import(process.env.SHERLOQ_PLAYWRIGHT_MODULE??'playwright');
 const geometry=process.argv[4]??'416x320',backend=process.argv[5]??'cpu';
+const bundleDirectory=process.argv[6]??'integration-bundle-sp-window';
 const [width,height]=geometry.split('x').map(Number);
 const referenceDirectory=geometry==='512x512'?'positive-reference':'general-reference-'+geometry;
 const native=await readFile(resolve(resources,referenceDirectory+'/full-pipeline-probability.npy'));
@@ -20,10 +21,10 @@ const server=createServer(async(req,res)=>{try{
  res.setHeader('Cache-Control','no-store');
  const url=new URL(req.url,'http://localhost'),name=url.pathname;
  if(name==='/'){res.setHeader('Content-Type','text/html');res.end('<!doctype html><title>SelfDM full chain source-pixel qualification</title>');return;}
- if(req.method==='POST'&&/^\/save-\d+x\d+-(cpu|auto|webgpu)-(raw|fused)\.bin$/.test(name)){const chunks=[];for await(const part of req)chunks.push(part);await writeFile(resolve(resources,name.slice(1)),Buffer.concat(chunks));res.statusCode=204;res.end();return;}
+ if(req.method==='POST'&&/^\/save-windowed-\d+x\d+-(cpu|auto|webgpu)-(raw|fused)\.bin$/.test(name)){const chunks=[];for await(const part of req)chunks.push(part);await writeFile(resolve(resources,name.slice(1)),Buffer.concat(chunks));res.statusCode=204;res.end();return;}
  if(name==='/favicon.ico'){res.statusCode=204;res.end();return;}
  if(name==='/fail-next-crf'){failNextCrf=true;res.statusCode=204;res.end();return;}
- if(failNextCrf&&name==='/resources/integration-bundle-general/convcrf-static-folded-if.onnx'){failNextCrf=false;res.statusCode=503;res.end('Intentional qualification-only component outage');return;}
+ if(failNextCrf&&name==='/resources/'+bundleDirectory+'/convcrf-static-folded-if.onnx'){failNextCrf=false;res.statusCode=503;res.end('Intentional qualification-only component outage');return;}
  if(name==='/native-probability.bin'){res.end(reference);return;}
  const base=name.startsWith('/resources/')?resources:engine;
  const relative=name.startsWith('/resources/')?name.slice('/resources/'.length):name.startsWith('/engine-source/')?name.slice('/engine-source/'.length):name.slice(1),file=resolve(base,relative);
@@ -39,15 +40,15 @@ try{
  page.on('requestfailed',request=>failedRequests.push({url:request.url(),error:request.failure()?.errorText}));
  await page.goto('http://127.0.0.1:'+server.address().port);
  const diagnostic=setInterval(()=>{page.evaluate(()=>globalThis.proposalDiagnostic?.()).then(value=>{if(value)console.log('PROPOSAL_DIAGNOSTIC '+JSON.stringify(value));}).catch(()=>{});},15000);
- try{report=await page.evaluate(async ({threads,width,height,geometry,backend})=>{
+ try{report=await page.evaluate(async ({threads,width,height,geometry,backend,bundleDirectory})=>{
   const {NeuralGraphPool}=await import('/src/neural-graph-pool.js');
   const {SelfDMProposalEngine}=await import('/src/selfdm-proposal.js'),{loadSelfDMProposalBundle}=await import('/src/selfdm-proposal-assets.js'),{Budget}=await import('/src/cache.js'),{getExecutionScheduler}=await import('/src/execution-scheduler.js');
   const hash=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(value=>value.toString(16).padStart(2,'0')).join('');
-  const manifestBytes=new Uint8Array(await(await fetch('/resources/integration-bundle-general/selfdm-proposal-bundle.json')).arrayBuffer());
+  const bundlePath='/resources/'+bundleDirectory+'/selfdm-proposal-bundle.json',manifestBytes=new Uint8Array(await(await fetch(bundlePath)).arrayBuffer());
   const budget=new Budget(4*1024**3),scheduler=getExecutionScheduler(budget,{maxWorkers:threads});
   let notifications=0;const notify=budget.resourceChanged;
   budget.resourceChanged=function(){notifications++;if([64,256,1024,8192].includes(notifications))console.log('PROPOSAL_PROGRESS '+JSON.stringify({phase:'development-admission-trace',notifications,budget:budget.snapshot(),scheduler:scheduler.snapshot(),resources:budget.resourceSnapshot(),stack:new Error().stack}));return notify.call(this);};
-  const bundle=await loadSelfDMProposalBundle({id:'selfdm-proposal-bundle',url:new URL('/resources/integration-bundle-general/selfdm-proposal-bundle.json',location.href).href,bytes:manifestBytes.length,sha256:await hash(manifestBytes)},{budget});
+  const bundle=await loadSelfDMProposalBundle({id:'selfdm-proposal-bundle',url:new URL(bundlePath,location.href).href,bytes:manifestBytes.length,sha256:await hash(manifestBytes)},{budget});
   const bitmap=await createImageBitmap(await(await fetch('/resources/'+(geometry==='512x512'?'real-photo-copy512.png':'general-source-'+geometry+'.png'))).blob());
   const canvas=new OffscreenCanvas(bitmap.width,bitmap.height),context=canvas.getContext('2d');context.drawImage(bitmap,0,0);const rgba=context.getImageData(0,0,width,height).data,rgb=new Uint8Array(width*height*3);
   for(let i=0;i<width*height;i++){rgb[i*3]=rgba[i*4];rgb[i*3+1]=rgba[i*4+1];rgb[i*3+2]=rgba[i*4+2];}bitmap.close();
@@ -61,7 +62,7 @@ try{
     const at=performance.now();result=await owner.analyze({}, {...bundle,backend,onProgress:event=>{progress.push(event);if(!event.phase.startsWith('selfdm-proposal-cache'))console.log('PROPOSAL_PROGRESS '+JSON.stringify(event));}});
     let maxAbs=0,maskChanged=0,nonfinite=0,foreground=0;
     for(let i=0;i<expected.length;i++){maxAbs=Math.max(maxAbs,Math.abs(result.raw[i]-expected[i]));maskChanged+=Number((result.raw[i]>.5)!==(expected[i]>.5));foreground+=Number(result.raw[i]>.5);nonfinite+=Number(!Number.isFinite(result.raw[i]));}
-    if(run===0){await fetch('/save-'+geometry+'-'+backend+'-raw.bin',{method:'POST',body:new Uint8Array(result.raw.buffer,result.raw.byteOffset,result.raw.byteLength)});const cache=[...budget.cache].find(([name])=>name.endsWith('/fused'));if(cache)await fetch('/save-'+geometry+'-'+backend+'-fused.bin',{method:'POST',body:new Uint8Array(cache[1].value.data.buffer)});}
+    if(run===0){await fetch('/save-windowed-'+geometry+'-'+backend+'-raw.bin',{method:'POST',body:new Uint8Array(result.raw.buffer,result.raw.byteOffset,result.raw.byteLength)});const cache=[...budget.cache].find(([name])=>name.endsWith('/fused'));if(cache)await fetch('/save-windowed-'+geometry+'-'+backend+'-fused.bin',{method:'POST',body:new Uint8Array(cache[1].value.data.buffer)});}
     records.push({run,elapsedMs:performance.now()-at,maxAbs,maskChanged,nonfinite,foreground,sha256:await hash(result.raw),metadata:result.metadata,metrics:result.metrics,budget:budget.snapshot(),resources:budget.resourceSnapshot()});
     result.release();result=null;
    }
@@ -80,7 +81,7 @@ try{
   finally{result?.release();await owner.dispose();}
   const released=budget.total()===0&&scheduler.snapshot().active.cpu===0&&scheduler.snapshot().queued===0;
   return {status:records.every(record=>record.maskChanged===0&&record.nonfinite===0&&record.maxAbs<=.001)&&released?'common-pool-complete-chain-qualified-from-source-pixels':'failed-parity-or-ownership',threads,hardwareConcurrency:navigator.hardwareConcurrency,crossOriginIsolated,records,downloadRecovery,progress,elapsedMs:performance.now()-started,sourceSha256:await hash(rgb),released,budget:budget.snapshot(),resources:budget.resourceSnapshot(),scheduler:scheduler.snapshot()};
- },{threads,width,height,geometry,backend});}finally{clearInterval(diagnostic);}
+ },{threads,width,height,geometry,backend,bundleDirectory});}finally{clearInterval(diagnostic);}
  report.browser=browser.version();report.console=consoleEvents;report.pageErrors=errors;report.failedRequests=failedRequests;
  // Chromium can report ERR_ABORTED when an already-consumed worker response
  // is retired before its resource-finished notification. Keep those raw events,
@@ -91,9 +92,9 @@ try{
  report.providerPlacementWarnings=consoleEvents.filter(event=>/\[W:onnxruntime:/.test(event.text));
  report.unexpectedConsoleErrors=consoleEvents.filter(event=>event.type==='error'&&!/503|\[W:onnxruntime:/.test(event.text));
  if(errors.length||report.unexpectedRequestFailures.length||report.unexpectedConsoleErrors.length)report.status='failed-browser-events';
- report.sources={};for(const name of ['src/selfdm-proposal.js','src/selfdm-proposal-worker.js','src/selfdm-proposal-process.js','src/selfdm-proposal-pyramid.js','src/selfdm-proposal-assets.js','vendor/selfdm-proposal/seeds.wasm'])report.sources[name]=createHash('sha256').update(await readFile(resolve(engine,name))).digest('hex');
+ report.sources={};for(const name of ['src/selfdm-proposal.js','src/selfdm-proposal-worker.js','src/selfdm-proposal-process.js','src/selfdm-proposal-pyramid.js','src/selfdm-proposal-point-window.js','src/selfdm-proposal-assets.js','vendor/selfdm-proposal/seeds.wasm'])report.sources[name]=createHash('sha256').update(await readFile(resolve(engine,name))).digest('hex');
  report.scriptSha256=createHash('sha256').update(await readFile(fileURLToPath(import.meta.url))).digest('hex');
- await writeFile(resolve(resources,'general-proposal-'+geometry+'-'+backend+'-'+threads+'.json'),JSON.stringify(report,null,2)+'\n');
+ await writeFile(resolve(resources,'windowed-proposal-'+geometry+'-'+backend+'-'+threads+'.json'),JSON.stringify(report,null,2)+'\n');
  console.log(JSON.stringify({status:report.status,error:report.error,elapsedMs:report.elapsedMs,released:report.released,records:report.records?.map(record=>({run:record.run,elapsedMs:record.elapsedMs,maxAbs:record.maxAbs,maskChanged:record.maskChanged,foreground:record.foreground,inferenceExecutions:record.metrics.inferenceExecutions,cacheHits:record.metrics.cacheHits,heapBytes:record.metrics.heapBytes,memoryMaximumBytes:record.metrics.memoryMaximumBytes,pool:record.metrics.pool,stages:record.metrics.stages.map(stage=>({stage:stage.stage,threads:stage.threads,cacheHit:stage.cacheHit}))})),console:consoleEvents,pageErrors:errors,failedRequests}));
  if(report.status!=='common-pool-complete-chain-qualified-from-source-pixels')process.exitCode=1;
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}

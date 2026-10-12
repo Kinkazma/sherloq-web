@@ -6,7 +6,8 @@ import {fetchVerifiedAsset} from './fetch-verified-asset.js';
 export const SELFDM_PROPOSAL_MODELS = Object.freeze({
  selfdm: {file:'selfdm-map-512.onnx',bytes:62971505,sha256:'933ce196b044f0df1d3e0aa2dabe79907b6406e1aa9384cc7bb831922b1d4d59'},
  deepmask: {file:'deepmask-heads.onnx',bytes:69701737,sha256:'86f9c9a82098f2e605d69aea0fb3227eb258b3b1921c7108949fb36ab74261cf'},
- superpoint: {file:'superpoint-static-folded.onnx',bytes:5224069,sha256:'9fe79e4199ca3e2a8ff34ab15c04b435de8d77e1b47c449bd9cb24c9ff11145b'},
+ superpoint: {file:'superpoint-dense-folded.onnx',bytes:5211326,sha256:'0cbd3871781e413dd4998d1f6839b2247a3b0d3c0aa681ec36259d9b83f270ef'},
+ 'superpoint-post': {file:'superpoint-post-folded.onnx',bytes:13627,sha256:'3fd09c58ac33fe73e374194e6aec029a88bf4bacede7a5c0369268fd4c7774a0'},
  superglue: {file:'superglue-indoor.onnx',bytes:48603642,sha256:'2964d7a675c295999c86b6ccaf90eb5297ca2b2200dbdeb813a21eabb2361b88'},
  crf: {file:'convcrf-static-folded-if.onnx',bytes:47511,sha256:'e614ae178a99af889a0fbfc58be1e281281c41934e5b16d00ad475d3952482ff'}
 });

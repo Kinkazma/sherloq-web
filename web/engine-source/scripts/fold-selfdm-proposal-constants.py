@@ -5,6 +5,7 @@ from onnx.reference import ReferenceEvaluator
 parser=argparse.ArgumentParser(description='Evaluate static ONNX literals exactly; preserve learned initializers and dynamic operations')
 parser.add_argument('input_directory',type=pathlib.Path)
 parser.add_argument('output_directory',type=pathlib.Path)
+parser.add_argument('--superpoint-windows-only',action='store_true')
 args=parser.parse_args();args.output_directory.mkdir(parents=True,exist_ok=True)
 r=args.input_directory.resolve();outputRoot=args.output_directory.resolve()
 whitelist={'Constant','Cast','Identity','Unsqueeze','Squeeze','Reshape','Concat','Transpose','Slice','Gather','Add','Sub','Mul','Div','Range','ConstantOfShape','Shape','Size'}
@@ -25,7 +26,8 @@ def folded(graph,opset,outer=None):
   kept.append(node)
  del graph.node[:];graph.node.extend(kept);graph.initializer.extend(added);return count
 record={'schema':1,'scope':'Exact static ONNX subgraph evaluation to bypass unassigned Constant-Cast provider bug; no learned weight or dynamic arithmetic change','records':[]}
-for original,output in [('superpoint-full.onnx','superpoint-static-folded.onnx'),('convcrf-vectorized-dynamic.onnx','convcrf-static-folded-if.onnx')]:
+pairs=[('superpoint-dense.onnx','superpoint-dense-folded.onnx'),('superpoint-post.onnx','superpoint-post-folded.onnx')]if args.superpoint_windows_only else [('superpoint-full.onnx','superpoint-static-folded.onnx'),('convcrf-vectorized-dynamic.onnx','convcrf-static-folded-if.onnx')]
+for original,output in pairs:
  source=r/original;model=onnx.load(source);opset=next(v.version for v in model.opset_import if v.domain=='');count=folded(model.graph,opset);target=outputRoot/output;onnx.checker.check_model(model,full_check=True);onnx.save(model,target)
  record['records'].append({'source':original,'file':str(target),'bytes':target.stat().st_size,'sha256':hashlib.sha256(target.read_bytes()).hexdigest(),'foldedNodes':count,'sourceSha256':hashlib.sha256(source.read_bytes()).hexdigest()})
 (outputRoot/'static-folded-models.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps(record))
