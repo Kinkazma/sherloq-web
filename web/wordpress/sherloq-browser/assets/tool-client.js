@@ -15,17 +15,24 @@ export function jsonExportValue(value){
  return value;
 }
 
+export function sparseNpzPreparationBytes(result){
+ const bound=v=>ArrayBuffer.isView(v)?v.length*32+2:v===null||typeof v!=='object'?typeof v==='string'?v.length*6+2:32:Object.entries(v).reduce((n,[k,x])=>n+k.length*6+bound(x)+4,2);
+ // The native NPZ keeps numeric arrays AND a nested JSON mirror of their rows.
+ // Allow both representations and their row headers before serialization.
+ return 65536+8*(bound(result.data)+bound(result.provenance)+bound(result.style)+bound(result.visible));
+}
+
 export function resultResources(result){
  const surfaces=new Map(),tables=new Map();const visit=value=>{if(!value||typeof value!=='object'||ArrayBuffer.isView(value))return;
   if(typeof value.id==='string'&&Number.isInteger(value.revision)){if(Number.isInteger(value.rowCount)&&Array.isArray(value.columns))tables.set(value.id,value);else if(Number.isInteger(value.width)&&Number.isInteger(value.height)&&typeof value.format==='string')surfaces.set(value.id,value);}
   for(const v of Object.values(value))visit(v);
  };visit(result);return {surfaces:[...surfaces.values()],tables:[...tables.values()]};
 }
-export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity}={}){
+export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity,resourceHints}={}){
  const deployment=await (await fetch(new URL('./integrated-config.json',import.meta.url))).json();
  const base=new URL(deployment.assetBase,new URL('./integrated-config.json',import.meta.url));
  const asset=name=>new URL(name,base).href;
- const engine=engineFactory({computeProfile,...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
+ const engine=engineFactory({computeProfile,...(resourceHints?{resourceHints}:{}),...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
  let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,d2Loaded=false,segmentationVariant=null,m2=null,m2Method=null;
  let d2Analysis=null;let sourceInput;const sourceAliases=new Set();
  const invalidated=()=>{d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=d2Loaded=false;segmentationVariant=null;onInvalidated({resultLost});};
@@ -150,7 +157,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     else if(format==='prnu'){if(!prnu)throw Error('Aucune base PRNU.');await stream(await engine.createPrnuDatabaseExport(prnu.id,hooks()),sink);}
     else if(selected?.id&&!selected.columns)await stream(await engine.exportSurface({...options,surfaceId:selected.id,revision:selected.revision,format,render:format==='npz'?undefined:{range:selected.range??[0,1]},storage:'temporary'},hooks()),sink);
     else if(format==='json')await stream(await engine.exportResultFile(jsonExportValue(result),{format:'json',storage:'temporary'},hooks()),sink);
-    else {let maxBytes=32*1024**2;if(format==='npz'&&result.operation==='tampering.copyMove.sparse'){const bound=v=>ArrayBuffer.isView(v)?v.length*32+2:v===null||typeof v!=='object'?typeof v==='string'?v.length*6+2:32:Object.entries(v).reduce((n,[k,x])=>n+k.length*6+bound(x)+4,2);const needed=32768+4*(bound(result.data)+bound(result.provenance)+bound(result.style)+bound(result.visible));const {memory}=await engine.capabilities();maxBytes=Math.max(1,Math.floor(Math.min(Math.max(maxBytes,needed),memory.policyAvailableBytes-memory.knownHeapCapacityBytes)));}const output=await engine.exportResult(result,{format,maxBytes},hooks());await sink.write(output.bytes);}
+    else {let maxBytes=32*1024**2;if(format==='npz'&&result.operation==='tampering.copyMove.sparse'){const needed=sparseNpzPreparationBytes(result);const {memory}=await engine.capabilities();maxBytes=Math.max(1,Math.floor(Math.min(Math.max(maxBytes,needed),memory.policyAvailableBytes-memory.knownHeapCapacityBytes)));}const output=await engine.exportResult(result,{format,maxBytes},hooks());await sink.write(output.bytes);}
     return await sink.finish();
    }catch(error){await sink.abort();throw error;}
   })),

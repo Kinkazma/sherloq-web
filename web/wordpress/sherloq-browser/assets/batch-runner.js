@@ -10,6 +10,11 @@ import {neuralDisplays} from './neural-clone-ui.js';
 const check=signal=>signal?.throwIfAborted();
 const polygon=r=>[[r.x0,r.y0],[r.x1-1,r.y0],[r.x1-1,r.y1-1],[r.x0,r.y1-1]];
 const dataBlob=value=>new Blob([JSON.stringify(value,null,2)],{type:'application/json'});
+export function batchWorkerHints(memoryBudgetBytes,hardwareConcurrency=globalThis.navigator?.hardwareConcurrency??1){
+ // Leave one GiB for source rows, exports and phase growth. Each SIFT tile can
+ // own a heap plus CPU/GPU scratch close to one GiB while changing phases.
+ return {hardwareConcurrency:Math.min(Math.max(1,Math.floor(hardwareConcurrency)),Math.max(1,Math.floor(memoryBudgetBytes/1024**3)-1))};
+}
 export async function displayBlob(client,descriptor,signal){
  const canvas=new OffscreenCanvas(descriptor.width,descriptor.height),ctx=canvas.getContext('2d');
  try{for(let y=0;y<descriptor.height;y+=32){check(signal);const rows=Math.min(32,descriptor.height-y),pixels=await client.readWindow(descriptor,{x:0,y,width:descriptor.width,height:rows}),rgba=ctx.createImageData(pixels.width,pixels.height);for(let i=0;i<pixels.width*pixels.height;i++){rgba.data[i*4]=pixels.data[i*3];rgba.data[i*4+1]=pixels.data[i*3+1];rgba.data[i*4+2]=pixels.data[i*3+2];rgba.data[i*4+3]=255;}ctx.putImageData(rgba,0,y);await nextFrame();}return await canvas.convertToBlob({type:'image/png'});}finally{canvas.width=canvas.height=1;}
@@ -19,7 +24,7 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
  async function put(artifacts,path,output){const blob=output.blob??output,previous=artifacts.get(path)?.size??0;if(outputBytes-previous+blob.size>512*1024**2){await output.cleanup?.();throw Error('Sorties supérieures à 512 Mio. Exportez ce lot puis fractionnez le suivant.');}await cleanups.get(path)?.();cleanups.delete(path);outputBytes=outputBytes-previous+blob.size;artifacts.set(path,blob);if(output.cleanup)cleanups.set(path,output.cleanup);return path;}
  function event(value){onProgress(value);}
  const profile=()=>typeof computeProfile==='function'?computeProfile():computeProfile;
- async function getTool(){return tool??=await toolFactory({computeProfile:profile(),memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3,onProgress:e=>event({phase:'kernel',detail:e})});}
+ async function getTool(){return tool??=await toolFactory({computeProfile:profile(),memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3,resourceHints:batchWorkerHints(4*1024**3),onProgress:e=>event({phase:'kernel',detail:e})});}
  async function getAutomatic(){return automatic??=await automaticFactory({computeProfile:profile(),memoryBudgetBytes:4*1024**3,retainMasks:true,onProgress:e=>event({phase:'kernel',detail:e})});}
  async function execute(image,recipe,artifacts,options,signal){
   check(signal);const path='resultats/'+image.id+'/'+safeName(recipe.id),run={toolId:recipe.id,title:recipe.fr,operation:recipe.operation,kind:recipe.kind,methodKey:recipeKey(recipe),params:structuredClone(recipe.params),signal:structuredClone(recipe.signal),status:'running',files:[]};image.runs.push(run);event({phase:'tool',image,recipe,run});let owner,entries;
@@ -64,7 +69,7 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
    else if(['regions','ela'].includes(recipe.kind))Object.assign(run,regionEvidence(output,recipe));
    else run.positive=false;
    run.status=run.partial?'partial':'done';if(run.partial)run.error={code:'PARTIAL_ANALYSIS',message:'Certains détecteurs n’ont pas terminé. Les signaux des autres sont conservés.',groups:compactEvidence(output.data?.state)};
-  }catch(error){run.status=signal.aborted?'cancelled':'error';run.error={code:error.code??'BATCH_TOOL_ERROR',message:error.message};if(signal.aborted){entries?.release();if(run.entries)run.entries=compactEvidence(run.entries);}check(signal);}
+  }catch(error){run.status=signal.aborted?'cancelled':'error';run.error={code:error.code??'BATCH_TOOL_ERROR',message:error.message,...(error.details?{details:compactEvidence(error.details)}:{})};if(signal.aborted){entries?.release();if(run.entries)run.entries=compactEvidence(run.entries);}check(signal);}
   return {run,release:entries?.release??(()=>{})};
  }
  async function comparisons(model,options,signal){
@@ -89,7 +94,7 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
  return {get running(){return !!controller;},cancel(){controller?.abort(Object.assign(Error('Traitement arrêté'),{code:'CANCELLED'}));tool?.cancel();void automatic?.pause();},
   async run(model,recipes,options={}){
    if(controller)throw Error('Lot déjà en cours.');controller=new AbortController();const signal=controller.signal;context=evidenceContext();outputBytes=[...model.artifacts.values()].reduce((n,b)=>n+b.size,0);const selected=model.images.filter(i=>i.selected),unique=[...new Map(recipes.map(r=>[recipeKey(r),r])).values()];
-   const deployment=await fetch(new URL('./integrated-config.json',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();}).catch(error=>{context.dispose();context=null;controller=null;throw error;});model.engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,batch:'0.1.0',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3};
+   const deployment=await fetch(new URL('./integrated-config.json',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();}).catch(error=>{context.dispose();context=null;controller=null;throw error;});model.engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,batch:'0.1.1',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3,resourceHints:batchWorkerHints(4*1024**3)};
    for(const path of [...model.artifacts.keys()])if(path.startsWith('comparaisons/')){outputBytes-=model.artifacts.get(path).size;await cleanups.get(path)?.();cleanups.delete(path);model.artifacts.delete(path);}model.comparisons=[];
    model.configuration={options:{threshold:options.threshold??1,basis:options.basis??'clones',compare:!!options.compare,panels:!!options.panels},recipes:unique.map(r=>({id:r.id,operation:r.operation,params:r.params,signal:r.signal,backend:r.backend??'auto'}))};model.startedAt=new Date().toISOString();model.cancelled=false;
    try{

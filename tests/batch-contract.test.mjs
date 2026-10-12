@@ -3,8 +3,21 @@ import assert from 'node:assert/strict';
 import {batchCatalog,catalogRecipe,batchTask,imageScore,studyScores} from '../web/wordpress/sherloq-browser/assets/batch-catalog.js';
 import {comparisonPolygons} from '../web/wordpress/sherloq-browser/assets/batch-export.js';
 import {pdfPoint,safeName} from '../web/wordpress/sherloq-browser/assets/batch-import.js';
-import {jsonExportValue} from '../web/wordpress/sherloq-browser/assets/tool-client.js';
+import {jsonExportValue,sparseNpzPreparationBytes} from '../web/wordpress/sherloq-browser/assets/tool-client.js';
 import {batchForgeryscopeMetadata} from '../web/wordpress/sherloq-browser/assets/batch-evidence.js';
+import {batchWorkerHints} from '../web/wordpress/sherloq-browser/assets/batch-runner.js';
+import {m3Npz} from '../web/wordpress/sherloq-browser/assets/unified-engine/src/npz.js';
+
+test('Batch leaves phase-growth headroom without exceeding available CPU slots',()=>{
+ assert.deepEqual(batchWorkerHints(4*1024**3,12),{hardwareConcurrency:3});
+ assert.deepEqual(batchWorkerHints(4*1024**3,2),{hardwareConcurrency:2});
+ assert.deepEqual(batchWorkerHints(512*1024**2,12),{hardwareConcurrency:1});
+});
+test('Sparse NPZ admission includes numeric arrays and the native nested JSON mirror',()=>{
+ const data={points:new Float64Array(18000*7),pairs:new Float64Array(5405*4),colors:new Uint8Array(5405*3),pair_search_regions:new Int32Array(5405),groups:[new Uint32Array([0,1])],params:{algorithm:'SIFT + G2NN + RANSAC + Panels + Text'},metadata:{},regions:[],bases:[]};
+ const result={operation:'tampering.copyMove.sparse',data,provenance:{},style:{},visible:[]};
+ const output=m3Npz(result,sparseNpzPreparationBytes(result));assert.ok(output.bytes.byteLength>data.points.byteLength);assert.equal(output.bytes[0],0x50);assert.equal(output.bytes[1],0x4b);
+});
 
 test('Standalone Forgeryscope Auto keeps native comparisons in source coordinates',()=>{
  const comparisons=[{accepted:true,polygon0:[[1,2],[3,4]],polygon1:[[11,12],[13,14]]}],lane_pairs=[{score:.8}];
