@@ -12,7 +12,7 @@ function store(){const data=new Map();return {keys:()=>data.keys(),has:p=>data.h
 function fixture({regions=pair,error}={}){
  const calls=[],model={images:[image()],studies:[{id:'study',name:'Study',errors:[]}],artifacts:store()},r=recipe();let source;
  const tool={get source(){return source;},async load(input){source={id:input.id};calls.push(['load',input.id]);return source;},async detectSubimages(){calls.push(['detect']);return {regions:regions.map((r,i)=>({id:'panel-'+i,bounds:[r.x0,r.y0,r.x1,r.y1]}))};},async run(task){calls.push(['run',task]);if(error)throw error;return {operation:task.operation,data:{points:new Float64Array(0),pairs:new Float64Array(0),groups:[],regions:task.params.regions,compare:true,metadata:{algorithm:'EfficientLoFTR'}},provenance:{method:'EfficientLoFTR'},metrics:{}};},export:async type=>new Blob([type]),cancel(){},async dispose(){calls.push(['dispose']);source=null;}};
- const runner=createBatchRunner({toolFactory:async options=>{assert.equal(options.memoryBudgetBytes,4*1024**3);assert.equal(options.m2MemoryBudgetBytes,2*1024**3);assert.equal(options.maxWorkers,undefined);return tool;}});
+ const runner=createBatchRunner({scientificFiltering:false,toolFactory:async options=>{assert.equal(options.memoryBudgetBytes,4*1024**3);assert.equal(options.m2MemoryBudgetBytes,2*1024**3);assert.equal(options.maxWorkers,undefined);return tool;}});
  return {model,runner,calls,r};
 }
 async function run(f,options={}){const prior=globalThis.fetch;globalThis.fetch=async()=>({ok:true,json:async()=>({engineVersion:'test',engineCommit:'fixed',runtimeSourceIncrementSha256:'fixed'})});try{return await f.runner.run(f.model,[f.r],{panels:false,reuse:true,...options});}finally{globalThis.fetch=prior;}}

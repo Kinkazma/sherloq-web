@@ -1,4 +1,4 @@
-import {reportWithSession} from './session-log.js';
+import {downloadSession} from './session-ui.js';
 import {diagnostic} from './runtime-context.js';
 import {rasterOptions,exportPresentationRaster} from './raster-export-client.js';
 import {exportDefaults,linkedExportSize} from './media-settings.js';
@@ -258,7 +258,7 @@ async function exportImage(settingsOverride){
  };
  return settingsOverride?execute(settingsOverride):host.requestExport?host.requestExport(execute):execute({...exportDefaults});
 }
-$('export-png').onclick=()=>exportImage();$('export-report').onclick=async()=>{if(resultMeta)exportJSON(await reportWithSession({...resultMeta,...(errorJournal.length?{diagnosticHistory:errorJournal.snapshot()}:{})}),automaticMode()?'SHERLOQ-automatic-report.json':compositeMode()?'SHERLOQ-composite-report.json':individualMode()?'SHERLOQ-'+activeAnalysis+'-report.json':'sherloq-ela-report.json');};$('save-session').onclick=()=>exportJSON(serialize(),'sherloq-session.json');$('load-session').onchange=e=>restore(e.target.files[0]);
+$('export-png').onclick=()=>exportImage();$('export-report').onclick=()=>{if(resultMeta)return downloadSession({document,button:$('export-report'),operation:'tool-report',report:{...resultMeta,...(errorJournal.length?{diagnosticHistory:errorJournal.snapshot()}:{})},download,name:automaticMode()?'SHERLOQ-automatic-report.json':compositeMode()?'SHERLOQ-composite-report.json':individualMode()?'SHERLOQ-'+activeAnalysis+'-report.json':'sherloq-ela-report.json'});};$('save-session').onclick=()=>exportJSON(serialize(),'sherloq-session.json');$('load-session').onchange=e=>restore(e.target.files[0]);
 
 function renderCapabilities(){const m=engineCapabilities?.memory?.budgetBytes;const workers=engineCapabilities?.resourceProfile?.maxWorkers;$('capabilities').textContent=t('memory')+': '+(m?Math.round(m/1024**2)+' MiB':'—')+' · '+t('workerBudget')+': '+(workers||browserCapabilities.cpuThreadsHint||'—')+' · '+t('displayMemory')+' '+Math.round(tileCache.limit/1024**2)+' MiB / RGB '+Math.round(uiRGBBudget/1024**2)+' MiB'+(storageEstimate?.quota?' · '+t('storageQuota')+' '+Math.round(storageEstimate.quota/1024**2)+' MiB':'')+' · WebGPU '+(browserCapabilities.webgpuAPI?'API ✓ / engine —':'API — / CPU ✓');}
 $('compute-profile').onchange=()=>{stop();engineCapabilities=null;invalidate();renderCapabilities();status(t('computeChanged'));};

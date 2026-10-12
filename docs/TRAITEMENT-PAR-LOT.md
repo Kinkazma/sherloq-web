@@ -1,6 +1,20 @@
 # Traitement par lot intégré à SHERLOQ
 
-Branche : `codex/traitement-par-lot`. Gaël a demandé que le lot complet soit vérifié avant transmission aux fils Extension WordPress et GitHub pour publication. Cette recette locale est terminée le 12 octobre 2026 ; la publication est confiée au fil GitHub. Les articles et les sorties du lot restent privés sur sa machine.
+Branche : `codex/traitement-par-lot`. Gaël a demandé que le lot complet soit vérifié avant transmission aux fils Extension WordPress et GitHub pour publication. La recette fonctionnelle de 86 images est terminée, mais Gaël a refusé sa validation scientifique. Les corrections de préparation et leur nouvelle recette restent locales et en cours. Les articles et les sorties du lot restent privés sur sa machine.
+
+## Corrections en cours après la recette humaine du 12 octobre
+
+La préparation associe les panneaux d’acquisition et les exclusions de texte à l’identité et aux coordonnées de la source originale. La préclassification réutilise le détecteur de panneaux scientifique de Forgeryscope, sans lancer son analyse de falsification. Le détecteur de texte PP-OCRv6 produit des polygones ; une reconnaissance de caractères expérimentale n’a pas été intégrée, car elle reconnaissait de faux caractères dans des acquisitions réelles.
+
+L’aperçu distingue les acquisitions admises, les textes et graphiques exclus, et les zones restantes. Les petites barres dessinées déjà hors des acquisitions sont désormais repérées en rouge sans changer l’admission des pixels. Une grande proposition OCR recouvrant une acquisition peut être corrigée par la sélection humaine ; cette décision reste liée à la source, aux modèles et à la géométrie. Elle conserve les détections originales dans les métadonnées. Un modèle absent ou une détection inachevée ne peut pas être contourné par cette décision.
+
+Les rendus utilisent les biomes seuls pour une méthode de clones, et une carte de corroboration pour plusieurs méthodes. Les votes restent filtrés par le périmètre scientifique et les nombres exacts restent exportés. Les images et les résultats visuels sont réunis dans leurs dossiers respectifs, avec des noms distincts dérivés de la source ; les fichiers associés sont regroupés séparément. Les références JSON et les tentatives historiques suivent ces nouveaux chemins lors de l’export et de la reprise.
+
+Un essai utilisateur de trois images et quatre méthodes a révélé deux erreurs de coordonnées : les fenêtres D2PRL et MGCFDN recevaient des bornes continues alors que leurs lecteurs exigent des pixels entiers. Les fenêtres sont maintenant arrondies vers l’extérieur et bornées aux dimensions originales ; les polygones scientifiques exacts sont conservés pour filtrer les preuves. La livraison locale expose aussi la ressource originale SSG depuis ses fichiers existants et vérifiés, sans la copier. Les erreurs individuelles apparaissent directement dans les résultats et les rapports partiels incluent les images incomplètes sans signal.
+
+Le journal complet s’exporte par curseurs ordonnés et écritures progressives vers le stockage temporaire existant. Un échec de lecture ou de téléchargement est affiché et ne produit pas un faux journal complet. Le premier abandon signalé par Gaël n’a pas été reproduit : son journal complet a ensuite pu être récupéré. Le nouveau chemin a déjà exporté pendant le calcul un instantané de 22 619 événements consécutifs, sans erreur de stockage. Cette vérification ne vaut pas validation du rapport final.
+
+La nouvelle recette native porte sur quatre acquisitions et quatre méthodes, soit seize analyses, avec les réglages utilisateur conservés. Elle est encore en cours. D2PRL et MGCFDN analysent les acquisitions séparément ; ce choix ne qualifie pas une recherche de clones entre panneaux par ces réseaux. La détection entre panneaux par SIFT est une voie distincte. Aucun résultat de cette recette ne valide à lui seul le lot complet de 86 images ou la précision générale du classement et de l’OCR.
 
 ## Périmètre accepté
 

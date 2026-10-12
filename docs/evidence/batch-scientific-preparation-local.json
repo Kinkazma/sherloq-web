@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-12",
+  "status": "local-candidate-under-native-qualification",
+  "publicationApproved": false,
+  "full86ScientificValidation": false,
+  "sourcePixelsOrAnalysisSettingsReduced": false,
+  "workerCapAdded": false,
+  "targetedTests": {
+    "passed": 113,
+    "failed": 0,
+    "coverage": [
+      "prepared acquisition scope and source identity",
+      "exact text and graph holes in scientific evidence",
+      "human review of ambiguous OCR on an identified acquisition",
+      "source-coordinate acquisition preview and annotation bars",
+      "integer native neural crop contracts",
+      "full-resolution corroboration PNG and exact uint32 NPZ",
+      "single-method biome display and partial-result reports",
+      "flat archive pointers, history and streamed round trips",
+      "complete journal cursor export and visible failure feedback"
+    ]
+  },
+  "uiRegressionTests": {
+    "passed": 18,
+    "failed": 0,
+    "includesTestsAlsoCountedAbove": true,
+    "covers": [
+      "native panel and phase progress without per-tick preview rerenders",
+      "active, queued and final incomplete study labels",
+      "global report availability and routing after a closed-dialog completion",
+      "acquisition selection and EfficientLoFTR pair controls"
+    ],
+    "browserQualificationAfterActiveRunStillRequired": true
+  },
+  "browserChecks": {
+    "fourSourcesSelectedWithPreparedAcquisitions": true,
+    "ambiguousAcquisitionAdmittedByExplicitHumanReview": true,
+    "outsideAcquisitionAnnotationBarsDisplayed": true,
+    "sessionExportDuringNativeCalculation": {
+      "schema": "sherloq.session/1",
+      "eventCount": 22619,
+      "actualEvents": 22619,
+      "indicesContinuous": true,
+      "storageError": null,
+      "bytes": 9073257
+    },
+    "native16AnalysesFinished": false,
+    "finalNativeReportAndArchiveQualified": false
+  },
+  "remaining": [
+    "Finish the four-image, four-method native run without changing its settings.",
+    "Verify the native outputs, final PDF, ZIP and complete session journal.",
+    "Check the global report menu after completion with the batch dialog closed.",
+    "Qualify scientific classification and text exclusions beyond the small local cases.",
+    "Qualify a new full 86-image run before claiming full-corpus validation."
+  ],
+  "limits": [
+    "An OCR detector is not a verified recognizer; an experimental recognizer was rejected after biological images produced false characters.",
+    "D2PRL and MGCFDN analyze retained acquisitions independently; this does not establish inter-panel clone detection by these networks.",
+    "The user's first journal-download abort was not reproduced and is not assigned an invented cause.",
+    "Original SSG resources are reused by the local candidate server and are not included in this source patch.",
+    "The local source checkout lacks two physical delivery metadata files required by the complete WordPress test suite; the targeted tests above are distinct."
+  ]
+}

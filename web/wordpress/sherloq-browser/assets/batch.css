@@ -57,13 +57,19 @@
 .batch-image-preview { position:relative; height:140px; background:var(--canvas); }
 .batch-image-preview img { box-sizing:border-box; height:100%; }
 .batch-zone-overlay { position:absolute; inset:1px; width:calc(100% - 2px); height:calc(100% - 2px); pointer-events:none; }
-.batch-acquisition-zone { fill:#2eaa721a; stroke:#2eaa72; stroke-width:1.25px; }
+.batch-acquisition-zone { fill:#2eaa7226; stroke:none; }
+.batch-acquisition-outline { fill:none; stroke:#2eaa72; stroke-width:1.25px; }
 .batch-exclusion-zone { fill:#e4685b26; stroke:#e4685b; stroke-width:1.25px; }
+.batch-scope-remainder-zone { fill:#85858d16; stroke:none; }
+.batch-pending-acquisition-zone,.batch-pending-exclusion-zone { fill:#dab46126; stroke:none; }
+.batch-pending-acquisition-outline { fill:none; stroke:#dab461; stroke-width:1.25px; }
 .batch-zone-legend { display:flex; gap:14px; flex-wrap:wrap; }
 .batch-zone-legend span { display:inline-flex; align-items:center; gap:5px; }
 .batch-zone-legend span::before { content:''; width:9px; height:9px; border:1px solid currentColor; }
 .batch-zone-keep::before { color:#2eaa72; background:#2eaa721a; }
 .batch-zone-exclude::before { color:#e4685b; background:#e4685b26; }
+.batch-zone-remainder::before { color:#85858d; background:#85858d16; }
+.batch-zone-pending::before { color:#dab461; background:#dab46126; }
 .batch-classification { display:flex; align-items:center; flex-wrap:wrap; gap:4px; font-size:10px; }
 .batch-classification>small { flex-basis:100%; }
 .batch-classification .batch-badge { margin:0; }
@@ -113,6 +119,12 @@
 .batch-run-result { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; padding:7px 0; border-top:1px solid var(--line); }
 .batch-error { color:var(--ink); font-size:11px; overflow-wrap:anywhere; border-left:2px solid var(--muted); padding-left:7px; }
 .batch-image-result>button { float:right; }
+.batch-final-preview { margin:10px 0; padding:8px; background:var(--canvas); border:1px solid var(--line); }
+.batch-final-preview img { display:block; max-width:100%; max-height:300px; margin:0 auto 7px; object-fit:contain; }
+.batch-final-preview figcaption { color:var(--ink); font-weight:600; margin:5px 0; }
+.batch-final-preview p { margin:5px 0 8px; }
+.batch-individual-outputs>summary { cursor:pointer; font-size:11px; padding:6px 0; }
+.batch-evidence-support { flex-basis:100%; margin:0; }
 @media(max-width:700px) {
  .batch-dialog { width:calc(100vw - 14px); max-width:calc(100vw - 14px); height:94dvh; }
  .batch-header { padding:8px 9px; }

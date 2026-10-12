@@ -4,6 +4,7 @@ import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sp
 import defaults from './tool-defaults.js';
 import {defaults as classicDefaults} from './settings.js';
 import {NEURAL_METHODS} from './neural-clone-ui.js';
+import {clipPolygon} from './batch-scope-geometry.js';
 
 const copy=value=>structuredClone(value);
 const groups={recommended:['Adaptés au traitement par lot','Suited to batch processing'],complement:['Analyses complémentaires','Additional analyses'],less:['Moins adaptés — inspection humaine','Less suited — human inspection'],required:['Entrée supplémentaire nécessaire','Additional input required']};
@@ -53,19 +54,59 @@ for(const [index,algorithm] of CLONE_ALGORITHMS.entries()){
 }
 const priority=x=>x.id==='ai.clones.d2prl'?0:x.params.algorithm==='SIFT + G2NN + RANSAC + Panels + Text'?1:x.params.algorithm==='SIFT + G2NN + RANSAC'?2:x.params.algorithm==='PatchMatch Zernike'?3:x.id==='m2.forgeryscope'?4:x.id==='analysis.clones'?5:x.id==='analysis.complete'?6:10;
 export const batchCatalog=Object.freeze(entries.sort((a,b)=>priority(a)-priority(b)));
-export function batchTask(recipe,{id,imageId,regions=[]}={}){
+export function batchTask(recipe,{id,imageId,regions=[],scientificScope}={}){
  let operation=recipe.operation,params=copy(recipe.params);
+ if(scientificScope)assertBatchScientificScope({name:imageId,width:scientificScope.width,height:scientificScope.height,preparation:scientificScope});
  if(operation==='tampering.copyMove.sparse'){
   operation=cloneOperation(params.algorithm);
-  if(params.algorithm==='EfficientLoFTR')regions=batchPairRegions(regions);
-  params=sparseParameters({...params,excluded:[],compare:params.algorithm==='EfficientLoFTR'},regions.map(r=>({...r,polygon:r.polygon??[[r.x0,r.y0],[r.x1-1,r.y0],[r.x1-1,r.y1-1],[r.x0,r.y1-1]]})));
+  if(params.algorithm==='EfficientLoFTR')regions=batchPairRegions(regions,{width:scientificScope?.width,height:scientificScope?.height,scientificScope});
+  else if(scientificScope)regions=scientificScope.searchRegions??scientificScope.regions;
+  params=sparseParameters({...params,excluded:scientificScope?copy(scientificScope.excluded):[],compare:params.algorithm==='EfficientLoFTR'},regions.map(r=>({...r,polygon:r.polygon??[[r.x0,r.y0],[r.x1-1,r.y0],[r.x1-1,r.y1-1],[r.x0,r.y1-1]]})));
  }
- return {id,imageId,operation,params,backend:recipe.backend??'auto',...(['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)?{view:sparseViewDefaults()}:{}),...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
+ if(operation==='m2.forgeryscope'&&scientificScope)params.scientificScope=copy(scientificScope);
+ if(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&scientificScope)regions=batchNeuralCropRegions(scientificScope.regions,{width:scientificScope.width,height:scientificScope.height});
+ return {id,imageId,operation,params,backend:recipe.backend??'auto',...(operation==='tampering.copyMove.sparse'&&scientificScope?{scientificScope:copy(scientificScope)}:{}),...(['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)?{view:sparseViewDefaults()}:{}),...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
+}
+
+// Neural inputs are rectangular integer pixel windows. YOLO acquisition bounds
+// are continuous original coordinates: round only the read window outwards,
+// while retaining the exact scientific polygons for the later evidence filter.
+export function batchNeuralCropRegions(regions,{width,height}={}){
+ const invalid=message=>{throw Object.assign(Error(message),{code:'BATCH_SCIENTIFIC_ROI_INVALID'});};
+ if(![width,height].every(n=>Number.isSafeInteger(n)&&n>0)||!Array.isArray(regions)||!regions.length)invalid('Les acquisitions préparées et les dimensions originales sont requises pour les fenêtres neuronales.');
+ return regions.map((region,index)=>{
+  if(!region||region.envelope||![region.x0,region.y0,region.x1,region.y1].every(Number.isFinite)||region.x1<=region.x0||region.y1<=region.y0)invalid('Acquisition neuronale invalide : '+index+'.');
+  const crop={x0:Math.max(0,Math.floor(region.x0)),y0:Math.max(0,Math.floor(region.y0)),x1:Math.min(width,Math.ceil(region.x1)),y1:Math.min(height,Math.ceil(region.y1))};
+  if(crop.x1-crop.x0<8||crop.y1-crop.y0<8)invalid('L’acquisition '+index+' est trop petite pour une fenêtre native D2PRL/MGCFDN de 8 pixels minimum.');
+  return crop;
+ });
+}
+
+export function assertBatchScientificScope(image){
+ const scope=image.preparation,invalid=reason=>{throw Object.assign(Error('Préparation scientifique requise pour '+(image.name??image.id??'cette image')+' : '+reason),{code:'SCIENTIFIC_SCOPE_REQUIRED',details:{imageId:image.id,status:scope?.status,reason}});};
+ if(scope?.schema!=='sherloq.scientific-scope/1'||scope.coordinates!=='original-pixels')invalid('version ou coordonnées absentes');
+ if(scope.status!=='ready'||scope.text?.status!=='complete')invalid('les acquisitions et exclusions de texte ne sont pas entièrement préparées');
+ if(scope.width!==image.width||scope.height!==image.height)invalid('les dimensions ne correspondent pas à la source');
+ if(!/^[a-f0-9]{64}$/.test(scope.sourceSha256??'')||!/^[a-f0-9]{64}$/.test(scope.fingerprint??''))invalid('identité ou empreinte de préparation absente');
+ const polygon=p=>Array.isArray(p)&&p.length>=3&&p.every(point=>Array.isArray(point)&&point.length===2&&point.every(Number.isFinite));
+ if(!Array.isArray(scope.regions)||!scope.regions.length||!scope.regions.every(r=>r&&!r.envelope&&[r.x0,r.y0,r.x1,r.y1].every(Number.isFinite)&&r.x1>r.x0&&r.y1>r.y0&&(!r.polygon||polygon(r.polygon))))invalid('aucune acquisition réelle définie');
+ if(!Array.isArray(scope.excluded)||!scope.excluded.every(polygon))invalid('polygones d’exclusion invalides');
+ if(scope.searchRegions&&(!Array.isArray(scope.searchRegions)||!scope.searchRegions.every(r=>r&&[r.x0,r.y0,r.x1,r.y1].every(Number.isFinite)&&r.x1>r.x0&&r.y1>r.y0&&(!r.polygon||polygon(r.polygon)))))invalid('zones de recherche invalides');
+ return scope;
+}
+
+export function batchScopeSupport(recipe,scope){
+ if(!scope)return {mode:'native-diagnostic',scientificFiltering:false};
+ const common={scientificFiltering:true,scopeFingerprint:scope.fingerprint,coordinates:'original-pixels',originalPixelsPreserved:true};
+ if(recipe.operation==='tampering.copyMove.sparse')return {...common,mode:'input-exclusions',stage:'before-matching',method:recipe.params.algorithm};
+ if(recipe.operation==='m2.forgeryscope')return {...common,mode:'geometry-before-matching',rawBranches:['embeddings','lanes'],qualifiedEvidence:'filtered_evidence.comparisons'};
+ if(['ai.clones.d2prl','ai.clones.segmentation'].includes(recipe.operation))return {...common,mode:'derived-evidence',input:'acquisition-rois',textFiltering:'derived-evidence-only',nativeMapsPreserved:true};
+ return {...common,mode:'raw-only',qualifiedForScopedSignal:false,reason:'Cette méthode ne possède pas encore d’exclusions scientifiques qualifiées avant l’analyse.'};
 }
 export const recipeKey=recipe=>JSON.stringify([recipe.operation,recipe.params,recipe.backend??'auto']);
 export const catalogRecipe=id=>{const entry=batchCatalog.find(x=>x.id===id);if(!entry)throw Error('Unknown batch tool');return {...entry,params:copy(entry.params),signal:copy(entry.signal)};};
 
-export function batchPairRegions(regions,{width,height}={}){
+export function batchPairRegions(regions,{width,height,scientificScope}={}){
  const invalid=message=>{throw Object.assign(Error(message),{code:'BATCH_PAIR_REQUIRED',details:{requiredRegions:2,width,height}});};
  if(!Array.isArray(regions)||regions.length!==2)invalid('EfficientLoFTR nécessite exactement deux rectangles distincts. Préparez la paire dans Images.');
  const pair=regions.map(r=>{
@@ -73,11 +114,17 @@ export function batchPairRegions(regions,{width,height}={}){
   return {x0:r.x0,y0:r.y0,x1:r.x1,y1:r.y1};
  });
  if(JSON.stringify(pair[0])===JSON.stringify(pair[1]))invalid('Les deux rectangles EfficientLoFTR doivent être distincts.');
+ if(scientificScope){
+  const intersection=(poly,r)=>{const clipped=clipPolygon(poly.map(([x,y])=>[x-r.x0,y-r.y0]),r.x1-r.x0,r.y1-r.y0);return clipped.length>0;};
+  const polygon=r=>r.polygon??[[r.x0,r.y0],[r.x1,r.y0],[r.x1,r.y1],[r.x0,r.y1]];
+  const graphs=(scientificScope.panels?.panels??[]).filter(p=>p.policyHint==='non-acquisition'||['Graphs','Flow Cytometry'].includes(p.label)).map(p=>polygon({x0:p.rectangle[0],y0:p.rectangle[1],x1:p.rectangle[2],y1:p.rectangle[3]}));
+  for(const r of pair){if(!scientificScope.regions.some(acquisition=>intersection(polygon(acquisition),r)))invalid('Chaque rectangle EfficientLoFTR doit couvrir une acquisition réelle préparée.');if(graphs.some(graph=>intersection(graph,r)))invalid('Une paire EfficientLoFTR ne peut pas inclure un panneau de graphique ou de schéma.');}
+ }
  return pair;
 }
 export function batchPairSelection(image,regions,source='manual'){
  if(!['manual','detected','selected-panels'].includes(source)||typeof image.hash!=='string')throw Object.assign(Error('Identité de paire invalide.'),{code:'BATCH_PAIR_REQUIRED'});
- return {pixelHash:image.hash,width:image.width,height:image.height,source,regions:batchPairRegions(regions,image)};
+ return {pixelHash:image.hash,width:image.width,height:image.height,source,regions:batchPairRegions(regions,{width:image.width,height:image.height,scientificScope:image.preparation})};
 }
 export function restoredBatchPair(image){
  if(image.pairCleared)return null;

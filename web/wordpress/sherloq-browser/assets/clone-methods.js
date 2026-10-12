@@ -7,7 +7,7 @@ export const cloneMethodYear=name=>name==='EfficientLoFTR'||name.startsWith('XFe
 export const cloneMethodLabel=name=>cloneMethodYear(name)?name+' · '+cloneMethodYear(name):name;
 export const cloneFamilyLabels={fr:{classical:'Descripteurs classiques',dense:'PatchMatch dense',learned:'Appariements par IA'},en:{classical:'Classical descriptors',dense:'Dense PatchMatch',learned:'Learned matching'}};
 export const SSG_DEFAULTS=Object.freeze({normalizationLongEdge:3000,minimumDistance:100,spatialK:3,ratio:.6,absolute:.1,salienceSigma:.001,maskThreshold:.4,minimumArea:.0001,roiRadius:50,ssimRadius:3,ssimOpening:4,rngSeed:1});
-export const denseCloneParameters=p=>({profile:p.algorithm,patch:p.patch,iterations:p.iterations,texture:p.texture,flip:p.algorithm.endsWith(' + Mirror')||p.reflections,auto:p.autoRadius,...Object.fromEntries(['limit','radius','minimum','threshold','tolerance','model','geometricThreshold','geometricMinimum','compact','regions','guides','compare'].map(k=>[k,p[k]])),excluded:[]});
+export const denseCloneParameters=p=>({profile:p.algorithm,patch:p.patch,iterations:p.iterations,texture:p.texture,flip:p.algorithm.endsWith(' + Mirror')||p.reflections,auto:p.autoRadius,...Object.fromEntries(['limit','radius','minimum','threshold','tolerance','model','geometricThreshold','geometricMinimum','compact','regions','guides','compare'].map(k=>[k,p[k]])),excluded:structuredClone(p.excluded??[])});
 // Follow desktop method defaults only upon a deliberate algorithm change.
 export function changeCloneAlgorithm(p,previous){
  const minimum=name=>isDenseClone(name)&&name!=='PatchMatch SIFT'?5:10;

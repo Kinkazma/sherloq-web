@@ -66,7 +66,7 @@ export class SparseCopyEngine{
    if(scope){
     compileForgeryscopeScientificScope(scope,{width:this.image.width,height:this.image.height,sourceSha256:hooks.sourceSha256});
     requireValue(scope.status==='ready'&&scope.text?.status==='complete'&&scope.regions.length>0,'Scientific preparation is incomplete; whole-image fallback is forbidden.');
-    regions=p.regions=scope.regions.map(r=>r.polygon??[[r.x0,r.y0],[r.x1,r.y0],[r.x1,r.y1],[r.x0,r.y1]]);excluded=p.excluded=scope.excluded;
+    regions=p.regions=(scope.searchRegions??scope.regions).map(r=>r.polygon??[[r.x0,r.y0],[r.x1,r.y0],[r.x1,r.y1],[r.x0,r.y1]]);excluded=p.excluded=scope.excluded;
     preprocessing={version:3,reflections:p.reflections,automatic_panels:false,panels:regions,envelope:null,text_engine:scope.text.metadata?.model?.id??'PP-OCRv6_small_det',text_exclusions:scope.text.polygons??[],graph_exclusion:true,scientific_scope:{schema:scope.schema,fingerprint:scope.fingerprint,models:scope.models,coordinates:scope.coordinates,policy:'original-pixel feature exclusions; no source painting'},ocr:scope.text.metadata};
    }
    if(p.algorithm===PANELS&&!scope){

@@ -17,7 +17,7 @@ function fixture(){
  let deletionFailure,computations=0;
  const artifacts={keys:()=>stored.keys(),has:path=>stored.has(path),get:async path=>stored.get(path),set:async(path,value)=>stored.set(path,value),async delete(path){if(deletionFailure)throw deletionFailure;return stored.delete(path);}};
  const model={images:[image],studies:[{id:'study',name:'Study',errors:[]}],artifacts,engine};
- const runner=createBatchRunner({onProgress:event=>events.push(event),toolFactory(){computations++;throw Error('A completed, matching scientific run must be reused.');}});
+ const runner=createBatchRunner({scientificFiltering:false,onProgress:event=>events.push(event),toolFactory(){computations++;throw Error('A completed, matching scientific run must be reused.');}});
  return {runner,model,image,recipe,path,archive,events,stored,set deletionFailure(error){deletionFailure=error;},get computations(){return computations;}};
 }
 async function withDeployment(callback){

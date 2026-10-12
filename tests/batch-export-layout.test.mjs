@@ -37,6 +37,10 @@ test('Files with identical basenames in different native folders or extension ca
  const layout=batchArchiveLayout({images:[image('a','cells.png',files)],comparisons:[],artifacts:new Map(files.map(path=>[path,new Blob()]))});
  assert.equal(layout.paths.size,files.length);assert.equal(new Set([...layout.paths.values()].map(path=>path.normalize('NFKC').toLowerCase())).size,files.length);
 });
+test('Final display views and scientific counts use source-based flat paths without losing the archive references',()=>{
+ const model=fixture(),image=model.images[0];image.finalDisplay={kind:'corroboration',files:['resultats/a/final.png','resultats/a/final.npz','resultats/a/final.json']};for(const path of image.finalDisplay.files)model.artifacts.set(path,new Blob());
+ const before=image.finalDisplay.files.slice(),layout=batchArchiveLayout(model);for(const path of layout.images[0].finalDisplay.files){assert.match(path,/^resultats\/(images|donnees)\/Figure 1 -- corroboration\./);assert.ok([...layout.paths.values()].includes(path));}assert.deepEqual(image.finalDisplay.files,before);
+});
 function sink(){let bytes=new Uint8Array(0),position=0;return {get bytes(){return bytes;},async write(input){const value=input.data??input;if(input.type==='write')position=input.position;if(position+value.length>bytes.length){const next=new Uint8Array(position+value.length);next.set(bytes);bytes=next;}bytes.set(value,position);position+=value.length;},async seek(at){position=at;},async close(){},async abort(){}};}
 test('Streaming flat exports keep scientific NPZ references valid without changing native payloads or live artifact keys',async()=>{
  const model=fixture(),old='resultats/a/clone-16.npz',json='resultats/a/clone-16.json',npz=new Blob([new Uint8Array([80,75,3,4,0,255])]),evidence={scientificArrays:old,metadata:{scientificArrays:old,nativeScore:0.9123456789012345},originalName:old};model.artifacts.set(old,npz);model.artifacts.set(json,new Blob([JSON.stringify(evidence)],{type:'application/json'}));

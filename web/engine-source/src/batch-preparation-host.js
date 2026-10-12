@@ -6,13 +6,14 @@ import {EngineError,requireValue,checkAbort,serializeEngineError} from './errors
 import {createForgeryscopeAnalyzer} from './forgeryscope-analyzer.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';
 import {ScientificTextDetector} from './scientific-text-detector.js';
+import {detectScientificAnnotationBars} from './scientific-annotation-bars.js';
 
 const MAX_WINDOW=4*1024**2;
 /** One original decode and one shared native resource budget for both stages.
  * Only compact geometry/provenance crosses the worker boundary. Neither the
  * original surface nor neural output arrays remain pinned by the descriptor.
  */
-export function createBatchPreparationHost({post,loadFactory=async url=>(await import(url)).default,sourceLoader=loadM2SegmentedOriginal,sourceDisposer=disposeSegmentedImage,codec=jpegCodec,analyzerFactory=createForgeryscopeAnalyzer,poolFactory=(...args)=>new NeuralGraphPool(...args),detectorFactory=options=>new ScientificTextDetector(options)}={}){
+export function createBatchPreparationHost({post,loadFactory=async url=>(await import(url)).default,sourceLoader=loadM2SegmentedOriginal,sourceDisposer=disposeSegmentedImage,codec=jpegCodec,analyzerFactory=createForgeryscopeAnalyzer,poolFactory=(...args)=>new NeuralGraphPool(...args),detectorFactory=options=>new ScientificTextDetector(options),annotationDetector=detectScientificAnnotationBars}={}){
  let config,budget,profile,panelAnalyzer,textPool,textDetector,next=1,codecBytes=0,closed=false,disposing;
  const pending=new Map(),results=new Map(),operations=new Set();
  const memory=()=>({...budget.snapshot(),residentCodecBytes:codecBytes});
@@ -59,7 +60,9 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
     if(args.params?.textOnly!==true){const api=await panels();checkAbort(options.signal);panelResult=await api.analyze(image,{prepareOnly:true},options);checkAbort(options.signal);requireValue(panelResult.metadata?.preparation?.fullAnalysisExecuted===false,'Panel preparation returned a full analysis instead of classification.');}
     const source={format:'rgb8',width,height,sha256:image.sha256,readWindow:(rect,windowOptions)=>image.surface.readWindow(rect,windowOptions)};
     const textResult=await text().detect(source,options);checkAbort(options.signal);
-    const information={panels:panelResult?.metadata?.preparation??null,text:textResult,width,height,sourceSha256:image.sha256,provenance:{originalSourceSha256:image.sha256,decoder:image.provenance,sourceMetrics:image.metrics,panelDetection:panelResult?.provenance??null,coordinateSpace:'original-image-pixels',originalPixelsModified:false}};
+    let annotations=null;
+    if(panelResult){const regions=(panelResult.metadata.preparation.panels??[]).filter(p=>['Microscopy','Blots','Body Imaging'].includes(p.label??p.type)).flatMap(p=>{const b=p.rectangle??p.bounds;if(!Array.isArray(b)||b.length!==4||!b.every(Number.isFinite))return [];const r={x0:Math.max(0,b[0]),y0:Math.max(0,b[1]),x1:Math.min(width,b[2]),y1:Math.min(height,b[3])};return r.x1>r.x0&&r.y1>r.y0?[r]:[];});annotations=await annotationDetector({width,height,channels:3,regions,sourceSha256:image.sha256,signal:options.signal,readRows:(y,rows,hooks)=>image.surface.readWindow({x:0,y,width,height:rows},hooks)});checkAbort(options.signal);}
+    const information={panels:panelResult?.metadata?.preparation??null,text:textResult,annotations,width,height,sourceSha256:image.sha256,provenance:{originalSourceSha256:image.sha256,decoder:image.provenance,sourceMetrics:image.metrics,panelDetection:panelResult?.provenance??null,coordinateSpace:'original-image-pixels',originalPixelsModified:false}};
     const json=JSON.stringify(information);metadataLease=budget.reserve(json.length*3);metadata=new TextEncoder().encode(json);checkAbort(options.signal);
    }catch(error){failure=error;}
    finally{

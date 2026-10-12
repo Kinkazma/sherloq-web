@@ -2,7 +2,7 @@ import {readBatchZip} from './batch-zip.js';
 import {createBatchArtifactStore} from './batch-artifacts.js';
 import {pdfTextPolygons,projectPdfExclusions} from './batch-scope-geometry.js';
 import {batchArtifactOwners,restoredArtifactPaths} from './batch-restoration.js';
-import {remapBatchEvidence} from './batch-archive-layout.js';
+import {remapBatchEvidence,remapBatchFilePointers} from './batch-archive-layout.js';
 import {batchPairSelection} from './batch-catalog.js';
 import {serializeEngineError} from './unified-engine/src/errors.js';
 const MiB=1024**2;
@@ -64,8 +64,14 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
   const seen=restoredImages.get(image)??new Set();if(seen.has(old))return;seen.add(old);restoredImages.set(image,seen);
   const flatPaths=new Map();
   if(manifest.archiveLayout==='flat/1'){
-   const convert=(runs,prefix)=>{if(!Array.isArray(runs))return runs;const paths=restoredArtifactPaths({...old,runs},manifest,owners,()=>true,{prefix});if(!paths)return null;for(const [a,b]of paths)flatPaths.set(a,b);return runs.map(run=>({...run,files:(run.files??[]).map(path=>paths.get(path))}));};
-   old={...old,runs:convert(old.runs,'resultats/'+image.id),history:(old.history??[]).map((attempt,index)=>({...attempt,runs:convert(attempt.runs,'historique/restored-'+index+'/resultats/'+image.id)}))};
+   const convert=(attempt,prefix)=>{
+    if(!Array.isArray(attempt?.runs))return attempt;
+    const paths=restoredArtifactPaths({id:old.id,runs:attempt.runs,finalDisplay:attempt.finalDisplay},manifest,owners,()=>true,{prefix});
+    if(!paths||[...paths].some(([path,target])=>flatPaths.has(path)&&flatPaths.get(path)!==target))return {...attempt,runs:null,finalDisplay:undefined};
+    for(const [path,target]of paths)flatPaths.set(path,target);return remapBatchFilePointers(attempt,paths);
+   };
+   const current=convert({runs:old.runs,finalDisplay:old.finalDisplay},'resultats/'+image.id);
+   old={...old,...current,history:Array.isArray(old.history)?old.history.map((attempt,index)=>convert(attempt,'historique/restored-'+index+'/resultats/'+image.id)):[]};
   }
   if(old.pairCleared)image.pairCleared=true;
   else{const selection=old.pairSelection??manifest.configuration?.pairSelections?.[image.hash];if(selection)try{
@@ -74,14 +80,21 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
   }catch(error){image.pairError=serializeEngineError(error,'BATCH_PAIR_REQUIRED');}}
   const permitted=path=>typeof path==='string'&&path.split('/').every(p=>p&&p!=='.'&&p!=='..')&&(path.startsWith('resultats/'+image.id+'/')||/^historique\/[^/]+\/resultats\//.test(path)&&path.split('/')[3]===image.id);
   const validRuns=runs=>Array.isArray(runs)&&runs.length<=100&&runs.every(r=>r&&typeof r==='object'&&!Array.isArray(r)&&typeof r.title==='string'&&['done','partial','error','cancelled','running'].includes(r.status)&&Array.isArray(r.files)&&r.files.every(permitted));
+  const validDisplay=display=>display==null||display&&typeof display==='object'&&!Array.isArray(display)&&['biomes','corroboration'].includes(display.kind)&&Array.isArray(display.files)&&display.files.every(permitted);
+  const records=attempt=>[...(attempt.runs??[]),...(validDisplay(attempt.finalDisplay)&&attempt.finalDisplay?[attempt.finalDisplay]:[])];
+  if(manifest.archiveLayout!=='flat/1')for(const attempt of [old,...(Array.isArray(old.history)?old.history:[])])if(validRuns(attempt?.runs))for(const record of records(attempt))for(const path of record.files)flatPaths.set(path,path);
   const diagnosticRuns=runs=>structuredClone(runs).map(r=>r.status==='running'?{...r,archivedStatus:'running',status:'partial',error:r.error??{code:'INTERRUPTED_ARCHIVE',message:'Ce calcul était actif lors de l’export ; il n’est pas en cours dans cette session.'}}:r);
   const archives=new Map([...flatPaths].map(([a,b])=>[b,a])),entry=path=>zip.file(archives.get(path)??path);
   const restoreFiles=async runs=>{for(const path of runs.flatMap(r=>r.files))if(entry(path)&&!artifacts.has(path)){check(signal);const archivePath=archives.get(path)??path;await artifacts.set(path,await remapBatchEvidence(await entry(path).async('blob'),archivePath,flatPaths));}};
-  const history=(old.history??[]);if(Array.isArray(history)&&history.length<=1000){image.history??=[];for(const attempt of history)if(attempt&&validRuns(attempt.runs)){await restoreFiles(attempt.runs);image.history.push({...structuredClone(attempt),runs:diagnosticRuns(attempt.runs)});}}
+  const history=(old.history??[]);if(Array.isArray(history)&&history.length<=1000){image.history??=[];for(const attempt of history)if(attempt&&validRuns(attempt.runs)){const repaired=remapBatchFilePointers(attempt,flatPaths,{contextPath:attempt.finalDisplay?.files?.[0]??attempt.runs[0]?.files?.[0]});await restoreFiles(records(repaired));image.history.push({...structuredClone(repaired),runs:diagnosticRuns(repaired.runs),...(validDisplay(repaired.finalDisplay)?{}:{finalDisplay:null,restoredDiagnostics:true})});}}
   if(!validRuns(old.runs))return;
-  await restoreFiles(old.runs);
+  // Preparation is also useful in an exported selection that has not run yet.
+  // The preparation service rechecks the source, models and exact geometry
+  // before it can reuse an archived human correction.
+  if(old.preparation&&typeof old.preparation==='object'&&!Array.isArray(old.preparation))image.preparation=structuredClone(old.preparation);
+  await restoreFiles(records(old));if(validDisplay(old.finalDisplay)&&old.finalDisplay)image.finalDisplay=structuredClone(old.finalDisplay);
   const scoreValid=old.score&&['clones','additional','total'].every(k=>Number.isSafeInteger(old.score[k])&&old.score[k]>=0&&old.score[k]<=128);
-  if(old.state==='done'&&old.runs.every(r=>r.status==='done')&&scoreValid&&old.runs.flatMap(r=>r.files).every(path=>entry(path))){image.runs=structuredClone(old.runs);image.score=structuredClone(old.score);image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};if(old.preparation)image.preparation=structuredClone(old.preparation);}
+  if(old.state==='done'&&old.runs.every(r=>r.status==='done')&&scoreValid&&validDisplay(old.finalDisplay)&&records(old).flatMap(r=>r.files).every(path=>entry(path))&&!old.finalDisplay?.pendingRendering&&!old.finalDisplay?.error){image.runs=structuredClone(old.runs);image.score=structuredClone(old.score);image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};if(old.preparation)image.preparation=structuredClone(old.preparation);if(typeof old.sourceSha256==='string'&&/^[a-f0-9]{64}$/.test(old.sourceSha256))image.sourceSha256=old.sourceSha256;}
   else if(old.runs.length){image.runs=diagnosticRuns(old.runs);image.state='incomplete';image.score={...(scoreValid?structuredClone(old.score):{clones:0,additional:0,total:0}),incomplete:true};image.restoredDiagnostics=true;}
  }
  async function extractPdf(blob,name,signal){

@@ -17,7 +17,18 @@ function allocator(){
   do{const suffix=index===1?'':' ('+index+')';name=boundedName(base,180-encoder.encode(suffix+ending).length)+suffix+ending;index++;}while(used.has(collisionKey(name)));used.add(collisionKey(name));return name;
  };
 }
-const remapFiles=(owner,paths)=>({...owner,files:owner.files?.map(path=>paths.get(path)??path)});
+export function remapBatchFilePointers(value,paths,{contextPath}={}){
+ const historical=contextPath?.match(/^historique\/[^/]+\//)?.[0],resolve=path=>typeof path==='string'?(historical&&paths.has(historical+path)?paths.get(historical+path):paths.get(path)??path):path;
+ function visit(current,pointers=false){
+  if(typeof current==='string')return pointers?resolve(current):current;
+  if(!current||typeof current!=='object'||ArrayBuffer.isView(current)||current instanceof Blob)return current;
+  let changed=false;
+  if(Array.isArray(current)){const result=current.map(child=>{const next=visit(child,pointers);changed ||=next!==child;return next;});return changed?result:current;}
+  const entries=Object.entries(current).map(([key,child])=>{const next=key==='scientificArrays'?resolve(child):visit(child,pointers||key==='files');changed ||=next!==child;return [key,next];});return changed?Object.fromEntries(entries):current;
+ }
+ return visit(value);
+}
+const remapFiles=(owner,paths)=>remapBatchFilePointers(owner,paths,{contextPath:Array.isArray(owner.files)?owner.files[0]:undefined});
 
 // This is an export projection. In-memory artifact keys and analysis records
 // remain unchanged, so repeated exports and resumed analyses keep their identity.
@@ -31,7 +42,11 @@ export function batchArchiveLayout(model){
  }
  for(const image of model.images){
   for(const run of image.runs??[])addFiles(run.files,stem(basename(image.name))+' -- '+(run.title||run.toolId||run.operation||'analyse'));
-  for(const [index,attempt]of (image.history??[]).entries())for(const run of attempt.runs??[])addFiles(run.files,stem(basename(image.name))+' -- '+(run.title||run.toolId||run.operation||'analyse')+' -- essai '+(index+1));
+  if(image.finalDisplay)addFiles(image.finalDisplay.files,stem(basename(image.name))+' -- '+(image.finalDisplay.title||image.finalDisplay.mode||image.finalDisplay.kind||'vue finale'));
+  for(const [index,attempt]of (image.history??[]).entries()){
+   for(const run of attempt.runs??[])addFiles(run.files,stem(basename(image.name))+' -- '+(run.title||run.toolId||run.operation||'analyse')+' -- essai '+(index+1));
+   if(attempt.finalDisplay)addFiles(attempt.finalDisplay.files,stem(basename(image.name))+' -- '+(attempt.finalDisplay.title||attempt.finalDisplay.mode||attempt.finalDisplay.kind||'vue finale')+' -- essai '+(index+1));
+  }
  }
  for(const pair of model.comparisons??[])addFiles(pair.files,(pair.images??[]).map(id=>stem(basename(imagesById.get(id)?.name??id))).join(' -- ')+' -- comparaison');
  // Keep any additional scientific exports, even when an interrupted method
@@ -39,14 +54,12 @@ export function batchArchiveLayout(model){
  for(const path of model.artifacts.keys())if(!paths.has(path))addFiles([path],stem(basename(path))||'resultat');
  return {
   sources,paths,
-  images:model.images.map(image=>{const {blob,thumbnail,restored,...rest}=image;return {...rest,runs:(image.runs??[]).map(run=>remapFiles(run,paths)),...(image.history?{history:image.history.map(attempt=>({...attempt,runs:(attempt.runs??[]).map(run=>remapFiles(run,paths))}))}:{}),archivePath:sources.get(image.id)};}),
+  images:model.images.map(image=>{const {blob,thumbnail,restored,...rest}=image;return {...rest,runs:(image.runs??[]).map(run=>remapFiles(run,paths)),...(image.finalDisplay?{finalDisplay:remapFiles(image.finalDisplay,paths)}:{}),...(image.history?{history:image.history.map(attempt=>({...attempt,runs:(attempt.runs??[]).map(run=>remapFiles(run,paths)),...(attempt.finalDisplay?{finalDisplay:remapFiles(attempt.finalDisplay,paths)}:{})}))}:{}),archivePath:sources.get(image.id)};}),
   comparisons:(model.comparisons??[]).map(pair=>remapFiles(pair,paths)),
  };
 }
 
 export async function remapBatchEvidence(blob,path,paths){
  if(!/\.json$/i.test(path))return blob;
- const data=JSON.parse(await blob.text());let changed=false;
- function visit(value){if(!value||typeof value!=='object')return;for(const [key,child]of Object.entries(value)){if(key==='scientificArrays'&&typeof child==='string'&&paths.has(child)){value[key]=paths.get(child);changed||=value[key]!==child;}else if(child&&typeof child==='object')visit(child);}}
- visit(data);return changed?new Blob([JSON.stringify(data)],{type:blob.type||'application/json'}):blob;
+ const data=JSON.parse(await blob.text()),remapped=remapBatchFilePointers(data,paths,{contextPath:path});return remapped!==data?new Blob([JSON.stringify(remapped)],{type:blob.type||'application/json'}):blob;
 }
