@@ -1,6 +1,15 @@
 // Experimental identities established by the native checkpoint conversion and
 // browser candidate report. Not an announcement that all nine models are ported.
 export const SEGMENTATION_MODELS = Object.freeze({
+  'selfdm-proposal': Object.freeze({
+    id:'selfdm-proposal-superglue-native512-v1',variant:'SelfDM + Proposal SuperGlue',
+    family:'selfdm-proposal',side:512,kind:'sigmoid',bytes:2140,assetBytes:196619121,
+    sha256:'4431d068c7c7ae44f2992518b5a71e4c53268620421dba4cc4a4e98cd879d02e',
+    status:'experimental-local-full-512-cpu',cpuContinuousBitExact:false,
+    qualificationDimensions:[512,512],
+    numericalParity:'Complete pinned512 chain, no initial-map substitution. Prototype positive and no-match binary masks agree with the native source; no-match continuous CRF delta0.001913 exceeds the provisional0.001 target. Common-pool and actual UI qualification are recorded separately. Other dimensions are explicitly refused.',
+    license:'Local research only. SelfDM and SuperGlue redistribution/use terms require separate review before public distribution.'
+  }),
   'selfdm-map': Object.freeze({
     id:'selfdm-initial-map-native512-topk48-v1', variant:'SelfDM — initial map',
     family:'selfdm', side:512, kind:'sigmoid', bytes:62971505,

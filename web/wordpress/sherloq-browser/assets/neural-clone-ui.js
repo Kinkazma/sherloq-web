@@ -10,9 +10,10 @@ export const NEURAL_METHODS = [
  ['forgeryscope-duplicate','Forgeryscope blots complets','Forgeryscope full blots'],
  ['forgeryscope-overlap','Forgeryscope chevauchements','Forgeryscope overlaps'],
  ['forgeryscope-lanes','Forgeryscope pistes','Forgeryscope lanes'],['forgeryscope-auto','Forgeryscope Auto'],
- ['selfdm-map','SelfDM 2022 — carte initiale (expérimental)','SelfDM 2022 — initial map (experimental)']
+ ['selfdm-map','SelfDM 2022 — carte initiale (expérimental)','SelfDM 2022 — initial map (experimental)'],
+ ['selfdm-proposal','SelfDM + Proposal SuperGlue · 2022 (expérimental)','SelfDM + Proposal SuperGlue · 2022 (experimental)']
 ];
-export const isRecentNeuralMethod=method=>method?.startsWith('mgcfdn')||method?.startsWith('cmseg-')||method==='selfdm-map';
+export const isRecentNeuralMethod=method=>method?.startsWith('mgcfdn')||method?.startsWith('cmseg-')||method?.startsWith('selfdm-');
 export const isForgeryscope = method => method?.startsWith('forgeryscope-');
 export const neuralOperation = method => isForgeryscope(method)?'m2.forgeryscope':!method||method==='d2prl'?'ai.clones.d2prl':'ai.clones.segmentation';
 export function forgeryscopeParams(method,scope,rectangles,language='fr') {

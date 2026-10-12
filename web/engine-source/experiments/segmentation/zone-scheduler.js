@@ -4,7 +4,7 @@ import {checkAbort} from '../../src/errors.js';
 // No nested parallelism: only the single-thread CPU ONNX engine opts in.
 export function segmentationCpuZoneCapacity({budget, model, zones, segmented, reclaimableInferenceBytes = 0, extraReservedBytes = 0, hardwareConcurrency = globalThis.navigator?.hardwareConcurrency ?? 1}) {
   const maximumCrop = segmented ? 0 : Math.max(...zones.map(z => (z.bounds[2] - z.bounds[0]) * (z.bounds[3] - z.bounds[1]) * 3));
-  const perLane = 512 * 1024 ** 2 + 3 * model.bytes + 2 * maximumCrop + 32 * 1024 ** 2;
+  const perLane = 512 * 1024 ** 2 + 3 * (model.assetBytes??model.bytes) + 2 * maximumCrop + 32 * 1024 ** 2;
   const rawPins = zones.length * model.side ** 2 * (model.kind === 'softmax' ? 3 : 1) * 12;
   const available = budget.limit - budget.retained - budget.active + reclaimableInferenceBytes - extraReservedBytes - rawPins;
   return Math.max(1, Math.min(zones.length, Math.max(1, Math.floor(hardwareConcurrency) || 1), Math.floor(available / perLane)));

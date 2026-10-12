@@ -4,6 +4,7 @@ import {createCmsegInference} from './cmseg-inference.js';
 import {createVigInference} from './vig-inference.js';
 import {createTntInference} from './tnt-inference.js';
 import {createSelfDMInference} from '../../src/selfdm-inference.js';
+import {createSelfDMProposalInference} from '../../src/selfdm-proposal-inference.js';
 
 export function createSegmentationInference({budget, profile, variant, modelUrl, backend = 'cpu'}) {
   requireValue(budget && typeof budget.reserve === 'function' && typeof budget.registerReclaimer === 'function', 'Shared budget required');
@@ -13,6 +14,7 @@ export function createSegmentationInference({budget, profile, variant, modelUrl,
   const hybrid = backend === 'webgpu', gpuBudgetBytes = hybrid ? 512 * 1024 ** 2 : 0;
   requireValue(model && typeof modelUrl === 'string' && /^https?:$/.test(new URL(modelUrl).protocol), 'Known segmentation model and absolute HTTP URL required');
   if (model.family === 'selfdm') return createSelfDMInference({budget, profile, model, modelUrl, backend});
+  if (model.family === 'selfdm-proposal') return createSelfDMProposalInference({budget, profile, model, modelUrl, backend});
   if (model.family === 'cmseg') return createCmsegInference({budget, model, modelUrl, backend});
   if (model.family === 'vig') return createVigInference({budget, model, modelUrl, backend});
   if (model.family === 'tnt') return createTntInference({budget, model, modelUrl, backend});

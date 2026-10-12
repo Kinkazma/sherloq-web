@@ -4,12 +4,16 @@ import {segmentationZoneConcurrency, runSegmentationZones} from './zone-schedule
 import {getExecutionScheduler} from '../../src/execution-scheduler.js';
 let sequence = 0;
 function commonNeuralExecution(runs, values, concurrency, budget) {
+  const cvPools=runs.filter(run=>run.metrics?.cv).map(run=>({zoneIds:run.zoneIds,zoneIndex:run.zoneIndex,laneIndex:run.laneIndex,pools:structuredClone(run.metrics.cv),scope:'Cumulative counters for this pipeline instance after the request; admitted worker counts, not physical CPU utilization'}));
+  // A completed model grid can contain a whole native pipeline. Count its
+  // actual graph jobs, rather than treating the whole pipeline as one team.
+  runs = runs.flatMap(run => Array.isArray(run.metrics?.stages) ? run.metrics.stages.filter(stage=>stage.inferenceExecutions>0).map(stage=>({...run,stage:stage.stage,heapBytes:stage.heapBytes,metrics:stage})) : [run]);
   const threads = runs.map(run => run.metrics?.threads).filter(value => Number.isSafeInteger(value) && value > 0);
   const range = threads.length ? {minimum: Math.min(...threads), maximum: Math.max(...threads)} : runs.length ? {minimum: null, maximum: null} : {minimum: 0, maximum: 0};
   const uniform = runs.length === 0 ? 0 : threads.length === runs.length && range.minimum === range.maximum ? range.minimum : null;
   const latest = new Map(); for (const run of runs) latest.set(run.laneIndex, run);
   const teams = runs.slice().sort((a, b) => a.zoneIndex - b.zoneIndex).map(run => ({
-    zoneIds: run.zoneIds, zoneIndex: run.zoneIndex, laneIndex: run.laneIndex,
+    zoneIds: run.zoneIds, zoneIndex: run.zoneIndex, laneIndex: run.laneIndex, ...(run.stage?{stage:run.stage}:{}),
     threads: run.metrics?.threads ?? null, cpuGranted: run.metrics?.cpuGranted ?? null, gpuGranted: run.metrics?.gpuGranted ?? null,
     provider: run.metrics?.provider ?? null, memoryMaximumBytes: run.metrics?.memoryMaximumBytes ?? null,
     heapBytes: run.heapBytes, workerReused: run.metrics?.workerReused ?? null,
@@ -23,7 +27,7 @@ function commonNeuralExecution(runs, values, concurrency, budget) {
     independentZones: {...concurrency, internalThreadsPerWorker: uniform, admittedThreadsPerWorker: range,
       meaning: 'Region tasks include cache lookups; thread teams below are admitted by the shared broker, not physical CPU utilization'},
     wasmMaximumBytes: caps.length ? Math.max(...caps) : null, wasmMaximumScope: 'Completed model-grid admission, including cached grid provenance', runtimeMaximumBytes: 2 * 1024 ** 3,
-    neuralPool: {
+    ...(cvPools.length?{pipelineCvPools:cvPools}:{}),neuralPool: {
       enabled: true, scope: 'Successful final useful inferences in this request; cache-only views perform none', jobs: runs.length,
       admittedTeams: teams, workerReuses: runs.filter(run => run.metrics?.workerReused === true && !run.metrics?.threadReconfigured).length,
       modelReuses: runs.filter(run => run.metrics?.workerReused === true && !run.metrics?.threadReconfigured && !run.metrics?.modelReconfigured).length,
@@ -79,6 +83,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
     try {
       job.check(); const resultId = prefix + job.revision, analysisId = context.analysisId ?? resultId;
       result.metadata = {...result.metadata, modelId: model.id, variant: model.variant, backend: inference.backend ?? 'cpu', execution: {...context.execution, projectionReleasedSessionBytes: releasedSessionBytes}, timings: {...counts.timings, projectionMs: performance.now() - projectionStarted}, pixelSha256: context.pixelSha256, resultId, analysisId, revision: job.revision, sourceProvenance: context.provenance, inferences: counts.inferences, cache_hits: counts.cacheHits, inference_performed: counts.inferences > 0, zones: result.metadata.zones.map((zone, i) => ({...zone, kind: context.zones[i].kind}))};
+      if(values.some(value=>value.pipelineMetadata))result.metadata.nativePipelines=context.zones.map((zone,i)=>({zoneId:zone.id,...structuredClone(values[i].pipelineMetadata)}));
       last = {...context, allZones: context.allZones ?? context.zones, resultId, analysisId, resultMetadata: structuredClone(result.metadata)}; return result;
     } catch (error) {await result.release(); throw error;}
   };
@@ -94,7 +99,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
         const pinned = [], inserted = []; let sourceRelease, complete = false;
         try {
           const snapshotStarted = performance.now();
-          const timings = {cropMs: 0, preparationMs: 0, neuralRpcMs: 0, modelLoadMs: 0, inferenceMs: 0, outputCopyMs: 0, gpuWriteBytes: 0, gpuReadBytes: 0};
+          const timings = {cropMs: 0, preparationMs: 0, neuralRpcMs: 0, modelLoadMs: 0, inferenceMs: 0, outputCopyMs: 0, gpuWriteBytes: 0, gpuReadBytes: 0, aggregation:'Per-task phase durations are summed across zones and pipeline graph stages; concurrent tasks can overlap. zoneWallMs, projectionMs and totalMs describe elapsed wall time.'};
           let source;if(segmented)context.pixelSha256=await inputSource.sha256({signal:job.signal,onProgress:job.progress});else{sourceRelease=budget.reserve(pixels.data.byteLength*3);source=pixels.data.slice();context.pixelSha256=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',source)),b=>b.toString(16).padStart(2,'0')).join('');}job.check();
           timings.snapshotAndHashMs = performance.now() - snapshotStarted;
           let inferences = 0, cacheHits = 0, completedZones = 0;const parameterRuns=[],sessionRuns=[],neuralRuns=[];
@@ -107,7 +112,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
             group.indices.push(i);
           }
           const wanted = createLane ? segmentationZoneConcurrency({budget,model,lanes,zones:groups.map(g=>context.zones[g.index]),segmented}) : 1;
-          while (lanes.length > wanted) {const lane = lanes.pop(); lane.inference.dispose(); lane.prepare.dispose();}
+          while (lanes.length > wanted) {const lane = lanes.pop(); await lane.inference.dispose(); lane.prepare.dispose();}
           while (lanes.length < wanted) lanes.push(createLane());
           const zoneStarted = performance.now();
           const scheduled = await runSegmentationZones({count:groups.length,lanes,signal:job.signal,run:async (groupIndex,lane,signal) => {
@@ -125,15 +130,15 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
                 timings.cropMs += performance.now() - cropStarted; const prepareStarted = performance.now();
                 prepared = await lane.prepare.run({...input, side: model.side}, {signal, onProgress});
                 timings.preparationMs += performance.now() - prepareStarted; const inferStarted = performance.now();
-                output = await lane.inference.run(prepared.tensor, {signal, onProgress}); job.check();
+                output = await lane.inference.run(prepared.inferenceInput??prepared.tensor, {signal, onProgress, sourceKey:zone.cacheKey}); job.check();
                 if(output.parameterCache)parameterRuns.push(output.parameterCache);
                 if(output.sessionCache)sessionRuns.push(output.sessionCache);
-                if(model.family==='selfdm')neuralRuns.push({zoneIndex:i,zoneIds:group.indices.map(index=>context.zones[index].id),laneIndex:lanes.indexOf(lane),heapBytes:output.heapBytes,metrics:structuredClone(output.metrics??{})});
+                if(model.family?.startsWith('selfdm'))neuralRuns.push({zoneIndex:i,zoneIds:group.indices.map(index=>context.zones[index].id),laneIndex:lanes.indexOf(lane),heapBytes:output.heapBytes,metrics:structuredClone(output.metrics??{})});
                 timings.neuralRpcMs += performance.now() - inferStarted;
                 for (const name of ['modelLoadMs', 'inferenceMs', 'outputCopyMs', 'gpuWriteBytes', 'gpuReadBytes', 'correlationMs', 'backboneMs', 'backboneSetupMs', 'parameterLoadMs', 'attentionMatmulMs', 'graphDistanceMs', 'correlationGpuMs']) timings[name] = (timings[name] ?? 0) + (output.timings?.[name] ?? 0);
                 if(model.splitGraph)for(const name of ['encoderMs','headMs'])timings[name]=(timings[name]??0)+(output.timings?.[name]??0);
                 requireValue(output.raw instanceof Float32Array && output.raw.byteLength === rawBytes, 'Actual model probability grid required');
-                pinned.push(budget.reserve(rawBytes)); value = {raw: output.raw, byteLength: rawBytes, heapBytes: output.heapBytes, gpuPeakBufferBytes: output.gpu?.peakAccountedBytes ?? 0, parameterCache:output.parameterCache, sessionCache:output.sessionCache, correlationWorkers: output.workers ?? 0, correlationHeapBytes: output.correlationObservedHeapBytes ?? 0, ...(model.family==='selfdm'?{neuralMemoryMaximumBytes:output.metrics?.memoryMaximumBytes}: {})}; budget.put(zone.cacheKey, value); if (budget.get(zone.cacheKey) === value) inserted.push(zone.cacheKey); inferences++;
+                pinned.push(budget.reserve(rawBytes)); value = {raw: output.raw, byteLength: rawBytes, heapBytes: output.heapBytes, gpuPeakBufferBytes: output.gpu?.peakAccountedBytes ?? 0, parameterCache:output.parameterCache, sessionCache:output.sessionCache, correlationWorkers: output.workers ?? 0, correlationHeapBytes: output.correlationObservedHeapBytes ?? 0, ...(model.family?.startsWith('selfdm')?{neuralMemoryMaximumBytes:output.metrics?.memoryMaximumBytes,...(output.metadata?{pipelineMetadata:{...structuredClone(output.metadata),coordinateFrame:'input-rectangle-pixels',originalBounds:[...zone.bounds],originalOrigin:zone.bounds.slice(0,2)}}:{})}: {})}; budget.put(zone.cacheKey, value); if (budget.get(zone.cacheKey) === value) inserted.push(zone.cacheKey); inferences++;
               } finally {output?.release(); prepared?.release(); cropRelease?.();}
             }
             cacheHits += group.indices.length - 1; completedZones += group.indices.length;
@@ -144,7 +149,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
           const values = new Array(context.zones.length);
           groups.forEach((group,i)=>group.indices.forEach(index=>{values[index]=scheduled.values[i];}));
           context.execution = {...(model.splitGraph?{onnxStages:2,stageBackends:model.stageBackends.slice(),intermediateBytes:640*40*40*4+8}:{}),...(values.some(v=>v.sessionCache)?{sessionCache:{enabled:true,...Object.fromEntries(['creations','reuses','pressureEvictions'].map(key=>[key,sessionRuns.reduce((n,v)=>n+(v[key]??0),0)]))}}:{}),...(values.some(v=>v.parameterCache)?{parameterCache:{enabled:true,...Object.fromEntries(['hits','misses','hitBytes','fetchBytes','evictions'].map(key=>[key,parameterRuns.reduce((n,v)=>n+(v[key]??0),0)])),sessionPeakResidentBytes:Math.max(...values.map(v=>v.parameterCache?.sessionPeakResidentBytes??0))}}:{}),backend: inference.backend ?? 'cpu', independentZones: scheduled.concurrency, wasmMaximumBytes: 512 * 1024 ** 2, gpuMaximumBytes: inference.gpuMaximumBytes ?? (inference.backend === 'webgpu-cpu' ? 512 * 1024 ** 2 : 0), observedHeapBytes: Math.max(...values.map(v => v.heapBytes ?? 0)), gpuPeakBufferBytes: Math.max(...values.map(v => v.gpuPeakBufferBytes ?? 0)), ...(model.family === 'vig' ? {graphDistanceBackend:inference.graphDistanceBackend??'wasm-cpu',convolutionWorkerMaximumBytes:64*1024**2, observedConvolutionWorkers:Math.max(...values.map(v=>v.correlationWorkers??0))} : {}), ...(model.family === 'tnt' ? {attentionBackend:inference.attentionBackend??'wasm-cpu',linearWorkerMaximumBytes:64*1024**2, observedLinearWorkers:Math.max(...values.map(v=>v.correlationWorkers??0))} : {}), ...(model.family === 'cmseg' ? {correlationBackend:inference.correlationBackend??'wasm-cpu',correlationWorkerMaximumBytes: 64 * 1024 ** 2, observedCorrelationWorkers: Math.max(...values.map(v => v.correlationWorkers ?? 0)), observedCorrelationHeapBytes: Math.max(...values.map(v => v.correlationHeapBytes ?? 0))} : {})};
-          if(model.family==='selfdm')Object.assign(context.execution,commonNeuralExecution(neuralRuns,values,scheduled.concurrency,budget));
+          if(model.family?.startsWith('selfdm'))Object.assign(context.execution,commonNeuralExecution(neuralRuns,values,scheduled.concurrency,budget));
           const result = await finish(context, values, job, {inferences, cacheHits, timings}); complete = true; return result;
         } finally {if (!complete) inserted.forEach(key => budget.remove(key)); pinned.forEach(free => free()); sourceRelease?.();}
       }, options);
@@ -157,7 +162,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
       context.zones = context.allZones.filter(z => selected.has(z.id)); validate(context.width, context.height, context.zones, context.mode, context.layout==='segmented');
       return start(async job => {
         const values = context.zones.map(z => budget.get(z.cacheKey)); if (values.some(v => !v)) throw new EngineError('CACHE_MISS', 'Model grids evicted; explicit analysis required');
-        if(model.family==='selfdm')Object.assign(context.execution,commonNeuralExecution([],values,{requested:0,observed:0,memoryBackoffs:0},budget));
+        if(model.family?.startsWith('selfdm'))Object.assign(context.execution,commonNeuralExecution([],values,{requested:0,observed:0,memoryBackoffs:0},budget));
         const release = budget.reserve(rawBytes * values.length); try {return await finish(context, values, job, {inferences: 0, cacheHits: values.length});} finally {release();}
       }, options);
     },
@@ -169,6 +174,6 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
       catch (error) {release(); throw error;}
     },
     cancel() {current?.abort(); revision++;},
-    async dispose() {if (disposed) return; disposed = true; current?.abort(); revision++; await tail; for (const lane of lanes.splice(1)) {lane.inference.dispose(); lane.prepare.dispose();} budget.clearPrefix(prefix); last = null;}
+    async dispose() {if (disposed) return; disposed = true; current?.abort(); revision++; await tail; for (const lane of lanes.splice(1)) {await lane.inference.dispose(); lane.prepare.dispose();} budget.clearPrefix(prefix); last = null;}
   };
 }

@@ -53,8 +53,19 @@ for name, path, data in (
 ):
     put(resources / path, data)
     models[name] = {'bytes':len(data), 'sha256':sha(data)}
+component_data = b'fixture-proposal-component'
+cv_data = wasm
+component_identity = {'file':'component.onnx', 'bytes':len(component_data), 'sha256':sha(component_data)}
+cv_identity = {'file':'seeds.wasm', 'bytes':len(cv_data), 'sha256':sha(cv_data)}
+proposal_path = 'selfdm-ssg/proposal-browser-candidate/integration-bundle/selfdm-proposal-bundle.json'
+proposal_data = json.dumps({'schema':1, 'family':'selfdm-proposal', 'models':{'selfdm':component_identity}, 'cv':cv_identity}).encode()
+put(resources / proposal_path, proposal_data)
+put(resources / Path(proposal_path).parent / component_identity['file'], component_data)
+put(resources / Path(proposal_path).parent / cv_identity['file'], cv_data)
+models['proposal'] = {'bytes':len(proposal_data), 'sha256':sha(proposal_data)}
+put(engine / 'src/selfdm-proposal-assets.js', 'export const SELFDM_PROPOSAL_MODELS=' + json.dumps({'selfdm':component_identity}) + ';export const SELFDM_PROPOSAL_CV=' + json.dumps(cv_identity) + ';')
 put(engine / 'experiments/segmentation/models.js',
-    'export const SEGMENTATION_MODELS=' + json.dumps({'selfdm-map':models['selfdm']}) + ';')
+    'export const SEGMENTATION_MODELS=' + json.dumps({'selfdm-map':models['selfdm'], 'selfdm-proposal':models['proposal']}) + ';')
 put(engine / 'src/efficient-loftr-assets.js',
     'export const EFFICIENT_LOFTR_ASSET=' + json.dumps(models['eloftr']) + ';')
 put(fallback / 'individual-assets/individual-models.json',

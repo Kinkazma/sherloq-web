@@ -90,7 +90,7 @@ export interface Hooks { signal?:AbortSignal; onProgress?:(event:Progress)=>void
 export interface Input { id:string; bytes:Uint8Array; mime?:string; name?:string; lastModified?:number; pixels?:Pixels; provenance?:Record<string,unknown>; }
 export interface D2prlRegion {id:string;kind:'region'|'envelope'|'whole-image';bounds:[number,number,number,number];}
 export interface D2prlManifest {url:string;bytes:number;sha256:string;}
-export type SegmentationVariant = 'mgcfdn-mpdn'|'mgcfdn-16'|'mgcfdn'|'mgcfdn-effnet'|'mgcfdn-st'|'mgcfdn-tnt'|'mgcfdn-vig'|'cmseg-generalization'|'cmseg-addnoise'|'selfdm-map';
+export type SegmentationVariant = 'mgcfdn-mpdn'|'mgcfdn-16'|'mgcfdn'|'mgcfdn-effnet'|'mgcfdn-st'|'mgcfdn-tnt'|'mgcfdn-vig'|'cmseg-generalization'|'cmseg-addnoise'|'selfdm-map'|'selfdm-proposal';
 export interface SegmentationAsset {url:string;bytes:number;sha256:string;}
 export interface SegmentationModelInput extends SegmentationAsset {variant:SegmentationVariant;gpu?:SegmentationAsset;}
 export const SEGMENTATION_MODEL_IDENTITIES:Readonly<Record<SegmentationVariant,Readonly<{id:string;variant:string;side:number;kind:'sigmoid'|'softmax';bytes:number;sha256:string;checkpointSha256:string;status:string;cpuContinuousBitExact:false;family?:'cmseg'|'tnt'|'vig'|'selfdm';backbone?:Readonly<{file:string;bytes:number;sha256:string}>;tail?:Readonly<{file:string;bytes:number;sha256:string}>;assetBytes?:number;gpu?:Readonly<{id:string;bytes:number;sha256:string;status:string;sharedAssets?:true;correlationGpuOnly?:true;residentCorrelation?:true;minimumResidentBytes?:number}>}>>>;

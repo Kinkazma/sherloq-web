@@ -59,23 +59,34 @@ def stage(fallback, resources, output, version):
     manifest = json.loads((fallback / 'individual-assets/individual-models.json').read_text())
     # Read identities from executable source exports. Verify the actual candidate
     # bytes before publishing a local manifest; never silently select an old graph.
-    program = 'import {SEGMENTATION_MODELS} from ' + json.dumps((engine / 'experiments/segmentation/models.js').as_uri()) + ';import {EFFICIENT_LOFTR_ASSET} from ' + json.dumps((engine / 'src/efficient-loftr-assets.js').as_uri()) + ';process.stdout.write(JSON.stringify({selfdm:SEGMENTATION_MODELS["selfdm-map"],eloftr:EFFICIENT_LOFTR_ASSET}));'
+    program = 'import {SEGMENTATION_MODELS} from ' + json.dumps((engine / 'experiments/segmentation/models.js').as_uri()) + ';import {EFFICIENT_LOFTR_ASSET} from ' + json.dumps((engine / 'src/efficient-loftr-assets.js').as_uri()) + ';import {SELFDM_PROPOSAL_MODELS,SELFDM_PROPOSAL_CV} from ' + json.dumps((engine / 'src/selfdm-proposal-assets.js').as_uri()) + ';process.stdout.write(JSON.stringify({selfdm:SEGMENTATION_MODELS["selfdm-map"],proposal:SEGMENTATION_MODELS["selfdm-proposal"],proposalComponents:SELFDM_PROPOSAL_MODELS,proposalCV:SELFDM_PROPOSAL_CV,eloftr:EFFICIENT_LOFTR_ASSET}));'
     identities = json.loads(subprocess.check_output(['node', '--input-type=module', '-e', program], text=True))
-    model_paths = {'selfdm': 'selfdm-ssg/browser-selfdm-512/selfdm-map-512.onnx', 'eloftr': 'aliked-eloftr/export/efficient-loftr-full-fp32.onnx'}
-    for name, relative in model_paths.items():
-        path = resources / relative
-        identity = identities[name]
+    model_paths = {'selfdm': 'selfdm-ssg/browser-selfdm-512/selfdm-map-512.onnx', 'proposal':'selfdm-ssg/proposal-browser-candidate/integration-bundle/selfdm-proposal-bundle.json', 'eloftr': 'aliked-eloftr/export/efficient-loftr-full-fp32.onnx'}
+    def verify_file(path, identity, name):
         digest = hashlib.sha256()
         with path.open('rb') as stream:
             for part in iter(lambda: stream.read(1024 ** 2), b''):
                 digest.update(part)
         if path.stat().st_size != identity['bytes'] or digest.hexdigest() != identity['sha256']:
             raise ValueError('Local model differs from engine identity: ' + name)
+    for name, relative in model_paths.items():
+        path = resources / relative
+        identity = identities[name]
+        verify_file(path, identity, name)
         asset = {key: identity[key] for key in ('bytes', 'sha256')}
         asset['url'] = '../integration-resources/' + relative
-        if name == 'selfdm':
-            asset['variant'] = 'selfdm-map'
-            manifest['segmentation']['selfdm-map'] = asset
+        if name in ('selfdm','proposal'):
+            key = 'selfdm-map' if name == 'selfdm' else 'selfdm-proposal'
+            if name == 'proposal':
+                bundle = json.loads(path.read_text())
+                for component, expected in identities['proposalComponents'].items():
+                    actual = bundle['models'][component]
+                    if any(actual[key] != expected[key] for key in ('bytes','sha256')):
+                        raise ValueError('Proposal bundle component identity: ' + component)
+                    verify_file(path.parent / actual['file'], expected, 'proposal/' + component)
+                verify_file(path.parent / bundle['cv']['file'], identities['proposalCV'], 'proposal/cv')
+            asset['variant'] = key
+            manifest['segmentation'][key] = asset
         else:
             manifest['m3']['eloftr'] = asset
     write('individual-assets/individual-models.json', (json.dumps(manifest, indent=2) + '\n').encode())
