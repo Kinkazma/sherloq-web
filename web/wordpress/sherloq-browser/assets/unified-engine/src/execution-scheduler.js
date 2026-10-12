@@ -19,13 +19,15 @@ export class ExecutionScheduler {
     this.leases = new Set();
     this.closed = false;
     this.pumping = false;
+    this.handoffs = 0;
+    this.ownedLeases = new WeakSet();
     this.metrics = {admitted: 0, completed: 0, peakCpu: 0, peakGpu: 0, peakQueued: 0, waitMs: 0, cpuLeaseMs: 0, gpuLeaseMs: 0, elasticAdmissions: 0, memoryReclaims: 0, preflightExecutions: 0};
     this.unsubscribe = budget.subscribe?.(() => this.pump());
     this.resourceListener = () => this.pump();
     budget.resourceAdmissionListeners?.add(this.resourceListener);
   }
 
-  acquire({cpu = 1, minCpu = cpu, gpu = 0, bytes = 0, bytesForCpu, domains = {}, signal, label = 'useful-work', operation, resourceOwner = operation?.owner} = {}) {
+  acquire({cpu = 1, minCpu = cpu, gpu = 0, bytes = 0, bytesForCpu, domains = {}, signal, label = 'useful-work', operation, resourceOwner = operation?.owner} = {}, {continuation = false} = {}) {
     try {
       checkAbort(signal);
       if (this.closed) throw new EngineError('DISPOSED', 'Execution scheduler disposed.');
@@ -49,10 +51,21 @@ export class ExecutionScheduler {
         this.pump();
       };
       signal?.addEventListener('abort', request.abort, {once: true});
-      this.queue.push(request);operation?.setState('queued',{resource:'admission'});
+      if(continuation)this.queue.unshift(request);else this.queue.push(request);
+      operation?.setState('queued',{resource:'admission'});
       this.metrics.peakQueued = Math.max(this.metrics.peakQueued, this.queue.length);
       this.pump();
     });
+  }
+
+  transition(lease, resources) {
+    requireValue(this.ownedLeases.has(lease), 'Phase lease belongs to another scheduler.');
+    // Register useful continuation before returning its current CPU/GPU slot.
+    // Otherwise release() can settle memory waiters during a transient gap in
+    // which no lease exists, although this admitted tile can still finish.
+    this.handoffs++;
+    try { return this.acquire(resources, {continuation: true}); }
+    finally { try { lease.release(); } finally { this.handoffs--; this.pump(); } }
   }
 
   markQueued(request, resource) {
@@ -91,7 +104,7 @@ export class ExecutionScheduler {
   }
 
   pump() {
-    if (this.pumping || this.closed) return;
+    if (this.pumping || this.closed || this.handoffs) return;
     this.pumping = true;
     try {
       // Reserve only the minimum needed by the oldest blocked request. CPUs
@@ -168,7 +181,7 @@ export class ExecutionScheduler {
         const producer=request.resourceOwner&&!request.operation?this.budget.beginResourceProducer?.(request.resourceOwner,{active:cpu+request.gpu>0,commitOnRelease:false}):null;let resourceBlocked=false;
         let released = false;
         const updateOperation=()=>{const operation=request.operation;if(!operation||operation.closed)return;if(resourceBlocked)operation.setState('recovery');else if([...this.leases].some(value=>value.operation===operation&&value.cpu+value.gpu>0))operation.setState('compute');else if(['compute','queued','recovery'].includes(operation.state))operation.setState('ready');};updateOperation();
-        request.resolve({get cpu(){return cpu;}, gpu: request.gpu, bytes, label: request.label, waitMs,
+        const lease={get cpu(){return cpu;}, gpu: request.gpu, bytes, label: request.label, waitMs,
           setResourceBlocked: value => {resourceBlocked=!!value;producer?.setActive(!resourceBlocked&&cpu+request.gpu>0);updateOperation();},
           releaseCpu: count => {
             requireValue(!released && Number.isSafeInteger(count) && count > 0 && count <= cpu, 'Invalid partial CPU release.');
@@ -194,7 +207,8 @@ export class ExecutionScheduler {
           record.cpuLeaseMs += milliseconds * cpu; record.gpuLeaseMs += milliseconds * request.gpu;
           this.leases.delete(active);updateOperation();
           this.pump();
-        }});
+        }};
+        this.ownedLeases.add(lease);request.resolve(lease);
       }
       // Pressure, CPU/GPU and memory waits use the same graph. A closed
       // component with no producer must settle, rather than silently retain

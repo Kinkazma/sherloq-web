@@ -8,10 +8,14 @@ parser=argparse.ArgumentParser()
 parser.add_argument('--port',type=int,default=8097)
 parser.add_argument('--root',default='/Users/gaeldauchy/gaeldauchy-site-unraid-2026-07-31/gaeldauchy-site-unraid-2026-09-24/gaeldauchy-site-unraid/wordpress/html')
 parser.add_argument('--fixtures',type=Path,help='Optional generated fixtures directory for browser checks')
+parser.add_argument('--candidate-engine',type=Path,help='Optional source directory for isolated SIFT phase qualification')
 args=parser.parse_args()
 assets=Path(args.root)/'wp-content/plugins/sherloq-browser/assets'
 configuration=json.loads((assets/'dependency-config.json').read_text())
 manifest=json.loads((assets/('dependency-manifest-'+configuration['manifest']+'.json')).read_text())
+candidate_modules=('execution-scheduler.js','sift-paged-resources.js')
+if args.candidate_engine:
+ manifest['localFiles']=sorted(set(manifest.get('localFiles',[]))|{'unified-engine/src/'+name for name in candidate_modules})
 manifest['remoteBase']=f'http://127.0.0.1:{args.port}/__batch_assets__/'
 manifest_bytes=json.dumps(manifest,separators=(',',':')).encode()
 local_identity=hashlib.sha256(manifest_bytes).hexdigest()
@@ -51,6 +55,19 @@ class Handler(SimpleHTTPRequestHandler):
   return str(resource_root/'missing')
  def do_GET(self):
   path=urlsplit(self.path).path
+  if args.candidate_engine and ((Path(path).name.startswith('batch-') and Path(path).suffix=='.js') or Path(path).name=='integrated-config.json'):
+   source=repository/'web/wordpress/sherloq-browser/assets'/Path(path).name
+   if source.is_file():
+    data=source.read_bytes();self.send_response(200);self.send_header('Content-Type','application/json' if source.suffix=='.json' else 'text/javascript');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
+  if args.candidate_engine and any(path.endswith('/unified-engine/src/'+name) for name in candidate_modules):
+   source=args.candidate_engine/Path(path).name
+   data=b'import "../../runtime-context.js?v=0.15.1";\n'+source.read_bytes()
+   self.send_response(200);self.send_header('Content-Type','text/javascript');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
+  if args.fixtures and Path(path).name in ('__sift_memory__.html','__sift_memory__.js','__batch_storage__.html','__batch_storage__.js','__batch_pipeline__.html','__batch_pipeline__.js'):
+   storage='__batch_storage__' in path
+   pipeline='__batch_pipeline__' in path
+   name=('pipeline.html' if pipeline else 'storage.html' if storage else 'index.html') if path.endswith('.html') else ('pipeline.js' if pipeline else 'storage.js' if storage else 'test.js');data=(args.fixtures/name).read_bytes()
+   self.send_response(200);self.send_header('Content-Type','text/html' if name.endswith('.html') else 'text/javascript');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
   if path.endswith('/dependency-config.json'): data=json.dumps(configuration).encode()
   elif Path(path).name.startswith('dependency-manifest-') and Path(path).stem.removeprefix('dependency-manifest-') in local_manifests:
    data=local_manifests[Path(path).stem.removeprefix('dependency-manifest-')]

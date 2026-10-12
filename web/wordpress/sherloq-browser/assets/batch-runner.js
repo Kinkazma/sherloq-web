@@ -10,21 +10,16 @@ import {neuralDisplays} from './neural-clone-ui.js';
 const check=signal=>signal?.throwIfAborted();
 const polygon=r=>[[r.x0,r.y0],[r.x1-1,r.y0],[r.x1-1,r.y1-1],[r.x0,r.y1-1]];
 const dataBlob=value=>new Blob([JSON.stringify(value,null,2)],{type:'application/json'});
-export function batchWorkerHints(memoryBudgetBytes,hardwareConcurrency=globalThis.navigator?.hardwareConcurrency??1){
- // Leave one GiB for source rows, exports and phase growth. Each SIFT tile can
- // own a heap plus CPU/GPU scratch close to one GiB while changing phases.
- return {hardwareConcurrency:Math.min(Math.max(1,Math.floor(hardwareConcurrency)),Math.max(1,Math.floor(memoryBudgetBytes/1024**3)-1))};
-}
 export async function displayBlob(client,descriptor,signal){
  const canvas=new OffscreenCanvas(descriptor.width,descriptor.height),ctx=canvas.getContext('2d');
  try{for(let y=0;y<descriptor.height;y+=32){check(signal);const rows=Math.min(32,descriptor.height-y),pixels=await client.readWindow(descriptor,{x:0,y,width:descriptor.width,height:rows}),rgba=ctx.createImageData(pixels.width,pixels.height);for(let i=0;i<pixels.width*pixels.height;i++){rgba.data[i*4]=pixels.data[i*3];rgba.data[i*4+1]=pixels.data[i*3+1];rgba.data[i*4+2]=pixels.data[i*3+2];rgba.data[i*4+3]=255;}ctx.putImageData(rgba,0,y);await nextFrame();}return await canvas.convertToBlob({type:'image/png'});}finally{canvas.width=canvas.height=1;}
 }
 export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},toolFactory=createToolClient,automaticFactory=createAutomaticClient}={}){
- let tool,automatic,composite,controller,context;let outputBytes=0;const cleanups=new Map();
- async function put(artifacts,path,output){const blob=output.blob??output,previous=artifacts.get(path)?.size??0;if(outputBytes-previous+blob.size>512*1024**2){await output.cleanup?.();throw Error('Sorties supérieures à 512 Mio. Exportez ce lot puis fractionnez le suivant.');}await cleanups.get(path)?.();cleanups.delete(path);outputBytes=outputBytes-previous+blob.size;artifacts.set(path,blob);if(output.cleanup)cleanups.set(path,output.cleanup);return path;}
+ let tool,automatic,composite,controller,context;
+ async function put(artifacts,path,output){try{await artifacts.set(path,output.blob??output);return path;}finally{await output.cleanup?.();}}
  function event(value){onProgress(value);}
  const profile=()=>typeof computeProfile==='function'?computeProfile():computeProfile;
- async function getTool(){return tool??=await toolFactory({computeProfile:profile(),memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3,resourceHints:batchWorkerHints(4*1024**3),onProgress:e=>event({phase:'kernel',detail:e})});}
+ async function getTool(){return tool??=await toolFactory({computeProfile:profile(),memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3,onProgress:e=>event({phase:'kernel',detail:e})});}
  async function getAutomatic(){return automatic??=await automaticFactory({computeProfile:profile(),memoryBudgetBytes:4*1024**3,retainMasks:true,onProgress:e=>event({phase:'kernel',detail:e})});}
  async function execute(image,recipe,artifacts,options,signal){
   check(signal);const path='resultats/'+image.id+'/'+safeName(recipe.id),run={toolId:recipe.id,title:recipe.fr,operation:recipe.operation,kind:recipe.kind,methodKey:recipeKey(recipe),params:structuredClone(recipe.params),signal:structuredClone(recipe.signal),status:'running',files:[]};image.runs.push(run);event({phase:'tool',image,recipe,run});let owner,entries;
@@ -49,10 +44,7 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
     if(recipe.params.algorithm?.endsWith('Panels + Text')&&!regions.length)regions=[{x0:0,y0:0,x1:image.width,y1:image.height}];
     if(recipe.requires==='median'&&options.median)await owner.loadModel('median',options.median);
     const task=batchTask(recipe,{id:'batch-'+crypto.randomUUID(),imageId:image.id,regions}),extras={file:image.blob,reference:options.reference,database:options.database};
-    check(signal);try{output=await owner.run(task,extras);}catch(error){
-     if(task.backend!=='auto'||!task.operation.startsWith('m2.')||!['MEMORY_LIMIT','MEMORY_ALLOCATION','UNSUPPORTED_BACKEND','WORKER_FAILED'].includes(error.code))throw error;
-     check(signal);run.recovery={from:'auto',to:'cpu',code:error.code,message:error.message};event({phase:'cpu-retry',image,recipe});await owner.dispose();tool=null;owner=await getTool();check(signal);await owner.load({id:image.id,blob:image.blob});output=await owner.run({...task,backend:'cpu'},extras);
-    }
+    check(signal);output=await owner.run(task,extras);
     run.files.push(await put(artifacts,path+'.json',await owner.export('json')));
     const neural=neuralDisplays(output,'fr'),overlay=neural?.find(v=>v.display.cloneView==='overlay');
     if(overlay){run.files.push(await put(artifacts,path+'.png',await displayBlob(owner,overlay.display,signal)));const mask=output.maskSurfaces?.mask;if(mask)run.files.push(await put(artifacts,path+'-mask.png',await owner.export('png',mask)));}
@@ -93,16 +85,16 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
  }
  return {get running(){return !!controller;},cancel(){controller?.abort(Object.assign(Error('Traitement arrêté'),{code:'CANCELLED'}));tool?.cancel();void automatic?.pause();},
   async run(model,recipes,options={}){
-   if(controller)throw Error('Lot déjà en cours.');controller=new AbortController();const signal=controller.signal;context=evidenceContext();outputBytes=[...model.artifacts.values()].reduce((n,b)=>n+b.size,0);const selected=model.images.filter(i=>i.selected),unique=[...new Map(recipes.map(r=>[recipeKey(r),r])).values()];
-   const deployment=await fetch(new URL('./integrated-config.json',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();}).catch(error=>{context.dispose();context=null;controller=null;throw error;});model.engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,batch:'0.1.1',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3,resourceHints:batchWorkerHints(4*1024**3)};
-   for(const path of [...model.artifacts.keys()])if(path.startsWith('comparaisons/')){outputBytes-=model.artifacts.get(path).size;await cleanups.get(path)?.();cleanups.delete(path);model.artifacts.delete(path);}model.comparisons=[];
+   if(controller)throw Error('Lot déjà en cours.');controller=new AbortController();const signal=controller.signal;context=evidenceContext();const selected=model.images.filter(i=>i.selected),unique=[...new Map(recipes.map(r=>[recipeKey(r),r])).values()];
+   const deployment=await fetch(new URL('./integrated-config.json',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();}).catch(error=>{context.dispose();context=null;controller=null;throw error;});model.engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,batch:'0.2.0',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3};
+   for(const path of [...model.artifacts.keys()])if(path.startsWith('comparaisons/')){await model.artifacts.delete(path);}model.comparisons=[];
    model.configuration={options:{threshold:options.threshold??1,basis:options.basis??'clones',compare:!!options.compare,panels:!!options.panels},recipes:unique.map(r=>({id:r.id,operation:r.operation,params:r.params,signal:r.signal,backend:r.backend??'auto'}))};model.startedAt=new Date().toISOString();model.cancelled=false;
    try{
     for(const [index,image]of selected.entries()){
      check(signal);event({phase:'image-start',image,index,total:selected.length});
      const signature=c=>JSON.stringify([(c?.recipes??[]).map(r=>[r.operation,r.params,r.signal,r.backend??'auto']).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b))),c?.options?.panels]);
      if(options.reuse&&image.state==='done'&&!image.score?.incomplete&&image.restored&&JSON.stringify(image.restored.engine)===JSON.stringify(model.engine)&&signature(image.restored.configuration)===signature(model.configuration)){image.reused=true;event({phase:'image-done',image,index:index+1,total:selected.length,reused:true});continue;}
-     for(const path of [...model.artifacts.keys()])if(path.startsWith('resultats/'+image.id+'/')){outputBytes-=model.artifacts.get(path).size;await cleanups.get(path)?.();cleanups.delete(path);model.artifacts.delete(path);}
+     for(const path of [...model.artifacts.keys()])if(path.startsWith('resultats/'+image.id+'/')){await model.artifacts.delete(path);}
      image.reused=false;image.runs=[];image.state='running';const owned=[];
      try{for(const recipe of unique){check(signal);owned.push(await execute(image,recipe,model.artifacts,options,signal));await nextFrame();}
       const entries=image.runs.flatMap(r=>['done','partial'].includes(r.status)?r.entries??[]:[]),maximum=await context.maximum(entries,image.width,image.height,signal);
@@ -116,6 +108,6 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
    finally{model.finishedAt=new Date().toISOString();context.dispose();context=null;await Promise.allSettled([tool?.dispose(),automatic?.dispose(),composite?.dispose()]);tool=automatic=composite=null;controller=null;}
    model.results=studyScores(model.studies,model.images,options);event({phase:'finished',model});return model;
   },
-  async clear(){this.cancel();for(const free of cleanups.values())await free().catch(()=>{});cleanups.clear();outputBytes=0;}
+  async clear(){this.cancel();}
  };
 }

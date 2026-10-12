@@ -30,8 +30,8 @@ try{
   let runner,timer;runner=createBatchRunner({onProgress:event=>{if(event.phase!=='kernel')console.log('BATCH: '+event.phase);if(mode==='cancel'&&event.phase==='tool')timer=setTimeout(()=>runner.cancel(),200);}});
   try{
    await runner.run(model,[recipe],{threshold:1,basis:'total',panels:false,compare:mode==='compare'});
-   return {cancelled:model.cancelled,results:model.results.map(s=>({status:s.status,score:s.score})),images:model.images.map(i=>({state:i.state,score:i.score,runs:i.runs.map(r=>({status:r.status,entries:r.entries?.length,error:r.error,recovery:r.recovery,files:r.files}))})),comparisons:(model.comparisons??[]).map(p=>({kind:p.kind,status:p.status,entries:p.entries?.length,error:p.message})),artifactBytes:[...model.artifacts.values()].reduce((n,b)=>n+b.size,0)};
-  }finally{clearTimeout(timer);await runner.clear();}
+   return {cancelled:model.cancelled,results:model.results.map(s=>({status:s.status,score:s.score})),images:model.images.map(i=>({state:i.state,score:i.score,runs:i.runs.map(r=>({status:r.status,entries:r.entries?.length,error:r.error,recovery:r.recovery,files:r.files}))})),comparisons:(model.comparisons??[]).map(p=>({kind:p.kind,status:p.status,entries:p.entries?.length,error:p.message})),artifactBytes:model.artifacts.snapshot().bytes};
+  }finally{clearTimeout(timer);await runner.clear();await model.artifacts.dispose();}
  },{mode,backend:process.env.SHERLOQ_TEST_BACKEND??'auto'});
  await fs.writeFile(root+'/native-'+mode.replaceAll('.','-')+'.json',JSON.stringify({mode,output,errors},null,2));
  console.log(JSON.stringify({mode,output,errors},null,2));assert.equal(errors.length,0);

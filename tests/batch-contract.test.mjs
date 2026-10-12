@@ -5,14 +5,18 @@ import {comparisonPolygons} from '../web/wordpress/sherloq-browser/assets/batch-
 import {pdfPoint,safeName} from '../web/wordpress/sherloq-browser/assets/batch-import.js';
 import {jsonExportValue,sparseNpzPreparationBytes} from '../web/wordpress/sherloq-browser/assets/tool-client.js';
 import {batchForgeryscopeMetadata} from '../web/wordpress/sherloq-browser/assets/batch-evidence.js';
-import {batchWorkerHints} from '../web/wordpress/sherloq-browser/assets/batch-runner.js';
+import {createBatchRunner} from '../web/wordpress/sherloq-browser/assets/batch-runner.js';
 import {m3Npz} from '../web/wordpress/sherloq-browser/assets/unified-engine/src/npz.js';
 
-test('Batch leaves phase-growth headroom without exceeding available CPU slots',()=>{
- assert.deepEqual(batchWorkerHints(4*1024**3,12),{hardwareConcurrency:3});
- assert.deepEqual(batchWorkerHints(4*1024**3,2),{hardwareConcurrency:2});
- assert.deepEqual(batchWorkerHints(512*1024**2,12),{hardwareConcurrency:1});
+test('Batch uses the native capacity and backend without a worker cap or forced CPU retry',async()=>{
+ const previous=globalThis.fetch;let settings,calls=0;
+ globalThis.fetch=async()=>new Response(JSON.stringify({engineVersion:'test',engineCommit:'test',runtimeSourceIncrementSha256:'test'}));
+ const image={id:'image',name:'image.png',blob:new Blob(),width:1,height:1,family:'unknown',selected:true,state:'ready',occurrences:[],runs:[]},model={images:[image],studies:[],artifacts:new Map()};
+ const runner=createBatchRunner({toolFactory:async value=>{settings=value;return {async load(){},async run(task){calls++;assert.equal(task.backend,'auto');throw Object.assign(Error('native refusal'),{code:'MEMORY_LIMIT'});},async dispose(){}};}});
+ try{await runner.run(model,[{id:'native',fr:'native',kind:'view',operation:'m2.native',params:{},signal:{},backend:'auto'}]);assert.equal(settings.resourceHints,undefined);assert.equal(settings.memoryBudgetBytes,4*1024**3);assert.equal(calls,1);assert.equal(image.runs[0].status,'error');assert.equal(image.runs[0].error.code,'MEMORY_LIMIT');assert.equal(model.engine.resourceHints,undefined);}
+ finally{globalThis.fetch=previous;}
 });
+
 test('Sparse NPZ admission includes numeric arrays and the native nested JSON mirror',()=>{
  const data={points:new Float64Array(18000*7),pairs:new Float64Array(5405*4),colors:new Uint8Array(5405*3),pair_search_regions:new Int32Array(5405),groups:[new Uint32Array([0,1])],params:{algorithm:'SIFT + G2NN + RANSAC + Panels + Text'},metadata:{},regions:[],bases:[]};
  const result={operation:'tampering.copyMove.sparse',data,provenance:{},style:{},visible:[]};

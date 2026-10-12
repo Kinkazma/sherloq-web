@@ -12,8 +12,9 @@ export class SiftPagedResources{
   if(kind==='gpu'&&!this.gpuPrepared){this.gpuPrepared=true;this.preparationGate?.sample('preparation',performance.now()-this.preparedAt);}if(kind==='cpu'&&this.gpuAt){this.preparationGate?.sample('service',performance.now()-this.gpuAt);this.gpuAt=0;}
   if(kind==='gpu'&&this.lease?.gpu){if(this.lease.cpu)this.lease.releaseCpu(this.lease.cpu);return;}
   if(kind==='cpu'&&this.lease?.cpu&&!this.lease.gpu)return;
-  this.lease?.release();this.lease=null;
-  const lease=await this.scheduler.acquire({cpu:kind==='cpu'?1:0,gpu:kind==='gpu'?1:0,signal:this.signal,domains,operation:this.operation,resourceOwner:this.owner,label:'sift-'+kind});
+  const previous=this.lease;this.lease=null;
+  const request={cpu:kind==='cpu'?1:0,gpu:kind==='gpu'?1:0,signal:this.signal,domains,operation:this.operation,resourceOwner:this.owner,label:'sift-'+kind};
+  const lease=await (previous?this.scheduler.transition(previous,request):this.scheduler.acquire(request));
   try{checkAbort(this.signal);}catch(error){lease.release();throw error;}this.lease=lease;if(kind==='gpu'){this.gpuAt=performance.now();this.onGpuAdmitted?.();}
  }
  async message(data){
