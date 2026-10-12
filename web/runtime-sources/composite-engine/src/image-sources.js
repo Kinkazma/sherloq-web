@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {disposePixelStoreCaches} from './pixel-store-cache.js';
 import {decodePagedJpegRows} from './jpeg-dct-paged.js';
 import {prepareOrientedSourceCache} from './oriented-source-cache.js';

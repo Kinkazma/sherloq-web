@@ -92,7 +92,15 @@ Yellow is applied only to the **filtered masks**, at a uniform opacity; it does 
 | Local resource library | Ordinary files in their original formats, folder reconnection and standard TAR import/export |
 | Results | Tool-specific views and exports; changing display controls can reuse a completed result where supported |
 
-The interface source is **0.14.5**, from `869f90507f8c26454668dcd6cd4323b3da659ece`. The engine snapshot is **0.35.0-export.2**, from `638d0f7aeebb6fc680fcd99b8af0e3977fb40284`. The runtime lock also retains earlier engine slots used by specific tools; a single version number does not replace that inventory.
+The interface is **0.15.1**, adapted from `f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404` with the existing batch workflow preserved. The engine snapshot is **0.35.0-export.3**, from `a1f85661db24610ac3c7bf894214afc85a72d024`. The runtime lock also retains earlier engine slots used by specific tools; a single version number does not replace that inventory.
+
+## Execution, recovery and export corrections
+
+I integrated corrections to shared ONNX Runtime residency and memory admission, worker startup and error reporting, and reusable transform workers. Local strip recovery retains completed work. The interface uses the views actually published by M2, preserves useful magnifier previews after a failure, accepts valid decimal gamma settings, and keeps calculation progress tied to the active calculation.
+
+Automatic diagnostics now distinguish partial results, suspension, resumption and intentional cancellation. NPZ export preserves D2PRL masks whose native contours contain only one or two points. Model weights and WASM binaries are unchanged. The existing batch workflow is retained; its PDF/ZIP dependencies load on demand through the same hashed resource library.
+
+[Causes, source revisions, qualification and integration checks](docs/EXECUTION-CORRECTIONS.md). The separate [SAFIRE admission issue](https://github.com/Kinkazma/sherloq-web/issues/1) remains open. This delivery does not claim a new 96 MP qualification or a universal speed benchmark.
 
 ## Additional and restored tools
 

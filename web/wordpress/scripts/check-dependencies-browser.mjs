@@ -33,7 +33,7 @@ try{
  await page.waitForSelector('#global-loupe',{state:'attached',timeout:90000});
  phase='engine';console.log('Startup',counts);
  assert.equal(await page.locator('#dependency-settings').count(),1);
- const startup={...counts};assert.ok(startup.appBytes+startup.remoteBytes<20_000_000,JSON.stringify(startup));
+ const startup={...counts};assert.ok(startup.appBytes+startup.remoteBytes<25_000_000,JSON.stringify(startup));
  const manifest=JSON.parse(await fs.readFile(path.join(output,'manifest-template.json'),'utf8'));
  const forbidden=new Set(Object.values(manifest.files).filter(f=>/onnx|octet-stream/.test(f.type)&&f.size>5_000_000).flatMap(f=>f.chunks));
  assert.ok(!remotePaths.some(p=>forbidden.has(p.split('/').pop().replace('.bin',''))),'No large model at startup');

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 // Job-scoped origin-private storage. Requires a dedicated worker for sync I/O.
 // No user-visible file picker, persistence request, remote endpoint or native mmap.
 import {EngineError,requireValue,checkAbort} from './errors.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {requireValue} from './errors.js';import {RowWorkers} from './row-workers.js';
 export class AdjustWorkers extends RowWorkers{
  constructor(count,options){super(count,new URL('./adjust-worker.js',import.meta.url),(data,input)=>{

@@ -31,6 +31,6 @@ def adapted_runtime(relative, data, lookup, version):
         imports.append('import {instantiateDependency} from ' + json.dumps(module('runtime-dependency.js') + '?v=' + version) + ';')
     # Module workers inherit the session identity through their constructor URL.
     # ES module side effects run before any worker entrypoint or lazy native init.
-    if '/src/' in relative and 'runtime-context.js?v=' not in text and re.search(r'(^|[;\n])\s*(?:import |export )', text):
+    if '/src/' in relative and 'runtime-context.js?v=' not in text and re.search(r'(^|[;\n])\s*(?:import |export )|\bimport\s*\(', text):
         imports.append('import ' + json.dumps(module('runtime-context.js') + '?v=' + version) + ';')
     return ('\n'.join(imports) + '\n' + text).encode() if imports else data

@@ -13,7 +13,7 @@ export async function saveLibraryFile(folder,path,file,load,{signal}={}){
  const handle=await libraryFile(folder,path,true),writer=await handle.createWritable();
  try{for(const hash of file.chunks){signal?.throwIfAborted();await writer.write(await load(hash));}await writer.close();}catch(e){await writer.abort().catch(()=>{});throw e;}
 }
-export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>libraryValue('folder'),cacheStorage=globalThis.caches,concurrency=2}={}){
+export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>libraryValue('folder'),archive,cacheStorage=globalThis.caches,concurrency=2}={}){
  const active=new Map(),waiters=[];let running=0,reserved=0,cachePromise;
  const locations=new Map();for(const [path,file] of Object.entries(manifest.files)){let offset=0;for(const h of file.chunks){if(!locations.has(h))locations.set(h,[]);locations.get(h).push({path,offset});offset+=manifest.chunks[h];}}
  const byteBudget=128*1024*1024;
@@ -26,8 +26,9 @@ export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>
   if(!Object.hasOwn(manifest.chunks,h))throw Error('Unknown dependency chunk');
   const c=await cache(),url=key(h);let cached=await c?.match(url).catch(()=>null);
   if(cached){try{const bytes=await verify(h,new Uint8Array(await cached.arrayBuffer()));report({level:'info',kind:'dependency.cache-hit'});return bytes;}catch(error){report({level:'warning',kind:'dependency.cache-invalid',error:{message:error.message}});await c.delete(url).catch(()=>{});}}
-  let bytes;const local=await folder().catch(()=>null);
-  if(local)for(const {path,offset} of locations.get(h)||[])try{const file=await(await libraryFile(local,path)).getFile();bytes=await verify(h,new Uint8Array(await file.slice(offset,offset+manifest.chunks[h]).arrayBuffer()));break;}catch{/* Missing, changed or permission expired: try another copy, then GitHub. */}
+  let bytes,localSource=false;if(archive)try{const value=await archive(h);if(value){bytes=await verify(h,value);localSource=true;report({level:'info',kind:'dependency.archive-hit'});}}catch(error){report({level:'warning',kind:'dependency.archive-invalid',error:{message:error.message}});}
+  const local=bytes?null:await folder().catch(()=>null);
+  if(local)for(const {path,offset} of locations.get(h)||[])try{const file=await(await libraryFile(local,path)).getFile();bytes=await verify(h,new Uint8Array(await file.slice(offset,offset+manifest.chunks[h]).arrayBuffer()));localSource=true;break;}catch{/* Missing, changed or permission expired: try another copy, then GitHub. */}
   // Small modules physically bundled in WordPress also belong to the complete
   // standard library export. Do not fetch a second copy from GitHub for them.
   if(!bytes)for(const {path,offset} of locations.get(h)||[])if(manifest.localFiles?.includes(path))try{
@@ -46,7 +47,7 @@ export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>
    try{await verify(h,bytes);}catch(cause){throw Object.assign(new Error('Dependency integrity verification failed.',{cause}),{code:'DEPENDENCY_INTEGRITY',details:{requestedURL,finalURL:response.url,status:response.status,expectedSha256:h,expectedBytes:bytes.length,receivedBytes:size}});}
   }
   // A full disk must not prevent an otherwise valid online calculation.
-  if(c)await c.put(url,new Response(bytes)).catch(()=>{});
+  if(c&&!localSource)await c.put(url,new Response(bytes)).catch(()=>{});
   report({level:'info',kind:'dependency.verified',receivedBytes:bytes.length,receivedSha256:h});return bytes;
  }
  return function load(h,observe){

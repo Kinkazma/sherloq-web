@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {m3ImageShape} from './m3-image-shape.js';
 import {PagedSiftFeatureEngine} from './sift-paged.js';
 import {PagedAkazeFeatureEngine} from './akaze-paged.js';

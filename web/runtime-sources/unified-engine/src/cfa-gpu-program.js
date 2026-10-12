@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {EngineError,requireValue} from './errors.js';
 const count=dims=>dims.reduce((a,b)=>a*b,1),shapeOf=a=>Array.isArray(a)?[a.length,...shapeOf(a[0])]:[];
 /** Keep exact copies, slices, concatenations and qualified convolution chains
@@ -37,7 +37,7 @@ export async function runCfaResidentProgram(module,program,weights,input,gpu,{bl
     await enterGpu();const source=sources.map(gpuTensor);out={dims,gpu:await gpu.move(node.op,source,settings)};owned.add(out);
    }else{
     const x=await cpuTensor(inputs[0]);await enter();
-    if(node.op==='Softplus'){out=allocate(x.dims,view(x));module._cfa_activate(out.pointer,count(out.dims),0);}
+    if(node.op==='Softplus'){out=allocate(x.dims);view(out).set(view(x));module._cfa_activate(out.pointer,count(out.dims),0);}
     else if(node.op==='AveragePool'){requireValue(Number.isInteger(block)&&block>=8&&block%2===0,'CFA block must be even and at least eight.');const [b,c,h,w]=x.dims,k=block/2;out=allocate([b,c,Math.floor(h/k),Math.floor(w/k)]);module._cfa_pool(x.pointer,out.pointer,b,c,h,w,k);}
     else if(node.op==='LogSoftmax'){requireValue(a.axis===1,'Unexpected CFA LogSoftmax axis.');out=allocate(x.dims);module._cfa_logsoftmax(x.pointer,out.pointer,out.dims[0],out.dims[1],count(out.dims.slice(2)));}
     else throw new EngineError('MODEL_UNAVAILABLE','Unsupported CFA operator: '+node.op);

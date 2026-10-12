@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {copyTypedArray} from './allocation.js';
 import {requireValue,EngineError} from './errors.js';
 import {runCfaResidentProgram} from './cfa-gpu-program.js';
@@ -40,7 +40,7 @@ function* execute(module,program,weights,input,{block=32,onProgress,onTensor,hyb
     requireValue(Number.isInteger(block)&&block>=8&&block%2===0,'CFA block must be even and at least eight.');const [b,c,h,w]=inputs[0].dims,k=block/2;out=allocate([b,c,Math.floor(h/k),Math.floor(w/k)]);module._cfa_pool(inputs[0].pointer,out.pointer,b,c,h,w,k);
    }else if(node.op==='LogSoftmax'){
     requireValue(a.axis===1,'Unexpected CFA LogSoftmax axis.');out=allocate(inputs[0].dims);module._cfa_logsoftmax(inputs[0].pointer,out.pointer,out.dims[0],out.dims[1],count(out.dims.slice(2)));
-   }else if(node.op==='Identity')out=allocate(inputs[0].dims,view(inputs[0]));
+   }else if(node.op==='Identity'){out=allocate(inputs[0].dims);view(out).set(view(inputs[0]));}
    else throw new EngineError('MODEL_UNAVAILABLE','Unsupported CFA operator: '+node.op);
    requireValue(node.outputs.length===1,'Unsupported multi-output CFA operator.');tensors.set(node.outputs[0],out);
    onTensor?.(node.name,out.pointer?view(out):out.data,out.dims);onProgress?.({phase:'cfa-network',completed:index+1,total:program.nodes.length});

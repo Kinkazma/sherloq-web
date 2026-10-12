@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {requireValue,EngineError,controlCheckpoint,checkAbort} from './errors.js';
 
 export async function extraImageHashes(image,{signal,account,wasmBinary,onProgress}={}){

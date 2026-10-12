@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';
 import {stereoParams} from './stereogram.js';
 import {gray,roundEven} from './pixel-utils.js';
@@ -20,7 +20,7 @@ export async function segmentedStereogram(image,params,{budget,signal,onProgress
   const math=await stereoStreamMath();const searchCached=!!cache,patternCached=!!cache?.views.get(0),flowCached=!!cache?.flow;
   if(!cache){
    const differences=new Float32Array(height>=2&&Math.floor(width/3)>11?Math.floor(width/3)-10:0),sums=new Float64Array(differences.length),smallHeight=roundEven(height*.5);let offset=-1,completed=0;
-   if(differences.length){pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:8*1024**2,workerPixelBytes:24,workerFactory:globalThis.Worker?()=>new Worker(new URL('./stereo-stream-worker.js',import.meta.url),{type:'module'}):null});await pool.run({count:Math.ceil(smallHeight/rows),pixels:Math.min(rows,smallHeight)*width*2,key:`stereo-search/${width}/${rows}`,signal,
+   if(differences.length){pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:8*1024**2,workerPixelBytes:24,workerURL:new URL('./stereo-stream-worker.js',import.meta.url),workerFactory:globalThis.Worker?()=>new Worker(new URL('./stereo-stream-worker.js',import.meta.url),{type:'module'}):null});await pool.run({count:Math.ceil(smallHeight/rows),pixels:Math.min(rows,smallHeight)*width*2,key:`stereo-search/${width}/${rows}`,signal,
     prepare:async i=>{const y=i*rows*2,h=Math.min(rows,smallHeight-i*rows),sourceRows=Math.min(h*2,height-y),part=await image.surface.readWindow({x:0,y,width,height:sourceRows},{signal});try{return {op:'search',rgb:part.pixels.data.slice(),width,height:sourceRows,outputRows:h};}finally{part.release();}},local:j=>({sums:math.search(j.rgb,j.width,j.height,j.outputRows)}),consume:async result=>{for(let i=0;i<sums.length;i++)sums[i]+=result.sums[i];progress('stereo-search',++completed,Math.ceil(smallHeight/rows));}});
     for(let i=0;i<sums.length;i++)differences[i]=sums[i]*(1/(smallHeight*(width-i-10)));let maximum=-Infinity;for(let i=0;i<differences.length-1;i++){const d=Math.fround(differences[i+1]-differences[i]);if(d>maximum){maximum=d;offset=i+10;}}if(maximum<2)offset=-1;
    }

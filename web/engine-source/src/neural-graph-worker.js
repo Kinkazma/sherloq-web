@@ -8,6 +8,7 @@ import {EngineError,serializeEngineError} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 const reusable=new Map();
 let session,ort,runtime,asset,cfaModule,cfaProgram,cfaWeights,cfaGPU,execute,resourceReady;
+const runtimeLifecycle={runtimeInitializations:0,modelInitializations:0,modelSwitches:0};
 function waitForExecution(initializationMs,heapBytes){
  return new Promise(resolve=>{execute=resolve;self.postMessage({executionReady:true,initializationMs,heapBytes});});
 }
@@ -59,15 +60,25 @@ installWorkerMessageProtocol(self,async data=>{
    return;
   }
   try{
-    if(!session){
+    if(session&&asset.sha256!==data.asset.sha256){
+      self.postMessage({phase:'model-release'});
+      for(const cached of reusable.values())cached.tensor.dispose();reusable.clear();
+      const old=session;session=null;await old.release();asset=null;runtimeLifecycle.modelSwitches++;
+    }
+    if(!ort){
       initialized=true;
-      asset=data.asset;globalThis.__sherloqNeuralMemoryPages=data.memoryMaximumBytes/65536;
+      globalThis.__sherloqNeuralMemoryPages=data.memoryMaximumBytes/65536;
       runtime=await import(data.runtime.factoryUrl);ort=await import(data.runtime.ortUrl);
       ort.env.wasm.numThreads=data.threads;ort.env.wasm.wasmPaths={mjs:data.runtime.factoryUrl,wasm:data.runtime.wasmUrl};
       if(data.provider==='webgpu')ort.env.webgpu.powerPreference='high-performance';
+      runtimeLifecycle.runtimeInitializations++;
+    }
+    if(!session){
+      initialized=true;asset=data.asset;
       self.postMessage({phase:'model-load'});
       const bytes=await modelBytes(asset);
       session=await ort.InferenceSession.create(bytes,{executionProviders:[data.provider==='webgpu'&&asset.preferredLayout?{name:'webgpu',preferredLayout:asset.preferredLayout}:data.provider],graphOptimizationLevel:asset.graphOptimizationLevel??'all',enableCpuMemArena:false,enableMemPattern:false});
+      runtimeLifecycle.modelInitializations++;
     }
     if(asset.sha256!==data.asset.sha256)throw Error('Worker model changed');
     await waitForExecution(initialized?performance.now()-initializationStart:0,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';
@@ -88,7 +99,7 @@ installWorkerMessageProtocol(self,async data=>{
     self.postMessage({phase:'inference'});
     outputs=await session.run(feeds);
     phase='output';const {result,transfers,copiedOutputBytes}=neuralOutputTransfer(outputs,feeds,data.outputBytes);
-    self.postMessage({result,copiedOutputBytes,heapBytes:runtime.heapBytes(),runtime:ort.env.versions,provider:data.provider},transfers);
+    self.postMessage({result,copiedOutputBytes,heapBytes:runtime.heapBytes(),runtime:ort.env.versions,runtimeLifecycle:{...runtimeLifecycle},provider:data.provider},transfers);
   }catch(error){self.postMessage({error:serializeEngineError(neuralRuntimeError(error,{provider:data.provider,phase,heapBytes:cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.()??0,maximumBytes:data.memoryMaximumBytes}),'NEURAL_EXECUTION')});}
   finally{for(const [name,t]of Object.entries(feeds))if(reusable.get(name)?.tensor!==t)t.dispose();for(const t of Object.values(outputs??{}))t.dispose();}
 },{label:'neural-endpoint',onFailure:error=>self.postMessage({error:serializeEngineError(error)})});

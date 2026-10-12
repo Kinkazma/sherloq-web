@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 // Resource policies only. They never alter image resolution or analysis thresholds.
 const MiB=1024**2,GiB=1024**3;
 export const COMPUTE_PROFILES=Object.freeze({

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {parallelStoredGrayLosses,serialStoredGrayLosses,grayPoolShape} from './jpeg-gray-stream-pool.js';
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';
 import {parallelSegmentedLosses,streamPoolShape} from './segmented-recompression-pool.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 // WGSL permits reassociation and does not guarantee fused fma rounding:
 // https://www.w3.org/TR/WGSL/#floating-point-accuracy
 const shader=`

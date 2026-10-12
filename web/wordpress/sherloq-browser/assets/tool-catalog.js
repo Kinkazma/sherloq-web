@@ -32,7 +32,7 @@ const fields={
  'jpeg.zero':{view:indexed(['Régions','Votes de grille','Votes JPEG99','Grilles différentes','Grilles manquantes'])},
  'tampering.contrast':{block:select([32,64,128,256]),mode:indexed(['Erreur d’histogramme','Similarité des canaux','Indicateur joint'])},
  'tampering.copyMove.brisk':{response:range(0,100),matching:range(0,100),distance:range(0,100),minimum:range(1,1000)},
- 'tampering.resampling':{stage:select(['probability','fourier']),size:select([3,5]),'fourier.window':select(['hanning','radial']),'fourier.highpass':select(['simple','radial']),'fourier.gamma':range(.01,20,.1)},
+ 'tampering.resampling':{stage:select(['probability','fourier']),size:select([3,5]),'fourier.window':select(['hanning','radial']),'fourier.highpass':select(['simple','radial']),'fourier.gamma':range(0,5,.1)},
  'various.median':{variance:range(0,100),threshold:range(0,1,.01)},
  'various.illuminant':{block:select([32,64,128,256]),method:indexed(['Gray World','Shades of Gray (p=6)','White Patch']),mode:indexed(['Couleur de l’illuminant','Écart à l’illuminant global','Pixels valides'])},
  'various.stereogram':{mode:indexed(['Motif','Silhouette','Disparité relative','Ombrage'])},

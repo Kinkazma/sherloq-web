@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import createFast from '../vendor/akaze-paged/akaze-paged.js';
 import {boundWasmMemory} from './wasm-memory-limit.js';
 import {roundEven} from './pixel-utils.js';

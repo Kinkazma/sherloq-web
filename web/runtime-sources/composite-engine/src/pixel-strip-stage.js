@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {OPENCV_OPERATIONS} from './opencv-operations.js';
 import {gradientDerivatives,gradientLengths,gradientRender,gradientLut} from './gradient-math.js';
 import {contrastRows} from './contrast-math.js';

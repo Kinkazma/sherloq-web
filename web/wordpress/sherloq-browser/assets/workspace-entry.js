@@ -10,19 +10,25 @@ const messages=preferred==='fr'?{
 }:{installing:'Preparing SHERLOQ…',slow:'The first load is taking a little longer. The application will open automatically when ready.',waiting:'Update ready. Close other SHERLOQ windows after their calculations finish; this page will continue automatically.',opening:'Opening tools…',retrying:'Connection interrupted. Retrying automatically…',failed:'Unable to finish loading.',retry:'Retry',reload:'Reload'};
 document.documentElement.lang=preferred;
 const show=key=>{diagnostic({level:'info',kind:'startup',stage:key});if(notice)notice.textContent=messages[key]||key;};
-let running=false,workspaceStarted=false;
+let running=false;
 async function start(){
  if(running)return;running=true;if(app)app.inert=true;show('installing');
+ let stage='modules';
  try{
   const {prepareDependencies}=await import('./dependency-bootstrap.js');
+  stage='dependencies';
   for(let attempt=0;;attempt++){
    try{await prepareDependencies({onStatus:show});break;}
    catch(error){if(attempt>=2)throw error;show('retrying');await new Promise(resolve=>setTimeout(resolve,1000*2**attempt));}
   }
-  show('opening');const {mountWorkspace}=await import('./workspace.js');
-  workspaceStarted=true;mountWorkspace();if(app)app.inert=false;notice?.remove();document.documentElement.dataset.workspaceReady='true';
+  stage='workspace';show('opening');const {mountWorkspace}=await import('./workspace.js');
+  mountWorkspace();if(app)app.inert=false;notice?.remove();document.documentElement.dataset.workspaceReady='true';
  }catch(error){
-  show('failed');if(notice){const detail=document.createElement('small');detail.textContent=error.message;notice.append(detail);const retry=document.createElement('button');retry.type='button';retry.textContent=messages[workspaceStarted?'reload':'retry'];retry.onclick=()=>workspaceStarted?location.reload():start();notice.append(retry);}
+  // A rejected ES module graph stays rejected for this document. Only the
+  // dependency preparation can retry in place; import/mount failures need a
+  // fresh document. No image or calculation exists at this startup boundary.
+  const reload=stage!=='dependencies';
+  show('failed');if(notice){const detail=document.createElement('small');detail.textContent=error.message;notice.append(detail);const retry=document.createElement('button');retry.type='button';retry.textContent=messages[reload?'reload':'retry'];retry.onclick=()=>reload?location.reload():start();notice.append(retry);}
   const logs=document.createElement('button');logs.textContent=preferred==='fr'?'Exporter le journal complet':'Export complete log';logs.onclick=()=>void downloadSession();notice?.append(logs);console.error(error);
  }finally{running=false;}
 }

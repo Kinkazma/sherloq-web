@@ -1,6 +1,5 @@
-import "../../runtime-context.js?v=0.14.5";
-import {createEngine} from './index.js';
-import {EngineError,serializeEngineError} from './errors.js';
+import "../../runtime-context.js?v=0.15.1";
+import {EngineError,serializeEngineError,normalizeResourceError} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 let engine,currentController,currentSequence,stopping=false,shutdown;
 function closeForCancellation(){if(shutdown)return shutdown;shutdown=(async()=>{try{self.postMessage({shutdownPhase:'closing-storage'});await engine?.dispose();self.postMessage({storageClosed:true});}catch(error){self.postMessage({storageClosed:false,shutdownError:{code:error.code??'INTERNAL'}});}})();return shutdown;}
@@ -17,7 +16,20 @@ installWorkerMessageProtocol(self,async ({sequence,method,args,options})=>{
  const controller=new AbortController();currentController=controller;currentSequence=sequence;
  try {
   if(stopping)return;
-  if(method==='init'){engine=createEngine({...options,onTemporarySession:storageSession=>self.postMessage({storageSession})});self.postMessage({sequence,result:engine.capabilities()});return;}
+  if(method==='init'){
+   const moduleURL=new URL('./index.js',import.meta.url).href;let createEngine;
+   try{({createEngine}=await import('./index.js'));}
+   catch(cause){
+    // Retry evidence belongs to the module loader, never to an arbitrary
+    // TypeError during useful work or engine construction.
+    const explicitDownload=cause?.code==='NETWORK_TRANSIENT'||cause?.name==='TypeError'&&/Failed to fetch dynamically imported module|error loading dynamically imported module/i.test(cause.message??'')&&!/content security|\bCSP\b|MIME|CORS|denied|blocked/i.test(cause.message??'');
+    throw new EngineError('WORKER_LOAD_FAILED',cause?.message||'Browser engine module could not be loaded.',{cause,details:{phase:'module-load',moduleURL,retryable:explicitDownload}});
+   }
+   if(stopping)return;
+   try{engine=createEngine({...options,onTemporarySession:storageSession=>self.postMessage({storageSession})});}
+   catch(cause){const error=normalizeResourceError(cause),failure=error?.code?error:new EngineError('WORKER_INITIALIZATION_FAILED',cause?.message||'Browser engine could not be initialized.',{cause});failure.details={...failure.details,phase:'engine-create',moduleURL};throw failure;}
+   self.postMessage({sequence,result:engine.capabilities()});return;
+  }
   if(!engine || !['reserveExternalMemory','releaseExternalMemory','capabilities','load','loadBlob','loadAutomaticModels','resumeAutomatic','updateAutomatic','renderAutomatic','exportAutomatic','exportResultFile','releaseAutomatic','inspectHeaders','inspectMetadata','deriveOriginal','releaseSurface','readPlane','exportSurface','exportPixelBuffer','readExport','releaseExport','readDisplay','readPixels','readMask','readFlags','readTable','readTableCsv','readNpz','releaseTable','originalBlob','readOriginal','loadMedianModel','loadQualityModel','loadD2prlModel','unloadD2prlModel','readD2prlRaw','loadM3Models','unloadM3Models','loadSegmentationModel','unloadSegmentationModel','readSegmentationRaw','loadPrnuDatabase','buildPrnuDatabase','createPrnuDatabaseExport','exportPrnuDatabase','run','exportResult','original','imagePixels','unload','dispose'].includes(method))throw new Error('Invalid worker method.');
   const result=await engine[method](...args,...(['load','loadBlob','loadAutomaticModels','resumeAutomatic','updateAutomatic','renderAutomatic','exportAutomatic','exportResultFile','releaseAutomatic','inspectHeaders','inspectMetadata','deriveOriginal','releaseSurface','readPlane','exportSurface','exportPixelBuffer','readExport','releaseExport','readDisplay','readPixels','readMask','readFlags','readTable','readTableCsv','readNpz','releaseTable','readOriginal','loadMedianModel','loadQualityModel','loadD2prlModel','loadSegmentationModel','loadPrnuDatabase','buildPrnuDatabase','createPrnuDatabaseExport','run'].includes(method)?[{signal:controller.signal,onProgress:progress=>self.postMessage({sequence,progress})}]:[]));
   if(stopping)return;const buffers=new Set();

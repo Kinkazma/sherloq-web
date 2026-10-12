@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import create from '../vendor/sift-paged/sift-paged.js';
 import {boundWasmMemory} from './wasm-memory-limit.js';
 import {createSiftGaussianGpu} from './sift-paged-gaussian.js';

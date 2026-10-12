@@ -29,9 +29,9 @@ test('a failed worker ceiling reopens at useful strip completions during the nex
  t.mock.method(performance,'now',()=>clock);
  const pool=new WaveletStripPool(budget,{maxWorkers:4,workerHeapBytes:10,workerPixelBytes:0,workerFactory:()=>{created++;let closed=false;return {terminate(){closed=true;},postMessage(job){setImmediate(()=>{if(closed)return;clock++;this.onmessage({data:fail?{error:{code:'WORKER_RESOURCE',message:'resource failure'}}:{result:job}});});}};}});
  const run=async()=>{const seen=[];await pool.run({count:12,pixels:1,key:'shape',prepare:async i=>({i}),consume:async value=>seen.push(value.i),local:async value=>value});assert.deepEqual(seen.sort((a,b)=>a-b),Array.from({length:12},(_,i)=>i));};
- await assert.rejects(run(),{code:'WORKER_RESOURCE'});const before=created;fail=false;await run();assert.equal(created-before,4);assert.equal(pool.plans.at(-1).ceiling,2);assert.equal(budget.total(),0);
+ await assert.rejects(run(),{code:'WORKER_RESOURCE'});const before=created;fail=false;await run();assert.equal(created-before,4);assert.equal(pool.plans.at(-1).ceiling,2);assert.equal(budget.total(),40);
  // Recovery remains based on completed useful work, with no synthetic probe.
- await run();await run();const recovery=created;await run();assert.equal(created-recovery,4);assert.equal(budget.total(),0);
+ await run();await run();const recovery=created;await run();assert.equal(created-recovery,0);assert.equal(budget.total(),40);pool.clear();assert.equal(budget.total(),0);
 });
 
 
@@ -39,7 +39,7 @@ test('unseparated strip wall time cannot establish compute contention',async t=>
  const budget=new Budget(1000);let clock=0,stripCost=1,created=0;
  t.mock.method(performance,'now',()=>clock);
  const pool=new WaveletStripPool(budget,{maxWorkers:4,workerHeapBytes:10,workerPixelBytes:0,workerFactory:()=>{created++;return {terminate(){},postMessage(job){setImmediate(()=>{clock+=stripCost;this.onmessage({data:{result:job}});});}};}});
- const run=async()=>{const seen=[];await pool.run({count:12,pixels:1,key:'slow',prepare:async i=>({i}),consume:async value=>seen.push(value.i),local:()=>assert.fail('Workers fit')});assert.deepEqual(seen.sort((a,b)=>a-b),Array.from({length:12},(_,i)=>i));assert.equal(budget.total(),0);};
- await run();assert.equal(created,4);stripCost=2;await run();assert.equal(created,8);
- const before=created;await run();assert.equal(created-before,4);assert.equal(pool.plans.at(-1).ceiling,4);assert.equal(pool.metrics().completedStripJobs,36);
+ const run=async()=>{const seen=[];await pool.run({count:12,pixels:1,key:'slow',prepare:async i=>({i}),consume:async value=>seen.push(value.i),local:()=>assert.fail('Workers fit')});assert.deepEqual(seen.sort((a,b)=>a-b),Array.from({length:12},(_,i)=>i));assert.equal(budget.total(),40);};
+ await run();assert.equal(created,4);stripCost=2;await run();assert.equal(created,4);
+ const before=created;await run();assert.equal(created-before,0);assert.equal(pool.plans.at(-1).ceiling,4);assert.equal(pool.metrics().completedStripJobs,36);pool.clear();assert.equal(budget.total(),0);
 });

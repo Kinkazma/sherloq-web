@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 // Decode only image coders. No filenames, URLs, documents or delegate commands
 // are accepted by the extended codec bridge.
 const ascii=(b,a,n)=>String.fromCharCode(...b.subarray(a,a+n));

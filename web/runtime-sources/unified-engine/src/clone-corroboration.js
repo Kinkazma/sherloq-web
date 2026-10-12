@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {CLONE_SOURCES,AI_SOURCES,polygon,roundEven} from './clone-relations.js';
@@ -66,7 +66,9 @@ export function createCloneCorroboration({budget,wasmBinary}={}) {
     },
     async uniqueEnvelopes(entries,{threshold=.9,signal}={}) {
       requireValue(!disposed&&threshold>=0&&threshold<=1,'Invalid envelope request');if(busy)throw new EngineError('BUSY','Composition busy');busy=true;let at=0,m;
-      try{checkAbort(signal);m=await ensure();const maximum=Math.max(3,...entries.flatMap(e=>e.polygons.map(p=>polygon(p).length)));at=m._malloc(maximum*16);if(!at)throw wasmAllocationFailure(m,'Envelope workspace allocation failed',maximum*16);
+      // Exact raster masks may have native display contours of only one or two
+      // points. They never enter polygon IoU and must remain unchanged.
+      try{checkAbort(signal);m=await ensure();const maximum=Math.max(3,...entries.flatMap(e=>e.pixel_mask?[]:e.polygons.map(p=>polygon(p).length)));at=m._malloc(maximum*16);if(!at)throw wasmAllocationFailure(m,'Envelope workspace allocation failed',maximum*16);
         const iou=(a,b)=>{m.HEAPF32.set(a.flat(),at/4);m.HEAPF32.set(b.flat(),at/4+maximum*2);const v=m._composition_iou(at,a.length,at+maximum*8,b.length);if(v<0)throw new EngineError('COMPUTE_FAILED','Envelope intersection failed');return v;},result=[];
         for(const entry of entries){await controlCheckpoint(signal);let match;
           if(!entry.pixel_mask&&entry.polygons.length===2){const [a,b]=entry.polygons;match=result.find(old=>!old.pixel_mask&&old.polygons.length===2&&(!(AI_SOURCES.includes(entry.source)||AI_SOURCES.includes(old.source))||entry.source===old.source)&&((iou(a,old.polygons[0])>=threshold&&iou(b,old.polygons[1])>=threshold)||(iou(a,old.polygons[1])>=threshold&&iou(b,old.polygons[0])>=threshold)));}

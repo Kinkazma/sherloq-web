@@ -10,8 +10,9 @@ import {bindDocumentResize} from '../sherloq-browser/assets/document-resize.js';
 import {loupeDefaults} from '../sherloq-browser/assets/media-settings.js';
 const html=await readFile(new URL('../sherloq-browser/assets/panel.html',import.meta.url),'utf8');
 const settle=async()=>{for(let i=0;i<15;i++)await new Promise(setImmediate);};
-function environment({detect=()=>({regions:[]}),fail=()=>null,runGate=async()=>{}}={}){
- const {document,window}=parseHTML('<html><body></body></html>'),timers=new Map(),frames=new Map(),panels=[],calls=[],preparations=[];let seq=0;
+function environment({detect=()=>({regions:[]}),fail=()=>null,runGate=async()=>{},exportGate=async()=>{}}={}){
+ const {document,window}=parseHTML('<html><body></body></html>'),timers=new Map(),frames=new Map(),panels=[],calls=[],preparations=[],progressEvents=[];let seq=0,progressCallback,progressObserver=()=>{};
+ const progress=(hooks,event)=>{progressCallback=hooks?.onProgress;progressEvents.push(event);progressCallback?.(event);progressObserver(event);};
  const canvasContext=()=>new Proxy({createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)})},{get:(o,k)=>o[k]??(()=>{})});
  class PreparationWorker {
   cancelled=new Set();
@@ -25,22 +26,24 @@ function environment({detect=()=>({regions:[]}),fail=()=>null,runGate=async()=>{
  for(const [key,value]of Object.entries({document,window,location:{href:'http://localhost/app.html',hash:''},localStorage:{getItem:()=>null,setItem(){}},navigator:{hardwareConcurrency:8},isSecureContext:true,devicePixelRatio:1,innerWidth:1280,matchMedia:()=>({matches:false}),requestAnimationFrame:fn=>(frames.set(++seq,fn),seq),cancelAnimationFrame:id=>frames.delete(id),setTimeout:fn=>(timers.set(++seq,fn),seq),clearTimeout:id=>timers.delete(id),ResizeObserver:class{observe(){}disconnect(){}},Worker:PreparationWorker,fetch:async()=>({ok:true,arrayBuffer:async()=>new ArrayBuffer(0),json:async()=>({assetBase:'./',engineVersion:'test-transport'})}),Option:class{constructor(text,value){const e=document.createElement('option');e.textContent=text;e.value=value;return e;}}}))Object.defineProperty(globalThis,key,{value,configurable:true,writable:true});
  Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value||this.options[0]?.value||'';},set(v){for(const o of this.options)o.toggleAttribute('selected',o.value===String(v));}});
  for(const [name,value]of Object.entries({clientWidth:800,clientHeight:600}))Object.defineProperty(window.HTMLElement.prototype,name,{configurable:true,get:()=>value});
- window.HTMLElement.prototype.reportValidity=()=>true;window.HTMLElement.prototype.setPointerCapture=()=>{};
+ window.HTMLElement.prototype.reportValidity=()=>true;window.HTMLElement.prototype.setPointerCapture=()=>{};window.HTMLElement.prototype.click=()=>{};
  window.HTMLCanvasElement.prototype.getContext=type=>type==='webgl2'?null:canvasContext();
  const table={id:'points',revision:1,format:'float32-table',columns:['R','G','B','H','S','V'],rowCount:3};
  const engineFactory=()=>({
   loadM3Models:async()=>{},
-  loadBlob:async({id})=>({id,sha256:'input',surface:{id:'source',revision:1,width:640,height:480,format:'rgb8'}}),
-  async run(task){calls.push(task);await runGate(task);const failure=fail(task);if(failure)throw failure;if(task.operation==='subimages.detect')return {data:await detect()};return {id:task.id,operation:task.operation,status:'ok',provenance:{params:task.params},data:task.operation==='colors.plots'?{style:task.params,count:3,scale:1}:{answer:42},...(task.operation==='colors.plots'?{surface:table}:{})};},
-  async readTable(){calls.push({operation:'readTable'});return {length:3,data:Float32Array.from({length:18},(_,i)=>i/18)};},
-  releaseTable:async()=>{},releaseSurface:async()=>{},unload:async()=>{},dispose:async()=>{},capabilities:async()=>({})
+  async loadBlob({id},hooks){progress(hooks,{phase:'decode',fraction:.5});return {id,sha256:'input',surface:{id:'source',revision:1,width:640,height:480,format:'rgb8'}};},
+  async run(task,hooks){calls.push(task);progress(hooks,{phase:'analysis',fraction:.5,completed:5,total:10});await runGate(task);const failure=fail(task);if(failure)throw failure;if(task.operation==='subimages.detect')return {data:await detect()};return {id:task.id,operation:task.operation,status:'ok',provenance:{params:task.params},data:task.operation==='colors.plots'?{style:task.params,count:3,scale:1}:{answer:42},...(task.operation==='colors.plots'?{surface:table}:{})};},
+  async readTable(input,hooks){calls.push({operation:'readTable'});progress(hooks,{phase:'read-table',fraction:.75});return {length:3,data:Float32Array.from({length:18},(_,i)=>i/18)};},
+  async exportResultFile(result,options,hooks){progress(hooks,{phase:'encode-json',fraction:.25});await exportGate();progress(hooks,{phase:'complete',fraction:1});return {id:'export',revision:1,byteLength:2};},
+  async readExport(input,hooks){progress(hooks,{phase:'read-export',fraction:1});return {bytes:Uint8Array.of(123,125)};},
+  releaseExport:async()=>{},releaseTable:async()=>{},releaseSurface:async()=>{},unload:async()=>{},dispose:async()=>{},capabilities:async()=>({})
  });
  function mount(id,sourceOnly=false){
   const host=document.createElement('div');document.body.append(host);const root=host.attachShadow({mode:'open'}),parsed=parseHTML(html).document;for(const child of [...parsed.body.children])root.append(document.importNode(child,true));
   const scope={getElementById:id=>root.getElementById(id),querySelectorAll:s=>root.querySelectorAll(s),createElement:t=>document.createElement(t),documentElement:host,addEventListener:(...a)=>root.addEventListener(...a)};
   const controller=mountAnalysisPanel(scope,{managed:true,toolId:id,sourceOnly,visible:()=>false,engineFactory,language:'fr'});panels.push(controller);return {controller,root};
  }
- return {mount,calls,preparations,window,adopt(controller){controller.adopt({source:{width:640,height:480,draw(){},close(){},async readPixels({width,height}){return{width,height,data:new Uint8Array(width*height*3)};}},file:new Blob(['transport']),imageId:'shared',hash:'hash',description:'transport'});},async flush(){const batch=[...timers.values()];timers.clear();for(const fn of batch)fn();await settle();},draw(){const batch=[...frames.values()];frames.clear();for(const fn of batch)fn();},async dispose(){await Promise.all(panels.map(c=>c.dispose()));}};
+ return {mount,calls,preparations,window,progressEvents,get progressCallback(){return progressCallback;},observeProgress:fn=>progressObserver=fn,emitProgress:event=>progressCallback?.(event),adopt(controller){controller.adopt({source:{width:640,height:480,draw(){},close(){},async readPixels({width,height}){return{width,height,data:new Uint8Array(width*height*3)};}},file:new Blob(['transport']),imageId:'shared',hash:'hash',description:'transport'});},async flush(){const batch=[...timers.values()];timers.clear();for(const fn of batch)fn();await settle();},draw(){const batch=[...frames.values()];frames.clear();for(const fn of batch)fn();},async dispose(){await Promise.all(panels.map(c=>c.dispose()));}};
 }
 test('Every catalogue tool has compact shared controls and no provenance action; ELA has inline tabs',async()=>{
  const h=environment();try{
@@ -141,4 +144,52 @@ test('A successful subsequent run preserves the failure diagnostic, method and n
   const {controller,root}=h.mount('tampering.copyMove.sparse'),$=id=>root.getElementById(id);h.adopt(controller);$('tool-param-algorithm').value='"SIFT"';$('tool-param-algorithm').onchange();await $('task-run').onclick();assert.equal($('task-errors').hidden,false);assert.equal($('task-errors').textContent,'Diagnostic (1)');
   failed=false;await $('task-run').onclick();assert.equal($('task-errors').textContent,'Diagnostic (1)');$('task-errors').onclick();const dialog=root.querySelector('dialog.error-diagnostic'),report=JSON.parse(dialog.querySelector('pre').textContent);assert.equal(report.errors[0].context.algorithm,'SIFT');assert.equal(report.errors[0].error.details.nativeStatus,-4);assert.equal(report.errors[0].context.width,640);assert.match(report.errors[0].error.stack,/Feature extraction/);dialog.close();assert.equal(!!root.querySelector('dialog.error-diagnostic'),false);
  }finally{await h.dispose();}
+});
+
+test('Individual calculation progress ends before JSON export progress and late completion messages',async()=>{
+ let finishRun,finishExport;const runGate=new Promise(resolve=>finishRun=resolve),exportGate=new Promise(resolve=>finishExport=resolve),h=environment({runGate:()=>runGate,exportGate:()=>exportGate});
+ try{
+  const {controller,root}=h.mount('inspection.adjust'),progress=root.getElementById('progress');h.adopt(controller);await h.flush();
+  assert.equal(controller.busy,true);assert.match(controller.snapshot().status,/analysis.*5\/10/);assert.equal(Number(progress.value),.5);
+  finishRun();await settle();const completed=controller.snapshot().status;assert.match(completed,/terminé/);assert.equal(controller.busy,false);assert.equal(Number(progress.value),1);
+  const exporting=[...root.querySelectorAll('.tool-exports button')].find(button=>button.textContent==='JSON').onclick();await settle();
+  assert.equal(controller.busy,true,'Generic export activity still locks controls');assert.equal(controller.snapshot().status,completed);assert.equal(Number(progress.value),1);
+  finishExport();await exporting;assert.equal(controller.busy,false);assert.equal(controller.snapshot().status,completed);assert.equal(Number(progress.value),1);
+  assert.deepEqual(h.progressEvents.slice(-3).map(event=>event.phase),['encode-json','complete','read-export'],'The shared transport still receives every export event');
+  h.emitProgress({phase:'encode-json/complete',fraction:.2});assert.equal(controller.snapshot().status,completed);assert.equal(Number(progress.value),1);assert.equal(h.calls.length,1,'Export does not start another calculation');
+ }finally{finishRun();finishExport();await h.dispose();}
+});
+test('Plot table reads during result presentation do not become calculation progress',async()=>{
+ const h=environment(),seen=[];try{
+  const {controller,root}=h.mount('colors.plots');h.observeProgress(event=>seen.push({phase:event.phase,status:controller.snapshot().status,progress:Number(root.getElementById('progress').value)}));h.adopt(controller);await h.flush();
+  const reading=seen.find(event=>event.phase==='read-table');assert.ok(reading);assert.equal(reading.progress,.5);assert.doesNotMatch(reading.status,/read-table/);
+  assert.match(controller.snapshot().status,/terminé/);assert.equal(Number(root.getElementById('progress').value),1);assert.deepEqual(h.calls.map(call=>call.operation),['colors.plots','readTable']);
+ }finally{await h.dispose();}
+});
+test('A failed calculation and an invalid form cannot leave a live progress display owner',async()=>{
+ let fail=true;const h=environment({fail:()=>fail?Object.assign(Error('Allocation refused'),{code:'MEMORY_LIMIT'}):null});try{
+  const {controller,root}=h.mount('inspection.adjust');h.adopt(controller);await h.flush();const failed=controller.snapshot().status;
+  assert.match(failed,/Erreur/);assert.equal(controller.busy,false);h.emitProgress({phase:'late-complete',fraction:1});assert.equal(controller.snapshot().status,failed);
+  fail=false;await root.getElementById('task-run').onclick();assert.match(controller.snapshot().status,/terminé/);
+  const completed=controller.snapshot().status,calls=h.calls.length;root.getElementById('tool-form').reportValidity=()=>false;await root.getElementById('task-run').onclick();
+  h.emitProgress({phase:'stale-after-validation',fraction:.1});assert.equal(controller.snapshot().status,completed);assert.equal(controller.busy,false);assert.equal(h.calls.length,calls);
+ }finally{await h.dispose();}
+});
+test('Explicit subimage detection retains its own status while the shared client reports progress',async()=>{
+ let finish;const gate=new Promise(resolve=>finish=resolve),h=environment({runGate:()=>gate}),seen=[];try{
+  const {controller,root}=h.mount('tampering.copyMove.sparse');h.observeProgress(event=>seen.push({phase:event.phase,status:controller.snapshot().status}));h.adopt(controller);
+  const detecting=root.getElementById('task-auto-zones').onclick();await settle();assert.equal(controller.busy,true);assert.match(controller.snapshot().status,/Détection des sous-images/);
+  assert.ok(seen.some(event=>event.phase==='analysis'));assert.ok(seen.every(event=>!/Calcul en cours/.test(event.status)));
+  finish();await detecting;assert.equal(controller.busy,false);assert.match(controller.snapshot().status,/Aucune sous-image/);
+ }finally{finish();await h.dispose();}
+});
+test('A cancelled older computation cannot clear a new progress owner or overwrite its result',async()=>{
+ let finishOld,finishNew,runs=0;const oldGate=new Promise(resolve=>finishOld=resolve),newGate=new Promise(resolve=>finishNew=resolve),h=environment({runGate:()=>++runs===1?oldGate:newGate});
+ try{
+  const {controller,root}=h.mount('inspection.adjust');h.adopt(controller);await h.flush();const oldProgress=h.progressCallback;
+  root.getElementById('cancel').onclick();const cancelled=controller.snapshot().status;oldProgress({phase:'stale-after-cancel',fraction:.8});assert.equal(controller.snapshot().status,cancelled);
+  const next=root.getElementById('task-run').onclick();finishOld();await settle();assert.equal(controller.busy,true);assert.equal(runs,2);assert.match(controller.snapshot().status,/analysis.*5\/10/);
+  const active=controller.snapshot().status;oldProgress({phase:'stale-during-next-run',fraction:1});assert.equal(controller.snapshot().status,active);
+  finishNew();await next;assert.equal(controller.busy,false);assert.match(controller.snapshot().status,/terminé/);assert.equal(Number(root.getElementById('progress').value),1);
+ }finally{finishOld();finishNew();await h.dispose();}
 });

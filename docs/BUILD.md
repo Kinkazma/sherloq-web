@@ -21,7 +21,7 @@ npm test
 python3 build.py --frozen
 ```
 
-Reconstruction verifies all 5,237 ordinary files (6,856,263,672 bytes). The 4,228 unique pieces occupy 6,608,022,816 bytes. Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
+Reconstruction verifies all 5,246 ordinary files (6,858,630,092 bytes). The 4,247 unique pieces occupy 6,610,418,407 bytes. Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
 
 The manifest template deliberately has no remote origin. A deployment origin identifies `web-assets/` at a full 40-character Git commit SHA; the source includes the finalization and browser-check scripts. The scientific runtime resources are immutable. A GitHub branch URL or a Release download is not an interchangeable origin.
 
@@ -29,7 +29,9 @@ The WordPress workspace is inserted with the SHERLOQ Browser Lab block or the sh
 
 The engine's internal README and qualification reports are development history tied to their individual versions. Use `engine-source-identity.json`, `runtime-lock.json` and the distribution evidence to identify this snapshot; historical headings do not supersede those identities.
 
-The 0.14.5 delivery includes all 90 WASM modules below 300 KiB locally, on demand.
+The 0.15.1 delivery includes all 90 WASM modules below 300 KiB locally, on demand.
 The published executable lock includes the JavaScript transport adapter. The
 reviewed original engine lock is retained as `runtime-source-lock.json`; all 191
 WASM files and scientific model bytes remain unchanged.
+
+The batch PDF/ZIP vendor files retain their original bytes and paths. They are locked in the `batch-vendor` dependency slot and loaded when the batch importer needs them, keeping the verified bootstrap at about 17.8 MB. The packaging cap is 25,000,000 bytes. [Execution integration evidence](EXECUTION-CORRECTIONS.md).

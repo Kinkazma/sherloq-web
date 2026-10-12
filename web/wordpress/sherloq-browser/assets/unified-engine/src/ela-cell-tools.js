@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {allocateTypedArray} from './allocation.js';
 // Cell-only stages from native ela_biomes.py / ela_ghosts.py. Energy stays separate.
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';

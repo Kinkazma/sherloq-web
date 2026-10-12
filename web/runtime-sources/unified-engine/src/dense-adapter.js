@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {payloadBytes} from './pixel-operations.js';
 import {DenseCopyEngine} from './dense-copy.js';
 import {denseImageParams} from './dense-image.js';

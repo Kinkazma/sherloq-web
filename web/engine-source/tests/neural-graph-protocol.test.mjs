@@ -42,6 +42,9 @@ test('neural transport failure retires only its worker while a companion publish
 test('neural serialized compute errors retain their cause instead of becoming transport errors',{timeout:2000},async()=>{
  const f=fixture();try{const pending=f.pool.run('a',inputs,options);await turn();f.workers[0].emit({error:{code:'MODEL_IDENTITY',message:'bad digest',details:{expected:'a'},cause:{code:'INTERNAL',message:'original digest'}}});await assert.rejects(pending,error=>error.code==='MODEL_IDENTITY'&&error.details.expected==='a'&&error.cause.message==='original digest');f.assertEmpty();}finally{f.pool.dispose();}
 });
+test('browser worker failure retains the current graph and available source details',{timeout:2000},async()=>{
+ const f=fixture();try{const pending=f.pool.run('a',inputs,options);await turn();const cause=Error('native failure');f.workers[0].onerror({type:'error',message:'Worker import refused',filename:'https://example.invalid/graph.js',lineno:19,colno:7,error:cause});await assert.rejects(pending,error=>error.code==='WORKER_FAILED'&&error.cause===cause&&error.details.model==='a'&&error.details.provider==='wasm'&&error.details.workerEvent.line===19&&error.details.pool.busyWorkers===1);f.assertEmpty();}finally{f.pool.dispose();}
+});
 for(const kind of ['null','messageerror','unexpected','execute'])test('neural endpoint reports '+kind+' rather than leaving its parent pending',{timeout:2000},async()=>{
  const old=globalThis.self,messages=[],endpoint={postMessage(data){messages.push(data);}};globalThis.self=endpoint;
  try{await import('../src/neural-graph-worker.js?protocol='+kind);if(kind==='execute')endpoint.onmessage({data:{command:'execute'}});else fault(endpoint,kind);await turn();assert.equal(messages.length,1);assert.equal(messages[0].error.code,'WORKER_MESSAGE_FAILED');assert.ok(messages[0].error.details.transport);endpoint.onmessage({data:{}});await turn();assert.equal(messages.length,1);}finally{globalThis.self=old;}

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.15.1";
 // The worker owns its actual ORT instance. Termination cancels initialization,
 // download, CPU inference or GPU inference and destroys the model cache.
 const reusable=new Map();

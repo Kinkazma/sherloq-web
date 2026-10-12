@@ -1,6 +1,7 @@
 import {validateManifest,remoteBase,sha256,dependencyResponse} from './dependency-core.js';
 import {createChunkLoader} from './dependency-store.js';
-import {resourceTarStream} from './dependency-tar.js';
+import {resourceTarStream,indexResourceTar,archiveChunkReader} from './dependency-tar.js';
+import {readOfflineShell,offlineShellParts} from './offline-kit-core.js';
 const scope=new URL('./',self.location.href);
 const manifestHash=new URL(self.location.href).searchParams.get('manifest');
 const ready=(async()=>{
@@ -46,6 +47,17 @@ self.addEventListener('message',event=>{
  }
 });
 const pendingDownloads=new Map(),clientSessions=new Map();
+const offlineExports=new Map();
+self.addEventListener('message',event=>{
+ if(event.data?.type!=='offline-kit-prepare'||!event.source?.url?.startsWith(scope.href))return;
+ event.waitUntil((async()=>{try{
+  const {id,archive}=event.data;if(!/^[a-f0-9-]{36}$/.test(id)||archive&&!(archive instanceof Blob))throw Error('Invalid offline archive request');
+  // Retain only this client's pending export; never persist the private path.
+  for(const [key,value]of offlineExports)if(value.client===event.source.id)offlineExports.delete(key);
+  offlineExports.set(id,{client:event.source.id,archive});setTimeout(()=>offlineExports.delete(id),600000);
+  event.ports[0]?.postMessage({ok:true});
+ }catch(error){event.ports[0]?.postMessage({error:error.message});}})());
+});
 const sessionFor=client=>client&&(clientSessions.get(client.id)||new URL(client.url).searchParams.get('sherloqSession'));
 self.addEventListener('message',event=>{if(event.data?.type==='dependency-session'&&event.source?.url?.startsWith(scope.href)&&/^[a-f0-9-]{36}$/.test(event.data.session)){clientSessions.set(event.source.id,event.data.session);event.ports[0]?.postMessage({ready:true});}});
 self.addEventListener('message',event=>{
@@ -80,16 +92,22 @@ async function notifyDependency(event,entry){
 self.addEventListener('fetch',event=>{
  const u=new URL(event.request.url);if(u.origin!==scope.origin||!u.pathname.startsWith(scope.pathname)||!['GET','HEAD'].includes(event.request.method))return;
  const path=u.pathname.slice(scope.pathname.length);
- if(path==='__dependency_download__/resources.tar'){
+ if(path==='__dependency_download__/resources.tar'||path==='__dependency_download__/kit.tar'){
   let finish;event.waitUntil(new Promise(resolve=>{finish=resolve;}));
   const id=u.searchParams.get('id');
   const notify=data=>self.clients.matchAll().then(clients=>clients.forEach(c=>c.postMessage({type:'dependency-download-progress',id,...data})));
-  event.respondWith(ready.then(({manifest,load})=>{
+  event.respondWith(ready.then(async({manifest,load})=>{
+   const kit=path.endsWith('/kit.tar');let extras;
+   if(kit){const requested=offlineExports.get(id);offlineExports.delete(id);if(!requested)throw Error('Start archive creation from the offline dialog');
+    const shell=await readOfflineShell(scope);if(shell.manifest!==manifestHash)throw Error('Offline application version mismatch');
+    extras=offlineShellParts(shell,scope);
+    if(requested.archive){const index=await indexResourceTar(requested.archive);load=createChunkLoader(manifest,{base:remoteBase(manifest.remoteBase,{allowLocal:['localhost','127.0.0.1'].includes(scope.hostname)}),scope,archive:archiveChunkReader(index,manifest)});}
+   }
    const selected=u.searchParams.get('file');if(selected&&!manifest.files[selected]){finish();return new Response('Unknown library file',{status:404});}
    const chosen=selected?{...manifest,files:{[selected]:manifest.files[selected]}}:manifest;
-   const stream=resourceTarStream(chosen,load,{progress:value=>void notify({value,total:Object.keys(chosen.files).length}),finished:error=>{void notify({done:true,error:error?.message});finish();}});
-   return new Response(stream,{headers:{'Content-Type':'application/x-tar','Content-Disposition':'attachment; filename="SHERLOQ-resources.tar"','Cache-Control':'no-store'}});
-  }).catch(e=>{finish();return new Response(e.message,{status:503});}));return;
+   const stream=resourceTarStream(chosen,load,{extras,progress:value=>void notify({value,total:Object.keys(chosen.files).length}),finished:error=>{void notify({done:true,error:error?.message});finish();}});
+   return new Response(stream,{headers:{'Content-Type':'application/x-tar','Cross-Origin-Embedder-Policy':'require-corp','Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Resource-Policy':'same-origin','Content-Disposition':'attachment; filename="'+(kit?'SHERLOQ-complet.tar':'SHERLOQ-resources.tar')+'"','Cache-Control':'no-store'}});
+  }).catch(e=>{void notify({done:true,error:e.message});finish();return new Response(e.message,{status:503});}));return;
  }
  event.respondWith((async()=>{
   const {manifest,localFiles,load}=await ready,file=manifest.files[path];

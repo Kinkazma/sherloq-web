@@ -1,6 +1,28 @@
 import {resourceFetch} from './resilient-resource.js';
 // One diagnostic channel per open workspace. No image bytes, cookies or network logging.
 const KEY=Symbol.for('sherloq.runtime.context');
+const stripTerminalColors=value=>value.replace(/\u001b\[[0-9;]*m/g,'');
+const ortWarning=value=>typeof value==='string'&&!/\[E:onnxruntime(?:[:,\]])/.test(value)&&/^\s*(?:\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}(?:\.\d+)?\s+)?\[W:onnxruntime(?:[:,\]])/.test(stripTerminalColors(value));
+const resizeNotification=value=>value==='ResizeObserver loop completed with undelivered notifications.'||value==='ResizeObserver loop limit exceeded';
+export function diagnosticScriptURL(value){
+ if(typeof value!=='string')return null;
+ try{const url=new URL(value);if(!/^https?:$/.test(url.protocol)||!/\.(?:m?js)$/i.test(url.pathname))return null;url.username='';url.password='';url.hash='';for(const key of url.searchParams.keys())if(/^(?:token|nonce|key|signature|email|fonts|home|authorization|password|access_token|api_key|file|filename)$/i.test(key))url.searchParams.set(key,'[redacted]');return diagnosticValue(url.href);}catch{return null;}
+}
+export function normalizeDiagnosticEvent(event){
+ if(!event||typeof event!=='object')return event;
+ if(event.kind==='worker.error'&&event.error==='C2pa(JumbfNotFound)'&&typeof event.worker==='string'&&/\/c2pa-worker\.js(?:[?#]|$)/.test(event.worker))return {...event,level:'info',classification:'c2pa-manifest-absent'};
+ if(event.kind==='console'&&event.level==='error'&&Array.isArray(event.args)&&event.args.length&&event.args.every(ortWarning))return {...event,level:'warning',classification:'onnxruntime-warning'};
+ if(event.kind==='uncaught'&&resizeNotification(event.error?.message))return {...event,level:'warning',classification:'resize-observer-notification'};
+ if(event.kind==='operation.status'&&typeof event.message==='string'&&/^(?:Erreur\s*·|Error\s*·|Loupe\s*:\s*le traitement n[’']a pas abouti\.|Magnifier:\s*processing failed\.)/.test(event.message)){
+  const code=/^(?:Erreur|Error)\s*·\s*([A-Z][A-Z0-9_]{2,})\b/.exec(event.message)?.[1]??'OPERATION_FAILED';
+  return {...event,level:'error',error:event.error??{code,message:event.message,details:{reportedViaStatus:true}}};
+ }
+ return event;
+}
+export function diagnosticWorkerFailure(event={},workerURL){
+ const sourceURL=diagnosticScriptURL(event.filename)??diagnosticScriptURL(workerURL),cause=event.error??event.cause;
+ return {level:'error',kind:'worker.failure',worker:workerURL,error:{message:event.message||cause?.message||'Worker failed without a browser error message.',sourceURL,line:event.lineno??event.line,column:event.colno??event.column,type:event.type,stage:event.stage??event.executionPhase??cause?.details?.executionPhase,cause,browserMessageMissing:!event.message}};
+}
 export function diagnosticValue(value,depth=0,seen=new WeakSet()){
  if(value===null||value===undefined||typeof value==='boolean'||typeof value==='number')return value;
  if(typeof value==='bigint')return String(value);
@@ -11,7 +33,9 @@ export function diagnosticValue(value,depth=0,seen=new WeakSet()){
  if(value instanceof Error)return diagnosticValue({name:value.name,code:value.code,message:value.message,stack:value.stack,details:value.details,cause:value.cause},depth+1,seen);
  if(Array.isArray(value))return value.length>128?{type:'array',length:value.length,omitted:'bulk values'}:value.map(v=>diagnosticValue(v,depth+1,seen));
  const out={};for(const [k,v]of Object.entries(value)){
-  if(/^(?:pixels|rgb|rgba|bytes|buffer|data|blob|file|filename|originalBlob|imageData|tensor|weights|token|nonce|password|authorization|email)$/i.test(k)){out[k]='[omitted]';continue;}
+  if(/^filename$/i.test(k)){out[k]=diagnosticScriptURL(v)??'[omitted]';continue;}
+  if(/^(?:sourceURL|scriptURL)$/i.test(k)){out[k]=v==null?v:diagnosticScriptURL(v)??'[omitted]';continue;}
+  if(/^(?:pixels|rgb|rgba|bytes|buffer|data|blob|file|originalBlob|imageData|tensor|weights|token|nonce|password|authorization|email)$/i.test(k)){out[k]='[omitted]';continue;}
   out[k]=diagnosticValue(v,depth+1,seen);
  }return out;
 }
@@ -22,7 +46,7 @@ function setup(){
  if(windowContext){const u=new URL(location.href);u.searchParams.set('sherloqSession',session);history.replaceState(history.state,'',u);}
  const context=crypto.randomUUID(),listeners=new Set(),retryWaiters=new Map();let sequence=0;
  const channel=session&&typeof BroadcastChannel==='function'?new BroadcastChannel('sherloq-session-'+session):null;
- const emit=entry=>{if(!session)return;const event={time:new Date().toISOString(),context,sequence:++sequence,...diagnosticValue(entry)};if(windowContext)for(const listener of listeners)try{listener(event);}catch{}else channel?.postMessage({type:'log',event});};
+ const emit=entry=>{if(!session)return;const event={time:new Date().toISOString(),context,sequence:++sequence,...diagnosticValue(normalizeDiagnosticEvent(entry))};if(windowContext)for(const listener of listeners)try{listener(event);}catch{}else channel?.postMessage({type:'log',event});};
  channel?.addEventListener('message',({data})=>{if(data?.type==='log'&&windowContext){for(const listener of listeners)try{listener(data.event);}catch{}}if(data?.type==='retry'){const list=retryWaiters.get(data.key);retryWaiters.delete(data.key);for(const resolve of list||[])resolve();}});
  function retry(key,error,signal){
   if(!session||!channel)throw error;
@@ -43,7 +67,7 @@ function setup(){
   globalThis.Worker=class extends NativeWorker{
    constructor(url,options){let target=url;try{const u=new URL(url,location.href);if(session&&u.origin===location.origin&&/^https?:$/.test(u.protocol)){u.searchParams.set('sherloqSession',session);target=u;}}catch{}super(target,options);
     this.addEventListener('message',({data:m})=>{if(!m||typeof m!=='object')return;if(m.error||m.fatal)emit({level:m.error?.code==='CANCELLED'?'info':'error',kind:'worker.error',worker:String(url),error:m.error??m.fatal,sequence:m.sequence??m.id});else if(m.progress)emit({level:'info',kind:'worker.progress',worker:String(url),progress:m.progress,sequence:m.sequence??m.id});else if(m.result!==undefined||m.done)emit({level:'info',kind:'worker.complete',worker:String(url),sequence:m.sequence??m.id,metrics:m.result?.metrics});});
-    this.addEventListener('error',e=>emit({level:'error',kind:'worker.failure',worker:String(url),error:{message:e.message,filename:e.filename,line:e.lineno}}));
+    this.addEventListener('error',e=>emit(diagnosticWorkerFailure(e,String(target))));
    }
    postMessage(message,...rest){if(message?.method||message?.action)emit({level:'info',kind:'worker.request',method:message.method??message.action,sequence:message.sequence??message.id,operation:message.args?.[0]?.operation,parameters:message.args?.[0]?.params});return super.postMessage(message,...rest);}
   };
@@ -51,7 +75,7 @@ function setup(){
  if(windowContext&&navigator.serviceWorker)navigator.serviceWorker.addEventListener('message',({data})=>{if(data?.type==='dependency-diagnostic'&&data.session===session)emit(data.event);});
  if(session){
   for(const method of ['log','info','warn','error','debug']){const original=console[method]?.bind(console);if(original)console[method]=(...args)=>{emit({level:method==='error'?'error':method==='warn'?'warning':'info',kind:'console',method,args});original(...args);};}
-  globalThis.addEventListener?.('error',e=>emit({level:'error',kind:'uncaught',error:e.error??{message:e.message}}));
+  globalThis.addEventListener?.('error',e=>emit({level:'error',kind:'uncaught',error:e.error??{message:e.message},sourceURL:diagnosticScriptURL(e.filename),line:e.lineno,column:e.colno}));
   globalThis.addEventListener?.('unhandledrejection',e=>emit({level:'error',kind:'unhandledrejection',error:e.reason}));
  }
  return api;

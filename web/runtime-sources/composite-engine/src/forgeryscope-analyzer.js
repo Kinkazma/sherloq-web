@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {createForgeryscopeSourceAnalyzer} from './forgeryscope-source-analyzer.js';
 import {Budget} from './cache.js';
 import {resolveComputeProfile} from './profiles.js';

@@ -43,6 +43,7 @@ test('Minimum/exclusion edits refilter retained D2PRL grids; geometry changes an
 });
 test('Actual panel chooses overlay, switches views without inference and preserves view/settings',async()=>{
  const {document,window}=parseHTML('<div id="analysis-controls"></div><div id="viewport"></div>');globalThis.document=document;
+ window.HTMLInputElement.prototype.reportValidity=()=>true;
  Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value||this.options[0]?.value||'';},set(v){for(const o of this.options)o.toggleAttribute('selected',o.value===String(v));}});
  globalThis.Option=function(text,value){const o=document.createElement('option');o.textContent=text;o.value=value;return o;};
  const shown=[],settings=[];const ui=createToolWorkspace({document,language:()=> 'fr',getClient:async()=>({}),run(){},cancel(){},showSurface:d=>shown.push(d),download(){},notify(){},onSettings:v=>settings.push(v)});

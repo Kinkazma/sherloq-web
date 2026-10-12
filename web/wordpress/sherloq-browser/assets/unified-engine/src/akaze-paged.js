@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {AKAZE_PAGED_WASM,AKAZE_PAGED_REFERENCE_WASM} from './akaze-paged-assets.js';
 import {AkazePagedPool} from './akaze-paged-pool.js';
 import {fetchM3Asset} from './m3-asset.js';

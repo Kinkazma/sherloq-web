@@ -1,0 +1,1677 @@
+diff --git a/package-lock.json b/package-lock.json
+index 1ff643d895173dcefdaa5af3153e73cf87b82808..eea340dbd75cb41f2c21fcd83bc3067d71ba201c 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "sherloq-web-engine",
+-  "version": "0.35.0-export.2",
++  "version": "0.35.0-export.3",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "sherloq-web-engine",
+-      "version": "0.35.0-export.2",
++      "version": "0.35.0-export.3",
+       "devDependencies": {
+         "esbuild": "0.28.2",
+         "hash-wasm": "4.12.0",
+diff --git a/package.json b/package.json
+index 9060206d96eafa9a02a6843fe79dd37493b30cf9..76720384776a8b98efa5dfacfa9b499e2e94fcf8 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "sherloq-web-engine",
+-  "version": "0.35.0-export.2",
++  "version": "0.35.0-export.3",
+   "private": true,
+   "type": "module",
+   "scripts": {
+diff --git a/src/cfa-gpu-program.js b/src/cfa-gpu-program.js
+index e62618f9f9b04e5bc1d11905688d9bdc22754399..0017dd32105c2c817ce4a34721f93d29621e0a65 100644
+--- a/src/cfa-gpu-program.js
++++ b/src/cfa-gpu-program.js
+@@ -36,7 +36,7 @@ export async function runCfaResidentProgram(module,program,weights,input,gpu,{bl
+     await enterGpu();const source=sources.map(gpuTensor);out={dims,gpu:await gpu.move(node.op,source,settings)};owned.add(out);
+    }else{
+     const x=await cpuTensor(inputs[0]);await enter();
+-    if(node.op==='Softplus'){out=allocate(x.dims,view(x));module._cfa_activate(out.pointer,count(out.dims),0);}
++    if(node.op==='Softplus'){out=allocate(x.dims);view(out).set(view(x));module._cfa_activate(out.pointer,count(out.dims),0);}
+     else if(node.op==='AveragePool'){requireValue(Number.isInteger(block)&&block>=8&&block%2===0,'CFA block must be even and at least eight.');const [b,c,h,w]=x.dims,k=block/2;out=allocate([b,c,Math.floor(h/k),Math.floor(w/k)]);module._cfa_pool(x.pointer,out.pointer,b,c,h,w,k);}
+     else if(node.op==='LogSoftmax'){requireValue(a.axis===1,'Unexpected CFA LogSoftmax axis.');out=allocate(x.dims);module._cfa_logsoftmax(x.pointer,out.pointer,out.dims[0],out.dims[1],count(out.dims.slice(2)));}
+     else throw new EngineError('MODEL_UNAVAILABLE','Unsupported CFA operator: '+node.op);
+diff --git a/src/cfa-program.js b/src/cfa-program.js
+index 4bd40786c59d2db06ba48e934fb405048c5e0451..4239e333a397f4b8306413b6f25556e5c41352fa 100644
+--- a/src/cfa-program.js
++++ b/src/cfa-program.js
+@@ -39,7 +39,7 @@ function* execute(module,program,weights,input,{block=32,onProgress,onTensor,hyb
+     requireValue(Number.isInteger(block)&&block>=8&&block%2===0,'CFA block must be even and at least eight.');const [b,c,h,w]=inputs[0].dims,k=block/2;out=allocate([b,c,Math.floor(h/k),Math.floor(w/k)]);module._cfa_pool(inputs[0].pointer,out.pointer,b,c,h,w,k);
+    }else if(node.op==='LogSoftmax'){
+     requireValue(a.axis===1,'Unexpected CFA LogSoftmax axis.');out=allocate(inputs[0].dims);module._cfa_logsoftmax(inputs[0].pointer,out.pointer,out.dims[0],out.dims[1],count(out.dims.slice(2)));
+-   }else if(node.op==='Identity')out=allocate(inputs[0].dims,view(inputs[0]));
++   }else if(node.op==='Identity'){out=allocate(inputs[0].dims);view(out).set(view(inputs[0]));}
+    else throw new EngineError('MODEL_UNAVAILABLE','Unsupported CFA operator: '+node.op);
+    requireValue(node.outputs.length===1,'Unsupported multi-output CFA operator.');tensors.set(node.outputs[0],out);
+    onTensor?.(node.name,out.pointer?view(out):out.data,out.dims);onProgress?.({phase:'cfa-network',completed:index+1,total:program.nodes.length});
+diff --git a/src/clone-corroboration.js b/src/clone-corroboration.js
+index 5f4f3ae76b3bdf00ba57196110bd04d86cd71c07..05e2a1ceda4b5c581bfacb33859b1129cf4ebdf8 100644
+--- a/src/clone-corroboration.js
++++ b/src/clone-corroboration.js
+@@ -65,7 +65,9 @@ export function createCloneCorroboration({budget,wasmBinary}={}) {
+     },
+     async uniqueEnvelopes(entries,{threshold=.9,signal}={}) {
+       requireValue(!disposed&&threshold>=0&&threshold<=1,'Invalid envelope request');if(busy)throw new EngineError('BUSY','Composition busy');busy=true;let at=0,m;
+-      try{checkAbort(signal);m=await ensure();const maximum=Math.max(3,...entries.flatMap(e=>e.polygons.map(p=>polygon(p).length)));at=m._malloc(maximum*16);if(!at)throw wasmAllocationFailure(m,'Envelope workspace allocation failed',maximum*16);
++      // Exact raster masks may have native display contours of only one or two
++      // points. They never enter polygon IoU and must remain unchanged.
++      try{checkAbort(signal);m=await ensure();const maximum=Math.max(3,...entries.flatMap(e=>e.pixel_mask?[]:e.polygons.map(p=>polygon(p).length)));at=m._malloc(maximum*16);if(!at)throw wasmAllocationFailure(m,'Envelope workspace allocation failed',maximum*16);
+         const iou=(a,b)=>{m.HEAPF32.set(a.flat(),at/4);m.HEAPF32.set(b.flat(),at/4+maximum*2);const v=m._composition_iou(at,a.length,at+maximum*8,b.length);if(v<0)throw new EngineError('COMPUTE_FAILED','Envelope intersection failed');return v;},result=[];
+         for(const entry of entries){await controlCheckpoint(signal);let match;
+           if(!entry.pixel_mask&&entry.polygons.length===2){const [a,b]=entry.polygons;match=result.find(old=>!old.pixel_mask&&old.polygons.length===2&&(!(AI_SOURCES.includes(entry.source)||AI_SOURCES.includes(old.source))||entry.source===old.source)&&((iou(a,old.polygons[0])>=threshold&&iou(b,old.polygons[1])>=threshold)||(iou(a,old.polygons[1])>=threshold&&iou(b,old.polygons[0])>=threshold)));}
+diff --git a/src/comparison-paged-ssim.js b/src/comparison-paged-ssim.js
+index 31dc684a7a4f45705a8e5ddb6b62f3cb6acb5681..abf68b65db34f320cca549e89a0d57bfcf94f8d8 100644
+--- a/src/comparison-paged-ssim.js
++++ b/src/comparison-paged-ssim.js
+@@ -2,7 +2,7 @@ import {EngineError,controlCheckpoint} from './errors.js';import {WaveletStripPo
+ const MIB=1024**2;
+ export function pagedSsimPlan(width,height,budget,blockPixels=65536){const room=budget.limit-budget.retained-budget.active,rows=Math.min(height,Math.max(1,Math.floor(blockPixels/width)),Math.floor((room-32*MIB)/(width*128))-Math.min(height,10));if(rows<1)throw new EngineError('MEMORY_LIMIT','One SSIM row with its native halo must fit.');const pixels=Math.min(height,rows+10)*width;return {rows,pixels,workspace:24*MIB+pixels*128};}
+ export async function comparisonPagedSsim(images,output,{budget,signal,onProgress,profile={},original=false,blockPixels=65536}={}){
+- const {width,height}=images[0].surface.descriptor,n=width*height,plan=pagedSsimPlan(width,height,budget,blockPixels),reserve=budget.reserve(plan.workspace),pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:16*MIB,workerPixelBytes:128,workerFactory:globalThis.Worker?()=>new Worker(new URL('./comparison-ssim-worker.js',import.meta.url),{type:'module'}):null});let raw,local;let heapPeak=0,done=0;
++ const {width,height}=images[0].surface.descriptor,n=width*height,plan=pagedSsimPlan(width,height,budget,blockPixels),reserve=budget.reserve(plan.workspace),pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:16*MIB,workerPixelBytes:128,workerURL:new URL('./comparison-ssim-worker.js',import.meta.url),workerFactory:globalThis.Worker?()=>new Worker(new URL('./comparison-ssim-worker.js',import.meta.url),{type:'module'}):null});let raw,local;let heapPeak=0,done=0;
+  try{raw=await createFloatPlane(width,height,{budget,storage:images[0].session||images[0].ensureTemporarySession?'temporary':'memory',temporarySession:images[0].session,getTemporarySession:images[0].ensureTemporarySession,signal});
+  await pool.run({count:Math.ceil(height/plan.rows),pixels:plan.pixels,key:`ssim/${width}/${plan.rows}`,signal,
+   prepare:async i=>{await controlCheckpoint(signal);const y=i*plan.rows,rows=Math.min(plan.rows,height-y),top=Math.max(0,y-5),bottom=Math.min(height,y+rows+5),rect={x:0,y:top,width,height:bottom-top};let a,b;try{a=await images[0].surface.readWindow(rect,{signal});b=await images[1].surface.readWindow(rect,{signal});return {first:a.pixels.data,second:b.pixels.data,width,height:bottom-top,top:y-top,rows,original};}finally{a?.release();b?.release();}},
+diff --git a/src/comparison-ssim-worker.js b/src/comparison-ssim-worker.js
+index 12bb578745719c1cee31dea05101246a528516d4..d16073443bb52f3e60ae2574b10e27375f9b258e 100644
+--- a/src/comparison-ssim-worker.js
++++ b/src/comparison-ssim-worker.js
+@@ -1,3 +1,3 @@
+-import {serializeEngineError} from './errors.js';
++import {installTransformStripWorker} from './transform-strip-worker.js';
+ import {createSsimBand} from './comparison-ssim-band.js';let kernel;
+-self.onmessage=async({data})=>{try{kernel??=await createSsimBand();const result=kernel.run(data);self.postMessage({result},[result.values.buffer]);}catch(e){self.postMessage({error:serializeEngineError(e,'WORKER_FAILED')});}};
++installTransformStripWorker(async data=>{kernel??=await createSsimBand();return kernel.run(data);},{label:'comparison-ssim-strip'});
+diff --git a/src/frequency-strip-pool.js b/src/frequency-strip-pool.js
+index 7a4a82c821999e18602dec7088d5a2237cff6793..89a18cabdd7bf76f74a9888a2f18d84f5f0658d0 100644
+--- a/src/frequency-strip-pool.js
++++ b/src/frequency-strip-pool.js
+@@ -1,4 +1,4 @@
+ import {WaveletStripPool} from './wavelet-strip-pool.js';
+ export class FrequencyStripPool extends WaveletStripPool{
+- constructor(budget,profile={}){super(budget,{...profile,workerFactory:profile.workerFactory??(globalThis.Worker?()=>new Worker(new URL('./frequency-strip-worker.js',import.meta.url),{type:'module'}):null)});}
++ constructor(budget,profile={}){super(budget,{...profile,workerURL:profile.workerURL??new URL('./frequency-strip-worker.js',import.meta.url),workerFactory:profile.workerFactory??(globalThis.Worker?()=>new Worker(new URL('./frequency-strip-worker.js',import.meta.url),{type:'module'}):null)});}
+ }
+diff --git a/src/frequency-strip-worker.js b/src/frequency-strip-worker.js
+index a5f89a57ebb1000707ff118be167a5719e645618..ed6ddca87cc7e4b6f133f1a94281757a5a80303b 100644
+--- a/src/frequency-strip-worker.js
++++ b/src/frequency-strip-worker.js
+@@ -1,8 +1,8 @@
+-import {serializeEngineError} from './errors.js';
+-import {frequencyStreamMath} from './frequency-stream-math.js';
+-self.onmessage=async({data})=>{try{const math=await frequencyStreamMath();let values;
++import {installTransformStripWorker} from './transform-strip-worker.js';
++import {frequencyStreamMath,frequencyStreamHeapBytes} from './frequency-stream-math.js';
++installTransformStripWorker(async data=>{const math=await frequencyStreamMath();let values;
+  if(data.op==='axis')values=math.axis(data.values,data.length,data.lines,data.globalCount,data.mode);
+  else if(data.op==='mask-horizontal')values=math.maskHorizontal(data.width,data.height,data.top,data.rows,data.split,data.smooth);
+  else if(data.op==='mask-vertical')values=math.maskVertical(data.values,data.width,data.height,data.columns,data.smooth);
+- else throw Error('Unknown frequency strip operation');self.postMessage({result:{values}},[values.buffer]);
+- }catch(error){self.postMessage({error:serializeEngineError(error,'WORKER_FAILED')});}};
++ else throw Error('Unknown frequency strip operation');return {values,heapBytes:frequencyStreamHeapBytes()};
++},{label:'frequency-strip'});
+diff --git a/src/index.js b/src/index.js
+index 4776099d1710c04ad1a8f57ab0a1aec89c7b5359..cdeb63795d903d8cd01ac531224a49206b528d48 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -115,7 +115,7 @@ import {exportAnalysis,jsonExportBound} from './exports.js';
+ export {exportAnalysis};
+ export {pipeRasterExport} from './raster-export-stream.js';
+ export {EngineError,DEFAULT_ELA_PARAMS,DEFAULT_ENERGY_PROFILE};
+-const VERSION='0.35.0-export.2',RUNTIME_RESERVE=32*1024**2;
++const VERSION='0.35.0-export.3',RUNTIME_RESERVE=32*1024**2;
+ const copyPixels=p=>({...p,data:p.data.slice()});
+ const sha=async data=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',data)),x=>x.toString(16).padStart(2,'0')).join('');
+ export function createEngine({memoryBudgetBytes,codec=imageCodec,cpuKernel='auto',computeProfile='aggressive',resourceHints,onTemporarySession}={}) {
+diff --git a/src/m2-worker-client.js b/src/m2-worker-client.js
+index 360c096819d0e6004322b44fd231dced6cce08e2..2b0976fdd9acacfbae6d3eb3e3a9b35d3de2bd8d 100644
+--- a/src/m2-worker-client.js
++++ b/src/m2-worker-client.js
+@@ -1,27 +1,38 @@
+ import {deserializeEngineError} from './errors.js';
+ import {serializeEngineError} from './errors.js';
+ import {EngineError,checkAbort} from './errors.js';
++import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
+ /** Lazy result windows. Configuration contains URLs/data, never callbacks. */
+ export async function createM2WorkerClient(config,{workerFactory=url=>new Worker(url,{type:'module'})}={}){
+  const worker=workerFactory(new URL('./m2-worker.js',import.meta.url)),pending=new Map();let next=1,disposed=false,disposing;
+  const rejectAll=error=>{for(const p of pending.values()){p.cleanup();p.reject(error);}pending.clear();};
+- worker.onerror=()=>{disposed=true;worker.terminate();rejectAll(new EngineError('WORKER_FAILED','M2 worker failed.'));};
+- worker.onmessage=({data})=>{
++ const stop=error=>{disposed=true;protocol.dispose();worker.onerror=null;worker.terminate();rejectAll(error);};
++ const callbackFailed=(id,p,error)=>{if(pending.get(id)!==p)return;p.callbackError??=error;protocol.post({id:next++,operation:'cancel',args:{requestId:id}});};
++ const protocol=installWorkerMessageProtocol(worker,async data=>{
++  if(data.fatal===true){if(!data.error||typeof data.error.code!=='string'||typeof data.error.message!=='string')throw workerMessageFailure('m2-client','message','invalid-fatal-response');throw deserializeEngineError(data.error);}
++  if(!Number.isSafeInteger(data.id)||data.id<=0)throw workerMessageFailure('m2-client','message','invalid-response-id');
+   const p=pending.get(data.id);if(!p)return;
+-  if(data.progress){try{p.onProgress?.(data.progress);}catch(error){p.callbackError=error;worker.postMessage({id:next++,operation:'cancel',args:{requestId:data.id}});}return;}
+-  pending.delete(data.id);p.cleanup();if(p.callbackError){if(data.value?.id&&['analyze','analyzeBlob','beginExport'].includes(p.operation))worker.postMessage({id:next++,operation:p.operation!=='beginExport'?'releaseResult':'releaseExport',args:p.operation!=='beginExport'?{resultId:data.value.id}:{exportId:data.value.id}});p.reject(p.callbackError);}else if(data.error)p.reject(deserializeEngineError(data.error));else p.resolve(data.value);
+- };
++  if(data.progress!==undefined){
++   if(!data.progress||typeof data.progress!=='object'||Array.isArray(data.progress))throw workerMessageFailure('m2-client','message','invalid-progress-response');
++   try{const callback=p.onProgress?.(data.progress);if(callback&&typeof callback.then==='function'){const completed=Promise.resolve(callback).catch(error=>callbackFailed(data.id,p,error));p.callbacks.add(completed);completed.finally(()=>p.callbacks.delete(completed)).catch(protocol.fail);}}catch(error){callbackFailed(data.id,p,error);}return;
++  }
++  if(data.error!==undefined&&(!data.error||typeof data.error.code!=='string'||typeof data.error.message!=='string'))throw workerMessageFailure('m2-client','message','invalid-error-response');
++  if(data.error===undefined&&!Object.hasOwn(data,'value'))throw workerMessageFailure('m2-client','message','missing-result-response');
++  if(p.callbacks.size)await Promise.all(p.callbacks);if(pending.get(data.id)!==p)return;
++  pending.delete(data.id);p.cleanup();if(p.callbackError){try{if(data.value?.id&&['analyze','analyzeBlob','beginExport'].includes(p.operation))protocol.post({id:next++,operation:p.operation!=='beginExport'?'releaseResult':'releaseExport',args:p.operation!=='beginExport'?{resultId:data.value.id}:{exportId:data.value.id}});}finally{p.reject(p.callbackError);}}else if(data.error)p.reject(deserializeEngineError(data.error));else p.resolve(data.value);
++ },{label:'m2-client',onFailure:stop});
++ worker.onerror=event=>protocol.fail(new EngineError('WORKER_FAILED',event?.message||'M2 worker failed.',{cause:event?.error,details:{workerEvent:{type:event?.type,filename:event?.filename,line:event?.lineno,column:event?.colno}}}));
+  function request(operation,args={},options={}){
+   if(disposed)return Promise.reject(new EngineError('DISPOSED','M2 worker client disposed.'));
+   try{checkAbort(options.signal);}catch(e){return Promise.reject(e);}
+   const id=next++;
+   return new Promise((resolve,reject)=>{
+-   const abort=()=>{const p=pending.get(id);if(p)p.callbackError=new EngineError('CANCELLED','M2 analysis cancelled.');worker.postMessage({id:next++,operation:'cancel',args:{requestId:id}});},cleanup=()=>options.signal?.removeEventListener('abort',abort);
+-   pending.set(id,{operation,resolve,reject,cleanup,onProgress:options.onProgress});options.signal?.addEventListener('abort',abort,{once:true});
+-   try{worker.postMessage({id,operation,args},options.transfer??[]);}catch(e){pending.delete(id);cleanup();reject(e);}
++   const abort=()=>{const p=pending.get(id);if(p)try{callbackFailed(id,p,new EngineError('CANCELLED','M2 analysis cancelled.'));}catch(error){protocol.fail(error);}},cleanup=()=>options.signal?.removeEventListener('abort',abort);
++   pending.set(id,{operation,resolve,reject,cleanup,onProgress:options.onProgress,callbacks:new Set()});options.signal?.addEventListener('abort',abort,{once:true});
++   try{protocol.post({id,operation,args},options.transfer??[]);}catch(e){pending.delete(id);cleanup();reject(e);}
+   });
+  }
+- let ready;try{ready=await request('initialize',config);}catch(e){worker.terminate();throw e;}
++ let ready;try{ready=await request('initialize',config);}catch(e){stop(e);throw e;}
+  return {
+   ready,
+   reserveExternalMemory:args=>request('reserveExternalMemory',args),
+@@ -42,6 +53,6 @@ export async function createM2WorkerClient(config,{workerFactory=url=>new Worker
+    catch(e){try{await writer?.abort(e);}catch{}throw e;}finally{writer?.releaseLock();await request('releaseExport',{exportId:output.id});}
+   },
+   release(resultId){return request('releaseResult',{resultId});},clearCache(){return request('clearCache');},memory(){return request('memory');},
+-  dispose(){if(disposing)return disposing;if(disposed)return Promise.resolve();const cleaned=request('dispose');disposed=true;disposing=cleaned.finally(()=>{worker.terminate();rejectAll(new EngineError('CANCELLED','M2 worker disposed.'));});return disposing;}
++  dispose(){if(disposing)return disposing;if(disposed)return Promise.resolve();const cleaned=request('dispose');disposed=true;disposing=cleaned.finally(()=>stop(new EngineError('CANCELLED','M2 worker disposed.')));return disposing;}
+  };
+ }
+diff --git a/src/m2-worker.js b/src/m2-worker.js
+index 03a6d26cc6bee2edec43e31fe893a9f7cc0361dd..6eccd910c8272b79811999b65002e4cd4bc970f2 100644
+--- a/src/m2-worker.js
++++ b/src/m2-worker.js
+@@ -1,3 +1,18 @@
+-import {createM2WorkerHost} from './m2-worker-host.js';
+-const host=createM2WorkerHost({post:(message,transfer)=>self.postMessage(message,transfer)});
+-self.onmessage=({data})=>host.handle(data);
++// Keep module-load failures inside the request protocol. An external worker
++// error event can omit its message and source when a static import fails.
++let loadError,fatal;
++const moduleURL=new URL('./m2-worker-host.js',import.meta.url).href;
++function encode(error,fallback='M2_WORKER',seen=new Set()){
++ if(seen.has(error))return {name:'Error',code:fallback,message:'Circular error cause'};seen.add(error);
++ const value={name:error?.name||'Error',code:error?.code||fallback,message:error?.message||String(error)};if(error?.stack)value.stack=error.stack;if(error?.details!==undefined)try{value.details=structuredClone(error.details);}catch{value.details={diagnostic:String(error.details)};}if(error?.cause!==undefined)value.cause=encode(error.cause,fallback,seen);return value;
++}
++const fail=error=>{if(fatal)return;fatal=error;self.postMessage({fatal:true,error});};
++const loaded=import('./m2-worker-host.js').then(({createM2WorkerHost})=>createM2WorkerHost({post:(message,transfer)=>self.postMessage(message,transfer)})).catch(error=>{loadError={name:'EngineError',code:'WORKER_LOAD_FAILED',message:error?.message||'M2 worker module could not be loaded.',stack:error?.stack,details:{moduleURL},cause:encode(error,'INTERNAL')};});
++self.onmessage=({data})=>{
++ if(fatal)return;
++ if(!data||typeof data!=='object'||Array.isArray(data)||!Number.isSafeInteger(data.id)||data.id<=0||typeof data.operation!=='string'||data.args!==undefined&&(!data.args||typeof data.args!=='object'||Array.isArray(data.args))){fail({name:'EngineError',code:'WORKER_MESSAGE_FAILED',message:'M2 worker command could not be read.',details:{transport:{label:'m2-endpoint',event:'message',reason:data===null?'null-data':'invalid-command'}}});return;}
++ // Await only bootstrap, preserving early command order without serializing
++ // useful host operations or preventing cancellation during an analysis.
++ void loaded.then(host=>{if(fatal)return;return host?host.handle(data):self.postMessage({id:data.id,error:loadError});}).catch(error=>{if(!fatal)self.postMessage({id:data.id,error:encode(error)});});
++};
++self.onmessageerror=()=>fail({name:'EngineError',code:'WORKER_MESSAGE_FAILED',message:'M2 worker command could not be deserialized.',details:{transport:{label:'m2-endpoint',event:'messageerror',reason:'deserialization-failed'}}});
+diff --git a/src/neural-execution-summary.js b/src/neural-execution-summary.js
+index 861066eb7e3b57bc42c8c59e1741179639cba04d..ec6803fc2c6fba7f10d2f048a3de84498767040f 100644
+--- a/src/neural-execution-summary.js
++++ b/src/neural-execution-summary.js
+@@ -1,5 +1,5 @@
+ /** Bound provenance by operator count, not by the number of image windows. */
+ export function executionSummary(){
+  const records=new Map();
+- return {add(name,metrics){const key=name+'/'+metrics.provider;let r=records.get(key);if(!r){r={name,provider:metrics.provider,calls:0,milliseconds:0,maximumMemoryBytes:0,preflightExecutions:0};records.set(key,r);}r.reusedInputBytes=(r.reusedInputBytes??0)+(metrics.reusedInputBytes??0);r.calls++;r.milliseconds+=metrics.milliseconds;r.maximumMemoryBytes=Math.max(r.maximumMemoryBytes,metrics.memoryMaximumBytes);if(metrics.retry)r.retries=(r.retries??0)+1;},values(){return [...records.values()];}};
++ return {add(name,metrics){const key=name+'/'+metrics.provider;let r=records.get(key);if(!r){r={name,provider:metrics.provider,calls:0,milliseconds:0,maximumMemoryBytes:0,preflightExecutions:0};records.set(key,r);}r.reusedInputBytes=(r.reusedInputBytes??0)+(metrics.reusedInputBytes??0);r.workerReuses=(r.workerReuses??0)+(metrics.workerReused?1:0);if(metrics.pool)r.pool={...metrics.pool};r.calls++;r.milliseconds+=metrics.milliseconds;r.maximumMemoryBytes=Math.max(r.maximumMemoryBytes,metrics.memoryMaximumBytes);if(metrics.retry)r.retries=(r.retries??0)+1;},values(){return [...records.values()];}};
+ }
+diff --git a/src/neural-graph-pool.js b/src/neural-graph-pool.js
+index 7077c3863246a1b2ddce45e8b0049d71d1f61b64..868be7da5d9b6b2feabf4e894d38926f5fc5ecdc 100644
+--- a/src/neural-graph-pool.js
++++ b/src/neural-graph-pool.js
+@@ -1,8 +1,9 @@
+ import {registerArrayViews} from './allocation.js';
+-import {EngineError,checkAbort,requireValue,deserializeEngineError,resourceAllocationKind} from './errors.js';
++import {EngineError,checkAbort,requireValue,deserializeEngineError,resourceAllocationKind,controlCheckpoint} from './errors.js';
+ import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
+ import {getExecutionScheduler} from './execution-scheduler.js';
+ const MiB=1024**2;
++const executionContexts=new WeakMap();
+ const dataBytes=inputs=>Object.values(inputs).reduce((n,t)=>n+t.data.byteLength,0);
+ /** Real useful jobs only. Sessions are lazy and reclaimable. The caller owns
+  * source/input allocations; returned arrays have a lease until release().
+@@ -11,8 +12,9 @@ const dataBytes=inputs=>Object.values(inputs).reduce((n,t)=>n+t.data.byteLength,
+ export class NeuralGraphPool {
+   constructor(budget,profile,{assets,runtimes,resourceOwner='neural',workerFactory=url=>new Worker(url,{type:'module'})}){
+     this.budget=budget;this.profile=profile;this.resourceOwner=resourceOwner;this.assets=structuredClone(assets);this.runtimes=structuredClone(runtimes);this.factory=workerFactory;
+-    this.slots=[];this.waiters=new Set();this.disposed=false;this.cpuOnly=false;this.clock=0;
++    this.slots=[];this.waiters=new Set();this.disposed=false;this.cpuOnly=false;this.clock=0;this.workerStarts=0;this.peakWorkers=0;this.runtimeReuses=0;
+     this.scheduler=getExecutionScheduler(budget,{maxWorkers:profile.maxWorkers});
++    this.contexts=executionContexts.get(budget);if(!this.contexts){this.contexts={pools:new Set(),peakWorkers:0};executionContexts.set(budget,this.contexts);}this.contexts.pools.add(this);
+     const reclaimers=['wasm','gpu'].map(kind=>budget.registerReclaimer(bytes=>this.reclaim(bytes,kind),{allocationKind:kind,owner:resourceOwner,label:'idle-neural-'+kind}));this.unreclaim=()=>reclaimers.forEach(release=>release());
+   }
+   reclaim(bytes,kind){
+@@ -21,23 +23,36 @@ export class NeuralGraphPool {
+     const candidates=this.slots.filter(slot=>!slot.busy&&(kind!=='gpu'||slot.provider==='webgpu')).sort((a,b)=>(Math.max(1,a.initializationMs??0)/a.bytes-Math.max(1,b.initializationMs??0)/b.bytes)||(a.lastUsed-b.lastUsed));
+     for(const slot of candidates){if(this.budget.total()+bytes<=this.budget.limit)break;this.drop(slot);}
+   }
+-  wake(){for(const fn of this.waiters)fn();this.waiters.clear();}
++  allSlots(){return [...this.contexts.pools].flatMap(pool=>pool.slots.map(slot=>({pool,slot})));}
++  wake(){for(const pool of this.contexts.pools){for(const fn of pool.waiters)fn();pool.waiters.clear();}}
+   drop(slot,error=new EngineError('CANCELLED','Neural worker stopped.')){
+     if(!this.slots.includes(slot))return;
+     slot.executionController?.abort();slot.protocol?.dispose();slot.worker.terminate();for(const release of slot.threadLeases??[])release();this.slots.splice(this.slots.indexOf(slot),1);this.budget.retained-=slot.bytes;const retired=slot.backing?.();if(retired)this.budget.notifyBackingRelease?.('wasm',retired);const gpuRetired=slot.gpuBacking?.();if(gpuRetired)this.budget.notifyBackingRelease?.('gpu',gpuRetired);
+     slot.reject?.(error);this.wake();
+   }
+   clear(){for(const s of [...this.slots])this.drop(s);}
+-  dispose(){this.disposed=true;this.clear();this.unreclaim();this.wake();}
+-  async wait(signal,operation){
+-    checkAbort(signal);operation?.setState('queued',{resource:'memory',dependencies:this.slots.filter(slot=>slot.busy).map(slot=>slot.operation??('owner:'+this.resourceOwner))});
++  snapshot(){const shared=this.allSlots();return {residentWorkers:this.slots.length,busyWorkers:this.slots.filter(s=>s.busy).length,peakWorkers:this.peakWorkers,workerStarts:this.workerStarts,runtimeReuses:this.runtimeReuses,sharedResidentWorkers:shared.length,sharedBusyWorkers:shared.filter(s=>s.slot.busy).length,sharedPeakWorkers:this.contexts.peakWorkers};}
++  dispose(){this.disposed=true;this.clear();this.unreclaim();this.wake();this.contexts.pools.delete(this);}
++  async wait(signal,operation,refusal){
++    checkAbort(signal);const busy=this.allSlots().filter(s=>s.slot.busy&&s.slot.operation!==operation);
++    operation?.setState('queued',{resource:'memory',dependencies:busy.map(s=>s.slot.operation??('owner:'+s.pool.resourceOwner))});
++    const cycle=this.budget.resources?.dependencyCycleError(operation,'memory');if(cycle)throw cycle;
++    // Shared contexts may be held by a different neural family. Wait only for
++    // useful independent work, never for a closed chain of queued promises.
++    if(refusal&&(!busy.length||this.budget.resourceProgressSnapshot?.(this.resourceOwner,'policy',operation)?.independentProducers===0)){operation?.setState('ready');throw refusal;}
+     await new Promise((resolve,reject)=>{
+-      const done=()=>{signal?.removeEventListener('abort',abort);this.waiters.delete(done);resolve();};
+-      const abort=()=>{this.waiters.delete(done);reject(new EngineError('CANCELLED','Neural task cancelled.'));};
+-      this.waiters.add(done);signal?.addEventListener('abort',abort,{once:true});
++      let settled=false;
++      const finish=error=>{if(settled)return;settled=true;signal?.removeEventListener('abort',abort);this.waiters.delete(done);this.budget.resourceListeners?.delete(inspect);error?reject(error):resolve();};
++      const done=()=>finish(),abort=()=>finish(new EngineError('CANCELLED','Neural task cancelled.'));
++      const inspect=()=>{
++        if(signal?.aborted)return abort();const cycle=this.budget.resources?.dependencyCycleError(operation,'memory');if(cycle)return finish(cycle);
++        if(refusal&&this.budget.limit-this.budget.total()>=(refusal.details?.requestedBytes??Infinity))return finish();
++        if(refusal&&this.budget.resourceProgressSnapshot?.(this.resourceOwner,'policy',operation)?.independentProducers===0)finish(refusal);
++      };
++      this.waiters.add(done);this.budget.resourceListeners?.add(inspect);signal?.addEventListener('abort',abort,{once:true});inspect();
+     });operation?.setState('ready');checkAbort(signal);
+   }
+-  async run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend='auto',cpuRequired=false,_memoryScale=1,reusableInputs={},gpuWasmWorkspaceBytes,resourceOperation}={}){
++  async run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend='auto',cpuRequired=false,_memoryScale=1,reusableInputs={},gpuWasmWorkspaceBytes,resourceOperation,_initializationRecovery=0}={}){
+     const asset=this.assets[name];
+     requireValue(asset&&Number.isSafeInteger(asset.bytes)&&asset.bytes>0&&/^[a-f0-9]{64}$/.test(asset.sha256),'Invalid neural model identity.');
+     requireValue([workspaceBytes,outputBytes].every(x=>Number.isSafeInteger(x)&&x>=0),'Neural activation/output bounds required.');
+@@ -57,20 +72,42 @@ export class NeuralGraphPool {
+     const cpuMaximum=provider==='wasm'&&runtime.ortUrl&&globalThis.crossOriginIsolated===true?this.profile.maxWorkers:1;
+     const residentBytes=memoryMaximumBytes+asset.bytes*2+(provider==='webgpu'?asset.bytes+workspaceBytes:0)+4*MiB+reusableBytes;
+     const jobBytes=inputBytes+outputBytes*2; // clone in worker + output readback/transfer
+-    let slot,releaseJob,reusedBytes=0;const operation=this.budget.beginOperation?.({owner:this.resourceOwner,id:'neural/'+name,parent:resourceOperation});
++    let slot,releaseJob,reusedBytes=0,workerReused=false,modelReconfigured=false;const operation=this.budget.beginOperation?.({owner:this.resourceOwner,id:'neural/'+name,parent:resourceOperation});
+     try{for(;;){
+       checkAbort(signal);if(this.disposed)throw new EngineError('DISPOSED','Neural pool disposed.');
+       slot=this.slots.find(s=>!s.busy&&s.name===name&&s.provider===provider&&s.cap>=memoryMaximumBytes&&s.workspaceCap>=workspaceBytes&&(s.reusableBytes??0)>=reusableBytes);
+-      if(slot){slot.busy=true;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);reusedBytes=Object.entries(reusableInputs).reduce((n,[key,id])=>n+(slot.reusableInputs?.[key]===id?inputs[key].data.byteLength:0),0);try{releaseJob=this.budget.reserve(jobBytes-reusedBytes);}catch(e){slot.busy=false;throw e;}break;}
++      if(slot){slot.busy=true;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);reusedBytes=Object.entries(reusableInputs).reduce((n,[key,id])=>n+(slot.reusableInputs?.[key]===id?inputs[key].data.byteLength:0),0);try{releaseJob=this.budget.reserve(jobBytes-reusedBytes);}catch(e){slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);if(e.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,e);continue;}throw e;}break;}
++      // Graphs in a segmented network run in succession. An idle ORT runtime
++      // can release its old model and load the next one without constructing
++      // another Wasm memory, thread team or WebGPU device. Busy workers are
++      // never reassigned; independent jobs still create all admitted workers.
++      if(runtime.ortUrl&&!['cfa','noiseprint-plus'].includes(runtime.executor)){
++        slot=this.slots.filter(s=>!s.busy&&s.provider===provider&&s.cap>=memoryMaximumBytes).sort((a,b)=>a.cap-b.cap||b.lastUsed-a.lastUsed)[0];
++        if(slot){
++          slot.busy=true;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);
++          const targetBytes=slot.cap+asset.bytes*2+(provider==='webgpu'?asset.bytes+workspaceBytes:0)+4*MiB+reusableBytes;
++          try{releaseJob=this.budget.reserve(jobBytes);if(targetBytes>slot.bytes){this.budget.retain(targetBytes-slot.bytes);slot.bytes=targetBytes;}}
++          catch(error){slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);releaseJob?.();releaseJob=null;if(error.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,error);continue;}throw error;}
++          // Keep any larger old residency charged until model release and the
++          // new useful job have completed inside the worker.
++          slot.targetBytes=targetBytes;if(slot.gpuBacking){slot.targetGpuBytes=asset.bytes+workspaceBytes+reusableBytes+jobBytes;slot.gpuBacking.resize(Math.max(slot.gpuBacking.bytes,slot.targetGpuBytes),{materializedBytes:0});}slot.name=name;slot.workspaceCap=workspaceBytes;slot.reusableBytes=reusableBytes;slot.reusableInputs={};workerReused=true;modelReconfigured=true;this.runtimeReuses++;break;
++        }
++      }
+       if(this.slots.filter(s=>s.busy).length>=this.profile.maxWorkers){await this.wait(signal,operation);continue;}
++      if(this.allSlots().filter(s=>s.slot.busy).length>=this.scheduler.capacity.cpu){await this.wait(signal,operation);continue;}
++      // A large RAM policy budget is not permission for an unbounded number
++      // of browser execution contexts. Retire only idle contexts when their
++      // admitted concurrency is already represented in this pool.
++      while(this.slots.length>=this.profile.maxWorkers){const idle=this.slots.filter(s=>!s.busy).sort((a,b)=>a.lastUsed-b.lastUsed)[0];if(!idle)break;this.drop(idle);}
++      while(this.allSlots().length>=this.scheduler.capacity.cpu){const idle=this.allSlots().filter(s=>!s.slot.busy).sort((a,b)=>(a.slot.initializationMs??0)/a.slot.bytes-(b.slot.initializationMs??0)/b.slot.bytes)[0];if(!idle)break;idle.pool.drop(idle.slot);}
+       try{
+         releaseJob=this.budget.reserve(jobBytes);
+         this.budget.retain(residentBytes);
+         try{
+-          slot={name,provider,cap:memoryMaximumBytes,workspaceCap:workspaceBytes,bytes:residentBytes,reusableBytes,reusableInputs:{},lastUsed:++this.clock,busy:true,worker:this.factory(new URL('./neural-graph-worker.js',import.meta.url))};slot.backing=this.budget.registerBacking?.('wasm',slot.cap,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved',reclaimable:false});if(provider==='webgpu')slot.gpuBacking=this.budget.registerBacking?.('gpu',asset.bytes+workspaceBytes+reusableBytes+jobBytes,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved'});this.slots.push(slot);
++          slot={name,provider,cap:memoryMaximumBytes,workspaceCap:workspaceBytes,bytes:residentBytes,reusableBytes,reusableInputs:{},lastUsed:++this.clock,busy:true,worker:this.factory(new URL('./neural-graph-worker.js',import.meta.url))};this.workerStarts++;slot.backing=this.budget.registerBacking?.('wasm',slot.cap,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved',reclaimable:false});if(provider==='webgpu')slot.gpuBacking=this.budget.registerBacking?.('gpu',asset.bytes+workspaceBytes+reusableBytes+jobBytes,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved'});this.slots.push(slot);this.peakWorkers=Math.max(this.peakWorkers,this.slots.length);this.contexts.peakWorkers=Math.max(this.contexts.peakWorkers,this.allSlots().length);
+         }catch(e){slot?.worker?.terminate();slot?.backing?.();slot?.gpuBacking?.();this.budget.retained-=residentBytes;throw e;}
+         break;
+-      }catch(error){releaseJob?.();releaseJob=null;if(error.code==='MEMORY_LIMIT'&&this.slots.some(s=>s.busy)){await this.wait(signal,operation);continue;}throw error;}
++      }catch(error){releaseJob?.();releaseJob=null;if(error.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,error);continue;}throw error;}
+     }
+     }catch(error){
+       releaseJob?.();releaseJob=null;operation?.release();this.wake();
+@@ -86,11 +123,21 @@ export class NeuralGraphPool {
+       checkAbort(signal);
+       operation?.setState('io');const started=performance.now();
+       slot.executionController=new AbortController();const executionController=slot.executionController;let executionRequested=false,resourceRequested=false;
++      const workerFailure=event=>new EngineError('WORKER_FAILED',event?.message||'Neural worker failed.',{cause:event?.error,details:{model:name,provider,workerReused,modelReconfigured,memoryMaximumBytes:slot.cap,pool:this.snapshot(),workerURL:new URL('./neural-graph-worker.js',import.meta.url).href,workerEvent:{type:event?.type,filename:event?.filename,line:event?.lineno,column:event?.colno}}});
++      const observeStartup=()=>{
++        protocol=installWorkerMessageProtocol(slot.worker,()=>{throw workerMessageFailure('neural/'+name,'message','response-before-job');},{label:'neural/'+name,onFailure:error=>{slot.startupError=error;executionController.abort();}});
++        slot.protocol=protocol;slot.worker.onerror=event=>protocol.fail(workerFailure(event));
++      };
++      // A script import may fail while CPU admission is queued. Observe it
++      // before that first await, otherwise the event is lost and run hangs.
++      observeStartup();
+       if(provider==='wasm'){
+         executionLease=await this.scheduler.acquire({cpu:cpuMaximum,minCpu:1,domains:{wasm:slot.cap,'array-buffer':jobBytes-reusedBytes},bytesForCpu:count=>Math.max(0,count-1-(slot.threadLeases?.length??0))*2*MiB,signal:executionController.signal,operation,resourceOwner:this.resourceOwner,label:'neural/'+name});
+         checkAbort(signal);
+         if(slot.threads!==undefined&&slot.threads!==executionLease.cpu){
+-          slot.worker.terminate();const retired=slot.backing?.();if(retired)this.budget.notifyBackingRelease?.('wasm',retired);slot.backing=this.budget.registerBacking?.('wasm',slot.cap,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved'});slot.worker=this.factory(new URL('./neural-graph-worker.js',import.meta.url));slot.reusableInputs={};threadReconfigured=true;
++          protocol.dispose();
++          slot.worker.terminate();const retired=slot.backing?.();if(retired)this.budget.notifyBackingRelease?.('wasm',retired);slot.backing=this.budget.registerBacking?.('wasm',slot.cap,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved'});slot.worker=this.factory(new URL('./neural-graph-worker.js',import.meta.url));this.workerStarts++;slot.reusableInputs={};threadReconfigured=true;
++          observeStartup();
+           // Inputs kept resident in the retired worker must be sent again.
+           if(reusedBytes){releaseJob();releaseJob=null;releaseJob=this.budget.reserve(jobBytes);reusedBytes=0;}
+         }
+@@ -99,6 +146,8 @@ export class NeuralGraphPool {
+         while(slot.threadLeases.length>executionLease.cpu-1)slot.threadLeases.pop()();
+         slot.threads=executionLease.cpu;peakCpuGranted=executionLease.cpu;
+       }
++      if(slot.startupError)throw slot.startupError;
++      protocol.dispose();
+       const result=await new Promise((resolve,reject)=>{
+         slot.reject=reject;
+         protocol=installWorkerMessageProtocol(slot.worker,data=>{
+@@ -136,7 +185,7 @@ export class NeuralGraphPool {
+           if(!Number.isFinite(data.heapBytes)||!data.result||typeof data.result!=='object'||Array.isArray(data.result)||Object.values(data.result).some(t=>!t||!ArrayBuffer.isView(t.data)||!Array.isArray(t.dims)))throw workerMessageFailure('neural/'+name,'message','invalid-result-response');
+           resolve(data);
+         },{label:'neural/'+name,onFailure:error=>this.drop(slot,error)});
+-        slot.protocol=protocol;slot.worker.onerror=event=>protocol.fail(new EngineError('WORKER_FAILED',event?.message??'Neural worker failed.',{cause:event?.error}));
++        slot.protocol=protocol;slot.worker.onerror=event=>protocol.fail(workerFailure(event));
+         // Keep caller-owned inputs available for another graph or a CPU retry.
+         try{protocol.post({asset,inputs:Object.fromEntries(Object.entries(inputs).filter(([key])=>!reusableInputs[key]||slot.reusableInputs[key]!==reusableInputs[key])),reusableInputs,provider,runtime,memoryMaximumBytes:slot.cap,outputBytes,threads:slot.threads??1});}catch(e){protocol.fail(e);}
+       });
+@@ -144,19 +193,33 @@ export class NeuralGraphPool {
+       requireValue(result.heapBytes>0&&result.heapBytes<=slot.cap,'Neural heap exceeded its admitted cap.');
+       requireValue(dataBytes(result.result)<=outputBytes,'Neural output exceeded its admitted size.');
+       slot.backing?.materialize(result.heapBytes);if(Number.isSafeInteger(result.gpuBytes)&&result.gpuBytes>=0)slot.gpuBacking?.resize(result.gpuBytes);
++      if(slot.targetBytes!==undefined){this.budget.retained-=slot.bytes-slot.targetBytes;slot.bytes=slot.targetBytes;delete slot.targetBytes;}
++      if(slot.targetGpuBytes!==undefined){slot.gpuBacking?.resize(slot.targetGpuBytes,{materializedBytes:0});delete slot.targetGpuBytes;}
+       // Input clones and readback staging die with the worker's completed job;
+       // only the returned buffers remain owned by this lease.
+       const outputReservation=releaseJob.split(dataBytes(result.result));releaseJob();releaseJob=outputReservation;
+       slot.reusableInputs={...reusableInputs};slot.reject=null;slot.executionController=null;slot.lastUsed=++this.clock;slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);const outputBacking=registerArrayViews(this.budget,Object.fromEntries(Object.entries(result.result).map(([key,value])=>[key,value.data])),{owner:this.resourceOwner,label:'neural-output/'+name});const outputLease=releaseJob;const releaseOutput=()=>{outputBacking();outputLease();};complete=true;operation?.commit();this.wake();
+-      return {...result,release:releaseOutput,metrics:{milliseconds:performance.now()-started,preflightExecutions:0,memoryMaximumBytes:slot.cap,provider,workers:1,threads:slot.threads??1,threadReconfigured,cpuGranted:peakCpuGranted,gpuGranted:peakGpuGranted,reusedInputBytes:reusedBytes,copiedOutputBytes:result.copiedOutputBytes??0}};
++      return {...result,release:releaseOutput,metrics:{milliseconds:performance.now()-started,preflightExecutions:0,memoryMaximumBytes:slot.cap,provider,workers:1,threads:slot.threads??1,threadReconfigured,workerReused,modelReconfigured,pool:this.snapshot(),runtime:result.runtimeLifecycle,cpuGranted:peakCpuGranted,gpuGranted:peakGpuGranted,reusedInputBytes:reusedBytes,copiedOutputBytes:result.copiedOutputBytes??0}};
+     }catch(error){
++      error=slot.startupError??error;
+       executionLease?.release();executionLease=null;operation?.setState('recovery');this.drop(slot,error);checkAbort(signal);
++      if(error.code==='MEMORY_ALLOCATION'&&resourceAllocationKind(error)==='wasm'&&error.details?.executionPhase==='initialization'&&_initializationRecovery===0){
++        const idle=this.allSlots().filter(s=>!s.slot.busy),retiredWorkers=idle.length;
++        for(const candidate of idle)candidate.pool.drop(candidate.slot);
++        // Retry only after a real change in resident contexts. Inputs and
++        // completed feature banks remain with the caller. No heap growth or
++        // calibration run follows an address-space allocation refusal.
++        if(retiredWorkers){releaseJob();releaseJob=null;await controlCheckpoint(signal);
++          const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend,cpuRequired,_memoryScale,reusableInputs,gpuWasmWorkspaceBytes,resourceOperation,_initializationRecovery:1});
++          retried.metrics.retry={reason:'Retired idle neural contexts after runtime initialization refusal',retiredWorkers};return retried;
++        }
++      }
+       if(error.code==='MEMORY_ALLOCATION'&&resourceAllocationKind(error)==='wasm'&&error.details?.nativeHeapExhausted===true&&_memoryScale===1){
+         releaseJob();releaseJob=null;
+         const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend,cpuRequired,_memoryScale:2,reusableInputs,gpuWasmWorkspaceBytes,resourceOperation});
+         retried.metrics.retry={reason:'Larger admitted heap after allocation failure during useful inference',fromBytes:memoryMaximumBytes};return retried;
+       }
+-      if(provider==='webgpu'&&backend==='auto'&&['NEURAL_EXECUTION','WORKER_FAILED'].includes(error.code)){
++      if(provider==='webgpu'&&backend==='auto'&&error.code==='NEURAL_EXECUTION'){
+         this.cpuOnly=true;releaseJob();releaseJob=null;
+         const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend:'cpu',cpuRequired,reusableInputs,gpuWasmWorkspaceBytes,resourceOperation});
+         retried.metrics.retry={from:'webgpu',reason:error.message};return retried;
+diff --git a/src/neural-graph-worker.js b/src/neural-graph-worker.js
+index 6439564f8f4fae8a91b9b8a04e5bddb8df7005d1..0334f875ac8e63e56d7a41a2a4a07a98e6d8e338 100644
+--- a/src/neural-graph-worker.js
++++ b/src/neural-graph-worker.js
+@@ -8,6 +8,7 @@ import {EngineError,serializeEngineError} from './errors.js';
+ import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
+ const reusable=new Map();
+ let session,ort,runtime,asset,cfaModule,cfaProgram,cfaWeights,cfaGPU,execute,resourceReady;
++const runtimeLifecycle={runtimeInitializations:0,modelInitializations:0,modelSwitches:0};
+ function waitForExecution(initializationMs,heapBytes){
+  return new Promise(resolve=>{execute=resolve;self.postMessage({executionReady:true,initializationMs,heapBytes});});
+ }
+@@ -59,15 +60,25 @@ installWorkerMessageProtocol(self,async data=>{
+    return;
+   }
+   try{
+-    if(!session){
++    if(session&&asset.sha256!==data.asset.sha256){
++      self.postMessage({phase:'model-release'});
++      for(const cached of reusable.values())cached.tensor.dispose();reusable.clear();
++      const old=session;session=null;await old.release();asset=null;runtimeLifecycle.modelSwitches++;
++    }
++    if(!ort){
+       initialized=true;
+-      asset=data.asset;globalThis.__sherloqNeuralMemoryPages=data.memoryMaximumBytes/65536;
++      globalThis.__sherloqNeuralMemoryPages=data.memoryMaximumBytes/65536;
+       runtime=await import(data.runtime.factoryUrl);ort=await import(data.runtime.ortUrl);
+       ort.env.wasm.numThreads=data.threads;ort.env.wasm.wasmPaths={mjs:data.runtime.factoryUrl,wasm:data.runtime.wasmUrl};
+       if(data.provider==='webgpu')ort.env.webgpu.powerPreference='high-performance';
++      runtimeLifecycle.runtimeInitializations++;
++    }
++    if(!session){
++      initialized=true;asset=data.asset;
+       self.postMessage({phase:'model-load'});
+       const bytes=await modelBytes(asset);
+       session=await ort.InferenceSession.create(bytes,{executionProviders:[data.provider==='webgpu'&&asset.preferredLayout?{name:'webgpu',preferredLayout:asset.preferredLayout}:data.provider],graphOptimizationLevel:asset.graphOptimizationLevel??'all',enableCpuMemArena:false,enableMemPattern:false});
++      runtimeLifecycle.modelInitializations++;
+     }
+     if(asset.sha256!==data.asset.sha256)throw Error('Worker model changed');
+     await waitForExecution(initialized?performance.now()-initializationStart:0,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';
+@@ -88,7 +99,7 @@ installWorkerMessageProtocol(self,async data=>{
+     self.postMessage({phase:'inference'});
+     outputs=await session.run(feeds);
+     phase='output';const {result,transfers,copiedOutputBytes}=neuralOutputTransfer(outputs,feeds,data.outputBytes);
+-    self.postMessage({result,copiedOutputBytes,heapBytes:runtime.heapBytes(),runtime:ort.env.versions,provider:data.provider},transfers);
++    self.postMessage({result,copiedOutputBytes,heapBytes:runtime.heapBytes(),runtime:ort.env.versions,runtimeLifecycle:{...runtimeLifecycle},provider:data.provider},transfers);
+   }catch(error){self.postMessage({error:serializeEngineError(neuralRuntimeError(error,{provider:data.provider,phase,heapBytes:cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.()??0,maximumBytes:data.memoryMaximumBytes}),'NEURAL_EXECUTION')});}
+   finally{for(const [name,t]of Object.entries(feeds))if(reusable.get(name)?.tensor!==t)t.dispose();for(const t of Object.values(outputs??{}))t.dispose();}
+ },{label:'neural-endpoint',onFailure:error=>self.postMessage({error:serializeEngineError(error)})});
+diff --git a/src/noisesniffer-strip-worker.js b/src/noisesniffer-strip-worker.js
+index 559cae55952c8c58daa2054a58289805cf29d635..284895feed10abc228db5b22feb05e49d64b036f 100644
+--- a/src/noisesniffer-strip-worker.js
++++ b/src/noisesniffer-strip-worker.js
+@@ -1,3 +1,3 @@
+-import {serializeEngineError} from './errors.js';
+-import {noisesnifferStreamMath} from './noisesniffer-stream-math.js';
+-self.onmessage=async({data:j})=>{try{const math=await noisesnifferStreamMath(),result=j.op==='blocks'?math.blocks(j.rgb,j.width,j.height,j.w,j.extrema):math.mean8(j.rgb,j.width,j.height,j.dftWidth,j.dftHeight,j.blockHeight);self.postMessage({result},Object.values(result).filter(ArrayBuffer.isView).map(v=>v.buffer));}catch(error){self.postMessage({error:serializeEngineError(error,'WORKER_FAILED')});}};
++import {installTransformStripWorker} from './transform-strip-worker.js';
++import {noisesnifferStreamMath,noisesnifferStreamHeapBytes} from './noisesniffer-stream-math.js';
++installTransformStripWorker(async j=>{const math=await noisesnifferStreamMath(),result=j.op==='blocks'?math.blocks(j.rgb,j.width,j.height,j.w,j.extrema):math.mean8(j.rgb,j.width,j.height,j.dftWidth,j.dftHeight,j.blockHeight);return {...result,heapBytes:noisesnifferStreamHeapBytes()};},{label:'noisesniffer-strip'});
+diff --git a/src/pixel-strip-pool.js b/src/pixel-strip-pool.js
+index 815bb9da6ee12818168a5bfc4263347f61c75652..ae8c2b7061bde3951beaa8cf87d8c5bc2ff04e83 100644
+--- a/src/pixel-strip-pool.js
++++ b/src/pixel-strip-pool.js
+@@ -1,4 +1,4 @@
+ import {WaveletStripPool} from './wavelet-strip-pool.js';
+ export function pixelStripPool(image,budget,{maxWorkers=1,heapBytes=64*1024**2,pixelBytes=32}={}){
+- return new WaveletStripPool(budget,{maxWorkers,adaptive:image.pixelScheduling??=new Map(),workerHeapBytes:heapBytes,workerPixelBytes:pixelBytes,workerFactory:globalThis.Worker?()=>new Worker(new URL('./pixel-strip-worker.js',import.meta.url),{type:'module'}):null});
++ return new WaveletStripPool(budget,{maxWorkers,adaptive:image.pixelScheduling??=new Map(),workerHeapBytes:heapBytes,workerPixelBytes:pixelBytes,workerURL:new URL('./pixel-strip-worker.js',import.meta.url),workerFactory:globalThis.Worker?()=>new Worker(new URL('./pixel-strip-worker.js',import.meta.url),{type:'module'}):null});
+ }
+diff --git a/src/pixel-strip-worker.js b/src/pixel-strip-worker.js
+index 3d35d829c65e7103c9898b70104242e69e733894..e8f9f6970bf37b98e3fb216faba97a71696a7ef8 100644
+--- a/src/pixel-strip-worker.js
++++ b/src/pixel-strip-worker.js
+@@ -1,3 +1,6 @@
+-import {serializeEngineError} from './errors.js';
++import {installTransformStripWorker} from './transform-strip-worker.js';
+ import {pixelStripStage} from './pixel-strip-stage.js';
+-self.onmessage=async({data})=>{try{const result=await pixelStripStage(data),transfer=[...new Set(Object.values(result).filter(ArrayBuffer.isView).map(v=>v.buffer))];self.postMessage({result},transfer);}catch(e){self.postMessage({error:serializeEngineError(e,'COMPUTE_FAILED')});}};
++import {gradientHeapBytes} from './gradient-math.js';
++import {contrastHeapBytes} from './contrast-math.js';
++import {cvHeapBytes} from './opencv.js';
++installTransformStripWorker(async data=>({...await pixelStripStage(data),heapBytes:gradientHeapBytes()+contrastHeapBytes()+cvHeapBytes()}),{label:'pixel-strip'});
+diff --git a/src/plots-strip-worker.js b/src/plots-strip-worker.js
+index 2a0db441d9541aa6f7c9407b803a80c69d071e2c..78835e5f17669a03c5a33d7a03f35238b00ae833 100644
+--- a/src/plots-strip-worker.js
++++ b/src/plots-strip-worker.js
+@@ -1,3 +1,3 @@
+-import {serializeEngineError} from './errors.js';
++import {installTransformStripWorker} from './transform-strip-worker.js';
+ import {plotsStreamMath} from './plots-stream-math.js';
+-self.onmessage=async({data})=>{try{const result=(await plotsStreamMath()).run(data);self.postMessage({result},[result.values.buffer]);}catch(e){self.postMessage({error:serializeEngineError(e,'WORKER_FAILED')});}};
++installTransformStripWorker(async data=>(await plotsStreamMath()).run(data),{label:'plots-strip'});
+diff --git a/src/prnu-strip-pool.js b/src/prnu-strip-pool.js
+index 0171ebe1ac873118b6789dc8e5578689b5d52a36..a00a69fa0a605e6fed2c9d865a0fac0dbf579e16 100644
+--- a/src/prnu-strip-pool.js
++++ b/src/prnu-strip-pool.js
+@@ -1,4 +1,4 @@
+ import {WaveletStripPool} from './wavelet-strip-pool.js';
+ export class PrnuStripPool extends WaveletStripPool{
+- constructor(budget,profile={}){super(budget,{...profile,workerHeapBytes:32*1024**2,workerPixelBytes:256,workerFactory:profile.workerFactory??(globalThis.Worker?()=>new Worker(new URL('./prnu-strip-worker.js',import.meta.url),{type:'module'}):null)});}
++ constructor(budget,profile={}){super(budget,{...profile,workerHeapBytes:32*1024**2,workerPixelBytes:256,workerURL:profile.workerURL??new URL('./prnu-strip-worker.js',import.meta.url),workerFactory:profile.workerFactory??(globalThis.Worker?()=>new Worker(new URL('./prnu-strip-worker.js',import.meta.url),{type:'module'}):null)});}
+ }
+diff --git a/src/prnu-strip-worker.js b/src/prnu-strip-worker.js
+index d6689ff935d985578d1c8a39591d75ebeb5d93b3..c36210624782810945186cc8da1d031d649e7477 100644
+--- a/src/prnu-strip-worker.js
++++ b/src/prnu-strip-worker.js
+@@ -1,7 +1,7 @@
+-import {serializeEngineError} from './errors.js';
+-import {prnuStreamMath} from './prnu-stream-math.js';
+-self.onmessage=async({data})=>{try{const math=await prnuStreamMath();let values;
++import {installTransformStripWorker} from './transform-strip-worker.js';
++import {prnuStreamMath,prnuStreamHeapBytes} from './prnu-stream-math.js';
++installTransformStripWorker(async data=>{const math=await prnuStreamMath();let values;
+  if(data.op==='axis')values=math.axis(data.values,data.length,data.lines,data.mode,data.factor);
+  else if(data.op==='convolution')values=math.axis(math.multiply(math.axis(data.values,data.length,data.lines,1),math.axis(data.kernel,data.length,data.lines,1)),data.length,data.lines,2);
+- else throw Error('Unknown PRNU strip operation');self.postMessage({result:{values}},[values.buffer]);
+- }catch(error){self.postMessage({error:serializeEngineError(error,'WORKER_FAILED')});}};
++ else throw Error('Unknown PRNU strip operation');return {values,heapBytes:prnuStreamHeapBytes()};
++},{label:'prnu-strip'});
+diff --git a/src/resampling-strip-pool.js b/src/resampling-strip-pool.js
+index 81cf54dd368c5e6dfed822429ef7bd5097d43661..274c27fb397e42aaa1ba1cbb920fb95dc0f2e1ab 100644
+--- a/src/resampling-strip-pool.js
++++ b/src/resampling-strip-pool.js
+@@ -1,4 +1,4 @@
+ import {WaveletStripPool} from './wavelet-strip-pool.js';
+ export class ResamplingStripPool extends WaveletStripPool{
+- constructor(budget,profile={}){super(budget,{...profile,workerHeapBytes:12*1024**2,workerPixelBytes:192,workerFactory:profile.workerFactory??(globalThis.Worker?()=>new Worker(new URL('./resampling-strip-worker.js',import.meta.url),{type:'module'}):null)});}
++ constructor(budget,profile={}){super(budget,{...profile,workerHeapBytes:12*1024**2,workerPixelBytes:192,workerURL:profile.workerURL??new URL('./resampling-strip-worker.js',import.meta.url),workerFactory:profile.workerFactory??(globalThis.Worker?()=>new Worker(new URL('./resampling-strip-worker.js',import.meta.url),{type:'module'}):null)});}
+ }
+diff --git a/src/resampling-strip-worker.js b/src/resampling-strip-worker.js
+index 4a550cd3f31bc53a2e614b93d15b6e873628f7eb..b794b578fbf413a128c936544a6e0098231898df 100644
+--- a/src/resampling-strip-worker.js
++++ b/src/resampling-strip-worker.js
+@@ -1,3 +1,3 @@
+-import {serializeEngineError} from './errors.js';
+-import {resamplingStreamMath} from './resampling-stream-math.js';
+-self.onmessage=async({data})=>{try{const math=await resamplingStreamMath();let values;if(data.op==='axis')values=math.axis(data.values,data.length,data.lines,data.real);else if(data.op==='pyrup')values=math.pyrup(data.values,data.width,data.height);else throw Error('Unknown resampling strip operation');self.postMessage({result:{values}},[values.buffer]);}catch(error){self.postMessage({error:serializeEngineError(error,'WORKER_FAILED')});}};
++import {installTransformStripWorker} from './transform-strip-worker.js';
++import {resamplingStreamMath,resamplingStreamHeapBytes} from './resampling-stream-math.js';
++installTransformStripWorker(async data=>{const math=await resamplingStreamMath();let values;if(data.op==='axis')values=math.axis(data.values,data.length,data.lines,data.real);else if(data.op==='pyrup')values=math.pyrup(data.values,data.width,data.height);else throw Error('Unknown resampling strip operation');return {values,heapBytes:resamplingStreamHeapBytes()};},{label:'resampling-strip'});
+diff --git a/src/segmented-noisesniffer-statistics.js b/src/segmented-noisesniffer-statistics.js
+index fdc5c92aeb1d82f8feb839799e0c531f1dbac1a1..87c080e0006fb25f33b092a3a947d401cff87190 100644
+--- a/src/segmented-noisesniffer-statistics.js
++++ b/src/segmented-noisesniffer-statistics.js
+@@ -20,7 +20,7 @@ export async function segmentedNoisesnifferStatistics(image,w,{budget,signal,onP
+   valid=await createSegmentedBytes(cols*rows,options);owned.push(valid);means=await createFloatPlane(cols*3,rows,options);owned.push(means);variance=await createFloatPlane(cols,rows*3,{...options,ArrayType:Float32Array});owned.push(variance);
+   math=await noisesnifferStreamMath();const extrema=[255,255,255,0,0,0];
+   for(let y=0;y<height;y+=stripRows){await controlCheckpoint(signal);const part=await image.surface.readWindow({x:0,y,width,height:Math.min(stripRows,height-y)},{signal});try{for(let i=0;i<part.pixels.data.length;i++){const c=i%3,v=part.pixels.data[i];extrema[c]=Math.min(extrema[c],v);extrema[c+3]=Math.max(extrema[c+3],v);}}finally{part.release();}progress('noisesniffer-extrema',Math.min(height,y+stripRows),height);}
+-  pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:12*1024**2+haloBytes,workerPixelBytes:perPixel,workerFactory:globalThis.Worker?()=>new Worker(new URL('./noisesniffer-strip-worker.js',import.meta.url),{type:'module'}):null});let done=0;
++  pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:12*1024**2+haloBytes,workerPixelBytes:perPixel,workerURL:new URL('./noisesniffer-strip-worker.js',import.meta.url),workerFactory:globalThis.Worker?()=>new Worker(new URL('./noisesniffer-strip-worker.js',import.meta.url),{type:'module'}):null});let done=0;
+   await pool.run({count:Math.ceil(rows/stripRows),pixels,key:`noisesniffer/${w}/${width}/${stripRows}`,signal,prepareBytes:width*(stripRows+w)*3,
+    prepare:async i=>{const y=i*stripRows,h=Math.min(stripRows,rows-y)+w-1,part=await image.surface.readWindow({x:0,y,width,height:h},{signal});try{return {op:'blocks',rgb:part.pixels.data,width,height:h,w,extrema};}finally{part.release();}},
+    local:j=>math.blocks(j.rgb,j.width,j.height,j.w,j.extrema),
+diff --git a/src/segmented-plots.js b/src/segmented-plots.js
+index fe8b584b097ef031197c26c1949729baef1cbaec..a94027f77506afe837f8d2f334a9528b7671105e 100644
+--- a/src/segmented-plots.js
++++ b/src/segmented-plots.js
+@@ -11,7 +11,7 @@ function plotTable(shared,width,height,scale,budget){shared.retain();let dispose
+ export async function segmentedPlots(image,params,{budget,signal,onProgress,profile={},cache,blockPixels=65536,storage='auto',original=false}={}){
+  const p=plotsParams(params),{width:sourceWidth,height:sourceHeight}=image.surface.descriptor,maximum=Math.floor(Math.log2(Math.min(sourceWidth,sourceHeight))),scale=p.scale??Math.min(1,maximum);requireValue(scale<=maximum,'Sampling scale exceeds the native image limit.');
+  requireValue(Number.isSafeInteger(blockPixels)&&blockPixels>0&&blockPixels<=262144,'Invalid plot strip size.');const hit=cache?.scale===scale&&!cache.disposed;
+- const pool=new WaveletStripPool(budget,{...profile,adaptive:image.plotScheduling??=new Map(),workerHeapBytes:8*1024**2,workerPixelBytes:128,workerFactory:globalThis.Worker?()=>new Worker(new URL('./plots-strip-worker.js',import.meta.url),{type:'module'}):null});let release,values,newCache,previousSurface,ownedSurface;
++ const pool=new WaveletStripPool(budget,{...profile,adaptive:image.plotScheduling??=new Map(),workerHeapBytes:8*1024**2,workerPixelBytes:128,workerURL:new URL('./plots-strip-worker.js',import.meta.url),workerFactory:globalThis.Worker?()=>new Worker(new URL('./plots-strip-worker.js',import.meta.url),{type:'module'}):null});let release,values,newCache,previousSurface,ownedSurface;
+  try{
+   if(!hit){
+    const room=budget.limit-budget.retained-budget.active,block=Math.min(blockPixels,Math.floor((room-12*1024**2-sourceWidth*64)/128));if(block<sourceWidth)throw new EngineError('MEMORY_LIMIT','A full plot row with its native halo must fit.');release=budget.reserve(Math.max(8*1024**2,plotsStreamHeapBytes())+block*128+sourceWidth*64);
+diff --git a/src/segmented-stereogram.js b/src/segmented-stereogram.js
+index e557ec40bd36fa1ce18b4dbd96c8a4c72463bd03..dac5883a28ce58c162819628c8b07854595699b8 100644
+--- a/src/segmented-stereogram.js
++++ b/src/segmented-stereogram.js
+@@ -19,7 +19,7 @@ export async function segmentedStereogram(image,params,{budget,signal,onProgress
+   const math=await stereoStreamMath();const searchCached=!!cache,patternCached=!!cache?.views.get(0),flowCached=!!cache?.flow;
+   if(!cache){
+    const differences=new Float32Array(height>=2&&Math.floor(width/3)>11?Math.floor(width/3)-10:0),sums=new Float64Array(differences.length),smallHeight=roundEven(height*.5);let offset=-1,completed=0;
+-   if(differences.length){pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:8*1024**2,workerPixelBytes:24,workerFactory:globalThis.Worker?()=>new Worker(new URL('./stereo-stream-worker.js',import.meta.url),{type:'module'}):null});await pool.run({count:Math.ceil(smallHeight/rows),pixels:Math.min(rows,smallHeight)*width*2,key:`stereo-search/${width}/${rows}`,signal,
++   if(differences.length){pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:8*1024**2,workerPixelBytes:24,workerURL:new URL('./stereo-stream-worker.js',import.meta.url),workerFactory:globalThis.Worker?()=>new Worker(new URL('./stereo-stream-worker.js',import.meta.url),{type:'module'}):null});await pool.run({count:Math.ceil(smallHeight/rows),pixels:Math.min(rows,smallHeight)*width*2,key:`stereo-search/${width}/${rows}`,signal,
+     prepare:async i=>{const y=i*rows*2,h=Math.min(rows,smallHeight-i*rows),sourceRows=Math.min(h*2,height-y),part=await image.surface.readWindow({x:0,y,width,height:sourceRows},{signal});try{return {op:'search',rgb:part.pixels.data.slice(),width,height:sourceRows,outputRows:h};}finally{part.release();}},local:j=>({sums:math.search(j.rgb,j.width,j.height,j.outputRows)}),consume:async result=>{for(let i=0;i<sums.length;i++)sums[i]+=result.sums[i];progress('stereo-search',++completed,Math.ceil(smallHeight/rows));}});
+     for(let i=0;i<sums.length;i++)differences[i]=sums[i]*(1/(smallHeight*(width-i-10)));let maximum=-Infinity;for(let i=0;i<differences.length-1;i++){const d=Math.fround(differences[i+1]-differences[i]);if(d>maximum){maximum=d;offset=i+10;}}if(maximum<2)offset=-1;
+    }
+diff --git a/src/stereo-stream-worker.js b/src/stereo-stream-worker.js
+index 92f1a6525b95a8336102d41f45582c03a4c7a9b6..4fad5b7c24b19ee7b0b5e2852cc6a3a236ca8083 100644
+--- a/src/stereo-stream-worker.js
++++ b/src/stereo-stream-worker.js
+@@ -1,4 +1,4 @@
+-import {serializeEngineError} from './errors.js';
++import {installTransformStripWorker} from './transform-strip-worker.js';
+ import {createStereoStream} from './stereo-stream-kernel.js';
+ let ready;
+-self.onmessage=async({data:j})=>{try{const math=await(ready??=createStereoStream());let result={};if(j.op==='search')result={sums:math.search(j.rgb,j.width,j.height,j.outputRows)};else if(j.op==='create')math.create(j.width,j.height);else if(j.op==='input')math.put(j.rgb,j.width,j.top,j.rows,j.offset);else if(j.op==='flow')result=math.flow(j.original);else if(j.op==='output')result={values:math.read(j.offset,j.count)};else throw Error('Unknown stereo stage');self.postMessage({result},Object.values(result).filter(ArrayBuffer.isView).map(v=>v.buffer));}catch(error){self.postMessage({error:serializeEngineError(error,'WORKER_FAILED')});}};
++installTransformStripWorker(async j=>{const math=await(ready??=createStereoStream());let result={};if(j.op==='search')result={sums:math.search(j.rgb,j.width,j.height,j.outputRows)};else if(j.op==='create')math.create(j.width,j.height);else if(j.op==='input')math.put(j.rgb,j.width,j.top,j.rows,j.offset);else if(j.op==='flow')result=math.flow(j.original);else if(j.op==='output')result={values:math.read(j.offset,j.count)};else throw Error('Unknown stereo stage');return result;},{label:'stereo-stream'});
+diff --git a/src/transform-strip-worker.js b/src/transform-strip-worker.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..809055f862618f1c916cb4315bf29d605dc1902f
+--- /dev/null
++++ b/src/transform-strip-worker.js
+@@ -0,0 +1,13 @@
++import {serializeEngineError} from './errors.js';
++import {installWorkerMessageProtocol} from './worker-message-protocol.js';
++
++// Every endpoint used by WaveletStripPool settles malformed input and async
++// failures through the same structured response, without losing its cause.
++export function installTransformStripWorker(run,{target=globalThis.self,label='transform-strip'}={}){
++ let protocol;
++ protocol=installWorkerMessageProtocol(target,async data=>{
++  const result=await run(data),buffers=[...new Set(Object.values(result).filter(ArrayBuffer.isView).map(value=>value.buffer).filter(buffer=>buffer instanceof ArrayBuffer))];
++  protocol.post({result},buffers);
++ },{label,onFailure:error=>target.postMessage({error:serializeEngineError(error,'WORKER_FAILED')})});
++ return protocol;
++}
+diff --git a/src/wavelet-strip-pool.js b/src/wavelet-strip-pool.js
+index cd475433a3d0afb44ad2834dca94a1d0385b42d5..13dcc4a7ec28fd7361a7df1915ae55d19dbe1914 100644
+--- a/src/wavelet-strip-pool.js
++++ b/src/wavelet-strip-pool.js
+@@ -1,51 +1,173 @@
+-import {deserializeEngineError} from './errors.js';
+-import {serializeEngineError} from './errors.js';
+ import {scheduledWorkerCall,cancelScheduledWorkerCalls} from './scheduled-worker-call.js';
+-import {EngineError,checkAbort} from './errors.js';
+-import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';
++import {EngineError,checkAbort,requireValue,deserializeEngineError,normalizeResourceError,serializeEngineError} from './errors.js';
++import {AdaptiveConcurrency} from './adaptive-concurrency.js';
++import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
++import {runWithResourceRecovery,reclaimForResourceRecovery} from './resource-recovery.js';
++
+ // Independent complete-axis strips only; global thresholds remain in the owner.
++// Workers survive compatible axes/stages. The operation owner calls clear() at
++// its final boundary; pressure may retire only idle instances beforehand.
+ export class WaveletStripPool{
+- constructor(budget,{resourceOwner='transform',resourceOperation,maxWorkers=globalThis.navigator?.hardwareConcurrency??1,adaptive=new Map(),workerHeapBytes=12*1024**2,workerPixelBytes=192,workerFactory=globalThis.Worker?()=>new Worker(new URL('./wavelet-strip-worker.js',import.meta.url),{type:'module'}):null}={}){this.budget=budget;this.resourceOwner=resourceOwner;this.resourceOperation=resourceOperation;this.workerHeapBytes=workerHeapBytes;this.workerPixelBytes=workerPixelBytes;this.maximum=maxWorkers;this.factory=workerFactory;this.adaptive=adaptive;this.workers=new Map();this.peak=1;this.completed=0;this.plans=[];}
+- clear(){cancelScheduledWorkerCalls(this);for(const [worker,reject]of this.workers){worker.terminate();reject?.(new EngineError('CANCELLED','Transform strips stopped.'));}this.workers.clear();}
+- async run({count,pixels,key,prepare,consume,local,signal,prepareBytes=0}){
+-  checkAbort(signal);const perWorker=this.workerHeapBytes+pixels*this.workerPixelBytes,maximum=Math.min(count,this.maximum);let adaptive=this.adaptive.get(key);if(!adaptive){adaptive=new AdaptiveConcurrency();if(this.adaptive.size>=64)this.adaptive.delete(this.adaptive.keys().next().value);this.adaptive.set(key,adaptive);}const plan=adaptive.select(key,maximum,this.budget,n=>n*(perWorker+prepareBytes));this.plans.push(plan);let ceiling=plan.ceiling;
+-  const controller=new AbortController(),joined=signal?AbortSignal.any([signal,controller.signal]):controller.signal;
+-  let next=0,failure,active=0,pumping=false,done,localStarted=false,runPeak=1;const finished=new Promise(resolve=>{done=resolve;}),started=performance.now();
+-  const abort=()=>this.clear();joined.addEventListener('abort',abort,{once:true});
+-  const lane=async(worker,release)=>{
++ constructor(budget,{resourceOwner='transform',resourceOperation,maxWorkers=globalThis.navigator?.hardwareConcurrency??1,adaptive=new Map(),workerHeapBytes=12*1024**2,workerPixelBytes=192,workerURL=new URL('./wavelet-strip-worker.js',import.meta.url),workerFactory=globalThis.Worker?()=>new Worker(workerURL,{type:'module'}):null}={}){
++  this.budget=budget;this.resourceOwner=resourceOwner;this.resourceOperation=resourceOperation;this.workerHeapBytes=workerHeapBytes;this.workerPixelBytes=workerPixelBytes;this.maximum=maxWorkers;this.factory=workerFactory;this.workerURL=String(workerURL);this.adaptive=adaptive;
++  this.workers=new Map();this.peak=1;this.completed=0;this.plans=[];this.running=false;this.starts=0;this.reuses=0;this.retired=0;this.retries=0;
++ }
++ registerReclaimer(){
++  if(this.unreclaim)return;
++  this.unreclaim=this.budget.registerReclaimer(bytes=>{
++   for(const slot of [...this.workers.values()].filter(s=>!s.busy).sort((a,b)=>b.bytes-a.bytes)){
++    if(this.budget.total()+bytes<=this.budget.limit)break;
++    this.drop(slot);
++   }
++  },{allocationKind:'wasm',owner:this.resourceOwner,label:'idle-transform-workers'});
++ }
++ drop(slot,error=new EngineError('CANCELLED','Transform worker retired.')){
++  if(!slot||!this.workers.has(slot.worker))return;
++  this.workers.delete(slot.worker);slot.executionController.abort();slot.protocol?.dispose();slot.worker.onerror=null;
++  try{slot.worker.terminate();}finally{
++   const pending=slot.pending;slot.pending=null;pending?.reject(error);
++   for(const release of slot.releases)release();slot.releases.length=0;
++   const retired=slot.backing?.();if(retired)this.budget.notifyBackingRelease?.('wasm',retired);
++   this.retired++;
++  }
++ }
++ clear(){
++  this.controller?.abort();cancelScheduledWorkerCalls(this);
++  for(const slot of [...this.workers.values()])this.drop(slot,new EngineError('CANCELLED','Transform strips stopped.'));
++  this.unreclaim?.();this.unreclaim=null;
++ }
++ create(bytes){
++  const release=this.budget.reserve(bytes);let worker,slot;
++  try{
++   worker=this.factory();slot={worker,bytes,releases:[release],busy:true,pending:null,error:null,executionController:new AbortController(),stage:'worker-start',index:null,key:null,heapBytes:0,heapAllowance:this.workerHeapBytes};
++   const fail=error=>{slot.error=normalizeResourceError(error);slot.executionController.abort();const pending=slot.pending;slot.pending=null;pending?.reject(slot.error);};
++   // An import can fail while preparation or CPU admission awaits. Install now
++   // and retain failure even when no RPC is pending yet.
++   slot.protocol=installWorkerMessageProtocol(worker,data=>{
++    if(!slot.pending)throw workerMessageFailure('transform-strip','message','unexpected-response');
++    if(data.error?typeof data.error!=='object':!data.result||typeof data.result!=='object')throw workerMessageFailure('transform-strip','message','missing-result');
++    const pending=slot.pending,error=data.error?deserializeEngineError(data.error):null;
++    slot.pending=null;error?pending.reject(error):pending.resolve(data.result);
++   },{label:'transform-strip',onFailure:fail});
++   worker.onerror=event=>slot.protocol.fail(new EngineError('WORKER_FAILED',event?.message||'Transform worker failed.',{cause:event?.error,details:{workerEvent:{type:event?.type,filename:event?.filename,line:event?.lineno,column:event?.colno}}}));
++   slot.backing=this.budget.registerBacking?.('wasm',this.workerHeapBytes,{owner:this.resourceOwner,label:'transform-worker',state:'reserved'});
++   this.workers.set(worker,slot);this.starts++;this.registerReclaimer();return slot;
++  }catch(error){slot?.protocol?.dispose();worker?.terminate();slot?.backing?.();release();throw error;}
++ }
++ hold(slot,bytes){
++  slot.busy=true;slot.backing?.setReclaimable(false);
++  try{if(bytes>slot.bytes){slot.releases.push(this.budget.reserve(bytes-slot.bytes));slot.bytes=bytes;}this.reuses++;return slot;}
++  catch(error){slot.busy=false;slot.backing?.setReclaimable(true);throw error;}
++ }
++ park(slot){
++  // Transferred inputs and consumed output copies are no longer retained by
++  // this endpoint. Only its native heap remains resident between stages.
++  const resident=Math.max(this.workerHeapBytes,slot.heapBytes);let excess=slot.bytes-resident;
++  while(excess>0){const release=slot.releases.pop(),bytes=release.bytes;if(bytes<=excess){release();excess-=bytes;}else{release.split(excess)();slot.releases.push(release);excess=0;}}
++  slot.bytes=resident;slot.busy=false;slot.backing?.setReclaimable(true);
++ }
++ memoryForConcurrency(count,perWorker,prepareBytes,localLanes=0){
++  const slots=[...this.workers.values()].filter(slot=>!slot.error).sort((a,b)=>Number(b.busy)-Number(a.busy)||b.bytes-a.bytes);
++  let bytes=count*prepareBytes;
++  for(let i=0;i<Math.max(0,count-localLanes);i++){const slot=slots[i],required=perWorker+(slot?Math.max(0,slot.heapAllowance-this.workerHeapBytes):0);bytes+=slot?Math.max(0,required-slot.bytes):required;}
++  return bytes;
++ }
++ annotate(caught,{key,index,stage,slot}){
++  let error=normalizeResourceError(caught);if(!error||typeof error!=='object')error=new EngineError('WORKER_FAILED',String(caught),{cause:caught});
++  error.details={...error.details,transformStrip:{key,index,stage,workerURL:this.workerURL,workerAllowanceBytes:slot?.bytes??null,completedStripJobs:this.completed}};
++  return error;
++ }
++ async run({count,pixels,key,prepare,consume,local,signal,prepareBytes=0,consumeIdempotent=false,isCommitted=()=>false,onCommitted,onRecovery}){
++  requireValue(!this.running&&Number.isSafeInteger(count)&&count>=0&&typeof prepare==='function'&&typeof consume==='function'&&typeof local==='function','Invalid transform strip run.');
++  checkAbort(signal);this.running=true;
++  const perWorker=this.workerHeapBytes+pixels*this.workerPixelBytes,maximum=Math.min(count,this.maximum);let localLanes=0;
++  let adaptive=this.adaptive.get(key);if(!adaptive){adaptive=new AdaptiveConcurrency();if(this.adaptive.size>=64)this.adaptive.delete(this.adaptive.keys().next().value);this.adaptive.set(key,adaptive);}
++  const projected=n=>this.memoryForConcurrency(n,perWorker,prepareBytes,localLanes),plan=adaptive.select(key,maximum,this.budget,projected);if(this.plans.length>=64)this.plans.shift();this.plans.push(plan);let ceiling=plan.ceiling;
++  const controller=new AbortController(),joined=signal?AbortSignal.any([signal,controller.signal]):controller.signal;this.controller=controller;
++  let next=0,failure,active=0,pumping=false,done,localStarted=false,runPeak=1;
++  const finished=new Promise(resolve=>{done=resolve;}),started=performance.now(),abort=()=>this.clear();joined.addEventListener('abort',abort,{once:true});
++  const lane=async(initialSlot,useWorker)=>{
++   let slot=initialSlot;
+    try{
+     while(next<count){
+-     checkAbort(joined);const usefulStarted=performance.now(),index=next++,job=await prepare(index);checkAbort(joined);
+-     const result=await scheduledWorkerCall(this,()=>worker?new Promise((resolve,reject)=>{
+-      this.workers.set(worker,reject);worker.onmessage=({data})=>{this.workers.set(worker,null);data.error?reject(deserializeEngineError(data.error)):resolve(data.result);};worker.onerror=e=>reject(new EngineError('WORKER_FAILED',e.message||'Transform strip failed'));
+-      const buffers=[...new Set(Object.values(job).filter(ArrayBuffer.isView).map(v=>v.buffer))];worker.postMessage(job,buffers);
+-     }):local(job),{signal:joined,label:'transform-strip'});
+-     checkAbort(joined);await consume(result,index);this.completed++;adaptive.observe(key,{count:active,maximum,milliseconds:performance.now()-usefulStarted,units:1});ceiling=adaptive.select(key,maximum,this.budget,n=>n*(perWorker+prepareBytes)).ceiling;pump();
++     checkAbort(joined);const index=next++;if(isCommitted(index))continue;
++     const usefulStarted=performance.now();let stage='worker-start';
++     const operation=this.budget.beginOperation?.({owner:this.resourceOwner,id:String(key)+'/strip/'+index,parent:this.resourceOperation});
++     const recoveryOptions={budget:this.budget,owner:this.resourceOwner,resourceOperation:operation,signal:joined,operation:String(key)+'/strip/'+index,phase:()=>stage,onRecovery:event=>{
++      if(event.phase==='resource-recovery')this.retries++;
++      this.lastRecovery={index,stage,error:event.error,phase:event.phase};onRecovery?.({...event,index,stripStage:stage});
++     }};
++     try{
++      const result=await runWithResourceRecovery(async()=>{
++       try{
++        checkAbort(joined);stage='worker-start';
++        if(useWorker&&!slot)slot=this.create(perWorker);
++        if(slot){slot.key=key;slot.index=index;slot.stage=stage;if(slot.error)throw slot.error;}
++        stage='prepare';if(slot)slot.stage=stage;operation?.setState('io');
++        // postMessage may have detached every input. Re-read the same strip on
++        // retry; committed outputs and other lanes are untouched.
++        const job=await prepare(index);checkAbort(joined);if(slot?.error)throw slot.error;
++        stage='admission';if(slot)slot.stage=stage;
++        const value=await scheduledWorkerCall(this,()=>{
++         stage='compute';if(slot)slot.stage=stage;
++         if(!slot)return local(job);
++         if(slot.error)throw slot.error;
++         return new Promise((resolve,reject)=>{
++          slot.pending={resolve,reject};
++          const buffers=[...new Set(Object.values(job).filter(ArrayBuffer.isView).map(v=>v.buffer).filter(buffer=>buffer instanceof ArrayBuffer))];
++          try{slot.protocol.post(job,buffers);}catch(error){slot.pending=null;reject(error);}
++         });
++        },{signal:slot?AbortSignal.any([joined,slot.executionController.signal]):joined,label:'transform-strip',operation});
++        if(slot&&Number.isSafeInteger(value.heapBytes)&&value.heapBytes>=0){
++         if(value.heapBytes>slot.heapBytes){slot.heapBytes=value.heapBytes;slot.backing?.resize(slot.heapBytes);}
++         if(value.heapBytes>slot.heapAllowance){const extra=value.heapBytes-slot.heapAllowance;slot.releases.push(this.budget.reserve(extra));slot.bytes+=extra;slot.heapAllowance=value.heapBytes;}
++        }
++        return value;
++       }catch(caught){
++        // Endpoint cancellation wakes a queued grant, but its loading failure
++        // is the cause. A simultaneous genuine preparation error stays primary.
++        const primary=slot?.error&&caught?.code==='CANCELLED'&&!joined.aborted?slot.error:caught;
++        const error=this.annotate(primary,{key,index,stage,slot});
++        if(slot?.error&&slot.error!==primary)error.details.workerFailure=serializeEngineError(slot.error);
++        if(slot&&(slot.error||['worker-start','compute'].includes(stage))){this.drop(slot,error);slot=null;}
++        throw error;
++       }
++      },{...recoveryOptions,reclaim:event=>reclaimForResourceRecovery(this.budget,event.error,{signal:joined,owner:this.resourceOwner,resourceOperation:operation,onReclaim:event.recordReclamation})});
++      checkAbort(joined);stage='consume';if(slot)slot.stage=stage;operation?.setState('io');
++      const publish=async()=>{try{return await consume(result,index);}catch(error){throw this.annotate(error,{key,index,stage,slot});}};
++      // Publication is retried only with an explicit idempotence contract. Its
++      // successful computation and exact output remain owned while retrying.
++      if(consumeIdempotent)await runWithResourceRecovery(publish,recoveryOptions);else await publish();
++      onCommitted?.(index);operation?.commit();this.completed++;
++      adaptive.observe(key,{count:active,maximum,milliseconds:performance.now()-usefulStarted,units:1});ceiling=adaptive.select(key,maximum,this.budget,projected).ceiling;pump();
++     }finally{operation?.release();}
+     }
+    }catch(error){failure??=error;controller.abort();}
+-   finally{if(worker){this.workers.delete(worker);worker.terminate();}release?.();active--;pump();}
++   finally{if(slot&&this.workers.has(slot.worker))this.park(slot);if(!useWorker)localLanes--;active--;pump();}
+   };
+   const pump=()=>{
+    if(pumping)return;pumping=true;
+    try{
+     while(!joined.aborted&&this.factory&&next<count&&active<ceiling){
+-     // Source-window reservations are owned by prepare(), not counted a second
+-     // time here. Leave room for every active reader before adding a native heap.
+-     if(this.budget.total()+perWorker+(active+1)*prepareBytes>this.budget.limit)break;
+-     const release=this.budget.reserve(perWorker);let worker;
+-     try{worker=this.factory();}catch(error){release();failure??=error;controller.abort();break;}
+-     this.workers.set(worker,null);active++;runPeak=Math.max(runPeak,active);this.peak=Math.max(this.peak,active);void lane(worker,release);
++     const idle=[...this.workers.values()].filter(s=>!s.busy&&!s.error).sort((a,b)=>(a.bytes>=perWorker?0:1)-(b.bytes>=perWorker?0:1)||a.bytes-b.bytes)[0];
++     const required=perWorker+(idle?Math.max(0,idle.heapAllowance-this.workerHeapBytes):0),growth=idle?Math.max(0,required-idle.bytes):perWorker;
++     // prepare() owns source-window reservations, not a duplicate in worker RAM.
++     if(this.budget.total()+growth+(active+1)*prepareBytes>this.budget.limit)break;
++     let slot;
++     try{slot=idle?this.hold(idle,required):null;}catch(error){failure??=error;controller.abort();break;}
++     active++;runPeak=Math.max(runPeak,active);this.peak=Math.max(this.peak,active);void lane(slot,true);
+     }
+-    // The caller already owns the local workspace. It can begin useful work
+-    // under tight memory, while later releases may still start extra workers.
+-    if(!joined.aborted&&next<count&&!active&&!localStarted){localStarted=true;active++;void lane(null);}
++    if(!joined.aborted&&next<count&&!active&&!localStarted){localStarted=true;localLanes++;active++;void lane(null,false);}
+     if(!active&&(joined.aborted||next===count))done();
+    }finally{pumping=false;}
+   };
+   const unsubscribe=this.budget.subscribe(pump);
+   try{pump();await finished;if(failure)throw failure;checkAbort(joined);adaptive.observe(key,{count:runPeak,maximum,milliseconds:performance.now()-started,units:count});}
+-  catch(error){if(isWorkerResourceFailure(error))adaptive.reduce(key,runPeak,{error});throw error;}
+-  finally{unsubscribe();joined.removeEventListener('abort',abort);this.clear();}
++  catch(error){
++   // Opaque script/worker failure is not evidence that concurrency is too high.
++   if(['MEMORY_LIMIT','MEMORY_ALLOCATION','GPU_OUT_OF_MEMORY','WORKER_RESOURCE'].includes(normalizeResourceError(error)?.code))adaptive.reduce(key,runPeak,{error});
++   throw error;
++  }finally{unsubscribe();joined.removeEventListener('abort',abort);this.controller=null;this.running=false;if(failure||joined.aborted)this.clear();}
+  }
+- metrics(){return {workers:this.peak,completedStripJobs:this.completed,preflightExecutions:0,policy:'elastic useful strips, shared CPU admission'};}
++ metrics(){return {workers:this.peak,completedStripJobs:this.completed,residentWorkers:this.workers.size,workerStarts:this.starts,workerReuses:this.reuses,retiredWorkers:this.retired,stripRetries:this.retries,...(this.lastRecovery?{lastStripRecovery:this.lastRecovery}:{}),preflightExecutions:0,policy:'persistent reclaimable workers, per-useful-strip shared CPU admission'};}
+ }
+diff --git a/src/wavelet-strip-worker.js b/src/wavelet-strip-worker.js
+index 026d036aa03879c600a8a84ffcc064c5561775b8..b990de68dd651a5aa039196a06eadf80e89f610d 100644
+--- a/src/wavelet-strip-worker.js
++++ b/src/wavelet-strip-worker.js
+@@ -1,9 +1,9 @@
+-import {serializeEngineError} from './errors.js';
+-import {waveletStreamMath} from './wavelet-stream-math.js';
+-self.onmessage=async({data})=>{try{const math=await waveletStreamMath();let result;
++import {installTransformStripWorker} from './transform-strip-worker.js';
++import {waveletStreamMath,waveletStreamHeapBytes} from './wavelet-stream-math.js';
++installTransformStripWorker(async data=>{const math=await waveletStreamMath();let result;
+  if(data.op==='down')result=math.down(data.values,data.width,data.height,data.wavelet,data.axis);
+  else if(data.op==='up'){if(data.thresholdA)math.threshold(data.a,data.maximumA,data.percent,data.mode);if(data.thresholdD)math.threshold(data.d,data.maximumD,data.percent,data.mode);result=math.up(data.a,data.d,data.width,data.height,data.wavelet,data.axis);}
+  else if(data.op==='noise')result=math.noise(data.values,data.width,data.height,data.block);
+  else throw Error('Unknown wavelet strip operation');
+- const buffers=[...new Set(Object.values(result).filter(ArrayBuffer.isView).map(v=>v.buffer))];self.postMessage({result},buffers);
+- }catch(error){self.postMessage({error:serializeEngineError(error,'WORKER_FAILED')});}};
++ return {...result,heapBytes:waveletStreamHeapBytes()};
++},{label:'wavelet-strip'});
+diff --git a/src/worker-client.js b/src/worker-client.js
+index d8d6960a71f9a87165f9c0767e5c78c171ad93e3..a45d45d6746a756d07deb73e9154f7a9fd0bd198 100644
+--- a/src/worker-client.js
++++ b/src/worker-client.js
+@@ -1,7 +1,7 @@
+ import {removeTerminatedTemporarySession} from './temporary-storage.js';
+ import {resolveComputeProfile} from './profiles.js';
+ import {readExtensionMemoryHints} from './browser-memory.js';
+-import {EngineError,checkAbort,deserializeEngineError} from './errors.js';
++import {EngineError,checkAbort,deserializeEngineError,serializeEngineError} from './errors.js';
+ import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
+ // One main worker, one internal codec thread. Storage jobs close owned handles
+ // cooperatively before termination, with a bounded forced-stop watchdog.
+@@ -14,6 +14,7 @@ export function createWorkerEngine(options={}) {
+  const profile=resolveComputeProfile(options.computeProfile??'aggressive',options.resourceHints);
+  options={...options,resourceHints:profile.hints};
+  let worker,serial=0,disposed=false,active=false,ready,cancellationTimer,cancellationError;
++ let initialized=false,sentWork=false,initializationFlight,initializationRetryUsed=false,initializationDiagnostic;
+  let memoryTimer,memoryReading=false,memoryGeneration=0;
+  async function refreshMemory(){
+   if(!memoryReader||memoryReading||disposed||!active||!worker)return;
+@@ -24,13 +25,13 @@ export function createWorkerEngine(options={}) {
+  }
+  const pending=new Map(),storageOwners=new Map(),shutdownWaiters=[];let cleanupPending=Promise.resolve();
+  async function cleanOwners(owners){const failures=[];for(const [id,record] of owners)for(const backend of record.backend?[record.backend]:['opfs','indexeddb'])try{await removeTerminatedTemporarySession(id,backend);}catch(e){failures.push({id,backend,code:e.code??e.name,message:e.message});}return failures;}
+- function reset(error,{storageClosed=false}={}) {
++ function reset(error,{storageClosed=false,preserveUnsentOwners=false,preserveActive=false,imagesCleared=true}={}) {
+   clearTimeout(memoryTimer);memoryGeneration++;
+-  error.imagesCleared=true;
++  error.imagesCleared=imagesCleared;
+   if(error.details?.retainedAnalysis){const {retainedAnalysis,...details}=error.details;error.details=details;}
+   clearTimeout(cancellationTimer);cancellationError=null;
+   worker?.terminate();worker=null;ready=null;
+-  const waiting=[...pending.values()],owners=storageClosed?[]:[...storageOwners];pending.clear();storageOwners.clear();active=false;
++  const waiting=[...pending.values()],kept=preserveUnsentOwners?[...storageOwners].filter(([,record])=>!record.sent&&!record.backend):[],keptIds=new Set(kept.map(([id])=>id)),owners=storageClosed?[]:[...storageOwners].filter(([id])=>!keptIds.has(id));pending.clear();storageOwners.clear();for(const [id,record]of kept)storageOwners.set(id,record);if(!preserveActive)active=false;
+   const rejectAll=failures=>{if(failures?.length)error.temporaryCleanupFailures=failures;for(const p of waiting){p.cleanup();p.reject(error);}for(const resolve of shutdownWaiters.splice(0))resolve(failures??[]);};
+   if(owners.length){cleanupPending=cleanupPending.then(()=>cleanOwners(owners));cleanupPending.then(rejectAll);}
+   else rejectAll();return cleanupPending;
+@@ -66,15 +67,15 @@ export function createWorkerEngine(options={}) {
+    };
+    const cleanup=()=>{clearTimeout(cooperativeTimer);signal?.removeEventListener('abort',abort);};
+    pending.set(sequence,{resolve,reject,cleanup,onProgress});signal?.addEventListener('abort',abort,{once:true});
+-   try{worker.postMessage({sequence,method,args,options:method==='init'?options:undefined});}catch(e){pending.delete(sequence);cleanup();reject(e);}
++   try{worker.postMessage({sequence,method,args,options:method==='init'?options:undefined});if(!['init','capabilities','updateResourceHints'].includes(method)){sentWork=true;const session=args[0]?.temporarySessionId??args[1]?.temporarySessionId;if(session&&storageOwners.has(session))storageOwners.get(session).sent=true;}}catch(e){pending.delete(sequence);cleanup();reject(e);}
+   });
+  }
+- function ensure() {
++ function startWorker() {
+   if(disposed)throw new EngineError('DISPOSED','Engine disposed.');
+   if(!worker){
+-   worker=new Worker(new URL('./worker.js',import.meta.url),{type:'module'});const created=worker;
++   const workerURL=new URL('./worker.js',import.meta.url);try{worker=new Worker(workerURL,{type:'module'});}catch(cause){throw new EngineError('WORKER_FAILED',cause?.message||'Browser engine worker could not be created.',{cause,details:{phase:'worker-create',workerURL:workerURL.href}});}const created=worker;
+    const control=data=>{if(worker!==created)return true;if(data.shutdownPhase){if(cancellationError)(cancellationError.cancellationPhases??=[]).push(data.shutdownPhase);return true;}if(typeof data.storageClosed==='boolean'){if(cancellationError){const error=cancellationError;error.cancellationMode=data.storageClosed?'storage-closed-before-worker-termination':'forced-after-storage-close-failure';reset(error,{storageClosed:data.storageClosed});}return true;}if(data.storageSession){let owner=storageOwners.get(data.storageSession.id);if(!owner){owner={dynamic:true};storageOwners.set(data.storageSession.id,owner);}owner.backend=data.storageSession.backend;return true;}return false;};
+-   const failed=error=>{if(worker!==created)return;error.imagesCleared=true;if(storageOwners.size){
++   const failed=error=>{if(worker!==created)return;if(!initialized&&!sentWork){reset(error,{preserveUnsentOwners:true,preserveActive:true,imagesCleared:false});return;}error.imagesCleared=true;if(storageOwners.size){
+     // The failed useful-message channel is latched closed. A separate guarded
+     // shutdown receiver must still consume its storage-close acknowledgement.
+     installWorkerMessageProtocol(created,control,{label:'engine-shutdown',onFailure:()=>reset(error)});void stopWithStorageClose(error);
+@@ -86,18 +87,37 @@ export function createWorkerEngine(options={}) {
+     const error=data.error?deserializeEngineError(data.error):p.cancelled;error.imagesCleared=false;
+     p.reject(error);return;
+    }data.error?p.reject(deserializeEngineError(data.error)):p.resolve(data.result);},{label:'engine-client',onFailure:failed});
+-   worker.onerror=()=>{if(worker===created)reset(new EngineError('WORKER_FAILED','Worker stopped; reload image.'));};
++   worker.onerror=event=>{if(worker===created){const cold=!initialized&&!sentWork;reset(new EngineError('WORKER_FAILED',event?.message||'Worker stopped; reload image.',{cause:event?.error,details:{phase:cold?'worker-startup':'worker-execution',workerURL:workerURL.href,workerEvent:{type:event?.type,filename:event?.filename,line:event?.lineno,column:event?.colno}}}),{preserveUnsentOwners:cold,preserveActive:cold,imagesCleared:!cold});}};
+    ready=send('init');
+   }
+   return ready;
+  }
++ function ensure(){
++  if(disposed)throw new EngineError('DISPOSED','Engine disposed.');if(initializationFlight)return initializationFlight;if(worker)return ready;
++  initializationFlight=(async()=>{
++   let firstError;
++   for(;;){
++    let created;
++    try{const opening=startWorker();created=worker;const value=await opening;initialized=true;if(firstError)initializationDiagnostic={attempts:2,recovered:true,firstError:serializeEngineError(firstError)};return value;}
++    catch(error){
++     const cold=!initialized&&!sentWork;
++     if(worker===created&&worker)reset(error,{preserveUnsentOwners:cold,preserveActive:cold,imagesCleared:!cold});
++     else if(cold)error.imagesCleared=false;
++     await cleanupPending;
++     if(!disposed&&cold&&!initializationRetryUsed&&error.code==='WORKER_LOAD_FAILED'&&error.details?.phase==='module-load'&&error.details?.retryable===true){initializationRetryUsed=true;firstError=error;continue;}
++     if(firstError){const failure=new EngineError(error.code??'WORKER_LOAD_FAILED',error.message,{cause:error,details:{...error.details,workerInitialization:{attempts:2,recovered:false,firstError:serializeEngineError(firstError)}}});failure.stack=error.stack;failure.imagesCleared=error.imagesCleared;throw failure;}
++     throw error;
++    }
++   }
++  })().finally(()=>{initializationFlight=null;});return initializationFlight;
++ }
+  async function call(method,args=[],hooks={}) {
+   checkAbort(hooks.signal);if(active)throw new EngineError('BUSY','Another worker task is active.');active=true;
+   try{await cleanupPending;await ensure();void refreshMemory();return await send(method,args,hooks);}finally{active=false;clearTimeout(memoryTimer);}
+  }
+  return {
+   async updateResourceHints(hints){await cleanupPending;await ensure();return send('updateResourceHints',[hints]);},
+-  async capabilities(hooks={}){checkAbort(hooks.signal);await cleanupPending;await ensure();return send('capabilities',[],hooks);},
++  async capabilities(hooks={}){checkAbort(hooks.signal);await cleanupPending;await ensure();const value=await send('capabilities',[],hooks);return initializationDiagnostic?{...value,workerInitialization:structuredClone(initializationDiagnostic)}:value;},
+   loadAutomaticModels:(input,hooks)=>call('loadAutomaticModels',[input],hooks),
+   resumeAutomatic:(request,hooks)=>call('resumeAutomatic',[request],hooks),
+   updateAutomatic:(request,hooks)=>call('updateAutomatic',[request],hooks),
+diff --git a/src/worker.js b/src/worker.js
+index cf7f315cdce87c0d6fd5fa50832420c23f92a0cc..5c001de221c655257f0f48ab490b547b7a8f9ed2 100644
+--- a/src/worker.js
++++ b/src/worker.js
+@@ -1,5 +1,4 @@
+-import {createEngine} from './index.js';
+-import {EngineError,serializeEngineError} from './errors.js';
++import {EngineError,serializeEngineError,normalizeResourceError} from './errors.js';
+ import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
+ let engine,currentController,currentSequence,stopping=false,shutdown;
+ function closeForCancellation(){if(shutdown)return shutdown;shutdown=(async()=>{try{self.postMessage({shutdownPhase:'closing-storage'});await engine?.dispose();self.postMessage({storageClosed:true});}catch(error){self.postMessage({storageClosed:false,shutdownError:{code:error.code??'INTERNAL'}});}})();return shutdown;}
+@@ -16,7 +15,20 @@ installWorkerMessageProtocol(self,async ({sequence,method,args,options})=>{
+  const controller=new AbortController();currentController=controller;currentSequence=sequence;
+  try {
+   if(stopping)return;
+-  if(method==='init'){engine=createEngine({...options,onTemporarySession:storageSession=>self.postMessage({storageSession})});self.postMessage({sequence,result:engine.capabilities()});return;}
++  if(method==='init'){
++   const moduleURL=new URL('./index.js',import.meta.url).href;let createEngine;
++   try{({createEngine}=await import('./index.js'));}
++   catch(cause){
++    // Retry evidence belongs to the module loader, never to an arbitrary
++    // TypeError during useful work or engine construction.
++    const explicitDownload=cause?.code==='NETWORK_TRANSIENT'||cause?.name==='TypeError'&&/Failed to fetch dynamically imported module|error loading dynamically imported module/i.test(cause.message??'')&&!/content security|\bCSP\b|MIME|CORS|denied|blocked/i.test(cause.message??'');
++    throw new EngineError('WORKER_LOAD_FAILED',cause?.message||'Browser engine module could not be loaded.',{cause,details:{phase:'module-load',moduleURL,retryable:explicitDownload}});
++   }
++   if(stopping)return;
++   try{engine=createEngine({...options,onTemporarySession:storageSession=>self.postMessage({storageSession})});}
++   catch(cause){const error=normalizeResourceError(cause),failure=error?.code?error:new EngineError('WORKER_INITIALIZATION_FAILED',cause?.message||'Browser engine could not be initialized.',{cause});failure.details={...failure.details,phase:'engine-create',moduleURL};throw failure;}
++   self.postMessage({sequence,result:engine.capabilities()});return;
++  }
+   if(!engine || !['reserveExternalMemory','releaseExternalMemory','capabilities','load','loadBlob','loadAutomaticModels','resumeAutomatic','updateAutomatic','renderAutomatic','exportAutomatic','exportResultFile','releaseAutomatic','inspectHeaders','inspectMetadata','deriveOriginal','releaseSurface','readPlane','exportSurface','exportPixelBuffer','readExport','releaseExport','readDisplay','readPixels','readMask','readFlags','readTable','readTableCsv','readNpz','releaseTable','originalBlob','readOriginal','loadMedianModel','loadQualityModel','loadD2prlModel','unloadD2prlModel','readD2prlRaw','loadM3Models','unloadM3Models','loadSegmentationModel','unloadSegmentationModel','readSegmentationRaw','loadPrnuDatabase','buildPrnuDatabase','createPrnuDatabaseExport','exportPrnuDatabase','run','exportResult','original','imagePixels','unload','dispose'].includes(method))throw new Error('Invalid worker method.');
+   const result=await engine[method](...args,...(['load','loadBlob','loadAutomaticModels','resumeAutomatic','updateAutomatic','renderAutomatic','exportAutomatic','exportResultFile','releaseAutomatic','inspectHeaders','inspectMetadata','deriveOriginal','releaseSurface','readPlane','exportSurface','exportPixelBuffer','readExport','releaseExport','readDisplay','readPixels','readMask','readFlags','readTable','readTableCsv','readNpz','releaseTable','readOriginal','loadMedianModel','loadQualityModel','loadD2prlModel','loadSegmentationModel','loadPrnuDatabase','buildPrnuDatabase','createPrnuDatabaseExport','run'].includes(method)?[{signal:controller.signal,onProgress:progress=>self.postMessage({sequence,progress})}]:[]));
+   if(stopping)return;const buffers=new Set();
+diff --git a/tests/automatic-mask-export.test.mjs b/tests/automatic-mask-export.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..254d52c7101f616c67a9197fc131be0b226ed5bb
+--- /dev/null
++++ b/tests/automatic-mask-export.test.mjs
+@@ -0,0 +1,82 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {readFile} from 'node:fs/promises';
++import {createHash} from 'node:crypto';
++import {Budget} from '../src/cache.js';
++import {createCloneCorroboration} from '../src/clone-corroboration.js';
++import {exportAutomaticAnalysis} from '../src/automatic-export.js';
++import {automaticSnapshotArray} from '../src/automatic-npz-stream.js';
++import {unpackScientificNpz} from './automatic-npz-fixture.js';
++
++const native=JSON.parse(await readFile(new URL('./data/clone-entries-native.json',import.meta.url)));
++const wasmBinary=await readFile(new URL('../vendor/composition/composition.wasm',import.meta.url));
++// These OpenCV reference entries are the exact scientific mask contract, not
++// polygons manufactured from their bounding boxes or filtered at source scale.
++function nativeMask(name,{dx=0,dy=0}={}){
++ const reference=native.masks.find(mask=>mask.name===name).expected[0],rows=reference.pixel_mask;
++ const origin=[reference.origin[0]+dx,reference.origin[1]+dy],pixel_mask={width:rows[0].length,height:rows.length,data:Uint8Array.from(rows.flat())},id='d2prl-'+createHash('sha256').update(pixel_mask.data).update(`(${origin[0]}, ${origin[1]}, ${pixel_mask.width}, ${pixel_mask.height})`).digest('hex').slice(0,24);
++ return {...structuredClone(reference),id,origin,polygons:reference.polygons.map(p=>p.map(([x,y])=>[x+dx,y+dy])),pixel_mask};
++}
++const width=47,height=300,excluded=[[[0,254],[6,254],[6,256],[0,256]]];
++function masks(){return [nativeMask('sparse',{dx:46,dy:256}),nativeMask('diagonal',{dy:250})];}
++function expectedCounts(entries){
++ const values=new Uint32Array(width*height);
++ for(const entry of entries){const [x,y]=entry.origin,p=entry.pixel_mask;for(let yy=0;yy<p.height;yy++)for(let xx=0;xx<p.width;xx++)if(p.data[yy*p.width+xx])values[(y+yy)*width+x+xx]=1;}
++ // The exclusion is an integer rectangle; native fill includes its edges.
++ for(let y=254;y<=256;y++)for(let x=0;x<=6;x++)values[y*width+x]=0;
++ return values;
++}
++function snapshot(entries){
++ return {version:1,method:'complete_automatic_analysis',results:{d2prl:{mask:automaticSnapshotArray(Uint8Array.from(expectedCounts(entries.filter(entry=>entry.pixel_mask))),{shape:[height,width]})}},states:{d2prl:'done'},errors:{},biomes:entries,corroboration:{entries,excluded,sources:['D2PRL'],metric:'integer_method_search_context_count_not_probability'},image_shape:[height,width,3],decoded_bgr8_sha256:'controlled-native-mask-export-fixture'};
++}
++
++test('native one-point and two-point mask contours survive envelope deduplication while classical pairs still merge',async()=>{
++ const budget=new Budget(128*1024**2),engine=createCloneCorroboration({budget,wasmBinary}),entries=masks(),before=structuredClone(entries),a=[[0,0],[8,0],[8,8],[0,8]],b=a.map(([x,y])=>[x+15,y]);
++ assert.deepEqual(entries.map(entry=>entry.polygons[0].length),[1,2]);assert.deepEqual(entries.map(entry=>entry.count),[1,39]);
++ try{
++  const result=await engine.uniqueEnvelopes([...entries,{id:'vector-a',source:'PatchMatch SIFT',polygons:[a,b]},{id:'vector-b',source:'PatchMatch Zernike',polygons:[b,a]}]);
++  assert.equal(result.length,3);
++  for(let i=0;i<entries.length;i++){
++   assert.equal(result[i].pixel_mask,entries[i].pixel_mask);assert.equal(result[i].polygons,entries[i].polygons);assert.deepEqual(result[i].origin,entries[i].origin);assert.deepEqual(result[i].member_ids,[entries[i].id]);assert.deepEqual(result[i].corroborating_sources,['D2PRL']);
++  }
++  assert.deepEqual(result[2].member_ids,['vector-a','vector-b']);assert.deepEqual(entries,before);
++ }finally{engine.dispose();}
++ assert.equal(budget.total(),0);
++});
++
++test('exact masked votes and exclusions cross native 256-row boundaries without rasterizing their short contours',async()=>{
++ const budget=new Budget(128*1024**2),engine=createCloneCorroboration({budget,wasmBinary}),entries=masks(),expected=expectedCounts(entries),duplicated=[...entries,{...entries[1],id:'same-mask-other-pass',search_context:'another-pass'}];
++ try{
++  for(const byContext of [false,true]){
++   const values=new Uint32Array(width*height);await engine.stripes({width,height,entries:duplicated,excluded,byContext,stripRows:17},strip=>values.set(strip.values,strip.top*width));assert.deepEqual(values,expected);
++  }
++  assert.equal(expected[255*width+5],0);assert.equal(expected[257*width+7],1);assert.equal(expected[256*width+46],1);assert.equal(expected.reduce((sum,v)=>sum+v,0),37);
++ }finally{engine.dispose();}
++ assert.equal(budget.total(),0);
++});
++
++test('the complete automatic NPZ preserves short native contours, exact mask arrays, origins, identities and votes',async()=>{
++ const budget=new Budget(128*1024**2),entries=masks(),before=structuredClone(entries),input=snapshot(entries),archive=await exportAutomaticAnalysis(input,{scope:'native mask export, no neural inference'},{storage:'memory'},{budget,wasmBinary});
++ try{
++  assert.equal(budget.total(),archive.byteLength,'Only the owned finished archive remains reserved');
++  const bytes=new Uint8Array(archive.byteLength);await archive.store.readInto(bytes);const arrays=unpackScientificNpz(bytes),metadata=JSON.parse(arrays.metadata_json.text),deduplicated=metadata.corroboration.deduplicated_envelopes;
++  assert.deepEqual(metadata.biomes.map(entry=>[entry.id,entry.origin,entry.polygons]),entries.map(entry=>[entry.id,entry.origin,entry.polygons]));assert.deepEqual(deduplicated.map(entry=>[entry.id,entry.origin,entry.polygons,entry.member_ids]),entries.map(entry=>[entry.id,entry.origin,entry.polygons,[entry.id]]));
++  for(let i=0;i<entries.length;i++)for(const prefix of ['root_biomes','root_corroboration_entries','root_corroboration_deduplicated_envelopes']){
++   const array=arrays[prefix+'_'+i+'_pixel_mask'],mask=entries[i].pixel_mask;assert.equal(array.dtype,'|u1');assert.deepEqual(array.shape,[mask.height,mask.width]);assert.deepEqual(array.data,mask.data);
++  }
++  assert.deepEqual(arrays.root_corroboration_counts.data,Uint8Array.from(expectedCounts(entries)));
++  const contexts=arrays.root_corroboration_context_counts.data;assert.deepEqual(new Uint32Array(contexts.buffer,contexts.byteOffset,contexts.byteLength/4),expectedCounts(entries));
++  assert.deepEqual(entries,before);assert.equal(metadata.corroboration.entries.length,2);assert.equal(deduplicated.length,2);
++ }finally{await archive.dispose();}
++ assert.equal(budget.total(),0);
++});
++
++test('invalid classical polygons remain rejected and their cleanup does not poison later masked exports',async()=>{
++ const budget=new Budget(128*1024**2),engine=createCloneCorroboration({budget,wasmBinary}),entries=masks(),invalid={id:'invalid-vector',source:'PatchMatch SIFT',polygons:[[[0,0],[0,1]]]},before=structuredClone(entries);
++ try{
++  await assert.rejects(engine.uniqueEnvelopes([...entries,invalid]),{code:'INVALID_INPUT'});assert.equal((await engine.uniqueEnvelopes(entries)).length,2);assert.deepEqual(entries,before);
++ }finally{engine.dispose();}
++ assert.equal(budget.total(),0);
++ await assert.rejects(exportAutomaticAnalysis(snapshot([...entries,invalid]),{}, {storage:'memory'},{budget,wasmBinary}),{code:'INVALID_INPUT'});assert.equal(budget.total(),0);
++ const archive=await exportAutomaticAnalysis(snapshot(entries),{}, {storage:'memory'},{budget,wasmBinary});await archive.dispose();assert.equal(budget.total(),0);assert.deepEqual(entries,before);
++});
+diff --git a/tests/cfa-memory-growth.test.mjs b/tests/cfa-memory-growth.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..688dd47a9e80936b10d732b18c6b82210ae4fa06
+--- /dev/null
++++ b/tests/cfa-memory-growth.test.mjs
+@@ -0,0 +1,39 @@
++import test from 'node:test';import assert from 'node:assert/strict';
++import {runCfaProgram,runCfaProgramHybrid} from '../src/cfa-program.js';
++import {runNoiseprintPlusProgram} from '../src/noiseprint-plus-program.js';
++const softplus=x=>Math.fround(Math.log1p(Math.exp(x)));
++// Real Wasm growth detaches borrowed views. Operator doubles isolate transport
++// ownership here; native arithmetic is qualified separately with operators.wasm.
++function allocator(growAt){
++ const memory=new WebAssembly.Memory({initial:1,maximum:16}),pointers=new Set(),retired=[];let next=16,calls=0;
++ const module={get HEAPU8(){return new Uint8Array(memory.buffer);},get HEAPF32(){return new Float32Array(memory.buffer);},get HEAP32(){return new Int32Array(memory.buffer);},
++  _malloc(bytes){if(++calls===growAt){const old=memory.buffer;memory.grow(1);retired.push(old);}const pointer=next;next+=Math.ceil(bytes/16)*16;pointers.add(pointer);return pointer;},
++  _free(pointer){assert.equal(pointers.delete(pointer),true,'every allocation is released once');},
++  _cfa_activate(pointer,length,mode){const values=new Float32Array(memory.buffer,pointer,length);for(let i=0;i<length;i++)values[i]=mode===0?softplus(values[i]):Math.fround(values[i]<0?.1*values[i]:values[i]);}
++ };
++ return {module,memory,retired,pointers,get calls(){return calls;}};
++}
++function gpuDouble(){
++ const handles=new Set();let graphs=0,peak=0,reads=0;
++ const handle=(data,dims)=>{const h={data:Float32Array.from(data),dims:[...dims],release(){assert.equal(handles.delete(h),true);h.data=null;}};handles.add(h);peak=Math.max(peak,handles.size);return h;};
++ return {supportsResident:true,metrics:{test:'resident ownership'},beginModel(){},beginGraph(){graphs++;},async endGraph(){graphs--;},upload({data,dims}){return handle(data,dims);},async read(h){reads++;return h.data.slice();},async convolution({input,weights,bias,shape}){assert.deepEqual(shape,[1,1,1,1]);return handle(Float32Array.from(input.data,x=>Math.fround(x*weights[0]+bias[0])),input.dims);},get graphs(){return graphs;},get handles(){return handles.size;},get peak(){return peak;},get reads(){return reads;}};
++}
++const input={data:Float32Array.of(-2,-1,0,2),dims:[1,1,1,4]},identity={input:'x',output:'y',initializers:{},nodes:[{name:'identity',op:'Identity',inputs:['x'],outputs:['y'],attrs:{}}]};
++for(const hybrid of [false,true])test('CFA '+(hybrid?'legacy hybrid':'CPU')+' Identity reacquires both views after malloc grows the actual Wasm memory',async()=>{
++ const a=allocator(2),gpu={beginModel(){},async convolution(){throw Error('No convolution required');}};
++ const result=hybrid?await runCfaProgramHybrid(a.module,identity,new Float32Array(),input,gpu):runCfaProgram(a.module,identity,new Float32Array(),input);
++ assert.deepEqual([...result.data],[...input.data]);assert.deepEqual(result.dims,input.dims);assert.equal(a.retired.length,1);assert.equal(a.retired[0].byteLength,0);assert.equal(a.pointers.size,0);assert.equal(result.data.buffer.byteLength,16);
++});
++test('resident CFA Softplus keeps GPU tensors alive through readback and reacquires native views after output allocation grows memory',async()=>{
++ const a=allocator(5),gpu=gpuDouble(),values=Float32Array.from({length:64},(_,i)=>(i-32)/16),program={input:'x',output:'y',initializers:{w:{dims:[1,1,1,1],offset:0},bias:{dims:[1],offset:1}},nodes:[{name:'conv',op:'Conv',inputs:['x','w','bias'],outputs:['c'],attrs:{}},{name:'softplus',op:'Softplus',inputs:['c'],outputs:['y'],attrs:{}}]};
++ const result=await runCfaProgramHybrid(a.module,program,Float32Array.of(2,.5),{data:values,dims:[1,1,8,8]},gpu);
++ assert.deepEqual([...result.data],[...values].map(x=>softplus(Math.fround(x*2+.5))));assert.equal(result.hybridConvolutions,1);assert.equal(gpu.reads,1);assert.equal(gpu.peak,2);assert.equal(gpu.handles,0);assert.equal(gpu.graphs,0);assert.equal(a.retired.length,1);assert.equal(a.retired[0].byteLength,0);assert.equal(a.pointers.size,0);
++});
++test('CFA CPU activation already takes fresh views after the destination grows memory',()=>{
++ const a=allocator(2),program={...identity,nodes:[{...identity.nodes[0],op:'Softplus'}]},result=runCfaProgram(a.module,program,new Float32Array(),input);
++ assert.deepEqual([...result.data],[...input.data].map(softplus));assert.equal(a.retired[0].byteLength,0);assert.equal(a.pointers.size,0);
++});
++test('Noiseprint++ arithmetic reacquires source, output and weights after allocation grows memory',()=>{
++ const a=allocator(3),program={initializers:{factor:{dims:[1],offset:0}},nodes:[{op:'Relu',inputs:['x']},{op:'Mul',inputs:['x','factor']},{op:'Add',inputs:['x','factor']}]},result=runNoiseprintPlusProgram(a.module,program,Float32Array.of(2),{data:Float32Array.of(-2,0,1,2),dims:[1,1,1,4]});
++ assert.deepEqual([...result.data],[2,2,4,6]);assert.equal(a.retired[0].byteLength,0);assert.equal(a.pointers.size,0);
++});
+diff --git a/tests/cfa-native-memory-growth.mjs b/tests/cfa-native-memory-growth.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..a596c35d5dc775226877baf9a386e5c9c6d1ac1a
+--- /dev/null
++++ b/tests/cfa-native-memory-growth.mjs
+@@ -0,0 +1,16 @@
++// Qualification against the existing native CFA operators; no rebuilt Wasm.
++// Usage: node tests/cfa-native-memory-growth.mjs path/to/operators.mjs
++import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {resolve} from 'node:path';import {pathToFileURL} from 'node:url';import {createHash} from 'node:crypto';
++import {runCfaProgram,runCfaProgramHybrid} from '../src/cfa-program.js';
++const factoryURL=process.argv[2]?pathToFileURL(resolve(process.argv[2])):new URL('../.build/cfa-m2/operators.mjs',import.meta.url),{default:create}=await import(factoryURL.href),wasm=await readFile(new URL('./operators.wasm',factoryURL));
++async function native(growAt){
++ const memory=new WebAssembly.Memory({initial:256,maximum:512}),module=await create({wasmMemory:memory,wasmBinary:wasm}),retired=[],live=new Set();let calls=0;
++ const wrapper={get HEAPU8(){return new Uint8Array(memory.buffer);},get HEAPF32(){return new Float32Array(memory.buffer);},get HEAP32(){return new Int32Array(memory.buffer);},_malloc(bytes){if(++calls===growAt){const before=memory.buffer;memory.grow(1);retired.push(before);}const pointer=module._malloc(bytes);if(pointer)live.add(pointer);return pointer;},_free(pointer){assert.equal(live.delete(pointer),true);module._free(pointer);},_cfa_activate:(...args)=>module._cfa_activate(...args)};
++ return {module:wrapper,retired,live};
++}
++const values=Float32Array.of(-3,-2,-1,0,.5,1,2,3,10),input={data:values,dims:[1,1,1,values.length]},node=(op,name,input,output)=>({op,name,inputs:[input],outputs:[output],attrs:{}}),softplus={input:'x',output:'out',initializers:{},nodes:[node('Softplus','activation','x','out')]},identity={...softplus,nodes:[node('Identity','copy','x','copied'),node('Softplus','activation','copied','out')]};
++const reference=await native(),expected=runCfaProgram(reference.module,softplus,new Float32Array(),input);assert.equal(reference.live.size,0);
++const cpu=await native(2),copied=runCfaProgram(cpu.module,identity,new Float32Array(),input);assert.deepEqual(copied.data,expected.data);assert.equal(cpu.retired.length,1);assert.equal(cpu.retired[0].byteLength,0);assert.equal(cpu.live.size,0);
++const resident=await native(2);let graphs=0;const gpu={supportsResident:true,metrics:{qualification:'CPU boundary with unchanged native activation'},beginModel(){},beginGraph(){graphs++;},async endGraph(){graphs--;}};
++const hybrid=await runCfaProgramHybrid(resident.module,softplus,new Float32Array(),input,gpu);assert.deepEqual(hybrid.data,expected.data);assert.equal(resident.retired.length,1);assert.equal(resident.retired[0].byteLength,0);assert.equal(resident.live.size,0);assert.equal(graphs,0);assert.equal(hybrid.hybridConvolutions,0);
++console.log(JSON.stringify({status:'passed',nativeKernelSha256:createHash('sha256').update(wasm).digest('hex'),input:[...values],output:[...expected.data],cpuIdentityThenSoftplusExact:true,residentSoftplusExact:true,realMemoryGrowthEvents:2,allPointersReleased:true,modelWeightsUsed:false},null,2));
+diff --git a/tests/m2-worker-protocol.test.mjs b/tests/m2-worker-protocol.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..6b0b6d49cc42ceee48f35496f6373831201eabbd
+--- /dev/null
++++ b/tests/m2-worker-protocol.test.mjs
+@@ -0,0 +1,64 @@
++import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';
++import {createM2WorkerClient} from '../src/m2-worker-client.js';
++const turn=()=>new Promise(resolve=>setImmediate(resolve));
++class Worker{
++ constructor(){this.messages=[];this.terminated=false;}
++ postMessage(message){this.messages.push(message);}
++ terminate(){this.terminated=true;}
++ emit(data){this.onmessage?.({data});}
++}
++async function fixture(){const worker=new Worker(),opening=createM2WorkerClient({methods:{}},{workerFactory:()=>worker});worker.emit({id:worker.messages[0].id,value:{windowBytes:4*1024**2}});return {worker,client:await opening};}
++for(const phase of ['initialization','requests'])for(const fault of ['null','messageerror','invalid-id','missing-result','bad-error'])test('M2 '+fault+' during '+phase+' rejects every request and stops the failed endpoint',{timeout:2000},async()=>{
++ const worker=new Worker(),opening=createM2WorkerClient({methods:{}},{workerFactory:()=>worker});let client,pending=[opening];
++ if(phase==='requests'){worker.emit({id:worker.messages[0].id,value:{windowBytes:4*1024**2}});client=await opening;pending=[client.memory(),client.clearCache()];}
++ const rejected=pending.map(p=>assert.rejects(p,e=>e.code==='WORKER_MESSAGE_FAILED'));
++ if(fault==='messageerror')worker.onmessageerror({});else worker.emit(fault==='null'?null:fault==='invalid-id'?{id:0,value:true}:fault==='bad-error'?{id:worker.messages.at(-1).id,error:'lost cause'}:{id:worker.messages.at(-1).id});
++ await Promise.all(rejected);assert.equal(worker.terminated,true);assert.equal(worker.onmessage,null);assert.equal(worker.onmessageerror,null);if(client)await assert.rejects(client.memory(),{code:'DISPOSED'});
++});
++test('M2 fatal endpoint failures preserve their cause and reject concurrent requests',{timeout:2000},async()=>{
++ const {worker,client}=await fixture(),calls=[client.memory(),client.clearCache()],expected={code:'WORKER_LOAD_FAILED',message:'Host module load failed',details:{moduleURL:'https://example.invalid/host.js'},cause:{name:'TypeError',message:'Failed to fetch dynamically imported module'}};
++ const rejected=calls.map(p=>assert.rejects(p,e=>e.code===expected.code&&e.cause.message===expected.cause.message&&e.details.moduleURL===expected.details.moduleURL));worker.emit({fatal:true,error:expected});await Promise.all(rejected);assert.equal(worker.terminated,true);
++});
++test('M2 browser errors retain source details and settle all requests',{timeout:2000},async()=>{
++ const {worker,client}=await fixture(),pending=client.memory(),cause=Error('worker import refused'),rejected=assert.rejects(pending,e=>e.code==='WORKER_FAILED'&&e.cause===cause&&e.details.workerEvent.line===17);
++ worker.onerror({type:'error',message:'Module could not be loaded',filename:'https://example.invalid/worker.js',lineno:17,colno:3,error:cause});await rejected;assert.equal(worker.terminated,true);
++});
++test('M2 asynchronous progress rejection cancels only its request, preserves its cause and releases a completed result',{timeout:2000},async()=>{
++ const {worker,client}=await fixture();let rejectProgress;const cause=Error('Progress callback rejected');
++ const analysis=client.analyze('trufor',{}, {}, {onProgress:()=>new Promise((_,reject)=>rejectProgress=reject)}),analysisId=worker.messages.at(-1).id,peer=client.memory(),peerId=worker.messages.at(-1).id;
++ const rejected=assert.rejects(analysis,e=>e===cause);worker.emit({id:analysisId,progress:{phase:'inference'}});worker.emit({id:analysisId,value:{id:9}});rejectProgress(cause);await rejected;
++ assert.ok(worker.messages.some(x=>x.operation==='cancel'&&x.args.requestId===analysisId));assert.ok(worker.messages.some(x=>x.operation==='releaseResult'&&x.args.resultId===9));assert.equal(worker.terminated,false);
++ worker.emit({id:peerId,value:{retainedBytes:0}});assert.deepEqual(await peer,{retainedBytes:0});const disposed=client.dispose();worker.emit({id:worker.messages.at(-1).id,value:true});await disposed;
++});
++test('M2 transport failure during an asynchronous progress callback cannot resolve a late result',{timeout:2000},async()=>{
++ const {worker,client}=await fixture();let resolveProgress;const pending=client.analyze('trufor',{}, {}, {onProgress:()=>new Promise(resolve=>resolveProgress=resolve)}),id=worker.messages.at(-1).id;
++ const rejected=assert.rejects(pending,{code:'WORKER_MESSAGE_FAILED'});worker.emit({id,progress:{phase:'inference'}});worker.emit({id,value:{id:7}});worker.onmessageerror({});await rejected;resolveProgress();await turn();assert.equal(worker.terminated,true);
++});
++
++const endpointSource=await readFile(new URL('../src/m2-worker.js',import.meta.url),'utf8');
++const asModule=source=>'data:text/javascript,'+encodeURIComponent(source);
++async function endpoint(hostSource){
++ const old=globalThis.self,messages=[],target={postMessage:message=>messages.push(message)},hostURL=asModule(hostSource);globalThis.self=target;
++ await import(asModule(endpointSource.replaceAll("'./m2-worker-host.js'",JSON.stringify(hostURL))+'\n// case '+crypto.randomUUID()));
++ return {target,messages,restore(){globalThis.self=old;}};
++}
++test('M2 bootstrap retains early commands and permits cancellation while useful work remains active',{timeout:2000},async()=>{
++ const f=await endpoint(`export function createM2WorkerHost({post}){let finish;return{handle(data){if(data.operation==='initialize')return post({id:data.id,value:'ready'});if(data.operation==='analyze')return new Promise(resolve=>finish=()=>{post({id:data.id,value:'finished'});resolve();});if(data.operation==='cancel'){post({id:data.id,value:'cancelled'});finish();}}};}`);
++ try{for(const [id,operation]of [[1,'initialize'],[2,'analyze'],[3,'cancel']])f.target.onmessage({data:{id,operation,args:{}}});await turn();assert.deepEqual(f.messages,[{id:1,value:'ready'},{id:3,value:'cancelled'},{id:2,value:'finished'}]);}finally{f.restore();}
++});
++test('M2 bootstrap imports keep a failure cause and module identity for every early request',{timeout:2000},async()=>{
++ const f=await endpoint(`throw new TypeError('Host dependency was unavailable');`);
++ try{for(const id of [1,2])f.target.onmessage({data:{id,operation:'initialize',args:{}}});await turn();assert.deepEqual(f.messages.map(x=>x.id),[1,2]);for(const m of f.messages){assert.equal(m.error.code,'WORKER_LOAD_FAILED');assert.equal(m.error.cause.name,'TypeError');assert.equal(m.error.cause.message,'Host dependency was unavailable');assert.ok(m.error.details.moduleURL.startsWith('data:text/javascript,'));}}finally{f.restore();}
++});
++test('M2 bootstrap observes an asynchronous host rejection instead of leaving the request pending',{timeout:2000},async()=>{
++ const f=await endpoint(`export function createM2WorkerHost(){return{async handle(){await Promise.resolve();throw Object.assign(Error('Asynchronous host failure'),{code:'INTERNAL',cause:Error('original cause')});}};}`);
++ try{f.target.onmessage({data:{id:1,operation:'initialize',args:{}}});await turn();assert.equal(f.messages.length,1);assert.equal(f.messages[0].id,1);assert.equal(f.messages[0].error.code,'INTERNAL');assert.equal(f.messages[0].error.cause.message,'original cause');}finally{f.restore();}
++});
++for(const fault of ['null','malformed','messageerror'])test('M2 bootstrap '+fault+' is fatal, reported once and rejects later commands',{timeout:2000},async()=>{
++ const f=await endpoint(`export function createM2WorkerHost(){return{handle(){throw Error('No invalid command must reach the host');}};}`);
++ try{if(fault==='messageerror')f.target.onmessageerror({});else f.target.onmessage({data:fault==='null'?null:{id:1}});f.target.onmessage({data:{id:2,operation:'memory'}});await turn();assert.equal(f.messages.length,1);assert.equal(f.messages[0].fatal,true);assert.equal(f.messages[0].error.code,'WORKER_MESSAGE_FAILED');assert.equal(f.messages[0].error.details.transport.event,fault==='messageerror'?'messageerror':'message');}finally{f.restore();}
++});
++test('M2 malformed transport prevents already queued bootstrap work from starting',{timeout:2000},async()=>{
++ const f=await endpoint(`export function createM2WorkerHost(){return{handle(){throw Error('A fatal endpoint must not start queued work');}};}`);
++ try{f.target.onmessage({data:{id:1,operation:'analyze',args:{}}});f.target.onmessageerror({});await turn();assert.equal(f.messages.length,1);assert.equal(f.messages[0].fatal,true);}finally{f.restore();}
++});
+diff --git a/tests/neural-graph-pool.test.mjs b/tests/neural-graph-pool.test.mjs
+index 5b56851196e99a9547cffc148c6a498844770eb4..3bd269e0d8e2bc7d5dbe4d592c402b2859c32943 100644
+--- a/tests/neural-graph-pool.test.mjs
++++ b/tests/neural-graph-pool.test.mjs
+@@ -54,6 +54,25 @@ test('Immutable input reuse avoids retransmission and keeps its residency charge
+ });
+ 
+ const turn=()=>new Promise(resolve=>setImmediate(resolve));
++for(const event of ['error','messageerror'])test(`a neural ${event} during CPU admission settles without waiting for unrelated work`,{timeout:2000},async()=>{
++ const budget=new Budget(256*MiB),scheduler=getExecutionScheduler(budget,{maxWorkers:2}),held=await scheduler.acquire({cpu:2});let worker;
++ const cause=new TypeError('Module fetch failed');
++ const pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{
++  worker=new Worker(()=>{});setImmediate(()=>event==='error'?worker.onerror({type:'error',message:'Import failed',filename:'https://example.invalid/neural-graph-worker.js',lineno:3,error:cause}):worker.onmessageerror({type:'messageerror'}));return worker;
++ }});
++ try{
++  await assert.rejects(pool.run('a',input,options),error=>event==='error'?error.code==='WORKER_FAILED'&&error.cause===cause&&error.details.workerEvent.line===3:error.code==='WORKER_MESSAGE_FAILED');
++  assert.equal(worker.terminated,true);assert.equal(scheduler.snapshot().queued,0);assert.equal(scheduler.snapshot().active.cpu,2);assert.equal(budget.total(),0);
++ }finally{held.release();pool.dispose();}
++});
++test('an opaque GPU worker load failure does not disable GPU or replay the graph on CPU',async()=>{
++ const descriptor=Object.getOwnPropertyDescriptor(globalThis.navigator,'gpu');Object.defineProperty(globalThis.navigator,'gpu',{value:{},configurable:true});
++ const budget=new Budget(256*MiB);let starts=0;
++ const pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes:{...runtimes,webgpu:runtimes.wasm},workerFactory:()=>{starts++;return new Worker(worker=>worker.onerror({type:'error',message:''}));}});
++ try{await assert.rejects(pool.run('a',input,{...options,backend:'auto'}),{code:'WORKER_FAILED'});assert.equal(starts,1);assert.equal(pool.cpuOnly,false);}
++ finally{pool.dispose();if(descriptor)Object.defineProperty(globalThis.navigator,'gpu',descriptor);else delete globalThis.navigator.gpu;}
++ assert.equal(budget.total(),0);
++});
+ test('Separate neural pools initialize together but share a single admitted GPU execution',async()=>{
+  const descriptor=Object.getOwnPropertyDescriptor(globalThis.navigator,'gpu');Object.defineProperty(globalThis.navigator,'gpu',{value:{},configurable:true});
+  const budget=new Budget(512*MiB),workers=[],pools=Array.from({length:2},()=>new NeuralGraphPool(budget,{maxWorkers:4},{assets:{a:asset},runtimes:{...runtimes,webgpu:runtimes.wasm},workerFactory:()=>{const worker=new Worker(()=>{});workers.push(worker);return worker;}}));
+@@ -78,7 +97,7 @@ test('Cancelling after initialization removes the pending execution without touc
+ 
+ test('Idle reclamation drops only enough inexpensive model residency for the requested allocation',async()=>{
+  const budget=new Budget(512*MiB),pool=new NeuralGraphPool(budget,{maxWorkers:3},{assets:{a:asset,b:asset,c:asset},runtimes,workerFactory:()=>new Worker(w=>w.result())});
+- for(const name of ['a','b','c']){const result=await pool.run(name,input,options);result.release();}
++ const warmed=await Promise.all(['a','b','c'].map(name=>pool.run(name,input,options)));for(const result of warmed)result.release();
+  pool.slots.find(slot=>slot.name==='a').initializationMs=1000;
+  pool.slots.find(slot=>slot.name==='b').initializationMs=1;
+  pool.slots.find(slot=>slot.name==='c').initializationMs=100;
+@@ -87,6 +106,102 @@ test('Idle reclamation drops only enough inexpensive model residency for the req
+  release();pool.dispose();assert.equal(budget.total(),0);
+ });
+ 
++test('hundreds of distinct pipeline graphs reuse a live runtime without accumulating contexts',async()=>{
++ const assets=Object.fromEntries(Array.from({length:200},(_,i)=>['graph'+i,{...asset,sha256:i.toString(16).padStart(64,'0')}])),budget=new Budget(8*1024**3),workers=[];
++ const pool=new NeuralGraphPool(budget,{maxWorkers:8},{assets,runtimes,workerFactory:()=>{const w=new Worker(w=>w.result());workers.push(w);return w;}});
++ try{
++  let first;
++  for(const name of Object.keys(assets)){const output=await pool.run(name,input,options);assert.equal(pool.slots.length,1);assert.equal(output.metrics.pool.peakWorkers,1);assert.equal(output.metrics.pool.workerStarts,1);if(!first)first=output;else output.release();}
++  assert.equal(workers.length,1);assert.equal(pool.snapshot().runtimeReuses,199);assert.deepEqual([...first.result.y.data],[2]);first.release();
++ }finally{pool.dispose();}assert.equal(budget.total(),0);
++});
++
++test('runtime reuse retains independent parallel jobs and preserves old output leases',async()=>{
++ const budget=new Budget(512*MiB),workers=[],pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset,b:{...asset,sha256:'b'.repeat(64)},c:{...asset,sha256:'c'.repeat(64)}},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}});
++ try{
++  const a=pool.run('a',input,options),b=pool.run('b',input,options);await turn();assert.equal(pool.snapshot().busyWorkers,2);assert.equal(workers.length,2);
++  for(const w of workers)w.result();const outputs=await Promise.all([a,b]);
++  const c=pool.run('c',input,options);await turn();assert.equal(workers.length,2);workers.find(w=>w.job.asset.sha256==='c'.repeat(64)).result();const next=await c;
++  assert.deepEqual(outputs.map(o=>[...o.result.y.data]),[[2],[2]]);for(const o of [...outputs,next])o.release();
++ }finally{pool.dispose();}assert.equal(budget.total(),0);
++});
++
++test('a larger graph replaces only an insufficient idle runtime at the worker bound',async()=>{
++ const budget=new Budget(1024*MiB),workers=[],pool=new NeuralGraphPool(budget,{maxWorkers:1},{assets:{a:asset,b:asset},runtimes,workerFactory:()=>{const w=new Worker(w=>w.result());workers.push(w);return w;}});
++ try{const a=await pool.run('a',input,options);a.release();const b=await pool.run('b',input,{...options,workspaceBytes:256*MiB});assert.equal(workers.length,2);assert.equal(workers[0].terminated,true);assert.equal(pool.snapshot().peakWorkers,1);b.release();}
++ finally{pool.dispose();}assert.equal(budget.total(),0);
++});
++
++test('initialization allocation refusal retries only after retiring actual idle contexts',async()=>{
++ const budget=new Budget(1024*MiB),workers=[];let refusal=true;
++ const pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset,b:asset},runtimes,workerFactory:()=>{const w=new Worker((w,job)=>{if(job.memoryMaximumBytes>128*MiB&&refusal){refusal=false;w.onmessage({data:{error:{code:'MEMORY_ALLOCATION',message:'WebAssembly.Memory(): could not allocate memory',details:{allocationKind:'wasm',executionPhase:'initialization',nativeHeapExhausted:false}}}});}else w.result();});workers.push(w);return w;}});
++ try{const a=await pool.run('a',input,options);a.release();const b=await pool.run('b',input,{...options,workspaceBytes:128*MiB});assert.equal(b.metrics.retry.retiredWorkers,1);assert.equal(workers.length,3);assert.equal(workers[0].terminated,true);assert.equal(workers[1].terminated,true);assert.deepEqual([...input.x.data],[1]);b.release();}
++ finally{pool.dispose();}assert.equal(budget.total(),0);
++});
++
++test('resident context admission is shared across pools and another pool completion wakes its waiter',async()=>{
++ const budget=new Budget(1024*MiB),workers=[],pools=Array.from({length:3},()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
++ try{
++  const pending=pools.map(p=>p.run('a',input,options));await turn();assert.equal(workers.length,2);assert.equal(pools[0].snapshot().sharedBusyWorkers,2);
++  workers[0].result();const first=await pending[0];first.release();await turn();assert.equal(workers.length,3);assert.equal(workers[0].terminated,true);assert.equal(pools[2].snapshot().sharedPeakWorkers,2);
++  workers[1].result();workers[2].result();for(const result of await Promise.all(pending.slice(1)))result.release();
++ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);
++});
++
++test('memory admission waits for useful work in another pool below the CPU context ceiling',{timeout:2000},async()=>{
++ const budget=new Budget(150*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
++ try{
++  const first=pools[0].run('a',input,options);await turn();const second=pools[1].run('a',input,options);await turn();assert.equal(workers.length,1);assert.equal(pools[1].waiters.size,1);
++  workers[0].result();const a=await first;a.release();await turn();assert.equal(workers.length,2);assert.equal(workers[0].terminated,true);workers[1].result();const b=await second;b.release();
++ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);
++});
++
++test('memory admission rejects a closed dependency cycle across neural pools',{timeout:2000},async()=>{
++ const budget=new Budget(150*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
++ try{
++  const first=pools[0].run('a',input,options);await turn();const waiting=budget.beginOperation({owner:'test',id:'waiting-parent'}),running=pools[0].slots[0].operation;
++  running.setState('queued',{resource:'child',dependencies:[waiting]});waiting.setState('queued',{resource:'memory',dependencies:[running]});
++  await assert.rejects(pools[1].run('a',input,{...options,resourceOperation:waiting}),e=>e.code==='RESOURCE_DEPENDENCY_CYCLE');waiting.release();
++  workers[0].result();const a=await first;a.release();
++ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);
++});
++
++test('a later dependency cycle wakes and rejects an existing shared-memory admission',{timeout:2000},async()=>{
++ const budget=new Budget(150*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
++ try{
++  const first=pools[0].run('a',input,options);await turn();const second=pools[1].run('a',input,options),rejected=assert.rejects(second,{code:'RESOURCE_DEPENDENCY_CYCLE'});await turn();assert.equal(pools[1].waiters.size,1);
++  const queued=budget.resourceSnapshot().operations.find(x=>x.state==='queued'&&x.id==='neural/a'),waiting=budget.resources.operations.get(queued.key).ticket;
++  pools[0].slots[0].operation.setState('queued',{resource:'child',dependencies:[waiting]});await rejected;assert.equal(pools[1].waiters.size,0);
++  workers[0].result();(await first).release();
++ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);assert.equal(budget.resourceListeners.size,0);
++});
++
++test('live budget growth reopens an admission without waiting for the other pool to complete',{timeout:2000},async()=>{
++ const budget=new Budget(150*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
++ try{
++  const first=pools[0].run('a',input,options);await turn();const second=pools[1].run('a',input,options);await turn();assert.equal(pools[1].waiters.size,1);
++  budget.setLimit(256*MiB);await turn();assert.equal(workers.length,2);assert.equal(workers[0].terminated,false);for(const w of workers)w.result();for(const result of await Promise.all([first,second]))result.release();
++ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceListeners.size,0);
++});
++
++test('a reused model waits for another pool to release memory needed by new inputs',{timeout:2000},async()=>{
++ const budget=new Budget(190*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
++ try{
++  const warm=pools[0].run('a',input,options);await turn();workers[0].result();(await warm).release();const peer=pools[1].run('a',input,options);await turn();
++  const larger={x:{data:new Float32Array(8*MiB),dims:[8*MiB]}},next=pools[0].run('a',larger,options);await turn();assert.equal(workers.length,2);assert.equal(pools[0].waiters.size,1);assert.equal(pools[0].slots[0].busy,false);
++  workers[1].result();(await peer).release();await turn();assert.equal(workers.length,2);assert.equal(workers[1].terminated,true);workers[0].result();(await next).release();
++ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);
++});
++
++test('model switching releases a partial job reservation before waiting for shared residency',{timeout:2000},async()=>{
++ const budget=new Budget(228*MiB),workers=[],pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset,b:{...asset,bytes:8*MiB,sha256:'b'.repeat(64)}},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}),peerPool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}});
++ try{
++  const warm=pool.run('a',input,{...options,workspaceBytes:50*MiB});await turn();workers[0].result();(await warm).release();const peer=peerPool.run('a',input,options);await turn();const before=budget.active;
++  const next=pool.run('b',input,options);await turn();assert.equal(pool.waiters.size,1);assert.equal(budget.active,before,'failed model growth must not pin a job reservation');
++  workers[1].result();(await peer).release();await turn();assert.equal(workers.length,2);assert.equal(workers[1].terminated,true);workers[0].result();(await next).release();
++ }finally{pool.dispose();peerPool.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);
++});
++
+ test('GPU failure releases its execution lease before the useful CPU retry',async()=>{
+  const descriptor=Object.getOwnPropertyDescriptor(globalThis.navigator,'gpu');Object.defineProperty(globalThis.navigator,'gpu',{value:{},configurable:true});
+  const budget=new Budget(512*MiB),providers=[],pool=new NeuralGraphPool(budget,{maxWorkers:1},{assets:{a:asset},runtimes:{...runtimes,webgpu:runtimes.wasm},workerFactory:()=>new Worker((worker,job)=>{
+diff --git a/tests/neural-graph-protocol.test.mjs b/tests/neural-graph-protocol.test.mjs
+index 7cf4588be62408d0cca8017912e7d9660ed6eadc..c8c41c4d7db1dbfa2c284c7344d334120e8243b5 100644
+--- a/tests/neural-graph-protocol.test.mjs
++++ b/tests/neural-graph-protocol.test.mjs
+@@ -42,6 +42,9 @@ test('neural transport failure retires only its worker while a companion publish
+ test('neural serialized compute errors retain their cause instead of becoming transport errors',{timeout:2000},async()=>{
+  const f=fixture();try{const pending=f.pool.run('a',inputs,options);await turn();f.workers[0].emit({error:{code:'MODEL_IDENTITY',message:'bad digest',details:{expected:'a'},cause:{code:'INTERNAL',message:'original digest'}}});await assert.rejects(pending,error=>error.code==='MODEL_IDENTITY'&&error.details.expected==='a'&&error.cause.message==='original digest');f.assertEmpty();}finally{f.pool.dispose();}
+ });
++test('browser worker failure retains the current graph and available source details',{timeout:2000},async()=>{
++ const f=fixture();try{const pending=f.pool.run('a',inputs,options);await turn();const cause=Error('native failure');f.workers[0].onerror({type:'error',message:'Worker import refused',filename:'https://example.invalid/graph.js',lineno:19,colno:7,error:cause});await assert.rejects(pending,error=>error.code==='WORKER_FAILED'&&error.cause===cause&&error.details.model==='a'&&error.details.provider==='wasm'&&error.details.workerEvent.line===19&&error.details.pool.busyWorkers===1);f.assertEmpty();}finally{f.pool.dispose();}
++});
+ for(const kind of ['null','messageerror','unexpected','execute'])test('neural endpoint reports '+kind+' rather than leaving its parent pending',{timeout:2000},async()=>{
+  const old=globalThis.self,messages=[],endpoint={postMessage(data){messages.push(data);}};globalThis.self=endpoint;
+  try{await import('../src/neural-graph-worker.js?protocol='+kind);if(kind==='execute')endpoint.onmessage({data:{command:'execute'}});else fault(endpoint,kind);await turn();assert.equal(messages.length,1);assert.equal(messages[0].error.code,'WORKER_MESSAGE_FAILED');assert.ok(messages[0].error.details.transport);endpoint.onmessage({data:{}});await turn();assert.equal(messages.length,1);}finally{globalThis.self=old;}
+diff --git a/tests/neural-model-switch.test.mjs b/tests/neural-model-switch.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..423336f2f34c4ae25f94390788d16b53b0983dd2
+--- /dev/null
++++ b/tests/neural-model-switch.test.mjs
+@@ -0,0 +1,19 @@
++import test from 'node:test';import assert from 'node:assert/strict';
++const turn=()=>new Promise(resolve=>setImmediate(resolve));
++test('the real neural endpoint releases old sessions and reusable tensors while preserving one ORT runtime',async()=>{
++ const previous={self:globalThis.self,fetch:globalThis.fetch,audit:globalThis.neuralSwitchAudit},audit={events:[],liveTensors:0},messages=[];globalThis.neuralSwitchAudit=audit;
++ const module=code=>'data:text/javascript,'+encodeURIComponent(code);
++ const factoryUrl=module('export function heapBytes(){return 16*1024**2;}');
++ const ortUrl=module(`export const env={wasm:{},webgpu:{},versions:{test:'model-switch'}};
++ export class Tensor {constructor(type,data,dims){this.type=type;this.data=data;this.dims=dims;this.closed=false;globalThis.neuralSwitchAudit.liveTensors++;}dispose(){if(!this.closed){this.closed=true;globalThis.neuralSwitchAudit.liveTensors--;}}}
++ export const InferenceSession={async create(bytes){const factor=bytes[0],a=globalThis.neuralSwitchAudit;a.events.push('create:'+factor);return{async run(feeds){return{y:new Tensor('float32',Float32Array.from(feeds.x.data,x=>x*factor),feeds.x.dims)};},async release(){a.events.push('release:'+factor);}};}};`);
++ const assets=[];for(const factor of [2,3]){const bytes=Uint8Array.of(factor);assets.push({url:'https://example.invalid/'+factor,bytes:1,sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('')});}
++ globalThis.fetch=async url=>new Response(Uint8Array.of(Number(String(url).split('/').at(-1))));
++ let settle;const endpoint={postMessage(data){messages.push(data);if(data.executionReady)queueMicrotask(()=>endpoint.onmessage({data:{command:'execute'}}));if(data.result||data.error)settle?.(data);}};globalThis.self=endpoint;
++ try{
++  await import('../src/neural-graph-worker.js?switch-runtime');const results=[];
++  for(const asset of assets){const data={asset,inputs:{x:{data:Float32Array.of(5),dims:[1]},bank:{data:Float32Array.of(7),dims:[1]}},reusableInputs:{bank:'same-bank'},provider:'wasm',runtime:{factoryUrl,ortUrl,wasmUrl:'unused'},memoryMaximumBytes:128*1024**2,outputBytes:4,threads:1};
++   const result=await new Promise(resolve=>{settle=resolve;endpoint.onmessage({data});});assert.equal(result.error,undefined);results.push(result);await turn();assert.equal(audit.liveTensors,1,'only the declared immutable input stays cached');}
++  assert.deepEqual(results.map(r=>[...r.result.y.data]),[[10],[15]]);assert.deepEqual(audit.events,['create:2','release:2','create:3']);assert.deepEqual(results[1].runtimeLifecycle,{runtimeInitializations:1,modelInitializations:2,modelSwitches:1});
++ }finally{globalThis.self=previous.self;globalThis.fetch=previous.fetch;if(previous.audit===undefined)delete globalThis.neuralSwitchAudit;else globalThis.neuralSwitchAudit=previous.audit;}
++});
+diff --git a/tests/strip-pool-preparation.test.mjs b/tests/strip-pool-preparation.test.mjs
+index 0bf4aac2731af14134f8c771a0efe9b8d9acdc8c..a596b83e5f40d2ab22d6b47213ce63f24ed8dc09 100644
+--- a/tests/strip-pool-preparation.test.mjs
++++ b/tests/strip-pool-preparation.test.mjs
+@@ -1,3 +1,3 @@
+ import test from 'node:test';import assert from 'node:assert/strict';import {Budget} from '../src/cache.js';import {WaveletStripPool} from '../src/wavelet-strip-pool.js';
+ test('concurrent source-window leases are admitted outside worker reservations',async()=>{const budget=new Budget(61),owner=budget.reserve(25);let simultaneous=0,maximum=0;class Worker{postMessage(value){queueMicrotask(()=>this.onmessage({data:{result:value}}));}terminate(){}}
+- const pool=new WaveletStripPool(budget,{maxWorkers:3,workerHeapBytes:10,workerPixelBytes:0,workerFactory:()=>new Worker()});let consumed=0;await pool.run({count:6,pixels:1,key:'source-lease',prepareBytes:6,async prepare(i){const release=budget.reserve(6);simultaneous++;maximum=Math.max(maximum,simultaneous);try{await new Promise(resolve=>setTimeout(resolve,1));return {i};}finally{simultaneous--;release();}},consume(result){assert.equal(typeof result.i,'number');consumed++;},local:async value=>value});assert.equal(consumed,6);assert.equal(pool.metrics().workers,2);assert.equal(maximum,2);owner();assert.equal(budget.total(),0);assert.ok(budget.peak<=61);});
++ const pool=new WaveletStripPool(budget,{maxWorkers:3,workerHeapBytes:10,workerPixelBytes:0,workerFactory:()=>new Worker()});let consumed=0;await pool.run({count:6,pixels:1,key:'source-lease',prepareBytes:6,async prepare(i){const release=budget.reserve(6);simultaneous++;maximum=Math.max(maximum,simultaneous);try{await new Promise(resolve=>setTimeout(resolve,1));return {i};}finally{simultaneous--;release();}},consume(result){assert.equal(typeof result.i,'number');consumed++;},local:async value=>value});assert.equal(consumed,6);assert.equal(pool.metrics().workers,2);assert.equal(maximum,2);owner();pool.clear();assert.equal(budget.total(),0);assert.ok(budget.peak<=61);});
+diff --git a/tests/transform-strip-lifecycle.test.mjs b/tests/transform-strip-lifecycle.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..799ca74f05214bab7e1c167e0ba278d97c6522e6
+--- /dev/null
++++ b/tests/transform-strip-lifecycle.test.mjs
+@@ -0,0 +1,144 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {Budget} from '../src/cache.js';
++import {getExecutionScheduler} from '../src/execution-scheduler.js';
++import {WaveletStripPool} from '../src/wavelet-strip-pool.js';
++import {installTransformStripWorker} from '../src/transform-strip-worker.js';
++
++const tick=()=>new Promise(resolve=>setImmediate(resolve));
++const options=(consume=()=>{})=>({count:12,pixels:1,key:'fixture',prepare:async index=>({index}),consume,local:async job=>job});
++class Worker{
++ constructor(){this.dead=false;}
++ terminate(){this.dead=true;}
++ postMessage(job){setImmediate(()=>{if(!this.dead)this.onmessage({data:{result:job}});});}
++}
++const poolFor=(budget,profile={})=>new WaveletStripPool(budget,{maxWorkers:4,workerHeapBytes:10,workerPixelBytes:0,workerFactory:()=>new Worker(),...profile});
++
++test('an import error during preparation is retained with cause, URL, strip and stage',async()=>{
++ const budget=new Budget(1000),cause=new TypeError('Failed to load dependency'),url='https://example.test/frequency-strip-worker.js';let posted=0;
++ const pool=poolFor(budget,{maxWorkers:1,workerURL:url,workerFactory:()=>{const worker={terminate(){},postMessage(){posted++;}};queueMicrotask(()=>worker.onerror({type:'error',message:'Module failed',error:cause,filename:url,lineno:4,colno:2}));return worker;}});
++ await assert.rejects(pool.run({...options(),count:1,prepare:async index=>{await tick();return {index};}}),error=>{
++  assert.equal(error.code,'WORKER_FAILED');assert.equal(error.cause,cause);assert.deepEqual(error.details.workerEvent,{type:'error',filename:url,line:4,column:2});
++  assert.equal(error.details.transformStrip.index,0);assert.equal(error.details.transformStrip.stage,'prepare');assert.equal(error.details.transformStrip.workerURL,url);return true;
++ });
++ assert.equal(posted,0);assert.equal(budget.total(),0);assert.equal(pool.metrics().residentWorkers,0);
++});
++
++test('a load error cancels queued CPU admission immediately without waiting for its peer', {timeout:1000},async()=>{
++ const budget=new Budget(1000),scheduler=getExecutionScheduler(budget,{maxWorkers:1}),peer=await scheduler.acquire({cpu:1});let posted=0;
++ const pool=poolFor(budget,{maxWorkers:1,workerFactory:()=>{const worker={terminate(){},postMessage(){posted++;}};setImmediate(()=>worker.onerror({message:'Script refused',filename:'script.js'}));return worker;}});
++ try{await assert.rejects(pool.run({...options(),count:1}),{code:'WORKER_FAILED'});assert.equal(scheduler.snapshot().active.cpu,1);assert.equal(scheduler.snapshot().queued,0);assert.equal(posted,0);assert.equal(budget.total(),0);}finally{peer.release();pool.clear();}
++});
++
++for(const kind of ['null','messageerror','invalid-envelope'])test(kind+' retires only the failed endpoint and retries its useful strip',async()=>{
++ const budget=new Budget(1000),prepared=new Map(),consumed=new Map();let failed=false;
++ const pool=poolFor(budget,{workerFactory:()=>({dead:false,terminate(){this.dead=true;},postMessage(job){setImmediate(()=>{if(this.dead)return;if(job.index===2&&!failed){failed=true;if(kind==='messageerror')this.onmessageerror({});else this.onmessage({data:kind==='null'?null:{error:null}});}else this.onmessage({data:{result:job}});});}})});
++ try{await pool.run({...options((value,index)=>{assert.equal(value.index,index);consumed.set(index,(consumed.get(index)??0)+1);}),prepare:async index=>{prepared.set(index,(prepared.get(index)??0)+1);return {index};}});
++  assert.equal(pool.metrics().stripRetries,1);assert.equal(pool.metrics().workers,4);assert.equal(pool.metrics().completedStripJobs,12);
++  for(let index=0;index<12;index++){assert.equal(consumed.get(index),1);assert.equal(prepared.get(index),index===2?2:1);}
++ }finally{pool.clear();}assert.equal(budget.total(),0);assert.equal(getExecutionScheduler(budget).snapshot().active.cpu,0);
++});
++
++test('five unreadable replies settle with the original transport diagnostic and no orphaned admission',async()=>{
++ const budget=new Budget(1000);let calls=0;
++ const pool=poolFor(budget,{maxWorkers:1,workerFactory:()=>({terminate(){},postMessage(){calls++;queueMicrotask(()=>this.onmessage({data:null}));}})});
++ await assert.rejects(pool.run({...options(),count:1}),error=>error.code==='WORKER_MESSAGE_FAILED'&&error.details.transport.reason==='null-data'&&error.details.recovery.consecutiveFailures===5&&error.details.transformStrip.index===0);
++ assert.equal(calls,5);assert.equal(pool.metrics().stripRetries,4);assert.equal(budget.total(),0);assert.equal(budget.recovering,false);assert.equal(getExecutionScheduler(budget).snapshot().active.cpu,0);
++});
++
++test('independent stages reuse all four workers without retaining a CPU grant between strips',async()=>{
++ const budget=new Budget(1000),pool=poolFor(budget);let peak=0,computing=0;
++ pool.factory=()=>({terminate(){},postMessage(job){peak=Math.max(peak,++computing);setImmediate(()=>{computing--;this.onmessage({data:{result:job}});});}});
++ try{for(const key of ['rows','columns','reconstruction'])await pool.run({...options(()=>assert.equal(getExecutionScheduler(budget).snapshot().labels['transform-strip'].activeCpu,computing)),key});
++  assert.equal(pool.metrics().workerStarts,4);assert.equal(pool.metrics().workerReuses,8);assert.equal(pool.metrics().completedStripJobs,36);assert.equal(peak,4);assert.equal(budget.total(),40);
++ }finally{pool.clear();}assert.equal(budget.total(),0);assert.equal(budget.reclaimers.size,0);
++});
++
++test('idle slots remain charged, retire under pressure, and report actual known heap retirement',async()=>{
++ const budget=new Budget(100),pool=poolFor(budget,{workerFactory:()=>({terminate(){},postMessage(job){setImmediate(()=>this.onmessage({data:{result:{...job,heapBytes:8}}}));}})});
++ try{await pool.run(options());assert.equal(budget.total(),40);assert.equal(budget.resourceSnapshot().domains.wasm.materializedBytes,32);
++  const peer=budget.reserve(80);assert.equal(budget.total(),100);assert.equal(pool.metrics().residentWorkers,2);assert.equal(budget.backingReleased.get('wasm'),16);peer();
++  await pool.run(options());assert.equal(pool.metrics().residentWorkers,4);assert.equal(pool.metrics().workerStarts,6);
++ }finally{pool.clear();}assert.equal(budget.total(),0);
++});
++
++test('busy siblings cannot be reclaimed by an unrelated reservation',async()=>{
++ const budget=new Budget(60),workers=[],pool=poolFor(budget,{workerFactory:()=>{const worker={dead:false,terminate(){this.dead=true;},postMessage(job){this.job=job;}};workers.push(worker);return worker;}});
++ let prepared;const allReady=new Promise(resolve=>{prepared=resolve;});const pending=pool.run({...options(),count:4,prepare:async index=>{if(index===3)queueMicrotask(prepared);return {index};}});
++ await allReady;await tick();assert.throws(()=>budget.reserve(30),{code:'MEMORY_LIMIT'});assert.ok(workers.every(worker=>!worker.dead));
++ for(const worker of workers)worker.onmessage({data:{result:worker.job}});await pending;pool.clear();assert.equal(budget.total(),0);
++});
++
++test('larger strips grow only the existing reservation and observed heap remains charged',async()=>{
++ const budget=new Budget(1000),pool=poolFor(budget,{maxWorkers:1,workerPixelBytes:2,workerFactory:()=>({terminate(){},postMessage(job){queueMicrotask(()=>this.onmessage({data:{result:{...job,heapBytes:job.heap}}}));}})});
++ const run=(pixels,heap)=>pool.run({...options(),count:1,pixels,prepare:async()=>({heap})});
++ try{await run(2,10);assert.equal(budget.total(),10);await run(10,30);assert.equal(budget.total(),30);await run(1,30);assert.equal(budget.total(),30);assert.equal(pool.metrics().workerStarts,1);assert.equal(budget.resourceSnapshot().domains.wasm.materializedBytes,30);}finally{pool.clear();}assert.equal(budget.total(),0);
++});
++
++test('parking returns transient workspace and incremental projection preserves a later parallel stage',async()=>{
++ const budget=new Budget(240),pool=poolFor(budget,{workerPixelBytes:40});let residentDuringCompute;
++ try{await pool.run({...options(),consume:()=>{residentDuringCompute=Math.max(residentDuringCompute??0,budget.total());}});assert.equal(residentDuringCompute,200);assert.equal(budget.total(),40);
++  assert.equal(pool.memoryForConcurrency(4,50,0),160);await pool.run({...options(),key:'second-stage'});assert.equal(pool.plans.at(-1).count,4);assert.equal(pool.metrics().workerStarts,4);assert.equal(budget.total(),40);
++ }finally{pool.clear();}assert.equal(budget.total(),0);
++});
++
++test('allocation recovery re-reads detached inputs and never repeats already published strips',async()=>{
++ const budget=new Budget(1000),attempts=new Map(),prepared=new Map(),consumed=new Map(),outputs=[],failedIndices=new Set([1,4,9]);let peak=0,inFlight=0;
++ const pool=poolFor(budget,{workerFactory:()=>({dead:false,terminate(){this.dead=true;},postMessage(job,transfer){const input=structuredClone(job,{transfer});assert.equal(job.bytes.byteLength,0);peak=Math.max(peak,++inFlight);setImmediate(()=>{inFlight--;if(this.dead)return;const attempt=(attempts.get(input.index)??0)+1;attempts.set(input.index,attempt);this.onmessage({data:failedIndices.has(input.index)&&attempt<=2?{error:{code:'MEMORY_ALLOCATION',message:'Array buffer allocation failed',details:{requestedBytes:1,allocationKind:'array-buffer'}}}:{result:{value:input.bytes[0]}}});});}})});
++ try{await pool.run({...options((value,index)=>{outputs[index]=value.value;consumed.set(index,(consumed.get(index)??0)+1);}),prepare:async index=>{prepared.set(index,(prepared.get(index)??0)+1);return {index,bytes:new Uint8Array([index*3])};}});
++  assert.deepEqual(outputs,Array.from({length:12},(_,index)=>index*3));assert.equal(peak,4);assert.equal(pool.metrics().stripRetries,6);
++  for(let index=0;index<12;index++){assert.equal(consumed.get(index),1);assert.equal(prepared.get(index),failedIndices.has(index)?3:1);}
++ }finally{pool.clear();}assert.equal(budget.total(),0);assert.equal(budget.recovering,false);
++});
++
++test('source preparation recovery keeps the healthy worker',async()=>{
++ const budget=new Budget(1000),pool=poolFor(budget,{maxWorkers:1});let prepared=0;
++ try{await pool.run({...options(),count:1,prepare:async()=>{if(++prepared<3)throw new RangeError('Array buffer allocation failed');return {};}});assert.equal(prepared,3);assert.equal(pool.metrics().workerStarts,1);assert.equal(pool.metrics().stripRetries,2);}finally{pool.clear();}assert.equal(budget.total(),0);
++});
++
++test('publication without an idempotence contract is attempted once',async()=>{
++ const budget=new Budget(1000),pool=poolFor(budget);let published=0;
++ await assert.rejects(pool.run({...options(()=>{published++;throw new RangeError('Array buffer allocation failed');}),count:1}),error=>error.code==='MEMORY_ALLOCATION'&&error.details.transformStrip.stage==='consume');
++ assert.equal(published,1);assert.equal(pool.metrics().stripRetries,0);assert.equal(budget.total(),0);
++});
++
++test('idempotent publication keeps its exact result instead of re-reading or recomputing',async()=>{
++ const budget=new Budget(1000),pool=poolFor(budget,{maxWorkers:1});let prepared=0,published=0,first;
++ try{await pool.run({...options(result=>{if(!first)first=result;assert.equal(result,first);if(++published<3)throw new RangeError('Array buffer allocation failed');}),count:1,consumeIdempotent:true,prepare:async index=>{prepared++;return {index};}});assert.equal(prepared,1);assert.equal(published,3);assert.equal(pool.metrics().stripRetries,2);}finally{pool.clear();}assert.equal(budget.total(),0);
++});
++
++test('opaque worker failures cannot permanently lower the parallelism of the next stage',async()=>{
++ const budget=new Budget(1000);let fail=true;
++ const pool=poolFor(budget,{workerFactory:()=>({dead:false,terminate(){this.dead=true;},postMessage(job){setImmediate(()=>{if(this.dead)return;fail?this.onerror({message:'A script failed'}):this.onmessage({data:{result:job}});});}})});
++ await assert.rejects(pool.run(options()),{code:'WORKER_FAILED'});fail=false;
++ try{await pool.run(options());assert.equal(pool.plans.at(-1).ceiling,4);assert.equal(pool.metrics().residentWorkers,4);}finally{pool.clear();}assert.equal(budget.total(),0);
++});
++
++test('clear cancels queued admissions and no late job reaches a terminated worker',async()=>{
++ const budget=new Budget(1000),scheduler=getExecutionScheduler(budget,{maxWorkers:1}),peer=await scheduler.acquire({cpu:1});let posted=0;
++ const pool=poolFor(budget,{maxWorkers:1,workerFactory:()=>({terminate(){},postMessage(){posted++;}})}),pending=pool.run({...options(),count:1});
++ await tick();pool.clear();await assert.rejects(pending,{code:'CANCELLED'});peer.release();await tick();assert.equal(posted,0);assert.equal(budget.total(),0);assert.equal(scheduler.snapshot().queued,0);
++});
++
++test('resuming explicit committed indices performs only missing useful work',async()=>{
++ const budget=new Budget(1000),pool=poolFor(budget),committed=new Set([0,2]),seen=[];
++ try{await pool.run({...options((result,index)=>seen.push(index)),count:4,isCommitted:index=>committed.has(index),onCommitted:index=>committed.add(index)});assert.deepEqual(seen.sort(),[1,3]);assert.deepEqual([...committed].sort(),[0,1,2,3]);assert.equal(pool.metrics().completedStripJobs,2);}finally{pool.clear();}assert.equal(budget.total(),0);
++});
++
++test('the common worker endpoint preserves async causes and settles receiver message errors',async()=>{
++ const replies=[],target={postMessage:reply=>replies.push(reply)},cause=new RangeError('Array buffer allocation failed');
++ const protocol=installTransformStripWorker(async()=>{await tick();throw cause;},{target,label:'fixture'});
++ target.onmessage({data:{op:'run'}});await tick();await tick();assert.equal(replies.length,1);assert.equal(replies[0].error.code,'MEMORY_ALLOCATION');assert.equal(replies[0].error.cause.message,cause.message);assert.equal(protocol.failed,true);
++ const otherReplies=[],other={postMessage:reply=>otherReplies.push(reply)};installTransformStripWorker(()=>assert.fail('Unreadable input cannot compute'),{target:other});other.onmessageerror({});assert.equal(otherReplies.length,1);assert.equal(otherReplies[0].error.code,'WORKER_MESSAGE_FAILED');
++});
++
++test('the common worker endpoint deduplicates aliased result buffers',async()=>{
++ const bytes=new Uint8Array([1,2,3]),calls=[],target={postMessage:(reply,transfer)=>calls.push({reply,transfer})};installTransformStripWorker(()=>({a:bytes,b:bytes.subarray(1)}),{target});target.onmessage({data:{op:'run'}});await tick();assert.equal(calls.length,1);assert.deepEqual(calls[0].transfer,[bytes.buffer]);
++});
++
++test('a simultaneous import failure does not replace the initial preparation cause',async()=>{
++ const budget=new Budget(1000);let prepared=0;
++ const pool=poolFor(budget,{maxWorkers:1,workerFactory:()=>{const worker={terminate(){},postMessage(job){queueMicrotask(()=>this.onmessage({data:{result:job}}));}};if(prepared===0)queueMicrotask(()=>worker.onerror({message:'Independent module load failure'}));return worker;}});
++ const events=[];
++ try{await pool.run({...options(),count:1,onRecovery:event=>events.push(event),prepare:async()=>{if(++prepared===1){await tick();throw new RangeError('Array buffer allocation failed');}return {};}});assert.equal(events[0].error.code,'MEMORY_ALLOCATION');assert.equal(events[0].error.cause.message,'Array buffer allocation failed');assert.equal(events[0].error.details.workerFailure.message,'Independent module load failure');assert.equal(prepared,2);}finally{pool.clear();}assert.equal(budget.total(),0);
++});
+diff --git a/tests/wavelet-strip-pool.test.mjs b/tests/wavelet-strip-pool.test.mjs
+index ec8edd104c01d0d8b49649d059b5f9130b04fa10..18aa4fa23c264c34ea79a2406b1f7aa4add7a778 100644
+--- a/tests/wavelet-strip-pool.test.mjs
++++ b/tests/wavelet-strip-pool.test.mjs
+@@ -29,9 +29,9 @@ test('a failed worker ceiling reopens at useful strip completions during the nex
+  t.mock.method(performance,'now',()=>clock);
+  const pool=new WaveletStripPool(budget,{maxWorkers:4,workerHeapBytes:10,workerPixelBytes:0,workerFactory:()=>{created++;let closed=false;return {terminate(){closed=true;},postMessage(job){setImmediate(()=>{if(closed)return;clock++;this.onmessage({data:fail?{error:{code:'WORKER_RESOURCE',message:'resource failure'}}:{result:job}});});}};}});
+  const run=async()=>{const seen=[];await pool.run({count:12,pixels:1,key:'shape',prepare:async i=>({i}),consume:async value=>seen.push(value.i),local:async value=>value});assert.deepEqual(seen.sort((a,b)=>a-b),Array.from({length:12},(_,i)=>i));};
+- await assert.rejects(run(),{code:'WORKER_RESOURCE'});const before=created;fail=false;await run();assert.equal(created-before,4);assert.equal(pool.plans.at(-1).ceiling,2);assert.equal(budget.total(),0);
++ await assert.rejects(run(),{code:'WORKER_RESOURCE'});const before=created;fail=false;await run();assert.equal(created-before,4);assert.equal(pool.plans.at(-1).ceiling,2);assert.equal(budget.total(),40);
+  // Recovery remains based on completed useful work, with no synthetic probe.
+- await run();await run();const recovery=created;await run();assert.equal(created-recovery,4);assert.equal(budget.total(),0);
++ await run();await run();const recovery=created;await run();assert.equal(created-recovery,0);assert.equal(budget.total(),40);pool.clear();assert.equal(budget.total(),0);
+ });
+ 
+ 
+@@ -39,7 +39,7 @@ test('unseparated strip wall time cannot establish compute contention',async t=>
+  const budget=new Budget(1000);let clock=0,stripCost=1,created=0;
+  t.mock.method(performance,'now',()=>clock);
+  const pool=new WaveletStripPool(budget,{maxWorkers:4,workerHeapBytes:10,workerPixelBytes:0,workerFactory:()=>{created++;return {terminate(){},postMessage(job){setImmediate(()=>{clock+=stripCost;this.onmessage({data:{result:job}});});}};}});
+- const run=async()=>{const seen=[];await pool.run({count:12,pixels:1,key:'slow',prepare:async i=>({i}),consume:async value=>seen.push(value.i),local:()=>assert.fail('Workers fit')});assert.deepEqual(seen.sort((a,b)=>a-b),Array.from({length:12},(_,i)=>i));assert.equal(budget.total(),0);};
+- await run();assert.equal(created,4);stripCost=2;await run();assert.equal(created,8);
+- const before=created;await run();assert.equal(created-before,4);assert.equal(pool.plans.at(-1).ceiling,4);assert.equal(pool.metrics().completedStripJobs,36);
++ const run=async()=>{const seen=[];await pool.run({count:12,pixels:1,key:'slow',prepare:async i=>({i}),consume:async value=>seen.push(value.i),local:()=>assert.fail('Workers fit')});assert.deepEqual(seen.sort((a,b)=>a-b),Array.from({length:12},(_,i)=>i));assert.equal(budget.total(),40);};
++ await run();assert.equal(created,4);stripCost=2;await run();assert.equal(created,4);
++ const before=created;await run();assert.equal(created-before,0);assert.equal(pool.plans.at(-1).ceiling,4);assert.equal(pool.metrics().completedStripJobs,36);pool.clear();assert.equal(budget.total(),0);
+ });
+diff --git a/tests/worker-initialization.test.mjs b/tests/worker-initialization.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..b3586daeb118ae56878f09ff3fafeb13564cff23
+--- /dev/null
++++ b/tests/worker-initialization.test.mjs
+@@ -0,0 +1,82 @@
++import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';
++import {createWorkerEngine} from '../src/worker-client.js';
++const turn=()=>new Promise(resolve=>setImmediate(resolve));
++const downloadFailure=message=>({code:'WORKER_LOAD_FAILED',message,details:{phase:'module-load',moduleURL:'https://example.invalid/index.js',retryable:true},cause:{name:'TypeError',message,stack:'original module download stack'}});
++function fixture(t,{init,run,onerror,constructorFailure}={}){
++ const old=Object.getOwnPropertyDescriptor(globalThis,'Worker'),workers=[];
++ class Worker{
++  constructor(url){if(constructorFailure)throw constructorFailure;this.url=String(url);this.commands=[];workers.push(this);this.index=workers.length;}
++  terminate(){this.dead=true;}
++  postMessage(data){this.commands.push(data);queueMicrotask(()=>{
++   if(this.dead)return;
++   if(data.method==='init'&&onerror){this.onerror?.(onerror);return;}
++   const error=data.method==='init'?init?.(this.index):data.method==='run'?run?.(this.index):undefined;
++   this.onmessage?.({data:error?{sequence:data.sequence,error}:data.method==='loadBlob'?{sequence:data.sequence,result:{provenance:{layout:'rgb8'}}}:data.method==='run'?{sequence:data.sequence,result:{done:true}}:{sequence:data.sequence,result:{ready:true}}});
++  });}
++ }
++ Object.defineProperty(globalThis,'Worker',{configurable:true,value:Worker});t.after(()=>{if(old)Object.defineProperty(globalThis,'Worker',old);else delete globalThis.Worker;});
++ return {workers,engine:createWorkerEngine({resourceHints:{hardwareConcurrency:2,deviceMemoryGiB:8}})};
++}
++test('an explicit first module download failure recreates only initialization and shares readiness with concurrent reads',{timeout:2000},async t=>{
++ const first=downloadFailure('Failed to fetch dynamically imported module: first'),{engine,workers}=fixture(t,{init:i=>i===1?first:undefined});
++ try{
++  const loading=engine.loadBlob({id:'kept-source',blob:new Blob(['source'])}),reads=[engine.capabilities(),engine.capabilities()];await loading;const capabilities=await Promise.all(reads);
++  assert.equal(workers.length,2);assert.equal(workers[0].dead,true);assert.deepEqual(workers[0].commands.map(x=>x.method),['init']);
++  assert.equal(workers[1].commands.filter(x=>x.method==='init').length,1);assert.equal(workers[1].commands.filter(x=>x.method==='loadBlob').length,1);
++  assert.ok(workers[1].commands.find(x=>x.method==='loadBlob').args[0].temporarySessionId.startsWith('job-'));assert.equal(workers.flatMap(x=>x.commands).some(x=>x.method==='cancel-and-close'),false,'an unsent storage registration must not trigger cooperative shutdown');
++  for(const c of capabilities){assert.equal(c.workerInitialization.attempts,2);assert.equal(c.workerInitialization.recovered,true);assert.equal(c.workerInitialization.firstError.cause.message,first.message);}
++  assert.deepEqual(await engine.run({operation:'detail.gradient'}),{done:true});assert.equal(workers.flatMap(x=>x.commands).filter(x=>x.method==='run').length,1);
++ }finally{await engine.dispose();}
++});
++test('two initialization download refusals preserve both causes and do not poison explicit later recovery',{timeout:2000},async t=>{
++ const failures=[downloadFailure('Failed to fetch dynamically imported module: first'),downloadFailure('Failed to fetch dynamically imported module: second')],{engine,workers}=fixture(t,{init:i=>failures[i-1]});
++ try{
++  await assert.rejects(engine.loadBlob({id:'unsent-image'}),error=>error.code==='WORKER_LOAD_FAILED'&&error.imagesCleared===false&&error.cause.cause.message===failures[1].message&&error.details.workerInitialization.firstError.cause.message===failures[0].message&&error.details.workerInitialization.attempts===2);
++  assert.equal(workers.length,2);assert.equal(workers.every(x=>x.dead),true);assert.equal(workers.every(x=>x.commands.length===1&&x.commands[0].method==='init'),true);
++  assert.deepEqual(await engine.capabilities(),{ready:true});assert.equal(workers.length,3);
++ }finally{await engine.dispose();}
++});
++for(const [label,failure]of [
++ ['syntax',{code:'WORKER_LOAD_FAILED',message:'Unexpected token',details:{phase:'module-load',retryable:false},cause:{name:'SyntaxError',message:'Unexpected token'}}],
++ ['opaque',{code:'WORKER_FAILED',message:'Worker failed.'}],
++ ['memory',{code:'MEMORY_ALLOCATION',message:'Unable to allocate memory',details:{phase:'engine-create',allocationKind:'wasm'}}],
++ ['engine logic',{code:'WORKER_INITIALIZATION_FAILED',message:'Invalid engine configuration',details:{phase:'engine-create',retryable:true}}],
++ ['CSP',{code:'WORKER_LOAD_FAILED',message:'Content security policy blocked import',details:{phase:'module-load',retryable:false}}],
++])test('first '+label+' failure is reported without an automatic replay',{timeout:2000},async t=>{
++ const {engine,workers}=fixture(t,{init:i=>i===1?failure:undefined});try{await assert.rejects(engine.run({operation:'detail.gradient'}),e=>e.code===failure.code&&e.imagesCleared===false);assert.equal(workers.length,1);assert.equal(workers[0].dead,true);assert.deepEqual(workers[0].commands.map(x=>x.method),['init']);assert.deepEqual(await engine.run({operation:'detail.gradient'}),{done:true});assert.equal(workers.length,2);assert.equal(workers.flatMap(x=>x.commands).filter(x=>x.method==='run').length,1);}finally{await engine.dispose();}
++});
++test('a useful calculation error never recreates a worker or repeats its run',{timeout:2000},async t=>{
++ const failure=downloadFailure('Failed to fetch dynamically imported module during useful run'),{engine,workers}=fixture(t,{run:()=>failure});try{await assert.rejects(engine.run({operation:'detail.gradient'}),e=>e.code===failure.code);assert.equal(workers.length,1);assert.equal(workers[0].dead,undefined);assert.deepEqual(workers[0].commands.map(x=>x.method),['init','run']);assert.deepEqual(await engine.capabilities(),{ready:true});}finally{await engine.dispose();}
++});
++test('the first-init retry is not offered again after any successful initialization',{timeout:2000},async t=>{
++ const failure=downloadFailure('Failed to fetch dynamically imported module after prior success'),{engine,workers}=fixture(t,{init:i=>i===2?failure:undefined});try{await engine.capabilities();workers[0].onerror({type:'error',message:'Lost existing worker'});await assert.rejects(engine.capabilities(),{code:'WORKER_LOAD_FAILED'});assert.equal(workers.length,2);assert.equal(workers.every(x=>x.dead),true);}finally{await engine.dispose();}
++});
++test('an early ErrorEvent preserves its source and cause without clearing an unsent image',{timeout:2000},async t=>{
++ const cause=Error('Module import failed'),{engine,workers}=fixture(t,{onerror:{type:'error',message:'Startup event detail',filename:'https://example.invalid/dependency.js',lineno:19,colno:4,error:cause}});
++ try{await assert.rejects(engine.loadBlob({id:'unsent-image'}),error=>error.code==='WORKER_FAILED'&&error.imagesCleared===false&&error.cause===cause&&error.details.phase==='worker-startup'&&error.details.workerEvent.filename==='https://example.invalid/dependency.js'&&error.details.workerEvent.line===19);assert.equal(workers.length,1);assert.deepEqual(workers[0].commands.map(x=>x.method),['init']);}finally{await engine.dispose();}
++});
++test('a worker-constructor failure retains its cause and never retries it',{timeout:2000},async t=>{
++ const cause=Error('Constructor rejected'),{engine,workers}=fixture(t,{constructorFailure:cause});try{await assert.rejects(engine.capabilities(),e=>e.code==='WORKER_FAILED'&&e.cause===cause&&e.details.phase==='worker-create');assert.equal(workers.length,0);}finally{await engine.dispose();}
++});
++
++const source=await readFile(new URL('../src/worker.js',import.meta.url),'utf8'),asModule=code=>'data:text/javascript,'+encodeURIComponent(code);
++async function endpoint(indexSource){
++ const old=globalThis.self,messages=[],target={postMessage:data=>messages.push(data)},indexURL=asModule(indexSource);globalThis.self=target;
++ const rewritten=source.replaceAll("'./errors.js'",JSON.stringify(new URL('../src/errors.js',import.meta.url).href)).replaceAll("'./worker-message-protocol.js'",JSON.stringify(new URL('../src/worker-message-protocol.js',import.meta.url).href)).replaceAll("'./index.js'",JSON.stringify(indexURL));
++ await import(asModule(rewritten+'\n// case '+crypto.randomUUID()));return {target,messages,restore(){globalThis.self=old;}};
++}
++for(const [name,error,retryable]of [
++ ['download',"new TypeError('Failed to fetch dynamically imported module: https://example.invalid/part.js')",true],
++ ['opaque',"new TypeError('Load failed')",false],
++ ['opaque WebKit',"new TypeError('Importing a module script failed.')",false],
++ ['syntax',"new SyntaxError('Unexpected token')",false],
++ ['CSP',"new TypeError('Failed to fetch dynamically imported module: CSP blocked')",false],
++])test('the installed worker protocol reports '+name+' import failure with module phase and exact cause',{timeout:2000},async()=>{
++ const f=await endpoint('throw '+error+';');try{f.target.onmessage({data:{sequence:1,method:'init',args:[],options:{}}});await turn();assert.equal(f.messages.length,1);const failure=f.messages[0].error;assert.equal(failure.code,'WORKER_LOAD_FAILED');assert.equal(failure.details.phase,'module-load');assert.equal(failure.details.retryable,retryable);assert.ok(failure.details.moduleURL.startsWith('data:text/javascript,'));assert.ok(failure.cause.stack);assert.equal(failure.cause.name,name==='syntax'?'SyntaxError':'TypeError');}finally{f.restore();}
++});
++test('engine construction errors remain distinct from module import refusals',{timeout:2000},async()=>{
++ const f=await endpoint(`export function createEngine(){throw Error('Invalid engine configuration');}`);try{f.target.onmessage({data:{sequence:1,method:'init',args:[],options:{}}});await turn();const error=f.messages[0].error;assert.equal(error.code,'WORKER_INITIALIZATION_FAILED');assert.equal(error.details.phase,'engine-create');assert.equal(error.cause.message,'Invalid engine configuration');assert.equal(error.details.retryable,undefined);}finally{f.restore();}
++});
++test('engine construction allocation failures retain their domain without becoming a download retry',{timeout:2000},async()=>{
++ const f=await endpoint(`export function createEngine(){throw new RangeError('Array buffer allocation failed');}`);try{f.target.onmessage({data:{sequence:1,method:'init',args:[],options:{}}});await turn();const error=f.messages[0].error;assert.equal(error.code,'MEMORY_ALLOCATION');assert.equal(error.details.phase,'engine-create');assert.equal(error.cause.name,'RangeError');assert.equal(error.details.retryable,undefined);}finally{f.restore();}
++});

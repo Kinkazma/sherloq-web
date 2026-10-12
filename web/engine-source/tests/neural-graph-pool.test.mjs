@@ -54,6 +54,25 @@ test('Immutable input reuse avoids retransmission and keeps its residency charge
 });
 
 const turn=()=>new Promise(resolve=>setImmediate(resolve));
+for(const event of ['error','messageerror'])test(`a neural ${event} during CPU admission settles without waiting for unrelated work`,{timeout:2000},async()=>{
+ const budget=new Budget(256*MiB),scheduler=getExecutionScheduler(budget,{maxWorkers:2}),held=await scheduler.acquire({cpu:2});let worker;
+ const cause=new TypeError('Module fetch failed');
+ const pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{
+  worker=new Worker(()=>{});setImmediate(()=>event==='error'?worker.onerror({type:'error',message:'Import failed',filename:'https://example.invalid/neural-graph-worker.js',lineno:3,error:cause}):worker.onmessageerror({type:'messageerror'}));return worker;
+ }});
+ try{
+  await assert.rejects(pool.run('a',input,options),error=>event==='error'?error.code==='WORKER_FAILED'&&error.cause===cause&&error.details.workerEvent.line===3:error.code==='WORKER_MESSAGE_FAILED');
+  assert.equal(worker.terminated,true);assert.equal(scheduler.snapshot().queued,0);assert.equal(scheduler.snapshot().active.cpu,2);assert.equal(budget.total(),0);
+ }finally{held.release();pool.dispose();}
+});
+test('an opaque GPU worker load failure does not disable GPU or replay the graph on CPU',async()=>{
+ const descriptor=Object.getOwnPropertyDescriptor(globalThis.navigator,'gpu');Object.defineProperty(globalThis.navigator,'gpu',{value:{},configurable:true});
+ const budget=new Budget(256*MiB);let starts=0;
+ const pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes:{...runtimes,webgpu:runtimes.wasm},workerFactory:()=>{starts++;return new Worker(worker=>worker.onerror({type:'error',message:''}));}});
+ try{await assert.rejects(pool.run('a',input,{...options,backend:'auto'}),{code:'WORKER_FAILED'});assert.equal(starts,1);assert.equal(pool.cpuOnly,false);}
+ finally{pool.dispose();if(descriptor)Object.defineProperty(globalThis.navigator,'gpu',descriptor);else delete globalThis.navigator.gpu;}
+ assert.equal(budget.total(),0);
+});
 test('Separate neural pools initialize together but share a single admitted GPU execution',async()=>{
  const descriptor=Object.getOwnPropertyDescriptor(globalThis.navigator,'gpu');Object.defineProperty(globalThis.navigator,'gpu',{value:{},configurable:true});
  const budget=new Budget(512*MiB),workers=[],pools=Array.from({length:2},()=>new NeuralGraphPool(budget,{maxWorkers:4},{assets:{a:asset},runtimes:{...runtimes,webgpu:runtimes.wasm},workerFactory:()=>{const worker=new Worker(()=>{});workers.push(worker);return worker;}}));
@@ -78,13 +97,109 @@ test('Cancelling after initialization removes the pending execution without touc
 
 test('Idle reclamation drops only enough inexpensive model residency for the requested allocation',async()=>{
  const budget=new Budget(512*MiB),pool=new NeuralGraphPool(budget,{maxWorkers:3},{assets:{a:asset,b:asset,c:asset},runtimes,workerFactory:()=>new Worker(w=>w.result())});
- for(const name of ['a','b','c']){const result=await pool.run(name,input,options);result.release();}
+ const warmed=await Promise.all(['a','b','c'].map(name=>pool.run(name,input,options)));for(const result of warmed)result.release();
  pool.slots.find(slot=>slot.name==='a').initializationMs=1000;
  pool.slots.find(slot=>slot.name==='b').initializationMs=1;
  pool.slots.find(slot=>slot.name==='c').initializationMs=100;
  const release=budget.reserve(budget.limit-budget.total()+1);
  assert.deepEqual(pool.slots.map(slot=>slot.name),['a','c']);assert.ok(budget.total()<=budget.limit);
  release();pool.dispose();assert.equal(budget.total(),0);
+});
+
+test('hundreds of distinct pipeline graphs reuse a live runtime without accumulating contexts',async()=>{
+ const assets=Object.fromEntries(Array.from({length:200},(_,i)=>['graph'+i,{...asset,sha256:i.toString(16).padStart(64,'0')}])),budget=new Budget(8*1024**3),workers=[];
+ const pool=new NeuralGraphPool(budget,{maxWorkers:8},{assets,runtimes,workerFactory:()=>{const w=new Worker(w=>w.result());workers.push(w);return w;}});
+ try{
+  let first;
+  for(const name of Object.keys(assets)){const output=await pool.run(name,input,options);assert.equal(pool.slots.length,1);assert.equal(output.metrics.pool.peakWorkers,1);assert.equal(output.metrics.pool.workerStarts,1);if(!first)first=output;else output.release();}
+  assert.equal(workers.length,1);assert.equal(pool.snapshot().runtimeReuses,199);assert.deepEqual([...first.result.y.data],[2]);first.release();
+ }finally{pool.dispose();}assert.equal(budget.total(),0);
+});
+
+test('runtime reuse retains independent parallel jobs and preserves old output leases',async()=>{
+ const budget=new Budget(512*MiB),workers=[],pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset,b:{...asset,sha256:'b'.repeat(64)},c:{...asset,sha256:'c'.repeat(64)}},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}});
+ try{
+  const a=pool.run('a',input,options),b=pool.run('b',input,options);await turn();assert.equal(pool.snapshot().busyWorkers,2);assert.equal(workers.length,2);
+  for(const w of workers)w.result();const outputs=await Promise.all([a,b]);
+  const c=pool.run('c',input,options);await turn();assert.equal(workers.length,2);workers.find(w=>w.job.asset.sha256==='c'.repeat(64)).result();const next=await c;
+  assert.deepEqual(outputs.map(o=>[...o.result.y.data]),[[2],[2]]);for(const o of [...outputs,next])o.release();
+ }finally{pool.dispose();}assert.equal(budget.total(),0);
+});
+
+test('a larger graph replaces only an insufficient idle runtime at the worker bound',async()=>{
+ const budget=new Budget(1024*MiB),workers=[],pool=new NeuralGraphPool(budget,{maxWorkers:1},{assets:{a:asset,b:asset},runtimes,workerFactory:()=>{const w=new Worker(w=>w.result());workers.push(w);return w;}});
+ try{const a=await pool.run('a',input,options);a.release();const b=await pool.run('b',input,{...options,workspaceBytes:256*MiB});assert.equal(workers.length,2);assert.equal(workers[0].terminated,true);assert.equal(pool.snapshot().peakWorkers,1);b.release();}
+ finally{pool.dispose();}assert.equal(budget.total(),0);
+});
+
+test('initialization allocation refusal retries only after retiring actual idle contexts',async()=>{
+ const budget=new Budget(1024*MiB),workers=[];let refusal=true;
+ const pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset,b:asset},runtimes,workerFactory:()=>{const w=new Worker((w,job)=>{if(job.memoryMaximumBytes>128*MiB&&refusal){refusal=false;w.onmessage({data:{error:{code:'MEMORY_ALLOCATION',message:'WebAssembly.Memory(): could not allocate memory',details:{allocationKind:'wasm',executionPhase:'initialization',nativeHeapExhausted:false}}}});}else w.result();});workers.push(w);return w;}});
+ try{const a=await pool.run('a',input,options);a.release();const b=await pool.run('b',input,{...options,workspaceBytes:128*MiB});assert.equal(b.metrics.retry.retiredWorkers,1);assert.equal(workers.length,3);assert.equal(workers[0].terminated,true);assert.equal(workers[1].terminated,true);assert.deepEqual([...input.x.data],[1]);b.release();}
+ finally{pool.dispose();}assert.equal(budget.total(),0);
+});
+
+test('resident context admission is shared across pools and another pool completion wakes its waiter',async()=>{
+ const budget=new Budget(1024*MiB),workers=[],pools=Array.from({length:3},()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
+ try{
+  const pending=pools.map(p=>p.run('a',input,options));await turn();assert.equal(workers.length,2);assert.equal(pools[0].snapshot().sharedBusyWorkers,2);
+  workers[0].result();const first=await pending[0];first.release();await turn();assert.equal(workers.length,3);assert.equal(workers[0].terminated,true);assert.equal(pools[2].snapshot().sharedPeakWorkers,2);
+  workers[1].result();workers[2].result();for(const result of await Promise.all(pending.slice(1)))result.release();
+ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);
+});
+
+test('memory admission waits for useful work in another pool below the CPU context ceiling',{timeout:2000},async()=>{
+ const budget=new Budget(150*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
+ try{
+  const first=pools[0].run('a',input,options);await turn();const second=pools[1].run('a',input,options);await turn();assert.equal(workers.length,1);assert.equal(pools[1].waiters.size,1);
+  workers[0].result();const a=await first;a.release();await turn();assert.equal(workers.length,2);assert.equal(workers[0].terminated,true);workers[1].result();const b=await second;b.release();
+ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);
+});
+
+test('memory admission rejects a closed dependency cycle across neural pools',{timeout:2000},async()=>{
+ const budget=new Budget(150*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
+ try{
+  const first=pools[0].run('a',input,options);await turn();const waiting=budget.beginOperation({owner:'test',id:'waiting-parent'}),running=pools[0].slots[0].operation;
+  running.setState('queued',{resource:'child',dependencies:[waiting]});waiting.setState('queued',{resource:'memory',dependencies:[running]});
+  await assert.rejects(pools[1].run('a',input,{...options,resourceOperation:waiting}),e=>e.code==='RESOURCE_DEPENDENCY_CYCLE');waiting.release();
+  workers[0].result();const a=await first;a.release();
+ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);
+});
+
+test('a later dependency cycle wakes and rejects an existing shared-memory admission',{timeout:2000},async()=>{
+ const budget=new Budget(150*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
+ try{
+  const first=pools[0].run('a',input,options);await turn();const second=pools[1].run('a',input,options),rejected=assert.rejects(second,{code:'RESOURCE_DEPENDENCY_CYCLE'});await turn();assert.equal(pools[1].waiters.size,1);
+  const queued=budget.resourceSnapshot().operations.find(x=>x.state==='queued'&&x.id==='neural/a'),waiting=budget.resources.operations.get(queued.key).ticket;
+  pools[0].slots[0].operation.setState('queued',{resource:'child',dependencies:[waiting]});await rejected;assert.equal(pools[1].waiters.size,0);
+  workers[0].result();(await first).release();
+ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);assert.equal(budget.resourceListeners.size,0);
+});
+
+test('live budget growth reopens an admission without waiting for the other pool to complete',{timeout:2000},async()=>{
+ const budget=new Budget(150*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
+ try{
+  const first=pools[0].run('a',input,options);await turn();const second=pools[1].run('a',input,options);await turn();assert.equal(pools[1].waiters.size,1);
+  budget.setLimit(256*MiB);await turn();assert.equal(workers.length,2);assert.equal(workers[0].terminated,false);for(const w of workers)w.result();for(const result of await Promise.all([first,second]))result.release();
+ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceListeners.size,0);
+});
+
+test('a reused model waits for another pool to release memory needed by new inputs',{timeout:2000},async()=>{
+ const budget=new Budget(190*MiB),workers=[],pools=[0,1].map(()=>new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}));
+ try{
+  const warm=pools[0].run('a',input,options);await turn();workers[0].result();(await warm).release();const peer=pools[1].run('a',input,options);await turn();
+  const larger={x:{data:new Float32Array(8*MiB),dims:[8*MiB]}},next=pools[0].run('a',larger,options);await turn();assert.equal(workers.length,2);assert.equal(pools[0].waiters.size,1);assert.equal(pools[0].slots[0].busy,false);
+  workers[1].result();(await peer).release();await turn();assert.equal(workers.length,2);assert.equal(workers[1].terminated,true);workers[0].result();(await next).release();
+ }finally{for(const p of pools)p.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);
+});
+
+test('model switching releases a partial job reservation before waiting for shared residency',{timeout:2000},async()=>{
+ const budget=new Budget(228*MiB),workers=[],pool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset,b:{...asset,bytes:8*MiB,sha256:'b'.repeat(64)}},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}}),peerPool=new NeuralGraphPool(budget,{maxWorkers:2},{assets:{a:asset},runtimes,workerFactory:()=>{const w=new Worker(()=>{});workers.push(w);return w;}});
+ try{
+  const warm=pool.run('a',input,{...options,workspaceBytes:50*MiB});await turn();workers[0].result();(await warm).release();const peer=peerPool.run('a',input,options);await turn();const before=budget.active;
+  const next=pool.run('b',input,options);await turn();assert.equal(pool.waiters.size,1);assert.equal(budget.active,before,'failed model growth must not pin a job reservation');
+  workers[1].result();(await peer).release();await turn();assert.equal(workers.length,2);assert.equal(workers[1].terminated,true);workers[0].result();(await next).release();
+ }finally{pool.dispose();peerPool.dispose();}assert.equal(budget.total(),0);assert.equal(budget.resourceSnapshot().operations.length,0);
 });
 
 test('GPU failure releases its execution lease before the useful CPU retry',async()=>{

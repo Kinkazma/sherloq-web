@@ -18,6 +18,9 @@ import importlib.util
 _spec = importlib.util.spec_from_file_location("runtime_delivery", Path(__file__).with_name("runtime-delivery.py"))
 _delivery = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_delivery)
+_offline_spec = importlib.util.spec_from_file_location('offline_shell', Path(__file__).with_name('offline-shell.py'))
+_offline = importlib.util.module_from_spec(_offline_spec)
+_offline_spec.loader.exec_module(_offline)
 from build import locked_files, delivery_bytes
 
 CHUNK = 100_000_000
@@ -105,11 +108,11 @@ def pack(output, source_revision=None):
         slot = str(Path(runtime['destination']).relative_to('sherloq-browser/assets'))
         runtime['files'] = {name: manifest['files'][slot + '/' + name]['sha256'] for name in runtime['files']}
     put(output / 'public/web/wordpress/runtime-lock.json', encode(delivered))
-    for name in ['build.py', 'runtime-delivery.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
+    for name in ['build.py', 'runtime-delivery.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         put(output / 'public/web/wordpress' / name, source_bytes(ROOT / name))
-    for folder in ['tests', 'scripts', 'runtime-patches']:
+    for folder in ['tests', 'scripts', 'runtime-patches', 'offline-launcher']:
         for source in (ROOT / folder).rglob('*'):
-            if source.is_file() and source.suffix in {'.js', '.mjs', '.py', '.json', '.html'} and 'fixtures' not in source.parts:
+            if source.is_file() and source.suffix in {'.js', '.mjs', '.py', '.json', '.html', '.go', '.mod'} and 'fixtures' not in source.parts:
                 if tracked is None or source.relative_to(ROOT).as_posix() in tracked:
                     put(output / 'public/web/wordpress' / source.relative_to(ROOT), source_bytes(source))
     report = {'schema': 'sherloq.distribution-preparation/1', 'runtimeFiles': len(manifest['files']),
@@ -162,12 +165,15 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
                 data = data.replace(b"connect-src 'self'", b"connect-src 'self' http://127.0.0.1:* http://localhost:*")
         put(plugin / name, data)
     # Classic SW works in Firefox/WebKit too. Only module syntax is removed from
-    # these three reviewed dependency files; runtime bytes remain untouched.
+    # these reviewed dependency files; runtime bytes remain untouched.
     worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '')
-                       for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'dependency-sw.js'])
+                       for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-sw.js'])
     put(plugin / 'assets/dependency-sw.js', worker.encode())
+    offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
+    put(plugin / 'assets/offline-browser-sw.js', offline_worker.encode())
     put(plugin / ('assets/dependency-manifest-' + identity + '.json'), encode(manifest))
     put(plugin / 'assets/dependency-config.json', encode({'schema': 'sherloq.dependency-config/1', 'enabled': True, 'workerType': 'classic', 'workerVersion': version, 'manifest': identity}))
+    _offline.write_shell(plugin, manifest, identity, version)
     if private_overlay:
         for source in Path(private_overlay).rglob('*'):
             if source.is_file() and '.git' not in source.parts and source.suffix in ['.php', '.js']:
@@ -179,8 +185,8 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
         app.write_text(app.read_text().replace('</body>', '<script type="module" src="private-report.js?v=' + version + '"></script></body>'))
     names = sorted(p for p in plugin.rglob('*') if p.is_file() and not (p.name.startswith('dependency-manifest-') and p.name != 'dependency-manifest-' + identity + '.json'))
     size = sum(p.stat().st_size for p in names)
-    if size > 20_000_000:
-        raise ValueError('Private bootstrap package exceeds 20 MB')
+    if size > 25_000_000:
+        raise ValueError('Private bootstrap package exceeds 25 MB')
     archive = output / 'private' / ('sherloq-browser-' + version + ('-offline' if offline else '-github') + '.zip')
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
         for p in names:

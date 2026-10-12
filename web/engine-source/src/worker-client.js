@@ -1,7 +1,7 @@
 import {removeTerminatedTemporarySession} from './temporary-storage.js';
 import {resolveComputeProfile} from './profiles.js';
 import {readExtensionMemoryHints} from './browser-memory.js';
-import {EngineError,checkAbort,deserializeEngineError} from './errors.js';
+import {EngineError,checkAbort,deserializeEngineError,serializeEngineError} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 // One main worker, one internal codec thread. Storage jobs close owned handles
 // cooperatively before termination, with a bounded forced-stop watchdog.
@@ -14,6 +14,7 @@ export function createWorkerEngine(options={}) {
  const profile=resolveComputeProfile(options.computeProfile??'aggressive',options.resourceHints);
  options={...options,resourceHints:profile.hints};
  let worker,serial=0,disposed=false,active=false,ready,cancellationTimer,cancellationError;
+ let initialized=false,sentWork=false,initializationFlight,initializationRetryUsed=false,initializationDiagnostic;
  let memoryTimer,memoryReading=false,memoryGeneration=0;
  async function refreshMemory(){
   if(!memoryReader||memoryReading||disposed||!active||!worker)return;
@@ -24,13 +25,13 @@ export function createWorkerEngine(options={}) {
  }
  const pending=new Map(),storageOwners=new Map(),shutdownWaiters=[];let cleanupPending=Promise.resolve();
  async function cleanOwners(owners){const failures=[];for(const [id,record] of owners)for(const backend of record.backend?[record.backend]:['opfs','indexeddb'])try{await removeTerminatedTemporarySession(id,backend);}catch(e){failures.push({id,backend,code:e.code??e.name,message:e.message});}return failures;}
- function reset(error,{storageClosed=false}={}) {
+ function reset(error,{storageClosed=false,preserveUnsentOwners=false,preserveActive=false,imagesCleared=true}={}) {
   clearTimeout(memoryTimer);memoryGeneration++;
-  error.imagesCleared=true;
+  error.imagesCleared=imagesCleared;
   if(error.details?.retainedAnalysis){const {retainedAnalysis,...details}=error.details;error.details=details;}
   clearTimeout(cancellationTimer);cancellationError=null;
   worker?.terminate();worker=null;ready=null;
-  const waiting=[...pending.values()],owners=storageClosed?[]:[...storageOwners];pending.clear();storageOwners.clear();active=false;
+  const waiting=[...pending.values()],kept=preserveUnsentOwners?[...storageOwners].filter(([,record])=>!record.sent&&!record.backend):[],keptIds=new Set(kept.map(([id])=>id)),owners=storageClosed?[]:[...storageOwners].filter(([id])=>!keptIds.has(id));pending.clear();storageOwners.clear();for(const [id,record]of kept)storageOwners.set(id,record);if(!preserveActive)active=false;
   const rejectAll=failures=>{if(failures?.length)error.temporaryCleanupFailures=failures;for(const p of waiting){p.cleanup();p.reject(error);}for(const resolve of shutdownWaiters.splice(0))resolve(failures??[]);};
   if(owners.length){cleanupPending=cleanupPending.then(()=>cleanOwners(owners));cleanupPending.then(rejectAll);}
   else rejectAll();return cleanupPending;
@@ -66,15 +67,15 @@ export function createWorkerEngine(options={}) {
    };
    const cleanup=()=>{clearTimeout(cooperativeTimer);signal?.removeEventListener('abort',abort);};
    pending.set(sequence,{resolve,reject,cleanup,onProgress});signal?.addEventListener('abort',abort,{once:true});
-   try{worker.postMessage({sequence,method,args,options:method==='init'?options:undefined});}catch(e){pending.delete(sequence);cleanup();reject(e);}
+   try{worker.postMessage({sequence,method,args,options:method==='init'?options:undefined});if(!['init','capabilities','updateResourceHints'].includes(method)){sentWork=true;const session=args[0]?.temporarySessionId??args[1]?.temporarySessionId;if(session&&storageOwners.has(session))storageOwners.get(session).sent=true;}}catch(e){pending.delete(sequence);cleanup();reject(e);}
   });
  }
- function ensure() {
+ function startWorker() {
   if(disposed)throw new EngineError('DISPOSED','Engine disposed.');
   if(!worker){
-   worker=new Worker(new URL('./worker.js',import.meta.url),{type:'module'});const created=worker;
+   const workerURL=new URL('./worker.js',import.meta.url);try{worker=new Worker(workerURL,{type:'module'});}catch(cause){throw new EngineError('WORKER_FAILED',cause?.message||'Browser engine worker could not be created.',{cause,details:{phase:'worker-create',workerURL:workerURL.href}});}const created=worker;
    const control=data=>{if(worker!==created)return true;if(data.shutdownPhase){if(cancellationError)(cancellationError.cancellationPhases??=[]).push(data.shutdownPhase);return true;}if(typeof data.storageClosed==='boolean'){if(cancellationError){const error=cancellationError;error.cancellationMode=data.storageClosed?'storage-closed-before-worker-termination':'forced-after-storage-close-failure';reset(error,{storageClosed:data.storageClosed});}return true;}if(data.storageSession){let owner=storageOwners.get(data.storageSession.id);if(!owner){owner={dynamic:true};storageOwners.set(data.storageSession.id,owner);}owner.backend=data.storageSession.backend;return true;}return false;};
-   const failed=error=>{if(worker!==created)return;error.imagesCleared=true;if(storageOwners.size){
+   const failed=error=>{if(worker!==created)return;if(!initialized&&!sentWork){reset(error,{preserveUnsentOwners:true,preserveActive:true,imagesCleared:false});return;}error.imagesCleared=true;if(storageOwners.size){
     // The failed useful-message channel is latched closed. A separate guarded
     // shutdown receiver must still consume its storage-close acknowledgement.
     installWorkerMessageProtocol(created,control,{label:'engine-shutdown',onFailure:()=>reset(error)});void stopWithStorageClose(error);
@@ -86,10 +87,29 @@ export function createWorkerEngine(options={}) {
     const error=data.error?deserializeEngineError(data.error):p.cancelled;error.imagesCleared=false;
     p.reject(error);return;
    }data.error?p.reject(deserializeEngineError(data.error)):p.resolve(data.result);},{label:'engine-client',onFailure:failed});
-   worker.onerror=()=>{if(worker===created)reset(new EngineError('WORKER_FAILED','Worker stopped; reload image.'));};
+   worker.onerror=event=>{if(worker===created){const cold=!initialized&&!sentWork;reset(new EngineError('WORKER_FAILED',event?.message||'Worker stopped; reload image.',{cause:event?.error,details:{phase:cold?'worker-startup':'worker-execution',workerURL:workerURL.href,workerEvent:{type:event?.type,filename:event?.filename,line:event?.lineno,column:event?.colno}}}),{preserveUnsentOwners:cold,preserveActive:cold,imagesCleared:!cold});}};
    ready=send('init');
   }
   return ready;
+ }
+ function ensure(){
+  if(disposed)throw new EngineError('DISPOSED','Engine disposed.');if(initializationFlight)return initializationFlight;if(worker)return ready;
+  initializationFlight=(async()=>{
+   let firstError;
+   for(;;){
+    let created;
+    try{const opening=startWorker();created=worker;const value=await opening;initialized=true;if(firstError)initializationDiagnostic={attempts:2,recovered:true,firstError:serializeEngineError(firstError)};return value;}
+    catch(error){
+     const cold=!initialized&&!sentWork;
+     if(worker===created&&worker)reset(error,{preserveUnsentOwners:cold,preserveActive:cold,imagesCleared:!cold});
+     else if(cold)error.imagesCleared=false;
+     await cleanupPending;
+     if(!disposed&&cold&&!initializationRetryUsed&&error.code==='WORKER_LOAD_FAILED'&&error.details?.phase==='module-load'&&error.details?.retryable===true){initializationRetryUsed=true;firstError=error;continue;}
+     if(firstError){const failure=new EngineError(error.code??'WORKER_LOAD_FAILED',error.message,{cause:error,details:{...error.details,workerInitialization:{attempts:2,recovered:false,firstError:serializeEngineError(firstError)}}});failure.stack=error.stack;failure.imagesCleared=error.imagesCleared;throw failure;}
+     throw error;
+    }
+   }
+  })().finally(()=>{initializationFlight=null;});return initializationFlight;
  }
  async function call(method,args=[],hooks={}) {
   checkAbort(hooks.signal);if(active)throw new EngineError('BUSY','Another worker task is active.');active=true;
@@ -97,7 +117,7 @@ export function createWorkerEngine(options={}) {
  }
  return {
   async updateResourceHints(hints){await cleanupPending;await ensure();return send('updateResourceHints',[hints]);},
-  async capabilities(hooks={}){checkAbort(hooks.signal);await cleanupPending;await ensure();return send('capabilities',[],hooks);},
+  async capabilities(hooks={}){checkAbort(hooks.signal);await cleanupPending;await ensure();const value=await send('capabilities',[],hooks);return initializationDiagnostic?{...value,workerInitialization:structuredClone(initializationDiagnostic)}:value;},
   loadAutomaticModels:(input,hooks)=>call('loadAutomaticModels',[input],hooks),
   resumeAutomatic:(request,hooks)=>call('resumeAutomatic',[request],hooks),
   updateAutomatic:(request,hooks)=>call('updateAutomatic',[request],hooks),

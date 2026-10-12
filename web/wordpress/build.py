@@ -61,7 +61,7 @@ def locked_files(root):
             raise ValueError('Runtime destination must be inside plugin assets')
         target = root / destination
         expected = runtime['files']
-        actual = {p.relative_to(target).as_posix() for p in target.rglob('*') if p.is_file()}
+        actual = {p.relative_to(target).as_posix() for p in target.rglob('*') if p.is_file() and p.name != '.DS_Store'}
         if actual != set(expected):
             raise ValueError(f"Locked runtime {runtime['version']} file list differs: "
                              f"missing={sorted(set(expected)-actual)}, extra={sorted(actual-set(expected))}")
@@ -72,7 +72,7 @@ def locked_files(root):
             files[source.relative_to(plugin).as_posix()] = source
     # Also includes dependencies staged through a directory symlink in a worktree.
     for source in plugin.rglob('*'):
-        if source.is_file():
+        if source.is_file() and source.name != '.DS_Store':
             files.setdefault(source.relative_to(plugin).as_posix(), source)
     return lock, dict(sorted(files.items()))
 

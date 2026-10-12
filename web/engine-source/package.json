@@ -1,6 +1,6 @@
 {
   "name": "sherloq-web-engine",
-  "version": "0.35.0-export.2",
+  "version": "0.35.0-export.3",
   "private": true,
   "type": "module",
   "scripts": {

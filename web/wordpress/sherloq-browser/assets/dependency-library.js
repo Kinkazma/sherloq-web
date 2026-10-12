@@ -35,7 +35,7 @@ export function mountDependencyControls(document,config){
  const choose=add('dependency-choose',async()=>{if(!globalThis.showDirectoryPicker){folderInput.value='';folderInput.click();return;}try{await useFolder();status.textContent=t('Dossier connecté. Les fichiers présents seront réutilisés ; les manquants viendront de GitHub.','Folder connected. Existing files will be reused; missing ones will come from GitHub.');}catch(e){if(e.name!=='AbortError')report(e);}});
  const download=add('dependency-download',async()=>{
   // Ask for a writable directory while still inside the user's click gesture.
-  if(!globalThis.showDirectoryPicker){const a=document.createElement('a');a.href=new URL('./__dependency_download__/resources.tar',scope).href;a.download='SHERLOQ-resources.tar';a.click();status.textContent=t('Téléchargement de l’archive lancé. Suivez sa progression dans les téléchargements du navigateur.','Archive download started. Follow its progress in your browser downloads.');return;}
+  if(!globalThis.showDirectoryPicker){downloadDependencyArchive(document,new URL('./__dependency_download__/resources.tar',scope));status.textContent=t('Téléchargement de l’archive lancé. Suivez sa progression dans les téléchargements du navigateur.','Archive download started. Follow its progress in your browser downloads.');return;}
   let destination;try{if(globalThis.showDirectoryPicker)destination=await useFolder('readwrite');}catch(e){if(e.name!=='AbortError')report(e);return;}
   await job(async signal=>{const m=await manifest(),entries=Object.entries(m.files),load=createChunkLoader(m,{base:remoteBase(m.remoteBase,{allowLocal:['localhost','127.0.0.1'].includes(location.hostname)}),scope});meter.max=entries.length;meter.value=0;
    const progress=n=>{meter.value=n;status.textContent=t('Téléchargement : ','Download: ')+n+' / '+entries.length;};
@@ -57,4 +57,20 @@ export function mountDependencyControls(document,config){
  entry.onclick=()=>{translate();dialog.showModal();};new MutationObserver(translate).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
  void libraryValue('folderName').then(name=>{if(name)folderName=name;translate();}).catch(()=>{});translate();
  return {open(){dialog.showModal();}};
+}
+
+// A download-attribute link may bypass the controlling service worker in Chromium.
+// An attachment navigation reaches the streaming handler. Keep failures out of
+// the application document so a failed export never replaces the user's work.
+export function downloadDependencyArchive(document,url){
+ url=new URL(url);const id=url.searchParams.get('id')||crypto.randomUUID();url.searchParams.set('id',id);
+ const frame=document.createElement('iframe');frame.hidden=true;frame.title='SHERLOQ archive';frame.src=url.href;
+ const worker=globalThis.navigator?.serviceWorker;
+ const clean=()=>{frame.remove();worker?.removeEventListener('message',finished);};
+ const finished=e=>{if(e.data?.type==='dependency-download-progress'&&e.data.id===id&&e.data.done)setTimeout(clean,1000);};
+ worker?.addEventListener('message',finished);document.body.append(frame);
+ // Attachment downloads detach from the navigation; load fires for an HTTP
+ // failure document. Successful callers clean up when their stream finishes.
+ frame.addEventListener('load',()=>setTimeout(clean,1000),{once:true});
+ return clean;
 }

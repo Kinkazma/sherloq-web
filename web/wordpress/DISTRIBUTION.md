@@ -114,3 +114,109 @@ release. Sites can add an optional private packaging overlay with
 On Apache, the scoped header rules remove duplicate PHP/Apache policy headers.
 This preserves shared-memory isolation while keeping the PHP entry point valid
 on hosts that do not apply `.htaccess` to static assets.
+
+## SHERLOQ Web Local (0.15.0 candidate)
+
+The **Take offline / Emporter hors ligne** toolbar button opens the installation
+flow. This public feature runs in the visitor's own browser on their own device;
+it does not generate a Mac-only application or expose the site's private setup.
+Publication and the private WordPress installer remain separate deliveries.
+
+1. Save the complete **standard POSIX TAR** outside browser cache, wherever desired.
+   An existing archive, verified cached chunks and a connected local library are
+   reused. Only missing pieces come from the pinned GitHub resource commit.
+2. Prepare the application in the browser that will be used offline. It verifies
+   all resources, saves a working copy in browser storage and requests persistent
+   storage. A failed write or interrupted preparation retains completed chunks
+   and never marks an incomplete installation ready.
+3. Open the offline application, install it when the browser offers installation,
+   or bookmark its offline URL. Close/reopen it without a connection before leaving.
+
+On iPhone/iPad, first open the preparation link and add it to the Home Screen.
+Open **that installed application**, select the archive and prepare it there:
+Safari's storage is not transferred to Home Screen web apps. A physical setup
+page at the app's start URL supports this initially empty storage context.
+
+The browser cannot authorize filesystem access from a typed path. Selecting an
+archive grants read access; no local path is sent to the site. Models, WASM,
+original libraries and notices keep their ordinary files and paths in the TAR.
+No proprietary archive or per-device binary is required. Preparation is bounded
+by transport pieces (up to 100 MB), not the whole archive. Hashing and browser
+cache implementations have additional memory costs. This is a complete runtime
+bundle of several GB, not a small mobile download.
+
+### Offline execution and restoration
+
+A separate Service Worker owns the nested `assets/offline/` scope. Its public
+HTML, modules and manifest are keyed by the SHA-256 of `offline-shell.json`.
+Runtime pieces share the existing content-addressed dependency cache. The offline
+worker serves those files and byte ranges without any network fallback. COOP/COEP
+and MIME headers preserve the engine's workers and shared memory. The public HTML
+copy excludes private reporting scripts and server integration.
+
+Updates do not force replacement while an old local window is calculating. An
+incomplete resource inventory opens the restoration screen. Selecting the archive
+repairs missing/corrupt data without redownloading valid resources or registering
+a new worker when disconnected. The stored archive remains available even if the
+browser removes its working copy. If **all** site data, including the installed
+worker/interface, is erased, the small interface must be installed online again
+before restoring the archive. Cookies are not required. Persistent storage is
+requested, never assumed to be granted by every device/browser.
+
+This preserves the existing engines. It does not resolve unrelated algorithm
+issues or make services that inherently need the Internet available offline.
+Device memory, storage quota and graphics/API support still determine which
+computations can finish. Installing the interface is not proof that every model
+runs on every phone. OS-level installation and browser engine execution are
+separate qualifications.
+
+### Reproduction
+
+Build a candidate from already published local chunks, without a model download:
+
+```sh
+python3 scripts/build-offline-candidate.py --installed-assets PATH_TO_EXISTING_DELIVERY/assets --chunks PATH_TO_PUBLISHED/web-assets/chunks --output .build/offline-browser-candidate
+python3 scripts/verify-offline-archive.py .build/offline-browser-candidate/SHERLOQ-complet.tar
+npm test
+python3 tests/offline-shell-test.py
+```
+
+Use `--shell-only` to refresh the UI preview without rebuilding a multi-GB TAR.
+A previous complete TAR remains reusable for unchanged runtime resources.
+
+Automated browser checks use isolated profiles and synthetic pixels, never a
+user's images or active browser session. Install Playwright or set its module path
+with `PLAYWRIGHT_PACKAGE`. Select the candidate with `OFFLINE_CANDIDATE` and an
+existing standard archive with `OFFLINE_ARCHIVE`:
+
+```sh
+EXPORT_OFFLINE=1 node scripts/check-offline-pwa.mjs
+BROWSER=webkit node scripts/check-offline-pwa.mjs
+node scripts/check-offline-download.mjs
+node scripts/check-workspace-startup.mjs
+```
+
+The PWA check closes the browser, clears cookies, stops the HTTP server, forbids
+external requests, reopens the saved profile, runs gradient processing and lossless WebP
+export, then removes a dependency and restores it from the archive offline. Chrome
+also disables the simulated network and exposes installability checks through its
+developer protocol. WebKit's Playwright offline emulation bypasses even a minimal
+Service Worker, so its check uses the stopped server and external-request blocking
+instead. This is not an OS-level installation test on a physical iPhone.
+`EXPORT_OFFLINE=1` additionally exports the complete archive while disconnected,
+including repair from a selected TAR when a cached resource is missing. Proof files
+stay in `.build/`, outside the public source and private installer. Full archive
+exports use attachment navigation through a hidden frame: an anchor's `download`
+attribute can bypass the Service Worker in Chromium.
+
+The startup check uses a minimal fixture and real Chrome module imports. It
+interrupts the bootstrap and workspace module graphs, dependency preparation,
+and workspace mounting. Failed imports or partial mounting require a new document
+because a rejected ES module graph stays rejected in that document. Preparation
+alone can retry in place. Recovery is deliberate and happens before an image or
+calculation is opened; it never automatically reloads a running workspace.
+
+The earlier Go/Python archive readers and their tests remain available as
+separate development experiments. They are not the public button's installation
+path and do not establish cross-platform PWA qualification. No source build or
+local test publishes to GitHub or installs anything on a live WordPress site.

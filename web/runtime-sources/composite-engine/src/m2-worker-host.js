@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {Budget} from './cache.js';
 import {jpegCodec} from './jpeg.js';
 import {loadM2SegmentedOriginal,disposeSegmentedImage} from './image-sources.js';

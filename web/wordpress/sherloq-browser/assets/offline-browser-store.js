@@ -1,0 +1,72 @@
+import {sha256,validateManifest,remoteBase} from './dependency-core.js';
+import {createChunkLoader} from './dependency-store.js';
+import {indexResourceTar,archiveChunkReader} from './dependency-tar.js';
+import {validateOfflineShell} from './offline-kit-core.js';
+
+export const OFFLINE_CHUNKS='sherloq-dependency-chunks-v1';
+export const offlineCacheName=identity=>'sherloq-offline-app-'+identity;
+export const offlineChunkURL=(base,hash)=>new URL('__dependency_chunks__/'+hash,base).href;
+export const offlinePolicy="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; font-src 'self'; img-src 'self' blob: data:; connect-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'";
+export function offlineHeaders(type){return {'Content-Type':type,'Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Embedder-Policy':'require-corp','Cross-Origin-Resource-Policy':'same-origin','Content-Security-Policy':offlinePolicy,'Cache-Control':'no-store'};}
+export function offlineMime(name){return ({js:'text/javascript',mjs:'text/javascript',html:'text/html; charset=utf-8',css:'text/css',json:'application/json',webmanifest:'application/manifest+json',svg:'image/svg+xml',png:'image/png',woff2:'font/woff2',py:'text/plain',txt:'text/plain'})[name.split('.').at(-1)]||'application/octet-stream';}
+export async function offlinePlan(base,{fetcher=fetch,local=false}={}){
+ const configResponse=await fetcher(new URL('dependency-config.json',base));if(!configResponse.ok)throw Error('Offline configuration unavailable');
+ const config=await configResponse.json(),isLocal=local||config.offlineMode==='browser';
+ if(!/^[a-f0-9]{64}$/.test(config.manifest))throw Error('Offline manifest identity missing');
+ const manifestResponse=await fetcher(new URL(isLocal?'__manifest.json':'dependency-manifest-'+config.manifest+'.json',base));if(!manifestResponse.ok)throw Error('Dependency manifest unavailable');
+ const manifestBytes=new Uint8Array(await manifestResponse.arrayBuffer());if(await sha256(manifestBytes)!==config.manifest)throw Error('Dependency manifest integrity failure');
+ const manifest=validateManifest(JSON.parse(new TextDecoder().decode(manifestBytes)));
+ const shellResponse=await fetcher(new URL(isLocal?'__shell.json':'offline-shell.json',base));if(!shellResponse.ok)throw Error('Offline application unavailable');
+ const shellBytes=new Uint8Array(await shellResponse.arrayBuffer()),shell=validateOfflineShell(JSON.parse(new TextDecoder().decode(shellBytes)));
+ if(shell.manifest!==config.manifest)throw Error('Offline application version mismatch');
+ const identity=await sha256(shellBytes),sourceBase=isLocal?new URL(config.sourceBase):new URL('./',base),appBase=isLocal?new URL('./',base):new URL('offline/',sourceBase);
+ return {config,manifest,manifestBytes,shell,shellBytes,identity,sourceBase,appBase,local:isLocal};
+}
+export async function saveOfflineShell(plan,{storage=caches,fetcher=fetch,signal,progress=()=>{},archiveIndex}={}){
+ const cache=await storage.open(offlineCacheName(plan.identity));
+ for(const [name,meta]of Object.entries(plan.shell.files)){
+  signal?.throwIfAborted();const key=new URL(name,plan.appBase),cached=await cache.match(key);
+  if(cached){const bytes=new Uint8Array(await cached.arrayBuffer());if(bytes.length===meta.size&&await sha256(bytes)===meta.sha256)continue;}
+  let bytes;const member=archiveIndex?.files.get('app/'+name);
+  if(member?.size===meta.size){const candidate=new Uint8Array(await archiveIndex.blob.slice(member.offset,member.offset+member.size).arrayBuffer());if(await sha256(candidate)===meta.sha256)bytes=candidate;}
+  if(!bytes){const response=await fetcher(new URL(plan.local?name:(meta.source||name),plan.local?plan.appBase:plan.sourceBase),{signal,credentials:'omit'});
+   if(!response.ok)throw Error('Offline application file unavailable: '+name);
+   bytes=new Uint8Array(await response.arrayBuffer());if(bytes.length!==meta.size||await sha256(bytes)!==meta.sha256)throw Error('Offline application integrity failure: '+name);
+  }
+  await cache.put(key,new Response(bytes,{headers:offlineHeaders(offlineMime(name))}));progress({phase:'shell',name});
+ }
+ await cache.put(new URL('__manifest.json',plan.appBase),new Response(plan.manifestBytes,{headers:offlineHeaders('application/json')}));
+ await cache.put(new URL('__shell.json',plan.appBase),new Response(plan.shellBytes,{headers:offlineHeaders('application/json')}));
+ return cache;
+}
+export async function offlineMissing(plan,{storage=caches}={}){
+ const cache=await storage.open(OFFLINE_CHUNKS),keys=new Set((await cache.keys()).map(r=>r.url));
+ return Object.keys(plan.manifest.chunks).filter(h=>!keys.has(offlineChunkURL(plan.sourceBase,h)));
+}
+export async function prepareOfflineBrowser(plan,{archive,storage=caches,fetcher=fetch,signal,progress=()=>{},folder}={}){
+ const index=archive?await indexResourceTar(archive,{signal}):null;
+ const cache=await saveOfflineShell(plan,{storage,fetcher,signal,progress,archiveIndex:index}),chunks=await storage.open(OFFLINE_CHUNKS);
+ const network=plan.local?async()=>{throw Error('Offline resource missing. Select your archive.');}:fetcher;
+ const load=createChunkLoader(plan.manifest,{base:plan.local?null:remoteBase(plan.manifest.remoteBase,{allowLocal:['127.0.0.1','localhost'].includes(plan.sourceBase.hostname)}),scope:plan.sourceBase,cacheStorage:storage,fetcher:network,archive:index&&archiveChunkReader(index,plan.manifest),...(folder?{folder}:{})});
+ let completed=0,bytes=0;const total=Object.keys(plan.manifest.chunks).length;
+ for(const [hash,size]of Object.entries(plan.manifest.chunks)){
+  signal?.throwIfAborted();let reusedCache=false;
+  const data=await load(hash,entry=>{if(entry.kind==='dependency.cache-hit')reusedCache=true;});
+  // Unlike transient archive exports, an installation must persist every piece.
+  // Await each write: a quota failure must never become a false "ready" state.
+  if(!reusedCache)await chunks.put(offlineChunkURL(plan.sourceBase,hash),new Response(data));
+  bytes+=size;progress({phase:'resources',completed:++completed,total,bytes});
+ }
+ signal?.throwIfAborted();if((await offlineMissing(plan,{storage})).length)throw Error('Offline resources were removed during installation');
+ const receipt={schema:'sherloq.browser-offline/1',version:plan.shell.version,manifest:plan.config.manifest,shell:plan.identity,sourceBase:plan.sourceBase.href,appBase:plan.appBase.href,chunks:total,bytes,complete:true};
+ await cache.put(new URL('__installation.json',plan.appBase),new Response(JSON.stringify(receipt),{headers:offlineHeaders('application/json')}));
+ return receipt;
+}
+export async function readOfflineInstallation(appBase,identity,{storage=caches}={}){
+ const cache=await storage.open(offlineCacheName(identity)),read=async name=>{const r=await cache.match(new URL(name,appBase));if(!r)throw Error('Offline installation incomplete');return r;};
+ const shellBytes=new Uint8Array(await(await read('__shell.json')).arrayBuffer());if(await sha256(shellBytes)!==identity)throw Error('Offline shell identity differs');
+ const shell=validateOfflineShell(JSON.parse(new TextDecoder().decode(shellBytes)));
+ const manifestBytes=new Uint8Array(await(await read('__manifest.json')).arrayBuffer());if(await sha256(manifestBytes)!==shell.manifest)throw Error('Offline manifest identity differs');
+ const manifest=validateManifest(JSON.parse(new TextDecoder().decode(manifestBytes))),receiptResponse=await cache.match(new URL('__installation.json',appBase)),receipt=receiptResponse&&await receiptResponse.json();
+ return {cache,shell,manifest,receipt};
+}

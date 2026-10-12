@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.15.1";
 let python;
 const sha=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');
 self.onmessage=async({data})=>{

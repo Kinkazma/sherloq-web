@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {requireValue,checkAbort} from './errors.js';
 import {automaticSnapshotArray as array,streamAutomaticNpz} from './automatic-npz-stream.js';
 import {createCloneCorroboration} from './clone-corroboration.js';

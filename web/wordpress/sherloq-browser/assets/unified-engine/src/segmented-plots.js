@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {plotsParams} from './plots.js';import {plotsStreamMath,plotsStreamHeapBytes} from './plots-stream-math.js';
 import {WaveletStripPool} from './wavelet-strip-pool.js';import {createSegmentedBytes} from './segmented-bytes.js';import {createRgbSurface} from './rgb-surface.js';
@@ -12,7 +12,7 @@ function plotTable(shared,width,height,scale,budget){shared.retain();let dispose
 export async function segmentedPlots(image,params,{budget,signal,onProgress,profile={},cache,blockPixels=65536,storage='auto',original=false}={}){
  const p=plotsParams(params),{width:sourceWidth,height:sourceHeight}=image.surface.descriptor,maximum=Math.floor(Math.log2(Math.min(sourceWidth,sourceHeight))),scale=p.scale??Math.min(1,maximum);requireValue(scale<=maximum,'Sampling scale exceeds the native image limit.');
  requireValue(Number.isSafeInteger(blockPixels)&&blockPixels>0&&blockPixels<=262144,'Invalid plot strip size.');const hit=cache?.scale===scale&&!cache.disposed;
- const pool=new WaveletStripPool(budget,{...profile,adaptive:image.plotScheduling??=new Map(),workerHeapBytes:8*1024**2,workerPixelBytes:128,workerFactory:globalThis.Worker?()=>new Worker(new URL('./plots-strip-worker.js',import.meta.url),{type:'module'}):null});let release,values,newCache,previousSurface,ownedSurface;
+ const pool=new WaveletStripPool(budget,{...profile,adaptive:image.plotScheduling??=new Map(),workerHeapBytes:8*1024**2,workerPixelBytes:128,workerURL:new URL('./plots-strip-worker.js',import.meta.url),workerFactory:globalThis.Worker?()=>new Worker(new URL('./plots-strip-worker.js',import.meta.url),{type:'module'}):null});let release,values,newCache,previousSurface,ownedSurface;
  try{
   if(!hit){
    const room=budget.limit-budget.retained-budget.active,block=Math.min(blockPixels,Math.floor((room-12*1024**2-sourceWidth*64)/128));if(block<sourceWidth)throw new EngineError('MEMORY_LIMIT','A full plot row with its native halo must fit.');release=budget.reserve(Math.max(8*1024**2,plotsStreamHeapBytes())+block*128+sourceWidth*64);

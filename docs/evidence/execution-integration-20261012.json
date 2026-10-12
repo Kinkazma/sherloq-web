@@ -1,0 +1,158 @@
+{
+  "schema": "sherloq.execution-integration/1",
+  "date": "2026-10-12",
+  "engineCommit": "a1f85661db24610ac3c7bf894214afc85a72d024",
+  "uiBaseCommit": "f6fce639ff86262bbfbc48dd9e6bdacbcdfa4404",
+  "batchBaseCommit": "a7dd508",
+  "handOffSha256": "0fc60a15c49c0acc8f125a290fbf0d41b447561e65f636810f599602a1b1fab9",
+  "sourceQualification": {
+    "engineDistinctTestsByBatches": 138,
+    "uiTests": 256,
+    "browser": "Chrome 155, Firefox 155 and desktop WebKit 26.6",
+    "automaticPauseResumeScientificArraysBitExact": 194,
+    "automaticArchiveMembersValidated": 196,
+    "scope": "Qualified source handoff. Its native comparisons and full GUI journeys were performed before this integration."
+  },
+  "integrationTests": {
+    "ui": {
+      "passed": 256,
+      "failed": 0,
+      "skipped": 0
+    },
+    "engineTargeted": {
+      "passed": 123,
+      "failed": 0,
+      "skipped": 0
+    },
+    "batch": {
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    "packagingTargeted": {
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "package": {
+    "date": "2026-10-12",
+    "manifestSha256": "7085000f8095c7242b6dbc7f286ac12914dcd93fdcea0b182533da2b6adeab2d",
+    "runtimeFiles": 5246,
+    "verifiedChunks": 4247,
+    "verifiedChunkBytes": 6610418407,
+    "verifiedWholeFileHashes": 5246,
+    "multiChunkFiles": 7,
+    "localRuntimeFilesVerified": 1543,
+    "smallWasmCount": 90,
+    "scientificFilesUnchanged": 2894,
+    "wasmFilesUnchanged": 191,
+    "batchVendorBytesUnchanged": true,
+    "batchDependenciesOnDemand": 8,
+    "sourceDeliveryFilesEqual": true,
+    "sourceLockMatchesManifest": true,
+    "uncompressedBootstrapBytes": 17788702,
+    "bootstrapLimit": 25000000,
+    "publicPrivateOverlayIncluded": false,
+    "publicPrivateInstallerIncluded": false,
+    "modelsChanged": false,
+    "wasmBinariesChanged": false
+  },
+  "batchBrowser": {
+    "images": 2,
+    "reimport": true,
+    "workspaceHandoff": true,
+    "layouts": [
+      "desktop",
+      "mobile"
+    ],
+    "applicationErrors": [],
+    "abortedWasmRequests": 6,
+    "abortedRequestMeaning": "Six transport requests returned net::ERR_ABORTED; retained separately rather than silently discarded. All calculations, exports, archive reimport and handoff completed; the session has no raw errors or documented failures. This does not establish their cause from the network event alone.",
+    "session": {
+      "events": 1732,
+      "errorCount": 0,
+      "documentedFailures": 0,
+      "storageError": null
+    },
+    "archiveBytes": 7694406
+  },
+  "dependencyBrowser": {
+    "browser": "154.0.8037.98",
+    "startup": {
+      "appBytes": 2469372,
+      "remoteBytes": 0,
+      "remoteRequests": 0
+    },
+    "online": {
+      "appBytes": 6761637,
+      "remoteBytes": 217309385,
+      "remoteRequests": 10
+    },
+    "transport": {
+      "type": "application/wasm",
+      "rangeStatus": 206,
+      "rangeExact": true
+    },
+    "pixels": {
+      "exactPixels": true,
+      "webpBytes": 666,
+      "version": "0.35.0-export.3"
+    },
+    "errors": [],
+    "largeModelRange": {
+      "file": "individual-assets/m3/safire-encoder-bounded.onnx",
+      "chunksFetched": 2,
+      "exact": true
+    },
+    "standardTar": true,
+    "offlineLocalLibrary": {
+      "ordinaryFile": "jpeg.wasm",
+      "size": 531241,
+      "mode": "remembered-folder"
+    }
+  },
+  "startupBrowser": {
+    "schema": "sherloq.startup-check/1",
+    "scope": "Real Chrome module cache and startup buttons; minimal fixture, no image or model inference",
+    "browser": "154.0.8037.98",
+    "results": [
+      {
+        "scenario": "bootstrap-import",
+        "action": "reload",
+        "recovered": true,
+        "documentLoads": 2
+      },
+      {
+        "scenario": "workspace-import",
+        "action": "reload",
+        "recovered": true,
+        "documentLoads": 2
+      },
+      {
+        "scenario": "dependencies",
+        "action": "retry",
+        "recovered": true,
+        "documentLoads": 1
+      },
+      {
+        "scenario": "mount",
+        "action": "reload",
+        "recovered": true,
+        "documentLoads": 2
+      }
+    ]
+  },
+  "preserved": {
+    "originalAuthorCredit": true,
+    "batchProductionSources": true,
+    "existingGallery": true,
+    "compositeVendorCommit": "ab675126b4c5384508f8dee43f54ac334720a7be"
+  },
+  "limits": [
+    "SAFIRE issue #1 remains open; these shared fixes do not solve its separate 2 GiB admission policy.",
+    "No new 96 MP or physical iPhone qualification.",
+    "No universal speed comparison or requalification of every neural model.",
+    "Integration browser checks use an isolated local delivery; published-origin verification is recorded separately."
+  ]
+}

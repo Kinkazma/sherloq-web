@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {readTiffAccessor,tiffImageHeader} from './image-headers.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 // Preload only directory tables and values that the shared structural parser

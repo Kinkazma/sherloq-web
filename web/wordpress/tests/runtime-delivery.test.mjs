@@ -11,6 +11,9 @@ assert b'legacyFetch()' not in out and b'instantiateDependency(binary,binaryFile
 assert d.adapted_runtime('unified-engine/vendor/test/test.js',out,lookup,'0.14.5')==out
 src=d.adapted_runtime('unified-engine/src/worker.js',b"export const a=1",lookup,'0.14.5')
 assert d.adapted_runtime('unified-engine/src/worker.js',src,lookup,'0.14.5')==src
+bootstrap=d.adapted_runtime('unified-engine/src/m2-worker.js',b"const loaded=import('./m2-worker-host.js');self.onmessage=()=>loaded;",lookup,'0.15.1')
+assert b'runtime-context.js?v=0.15.1' in bootstrap
+assert d.adapted_runtime('unified-engine/src/m2-worker.js',bootstrap,lookup,'0.15.1')==bootstrap
 try:d.adapted_runtime('unified-engine/vendor/test/test.js',b'async function instantiateAsync(binary,binaryFile,imports){unreviewed()}',lookup,'0.14.5');raise AssertionError('accepted unfamiliar code')
 except ValueError:pass
 print(json.dumps({'idempotent':True,'strict':True}))

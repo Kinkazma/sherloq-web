@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.14.5";
+import "../../runtime-context.js?v=0.15.1";
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';
 import {serializeEngineError} from './errors.js';
 import {createDenseRegions} from './dense-regions.js';
