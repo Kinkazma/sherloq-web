@@ -17,7 +17,7 @@ export const SELFDM_PROPOSAL_REFERENCE = Object.freeze({
  sourceCommit:'ef7b4a00d0c5742a63b187d898979259c2aead40',initialNetworkDimensions:[512,512],outputCoordinates:'original source rectangle',
  sourceParameters:{rank:48,proposals:500,maskThreshold:.2,nmsRadius:4,keypointThreshold:0,maxKeypoints:2048,removeBorders:4,sinkhornIterations:20,matchThreshold:.4,seeds:[400,15,3,5,true,10],crfIterations:1},
  license:'SelfDM research-only; SuperGlue noncommercial/internal restrictions; public redistribution requires review',
- numerical:'Original Float32 model/CV formulas, original-grid CRF and receptive-field windows. CPU/GPU rounding is measured rather than claimed bit-exact universally:831x641 CPU differed at1 threshold-boundary pixel;512 GPU continuous maximum0.001056. Near-equal SuperPoint TopK scores can reorder. See integration qualification receipts.'
+ numerical:'Original Float32 model/CV formulas, original-grid CRF and receptive-field windows. CPU/GPU rounding is measured rather than claimed bit-exact universally: the windowed 831x641 GPU case has zero mask differences and continuous maximum0.0011100769; the CPU case differs at1 threshold-boundary pixel. Some continuous maxima exceed the provisional0.001 target; the qualification receipts preserve those failed-parity statuses. Near-equal SuperPoint TopK scores can reorder. See the current windowed integration qualification receipts.'
 });
 export function selfDMProposalRuntimes(){return {wasm:{
  factoryUrl:new URL('./selfdm-runtime-factory.mjs',import.meta.url).href,
