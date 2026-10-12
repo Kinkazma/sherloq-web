@@ -1,6 +1,6 @@
 {
   "schema": "sherloq.publication-identity/1",
-  "ui_commit": "ec799cf68ad56543dd60032bfb23df4c44bbd8a6",
+  "ui_commit": "e3a135e53c064c1e4fc937895ade24cae5208a02",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "ui_version": "0.16.0",
   "engine_commit": "54999769b522a5a240ad40c482005620e6477fed",
@@ -46,5 +46,9 @@
   "resource_commit": "a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2",
   "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/a6fab459135fdc6c4e8d1a3e8a2bc61bd5c035f2/web-assets/",
   "deployment_manifest_sha256": "f6888946a2866155275f75dd9f134090cb914e2ec3ab772577c51b721f021408",
-  "finalized_bootstrap_bytes_before_private_overlay": 24451995
+  "finalized_bootstrap_bytes_before_private_overlay": 24451995,
+  "ui_base_commit": "ec799cf68ad56543dd60032bfb23df4c44bbd8a6",
+  "ui_patch_commits": [
+    "e3a135e53c064c1e4fc937895ade24cae5208a02"
+  ]
 }

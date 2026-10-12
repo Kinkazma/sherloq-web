@@ -4,6 +4,7 @@ Implementation changes and their verification are recorded here. The [README](RE
 
 ## 0.16.0 — Browser methods and batch integration · 2026-10-12
 
+- Removed the hardcoded `noindex,nofollow` robots directive from the WordPress workspace template.
 - Integrated CMSeg-Net, MGCFDN, SelfDM, ALIKED + LightGlue, EfficientLoFTR and complete SSG into individual and batch workflows. Profiles remain part of their method families.
 - EfficientLoFTR requires two actual image rectangles. SSG publishes a mask in the original image dimensions, retaining holes and components; its localization controls reuse a completed checkpoint where supported.
 - Corrected VIG mapped GPU output lifetime and bounded CMSeg correlation-tile transfer. Scientific parameters and the declared numerical scope remain documented with the implementations.
