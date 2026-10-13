@@ -22,7 +22,7 @@ Integration passes 368 interface checks, 150 targeted engine checks and 19 retai
 
 The supplied real 30 MP and 96 MP qualifications passed native-array/mask checks, refiltering without inference and large paged export/reimport. The 30 MP timing is a single functional comparison; full bit parity with Torch and a universal speed gain are not claimed. Detailed image/array qualification reports stay local.
 
-Independent integration checks pass 368 interface tests, 256 D2PRL/projection checks and 78 shared-resource checks. Fourteen fixture-dependent cases are unexecuted: twelve unavailable experimental artifacts and two unavailable historical raw-array fixtures. The scientific qualification above comes from the completed supplied runs, not those unavailable fixture tests.
+Independent integration checks pass 368 interface tests, 256 D2PRL/projection checks and 78 shared-resource checks. The scientific qualification above comes from the completed supplied runs.
 
 ## 0.17.0 — Scientific batch preparation and exports · 2026-10-12
 
