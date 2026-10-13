@@ -1,14 +1,18 @@
 import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js';
 // Stored locally when possible and included in portable workspace settings.
-export const exportDefaults=Object.freeze({format:'webp',quality:90,webpQuality:90,heicQuality:90,webpLossless:true,avifLossless:false,heicLossless:false,pngCompression:6,chroma:'source',resize:false,width:0,height:0,resizeAxis:'width',resizeAlgorithm:'auto'});
+export const exportDefaults=Object.freeze({format:'webp',quality:90,webpQuality:90,heicQuality:90,webpLossless:true,avifLossless:false,heicLossless:false,pngCompression:6,tiffCompression:'deflate',chroma:'source',resize:false,width:0,height:0,resizeAxis:'width',resizeAlgorithm:'auto'});
 export const loupeDefaults=Object.freeze({enabled:false,diameter:300,transition:60,proportional:true,zoom:200,unlock:false,markers:true,ringStyle:'dashed',ringWidth:1,ringOpacity:100,ringColor:'#edf6dc',sweepTarget:'gamma',sweepSpeed:2,effects:effectDefaults});
 const object=value=>value&&typeof value==='object'&&!Array.isArray(value);
 function integer(value,min,max,name){if(!Number.isInteger(value)||value<min||value>max)throw Error('Invalid '+name);return value;}
 export function validateExportSettings(input={}){
  if(!object(input))throw Error('Invalid export settings');const v={...exportDefaults,...input};
+ // Preserve an old TIFF zero-compression preference without carrying PNG
+ // levels into the new independent TIFF selector.
+ if(input.format==='tiff'&&input.tiffCompression===undefined&&input.pngCompression===0)v.tiffCompression='none';
  if(!['png','webp','avif','heic','tiff'].includes(v.format)||!['source','422','444','420'].includes(v.chroma))throw Error('Invalid export format or chroma');
  for(const key of ['quality','webpQuality','heicQuality'])integer(v[key],1,100,key);
  integer(v.pngCompression,0,9,'PNG compression');for(const key of ['width','height'])integer(v[key],0,65500,key);
+ if(!['none','deflate'].includes(v.tiffCompression))throw Error('Invalid TIFF compression');
  for(const key of ['resize','webpLossless','avifLossless','heicLossless'])if(typeof v[key]!=='boolean')throw Error('Invalid '+key);
  if(!['width','height'].includes(v.resizeAxis)||!['auto','lanczos3','area','nearest'].includes(v.resizeAlgorithm))throw Error('Invalid resize settings');
  return Object.fromEntries(Object.keys(exportDefaults).map(k=>[k,v[k]]));

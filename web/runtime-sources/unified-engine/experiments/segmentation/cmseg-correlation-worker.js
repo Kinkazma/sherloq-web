@@ -11,12 +11,13 @@ self.onmessage = async ({data}) => {
       const input = allocate(c*n);
       p = {normalized: allocate(c*n), gy: allocate(h), gx: allocate(w), maxima: allocate(n), inverse: allocate(2*n), scratch: allocate(n), output: allocate(k*n)};
       module.HEAPF32.set(data.input, input / 4);
-      if(module._cmseg_normalize(input,c,h,w,p.normalized,p.gy,p.gx)!==1) throw Error('Normalize');
+      if(data.scientificMask){p.mask=allocate(Math.ceil(n/4));module.HEAPU8.set(data.scientificMask,p.mask);if(module._cmseg_scoped_normalize(input,c,h,w,p.mask,p.normalized,p.gy,p.gx,+geometry.nativeFma)!==1)throw Error('Scientific normalize');}
+      else if(module._cmseg_normalize(input,c,h,w,p.normalized,p.gy,p.gx)!==1) throw Error('Normalize');
       module._free(input); pointers.splice(pointers.indexOf(input),1);
       self.postMessage({id,ok:true,heapBytes:module.HEAPU8.length});
     } else if (type === 'statistics') {
       const {c,h,w,alpha}=geometry, {first,count}=data;
-      if(module._cmseg_statistics(p.normalized,c,h,w,alpha,p.gy,p.gx,first,count,p.maxima,p.inverse,p.scratch)!==1) throw Error('Statistics');
+      if((p.mask?module._cmseg_scoped_statistics(p.normalized,c,h,w,alpha,p.gy,p.gx,p.mask,first,count,p.maxima,p.inverse,p.scratch,+geometry.nativeFma):module._cmseg_statistics(p.normalized,c,h,w,alpha,p.gy,p.gx,first,count,p.maxima,p.inverse,p.scratch))!==1) throw Error('Statistics');
       const maxima=module.HEAPF32.slice(p.maxima/4+first,p.maxima/4+first+count), inverse=module.HEAPF32.slice(p.inverse/4+first,p.inverse/4+first+count);
       const columnSum=module.HEAPF32.slice(p.inverse/4+h*w+first,p.inverse/4+h*w+first+count);
       self.postMessage({id,ok:true,maxima,inverse,columnSum},[maxima.buffer,inverse.buffer,columnSum.buffer]);
@@ -24,7 +25,7 @@ self.onmessage = async ({data}) => {
       module.HEAPF32.set(data.maxima,p.maxima/4);module.HEAPF32.set(data.inverse,p.inverse/4);self.postMessage({id,ok:true});
     } else if (type === 'topk') {
       const {c,h,w,k,alpha}=geometry, {first,count}=data,n=h*w;
-      if(module._cmseg_topk(p.normalized,c,h,w,k,alpha,p.gy,p.gx,p.maxima,p.inverse,first,count,p.output,p.scratch)!==1) throw Error('TopK');
+      if((p.mask?module._cmseg_scoped_topk(p.normalized,c,h,w,k,alpha,p.gy,p.gx,p.mask,p.maxima,p.inverse,first,count,p.output,p.scratch,+geometry.nativeFma):module._cmseg_topk(p.normalized,c,h,w,k,alpha,p.gy,p.gx,p.maxima,p.inverse,first,count,p.output,p.scratch))!==1) throw Error('TopK');
       const output=new Float32Array(k*count);
       for(let channel=0;channel<k;channel++)output.set(module.HEAPF32.subarray(p.output/4+channel*n+first,p.output/4+channel*n+first+count),channel*count);
       self.postMessage({id,ok:true,output,heapBytes:module.HEAPU8.length},[output.buffer]);

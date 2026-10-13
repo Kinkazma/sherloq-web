@@ -1,5 +1,6 @@
 import {INFERNO} from './unified-engine/src/research-palette.js';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
+import {neuralScientificScopeIdentity} from './unified-engine/src/neural-scientific-scope.js';
 
 export const NEURAL_METHODS = [
  ['cmseg-generalization','CMSeg-Net 2025 generalization'],['cmseg-addnoise','CMSeg-Net 2025 addnoise'],
@@ -15,6 +16,12 @@ export const NEURAL_METHODS = [
 ];
 export const isRecentNeuralMethod=method=>method?.startsWith('mgcfdn')||method?.startsWith('cmseg-')||method?.startsWith('selfdm-');
 export const isForgeryscope = method => method?.startsWith('forgeryscope-');
+// Drawing must select a supported manual-input contract. Preserve an explicit
+// exclusion/comparison instead of silently changing the meaning of its ROIs.
+export function neuralDrawingScope(method,current){
+ if(isForgeryscope(method)){if(current==='exclude')return current;if(current==='compare'&&method!=='forgeryscope-auto')return current;return method==='forgeryscope-auto'?'exclude':'compare';}
+ return method==='d2prl'&&current==='exclude'?'exclude':'regions';
+}
 export const neuralOperation = method => isForgeryscope(method)?'m2.forgeryscope':!method||method==='d2prl'?'ai.clones.d2prl':'ai.clones.segmentation';
 export function forgeryscopeParams(method,scope,rectangles,language='fr') {
  const profile=method.slice('forgeryscope-'.length),bounds=rectangles.map(r=>[r.x0,r.y0,r.x1,r.y1]);
@@ -59,4 +66,8 @@ export async function sampleCloneField(client,display,field,tile) {
  return out;
 }
 // Only inference-affecting parameters identify a retained raw-grid analysis.
-export const d2AnalysisKey = task => JSON.stringify([task.imageId,task.backend??'auto',task.regions??[],task.params?.selectionPresent??false]);
+export const d2AnalysisKey = task => {
+ const scope=task.params?.scientificScope;
+ const identity=scope?neuralScientificScopeIdentity(scope,{width:scope.width,height:scope.height,sourceSha256:scope.sourceSha256}):null;
+ return JSON.stringify([task.imageId,task.backend??'auto',task.regions??[],task.params?.selectionPresent??false,identity]);
+};

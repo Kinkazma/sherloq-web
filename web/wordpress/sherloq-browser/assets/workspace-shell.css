@@ -1,3 +1,4 @@
+@import './detection-regions-panel.css';
 #workspace-app{display:flex;flex-direction:column;height:100dvh;overflow:hidden}
 #workspace-app .app-toolbar{gap:5px;padding:5px 8px;min-height:42px}#workspace-app .brand{font-size:16px;margin-right:4px}#workspace-app .app-toolbar button,#workspace-app .app-toolbar summary{font-size:12px;min-height:28px;padding:4px 7px}#workspace-app .app-toolbar .icon-button{width:29px;height:29px;padding:0}#workspace-app .theme-button{border-radius:4px}
 .layout-actions{display:flex;gap:3px;border-left:1px solid var(--line);margin-left:3px;padding-left:7px}
@@ -29,3 +30,16 @@
 #offline-kit-dialog .offline-path{display:flex;flex-direction:column;gap:.4rem}
 #offline-kit-dialog .offline-path input{width:100%;box-sizing:border-box}
 #offline-kit-dialog progress{width:100%}
+
+/* Editable regions belong to the tools dock, never over the image. */
+.detection-regions-dock{display:flex;flex-direction:column;flex:0 1 auto;max-height:55%;min-height:0;border-top:1px solid var(--line)}
+#toolbox:has(.download-shelf:not([hidden])) .detection-regions-dock{max-height:45%}
+.detection-regions-dock-toggle{width:100%;flex:none;text-align:left;border:0;border-radius:0;padding:7px 10px;background:var(--raised);font-size:12px;font-weight:650}
+.detection-regions-dock-body{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.detection-regions-dock .individual-region-owner{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.detection-regions-dock .detection-regions-panel{flex:1;min-height:0;overflow:hidden}
+.detection-regions-dock .detection-regions-tabs,.detection-regions-dock .detection-regions-actions,.detection-regions-dock .detection-regions-history{flex:none}
+.detection-regions-dock .detection-regions-list{flex:1;min-height:36px;overflow:auto}
+.detection-regions-dock .detection-text-option{flex:none;padding:8px;border-top:1px solid var(--line);font-size:11px;white-space:normal}
+#workspace-app .navigation-tools{flex:none}
+@media(max-height:600px){.detection-regions-dock-body{overflow:auto}.detection-regions-dock .detection-regions-list{flex:none;max-height:160px}}

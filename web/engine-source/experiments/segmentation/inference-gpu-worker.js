@@ -1,16 +1,19 @@
 import {Budget} from '../../src/cache.js';
 import {boundGpuAdapter} from './gpu-budget.js';
-let session, ort, runtime, gpu;
+import {mgcfdnWorkerSessionKey,adaptMgcfdnWorkerModel,mgcfdnWorkerScopeTensor,mgcfdnWorkerFeeds} from './mgcfdn-scoped-worker.js';
+let session, ort, runtime, gpu,sessionKey,scopeInputName,scopeReceipt;
 self.onmessage = async ({data}) => {
-  let input, outputs, scoped = false;
+  let input, outputs,scopeTensor, scoped = false;
   try {
     const started = performance.now(); let modelLoadMs = 0;
     const gpuBefore = typeof gpu === 'undefined' ? null : gpu?.snapshot();
+    const key=mgcfdnWorkerSessionKey(data);
+    if(session&&key!==sessionKey){await session.release();session=undefined;}
     if (!session) {
-      const adapter = await navigator.gpu?.requestAdapter({powerPreference: 'high-performance'});
+      if(!gpu){const adapter = await navigator.gpu?.requestAdapter({powerPreference: 'high-performance'});
       if (!adapter) throw Object.assign(Error('WebGPU adapter unavailable'), {code: 'GPU_UNAVAILABLE'});
       if (data.gpuBudgetBytes !== 512 * 1024 ** 2) throw Error('Pinned GPU admission required');
-      gpu = boundGpuAdapter(adapter, new Budget(data.gpuBudgetBytes));
+      gpu = boundGpuAdapter(adapter, new Budget(data.gpuBudgetBytes));}
       self.postMessage({phase: 'model-load'});
       const response = await fetch(data.modelUrl);
       if (!response.ok || !response.body) throw Error('Model response unavailable');
@@ -22,20 +25,23 @@ self.onmessage = async ({data}) => {
       if (at !== data.model.bytes || sha !== data.model.sha256) throw Error('Model identity mismatch');
       runtime = await import(data.runtimeFactoryUrl); ort = await import(data.ortUrl);
       ort.env.wasm.numThreads = 1; ort.env.wasm.wasmPaths = data.wasmPaths; ort.env.webgpu.adapter = gpu.adapter;
-      session = await ort.InferenceSession.create(bytes, {executionProviders: ['webgpu', 'wasm'], graphOptimizationLevel: 'disabled', enableCpuMemArena: false, enableMemPattern: false});
+      const adapted=await adaptMgcfdnWorkerModel(bytes,data);
+      session = await ort.InferenceSession.create(adapted.bytes, {executionProviders: ['webgpu', 'wasm'], graphOptimizationLevel: 'disabled', enableCpuMemArena: false, enableMemPattern: false});
+      sessionKey=key;scopeInputName=adapted.inputName;scopeReceipt=adapted.receipt;
       if (!gpu.snapshot().devices) throw Object.assign(Error('WebGPU provider was removed; CPU-only result refused'), {code: 'GPU_UNAVAILABLE'});
     }
     if (performance.now() - started > 0) modelLoadMs = performance.now() - started;
     input = new ort.Tensor('float32', data.input, [1, 3, data.model.side, data.model.side]);
     self.postMessage({phase: 'inference'}); const inferStarted = performance.now(); await gpu.begin(); scoped = true;
-    outputs = await session.run({rgb: input}); scoped = false; await gpu.end(); const inferenceMs = performance.now() - inferStarted, copyStarted = performance.now();
+    scopeTensor=mgcfdnWorkerScopeTensor(ort,data);
+    outputs = await session.run(mgcfdnWorkerFeeds({rgb: input},scopeTensor,scopeInputName)); scoped = false; await gpu.end(); const inferenceMs = performance.now() - inferStarted, copyStarted = performance.now();
     const raw = outputs.probability.data.slice(), expected = (data.model.kind === 'softmax' ? 3 : 1) * data.model.side ** 2;
     if (raw.length !== expected || !raw.every(v => Number.isFinite(v) && v >= 0 && v <= 1)) throw Error('Invalid model probability output');
     const stats = gpu.snapshot(); if (!stats.allocations || stats.activeReservationBytes > data.gpuBudgetBytes) throw Error('Bounded GPU execution not established');
-    self.postMessage({ok: true, raw, heapBytes: runtime.heapBytes(), ort: ort.env.versions, gpu: stats, timings: {modelLoadMs, inferenceMs, outputCopyMs: performance.now() - copyStarted, gpuWriteBytes: stats.writeBufferBytes - (gpuBefore?.writeBufferBytes ?? 0), gpuReadBytes: stats.readMappingBytes - (gpuBefore?.readMappingBytes ?? 0)}}, [raw.buffer]);
+    self.postMessage({ok: true, raw, heapBytes: runtime.heapBytes(), ort: ort.env.versions, gpu: stats,...(scopeReceipt?{metadata:{scientificScope:{...data.mgcfScope.metadata,graph:scopeReceipt}}}:{}), timings: {modelLoadMs, inferenceMs, outputCopyMs: performance.now() - copyStarted, gpuWriteBytes: stats.writeBufferBytes - (gpuBefore?.writeBufferBytes ?? 0), gpuReadBytes: stats.readMappingBytes - (gpuBefore?.readMappingBytes ?? 0)}}, [raw.buffer]);
   } catch (error) {self.postMessage({ok: false, code: error.code ?? 'MODEL_FAILED', error: String(error?.message ?? error)});}
   finally {
     if (scoped) {try {await gpu.end();} catch { /* The request already failed. */ }}
-    input?.dispose(); for (const output of Object.values(outputs ?? {})) output.dispose();
+    input?.dispose();scopeTensor?.dispose(); for (const output of Object.values(outputs ?? {})) output.dispose();
   }
 };

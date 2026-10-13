@@ -91,12 +91,13 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
   };
   return {
     get idleInferenceBytes() {return lanes.reduce((sum,lane)=>sum+(lane.inference.residentBytes??0),0);},
-    run({pixels, inputSource, zones, mode = 'regions', exclusions = [], compare = false, provenance = null}, options) {
+    run({pixels, inputSource, zones, mode = 'regions', exclusions = [], compare = false, provenance = null, scientificScope}, options) {
       const segmented=!!inputSource,width=segmented?inputSource.width:pixels?.width,height=segmented?inputSource.height:pixels?.height;
       requireValue(segmented ? pixels===undefined && typeof inputSource.region==='function' && typeof inputSource.sha256==='function' : pixels?.data instanceof Uint8Array && pixels.data.buffer instanceof ArrayBuffer && pixels.data.length === pixels.width * pixels.height * 3, 'Contiguous qualified RGB8 required');
       requireValue(Array.isArray(exclusions) && !exclusions.length && compare === false, 'Exclusions and Compare are unsupported by native CMSeg/MGCF');
       validate(width, height, zones, mode, segmented);
-      const context = {width, height, layout:segmented?'segmented':'contiguous', mode, provenance: structuredClone(provenance), zones: zones.map(z => ({id: z.id, kind: z.kind, bounds: [...z.bounds]}))}; last = null;
+      requireValue(scientificScope===undefined||scientificScope?.sourceScope&&typeof scientificScope.identity==='string'&&scientificScope.metadata?.width===width&&scientificScope.metadata?.height===height,'Prepared segmentation scientific scope required');
+      const context = {width, height, layout:segmented?'segmented':'contiguous', mode, provenance: structuredClone(provenance), ...(scientificScope?{scientificScope:{scope:structuredClone(scientificScope.sourceScope),width,height,sourceSha256:scientificScope.metadata.sourceSha256,identity:scientificScope.identity,policy:'native-candidate-domain-v2'}}:{}), zones: zones.map(z => ({id: z.id, kind: z.kind, bounds: [...z.bounds]}))}; last = null;
       return start(async job => {
         const pinned = [], inserted = []; let sourceRelease, complete = false;
         try {
@@ -108,7 +109,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
           const groups = [], byKey = new Map();
           for (let i = 0; i < context.zones.length; i++) {
             const zone = context.zones[i];
-            zone.cacheKey = prefix + JSON.stringify([model.id, context.pixelSha256, context.width, context.height, zone.bounds]);
+            zone.cacheKey = prefix + JSON.stringify([model.id, context.pixelSha256, context.width, context.height, zone.bounds,...(context.scientificScope?[context.scientificScope.policy,context.scientificScope.identity]:[])]);
             let group = byKey.get(zone.cacheKey);
             if (!group) {group = {index:i, indices:[]}; byKey.set(zone.cacheKey, group); groups.push(group);}
             group.indices.push(i);
@@ -132,7 +133,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
                 timings.cropMs += performance.now() - cropStarted; const prepareStarted = performance.now();
                 prepared = await lane.prepare.run({...input, side: model.side}, {signal, onProgress});
                 timings.preparationMs += performance.now() - prepareStarted; const inferStarted = performance.now();
-                output = await lane.inference.run(prepared.inferenceInput??prepared.tensor, {signal, onProgress, sourceKey:zone.cacheKey}); job.check();
+                output = await lane.inference.run(prepared.inferenceInput??prepared.tensor, {signal, onProgress, sourceKey:zone.cacheKey,...(context.scientificScope?{scientificScope:{...context.scientificScope,bounds:[...zone.bounds]}}:{})}); job.check();
                 if(output.parameterCache)parameterRuns.push(output.parameterCache);
                 if(output.sessionCache)sessionRuns.push(output.sessionCache);
                 if(model.family?.startsWith('selfdm'))neuralRuns.push({zoneIndex:i,zoneIds:group.indices.map(index=>context.zones[index].id),laneIndex:lanes.indexOf(lane),heapBytes:output.heapBytes,metrics:structuredClone(output.metrics??{})});
@@ -140,7 +141,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
                 for (const name of ['modelLoadMs', 'inferenceMs', 'outputCopyMs', 'gpuWriteBytes', 'gpuReadBytes', 'correlationMs', 'backboneMs', 'backboneSetupMs', 'parameterLoadMs', 'attentionMatmulMs', 'graphDistanceMs', 'correlationGpuMs']) timings[name] = (timings[name] ?? 0) + (output.timings?.[name] ?? 0);
                 if(model.splitGraph)for(const name of ['encoderMs','headMs'])timings[name]=(timings[name]??0)+(output.timings?.[name]??0);
                 requireValue(output.raw instanceof Float32Array && output.raw.byteLength === bytesForZone(zone), 'Actual model probability grid required');
-                const actualRawBytes=bytesForZone(zone);pinned.push(budget.reserve(actualRawBytes)); value = {raw: output.raw, byteLength: actualRawBytes,...(sourceResolution?{rawWidth:zone.bounds[2]-zone.bounds[0],rawHeight:zone.bounds[3]-zone.bounds[1]}:{}), heapBytes: output.heapBytes, gpuPeakBufferBytes: output.gpu?.peakAccountedBytes ?? 0, parameterCache:output.parameterCache, sessionCache:output.sessionCache, correlationWorkers: output.workers ?? 0, correlationHeapBytes: output.correlationObservedHeapBytes ?? 0, ...(model.family?.startsWith('selfdm')?{neuralMemoryMaximumBytes:output.metrics?.memoryMaximumBytes,...(output.metadata?{pipelineMetadata:{...structuredClone(output.metadata),coordinateFrame:'input-rectangle-pixels',originalBounds:[...zone.bounds],originalOrigin:zone.bounds.slice(0,2)}}:{})}: {})}; budget.put(zone.cacheKey, value); if (budget.get(zone.cacheKey) === value) inserted.push(zone.cacheKey); inferences++;
+                const actualRawBytes=bytesForZone(zone);pinned.push(budget.reserve(actualRawBytes)); value = {raw: output.raw, byteLength: actualRawBytes,...(sourceResolution?{rawWidth:zone.bounds[2]-zone.bounds[0],rawHeight:zone.bounds[3]-zone.bounds[1]}:{}), heapBytes: output.heapBytes, gpuPeakBufferBytes: output.gpu?.peakAccountedBytes ?? 0, parameterCache:output.parameterCache, sessionCache:output.sessionCache, correlationWorkers: output.workers ?? 0, correlationHeapBytes: output.correlationObservedHeapBytes ?? 0, ...(model.family?.startsWith('selfdm')?{neuralMemoryMaximumBytes:output.metrics?.memoryMaximumBytes}:{}),...(output.metadata?{pipelineMetadata:{...structuredClone(output.metadata),coordinateFrame:'input-rectangle-pixels',originalBounds:[...zone.bounds],originalOrigin:zone.bounds.slice(0,2)}}:{})}; budget.put(zone.cacheKey, value); if (budget.get(zone.cacheKey) === value) inserted.push(zone.cacheKey); inferences++;
               } finally {output?.release(); prepared?.release(); cropRelease?.();}
             }
             cacheHits += group.indices.length - 1; completedZones += group.indices.length;

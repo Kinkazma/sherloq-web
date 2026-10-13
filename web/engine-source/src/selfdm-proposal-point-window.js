@@ -34,8 +34,9 @@ function copyDense(result,state,geometry,w){
  * A failed graph download keeps consumed central windows, without retaining
  * every window output or copying a full field at periodic checkpoints.
  */
-export async function runProposalPointWindows({gray,width,height,budget,cacheKey,runGraph,maxWorkers,signal,onProgress,publishCheckpoint=()=>true}){
+export async function runProposalPointWindows({gray,width,height,budget,cacheKey,runGraph,maxWorkers,signal,onProgress,publishCheckpoint=()=>true,restrictScoresBeforePost,scopeIdentity}){
  requireValue(gray instanceof Float32Array&&gray.length===width*height&&budget&&typeof runGraph==='function'&&typeof cacheKey==='string'&&Number.isInteger(maxWorkers)&&maxWorkers>0,'SuperPoint window input contract');
+ requireValue(restrictScoresBeforePost===undefined||typeof restrictScoresBeforePost==='function'&&typeof scopeIdentity==='string'&&scopeIdentity.length>0,'Scientific SuperPoint restriction identity required');
  checkAbort(signal);const geometry=proposalPointWindows(width,height),{windows,cols,rows,denseWidth,denseHeight}=geometry;
  const scoreLength=denseWidth*denseHeight,descriptorLength=cols*rows*256,byteLength=(scoreLength+descriptorLength)*4+windows.length+256;
  let record=budget.get(cacheKey),reservation,completed=false;
@@ -54,6 +55,7 @@ export async function runProposalPointWindows({gray,width,height,budget,cacheKey
  const state=record.value;let next=0,failure;
  const initialCompleted=state.done.reduce((sum,value)=>sum+value,0);
  try{
+  requireValue(state.scopeIdentity===undefined||state.scopeIdentity===scopeIdentity,'SuperPoint scientific scope checkpoint differs');
   const siblings=await Promise.allSettled(Array.from({length:Math.min(windows.length,maxWorkers)},async()=>{
    while(next<windows.length&&!failure){
     const index=next++,w=windows[index];if(state.done[index])continue;
@@ -70,12 +72,13 @@ export async function runProposalPointWindows({gray,width,height,budget,cacheKey
    }
   }));
   const rejected=siblings.find(value=>value.status==='rejected');if(rejected)throw failure??rejected.reason;checkAbort(signal);
+  if(restrictScoresBeforePost&&!state.scopeFilteringComplete){state.scopeIdentity=scopeIdentity;state.scopeFiltering=await restrictScoresBeforePost(state.scores,{width,height,denseWidth,denseHeight,signal});state.scopeFilteringComplete=true;}
   const denseBytes=(scoreLength+descriptorLength)*4,workspace=Math.ceil((32*MiB+scoreLength*4*12+descriptorLength*4*2)/MiB)*MiB,gpuWasmWorkspaceBytes=Math.ceil(Math.max(128*MiB,denseBytes*2+64*MiB)/MiB)*MiB;
   // A single global postprocess keeps native NMS/TopK boundaries and its exact
   // descriptor grid. Its buffers scale with final dense fields, not with the
   //64-channel full-resolution CNN activation that previously exhausted RAM.
   const result=await runGraph('superpoint-post',{dense_scores:{data:state.scores,dims:[1,1,denseHeight,denseWidth]},dense_descriptors:{data:state.descriptors,dims:[1,256,rows,cols]}},workspace,2048*259*4,{denseWindows:windows.length,reusedWindows:initialCompleted,gpuWasmWorkspaceBytes});
-  completed=true;return result;
+  completed=true;if(state.scopeFiltering)result.scopeFiltering=structuredClone(state.scopeFiltering);return result;
  }finally{
   reservation();if(completed||!publishCheckpoint())record.onEvict();else budget.put(cacheKey,record);
  }

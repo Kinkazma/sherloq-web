@@ -1,3 +1,4 @@
+@import url('./detection-regions-panel.css');
 #tool-controls{padding:8px 12px;border-bottom:1px solid var(--line,#aaa)}
 #tool-controls[hidden],#tool-results[hidden]{display:none}
 .tool-fields{display:flex;flex-wrap:wrap;gap:8px 14px;max-height:145px;overflow:auto;padding:7px 0}
@@ -20,3 +21,5 @@
 .scatter-label{position:absolute;left:12px;top:10px;pointer-events:none;color:var(--ink);font-size:12px}
 .scatter-reset{position:absolute;top:6px;right:6px;font-size:11px}
 .scatter-help{margin:5px 0 0;font-size:10px;color:var(--muted);flex:none}
+
+.individual-region-owner{padding:8px;border-bottom:1px solid var(--line)}.detection-text-option{padding:7px 2px;font-size:11px;white-space:normal}

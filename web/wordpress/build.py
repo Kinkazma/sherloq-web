@@ -107,11 +107,17 @@ def main():
     spec = importlib.util.spec_from_file_location('runtime_delivery', root / 'runtime-delivery.py')
     adapter = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(adapter)
+    runtime_overlay = adapter.qualified_runtime_overlay(root)
+    if runtime_overlay.files:
+        files['assets/scientific-regions-delivery-increment.json'] = root / 'runtime-patches/batch-scientific-regions-20261013.json'
     slots = [relative(r['destination']).relative_to('sherloq-browser').as_posix() + '/' for r in lock['runtimes']]
     for name, source in files.items():
         if source.suffix in ['.js', '.mjs'] and any(name.startswith(slot) for slot in slots):
-            prepared[name] = adapter.adapted_runtime(name.removeprefix('assets/'), source.read_bytes(),
-                lambda p: files['assets/' + p].read_bytes(), version)
+            data = source.read_bytes()
+            relative_name = name.removeprefix('assets/')
+            prepared[name] = runtime_overlay.apply(relative_name, data,
+                adapter.adapted_runtime(relative_name, data,
+                    lambda p: files['assets/' + p].read_bytes(), version))
     manifest = {name: hashlib.sha256(prepared[name]).hexdigest() if name in prepared else sha(source)
                 for name, source in files.items()}
     if args.install:

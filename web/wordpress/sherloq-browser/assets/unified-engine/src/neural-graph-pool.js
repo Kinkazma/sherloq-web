@@ -1,8 +1,8 @@
-import "../../runtime-context.js?v=0.16.0";
 import {registerArrayViews} from './allocation.js';
 import {EngineError,checkAbort,requireValue,deserializeEngineError,resourceAllocationKind,resourceRecoveryBytes,controlCheckpoint} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
+import {neuralGraphTransformAllowance} from './neural-scoped-model.js';
 const MiB=1024**2;
 const executionContexts=new WeakMap();
 const dataBytes=inputs=>Object.values(inputs).reduce((n,t)=>n+t.data.byteLength,0);
@@ -60,6 +60,7 @@ export class NeuralGraphPool {
   async run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend='auto',cpuRequired=false,_memoryScale=1,reusableInputs={},gpuWasmWorkspaceBytes,resourceOperation,_initializationRecovery=0}={}){
     const asset=this.assets[name];
     requireValue(asset&&Number.isSafeInteger(asset.bytes)&&asset.bytes>0&&/^[a-f0-9]{64}$/.test(asset.sha256),'Invalid neural model identity.');
+    const modelBytes=asset.bytes+neuralGraphTransformAllowance(asset);
     requireValue([workspaceBytes,outputBytes].every(x=>Number.isSafeInteger(x)&&x>=0),'Neural activation/output bounds required.');
     requireValue(['auto','cpu','webgpu'].includes(backend),'Invalid neural backend.');
     for(const t of Object.values(inputs))requireValue(ArrayBuffer.isView(t.data)&&Array.isArray(t.dims)&&t.dims.every(x=>Number.isSafeInteger(x)&&x>=0)&&t.dims.reduce((a,b)=>a*b,1)===t.data.length,'Invalid neural tensor.');
@@ -69,13 +70,13 @@ export class NeuralGraphPool {
     for(const [key,id]of Object.entries(reusableInputs))requireValue(inputs[key]?.data instanceof Float32Array&&typeof id==='string'&&id.length>0,'Reusable tensors require immutable float32 inputs and identity.');
     requireValue(gpuWasmWorkspaceBytes===undefined||Number.isSafeInteger(gpuWasmWorkspaceBytes)&&gpuWasmWorkspaceBytes>=0,'Invalid GPU host workspace bound.');
     const reusableBytes=Object.keys(reusableInputs).reduce((n,key)=>n+inputs[key].data.byteLength,0);
-    const inputBytes=dataBytes(inputs),memoryMaximumBytes=Math.ceil((64*MiB+asset.bytes*2+(provider==='webgpu'?(gpuWasmWorkspaceBytes??workspaceBytes):workspaceBytes))*_memoryScale/MiB/16)*16*MiB;
+    const inputBytes=dataBytes(inputs),memoryMaximumBytes=Math.ceil((64*MiB+modelBytes*2+(provider==='webgpu'?(gpuWasmWorkspaceBytes??workspaceBytes):workspaceBytes))*_memoryScale/MiB/16)*16*MiB;
     if(memoryMaximumBytes>Math.min(4*1024**3,asset.wasmMaximumBytes??4*1024**3))throw new EngineError('MEMORY_LIMIT','Graph exceeds WebAssembly address space.');
     // Each ORT worker owns a fixed WASM thread team. Its width is assigned by
     // the global broker for each useful job; a changed width recreates only
     // that idle worker. Native scalar executors never request phantom threads.
     const cpuMaximum=provider==='wasm'&&runtime.ortUrl&&globalThis.crossOriginIsolated===true?this.profile.maxWorkers:1;
-    const residentBytes=memoryMaximumBytes+asset.bytes*2+(provider==='webgpu'?asset.bytes+workspaceBytes:0)+4*MiB+reusableBytes;
+    const residentBytes=memoryMaximumBytes+modelBytes*2+(provider==='webgpu'?modelBytes+workspaceBytes:0)+4*MiB+reusableBytes;
     const jobBytes=inputBytes+outputBytes*2; // clone in worker + output readback/transfer
     let slot,releaseJob,reusedBytes=0,workerReused=false,modelReconfigured=false;const operation=this.budget.beginOperation?.({owner:this.resourceOwner,id:'neural/'+name,parent:resourceOperation});
     try{for(;;){
@@ -90,12 +91,12 @@ export class NeuralGraphPool {
         slot=this.slots.filter(s=>!s.busy&&s.provider===provider&&s.cap>=memoryMaximumBytes).sort((a,b)=>a.cap-b.cap||b.lastUsed-a.lastUsed)[0];
         if(slot){
           slot.busy=true;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);
-          const targetBytes=slot.cap+asset.bytes*2+(provider==='webgpu'?asset.bytes+workspaceBytes:0)+4*MiB+reusableBytes;
+          const targetBytes=slot.cap+modelBytes*2+(provider==='webgpu'?modelBytes+workspaceBytes:0)+4*MiB+reusableBytes;
           try{releaseJob=this.budget.reserve(jobBytes);if(targetBytes>slot.bytes){this.budget.retain(targetBytes-slot.bytes);slot.bytes=targetBytes;}}
           catch(error){atomicAdmission(error,jobBytes+Math.max(0,targetBytes-slot.bytes));slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);releaseJob?.();releaseJob=null;if(error.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,error);continue;}throw error;}
           // Keep any larger old residency charged until model release and the
           // new useful job have completed inside the worker.
-          slot.targetBytes=targetBytes;if(slot.gpuBacking){slot.targetGpuBytes=asset.bytes+workspaceBytes+reusableBytes+jobBytes;slot.gpuBacking.resize(Math.max(slot.gpuBacking.bytes,slot.targetGpuBytes),{materializedBytes:0});}slot.name=name;slot.workspaceCap=workspaceBytes;slot.reusableBytes=reusableBytes;slot.reusableInputs={};workerReused=true;modelReconfigured=true;this.runtimeReuses++;break;
+          slot.targetBytes=targetBytes;if(slot.gpuBacking){slot.targetGpuBytes=modelBytes+workspaceBytes+reusableBytes+jobBytes;slot.gpuBacking.resize(Math.max(slot.gpuBacking.bytes,slot.targetGpuBytes),{materializedBytes:0});}slot.name=name;slot.workspaceCap=workspaceBytes;slot.reusableBytes=reusableBytes;slot.reusableInputs={};workerReused=true;modelReconfigured=true;this.runtimeReuses++;break;
         }
       }
       if(this.slots.filter(s=>s.busy).length>=this.profile.maxWorkers){await this.wait(signal,operation);continue;}
@@ -109,7 +110,7 @@ export class NeuralGraphPool {
         releaseJob=this.budget.reserve(jobBytes);
         this.budget.retain(residentBytes);
         try{
-          slot={name,provider,cap:memoryMaximumBytes,workspaceCap:workspaceBytes,bytes:residentBytes,reusableBytes,reusableInputs:{},lastUsed:++this.clock,busy:true,worker:this.factory(new URL('./neural-graph-worker.js',import.meta.url))};this.workerStarts++;slot.backing=this.budget.registerBacking?.('wasm',slot.cap,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved',reclaimable:false});if(provider==='webgpu')slot.gpuBacking=this.budget.registerBacking?.('gpu',asset.bytes+workspaceBytes+reusableBytes+jobBytes,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved'});this.slots.push(slot);this.peakWorkers=Math.max(this.peakWorkers,this.slots.length);this.contexts.peakWorkers=Math.max(this.contexts.peakWorkers,this.allSlots().length);
+          slot={name,provider,cap:memoryMaximumBytes,workspaceCap:workspaceBytes,bytes:residentBytes,reusableBytes,reusableInputs:{},lastUsed:++this.clock,busy:true,worker:this.factory(new URL('./neural-graph-worker.js',import.meta.url))};this.workerStarts++;slot.backing=this.budget.registerBacking?.('wasm',slot.cap,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved',reclaimable:false});if(provider==='webgpu')slot.gpuBacking=this.budget.registerBacking?.('gpu',modelBytes+workspaceBytes+reusableBytes+jobBytes,{owner:this.resourceOwner,label:'neural/'+name,state:'reserved'});this.slots.push(slot);this.peakWorkers=Math.max(this.peakWorkers,this.slots.length);this.contexts.peakWorkers=Math.max(this.contexts.peakWorkers,this.allSlots().length);
         }catch(e){slot?.worker?.terminate();slot?.backing?.();slot?.gpuBacking?.();this.budget.retained-=residentBytes;throw e;}
         break;
       }catch(error){atomicAdmission(error,jobBytes+residentBytes);releaseJob?.();releaseJob=null;if(error.code==='MEMORY_LIMIT'&&this.allSlots().some(s=>s.slot.busy)){await this.wait(signal,operation,error);continue;}throw error;}

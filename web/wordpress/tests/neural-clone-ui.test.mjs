@@ -3,9 +3,24 @@ import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
 import {createToolWorkspace} from '../sherloq-browser/assets/tool-workspace.js';
 import {createToolClient} from '../sherloq-browser/assets/tool-client.js';
-import {NEURAL_METHODS,neuralOperation,forgeryscopeParams,neuralDisplays,composeCloneFrame,sampleCloneField} from '../sherloq-browser/assets/neural-clone-ui.js';
+import {NEURAL_METHODS,neuralOperation,neuralDrawingScope,forgeryscopeParams,neuralDisplays,composeCloneFrame,sampleCloneField,d2AnalysisKey} from '../sherloq-browser/assets/neural-clone-ui.js';
 const plane=(id,format='float32')=>({id,revision:1,width:4,height:1,format});
 const result=()=>({operation:'ai.clones.d2prl',surface:plane('map'),planeSurfaces:{source:plane('source'),target:plane('target')},maskSurfaces:{mask:plane('mask','mask8'),analyzed:plane('analyzed','mask8')},data:{metadata:{analysisId:'raw-1'}}});
+
+test('Individual retained D2 identity binds exact exclusion geometry even with an unchanged fingerprint',()=>{
+ const scope={schema:'sherloq.scientific-scope/1',coordinates:'original-pixels',status:'ready',width:32,height:32,sourceSha256:'a'.repeat(64),fingerprint:'b'.repeat(64),regions:[{x0:0,y0:0,x1:32,y1:32}],excluded:[[[4,4],[8,4],[8,8],[4,8]]]};
+ const task={imageId:'image',backend:'auto',params:{selectionPresent:true,scientificScope:scope},regions:[{id:'one',kind:'region',bounds:[0,0,32,32]}]};
+ assert.equal(d2AnalysisKey(task),d2AnalysisKey(structuredClone(task)));
+ const changed=structuredClone(task);changed.params.scientificScope.excluded[0][1][0]=9;
+ assert.notEqual(d2AnalysisKey(task),d2AnalysisKey(changed));
+ const minimum=structuredClone(task);minimum.params.minimum=200;assert.equal(d2AnalysisKey(task),d2AnalysisKey(minimum));
+});
+
+test('manual neural drawing preserves supported exclusion/comparison modes and never selects nonexistent Forgeryscope regions',()=>{
+ for(const [method]of NEURAL_METHODS){const fg=method.startsWith('forgeryscope-');assert.equal(neuralDrawingScope(method,'whole'),fg?method==='forgeryscope-auto'?'exclude':'compare':'regions');}
+ assert.equal(neuralDrawingScope('d2prl','exclude'),'exclude');assert.equal(neuralDrawingScope('mgcfdn','exclude'),'regions');
+ for(const [method]of NEURAL_METHODS.filter(([m])=>m.startsWith('forgeryscope-'))){assert.equal(neuralDrawingScope(method,'exclude'),'exclude');assert.equal(neuralDrawingScope(method,'compare'),method==='forgeryscope-auto'?'exclude':'compare');assert.notEqual(neuralDrawingScope(method,''),'regions');}
+});
 
 test('All native methods and the explicit SelfDM initial map have usable operation routes and descriptive names',()=>{
  assert.equal(NEURAL_METHODS.length,17);assert.equal(new Set(NEURAL_METHODS.map(x=>x[0])).size,17);

@@ -29,8 +29,9 @@ test('SSG, two-real-ROI EfficientLoFTR and Forgeryscope retain their distinct sc
 });
 
 test('segmentation and D2PRL receive true acquisition ROIs only and never unknown algorithm parameters',()=>{
- for(const id of ['ai.clones.d2prl','segmentation-selfdm-proposal']){const r=catalogRecipe(id),task=batchTask(r,{scientificScope:scope()});assert.deepEqual(task.regions.map(r=>r.bounds),[[0,0,50,60],[70,0,120,60]]);assert.equal(task.params.selectionPresent,true);assert.equal(task.params.excluded,undefined);assert.equal(task.params.scientificScope,undefined);assert.equal(task.scientificScope,undefined);assert.equal(batchScopeSupport(r,scope()).mode,'derived-evidence');}
- for(const id of ['analysis.complete','analysis.clones','ela.energy','m2.trufor'])assert.equal(batchScopeSupport(catalogRecipe(id),scope()).mode,'raw-only');
+ for(const id of ['ai.clones.d2prl','segmentation-selfdm-proposal']){const r=catalogRecipe(id),task=batchTask(r,{scientificScope:scope()});assert.deepEqual(task.regions.map(r=>r.bounds),[[0,0,50,60],[70,0,120,60]]);assert.equal(task.params.selectionPresent,true);assert.equal(task.params.excluded,undefined);assert.deepEqual(task.params.scientificScope,scope());assert.equal(task.scientificScope,undefined);assert.equal(batchScopeSupport(r,scope()).mode,id==='ai.clones.d2prl'?'matching-exclusions':'derived-evidence');}
+ for(const id of ['analysis.complete','analysis.clones']){const supported=batchScopeSupport(catalogRecipe(id),scope());assert.equal(supported.mode,'mixed-exclusions');assert.equal(supported.stages.d2prl,'source-and-target-before-native-patchmatch');assert.equal(supported.stages.forgeryscope,'geometric-keypoints-before-matching');}
+ for(const id of ['ela.energy','m2.trufor'])assert.equal(batchScopeSupport(catalogRecipe(id),scope()).mode,'raw-only');
 });
 
 test('incomplete preparation cannot become a full-frame task',()=>{

@@ -7,6 +7,9 @@ import {toolGroups} from './tool-tree.js';
 import {mountAnalysisPanel} from './app.js';
 import {createWorkspaceState} from './workspace-state.js';
 import {createWorkspaceEnginePool} from './workspace-engine-pool.js';
+import {createDetectionRegionsDock} from './detection-regions-dock.js';
+import {createDownloadShelf} from './download-shelf.js';
+import {mountSessionControls} from './session-ui.js';
 import {recoverSettings,settingsFilename} from './settings.js';
 import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js';
 import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js';
@@ -15,6 +18,9 @@ import {localFeaturePolicy} from './feature-policy.js';
 export function mountWorkspace(document=globalThis.document,{panelFactory=mountAnalysisPanel,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js')).mountBatchUI(options),localManagement}={}) {
 const $=id=>document.getElementById(id),state=createWorkspaceState();
 let batchUI,batchOpening;
+const downloadShelf=createDownloadShelf({document,parent:$('toolbox'),before:$('toolbox').querySelector('.navigation-tools'),language:()=>state.language,onError:error=>notify(error.message)});
+mountSessionControls(document,{download});
+const regionsDock=createDetectionRegionsDock({document,parent:$('toolbox'),before:downloadShelf.element,language:()=>state.language});
 const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id)),engineFactory=createWorkspaceEnginePool();
 const labels={
  fr:{batch:'Traitement par lot',file:'Fichier',open:'Ouvrir une image…',tools:'Outils',tile:'Mosaïque',cascade:'Cascade',tabs:'Onglets',closeAll:'Tout fermer',settings:'Réglages',quickExport:'Export rapide',exportImage:'Exporter l’image affichée…',exportReport:'Exporter le rapport…',saveSession:'Exporter la session…',restoreSession:'Restaurer une session…',exportSettings:'Exporter les réglages…',importSettings:'Rappeler les réglages…',compute:'Calcul',maximum:'Maximum utile',aggressive:'Agressif',navigation:'Navigation',automatic:'Automatique',mouse:'Souris',highlight:'Signaler les nouveaux outils',about:'À propos',availability:'Je suis heureux de mettre cette application à la disposition de tous, gratuitement et sans limite de durée d’utilisation.',privacy:'Vos images et résultats restent dans ce navigateur. Aucun envoi d’image ni suivi d’utilisation par cette application.',welcome:'Ouvrez ou glissez une image pour commencer.',fit:'Ajuster',cancel:'Annuler',closeHint:'Fermer tous les documents et arrêter leurs calculs ? Les réglages et favoris seront conservés.',closeConfirm:'Tout fermer et réinitialiser',ready:'Prêt.',loading:'Chargement…',favorites:'Favoris',addFavorite:'Ajouter aux favoris',removeFavorite:'Retirer des favoris',close:'Fermer',background:'calcul(s) dans les autres onglets',busyClose:'Cet onglet calcule encore. Le fermer arrêtera son calcul. Continuer ?',replace:'Ouvrir une nouvelle image fermera les analyses de l’image actuelle. Continuer ?',invalid:'Fichier de réglages invalide.',busySettings:'Les réglages pourront être rappelés après les calculs en cours.',loadedSettings:'Réglages rappelés.',sessionImage:'Ouvrez maintenant l’image originale de cette session.',missingImage:'Cette session appartient à une autre image.'},
@@ -34,7 +40,7 @@ function savePreferences(){const current=preferences();if(JSON.stringify(current
 function saveTools(){for(const record of entries())remember(record);if(!dirtyTools.size)return true;const latest=preferenceAccess.read('sherloq.workspace.tools').value||{},next={...latest};for(const id of dirtyTools)next[id]=savedTools[id];if(!preferenceAccess.write('sherloq.workspace.tools',next))return false;for(const id of dirtyTools)toolSignatures.set(id,JSON.stringify(savedTools[id]));dirtyTools.clear();savedTools=next;return true;}
 function notify(message){$('workspace-status').textContent=message;}
 function button(label,action,className=''){const b=document.createElement('button');b.type='button';b.textContent=label;b.className=className;b.onclick=action;return b;}
-function download(value,name){const blob=value instanceof Blob?value:new Blob([JSON.stringify(value,null,2)],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function download(value,name,options){const prepared=value instanceof Blob||value?.blob?value:new Blob([JSON.stringify(value,null,2)],{type:'application/json'});return downloadShelf.download(prepared,name,options).catch(error=>{notify(error.message);throw error;});}
 function closeMenus(){for(const el of document.querySelectorAll('.app-menu'))el.open=false;}
 function renderCatalog(){
  const tree=$('tool-tree');tree.replaceChildren();
@@ -54,7 +60,7 @@ function translate(){
  for(const e of document.querySelectorAll('[data-label]'))e.textContent=text(e.dataset.label);
  $('language-toggle').textContent=state.language==='fr'?'EN':'FR';$('language-toggle').setAttribute('aria-label',state.language==='fr'?'Display in English':'Afficher en français');
  for(const entry of entries())entry.controller?.setLanguage(state.language);
- mediaUI.translate();renderCatalog();renderDocuments();savePreferences();
+ mediaUI.translate();regionsDock.translate();downloadShelf.translate();renderCatalog();renderDocuments();savePreferences();
 }
 function entries(){return [...new Set([sourceEntry,...state.documents.values()].filter(Boolean))];}
 let settingsTimer;
@@ -65,6 +71,7 @@ function reportTarget(entry=state.documents.get(state.active),view=entry?.contro
 }
 function renderStatus(){
  const entry=state.documents.get(state.active),view=entry?.controller?.snapshot();
+ regionsDock.attach(entry?.regionElement??null);regionsDock.refresh();
  for(const record of state.documents.values()){
   const busy=record.controller?.busy||record.loading;record.element.classList.toggle('busy',!!busy);record.tab?.classList.toggle('busy',!!busy);
  }
@@ -106,7 +113,7 @@ function scopedDocument(root,host){return {
  addEventListener:(...args)=>root.addEventListener(...args),get fullscreenElement(){return document.fullscreenElement;},exitFullscreen:()=>document.exitFullscreen()
 };}
 function createEntry(id){
- const record={id,loading:true,generation,element:document.createElement('section'),controller:null,position:false};
+ const record={id,loading:true,generation,element:document.createElement('section'),regionElement:document.createElement('div'),controller:null,position:false};record.regionElement.hidden=true;
  record.element.id='document-'+crypto.randomUUID();record.element.className='document-window';
  const header=document.createElement('header'),name=document.createElement('span'),panel=document.createElement('div');name.className='window-name';panel.className='panel-host';
  header.append(name,button('×',()=>closeDocument(id),'window-close'));const resize=button('◢',()=>{},'window-resize');resize.setAttribute('aria-label',state.language==='fr'?'Redimensionner la fenêtre':'Resize window');record.element.append(header,panel,resize);bindDocumentResize(resize,record.element,{layout:()=>state.layout,desk:()=>$('workspace-desk')});$('workspace-desk').append(record.element);
@@ -119,7 +126,7 @@ function createEntry(id){
   const root=panel.attachShadow({mode:'open'});
   for(const name of ['app.css','tool-workspace.css','panel.css']){const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(name,import.meta.url).href;link.onload=()=>record.controller?.fit();root.append(link);}
   for(const node of nodes)root.append(document.importNode(node,true));
-  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,requestExport:task=>mediaUI.requestExport(task),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>mediaUI.sync(),onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>{if(record.id===state.active)mediaUI.effectsState(value);},exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),sourceInput:()=>sourceInput,visible:()=>!record.element.hidden&&!record.closed,changed:scheduleRender});
+  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,regionParent:record.regionElement,download,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,requestExport:task=>mediaUI.requestExport(task),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>mediaUI.sync(),onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>{if(record.id===state.active)mediaUI.effectsState(value);},exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),sourceInput:()=>sourceInput,visible:()=>!record.element.hidden&&!record.closed,changed:scheduleRender});
   if(savedTools[id])record.controller.applySettings(savedTools[id]);
   record.controller.setNavigation(navigationMode);record.controller.setTheme(theme);record.controller.setHighlight?.(highlight);record.controller.setLoupe?.(media.loupe);
   return record.controller;
@@ -169,7 +176,7 @@ async function openImage(file){
  catch(error){record.loading=false;notify(error.message);}
 }
 function pickImage(){closeMenus();$('image-file').value='';$('image-file').click();}
-if($('batch-open'))$('batch-open').onclick=async()=>{closeMenus();if(!batchUI){batchOpening??=Promise.resolve().then(()=>batchFactory({document,language:()=>state.language,computeProfile:()=>computeProfile,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);try{await batchOpening;}catch(error){notify(error.message);return;}}batchUI.open();};
+if($('batch-open'))$('batch-open').onclick=async()=>{closeMenus();if(!batchUI){batchOpening??=Promise.resolve().then(()=>batchFactory({document,download,language:()=>state.language,computeProfile:()=>computeProfile,getNavigationMode:()=>navigationMode,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);try{await batchOpening;}catch(error){notify(error.message);return;}}batchUI.open();};
 
 for(const id of ['open-image','open-file-menu','welcome-open'])$(id).onclick=pickImage;
 $('image-file').onchange=e=>void openImage(e.target.files[0]);

@@ -58,7 +58,7 @@ test('microscopy SIFT keeps native extraction settings and all reflections while
 
 test('Auto keeps every native branch output but distinguishes qualified geometry from raw similarity',async()=>{
  const budget=new Budget(16*1024**2),image={width:500,height:400,sha256:sha,data:new Uint8Array(500*400*3)},panels=[['Blots',.9,10,20,110,120],['Blots',.9,130,20,230,120]],calls=[];
- const scope={...full,regions:[...full.regions,{x0:130,y0:20,x1:230,y1:120,type:'Blots',confidence:.9}]};
+ const scope={...full,regions:[...full.regions.map(r=>({...r,type:'Blots'})),{x0:130,y0:20,x1:230,y1:120,type:'Blots',confidence:.9}]};
  const networks={async detect(){return panels;},async embed(images,name){calls.push(name);return {vectors:new Float32Array(2048),release(){}};},async match(a,b,label,options){assert.deepEqual(a.scientificOrigin,[10,20]);assert.deepEqual(b.scientificOrigin,[130,20]);assert.equal(options.scientificScope.fingerprint,scope.fingerprint);return {error:'Native geometric match failed',scopeFiltering:{fingerprint:scope.fingerprint,stage:'keypoints-before-matching',points0:{retained:0}}};}};
  const pool={async run(name,inputs){return {result:{scores:{data:Float32Array.of(1,1)}},release(){}};}};
  const result=await analyzeForgeryscope(image,{networks,pool,budget,profile:'auto',scientificScope:scope});

@@ -55,15 +55,37 @@ function pdfPixels(image){
 }
 export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMITS,identify=pixelIdentity,artifactStoreFactory=createBatchArtifactStore,libraryLoader=batchLibraries}={}){
  const studies=[],images=[],archivedComparisons=[],importedBatchContexts=[],byHash=new Map(),errors=[],artifacts=await artifactStoreFactory(),restoredImages=new WeakMap();let total=0,filesCount=0,retainedBytes=0,imageExportSettings,globalContextRestored=false;
- const contextFields=['engine','configuration','startedAt','finishedAt','cancelled'];
- const contextValue=value=>Object.fromEntries(contextFields.filter(key=>value[key]!==undefined&&(['engine','configuration'].includes(key)?value[key]&&typeof value[key]==='object'&&!Array.isArray(value[key]):key==='cancelled'?typeof value[key]==='boolean':typeof value[key]==='string')).map(key=>[key,structuredClone(value[key])]));
+ const contextFields=['engine','configuration','startedAt','finishedAt','cancelled','resumeEvents','resumePlan','excludedFeatures'];
+ function excludedFeatures(value){
+  if(!Array.isArray(value)||value.length>limits.entries)throw Error('Fonctions non exécutées archivées invalides.');
+  const identifier=value=>typeof value==='string'&&/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,120}$/.test(value);
+  for(const record of value)if(!record||typeof record!=='object'||Array.isArray(record)||!identifier(record.id)||!identifier(record.operation)||record.state!=='feature-uninstalled'||record.scientificResult!==false||record.title!==undefined&&(typeof record.title!=='string'||record.title.length>1000)||record.context!==undefined&&record.context!=='automatic')throw Error('Une fonction non exécutée archivée est invalide ; elle ne constitue pas un résultat scientifique.');
+  return structuredClone(value);
+ }
+ function validateAutomaticExclusions(params){
+  const value=params?.excludedFeatures;if(value===undefined)return;
+  if(!Array.isArray(value)||value.length>limits.entries||!value.every(id=>typeof id==='string'&&['ai.clones.d2prl','m2.forgeryscope'].includes(id)))throw Error('Identifiants de fonctions automatiques non exécutées archivés invalides.');
+  // Keep the archived order and duplicates: these are frozen request inputs.
+  // The automatic engine owns the Set/sort normalization for its native plan.
+ }
+ function contextValue(value){
+  const excluded=value.excludedFeatures===undefined?undefined:excludedFeatures(value.excludedFeatures);
+  if(Array.isArray(value.configuration?.recipes))for(const recipe of value.configuration.recipes)validateAutomaticExclusions(recipe?.params);
+  return Object.fromEntries(contextFields.filter(key=>value[key]!==undefined&&(key==='excludedFeatures'||(['engine','configuration','resumePlan'].includes(key)?value[key]&&typeof value[key]==='object'&&!Array.isArray(value[key]):key==='cancelled'?typeof value[key]==='boolean':key==='resumeEvents'?Array.isArray(value[key]):typeof value[key]==='string'))).map(key=>[key,key==='excludedFeatures'?excluded:structuredClone(value[key])]));
+ }
  function restoreContext(manifest,sourceArchive){
   const global=contextValue(manifest);
-  if(manifest.mixedImportedContexts===true)model.mixedImportedContexts=true;
-  if(!globalContextRestored){Object.assign(model,global);globalContextRestored=true;}
-  else if(JSON.stringify([model.engine,model.configuration])!==JSON.stringify([global.engine,global.configuration]))model.mixedImportedContexts=true;
   const incoming=Array.isArray(manifest.importedBatchContexts)?manifest.importedBatchContexts:[];
   if(incoming.length>limits.entries)throw Error('Trop de contextes scientifiques archivés.');
+  // Validate every scientific context before admitting any source or result.
+  // An invalid absence record must never silently become a detector finding.
+  for(const record of incoming)if(record&&typeof record==='object')contextValue(record);
+  for(const image of manifest.images)for(const attempt of [image,...(Array.isArray(image.history)?image.history:[])])if(attempt&&typeof attempt==='object'){
+   contextValue(attempt);if(Array.isArray(attempt.runs))for(const run of attempt.runs){validateAutomaticExclusions(run?.params);validateAutomaticExclusions(run?.effectiveParams);}
+  }
+  if(manifest.mixedImportedContexts===true)model.mixedImportedContexts=true;
+  if(!globalContextRestored){Object.assign(model,global);globalContextRestored=true;}
+  else if(JSON.stringify([model.engine,model.configuration,model.excludedFeatures])!==JSON.stringify([global.engine,global.configuration,global.excludedFeatures]))model.mixedImportedContexts=true;
   for(const record of incoming)if(record&&typeof record.id==='string'&&/^[a-z0-9-]{1,96}$/i.test(record.id)&&!importedBatchContexts.some(context=>context.id===record.id))importedBatchContexts.push({id:record.id,sourceArchive:record.sourceArchive??sourceArchive,...contextValue(record.usesGlobalContext===true?manifest:record)});
   const signature=JSON.stringify(global),prior=importedBatchContexts.find(context=>JSON.stringify(contextValue(context))===signature);
   if(prior)return prior.id;const id='import-'+crypto.randomUUID();importedBatchContexts.push({id,sourceArchive,...global});return id;
@@ -130,16 +152,23 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
   // The preparation service rechecks the source, models and exact geometry
   // before it can reuse an archived human correction.
   if(old.preparation&&typeof old.preparation==='object'&&!Array.isArray(old.preparation))image.preparation=structuredClone(old.preparation);
+  // An interrupted archive carries the same frozen context as a completed
+  // image. The runner independently verifies encoded SHA and scientific keys
+  // before it reuses any method; converted sources return above this point.
+  if(old.resumeState?.schema==='sherloq.batch-run-resume/1')image.resumeState=structuredClone(old.resumeState);
+  if(typeof old.sourceSha256==='string'&&/^[a-f0-9]{64}$/.test(old.sourceSha256))image.sourceSha256=old.sourceSha256;
   await restoreFiles(records(old));if(validDisplay(old.finalDisplay)&&old.finalDisplay)image.finalDisplay=structuredClone(old.finalDisplay);if(validResultDisplay(old.resultDisplay)&&old.resultDisplay.files.every(path=>entry(path)))image.resultDisplay=structuredClone(old.resultDisplay);
   const scoreValid=old.score&&['clones','additional','total'].every(k=>Number.isSafeInteger(old.score[k])&&old.score[k]>=0&&old.score[k]<=128);
   if(old.state==='done'&&old.runs.every(r=>r.status==='done')&&scoreValid&&validDisplay(old.finalDisplay)&&requiredRecords(old).flatMap(r=>r.files).every(path=>entry(path))&&!old.finalDisplay?.pendingRendering&&!old.finalDisplay?.error){image.runs=structuredClone(old.runs);image.score=structuredClone(old.score);image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};if(old.preparation)image.preparation=structuredClone(old.preparation);if(typeof old.sourceSha256==='string'&&/^[a-f0-9]{64}$/.test(old.sourceSha256))image.sourceSha256=old.sourceSha256;}
-  else if(old.runs.length){image.runs=diagnosticRuns(old.runs);image.state='incomplete';image.score={...(scoreValid?structuredClone(old.score):{clones:0,additional:0,total:0}),incomplete:true};image.restoredDiagnostics=true;}
+  else if(old.runs.length){image.runs=diagnosticRuns(old.runs);image.state='incomplete';image.score={...(scoreValid?structuredClone(old.score):{clones:0,additional:0,total:0}),incomplete:true};if(image.resumeState)image.restored={configuration:manifest.configuration,engine:manifest.engine};image.restoredDiagnostics=true;}
  }
  async function restoreArchivedComparisons(manifest,zip,signal,studyRemap,importedContextId){
   const existing=Array.isArray(manifest.archivedComparisons)?manifest.archivedComparisons:[],current=Array.isArray(manifest.comparisons)?manifest.comparisons:[],pairs=[...current,...existing];if(pairs.length>limits.entries)throw Error('Trop de comparaisons archivées.');
   const sourceById=new Map(manifest.images.map(image=>[image.id,image])),safe=path=>typeof path==='string'&&path.split('/').every(part=>part&&part!=='.'&&part!=='..'&&!part.includes('\\'))&&(manifest.archiveLayout==='flat/1'?/^resultats\/(?:images|donnees)\/[^/]+\.(?:png|jpe?g|webp|avif|tiff?|heic|json|npz)$/i.test(path):path.startsWith('comparaisons/')||path.startsWith('historique/'));
   for(const pair of pairs){
    if(!pair||typeof pair!=='object'||!Array.isArray(pair.files)||pair.files.length>limits.entries||!pair.files.every(safe))continue;
+   const active=current.includes(pair)&&pair.status==='done'&&typeof pair.resumeKey==='string'&&pair.resumeKey.length<=8192&&Array.isArray(pair.images)&&pair.images.length===2&&pair.images.every(id=>{const archived=sourceById.get(id),image=images.find(i=>i.id===id);return image&&archived&&archived.archiveSourceConversion?.scientificSourceCompatible===true&&archived.hash===image.hash&&archived.width===image.width&&archived.height===image.height&&archived.sourceSha256===image.sourceSha256&&image.resumeState?.sourceSha256===image.sourceSha256;})&&pair.files.every(path=>!!zip.file(path));
+   if(active){const paths=new Map(pair.files.map((path,index)=>[path,'comparaisons/reprise-'+crypto.randomUUID()+'-'+index+path.slice(path.lastIndexOf('.'))]));for(const [path,target]of paths){check(signal);await artifacts.set(target,await remapBatchEvidence(await zip.file(path).async('blob'),path,paths));}(model.comparisons??=[]).push({...structuredClone(remapBatchFilePointers(pair,paths)),restored:true});continue;}
    const prefix='comparaisons/archive-'+crypto.randomUUID()+'/',paths=new Map([...new Set(pair.files)].map((path,index)=>[path,prefix+'resultat-'+index+path.slice(path.lastIndexOf('.'))]));let incomplete=false;
    for(const [path,target]of paths){check(signal);const entry=zip.file(path);if(!entry){incomplete=true;continue;}await artifacts.set(target,await remapBatchEvidence(await entry.async('blob'),path,paths));}
    const sourceIdentities=(Array.isArray(pair.sourceIdentities)?pair.sourceIdentities:(pair.images??[]).map(id=>{const image=sourceById.get(id);return {id,name:image?.originalName??image?.name,pixelHash:image?.hash,width:image?.width,height:image?.height,encodedSha256:image?.sourceSha256??image?.archiveSourceConversion?.originalSha256,occurrences:image?.occurrences??[]};})).map(source=>({...structuredClone(source),occurrences:(source.occurrences??[]).map(occurrence=>({...structuredClone(occurrence),studyId:studyRemap.get(occurrence.studyId)??occurrence.studyId,originalStudyId:occurrence.originalStudyId??occurrence.studyId}))}));
@@ -216,5 +245,5 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
   else if(imagePattern.test(name)){admit(file.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(name),kind:'image',blob:file,manualMarked:/^(?:A_VERIFIER|\[?SUSPECT|★)/i.test(name),errors:[]};studies.push(study);try{await addImage(file,{studyId:study.id,page:null},{name},signal);}catch(error){check(signal);study.errors.push(error.message);errors.push({name,message:error.message});}}
   else throw Error('Format non pris en charge : '+name);
  }
- const model={studies,images,errors,artifacts,archivedComparisons,importedBatchContexts,get imageExportSettings(){return imageExportSettings;},set imageExportSettings(value){imageExportSettings=validateBatchImageExport(value);},async import(files,signal){for(const file of files){try{await importFile(file,file.name,signal);}catch(error){check(signal);errors.push({name:file.name,message:error.message});}}return {studies,images,errors};},clear(){studies.length=images.length=errors.length=archivedComparisons.length=importedBatchContexts.length=0;globalContextRestored=false;for(const key of [...contextFields,'mixedImportedContexts'])delete model[key];byHash.clear();total=filesCount=retainedBytes=0;return artifacts.clear();}};return model;
+ const model={studies,images,errors,artifacts,archivedComparisons,importedBatchContexts,get imageExportSettings(){return imageExportSettings;},set imageExportSettings(value){imageExportSettings=validateBatchImageExport(value);},async import(files,signal){for(const file of files){try{await importFile(file,file.name,signal);}catch(error){check(signal);errors.push({name:file.name,message:error.message});}}return {studies,images,errors};},clear(){studies.length=images.length=errors.length=archivedComparisons.length=importedBatchContexts.length=0;globalContextRestored=false;for(const key of [...contextFields,'mixedImportedContexts','comparisons'])delete model[key];byHash.clear();total=filesCount=retainedBytes=0;return artifacts.clear();}};return model;
 }

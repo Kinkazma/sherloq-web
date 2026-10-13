@@ -1,3 +1,4 @@
+import {prepareNeuralScientificScope,emptyScopedNeuralResult,neuralScientificScopeIdentity} from './neural-scientific-scope.js';
 import {createNeuralInput} from './neural-input.js';
 import {createNeuralProjector} from './neural-projector.js';
 import {publishNeuralResult} from './publish-neural-result.js';
@@ -40,8 +41,9 @@ export function createSegmentationAdapter({budget, profile, version, publishResu
       if (active) throw new EngineError('BUSY', 'Segmentation adapter busy');
       const inputSource=image.segmented?(image.neuralInput??=createNeuralInput(image.surface,{budget})):undefined,geometry=image.segmented?image.surface.descriptor:image.pixels;
       const params = task.params ?? {};
-      requireValue(Object.keys(params).every(k => ['variant', 'selectionPresent', 'reprojectOf', 'zoneIds', 'exclusions', 'compare'].includes(k)) && params.variant === config.variant, 'Explicit configured segmentation variant required');
+      requireValue(Object.keys(params).every(k => ['variant', 'selectionPresent', 'reprojectOf', 'zoneIds', 'exclusions', 'compare', 'scientificScope'].includes(k)) && params.variant === config.variant, 'Explicit configured segmentation variant required');
       requireValue((params.exclusions === undefined || Array.isArray(params.exclusions) && params.exclusions.length === 0) && (params.compare === undefined || params.compare === false), 'Native CMSeg/MGCF does not support exclusions or Compare');
+      let scientificScope;if(params.scientificScope)active=true;try{
       const requestedBackend = task.backend ?? 'auto';
       if (!['auto', 'cpu', 'webgpu'].includes(requestedBackend) || requestedBackend === 'webgpu' && !config.gpuModelUrl) throw new EngineError('UNSUPPORTED_BACKEND', 'Requested segmentation backend is not configured');
       const reproject = params.reprojectOf !== undefined, regions = task.regions ?? [];
@@ -49,12 +51,20 @@ export function createSegmentationAdapter({budget, profile, version, publishResu
       if (reproject) {
         requireValue(typeof params.reprojectOf === 'string' && task.regions === undefined && params.selectionPresent === undefined && Array.isArray(params.zoneIds), 'Reprojection requires a cached analysis and explicit zone IDs');
         if (!state?.lastContext) throw new EngineError('CACHE_MISS', 'No completed segmentation analysis');
+        requireValue(params.scientificScope===undefined||neuralScientificScopeIdentity(params.scientificScope,{width:geometry.width,height:geometry.height,sourceSha256:image.sha256})===state.lastContext.scopeIdentity,'Reprojection scientific scope differs; request a new analysis');
         requireValue(state.lastContext.imageId === task.imageId && state.lastContext.sha256 === image.sha256 && state.lastContext.analysisId === params.reprojectOf, 'Reprojection source or analysis identity differs');
       } else {
         requireValue(params.zoneIds === undefined, 'Zone subset requires explicit cache-only reprojection');
         if (params.selectionPresent && !regions.length) throw new EngineError('INVALID_INPUT', 'No active segmentation region');
       }
-      const selection = reproject ? {backend: state.backend, reason: 'cached-analysis-backend'} : await selectSegmentationBackend({requested: requestedBackend, gpuModel: config.gpuModelUrl ? config.model.gpu : null, cpuModel:config.model,regionBounds:regions.map(r=>r?.bounds),segmented:!!image.segmented,reclaimableInferenceBytes:state?.session.idleInferenceBytes??0, budget, sourceBytes: image.segmented?Math.min(geometry.width*geometry.height*3,4*1024**2):image.pixels.data.byteLength, zones: regions.length || 1, knownHeapBytes});
+      const requestedZones=regions.length?regions:[{id:'whole-image',kind:'whole-image',bounds:[0,0,geometry.width,geometry.height]}];
+      if(!reproject)scientificScope=await prepareNeuralScientificScope(params.scientificScope,requestedZones,{width:geometry.width,height:geometry.height,sourceSha256:image.sha256,side:config.model.side,budget,signal,requireGridSupport:false,retainMatchingGrid:false});
+      if(scientificScope&&!scientificScope.zones.length){if(state)state.lastContext=null;
+        const analysis=emptyScopedNeuralResult({width:geometry.width,height:geometry.height,segmented:!!image.segmented,roles:config.model.kind==='softmax',budget,metadata:{analysisId:task.id,scientificScope:{...scientificScope.metadata,stage:'fully-cancelled-before-inference',partialExclusions:'Native neural context and partial inference are not masked.'}}});
+        try{const provenance={engine:version,operation:'ai.clones.segmentation',originalSha256:image.sha256,decode:structuredClone(image.provenance),params:{variant:config.variant},regions:[],model:config.model,backend:'not-executed',scientificScope:analysis.metadata.scientificScope};const {release:emptyRelease,dispose:emptyDispose,...emptyData}=analysis;const delivered={id:task.id,imageId:task.imageId,operation:'ai.clones.segmentation',status:'no-regions',data:emptyData,provenance,layers:[],metrics:{inferences:0,skippedBeforeInference:true}};if(image.segmented){Object.assign(delivered,await publishNeuralResult(analysis,task.imageId,provenance,{budget,publishResult,signal}));return delivered;}return delivered;}catch(error){analysis.release();throw error;}finally{if(!image.segmented)analysis.release();}
+      }
+      const effectiveZones=scientificScope?.zones??requestedZones;
+      const selection = reproject ? {backend: state.backend, reason: 'cached-analysis-backend'} : await selectSegmentationBackend({requested: requestedBackend, gpuModel: config.gpuModelUrl ? config.model.gpu : null, cpuModel:config.model,regionBounds:effectiveZones.map(r=>r?.bounds),segmented:!!image.segmented,reclaimableInferenceBytes:state?.session.idleInferenceBytes??0, budget, sourceBytes: image.segmented?Math.min(geometry.width*geometry.height*3,4*1024**2):image.pixels.data.byteLength, zones: effectiveZones.length, knownHeapBytes});
       const {backend} = selection;
       if (reproject && requestedBackend !== 'auto' && requestedBackend !== backend) throw new EngineError('INVALID_INPUT', 'A cached view preserves its original backend; request an explicit new analysis to switch');
       checkAbort(signal); active = true; let resident, result; const started = performance.now();
@@ -68,16 +78,19 @@ export function createSegmentationAdapter({budget, profile, version, publishResu
           const project = createNeuralProjector({budget,family:'segmentation',side:config.model.side,kind:config.model.kind,contiguous:createSegmentationZones({budget,spatial})}), session = createSegmentationAnalysis({budget, prepare, inference, project, createLane}); state = {prepare, inference, spatial, project, session, backend};
         }
         state.project.setImage(image);const hooks = {signal, onProgress: e => onProgress?.({id: task.id, ...e})};
-        const zones = regions.length ? regions : [{id: 'whole-image', kind: 'whole-image', bounds: [0, 0, geometry.width, geometry.height]}];
-        result = reproject ? await state.session.reproject({analysisId: params.reprojectOf, zoneIds: params.zoneIds}, hooks) : await state.session.run({...(inputSource?{inputSource}:{pixels:image.pixels}), zones, mode: regions.length ? 'regions' : 'whole-image', provenance: {originalSha256: image.sha256, decode: image.provenance}}, hooks);
+        const zones = effectiveZones;
+        result = reproject ? await state.session.reproject({analysisId: params.reprojectOf, zoneIds: params.zoneIds}, hooks) : await state.session.run({...(inputSource?{inputSource}:{pixels:image.pixels}), zones, mode: regions.length ? 'regions' : 'whole-image', provenance: {originalSha256: image.sha256, decode: image.provenance},...(scientificScope?{scientificScope}: {})}, hooks);
+        if(reproject&&state.lastContext.scientificScope)result.metadata.scientificScope=structuredClone(state.lastContext.scientificScope);
+        if(scientificScope)result.metadata.scientificScope={...scientificScope.metadata,stage:'native-scientific-scope-request',partialExclusions:'Per-zone native pipeline receipts establish candidate-domain filtering; original convolution context is preserved.',nativePipelines:result.metadata.nativePipelines?.map(p=>({zoneId:p.zoneId,scientificScope:p.scientificScope??p.scope??null}))};
         checkAbort(signal); const {release, ...data} = image.segmented?{width:result.width,height:result.height,metadata:result.metadata}:result;
-        state.lastContext = {imageId: task.imageId, sha256: image.sha256, analysisId: data.metadata.analysisId};
-        const provenance = {engine: version, operation: 'ai.clones.segmentation', originalSha256: image.sha256, decode: structuredClone(image.provenance), params: {variant: config.variant}, regions: data.metadata.zones.map(({id, kind, bounds}) => ({id, kind, bounds})), model: {...state.inference.model}, backend: backend === 'webgpu' ? 'webgpu-cpu' : 'cpu-wasm', backendSelection: selection.reason, kernelParity: state.inference.model.numericalParity ?? 'Declared native synthetic corpus: preparation and masks exact; continuous probabilities differ, see variant-specific numerical reports. Not universal detector accuracy.'};
+        state.lastContext = {imageId: task.imageId, sha256: image.sha256, analysisId: data.metadata.analysisId,scopeFingerprint:data.metadata.scientificScope?.fingerprint,scopeIdentity:reproject?state.lastContext.scopeIdentity:scientificScope?.identity,scientificScope:data.metadata.scientificScope?structuredClone(data.metadata.scientificScope):undefined};
+        const provenance = {engine: version, operation: 'ai.clones.segmentation', originalSha256: image.sha256, decode: structuredClone(image.provenance),...(data.metadata.scientificScope?{scientificScope:data.metadata.scientificScope}:{}), params: {variant: config.variant}, regions: data.metadata.zones.map(({id, kind, bounds}) => ({id, kind, bounds})), model: {...state.inference.model}, backend: backend === 'webgpu' ? 'webgpu-cpu' : 'cpu-wasm', backendSelection: selection.reason, kernelParity: state.inference.model.numericalParity ?? 'Declared native synthetic corpus: preparation and masks exact; continuous probabilities differ, see variant-specific numerical reports. Not universal detector accuracy.'};
         state.lastProvenance = structuredClone(provenance);
         const delivered={id: task.id, imageId: task.imageId, operation: 'ai.clones.segmentation', status: 'ok', data, semantics: 'Native sigmoid or target/source/background class probabilities, independent rectangle inference and maximum/OR composition. No D2PRL residual roles or component filter.', layers: [{id: 'union', kind: 'mask', field: 'data.mask', width: data.width, height: data.height, origin: [0, 0], range: [0, 1]}, {id: 'probability', kind: 'scalar', field: 'data.map', width: data.width, height: data.height, origin: [0, 0], range: [0, 1]}, ...(data.target ? ['target', 'source'].map(id => ({id, kind: 'scalar', field: 'data.' + id, width: data.width, height: data.height, origin: [0, 0], range: [0, 1]})) : [])], provenance, metrics: {execution: data.metadata.execution, timings: data.metadata.timings, totalMs: performance.now() - started, inferences: data.metadata.inferences, cache: {rawGrids: data.metadata.cache_hits}, memory: budget.snapshot()}};
         if(image.segmented){const bundle=await publishNeuralResult(result,task.imageId,{...provenance,layout:'segmented'},{budget,publishResult,signal});delivered.metrics.projection=result.metrics;result=null;Object.assign(delivered,bundle);delivered.provenance.layout='segmented';delivered.metrics.memory=budget.snapshot();state.lastProvenance=structuredClone(delivered.provenance);}
         return delivered;
       } finally {await result?.release(); resident?.(); active = false;}
+      }finally{scientificScope?.release();if(params.scientificScope)active=false;}
     },
     readRaw({imageId, resultId}) {
       requireValue(!active, 'Segmentation adapter busy'); if (!state?.lastContext) throw new EngineError('CACHE_MISS', 'No completed segmentation result');

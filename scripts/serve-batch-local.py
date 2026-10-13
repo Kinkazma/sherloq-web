@@ -9,15 +9,21 @@ parser.add_argument('--port',type=int,default=8097)
 parser.add_argument('--root',type=Path,default=Path.cwd(),help='Optional installed web root; normally use --assets with a delivered UI')
 parser.add_argument('--assets',type=Path,help='Reuse an existing delivered plugin assets directory directly')
 parser.add_argument('--resources',type=Path,help='Reuse an existing pinned web-assets directory without copying resources')
+parser.add_argument('--resource-overlay',action='append',type=Path,default=[],help='Borrow additional declared chunks from existing web-assets directories; all bytes are verified')
 parser.add_argument('--candidate-ui',action='store_true',help='Overlay current bootstrap UI files while preserving the delivered native engine manifest')
 parser.add_argument('--fixtures',type=Path,help='Optional generated fixtures directory for browser checks')
 parser.add_argument('--candidate-engine',type=Path,help='Optional source directory for isolated SIFT phase qualification')
+parser.add_argument('--candidate-vendor',action='append',default=[],help='Explicit small candidate vendor file relative to the engine source; reuse unchanged resources from the pinned delivery')
 parser.add_argument('--scientific-text-model',type=Path,help='Existing pinned detector model; served locally without copying')
 parser.add_argument('--ssg-assets-manifest',type=Path,help='Existing local qualification manifest; overlay only pinned SSG resources without copying or publishing them')
 args=parser.parse_args()
 assets=args.assets or Path(args.root)/'wp-content/plugins/sherloq-browser/assets'
 configuration=json.loads((assets/'dependency-config.json').read_text())
-manifest=json.loads((assets/('dependency-manifest-'+configuration['manifest']+'.json')).read_text())
+manifest_path=assets/('dependency-manifest-'+configuration['manifest']+'.json')
+if not manifest_path.is_file():manifest_path=assets/'__manifest.json'
+manifest_payload=manifest_path.read_bytes()
+if hashlib.sha256(manifest_payload).hexdigest()!=configuration['manifest']:raise ValueError('Delivered manifest identity mismatch')
+manifest=json.loads(manifest_payload)
 repository=Path(__file__).resolve().parents[1]
 resource_root=args.resources or repository/'web-assets'
 candidate_data={}
@@ -30,16 +36,27 @@ if args.candidate_ui:
   # Top-level UI belongs to the bootstrap/offline-shell inventory, not to
   # runtime slots. Adding it to the runtime manifest would invalidate it.
   candidate_data[source.name]=source.read_bytes()
-candidate_modules=tuple(p.relative_to(args.candidate_engine).as_posix() for p in args.candidate_engine.rglob('*') if p.is_file() and p.suffix in ('.js','.mjs')) if args.candidate_engine else ()
+candidate_engine_root=bool(args.candidate_engine and (args.candidate_engine/'src/index.js').is_file())
+candidate_modules=tuple(p.relative_to(args.candidate_engine).as_posix() for p in args.candidate_engine.rglob('*') if p.is_file() and p.suffix in ('.js','.mjs') and (not candidate_engine_root or p.relative_to(args.candidate_engine).parts[0] in ('src','experiments'))) if args.candidate_engine else ()
 if args.candidate_engine:
  for name in candidate_modules:
-  path='unified-engine/src/'+name
-  context='../'*(len(Path(name).parts)+1)+'runtime-context.js?v=batch-scientific-local'
+  path=('unified-engine/' if candidate_engine_root else 'unified-engine/src/')+name
+  context='../'*(len(Path(name).parts)+(0 if candidate_engine_root else 1))+'runtime-context.js?v=batch-scientific-local'
   data=('import "'+context+'";\n').encode()+(args.candidate_engine/name).read_bytes()
   digest=hashlib.sha256(data).hexdigest();candidate_data[path]=data;candidate_chunks[digest]=data
   manifest['chunks'][digest]=len(data)
   manifest['files'][path]={'size':len(data),'sha256':digest,'chunks':[digest],'type':'text/javascript'}
- manifest['localFiles']=sorted(set(manifest.get('localFiles',[]))|set(candidate_data))
+ manifest['localFiles']=sorted(set(manifest.get('localFiles',[]))|{p for p in candidate_data if p in manifest['files']})
+if args.candidate_vendor:
+ if not args.candidate_engine:raise ValueError('Candidate vendor requires candidate engine source')
+ engine_root=args.candidate_engine.resolve()
+ for name in args.candidate_vendor:
+  relative=Path(name);source=(engine_root/relative).resolve()
+  if relative.is_absolute() or '..' in relative.parts or relative.parts[0]!='vendor' or source.suffix not in {'.js','.mjs','.wasm','.json'} or not source.is_relative_to(engine_root) or not source.is_file() or source.stat().st_size>8*1024*1024:raise ValueError('Invalid bounded candidate vendor file')
+  path='unified-engine/'+relative.as_posix();data=source.read_bytes();digest=hashlib.sha256(data).hexdigest()
+  candidate_data[path]=data;candidate_chunks[digest]=data;manifest['chunks'][digest]=len(data)
+  manifest['files'][path]={'size':len(data),'sha256':digest,'chunks':[digest],'type':mimetypes.guess_type(path)[0] or 'application/octet-stream'}
+ manifest['localFiles']=sorted(set(manifest.get('localFiles',[]))|{'unified-engine/'+Path(name).as_posix() for name in args.candidate_vendor})
 if args.ssg_assets_manifest:
  donor=json.loads(args.ssg_assets_manifest.read_text());donor_root=args.ssg_assets_manifest.parent/'public/web-assets';donor_chunks=donor_root/'chunks'
  for path,spec in donor['files'].items():
@@ -76,6 +93,20 @@ local_identity=hashlib.sha256(manifest_bytes).hexdigest()
 # bootstrap and migrate normally, without deleting the user's browser storage.
 local_manifests={local_identity:manifest_bytes}
 verified_resource_chunks={}
+resource_roots=[resource_root,*args.resource_overlay]
+def declared_chunk(sha):
+ for root in resource_roots:
+  source=root/'chunks'/(sha+'.bin')
+  if not source.is_file() or source.stat().st_size!=manifest['chunks'].get(sha):continue
+  signature=(source.stat().st_mtime_ns,source.stat().st_size)
+  if verified_resource_chunks.get(str(source))!=signature:
+   check=hashlib.sha256()
+   with source.open('rb') as stream:
+    while data:=stream.read(1024*1024):check.update(data)
+   if check.hexdigest()!=sha:raise ValueError('Declared chunk identity mismatch: '+sha)
+   verified_resource_chunks[str(source)]=signature
+  return source
+ return None
 for previous_path in assets.glob('dependency-manifest-*.json'):
  previous=json.loads(previous_path.read_text())
  previous['remoteBase']=f'http://127.0.0.1:{args.port}/__batch_assets__/'
@@ -99,16 +130,8 @@ class Handler(SimpleHTTPRequestHandler):
    if len(relative.parts)==2 and relative.parts[0]=='chunks' and relative.suffix=='.bin' and relative.stem in manifest['chunks']:
     # Delivery folders can borrow existing chunks through symlinks. Expose
     # only a declared chunk whose actual bytes match its pinned identity.
-    source=resource_root/relative
-    if source.is_file() and source.stat().st_size==manifest['chunks'][relative.stem]:
-     signature=(source.stat().st_mtime_ns,source.stat().st_size)
-     if verified_resource_chunks.get(str(source))!=signature:
-      check=hashlib.sha256()
-      with source.open('rb') as stream:
-       while data:=stream.read(1024*1024):check.update(data)
-      if check.hexdigest()!=relative.stem:return str(resource_root/'missing')
-      verified_resource_chunks[str(source)]=signature
-     return str(source)
+    source=declared_chunk(relative.stem)
+    if source:return str(source)
    target=(resource_root/requested.removeprefix('/__batch_assets__/')).resolve()
    if not target.is_relative_to(resource_root.resolve()): return str(resource_root/'missing')
    return str(target)
@@ -142,6 +165,22 @@ class Handler(SimpleHTTPRequestHandler):
    self.send_response(200);self.send_header('Content-Type',spec.get('type') or mimetypes.guess_type(relative)[0] or 'application/octet-stream');self.send_header('Content-Length',str(spec['size']));self.end_headers()
    # Dynamic imports use logical module URLs even from workers not controlled
    # by the page service worker. Reuse the pinned chunks in bounded reads.
+   for source in sources:
+    with source.open('rb') as stream:
+     while data:=stream.read(1024*1024):self.wfile.write(data)
+   return
+  if relative in manifest['files'] and not (assets/relative).is_file():
+   spec=manifest['files'][relative]
+   # A restricted payload is eligible only when its original local chunk
+   # already exists. Never fetch, synthesize, or copy missing model bytes.
+   sources=[declared_chunk(sha) for sha in spec['chunks']]
+   if any(source is None for source in sources):return self.send_error(404,'Declared resource is unavailable locally')
+   check=hashlib.sha256();count=0
+   for source in sources:
+    with source.open('rb') as stream:
+     while data:=stream.read(1024*1024):check.update(data);count+=len(data)
+   if count!=spec['size'] or check.hexdigest()!=spec['sha256']:return self.send_error(500,'Declared resource identity mismatch')
+   self.send_response(200);self.send_header('Content-Type',spec.get('type') or mimetypes.guess_type(relative)[0] or 'application/octet-stream');self.send_header('Content-Length',str(count));self.end_headers()
    for source in sources:
     with source.open('rb') as stream:
      while data:=stream.read(1024*1024):self.wfile.write(data)

@@ -10,11 +10,11 @@ export async function createPatchMatch(factory,{budget,evaluatorFactory=createEv
  const clear=()=>{if(!checkpoint)return;const old=checkpoint;checkpoint=null;old.candidatesWorkspace?.dispose();old.random?.dispose();old.workspace?.();old.outputRelease?.();};
  return{
   get residentBytes(){return evaluator.residentBytes;},
-  async run({zmFeatures,cnnFeatures,cnnFinalFeatures=cnnFeatures,side=448,iterations=40,randomState,referenceThreads=8},{signal,onProgress,onTrace,checkpointKey}={}){
+  async run({zmFeatures,cnnFeatures,cnnFinalFeatures=cnnFeatures,side=448,iterations=40,randomState,referenceThreads=8,scientificMask=null},{signal,onProgress,onTrace,checkpointKey}={}){
    requireValue(!busy&&!disposed,'PatchMatch unavailable');requireValue(Number.isInteger(side)&&side>=2&&side<=448&&Number.isInteger(iterations)&&iterations>=1&&iterations<=40,'Unsupported PatchMatch shape/iterations');requireValue(Number.isInteger(referenceThreads)&&referenceThreads>=1&&referenceThreads<=32,'Invalid native thread layout');
    const n=side*side;for(const[value,channels]of[[zmFeatures,36],[cnnFeatures,96],[cnnFinalFeatures,96]])requireValue(value instanceof Uint16Array&&value.length===channels*n,'Half descriptors required');if(signal?.aborted){clear();checkAbort(signal);}busy=true;const randomIdentity=JSON.stringify(randomState);
-   if(checkpoint&&(checkpoint.key!==checkpointKey||checkpoint.zmFeatures!==zmFeatures||checkpoint.cnnFeatures!==cnnFeatures||checkpoint.cnnFinalFeatures!==cnnFinalFeatures||checkpoint.side!==side||checkpoint.iterations!==iterations||checkpoint.referenceThreads!==referenceThreads||checkpoint.randomIdentity!==randomIdentity))clear();
-   const state=checkpoint??{key:checkpointKey,zmFeatures,cnnFeatures,cnnFinalFeatures,side,iterations,referenceThreads,randomIdentity,cursor:0,calls:0,coordinates:{}};checkpoint=state;let retain=false;
+   if(checkpoint&&(checkpoint.key!==checkpointKey||checkpoint.zmFeatures!==zmFeatures||checkpoint.cnnFeatures!==cnnFeatures||checkpoint.cnnFinalFeatures!==cnnFinalFeatures||checkpoint.side!==side||checkpoint.iterations!==iterations||checkpoint.referenceThreads!==referenceThreads||checkpoint.randomIdentity!==randomIdentity||checkpoint.scientificMask!==scientificMask))clear();
+   const state=checkpoint??{key:checkpointKey,zmFeatures,cnnFeatures,cnnFinalFeatures,side,iterations,referenceThreads,randomIdentity,scientificMask,cursor:0,calls:0,coordinates:{}};checkpoint=state;let retain=false;
    try{
     if(!state.workspace){const descriptors=new Set([zmFeatures,cnnFeatures,cnnFinalFeatures]);await operation('patchmatch:admission',()=>{const owned=budget.reserve([...descriptors].reduce((a,v)=>a+v.byteLength,0)+336*n+1024**2+4096);state.outputRelease=owned.split(32*n+4096);state.workspace=owned;});}
     state.random??=await operation('patchmatch:rng',()=>new NativeRandom(randomState));state.candidatesWorkspace??=createCandidateWorkspace(side);
@@ -36,7 +36,7 @@ export async function createPatchMatch(factory,{budget,evaluatorFactory=createEv
      // The candidate and the advanced RNG belong to this uncommitted evaluation.
      // Keep both on terminal refusal; explicit resume retries this evaluation only.
      state.pending??=await candidateOperation('patchmatch:'+kind+'-'+branch,owned=>kind==='random'?randomCandidates(state.pairs[branch],state.windows[branch],side,random,owned):propagateOffsets(state.pairs[branch],side,owned),kind==='random');
-     const candidates=state.pending,result=await operation('patchmatch:evaluate-'+branch+'-'+phase,()=>evaluator.evaluate({features:phase==='final'?cnnFinalFeatures:branch==='zm'?zmFeatures:cnnFeatures,offsetX:candidates.x,offsetY:candidates.y,side,channels:branch==='zm'?36:96,candidates:candidates.x.length/n,referenceThreads},{signal,account:bytes=>{const growth=bytes-8*n;if(growth>0)heapReleases.push(budget.reserve(growth));}}));
+     const candidates=state.pending,result=await operation('patchmatch:evaluate-'+branch+'-'+phase,()=>evaluator.evaluate({features:phase==='final'?cnnFinalFeatures:branch==='zm'?zmFeatures:cnnFeatures,offsetX:candidates.x,offsetY:candidates.y,side,channels:branch==='zm'?36:96,candidates:candidates.x.length/n,referenceThreads,...(scientificMask?{scientificMask}:{})},{signal,account:bytes=>{const growth=bytes-8*n;if(growth>0)heapReleases.push(budget.reserve(growth));}}));
      state.pairs[branch]=result;state.pending=null;state.cursor++;state.calls++;
      await onTrace?.({iteration,branch,phase,call:state.calls,x:result.x,y:result.y});checkAbort(signal);onProgress?.({iteration,iterations,branch,phase,completed:state.calls,total,fraction:state.calls/total});
     }

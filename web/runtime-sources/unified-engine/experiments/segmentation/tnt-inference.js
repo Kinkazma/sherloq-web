@@ -4,6 +4,7 @@ import {readVerifiedModelAsset} from '../d2prl/model.js';
 import {createTntBackbone, validateTntBackbone} from './tnt-backbone.js';
 import {createParameterCache,parameterCacheStats} from './parameter-cache.js';
 import {createSessionCache,sessionCacheStats} from './session-cache.js';
+import {prepareMgcfdnScientificScope} from '../../src/mgcfdn-scoped-graph.js';
 const HEAP = 512 * 1024 ** 2, OUTPUT = 256 * 256 * 4;
 
 export function createTntInference({budget, model, modelUrl, backend='cpu'}) {
@@ -14,15 +15,16 @@ export function createTntInference({budget, model, modelUrl, backend='cpu'}) {
   const parameterCache=createParameterCache({budget,read,enabled:backend==='webgpu'});
   return {
     model, attentionBackend:backend==='webgpu'?'webgpu-outer-wasm-inner':'wasm-cpu', backend: backend==='webgpu'?'webgpu-cpu':'cpu', gpuMaximumBytes:backend==='webgpu'?64*1024**2:0,
-    async run(input, {signal, onProgress} = {}) {
+    async run(input, {signal, onProgress,scientificScope} = {}) {
       if (busy) throw new EngineError('BUSY', 'TNT inference busy');
       requireValue(!disposed && input instanceof Float32Array && input.length === 3 * 256 ** 2 && input.every(Number.isFinite), 'Prepared TNT tensor'); checkAbort(signal);
       // CPU pools retain their existing admission policy. A GPU backbone may
       // reuse the idle tail if it fits; the shared budget can reclaim it first.
       if(backend==='cpu')sessionCache.releaseIdle(); busy = true;
-      let backbone, features, scratch, release, abort, worker, complete = false;
+      let backbone, features, scratch, release, abort, worker, complete = false,domain;
       let metadataLoadMs = 0, backboneSetupMs = 0;const cacheStart=parameterCache.snapshot(),sessionStart=sessionCache.snapshot();
       try {
+        if(scientificScope)domain=await prepareMgcfdnScientificScope(scientificScope,{model,budget,signal});
         scratch = budget.reserve(input.byteLength * 2 + 640 * 16 * 16 * 12 + OUTPUT * 2); release = budget.reserve(OUTPUT);
         if (!graph) {
           const started = performance.now(); let admitted = budget.reserve(10 * (model.bytes + model.backbone.bytes));
@@ -58,13 +60,14 @@ export function createTntInference({budget, model, modelUrl, backend='cpu'}) {
           };
           signal?.addEventListener('abort', abort, {once: true}); if (signal?.aborted) return abort();
           try {
-            worker.postMessage({input: features.data, model: {...model, bytes: model.tail.bytes, sha256: model.tail.sha256}, modelUrl: new URL(model.tail.file, modelUrl).href, ortUrl: new URL('../../vendor/d2prl/ort.wasm.min.mjs', import.meta.url).href, runtimeFactoryUrl: new URL('../../vendor/d2prl/factory.mjs', import.meta.url).href, wasmPaths: {mjs: new URL('../../vendor/d2prl/factory.mjs', import.meta.url).href, wasm: new URL('../../vendor/d2prl/ort-wasm-simd-threaded.wasm', import.meta.url).href}});
+            worker.postMessage({input: features.data, model: {...model, bytes: model.tail.bytes, sha256: model.tail.sha256}, modelUrl: new URL(model.tail.file, modelUrl).href, ortUrl: new URL('../../vendor/d2prl/ort.wasm.min.mjs', import.meta.url).href, runtimeFactoryUrl: new URL('../../vendor/d2prl/factory.mjs', import.meta.url).href, wasmPaths: {mjs: new URL('../../vendor/d2prl/factory.mjs', import.meta.url).href, wasm: new URL('../../vendor/d2prl/ort-wasm-simd-threaded.wasm', import.meta.url).href},...(domain?.partial?{mgcfScope:{indices:domain.indices,side:domain.side,count:domain.count,metadata:domain.metadata}}:{})});
           } catch (error) { fail(error); }
         });
+        if(domain?.partial)requireValue(result.metadata?.scientificScope?.graph?.policy===domain.metadata.graphTransform&&result.metadata.scientificScope.gridSha256===domain.metadata.gridSha256,'Native MGCFDN TNT scientific receipt missing');
         checkAbort(signal); complete = true;
-        return {raw: result.raw, heapBytes: result.heapBytes, ort: result.ort, modelId: model.id, workers: features.workers,gpu:features.gpu,sessionCache:backend==='webgpu'?sessionCacheStats(sessionCache,sessionStart):undefined,parameterCache:parameterCache.enabled?parameterCacheStats(parameterCache,cacheStart):undefined, timings: {...result.timings,gpuWriteBytes:features.timings.gpuWriteBytes,gpuReadBytes:features.timings.gpuReadBytes, modelLoadMs: result.timings.modelLoadMs + metadataLoadMs + features.timings.parameterLoadMs, inferenceMs: result.timings.inferenceMs + features.timings.executionMs, backboneMs: features.timings.executionMs, attentionMatmulMs:features.timings.attentionMatmulMs, parameterLoadMs: features.timings.parameterLoadMs, backboneSetupMs}, release};
+        return {raw: result.raw, heapBytes: result.heapBytes, ort: result.ort, modelId: model.id, workers: features.workers,gpu:features.gpu,...(domain?{metadata:{scientificScope:domain.partial?result.metadata.scientificScope:domain.metadata}}:{}),sessionCache:backend==='webgpu'?sessionCacheStats(sessionCache,sessionStart):undefined,parameterCache:parameterCache.enabled?parameterCacheStats(parameterCache,cacheStart):undefined, timings: {...result.timings,gpuWriteBytes:features.timings.gpuWriteBytes,gpuReadBytes:features.timings.gpuReadBytes, modelLoadMs: result.timings.modelLoadMs + metadataLoadMs + features.timings.parameterLoadMs, inferenceMs: result.timings.inferenceMs + features.timings.executionMs, backboneMs: features.timings.executionMs, attentionMatmulMs:features.timings.attentionMatmulMs, parameterLoadMs: features.timings.parameterLoadMs, backboneSetupMs}, release};
       } finally {
-        signal?.removeEventListener('abort', abort); features?.release(); backbone?.dispose(); scratch?.(); if(worker)sessionCache.unlock(); busy = false;
+        signal?.removeEventListener('abort', abort); features?.release();domain?.release(); backbone?.dispose(); scratch?.(); if(worker)sessionCache.unlock(); busy = false;
         if (!complete) { release?.(); sessionCache.releaseIdle(); }
       }
     },

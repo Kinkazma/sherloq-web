@@ -18,7 +18,8 @@ export function automaticAiSnapshot(kind,result,{raw}={}) {
  for(const name of names){const floating=floatFields.has(name),Type=floating?Float32Array:Uint8Array,value=segmented?result.stores[name]:result[name];requireValue(segmented?value?.byteLength===n*Type.BYTES_PER_ELEMENT&&typeof value.readInto==='function':value instanceof Type&&value.length===n,'Native AI field type or size differs: '+name);output[name]=array(value,{shape:[height,width],...(segmented?{descr:floating?'<f4':'|u1'}:{})});}
  if(kind==='d2prl'){
   const grids=raw?.rawGrids,boxes=result.metadata.boxes,shape=raw?.metadata?.raw_shape,gridBytes=3*448*448*4;
-  requireValue(raw?.width===width&&raw.height===height&&Array.isArray(grids)&&grids.length>0&&Array.isArray(boxes)&&boxes.length===grids.length,'Owned raw D2PRL grids matching the projected source required.');
+  const cancelledBeforeInference=result.metadata.scientificScope?.stage==='fully-cancelled-before-inference'&&result.metadata.inferences===0;
+  requireValue(raw?.width===width&&raw.height===height&&Array.isArray(grids)&&(grids.length>0||cancelledBeforeInference)&&Array.isArray(boxes)&&boxes.length===grids.length,'Owned raw D2PRL grids matching the projected source required.');
   requireValue(typeof result.metadata.analysisId==='string'&&result.metadata.analysisId===raw.metadata?.analysisId,'Projected and raw D2PRL analysis identities differ.');
   requireValue(Array.isArray(shape)&&shape.length===3&&shape[0]===3&&shape[1]===448&&shape[2]===448,'Native D2PRL raw shape must be [3,448,448].');
   for(let i=0;i<grids.length;i++){const g=grids[i],box=boxes[i];requireValue(g.raw instanceof Float32Array&&g.raw.byteLength===gridBytes&&Array.isArray(box)&&box.length===4&&Array.isArray(g.bounds)&&g.bounds.length===4&&box.every((v,j)=>Number.isInteger(v)&&v===g.bounds[j]),'Raw D2PRL grid order, bounds or float32 payload differs.');}

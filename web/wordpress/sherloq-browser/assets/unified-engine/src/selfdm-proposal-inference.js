@@ -1,4 +1,3 @@
-import "../../runtime-context.js?v=0.16.0";
 import {EngineError, requireValue, checkAbort} from './errors.js';
 import {SelfDMProposalEngine} from './selfdm-proposal.js';
 import {loadSelfDMProposalBundle} from './selfdm-proposal-assets.js';
@@ -28,7 +27,7 @@ export function createSelfDMProposalInference({budget, profile, model, modelUrl,
     independentZoneWorker:true,
     get residentBytes() {return (engine?.pool?.slots??[]).reduce((sum,slot)=>sum+slot.bytes+(slot.threadLeases?.length??0)*2*1024**2,0) + [...(engine?.cvPools?.values()??[])].reduce((sum,pool)=>sum+[...(pool.workers?.values()??[])].reduce((n,slot)=>n+slot.bytes,0),0);},
     releaseIdle() {engine?.releaseIdle();},
-    async run(input, {signal, onProgress, sourceKey:requestedKey} = {}) {
+    async run(input, {signal, onProgress, sourceKey:requestedKey,scientificScope} = {}) {
       if (busy) throw new EngineError('BUSY', 'SelfDM Proposal inference busy');
       requireValue(!disposed && typeof requestedKey === 'string' && requestedKey.length > 0, 'Immutable SelfDM Proposal source identity required');
       checkAbort(signal); busy = true;
@@ -39,7 +38,7 @@ export function createSelfDMProposalInference({budget, profile, model, modelUrl,
         // A fresh provider may own the same scientific pixels. Checkpoints use
         // sourceKey, while the source window belongs only to this invocation.
         engine.image = input;
-        const started = performance.now(), result = await engine.analyze({}, {signal,onProgress,models:bundle.models,cv:bundle.cv,backend});
+        const started = performance.now(), result = await engine.analyze({}, {signal,onProgress,models:bundle.models,cv:bundle.cv,backend,scientificScope});
         return {...result, timings:{...result.timings,totalMs:performance.now()-started}, modelId:model.id};
       } finally {if(engine)engine.image=null;busy = false;}
     },

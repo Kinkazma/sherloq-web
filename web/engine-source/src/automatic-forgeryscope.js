@@ -1,4 +1,4 @@
-import {streamedAutomaticForgeryscope} from './automatic-forgeryscope-stream.js';
+import {streamedAutomaticForgeryscope,scopedAutomaticForgeryscope} from './automatic-forgeryscope-stream.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {automaticAiSelection,readAutomaticForgeryscopeCrop} from './automatic-ai-regions.js';
 const FIELDS=['mask','map','candidates','geometric','branch_microscopy','branch_blots','branch_lanes'];
@@ -12,6 +12,7 @@ export async function analyzeAutomaticForgeryscope(image,plan,{analyzer,budget,s
  checkAbort(signal);if(!job.enabled)return {status:'disabled',reason:job.state,release(){}};
  const {width,height}=plan,source=image.surface?.descriptor??image.pixels??image;
  requireValue(source.width===width&&source.height===height,'Source and automatic plan dimensions differ');
+ if(plan.scientificScope)return scopedAutomaticForgeryscope(image,plan,{analyzer,budget,signal,onProgress});
  if(image.segmented)return streamedAutomaticForgeryscope(image,plan,{analyzer,budget,signal,onProgress});
  const {boxes,excluded}=automaticAiSelection(width,height,job.params),n=width*height;
  requireValue(Number.isSafeInteger(n*11),'AI output size exceeds integer range');

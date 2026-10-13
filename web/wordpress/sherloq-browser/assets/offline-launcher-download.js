@@ -2,6 +2,7 @@ import {sha256} from './dependency-core.js';
 import {offlineLauncherHTML,validateOfflineShell} from './offline-kit-core.js';
 import {offlineCacheName} from './offline-browser-store.js';
 import {readVerifiedResponse} from './local-update-core.js';
+import {getDocumentDownloadShelf} from './download-shelf.js';
 
 export async function createOfflineLauncherDownload(plan,{language='fr',fetcher=globalThis.fetch,storage=globalThis.caches,crypto=globalThis.crypto,signal}={}){
  if(!plan?.shellBytes||!plan.manifestBytes||await sha256(plan.shellBytes)!==plan.identity)throw Error('Offline launcher shell identity differs');
@@ -18,6 +19,6 @@ export async function createOfflineLauncherDownload(plan,{language='fr',fetcher=
  return {html,config};
 }
 
-export function downloadOfflineLauncher(document,html){
- const url=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'})),link=document.createElement('a');link.href=url;link.download='SHERLOQ.html';link.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
+export function downloadOfflineLauncher(document,html,{download}={}){
+ return(download??getDocumentDownloadShelf(document).download)(new Blob([html],{type:'text/html;charset=utf-8'}),'SHERLOQ.html',{mime:'text/html;charset=utf-8'});
 }

@@ -1,7 +1,8 @@
 import {installWorkerMessageProtocol} from '../../src/worker-message-protocol.js';
+import {evaluateScopedNativeTile} from './scientific-matching.js';
 import {EngineError,requireValue,serializeEngineError,normalizeResourceError} from '../../src/errors.js';
 // One scalar WASM engine per worker. No nested thread pool or warm-up work.
-let module, limit, abiLimit, nativePayloadBytes=0,abiBytes=0,tileSize, kernelTileSize, descriptorSide, descriptorLayout, xp, yp, out,featureUpload;
+let module, limit, abiLimit, nativePayloadBytes=0,abiBytes=0,tileSize, kernelTileSize, descriptorSide, descriptorLayout, xp, yp, out,featureUpload,scientificMask=null;
 const features=new Map(),descriptorSlots=new Map();
 function allocate(bytes){const p=module._malloc(bytes);if(!p)throw new EngineError('MEMORY_ALLOCATION','Evaluator heap allocation refused',{details:{requestedBytes:bytes,allocationKind:'wasm'}});if(module.HEAPU8.length>limit){module._free(p);throw new EngineError('MEMORY_LIMIT','Worker heap admission',{details:{requestedBytes:module.HEAPU8.length}});}const overhead=p-nativePayloadBytes;if(!Number.isSafeInteger(p)||p<0||p+bytes>module.HEAPU8.length||overhead>abiLimit){module._free(p);throw new EngineError('MODEL_IDENTITY','Evaluator native ABI differs',{details:{pointer:p,bytes,nativePayloadBytes,abiLimit}});}nativePayloadBytes+=bytes;abiBytes=Math.max(abiBytes,overhead);return p;}
 const descriptorBytes=()=>[...descriptorSlots.values()].reduce((sum,slot)=>sum+slot.bytes,0);
@@ -49,6 +50,9 @@ installWorkerMessageProtocol(self,async data=>{
    for(const {at,value} of data.chunks){requireValue(featureUpload&&data.key===featureUpload.key&&Number.isSafeInteger(at)&&at===featureUpload.at&&value instanceof Uint8Array&&value.buffer instanceof ArrayBuffer&&value.byteLength>0&&value.byteLength<=featureUpload.bytes-at,'Descriptor upload range');copyFeatures(featureUpload,value,at);featureUpload.at+=value.byteLength;}self.postMessage({id,ok:true});
   }else if(type==='features-end'){
    requireValue(featureUpload&&data.key===featureUpload.key,'Descriptor upload key');commitFeatures();self.postMessage({id,ok:true});
+  }else if(type==='scientific-scope'){
+   requireValue(data.values===null||data.values instanceof Uint8Array&&data.values.length===descriptorSide**2&&data.values.every(v=>v===0||v===1),'Native scientific mask extent');scientificMask=data.values;
+   self.postMessage({id,ok:true});
   }else if(type==='evaluate'){
    const slot=features.get(data.key),pointer=slot?.pointer,count=data.end-data.begin;
    requireValue(pointer!==undefined&&data.side===descriptorSide&&data.channels===slot.channels&&Number.isInteger(data.begin)&&Number.isInteger(data.end)&&count>=1&&count<=tileSize&&Number.isInteger(data.candidates)&&data.candidates>=1&&data.candidates<=13&&data.x instanceof Float32Array&&data.y instanceof Float32Array&&data.x.length===data.candidates*count&&data.y.length===data.candidates*count,'Worker tile');
@@ -57,8 +61,15 @@ installWorkerMessageProtocol(self,async data=>{
    // range using its own stride, while retaining GLOBAL numerical indices.
    // Cancellation terminates this worker from the parent; no message can
    // publish a partial group. Retry uses the original committed candidates.
+   const scopedStats={evaluatedSources:0,rejectedSources:0,rejectedCandidates:0,nativeCalls:0,projectedOutputs:0,unmatchedSources:0};
    for(let at=0;at<count;at+=kernelTileSize){
     const size=Math.min(kernelTileSize,count-at);let stamp=performance.now();
+    if(scientificMask){
+     const cx=new Float32Array(data.candidates*size),cy=new Float32Array(data.candidates*size);
+     for(let k=0;k<data.candidates;k++){cx.set(data.x.subarray(k*count+at,k*count+at+size),k*size);cy.set(data.y.subarray(k*count+at,k*count+at+size),k*size);}copyMs+=performance.now()-stamp;stamp=performance.now();
+     const scoped=evaluateScopedNativeTile(module,{pointer,xp,yp,out,side:data.side,channels:data.channels,candidates:data.candidates,begin:data.begin+at,end:data.begin+at+size,referenceThreads:data.referenceThreads,offsetX:cx,offsetY:cy,mask:scientificMask});
+     computeMs+=performance.now()-stamp;x.set(scoped.x,at);y.set(scoped.y,at);for(const key of Object.keys(scopedStats))scopedStats[key]+=scoped.stats[key];kernelTiles++;continue;
+    }
     for(let k=0;k<data.candidates;k++){module.HEAPF32.set(data.x.subarray(k*count+at,k*count+at+size),xp/4+k*size);module.HEAPF32.set(data.y.subarray(k*count+at,k*count+at+size),yp/4+k*size);}copyMs+=performance.now()-stamp;
     stamp=performance.now();if(module._d2prl_evaluate_tile(pointer,xp,yp,data.side,data.channels,data.candidates,data.begin+at,data.begin+at+size,out,out+size*4,data.referenceThreads)!==1)throw Error('Worker evaluator rejected');computeMs+=performance.now()-stamp;
     stamp=performance.now();x.set(module.HEAPF32.subarray(out/4,out/4+size),at);y.set(module.HEAPF32.subarray(out/4+size,out/4+2*size),at);copyMs+=performance.now()-stamp;kernelTiles++;
@@ -66,7 +77,7 @@ installWorkerMessageProtocol(self,async data=>{
    // Return transferred input ownership for the next useful range. Neither
    // worker nor caller retains an alias while these buffers are in transit.
    const reuseX=data.x,reuseY=data.y;data.x=data.y=null;
-   self.postMessage({id,ok:true,x,y,reuseX,reuseY,computeMs,copyMs,kernelTiles,heapBytes:module.HEAPU8.length},[x.buffer,y.buffer,reuseX.buffer,reuseY.buffer]);
+   self.postMessage({id,ok:true,x,y,reuseX,reuseY,computeMs,copyMs,kernelTiles,...(scientificMask?{scientificMatching:scopedStats}:{}),heapBytes:module.HEAPU8.length},[x.buffer,y.buffer,reuseX.buffer,reuseY.buffer]);
   }else throw Error('Unknown evaluator message');
  }catch(error){if(typeof type==='string'&&type.startsWith('features'))featureUpload=null;self.postMessage({id,ok:false,...(module?{heapBytes:module.HEAPU8.length,descriptorBytes:descriptorBytes()}:{}),error:serializeEngineError(normalizeResourceError(error))});}
 },{label:'d2prl-evaluator',onFailure:error=>self.postMessage({protocolFailure:true,ok:false,error:serializeEngineError(error)})});

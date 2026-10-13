@@ -5,6 +5,7 @@ import {createCmsegCorrelation} from './cmseg-correlation.js';
 import {createCmsegCorrelationGpu} from './cmseg-correlation-gpu.js';
 import {createParameterCache,parameterCacheStats} from './parameter-cache.js';
 import {createSessionCache,sessionCacheStats} from './session-cache.js';
+import {prepareSegmentationScientificMask} from '../../src/segmentation-scientific-scope.js';
 const HEAP=512*1024**2,SHAPES=[[1,16,256,256],[1,24,128,128],[1,32,64,64],[1,96,32,32],[1,1280,16,16]];
 const FEATURE_BYTES=SHAPES.reduce((n,shape)=>n+4*shape.reduce((a,b)=>a*b,1),0),CORRELATION_BYTES=4*(24*128**2+32*64**2+96*32**2);
 
@@ -27,10 +28,13 @@ export function createCmsegInference({budget,model,modelUrl,backend='cpu'}){
   });
   return{
     model,correlationBackend:backend==='webgpu'?(residentCorrelation?'webgpu-resident-dot-128-wasm-rest':'webgpu-dot-128-wasm-rest'):'wasm-cpu',backend:backend==='webgpu'?'webgpu-cpu':'cpu',gpuMaximumBytes:backend==='webgpu'?64*1024**2:0,
-    async run(input,{signal,onProgress}={}){
+    async run(input,{signal,onProgress,scientificScope}={}){
       requireValue(!disposed&&!busy&&input instanceof Float32Array&&input.length===3*512**2&&input.every(Number.isFinite),'Prepared CMSeg input required');checkAbort(signal);
-      let scratch,outputRelease,complete=false,exactBackbone,backboneOutput,worker;const correlations=[],cacheStart=parameterCache.snapshot(),sessionStart=sessionCache.snapshot();
+      let scratch,outputRelease,complete=false,exactBackbone,backboneOutput,worker;const correlations=[],domains=[],cacheStart=parameterCache.snapshot(),sessionStart=sessionCache.snapshot();
+      // A scoped grid cooperatively yields; lock before that first await.
+      if(scientificScope)busy=true;
       try{
+        if(scientificScope)for(const side of [128,64,32]){const stride=512/side,domain=await prepareSegmentationScientificMask(scientificScope,{rows:side,inputSide:512,originX:0,originY:0,strideX:stride,strideY:stride,budget,signal});domains.push(domain);if(!domain.admitted)throw new EngineError('NEURAL_SCOPE_BELOW_GRID','No admissible CMSeg correlation cells remain; refine the acquisition instead of silently discarding it.');}
         if(model.backbone&&backend==='cpu')sessionCache.releaseIdle(); // Preserve useful CPU backbone admission.
         scratch=budget.reserve(input.byteLength*2+FEATURE_BYTES*3+CORRELATION_BYTES*3+4*512**2*4);outputRelease=budget.reserve(4*512**2);busy=true;
         let backboneMs=0,metadataLoadMs=0,parameterLoadMs=0,backboneSetupMs=0;
@@ -49,15 +53,15 @@ export function createCmsegInference({budget,model,modelUrl,backend='cpu'}){
         for(let i=0;i<3;i++){
           const value=features.values['x'+(i+2)],spec=model.correlation[i];
           const useGpu=correlationGpu&&i===0,begin=performance.now();
-          const result=await (useGpu?correlationGpu:correlation).run({input:value.data,c:value.shape[1],h:value.shape[2],w:value.shape[3],k:spec.topk,alpha:spec.alpha},{signal,onProgress});
+          const result=await (useGpu?correlationGpu:correlation).run({input:value.data,c:value.shape[1],h:value.shape[2],w:value.shape[3],k:spec.topk,alpha:spec.alpha,...(domains[i]?.partial?{scientificMask:domains[i].values}:{})},{signal,onProgress});
           if(useGpu){correlationGpuMs+=performance.now()-begin;correlationGpuWriteBytes+=result.timings.gpuWriteBytes;correlationGpuReadBytes+=result.timings.gpuReadBytes;correlationGpuPeak=Math.max(correlationGpuPeak,result.gpu.peakAccountedBytes);correlationGpuAllocations+=result.gpu.allocations;}
           correlations.push(result);feeds['c'+(i+2)]={data:result.data,shape:result.shape};workers=Math.max(workers,result.workers);observedCorrelationHeapBytes=Math.max(observedCorrelationHeapBytes,result.observedHeapBytes);
         }
         const correlationMs=performance.now()-started,decoded=await rpc(worker,{kind:'decoder',inputs:feeds},signal,onProgress);checkAbort(signal);
         const raw=decoded.values.probability?.data;requireValue(raw instanceof Float32Array&&raw.length===512**2&&raw.every(v=>Number.isFinite(v)&&v>=0&&v<=1),'CMSeg probability grid');
-        complete=true;return{raw,heapBytes:Math.max(features.heapBytes,decoded.heapBytes),ort:decoded.ort,modelId:model.id,workers,correlationObservedHeapBytes:observedCorrelationHeapBytes,gpu:backboneOutput?.gpu?{...backboneOutput.gpu,devices:backboneOutput.gpu.devices+(correlationGpuAllocations?1:0),simultaneousDeviceMaximum:1,allocations:backboneOutput.gpu.allocations+correlationGpuAllocations,peakAccountedBytes:Math.max(backboneOutput.gpu.peakAccountedBytes,correlationGpuPeak)}:correlationGpuAllocations?{devices:1,simultaneousDeviceMaximum:1,allocations:correlationGpuAllocations,peakAccountedBytes:correlationGpuPeak,accounting:'explicit GPU buffers, excludes driver/compiler residency',errors:[]}:undefined,sessionCache:backend==='webgpu'?sessionCacheStats(sessionCache,sessionStart):undefined,parameterCache:parameterCache.enabled?parameterCacheStats(parameterCache,cacheStart):undefined,
+        complete=true;return{raw,...(domains.length?{metadata:{scientificScope:{schema:'sherloq.segmentation-candidate-domain/1',stage:'source-and-target-before-correlation-softmax-topk',scopeFingerprint:scientificScope.scope.fingerprint,bypassOriginal:domains.every(d=>!d.partial),grids:domains.map(d=>d.metadata),cnnContext:'Original RGB, native encoder and decoder context retained; no receptive-field masking claim.',topkPadding:'Native K retained; unavailable candidate slots are zero values, not correspondence evidence.'}}}:{}),heapBytes:Math.max(features.heapBytes,decoded.heapBytes),ort:decoded.ort,modelId:model.id,workers,correlationObservedHeapBytes:observedCorrelationHeapBytes,gpu:backboneOutput?.gpu?{...backboneOutput.gpu,devices:backboneOutput.gpu.devices+(correlationGpuAllocations?1:0),simultaneousDeviceMaximum:1,allocations:backboneOutput.gpu.allocations+correlationGpuAllocations,peakAccountedBytes:Math.max(backboneOutput.gpu.peakAccountedBytes,correlationGpuPeak)}:correlationGpuAllocations?{devices:1,simultaneousDeviceMaximum:1,allocations:correlationGpuAllocations,peakAccountedBytes:correlationGpuPeak,accounting:'explicit GPU buffers, excludes driver/compiler residency',errors:[]}:undefined,sessionCache:backend==='webgpu'?sessionCacheStats(sessionCache,sessionStart):undefined,parameterCache:parameterCache.enabled?parameterCacheStats(parameterCache,cacheStart):undefined,
           timings:{modelLoadMs:features.timings.modelLoadMs+decoded.timings.modelLoadMs,inferenceMs:features.timings.inferenceMs+correlationMs+decoded.timings.inferenceMs,outputCopyMs:features.timings.outputCopyMs+decoded.timings.outputCopyMs,correlationMs,correlationGpuMs,backboneMs,backboneSetupMs,parameterLoadMs,gpuWriteBytes:(backboneOutput?.timings.gpuWriteBytes??0)+correlationGpuWriteBytes,gpuReadBytes:(backboneOutput?.timings.gpuReadBytes??0)+correlationGpuReadBytes},release:outputRelease};
-      }finally{correlations.forEach(v=>v.release());backboneOutput?.release();exactBackbone?.dispose();scratch?.();if(worker)sessionCache.unlock();busy=false;if(!complete){outputRelease?.();sessionCache.releaseIdle();}}
+      }finally{correlations.forEach(v=>v.release());domains.forEach(v=>v.release());backboneOutput?.release();exactBackbone?.dispose();scratch?.();if(worker)sessionCache.unlock();busy=false;if(!complete){outputRelease?.();sessionCache.releaseIdle();}}
     },
     dispose(){requireValue(!busy,'CMSeg inference busy');if(disposed)return;disposed=true;sessionCache.dispose();correlation.dispose();correlationGpu?.dispose();parameterCache.dispose();backboneMetadata?.();backboneMetadata=undefined;backboneGraph=undefined;}
   };

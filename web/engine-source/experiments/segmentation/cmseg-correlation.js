@@ -6,15 +6,16 @@ export function createCmsegCorrelation({budget, moduleUrl, maxWorkers = Math.min
   const clear = error => {for(const entry of workers){entry.worker.terminate();for(const pending of entry.pending.values())pending.reject(error);entry.pending.clear();entry.release();}workers=[];};
   const call = (entry, data) => new Promise((resolve,reject) => {const id=++sequence;entry.pending.set(id,{resolve,reject});try{entry.worker.postMessage({...data,id});}catch(error){entry.pending.delete(id);reject(error);}});
   return {
-    async run({input,c,h,w,k,alpha}, {signal,onProgress} = {}) {
+    async run({input,c,h,w,k,alpha,scientificMask}, {signal,onProgress} = {}) {
       requireValue(!disposed && !busy, 'Correlation unavailable');
       requireValue([c,h,w,k].every(Number.isInteger) && c>0 && c<=96 && h>0 && w>0 && h<=128 && w<=128 && h*w%4===0 && k>0 && k<=96 && k<=h*w && Number.isFinite(alpha), 'Correlation geometry');
       const n=h*w; requireValue(input instanceof Float32Array && input.length===c*n && input.every(Number.isFinite), 'Correlation feature tensor');
+      requireValue(scientificMask===undefined||scientificMask instanceof Uint8Array&&scientificMask.length===n&&scientificMask.every(v=>v===0||v===1),'Binary scientific correlation domain required');if(scientificMask?.every(Boolean))scientificMask=undefined;
       checkAbort(signal);busy=true;let admitted, outputRelease, complete=false, peakHeap=0;
       const abort=()=>clear(new EngineError('CANCELLED','Correlation cancelled'));signal?.addEventListener('abort',abort,{once:true});
       try {
         admitted=budget.reserve(input.byteLength+16*n);outputRelease=budget.reserve(4*k*n);
-        const perWorker=64*1024**2+2*input.byteLength+16*n+8*k*rowsPerJob;
+        const perWorker=64*1024**2+2*input.byteLength+16*n+8*k*rowsPerJob+(scientificMask?2*n:0);
         budget.room(perWorker);
         const count=Math.min(maxWorkers,Math.ceil(n/rowsPerJob),Math.floor((budget.limit-budget.total()+(parameterCache?.bytes??0))/perWorker));
         if(count<1)throw new EngineError('MEMORY_LIMIT','No global correlation worker fits');
@@ -28,7 +29,7 @@ export function createCmsegCorrelation({budget, moduleUrl, maxWorkers = Math.min
           worker.onmessage=({data})=>{const pending=entry.pending.get(data.id);if(!pending)return;entry.pending.delete(data.id);data.ok?pending.resolve(data):pending.reject(new EngineError('COMPUTE_FAILED',data.error));};
           worker.onerror=event=>{for(const pending of entry.pending.values())pending.reject(new EngineError('WORKER_FAILED',event.message));entry.pending.clear();};
         }
-        await Promise.all(workers.map(async entry=>{const result=await call(entry,{type:'init',moduleUrl,input,geometry:{c,h,w,k,alpha}});peakHeap=Math.max(peakHeap,result.heapBytes);}));checkAbort(signal);
+        await Promise.all(workers.map(async entry=>{const result=await call(entry,{type:'init',moduleUrl:scientificMask?new URL('../../vendor/segmentation/scientific-correlation/correlation.js',import.meta.url).href:moduleUrl,input,geometry:{c,h,w,k,alpha,...(scientificMask?{nativeFma:moduleUrl.includes('correlation-fma')}: {})},...(scientificMask?{scientificMask}:{})});peakHeap=Math.max(peakHeap,result.heapBytes);}));checkAbort(signal);
         for(const phase of ['statistics','topk']) {
           let cursor=0,completed=0;
           await Promise.all(workers.map(async entry=>{

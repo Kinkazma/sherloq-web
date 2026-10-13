@@ -1,5 +1,6 @@
 import {readBatchZip} from './batch-zip.js';
 import {createBatchScopeMask} from './batch-scope-mask.js';
+import {isDenseClone} from './clone-methods.js';
 import {sparseCopyViewParams} from './unified-engine/src/sparse-copy-view.js';
 import {biomeSides,distinctCentres,roundEven} from './unified-engine/src/copy-geometry.js';
 import {createCloneEntryGeometry} from './unified-engine/src/clone-entry-geometry.js';
@@ -11,11 +12,17 @@ const CHUNK=1024**2,MAX_SELECTED_JSON=8*CHUNK;
 const requireBiome=(ok,message)=>{if(!ok)throw new EngineError('BATCH_BIOMES_UNAVAILABLE',message);};
 
 export function batchBiomeCandidates(image,artifacts){
- return (image.runs??[]).filter(run=>['done','partial'].includes(run.status)&&['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(run.operation)&&run.params?.algorithm!=='SSG'&&run.scopeSupport?.mode!=='raw-only').map(run=>({run,json:run.files?.find(p=>/\.json$/i.test(p)&&artifacts.has(p)),npz:run.files?.find(p=>/\.npz$/i.test(p)&&artifacts.has(p))})).filter(c=>c.json&&c.npz);
+ // The batch recipe uses the sparse chooser for both sparse and PatchMatch
+ // algorithms. Keep that recipe identity unchanged for resume signatures, but
+ // use the same explicit dense-profile routing as batchTask for native data.
+ // JSON and NPZ provenance must independently confirm this expected operation.
+ return (image.runs??[]).filter(run=>['done','partial'].includes(run.status)&&['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(run.operation)&&run.params?.algorithm!=='SSG'&&run.scopeSupport?.mode!=='raw-only').map(run=>({run,operation:run.operation==='tampering.copyMove.sparse'&&isDenseClone(run.params?.algorithm)?'tampering.copyMove.dense':run.operation,json:run.files?.find(p=>/\.json$/i.test(p)&&artifacts.has(p)),npz:run.files?.find(p=>/\.npz$/i.test(p)&&artifacts.has(p))})).filter(c=>c.json&&c.npz);
 }
 export function batchBiomeCapabilities(image,artifacts){
  const candidates=batchBiomeCandidates(image,artifacts),methods=[...new Set(candidates.map(c=>c.run.params?.algorithm??c.run.params?.profile??c.run.title??c.run.operation))];
- return {available:candidates.length>0,reason:candidates.length?null:'Aucun groupe de correspondances sparse ou dense natif archivé ; les cartes D2PRL/MGCFDN et les compteurs ne définissent pas de biomes appariés.',methods,groupCount:candidates.reduce((n,c)=>n+new Set((c.run.entries??[]).filter(e=>Number.isSafeInteger(e.provenance?.group)).map(e=>e.provenance.group)).size,0)};
+ // Evidence group IDs precede native length, support and overlap filtering;
+ // their cardinality is not the number of visible paired biomes.
+ return {available:candidates.length>0,reason:candidates.length?null:'Aucun groupe de correspondances sparse ou dense natif archivé ; les cartes D2PRL/MGCFDN et les compteurs ne définissent pas de biomes appariés.',methods,groupCount:candidates.length?null:0,replayRequired:candidates.length>0};
 }
 
 // Sparse native metadata contains duplicate points/pairs in a Unicode scalar.
@@ -72,7 +79,7 @@ async function groupVector(entry,hooks){
  const group=[];for(let at=record.offset;at<record.blob.size;at+=CHUNK){await controlCheckpoint(hooks.signal);const bytes=new Uint8Array(await record.blob.slice(at,Math.min(record.blob.size,at+CHUNK)).arrayBuffer()),view=new DataView(bytes.buffer);for(let i=0;i<bytes.length;i+=element){const value=element===8?Number(view.getBigInt64(i,true)):view.getUint32(i,true);requireBiome(Number.isSafeInteger(value)&&value>=0,'Indice de groupe dense natif invalide.');group.push(value);}}return group;
 }
 async function nativeBiomeRecord(candidate,zip,hooks){
- if(candidate.run.operation==='tampering.copyMove.sparse')return {native:await selectiveMetadata(zip.file('metadata_json.npy'),hooks),pointEntry:zip.file('points.npy'),pairEntry:zip.file('pairs.npy'),format:'sparse-native-metadata'};
+ if(candidate.operation==='tampering.copyMove.sparse')return {native:await selectiveMetadata(zip.file('metadata_json.npy'),hooks),pointEntry:zip.file('points.npy'),pairEntry:zip.file('pairs.npy'),format:'sparse-native-metadata'};
  // The shipped dense exporter uses streamDenseNpz -> automaticPointSnapshot:
  // numeric arrays stay behind root_result_* references, including int64 groups.
  // Older flat dense exports use group_N.npy and the same original Nx7/Nx4 data.
@@ -118,14 +125,14 @@ export async function loadBatchNativeBiomes(image,expected,{artifacts,budget,rea
  try{
   for(const candidate of candidates){
    await controlCheckpoint(signal);const blob=await artifacts.get(candidate.json);requireBiome(blob instanceof Blob&&blob.size<=MAX_SELECTED_JSON,'Rapport géométrique natif absent ou trop grand.');const json=JSON.parse(await blob.text()),provenance=json.provenance??candidate.run.provenance;
-   requireBiome(provenance?.operation===candidate.run.operation&&provenance.originalSha256===expected.sourceSha256,'La géométrie de clones appartient à une autre image.');
+   requireBiome(provenance?.operation===candidate.operation&&provenance.originalSha256===expected.sourceSha256,'La géométrie de clones appartient à une autre image.');
    if(expected.scopeFingerprint)requireBiome((json.preparation?.fingerprint??candidate.run.preparation?.fingerprint)===expected.scopeFingerprint,'La géométrie sparse appartient à un autre périmètre scientifique.');
    // Dense native exports contain one array per legitimate group. Let the
    // reader's bounded 8 MiB central directory admit them, including ZIP64,
    // rather than applying the small sparse/count archive's entry-count cap.
    const zip=await readBatchZip(await artifacts.get(candidate.npz),{maximumEntries:Number.MAX_SAFE_INTEGER});requireBiome(zip,'Archive de correspondances native invalide.');
    const nativeProvenance=await readMetadataJson(zip.file('browser_provenance_json.npy'),{signal});
-   requireBiome(nativeProvenance.operation===candidate.run.operation&&nativeProvenance.originalSha256===expected.sourceSha256&&(!nativeProvenance.decode?.sourceSize||JSON.stringify(nativeProvenance.decode.sourceSize)===JSON.stringify([expected.width,expected.height])),'La provenance NPZ de clones ne correspond pas à l’image originale.');
+   requireBiome(nativeProvenance.operation===candidate.operation&&nativeProvenance.originalSha256===expected.sourceSha256&&(!nativeProvenance.decode?.sourceSize||JSON.stringify(nativeProvenance.decode.sourceSize)===JSON.stringify([expected.width,expected.height])),'La provenance NPZ de clones ne correspond pas à l’image originale.');
    const opened=await nativeBiomeRecord(candidate,zip,{readNpy,readMetadataJson,crcUpdate,crcFinish,signal}),native=opened.native,resolved=resolveBatchBiomeView(native,{...candidate.run,view:candidate.run.view??json.view,effectiveView:candidate.run.effectiveView??json.effectiveView}),view=resolved.view;
    requireBiome(Array.isArray(native.biomes)&&Array.isArray(native.biome_colors_bgr)&&native.biome_colors_bgr.length===native.biomes.length&&native.biomes.every(g=>Array.isArray(g)&&g.every(Number.isSafeInteger)),'Les indices et couleurs des groupes sparse natifs sont absents.');
    requireBiome(native.algorithm!=='SSG'&&native.pair_columns?.[3]==='length_px','Cette sortie ne définit pas les biomes de correspondances sparse.');
@@ -134,7 +141,7 @@ export async function loadBatchNativeBiomes(image,expected,{artifacts,budget,rea
    const rows=await selectedRows(pairs,native.biomes.flat(),4,{signal}),pointIds=[];
    for(const pair of rows.values())pointIds.push(pair[0],pair[1]);const coordinates=await selectedRows(points,pointIds,7,{signal});
    if(!kernel)kernel=await geometryFactory({budget,signal,maxVertices:Math.max(65536,2*Math.max(0,...native.biomes.map(g=>g.length)))});
-   const source={path:candidate.npz,json:candidate.json,operation:candidate.run.operation,format:opened.format,method:native.algorithm??candidate.run.params.algorithm??candidate.run.params.profile,view:resolved.view,viewSource:resolved.source,matchingMinimum:resolved.matchingMinimum,matchingMinimumSource:resolved.matchingMinimumSource,sourceSha256:expected.sourceSha256,scopeFingerprint:expected.scopeFingerprint};sources.push(source);
+   const source={path:candidate.npz,json:candidate.json,operation:candidate.operation,...(candidate.operation!==candidate.run.operation?{recipeOperation:candidate.run.operation}:{}),format:opened.format,method:native.algorithm??candidate.run.params.algorithm??candidate.run.params.profile,view:resolved.view,viewSource:resolved.source,matchingMinimum:resolved.matchingMinimum,matchingMinimumSource:resolved.matchingMinimumSource,sourceSha256:expected.sourceSha256,scopeFingerprint:expected.scopeFingerprint};sources.push(source);
    for(let index=0;index<native.biomes.length;index++){
     await controlCheckpoint(signal);if(view.hidden.includes(index)||view.chosen.length&&!view.chosen.includes(index))continue;
     const selected=native.biomes[index].filter(row=>{const pair=rows.get(row);return pair[3]>=view.low&&pair[3]<=view.high;});if(selected.length<view.minimum)continue;

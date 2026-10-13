@@ -9,7 +9,7 @@ export const batchImagePath=path=>/\.(?:png|jpe?g|webp|avif|gif|bmp|tiff?|heic|h
 export function validateBatchImageExport(settings={}){return validateExportSettings({...BATCH_IMAGE_EXPORT_DEFAULTS,...settings});}
 export function batchImageExportControls(settings={}){
  const value=validateBatchImageExport(settings),qualityKey=value.format==='webp'?'webpQuality':value.format==='heic'?'heicQuality':'quality',losslessKey=value.format+'Lossless',lossless=['png','tiff'].includes(value.format)||value[losslessKey];
- return {settings:value,formats:BATCH_IMAGE_EXPORT_FORMATS,qualityKey,losslessKey,lossless,quality:!lossless&&['webp','avif','heic'].includes(value.format),losslessToggle:['webp','avif','heic'].includes(value.format),compression:['png','tiff'].includes(value.format),chroma:!lossless&&['avif','heic'].includes(value.format),resize:value.resize};
+ return {settings:value,formats:BATCH_IMAGE_EXPORT_FORMATS,qualityKey,losslessKey,lossless,quality:!lossless&&['webp','avif','heic'].includes(value.format),losslessToggle:['webp','avif','heic'].includes(value.format),compression:value.format==='png',pngCompressionLevels:[0,1,2,3,4,5,6,7,8,9],tiffCompression:value.format==='tiff',tiffCompressionMethods:['none','deflate'],chroma:!lossless&&['avif','heic'].includes(value.format),resize:value.resize};
 }
 
 // This client decodes and exports original surfaces only. It never loads a

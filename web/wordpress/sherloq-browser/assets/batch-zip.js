@@ -24,7 +24,7 @@ export async function writeBatchZip(entries,writer,{signal,onProgress=()=>{},zip
 }
 export async function diskBatchZip(entries,options={}){
  const temporary=await createBatchTemporaryDirectory();
- try{const handle=await temporary.directory.getFileHandle('archive.zip',{create:true});await writeBatchZip(entries,await handle.createWritable(),options);return {blob:await handle.getFile(),cleanup:()=>temporary.cleanup()};}
+ try{const handle=await temporary.directory.getFileHandle('archive.zip',{create:true});await writeBatchZip(entries,await handle.createWritable(),options);return {blob:await handle.getFile(),storage:'opfs',cleanup:()=>temporary.cleanup()};}
  catch(error){await temporary.cleanup().catch(()=>{});throw error;}
 }
 // Resume reads the directory and individual payloads from file slices.

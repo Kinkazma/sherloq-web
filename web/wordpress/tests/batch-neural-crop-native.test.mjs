@@ -16,8 +16,8 @@ test('fractional acquisition crop bounds are outward integer windows without rou
   const recipe=catalogRecipe(id),params=structuredClone(recipe.params),task=batchTask(recipe,{scientificScope:scope});
   assert.deepEqual(task.regions.map(r=>r.bounds),[[0,0,50,60],[70,0,120,60]]);
   assert.ok(task.regions.every(r=>r.bounds.every(Number.isSafeInteger)&&r.kind==='region'));
-  assert.deepEqual(task.params,{...params,selectionPresent:true});
-  assert.equal(task.scientificScope,undefined);assert.equal(task.params.excluded,undefined);assert.equal(task.params.scientificScope,undefined);
+  assert.deepEqual(task.params,{...params,selectionPresent:true,scientificScope:scope});
+  assert.equal(task.scientificScope,undefined);assert.equal(task.params.excluded,undefined);assert.notEqual(task.params.scientificScope,scope);
   assert.deepEqual(scope,before);
  }
  const sift=catalogRecipe(batchCatalog.find(r=>r.params.algorithm==='SIFT + G2NN + RANSAC + Panels + Text').id),native=batchTask(sift,{scientificScope:scope});

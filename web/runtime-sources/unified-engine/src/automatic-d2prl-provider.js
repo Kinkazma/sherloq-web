@@ -13,9 +13,10 @@ export function createAutomaticD2prlProvider({adapter,image,imageId,wasmBinary})
   async run(job,hooks){
    requireValue(job.id==='d2prl'&&job.enabled,'Enabled D2PRL group required.');current=null;
    const task=automaticD2prlRequest(hooks.plan,{id:'automatic-d2prl-'+(++revision),imageId});
-   const output=await adapter.runOwned(task,image,hooks);current={analysisId:output.data.metadata.analysisId,resultId:output.data.metadata.resultId};return wrap(output);
+   const output=await adapter.runOwned(task,image,hooks);current={analysisId:output.data.metadata.analysisId,resultId:output.data.metadata.resultId,...(output.data.metadata.scientificScope?.stage==='fully-cancelled-before-inference'?{empty:structuredClone(output.data.metadata)}:{})};return wrap(output);
   },
   async prepare(value,filters,hooks){
+   if(value.result.metadata.scientificScope?.stage==='fully-cancelled-before-inference')return {value:{entries:[]},release(){}};
    const owned=await d2prlEntries(value.result,{budget:hooks.budget,minimum:filters.d2Minimum,signal:hooks.signal,onProgress:hooks.onProgress,wasmBinary,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,
     async refilter(minimum,options){
      const task={id:'automatic-d2prl-filter-'+(++revision),imageId,operation:'ai.clones.d2prl',backend:hooks.plan.cpu?'cpu':'auto',params:{minimum,refilterOf:value.result.metadata.analysisId}};
@@ -26,6 +27,7 @@ export function createAutomaticD2prlProvider({adapter,image,imageId,wasmBinary})
   releaseCheckpoint(key){return adapter.releaseCheckpoint?.(key);},
   readRaw(value){
    if(!current||current.analysisId!==value.result.metadata.analysisId)throw new EngineError('CACHE_MISS','D2PRL provider no longer owns the current analysis identity.');
+   if(current.empty)return {value:{result:{width:value.result.width,height:value.result.height,rawGrids:[],metadata:{...current.empty,raw_shape:[3,448,448]}},provenance:{inferences:0,scientificScope:current.empty.scientificScope}},release(){}};
    return wrap(adapter.readRawOwned({imageId,resultId:current.resultId}));
   }
  };

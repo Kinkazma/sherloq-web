@@ -3,15 +3,17 @@ import {getExecutionScheduler} from './execution-scheduler.js';
 import {isResumableResourceError} from './errors.js';
 import{EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError}from'./errors.js';
 import{createSegmentedBytes}from'./segmented-bytes.js';import{segmentationProbabilities}from'../experiments/segmentation/probabilities.js';
+import{compileForgeryscopeScientificScope}from'./forgeryscope-scientific-scope.js';
 const BLOCK=1048576;
 // The output stores are private until every native zone and exclusion succeeds.
 // This performs projection/composition only; raw grids come from real inference.
-export async function segmentedNeuralProjection({family,width,height,zones,side,kind,mode='regions',exclusions=[],minimum=500,compare=false},{budget,spatial,postprocess,signal,onProgress,temporarySession,getTemporarySession,storage='auto',checkpoint,onCheckpoint,resourceOperation}={}){
+export async function segmentedNeuralProjection({family,width,height,zones,side,kind,mode='regions',exclusions=[],minimum=500,compare=false,scientificScope},{budget,spatial,postprocess,signal,onProgress,temporarySession,getTemporarySession,storage='auto',checkpoint,onCheckpoint,resourceOperation}={}){
  const d2=family==='d2prl',roles=d2||kind==='softmax',n=width*height,grid=side*side;
  requireValue(['d2prl','segmentation'].includes(family)&&[width,height].every(v=>Number.isSafeInteger(v)&&v>0&&v<=131072)&&Number.isSafeInteger(n*15),'Neural source geometry');
  requireValue(d2?side===448&&typeof postprocess?.run==='function':[256,512].includes(side)&&['sigmoid','softmax'].includes(kind)&&(kind!=='softmax'||side===256),'Native neural grid domain');
  requireValue((zones?.every(z=>z.rawWidth!==undefined)||typeof spatial?.run==='function')&&Number.isInteger(minimum)&&minimum>=0&&minimum<=5000&&compare===false&&Array.isArray(exclusions)&&exclusions.length<=256&&(d2||exclusions.length===0),'Native projection parameters');
  requireValue(['regions','whole-image'].includes(mode)&&Array.isArray(zones)&&zones.length>0&&zones.length<=256,'Independent native zones required');
+ const scope=scientificScope?compileForgeryscopeScientificScope(scientificScope.scope,{width,height,sourceSha256:scientificScope.sourceSha256}):null;
  const bounds=(b,min)=>requireValue(Array.isArray(b)&&b.length===4&&b.every(Number.isSafeInteger)&&b[0]>=0&&b[1]>=0&&b[2]<=width&&b[3]<=height&&b[2]-b[0]>=min&&b[3]-b[1]>=min,'Half-open source rectangle');
  const ids=new Set();for(const z of zones){bounds(z.bounds,mode==='whole-image'?1:8);const native=z.rawWidth!==undefined||z.rawHeight!==undefined;requireValue(!native||!d2&&kind==='sigmoid'&&z.rawWidth===z.bounds[2]-z.bounds[0]&&z.rawHeight===z.bounds[3]-z.bounds[1],'Original-resolution grid must match its source rectangle');requireValue(typeof z.id==='string'&&z.id.length>0&&z.id.length<=128&&!ids.has(z.id)&&z.raw instanceof Float32Array&&z.raw.length===(native?z.rawWidth*z.rawHeight:grid)*(roles?3:1),'Unique zone and native raw grid required');ids.add(z.id);}for(const b of exclusions)bounds(b,8);
  if(mode==='whole-image')requireValue(zones.length===1&&JSON.stringify(zones[0].bounds)===JSON.stringify([0,0,width,height]),'Single whole-image rectangle required');checkAbort(signal);
@@ -21,7 +23,7 @@ export async function segmentedNeuralProjection({family,width,height,zones,side,
  // result stores. The real processor owns its reservations during execution.
  const maximumGrid=Math.max(grid,...zones.map(z=>z.rawWidth!==undefined?z.rawWidth*z.rawHeight:grid));
  const transient=(d2?512*1024**2+2*grid*12+2*grid*16:maximumGrid*(roles?29:13))+4*Math.max(width,Math.min(BLOCK,n))+16384;
- const identity=JSON.stringify([family,width,height,side,kind,mode,minimum,exclusions,zones.map(z=>[z.id,z.bounds,z.rawWidth??side,z.rawHeight??side])]);
+ const identity=JSON.stringify([family,width,height,side,kind,mode,minimum,exclusions,zones.map(z=>[z.id,z.bounds,z.rawWidth??side,z.rawHeight??side]),...(scientificScope?[scientificScope.identity,scientificScope.policy]:[])]);
  requireValue(!checkpoint||checkpoint.identity===identity&&!checkpoint.disposed,'Projection checkpoint identity');
  const state=checkpoint??{identity,rawSources:zones.map(z=>z.raw),stores:{},zoneMetadata:[],zone:0,plane:0,row:0,exclusion:0,exclusionRow:0,exclusionField:0,scanOffset:0,present:false,processed:null,prepared:null,metadataRetained:false,disposed:false};
  requireValue(state.rawSources.every((raw,i)=>raw===zones[i].raw),'Projection checkpoint raw grids changed');
@@ -37,7 +39,7 @@ export async function segmentedNeuralProjection({family,width,height,zones,side,
   const at=performance.now(),[x0,y0,x1]=b,w=x1-x0,bpp=elementBytes(key),wide=w*4>=width,span=wide?width:w,buffer=composition.data.subarray(0,span*count*bpp),dest=bpp===4?new Float32Array(buffer.buffer,buffer.byteOffset,span*count):buffer;
   if(wide)await stores[key].readInto(buffer,(y0+y)*width*bpp);
   else for(let row=0;row<count;row++){await stores[key].readInto(buffer.subarray(row*w*bpp,(row+1)*w*bpp),((y0+y+row)*width+x0)*bpp);if((row&31)===31)await controlCheckpoint(signal);}
-  let foreground=false;await scheduler.run({cpu:1,signal,resourceOwner:family,operation,label:'neural-compose'},()=>{for(let row=0;row<count;row++)for(let x=0;x<w;x++){const i=row*w+x,to=row*span+x+(wide?x0:0);if(key==='mask'||d2&&['target','source'].includes(key))requireValue(values[i]===0||values[i]===1,'Native binary role/mask projection');dest[to]=Math.max(dest[to],values[i]);if(key==='mask'&&values[i])foreground=true;}});
+  let foreground=false;await scheduler.run({cpu:1,signal,resourceOwner:family,operation,label:'neural-compose'},()=>{for(let row=0;row<count;row++)for(let x=0;x<w;x++){const i=row*w+x,to=row*span+x+(wide?x0:0);if(key==='mask'||d2&&['target','source'].includes(key))requireValue(values[i]===0||values[i]===1,'Native binary role/mask projection');if(scope&&!scope.admits(x0+x,y0+y+row))continue;dest[to]=Math.max(dest[to],values[i]);if(key==='mask'&&values[i])foreground=true;}});
   if(wide)await stores[key].write(buffer,(y0+y)*width*bpp);else await writeRectangle(stores[key],buffer,bpp,x0,y0+y,w,count);
   if(key==='map'){
    const marked=analyzed.data.subarray(0,span*count);if(wide){await stores.analyzed.readInto(marked,(y0+y)*width);for(let row=0;row<count;row++)marked.fill(1,row*width+x0,row*width+x1);await stores.analyzed.write(marked,(y0+y)*width);}
@@ -69,6 +71,7 @@ export async function segmentedNeuralProjection({family,width,height,zones,side,
   for(const store of Object.values(stores))await store.flush();checkAbort(signal);const maskBuffer=analyzed.data.subarray(0,Math.min(BLOCK,n));let present=state.present;
   for(let offset=state.scanOffset;offset<n&&!present;offset+=maskBuffer.length){await controlCheckpoint(signal);const part=maskBuffer.subarray(0,Math.min(maskBuffer.length,n-offset));await stores.mask.readInto(part,offset);present=part.some(Boolean);state.present=present;state.scanOffset=offset+part.length;report();}
   const allNative=zones.every(z=>z.rawWidth!==undefined);const metadata={boxes:zones.map(z=>[...z.bounds]),zones:zoneMetadata,...(d2?{exclusions:exclusions.map(b=>[...b]),min_component:minimum,exclusion_policy:'output-only-native-d2prl'}:{channel_order:roles?['target','source','background']:['union_probability'],threshold:.5,threshold_rule:roles?'target>=0.5 OR source>=0.5':'probability>0.5',raw_filter_applied:false}),status:present?'ok':'empty',probability_interpolation:allNative?'none':'bilinear',mask_interpolation:allNative?'none':'nearest',inference_performed:false};
+  if(scope)metadata.scientificProjection={fingerprint:scope.fingerprint,coordinates:'original-pixels',analyzedMeaning:'Original native/CNN context coverage; actual candidate admission is recorded in native pipeline receipts',scopeAppliedBeforeComposition:true};
   checkAbort(signal);complete=true;return{width,height,stores,metadata,dispose,metrics:{totalMs:performance.now()-started,projectionMs,compositionMs,postprocessMs,blocks,metadataBytes,storage:Object.fromEntries(fields.map(k=>[k,stores[k].storage])),resultBytes:fields.reduce((s,k)=>s+n*elementBytes(k),0)}};
  }catch(error){const failure=normalizeResourceError(error);keep=!!onCheckpoint&&isResumableResourceError(failure)&&!signal?.aborted;if(keep)report();throw failure;}finally{composition?.release();analyzed?.release();planning?.();working?.();operation?.release();if(!complete&&!keep)await dispose();}
 }

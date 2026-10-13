@@ -3,7 +3,7 @@ import {removeTerminatedTemporarySession} from './unified-engine/src/temporary-s
 import {serializeEngineError,deserializeEngineError} from './unified-engine/src/errors.js';
 import {validateExportSettings,resolveChroma} from './media-settings.js';
 export function rasterOptions(settings,originalChroma){
- const value=validateExportSettings(settings);return{format:value.format,quality:value.format==='webp'?value.webpQuality:value.format==='heic'?value.heicQuality:value.quality,chroma:resolveChroma(value.chroma,originalChroma),compression:value.pngCompression,lossless:['png','tiff'].includes(value.format)||value[value.format+'Lossless']===true,...(value.resize?{resize:{width:value.width||undefined,height:value.height||undefined,algorithm:value.resizeAlgorithm}}:{})};
+ const value=validateExportSettings(settings);return{format:value.format,quality:value.format==='webp'?value.webpQuality:value.format==='heic'?value.heicQuality:value.quality,chroma:resolveChroma(value.chroma,originalChroma),compression:value.format==='tiff'?(value.tiffCompression==='none'?0:6):value.pngCompression,lossless:['png','tiff'].includes(value.format)||value[value.format+'Lossless']===true,...(value.resize?{resize:{width:value.width||undefined,height:value.height||undefined,algorithm:value.resizeAlgorithm}}:{})};
 }
 // Used for composed views not represented by one engine surface. Ordinary
 // engine surfaces use exportSurface, with the engine's existing memory budget.

@@ -22,6 +22,8 @@ spec = importlib.util.spec_from_file_location('offline_shell',ROOT/'offline-shel
 offline = importlib.util.module_from_spec(spec); spec.loader.exec_module(offline)
 spec = importlib.util.spec_from_file_location('feature_generator',ROOT/'scripts/generate-feature-catalog.py')
 features = importlib.util.module_from_spec(spec); spec.loader.exec_module(features)
+spec = importlib.util.spec_from_file_location('runtime_delivery',ROOT/'runtime-delivery.py')
+runtime_delivery = importlib.util.module_from_spec(spec); spec.loader.exec_module(runtime_delivery)
 MAX_ZIP = 25_000_000
 OFFLINE_MODULES = ['dependency-core.js','dependency-store.js','dependency-tar.js','offline-kit-core.js',
                    'feature-catalog.js','local-update-store.js','offline-browser-store.js','offline-browser-sw.js']
@@ -36,6 +38,33 @@ def immutable(value,directory=False):
     return value
 
 
+def reviewed_runtime_increment(manifest):
+    """Recover declared predecessor identities when input is already updated.
+
+    New paths remain ordinary content-addressed dependencies. Only existing
+    JavaScript replacements enter the updater's before/after override format.
+    """
+    path=ROOT/'runtime-patches/batch-scientific-regions-20261013.json'
+    if not path.exists(): return {},{},None
+    receipt=json.loads(path.read_bytes())
+    matches=[manifest['files'].get(record['file'])==record['after'] for record in receipt['files']]
+    if not any(matches): return {},{},None
+    if not all(matches): raise ValueError('Staged inventory contains only part of the qualified runtime increment')
+    overlay=runtime_delivery.qualified_runtime_overlay(ROOT)
+    changes={record['file']:{'before':record['before']['sha256'],'after':record['after']['sha256'],'size':record['after']['size']}
+             for record in receipt['files'] if record['before'] is not None}
+    if len(changes)!=43 or any(not name.endswith(('.js','.mjs')) for name in changes):
+        raise ValueError('Qualified runtime updater replacements differ from the reviewed declaration')
+    payloads={}
+    for name,record in overlay.files.items():
+        data=(ROOT/'sherloq-browser/assets'/name).read_bytes()
+        if digest(data)!=record['after']['sha256'] or len(data)!=record['after']['size']:
+            raise ValueError('Qualified staged runtime changed: '+name)
+        payloads[record['after']['sha256']]=data
+    reference={'schema':'sherloq.runtime-increment-reference/1','sha256':digest(path.read_bytes()),'files':57,'addedFiles':14}
+    return changes,payloads,reference
+
+
 def stage(args):
     if not re.fullmatch('[0-9]+\.[0-9]+\.[0-9]+(?:-[a-z0-9.-]+)?',args.version): raise ValueError('Invalid product version')
     origin = immutable(args.resource_origin,directory=True)
@@ -44,7 +73,9 @@ def stage(args):
     destination=args.output/'local'/args.version
     if destination.exists(): raise ValueError('Use a fresh output directory; a staged inventory is immutable')
     plugin=destination/'sherloq-browser'; assets=plugin/'assets'
-    changes={}
+    changes,payloads,increment=reviewed_runtime_increment(manifest)
+    for sha,data in payloads.items():
+        put(args.output/'resource-overlay/web-assets/chunks'/(sha+'.bin'),data)
     for name in args.runtime_override:
         if name not in manifest['files'] or manifest['files'][name].get('localOnly'):
             raise ValueError('Unknown or restricted runtime override: '+name)
@@ -58,8 +89,9 @@ def stage(args):
         put(args.output/'resource-overlay/web-assets/chunks'/(sha+'.bin'),data)
         changes[name]={'before':old['sha256'],'after':sha,'size':len(data)}
     # Only chunks still referenced by ordinary files remain in the inventory.
-    used={sha for file in manifest['files'].values() for sha in file['chunks']}
-    manifest['chunks']={sha:size for sha,size in manifest['chunks'].items() if sha in used}
+    if increment is None:
+        used={sha for file in manifest['files'].values() for sha in file['chunks']}
+        manifest['chunks']={sha:size for sha,size in manifest['chunks'].items() if sha in used}
     manifest_bytes=encode(manifest); identity=digest(manifest_bytes)
     catalogue=features.generate(manifest,args.metadata_root)
     for source in sorted((ROOT/'sherloq-browser/assets').rglob('*')):
@@ -78,6 +110,9 @@ def stage(args):
         code='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in names)
         put(assets/worker,code.encode()); subprocess.run(['node','--check',str(assets/worker)],check=True)
     put(plugin/'LICENSE',(ROOT/'sherloq-browser/LICENSE').read_bytes())
+    if increment is not None:
+        put(assets/'scientific-regions-delivery-increment.json',
+            (ROOT/'runtime-patches/batch-scientific-regions-20261013.json').read_bytes())
     put(assets/'feature-catalog.json',encode(catalogue))
     put(assets/'dependency-config.json',encode({'schema':'sherloq.dependency-config/1','enabled':False,'offline':True,'offlineMode':'archive','version':args.version,'manifest':identity}))
     shell=offline.write_shell(plugin,manifest,identity,args.version)
@@ -121,6 +156,7 @@ Le lanceur natif peut être conservé ; le HTML Python contient le helper exact.
             zipped.write(source,'resource-overlay/web-assets/chunks/'+source.name)
     if archive.stat().st_size>MAX_ZIP: archive.unlink(); raise ValueError('Compressed bootstrap ZIP exceeds 25,000,000 bytes')
     result={'schema':'sherloq.local-release-stage/1','version':args.version,'manifest':identity,'shell':digest((destination/'offline-shell.json').read_bytes()),'shellFiles':len(shell['files']),'features':len(catalogue['features']),'runtimeOverrides':changes,'bootstrap':{'bytes':archive.stat().st_size,'sha256':digest(archive.read_bytes()),'compressedLimitBytes':MAX_ZIP,'private':True},'published':False}
+    if increment is not None: result['runtimeIncrement']=increment
     put(args.output/'stage.json',encode(result)); print(json.dumps(result,indent=2))
 
 
@@ -145,6 +181,7 @@ def describe(args):
             if not file or meta.get('after')!=file['sha256'] or meta.get('size')!=file['size'] or not re.fullmatch('[a-f0-9]{64}',meta.get('before','')):
                 raise ValueError('Runtime overlay does not match the verified resource inventory')
         if overrides: result['runtimeOverrides']=overrides
+        if receipt.get('runtimeIncrement'): result['runtimeIncrement']=receipt['runtimeIncrement']
     put(args.output,encode(result)); print(json.dumps({'bytes':args.output.stat().st_size,'sha256':digest(args.output.read_bytes()),'published':False}))
 
 

@@ -16,18 +16,18 @@ const models=Object.fromEntries(Object.entries(SELFDM_PROPOSAL_MODELS).map(([nam
 const input=()=>({format:'rgb8',width:512,height:512,data:new Uint8Array(plane*3)});
 // This is an orchestration fixture, not numerical detector qualification.
 // Scientific native parity is exercised separately by the real browser script.
-function fixture({fail,hold,boxCount=2}={}){
+function fixture({fail,hold,boxCount=2,scopeMasks=false,inspect}={}){
  const budget=new Budget(3*1024**3),calls=[],pools=[];let active=0,peak=0,outputs=0;
  const poolFactory=()=>({slots:[],drop(){},dispose(){},snapshot(){return {active,peakWorkers:peak};},async run(name,inputs,{signal}){
-  checkAbort(signal);calls.push(name);active++;peak=Math.max(peak,active);
+  checkAbort(signal);calls.push(name);active++;peak=Math.max(peak,active);const actualName=name.replace(/-scoped$/,'');inspect?.(name,inputs);
   try{await new Promise(resolve=>setImmediate(resolve));checkAbort(signal);await hold?.(name,signal);checkAbort(signal);await fail?.(name,inputs);
    let result;
-   if(name==='selfdm')result={probability:{data:new Float32Array(plane).fill(.8),dims:[1,1,512,512]}};
-   if(name==='deepmask'){const [,,h,w]=inputs.normalizedRgb.dims,rows=Math.ceil(h/16)-9,cols=Math.ceil(w/16)-9;result={mask:{data:new Float32Array(rows*cols*112**2),dims:[1,rows*cols,112,112]},score:{data:new Float32Array(rows*cols).fill(.5),dims:[1,1,rows,cols]}};}
+   if(actualName==='selfdm')result={probability:{data:new Float32Array(plane).fill(.8),dims:[1,1,512,512]}};
+   if(name==='deepmask'){const [,,h,w]=inputs.normalizedRgb.dims,rows=Math.ceil(h/16)-9,cols=Math.ceil(w/16)-9;result={mask:{data:new Float32Array(rows*cols*112**2).fill(scopeMasks?.8:0),dims:[1,rows*cols,112,112]},score:{data:new Float32Array(rows*cols).fill(.5),dims:[1,1,rows,cols]}};}
    if(name==='superpoint'){const [,,h,w]=inputs.image.dims,rows=Math.floor(h/8),cols=Math.floor(w/8);result={dense_scores:{data:new Float32Array(rows*8*cols*8).fill(.5),dims:[1,1,rows*8,cols*8]},dense_descriptors:{data:new Float32Array(256*rows*cols),dims:[1,256,rows,cols]}};}
-   if(name==='superpoint-post')result={keypoints:{data:Float32Array.from([2,3,4,5,6,7,8,9]),dims:[1,4,2]},scores:{data:new Float32Array(4).fill(.8),dims:[1,4]},descriptors:{data:new Float32Array(256*4),dims:[1,256,4]}};
-   if(name==='superglue')result={matches0:{data:BigInt64Array.from([0n,1n,2n,3n]),dims:[1,4]},matches1:{data:BigInt64Array.from([0n,1n,2n,3n]),dims:[1,4]},matching_scores0:{data:new Float32Array(4).fill(.7),dims:[1,4]},matching_scores1:{data:new Float32Array(4).fill(.7),dims:[1,4]}};
-   if(name==='crf'){const [,,h,w]=inputs.unary.dims;result={probability:{data:new Float32Array(h*w).fill(.7),dims:[1,h,w]}};}
+   if(name==='superpoint-post')result={keypoints:{data:Float32Array.from(scopeMasks?[6,6,160,120,240,180,280,210]:[2,3,4,5,6,7,8,9]),dims:[1,4,2]},scores:{data:new Float32Array(4).fill(.8),dims:[1,4]},descriptors:{data:new Float32Array(256*4),dims:[1,256,4]}};
+   if(name==='superglue'){const a=inputs.scores0.data.length,b=inputs.scores1.data.length;result={matches0:{data:BigInt64Array.from({length:a},(_,i)=>i<b?BigInt(i):-1n),dims:[1,a]},matches1:{data:BigInt64Array.from({length:b},(_,i)=>i<a?BigInt(i):-1n),dims:[1,b]},matching_scores0:{data:new Float32Array(a).fill(.7),dims:[1,a]},matching_scores1:{data:new Float32Array(b).fill(.7),dims:[1,b]}};}
+   if(actualName==='crf'){const [,,h,w]=inputs.unary.dims;result={probability:{data:new Float32Array(h*w).fill(.7),dims:[1,h,w]}};}
    const reservation=budget.reserve(Object.values(result).reduce((sum,item)=>sum+item.data.byteLength,0)),backing=registerArrayViews(budget,Object.fromEntries(Object.entries(result).map(([name,item])=>[name,item.data])));outputs++;let closed=false;
    return {result,heapBytes:32*MiB,metrics:{provider:'wasm',threads:4,cpuGranted:4,memoryMaximumBytes:128*MiB},release(){if(closed)return;closed=true;outputs--;backing();reservation();}};
   }finally{active--;}
@@ -168,4 +168,21 @@ test('Malformed source rows retain INVALID_INPUT when row release also fails, wi
  const key=Object.values(models).map(value=>value.sha256).join('/'),data=new Float32Array(width*height).fill(.8);owner.identity=key;owner.pool=owner.poolFactory();budget.put(owner.prefix+key+'/initial',{value:{data},byteLength:data.byteLength});
  await assert.rejects(owner.analyze({}, {models}),error=>error.code==='INVALID_INPUT'&&error.details.cleanupErrors[0].stage==='proposal-source-row'&&error.details.cleanupErrors[0].error.message==='row cleanup failed');
  assert.equal(owner.running,false);await owner.dispose();assert.equal(budget.total(),0);
+});
+
+test('Scoped Proposal carries exclusions through native graph, candidate bank, NMS, SuperGlue and CRF before scoring',async()=>{
+ const sha='a'.repeat(64),scope={schema:'sherloq.scientific-scope/1',coordinates:'original-pixels',sourceSha256:sha,width:512,height:512,fingerprint:'scoped-fixture',status:'ready',regions:[{x0:0,y0:0,x1:512,y1:512}],excluded:[[[16,16],[24,16],[24,24],[16,24]]]};
+ let checkedDense=false,checkedGlue=false,checkedCRF=false,checkedInitial=false;
+ const f=fixture({scopeMasks:true,inspect(name,inputs){
+  if(name==='selfdm-scoped'){assert.ok(inputs.scientific_scope_indices.data.length<4096);assert.equal(inputs.scientific_scope_indices.type,'int64');checkedInitial=true;}
+  if(name==='superpoint-post'){if(inputs.dense_scores.data[0]===0)checkedDense=true;}
+  if(name==='superglue'){assert.equal(inputs.scores0.data.length,3);assert.equal(inputs.scores1.data.length,4);checkedGlue=true;}
+  if(name==='crf-scoped'){assert.ok(inputs.scientific_scope_coarse.data.some(v=>v===0));checkedCRF=true;}
+ }}),original=f.image.data.slice();
+ try{
+  const result=await f.owner.analyze({}, {models,scientificScope:{scope,width:512,height:512,sourceSha256:sha,bounds:[0,0,512,512]}});
+  assert.equal(checkedInitial,true);assert.equal(checkedDense,true);assert.equal(checkedGlue,true);assert.equal(checkedCRF,true);
+  assert.equal(result.raw[20*512+20],0);assert.ok(result.metadata.scientificScope.proposals[0].points.excluded>0);assert.ok(result.metadata.scientificScope.crf.some(r=>r.excludedCells>0));
+  assert.deepEqual(f.image.data,original);result.release();
+ }finally{await f.owner.dispose();}assert.equal(f.budget.total(),0);
 });

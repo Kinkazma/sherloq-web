@@ -18,6 +18,7 @@ export function automaticAiBoxes(width,height,regions){
 export function automaticAiSelection(width,height,params){
  requireValue(params&&Array.isArray(params.regions)&&Array.isArray(params.excluded)&&params.compare===false,'Independent native AI selection required');
  requireValue(!params.selection_present||params.regions.length>0,'No active AI region');
+ if(params.scientificScope){const s=params.scientificScope;requireValue(s.width===width&&s.height===height&&Array.isArray(s.regions),'Scientific AI selection geometry differs');return {boxes:s.regions.map(r=>{const b=[Math.max(0,Math.floor(r.x0)),Math.max(0,Math.floor(r.y0)),Math.min(width,Math.ceil(r.x1)),Math.min(height,Math.ceil(r.y1))];requireValue(b[2]-b[0]>=8&&b[3]-b[1]>=8,'Scientific AI regions require at least8pixels; do not drop smaller acquisitions');return b;}),excluded:[]};}
  return {boxes:automaticAiBoxes(width,height,params.regions),excluded:params.excluded.length?automaticAiBoxes(width,height,params.excluded):[]};
 }
 export function localAiExclusions(box,excluded){
@@ -27,7 +28,7 @@ export function localAiExclusions(box,excluded){
 export function automaticD2prlRequest(plan,{id,imageId}={}){
  const job=plan.jobs.find(j=>j.id==='d2prl');requireValue(job&&typeof id==='string'&&typeof imageId==='string','D2PRL job and request identity required');if(!job.enabled)return null;
  const {boxes,excluded}=automaticAiSelection(plan.width,plan.height,job.params);
- return {id,imageId,operation:'ai.clones.d2prl',backend:plan.cpu?'cpu':'auto',params:{minimum:job.minimum,exclusions:excluded,selectionPresent:true},regions:boxes.map((bounds,index)=>({id:'automatic-zone-'+index,kind:'region',bounds}))};
+ return {id,imageId,operation:'ai.clones.d2prl',backend:plan.cpu?'cpu':'auto',params:{minimum:job.minimum,exclusions:excluded,selectionPresent:true,...(plan.scientificScope?{scientificScope:structuredClone(plan.scientificScope)}:{})},regions:boxes.map((bounds,index)=>({id:'automatic-zone-'+index,kind:'region',bounds}))};
 }
 /** Returns an owned crop: exclusions are blackened ONLY for Forgeryscope. */
 export async function readAutomaticForgeryscopeCrop(image,box,excluded,{budget,signal}={}){

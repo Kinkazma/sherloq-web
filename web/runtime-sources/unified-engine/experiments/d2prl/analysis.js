@@ -37,12 +37,12 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
     const result = await project.run({width: context.width, height: context.height, layout: context.layout, mode: context.mode, minimum, exclusions, zones: context.zones.map((zone, i) => ({...zone, raw: values[i].raw}))}, {signal: job.signal,checkpointKey:job.checkpointKey,resourceOperation:job.resourceOperation, onProgress: event => job.progress({...event, stage: 'projection'})});
     try {
       job.check(); const resultId = prefix + job.revision, analysisId = context.analysisId ?? resultId;
-      result.metadata = {...result.metadata, modelId, backend: context.backend, pixelSha256: context.pixelSha256, resultId, analysisId, revision: job.revision, sourceProvenance: context.provenance, vote_policy: 'one-model-union', inference_performed: counts.inferences > 0, inferences: counts.inferences, cache_hits: counts.cacheHits, zones: result.metadata.zones.map((zone, i) => ({...zone, kind: context.zones[i].kind, decision: structuredClone(values[i].decision), execution: structuredClone(values[i].execution)}))};
+      result.metadata = {...result.metadata,...(context.scientificScope?{scientificScope:structuredClone(context.scientificScope)}:{}), modelId, backend: context.backend, pixelSha256: context.pixelSha256, resultId, analysisId, revision: job.revision, sourceProvenance: context.provenance, vote_policy: 'one-model-union', inference_performed: counts.inferences > 0, inferences: counts.inferences, cache_hits: counts.cacheHits, zones: result.metadata.zones.map((zone, i) => ({...zone, kind: context.zones[i].kind, decision: structuredClone(values[i].decision), execution: structuredClone(values[i].execution)}))};
       last = {...context, resultId, analysisId, exclusions: exclusions.map(r => [...r]), resultMetadata: structuredClone(result.metadata)}; return result;
     } catch (error) {await result.release(); throw error;}
   };
   return {
-    run({pixels, inputSource, zones, mode = 'regions', exclusions = [], minimum = 500, backend = 'gpu', provenance = null, retainRaw = false}, options) {
+    run({pixels, inputSource, zones, mode = 'regions', exclusions = [], minimum = 500, backend = 'gpu', provenance = null, retainRaw = false,scientificScope}, options) {
       const segmented=!!inputSource,width=segmented?inputSource.width:pixels?.width,height=segmented?inputSource.height:pixels?.height;
       requireValue(segmented ? pixels===undefined && typeof inputSource.region==='function' && typeof inputSource.sha256==='function' : pixels?.data instanceof Uint8Array && pixels.data.buffer instanceof ArrayBuffer && pixels.data.length === pixels.width * pixels.height * 3, 'Qualified contiguous RGB8 source required');
       requireValue(typeof retainRaw==='boolean' && ['gpu', 'cpu'].includes(backend) && Number.isInteger(minimum) && minimum >= 0 && minimum <= 5000, 'Explicit backend and component minimum');
@@ -56,14 +56,14 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
         let pinned=[],inserted=[],values=[],sourceRelease,complete=false,retain=false;
         try {
           let source;if(segmented)context.pixelSha256=await inputSource.sha256({signal:job.signal,onProgress:job.progress});else{sourceRelease=budget.reserve(pixels.data.byteLength*3);source=pixels.data.slice();const digest=await crypto.subtle.digest('SHA-256',source);context.pixelSha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');}job.check();
-          const identity=JSON.stringify([options?.checkpointKey,modelId,backend,context.pixelSha256,context.width,context.height,context.zones]);
+          const identity=JSON.stringify([options?.checkpointKey,modelId,backend,context.pixelSha256,context.width,context.height,context.zones,...(scientificScope?[scientificScope.metadata.fingerprint,context.zones.map(z=>scientificScope.grids.get(z.id)?.identity)]:[])]);
           if(checkpoint&&checkpoint.identity!==identity)await clearCheckpoint();
           checkpoint??={key:options?.checkpointKey,identity,pinned:[],inserted:[],values:[],inferenceKeys:new Set()};
           ({pinned,inserted,values}=checkpoint);
           let inferences = 0, cacheHits = 0;
           for (let i = 0; i < context.zones.length; i++) {
             job.check(); const zone = context.zones[i], [x0, y0, x1, y1] = zone.bounds, width = x1 - x0, height = y1 - y0;
-            zone.cacheKey = prefix + JSON.stringify([modelId, backend, context.pixelSha256, context.width, context.height, zone.bounds]);
+            zone.cacheKey = prefix + JSON.stringify([modelId, backend, context.pixelSha256, context.width, context.height, zone.bounds,...(scientificScope?[scientificScope.grids.get(zone.id)?.identity]:[])]);
             let value=values[i]??budget.get(zone.cacheKey);
             if(value){if(!values[i])pinned.push(budget.reserve(RAW_BYTES));cacheHits++;}
             else {
@@ -77,7 +77,7 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
                 input={rgb,width,height};}
                 job.progress({phase: 'inference', zone: zone.id, zoneIndex: i, completed: i, total: context.zones.length});
                 const checkpointKey=options?.checkpointKey?checkpoint.identity+':'+zone.cacheKey:undefined;if(checkpointKey)checkpoint.inferenceKeys.add(checkpointKey);
-                output = await infer({...input, backend}, {checkpointKey,verifiedInputIdentity:checkpoint.identity+':'+zone.cacheKey,signal: job.signal, onProgress: event => job.progress({...event, stage: 'inference', zone: zone.id, zoneIndex: i, completedZones: i, totalZones: context.zones.length})}); job.check();
+                output = await infer({...input, backend,...(scientificScope?{scientificMask:scientificScope.grids.get(zone.id)}:{})}, {checkpointKey,verifiedInputIdentity:checkpoint.identity+':'+zone.cacheKey,signal: job.signal, onProgress: event => job.progress({...event, stage: 'inference', zone: zone.id, zoneIndex: i, completedZones: i, totalZones: context.zones.length})}); job.check();
                 requireValue(output?.raw instanceof Float32Array && output.raw.length === RAW_BYTES / 4 && typeof output.release === 'function', 'Actual native-grid model output required');
                 pinned.push(budget.reserve(RAW_BYTES)); value = {raw: output.raw, decision: structuredClone(output.decision), execution: structuredClone(output.execution), byteLength: RAW_BYTES};
                 budget.put(zone.cacheKey, value); if (budget.get(zone.cacheKey) === value) inserted.push(zone.cacheKey); inferences++;
@@ -85,7 +85,7 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
             }
             values[i]=value; job.progress({phase: 'zone-complete', zone: zone.id, completed: i + 1, total: context.zones.length, inferences, cacheHits});
           }
-          const result = await projectResult(context, values, minimum, exclusions, job, {inferences, cacheHits}); if(retainRaw)retained={analysisId:last.analysisId,values,releases:pinned.splice(0)}; complete = true; return result;
+          if(scientificScope)context.scientificScope=structuredClone(scientificScope.metadata);const result = await projectResult(context, values, minimum, exclusions, job, {inferences, cacheHits}); if(retainRaw)retained={analysisId:last.analysisId,values,releases:pinned.splice(0)}; complete = true; return result;
         }catch(error){retain=retainD2prlCheckpoint(error,job.signal,options?.checkpointKey);throw error;}
         finally{if(!retain){if(complete&&checkpoint)checkpoint.inserted=[];await clearCheckpoint();}sourceRelease?.();}
       }, options);

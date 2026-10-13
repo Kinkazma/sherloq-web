@@ -6,6 +6,7 @@ import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
 import {createExportSink} from './export-sink.js';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
+import {composeBiomeWindow,biomePresentationWorkingBytes} from './detection-biome-presentation.js';
 
 // Dense native counters may exceed JS's exact-number range. Keep their decimal
 // values as strings in JSON; borrow scientific typed arrays without copying them.
@@ -91,7 +92,15 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   const base=display.cloneView==='mask'?null:(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile},hooks())).pixels.data;
   return composeCloneFrame({width:Math.ceil(tile.w/(tile.step??1)),height:Math.ceil(tile.h/(tile.step??1)),values,support,mask,base,view:display.cloneView,masked:display.cloneMasked});
  }
+ async function biomePixels(display,window,sampled=false){
+  if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}if(!source)throw new EngineError('CACHE_MISS','The original biome source is unavailable.');
+  const original={width:source.surface.width,height:source.surface.height,sha256:source.sha256};if(display.width!==original.width||display.height!==original.height)throw new EngineError('INVALID_INPUT','Biome presentation dimensions differ from the original image.');
+  const step=sampled?window.step??1:1,width=sampled?Math.ceil(window.w/step):window.width,height=sampled?Math.ceil(window.h/step):window.height,bytes=biomePresentationWorkingBytes(width,height,original.width,original.height,{scoped:!!display.biomePresentation.scope}),lease=await engine.reserveExternalMemory({bytes});
+  try{const args={surfaceId:source.surface.id,revision:source.surface.revision,...(sampled?{tile:window}:{rect:window})},base=(await engine[sampled?'readDisplay':'readPixels'](args,hooks())).pixels;return composeBiomeWindow(base,display.biomePresentation.groups,window,{scope:display.biomePresentation.scope,source:original,signal:controller?.signal});}
+  finally{await engine.releaseExternalMemory(lease.id);}
+ }
  async function pixels(display,rect){
+  if(display.biomePresentation)return biomePixels(display,rect);
   if(display.cloneView)return clonePixels(display,{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1});
   if(sourceAliases.has(display.id)){if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}if(source)display=source.surface;}
   if(display.m2Result){const frame=await m2.renderWindow(display.m2Result,display.view,rect);try{const data=new Uint8Array(frame.bytes);for(let at=0;at<data.length;at+=m2.ready.windowBytes)data.set(await m2.readExport(frame.id,at,Math.min(m2.ready.windowBytes,data.length-at)),at);return {width:frame.width,height:frame.height,format:'rgb8',data};}finally{await m2.releaseExport(frame.id);}}
@@ -149,7 +158,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
      if(typeof engine.runConfiguredSegmentation==='function')result=await engine.runConfiguredSegmentation(input,model,hooks());
      else{await configureSegmentationModel(engine,model,hooks());result=await engine.run(input,hooks());}
     }else if(previous){
-     const refilter={...task,imageId:source.id,regions:undefined,params:{minimum:params.minimum,exclusions:params.exclusions??[],refilterOf:previous.analysisId}};
+     const refilter={...task,imageId:source.id,regions:undefined,params:{minimum:params.minimum,exclusions:params.exclusions??[],...(params.scientificScope?{scientificScope:params.scientificScope}:{}),refilterOf:previous.analysisId}};
      try{result=await engine.run(refilter,hooks());}
      catch(error){if(error.code!=='CACHE_MISS')throw error;result=await engine.run({...task,imageId:source.id,params},hooks());}
     }else result=await engine.run({...task,imageId:source.id,params},hooks());
@@ -173,6 +182,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   loadModel:(kind,file)=>enqueue(()=>work(async()=>{const id=kind+'-'+crypto.randomUUID();await engine[kind==='median'?'loadMedianModel':'loadQualityModel']({id,blob:file},hooks());const old=kind==='median'?median:quality;if(old)await engine.unload(old);if(kind==='median')median=id;else quality=id;})),
   readWindow:(display,rect)=>enqueue(()=>pixels(display,rect)),
   readTile:(display,tile)=>enqueue(async()=>{
+   if(display.biomePresentation)return biomePixels(display,tile,true);
    if(display.cloneView)return clonePixels(display,tile);
    if(sourceAliases.has(display.id)){if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}if(source)display=source.surface;}
    if(display.m2Result)return (await m2.readDisplay(display.m2Result,display.view,tile)).pixels;

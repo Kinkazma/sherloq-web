@@ -2,17 +2,19 @@
 // are supplied by the qualified backend; this module performs no inference.
 import {requireValue, checkAbort, controlCheckpoint, EngineError} from '../../src/errors.js';
 import {segmentationProbabilities} from './probabilities.js';
+import {compileForgeryscopeScientificScope} from '../../src/forgeryscope-scientific-scope.js';
 
 export function createSegmentationZones({budget, spatial}) {
   requireValue(budget && typeof budget.reserve === 'function' && typeof spatial?.run === 'function', 'Shared budget and spatial backend required');
   let busy = false;
   return {
-    async run({width, height, zones, side, kind, mode = 'regions', exclusions = [], compare = false}, {signal, onProgress} = {}) {
+    async run({width, height, zones, side, kind, mode = 'regions', exclusions = [], compare = false,scientificScope}, {signal, onProgress} = {}) {
       if (busy) throw new EngineError('BUSY', 'Segmentation projection busy');
       requireValue([width, height].every(v => Number.isInteger(v) && v > 0 && v <= 8192) && width * height <= 32 * 1024 ** 2, 'Segmentation source geometry');
       requireValue([256, 512].includes(side) && ['sigmoid', 'softmax'].includes(kind) && (kind !== 'softmax' || side === 256), 'Native model grid');
       requireValue(Array.isArray(exclusions) && exclusions.length === 0 && compare === false, 'Native CMSeg/MGCF detectors do not support exclusions or Compare');
       requireValue(['regions', 'whole-image'].includes(mode) && Array.isArray(zones) && zones.length > 0 && zones.length <= 256, 'Explicit independent model grids required');
+      const scope=scientificScope?compileForgeryscopeScientificScope(scientificScope.scope,{width,height,sourceSha256:scientificScope.sourceSha256}):null;
       if (mode === 'whole-image') requireValue(zones.length === 1 && JSON.stringify(zones[0].bounds) === JSON.stringify([0, 0, width, height]), 'Whole image must cover the source');
       const roles = kind === 'softmax', ids = new Set(), channels = roles ? 3 : 1;
       for (const zone of zones) {
@@ -48,8 +50,9 @@ export function createSegmentationZones({budget, spatial}) {
                     for (let x = 0; x < w; x++) {
                       const value = resized.data[y * w + x], at = (y + y0) * width + x + x0;
                       requireValue(Number.isFinite(value) && (name !== 'mask' || value === 0 || value === 1), 'Spatial backend finite map or binary mask');
+                      if(name==='map')analyzed[at]=1;
+                      if(scope&&!scope.admits(x+x0,y+y0))continue;
                       destination[at] = Math.max(destination[at], value);
-                      if (name === 'map') analyzed[at] = 1;
                       if (name === 'mask' && value) projectedForeground = true;
                     }
                     await checkpoint();
@@ -63,7 +66,7 @@ export function createSegmentationZones({budget, spatial}) {
         }
         checkAbort(signal); complete = true;
         const allNative=zones.every(z=>z.rawWidth!==undefined);
-        return {width, height, map, mask, analyzed, candidates, ...(roles ? {target, source} : {}), metadata: {boxes: zones.map(z => [...z.bounds]), zones: metadata, status: mask.some(Boolean) ? 'ok' : 'empty', channel_order: roles ? ['target', 'source', 'background'] : ['union_probability'], threshold: .5, threshold_rule: roles ? 'target>=0.5 OR source>=0.5' : 'probability>0.5', probability_interpolation: allNative?'none':'bilinear', mask_interpolation: allNative?'none':'nearest', inference_performed: false, raw_filter_applied: false}, release: outputRelease};
+        return {width, height, map, mask, analyzed, candidates, ...(roles ? {target, source} : {}), metadata: {boxes: zones.map(z => [...z.bounds]), zones: metadata, status: mask.some(Boolean) ? 'ok' : 'empty', channel_order: roles ? ['target', 'source', 'background'] : ['union_probability'], threshold: .5, threshold_rule: roles ? 'target>=0.5 OR source>=0.5' : 'probability>0.5', probability_interpolation: allNative?'none':'bilinear', mask_interpolation: allNative?'none':'nearest', inference_performed: false, raw_filter_applied: false,...(scope?{scientificProjection:{fingerprint:scope.fingerprint,coordinates:'original-pixels',analyzedMeaning:'Original native/CNN context coverage; actual candidate admission is recorded in native pipeline receipts',scopeAppliedBeforeComposition:true}}:{})}, release: outputRelease};
       } finally {borrowed?.(); if (!complete) outputRelease?.(); busy = false;}
     }
   };

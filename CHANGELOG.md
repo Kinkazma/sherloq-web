@@ -2,6 +2,14 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.19.0 — Interactive regions, scientific scope and exports · 2026-10-14
+
+- Add mouse editing of acquisition and exclusion zones, shared individual Zones / Biomes controls, immutable geometry restoration and native paired-biome presentation. Exclusions take priority inside acquisitions.
+- Admit neural matching candidates before correlation using explicit scientific scope receipts; retain original CNN context and unchanged model identities. Preserve published D2PRL/SSG optimizations and optional-feature policies.
+- Add native Save as with a compact common tools-dock shelf, durable prepared files, verified destination closure and coordinated update activity. Retain internal preference backups before activation or archive navigation.
+- Preserve runtime increment identities in scientific resume, archived disabled-feature states and exact native evidence. Restart a cancelled result preview when it returns into view after an export.
+- Preserve the earlier local updater, resource choices, settings recovery and compatibility inventories.
+
 ## 0.18.0 — Local updates, feature choices and recovery · 2026-10-13
 
 - Add verified local release preparation, resumption, atomic activation, repair and rollback, retaining the active application until every window is idle. Batch imports, native display rendering, exports and local model operations also participate in the activity guard.

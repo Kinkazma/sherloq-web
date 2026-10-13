@@ -20,7 +20,7 @@ export function createAutomaticDetectorProviders({image,budget,dense,sparse,geom
  };}
  if(sparse){requireValue(typeof sparse.analyze==='function','Actual SparseCopyEngine required.');providers.sift={
   releaseCheckpoint(key){return sparse.clearCheckpoint?.(key);},
-  async run(job,hooks){requireValue(job.id==='sift'&&job.enabled,'Enabled SIFT job required.');requireValue(job.params?.algorithm===SIFT_SOURCE,'The automatic SIFT provider requires its declared Panels + Text algorithm; use the sparse tool or batch for SSG.');return own(await sparse.analyze(job.params,{...sparseOptions,...hooks,backend:hooks.plan.cpu?'cpu':'auto'}));},
+  async run(job,hooks){requireValue(job.id==='sift'&&job.enabled,'Enabled SIFT job required.');requireValue(job.params?.algorithm===SIFT_SOURCE,'The automatic SIFT provider requires its declared Panels + Text algorithm; use the sparse tool or batch for SSG.');return own(await sparse.analyze(job.params,{...sparseOptions,...hooks,...(hooks.plan.scientificScope?{scientificScope:hooks.plan.scientificScope,sourceSha256:hooks.plan.scientificScope.sourceSha256}:{}),backend:hooks.plan.cpu?'cpu':'auto'}));},
   async prepare(value,filters,hooks){return entries(await automaticPointEntries(value,{...filters,...hooks,budget,geometry,source:SIFT_SOURCE,split:false,wasmBinary}));}
  };}
  if(forgeryscope){requireValue(typeof forgeryscope.analyze==='function','Actual M2 Forgeryscope analyzer required.');providers.forgeryscope={

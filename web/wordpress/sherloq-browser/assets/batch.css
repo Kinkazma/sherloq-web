@@ -1,3 +1,4 @@
+@import url('./batch-scope-editor.css');
 /* SHERLOQ's existing palette, controls, tabs and compact workbench spacing. */
 .batch-dialog {
  width:min(1120px,calc(100vw - 28px));
@@ -155,3 +156,11 @@
  .batch-settings .batch-option { flex-wrap:nowrap; }
  .batch-settings select { flex:1 1 100%; width:100%; }
 }
+
+/* Generous drop target and a visual family inside the existing suitability section. */
+.batch-panel[data-batch-step="0"]:not([hidden]) { min-height:100%; display:flex; flex-direction:column; }
+.batch-drop { flex:1; min-height:clamp(240px,52dvh,590px); display:flex; flex-direction:column; justify-content:center; align-items:center; gap:14px; }
+.batch-ai-tools { border-top:1px solid var(--line); margin:8px 0 0; }
+.batch-ai-tools>summary { padding:8px 12px; font-weight:600; color:var(--ink); background:var(--panel); cursor:pointer; }
+.batch-image-preview>img { cursor:zoom-in; }
+.batch-edit-zones { align-self:flex-start; }

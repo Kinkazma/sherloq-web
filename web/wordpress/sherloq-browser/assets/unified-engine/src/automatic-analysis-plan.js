@@ -1,6 +1,7 @@
 import "../../runtime-context.js?v=0.16.0";
 // Native automatic_clones.parameters and widget submission rules. This module
 // only plans real detector work; it neither detects panels nor fabricates results.
+import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';
 import {requireValue} from './errors.js';
 import {roundDecimal} from './energy-auto.js';
 import {SIFT_SOURCE} from './clone-relations.js';
@@ -27,20 +28,21 @@ export function automaticSelection(width,height,detected){
 /** Owned native submission and M3/M4 parameter objects, in source pixel centres.
  * Forgeryscope/D2PRL remain native selection contracts pending ROI adaptation.
  * Consumers MUST honor enabled: false, especially when all zones are disabled. */
-export function automaticAnalysisPlan({width,height,regions,envelope=null,disabled=[],cpu=false,complete=false,d2Minimum=500,excludedFeatures=[]}){
+export function automaticAnalysisPlan({width,height,regions,envelope=null,disabled=[],cpu=false,complete=false,d2Minimum=500,excludedFeatures=[],scientificScope}){
  dimensions(width,height);requireValue(Array.isArray(excludedFeatures)&&excludedFeatures.every(id=>['ai.clones.d2prl','m2.forgeryscope'].includes(id)),'Invalid automatic feature exclusions');requireValue(Array.isArray(regions)&&Array.isArray(disabled)&&disabled.every(i=>Number.isSafeInteger(i)&&i>=0&&i<regions.length),'Invalid automatic selection');
  requireValue(typeof cpu==='boolean'&&typeof complete==='boolean'&&Number.isInteger(d2Minimum)&&d2Minimum>=0&&d2Minimum<=5000,'Invalid automatic analysis controls');
  regions=regions.map(polygon);envelope=envelope===null?null:polygon(envelope);const off=new Set(disabled);
- const active=regions.filter((_,i)=>!off.has(i)),excluded=regions.filter((r,i)=>off.has(i)&&!same(r,envelope));
- const guides=regions.some(r=>same(r,envelope))?active.filter(r=>!same(r,envelope)):[];
+ let active=regions.filter((_,i)=>!off.has(i)),excluded=regions.filter((r,i)=>off.has(i)&&!same(r,envelope));
+ let guides=regions.some(r=>same(r,envelope))?active.filter(r=>!same(r,envelope)):[];
+ if(scientificScope){compileForgeryscopeScientificScope(scientificScope,{width,height,sourceSha256:scientificScope.sourceSha256});requireValue(['ready','excluded'].includes(scientificScope.status),'Prepared automatic scientific scope required');const poly=r=>r.polygon??[[r.x0,r.y0],[r.x1,r.y0],[r.x1,r.y1],[r.x0,r.y1]];active=(scientificScope.searchRegions??scientificScope.regions).map(poly);excluded.splice(0,excluded.length,...scientificScope.excluded.map(polygon));guides=scientificScope.regions.map(poly);}
  const diagonal=Math.hypot(height,width);let radius=diagonal;
  if(active.length){radius=0;for(const region of active){const [x0,y0,x1,y1]=bounds([region]),dx=x1-x0,dy=y1-y0;radius=Math.max(radius,Math.sqrt(dx*dx+dy*dy));}}
  radius=roundDecimal(radius,2);
  const patchmatch=[AUTOMATIC_DENSE_PROFILE,6000,radius,5,.3,Math.min(50,diagonal),'Similarity',3,6,8,8,true,2,cpu,true,true,excluded,guides];
  const sift=patchmatch.slice();sift[0]=SIFT_SOURCE;sift[3]=10;sift[4]=.725;sift.splice(6,3,'Affine',5,10);sift[11]=true;sift[15]=false;
- const forge={variant:'Forgeryscope Auto',regions:active.some(r=>same(r,envelope))?[envelope]:[],selection_present:true,compare:false,excluded};
+ const forge={variant:'Forgeryscope Auto',regions:scientificScope?scientificScope.regions.map(r=>r.polygon??[[r.x0,r.y0],[r.x1,r.y0],[r.x1,r.y1],[r.x0,r.y1]]):active.some(r=>same(r,envelope))?[envelope]:[],selection_present:true,compare:false,excluded,...(scientificScope?{scientificScope}:{})};
  const unique=[];for(const region of active)if(!unique.some(r=>same(r,region)))unique.push(region);
- const d2={...forge,variant:'D2PRL',regions:unique};
+ const d2={...forge,variant:'D2PRL',regions:scientificScope?forge.regions:unique};
  const denseParams={profile:patchmatch[0],limit:patchmatch[1],radius,minimum:5,threshold:.3,tolerance:patchmatch[5],model:'Similarity',geometricThreshold:3,geometricMinimum:6,patch:8,iterations:8,flip:true,texture:2,auto:true,compact:true,regions:active,excluded,guides,compare:false};
  const sparseParams={algorithm:SIFT_SOURCE,limit:6000,radius,minimum:10,threshold:.725,tolerance:patchmatch[5],model:'Affine',geometricThreshold:5,geometricMinimum:10,reflections:true,autoRadius:true,compact:false,regions:active,excluded,guides,compare:false,independent:true};
  const enabled=active.length>0;
@@ -48,5 +50,5 @@ export function automaticAnalysisPlan({width,height,regions,envelope=null,disabl
  if(complete)jobs.push({id:'ela',enabled,params:{regions:active,excluded}});
  const featureExclusions=new Set(excludedFeatures),featureFor={d2prl:'ai.clones.d2prl',forgeryscope:'m2.forgeryscope'};
  for(const job of jobs){if(featureExclusions.has(featureFor[job.id])){job.enabled=false;job.state='feature-uninstalled';}else job.state=job.enabled?'pending':enabled?'envelope-disabled':'no-active-zones';}
- return structuredClone({version:2,width,height,complete,cpu,regions,envelope,disabled:[...off].sort((a,b)=>a-b),excludedFeatures:[...featureExclusions].sort(),active,excluded,guides,native:{patchmatch,sift,forgeryscope:forge,d2prl:d2},jobs});
+ return structuredClone({version:2,width,height,complete,cpu,...(scientificScope?{scientificScope}:{}),regions,envelope,disabled:[...off].sort((a,b)=>a-b),excludedFeatures:[...featureExclusions].sort(),active,excluded,guides,native:{patchmatch,sift,forgeryscope:forge,d2prl:d2},jobs});
 }

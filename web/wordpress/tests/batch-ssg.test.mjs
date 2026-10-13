@@ -43,6 +43,7 @@ async function uiFixture(saved){
 
 test('temporarily removing every clone uses total and restores the user’s clone preference on reactivation',async()=>{
  const f=await uiFixture();try{
+  assert.equal(f.basis.value,'total');f.basis.value='clones';f.basis.onchange();
   assert.equal(f.basis.value,'clones');for(const box of f.checks().filter(c=>c.checked))f.choose(box.dataset.batchTool,false);
   assert.equal(f.basis.value,'total');assert.equal(f.basis.querySelector('[value="clones"]').disabled,true);assert.equal(f.persisted.preferredBasis,'clones');
   f.choose('clone-21',true);assert.equal(f.basis.value,'clones');assert.equal(f.basis.querySelector('[value="clones"]').disabled,false);

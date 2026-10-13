@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "sourceSha256": "f581f214a4a0e370938583b6b1d2ed82adcadb6cd86161f6c3757fc8ece0c07b",
+  "files": {
+    "correlation.js": {
+      "bytes": 7872,
+      "sha256": "72349b1c3e4958710a17466adcd49cf1429106869d8576d2edcce6cfc7fe5062"
+    },
+    "correlation.wasm": {
+      "bytes": 19911,
+      "sha256": "a479db700aa63e8663226f1ddd653d01c8e5982d35a8086fdbe0778002bffe10"
+    }
+  },
+  "scope": "Additive masked source/target correlations; original unscoped operators and model weights unchanged."
+}

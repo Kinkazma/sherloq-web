@@ -8,6 +8,8 @@ import {BATCH_CORROBORATION_PALETTE} from '../sherloq-browser/assets/batch-corro
 import {writeBatchZip,readBatchZip} from '../sherloq-browser/assets/batch-zip.js';
 import {createCloneEntryGeometry} from '../sherloq-browser/assets/unified-engine/src/clone-entry-geometry.js';
 import {Budget} from '../sherloq-browser/assets/unified-engine/src/cache.js';
+import {batchArchiveLayout,remapBatchEvidence,remapBatchFilePointers} from '../sherloq-browser/assets/batch-archive-layout.js';
+import {batchArtifactOwners,restoredArtifactPaths,restoreBatchArtifacts} from '../sherloq-browser/assets/batch-restoration.js';
 
 const sha='a'.repeat(64),fp='f'.repeat(64),nativeStyle={low:0,high:100000,minimum:4,chosen:[],hidden:[],circles:false,lines:false,points:false,areas:true,textExclusions:false};
 function npy(dtype,shape,bytes){
@@ -24,7 +26,7 @@ function hull(input){
  return [...side(points).slice(0,-1),...side([...points].reverse()).slice(0,-1)];
 }
 const geometricOracle=async()=>({async entry(method,polygons,count,provenance){const output=polygons.map(hull);if(output.some(p=>p.length<3))return null;return {entry:{polygons:output,count,provenance},release(){}};},compare(){return {overlap:0};},dispose(){}});
-async function fixture({sparse=true,counts=true,style=nativeStyle,explicitView,scope=false,format='sparse',groupCount=3}={}){
+async function fixture({sparse=true,counts=true,style=nativeStyle,explicitView,scope=false,format='sparse',groupCount=3,npzProvenance={}}={}){
  const width=40,height=32,artifacts=new Map(),points=[],pairs=[],groups=[];
  for(const [group,oy,dx]of [[0,2,20],[1,12,20],[2,23,12]]){
   const rows=[];for(const [x,y]of [[2,oy],[8,oy],[5,oy+6],[4,oy+2]]){const a=points.length/7;points.push(x,y,1,0,1,0,0,x+dx,y,1,0,1,0,0);rows.push(pairs.length/4);pairs.push(a,a+1,.1,dx);}groups.push(rows);
@@ -35,7 +37,7 @@ async function fixture({sparse=true,counts=true,style=nativeStyle,explicitView,s
  if(format==='dense-snapshot')members=[['root_result_points.npy',npy('<f4',[points.length/7,7],new Float32Array(points))],['root_result_pairs.npy',npy('<f8',[pairs.length/4,4],new Float64Array(pairs))],...groups.map((g,i)=>['root_result_groups_'+i+'.npy',npy('<i8',[g.length],BigInt64Array.from(g,BigInt))]),['metadata_json.npy',unicode({schema:'sherloq.clone-dense/1',result:{points:{array:'root_result_points'},pairs:{array:'root_result_pairs'},groups:groups.map((_,i)=>({array:'root_result_groups_'+i})),bases:metadata.biome_colors_bgr,params:['PatchMatch Zernike',6000,600,10,.3,50,'Similarity',3,6,8,8,false,2,true,true,false,[],[]],dense_maps:[{targets:{array:'unused-native-map'}}]},display:style})]];
  else if(format==='dense-fields')members=[['points.npy',npy('<f4',[points.length/7,7],new Float32Array(points))],['pairs.npy',npy('<f8',[pairs.length/4,4],new Float64Array(pairs))],...groups.map((g,i)=>['group_'+i+'.npy',npy('<u4',[g.length],Uint32Array.from(g))]),['metadata_json.npy',unicode({schema:1,coordinates:'original-source-pixels',params:{profile:'PatchMatch Zernike',minimum:10},bases:metadata.biome_colors_bgr,display:style})]];
  else members=[['points.npy',npy('<f8',[points.length/7,7],new Float64Array(points))],['pairs.npy',npy('<f8',[pairs.length/4,4],new Float64Array(pairs))],['metadata_json.npy',unicode(metadata)]];
- const npz=await zip([...members,['browser_provenance_json.npy',unicode(provenance)]]);
+ const npz=await zip([...members,['browser_provenance_json.npy',unicode({...provenance,...npzProvenance})]]);
  const preparation=scope?{schema:'sherloq.scientific-scope/1',version:'fixture/1',coordinates:'original-pixels',status:'ready',width,height,sourceSha256:sha,fingerprint:fp,regions:[{x0:0,y0:0,x1:width,y1:height}],excluded:[[[3,3],[5,3],[5,5],[3,5]]],text:{status:'complete'},models:{}}:undefined;
  const run={toolId:dense?'dense':'sift',title:dense?'PatchMatch Zernike':'SIFT + G2NN + RANSAC',operation,params:{algorithm:dense?'PatchMatch Zernike':'SIFT + G2NN + RANSAC',minimum:10},status:'done',files:['native-sift.json','native-sift.npz'],provenance,...(preparation?{preparation:{fingerprint:fp},scopeSupport:{mode:'input-exclusions'}}:{}),...(explicitView?{view:explicitView}:{}),entries:groups.map((_,group)=>({provenance:{group}}))};
  if(sparse){artifacts.set('native-sift.npz',npz);artifacts.set('native-sift.json',new Blob([JSON.stringify({schema:'sherloq.batch-evidence/1',operation:run.operation,provenance,...(preparation?{preparation:{fingerprint:fp}}:{})})]));}
@@ -61,7 +63,7 @@ test('Neural masks/corroboration pixels do not become biomes and old union prefe
 });
 test('Biomes replay paired native groups, original colors and length filters; unrelated count pixels stay transparent',async()=>{
  const f=await fixture(),service=createBatchResultDisplay({artifacts:f.artifacts,dependencies:{geometryFactory:geometricOracle}}),before=JSON.stringify(f.image.runs),npz=f.artifacts.get('final.npz');
- try{const preview=await service.preparePreview(f.image,{maxWidth:40,maxHeight:32});assert.equal(preview.biomes.metadata.groupCount,2);assert.deepEqual(preview.biomes.metadata.groups.map(g=>g.colorRgb),[[240,20,100],[40,200,5]]);assert.equal(preview.biomes.rgba.at(-1),0);assert.equal(preview.corroboration.rgba.at(-1),255);
+ try{assert.equal(service.describe(f.image).capabilities.biomes.groupCount,null,'Evidence group IDs cannot establish the number of visible native groups before replay.');const preview=await service.preparePreview(f.image,{maxWidth:40,maxHeight:32});assert.equal(preview.biomes.metadata.groupCount,2);assert.equal(service.describe(f.image).capabilities.biomes.groupCount,2);assert.deepEqual(preview.biomes.metadata.groups.map(g=>g.colorRgb),[[240,20,100],[40,200,5]]);assert.equal(preview.biomes.rgba.at(-1),0);assert.equal(preview.corroboration.rgba.at(-1),255);
   const pixel=(x,y)=>[...preview.biomes.rgba.subarray((y*40+x)*4,(y*40+x)*4+4)];assert.deepEqual(pixel(4,3),[240,20,100,255]);assert.deepEqual(pixel(24,3),pixel(4,3));assert.deepEqual(pixel(7,7),[0,0,0,0],'Triangle hull is not its bounding box.');assert.deepEqual(pixel(4,24),[0,0,0,0],'Length12 pairs are hidden by15.');
   assert.deepEqual(pixel(5,4),[240,20,100,71],'28% fill is distinct from the full contour alpha.');assert.equal(preview.biomes.metadata.style.fillOpacity,.28);assert.equal(preview.biomes.metadata.style.contourWidth,2);assert.equal(preview.biomes.metadata.style.contourOpacity,1);
   assert.equal(preview.biomes.metadata.geometrySources[0].matchingMinimum,10);assert.equal(preview.biomes.metadata.geometrySources[0].viewSource,'legacy-hardcoded-default-migrated-to-15');assert.equal(JSON.stringify(f.image.runs),before);assert.equal(f.artifacts.get('final.npz'),npz);
@@ -83,6 +85,33 @@ test('Dense native snapshot and flat group arrays retain paired hulls/colors wit
   try{const preview=await service.preparePreview(f.image);assert.ok(preview.biomes,preview.metadata.biomesUnavailable);assert.equal(preview.biomes.metadata.groupCount,2);assert.deepEqual(preview.biomes.metadata.methods,['PatchMatch Zernike']);assert.deepEqual(preview.biomes.metadata.groups.map(g=>g.colorRgb),[[240,20,100],[40,200,5]]);assert.equal(preview.biomes.metadata.geometrySources[0].operation,'tampering.copyMove.dense');assert.equal(preview.biomes.metadata.geometrySources[0].format,format==='dense-snapshot'?'dense-native-snapshot':'dense-native-fields');assert.equal(f.artifacts.get('native-sift.npz'),npz);}
   finally{await service.dispose();}
  }
+});
+test('Restored PatchMatch keeps its sparse recipe identity while replaying independently verified dense native geometry',async()=>{
+ for(const format of ['dense-snapshot','dense-fields']){
+  const f=await fixture({format,scope:true}),run=f.image.runs[0];run.operation='tampering.copyMove.sparse';
+  const report=JSON.parse(await f.artifacts.get('native-sift.json').text());report.operation=run.operation;f.artifacts.set('native-sift.json',new Blob([JSON.stringify(report)]));
+  run.resumeEvidence={schema:'sherloq.batch-resume-evidence/1',files:{metadata:'resume.json'}};run.files.push('resume.json');f.artifacts.set('resume.json',new Blob([JSON.stringify({schema:'sherloq.batch-resume-evidence/1',sourceSha256:sha})]));
+  const before=JSON.stringify(f.image),npz=f.artifacts.get('native-sift.npz'),service=createBatchResultDisplay({artifacts:f.artifacts,dependencies:{geometryFactory:geometricOracle}});
+  try{const preview=await service.preparePreview(f.image);assert.ok(preview.biomes,preview.metadata.biomesUnavailable);assert.equal(preview.biomes.metadata.groupCount,2);const source=preview.biomes.metadata.geometrySources[0];assert.equal(source.operation,'tampering.copyMove.dense');assert.equal(source.recipeOperation,'tampering.copyMove.sparse');assert.equal(source.sourceSha256,sha);assert.equal(source.scopeFingerprint,fp);assert.equal(f.artifacts.get('native-sift.npz'),npz);assert.equal(JSON.stringify(f.image),before);assert.equal(service.describe(f.image).capabilities.biomes.available,true);}finally{await service.dispose();}
+ }
+});
+test('Sparse recipe routing cannot bypass native JSON, NPZ operation, SHA or dimensions guards',async()=>{
+ for(const npzProvenance of [{operation:'tampering.copyMove.sparse'},{originalSha256:'b'.repeat(64)},{decode:{sourceSize:[41,32]}}]){
+  const f=await fixture({format:'dense-snapshot',npzProvenance});f.image.runs[0].operation='tampering.copyMove.sparse';const service=createBatchResultDisplay({artifacts:f.artifacts,dependencies:{geometryFactory:geometricOracle}});
+  try{const preview=await service.preparePreview(f.image);assert.equal(preview.biomes,null);assert.match(preview.metadata.biomesUnavailable,/provenance NPZ/);assert.equal(service.describe(f.image).capabilities.biomes.available,false);}finally{await service.dispose();}
+ }
+ const f=await fixture({format:'dense-snapshot'});f.image.runs[0].operation='tampering.copyMove.sparse';f.image.runs[0].params.algorithm='SIFT';const service=createBatchResultDisplay({artifacts:f.artifacts,dependencies:{geometryFactory:geometricOracle}});
+ try{const preview=await service.preparePreview(f.image);assert.equal(preview.biomes,null);assert.match(preview.metadata.biomesUnavailable,/autre image/);}finally{await service.dispose();}
+});
+test('Flat archive restoration keeps PatchMatch recipe keys and native NPZ bytes while restoring editable paired biomes',async()=>{
+ const f=await fixture({format:'dense-snapshot',scope:true});f.image.runs[0].operation='tampering.copyMove.sparse';f.image.name='original.png';
+ const report=JSON.parse(await f.artifacts.get('native-sift.json').text());report.operation=f.image.runs[0].operation;f.artifacts.set('native-sift.json',new Blob([JSON.stringify(report)]));
+ const originalNpz=f.artifacts.get('native-sift.npz'),layout=batchArchiveLayout({images:[f.image],artifacts:f.artifacts}),manifest={archiveLayout:'flat/1',images:layout.images},members=[];
+ for(const [path,blob]of f.artifacts)members.push([layout.paths.get(path),await remapBatchEvidence(blob,path,layout.paths)]);
+ const archive=await readBatchZip(await zip(members)),archived=manifest.images[0],owners=batchArtifactOwners(manifest),paths=restoredArtifactPaths(archived,manifest,owners,p=>!!archive.file(p)),artifacts=new Map(),runs=await restoreBatchArtifacts(archived,manifest,archive,artifacts,owners),image={...remapBatchFilePointers(archived,paths),runs};
+ assert.equal(image.runs[0].operation,'tampering.copyMove.sparse');assert.equal(image.runs[0].provenance.operation,'tampering.copyMove.dense');assert.deepEqual(new Uint8Array(await artifacts.get(image.runs[0].files.find(p=>p.endsWith('.npz'))).arrayBuffer()),new Uint8Array(await originalNpz.arrayBuffer()));
+ const service=createBatchResultDisplay({artifacts,dependencies:{geometryFactory:geometricOracle}});
+ try{const preview=await service.preparePreview(image);assert.ok(preview.biomes,preview.metadata.biomesUnavailable);assert.equal(preview.biomes.metadata.groupCount,2);assert.equal(preview.biomes.metadata.geometrySources[0].operation,'tampering.copyMove.dense');assert.equal(preview.biomes.metadata.geometrySources[0].recipeOperation,'tampering.copyMove.sparse');assert.ok(artifacts.has(preview.biomes.metadata.geometrySources[0].path));assert.equal(service.describe(image).capabilities.biomes.available,true);}finally{await service.dispose();}
 });
 test('Dense native archives admit more than64 legitimate group arrays under the bounded ZIP directory budget',async()=>{
  const f=await fixture({format:'dense-snapshot',counts:false,groupCount:70,explicitView:{low:0}}),service=createBatchResultDisplay({artifacts:f.artifacts,dependencies:{geometryFactory:geometricOracle}});

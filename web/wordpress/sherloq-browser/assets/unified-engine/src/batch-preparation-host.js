@@ -1,4 +1,3 @@
-import "../../runtime-context.js?v=0.17.0";
 import {Budget} from './cache.js';
 import {jpegCodec} from './jpeg.js';
 import {loadM2SegmentedOriginal,disposeSegmentedImage} from './image-sources.js';
@@ -44,6 +43,7 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
  async function analyze(id,args){
   requireValue(args.method==='scientific-preparation'&&args.blob instanceof Blob,'A scientific preparation image Blob is required.');
   requireValue(['auto','cpu','webgpu'].includes(args.backend??'auto'),'Invalid preparation backend.');
+  requireValue(args.params?.detectText===undefined||typeof args.params.detectText==='boolean','detectText must be a boolean.');
   if(pending.size)throw new EngineError('BUSY','Batch preparation already has an active image.');
   const controller=new AbortController();pending.set(id,controller);const options={signal:controller.signal,backend:args.backend??'auto',onProgress:event=>post({id,progress:event})};
   let image,panelResult,metadataLease,metadata,width,height,failure;
@@ -60,7 +60,11 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
     requireValue(typeof image.sha256==='string'&&/^[a-f0-9]{64}$/.test(image.sha256),'Native original source identity is missing.');
     if(args.params?.textOnly!==true){const api=await panels();checkAbort(options.signal);panelResult=await api.analyze(image,{prepareOnly:true},options);checkAbort(options.signal);requireValue(panelResult.metadata?.preparation?.fullAnalysisExecuted===false,'Panel preparation returned a full analysis instead of classification.');}
     const source={format:'rgb8',width,height,sha256:image.sha256,readWindow:(rect,windowOptions)=>image.surface.readWindow(rect,windowOptions)};
-    const textResult=await text().detect(source,options);checkAbort(options.signal);
+    // A text-only request is an explicit OCR operation (including page rasters).
+    // Disabling OCR on ordinary preparation does not disable panel classification
+    // or instantiate an OCR pool/model merely to return an empty detection.
+    const detectText=args.params?.textOnly===true||args.params?.detectText!==false;
+    const textResult=detectText?await text().detect(source,options):{status:'complete',disabled:true,rawDetection:null,width,height,polygons:[],detections:[],warnings:[],metadata:{method:'text-detection-disabled',inferenceExecuted:false,originalPixelsModified:false,coordinateSpace:'original-image-pixels',sourceSha256:image.sha256,reason:'Text detection was explicitly disabled for this preparation.'}};checkAbort(options.signal);
     let annotations=null;
     if(panelResult){const regions=(panelResult.metadata.preparation.panels??[]).filter(p=>['Microscopy','Blots','Body Imaging'].includes(p.label??p.type)).flatMap(p=>{const b=p.rectangle??p.bounds;if(!Array.isArray(b)||b.length!==4||!b.every(Number.isFinite))return [];const r={x0:Math.max(0,b[0]),y0:Math.max(0,b[1]),x1:Math.min(width,b[2]),y1:Math.min(height,b[3])};return r.x1>r.x0&&r.y1>r.y0?[r]:[];});annotations=await annotationDetector({width,height,channels:3,regions,sourceSha256:image.sha256,signal:options.signal,readRows:(y,rows,hooks)=>image.surface.readWindow({x:0,y,width,height:rows},hooks)});checkAbort(options.signal);}
     const information={panels:panelResult?.metadata?.preparation??null,text:textResult,annotations,width,height,sourceSha256:image.sha256,provenance:{originalSourceSha256:image.sha256,decoder:image.provenance,sourceMetrics:image.metrics,panelDetection:panelResult?.provenance??null,coordinateSpace:'original-image-pixels',originalPixelsModified:false}};

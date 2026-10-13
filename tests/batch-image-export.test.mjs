@@ -19,11 +19,11 @@ test('all image-export formats share existing settings, use native export pages 
  for(const format of BATCH_IMAGE_EXPORT_FORMATS){
   const fixture=engineFixture(),exporter=createBatchImageExporter({format,webpQuality:73,quality:67,heicQuality:81,webpLossless:false,pngCompression:9},{engineFactory:options=>{assert.equal(options.computeProfile,'maximum');assert.equal(options.memoryBudgetBytes,4*1024**3);return fixture.engine;},sinkFactory:fixture.sinkFactory}),source=new Blob(['original']);
   const output=await exporter.convert(source,{name:'source.jpg'}),again=await exporter.convert(source,{name:'duplicate.jpg'});assert.equal(output,again);assert.equal(fixture.calls.filter(([kind])=>kind==='load').length,1);
-  const settings=fixture.calls.find(([kind])=>kind==='export')[1];assert.equal(settings.format,format);assert.equal(settings.quality,format==='webp'?73:format==='heic'?81:67);assert.equal(settings.compression,9);assert.equal(settings.chroma,'444');assert.equal(settings.storage,'temporary');
+  const settings=fixture.calls.find(([kind])=>kind==='export')[1];assert.equal(settings.format,format);assert.equal(settings.quality,format==='webp'?73:format==='heic'?81:67);assert.equal(settings.compression,format==='tiff'?6:9);assert.equal(settings.chroma,'444');assert.equal(settings.storage,'temporary');
   assert.equal(output.conversion.scientificSourceCompatible,false);assert.equal(output.conversion.originalSha256,sha);assert.equal(output.conversion.encodedSha256,encodedSha);assert.equal(output.blob.size,1024**2+9);
   const pages=fixture.calls.filter(([kind])=>kind==='page');assert.equal(pages.length,2);assert.ok(pages.every(([,request])=>request.length<=1024**2));assert.equal(fixture.files[0].cleaned,0);await exporter.dispose();assert.equal(fixture.files[0].cleaned,1);assert.equal(fixture.calls.at(-1)[0],'dispose');
  }
- assert.equal(batchImageExportControls({format:'webp',webpLossless:true}).quality,false);assert.equal(batchImageExportControls({format:'avif',avifLossless:false}).chroma,true);assert.equal(batchImageExportControls({format:'tiff'}).compression,true);
+ assert.equal(batchImageExportControls({format:'webp',webpLossless:true}).quality,false);assert.equal(batchImageExportControls({format:'avif',avifLossless:false}).chroma,true);assert.equal(batchImageExportControls({format:'tiff'}).compression,false);assert.equal(batchImageExportControls({format:'tiff'}).tiffCompression,true);
 });
 test('resizing is export-only and linked per source; I/O failure or cancelled export still releases native source and output',async()=>{
  const fixture=engineFixture({bytes:new Uint8Array(12)}),exporter=createBatchImageExporter({resize:true,width:6,resizeAxis:'width'},{engineFactory:()=>fixture.engine,sinkFactory:fixture.sinkFactory});

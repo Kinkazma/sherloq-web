@@ -1,5 +1,21 @@
 # Traitement par lot intégré à SHERLOQ
 
+## 0.19.0 — Zones, périmètre scientifique et export
+
+Les zones d’acquisition et d’exclusion se dessinent et se modifient à la souris. Les coordonnées restent ajustables ; Annuler, Rétablir et la restauration de la géométrie d’origine conservent le repère de l’image. Le panneau Zones / Biomes à gauche se replie ; la navigation habituelle, le trackpad, Espace et le double-clic restent disponibles. Les régions et biomes natifs peuvent être mis en surbrillance. Une sous-section IA présente explicitement les méthodes neuronales.
+
+Les exclusions sont prioritaires dans les acquisitions. Les positions source et cible sont admises avant la corrélation et la propagation des méthodes raccordées. Le contexte RGB des CNN reste celui de l’image originale (`cnnContextMasked:false`) : ces exclusions ne signifient pas que les convolutions ne voient aucun pixel exclu. Les poids et réglages scientifiques restent identifiables ; le nouveau petit module de corrélation a sa source et son inventaire propres.
+
+Le seuil automatique de corroboration est `max(1, floor(n/2))` pour les détecteurs admissibles ; un choix explicite de l’utilisateur garde la priorité. Les vues Biomes / corroboration, l’opacité et leurs exports réutilisent les sorties scientifiques disponibles, sans lancer un nouveau détecteur. L’opacité initiale est de 35 %.
+
+Un lot arrêté garde les analyses terminées. La reprise vérifie l’identité de l’incrément scientifique avant toute mutation ou exécution native : un incrément différent refuse la reprise au lieu de réattribuer les anciennes sorties. Les réglages et désactivations archivés restent conservés.
+
+Le Shelf commun prépare les fichiers en bas à gauche et propose **Enregistrer sous…**, sans recouvrir l’image. Le statut **Enregistré** dépend de la fermeture effective du writer ; une annulation ou une erreur conserve la préparation. Le format, la compression, la vue choisie et le rangement simplifié du ZIP sont explicites, dont PNG niveau 0 et TIFF sans compression ou Deflate.
+
+La qualification fonctionnelle des sélections, de la reprise et des exports reste distincte d’une validation scientifique du corpus complet. Les grandes méthodes neuronales n’ont pas toutes été réexécutées après fusion. La mesure SelfDM antérieure n’établit pas une parité universelle : l’écart maximal sur ce cas était de 0,002078235, avec une moyenne de 3,86 × 10⁻⁶. Aucune réduction de résolution, de méthode, de réglage ou de workers ne sert à obtenir une réussite.
+
+Le code de reconstruction conserve les anciens inventaires et le nouvel incrément explicite dans `web/wordpress/runtime-patches/batch-scientific-regions-20261013.json`. Les qualifications et journaux détaillés restent locaux.
+
 Le traitement par lot réutilise les moteurs de SHERLOQ dans un parcours d’import, de sélection, d’analyse et d’export. La version améliorée a été acceptée comme fonctionnelle le 12 octobre 2026. La préclassification distingue acquisitions et graphiques ; PP-OCRv6 détecte les textes et leurs polygones d’exclusion. Les décisions ambiguës restent révisables par l’utilisateur, avec conservation des propositions et de leur provenance.
 
 Les aperçus montrent les acquisitions admises et les exclusions, y compris les petites annotations déjà hors des acquisitions. Les résultats présentent les biomes seuls pour une méthode de clones et la corroboration pour plusieurs. Les archives utilisent des noms liés aux sources, préservent les tentatives et se reprennent ; rapports et journaux peuvent être exportés pour un lot partiel.

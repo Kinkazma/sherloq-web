@@ -44,7 +44,7 @@ test('ZIP image format defaults to PNG and exposes the existing lossless/quality
  const settings=()=>ui.dialog.querySelector('.batch-export-settings');
  const field=text=>[...settings().querySelectorAll('label')].find(label=>label.querySelector('span')?.textContent===text)?.querySelector('input,select');
  try{
-  assert.equal(field('Format d’export des images').value,'png');assert.deepEqual([...field('Format d’export des images').options].map(o=>o.value),['png','webp','tiff','avif','heic']);assert.equal(field('Compression').value,'6');
+  assert.equal(field('Format d’export des images').value,'png');assert.deepEqual([...field('Format d’export des images').options].map(o=>o.value),['png','webp','tiff','avif','heic']);assert.equal(field('Compression PNG').value,'6');
   const format=field('Format d’export des images');format.value='webp';format.onchange();assert.equal(field('Sans perte').checked,true);assert.equal(!!field('Qualité (%)'),false);
   field('Sans perte').checked=false;field('Sans perte').onchange();assert.equal(Number(field('Qualité (%)').min),1);field('Qualité (%)').value='87';field('Qualité (%)').oninput();assert.equal(model.imageExportSettings.webpQuality,87);assert.equal(model.imageExportSettings.webpLossless,false);
   field('Format d’export des images').value='avif';field('Format d’export des images').onchange();assert.equal(!!field('Chroma'),true);field('Sans perte').checked=true;field('Sans perte').onchange();assert.equal(!!field('Chroma'),false);assert.equal(!!field('Qualité (%)'),false);

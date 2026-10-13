@@ -5,6 +5,7 @@ import {parseHTML} from 'linkedom';
 import {mountBatchUI,batchProgressStatus,batchStudyStatusKey} from '../sherloq-browser/assets/batch-ui.js';
 import {studyScores} from '../sherloq-browser/assets/batch-catalog.js';
 import {displayFixture,unavailableResultDisplayFactory} from './batch-display-fixture.mjs';
+import {batchImageDisplay} from '../sherloq-browser/assets/batch-export.js';
 
 test('native panel indices and stage counts are displayed exactly, including the D2PRL journal counters',()=>{
  const context={imageIndex:0,imageTotal:4,imageName:'figure.png',toolName:'D2PRL',detail:{phase:'patchmatch',zoneIndex:5,totalZones:9,completed:101,total:198}};
@@ -104,8 +105,8 @@ test('the workspace busy guard covers report export after calculations finish an
  // PDF.js initializes an unused transform when its shared library loads. This
  // test exports with pdf-lib and never decodes a PDF or calls that transform.
  Object.defineProperty(globalThis,'DOMMatrix',{configurable:true,value:class{}});
- const entered=new Promise(resolve=>enter=resolve),gate=new Promise((_,reject)=>fail=reject),read=model.artifacts.get.bind(model.artifacts);
- model.artifacts.get=async path=>{if(blockExport&&path==='final-single.png'){enter();await gate;}return read(path);};
+ const entered=new Promise(resolve=>enter=resolve),gate=new Promise((_,reject)=>fail=reject),read=model.artifacts.get.bind(model.artifacts),reportImagePath=batchImageDisplay(model.images[0],model.artifacts).path;
+ model.artifacts.get=async path=>{if(blockExport&&path===reportImagePath){enter();await gate;}return read(path);};
  const ui=await mountBatchUI({document,resultDisplayFactory:unavailableResultDisplayFactory,importerFactory:async()=>model,preparationFactory:()=>({async prepare(){},async dispose(){}})});
  let pending;
  try{

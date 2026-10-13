@@ -111,3 +111,15 @@ test('SelfDM rejects incompatible models, profiles and unsupported backends', ()
   for (const patch of [{profile: undefined}, {model: {...model, side: 256}}, {model: {...model, kind: 'softmax'}}, {backend: 'metal'}]) assert.throws(() => createSelfDMInference({...options, ...patch}), {code: 'INVALID_INPUT'});
   assert.equal(budget.total(), 0);
 });
+
+test('SelfDM keeps original all-admitted path and transports compact domains without reducing CPU workers',async()=>{
+ const descriptor=Object.getOwnPropertyDescriptor(globalThis,'crossOriginIsolated');Object.defineProperty(globalThis,'crossOriginIsolated',{configurable:true,value:true});
+ const {budget,inference,workers}=setup(),sha='a'.repeat(64),base={schema:'sherloq.scientific-scope/1',coordinates:'original-pixels',sourceSha256:sha,width:512,height:512,fingerprint:'all',status:'ready',regions:[{x0:0,y0:0,x1:512,y1:512}],excluded:[]},context=scope=>({scope,width:512,height:512,sourceSha256:sha,bounds:[0,0,512,512]}),pixels=input(),original=pixels.slice();
+ try{
+  const all=await inference.run(pixels,{scientificScope:context(base)});assert.equal(all.metadata.scientificScope.bypassOriginal,true);assert.equal(all.metadata.scientificScope.totalCentres,4096);assert.equal(workers[0].jobs[0].asset.graphTransform,undefined);assert.deepEqual(Object.keys(workers[0].jobs[0].inputs),['rgb']);all.release();
+  const partial={...base,fingerprint:'partial',excluded:[[[16,16],[24,16],[24,24],[16,24]]]},limited=await inference.run(pixels,{scientificScope:context(partial)}),job=workers.flatMap(w=>w.jobs).at(-1);
+  assert.equal(limited.metadata.scientificScope.bypassOriginal,false);assert.ok(limited.metadata.scientificScope.admittedCentres<4096);assert.equal(job.inputs.scientific_scope_indices.type,'int64');assert.equal(job.inputs.scientific_scope_indices.dims[0],limited.metadata.scientificScope.admittedCentres);assert.equal(job.asset.graphTransform.id,'selfdm-native-scope-v2');assert.equal(job.threads,4);assert.equal(limited.metrics.cpuGranted,4);limited.release();
+  const next=await inference.run(pixels,{scientificScope:context(base)});assert.equal(next.metadata.scientificScope.bypassOriginal,true);next.release();assert.deepEqual(pixels,original);
+ }finally{inference.dispose();if(descriptor)Object.defineProperty(globalThis,'crossOriginIsolated',descriptor);else delete globalThis.crossOriginIsolated;}
+ assert.equal(budget.total(),0);
+});

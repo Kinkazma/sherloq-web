@@ -51,6 +51,7 @@ def put(path, data):
 
 def pack(output, source_revision=None, local_only=None, resource_policy=None):
     lock, files = locked_files(ROOT)
+    runtime_overlay = _delivery.qualified_runtime_overlay(ROOT)
     local_only = set(lock.get('localOnlyFiles', [])) | set(local_only or [])
     if any(not isinstance(name, str) or not name or any(part in ('', '.', '..') for part in name.split('/')) or '\\' in name for name in local_only):
         raise ValueError('Invalid local-only dependency path')
@@ -77,6 +78,8 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
         restricted = relative in local_only
         original = source.read_bytes() if source.suffix in ['.js', '.mjs'] else None
         adapted = _delivery.adapted_runtime(relative, original, runtime_data, version) if original is not None else None
+        if original is not None:
+            adapted = runtime_overlay.apply(relative, original, adapted)
         chunks = []
         hasher = hashlib.sha256()
         size = 0
@@ -108,6 +111,9 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
         # resources. They are not fetched at startup simply because published.
         if not restricted and (source.suffix.lower() in {'.js', '.mjs', '.c', '.cc', '.cpp', '.h', '.hpp', '.py', '.sh', '.md', '.wgsl'} or any(x in source.name.lower() for x in ['license', 'notice', 'copyright'])):
             put(output / 'public/web/runtime-sources' / relative, adapted if adapted is not None else source.read_bytes())
+    if runtime_overlay.files:
+        put(output / 'public/web/wordpress/sherloq-browser/assets/scientific-regions-delivery-increment.json',
+            (ROOT / 'runtime-patches/batch-scientific-regions-20261013.json').read_bytes())
     if resource_policy is not None:
         if not isinstance(resource_policy, dict) or resource_policy.get('schema') != 'sherloq.resource-policy/1' or not isinstance(resource_policy.get('files'), dict):
             raise ValueError('Invalid resource policy')
@@ -233,6 +239,9 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
     if (sources/'assets/local-management-ui.js').is_file():
         catalog = _features.generate(manifest, output/'public/web/wordpress/feature-inputs', sources/'assets')
         put(plugin / 'assets/feature-catalog.json', encode(catalog))
+    scientific_receipt = output/'public/web/wordpress/runtime-patches/batch-scientific-regions-20261013.json'
+    if scientific_receipt.is_file():
+        put(plugin / 'assets/scientific-regions-delivery-increment.json', scientific_receipt.read_bytes())
     _offline.write_shell(plugin, manifest, identity, version)
     if private_overlay:
         for source in Path(private_overlay).rglob('*'):

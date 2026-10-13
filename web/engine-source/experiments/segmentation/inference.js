@@ -5,6 +5,7 @@ import {createVigInference} from './vig-inference.js';
 import {createTntInference} from './tnt-inference.js';
 import {createSelfDMInference} from '../../src/selfdm-inference.js';
 import {createSelfDMProposalInference} from '../../src/selfdm-proposal-inference.js';
+import {prepareMgcfdnScientificScope} from '../../src/mgcfdn-scoped-graph.js';
 
 export function createSegmentationInference({budget, profile, variant, modelUrl, backend = 'cpu'}) {
   requireValue(budget && typeof budget.reserve === 'function' && typeof budget.registerReclaimer === 'function', 'Shared budget required');
@@ -23,28 +24,30 @@ export function createSegmentationInference({budget, profile, variant, modelUrl,
   const runtimeFactoryUrl = new URL(hybrid ? '../../vendor/segmentation/factory.mjs' : '../../vendor/d2prl/factory.mjs', import.meta.url).href;
   const wasmPaths = {mjs: runtimeFactoryUrl, wasm: new URL(hybrid ? '../../vendor/segmentation/ort-wasm-simd-threaded.jsep.wasm' : '../../vendor/d2prl/ort-wasm-simd-threaded.wasm', import.meta.url).href};
   const residentBytes = 512 * 1024 ** 2 + gpuBudgetBytes + 3 * (model.splitGraph ? model.assetBytes : model.bytes) + (model.splitGraph ? model.bridgeBytes : 0);
-  let worker, residentRelease, busy = false, disposed = false;
-  const dropIdle = () => {if (!busy) {worker?.terminate(); worker = undefined; residentRelease?.(); residentRelease = undefined;}};
+  let worker, residentRelease, residentAdmittedBytes=0,busy = false, disposed = false;
+  const dropIdle = () => {if (!busy) {worker?.terminate(); worker = undefined; residentRelease?.(); residentRelease = undefined;residentAdmittedBytes=0;}};
   const unregister = budget.registerReclaimer(dropIdle);
   return {
     model, backend: hybrid ? 'webgpu-cpu' : 'cpu',
     // Only this single-thread ONNX path may be multiplied across independent
     // rectangles. CMSeg/TNT/VIG own internal pools and do not expose this flag.
     independentZoneWorker: !hybrid,
-    get residentBytes() {return residentRelease ? residentBytes : 0;},
+    get residentBytes() {return residentRelease ? residentAdmittedBytes : 0;},
     releaseIdle() {dropIdle();},
-    async run(input, {signal, onProgress} = {}) {
+    async run(input, {signal, onProgress,scientificScope} = {}) {
       if (busy) throw new EngineError('BUSY', 'Segmentation inference busy');
       requireValue(!disposed && input instanceof Float32Array && input.length === 3 * model.side ** 2 && input.every(Number.isFinite), 'Prepared model tensor required');
       checkAbort(signal);
-      let temporaryRelease, outputRelease, abort, complete = false;
+      let temporaryRelease, outputRelease, abort, complete = false,domain;
       try {
+        if(scientificScope){busy=true;domain=await prepareMgcfdnScientificScope(scientificScope,{model,budget,signal});busy=false;}
+        if(domain?.partial&&worker&&residentAdmittedBytes===residentBytes)dropIdle();
         // Admit copies before locking the idle helper: pressure may evict it.
         const outputBytes = (model.kind === 'softmax' ? 3 : 1) * model.side ** 2 * 4;
         temporaryRelease = budget.reserve(input.byteLength * 2 + outputBytes * 2);
         outputRelease = budget.reserve(outputBytes); busy = true;
         if (!worker) {
-          residentRelease = budget.reserve(residentBytes);
+          residentAdmittedBytes=residentBytes+(domain?.partial?1024**2:0);residentRelease = budget.reserve(residentAdmittedBytes);
           worker = new Worker(new URL(hybrid ? model.splitGraph ? './inference-split-gpu-worker.js' : './inference-gpu-worker.js' : './inference-worker.js', import.meta.url), {type: 'module'});
         }
         const result = await new Promise((resolve, reject) => {
@@ -61,13 +64,15 @@ export function createSegmentationInference({budget, profile, variant, modelUrl,
             } catch (error) {reject(error);}
           };
           const copy = input.slice();
-          worker.postMessage({input: copy, model, modelUrl, ortUrl, runtimeFactoryUrl, wasmPaths, gpuBudgetBytes}, [copy.buffer]);
+          worker.postMessage({input: copy, model, modelUrl, ortUrl, runtimeFactoryUrl, wasmPaths, gpuBudgetBytes,...(domain?.partial?{mgcfScope:{indices:domain.indices,side:domain.side,count:domain.count,metadata:domain.metadata}}:{})}, [copy.buffer]);
           if (signal?.aborted) abort();
         });
-        checkAbort(signal); complete = true;
-        return {raw: result.raw, heapBytes: result.heapBytes, ort: result.ort, modelId: model.id, gpu: result.gpu, timings: result.timings, release: outputRelease};
+        checkAbort(signal);
+        if(domain?.partial)requireValue(result.metadata?.scientificScope?.graph?.policy===domain.metadata.graphTransform&&result.metadata.scientificScope.gridSha256===domain.metadata.gridSha256,'Native MGCFDN scientific receipt missing');
+        complete = true;
+        return {raw: result.raw, heapBytes: result.heapBytes, ort: result.ort, modelId: model.id, gpu: result.gpu,...(domain?{metadata:{scientificScope:domain.partial?result.metadata.scientificScope:domain.metadata}}:{}), timings: result.timings, release: outputRelease};
       } finally {
-        signal?.removeEventListener('abort', abort); temporaryRelease?.(); busy = false;
+        signal?.removeEventListener('abort', abort); temporaryRelease?.();domain?.release(); busy = false;
         if (!complete) {outputRelease?.(); dropIdle();}
       }
     },

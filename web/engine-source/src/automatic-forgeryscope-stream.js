@@ -1,7 +1,34 @@
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {automaticAiSelection,localAiExclusions} from './automatic-ai-regions.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
+import {createRgbSurface} from './rgb-surface.js';
+import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';
 const MiB=1024**2,FIELDS=['mask','map','candidates','geometric','branch_microscopy','branch_blots','branch_lanes'],bytesOf=value=>JSON.stringify(value).length*4+8192;
+
+/** Scientific Auto consumes the original source and prepared acquisitions once.
+ * All native branch arrays remain borrowed and unmodified. Only the pipeline's
+ * qualified geometric evidence may later corroborate a scoped signal. */
+export async function scopedAutomaticForgeryscope(image,plan,{analyzer,budget,signal,onProgress}={}){
+ const {width,height,scientificScope}=plan,n=width*height;
+ compileForgeryscopeScientificScope(scientificScope,{width,height,sourceSha256:image.sha256});
+ let borrowedSurface,result,lease,complete=false,released=false;
+ const dispose=async()=>{if(released)return;released=true;try{await result?.release();}finally{lease?.();}};
+ try{
+  checkAbort(signal);let source=image;
+  if(!image.surface){const pixels=image.pixels??image;requireValue(pixels.format==='rgb8'&&pixels.data instanceof Uint8Array&&pixels.data.length===n*3,'Original scientific RGB8 required');
+   borrowedSurface=createRgbSurface({byteLength:pixels.data.byteLength,readInto(out,at){out.set(pixels.data.subarray(at,at+out.length));}},{width,height,budget,ownsStore:false});source={surface:borrowedSurface,sha256:image.sha256};}
+  result=await analyzer.analyze(source,{profile:'auto',scientificScope},{signal,backend:plan.cpu?'cpu':'auto',onProgress:e=>onProgress?.({...e,group:'forgeryscope'})});
+  checkAbort(signal);requireValue(result.width===width&&result.height===height&&FIELDS.every(k=>result[k]?.length===n&&result[k].elementType===(k==='map'?'Float32Array':'Uint8Array')&&typeof result[k].readBytes==='function'),'Original-coordinate scoped Forgeryscope fields required');
+  requireValue(result.metadata?.scientific_scope?.fingerprint===scientificScope.fingerprint,'Scoped Forgeryscope proof fingerprint differs');
+  const stores=Object.fromEntries(FIELDS.map(name=>[name,{byteLength:n*(name==='map'?4:1),storage:'borrowed-native',readInto(out,at=0){requireValue(!released,'Scientific Forgeryscope result released');return result[name].readBytes(out,at,{signal});}}]));
+  stores.analyzed={byteLength:n,storage:'constant',readInto(out,at=0){checkAbort(signal);requireValue(!released&&out instanceof Uint8Array&&Number.isSafeInteger(at)&&at>=0&&at+out.length<=n,'Invalid scientific analyzed range');out.fill(1);return out;}};
+  const boxes=scientificScope.regions.map(r=>[Math.max(0,Math.floor(r.x0)),Math.max(0,Math.floor(r.y0)),Math.min(width,Math.ceil(r.x1)),Math.min(height,Math.ceil(r.y1))]);
+  const metadata={method:'clone_detectors',variant:'Forgeryscope Auto',boxes,compare:false,zones:[{origin:[0,0],...structuredClone(result.metadata)}],status:result.metadata.status,threshold:.5,probability_interpolation:'bilinear',mask_interpolation:'nearest',radius_supported:false,segmentation:false,result_storage:'segmented',scientificScope:{fingerprint:scientificScope.fingerprint,stage:'geometric-keypoints-before-matching',rawBranchArraysPreserved:true,analyzed:'original source submitted; not a CNN exclusion mask'}};
+  const provenance={providers:[structuredClone(result.provenance)],requested_backend:plan.cpu?'cpu':'auto',selection:'prepared-scientific-acquisitions',exclusion_policy:'original-rgb; geometric-keypoints-before-matching; similarity-and-lanes-raw-only'};
+  const metrics={zones:[structuredClone(result.metrics)],preflightExecutions:0,memory:budget.snapshot()};lease=budget.reserve(bytesOf(metadata)+bytesOf(provenance)+bytesOf(metrics));
+  complete=true;return {width,height,layout:'segmented',stores,metadata,provenance,metrics,release:dispose};
+ }finally{await borrowedSurface?.dispose();if(!complete)await dispose();}
+}
 
 // The M2 source analyzer requests one admitted crop. Preserve native black-input
 // exclusions through a translated view, without retaining another RGB copy.

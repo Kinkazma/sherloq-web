@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import {createHash} from 'node:crypto';
 import {validateFeatureCatalog,normalizeFeatureState,recoverFeatureState,selectedFeatureIds,selectActiveFiles,requiredFeatureChunks,featureDeletionPlan,featureIdsForTask} from '../sherloq-browser/assets/feature-catalog.js';
 import {createFeaturePolicy,localFeaturePolicy} from '../sherloq-browser/assets/feature-policy.js';
 import {batchTask,catalogRecipe,batchCatalog} from '../sherloq-browser/assets/batch-catalog.js';
@@ -52,9 +53,14 @@ test('local choices are transactional, protected and inactive for online pages',
 });
 
 const realCatalog=JSON.parse(fs.readFileSync(new URL('../sherloq-browser/assets/feature-catalog.json',import.meta.url)));
-const realManifest=JSON.parse(fs.readFileSync(new URL('../compatibility-manifests/a488d0a8cba3120ea52cc497beadf6cf68758394cb2db81c81ab6c47890a6081.json',import.meta.url)));
+const runtimeIncrement=JSON.parse(fs.readFileSync(new URL('../runtime-patches/batch-scientific-regions-20261013.json',import.meta.url)));
+const realManifestBytes=fs.readFileSync(new URL('../../../web-assets/manifest-template.json',import.meta.url));
+const realManifest=JSON.parse(realManifestBytes);
 test('effective catalogue covers installed bytes and every neural/sparse batch recipe',()=>{
+ assert.equal(createHash('sha256').update(realManifestBytes).digest('hex'),runtimeIncrement.manifest.sha256,'The effective catalogue must use the exact reviewed current inventory');
  validateFeatureCatalog(realCatalog,realManifest);assert.equal(selectActiveFiles(realCatalog).size,Object.keys(realManifest.files).length);
+ const withoutNeural=selectActiveFiles(realCatalog,{disabledGroups:['neural-detectors','segmentation','learned-clones','forgeryscope','composite']});
+ for(const record of runtimeIncrement.files.filter(record=>record.added))assert.ok(withoutNeural.has(record.file),'Shared scientific admission stays in protected core: '+record.file);
  for(const recipe of batchCatalog)assert.ok(featureIdsForTask(recipe,realCatalog).length,recipe.id+' has no functional connection');
  const panel='unified-assets/forgeryscope/yolo_panel_extractor.onnx',plan=featureDeletionPlan(realCatalog,realManifest,{},['m2.forgeryscope'],{presentChunks:Object.keys(realManifest.chunks)});
  assert.ok(!plan.paths.includes(panel));assert.ok(plan.removableBytes>600_000_000);assert.ok(plan.removableBytes<650_000_000);

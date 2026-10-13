@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createSessionLog} from '../sherloq-browser/assets/session-log.js';
 import {downloadSession,runSessionExport} from '../sherloq-browser/assets/session-ui.js';
+import {createDownloadManager} from '../sherloq-browser/assets/download-manager.js';
 
 function ui({clickError}={}){
  const nodes=new Map(),anchors=[];
@@ -12,16 +13,16 @@ function ui({clickError}={}){
 }
 
 test('a failed log read has visible feedback, original cause and phase, no download, and an enabled retry',async()=>{
- const elements=ui(),button={disabled:false,textContent:'Exporter le journal'},initial=Object.assign(Error('Read transaction aborted'),{code:'SESSION_LOG_READ_FAILED',cause:new DOMException('Read aborted','AbortError')}),log={id:'session',length:902,async report(){throw initial;}};
- const outcome=await downloadSession({...elements,button,log});assert.equal(outcome.ok,false);assert.equal(outcome.error,initial);assert.equal(outcome.phase,'read-session-log');assert.equal(button.disabled,false);assert.equal(button.textContent,'Exporter le journal');assert.equal(elements.created.length,0);assert.equal(elements.anchors.length,0);
+ const elements=ui(),downloadManager=createDownloadManager(elements),button={disabled:false,textContent:'Exporter le journal'},initial=Object.assign(Error('Read transaction aborted'),{code:'SESSION_LOG_READ_FAILED',cause:new DOMException('Read aborted','AbortError')}),log={id:'session',length:902,async report(){throw initial;}};
+ const outcome=await downloadSession({...elements,button,log,downloadManager});assert.equal(outcome.ok,false);assert.equal(outcome.error,initial);assert.equal(outcome.phase,'read-session-log');assert.equal(button.disabled,false);assert.equal(button.textContent,'Exporter le journal');assert.equal(elements.created.length,0);assert.equal(elements.anchors.length,0);
  const feedback=elements.document.getElementById('session-export-feedback');assert.equal(feedback.hidden,false);assert.equal(feedback.role,'alert');assert.match(feedback.children[0].textContent,/SESSION_LOG_READ_FAILED.*Read transaction aborted/);assert.equal(feedback.dataset.phase,'read-session-log');
  const error=elements.events.find(event=>event.kind==='session.export.error');assert.equal(error.error,initial);assert.equal(error.eventCount,902);assert.equal(error.phase,'read-session-log');
- log.report=async()=>({schema:'sherloq.session/1',session:'session',eventCount:902,events:[]});const retry=await downloadSession({...elements,button,log});assert.equal(retry.ok,true);assert.equal(feedback.hidden,true);assert.equal(elements.anchors[0].download,'SHERLOQ-session-session.json');assert.equal(elements.revoked.length,0);elements.scheduled[0]();assert.deepEqual(elements.revoked,['blob:qualification']);
+ log.report=async()=>({schema:'sherloq.session/1',session:'session',eventCount:902,events:[]});const retry=await downloadSession({...elements,button,log,downloadManager});assert.equal(retry.ok,true);assert.equal(feedback.hidden,true);assert.equal(elements.anchors[0].download,'SHERLOQ-session-session.json');assert.equal(elements.revoked.length,0);assert.equal(elements.scheduled.length,0);await downloadManager.release(retry.downloadLease);assert.deepEqual(elements.revoked,['blob:qualification']);
 });
 
-test('a failed download dispatch releases the Blob URL immediately and reports dispatch rather than read failure',async()=>{
- const error=Error('Download dispatch refused'),elements=ui({clickError:error}),log={id:'s',length:3,async report(){return {session:'s',eventCount:3,events:[]};}};
- const outcome=await downloadSession({...elements,log});assert.equal(outcome.ok,false);assert.equal(outcome.phase,'download-dispatch');assert.equal(outcome.error,error);assert.equal(elements.created.length,1);assert.equal(elements.scheduled.length,0);assert.deepEqual(elements.revoked,['blob:qualification']);
+test('a failed download dispatch retains a ready file and reports dispatch rather than read failure',async()=>{
+ const error=Error('Download dispatch refused'),elements=ui({clickError:error}),downloadManager=createDownloadManager(elements),log={id:'s',length:3,async report(){return {session:'s',eventCount:3,events:[]};}};
+ const outcome=await downloadSession({...elements,log,downloadManager});assert.equal(outcome.ok,false);assert.equal(outcome.phase,'download-dispatch');assert.equal(outcome.error,error);assert.equal(elements.created.length,1);assert.equal(elements.scheduled.length,0);assert.deepEqual(elements.revoked,[]);assert.equal(downloadManager.snapshot()[0].state,'ready');await downloadManager.dispose();assert.deepEqual(elements.revoked,['blob:qualification']);
 });
 
 test('tool diagnostic export errors stay visible in the current dialog without rewriting its raw evidence',async()=>{

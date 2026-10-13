@@ -83,9 +83,19 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
     }finally{row?.release();normalizedRelease();vectors.release();}
   }
     progress('panels',0,1);
-    const selection=selectForgeryscopePanels(manualPanels??await networks.detect(image,'panels',options),{profile,exclusions}),panels=selection.panels;
+    // A prepared scientific scope already contains the classifier's real
+    // acquisitions (and any explicit human edits). Do not redetect those ROIs
+    // or turn text polygons into whole-panel exclusions. Auto's unscoped
+    // detector, profiles and thresholds keep their original contract.
+    const scopedPanels=scope&&auto?scientificScope.regions.map(region=>{
+      const label=({microscopy:'Microscopy',gel:'Blots',photography:'Body Imaging'})[region.type]??region.label??region.type;
+      requireValue(['Microscopy','Blots','Body Imaging'].includes(label),'Prepared acquisition class required for scoped Forgeryscope Auto.');
+      return [label,Number.isFinite(region.confidence)?region.confidence:1,region.x0,region.y0,region.x1,region.y1];
+    }):null;
+    const selection=selectForgeryscopePanels(scopedPanels??manualPanels??await networks.detect(image,'panels',options),{profile,exclusions}),panels=selection.panels;
     requireValue(auto||panels.length<=64,'More than 64 panels: select smaller source regions.');
     Object.assign(meta,{panels,excluded_panels:selection.excludedPanels,excluded_boxes:exclusions});
+    if(scopedPanels)meta.panel_selection={source:'prepared-scientific-acquisitions',fingerprint:scope.fingerprint,classificationRepeated:false,unsupportedClasses:scopedPanels.filter(p=>!['Microscopy','Blots'].includes(p[0])).map(p=>p[0]),cnnContext:'Original crop RGB remains available to embeddings and feature extraction; scientific exclusions apply to geometric keypoints before matching.'};
     if(auto)Object.assign(meta,{merged_groups:[],lane_search:false,lane_matches:0});
     progress('panels',1,1);
     if(!panels.length||(!auto&&profile!=='lanes'&&panels.length<2))meta.status=panels.length?'insufficient_panels':'no_panels';

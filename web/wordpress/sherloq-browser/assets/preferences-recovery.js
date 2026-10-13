@@ -2,6 +2,7 @@ import {recoverSettings,validParams} from './settings.js';
 import {validateMediaPreferences,validateExportSettings,validateLoupeSettings} from './media-settings.js';
 import {libraryValue} from './dependency-store.js';
 import {AUTO_UPDATE_KEY,recoverAutoUpdatePreferences} from './local-auto-update.js';
+import {getDocumentDownloadShelf} from './download-shelf.js';
 
 const RECOVERY='sherloq.recovery.';
 const isObject=value=>value&&typeof value==='object'&&!Array.isArray(value);
@@ -155,4 +156,4 @@ export async function importPreferenceBackup(input,options={}){
  catch(error){await restorePreferenceBackup(before,options).catch(()=>{});throw error;}
 }
 export function preferenceBackupFilename(date=new Date()){return'SHERLOQ-sauvegarde-reglages-'+date.toISOString().replace(/[:.]/g,'-')+'.json';}
-export function downloadPreferenceBackup(document,backup){const value=serializePreferenceBackup(backup),blob=new Blob([JSON.stringify(value,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=preferenceBackupFilename();link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);return value;}
+export async function downloadPreferenceBackup(document,backup,{download}={}){const value=serializePreferenceBackup(backup),blob=new Blob([JSON.stringify(value,null,2)],{type:'application/json'});await(download??getDocumentDownloadShelf(document).download)(blob,preferenceBackupFilename(),{mime:'application/json'});return value;}

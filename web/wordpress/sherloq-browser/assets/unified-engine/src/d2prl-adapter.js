@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.17.1";
+import {prepareNeuralScientificScope,emptyScopedNeuralResult,neuralScientificScopeIdentity} from './neural-scientific-scope.js';
 import {createNeuralInput} from './neural-input.js';
 import {createNeuralProjector} from './neural-projector.js';
 import {publishNeuralResult} from './publish-neural-result.js';
@@ -43,7 +43,7 @@ export function createD2prlAdapter({budget, profile, version, publishResult}) {
       if (!manifest) throw new EngineError('MODEL_UNAVAILABLE', 'Load the verified D2PRL manifest first');
       if (active) throw new EngineError('BUSY', 'D2PRL adapter busy');
       const inputSource=image.segmented?(image.neuralInput??=createNeuralInput(image.surface,{budget})):undefined,geometry=image.segmented?image.surface.descriptor:image.pixels;
-      const params = task.params ?? {}; requireValue(Object.keys(params).every(k => ['minimum', 'exclusions', 'selectionPresent', 'refilterOf'].includes(k)), 'Unknown D2PRL parameter');
+      const params = task.params ?? {}; requireValue(Object.keys(params).every(k => ['minimum', 'exclusions', 'selectionPresent', 'refilterOf', 'scientificScope'].includes(k)), 'Unknown D2PRL parameter');
       const minimum = params.minimum ?? 500, exclusions = params.exclusions ?? [], regions = task.regions ?? [];
       requireValue(Number.isInteger(minimum) && minimum >= 0 && minimum <= 5000 && Array.isArray(regions) && Array.isArray(exclusions) && (params.selectionPresent === undefined || typeof params.selectionPresent === 'boolean'), 'D2PRL parameters');
       if (params.selectionPresent && !regions.length) throw new EngineError('INVALID_INPUT', 'No active D2PRL region');
@@ -53,12 +53,23 @@ export function createD2prlAdapter({budget, profile, version, publishResult}) {
         requireValue(typeof params.refilterOf === 'string' && !task.regions && params.selectionPresent === undefined, 'Refilter the existing result without changing its zones');
         if (!state?.lastContext) throw new EngineError('CACHE_MISS', 'No completed model result; explicit analysis is required');
         requireValue(state.lastContext.imageId === task.imageId && state.lastContext.sha256 === image.sha256 && state.lastContext.analysisId === params.refilterOf, 'Refilter source or analysis identity differs');
+        requireValue(params.scientificScope===undefined||neuralScientificScopeIdentity(params.scientificScope,{width:geometry.width,height:geometry.height,sourceSha256:image.sha256})===state.lastContext.scopeIdentity,'Refilter scientific scope differs; a new scoped inference is required');
         requireValue(requested === 'auto' || requested === (state.backend === 'gpu' ? 'webgpu' : 'cpu'), 'Refilter backend differs');
       }
       const backend = refilter ? state.backend : requested === 'cpu' ? 'cpu' : requested === 'webgpu' || globalThis.navigator?.gpu ? 'gpu' : 'cpu';
-      checkAbort(signal); active = true; const started = performance.now(); let resident, result;
+      checkAbort(signal); active = true; const started = performance.now(); let resident, result,scientificScope;
       try {
         resident = budget.reserve(knownHeapBytes);
+        const requestedZones=regions.length?regions:[{id:'whole-image',kind:'whole-image',bounds:[0,0,geometry.width,geometry.height]}];
+        if(!refilter)scientificScope=await prepareNeuralScientificScope(params.scientificScope,requestedZones,{width:geometry.width,height:geometry.height,sourceSha256:image.sha256,side:448,budget,signal});
+        if(scientificScope&&!scientificScope.zones.length){if(state)state.lastContext=null;
+          result=emptyScopedNeuralResult({width:geometry.width,height:geometry.height,segmented:!!image.segmented,roles:true,budget,metadata:{scientificScope:{...scientificScope.metadata,stage:'fully-cancelled-before-inference'},analysisId:task.id,resultId:task.id,min_component:minimum,exclusions:[],inferences:0}});
+          const provenance={engine:version,operation:'ai.clones.d2prl',originalSha256:image.sha256,decode:structuredClone(image.provenance),params:{minimum,scientificScope:scientificScope.metadata},regions:[],model:identity,backend:'not-executed',scientificScope:result.metadata.scientificScope};
+          const {release:emptyRelease,dispose:emptyDispose,...emptyData}=result;
+          const delivered={id:task.id,imageId:task.imageId,operation:'ai.clones.d2prl',status:'no-regions',data:image.segmented?{width:result.width,height:result.height,metadata:result.metadata,...(ownedOutput?{layout:'segmented',stores:result.stores}:{})}:emptyData,provenance,metrics:{inferences:0,skippedBeforeInference:true},layers:[]};
+          if(image.segmented&&!ownedOutput){Object.assign(delivered,await publishNeuralResult(result,task.imageId,provenance,{budget,publishResult,signal}));result=null;}
+          if(ownedOutput){const owned=own(delivered,result);result=null;return owned;}return delivered;
+        }
         if (state && state.backend !== backend) await clearState();
         if (!state) {
           const runtime = await withD2prlActivity(budget,'d2prl:runtime-import','io',d2prlRuntime); checkAbort(signal);
@@ -70,21 +81,21 @@ export function createD2prlAdapter({budget, profile, version, publishResult}) {
           } catch (error) {await disposeAll([pipeline,postprocess,spatial],error);}
         }
         checkAbort(signal);state.project.setImage(image);
-        const zones = refilter ? state.lastContext.zones : regions.length ? regions : [{id: 'whole-image', kind: 'whole-image', bounds: [0, 0, geometry.width, geometry.height]}];
+        const zones = refilter ? state.lastContext.zones : scientificScope?.zones??requestedZones;
         const hooks = {signal,checkpointKey,resourceOperation,onProgress: e => onProgress?.({id: task.id, ...e})};
-        result = refilter ? await state.session.refilter({analysisId: params.refilterOf, minimum, exclusions: params.exclusions, retainRaw: ownedOutput}, hooks) : await state.session.run({...(inputSource?{inputSource}:{pixels:image.pixels}), zones, mode: regions.length ? 'regions' : 'whole-image', exclusions, minimum, backend, retainRaw: ownedOutput, provenance: {originalSha256: image.sha256, decode: image.provenance}}, hooks);
+        result = refilter ? await state.session.refilter({analysisId: params.refilterOf, minimum, exclusions: params.exclusions, retainRaw: ownedOutput}, hooks) : await state.session.run({...(inputSource?{inputSource}:{pixels:image.pixels}), zones, mode: regions.length ? 'regions' : 'whole-image', exclusions, minimum, backend, retainRaw: ownedOutput,...(scientificScope?{scientificScope}:{}), provenance: {originalSha256: image.sha256, decode: image.provenance}}, hooks);
         checkAbort(signal); const {release, ...data} = image.segmented?{width:result.width,height:result.height,metadata:result.metadata,...(ownedOutput?{layout:'segmented',stores:result.stores}:{})}:result;
-        state.lastContext = {imageId: task.imageId, sha256: image.sha256, analysisId: data.metadata.analysisId, zones: structuredClone(zones)};
+        state.lastContext = {imageId: task.imageId, sha256: image.sha256, analysisId: data.metadata.analysisId,scopeFingerprint:data.metadata.scientificScope?.fingerprint,scopeIdentity:refilter?state.lastContext.scopeIdentity:scientificScope?.identity, zones: structuredClone(zones)};
         const delivered = {id: task.id, imageId: task.imageId, operation: 'ai.clones.d2prl', status: 'ok', data,
           semantics: 'Union probability map and exact native union/target/source masks. Target/source are residual-sign roles, not class probabilities. Overlapping passes give one model vote.',
           layers: [{id: 'union', kind: 'mask', field: 'data.mask', width: data.width, height: data.height, origin: [0, 0], range: [0, 1]}, {id: 'probability', kind: 'scalar', field: 'data.map', width: data.width, height: data.height, origin: [0, 0], range: [0, 1]}, {id: 'target', kind: 'mask', field: 'data.target', width: data.width, height: data.height, origin: [0, 0], range: [0, 1]}, {id: 'source', kind: 'mask', field: 'data.source', width: data.width, height: data.height, origin: [0, 0], range: [0, 1]}],
-          provenance: {engine: version, operation: 'ai.clones.d2prl', originalSha256: image.sha256, decode: structuredClone(image.provenance), params: {minimum, exclusions: structuredClone(data.metadata.exclusions)}, regions: structuredClone(zones), model: identity, backend: backend === 'gpu' ? 'webgpu-convolutions-wasm' : 'cpu-wasm', kernelParity: 'Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy'},
+          provenance: {engine: version, operation: 'ai.clones.d2prl', originalSha256: image.sha256, decode: structuredClone(image.provenance),...(data.metadata.scientificScope?{scientificScope:data.metadata.scientificScope}:{}), params: {minimum, exclusions: structuredClone(data.metadata.exclusions)}, regions: structuredClone(zones), model: identity, backend: backend === 'gpu' ? 'webgpu-convolutions-wasm' : 'cpu-wasm', kernelParity:data.metadata.scientificScope?'Pinned numerical kernels unchanged; scoped candidate membership intentionally changes matching outputs; no unscoped decision-parity claim.':'Declared synthetic native source/mask corpus; role residual tolerance <=1e-4 with unchanged decisions; not universal detector accuracy'},
           metrics: {totalMs: performance.now() - started, inferences: data.metadata.inferences, cache: {rawGrids: data.metadata.cache_hits}, memory: budget.snapshot()}};
         if(image.segmented&&!ownedOutput){const bundle=await publishNeuralResult(result,task.imageId,{...delivered.provenance,layout:'segmented'},{budget,publishResult,signal});delivered.metrics.projection=result.metrics;result=null;Object.assign(delivered,bundle);delivered.provenance.layout='segmented';delivered.metrics.memory=budget.snapshot();}
         state.lastProvenance = structuredClone(delivered.provenance);
         if(ownedOutput){const owned=own(delivered,result);result=null;return owned;}
         return delivered;
-      } finally {await result?.release(); resident?.(); active = false;}
+      } finally {await result?.release(); scientificScope?.release(); resident?.(); active = false;}
     },
     readRawOwned(input) {return this.readRaw({...input,[OWN_OUTPUT]:true});},
     readRaw({imageId, resultId, [OWN_OUTPUT]: ownedOutput = false}) {

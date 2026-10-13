@@ -1,4 +1,3 @@
-import "../../runtime-context.js?v=0.16.0";
 // Faithful local translation of pinned proposals_utils.py.
 // Formulas and ordered first-match fusion are retained. Global allocation and publication belong to SelfDMProposalEngine.
 const clone = box => [box[0].slice(), box[1], box[2]];
@@ -7,25 +6,26 @@ function intersection(a, b) {
   const x1 = Math.min(a[2], b[2]), y1 = Math.min(a[3], b[3]);
   return x0 >= x1 || y0 >= y1 ? 0 : (x1 - x0) * (y1 - y0);
 }
-function meanRectangle(rect, score, width) {
+function meanRectangle(rect, score, width,scope) {
+  if(scope)return scope.mean(rect,score,width);
   let sum = 0;
   for (let y = rect[1]; y < rect[3]; y++) for (let x = rect[0]; x < rect[2]; x++) sum += score[y * width + x];
   // The source map is float32 and numpy.mean returns float32 here. The exact
   // summation backend is separately measured by native end-to-end parity.
   return Math.fround(sum / ((rect[2] - rect[0]) * (rect[3] - rect[1])));
 }
-function merge(a, b, score, width) {
+function merge(a, b, score, width,scope) {
   const rect = [Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])];
-  return [rect, meanRectangle(rect, score, width), (rect[2] - rect[0]) * (rect[3] - rect[1])];
+  return [rect, meanRectangle(rect, score, width,scope), (rect[2] - rect[0]) * (rect[3] - rect[1])];
 }
 
-export function selectProposalBoxes(rectangles, score, width, height) {
+export function selectProposalBoxes(rectangles, score, width, height,scope) {
   let final = [];
   for (const rect of rectangles) {
     if (!rect) continue;
     const size = (rect[2] - rect[0]) * (rect[3] - rect[1]);
     if (size > .4 * width * height) continue;
-    const mean = meanRectangle(rect, score, width);
+    const mean = meanRectangle(rect, score, width,scope);
     if (mean < .4) continue;
     if (final.length === 0) { final.push([rect.slice(), mean, size]); continue; }
     let inserted = false;
@@ -35,7 +35,7 @@ export function selectProposalBoxes(rectangles, score, width, height) {
         final[i] = [rect.slice(), mean, size]; inserted = true; break;
       }
       if (inter / final[i][2] >= .8 || inter / size >= .8) {
-        const next = merge(rect, final[i][0], score, width);
+        const next = merge(rect, final[i][0], score, width,scope);
         if (next[2] <= .4 * width * height && next[1] >= .3) { final[i] = next; inserted = true; break; }
       }
     }
@@ -49,7 +49,7 @@ export function selectProposalBoxes(rectangles, score, width, height) {
       if (merged.has(j)) continue;
       const inter = intersection(temp[0], final[j][0]);
       if (inter / temp[2] > .5 || inter / final[j][2] > .5) {
-        temp = merge(temp[0], final[j][0], score, width);
+        temp = merge(temp[0], final[j][0], score, width,scope);
         if (temp[2] <= .4 * width * height && temp[1] >= .2) {
           merged.add(i); merged.add(j); selected.push(temp); mergeFlag = true;
         }
@@ -69,7 +69,7 @@ export function selectProposalBoxes(rectangles, score, width, height) {
         if (merged.has(j)) continue;
         const inter = intersection(temp[0], final[j][0]);
         if (inter / temp[2] > threshold || inter / final[j][2] > threshold) {
-          temp = merge(temp[0], final[j][0], score, width);
+          temp = merge(temp[0], final[j][0], score, width,scope);
           if (temp[2] <= .4 * width * height && temp[1] >= .2) {
             merged.add(i); merged.add(j); selected.push(temp); mergeFlag = true;
           }
@@ -96,10 +96,10 @@ export function proposalResize(boxes) {
 
 export function createFirstMatchPaint(labels, count) {
   const offsets = new Int32Array(count + 1), indices = new Int32Array(labels.length);
-  for (const label of labels) offsets[label + 1]++;
+  for (const label of labels) if(label>=0)offsets[label + 1]++;
   for (let i = 1; i < offsets.length; i++) offsets[i] += offsets[i - 1];
   const positions = offsets.slice(0, count);
-  for (let i = 0; i < labels.length; i++) indices[positions[labels[i]]++] = i;
+  for (let i = 0; i < labels.length; i++) if(labels[i]>=0)indices[positions[labels[i]]++] = i;
   return {labels, offsets, indices, scores: new Float64Array(labels.length), painted: false};
 }
 

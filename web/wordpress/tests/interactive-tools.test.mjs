@@ -9,22 +9,37 @@ import {CLONE_ALGORITHMS} from '../sherloq-browser/assets/clone-methods.js';
 import {readPlotPoints,bindPlotCamera} from '../sherloq-browser/assets/scatter-view.js';
 import {bindDocumentResize} from '../sherloq-browser/assets/document-resize.js';
 import {loupeDefaults} from '../sherloq-browser/assets/media-settings.js';
+import {createIndividualRegionController} from '../sherloq-browser/assets/individual-region-controller.js';
+import {createIndividualScientificScope} from '../sherloq-browser/assets/individual-scientific-scope.js';
+import {SCIENTIFIC_TEXT_MODEL} from '../sherloq-browser/assets/scientific-text-detector.js';
+import {createManualScopeDraft,updateManualScopeZone,applyManualScopeDraft} from '../sherloq-browser/assets/batch-scope-manual.js';
+import {getDocumentDownloadShelf} from '../sherloq-browser/assets/download-shelf.js';
 const html=await readFile(new URL('../sherloq-browser/assets/panel.html',import.meta.url),'utf8');
 const settle=async()=>{for(let i=0;i<15;i++)await new Promise(setImmediate);};
-function environment({detect=()=>({regions:[]}),fail=()=>null,runGate=async()=>{},exportGate=async()=>{},segmentation={},rasterResult=null}={}){
+// Most fixtures exercise legacy manual controls with no OCR/model transport.
+// The production factory remains enabled; the modern integration below uses
+// the real shared owner with a source-bound preparation dependency instead.
+function environment({detect=()=>({regions:[]}),fail=()=>null,runGate=async()=>{},exportGate=async()=>{},segmentation={},rasterResult=null,m2Fixture=false,regionControllerFactory=options=>createIndividualRegionController({...options,operation:()=> 'inspection.adjust'}),sourceSha256=null,nativeCloneData=false}={}){
  const {document,window}=parseHTML('<html><body></body></html>'),timers=new Map(),frames=new Map(),panels=[],calls=[],preparations=[],progressEvents=[],loadedModels=[],engineConfigurations=[],jsonExports=[];let seq=0,progressCallback,progressObserver=()=>{};
  const progress=(hooks,event)=>{progressCallback=hooks?.onProgress;progressEvents.push(event);progressCallback?.(event);progressObserver(event);};
  const canvasContext=()=>new Proxy({createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)})},{get:(o,k)=>o[k]??(()=>{})});
  class PreparationWorker {
   cancelled=new Set();
   async postMessage(message){
+   if(m2Fixture&&message.operation){
+    const metadata=new TextEncoder().encode(JSON.stringify({metadata:{status:'empty'},provenance:{params:message.args?.params}}));let value={};
+    if(message.operation==='initialize')value={windowBytes:4*1024**2};
+    if(message.operation==='analyzeBlob'){calls.push({operation:'m2.'+message.args.method,params:structuredClone(message.args.params),backend:message.args.backend});this.metadata=metadata;value={id:1,width:640,height:480,fields:{},metadataBytes:metadata.length};}
+    if(message.operation==='readMetadata')value=this.metadata.slice(message.args.offset,message.args.offset+message.args.count);
+    this.onmessage?.({data:{id:message.id,value}});return;
+   }
    if(message.action==='build'){preparations.push(message);await runGate(message);if(this.disposed||this.cancelled.has(message.ticket)){this.onmessage?.({data:{ticket:message.ticket,error:{code:'CANCELLED',message:'Cancelled'}}});return;}this.onmessage?.({data:{ticket:message.ticket,resultId:message.ticket,preview:{width:3,height:2,data:new Uint8Array(18)},metrics:{}}});}
    if(message.action==='cancel')this.cancelled.add(message.ticket);
    if(message.action==='dispose'){this.disposed=true;this.onmessage?.({data:{action:'disposed'}});}
   }
   terminate(){}
  }
- for(const [key,value]of Object.entries({document,window,location:{href:'http://localhost/app.html',hash:''},localStorage:{getItem:()=>null,setItem(){}},navigator:{hardwareConcurrency:8},isSecureContext:true,devicePixelRatio:1,innerWidth:1280,matchMedia:()=>({matches:false}),requestAnimationFrame:fn=>(frames.set(++seq,fn),seq),cancelAnimationFrame:id=>frames.delete(id),setTimeout:fn=>(timers.set(++seq,fn),seq),clearTimeout:id=>timers.delete(id),ResizeObserver:class{observe(){}disconnect(){}},Worker:PreparationWorker,fetch:async()=>({ok:true,arrayBuffer:async()=>new ArrayBuffer(0),json:async()=>({assetBase:'./',engineVersion:'test-transport',segmentation})}),Option:class{constructor(text,value){const e=document.createElement('option');e.textContent=text;e.value=value;return e;}}}))Object.defineProperty(globalThis,key,{value,configurable:true,writable:true});
+ for(const [key,value]of Object.entries({document,window,location:{href:'http://localhost/app.html',hash:''},localStorage:{getItem:()=>null,setItem(){}},navigator:{hardwareConcurrency:8},isSecureContext:true,devicePixelRatio:1,innerWidth:1280,matchMedia:()=>({matches:false}),requestAnimationFrame:fn=>(frames.set(++seq,fn),seq),cancelAnimationFrame:id=>frames.delete(id),setTimeout:fn=>(timers.set(++seq,fn),seq),clearTimeout:id=>timers.delete(id),ResizeObserver:class{observe(){}disconnect(){}},Worker:PreparationWorker,fetch:async()=>({ok:true,arrayBuffer:async()=>new ArrayBuffer(0),json:async()=>({assetBase:'./',engineVersion:'test-transport',segmentation,...(m2Fixture?{providers:{},assets:{}}:{})})}),Option:class{constructor(text,value){const e=document.createElement('option');e.textContent=text;e.value=value;return e;}}}))Object.defineProperty(globalThis,key,{value,configurable:true,writable:true});
  Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value||this.options[0]?.value||'';},set(v){for(const o of this.options)o.toggleAttribute('selected',o.value===String(v));}});
  for(const [name,value]of Object.entries({clientWidth:800,clientHeight:600}))Object.defineProperty(window.HTMLElement.prototype,name,{configurable:true,get:()=>value});
  window.HTMLElement.prototype.reportValidity=()=>true;window.HTMLElement.prototype.setPointerCapture=()=>{};window.HTMLElement.prototype.click=()=>{};
@@ -33,19 +48,20 @@ function environment({detect=()=>({regions:[]}),fail=()=>null,runGate=async()=>{
  const engineFactory=config=>{engineConfigurations.push(config);let configuredVariant=null;return {
   loadM3Models:async()=>{},
   loadSegmentationModel:async config=>{loadedModels.push(config);configuredVariant=config.variant;},unloadSegmentationModel:async()=>{configuredVariant=null;},loadD2prlModel:async()=>{},
-  async loadBlob({id},hooks){progress(hooks,{phase:'decode',fraction:.5});return {id,sha256:'input',surface:{id:'source',revision:1,width:640,height:480,format:'rgb8'}};},
-  async run(task,hooks){calls.push(task);progress(hooks,{phase:'analysis',fraction:.5,completed:5,total:10});await runGate(task);const failure=fail(task);if(failure)throw failure;if(task.operation==='subimages.detect')return {data:await detect()};return {id:task.id,operation:task.operation,status:'ok',provenance:{params:task.params},data:task.operation==='colors.plots'?{style:task.params,count:3,scale:1}:{answer:42},...(task.operation==='colors.plots'?{surface:table}:rasterResult?{surface:rasterResult(task)}:{})};},
+  async loadBlob({id},hooks){progress(hooks,{phase:'decode',fraction:.5});return {id,sha256:sourceSha256??'input',surface:{id:'source',revision:1,width:640,height:480,format:'rgb8'}};},
+  async run(task,hooks){calls.push(task);progress(hooks,{phase:'analysis',fraction:.5,completed:5,total:10});await runGate(task);const failure=fail(task);if(failure)throw failure;if(task.operation==='subimages.detect')return {data:await detect()};return {id:task.id,operation:task.operation,status:'ok',provenance:{params:task.params},data:task.operation==='colors.plots'?{style:task.params,count:3,scale:1}:nativeCloneData?{groups:[],points:new Float64Array(),pairs:new Float64Array(),bases:[],params:task.params}:{answer:42},...(nativeCloneData?{selectedGroups:[]}:{}) ,...(task.operation==='colors.plots'?{surface:table}:rasterResult?{surface:rasterResult(task)}:{})};},
   async readTable(input,hooks){calls.push({operation:'readTable'});progress(hooks,{phase:'read-table',fraction:.75});return {length:3,data:Float32Array.from({length:18},(_,i)=>i/18)};},
   async exportResultFile(result,options,hooks){jsonExports.push(result);progress(hooks,{phase:'encode-json',fraction:.25});await exportGate();progress(hooks,{phase:'complete',fraction:1});return {id:'export',revision:1,byteLength:2};},
   async readExport(input,hooks){progress(hooks,{phase:'read-export',fraction:1});return {bytes:Uint8Array.of(123,125)};},
-  releaseExport:async()=>{},releaseTable:async()=>{},releaseSurface:async()=>{},unload:async()=>{},dispose:async()=>{},capabilities:async()=>({operations:[{id:'ai.clones.segmentation',configuredVariant}]})
+  releaseExport:async()=>{},releaseTable:async()=>{},releaseSurface:async()=>{},unload:async()=>{},dispose:async()=>{},capabilities:async()=>({operations:[{id:'ai.clones.segmentation',configuredVariant}],...(m2Fixture?{memory:{budgetBytes:1024**3,retainedBytes:0,cacheBytes:0,knownHeapCapacityBytes:0}}:{})})
  };};
+ const shelf=getDocumentDownloadShelf(document);
  function mount(id,sourceOnly=false){
   const host=document.createElement('div');document.body.append(host);const root=host.attachShadow({mode:'open'}),parsed=parseHTML(html).document;for(const child of [...parsed.body.children])root.append(document.importNode(child,true));
   const scope={getElementById:id=>root.getElementById(id),querySelectorAll:s=>root.querySelectorAll(s),createElement:t=>document.createElement(t),documentElement:host,addEventListener:(...a)=>root.addEventListener(...a)};
-  const controller=mountAnalysisPanel(scope,{managed:true,toolId:id,sourceOnly,visible:()=>false,engineFactory,language:'fr'});panels.push(controller);return {controller,root};
+  const controller=mountAnalysisPanel(scope,{managed:true,toolId:id,sourceOnly,visible:()=>false,engineFactory,language:'fr',regionControllerFactory,download:shelf.download});panels.push(controller);return {controller,root};
  }
- return {mount,calls,preparations,loadedModels,engineConfigurations,jsonExports,window,progressEvents,get progressCallback(){return progressCallback;},observeProgress:fn=>progressObserver=fn,emitProgress:event=>progressCallback?.(event),adopt(controller){controller.adopt({source:{width:640,height:480,draw(){},close(){},async readPixels({width,height}){return{width,height,data:new Uint8Array(width*height*3)};}},file:new Blob(['transport']),imageId:'shared',hash:'hash',description:'transport'});},async flush(){const batch=[...timers.values()];timers.clear();for(const fn of batch)fn();await settle();},draw(){const batch=[...frames.values()];frames.clear();for(const fn of batch)fn();},async dispose(){await Promise.all(panels.map(c=>c.dispose()));}};
+ return {mount,calls,preparations,loadedModels,engineConfigurations,jsonExports,window,progressEvents,get progressCallback(){return progressCallback;},observeProgress:fn=>progressObserver=fn,emitProgress:event=>progressCallback?.(event),adopt(controller){controller.adopt({source:{width:640,height:480,draw(){},close(){},async readPixels({width,height}){return{width,height,data:new Uint8Array(width*height*3)};}},file:new Blob(['transport']),imageId:'shared',hash:sourceSha256??'hash',description:'transport'});},async flush(){const batch=[...timers.values()];timers.clear();for(const fn of batch)fn();await settle();},draw(){const batch=[...frames.values()];frames.clear();for(const fn of batch)fn();},async dispose(){await Promise.all(panels.map(c=>c.dispose()));await shelf.dispose();}};
 }
 test('Every catalogue tool has compact shared controls and no provenance action; ELA has inline tabs',async()=>{
  const h=environment();try{
@@ -56,6 +72,16 @@ test('Every catalogue tool has compact shared controls and no provenance action;
    await controller.dispose();
   }
   const {root}=h.mount('ela.classic');assert.equal(root.getElementById('ela-tab-classic').getAttribute('aria-selected'),'true');root.getElementById('ela-tab-energy').onclick();assert.equal(root.getElementById('ela-mode').value,'energy');assert.equal(root.getElementById('classic-controls').hidden,true);assert.equal(root.getElementById('ela-tab-energy').getAttribute('aria-selected'),'true');
+ }finally{await h.dispose();}
+});
+test('the mounted modern individual owner defaults to checked OCR and submits a bound scope without changing edited manual geometry',async()=>{
+ const sha='a'.repeat(64),textPolygon=[[30,30],[45,30],[45,34],[30,34]],preparationCalls=[];let owner;
+ const h=environment({sourceSha256:sha,nativeCloneData:true,regionControllerFactory:options=>{owner=createIndividualRegionController({...options,preparationClientFactory:async()=>({async prepare(blob,settings){preparationCalls.push({blob,settings});return {width:640,height:480,sourceSha256:sha,panels:null,text:{status:'complete',polygons:[textPolygon],detections:[{polygon:textPolygon,confidence:.9}],metadata:{model:{id:SCIENTIFIC_TEXT_MODEL.id,sha256:SCIENTIFIC_TEXT_MODEL.sha256,bytes:SCIENTIFIC_TEXT_MODEL.bytes},sourceSha256:sha,method:'text-detection-only',originalPixelsModified:false}},provenance:{originalSourceSha256:sha,originalPixelsModified:false}};},async dispose(){}})});return owner;}});
+ try{
+  const {controller,root}=h.mount('tampering.copyMove.sparse');h.adopt(controller);await h.flush();root.getElementById('tool-param-algorithm').value='"SIFT"';root.getElementById('tool-param-algorithm').onchange();assert.equal(owner.active(),true);assert.equal(root.querySelector('.detection-text-option input').checked,true);assert.equal(h.calls.length,0);
+  const image={blob:new Blob(['transport']),sourceSha256:sha,width:640,height:480},initial=await createIndividualScientificScope(image,{rectangles:[{x0:10,y0:20,x1:110,y1:120}],excludeTexts:false,includeEnvelope:false}),draft=createManualScopeDraft({...image,preparation:initial});updateManualScopeZone(draft,'zone-1',{x0:12,y0:24,x1:112,y1:124},{operation:'move'});const manual=await applyManualScopeDraft({...image,preparation:initial},draft),origin=structuredClone(manual.manual.zones[0].originalGeometry);
+  await owner.restore({schema:'sherloq.individual-regions/1',sourceSha256:sha,scope:manual,excludeTexts:true});await root.getElementById('task-run').onclick();await settle();
+  assert.equal(preparationCalls.length,1);assert.equal(preparationCalls[0].settings.textOnly,true);assert.equal(h.calls.length,1);const task=h.calls[0];assert.equal(task.scientificScope.sourceSha256,sha);assert.equal(task.scientificScope.width,640);assert.equal(task.scientificScope.height,480);assert.deepEqual(task.scientificScope.excluded,[textPolygon,[[0,0],[640,0],[640,24],[0,24]],[[0,24],[12,24],[12,124],[0,124]],[[112,24],[640,24],[640,124],[112,124]],[[0,124],[640,124],[640,480],[0,480]]]);assert.deepEqual(task.params.regions,[[[12,24],[112,24],[112,124],[12,124]]]);assert.deepEqual(owner.scope.manual.zones[0].originalGeometry,origin);assert.equal(owner.scope.text.rawDetection.metadata.model.sha256,SCIENTIFIC_TEXT_MODEL.sha256);assert.equal(root.querySelector('.detection-text-option input').checked,true);
  }finally{await h.dispose();}
 });
 test('Opening an individual tool auto-runs once; navigation does not rerun, edits debounce, close cancels pending work',async()=>{
@@ -157,10 +183,10 @@ test('AI subimage action selects only native panels, waits for Calculate, and pr
   assert.deepEqual(task.regions,[{id:'p1',kind:'region',bounds:[13,21,59,83]},{id:'p2',kind:'region',bounds:[133,23,207,85]}]);assert.equal(h.loadedModels.length,1);
   const meta=JSON.parse($('provenance').textContent);assert.equal(meta.ui.subimageSelection.operation,'subimages.detect');assert.deepEqual(meta.ui.requestedRegions,task.regions);assert.equal(meta.ui.subimageSelection.sourceSha256,'hash');assert.equal(meta.ui.selectionPresent,true);assert.equal($('export-report').disabled,false);
   let sessionBlob;const objectURL=URL.createObjectURL;URL.createObjectURL=blob=>(sessionBlob=blob,objectURL(blob));
-  try{controller.saveSession();}finally{URL.createObjectURL=objectURL;}
+  try{await controller.saveSession();}finally{URL.createObjectURL=objectURL;}
   const saved=JSON.parse(await sessionBlob.text());assert.equal(saved.individual.uiOptions.neuralScope,'regions');assert.equal(saved.individual.uiOptions.neuralMethod,'mgcfdn');assert.equal(saved.regions.length,2);assert.deepEqual(saved.regions.map(r=>r.detection.bounds),task.regions.map(r=>r.bounds));assert.equal(saved.regions[0].detection.sourceSha256,'hash');
   const previous=$('zones').innerHTML;found={regions:[]};await $('task-auto-zones').onclick();assert.equal($('zones').innerHTML,previous);assert.equal($('tool-neural-scope').value,'regions');failure=true;await $('task-auto-zones').onclick();assert.equal($('zones').innerHTML,previous);assert.match(controller.snapshot().status,/mémoire/);
-  const attempts=h.calls.length;method.value='forgeryscope-auto';method.onchange();assert.equal($('task-auto-zones').hidden,true);await $('task-auto-zones').onclick();assert.equal(h.calls.length,attempts);
+  const attempts=h.calls.length;method.value='forgeryscope-auto';method.onchange();assert.equal($('task-auto-zones').hidden,false);await $('task-auto-zones').onclick();assert.equal(h.calls.length,attempts+1);assert.equal(h.calls.at(-1).operation,'subimages.detect');
   method.value='mgcfdn';method.onchange();assert.equal($('task-auto-zones').hidden,false);controller.setLanguage('en');assert.equal($('task-auto-zones').textContent,'Detect subimages');assert.match($('task-auto-zones').title,/without cross-panel comparison/);
  }finally{await h.dispose();}
 });
@@ -182,6 +208,27 @@ test('AI adoption and method/backend/profile/ROI edits prepare tasks; only Calcu
   method.value='d2prl';method.onchange();const minimum=$('tool-param-minimum');minimum.value='750';minimum.onchange();scope.value='regions';scope.onchange();$('compute-profile').value='maximum';$('compute-profile').onchange();await h.flush();assert.equal(h.calls.length,3);
   await $('task-run').onclick();assert.equal(h.calls.at(-1).operation,'ai.clones.d2prl');assert.equal(h.calls.at(-1).params.minimum,750);assert.equal(h.calls.at(-1).params.selectionPresent,true);assert.equal(h.calls.at(-1).regions.length,2);assert.equal(h.calls.at(-1).backend,'webgpu');assert.equal(h.engineConfigurations.at(-1).computeProfile,'maximum');
  }finally{await h.dispose();}
+});
+
+test('mouse-drawn D2PRL exclusions preserve their mode and reach Calculate as exclusions, never acquisition ROIs',async()=>{
+ const h=environment();try{
+  const {controller,root}=h.mount('ai.clones.d2prl'),$=id=>root.getElementById(id);h.adopt(controller);const scope=$('tool-neural-scope'),viewer=$('viewport');viewer.getBoundingClientRect=()=>({left:0,top:0});scope.value='exclude';scope.onchange();$('task-zones').onclick();assert.equal(scope.value,'exclude');
+  viewer.onpointerdown({target:$('canvas'),button:0,pointerId:1,clientX:40,clientY:50});viewer.onpointermove({target:$('canvas'),pointerId:1,clientX:140,clientY:150});viewer.onpointerup({pointerId:1});
+  const bounds=[...$('zones').children].map(li=>/\[(\d+), (\d+)\] → \[(\d+), (\d+)\]/.exec(li.textContent).slice(1).map(Number));assert.equal(bounds.length,1);assert.ok(bounds[0][2]>bounds[0][0]);await h.flush();assert.equal(h.calls.length,0);
+  $('task-zones').onclick();assert.equal(scope.value,'exclude');await $('task-run').onclick();assert.equal(h.calls.length,1);assert.equal(h.calls[0].operation,'ai.clones.d2prl');assert.deepEqual(h.calls[0].params.exclusions,bounds);assert.equal(h.calls[0].params.selectionPresent,false);assert.deepEqual(h.calls[0].regions,[]);
+ }finally{await h.dispose();}
+});
+
+test('Forgeryscope drawing uses supported compare/exclusion contracts and forwards actual mouse rectangles to M2',async()=>{
+ for(const [method,requested,expected,count]of [['forgeryscope-microscopy','compare','compare',2],['forgeryscope-overlap','exclude','exclude',1],['forgeryscope-auto','whole','exclude',1],['forgeryscope-duplicate','whole','compare',2]]){
+  const h=environment({m2Fixture:true});try{
+   const {controller,root}=h.mount('ai.clones.d2prl'),$=id=>root.getElementById(id);h.adopt(controller);$('tool-neural-method').value=method;$('tool-neural-method').onchange();const scope=$('tool-neural-scope'),viewer=$('viewport');viewer.getBoundingClientRect=()=>({left:0,top:0});scope.value=requested;scope.onchange();$('task-zones').onclick();assert.equal(scope.value,expected,method);assert.ok([...scope.options].some(o=>o.value===scope.value));
+   for(let i=0;i<count;i++){viewer.onpointerdown({target:$('canvas'),button:0,pointerId:1,clientX:40+i*180,clientY:50});viewer.onpointermove({target:$('canvas'),pointerId:1,clientX:140+i*180,clientY:150});viewer.onpointerup({pointerId:1});}
+   const bounds=[...$('zones').children].map(li=>/\[(\d+), (\d+)\] → \[(\d+), (\d+)\]/.exec(li.textContent).slice(1).map(Number));assert.equal(bounds.length,count,method);await h.flush();assert.equal(h.calls.length,0,'Drawing does not execute M2');$('task-zones').onclick();assert.equal(scope.value,expected);await $('task-run').onclick();
+   assert.equal(h.calls.length,1,controller.snapshot().status);const task=h.calls[0];assert.equal(task.operation,'m2.forgeryscope');assert.equal(task.params.profile,method.slice('forgeryscope-'.length));
+   if(expected==='exclude')assert.deepEqual(task.params.exclusions,bounds);else assert.deepEqual(task.params.panels,bounds.map(b=>[method==='forgeryscope-microscopy'?'Microscopy':'Blots',1,...b]));assert.equal(task.params.regions,undefined);assert.equal(controller.settings().individual.uiOptions.neuralScope,expected);
+  }finally{await h.dispose();}
+ }
 });
 test('A successful subsequent run preserves the failure diagnostic, method and native cause',async()=>{
  let failed=true;const h=environment({fail:()=>failed?Object.assign(Error('Feature extraction memory allocation failed'),{code:'MEMORY_ALLOCATION',details:{allocationKind:'wasm',maximumHeapBytes:67108864,nativeStatus:-4}}):null});try{

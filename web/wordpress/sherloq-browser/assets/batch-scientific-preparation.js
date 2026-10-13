@@ -74,9 +74,13 @@ export function createScientificPreparation({computeProfile='maximum',onProgress
  }
  return {async prepare(model,{signal}={}){
   try{
-  await pages(model,signal);
+  const {restoreManualScientificScope}=await import('./batch-scope-manual.js'),manual=new Set();
+  for(const image of model.images){signal?.throwIfAborted();if(await restoreManualScientificScope(image))manual.add(image);}
+  const pending=model.images.filter(image=>!manual.has(image));
+  if(pending.length)await pages({...model,images:pending,studies:model.studies.filter(study=>pending.some(image=>image.occurrences?.some(o=>o.studyId===study.id)))},signal);
   for(const [index,image]of model.images.entries()){
-   signal?.throwIfAborted();onProgress({phase:'preparation',image,index,total:model.images.length});
+   signal?.throwIfAborted();onProgress({phase:'preparation',image,index,total:model.images.length,...(manual.has(image)?{humanScopePreserved:true}:{})});
+   if(manual.has(image)){image.family=image.preparation.family;if(image.preparation.status!=='ready')image.selected=false;await nextFrame();continue;}
    const prepared=await(await getClient()).prepare(image.blob,{signal,onProgress:detail=>onProgress({phase:'preparation',image,index,total:model.images.length,detail})});
    const previousReview=image.preparation?.text?.review;image.sourceSha256=prepared.sourceSha256;image.preparation=composeScientificScope(image,prepared,{pageExclusions:image.occurrences.flatMap(o=>o.textExclusions??[])});image.preparation.fingerprint=await scopeFingerprint(image.preparation);
    if(previousReview?.actor==='human'&&previousReview.decision==='retain-acquisition'&&previousReview.originalFingerprint===image.preparation.fingerprint&&canReviewTextAmbiguity(image.preparation))image.preparation=await retainReviewedAcquisitions(image.preparation,{reviewedAt:previousReview.reviewedAt});
