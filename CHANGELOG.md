@@ -2,6 +2,18 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.17.2 — Clone matching and worker transport · 2026-10-13
+
+- Reuse dense descriptor banks when a batch repeats the same bank, and respect an explicitly selected CPU backend for paged PatchMatch.
+- Optimize SSG scalar image preparation, identity resizing and ordered accumulation while retaining its existing geometry and results.
+- Use the audited ordered float32 distance helper for XFeat banks above 100 actual points. Smaller banks retain the previous matcher; cached results clear obsolete native-distance observations.
+- Handle worker deserialization errors through actual event listeners and reject malformed envelopes, with cancellation and resource ownership preserved.
+- Update D2PRL's exact half-round decode table and the matching WASM loader identity. Model weights, preparation 448, 40 iterations and seed 22 remain unchanged.
+
+The supplied D2PRL comparisons retain exact outputs, masks, views, exports and refilters. Median paired analysis gains were about 9.3% on the supplied 30 MP and 96 MP cases, relative to the already optimized runtime, with two balanced timing pairs per size. These measurements describe those inputs and test host.
+
+Integration passes 368 interface checks, 150 targeted engine checks and 19 retained scheduling/resource checks. Fresh Chrome verifies pixels and lossless export, PP-OCR text detection, D2PRL and SSG native loading, and exact ordered XFeat distance calls with the descriptor bank released. Existing batch preparation and atomic SIFT scheduling are preserved. Experimental dense GPU transport reuse remains disabled by default.
+
 ## 0.17.1 — D2PRL execution and memory · 2026-10-13
 
 - Integrated the qualified HWC PatchMatch evaluator with exact half decoding and SIMD interpolation, windowed descriptor transfer, reusable buffers and the bounded D2PRL role runtime. Existing evaluator variants remain selectable; the general 512 MiB runtime and other methods are preserved.

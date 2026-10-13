@@ -1,16 +1,19 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.17.2";
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';
 import {serializeEngineError,requireValue} from './errors.js';
-import {createDenseMath,canonicalDenseSift,denseGray,denseDescriptorShape} from './dense-math.js';
+import {createDenseMath,canonicalDenseSift,denseGray,denseDescriptorShape,createDenseDescriptorCache} from './dense-math.js';
 import {createDenseRegions} from './dense-regions.js';
 import {alignDenseSupports} from './dense-links.js';
 let kernelPromise,regionsPromise,residentSource,prepared,busy=false;
+const descriptorCache=createDenseDescriptorCache();
 const protocol=installWorkerMessageProtocol(self,async job=>{
   requireValue(!busy&&job.pass&&Number.isSafeInteger(job.width)&&Number.isSafeInteger(job.height),'Invalid or concurrent dense job.');busy=true;
   try {
     const kernel=await(kernelPromise??=createDenseMath({print:()=>{}}));
     if(job.reuseSource){if(!residentSource)throw Error('Missing retained dense source.');job.sourceImage=residentSource;}
-    else if(job.sourceImage){residentSource=job.sourceImage;prepared=null;}
+    else if(job.sourceImage){residentSource=job.sourceImage;prepared=null;descriptorCache.clear();}
+    const cacheEnabled=job.descriptorCache===true&&!!job.sourceImage&&!job.compactDescriptors&&!job.field;
+    if(!cacheEnabled)descriptorCache.clear();
     let {gray,width,height,pass,options={}}=job;
     const progress=phase=>protocol.post({phase});
     let mask=job.mask,field,descriptors;
@@ -18,7 +21,7 @@ const protocol=installWorkerMessageProtocol(self,async job=>{
     else{
       if(job.sourceImage){
         const {sourceImage,crop,eligibility}=job,key=[crop.x,crop.y,width,height].join(':');
-        if(prepared?.key!==key){const rgb=new Uint8Array(width*height*3);for(let y=0;y<height;y++){const start=((crop.y+y)*sourceImage.width+crop.x)*3;rgb.set(sourceImage.data.subarray(start,start+width*3),y*width*3);}prepared={key,rgb,gray:denseGray(rgb)};}
+        if(prepared?.key!==key){descriptorCache.clear();const rgb=new Uint8Array(width*height*3);for(let y=0;y<height;y++){const start=((crop.y+y)*sourceImage.width+crop.x)*3;rgb.set(sourceImage.data.subarray(start,start+width*3),y*width*3);}prepared={key,rgb,gray:denseGray(rgb)};}
         const {rgb}=prepared,preparation=await(regionsPromise??=createDenseRegions());
         ({mask}=preparation.allowed({width,height,data:rgb},{...eligibility,method:pass.method,patch:pass.patch,targetPatch:pass.targetPatch}));
         gray=prepared.gray;progress('eligibility-complete');
@@ -26,6 +29,7 @@ const protocol=installWorkerMessageProtocol(self,async job=>{
       const shape=denseDescriptorShape(width,height,pass.method,Math.max(pass.patch,pass.targetPatch));
       const eligible=(options.radius??600)>=(options.minimum??5)&&mask.reduce((s,v)=>s+(v>0),0)>=2&&(!options.compare||mask.some(v=>v&1)&&mask.some(v=>v&2));
       if(!eligible){
+        descriptorCache.clear();
         field={width:shape.width,height:shape.height,targets:new Int32Array(mask.length).fill(-1),distancesSquared:new Float32Array(mask.length).fill(Infinity),comparisons:0n};descriptors=shape;progress('empty-eligible-field');
       }else if(job.compactDescriptors&&pass.method===0){
         try{descriptors=kernel.residentPrepare(gray,width,height,{patch:pass.patch,reflection:pass.reflection});progress('source-descriptors-complete');field=kernel.residentField(mask,width,height,options);}finally{kernel.residentRelease();}
@@ -37,13 +41,17 @@ const protocol=installWorkerMessageProtocol(self,async job=>{
           field=kernel.compactField(mask,descriptors.width,descriptors.height,{...options,second});mask=field.allowed;if(pass.quarterTurn)progress('canonical-frame-complete');
         }finally{kernel.compactRelease();}
       }else{
-        const source=kernel.features(gray,width,height,{method:pass.method,patch:pass.patch,reflection:pass.reflection&&pass.targetPatch===pass.patch});
+        const reflection=pass.reflection&&pass.targetPatch===pass.patch,
+          cacheKey=cacheEnabled?JSON.stringify([prepared.key,pass.method,pass.patch,reflection,'normalized-raw']):null;
+        let source=cacheEnabled?descriptorCache.lookup(cacheKey):null;
+        if(!source){source=kernel.features(gray,width,height,{method:pass.method,patch:pass.patch,reflection});if(cacheEnabled)source=descriptorCache.publish(cacheKey,source);}
         progress('source-descriptors-complete');descriptors=source;
         if(pass.targetPatch!==pass.patch){
           const target=kernel.features(gray,width,height,{method:1,patch:pass.targetPatch,reflection:pass.reflection});
           descriptors=alignDenseSupports(source,target,pass.patch,pass.targetPatch);progress('target-descriptors-complete');
         }
         if(pass.quarterTurn){
+          if(cacheEnabled){const originalFirst=descriptors.first,first=descriptorCache.writable(originalFirst),second=descriptors.second===originalFirst?first:descriptorCache.writable(descriptors.second);descriptors={...descriptors,first,second};}
           const first=canonicalDenseSift(descriptors.first),second=descriptors.first===descriptors.second?first:canonicalDenseSift(descriptors.second);
           for(let i=0;i<mask.length;i++)if(!first[i]||!second[i])mask[i]=0;
           progress('canonical-frame-complete');
@@ -61,8 +69,8 @@ const protocol=installWorkerMessageProtocol(self,async job=>{
       const threshold=Math.fround((options.threshold??.3)**2);
       for(let i=0;i<selected.length;i++)selected[i]=field.targets[i]>=0&&field.distancesSquared[i]<=threshold?1:0;
     }
-    const result={...field,allowed:mask,selected,errors,shift:descriptors.shift,context:job.context,pass,descriptorStorage:job.field?.descriptorStorage??(job.compactDescriptors?(pass.method===1?'lossless-compact-sift':'resident-zernike'):'float32-arrays'),heapBytes:kernel.heapBytes};
+    const result={...field,allowed:mask,selected,errors,shift:descriptors.shift,context:job.context,pass,descriptorStorage:job.field?.descriptorStorage??(job.compactDescriptors?(pass.method===1?'lossless-compact-sift':'resident-zernike'):'float32-arrays'),heapBytes:kernel.heapBytes,...(cacheEnabled?{descriptorCache:descriptorCache.snapshot}:{})};
     const transfer=[field.targets.buffer,field.distancesSquared.buffer,mask.buffer,selected.buffer];if(errors)transfer.push(errors.buffer);
     protocol.post({result},transfer);
-  }catch(error){protocol.post({error:serializeEngineError(error)});}finally{busy=false;}
+  }catch(error){descriptorCache.clear();protocol.post({error:serializeEngineError(error)});}finally{busy=false;}
 },{label:'dense-resident-kernel',onFailure:error=>self.postMessage({error:serializeEngineError(error)})});

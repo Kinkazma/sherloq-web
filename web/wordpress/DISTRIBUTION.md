@@ -283,4 +283,4 @@ python3 scripts/build-public-bootstrap.py \
   --notice /path/to/checkout/docs/METHODS-RESOURCE-LICENSES.txt
 ```
 
-The builder rejects a private site overlay, verifies ZIP CRC and enforces a 20,000,000-byte compressed ceiling. The installable WordPress package and private site integration remain separate. Artifact size and SHA-256 are recorded in [the current source identity](../../docs/SOURCE-IDENTITY.json).
+The builder rejects a private site overlay, verifies ZIP CRC and enforces a 25,000,000-byte compressed ceiling. The installable WordPress package and private site integration remain separate. Artifact size and SHA-256 are recorded in [the current source identity](../../docs/SOURCE-IDENTITY.json).

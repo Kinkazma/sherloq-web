@@ -1,16 +1,16 @@
 {
   "schema": "sherloq.publication-identity/1",
-  "ui_commit": "7f7fe65f4fe01f606de99eeb0b6be2fe51ffea34",
+  "ui_commit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
-  "ui_version": "0.17.1",
-  "engine_commit": "0fb01b415831a2d84a9f8e246aaa06d5f8a90edf",
+  "ui_version": "0.17.2",
+  "engine_commit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
   "engine_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "engine_version": "0.37.0-methods.1",
-  "source_revision": "0fb01b415831a2d84a9f8e246aaa06d5f8a90edf",
+  "source_revision": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
   "engine_base_commit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
   "engine_source_increment_sha256": "440210e4665b4a62114cc5028b045414a0901aab55d39ab465136a7067b3e88c",
   "runtime_receipt_sha256": "6c66a9689c841d9fbe678a718202a2da50a54fb815116b767fa4f51c6b353c48",
-  "manifest_sha256": "bce99fa6ba876cf9f816c5d4d7d840db31c40943787c72c2966066caa582d928",
+  "manifest_sha256": "69abdc5c7ca4d4a25322468b38a66adced3935c41a892ffa301add52637b065a",
   "upstream": "https://github.com/GuidoBartoli/sherloq",
   "macos_derivative": "https://github.com/Kinkazma/sherloq",
   "transport_adapter": "web/wordpress/runtime-delivery.py",
@@ -42,20 +42,13 @@
     "text_detector": "PP-OCRv6 small, detection only; 9,929,594 public bytes, requested on demand."
   },
   "previous_publication": {
-    "main_commit": "15f917a44308aaa1464a58245470c2fb30c6fd78",
-    "resource_commit": "39575baa97a08cd2f0b461bf5016043c40c15ccb",
-    "deployment_manifest_sha256": "3a08025dd38b6be3aad1adb0ba1ed58778b28633ef1847a441e827b1fa34484d"
+    "main_commit": "bfe6c73016cacc1f0290c7b6b9f6c93ab91c650c",
+    "resource_commit": "7f7fe65f4fe01f606de99eeb0b6be2fe51ffea34",
+    "deployment_manifest_sha256": "4279039f9f3984b9416093f1b06cbd0d485448e4dd2c6cbd8eff84a5b0760536"
   },
   "bootstrap_limit_basis": "compressed ZIP bytes",
   "desired_bootstrap_bytes": 10000000,
-  "d2prl_increment_sha256": "9aa114b5aa02febf34ae17fe15b234e0491a90eb8c1a48a490010db974d250a4",
+  "d2prl_increment_sha256": "ab77ee77b286abd9866e68f433121149f835f96764c18e33c0fffe200ec6c6a8",
   "d2prl_qualification": "Supplied 30/96 MP native-array/mask, refilter and paged export checks passed. Detailed qualification files remain local.",
-  "resource_commit": "7f7fe65f4fe01f606de99eeb0b6be2fe51ffea34",
-  "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/7f7fe65f4fe01f606de99eeb0b6be2fe51ffea34/web-assets/",
-  "deployment_manifest_sha256": "4279039f9f3984b9416093f1b06cbd0d485448e4dd2c6cbd8eff84a5b0760536",
-  "finalized_bootstrap_compressed_bytes_before_private_overlay": 10294196,
-  "finalized_bootstrap_extracted_bytes_before_private_overlay": 31218489,
-  "public_bootstrap_asset": "SHERLOQ-Web-bootstrap-0.17.1.zip",
-  "public_bootstrap_bytes": 10274362,
-  "public_bootstrap_sha256": "9afa61adecfb9840de0465064f98196f991c0cc9e70edeb45090e9f031a97754"
+  "clone_increment_sha256": "9c47fc55f2777a7f9bff4a1a588c14036ad2ab8a228e6395fe34c77d41429b5c"
 }

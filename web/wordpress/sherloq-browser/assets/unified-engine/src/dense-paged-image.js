@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.17.2";
 import {byteView,byteLength} from './memory-range.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint,serializeEngineError} from './errors.js';
 import {denseImageParams,denseImageJobs} from './dense-image.js';
@@ -38,7 +38,7 @@ export class PagedDenseImageEngine{
    if(this.selection&&this.selection.key!==JSON.stringify([p,hooks.backend??null])){const old=this.selection;this.selection=null;await old.release();}
    const outputPlan=planDenseOutputStorage(jobs,{coherence:p.coherence,availableBytes:this.budget.limit-this.budget.retained-this.budget.active}),{storage}=outputPlan;
    const options={budget:this.budget,storage:'auto',temporarySession:this.image.session,getTemporarySession:this.image.ensureTemporarySession,signal,onProgress:hooks.onProgress,maxWorkers:this.profile.maxWorkers??globalThis.navigator?.hardwareConcurrency??1};
-   const fieldOptions={...options,storage,enableDenseGpu:this.profile.enableDenseGpu===true};
+   const fieldOptions={...options,storage,enableDenseGpu:this.profile.enableDenseGpu===true&&hooks.backend!=='cpu'};
    if(cached)raw=this.cached;
    else{
     if(this.cached){const old=this.cached;this.cached=null;await old.release();}

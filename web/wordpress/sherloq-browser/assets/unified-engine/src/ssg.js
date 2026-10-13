@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.17.2";
 import {requireValue,createCooperator,checkAbort,EngineError} from './errors.js';
 
 // Independent numerical implementation of the moment / word / phrase stages
@@ -108,6 +108,31 @@ export function ssgDescribePatch(patch,basis){
  return {magnitudes,invariants,moments};
 }
 
+// Internal patches and basis belong to this word extraction call.
+function ssgDescribeTrustedPatch(patch,basis){
+ typed(patch,1,'Invalid SSG patch.');requireValue(patch.length===basis.blockSize**2&&basis.dimensions===16,'Invalid SSG patch dimensions.');
+ const real=new Float64Array(16),imag=new Float64Array(16);
+ for(let d=0;d<16;d+=4){
+  let r0=0,r1=0,r2=0,r3=0,i0=0,i1=0,i2=0,i3=0;
+  for(let i=0;i<patch.length;i++){
+   const value=patch[i],base=i*16+d;
+   r0+=value*basis.real[base];i0+=value*basis.imag[base];
+   r1+=value*basis.real[base+1];i1+=value*basis.imag[base+1];
+   r2+=value*basis.real[base+2];i2+=value*basis.imag[base+2];
+   r3+=value*basis.real[base+3];i3+=value*basis.imag[base+3];
+  }
+  real[d]=r0;imag[d]=i0;real[d+1]=r1;imag[d+1]=i1;
+  real[d+2]=r2;imag[d+2]=i2;real[d+3]=r3;imag[d+3]=i3;
+ }
+ const magnitudes=new Float64Array(4),invariants=new Float64Array(24),moments=new Float64Array(24);
+ for(let n=0;n<4;n++)magnitudes[n]=Math.hypot(real[n],imag[n]);
+ for(let m=0;m<3;m++)for(let n=0;n<4;n++){
+  const a=4+m*4+n,b=4+m*4+(n+1)%4,out=(m*4+n)*2;
+  invariants[out]=real[a]*real[b]+imag[a]*imag[b];invariants[out+1]=imag[a]*real[b]-real[a]*imag[b];moments[out]=real[a];moments[out+1]=imag[a];
+ }
+ return {magnitudes,invariants,moments};
+}
+
 export async function ssgWordDescriptors(image,input={},hooks={}){
  checkAbort(hooks.signal);
  const p=ssgParams(input),points=image.points;typed(points,3,'Invalid SSG point coordinates.');
@@ -117,7 +142,7 @@ export async function ssgWordDescriptors(image,input={},hooks={}){
  const outPoints=new Float64Array(n*3),magnitudes=new Float64Array(n*4),invariants=new Float64Array(n*24),moments=new Float64Array(n*24),sourceIndices=new Uint32Array(n);let count=0;const seen=new Set();
  for(let i=0;i<n;i++){
   await cooperate();const point=[Math.round(points[i*3]),Math.round(points[i*3+1]),points[i*3+2]],key=point.join('/');if(seen.has(key))continue;seen.add(key);
-  const patch=samplePatch(image,point,p.blockSize);if(!patch)continue;const desc=ssgDescribePatch(patch,basis);
+  const patch=samplePatch(image,point,p.blockSize);if(!patch)continue;const desc=ssgDescribeTrustedPatch(patch,basis);
   outPoints.set(point,count*3);magnitudes.set(desc.magnitudes,count*4);invariants.set(desc.invariants,count*24);moments.set(desc.moments,count*24);sourceIndices[count]=i;count++;hooks.onProgress?.((i+1)/Math.max(1,n));
  }
  return {points:outPoints.subarray(0,count*3),magnitudes:magnitudes.subarray(0,count*4),invariants:invariants.subarray(0,count*24),moments:moments.subarray(0,count*24),sourceIndices:sourceIndices.subarray(0,count),count,parameters:p,reference:SSG_REFERENCE};
