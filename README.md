@@ -103,7 +103,7 @@ Choose paired **Biomes** or scientific **Corroboration** counts and adjust their
 
 The **Take offline / Emporter hors ligne** command prepares a local web app with a selected resource library. Local Settings can check for updates, remove optional tools and recover saved preferences. **Auto update** is off by default; enabling it checks at startup and asks before preparing or activating a change. [Local updates and resource management](docs/LOCAL-UPDATES.md). The saved resource archive can restore its working library. [Local installation and restoration](web/wordpress/DISTRIBUTION.md#sherloq-web-local).
 
-Once the local version and its resources are prepared, SHERLOQ runs entirely offline, independently of WordPress and my website. It works like a standalone desktop application in a compatible browser. I can easily imagine the future of open-source software taking this direction.
+Once the local version and its resources are prepared, SHERLOQ runs entirely offline, independently of WordPress and my website. It works like a standalone desktop application in a compatible browser. Installation is straightforward, even without programming knowledge. SHERLOQ can be used online or locally, and updates are easy to apply. I can easily imagine the future of open-source software taking this direction.
 
 ## Example material
 
