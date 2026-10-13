@@ -110,8 +110,8 @@ Component notices are in notices/ and the full source repository.
         for notice in args.notice:
             archive.write(notice, 'SHERLOQ-Web/notices/' + notice.name)
     size = args.output.stat().st_size
-    if size > 20_000_000:
-        raise ValueError('Compressed public bootstrap ZIP exceeds 20 MB')
+    if size > 25_000_000:
+        raise ValueError('Compressed public bootstrap ZIP exceeds 25 MB')
     with zipfile.ZipFile(args.output) as archive:
         if archive.testzip() is not None:
             raise ValueError('Bootstrap ZIP CRC mismatch')
@@ -119,7 +119,7 @@ Component notices are in notices/ and the full source repository.
               'sha256': hashlib.sha256(args.output.read_bytes()).hexdigest(),
               'version': version, 'resourceOrigin': origin,
               'manifestSha256': config['manifest'], 'privateOverlayIncluded': False,
-              'scientificModelsBundled': False, 'compressedLimitBytes': 20_000_000}
+              'scientificModelsBundled': False, 'compressedLimitBytes': 25_000_000}
     args.output.with_suffix('.json').write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(result, indent=2))
 

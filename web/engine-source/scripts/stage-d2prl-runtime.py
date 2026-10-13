@@ -96,6 +96,137 @@ def qualified_table_simd_entry(previous,vendor,variant='table-simd4-scalar'):
  if entry is None:
   assert not any((vendor/name).exists() for name in expected_files),'Unqualified table/SIMD evaluator has no portable metadata'
   return None
+ # Version2 is a separate SHA-bound revision. Schema1 below keeps its exact historical contract.
+ if variant=='table-simd4-exact-subnormal' and entry.get('schema')==2:
+  expected={'schema': 2,
+   'status': 'qualified-exact-current-public-api-half-round-table',
+   'revision': 'half-round-table-v1',
+   'descriptorLayout': 'HWC-uint16',
+   'buildScript': '.build/d2prl-half-round-table/prepare-build.py',
+   'stageScript': 'scripts/stage-d2prl-runtime.py',
+   'compiler': 'emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.11 (a0014542110d6078c3a1a7941fa1ddb3a2281f16)',
+   'compilerProvenance': {'kind': 'inferred-from-recorded-command-and-byte-identical-control',
+                          'buildTimeVersionCaptured': False,
+                          'legacyCompiler': 'emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.11 '
+                                            '(a0014542110d6078c3a1a7941fa1ddb3a2281f16)',
+                          'commandTool': 'em++',
+                          'controlFiles': {'table-simd4-exact-subnormal.js': {'bytes': 7747,
+                                                                              'sha256': 'cda1e5e9d64566652c12d6eb5589b8f8621fcdc519897b47344dc2e9dfc0759a'},
+                                           'table-simd4-exact-subnormal.wasm': {'bytes': 18586,
+                                                                                'sha256': '54944c22b79e25068908af4c0885a4b0cf2131cf943b77f176683cbef50f8fb5'}}},
+   'sources': {'baselineTable': '38edcd7a5ab6ce5a2e81c71df8c2a2c04a4c31ba9589a237cf034cec991d3096',
+               'originalCandidate': {'table-simd4-exact-subnormal.cpp': '7a8ede16ef8cc00da922ed2b00d6287c95efd4e6e5cf2fc7bd2f1280fd4d50eb',
+                                     'table-simd4-exact-subnormal-tiled.cpp': '2797c1ed1f6245d8a55ed266f63b2f5d5c4e17f9836c6c4069c55914eefc2122'},
+               'candidate': {'table-simd4-exact-subnormal.cpp': {'referenceFile': '.build/d2prl-half-round-table/candidate/table-simd4-exact-subnormal.cpp',
+                                                                 'bytes': 11498,
+                                                                 'sha256': 'aa1b85fedb3a440ce879d9f1365211fe91f0cdd6cb6110cc364b355bfe1c45ab'},
+                             'table-simd4-exact-subnormal-tiled.cpp': {'referenceFile': '.build/d2prl-half-round-table/candidate/table-simd4-exact-subnormal-tiled.cpp',
+                                                                       'bytes': 738,
+                                                                       'sha256': '2797c1ed1f6245d8a55ed266f63b2f5d5c4e17f9836c6c4069c55914eefc2122'},
+                             'reference-exp.h': {'referenceFile': '.build/d2prl-half-round-table/candidate/reference-exp.h',
+                                                 'bytes': 1282,
+                                                 'sha256': '63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e'},
+                             'prepare-build.py': {'referenceFile': '.build/d2prl-half-round-table/prepare-build.py',
+                                                  'bytes': 5065,
+                                                  'sha256': '20db78126f0995c9dc8d02dc37453109fe84bc80420088e7f74d872c7aea3654'}}},
+   'files': {'table-simd4-exact-subnormal.js': {'bytes': 7747, 'sha256': 'cda1e5e9d64566652c12d6eb5589b8f8621fcdc519897b47344dc2e9dfc0759a'},
+             'table-simd4-exact-subnormal.wasm': {'bytes': 19584, 'sha256': '1e94c50c2a89ead1f7e595e042966345ce20fe366a4b4c5e0f58a1e180695ee3'}},
+   'scientificContract': {'modelSha256': '8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b',
+                          'sharedBudgetBytes': 3221225472,
+                          'cpuWorkersMaximum': 4,
+                          'gpuWorkersMaximum': 1,
+                          'rolesMemoryMaximumBytes': 268435456,
+                          'nativeSide': 448,
+                          'iterations': 40,
+                          'seed': 22,
+                          'referenceThreads': 8,
+                          'newTables': 0,
+                          'newHeapOrWorkspace': False,
+                          'roundingAndReductionOrderChanged': False},
+   'qualification': {'evidence': {'sourceBuild': {'referenceFile': '.build/d2prl-half-round-table/source-build-proof.json',
+                                                  'bytes': 7330,
+                                                  'sha256': '76e55d9ab43ef066e330e63b6a5a14ff106f45676cd8bf7bcea4d43fd2ded907'},
+                                  'nativeParity': {'referenceFile': '.build/d2prl-half-round-table/native-parity.json',
+                                                   'bytes': 105362,
+                                                   'sha256': '9aedb414cf5c8674de9a21352dafcf52accb19539f584b3bd1a6e7d6acf2b216'},
+                                  'publicModel': {'referenceFile': '.build/d2prl-half-round-table/real-model-qualification.json',
+                                                  'bytes': 431879,
+                                                  'sha256': '8051fb1e6e04e950c91cb2738a166ccafadb3314df3a96db6a2429a7b3842863'},
+                                  'largeQualification': {'referenceFile': '.build/d2prl-half-round-table/large-qualification.json',
+                                                         'bytes': 13247,
+                                                         'sha256': '3929259d6090f3caffdbf20de1259a3e53b69a040f646aa994565e2a98685a7b'},
+                                  'large30': {'referenceFile': '.build/d2prl-half-round-table/large30-resume1/large-report.json',
+                                              'bytes': 2001694,
+                                              'sha256': '9a4c30ade2042bd86fea41353b73848129be0adbb4208dad051792df54e4265d'},
+                                  'large96': {'referenceFile': '.build/d2prl-half-round-table/large96-qualification1/large-report.json',
+                                              'bytes': 2133255,
+                                              'sha256': '20f7049c269604cfff7dff7525a51775ef856c304bc184d2b477497c4de5c97a'},
+                                  'postInstallSmoke': {'referenceFile': '.build/d2prl-half-round-table/post-install-smoke1/post-install-smoke-report.json',
+                                                       'bytes': 78615,
+                                                       'sha256': 'cc633537796cca37448604d545d619f0ed480d512f59ca4b15d6d3aa7e6b846d'}},
+                     'nativeParity': {'status': 'passed-current-vendor-control-candidate-bit-parity',
+                                      'cases': 174,
+                                      'allHeapsWithinOriginalABI': True,
+                                      'sourceSha256': 'aa1b85fedb3a440ce879d9f1365211fe91f0cdd6cb6110cc364b355bfe1c45ab'},
+                     'publicModel': {'status': 'passed-current-complete-public-model-lut-parity-and-balanced-timings',
+                                     'parityRecords': 2,
+                                     'timingRecords': 4,
+                                     'balancedPairs': 2,
+                                     'rawOutputsMasksViewsNPZAndRefiltersExact': True,
+                                     'allFinalOwnersLeasesBackingsZero': True,
+                                     'analysisMedianPairedGainPercent': 10.229296471911164},
+                     'largeSizes': [{'sizeMP': 30,
+                                     'status': 'passed-current-large-public-engine',
+                                     'balancedPairs': 2,
+                                     'exactAllScientificRepetitions': True,
+                                     'analysisMedianPairedGainPercent': 9.297308822792626,
+                                     'independentNpz': ['passed', 'passed', 'passed', 'passed'],
+                                     'hostCleanup': {'status': 'closed', 'failures': []}},
+                                    {'sizeMP': 96,
+                                     'status': 'passed-current-large-public-engine-with-native-diagnostic-unavailable',
+                                     'balancedPairs': 2,
+                                     'exactAllScientificRepetitions': True,
+                                     'analysisMedianPairedGainPercent': 9.32466744410345,
+                                     'independentNpz': ['passed', 'passed', 'passed', 'passed'],
+                                     'hostCleanup': {'status': 'closed', 'failures': []}}],
+                     'nativeTorch96': {'status': 'unavailable-pinned-files-missing-no-comparison',
+                                       'qualified': False,
+                                       'missing': [{'expectedBytes': 2408448,
+                                                    'expectedSha256': 'e3bad27163e2ff123fb8ffa9d6e19b31cbd57422f1d90adbebd5e409d8e7ab1e',
+                                                    'status': 'absent-not-compared'},
+                                                   {'expectedBytes': 2408448,
+                                                    'expectedSha256': 'b79181d6a57e28a097724aeebda7ae23fb6e82cc67c24af5896eedf8540548ff',
+                                                    'status': 'absent-not-compared'},
+                                                   {'expectedBytes': 2408448,
+                                                    'expectedSha256': '0bd6f8cf68034cc974f5262235306acca6f4e96ba6b9568aa40a67de84499aae',
+                                                    'status': 'absent-not-compared'}]},
+                     'postInstallSmoke': {'status': 'passed-installed-public-api-no-remapping',
+                                          'installed': True,
+                                          'exact': True,
+                                          'remapping': False,
+                                          'injection': False,
+                                          'speedClaim': False,
+                                          'hostCleanup': {'status': 'closed', 'failures': []}},
+                     'scope': 'SHA-bound half-round-table-v1 only. Exact current public API parity on the recorded pinned source and 30/96MP fixtures; two '
+                              'balanced timing pairs per fixture. No universal gain or detector-accuracy claim. Historical native Torch96 binaries remain absent '
+                              'and unqualified. Compiler version is an explicit inference, not a captured build-time version.'}}
+  assert json.dumps(entry,sort_keys=True,separators=(',',':'))==json.dumps(expected,sort_keys=True,separators=(',',':')),'Unknown or changed half-round-table-v1 identity/provenance/qualification'
+  assert previous['builds'].get('evaluator-pixel-major',{}).get('status')=='qualified-exact-direct-model','Qualified HWC baseline required'
+  roles=previous['builds'].get('roles-256-d2prl',{})
+  assert roles.get('status')=='qualified-exact-current-engine-memory-cap' and roles.get('runtimeId')=='ort130-wasm-256mib-d2prl' and roles.get('memoryMaximumBytes')==268435456,'Qualified unchanged256MiB D2 roles required'
+  assert '/Users/' not in json.dumps(entry),'Nonportable half-round-table-v1 metadata'
+  def verified(name,spec,folder):
+   source=folder/name
+   assert source.is_file() and not source.is_symlink() and source.stat().st_size==spec['bytes'] and sha(source)==spec['sha256'],'Half-round-table-v1 artifact/proof differs: '+name
+  for name,spec in expected['files'].items():
+   assert previous['files'].get(name)==spec,'Half-round-table-v1 portable pin differs: '+name
+   verified(name,spec,vendor)
+  evidence_root=vendor.parent.parent
+  for spec in list(expected['sources']['candidate'].values())+list(expected['qualification']['evidence'].values()):
+   name=spec['referenceFile']
+   assert not Path(name).is_absolute() and '..' not in Path(name).parts and name.startswith('.build/'),'Portable half-round-table-v1 evidence reference required'
+   verified(name,spec,evidence_root)
+  return entry
  assert set(entry)=={'schema','status','descriptorLayout','buildScript','stageScript','compiler','sources','files','qualification'},'Unknown table/SIMD evaluator metadata'
  assert entry['schema']==1 and entry['status']=='qualified-exact-direct-model' and entry['descriptorLayout']=='HWC-uint16'
  assert entry['buildScript']==known[variant].get('buildScript','scripts/build-d2prl-evaluator-table-simd.mjs') and entry['stageScript']=='scripts/stage-d2prl-evaluator-module.mjs'

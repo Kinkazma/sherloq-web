@@ -10,17 +10,19 @@ import {EngineError} from './errors.js';
 import {deserializeDenseError,serializeDenseError} from './dense-memory-error.js';
 import {createDenseInputBarrier} from './dense-input-barrier.js';
 
-const cpuWaiters=new Map(),gpuWaiters=new Map(),memoryWaiters=new Map();let cpuSerial=0,gpuSerial=0,memorySerial=0,inputBarrier;
+const cpuWaiters=new Map(),gpuWaiters=new Map(),memoryWaiters=new Map(),gpuRetireOwners=new Map();let cpuSerial=0,gpuSerial=0,memorySerial=0,inputBarrier,denseGpuInputTransfer,restoreDenseGpuInputs;
 installWorkerMessageProtocol(self,async data=>{
  if(data.inputControl){const {token,action,id,descriptor,immediate}=data.inputControl;try{let paused;if(action==='detach'){if(immediate)paused=await inputBarrier.tryPause(id,[id]);else{await inputBarrier.pause(id,[id]);paused=true;}}else if(action==='attach')await inputBarrier.resume(id,[{id,descriptor}]);else throw new EngineError('INVALID_INPUT','Unknown dense input transition.');self.postMessage({inputAck:{token,paused}});}catch(error){self.postMessage({inputAck:{token,error:serializeDenseError(error)}});}return;}
  if(data.cpuGrant){const task=cpuWaiters.get(data.cpuGrant.id);if(task){cpuWaiters.delete(data.cpuGrant.id);task(data.cpuGrant);}return;}
  if(data.memoryGrant){const task=memoryWaiters.get(data.memoryGrant.id);if(task){memoryWaiters.delete(data.memoryGrant.id);data.memoryGrant.error?task.reject(deserializeDenseError(data.memoryGrant.error)):task.resolve(data.memoryGrant);}return;}
- if(data.gpuGrant){const task=gpuWaiters.get(data.gpuGrant.id);if(task){gpuWaiters.delete(data.gpuGrant.id);data.gpuGrant.error?task.reject(deserializeDenseError(data.gpuGrant.error)):task.resolve(data.gpuGrant);}return;}
+ if(data.gpuGrant){const task=gpuWaiters.get(data.gpuGrant.id);if(task){gpuWaiters.delete(data.gpuGrant.id);try{if(task.job&&data.gpuGrant.inputs)restoreDenseGpuInputs(task.job,data.gpuGrant.inputs);data.gpuGrant.error?task.reject(deserializeDenseError(data.gpuGrant.error)):task.resolve(data.gpuGrant);}catch(error){task.reject(error);}}return;}
+ if(data.gpuRetire){const {token,requestId}=data.gpuRetire;let retired=false;try{retired=await gpuRetireOwners.get(requestId)?.()===true;}finally{self.postMessage({gpuRetired:{token,retired}});}return;}
  if(!data.input)throw new EngineError('WORKER_MESSAGE_FAILED','Unexpected dense field command.');
+ if(data.options.reuseGpuTransport===true&&data.options.enableDenseGpu===true)({denseGpuInputTransfer,restoreDenseGpuInputs}=await import('./dense-gpu-transport.js'));
  const budget=new Budget(data.budgetBytes),inputTransportBytes=data.input.stores.reduce((bytes,store)=>bytes+2*Math.min(64*1024,store.byteLength),0),inputTransportBudget=new Budget(inputTransportBytes);inputBarrier=createDenseInputBarrier();let inputTransportRelease,input,result,session,sessionPromise,gpuMetrics,gpuAllowance=0,stagingAllowance=0,gpuUnavailable=false,gpuFallback;const pins=[],gpuReleases=[];
  let nativeHeapBytes=0;
  const backing=()=>({arrayBufferBytes:budget.resourceSnapshot().domains['array-buffer'].materializedBytes,wasmBytes:nativeHeapBytes});
- const gpuRequest=(action,settings={},transfer=[])=>new Promise((resolve,reject)=>{const id=++gpuSerial;gpuWaiters.set(id,{resolve,reject});self.postMessage({gpuRequest:{id,action,...settings}},transfer);});
+ const gpuRequest=(action,settings={},transfer=[],onId)=>new Promise((resolve,reject)=>{const id=++gpuSerial;gpuWaiters.set(id,{resolve,reject,job:settings.job});onId?.(id);try{self.postMessage({gpuRequest:{id,action,...settings}},transfer);}catch(error){gpuWaiters.delete(id);gpuRetireOwners.delete(id);reject(error);}});
  const closeGpu=async()=>{await Promise.all(gpuReleases.splice(0));};
  try{
   inputTransportRelease=budget.reserve(inputTransportBytes);
@@ -30,12 +32,12 @@ installWorkerMessageProtocol(self,async data=>{
   const recoverMemory=({bytes,error})=>new Promise((resolve,reject)=>{const id=++memorySerial;memoryWaiters.set(id,{resolve,reject});self.postMessage({memoryRequest:{id,bytes,error}});});
   const releaseWorkspace=async bytes=>{const id=++memorySerial;await new Promise((resolve,reject)=>{memoryWaiters.set(id,{resolve,reject});self.postMessage({memoryRequest:{id,bytes,action:'release-unused'}});});budget.limit-=bytes;};
   const acquireCpu=async({maximum,minimum=1,requiredWorkspaceBytes,requiredBudgetBytes,kernelBytes}={})=>{const id=++cpuSerial,grant=await new Promise(resolve=>{cpuWaiters.set(id,resolve);self.postMessage({cpuRequest:{id,maximum,minimum,workspaceBytes:requiredBudgetBytes===undefined?requiredWorkspaceBytes:Math.max(0,requiredBudgetBytes-outputReservation-gpuAllowance-stagingAllowance),kernelBytes}});});budget.limit=grant.workspaceBytes+outputReservation+gpuAllowance+stagingAllowance;let released=false,cpu=grant.cpu;return {...grant,get cpu(){return cpu;},releaseCpu(count){if(released||count<1||count>cpu)return;cpu-=count;self.postMessage({cpuReturn:{id,count}});},release(){if(released)return;released=true;self.postMessage({cpuRelease:id});}};};
-  const reserveGpuStaging=async bytes=>{const grant=await gpuRequest('staging-reserve',{bytes});stagingAllowance+=grant.bytes;budget.limit+=grant.bytes;const release=budget.reserve(grant.bytes);let released=false;return async()=>{if(released)return;released=true;release();stagingAllowance-=grant.bytes;budget.limit-=grant.bytes;await gpuRequest('staging-free',{token:grant.token});};};
+  const reserveGpuStaging=async(bytes,{retire,reusable=false}={})=>{let release,grant,released=false;const free=async(remote=true)=>{if(released||!grant)return;released=true;gpuRetireOwners.delete(grant.token);release?.();stagingAllowance-=grant.bytes;budget.limit-=grant.bytes;if(remote)await gpuRequest('staging-free',{token:grant.token});};try{grant=await gpuRequest('staging-reserve',{bytes,reusable},[],id=>{if(reusable)gpuRetireOwners.set(id,async()=>{if(released||!grant||!await retire?.())return false;await free(false);return true;});});stagingAllowance+=grant.bytes;budget.limit+=grant.bytes;release=budget.reserve(grant.bytes);free.token=grant.token;return free;}catch(error){if(grant)await free();throw error;}};
   const distanceBatch=async job=>{
-   if(gpuUnavailable)return null;
+   if(gpuUnavailable){job.gpuTransportRetain=false;return null;}
    try{
-    const grant=await gpuRequest('distance-batch',{job},[job.queryDescriptors.buffer,job.candidateDescriptors.buffer,job.best.buffer]);gpuMetrics=grant.metrics;return grant.result;
-   }catch(error){if(error.code==='CANCELLED')throw error;gpuFallback=serializeEngineError(error,'GPU_FAILED');gpuUnavailable=true;await closeGpu();return null;}
+    const grant=await gpuRequest('distance-batch',{job},job.reuseGpuTransport===true?denseGpuInputTransfer(job):[job.queryDescriptors.buffer,job.candidateDescriptors.buffer,job.best.buffer]);gpuMetrics=grant.metrics;return grant.result;
+   }catch(error){job.gpuTransportRetain=false;if(error.code==='CANCELLED')throw error;gpuFallback=serializeEngineError(error,'GPU_FAILED');gpuUnavailable=true;await closeGpu();return null;}
    finally{await Promise.all(gpuReleases.splice(0));}
   };
   result=await runPagedDenseField(input,{...data.options,budget,getTemporarySession,acquireCpu,recoverMemory,releaseWorkspace,distanceBatch:data.options.enableDenseGpu===true?distanceBatch:undefined,reserveGpuStaging:data.options.enableDenseGpu===true?reserveGpuStaging:undefined,readCache:input.readCache,inputBarrier,inputReaders:input,storage:data.outputStorage??'memory',onProgress:progress=>{nativeHeapBytes=progress.parallel?.heapBytes??progress.nativeHeapBytes??nativeHeapBytes;self.postMessage({progress,backing:backing()});}});nativeHeapBytes=0;

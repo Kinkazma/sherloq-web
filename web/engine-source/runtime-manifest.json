@@ -1159,8 +1159,8 @@
     },
     {
       "file": "experiments/segmentation/tnt-inference.js",
-      "bytes": 6579,
-      "sha256": "3a73b9540af9404258bdec8bf914c8990422150b01790d023b3c9dd8de6b3687"
+      "bytes": 7025,
+      "sha256": "e6e7912f5c8975231299d73c82e86eabb514d0f451087b0723f66777480451bd"
     },
     {
       "file": "experiments/segmentation/tnt-linear-gpu.js",
@@ -1174,8 +1174,8 @@
     },
     {
       "file": "experiments/segmentation/tnt-linear.js",
-      "bytes": 5420,
-      "sha256": "076816da53d56761565f1f718866cb68561c52b1d4d6e8f1258532400554fcd6"
+      "bytes": 5900,
+      "sha256": "a216cbb18bc01fe11a73cb998d8ec0d79b90563fc7c4ac4484553abd371e9a0c"
     },
     {
       "file": "experiments/segmentation/vig-backbone.js",
@@ -1194,8 +1194,8 @@
     },
     {
       "file": "experiments/segmentation/vig-convolution.js",
-      "bytes": 5709,
-      "sha256": "2bfc249b8a6c97d0b563c6a9daf28a2550e36ffa569f5ca101bcdbe27482973a"
+      "bytes": 6189,
+      "sha256": "4e3e669abd3705b1ea12a0ce68e980005b8e24ea5fbec25bb350cfbb792b3325"
     },
     {
       "file": "experiments/segmentation/vig-distance-gpu.js",
@@ -1204,8 +1204,8 @@
     },
     {
       "file": "experiments/segmentation/vig-inference.js",
-      "bytes": 6583,
-      "sha256": "271f37c54d05aaa5a42a56178df78d50f61b6a010c4ada5938aac81592dd5da7"
+      "bytes": 7029,
+      "sha256": "6d9d5b2dac08d541855624d5656b888fd324fd8a2a188c1b0cad51d454c0cec2"
     },
     {
       "file": "experiments/segmentation/zone-scheduler.js",
@@ -1231,6 +1231,36 @@
       "file": "native/composite-stream-runtime.py",
       "bytes": 4561,
       "sha256": "bb46faeb89e0bc5e31e63252f3a8fde8a0b165623660335102062bd8641f236b"
+    },
+    {
+      "file": "native/sparse-float-distance/copy-tree-sdk4.js",
+      "bytes": 7545,
+      "sha256": "7b8103db897018c41de5ed02f5012f3ec41858634dd939d2b4cceef2798b029a"
+    },
+    {
+      "file": "native/sparse-float-distance/copy-tree.wasm",
+      "bytes": 9518,
+      "sha256": "cb721cd10bac54dde502081d14e67d219609437cfd59093c15e4b564b60c131e"
+    },
+    {
+      "file": "native/sparse-float-distance/scalar-control.audit.json",
+      "bytes": 1295,
+      "sha256": "ce265bf8f27ae3cff1c057cbfee37eedb7375d171a49d78fd7c20bd4cd5faf63"
+    },
+    {
+      "file": "native/sparse-float-distance/scalar-control.wasm",
+      "bytes": 1283,
+      "sha256": "591669684fd28cfb20a136cdaa5577f12449d1672acf4210972a99f917c05af6"
+    },
+    {
+      "file": "native/sparse-float-distance/simd-ordered.audit.json",
+      "bytes": 1289,
+      "sha256": "e4d656b60b06b3edf9656cb2fe171166bd78db6583d4e3cd0fecbd444a8cbde3"
+    },
+    {
+      "file": "native/sparse-float-distance/simd-ordered.wasm",
+      "bytes": 1072,
+      "sha256": "c6675bb6d775dd0fdec0509ad9356f13943459d7997d9dd8623d7bec03959cbc"
     },
     {
       "file": "src/adaifl-assets.js",
@@ -1783,6 +1813,16 @@
       "sha256": "51664f41bf210e4f8fed5dbee1e9f290b5014ccba4f878f95ae972c7ba6c0c8a"
     },
     {
+      "file": "src/copy-spatial-native-backend.js",
+      "bytes": 7288,
+      "sha256": "bdaf2dbba15ca16fc3ff1ab8264ac25d2a78dca55cb882b94ab49ba3bbccdc8b"
+    },
+    {
+      "file": "src/copy-spatial-private.js",
+      "bytes": 5395,
+      "sha256": "8d713ff1d6e044818ac35486f1fcda41cf8321cf666204aa2e50258a6b50959e"
+    },
+    {
       "file": "src/copy-spatial.js",
       "bytes": 6890,
       "sha256": "173d0fd8b73420676492e466864235ba76c681c7936625fcabc3e317d04a0041"
@@ -1843,6 +1883,11 @@
       "sha256": "220051ad6d04a009620fa992445830376839986989331882e13806723c2014a3"
     },
     {
+      "file": "src/dense-descriptor-cache.js",
+      "bytes": 273,
+      "sha256": "96a8f9ae12bdf35dfdc7aeca49ad1c34e40c13b5b633fa8a3f10443ebcf9b08d"
+    },
+    {
       "file": "src/dense-detail.js",
       "bytes": 3490,
       "sha256": "9f5a1e36427de3f9e25c111c43988ffc03d5ebfc966a8102d04e6100da7cc6b9"
@@ -1854,18 +1899,23 @@
     },
     {
       "file": "src/dense-field-kernel-worker.js",
-      "bytes": 7864,
-      "sha256": "a9d317f98c1a2a7534356902fcc1bba03a956519dd1017449b8c2222b9f23d14"
+      "bytes": 9048,
+      "sha256": "5154afa1651f2f47957f9fdc7f91b90d52ab2b7e17d927637b1aabdb2a749eda"
     },
     {
       "file": "src/dense-field-parallel.js",
-      "bytes": 20470,
-      "sha256": "d409fde39ee02a2790120a052c110c9c98cbf54c31223b790e9e4bec475c7d89"
+      "bytes": 23504,
+      "sha256": "4344489ba6fe20e7e2b48e2b19cfd55764c61a0f0d7abd199b5827483bb53331"
     },
     {
       "file": "src/dense-gpu-service.js",
       "bytes": 2167,
       "sha256": "4b268c99c55f62b094bd4a1a9cc8ae3c270aa62af2e51435d61db5b89dab316e"
+    },
+    {
+      "file": "src/dense-gpu-transport.js",
+      "bytes": 6009,
+      "sha256": "2ad005330c12b2801e9a3b3bdb1334df786467cb4424a0b00a857624e5342694"
     },
     {
       "file": "src/dense-image.js",
@@ -1884,8 +1934,8 @@
     },
     {
       "file": "src/dense-math.js",
-      "bytes": 18084,
-      "sha256": "aebceba5ad332ac83eb89d6acc999db72b80cac69e4a5e59c7f55a69860c106b"
+      "bytes": 21965,
+      "sha256": "0930a40730a9d86d66690c6df08da4d49d3005213f7d4f693f02e9d0e32757f1"
     },
     {
       "file": "src/dense-memory-error.js",
@@ -1914,13 +1964,13 @@
     },
     {
       "file": "src/dense-paged-field-pool.js",
-      "bytes": 21426,
-      "sha256": "8274f7c6fe267c5d565067c9c28d45475786c3ac5b05766cf876f00d6727b084"
+      "bytes": 23788,
+      "sha256": "a808b1a71dee50628e7c62e8334aacb2558f8ce3e9e74102d8ee56f0f0ba112b"
     },
     {
       "file": "src/dense-paged-field-worker.js",
-      "bytes": 7930,
-      "sha256": "e21790af43137998261f2d3754af221d5efdc9882076ff24706bc36e75838deb"
+      "bytes": 9065,
+      "sha256": "6676b7cd0c57a0f71f31cdfe3a285a9877684b380ba62b880fb8482de1480fe6"
     },
     {
       "file": "src/dense-paged-heap.js",
@@ -1929,8 +1979,8 @@
     },
     {
       "file": "src/dense-paged-image.js",
-      "bytes": 18392,
-      "sha256": "fa383189525fe84ac864ab8ee3e9f428ff6597d1730343aa52b8ee9741e8de23"
+      "bytes": 18415,
+      "sha256": "1f9faac69294531ac7b2424bcd7dcf924b98bc95507e0d38bf922c81fd99a9e1"
     },
     {
       "file": "src/dense-paged-links.js",
@@ -1964,13 +2014,13 @@
     },
     {
       "file": "src/dense-paged.js",
-      "bytes": 17096,
-      "sha256": "d448a6a20c7b65ca7d9d01cb27744e64fd680c581668997c3632fac14ea9f26a"
+      "bytes": 17138,
+      "sha256": "8316fbdd90e79ddc23e7946937ecd85e776205026a2cca583635cb61afa4331a"
     },
     {
       "file": "src/dense-pool.js",
-      "bytes": 13971,
-      "sha256": "77a3de1223258078f36b3df96811931963bf5ec09c2ee6ef10a195c6500801fb"
+      "bytes": 14917,
+      "sha256": "8a5e44d2a6f4f07e31c9b16756dd7627ea4fd2618840a0e4afbbcfcad9d6a840"
     },
     {
       "file": "src/dense-postprocess.js",
@@ -2039,8 +2089,8 @@
     },
     {
       "file": "src/dense-worker.js",
-      "bytes": 5629,
-      "sha256": "50c203a1e1f8f78d68727b60c31a0a3ab1c3ddf2b4d8bdec432c39900a9f87ea"
+      "bytes": 6566,
+      "sha256": "d628debcddb59ef231f3d8e50e66c05faeb1af018ac18c05adb0c142b27949d5"
     },
     {
       "file": "src/dense-write-batch.js",
@@ -2634,8 +2684,8 @@
     },
     {
       "file": "src/m2-worker.js",
-      "bytes": 2304,
-      "sha256": "0240a613de223121db6f0ba9aac16f905f852dff3c89d8a442cd8462f35d8550"
+      "bytes": 3240,
+      "sha256": "260028b8662f874a5c0cb526638d6c512956752bf4f0c9d5c31f8116820dc8eb"
     },
     {
       "file": "src/m3-adapter.js",
@@ -2694,8 +2744,8 @@
     },
     {
       "file": "src/media-codec-client.js",
-      "bytes": 2109,
-      "sha256": "c3ae56460034bbda10278cb6490e647aa427a57177876d07d587e797d87c1e0e"
+      "bytes": 2666,
+      "sha256": "f9b318f59dfb9b4f2938ec88a36d2cb385d1c7727e2130c885628e01621a2769"
     },
     {
       "file": "src/media-codec-worker.js",
@@ -3759,8 +3809,8 @@
     },
     {
       "file": "src/sparse-copy.js",
-      "bytes": 18765,
-      "sha256": "8365c602cab0157459f65ee7f69c2537522cc50a0a6451cf94a7b871c4c253dd"
+      "bytes": 19248,
+      "sha256": "596b523a8020d23064c72568c39a51b94ef8f2b05a2691a291ab8f8fe4d60ec4"
     },
     {
       "file": "src/sparse-extract-assets.js",
@@ -3834,8 +3884,8 @@
     },
     {
       "file": "src/ssg-full-input.js",
-      "bytes": 5144,
-      "sha256": "aae4d503104f5b0d3af4f3e08d2e07bbf6e80ea55ca7f39c8df07e91088dfe4e"
+      "bytes": 6081,
+      "sha256": "423bd77584519fca378fcd112186b79dc8c21d2158e4b2ef191e56e4cbcd455a"
     },
     {
       "file": "src/ssg-full-localization.js",
@@ -3854,8 +3904,8 @@
     },
     {
       "file": "src/ssg.js",
-      "bytes": 21576,
-      "sha256": "4468d63a24f8ec8bc0c63955365c3d5bb5f9de7c02de603346d0f2af5ee285e8"
+      "bytes": 22847,
+      "sha256": "1d6ddf062851eeec672ac8e7937e69a4581484600d744ee66adeeb8549f8ac3e"
     },
     {
       "file": "src/stereo-flow-stage.js",
@@ -4044,8 +4094,8 @@
     },
     {
       "file": "src/worker-message-protocol.js",
-      "bytes": 1642,
-      "sha256": "89bdda99819ce13fef57475a91cd9644c1d21063a90409059c6c0a4053069165"
+      "bytes": 3301,
+      "sha256": "b8e15c2583ac249b0196d9f399ac9fff505465ceada0dea230ff2ac03b5d3e59"
     },
     {
       "file": "src/worker-transport-recovery.js",
@@ -4579,8 +4629,8 @@
     },
     {
       "file": "vendor/d2prl/PINNED.json",
-      "bytes": 37891,
-      "sha256": "2cd9baa3d288e1bedd6906dde77554a780fbe9d44d8883dfddacc4e65d504d6e"
+      "bytes": 36163,
+      "sha256": "f2fc987a504f697c096e500cef83c9527561547795767da2b539a79e85ba8ebc"
     },
     {
       "file": "vendor/d2prl/PYTORCH-LICENSE.txt",
@@ -4724,8 +4774,8 @@
     },
     {
       "file": "vendor/d2prl/table-simd4-exact-subnormal.wasm",
-      "bytes": 18586,
-      "sha256": "54944c22b79e25068908af4c0885a4b0cf2131cf943b77f176683cbef50f8fb5"
+      "bytes": 19584,
+      "sha256": "1e94c50c2a89ead1f7e595e042966345ce20fe366a4b4c5e0f58a1e180695ee3"
     },
     {
       "file": "vendor/dense-paged/GPLv3.txt",

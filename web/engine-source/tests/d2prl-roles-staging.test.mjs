@@ -82,7 +82,7 @@ print(json.dumps({'checks':checks,'staged':False,'originalSharedRuntimePreserved
 });
 for(const variant of ['table-simd4-scalar','table-simd4-normal','table-simd4-exact-subnormal'])test('runtime packaging preserves only the fixed '+variant+' pair after current-HWC exact gain qualification',t=>{
  const hasPair=relative=>['js','wasm'].every(extension=>existsSync(root+relative+'/'+variant+'.'+extension));
- let fixture=variant==='table-simd4-exact-subnormal'?'.build/evaluator-table-simd-subnormal':'.build/evaluator-table-simd';
+ let fixture=variant==='table-simd4-exact-subnormal'?'tests/fixtures/d2prl-subnormal-v1':'.build/evaluator-table-simd';
  if(!hasPair(fixture)){
   if(variant==='table-simd4-exact-subnormal'){
    fixture='vendor/d2prl';
@@ -97,7 +97,7 @@ import ast,copy,hashlib,json,re
 from pathlib import Path
 root=Path.cwd();script=root/'scripts/stage-d2prl-runtime.py';tree=ast.parse(script.read_text())
 guard=next(node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name=='qualified_table_simd_entry')
-scope={'json':json,'re':re,'sha':lambda p:hashlib.sha256(p.read_bytes()).hexdigest()}
+scope={'json':json,'re':re,'Path':Path,'sha':lambda p:hashlib.sha256(p.read_bytes()).hexdigest()}
 exec(compile(ast.Module(body=[guard],type_ignores=[]),str(script),'exec'),scope);verify=scope['qualified_table_simd_entry']
 actual_pins=json.loads((root/'vendor/d2prl/PINNED.json').read_text());assert verify(actual_pins,root/'vendor/d2prl')==actual_pins['builds'].get('evaluator-table-simd4-scalar')
 files={name:(root/Path(__import__('sys').argv[1])/name).read_bytes() for name in ['table-simd4-scalar.js','table-simd4-scalar.wasm']}

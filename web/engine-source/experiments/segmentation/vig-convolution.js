@@ -1,3 +1,4 @@
+import {attachWorkerMessageError} from '../../src/worker-message-protocol.js';
 import {requireValue, checkAbort, EngineError} from '../../src/errors.js';
 const HEAP = 64 * 1024 ** 2;
 
@@ -6,7 +7,7 @@ export function createVigConvolution({budget, maxWorkers = 1}) {
   const pool = []; let busy = false, disposed = false, serial = 0;
   const remove = (error = new EngineError('CANCELLED', 'VIG worker released')) => {
     const entry = pool.pop(); if (!entry) return;
-    entry.worker.terminate(); for (const job of entry.pending.values()) job.reject(error);
+    entry.detachMessageError?.(); entry.worker.terminate(); for (const job of entry.pending.values()) job.reject(error);
     entry.pending.clear(); entry.release();
   };
   const drop = error => { while (pool.length) remove(error); };
@@ -42,7 +43,9 @@ export function createVigConvolution({budget, maxWorkers = 1}) {
           try { worker = new Worker(new URL('./vig-convolution-worker.js', import.meta.url), {type: 'module'}); }
           catch (error) { free(); throw error; }
           const entry = {worker, release: free, pending: new Map()}; pool.push(entry);
-          worker.onmessage = ({data}) => {
+          worker.onmessage = event => {
+            let data;try{data=event.data;}catch(cause){fail(new EngineError('WORKER_FAILED','VIG transport response envelope',{cause}));return;}
+            if(!data||typeof data!=='object'||Array.isArray(data)||!Number.isSafeInteger(data.id)||data.id<=0){fail(new EngineError('WORKER_FAILED','VIG transport response envelope'));return;}
             const job = entry.pending.get(data.id); if (!job) return; entry.pending.delete(data.id);
             if (!data.ok) job.reject(new EngineError('COMPUTE_FAILED', data.error));
             else if (data.heapBytes !== HEAP) job.reject(new EngineError('MEMORY_LIMIT', 'VIG worker heap'));
@@ -50,7 +53,7 @@ export function createVigConvolution({budget, maxWorkers = 1}) {
           };
           const fail = error => { for (const job of entry.pending.values()) job.reject(error); entry.pending.clear(); };
           worker.onerror = event => fail(new EngineError('WORKER_FAILED', event.message));
-          worker.onmessageerror = () => fail(new EngineError('WORKER_FAILED', 'VIG transport'));
+          entry.detachMessageError = attachWorkerMessageError(worker,() => fail(new EngineError('WORKER_FAILED', 'VIG transport')));
           await rpc(entry, {kind: 'init', moduleUrl: new URL('../../vendor/segmentation/vig-math.js', import.meta.url).href});
         }
         checkAbort(signal);

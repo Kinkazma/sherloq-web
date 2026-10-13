@@ -171,3 +171,85 @@ export async function createDenseMath(options = {}) {
   };
 }
 export {sumFloat32 as denseSumFloat32};
+
+
+// One private primary feature publication per resident lane. Raw normalized
+// banks are never exposed outside the worker or mutated by canonicalization.
+// Replacing the key retires the previous banks before computing new features.
+export function createDenseDescriptorCache() {
+  let entry;
+  const metrics = {hits: 0, misses: 0, publications: 0, evictions: 0,
+    retainedBytes: 0, peakRetainedBytes: 0, reusedBytes: 0, cloneBytes: 0};
+  const clear = () => {
+    if (entry) metrics.evictions++;
+    entry = undefined;
+    metrics.retainedBytes = 0;
+  };
+  return {
+    clear,
+    lookup(key) {
+      if (entry?.key === key) {
+        metrics.hits++; metrics.reusedBytes += metrics.retainedBytes;
+        return entry.value;
+      }
+      metrics.misses++; clear();
+      return undefined;
+    },
+    publish(key, value) {
+      requireValue(typeof key === 'string' && value?.first instanceof Float32Array &&
+        value.second instanceof Float32Array && value.first.length === value.second.length &&
+        [value.first,value.second].every(v=>v.byteOffset===0&&v.byteLength===v.buffer.byteLength&&
+          v.buffer instanceof ArrayBuffer),
+        'Invalid private dense descriptor publication.');
+      clear();
+      const banks = new Set([value.first.buffer, value.second.buffer]);
+      const bytes = [...banks].reduce((sum, bank) => sum + bank.byteLength, 0);
+      entry = {key, value: Object.freeze({...value}), banks};
+      metrics.publications++; metrics.retainedBytes = bytes;
+      metrics.peakRetainedBytes = Math.max(metrics.peakRetainedBytes, bytes);
+      return entry.value;
+    },
+    writable(value) {
+      // An aligned crop already owns its fresh array. Only direct cache aliases
+      // need a copy before the existing in-place quarter-turn operation.
+      if (!entry?.banks.has(value.buffer)) return value;
+      const result = copyTypedArray(value, {label: 'dense-canonical-private-copy'});
+      metrics.cloneBytes += value.byteLength;
+      return result;
+    },
+    get snapshot() { return {...metrics}; },
+  };
+}
+
+// Cache publication replaces the primary source features already in the plan.
+// The only extra arrays are canonical working copies. For unequal supports one
+// aligned crop plus one clone needs at most the existing two-grid staging bound;
+// equal reflected supports also have the original doubled reflection allowance.
+export function denseDescriptorCacheByteBound(job) {
+  if (!job.descriptorCache || !job.sourceImage && !job.reuseSource ||
+      job.compactDescriptors || job.field) return 0;
+  const pass = job.pass, border = pass.method ? 3 * pass.patch : 0;
+  const bytes = (job.width - border) * (job.height - border) * (pass.method ? 128 : 12) * 4;
+  return bytes * (pass.reflection && pass.targetPatch === pass.patch ? 2 : 1);
+}
+
+// Enable automatic reuse only when the requested batch actually repeats a
+// primary feature bank. This plans useful jobs without reading pixels, starting
+// workers, or retaining a source between separate pool runs.
+export function selectDenseDescriptorCacheJobs(jobs) {
+  const sources = new Map(), keys = new Map();
+  for (const job of jobs) {
+    if (!job.sourceImage || job.compactDescriptors || job.field ||
+        job.descriptorCache === false || ![0, 1].includes(job.pass?.method)) continue;
+    const {crop, pass} = job;
+    if (!crop) continue;
+    const key = JSON.stringify([crop.x, crop.y, job.width, job.height,
+      pass.method, pass.patch, !!(pass.reflection && pass.targetPatch === pass.patch)]);
+    let counts = sources.get(job.sourceImage);
+    if (!counts) sources.set(job.sourceImage, counts = new Map());
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+    keys.set(job, key);
+  }
+  return jobs.map(job => job.descriptorCache !== undefined ? job : {...job,
+    descriptorCache: !!(keys.has(job) && sources.get(job.sourceImage).get(keys.get(job)) > 1)});
+}

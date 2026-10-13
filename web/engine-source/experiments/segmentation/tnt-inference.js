@@ -1,3 +1,4 @@
+import {attachWorkerMessageError} from '../../src/worker-message-protocol.js';
 import {requireValue, checkAbort, EngineError} from '../../src/errors.js';
 import {readVerifiedModelAsset} from '../d2prl/model.js';
 import {createTntBackbone, validateTntBackbone} from './tnt-backbone.js';
@@ -39,13 +40,16 @@ export function createTntInference({budget, model, modelUrl, backend='cpu'}) {
         features = await backbone.run(input, {signal, onProgress}); backbone.dispose(); backbone = undefined; checkAbort(signal);
         worker=sessionCache.acquire();
         const result = await new Promise((resolve, reject) => {
-          const cleanup = () => { signal?.removeEventListener('abort', abort); worker.onmessage = null; worker.onerror = null; worker.onmessageerror = null; };
+          let detachMessageError=()=>{};
+          const cleanup = () => { signal?.removeEventListener('abort', abort); detachMessageError(); worker.onmessage = null; worker.onerror = null; };
           const fail = error => { cleanup(); reject(error); };
           abort = () => fail(new EngineError('CANCELLED', 'TNT inference cancelled'));
           worker.onerror = event => fail(new EngineError('WORKER_FAILED', event.message));
-          worker.onmessageerror = () => fail(new EngineError('WORKER_FAILED', 'TNT inference transport'));
-          worker.onmessage = ({data}) => {
+          detachMessageError = attachWorkerMessageError(worker,() => fail(new EngineError('WORKER_FAILED', 'TNT inference transport')));
+          worker.onmessage = event => {
+            let data;try{data=event.data;}catch(cause){fail(new EngineError('WORKER_FAILED','TNT inference transport response envelope',{cause}));return;}
             try {
+              if(!data||typeof data!=='object'||Array.isArray(data))throw new EngineError('WORKER_FAILED','TNT inference transport response envelope');
               if (data.phase) { onProgress?.({phase: data.phase}); return; }
               if (!data.ok) throw new EngineError('MODEL_FAILED', data.error);
               requireValue(data.raw instanceof Float32Array && data.raw.byteLength === OUTPUT && data.raw.every(v => Number.isFinite(v) && v >= 0 && v <= 1) && Number.isInteger(data.heapBytes) && data.heapBytes <= HEAP, 'Bounded TNT probabilities');

@@ -3,7 +3,7 @@ import {serializeEngineError} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';
-import {denseDescriptorHeapBound,denseDescriptorShape,denseResidentHeapBound} from './dense-math.js';
+import {denseDescriptorHeapBound,denseDescriptorShape,denseResidentHeapBound,denseDescriptorCacheByteBound,selectDenseDescriptorCacheJobs} from './dense-math.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 
 // The dense build grows by up to 16 MiB beyond the next required extent,
@@ -78,6 +78,7 @@ export class DenseFieldPool {
     jobs=jobs.map(j=>({...j}));const plans=jobs.map((job,i)=>{try{return denseJobMemory(job);}catch(e){if(e.code!=='MEMORY_LIMIT'||job.field||![0,1].includes(job.pass?.method))throw e;jobs[i]={...job,compactDescriptors:true};return denseJobMemory(jobs[i]);}}),outputs=plans.reduce((sum,p)=>sum+p.output,0);
     const room=this.budget.limit-this.budget.retained-this.budget.active-outputs;
     for(let i=0;i<jobs.length;i++)if(plans[i].workspace>room&&!jobs[i].field&&!jobs[i].compactDescriptors){jobs[i].compactDescriptors=true;plans[i]=denseJobMemory(jobs[i]);}
+    jobs=selectDenseDescriptorCacheJobs(jobs);
     const largest=denseResidentWorkerBytes(plans),heapBound=Math.max(...plans.map(p=>p.wasmHeapBytes));
     const key=jobs.map(j=>[j.width,j.height,j.pass.method,j.pass.patch,j.pass.targetPatch,!!j.compactDescriptors].join(':')).join('/');
     const releaseOutput=this.budget.reserve(outputs),outputHolds=[],releaseAllOutput=()=>{releaseOutput();for(const hold of outputHolds)hold();outputHolds.length=0;};
@@ -94,7 +95,7 @@ export class DenseFieldPool {
         // Each persistent lane owns its heap through every hypothesis and CPU
         // scheduling gap. Retiring one lane returns its actual reservation now,
         // rather than waiting for the slowest sibling to complete.
-        const releaseLane=releaseWorkers.split(largest);let worker,sourceImage,laneOperation,backing,heapBytes=0;
+        const releaseLane=releaseWorkers.split(largest);let worker,sourceImage,laneOperation,backing,heapBytes=0,cacheBacking,cacheBytes=0;
         try{
         laneOperation=this.budget.beginOperation?.({owner:'patchmatch',id:'dense-resident/lane/'+lane,parent:operation});
         backing=this.budget.registerBacking?.('wasm',heapBound,{owner:'patchmatch',label:'dense-resident/worker',state:'reserved',operation:laneOperation});
@@ -120,11 +121,15 @@ export class DenseFieldPool {
             });
             checkAbort(signal);
             if(result.heapBytes!==undefined){requireValue(Number.isSafeInteger(result.heapBytes)&&result.heapBytes>=0&&result.heapBytes<=heapBound,'Dense heap exceeds its admitted allowance.');heapBytes=Math.max(heapBytes,result.heapBytes);backing?.materialize(heapBytes);}
+            const reportedCache=result.descriptorCache?.retainedBytes??0;
+            requireValue(Number.isSafeInteger(reportedCache)&&reportedCache>=0&&reportedCache<=denseDescriptorCacheByteBound(job),'Dense descriptor cache exceeds its existing admitted source-feature bound.');
+            if(reportedCache){if(cacheBacking)cacheBacking.resize(reportedCache);else cacheBacking=this.budget.registerBacking?.('array-buffer',reportedCache,{owner:'patchmatch',label:'dense-resident/source-descriptor-cache',operation:laneOperation});}else{cacheBacking?.();cacheBacking=null;}
+            if(cacheBytes>reportedCache)this.budget.notifyBackingRelease?.('array-buffer',cacheBytes-reportedCache);cacheBytes=reportedCache;
             requireValue(result&&result.targets instanceof Int32Array&&result.targets.length===plans[index].width*plans[index].height&&result.distancesSquared instanceof Float32Array&&result.distancesSquared.length===result.targets.length&&result.selected instanceof Uint8Array&&result.selected.length===result.targets.length&&(!job.coherence||result.errors instanceof Float32Array&&result.errors.length===result.targets.length),'Invalid dense worker result.');
             laneOperation?.setState('io');results[index]=result;if(retainResult){const owned=releaseOutput.split(plans[index].output);let accepted=false;try{accepted=retainResult(index,result,owned)===true;}finally{if(!accepted)outputHolds.push(owned);}}completed++;laneOperation?.commit();onProgress?.({completed,total:jobs.length,index,phase:'complete',context:job.context,pass:job.pass});
           }finally{if(worker&&this.active.has(worker))this.active.set(worker,null);lease.release();laneOperation?.setState('ready');}
         }
-        }finally{try{if(worker){this.active.delete(worker);worker.terminate();}}finally{backing?.();if(heapBytes)this.budget.notifyBackingRelease?.('wasm',heapBytes);releaseLane();laneOperation?.release();}}
+        }finally{try{if(worker){this.active.delete(worker);worker.terminate();}}finally{cacheBacking?.();if(cacheBytes)this.budget.notifyBackingRelease?.('array-buffer',cacheBytes);backing?.();if(heapBytes)this.budget.notifyBackingRelease?.('wasm',heapBytes);releaseLane();laneOperation?.release();}}
       };
       // Settle cancellation before releasing reservations on any sibling error.
       const tasks=Array.from({length:count},(_,lane)=>task(lane));
