@@ -9,7 +9,7 @@ function fixture(){
  const image={id:'image-a',hash:'exact-pixels',name:'image.png',width:160,height:96,selected:true,family:'photography',blob:new Blob(['original']),occurrences:[{studyId:'study'}],state:'done',score:{clones:0,additional:0,total:0,incomplete:false}};
  image.pairSelection=batchPairSelection(image,[{x0:8,y0:12,x1:56,y1:60},{x0:80,y0:20,x1:144,y1:68}],'manual');
  const engine={version:'test',commit:'fixed',increment:'fixed',batch:'0.2.0',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3};
- const configuration={options:{panels:false},pairSelections:{[image.hash]:structuredClone(image.pairSelection)},recipes:[{id:recipe.id,operation:recipe.operation,params:recipe.params,signal:recipe.signal,backend:'auto'}]};
+ const configuration={options:{panels:false},pairSelections:{[image.hash]:structuredClone(image.pairSelection)},recipes:[{id:recipe.id,operation:recipe.operation,params:recipe.params,view:structuredClone(recipe.view),signal:recipe.signal,backend:'auto'}]};
  const path='resultats/'+image.id+'/'+recipe.id+'.npz',archive=new Blob([Uint8Array.from([80,75,3,4,1,2,3,4])]);
  image.runs=[{toolId:recipe.id,status:'done',params:structuredClone(recipe.params),files:[path],entries:[],cloneMaximum:0,positive:false}];
  image.restored={engine:structuredClone(engine),configuration:structuredClone(configuration)};

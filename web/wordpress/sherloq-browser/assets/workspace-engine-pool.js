@@ -1,5 +1,6 @@
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
-import {resultResources} from './tool-client.js';
+import {resultResources,configureSegmentationModel} from './tool-client.js';
+import {requireValue} from './unified-engine/src/errors.js';
 
 // Individual documents share one native memory budget and the original image.
 // This queue serializes the public API only; native CPU/GPU pools remain intact.
@@ -42,9 +43,19 @@ export function createWorkspaceEnginePool(createEngine=createWorkerEngine){
     const configuration=['loadM3Models','loadD2prlModel'].includes(method)?method+':'+JSON.stringify(method==='loadM3Models'?{models:args[0].models,language:args[0].language?.sha256}:{url:args[0].url,sha256:args[0].sha256}):null;
     if(configuration&&record.configured.has(configuration))return record.configured.get(configuration);
     let output;
-    try{output=await record.engine[method](...args);}catch(error){if(error.imagesCleared){record.images.clear();record.configured.clear();for(const scope of record.owners){for(const name of ['images','surfaces','tables','models','leases'])scope[name].clear();scope.invalidate?.();}}throw error;}
+    try{
+     if(method==='runConfiguredSegmentation'){
+      const [task,model,hooks]=args;
+      requireValue(task?.operation==='ai.clones.segmentation'&&task.params?.variant===model?.variant,'Matching segmentation task and configuration required');
+      // Borrow the raw engine only within this queue admission. Calling the
+      // proxy here would enqueue behind ourselves and deadlock; another scope
+      // must not switch the shared adapter between configuration and inference.
+      await configureSegmentationModel(record.engine,model,hooks);
+      output=await record.engine.run(task,hooks);
+     }else output=await record.engine[method](...args);
+    }catch(error){if(error.imagesCleared){record.images.clear();record.configured.clear();for(const scope of record.owners){for(const name of ['images','surfaces','tables','models','leases'])scope[name].clear();scope.invalidate?.();}}throw error;}
     if(configuration)record.configured.set(configuration,output);
-    if(method==='run'){const owned=resultResources(output);for(const s of owned.surfaces)if(![...record.images.values()].some(i=>i.descriptor.surface?.id===s.id))surfaces.add(s.id);for(const t of owned.tables)tables.add(t.id);}
+    if(method==='run'||method==='runConfiguredSegmentation'){const owned=resultResources(output);for(const s of owned.surfaces)if(![...record.images.values()].some(i=>i.descriptor.surface?.id===s.id))surfaces.add(s.id);for(const t of owned.tables)tables.add(t.id);}
     if(method==='releaseSurface')surfaces.delete(args[0]);
     if(method==='releaseTable')tables.delete(args[0]);
     if(method==='reserveExternalMemory')leases.add(output.id);

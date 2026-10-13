@@ -1,26 +1,35 @@
 #!/usr/bin/env python3
-"""Serve the existing local WordPress files; no site copy, PHP or remote deployment."""
+"""Serve a delivered UI and pinned resources locally."""
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 import argparse, json, hashlib, mimetypes
 from urllib.parse import urlsplit, unquote
 parser=argparse.ArgumentParser()
 parser.add_argument('--port',type=int,default=8097)
-parser.add_argument('--root',default='/Users/gaeldauchy/gaeldauchy-site-unraid-2026-07-31/gaeldauchy-site-unraid-2026-09-24/gaeldauchy-site-unraid/wordpress/html')
+parser.add_argument('--root',type=Path,default=Path.cwd(),help='Optional installed web root; normally use --assets with a delivered UI')
+parser.add_argument('--assets',type=Path,help='Reuse an existing delivered plugin assets directory directly')
+parser.add_argument('--resources',type=Path,help='Reuse an existing pinned web-assets directory without copying resources')
+parser.add_argument('--candidate-ui',action='store_true',help='Overlay current bootstrap UI files while preserving the delivered native engine manifest')
 parser.add_argument('--fixtures',type=Path,help='Optional generated fixtures directory for browser checks')
 parser.add_argument('--candidate-engine',type=Path,help='Optional source directory for isolated SIFT phase qualification')
 parser.add_argument('--scientific-text-model',type=Path,help='Existing pinned detector model; served locally without copying')
 parser.add_argument('--ssg-assets-manifest',type=Path,help='Existing local qualification manifest; overlay only pinned SSG resources without copying or publishing them')
 args=parser.parse_args()
-assets=Path(args.root)/'wp-content/plugins/sherloq-browser/assets'
+assets=args.assets or Path(args.root)/'wp-content/plugins/sherloq-browser/assets'
 configuration=json.loads((assets/'dependency-config.json').read_text())
 manifest=json.loads((assets/('dependency-manifest-'+configuration['manifest']+'.json')).read_text())
 repository=Path(__file__).resolve().parents[1]
-resource_root=repository/'web-assets'
+resource_root=args.resources or repository/'web-assets'
 candidate_data={}
 candidate_chunks={}
 candidate_chunk_files={}
 candidate_logical_files={}
+if args.candidate_ui:
+ for source in (repository/'web/wordpress/sherloq-browser/assets').iterdir():
+  if not source.is_file() or source.suffix not in {'.js','.css','.html'}:continue
+  # Top-level UI belongs to the bootstrap/offline-shell inventory, not to
+  # runtime slots. Adding it to the runtime manifest would invalidate it.
+  candidate_data[source.name]=source.read_bytes()
 candidate_modules=tuple(p.relative_to(args.candidate_engine).as_posix() for p in args.candidate_engine.rglob('*') if p.is_file() and p.suffix in ('.js','.mjs')) if args.candidate_engine else ()
 if args.candidate_engine:
  for name in candidate_modules:
@@ -66,6 +75,7 @@ local_identity=hashlib.sha256(manifest_bytes).hexdigest()
 # Reconstruct those local identities in memory so they can load the updated
 # bootstrap and migrate normally, without deleting the user's browser storage.
 local_manifests={local_identity:manifest_bytes}
+verified_resource_chunks={}
 for previous_path in assets.glob('dependency-manifest-*.json'):
  previous=json.loads(previous_path.read_text())
  previous['remoteBase']=f'http://127.0.0.1:{args.port}/__batch_assets__/'
@@ -73,7 +83,7 @@ for previous_path in assets.glob('dependency-manifest-*.json'):
  local_manifests[hashlib.sha256(previous_bytes).hexdigest()]=previous_bytes
 configuration['manifest']=local_identity
 configuration['workerVersion']='batch-local-scientific-1' if args.candidate_engine else 'batch-local-1'
-if args.candidate_engine:configuration['workerType']='module'
+if args.candidate_engine or args.candidate_ui:configuration['workerType']='module'
 class Handler(SimpleHTTPRequestHandler):
  def __init__(self,*a,**k): super().__init__(*a,directory=args.root,**k)
  def translate_path(self,path):
@@ -85,6 +95,20 @@ class Handler(SimpleHTTPRequestHandler):
    target=(repository/'examples'/requested.removeprefix('/__batch_examples__/')).resolve()
    return str(target) if target.is_relative_to((repository/'examples').resolve()) else str(resource_root/'missing')
   if requested.startswith('/__batch_assets__/'):
+   relative=Path(requested.removeprefix('/__batch_assets__/'))
+   if len(relative.parts)==2 and relative.parts[0]=='chunks' and relative.suffix=='.bin' and relative.stem in manifest['chunks']:
+    # Delivery folders can borrow existing chunks through symlinks. Expose
+    # only a declared chunk whose actual bytes match its pinned identity.
+    source=resource_root/relative
+    if source.is_file() and source.stat().st_size==manifest['chunks'][relative.stem]:
+     signature=(source.stat().st_mtime_ns,source.stat().st_size)
+     if verified_resource_chunks.get(str(source))!=signature:
+      check=hashlib.sha256()
+      with source.open('rb') as stream:
+       while data:=stream.read(1024*1024):check.update(data)
+      if check.hexdigest()!=relative.stem:return str(resource_root/'missing')
+      verified_resource_chunks[str(source)]=signature
+     return str(source)
    target=(resource_root/requested.removeprefix('/__batch_assets__/')).resolve()
    if not target.is_relative_to(resource_root.resolve()): return str(resource_root/'missing')
    return str(target)

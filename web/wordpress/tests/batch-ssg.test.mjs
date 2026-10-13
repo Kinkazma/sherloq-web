@@ -5,6 +5,7 @@ import {mountBatchUI} from '../sherloq-browser/assets/batch-ui.js';
 import {batchCatalog,catalogRecipe,batchTask} from '../sherloq-browser/assets/batch-catalog.js';
 import {SSG_DEFAULTS} from '../sherloq-browser/assets/clone-methods.js';
 import {ssgFullParams,SSG_FULL_DEFAULTS} from '../../engine-source/src/ssg-full-input.js';
+import {unavailableResultDisplayFactory} from './batch-display-fixture.mjs';
 
 test('SSG batch exposes only its scientific native parameters and passes their exact defaults',()=>{
  const descriptor=batchCatalog.find(r=>r.params.algorithm==='SSG'),recipe=catalogRecipe(descriptor.id);
@@ -34,7 +35,7 @@ async function uiFixture(saved){
  const image={id:'i',hash:'pixels',name:'source.png',width:80,height:60,blob:new Blob(['image']),thumbnail:new Blob(['thumbnail']),family:'photography',selected:true,occurrences:[{studyId:'s'}],runs:[],state:'ready'},calls=[];
  const model={images:[image],studies:[{id:'s',name:'Source',errors:[]}],errors:[],artifacts:{has(){return false;},async clear(){},async dispose(){}},async import(){},async clear(){}};
  image.preparation={schema:'sherloq.scientific-scope/1',status:'ready',sourceSha256:'a'.repeat(64),width:image.width,height:image.height,fingerprint:'prepared-ui-fixture',regions:[{x0:0,y0:0,x1:image.width,y1:image.height,type:'photography',confidence:1}],excluded:[]};
- const ui=await mountBatchUI({document,language:()=> 'fr',importerFactory:async()=>model,runnerFactory:()=>({async run(model,recipes,options){calls.push({recipes,options});model.results=[];},async clear(){},cancel(){}})});
+ const ui=await mountBatchUI({document,language:()=> 'fr',resultDisplayFactory:unavailableResultDisplayFactory,importerFactory:async()=>model,runnerFactory:()=>({async run(model,recipes,options){calls.push({recipes,options});model.results=[];},async clear(){},cancel(){}})});
  const basis=ui.dialog.querySelector('[data-batch-basis]'),checks=()=>[...ui.dialog.querySelectorAll('[data-batch-tool]')],choose=(id,value)=>{const box=checks().find(c=>c.dataset.batchTool===id);box.checked=value;box.onchange();};
  const confirm=[...ui.dialog.querySelectorAll('.batch-selection-bar button')].find(b=>b.textContent==='Confirmer la sélection');confirm.onclick();
  return {ui,basis,checks,choose,calls,get persisted(){return persisted;}};

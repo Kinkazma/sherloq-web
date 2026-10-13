@@ -1,21 +1,31 @@
 import {diskBatchZip} from './batch-zip.js';
 import {batchLibraries,safeName,pdfPoint} from './batch-import.js';
 import {studyScores,batchCatalog} from './batch-catalog.js';
-import {batchArchiveLayout,remapBatchEvidence} from './batch-archive-layout.js';
+import {batchArchiveLayout,remapBatchFilePointers} from './batch-archive-layout.js';
+import {BATCH_IMAGE_EXPORT_DEFAULTS,validateBatchImageExport,createBatchImageExporter,batchImagePath} from './batch-image-export.js';
 
 const pdfText=text=>String(text??'').replace(/[\u2010-\u2015]/g,'-').replace(/[^\x20-\x7e\xa0-\xff\n]/g,' ');
 const polygons=run=>[...[...(run.entries??[]),...(run.additionalEntries??[])].flatMap(e=>e.polygons??[]),...(run.regions??[]).filter(r=>r.bbox).map(r=>{const [x,y,w,h]=r.bbox;return [[x,y],[x+w,y],[x+w,y+h],[x,y+h]];})];
 export function batchImageDisplay(image,artifacts){
+ if(!['done','incomplete'].includes(image.state))return null;
  const available=files=>(files??[]).find(path=>/\.png$/i.test(path)&&artifacts.has(path));
- const final=image.state==='done'&&image.finalDisplay?.pendingRendering===false&&(!image.preparation?.fingerprint||image.finalDisplay.scopeFingerprint===image.preparation.fingerprint)?image.finalDisplay:null,path=final?available(final.files):null;
- if(path){const methods=final.methods??final.algorithmsConfigured??[],runs=(image.runs??[]).filter(r=>r.kind==='clones'||r.kind==='automatic'),incomplete=!!image.score?.incomplete||runs.some(r=>r.status!=='done');return {kind:final.kind??final.mode,path,methods,maximum:final.maximum??image.score?.clones??0,palette:final.palette,scopeFingerprint:final.scopeFingerprint,incomplete,...(incomplete?{completedRuns:runs.filter(r=>r.status==='done').length,requestedRuns:runs.length}:{})};}
+ const validNative=display=>{
+  if(!display||display.pendingRendering!==false||image.preparation?.fingerprint&&display.scopeFingerprint!==image.preparation.fingerprint)return false;
+  if(display.width!==undefined&&display.width!==image.width||display.height!==undefined&&display.height!==image.height)return false;
+  const identities=[image.sourceSha256,image.preparation?.sourceSha256,display.sourceSha256,display.source?.originalSha256].filter(value=>value!==undefined&&value!==null);
+  return identities.every(value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value)&&value===identities[0]);
+ };
+ const biomeRun=run=>['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(run.operation)&&run.params?.algorithm!=='SSG',view=image.resultDisplay,prefs=image.displayPreferences,validView=view?.schema==='sherloq.batch-result-display/1'&&validNative(view)&&['biomes','corroboration'].includes(view.mode)&&(view.mode!=='biomes'||view.version>=2&&view.presentation?.biomes?.schema==='sherloq.batch-biome-geometry/1')&&view.width===image.width&&view.height===image.height&&view.sourceSha256===image.sourceSha256&&view.scopeFingerprint===image.preparation?.fingerprint&&view.mode===(prefs?.mode??view.mode)&&view.opacity===(prefs?.opacity??view.opacity)&&available(view.files),final=validView?{...view,kind:view.mode,methods:view.mode==='biomes'?view.presentation.biomes.methods:image.finalDisplay?.methods??image.finalDisplay?.algorithmsConfigured,maximum:image.finalDisplay?.maximum??image.score?.clones,palette:image.finalDisplay?.palette}:validNative(image.finalDisplay)?image.finalDisplay:null,path=final?available(final.files):null;
+ if(path){const methods=final.methods??final.algorithmsConfigured??[],runs=(image.runs??[]).filter(r=>r.kind==='clones'||r.kind==='automatic'),incomplete=image.state==='incomplete'||!!image.score?.incomplete||runs.some(r=>r.status!=='done'),kind=(final.kind??final.mode)==='biomes'&&!validView&&!runs.some(biomeRun)?'native':final.kind??final.mode;return {kind,path,methods,maximum:final.maximum??image.score?.clones??0,palette:final.palette,biomes:validView&&view.mode==='biomes'?view.presentation.biomes:undefined,scopeFingerprint:final.scopeFingerprint,incomplete,...(incomplete?{completedRuns:runs.filter(r=>r.status==='done').length,requestedRuns:runs.length}:{})};}
  const native=(image.runs??[]).find(run=>run.kind==='clones'&&['done','partial'].includes(run.status)&&run.scopeSupport?.mode!=='raw-only'&&(!image.preparation?.schema||run.preparation?.fingerprint===image.preparation.fingerprint)&&available(run.files));
- if(native)return {kind:'biomes',path:available(native.files),methods:[native.title??native.toolId],maximum:image.score?.clones??0,nativeMethod:true};
+ if(native)return {kind:biomeRun(native)?'biomes':'native',path:available(native.files),methods:[native.title??native.toolId],maximum:image.score?.clones??0,nativeMethod:true};
  return null;
 }
 export function batchDisplayCaption(display,{language='fr'}={}){
  if(!display)return '';
  const count=display.methods?.length??0;
+ if(display.kind==='native')return (language==='fr'?'Carte native':'Native map')+' · '+(display.methods??[]).join(' · ');
+ if(display.kind==='biomes'&&display.biomes?.schema==='sherloq.batch-biome-geometry/1')return (language==='fr'?'Biomes appariés':'Paired biomes')+' · '+display.biomes.groupCount+' '+(language==='fr'?'groupes':'groups')+' · '+(display.methods??[]).join(' · ')+(display.incomplete?(language==='fr'?' · analyses partielles':' · partial analyses'):'');
  if(display.incomplete)return language==='fr'?(display.kind==='corroboration'?'Carte de corroboration partielle':'Biomes partiels')+' · '+display.completedRuns+'/'+display.requestedRuns+' analyses terminées · maximum C'+display.maximum:(display.kind==='corroboration'?'Partial corroboration map':'Partial biomes')+' · '+display.completedRuns+'/'+display.requestedRuns+' completed analyses · maximum C'+display.maximum;
  return language==='fr'?(display.kind==='corroboration'?'Carte de corroboration':'Biomes')+' · '+count+' méthode'+(count===1?'':'s')+' · maximum C'+display.maximum:(display.kind==='corroboration'?'Corroboration map':'Biomes')+' · '+count+' method'+(count===1?'':'s')+' · maximum C'+display.maximum;
 }
@@ -83,16 +93,33 @@ export async function batchReport(model,{language='fr',signal,pdfLibrary}={}){
  if(model.comparisons?.length){for(const pair of model.comparisons){check();addPage();line('Comparaisons entre études retenues',{heading:true,size:16});line(pair.kind==='identical-pixels'?'Pixels strictement identiques entre les études sélectionnées.':pair.status==='error'?'Comparaison incomplète : '+pair.message:'Correspondances géométriques entre deux images.');line((pair.images??[]).map(id=>model.images.find(i=>i.id===id)?.name??id).join(' / '));const path=pair.files?.find(p=>p.endsWith('.png'));if(path){const blob=await model.artifacts.get(path);if(blob){const embedded=await doc.embedPng(await blob.arrayBuffer()),scale=Math.min(510/embedded.width,(y-60)/embedded.height);page.drawImage(embedded,{x:42,y:y-embedded.height*scale,width:embedded.width*scale,height:embedded.height*scale});}}}}
  return new Blob([await doc.save()],{type:'application/pdf'});
 }
-export async function batchArchive(model,{language='fr',signal,onProgress=()=>{}}={}){
- const {pdf}=await batchLibraries(),entries=[],results=model.results??studyScores(model.studies,model.images,model.configuration?.options??{}),layout=batchArchiveLayout(model),manifest={schema:'sherloq.batch/1',archiveLayout:'flat/1',startedAt:model.startedAt,finishedAt:model.finishedAt,configuration:model.configuration,engine:model.engine,cancelled:model.cancelled,studies:[],images:layout.images,comparisons:layout.comparisons,errors:model.errors};
+export async function batchArchive(model,{language='fr',signal,onProgress=()=>{},onImageProgress=()=>{},computeProfile='maximum',imageExport=model.imageExportSettings??BATCH_IMAGE_EXPORT_DEFAULTS,dependencies={}}={}){
+ const settings=validateBatchImageExport(imageExport),{pdf}=await (dependencies.libraryLoader??batchLibraries)(),entries=[],results=model.results??studyScores(model.studies,model.images,model.configuration?.options??{}),layout=batchArchiveLayout(model,{imageFormat:settings.format}),manifest={schema:'sherloq.batch/1',archiveLayout:'flat/1',startedAt:model.startedAt,finishedAt:model.finishedAt,configuration:model.configuration,engine:model.engine,cancelled:model.cancelled,studies:[],images:layout.images,comparisons:layout.comparisons,archivedComparisons:layout.archivedComparisons,errors:model.errors,imageExportSettings:settings,archiveRasterConversions:[]},converter=(dependencies.imageExporterFactory??createBatchImageExporter)(settings,{computeProfile,onProgress:onImageProgress}),converted=new Map();let result,failure;
+ const contextFields=['engine','configuration','startedAt','finishedAt','cancelled'],contextValue=value=>Object.fromEntries(contextFields.filter(key=>value[key]!==undefined).map(key=>[key,value[key]])),globalContext=JSON.stringify(contextValue(model));
+ manifest.importedBatchContexts=(model.importedBatchContexts??[]).map(context=>JSON.stringify(contextValue(context))===globalContext?{id:context.id,sourceArchive:context.sourceArchive,usesGlobalContext:true}:context);if(model.mixedImportedContexts)manifest.mixedImportedContexts=true;
  const add=(path,blob)=>entries.push({path,size:blob.size,read:async()=>blob});
- add('rapport-SHERLOQ.pdf',await batchReport(model,{language,signal}));
+ const convert=async(blob,name,path,role)=>{signal?.throwIfAborted();const output=await converter.convert(blob,{name,role,signal});const record={...output.conversion,originalName:name,role,files:{visual:path}};manifest.archiveRasterConversions.push(record);return {blob:output.blob,conversion:record};};
+ try{
+ add('rapport-SHERLOQ.pdf',await (dependencies.report??batchReport)(model,{language,signal}));
  for(const [index,study]of results.entries()){
-  signal?.throwIfAborted();const path='documents/'+index+'-'+artifactName(study),blob=study.kind==='pdf'?await annotatedStudy(study,model.images,pdf,model.comparisons):study.blob;add(path,blob);
-  const {blob:ignored,...rest}=study;manifest.studies.push({...rest,archivePath:path});
+  signal?.throwIfAborted();let path='documents/'+index+'-'+artifactName(study),blob=study.kind==='pdf'?await annotatedStudy(study,model.images,pdf,model.comparisons):study.blob,conversion;
+  if(study.kind==='image'){path=path.replace(/\.[^.]+$/,'.'+settings.format);const output=await convert(blob,study.name,path,'document-image');blob=output.blob;conversion=output.conversion;}add(path,blob);
+  const {blob:ignored,...rest}=study;manifest.studies.push({...rest,...(conversion?{originalName:study.name,name:study.name.replace(/\.[^.]+$/,'.'+settings.format),archiveSourceConversion:conversion}:{}),archivePath:path});
  }
- for(const image of model.images){signal?.throwIfAborted();add(layout.sources.get(image.id),image.blob);}
- for(const path of model.artifacts.keys()){signal?.throwIfAborted();const read=async()=>remapBatchEvidence(await model.artifacts.get(path),path,layout.paths),blob=await read();entries.push({path:layout.paths.get(path),size:blob.size,read});}
+ for(const [index,image]of model.images.entries()){const output=await convert(image.blob,image.name,layout.sources.get(image.id),'source');add(layout.sources.get(image.id),output.blob);manifest.images[index].archiveSourceConversion=output.conversion;manifest.images[index].originalName=image.originalName??image.name;manifest.images[index].name=image.name.replace(/\.[^.]+$/,'.'+settings.format);}
+ for(const path of model.artifacts.keys())if(batchImagePath(path)){const output=await convert(await model.artifacts.get(path),path.split('/').pop(),layout.paths.get(path),'result');converted.set(path,output);}
+ for(const path of model.artifacts.keys()){
+  signal?.throwIfAborted();if(converted.has(path)){add(layout.paths.get(path),converted.get(path).blob);continue;}
+  const read=async()=>{
+   const raw=await model.artifacts.get(path);if(!/\.json$/i.test(path))return raw;
+   const original=JSON.parse(await raw.text()),remapped=remapBatchFilePointers(original,layout.paths,{contextPath:path}),references=new Set(),visit=value=>{if(typeof value==='string'){references.add(value);return;}if(value&&typeof value==='object')for(const child of Object.values(value))visit(child);};visit(original);
+   const historical=path.match(/^historique\/[^/]+\//)?.[0],records=[];for(const reference of references){const resolved=historical&&converted.has(historical+reference)?historical+reference:reference;if(converted.has(resolved))records.push(converted.get(resolved).conversion);}
+   if(!records.length&&remapped===original)return raw;return new Blob([JSON.stringify(records.length?{...remapped,archiveRasterConversions:records,archiveRasterMetadata:'Native scientific metadata and PNG descriptors describe the original method output; archiveRasterConversions describes the converted presentation files.'}:remapped)],{type:raw.type||'application/json'});
+  },blob=await read();entries.push({path:layout.paths.get(path),size:blob.size,read});
+ }
  const inventory=JSON.stringify(manifest,null,2);if(new TextEncoder().encode(inventory).length>8*1024**2)throw Error('Inventaire supérieur à 8 Mio : fractionnez le lot pour permettre sa reprise.');add('sherloq-batch.json',new Blob([inventory],{type:'application/json'}));
- return diskBatchZip(entries,{signal,onProgress});
+ result=await (dependencies.zipWriter??diskBatchZip)(entries,{signal,onProgress});
+ }catch(error){failure=error;}
+ finally{try{await converter.dispose();}catch(error){if(failure)failure.cleanupError??=error;else failure=error;}}
+ if(failure){try{await result?.cleanup?.();}catch(error){failure.cleanupError??=error;}throw failure;}return result;
 }

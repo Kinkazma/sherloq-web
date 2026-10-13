@@ -9,6 +9,13 @@ import {clipPolygon} from './batch-scope-geometry.js';
 const copy=value=>structuredClone(value);
 const groups={recommended:['Adaptés au traitement par lot','Suited to batch processing'],complement:['Analyses complémentaires','Additional analyses'],less:['Moins adaptés — inspection humaine','Less suited — human inspection'],required:['Entrée supplémentaire nécessaire','Additional input required']};
 export const batchGroups=groups;
+// Batch matching separation and displayed group length are distinct controls.
+// Individual-tool defaults and the minimum of four witnesses stay unchanged.
+export const BATCH_CLONE_DEFAULTS=Object.freeze({minimum:7,low:15});
+export function batchRecipeView(recipe){
+ if(!['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(recipe.operation))return recipe.view===undefined?undefined:copy(recipe.view);
+ return {...sparseViewDefaults(),...(recipe.params?.algorithm==='SSG'?{}:{low:BATCH_CLONE_DEFAULTS.low}),...copy(recipe.view??{})};
+}
 const extra={
  'analysis.clones':{fr:'Recherche automatique de clones',en:'Automatic clone search',params:{d2Minimum:500,maxConcurrent:1}},
  'analysis.complete':{fr:'Analyse automatique complète',en:'Complete automatic analysis',params:{d2Minimum:500,maxConcurrent:1}},
@@ -46,11 +53,12 @@ for(const [index,algorithm] of CLONE_ALGORITHMS.entries()){
  const item=describe('tampering.copyMove.sparse',toolCatalog['tampering.copyMove.sparse']);
  if(algorithm==='SSG'){
   const nativeParams={algorithm,...copy(SSG_DEFAULTS),compare:false,reflections:false};
-  entries.push({...item,id:'clone-'+index,fr:cloneMethodLabel(algorithm),en:cloneMethodLabel(algorithm),params:nativeParams,fields:item.fields.filter(f=>ssgKeys.has(f.key)).map(f=>({...f,...(f.key==='normalizationLongEdge'?{max:32768}:{}),value:nativeParams[f.key]})),description:['SSG : contours structurés, phrases spatiales et localisation SSIM sur CPU. 0 conserve la résolution ; la normalisation agrandit les petites images sans réduire les grandes.','SSG: structured edges, spatial phrases and SSIM localization on CPU. 0 retains resolution; normalization enlarges small images without downscaling large images.']});
+  entries.push({...item,id:'clone-'+index,fr:cloneMethodLabel(algorithm),en:cloneMethodLabel(algorithm),params:nativeParams,view:sparseViewDefaults(),fields:item.fields.filter(f=>ssgKeys.has(f.key)).map(f=>({...f,...(f.key==='normalizationLongEdge'?{max:32768}:{}),value:nativeParams[f.key]})),description:['SSG : contours structurés, phrases spatiales et localisation SSIM sur CPU. 0 conserve la résolution ; la normalisation agrandit les petites images sans réduire les grandes.','SSG: structured edges, spatial phrases and SSIM localization on CPU. 0 retains resolution; normalization enlarges small images without downscaling large images.']});
   continue;
  }
+ params.minimum=BATCH_CLONE_DEFAULTS.minimum;
  const relevant=f=>!ssgKeys.has(f.key)&&!(algorithm==='EfficientLoFTR'&&['radius','autoRadius','compact','independent'].includes(f.key))&&!['algorithm','compare'].includes(f.key)&&(!['longSide','rotationMode'].includes(f.key)||algorithm==='EfficientLoFTR')&&(!['patch','iterations','texture'].includes(f.key)||isDenseClone(algorithm))&&(f.key!=='reflections'||isDenseClone(algorithm)||algorithm===PANELS_SIFT||algorithm==='EfficientLoFTR')&&(f.key!=='independent'||algorithm===CLASSIC_SIFT);
- entries.push({...item,...(algorithm==='EfficientLoFTR'?{pairRequired:true,group:'required',description:['Deux rectangles distincts par image. Préparez la paire dans Images : détection des panneaux ou coordonnées explicites. S’il n’y a pas exactement deux panneaux, le lot attend votre choix.','Two distinct regions per image. Prepare the pair in Images using panel detection or explicit coordinates. Unless exactly two panels are detected, the batch requires your choice.']} : {}),id:'clone-'+index,fr:cloneMethodLabel(algorithm),en:cloneMethodLabel(algorithm),params,fields:item.fields.filter(relevant).map(f=>({...f,...(algorithm==='EfficientLoFTR'&&f.key==='longSide'?{min:64}:{}),value:params[f.key]??f.value}))});
+ entries.push({...item,...(algorithm==='EfficientLoFTR'?{pairRequired:true,group:'required',description:['Deux rectangles distincts par image. Préparez la paire dans Images : détection des panneaux ou coordonnées explicites. S’il n’y a pas exactement deux panneaux, le lot attend votre choix.','Two distinct regions per image. Prepare the pair in Images using panel detection or explicit coordinates. Unless exactly two panels are detected, the batch requires your choice.']} : {}),id:'clone-'+index,fr:cloneMethodLabel(algorithm),en:cloneMethodLabel(algorithm),params,view:{...sparseViewDefaults(),low:BATCH_CLONE_DEFAULTS.low},fields:item.fields.filter(relevant).map(f=>({...f,...(algorithm==='EfficientLoFTR'&&f.key==='longSide'?{min:64}:{}),value:params[f.key]??f.value}))});
 }
 const priority=x=>x.id==='ai.clones.d2prl'?0:x.params.algorithm==='SIFT + G2NN + RANSAC + Panels + Text'?1:x.params.algorithm==='SIFT + G2NN + RANSAC'?2:x.params.algorithm==='PatchMatch Zernike'?3:x.id==='m2.forgeryscope'?4:x.id==='analysis.clones'?5:x.id==='analysis.complete'?6:10;
 export const batchCatalog=Object.freeze(entries.sort((a,b)=>priority(a)-priority(b)));
@@ -65,7 +73,7 @@ export function batchTask(recipe,{id,imageId,regions=[],scientificScope}={}){
  }
  if(operation==='m2.forgeryscope'&&scientificScope)params.scientificScope=copy(scientificScope);
  if(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&scientificScope)regions=batchNeuralCropRegions(scientificScope.regions,{width:scientificScope.width,height:scientificScope.height});
- return {id,imageId,operation,params,backend:recipe.backend??'auto',...(operation==='tampering.copyMove.sparse'&&scientificScope?{scientificScope:copy(scientificScope)}:{}),...(['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)?{view:sparseViewDefaults()}:{}),...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
+ return {id,imageId,operation,params,backend:recipe.backend??'auto',...(operation==='tampering.copyMove.sparse'&&scientificScope?{scientificScope:copy(scientificScope)}:{}),...(['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)?{view:batchRecipeView(recipe)}:{}),...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
 }
 
 // Neural inputs are rectangular integer pixel windows. YOLO acquisition bounds
@@ -103,8 +111,8 @@ export function batchScopeSupport(recipe,scope){
  if(['ai.clones.d2prl','ai.clones.segmentation'].includes(recipe.operation))return {...common,mode:'derived-evidence',input:'acquisition-rois',textFiltering:'derived-evidence-only',nativeMapsPreserved:true};
  return {...common,mode:'raw-only',qualifiedForScopedSignal:false,reason:'Cette méthode ne possède pas encore d’exclusions scientifiques qualifiées avant l’analyse.'};
 }
-export const recipeKey=recipe=>JSON.stringify([recipe.operation,recipe.params,recipe.backend??'auto']);
-export const catalogRecipe=id=>{const entry=batchCatalog.find(x=>x.id===id);if(!entry)throw Error('Unknown batch tool');return {...entry,params:copy(entry.params),signal:copy(entry.signal)};};
+export const recipeKey=recipe=>JSON.stringify([recipe.operation,recipe.params,recipe.backend??'auto',batchRecipeView(recipe)??null]);
+export const catalogRecipe=id=>{const entry=batchCatalog.find(x=>x.id===id);if(!entry)throw Error('Unknown batch tool');return {...entry,params:copy(entry.params),signal:copy(entry.signal),...(entry.view?{view:copy(entry.view)}:{})};};
 
 export function batchPairRegions(regions,{width,height,scientificScope}={}){
  const invalid=message=>{throw Object.assign(Error(message),{code:'BATCH_PAIR_REQUIRED',details:{requiredRegions:2,width,height}});};

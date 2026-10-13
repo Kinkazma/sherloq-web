@@ -12,7 +12,7 @@ const recipe=name=>catalogRecipe(batchCatalog.find(r=>r.params.algorithm===name)
 test('SIFT scientific dispatch preserves native settings, allows cross-panel search and excludes intervening graph/text gaps',()=>{
  const p=scope(),r=recipe('SIFT + G2NN + RANSAC + Panels + Text'),before=structuredClone(r.params),task=batchTask(r,{imageId:'i',scientificScope:p});
  assert.deepEqual(task.params.regions,p.searchRegions.map(r=>r.polygon));assert.deepEqual(task.params.excluded,p.excluded);assert.deepEqual(task.scientificScope.regions,p.regions);assert.notEqual(task.scientificScope,p);
- assert.equal(task.scientificScope.regions.some(r=>r.envelope),false);assert.equal(task.params.regions.length,3);assert.deepEqual(task.view,{low:0,high:100000,minimum:4,circles:false,lines:false,points:false,areas:true,textExclusions:false});
+ assert.equal(task.scientificScope.regions.some(r=>r.envelope),false);assert.equal(task.params.regions.length,3);assert.deepEqual(task.view,{low:15,high:100000,minimum:4,circles:false,lines:false,points:false,areas:true,textExclusions:false});
  for(const key of ['limit','minimum','threshold','tolerance','autoRadius','geometricThreshold','geometricMinimum','reflections'])assert.equal(task.params[key],before[key],key);assert.deepEqual(r.params,before);
 });
 

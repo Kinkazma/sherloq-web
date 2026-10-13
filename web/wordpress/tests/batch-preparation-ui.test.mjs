@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
 import {mountBatchUI} from '../sherloq-browser/assets/batch-ui.js';
 import {composeScientificScope} from '../sherloq-browser/assets/batch-scientific-preparation.js';
+import {unavailableResultDisplayFactory} from './batch-display-fixture.mjs';
 
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 function harness({waitForCancel=false,withAmbiguous=false}={}){
@@ -14,7 +15,7 @@ function harness({waitForCancel=false,withAmbiguous=false}={}){
  let preparationSignal,preparationProgress;
  const importerFactory=async()=>{model.import=async()=>{events.push('imported');model.studies=[{id:'study',kind:'images',name:'Local input'}];model.images=[make('ready',true,'microscopy','ready'),make('human-excluded',false,'mixed','ready'),make('uncertain',true,'unknown','needs-review')];if(withAmbiguous){const i=make('ambiguous',false,'gel','needs-review'),large=[[0,0],[190,0],[190,90],[0,90]],label=[[10,1],[15,1],[15,5],[10,5]];i.preparation=composeScientificScope(i,{width:200,height:100,sourceSha256:'a'.repeat(64),panels:{panels:[{label:'Blots',rectangle:[0,0,200,100],confidence:.96}]},text:{status:'needs-review',polygons:[large,label],detections:[{polygon:large},{polygon:label}],warnings:[{code:'large-text-region',detection:0}]}});model.images.push(i);}};return model;};
  const preparationFactory=({onProgress})=>{preparationProgress=onProgress;return {async prepare(model,{signal}){events.push('preparation-start');preparationSignal=signal;onProgress({phase:'preparation',image:model.images[0],index:0,total:3,detail:{phase:'text-detection'}});if(waitForCancel)await new Promise((resolve,reject)=>signal.addEventListener('abort',()=>{events.push('preparation-aborted');reject(new DOMException('Cancelled','AbortError'));},{once:true}));events.push('preparation-done');},async dispose(){events.push('preparation-disposed');}};};
- return {document,events,model,get signal(){return preparationSignal;},get progress(){return preparationProgress;},open:()=>mountBatchUI({document,importerFactory,preparationFactory})};
+ return {document,events,model,get signal(){return preparationSignal;},get progress(){return preparationProgress;},open:()=>mountBatchUI({document,importerFactory,preparationFactory,resultDisplayFactory:unavailableResultDisplayFactory})};
 }
 
 test('import prepares regions before human confirmation, preserves discarded images and previews original-coordinate exclusions',async()=>{

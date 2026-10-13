@@ -142,3 +142,23 @@ Gaël autorise ensuite explicitement le fil GitHub à pousser l'ensemble du trai
 ## Intégrations de la 0.16.0 conservées
 
 CMSeg-Net, MGCFDN, SelfDM, ALIKED + LightGlue, EfficientLoFTR et SSG restent disponibles dans les parcours individuels et le lot. EfficientLoFTR exige deux rectangles réels ; les modèles optionnels SelfDM restent en import local vérifié. L’ordonnancement SIFT atomique conserve la capacité native des workers. Les migrations, fonctions hors ligne et suppression de la balise noindex sont conservées. [Changelog](../CHANGELOG.md).
+
+## Vues des résultats et export des images
+
+Sur la page Résultats, choisissez **Biomes** ou **Corroboration**, puis réglez l’opacité entre 0 et 100 %. La valeur initiale est 35 %. Les aperçus, rapports PDF et images du ZIP suivent ce choix, sans relancer les détecteurs.
+
+Biomes affiche les groupes appariés de Détection de clones 2, issus de SIFT ou de PatchMatch, lorsque leurs coordonnées natives ont été archivées. Une même couleur relie les deux côtés du groupe. Les groupes collinéaires restent des contours. Corroboration affiche les comptes scientifiques des méthodes concordantes. La disponibilité de chaque vue dépend des données conservées ; les sorties neuronales seules restent des cartes ou des masques.
+
+Les nouvelles recettes de clones du lot utilisent une séparation d’appariement de 7 pixels, une longueur affichée minimale de 15 pixels et quatre témoins par côté. Les réglages explicites de l’utilisateur et les réglages enregistrés lors de l’analyse restent prioritaires. Les paramètres individuels, SSG et neuronaux sont conservés.
+
+L’export ZIP propose PNG par défaut, WebP, TIFF, AVIF et HEIC, avec les options de compression, de qualité, de chroma et de redimensionnement adaptées au format. Les tableaux scientifiques et les documents PDF sont conservés. Les références des fichiers et les réglages de présentation suivent l’archive.
+
+Une source PNG exportée avec les réglages PNG par défaut, sans redimensionnement, conserve ses octets encodés après vérification native de son format, de ses dimensions et de son empreinte. Cela permet de reprendre les analyses liées à cette source. Les autres conversions gardent les analyses originales dans l’historique : une égalité des pixels ne remplace pas l’identité du fichier encodé.
+
+## Outils individuels
+
+Dans Détection de clones par IA, D2PRL, MGCFDN et SelfDM proposent la détection automatique des sous-images. Les rectangles restent indépendants. Choisissez les réglages et les zones, puis lancez **Calculer**. Ces réseaux analysent les panneaux sélectionnés ; cette sélection ne promet pas un appariement entre panneaux.
+
+Le tracé affiche explicitement l’image originale. **Terminer** revient au résultat calculé conservé. Les noms des exports JSON, NPZ et images reprennent l’opération et le profil réellement calculés. Un échec d’affichage garde un diagnostic exportable.
+
+Les réglages de bibliothèque permettent d’importer les fichiers originaux des modèles optionnels listés. Leur nom, leur taille, chaque morceau et leur empreinte complète sont vérifiés par lectures bornées. Le dialogue permet de retirer les morceaux qu’il a lui-même ajoutés, en conservant les ressources antérieures et les fichiers originaux.

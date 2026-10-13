@@ -4,7 +4,7 @@ import {individualModels,m2ToolClient} from './tool-models.js';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
 import {createExportSink} from './export-sink.js';
-import {EngineError} from './unified-engine/src/errors.js';
+import {EngineError,checkAbort} from './unified-engine/src/errors.js';
 
 // Dense native counters may exceed JS's exact-number range. Keep their decimal
 // values as strings in JSON; borrow scientific typed arrays without copying them.
@@ -29,22 +29,39 @@ export function resultResources(result){
   for(const v of Object.values(value))visit(v);
  };visit(result);return {surfaces:[...surfaces.values()],tables:[...tables.values()]};
 }
+// Configuration belongs to the engine, which can outlive an individual tool
+// document. Query its actual state so retries and other documents cannot leave
+// a client-side variant flag out of sync with the guarded native adapter.
+export async function configureSegmentationModel(engine,model,hooks={}){
+ checkAbort(hooks.signal);
+ const capabilities=await engine.capabilities(),operation=capabilities.operations?.find(value=>value.id==='ai.clones.segmentation');
+ if(!operation||!Object.hasOwn(operation,'configuredVariant'))throw new EngineError('UNSUPPORTED_OPERATION','Segmentation configuration state is unavailable.');
+ checkAbort(hooks.signal);
+ if(operation.configuredVariant===model.variant)return;
+ if(operation.configuredVariant!==null)await engine.unloadSegmentationModel();
+ checkAbort(hooks.signal);
+ await engine.loadSegmentationModel(model,hooks);
+}
 export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity,resourceHints}={}){
  const deployment=await (await fetch(new URL('./integrated-config.json',import.meta.url))).json();
  const base=new URL(deployment.assetBase,new URL('./integrated-config.json',import.meta.url));
  const asset=name=>new URL(name,base).href;
  const engine=engineFactory({computeProfile,...(resourceHints?{resourceHints}:{}),...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
- let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,m3OcrLoaded=false,d2Loaded=false,segmentationVariant=null,m2=null,m2Method=null;
+ let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,m3OcrLoaded=false,d2Loaded=false,segmentationModels,m2=null,m2Method=null;
  let d2Analysis=null;let sourceInput;const sourceAliases=new Set();
- const invalidated=()=>{d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;segmentationVariant=null;onInvalidated({resultLost});};
+ const invalidated=()=>{d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;onInvalidated({resultLost});};
  engine.onSourceInvalidation?.(invalidated);
  const resolve=value=>Array.isArray(value)?value.map(resolve):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,v])=>[key,key==='url'?asset(v):resolve(v)])):value;
  const enqueue=fn=>{const task=queue.then(()=>{if(disposed)throw Object.assign(Error('Outil fermé'),{code:'CANCELLED'});return fn();});queue=task.catch(()=>{});return task;};
  const hooks=()=>({signal:controller?.signal,onProgress});
- const work=async fn=>{controller=new AbortController();try{return await fn();}catch(error){if(m2&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error.code)){const failed=m2;m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}if(error.imagesCleared){d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;segmentationVariant=null;}throw error;}finally{controller=null;}};
+ const work=async fn=>{controller=new AbortController();try{return await fn();}catch(error){if(m2&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error.code)){const failed=m2;m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}if(error.imagesCleared){d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;}throw error;}finally{controller=null;}};
  async function release(){if(!result)return;if(result.m2Result){await m2.release(result.m2Result.id);result=null;return;}const previous=result;result=null;const resources=resultResources(previous);for(const s of resources.surfaces)if(s.id!==source?.surface.id)await engine.releaseSurface(s.id);for(const t of resources.tables)await engine.releaseTable(t.id);}
+ async function segmentationModel(variant){
+  segmentationModels??=await individualModels();const model=segmentationModels.segmentation?.[variant];
+  if(!model)throw new EngineError('MODEL_UNAVAILABLE','Segmentation model is not configured.',{details:{variant}});
+  return {...resolve(model),variant};
+ }
  async function configure(operation,params={}){
-  if(operation==='ai.clones.segmentation'&&segmentationVariant!==params.variant){if(segmentationVariant){segmentationVariant=null;await engine.unloadSegmentationModel();}const manifest=await individualModels(),model=manifest.segmentation?.[params.variant];if(!model)throw new EngineError('MODEL_UNAVAILABLE','Segmentation model is not configured.',{details:{variant:params.variant}});await engine.loadSegmentationModel({...resolve(model),variant:params.variant},hooks());segmentationVariant=params.variant;}
   if(operation==='ai.clones.d2prl'&&!d2Loaded){await engine.loadD2prlModel({...D2PRL_MODEL_IDENTITY,url:asset('d2prl/model.json')},hooks());d2Loaded=true;}
   const needsOcr=operation==='tampering.copyMove.sparse'&&params.algorithm==='SIFT + G2NN + RANSAC + Panels + Text';
   if((operation.startsWith('ai.sources.')||operation.startsWith('ai.localization.')||operation==='tampering.copyMove.sparse')&&(!m3Loaded||needsOcr&&!m3OcrLoaded)){
@@ -123,7 +140,13 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     const key=task.operation==='ai.clones.d2prl'?d2AnalysisKey({...task,imageId:source.id}):null;
     const previous=key&&d2Analysis?.key===key?d2Analysis:null;
     if(task.operation==='ai.clones.d2prl')d2Analysis=null;
-    if(previous){
+    if(task.operation==='ai.clones.segmentation'){
+     const model=await segmentationModel(params.variant),input={...task,imageId:source.id,params};
+     // The workspace pool performs configuration and inference in one existing
+     // engine queue admission. A standalone engine has no competing documents.
+     if(typeof engine.runConfiguredSegmentation==='function')result=await engine.runConfiguredSegmentation(input,model,hooks());
+     else{await configureSegmentationModel(engine,model,hooks());result=await engine.run(input,hooks());}
+    }else if(previous){
      const refilter={...task,imageId:source.id,regions:undefined,params:{minimum:params.minimum,exclusions:params.exclusions??[],refilterOf:previous.analysisId}};
      try{result=await engine.run(refilter,hooks());}
      catch(error){if(error.code!=='CACHE_MISS')throw error;result=await engine.run({...task,imageId:source.id,params},hooks());}

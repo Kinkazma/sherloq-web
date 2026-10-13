@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
 import {mountBatchUI} from '../sherloq-browser/assets/batch-ui.js';
 import {batchCatalog,batchPairSelection} from '../sherloq-browser/assets/batch-catalog.js';
+import {unavailableResultDisplayFactory} from './batch-display-fixture.mjs';
 
 const pair=[{x0:4,y0:6,x1:52,y1:54},{x0:72,y0:12,x1:136,y1:76}];
 async function fixture({candidates=pair}={}){
@@ -13,7 +14,7 @@ async function fixture({candidates=pair}={}){
  const model={images:[image],studies:[{id:'study',name:'source',errors:[]}],errors:[],artifacts:{has(){return false;},async clear(){},async dispose(){}},async import(){},async clear(){}};
  const runner={async preparePair(image){calls.push(['prepare']);image.panels={regions:candidates.map((r,i)=>({id:'p'+i,bounds:[r.x0,r.y0,r.x1,r.y1]}))};const selection=candidates.length===2?image.pairSelection=batchPairSelection(image,candidates,'detected'):null;return {candidates,selection};},async run(model,recipes){calls.push(['run',recipes]);model.results=[];model.finishedAt=new Date().toISOString();},cancel(){},async clear(){}};
  image.preparation={schema:'sherloq.scientific-scope/1',status:'ready',sourceSha256:'a'.repeat(64),width:image.width,height:image.height,fingerprint:'prepared-ui-fixture',regions:[{x0:0,y0:0,x1:image.width,y1:image.height,type:'photography',confidence:1}],excluded:[]};
- const ui=await mountBatchUI({document,language:()=> 'fr',importerFactory:async()=>model,runnerFactory:options=>{assert.equal(typeof options.onProgress,'function');return runner;}});
+ const ui=await mountBatchUI({document,language:()=> 'fr',resultDisplayFactory:unavailableResultDisplayFactory,importerFactory:async()=>model,runnerFactory:options=>{assert.equal(typeof options.onProgress,'function');return runner;}});
  const select=ui.dialog.querySelector('[data-batch-tool="'+batchCatalog.find(r=>r.params.algorithm==='EfficientLoFTR').id+'"]');select.checked=true;select.onchange();
  const confirm=[...ui.dialog.querySelectorAll('.batch-selection-bar button')].find(b=>b.textContent==='Confirmer la sélection');confirm.onclick();
  return {ui,document,image,calls};

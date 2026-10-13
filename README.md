@@ -97,6 +97,8 @@ These are integrations of existing research methods, whose authors retain credit
 
 Import documents or images, review the automatically proposed acquisitions and text/graph exclusions, and run the selected methods as a batch. Results can be reviewed together and compared between studies. PDF reports, source-linked ZIP archives and complete journals can also preserve a partial run; saved archives can be resumed. [Batch workflow](docs/TRAITEMENT-PAR-LOT.md).
 
+Choose paired **Biomes** or scientific **Corroboration** counts and adjust their opacity without rerunning the detectors. ZIP exports support PNG, WebP, TIFF, AVIF and HEIC; saved archives retain their display settings and scientific outputs.
+
 ### Entirely local web app
 
 Download the [small local launcher (10.80 MB)](https://github.com/Kinkazma/sherloq-web/releases/download/web-0.17.2/SHERLOQ-Web-bootstrap-0.17.2.zip), extract it and run `Launch-SHERLOQ.py` with Python 3.9 or later. It starts SHERLOQ in your browser and obtains the selected tools’ dependencies from GitHub. [Local setup](web/wordpress/DISTRIBUTION.md#small-public-bootstrap).

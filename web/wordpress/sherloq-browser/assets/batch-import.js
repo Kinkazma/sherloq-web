@@ -5,6 +5,8 @@ import {batchArtifactOwners,restoredArtifactPaths} from './batch-restoration.js'
 import {remapBatchEvidence,remapBatchFilePointers} from './batch-archive-layout.js';
 import {batchPairSelection} from './batch-catalog.js';
 import {serializeEngineError} from './unified-engine/src/errors.js';
+import {validateBatchImageExport} from './batch-image-export.js';
+import {validateBatchDisplayPreferences} from './batch-result-display.js';
 const MiB=1024**2;
 export const IMPORT_LIMITS={fileBytes:256*MiB,expandedBytes:1024*MiB,entries:2000,pixels:100000000};
 const imagePattern=/\.(?:png|jpe?g|webp|avif|gif|bmp|tiff?|heic|heif|jp2|j2k|jxl|psd)$/i;
@@ -52,25 +54,59 @@ function pdfPixels(image){
  else throw Error('Format de pixels PDF non reconnu.');ctx.putImageData(out,0,0);return c;
 }
 export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMITS,identify=pixelIdentity,artifactStoreFactory=createBatchArtifactStore,libraryLoader=batchLibraries}={}){
- const studies=[],images=[],byHash=new Map(),errors=[],artifacts=await artifactStoreFactory(),restoredImages=new WeakMap();let total=0,filesCount=0,retainedBytes=0;
+ const studies=[],images=[],archivedComparisons=[],importedBatchContexts=[],byHash=new Map(),errors=[],artifacts=await artifactStoreFactory(),restoredImages=new WeakMap();let total=0,filesCount=0,retainedBytes=0,imageExportSettings,globalContextRestored=false;
+ const contextFields=['engine','configuration','startedAt','finishedAt','cancelled'];
+ const contextValue=value=>Object.fromEntries(contextFields.filter(key=>value[key]!==undefined&&(['engine','configuration'].includes(key)?value[key]&&typeof value[key]==='object'&&!Array.isArray(value[key]):key==='cancelled'?typeof value[key]==='boolean':typeof value[key]==='string')).map(key=>[key,structuredClone(value[key])]));
+ function restoreContext(manifest,sourceArchive){
+  const global=contextValue(manifest);
+  if(manifest.mixedImportedContexts===true)model.mixedImportedContexts=true;
+  if(!globalContextRestored){Object.assign(model,global);globalContextRestored=true;}
+  else if(JSON.stringify([model.engine,model.configuration])!==JSON.stringify([global.engine,global.configuration]))model.mixedImportedContexts=true;
+  const incoming=Array.isArray(manifest.importedBatchContexts)?manifest.importedBatchContexts:[];
+  if(incoming.length>limits.entries)throw Error('Trop de contextes scientifiques archivés.');
+  for(const record of incoming)if(record&&typeof record.id==='string'&&/^[a-z0-9-]{1,96}$/i.test(record.id)&&!importedBatchContexts.some(context=>context.id===record.id))importedBatchContexts.push({id:record.id,sourceArchive:record.sourceArchive??sourceArchive,...contextValue(record.usesGlobalContext===true?manifest:record)});
+  const signature=JSON.stringify(global),prior=importedBatchContexts.find(context=>JSON.stringify(contextValue(context))===signature);
+  if(prior)return prior.id;const id='import-'+crypto.randomUUID();importedBatchContexts.push({id,sourceArchive,...global});return id;
+ }
+ function historicalContext(attempt,archiveContextId){
+  if(importedBatchContexts.some(context=>context.id===attempt.importedContextId))return attempt.importedContextId;
+  const value=contextValue(attempt);if(value.engine===undefined&&value.configuration===undefined)return undefined;
+  const signature=JSON.stringify(value),prior=importedBatchContexts.find(context=>JSON.stringify(contextValue(context))===signature);if(prior)return prior.id;
+  const id='import-'+crypto.randomUUID(),parent=importedBatchContexts.find(context=>context.id===archiveContextId);importedBatchContexts.push({id,sourceArchive:parent?.sourceArchive,...value});return id;
+ }
  function admit(bytes){total+=bytes;if(total>limits.expandedBytes)throw Error('Le lot dépasse 1 Gio de fichiers décompressés. Fractionnez le lot.');}
  async function addImage(blob,occurrence,{name,encoding='original',identity}={},signal){
   check(signal);const info=identity??await identify(blob,{signal});let image=byHash.get(info.hash);
   if(!image){if(images.length>=limits.entries||retainedBytes+blob.size+info.thumbnail.size>limits.expandedBytes)throw Error('Trop d’images extraites pour ce lot. Fractionnez les documents.');retainedBytes+=blob.size+info.thumbnail.size;image={id:'image-'+info.hash.slice(0,24),hash:info.hash,name:safeName(name??'image.png'),blob,thumbnail:info.thumbnail,width:info.width,height:info.height,encoding,selected:true,family:'unknown',occurrences:[],runs:[],state:'ready'};byHash.set(info.hash,image);images.push(image);}
   image.occurrences.push(occurrence);onProgress({phase:'image',images:images.length,occurrences:images.reduce((n,i)=>n+i.occurrences.length,0)});return image;
  }
- async function restoreImage(image,old,manifest,zip,signal,owners){
+ async function restoreImage(image,old,manifest,zip,signal,owners,studyRemap,importedContextId){
+  image.importedContextId=old.importedContextId??importedContextId;
+  if(old.displayPreferences)try{image.displayPreferences=validateBatchDisplayPreferences(old.displayPreferences);}catch{}
+  if(old.archiveSourceConversion&&old.archiveSourceConversion.scientificSourceCompatible!==true){
+   const seen=restoredImages.get(image)??new Set();if(seen.has(old))return;seen.add(old);restoredImages.set(image,seen);image.history??=[];
+   const remapOccurrences=occurrences=>(occurrences??[]).map(occurrence=>({...structuredClone(occurrence),studyId:studyRemap?.get(occurrence.studyId)??occurrence.studyId,originalStudyId:occurrence.originalStudyId??occurrence.studyId})),sourceIdentity={id:old.id,pixelHash:old.hash,width:old.width,height:old.height,encodedSha256:old.sourceSha256??old.archiveSourceConversion.originalSha256,name:old.originalName??old.name,occurrences:remapOccurrences(old.occurrences)},rawConversion=structuredClone(old.archiveSourceConversion),{files:conversionFiles,...conversionFields}=rawConversion,conversion={...conversionFields,originalArchivePath:conversionFiles?.visual,sourceFileEmbedded:false};
+   for(const [index,attempt]of [old,...(Array.isArray(old.history)?old.history:[])].entries()){
+    if(!Array.isArray(attempt?.runs)||!attempt.runs.length&&!attempt.finalDisplay&&!attempt.resultDisplay)continue;
+    const prefix='historique/source-convertie-'+index+'/resultats/'+image.id,paths=restoredArtifactPaths({id:old.id,runs:attempt.runs,finalDisplay:attempt.finalDisplay,resultDisplay:attempt.resultDisplay},manifest,owners,()=>true,{prefix});if(!paths)continue;
+    for(const [path,target]of paths){const entry=zip.file(path);if(entry&&!artifacts.has(target)){check(signal);await artifacts.set(target,await remapBatchEvidence(await entry.async('blob'),path,paths));}}
+    const archived=remapBatchFilePointers({runs:attempt.runs,score:attempt.score,finalDisplay:attempt.finalDisplay,resultDisplay:attempt.resultDisplay,displayPreferences:attempt.displayPreferences??old.displayPreferences,preparation:attempt.preparation??(index===0?old.preparation:undefined),...(attempt.engine?{engine:attempt.engine}:index===0?{engine:manifest.engine}:{}),...(attempt.configuration?{configuration:attempt.configuration}:{}),importedContextId:index===0?old.importedContextId??importedContextId:historicalContext(attempt,importedContextId),archiveContextId:importedContextId,...(attempt.at?{at:attempt.at}:{})},paths);
+    const original=attempt.sourceIdentity?{...structuredClone(attempt.sourceIdentity),occurrences:remapOccurrences(attempt.sourceIdentity.occurrences)}:sourceIdentity;
+    image.history.push({...structuredClone(archived),sourceIdentity:original,sourceConversion:structuredClone(attempt.sourceConversion??conversion),scientificallyReusable:false,restoredDiagnostics:true});
+   }
+   image.archiveDiagnostics={schema:'sherloq.batch-converted-source/1',original:sourceIdentity,conversion,message:'Les fichiers source ont été convertis pour cet export. Les analyses de l’original sont conservées dans l’historique ; elles ne sont pas réutilisées pour analyser la source convertie.'};return;
+  }
   if(old.id!==image.id||old.hash!==image.hash||old.width!==image.width||old.height!==image.height)return;
   const seen=restoredImages.get(image)??new Set();if(seen.has(old))return;seen.add(old);restoredImages.set(image,seen);
   const flatPaths=new Map();
   if(manifest.archiveLayout==='flat/1'){
    const convert=(attempt,prefix)=>{
     if(!Array.isArray(attempt?.runs))return attempt;
-    const paths=restoredArtifactPaths({id:old.id,runs:attempt.runs,finalDisplay:attempt.finalDisplay},manifest,owners,()=>true,{prefix});
-    if(!paths||[...paths].some(([path,target])=>flatPaths.has(path)&&flatPaths.get(path)!==target))return {...attempt,runs:null,finalDisplay:undefined};
+    const paths=restoredArtifactPaths({id:old.id,runs:attempt.runs,finalDisplay:attempt.finalDisplay,resultDisplay:attempt.resultDisplay},manifest,owners,()=>true,{prefix});
+    if(!paths||[...paths].some(([path,target])=>flatPaths.has(path)&&flatPaths.get(path)!==target))return {...attempt,runs:null,finalDisplay:undefined,resultDisplay:undefined};
     for(const [path,target]of paths)flatPaths.set(path,target);return remapBatchFilePointers(attempt,paths);
    };
-   const current=convert({runs:old.runs,finalDisplay:old.finalDisplay},'resultats/'+image.id);
+   const current=convert({runs:old.runs,finalDisplay:old.finalDisplay,resultDisplay:old.resultDisplay},'resultats/'+image.id);
    old={...old,...current,history:Array.isArray(old.history)?old.history.map((attempt,index)=>convert(attempt,'historique/restored-'+index+'/resultats/'+image.id)):[]};
   }
   if(old.pairCleared)image.pairCleared=true;
@@ -81,21 +117,34 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
   const permitted=path=>typeof path==='string'&&path.split('/').every(p=>p&&p!=='.'&&p!=='..')&&(path.startsWith('resultats/'+image.id+'/')||/^historique\/[^/]+\/resultats\//.test(path)&&path.split('/')[3]===image.id);
   const validRuns=runs=>Array.isArray(runs)&&runs.length<=100&&runs.every(r=>r&&typeof r==='object'&&!Array.isArray(r)&&typeof r.title==='string'&&['done','partial','error','cancelled','running'].includes(r.status)&&Array.isArray(r.files)&&r.files.every(permitted));
   const validDisplay=display=>display==null||display&&typeof display==='object'&&!Array.isArray(display)&&['biomes','corroboration'].includes(display.kind)&&Array.isArray(display.files)&&display.files.every(permitted);
-  const records=attempt=>[...(attempt.runs??[]),...(validDisplay(attempt.finalDisplay)&&attempt.finalDisplay?[attempt.finalDisplay]:[])];
+  const validResultDisplay=display=>display?.schema==='sherloq.batch-result-display/1'&&['biomes','corroboration'].includes(display.mode)&&Number.isFinite(display.opacity)&&display.opacity>=0&&display.opacity<=1&&Array.isArray(display.files)&&display.files.every(permitted);
+  const requiredRecords=attempt=>[...(attempt.runs??[]),...(validDisplay(attempt.finalDisplay)&&attempt.finalDisplay?[attempt.finalDisplay]:[])];
+  const records=attempt=>[...requiredRecords(attempt),...(validResultDisplay(attempt.resultDisplay)?[attempt.resultDisplay]:[])];
   if(manifest.archiveLayout!=='flat/1')for(const attempt of [old,...(Array.isArray(old.history)?old.history:[])])if(validRuns(attempt?.runs))for(const record of records(attempt))for(const path of record.files)flatPaths.set(path,path);
   const diagnosticRuns=runs=>structuredClone(runs).map(r=>r.status==='running'?{...r,archivedStatus:'running',status:'partial',error:r.error??{code:'INTERRUPTED_ARCHIVE',message:'Ce calcul était actif lors de l’export ; il n’est pas en cours dans cette session.'}}:r);
   const archives=new Map([...flatPaths].map(([a,b])=>[b,a])),entry=path=>zip.file(archives.get(path)??path);
   const restoreFiles=async runs=>{for(const path of runs.flatMap(r=>r.files))if(entry(path)&&!artifacts.has(path)){check(signal);const archivePath=archives.get(path)??path;await artifacts.set(path,await remapBatchEvidence(await entry(path).async('blob'),archivePath,flatPaths));}};
-  const history=(old.history??[]);if(Array.isArray(history)&&history.length<=1000){image.history??=[];for(const attempt of history)if(attempt&&validRuns(attempt.runs)){const repaired=remapBatchFilePointers(attempt,flatPaths,{contextPath:attempt.finalDisplay?.files?.[0]??attempt.runs[0]?.files?.[0]});await restoreFiles(records(repaired));image.history.push({...structuredClone(repaired),runs:diagnosticRuns(repaired.runs),...(validDisplay(repaired.finalDisplay)?{}:{finalDisplay:null,restoredDiagnostics:true})});}}
+  const history=(old.history??[]);if(Array.isArray(history)&&history.length<=1000){image.history??=[];for(const attempt of history)if(attempt&&validRuns(attempt.runs)){const repaired=remapBatchFilePointers(attempt,flatPaths,{contextPath:attempt.finalDisplay?.files?.[0]??attempt.runs[0]?.files?.[0]});await restoreFiles(records(repaired));image.history.push({...structuredClone(repaired),importedContextId:historicalContext(attempt,importedContextId),archiveContextId:importedContextId,runs:diagnosticRuns(repaired.runs),...(validDisplay(repaired.finalDisplay)?{}:{finalDisplay:null,restoredDiagnostics:true})});}}
   if(!validRuns(old.runs))return;
   // Preparation is also useful in an exported selection that has not run yet.
   // The preparation service rechecks the source, models and exact geometry
   // before it can reuse an archived human correction.
   if(old.preparation&&typeof old.preparation==='object'&&!Array.isArray(old.preparation))image.preparation=structuredClone(old.preparation);
-  await restoreFiles(records(old));if(validDisplay(old.finalDisplay)&&old.finalDisplay)image.finalDisplay=structuredClone(old.finalDisplay);
+  await restoreFiles(records(old));if(validDisplay(old.finalDisplay)&&old.finalDisplay)image.finalDisplay=structuredClone(old.finalDisplay);if(validResultDisplay(old.resultDisplay)&&old.resultDisplay.files.every(path=>entry(path)))image.resultDisplay=structuredClone(old.resultDisplay);
   const scoreValid=old.score&&['clones','additional','total'].every(k=>Number.isSafeInteger(old.score[k])&&old.score[k]>=0&&old.score[k]<=128);
-  if(old.state==='done'&&old.runs.every(r=>r.status==='done')&&scoreValid&&validDisplay(old.finalDisplay)&&records(old).flatMap(r=>r.files).every(path=>entry(path))&&!old.finalDisplay?.pendingRendering&&!old.finalDisplay?.error){image.runs=structuredClone(old.runs);image.score=structuredClone(old.score);image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};if(old.preparation)image.preparation=structuredClone(old.preparation);if(typeof old.sourceSha256==='string'&&/^[a-f0-9]{64}$/.test(old.sourceSha256))image.sourceSha256=old.sourceSha256;}
+  if(old.state==='done'&&old.runs.every(r=>r.status==='done')&&scoreValid&&validDisplay(old.finalDisplay)&&requiredRecords(old).flatMap(r=>r.files).every(path=>entry(path))&&!old.finalDisplay?.pendingRendering&&!old.finalDisplay?.error){image.runs=structuredClone(old.runs);image.score=structuredClone(old.score);image.state='done';image.restored={configuration:manifest.configuration,engine:manifest.engine};if(old.preparation)image.preparation=structuredClone(old.preparation);if(typeof old.sourceSha256==='string'&&/^[a-f0-9]{64}$/.test(old.sourceSha256))image.sourceSha256=old.sourceSha256;}
   else if(old.runs.length){image.runs=diagnosticRuns(old.runs);image.state='incomplete';image.score={...(scoreValid?structuredClone(old.score):{clones:0,additional:0,total:0}),incomplete:true};image.restoredDiagnostics=true;}
+ }
+ async function restoreArchivedComparisons(manifest,zip,signal,studyRemap,importedContextId){
+  const existing=Array.isArray(manifest.archivedComparisons)?manifest.archivedComparisons:[],current=Array.isArray(manifest.comparisons)?manifest.comparisons:[],pairs=[...current,...existing];if(pairs.length>limits.entries)throw Error('Trop de comparaisons archivées.');
+  const sourceById=new Map(manifest.images.map(image=>[image.id,image])),safe=path=>typeof path==='string'&&path.split('/').every(part=>part&&part!=='.'&&part!=='..'&&!part.includes('\\'))&&(manifest.archiveLayout==='flat/1'?/^resultats\/(?:images|donnees)\/[^/]+\.(?:png|jpe?g|webp|avif|tiff?|heic|json|npz)$/i.test(path):path.startsWith('comparaisons/')||path.startsWith('historique/'));
+  for(const pair of pairs){
+   if(!pair||typeof pair!=='object'||!Array.isArray(pair.files)||pair.files.length>limits.entries||!pair.files.every(safe))continue;
+   const prefix='comparaisons/archive-'+crypto.randomUUID()+'/',paths=new Map([...new Set(pair.files)].map((path,index)=>[path,prefix+'resultat-'+index+path.slice(path.lastIndexOf('.'))]));let incomplete=false;
+   for(const [path,target]of paths){check(signal);const entry=zip.file(path);if(!entry){incomplete=true;continue;}await artifacts.set(target,await remapBatchEvidence(await entry.async('blob'),path,paths));}
+   const sourceIdentities=(Array.isArray(pair.sourceIdentities)?pair.sourceIdentities:(pair.images??[]).map(id=>{const image=sourceById.get(id);return {id,name:image?.originalName??image?.name,pixelHash:image?.hash,width:image?.width,height:image?.height,encodedSha256:image?.sourceSha256??image?.archiveSourceConversion?.originalSha256,occurrences:image?.occurrences??[]};})).map(source=>({...structuredClone(source),occurrences:(source.occurrences??[]).map(occurrence=>({...structuredClone(occurrence),studyId:studyRemap.get(occurrence.studyId)??occurrence.studyId,originalStudyId:occurrence.originalStudyId??occurrence.studyId}))}));
+   archivedComparisons.push({...structuredClone(remapBatchFilePointers(pair,paths)),importedContextId:pair.importedContextId??importedContextId,sourceIdentities,archived:true,scientificallyReusable:false,restoredDiagnostics:true,...(incomplete?{incomplete:true}:{}),archiveReason:'Comparaison de sources originales conservée pour inspection ; aucune réutilisation comme comparaison des pixels courants.'});
+  }
  }
  async function extractPdf(blob,name,signal){
   const {pdfjs,pdf}=await libraryLoader(),study={id:'study-'+crypto.randomUUID(),name:safeName(name),blob,kind:'pdf',manualMarked:/^(?:A_VERIFIER|\[?SUSPECT|★)/i.test(name),errors:[]};studies.push(study);
@@ -149,13 +198,17 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
    const manifestEntry=entries.find(x=>x.name==='sherloq-batch.json');let manifest;
    if(manifestEntry){if(manifestEntry._data.uncompressedSize>8*MiB)throw Error('Inventaire de reprise trop grand.');manifest=JSON.parse(await manifestEntry.async('string'));if(manifest.schema!=='sherloq.batch/1')manifest=null;}
    if(manifest){
+    if(manifest.imageExportSettings)try{imageExportSettings=validateBatchImageExport(manifest.imageExportSettings);}catch{}
     if(!Array.isArray(manifest.studies)||!Array.isArray(manifest.images)||manifest.studies.length>limits.entries||manifest.images.length>limits.entries)throw Error('Inventaire de reprise invalide.');
-    const remap=new Map(),owners=batchArtifactOwners(manifest);
+    const importedContextId=restoreContext(manifest,name),remap=new Map(),owners=batchArtifactOwners(manifest);
     for(const old of manifest.studies??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(old.name),kind:old.kind,blob,manualMarked:!!old.retained,errors:Array.isArray(old.errors)?structuredClone(old.errors):[],restored:true,...(old.pageText?{pageText:old.pageText}:{})};studies.push(study);remap.set(old.id,study.id);}
     for(const old of manifest.images??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);for(const occurrence of old.occurrences??[]){if(!remap.has(occurrence.studyId))continue;const image=await addImage(blob,{...occurrence,studyId:remap.get(occurrence.studyId)},{name:old.name,encoding:old.encoding},signal);image.family=['unknown','microscopy','gel','photography','schematic'].includes(old.family)?old.family:'unknown';image.selected=old.selected!==false;
-     await restoreImage(image,old,manifest,zip,signal,owners);
+     if(old.archiveSourceConversion&&old.width>0&&old.height>0&&(old.width!==image.width||old.height!==image.height)&&Array.isArray(occurrence.textExclusions)){
+      const current=image.occurrences.at(-1);current.textExclusions=occurrence.textExclusions.map(polygon=>polygon.map(([x,y])=>[x*image.width/old.width,y*image.height/old.height]));current.textExclusionTransform={sourceDimensions:[old.width,old.height],dimensions:[image.width,image.height],reason:'export-only-source-resize'};
+     }
+     await restoreImage(image,old,manifest,zip,signal,owners,remap,importedContextId);
     }}
-    if(Array.isArray(manifest.errors)&&manifest.errors.length<=limits.entries)errors.push(...structuredClone(manifest.errors));return;
+    await restoreArchivedComparisons(manifest,zip,signal,remap,importedContextId);if(Array.isArray(manifest.errors)&&manifest.errors.length<=limits.entries)errors.push(...structuredClone(manifest.errors));return;
    }
    if(expanded+total>limits.expandedBytes)throw Error('Archive dépassant la limite de 1 Gio décompressé.');
    for(const entry of entries){check(signal);if(/\.pdf$/i.test(entry.name)||imagePattern.test(entry.name))await importFile(await entry.async('blob'),entry.name.split('/').pop(),signal);}
@@ -163,5 +216,5 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
   else if(imagePattern.test(name)){admit(file.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(name),kind:'image',blob:file,manualMarked:/^(?:A_VERIFIER|\[?SUSPECT|★)/i.test(name),errors:[]};studies.push(study);try{await addImage(file,{studyId:study.id,page:null},{name},signal);}catch(error){check(signal);study.errors.push(error.message);errors.push({name,message:error.message});}}
   else throw Error('Format non pris en charge : '+name);
  }
- return {studies,images,errors,artifacts,async import(files,signal){for(const file of files){try{await importFile(file,file.name,signal);}catch(error){check(signal);errors.push({name:file.name,message:error.message});}}return {studies,images,errors};},clear(){studies.length=images.length=errors.length=0;byHash.clear();total=filesCount=retainedBytes=0;return artifacts.clear();}};
+ const model={studies,images,errors,artifacts,archivedComparisons,importedBatchContexts,get imageExportSettings(){return imageExportSettings;},set imageExportSettings(value){imageExportSettings=validateBatchImageExport(value);},async import(files,signal){for(const file of files){try{await importFile(file,file.name,signal);}catch(error){check(signal);errors.push({name:file.name,message:error.message});}}return {studies,images,errors};},clear(){studies.length=images.length=errors.length=archivedComparisons.length=importedBatchContexts.length=0;globalContextRestored=false;for(const key of [...contextFields,'mixedImportedContexts'])delete model[key];byHash.clear();total=filesCount=retainedBytes=0;return artifacts.clear();}};return model;
 }

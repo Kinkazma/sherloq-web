@@ -12,9 +12,9 @@ export const BATCH_CORROBORATION_PALETTE=Object.freeze({
  schema:'sherloq.corroboration-palette/1',version:1,
  buckets:Object.freeze([
   Object.freeze({count:0,label:'original',rgb:Object.freeze([0,0,0]),opacity:0}),
-  Object.freeze({count:1,label:'1 method',rgb:Object.freeze([40,135,235]),opacity:.62}),
-  Object.freeze({count:2,label:'2 methods',rgb:Object.freeze([255,195,30]),opacity:.70}),
-  Object.freeze({count:3,label:'3 or more methods',rgb:Object.freeze([235,60,50]),opacity:.76}),
+  Object.freeze({count:1,label:'1 method',rgb:Object.freeze([40,135,235]),opacity:.35}),
+  Object.freeze({count:2,label:'2 methods',rgb:Object.freeze([255,195,30]),opacity:.35}),
+  Object.freeze({count:3,label:'3 or more methods',rgb:Object.freeze([235,60,50]),opacity:.35}),
  ]),
  meaning:'Exact number of distinct clone algorithms corroborating an original pixel; colors group values of 3 or more, while the scientific array preserves every integer.',
 });

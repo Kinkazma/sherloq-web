@@ -4,12 +4,18 @@ import {createToolClient} from '../sherloq-browser/assets/tool-client.js';
 import {SEGMENTATION_MODELS} from '../../engine-source/experiments/segmentation/models.js';
 
 test('Every segmentation model loads by its stable key rather than its display name',async()=>{
- const before=globalThis.fetch,loaded=[];
+ const before=globalThis.fetch,loaded=[],unloaded=[];let configuredVariant=null;
  const segmentation=Object.fromEntries(Object.entries(SEGMENTATION_MODELS).map(([key,model])=>[key,{...model,url:'segmentation/'+key+'/model.onnx'}]));
  globalThis.fetch=async url=>({ok:true,json:async()=>String(url).includes('individual-models')?{segmentation}:{assetBase:'./unified-assets/'}});
- const engine={loadBlob:async()=>({id:'source',surface:{id:'source-surface',revision:1,width:8,height:8,format:'rgb8'}}),loadSegmentationModel:async model=>{assert.ok(Object.hasOwn(SEGMENTATION_MODELS,model.variant));assert.equal(model.sha256,SEGMENTATION_MODELS[model.variant].sha256);assert.match(model.url,/segmentation\//);loaded.push(model.variant);},unloadSegmentationModel:async()=>{},run:async()=>({data:{}}),dispose:async()=>{}};
+ const engine={
+  loadBlob:async()=>({id:'source',surface:{id:'source-surface',revision:1,width:8,height:8,format:'rgb8'}}),
+  capabilities:async()=>({operations:[{id:'ai.clones.segmentation',configuredVariant}]}),
+  loadSegmentationModel:async model=>{assert.equal(configuredVariant,null,'Unload the configured segmentation model before changing it');assert.ok(Object.hasOwn(SEGMENTATION_MODELS,model.variant));assert.equal(model.sha256,SEGMENTATION_MODELS[model.variant].sha256);assert.match(model.url,/segmentation\//);loaded.push(model.variant);configuredVariant=model.variant;},
+  unloadSegmentationModel:async()=>{unloaded.push(configuredVariant);configuredVariant=null;},
+  run:async task=>{assert.equal(task.params.variant,configuredVariant);return {data:{}};},dispose:async()=>{}
+ };
  const client=await createToolClient({engineFactory:()=>engine});
- try{await client.load({id:'source',blob:new Blob(['fixture'])});for(const variant of Object.keys(segmentation))await client.run({operation:'ai.clones.segmentation',params:{variant}});assert.deepEqual(loaded,Object.keys(segmentation));await assert.rejects(client.run({operation:'ai.clones.segmentation',params:{variant:'missing-model'}}),e=>e.code==='MODEL_UNAVAILABLE'&&e.details.variant==='missing-model');assert.equal(client.source.id,'source');}
+ try{await client.load({id:'source',blob:new Blob(['fixture'])});for(const variant of Object.keys(segmentation))await client.run({operation:'ai.clones.segmentation',params:{variant}});assert.deepEqual(loaded,Object.keys(segmentation));assert.deepEqual(unloaded,Object.keys(segmentation).slice(0,-1));await assert.rejects(client.run({operation:'ai.clones.segmentation',params:{variant:'missing-model'}}),e=>e.code==='MODEL_UNAVAILABLE'&&e.details.variant==='missing-model');assert.equal(client.source.id,'source');}
  finally{await client.dispose();globalThis.fetch=before;}
 });
 

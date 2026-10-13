@@ -1,16 +1,17 @@
 import {remapBatchEvidence,remapBatchFilePointers} from './batch-archive-layout.js';
-const flatPath=path=>typeof path==='string'&&/^resultats\/(?:images|donnees)\/[^/\\]+\.(?:png|jpe?g|webp|json|npz)$/i.test(path)&&!path.split('/').some(p=>p==='.'||p==='..'||p.startsWith('.'));
+const flatPath=path=>typeof path==='string'&&/^resultats\/(?:images|donnees)\/[^/\\]+\.(?:png|jpe?g|webp|avif|tiff?|heic|json|npz)$/i.test(path)&&!path.split('/').some(p=>p==='.'||p==='..'||p.startsWith('.'));
+const displayRecords=attempt=>[...(attempt.finalDisplay?[attempt.finalDisplay]:[]),...(attempt.resultDisplay?[attempt.resultDisplay]:[])];
 // A shared file reference may not attach another image's analysis to this one.
 export function batchArtifactOwners(manifest){
  const owners=new Map();
- for(const image of manifest.images??[])for(const run of [...(image.runs??[]),...(image.finalDisplay?[image.finalDisplay]:[]),...(image.history??[]).flatMap(attempt=>[...(attempt.runs??[]),...(attempt.finalDisplay?[attempt.finalDisplay]:[])])])for(const path of Array.isArray(run.files)?run.files:[]){
+ for(const image of manifest.images??[])for(const run of [...(image.runs??[]),...displayRecords(image),...(image.history??[]).flatMap(attempt=>[...(attempt.runs??[]),...displayRecords(attempt)])])for(const path of Array.isArray(run.files)?run.files:[]){
   if(owners.has(path)&&owners.get(path)!==image.id)owners.set(path,null);else if(!owners.has(path))owners.set(path,image.id);
  }
- for(const pair of manifest.comparisons??[])for(const path of pair.files??[])owners.set(path,null);
+ for(const pair of [...(manifest.comparisons??[]),...(manifest.archivedComparisons??[])])for(const path of pair.files??[])owners.set(path,null);
  return owners;
 }
 export function restoredArtifactPaths(image,manifest,owners,exists,{prefix='resultats/'+image.id}={}){
- const records=[...(image.runs??[]),...(image.finalDisplay?[image.finalDisplay]:[])];if(records.some(record=>record.files!==undefined&&!Array.isArray(record.files)))return null;
+ const records=[...(image.runs??[]),...displayRecords(image)];if(records.some(record=>record.files!==undefined&&!Array.isArray(record.files)))return null;
  const files=records.flatMap(run=>run.files??[]),paths=new Map();
  if(!files.every(path=>typeof path==='string'&&exists(path)))return null;
  if(manifest.archiveLayout==='flat/1'){
@@ -36,7 +37,7 @@ export async function restoreBatchArtifacts(image,manifest,zip,artifacts,owners)
  */
 export async function archiveBatchAttempt(attempt,artifacts,prefix,{signal}={}){
  if(!/^historique\/[^/]+\/$/.test(prefix)||prefix.split('/').some(part=>part==='.'||part==='..'))throw Error('Invalid batch history prefix.');
- const files=[...new Set([...(attempt.runs??[]),...(attempt.finalDisplay?[attempt.finalDisplay]:[])].flatMap(record=>record.files??[]))],paths=new Map(files.map(path=>[path,prefix+path])),created=[];
+ const files=[...new Set([...(attempt.runs??[]),...displayRecords(attempt)].flatMap(record=>record.files??[]))],paths=new Map(files.map(path=>[path,prefix+path])),created=[];
  try{
   for(const [path,target]of paths){signal?.throwIfAborted();if(artifacts.has(target))throw Error('Batch history already exists.');const blob=await artifacts.get(path);if(!blob)continue;created.push(target);await artifacts.set(target,await remapBatchEvidence(blob,path,paths));}
   signal?.throwIfAborted();return remapBatchFilePointers(attempt,paths);

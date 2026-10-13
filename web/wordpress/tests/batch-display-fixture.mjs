@@ -1,4 +1,9 @@
 import {deflateSync} from 'node:zlib';
+// Old isolated UI fixtures do not contain real scientific NPZ data. Their
+// tests exercise selection/progress/native-output presentation, not rerendering.
+export function unavailableResultDisplayFactory(){
+ return {describe(image){return {available:false,preferences:{schema:'sherloq.batch-result-display-preferences/1',mode:image.finalDisplay?.kind==='biomes'?'biomes':'corroboration',opacity:.35}};},async dispose(){},async preparePreview(){throw Error('Result rerendering is outside this isolated UI fixture.');},async ensureRendered(){throw Error('Result rerendering is outside this isolated UI fixture.');}};
+}
 const table=Uint32Array.from({length:256},(_,n)=>{let c=n;for(let i=0;i<8;i++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});
 const crc=bytes=>{let value=0xffffffff;for(const b of bytes)value=table[(value^b)&255]^(value>>>8);return(value^0xffffffff)>>>0;};
 export function solidPng(rgb){
