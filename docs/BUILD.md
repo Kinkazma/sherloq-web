@@ -21,7 +21,7 @@ npm test
 python3 build.py --frozen
 ```
 
-Default reconstruction verifies 5,457 public ordinary files (7,222,383,528 declared bytes). The 4,756 unique public pieces occupy 6,976,268,811 bytes. Four optional research-model files are declared for verified local import and are not hosted as public payloads; see [resource notices](METHODS-RESOURCE-LICENSES.txt). Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
+Default reconstruction verifies 5,471 public ordinary files (7,222,514,019 declared bytes). The 4,817 unique public pieces occupy 7,093,665,769 bytes, including retained historical pieces. Four optional research-model files are declared for verified local import and are not hosted as public payloads; see [resource notices](METHODS-RESOURCE-LICENSES.txt). Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
 
 The manifest template deliberately has no remote origin. A deployment origin identifies `web-assets/` at a full 40-character Git commit SHA; the source includes the finalization and browser-check scripts. The scientific runtime resources are immutable. A GitHub branch URL or a Release download is not an interchangeable origin.
 
@@ -32,3 +32,5 @@ The engine's internal README and qualification reports are development history t
 The 0.17.0 delivery retains 96 native WASM modules below 300 KiB locally, on demand. The published executable lock records transport-adapted JavaScript; `runtime-source-lock.json` separately records the original reviewed inputs. Exact model and WASM identities are recorded per file, including the new method resources.
 
 The batch PDF/ZIP vendor files retain their original bytes and paths and load on demand. Method-specific optional files can be imported from an authorized local library without blocking downloads for other tools. [Changes and qualification](../CHANGELOG.md).
+
+Local update inventories for this version are recorded in `web/local-sources/0.19.0/` and `releases/0.19.0.json`. The declared scientific scope increment adds 14 resources and replaces 43 JavaScript files; its receipt binds the exact runtime locks and leaves existing model payloads unchanged. Rebuilding retains the previous version’s compatibility manifest.

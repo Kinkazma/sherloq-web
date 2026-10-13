@@ -1,11 +1,16 @@
 {
-  "commit": "0fb01b415831a2d84a9f8e246aaa06d5f8a90edf",
+  "commit": "4027ccbd051c7f071a8a8f8885c68d401ce47dbf",
   "commitRepository": "https://github.com/Kinkazma/sherloq-web",
   "baseCommit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
   "runtime": "0.37.0-methods.1",
   "snapshot": "engine-source",
   "sourceIncrementSha256": "440210e4665b4a62114cc5028b045414a0901aab55d39ab465136a7067b3e88c",
-  "incrementScope": "Qualified D2PRL exact evaluator, ownership/cache, memory and role runtime overlay on the retained functionally accepted batch/methods source. Detailed image qualification reports remain private.",
-  "d2prlIncrementSha256": "9aa114b5aa02febf34ae17fe15b234e0491a90eb8c1a48a490010db974d250a4",
-  "d2prlSourceCommit": "0fb01b415831a2d84a9f8e246aaa06d5f8a90edf"
+  "incrementScope": "Retained published D2PRL/clone runtime plus explicit scientific candidate domains, worker propagation and correlation resources; original CNN RGB context is preserved.",
+  "d2prlIncrementSha256": "ab77ee77b286abd9866e68f433121149f835f96764c18e33c0fffe200ec6c6a8",
+  "d2prlSourceCommit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
+  "cloneSourceCommit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
+  "cloneIncrementSha256": "9c47fc55f2777a7f9bff4a1a588c14036ad2ab8a228e6395fe34c77d41429b5c",
+  "scientificBaselineCommit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
+  "batchScientificIncrementSha256": "01e747c1d6973fccef363b90ec8cd0a56ed2eb82ccc623a33a8c0d3d9d5f6037",
+  "batchScientificIncrementFile": "web/wordpress/runtime-patches/batch-scientific-regions-20261013.json"
 }

@@ -1,5 +1,13 @@
 # Validation scope and optimization priorities
 
+## 0.19.0 — Interactive regions, scientific scope and exports
+
+Interface, scientific-domain, runtime-identity and archive/export checks pass. A fresh Chrome profile retrieves the actual immutable GitHub inventories, verifies every local interface source and all declared new or replaced resources, and prepares the update shell. The previous release’s compatibility manifest is retained alongside the existing inventories.
+
+The supplied real-interface qualification covers restored native paired groups, view/opacity changes without new detector calls, mouse geometry editing with undo/redo and original-geometry restoration, and the prepared-file Save as workflow. A reduced offline SIFT fixture also completes. Existing model weights and the earlier D2PRL/clone optimizations remain unchanged; image accuracy and numerical comparisons retain their original, method-specific scope.
+
+Scientific exclusions constrain source and target candidate admission before correlation and propagation. Neural methods retain the original RGB context for CNN computation; excluded pixels are not promised to be absent from every convolution. Resuming scientific work requires the same recorded runtime increment and refuses an incompatible scope. [Batch workflow](TRAITEMENT-PAR-LOT.md) · [Runtime increment](../web/wordpress/runtime-patches/batch-scientific-regions-20261013.json).
+
 ## 0.18.0 — Local updates, resource choices and preferences
 
 The integrated interface, Python helper and Go launcher checks pass. Fresh Chrome verifies the actual immutable GitHub inventories, all local interface source hashes and the six declared JavaScript resource replacements. Startup checks are optional; preparation and activation require explicit choices. Existing scientific qualification is retained, with model weights, D2PRL WASM and compatibility inventories unchanged. This is a local workflow and transport qualification, not a new claim about every detector or target device. [Local update contracts](LOCAL-UPDATES.md) · [Selection overlay](../web/wordpress/FEATURE-SELECTION-OVERLAY.md).
@@ -11,7 +19,7 @@ The interface delta is integrated on the published 0.17.2 engine/resources. Inde
 
 The supplied native paired-group, archive round-trip and Dense/SelfDM/MGCFDN user-path qualification is retained with its original scope. The paired-group implementation is byte-identical to that qualified delivery; its recipe was not repeated. These functional checks do not establish universal detector accuracy.
 
-Engine source, dependency-resource and executable-runtime trees, raw/executable locks and integrated configuration remain unchanged. The seven immutable manifests are retained. The public starter ZIP is limited to 25,000,000 compressed bytes; source and artifact identities are recorded in SOURCE-IDENTITY.json.
+Engine source, dependency-resource and executable-runtime trees, raw/executable locks and integrated configuration remain unchanged. The seven immutable manifests are retained. Source and resource identities are recorded in SOURCE-IDENTITY.json. Prebuilt web and WordPress installation packages are not public release assets.
 
 ## Earlier clone/runtime integration — 0.17.2
 
