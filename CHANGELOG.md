@@ -4,6 +4,7 @@ Implementation changes and their verification are recorded here. The [README](RE
 
 ## 0.19.0 — Interactive regions, scientific scope and exports · 2026-10-14
 
+- Align the public WordPress wrapper header, preview URL and editor-script version with 0.19.0.
 - Add mouse editing of acquisition and exclusion zones, shared individual Zones / Biomes controls, immutable geometry restoration and native paired-biome presentation. Exclusions take priority inside acquisitions.
 - Admit neural matching candidates before correlation using explicit scientific scope receipts; retain original CNN context and unchanged model identities. Preserve published D2PRL/SSG optimizations and optional-feature policies.
 - Add native Save as with a compact common tools-dock shelf, durable prepared files, verified destination closure and coordinated update activity. Retain internal preference backups before activation or archive navigation.
