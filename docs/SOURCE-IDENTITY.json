@@ -1,8 +1,8 @@
 {
   "schema": "sherloq.publication-identity/1",
-  "ui_commit": "a81fb1dfb29cf37c7f3a2487fe55860665144487",
+  "ui_commit": "db9d54429f6029eaa20a2c44c88f579e14019534",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
-  "ui_version": "0.17.2",
+  "ui_version": "0.17.3",
   "engine_commit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
   "engine_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "engine_version": "0.37.0-methods.1",
@@ -43,9 +43,9 @@
     "text_detector": "PP-OCRv6 small, detection only; 9,929,594 public bytes, requested on demand."
   },
   "previous_publication": {
-    "main_commit": "bfe6c73016cacc1f0290c7b6b9f6c93ab91c650c",
-    "resource_commit": "7f7fe65f4fe01f606de99eeb0b6be2fe51ffea34",
-    "deployment_manifest_sha256": "4279039f9f3984b9416093f1b06cbd0d485448e4dd2c6cbd8eff84a5b0760536"
+    "main_commit": "1f7b1cae8c30bf724fe0d51b0ea4cd05b02f9f2b",
+    "resource_commit": "a81fb1dfb29cf37c7f3a2487fe55860665144487",
+    "deployment_manifest_sha256": "a488d0a8cba3120ea52cc497beadf6cf68758394cb2db81c81ab6c47890a6081"
   },
   "bootstrap_limit_basis": "compressed ZIP bytes",
   "desired_bootstrap_bytes": 10000000,
@@ -55,9 +55,12 @@
   "resource_commit": "a81fb1dfb29cf37c7f3a2487fe55860665144487",
   "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/a81fb1dfb29cf37c7f3a2487fe55860665144487/web-assets/",
   "deployment_manifest_sha256": "a488d0a8cba3120ea52cc497beadf6cf68758394cb2db81c81ab6c47890a6081",
-  "finalized_bootstrap_compressed_bytes_before_private_overlay": 10819804,
-  "finalized_bootstrap_extracted_bytes_before_private_overlay": 33219442,
-  "public_bootstrap_asset": "SHERLOQ-Web-bootstrap-0.17.2.zip",
-  "public_bootstrap_bytes": 10799846,
-  "public_bootstrap_sha256": "5798a28dfd7f23280af6cd9599b36c1a8aea9727fbab2e45e5f59fd691bec789"
+  "finalized_bootstrap_compressed_bytes_before_private_overlay": 10854617,
+  "finalized_bootstrap_extracted_bytes_before_private_overlay": 33329174,
+  "public_bootstrap_asset": "SHERLOQ-Web-bootstrap-0.17.3.zip",
+  "public_bootstrap_bytes": 10834705,
+  "public_bootstrap_sha256": "9205214076b6a09e7d0188d93f5e8b7de7bd13d3d84aa2a8c1af8ce38d608433",
+  "ui_source_commit": "db9d54429f6029eaa20a2c44c88f579e14019534",
+  "public_bootstrap_compressed_limit_bytes": 25000000,
+  "batch_interface_source_commit": "db9d54429f6029eaa20a2c44c88f579e14019534"
 }

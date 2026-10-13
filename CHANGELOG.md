@@ -2,6 +2,17 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.17.3 — Batch results, archive export and individual tools · 2026-10-13
+
+- Add Biomes / Corroboration display choices and opacity controls using archived scientific data. Sparse and dense paired groups retain their native geometry and colors; partial and legacy results keep the views supported by their recorded data.
+- Add PNG, WebP, TIFF, AVIF and HEIC options for ZIP images. Default validated PNG sources retain their encoded identity for archive resume; explicit conversions preserve original analyses in history. Geometry references remain valid after flattening archive paths.
+- Use 7-pixel matching separation, 15-pixel displayed length and four witnesses per side for new sparse/dense batch clone recipes, with explicit and restored settings taking priority. Individual, SSG and neural defaults remain unchanged.
+- Add independent automatic subimage selection for D2PRL, MGCFDN and SelfDM. Neural settings prepare the task; Calculate starts it. Shared clients read the engine's actual configured variant and serialize model configuration with inference.
+- Increase the local launcher's HTTP request backlog to support concurrent browser module loading.
+- Restore the retained result after tracing, clear stale displays on failure and name JSON/NPZ/image exports after the actual operation and profile. Add streamed, SHA-verified local import of the listed optional model files, with removal limited to chunks introduced by the dialogue.
+
+Integration passes 437 interface checks and 12 archive/export checks on the retained 0.17.2 engine delivery. Fresh Chrome verifies the packaged export and model-library controls, source pixels/lossless export, native configuration capability and shared-engine ownership. The supplied paired-biome and real individual-path qualification is retained; its native grouping recipe was not repeated. Engine sources, models, worker scheduling, resource locks and seven compatibility manifests are preserved.
+
 ## 0.17.2 — Clone matching and worker transport · 2026-10-13
 
 - Reuse dense descriptor banks when a batch repeats the same bank, and respect an explicitly selected CPU backend for paged PatchMatch.

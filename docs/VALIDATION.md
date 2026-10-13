@@ -1,6 +1,14 @@
 # Validation scope and optimization priorities
 
-## Current clone/runtime integration — 0.17.2
+## Current interface integration — 0.17.3
+
+The interface delta is integrated on the published 0.17.2 engine/resources. Independent integration passes 437 interface checks and 12 archive/export checks. Fresh isolated Chrome against the immutable GitHub resource origin verifies exact source pixels and lossless export, the real batch export controls, the listed local-model controls, native configuration capability and shared-engine owner lifetime. The finalized offline inventory pins all five new UI modules. The extracted Python launcher passes the same checks with no connection reset after its HTTP request backlog is increased.
+
+The supplied native paired-group, archive round-trip and Dense/SelfDM/MGCFDN user-path qualification is retained with its original scope. The paired-group implementation is byte-identical to that qualified delivery; its recipe was not repeated. These functional checks do not establish universal detector accuracy.
+
+Engine source, dependency-resource and executable-runtime trees, raw/executable locks and integrated configuration remain unchanged. The seven immutable manifests are retained. The public starter ZIP is limited to 25,000,000 compressed bytes; source and artifact identities are recorded in SOURCE-IDENTITY.json.
+
+## Earlier clone/runtime integration — 0.17.2
 
 Independent integration checks pass 368 interface tests, 150 targeted engine tests and 19 retained scheduling/resource tests. The changed resources, source/executable locks, generated WASM loader identity and runtime mirrors are verified together. Existing batch preparation, model weights, atomic SIFT scheduling and historical compatibility manifests are preserved.
 
